@@ -1,0 +1,6 @@
+<!-- Simple javascript to redirect to the english version of the site. -->
+<head>
+<script language="javascript" type="text/javascript">
+    window.location.href="en/";
+</script>
+</head>
