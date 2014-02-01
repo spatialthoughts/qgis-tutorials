@@ -2,29 +2,32 @@ Georeferencing Aerial Imagery
 =============================
 .. only:: html
 
-   [ Download PDF `A4 <../pdf/advanced_georeferencing_a4.pdf>`_ `Letter <../pdf/advanced_georeferencing_letter.pdf>`_ ]
+   [ Download PDF `A4 <../pdf/advanced_georeferencing_a4.pdf>`_
+   `Letter <../pdf/advanced_georeferencing_letter.pdf>`_ ]
 
-In the tutorial :doc:`georeferencing_basics` we covered the basic process of georeferencing
-in QGIS. That method involved reading the coordinates from your scanned map and
-inputting it manually. Many times though you may not have the coordinates
-printed on your map, or you are trying to georeference an image. In that
-case, you can use another georeferenced data source as your input. In this
-tutorial, you will learn how to use existing open data sources in your
+In the tutorial :doc:`georeferencing_basics` we covered the basic process of
+georeferencing in QGIS. That method involved reading the coordinates from your
+scanned map and inputting it manually. Many times though you may not have the
+coordinates printed on your map, or you are trying to georeference an image.
+In that case, you can use another georeferenced data source as your input. In
+this tutorial, you will learn how to use existing open data sources in your
 georeferencing process.
 
 
 Overview of the task
 --------------------
 
-We will georeferenced high resolution balloon-imagery using reference
+We will georeference high resolution balloon-imagery using reference
 coordinates from OpenStreetMap.
 
 Other skills you will learn
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^
 - Downloading super high-resolution public domain imagery.
 - Using the OpenLayers plugin in QGIS.
-- Converting coordinates between different projection using cs2cs command-line tool.
-- Using an existing georeferenced layer to input GCP points in the Georeferencer tool.
+- Converting coordinates between different projection using **cs2cs**
+  command-line tool.
+- Using an existing georeferenced layer to input GCP points in the Georeferencer
+  tool.
 - Setting a custom no-data value for a layer.
 
 Get the data
@@ -35,12 +38,11 @@ collected by `The Public Laboratory <http://publiclaboratory.org/archive>`_.
 They make the georeferenced versions of the images also available, but we will
 download a non-georeferenced JPG image and go through the process of
 georeferencing it in QGIS.  If you like the imagery they provide, you can
-`explore it
-<http://google-latlong.blogspot.in/2012/04/balloon-and-kite-imagery-in-google.html>`_
-in Google Earth as well.
+`explore it <http://google-latlong.blogspot.in/2012/04/
+balloon-and-kite-imagery-in-google.html>`_ in Google Earth as well.
 
-Download the JPG image of `Washington Square Park, New York
-<http://publiclaboratory.org/map/washington-square-park-new-york-new-york/2012-10-01>`_.
+Download the JPG image of `Washington Square Park, New York <http://
+publiclaboratory.org/map/washington-square-park-new-york-new-york/2012-10-01>`_.
 You can right-click the JPG button and choose :guilabel:`Save link as...`.
 
 Procedure
@@ -74,11 +76,11 @@ Procedure
 
 4. Now the task is to locate the general vicinity of the area that we are
    trying to georeference. You can just use Pan and Zoom tools to locate that
-   area on the OpenStreetMap layer. But I will take this chance to demonstrate
-   another tool that may help you in future. We know that the image we
-   downloaded is for Washington Square Park in New York. If you search for that
-   place, you will be able to locate the wikipedia page for it. The coordinates
-   for the park are listed there.
+   area on the OpenStreetMap layer. But we can take this opportunity to
+   demonstrate another tool that may help you in future. We know that the image
+   we downloaded is for Washington Square Park in New York. If you search for
+   that place, you will be able to locate the wikipedia page for it. The
+   coordinates for the park are listed there.
 
 .. image:: /static/advanced_georeferencing/images/4.png
    :width: 700px
@@ -87,7 +89,7 @@ Procedure
 5. You will notice that the coordinates are in Degrees/Minute/Seconds and are
    Latitude and Longitude. But since our layer is in Mercator projection, we
    will need Mercator coordinates to locate the park. Here’s where a
-   command-line tool called `cs2cs` comes handy. If you have installed QGIS
+   command-line tool called **cs2cs** comes handy. If you have installed QGIS
    from OSGeo4W installer, you will already have it installed on your system.
    On Linux and Mac too, it comes pre-installed with QGIS. Launch a terminal
    window and type `cs2cs` to check if it is available. Windows users can find
@@ -100,31 +102,39 @@ Procedure
 6. Once you have verified that the cs2cs tool exists on your system, it is time
    to convert out Latitude and Longitude to Mercator coordinates. The way this
    tool works is that you need to specify a :guilabel:`source` and
-   :guilabel:`destination` CRS. The CRS definition could be a `PROJ4 string <http://trac.osgeo.org/proj/wiki/GenParms>`_ 
-   or an `EPSG code <http://www.epsg-registry.org/>`_. Since we already
-   know the EPSG code for out input and output CRS, we will use this. The
-   simplest way to use the tool is to supply the input coordinates on the
-   command line itself. Note that the tool accepts coordinates in the order `X
-   Y`, so we need to enter `Longitude Latitude`.
+   :guilabel:`destination` CRS. The CRS definition could be a `PROJ4 string
+   <http://trac.osgeo.org/proj/wiki/GenParms>`_ or an `EPSG code
+   <http://www.epsg-registry.org/>`_. Since we already know the EPSG code for
+   out input and output CRS, we will use this. The simplest way to use the tool
+   is to supply the input coordinates on the command line itself. Note that the
+   tool accepts coordinates in the order `X Y`, so we need to enter `Longitude
+   Latitude`. Enter the following command in the terminal and press Enter. Note
+   that we need to escape the quotes (") with a backslash (\\). Once you press
+   enter, you will see the tool process the coordinates and print out output X Y
+   coordinates in EPSG 3857 CRS.
+
+.. code-block:: none
+
+   echo "-73d59'51\" 40d43'51\"" | cs2cs +init=EPSG:4326 +to +init=EPSG:3857
+
+   -8237364.02 4972720.34 0.00
 
 .. image:: /static/advanced_georeferencing/images/6.png
    :width: 700px
    :align: center
 
-7. Once you press enter, you will see the tool process the coordinates and
-   print out output X Y coordinates in EPSG 3857 CRS. Copy these coordinates
-   and switch to QGIS. At the bottom of the QGIS window, you will see a textbox
-   labeled Coordinates. Enter the coordinates there in X,Y form. Press Enter.
-   You will see the map shift a bit, but not zoom. To zoom to the area, select
-   1:2500 scale from the Scale drop-down next to the Coordinate box and press
-   Enter.
+7. Copy these coordinates and switch to QGIS. At the bottom of the QGIS window,
+   you will see a textbox labeled Coordinates. Enter the coordinates there in
+   X,Y form. Press Enter.  You will see the map shift a bit, but not zoom. To
+   zoom to the area, select 1:2500 scale from the Scale drop-down next to the
+   Coordinate box and press Enter.
 
 .. image:: /static/advanced_georeferencing/images/7.png
    :width: 700px
    :align: center
 
 8. Voila! you now see Washington Square Park area on your canvas. Now it is
-   time to start georeferencing. Launch the Georeferencer from
+   time to start georeferencing. Launch the **Georeferencer** from
    :menuselection:`Raster --> Georeferencer --> Georeferencer`. If you do not
    see that menu item, you will need to enable the :guilabel:`Georeferencer
    GDAL` plugin from :menuselection:`Plugins --> Manage and install Plugins -->
@@ -150,7 +160,7 @@ Procedure
 
 11. Now click on the :guilabel:`Add Point` button on the toolbar and select an easily
     identifiable location on the image. Corners, intersections, poles etc. make
-    good control points. 
+    good control points.
 
 .. image:: /static/advanced_georeferencing/images/11.png
    :width: 700px
@@ -179,10 +189,11 @@ Procedure
    :width: 700px
    :align: center
 
-15. Choose the settings as shown below. Make sure you the :guilabel:`Load in QGIS
-    when done` button is checked. Click OK. Back in the :guilabel:`Georeferencer` window,
-    go to :menuselection:`File --> Start georeferencing`. This will start the process
-    of warping the image using the GCPs and creating the target raster.
+15. Choose the settings as shown below. Make sure you the :guilabel:`Load in
+    QGIS when done` button is checked. Click OK. Back in the
+    :guilabel:`Georeferencer` window, go to :menuselection:`File -->
+    Start georeferencing`. This will start the process of warping the image
+    using the GCPs and creating the target raster.
 
 .. image:: /static/advanced_georeferencing/images/15.png
    :width: 450px
@@ -196,8 +207,8 @@ Procedure
    :width: 700px
    :align: center
 
-17. To make our output look nicer, let’s remove the back and white no-data values. Right
-    click on the image layer and choose :guilabel:`Properties`.
+17. To make our output look nicer, let’s remove the back and white no-data
+    values. Right click on the image layer and choose :guilabel:`Properties`.
 
 .. image:: /static/advanced_georeferencing/images/17.png
    :width: 700px
@@ -214,7 +225,7 @@ Procedure
    :width: 700px
    :align: center
 
-19. Now you will see your georeferenced image nicely overlaid on the base layer. 
+19. Now you will see your georeferenced image nicely overlaid on the base layer.
 
 .. image:: /static/advanced_georeferencing/images/19.png
    :width: 700px
