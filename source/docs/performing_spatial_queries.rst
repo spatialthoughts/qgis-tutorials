@@ -32,9 +32,13 @@ We will use ``ne_10m_rivers_lake_centerlines`` and
 ``10m_populated_places_simple`` datasets from Natural Earth.
 
 
-Download `Rivers and Lake Centerlines <http://www.naturalearthdata.com/http//www.naturalearthdata.com/download/10m/physical/ne_10m_rivers_lake_centerlines.zip>`_
+Download `Rivers and Lake Centerlines
+<http://www.naturalearthdata.com/http//www.naturalearthdata.com/download/
+10m/physical/ne_10m_rivers_lake_centerlines.zip>`_
 
-Download `Populated Places <http://www.naturalearthdata.com/http//www.naturalearthdata.com/download/10m/cultural/ne_10m_populated_places_simple.zip>`_.
+Download `Populated Places
+<http://www.naturalearthdata.com/http//www.naturalearthdata.com/download/
+10m/cultural/ne_10m_populated_places_simple.zip>`_.
 
 
 Procedure
@@ -68,7 +72,8 @@ Procedure
    :width: 500px
    :align: center
 
-5. Since you have selected multiple files, repeat the process for the next file. Select 10m_populated_places_simple.shp and click :guilabel:`OK`.
+5. Since you have selected multiple files, repeat the process for the next file.
+   Select 10m_populated_places_simple.shp and click :guilabel:`OK`.
 
 .. image:: /static/performing_spatial_queries/images/5.png
    :width: 500px
