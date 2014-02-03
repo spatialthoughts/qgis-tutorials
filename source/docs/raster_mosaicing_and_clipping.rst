@@ -82,7 +82,7 @@ Procedure
    :width: 700px
    :align: center
 
-5. Browse to the directory with the individual images. Hold down the `Ctrl` 
+5. Browse to the directory with the individual images. Hold down the :kbd:`Ctrl` 
    key and click on the image files to make a multiple selection. Click
    :guilabel:`Open`.
 
@@ -107,7 +107,7 @@ Procedure
 
 7. In the :guilabel:`Merge` dialog, click :guilabel:`Select...` next to
    :guilabel:`Input files` and browse to the directory containing all
-   the individual geotiffs. Keep holding `Ctrl` key and select all the.
+   the individual geotiffs. Keep holding :kbd:`Ctrl` key and select all the.
    subsets. Now click :guilabel:`Select...` next to :guilabel:`Output file`
    and name the output as ``Brazil_mosaic.tif``. At the bottom, check the box next to
    :guilabel:`Load into canvas when finished`. Click :guilabel:`OK`.

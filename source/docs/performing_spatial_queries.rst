@@ -58,7 +58,7 @@ Procedure
    :width: 400px
    :align: center
 
-3. Hold the `Shift` key and click on both the zip files to select them.
+3. Hold the :kbd:`Shift` key and click on both the zip files to select them.
    Click :guilabel:`Open`.
 
 .. image:: /static/performing_spatial_queries/images/3.png

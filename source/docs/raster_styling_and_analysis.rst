@@ -63,7 +63,7 @@ Procedure
    :width: 700px
    :align: center
 
-3. Locate the downloaded zip files. Hold down the `Ctrl` key and click on both
+3. Locate the downloaded zip files. Hold down the :kbd:`Ctrl` key and click on both
    the zip files to select them. This way you are able to load both the files
    in a single step.
 
