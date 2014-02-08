@@ -5,11 +5,7 @@ QGIS Tutorials and Tips
 
 You may use these tutorials as a self-paced course to learn the software thoroughly. However, each section is fairly independent, so those familiar with QGIS can jump into any section .  
 
-.. note::
-
-   If you are an educator, see :doc:`docs/teach_qgis` for using these tutorials to teach QGIS. 
-
-
+* :doc:`docs/preamble`
 * Getting Started
    - :doc:`docs/making_a_map`
    - :doc:`docs/working_with_attributes`
