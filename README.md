@@ -17,13 +17,13 @@ The following instructions work for linux based systems. If you are on Windows, 
 
 Then build:
 
-    make html (to build HTML pages)
+    make html
     
-You will find the generated HTML pages in build/html/ directory
+This will generate HTML pages in build/html/ directory
 
     make pdf (to build PDF files)
 
-You will find the generated HTML pages in build/pdf/ directory
+This will generate PDF documents in build/pdf/ directory
 
 License
 -------
