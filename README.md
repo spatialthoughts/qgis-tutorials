@@ -21,7 +21,7 @@ Then build:
     
 This will generate HTML pages in build/html/ directory
 
-    make pdf (to build PDF files)
+    make pdf
 
 This will generate PDF documents in build/pdf/ directory
 
