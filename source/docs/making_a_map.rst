@@ -141,7 +141,7 @@ Procedure
    :width: 700px
    :align: center
 
-20. Click on the :guilabel:`Item Properties` tab and select the layers which we do not want in the legend. Click the :guilabel:`-` button to remove it from the legend. Also, selec
+20. Click on the :guilabel:`Item Properties` tab and select the layers which we do not want in the legend. Click the :guilabel:`-` button to remove it from the legend.
 
 .. image:: /static/making_a_map/images/20.png
    :width: 700px
