@@ -38,3 +38,5 @@ examples of instructors using these tutorials to teach GIS.
   <http://www.feralindia.org/moodle/course/view.php?id=2>`_ at `Foundation for
   Ecological Research, Advocacy and Learning (FERAL)
   <http://www.feralindia.org/>`_.
+
+* `Yves Barthélemy <http://www.sciencespo.fr/master-public-affairs/content/barthelemy>`_ used the tutorials at Sciences-PO in Paris for a GIS course given to `Master of Public Affairs <http://www.sciencespo.fr/master-public-affairs/>`_ students.
