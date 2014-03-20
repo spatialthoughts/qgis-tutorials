@@ -12,7 +12,7 @@
 # serve to show the default.
 
 import sys, os
-import cloud_sptheme as csp
+import sphinx_bootstrap_theme 
 # If extensions (or modules to document with autodoc) are in another directory,
 # add these directories to sys.path here. If the directory is relative to the
 # documentation root, use os.path.abspath to make it absolute, like shown here.
@@ -48,7 +48,7 @@ copyright = u'2013, Ujaval Gandhi'
 # built documents.
 #
 # The short X.Y version.
-version = '1'
+version = '1.0'
 # The full version, including alpha/beta/rc tags.
 release = '1'
 
@@ -98,15 +98,16 @@ gettext_compact = False     #optional.
 
 # The theme to use for HTML and HTML Help pages.  See the documentation for
 # a list of builtin themes.
-html_theme = 'greencloud'
+html_theme = 'bootstrap'
 
 # Theme options are theme-specific and customize the look and feel of a theme
 # further.  For a list of options available for each theme, see the
 # documentation.
-html_theme_options = {'googleanalytics_id': 'UA-690672-13'}
+html_theme_options = {'bootswatch_theme': 'united',
+                     }
 
 # Add any paths that contain custom themes here, relative to this directory.
-html_theme_path = [ csp.get_theme_dir() ]
+html_theme_path = sphinx_bootstrap_theme.get_html_theme_path() 
 
 # The name for this set of Sphinx documents.  If None, it defaults to
 # "<project> v<release> documentation".
@@ -139,7 +140,7 @@ html_last_updated_fmt = '%b %d, %Y'
 
 # Custom sidebar templates, maps document names to template names.
 html_sidebars = {
-       '**': ['custom_sidebar.html', 'globaltoc.html', 'sourcelink.html', 'searchbox.html'],
+       '**': ['custom_sidebar.html', 'sourcelink.html', 'searchbox.html'],
           }
 
 # Additional templates that should be rendered to pages, maps page names to

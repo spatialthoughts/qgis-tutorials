@@ -33,6 +33,7 @@ You may use these tutorials as a self-paced course to learn the software thoroug
    :titlesonly:
    :hidden:
 
+   docs/preamble
    docs/making_a_map
    docs/working_with_attributes
    docs/importing_spreadsheets_csv
