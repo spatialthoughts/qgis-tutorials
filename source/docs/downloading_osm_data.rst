@@ -27,14 +27,12 @@ Procedure
    instructions on downloading plugins.
 
 .. image:: /static/downloading_osm_data/images/1.png
-   :width: 700px
    :align: center
 
 2. The **OSM Place Search** plugin will install itself as a *Panel* in QGIS.
    You will see a new panel titled :guilabel:`OSM place search...` in QGIS.
 
 .. image:: /static/downloading_osm_data/images/2.png
-   :width: 700px
    :align: center
 
 3. The **OpenLayers** plugin is installed under the *Plugin* menu. This plugin
@@ -43,7 +41,6 @@ Procedure
    OpenLayers plugin --> Add OpenStreetMap layer`.
 
 .. image:: /static/downloading_osm_data/images/3.png
-   :width: 700px
    :align: center
 
 4. You will see a world map loaded in QGIS.
@@ -55,7 +52,6 @@ Procedure
    map canvas slightly, which will trigger a refresh of the basemap.
 
 .. image:: /static/downloading_osm_data/images/4.png
-   :width: 700px
    :align: center
 
 5. Now, let's search for *London*. Type the query in the :guilabel:`Name
@@ -65,7 +61,6 @@ Procedure
    :guilabel:`Zoom` button.
 
 .. image:: /static/downloading_osm_data/images/5.png
-   :width: 700px
    :align: center
 
 6. You will see the base layer move and center around the city of London. You
@@ -74,14 +69,12 @@ Procedure
    shown.
 
 .. image:: /static/downloading_osm_data/images/6.png
-   :width: 700px
    :align: center
 
 7. Now we can download the data displayed on the map canvas. Go to
    :menuselection:`Vector --> OpenStreetMap --> Downlod data`.
 
 .. image:: /static/downloading_osm_data/images/7.png
-   :width: 700px
    :align: center
 
 8. In the :guilabel:`Download OpenStreetMap data` dialog, choose
@@ -89,7 +82,6 @@ Procedure
    name the output file as ``london.osm``.
 
 .. image:: /static/downloading_osm_data/images/8.png
-   :width: 400px
    :align: center
 
 9. The downloaded file with the ``.osm`` extension is an text file in the `OSM
@@ -105,7 +97,6 @@ Procedure
    place search..`.
 
 .. image:: /static/downloading_osm_data/images/9.png
-   :width: 700px
    :align: center
 
 10. Choose the downloaded ``london.osm`` as the :guilabel:`Input XML file`.
@@ -114,7 +105,6 @@ Procedure
     checked.
 
 .. image:: /static/downloading_osm_data/images/10.png
-   :width: 400px
    :align: center
 
 11. Now the last step. We need to create SpatialLite geometry layers that can
@@ -122,7 +112,6 @@ Procedure
     --> OpenStreetMap --> Export topology to SpatialLite`.
 
 .. image:: /static/downloading_osm_data/images/11.png
-   :width: 700px
    :align: center
 
 12. The ``london.osm.db`` file contains all feature types in the OSM database -
@@ -142,7 +131,6 @@ Procedure
     finished` is checked, and click :guilabel:`OK`.
 
 .. image:: /static/downloading_osm_data/images/12.png
-   :width: 400px
    :align: center
 
 13. You will see a new point layer named ``london_points`` loaded in QGIS. Note
@@ -152,7 +140,6 @@ Procedure
     :guilabel:`Open Attribute Table`.
 
 .. image:: /static/downloading_osm_data/images/13.png
-   :width: 700px
    :align: center
 
 14. You will note that some features have the attribute value of **pubs**
@@ -160,13 +147,11 @@ Procedure
     features using an expression` button.
 
 .. image:: /static/downloading_osm_data/images/14.png
-   :width: 700px
    :align: center
 
 15. Enter the expression `"amenity" = 'pub'` and click :guilabel:`Select`.
 
 .. image:: /static/downloading_osm_data/images/15.png
-   :width: 700px
    :align: center
 
 16. Back in the QGIS Canvas, you will see some points highlighted in yellow.
@@ -174,7 +159,6 @@ Procedure
     and choose :guilabel:`Save Selection As...`.
 
 .. image:: /static/downloading_osm_data/images/16.png
-   :width: 700px
    :align: center
 
 17. In te :guilabel:`Save vector layer as...` dialog, enter the name of the
@@ -183,14 +167,12 @@ Procedure
     :guilabel:`OK`.
 
 .. image:: /static/downloading_osm_data/images/17.png
-   :width: 620px
    :align: center
 
 18. You will see a new layer named ``london_pubs`` in the QGIS canvas. uncheck
     the ``london_points`` layer as we don't need that anymore.
 
 .. image:: /static/downloading_osm_data/images/18.png
-   :width: 700px
    :align: center
 
 19. The extraction of the pubs shapefile layer is now complete. You can use the
@@ -198,5 +180,4 @@ Procedure
     attributes.
 
 .. image:: /static/downloading_osm_data/images/19.png
-   :width: 700px
    :align: center
