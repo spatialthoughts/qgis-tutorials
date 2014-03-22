@@ -40,7 +40,6 @@ Procedure
 1. Open QGIS and go to :menuselection:`Layer --> Add Vector Layer..`.
 
 .. image:: /static/basic_vector_styling/images/1.png
-   :width: 700px
    :align: center
 
 2. Browse to the downloaded ``lifeexpectancy.zip`` file and click
@@ -48,20 +47,17 @@ Procedure
    Reference System (CRS).
 
 .. image:: /static/basic_vector_styling/images/2.png
-   :width: 500px
    :align: center
 
 3. The shapefile contained within the zip file is now loaded and you can see
    the default style applied to it.
 
 .. image:: /static/basic_vector_styling/images/3.png
-   :width: 700px
    :align: center
 
 4. Right click on the layer name and select :guilabel:`Open Attribute Table`.
 
 .. image:: /static/basic_vector_styling/images/4.png
-   :width: 700px
    :align: center
 
 5. Explore the different attributes. To style a layer, we must pick an
@@ -71,14 +67,12 @@ Procedure
    is the attribute we want to use in styling.
 
 .. image:: /static/basic_vector_styling/images/5.png
-   :width: 700px
    :align: center
 
 6. Close the attribute table. Right click on the layer again and choose
    :guilabel:`Properties`.
 
 .. image:: /static/basic_vector_styling/images/6.png
-   :width: 700px
    :align: center
 
 7. The various styling options are located in the :guilabel:`Style` tab of the Properties
@@ -88,7 +82,6 @@ Procedure
    displacement`. We will explore the first three in this tutorial.
 
 .. image:: /static/basic_vector_styling/images/7.png
-   :width: 700px
    :align: center
 
 8. Select :guilabel:`Single Symbol`. This option allows you to choose a single
@@ -98,14 +91,12 @@ Procedure
    pattern fill and click :guilabel:`OK`.
 
 .. image:: /static/basic_vector_styling/images/8.png
-   :width: 700px
    :align: center
 
 9. You will see a new style applied to the layer with the fill pattern you
    chose.
 
 .. image:: /static/basic_vector_styling/images/9.png
-   :width: 700px
    :align: center
 
 10. You will see that this Single Symbol style isn’t useful in communicating
@@ -118,7 +109,6 @@ Procedure
     :guilabel:`Classify` at the bottom. Click :guilabel:`OK`.
 
 .. image:: /static/basic_vector_styling/images/10.png
-   :width: 700px
    :align: center
 
 11. You will see different countries appearing in shades of blue. Lighter
@@ -128,7 +118,6 @@ Procedure
     would be the type of style we set out to create.
 
 .. image:: /static/basic_vector_styling/images/11.png
-   :width: 700px
    :align: center
 
 12. Let us explore the :guilabel:`Graduated` symbology type in the :guilabel:`Style`
@@ -173,14 +162,12 @@ Procedure
    used with this styling option.
 
 .. image:: /static/basic_vector_styling/images/12.png
-   :width: 700px
    :align: center
 
 13. You will see a map showing countries in either of 3 colors representing
     average life expectancy in the country.
 
 .. image:: /static/basic_vector_styling/images/13.png
-   :width: 700px
    :align: center
 
 14. Now go back to the :guilabel:`Style` dialog by right clicking the layer and choosing
@@ -189,20 +176,17 @@ Procedure
     We will choose Red, Yellow and Green fill colors to indicate low, medium and high life expectancy.
 
 .. image:: /static/basic_vector_styling/images/14.png
-   :width: 700px
    :align: center
 
 15. In the :guilabel:`Symbol Selector` dialog, click on :guilabel:`Color`
     selector.
 
 .. image:: /static/basic_vector_styling/images/15.png
-   :width: 550px
    :align: center
 
 16. Click on a color fom the :guilabel:`Select Color` dialog.
 
 .. image:: /static/basic_vector_styling/images/16.png
-   :width: 500px
    :align: center
 
 17. Back in the :guilabel:`Layer Properties` dialog, you can click on the
@@ -212,7 +196,6 @@ Procedure
     with the classes.
 
 .. image:: /static/basic_vector_styling/images/17.png
-   :width: 700px
    :align: center
 
 18. This style definitely conveys a lot more useful map than the previous two
@@ -220,5 +203,4 @@ Procedure
     interpretation of the life expectancy values.
 
 .. image:: /static/basic_vector_styling/images/18.png
-   :width: 700px
    :align: center

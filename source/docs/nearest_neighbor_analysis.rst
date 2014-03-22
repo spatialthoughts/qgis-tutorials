@@ -52,7 +52,6 @@ Procedure
    downloaded ``signif.txt`` file.
 
 .. image:: /static/nearest_neighbor_analysis/images/1.png
-   :width: 700px
    :align: center
 
 2. Since this is a *tab-delimited file*, choose :guilabel:`Tab` as the
@@ -65,7 +64,6 @@ Procedure
    the errors for the purpose of this tutorial.
 
 .. image:: /static/nearest_neighbor_analysis/images/2.png
-   :width: 675px
    :align: center
 
 3. As the earthquake dataset has Latitude/Longitude coordinates, choose
@@ -73,7 +71,6 @@ Procedure
    dialog.
 
 .. image:: /static/nearest_neighbor_analysis/images/3.png
-   :width: 500px
    :align: center
 
 4. The earthquake point layer would now be loaded and displayed in QGIS. Let's
@@ -81,7 +78,6 @@ Procedure
    Vector Layer`.
 
 .. image:: /static/nearest_neighbor_analysis/images/4.png
-   :width: 700px
    :align: center
 
 5. Browse to the downloaded ``ne_10m_populated_places_simple.zip`` file and
@@ -89,7 +85,6 @@ Procedure
    the layer in the :guilabel:`Select layers to add...` dialog.
 
 .. image:: /static/nearest_neighbor_analysis/images/5.png
-   :width: 600px
    :align: center
 
 6. Zoom around and explore both the datasets. Each purple point represents the
@@ -99,13 +94,11 @@ Procedure
    layer.
 
 .. image:: /static/nearest_neighbor_analysis/images/6.png
-   :width: 700px
    :align: center
 
 7. Go to :menuselection:`Vector --> Analysis Tools --> Distance Matrix`.
 
 .. image:: /static/nearest_neighbor_analysis/images/7.png
-   :width: 700px
    :align: center
 
 8. Here select the earthquake layer ``signif`` as the Input point layer and the populated
@@ -123,7 +116,6 @@ Procedure
    used here.
 
 .. image:: /static/nearest_neighbor_analysis/images/8.png
-   :width: 400px
    :align: center
 
 9. Once your file is generated, you can view it in Notepad or any text editor.
@@ -131,7 +123,6 @@ Procedure
    there. Go to :menuselection:`Layer --> Add Delimited Text Layer...`.
 
 .. image:: /static/nearest_neighbor_analysis/images/9.png
-   :width: 700px
    :align: center
 
 10. Browse to the newly created ``matrix.csv`` file. Since this file is just
@@ -139,14 +130,12 @@ Procedure
     :guilabel:`Geometry definition`. Click :guilabel:`OK`.
 
 .. image:: /static/nearest_neighbor_analysis/images/10.png
-   :width: 675px
    :align: center
 
 11. You will the the CSV file loaded as a table. Right-click on the table layer
     and select :guilabel:`Open Attribute Table`.
 
 .. image:: /static/nearest_neighbor_analysis/images/11.png
-   :width: 700px
    :align: center
 
 12. Now you will be able to see the content of our results. The :guilabel:`InputID`
@@ -163,7 +152,6 @@ Procedure
     distance in meters, reproject the layers before running the tool.
 
 .. image:: /static/nearest_neighbor_analysis/images/12.png
-   :width: 700px
    :align: center
 
 13. This is very close to the result we were looking for. For some users, this
@@ -172,13 +160,11 @@ Procedure
     layer, and select :guilabel:`Properties`.
 
 .. image:: /static/nearest_neighbor_analysis/images/13.png
-   :width: 700px
    :align: center
 
 14. Go to the :guilabel:`Joins` tab and click on the :guilabel:`+` button.
 
 .. image:: /static/nearest_neighbor_analysis/images/14.png
-   :width: 700px
    :align: center
 
 15. We want to join the data from our analysis result (``matrix.csv``) to this
@@ -186,21 +172,18 @@ Procedure
     values. Select the fields as shown below.
 
 .. image:: /static/nearest_neighbor_analysis/images/15.png
-   :width: 325px
    :align: center
 
 16. You will see the join appear in the :guilabel:`Joins` tab. Click
     :guilabel:`OK`.
 
 .. image:: /static/nearest_neighbor_analysis/images/16.png
-   :width: 700px
    :align: center
 
 17. Now open the attribute table of the Earthquakes layer by right-clicking and
     selecting :guilabel:`Open Attribute Table`.
 
 .. image:: /static/nearest_neighbor_analysis/images/17.png
-   :width: 700px
    :align: center
 
 18. You will see that for every Earthquake feature, we now have an attribute
@@ -208,5 +191,4 @@ Procedure
     the nearest neighbor.
 
 .. image:: /static/nearest_neighbor_analysis/images/18.png
-   :width: 700px
    :align: center

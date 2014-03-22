@@ -48,41 +48,35 @@ Procedure
    :menuselection:`Layer --> Add Vector Layer`.
 
 .. image:: /static/performing_spatial_queries/images/1.png
-   :width: 700px
    :align: center
 
 2. Click :guilabel:`Browse` and navigate to the folder where you downloaded the
    zip files.
 
 .. image:: /static/performing_spatial_queries/images/2.png
-   :width: 400px
    :align: center
 
 3. Hold the :kbd:`Shift` key and click on both the zip files to select them.
    Click :guilabel:`Open`.
 
 .. image:: /static/performing_spatial_queries/images/3.png
-   :width: 500px
    :align: center
 
 4. You will be asked to choose a layer from the zip archive.
    Select ``ne_10m_rivers_lake_centerlines.shp`` and click :guilabel:`OK`.
 
 .. image:: /static/performing_spatial_queries/images/4.png
-   :width: 500px
    :align: center
 
 5. Since you have selected multiple files, repeat the process for the next file.
    Select 10m_populated_places_simple.shp and click :guilabel:`OK`.
 
 .. image:: /static/performing_spatial_queries/images/5.png
-   :width: 500px
    :align: center
 
 6. You will see both the shapefiles now loaded in QGIS.
 
 .. image:: /static/performing_spatial_queries/images/6.png
-   :width: 700px
    :align: center
 
 7. We will be created buffers around the point and line layers. The `Buffer`
@@ -94,7 +88,6 @@ Procedure
    ``10m_populated_places_simple layer`` and choose :guilabel:`Save As`.
 
 .. image:: /static/performing_spatial_queries/images/7.png
-   :width: 700px
    :align: center
 
 8. In the :guilabel:`Save vector layer as...` dialog, click :guilabel:`Browse`
@@ -103,7 +96,6 @@ Procedure
    :guilabel:`Browse` button next to :guilabel:`CRS`.
 
 .. image:: /static/performing_spatial_queries/images/8.png
-   :width: 400px
    :align: center
 
 9. Now we must choose an appropriate CRS for our purpose. For creating buffers,
@@ -121,7 +113,6 @@ Procedure
    within +/- 90 degrees longitude will be converted.
 
 .. image:: /static/performing_spatial_queries/images/9.png
-   :width: 500px
    :align: center
 
 
@@ -129,14 +120,12 @@ Procedure
     :guilabel:`Add saved file to map` and click `OK`.
 
 .. image:: /static/performing_spatial_queries/images/10.png
-   :width: 400px
    :align: center
 
 11. Repeat the re-projection process for the ``ne_10m_rivers_lake_centerlines``
     layer and save the new layer as ``rivers_lake_reprojected.shp``.
 
 .. image:: /static/performing_spatial_queries/images/11.png
-   :width: 700px
    :align: center
 
 12. Now you will have 4 layers in your :guilabel:`Layers Panel`. Un-check the
@@ -147,7 +136,6 @@ Procedure
     from :menuselection:`Project --> Project Properties`.
 
 .. image:: /static/performing_spatial_queries/images/12.png
-   :width: 700px
    :align: center
 
 13. In the :guilabel:`CRS` tab of the :guilabel:`Project Properties` dialog,
@@ -155,14 +143,12 @@ Procedure
     Click :guilabel:`OK`.
 
 .. image:: /static/performing_spatial_queries/images/13.png
-   :width: 700px
    :align: center
 
 14. Back in the main QGIS window, right-click on any one of the re-projected
     layers and select :guilabel:`Zoom to Layer Extent`.
 
 .. image:: /static/performing_spatial_queries/images/14.png
-   :width: 700px
    :align: center
 
 15. Now you will see the data in the layer's CRS. We will now create buffers for
@@ -170,7 +156,6 @@ Procedure
     Buffer`.
 
 .. image:: /static/performing_spatial_queries/images/15.png
-   :width: 700px
    :align: center
 
 16. In the :guilabel:`Buffer` tool, select ``populated_places_reprojected``
@@ -180,21 +165,18 @@ Procedure
     :guilabel:`OK`.
 
 .. image:: /static/performing_spatial_queries/images/16.png
-   :width: 400px
    :align: center
 
 17. Once the buffer processing is over, click the :guilabel:`Yes` to add the
     newly created layer to the TOC.
 
 .. image:: /static/performing_spatial_queries/images/17.png
-   :width: 400px
    :align: center
 
 18. Repeat the same buffer process for the ``rivers_lake_reprojected`` layer and
     create an output file named ``rivers_lake_buffer.shp``.
 
 .. image:: /static/performing_spatial_queries/images/18.png
-   :width: 700px
    :align: center
 
 19. The ``rivers_lake_buffer`` contains features that are both rivers as well as
@@ -203,7 +185,6 @@ Procedure
     ``rivers_lake_buffer`` layer and select :guilabel:`Open Attribute Table`.
 
 .. image:: /static/performing_spatial_queries/images/19.png
-   :width: 700px
    :align: center
 
 20. You will see that the `featurecla` attribute contains the information we can
@@ -211,14 +192,12 @@ Procedure
     expression` button.
 
 .. image:: /static/performing_spatial_queries/images/20.png
-   :width: 700px
    :align: center
 
 21. Enter the expression `"featurecla" = "River"` and click :guilabel:`Select`
     and then click :guilabel:`Close` to back to the main QGIS window.
 
 .. image:: /static/performing_spatial_queries/images/21.png
-   :width: 500px
    :align: center
 
 22. Now we are ready to perform the spatial query. You need to enable the
@@ -227,7 +206,6 @@ Procedure
     Query --> Spatial Query`.
 
 .. image:: /static/performing_spatial_queries/images/22.png
-   :width: 700px
    :align: center
 
 23. For our query, we want to select features from the buffered places that
@@ -236,7 +214,6 @@ Procedure
     river features that we selected previously. Click :guilabel:`Apply`.
 
 .. image:: /static/performing_spatial_queries/images/23.png
-   :width: 300px
    :align: center
 
 24. Once the query is complete, you will see a new section named
@@ -245,14 +222,12 @@ Procedure
     :guilabel:`Close`.
 
 .. image:: /static/performing_spatial_queries/images/24.png
-   :width: 700px
    :align: center
 
 25. Zoom-in to any area and compare the results. You will notice that only the
     features that intersect with river buffers.
 
 .. image:: /static/performing_spatial_queries/images/25.png
-   :width: 700px
    :align: center
 
 26. We should always verify my results to ensure the analysis is not flawed. One
@@ -261,7 +236,6 @@ Procedure
     10kms of a river. Right-click the layer and :guilabel:`Save As...`.
 
 .. image:: /static/performing_spatial_queries/images/26.png
-   :width: 700px
    :align: center
 
 27. In the :guilabel:`Save vector layer as...`, choose `WGS84` as the CRS. This
@@ -269,12 +243,10 @@ Procedure
     ``cities_near_river.kml``.
 
 .. image:: /static/performing_spatial_queries/images/27.png
-   :width: 400px
    :align: center
 
 28. Open Google Earth and verify that the cities represented by these buffers
     are indeed close to rivers.
 
 .. image:: /static/performing_spatial_queries/images/28.png
-   :width: 700px
    :align: center

@@ -26,13 +26,11 @@ Procedure
 1. Open QGIS and go to on :menuselection:`Layer --> Add WMS Layer...`.
 
 .. image:: /static/working_with_wms/images/1.png
-   :width: 700px
    :align: center
 
 2. In the :guilabel:`Layers` tab, click on :guilabel:`New`.
 
 .. image:: /static/working_with_wms/images/2.png
-   :width: 700px
    :align: center
 
 3. Name your connection. This is not the name of the layer but the name of
@@ -46,7 +44,6 @@ Procedure
    Click :guilabel:`OK`.
 
 .. image:: /static/working_with_wms/images/3.png
-   :width: 475px
    :align: center
 
 4. Next, click on the :guilabel:`Connect` button to fetch the list of layers available. You
@@ -56,7 +53,6 @@ Procedure
    layer ``0`` for this tutorial.
 
 .. image:: /static/working_with_wms/images/4.png
-   :width: 700px
    :align: center
 
 5.  In the :guilabel:`Image encoding` section, you need to choose an image
@@ -83,7 +79,6 @@ Procedure
     :guilabel:`Layer name` if you wish and click :guilabel:`Add`.
 
 .. image:: /static/working_with_wms/images/5.png
-   :width: 700px
    :align: center
 
 6. You will see the layer loaded in the QGIS canvas. You can zoom/pan around
@@ -95,14 +90,12 @@ Procedure
    query for attributes like in a regular vector/imagery layer.
 
 .. image:: /static/working_with_wms/images/6.png
-   :width: 700px
    :align: center
 
 7. You can, however, see some metadata about the layer. Right-click the layer
    and choose :guilabel:`Properties`.
 
 .. image:: /static/working_with_wms/images/7.png
-   :width: 700px
    :align: center
 
 8. You will notice that the :guilabel:`Properties` dialog looks different and has fewer
@@ -110,5 +103,4 @@ Procedure
    and the layers.
 
 .. image:: /static/working_with_wms/images/8.png
-   :width: 700px
    :align: center

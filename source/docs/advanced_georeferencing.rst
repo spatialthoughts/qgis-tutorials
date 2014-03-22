@@ -54,7 +54,6 @@ Procedure
    information on using plugins in QGIS.
 
 .. image:: /static/advanced_georeferencing/images/1.png
-   :width: 700px
    :align: center
 
 2. Once installed, go to :menuselection:`Plugins --> OpenLayers plugin --> Add
@@ -62,7 +61,6 @@ Procedure
    from `OpenStreetMap data <http://www.openstreetmap.org/>`_.
 
 .. image:: /static/advanced_georeferencing/images/2.png
-   :width: 700px
    :align: center
 
 3. Now you have the OpenStreetMap layer loaded in QGIS. Note the Coordinate
@@ -71,7 +69,6 @@ Procedure
    this layer will be in this CRS.
 
 .. image:: /static/advanced_georeferencing/images/3.png
-   :width: 700px
    :align: center
 
 4. Now the task is to locate the general vicinity of the area that we are
@@ -83,7 +80,6 @@ Procedure
    coordinates for the park are listed there.
 
 .. image:: /static/advanced_georeferencing/images/4.png
-   :width: 700px
    :align: center
 
 5. You will notice that the coordinates are in Degrees/Minute/Seconds and are
@@ -96,7 +92,6 @@ Procedure
    a terminal at :menuselection:`Start --> OSGeo4W --> MSYS`.
 
 .. image:: /static/advanced_georeferencing/images/5.png
-   :width: 700px
    :align: center
 
 6. Once you have verified that the cs2cs tool exists on your system, it is time
@@ -120,7 +115,6 @@ Procedure
    -8237364.02 4972720.34 0.00
 
 .. image:: /static/advanced_georeferencing/images/6.png
-   :width: 700px
    :align: center
 
 7. Copy these coordinates and switch to QGIS. At the bottom of the QGIS window,
@@ -130,7 +124,6 @@ Procedure
    Coordinate box and press Enter.
 
 .. image:: /static/advanced_georeferencing/images/7.png
-   :width: 700px
    :align: center
 
 8. Voila! you now see Washington Square Park area on your canvas. Now it is
@@ -141,21 +134,18 @@ Procedure
    Installed`.
 
 .. image:: /static/advanced_georeferencing/images/8.png
-   :width: 700px
    :align: center
 
 9. In the :guilabel:`Georeferencer` window, go to :menuselection:`File --> Open
    raster`. Navigate to the downloaded JPG file and click :guilabel:`Open`.
 
 .. image:: /static/advanced_georeferencing/images/9.png
-   :width: 700px
    :align: center
 
 10. In the :guilabel:`Coordinate Reference System Selector`,
     choose :guilabel:`EPSG:3857 Pseudo Mercator`
 
 .. image:: /static/advanced_georeferencing/images/10.png
-   :width: 600px
    :align: center
 
 11. Now click on the :guilabel:`Add Point` button on the toolbar and select an easily
@@ -163,7 +153,6 @@ Procedure
     good control points.
 
 .. image:: /static/advanced_georeferencing/images/11.png
-   :width: 700px
    :align: center
 
 12. Once you click on the image at a control point location, you will see a
@@ -171,7 +160,6 @@ Procedure
     :guilabel:`From map canvas`.
 
 .. image:: /static/advanced_georeferencing/images/12.png
-   :width: 500px
    :align: center
 
 13. Find the same location in your reference layer, i.e. the OpenStreetMap
@@ -180,13 +168,11 @@ Procedure
     image and add their coordinates from the reference layer.
 
 .. image:: /static/advanced_georeferencing/images/13.png
-   :width: 700px
    :align: center
 
 14. Now go to :menuselection:`Settings --> Transformation settings.`
 
 .. image:: /static/advanced_georeferencing/images/14.png
-   :width: 700px
    :align: center
 
 15. Choose the settings as shown below. Make sure you the :guilabel:`Load in
@@ -196,7 +182,6 @@ Procedure
     using the GCPs and creating the target raster.
 
 .. image:: /static/advanced_georeferencing/images/15.png
-   :width: 450px
    :align: center
 
 16. Once the process finishes, you will see the georeferenced layer loaded in
@@ -204,14 +189,12 @@ Procedure
     layer.
 
 .. image:: /static/advanced_georeferencing/images/16.png
-   :width: 700px
    :align: center
 
 17. To make our output look nicer, let’s remove the back and white no-data
     values. Right click on the image layer and choose :guilabel:`Properties`.
 
 .. image:: /static/advanced_georeferencing/images/17.png
-   :width: 700px
    :align: center
 
 18. Switch to the :guilabel:`Transparency` tab. We want to indicate that any
@@ -222,11 +205,9 @@ Procedure
     ::guilabel:`Percent transparent`. Click :guilabel:`OK`.
 
 .. image:: /static/advanced_georeferencing/images/18.png
-   :width: 700px
    :align: center
 
 19. Now you will see your georeferenced image nicely overlaid on the base layer.
 
 .. image:: /static/advanced_georeferencing/images/19.png
-   :width: 700px
    :align: center

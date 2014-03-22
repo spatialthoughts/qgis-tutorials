@@ -36,14 +36,12 @@ Here is how to search and download the revelant data from USGS Earthexplorer.
    Click on the result to select the location.
 
 .. image:: /static/working_with_terrain/images/1.png
-   :width: 700px
    :align: center
 
 2. In the :guilabel:`Data Sets` tab, expand the :guilabel:`Digital Elevation`
    group, and check :guilabel:`GMTED2010`.
 
 .. image:: /static/working_with_terrain/images/2.png
-   :width: 700px
    :align: center
 
 3. You can now skip to the :guilabel:`Results` tab and see the part of the
@@ -52,14 +50,12 @@ Here is how to search and download the revelant data from USGS Earthexplorer.
    create a free account if you do not have one.
 
 .. image:: /static/working_with_terrain/images/3.png
-   :width: 700px
    :align: center
 
 4. Select the :guilabel:`30 ARC SEC` option and click :guilabel:`Select
    Download Option`.
 
 .. image:: /static/working_with_terrain/images/4.png
-   :width: 700px
    :align: center
 
 You will now have a file named `GMTED2010N10E060_300.zip`. Elevation data is
@@ -80,14 +76,12 @@ Procedure
    downloaded zip file.
 
 .. image:: /static/working_with_terrain/images/5.png
-   :width: 700px
    :align: center
 
 6. There are many different files generated from different algorithms.
    For this tutorial, we will use the file named `10n060e_20101117_gmted_mea300.tif`.
 
 .. image:: /static/working_with_terrain/images/6.png
-   :width: 600px
    :align: center
 
 7. You will see the terrain data rendered in the QGIS Canvas. Each pixel in the
@@ -96,7 +90,6 @@ Procedure
    represent areas with high altitude.
 
 .. image:: /static/working_with_terrain/images/7.png
-   :width: 700px
    :align: center
 
 8. Let's find our area of interest. From `Wikipedia <http://en.wikipedia.org/wiki/Mount_Everest>`_,
@@ -110,7 +103,6 @@ Procedure
    Himalayas.
 
 .. image:: /static/working_with_terrain/images/8.png
-   :width: 700px
    :align: center
 
 
@@ -125,7 +117,6 @@ Procedure
    Manage and install plugins --> Installed`. See :doc:`using_plugins` for more details.
 
 .. image:: /static/working_with_terrain/images/9.png
-   :width: 700px
    :align: center
 
 10. In the :guilabel:`Clipper` window, name your output file as
@@ -133,7 +124,6 @@ Procedure
     :guilabel:`Extent`.
 
 .. image:: /static/working_with_terrain/images/10.png
-   :width: 400px
    :align: center
 
 11. Keep the :guilabel:`Clipper` window open and switch to the main QGIS
@@ -141,7 +131,6 @@ Procedure
     canvas.
 
 .. image:: /static/working_with_terrain/images/11.png
-   :width: 700px
    :align: center
 
 12. Now back in the :guilabel:`Clipper` window, you will see the coordinates
@@ -149,7 +138,6 @@ Procedure
     canvas when finished` option is checked, and click :guilabel:`OK.`
 
 .. image:: /static/working_with_terrain/images/12.png
-   :width: 400px
    :align: center
 
 13. Once the process finishes, you will see a new layer loaded in QGIS. This
@@ -158,7 +146,6 @@ Procedure
     --> Contour`.
 
 .. image:: /static/working_with_terrain/images/13.png
-   :width: 700px
    :align: center
 
 14. In the :guilabel:`Contour` dialog, select `everest_gmted30` as the
@@ -169,7 +156,6 @@ Procedure
     recorded as attribute of each contour line. Click :guilabel:`OK`.
 
 .. image:: /static/working_with_terrain/images/14.png
-   :width: 600px
    :align: center
 
 15. Once the processing is complete, you will see contour lines loaded into the
@@ -180,7 +166,6 @@ Procedure
     :guilabel:`Open Attribute Table`.
 
 .. image:: /static/working_with_terrain/images/15.png
-   :width: 700px
    :align: center
 
 16. You will see that each line feature as an attribute named :guilabel:`ELEV`.
@@ -190,28 +175,24 @@ Procedure
     Everest.
 
 .. image:: /static/working_with_terrain/images/16.png
-   :width: 700px
    :align: center
 
 17. Select the top row, and click on the :guilabel:`Zoom to selection`
     button.
 
 .. image:: /static/working_with_terrain/images/17.png
-   :width: 700px
    :align: center
 
 18. Switch to the main QGIS window. You will see the selected contour line
     highlighted in yellow. This is the area of the highest elevation in our dataset.
 
 .. image:: /static/working_with_terrain/images/18.png
-   :width: 700px
    :align: center
 
 19. Now let us create a hillshade map from the raster. Select
     :menuselection:`Raster --> Analysis --> DEM (Terrain Models)`.
 
 .. image:: /static/working_with_terrain/images/19.png
-   :width: 700px
    :align: center
 
 20. In the :guilabel:`DEM (Terrain Models)` dialog, choose `everest_gmted30` as
@@ -221,7 +202,6 @@ Procedure
     canvas when finished` option is checked, and click :guilabel:`OK.`
 
 .. image:: /static/working_with_terrain/images/20.png
-   :width: 400px
    :align: center
 
 21. Once the process finishes, you will see yet another raster loaded into QGIS
@@ -230,13 +210,11 @@ Procedure
     Extent`.
 
 .. image:: /static/working_with_terrain/images/21.png
-   :width: 700px
    :align: center
 
 22. Now you will see the full extent of the hillshade raster.
 
 .. image:: /static/working_with_terrain/images/22.png
-   :width: 700px
    :align: center
 
 23. You can visualize also visualize your contour layer and verify your analysis
@@ -244,7 +222,6 @@ Procedure
     Right click on the contours layer, select :guilabel:`Save as..`.
 
 .. image:: /static/working_with_terrain/images/23.png
-   :width: 700px
    :align: center
 
 24. Select :guilabel:`Keyhole Markup Language [KML]` as the
@@ -252,11 +229,9 @@ Procedure
     :guilabel:`OK`.
 
 .. image:: /static/working_with_terrain/images/24.png
-   :width: 400px
    :align: center
 
 25. Browse to the output file on your diesk and double-click on it to open Google Earth.
 
 .. image:: /static/working_with_terrain/images/25.png
-   :width: 700px
    :align: center

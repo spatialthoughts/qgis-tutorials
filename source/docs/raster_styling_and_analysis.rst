@@ -41,7 +41,6 @@ Here is how to search and download the revelant data.
    data.
 
 .. image:: /static/raster_styling_and_analysis/images/1.png
-   :width: 700px
    :align: center
 
 You will now have 2 zip files downloaded.
@@ -60,7 +59,6 @@ Procedure
 2. Open QGIS and go to :menuselection:`Layer --> Add Raster Layer..`.
 
 .. image:: /static/raster_styling_and_analysis/images/2.png
-   :width: 700px
    :align: center
 
 3. Locate the downloaded zip files. Hold down the :kbd:`Ctrl` key and click on both
@@ -68,7 +66,6 @@ Procedure
    in a single step.
 
 .. image:: /static/raster_styling_and_analysis/images/3.png
-   :width: 650px
    :align: center
 
 4. Each zip file contain 2 grid files. The ``a`` in the filename
@@ -77,14 +74,12 @@ Procedure
    the layer to add. Click :guilabel:`OK`.
 
 .. image:: /static/raster_styling_and_analysis/images/4.png
-   :width: 600px
    :align: center
 
 5. The layer doesn’t have a CRS defined, and since the grids are in lat/long,
    choose `EPSG:4326` as the coordinate reference system.
 
 .. image:: /static/raster_styling_and_analysis/images/5.png
-   :width: 500px
    :align: center
 
 6. Since we selected both the zip files, you will see similar dialogs once
@@ -92,13 +87,11 @@ Procedure
    add.
 
 .. image:: /static/raster_styling_and_analysis/images/6.png
-   :width: 600px
    :align: center
 
 7. Once again, choose `EPSG:4326` as the CRS.
 
 .. image:: /static/raster_styling_and_analysis/images/7.png
-   :width: 500px
    :align: center
 
 8. Now you will see both the rasters loaded in QGIS. The raster is rendered as
@@ -106,7 +99,6 @@ Procedure
    indicate higher values.
 
 .. image:: /static/raster_styling_and_analysis/images/8.png
-   :width: 700px
    :align: center
 
 9. Each pixel in the raster has a value assigned. This value is the population
@@ -114,7 +106,6 @@ Procedure
    tool and click anywhere on the raster to see the value of that pixel.
 
 .. image:: /static/raster_styling_and_analysis/images/9.png
-   :width: 700px
    :align: center
 
 10. To better visualize the pattern of population density, we would need to
@@ -123,7 +114,6 @@ Procedure
     Properties dialog.
 
 .. image:: /static/raster_styling_and_analysis/images/10.png
-   :width: 700px
    :align: center
 
 11. Under the :guilabel:`Style` tab, change the :guilabel:`Render type`
@@ -132,14 +122,12 @@ Procedure
     values created. Click :guilabel:`OK`.
 
 .. image:: /static/raster_styling_and_analysis/images/11.png
-   :width: 700px
    :align: center
 
 12. Back in the QGIS Canvas, you will see a heatmap-like rendering of the
     raster. Repeat the same process for the other raster as well.
 
 .. image:: /static/raster_styling_and_analysis/images/12.png
-   :width: 700px
    :align: center
 
 13. For our analysis, we would like to find areas with largest population
@@ -148,7 +136,6 @@ Procedure
     :menuselection:`Raster --> Raster calculator`.
 
 .. image:: /static/raster_styling_and_analysis/images/13.png
-   :width: 700px
    :align: center
 
 14. In the :guilabel:`Raster bands` section, you can select the layer by double-clicking
@@ -162,13 +149,11 @@ Procedure
     :guilabel:`OK`.
 
 .. image:: /static/raster_styling_and_analysis/images/14.png
-   :width: 650px
    :align: center
 
 15. Once the operation is complete, you will see the new layer load in QGIS.
 
 .. image:: /static/raster_styling_and_analysis/images/15.png
-   :width: 700px
    :align: center
 
 16. This grayscale visualization is useful, but we can create a much more informative
@@ -176,7 +161,6 @@ Procedure
     select :guilabel:`Properties`.
 
 .. image:: /static/raster_styling_and_analysis/images/16.png
-   :width: 700px
    :align: center
 
 17. We want to style the layer so pixel values in certain ranges get the same
@@ -184,7 +168,6 @@ Procedure
     properties of the raster. Note the minimum and maximum values of this layer.
 
 .. image:: /static/raster_styling_and_analysis/images/17.png
-   :width: 700px
    :align: center
 
 18. Now go to the :guilabel:`Style` tab. Select :guilabel:`Singleband
@@ -199,7 +182,6 @@ Procedure
     :guilabel:`OK`.
 
 .. image:: /static/raster_styling_and_analysis/images/18.png
-   :width: 700px
    :align: center
 
 19. Now you will see a much more powerful visualization where you can see areas
@@ -207,21 +189,18 @@ Procedure
     explore the region in more detail.
 
 .. image:: /static/raster_styling_and_analysis/images/19.png
-   :width: 700px
    :align: center
 
 20. Select the :guilabel:`Identify` tool and click on the Red and Blue regions
     to verify that your styling rules worked as intended.
 
 .. image:: /static/raster_styling_and_analysis/images/20.png
-   :width: 700px
    :align: center
 
 21. Now let’s take this analysis one-step further and find areas with only
     `negative` population density change. Open :menuselection:`Raster --> Raster calculator`.
 
 .. image:: /static/raster_styling_and_analysis/images/21.png
-   :width: 700px
    :align: center
 
 22. Enter the expression ``pop_density_change_2000_1990@1 < -10``. What this
@@ -232,7 +211,6 @@ Procedure
     :guilabel:`Add result to project`. Click OK.
 
 .. image:: /static/raster_styling_and_analysis/images/22.png
-   :width: 650px
    :align: center
 
 23. Once the new layer is loaded, right-click on it and select
@@ -241,12 +219,10 @@ Procedure
     will 0 values also transparent. Click :guilabel:`OK`.
 
 .. image:: /static/raster_styling_and_analysis/images/23.png
-   :width: 700px
    :align: center
 
 24. Now you will see the areas of negative population density change as gray
     pixels.
 
 .. image:: /static/raster_styling_and_analysis/images/24.png
-   :width: 700px
    :align: center

@@ -49,7 +49,6 @@ Procedure
    downloaded ``signif.txt`` file.
 
 .. image:: /static/points_in_polygon/images/1.png
-   :width: 700px
    :align: center
 
 2. Since this is a *tab-delimited file*, choose :guilabel:`Tab` as the
@@ -62,7 +61,6 @@ Procedure
    the errors for the purpose of this tutorial.
 
 .. image:: /static/points_in_polygon/images/2.png
-   :width: 675px
    :align: center
 
 3. As the earthquake dataset has Latitude/Longitude coordinates, choose
@@ -70,7 +68,6 @@ Procedure
    dialog.
 
 .. image:: /static/points_in_polygon/images/3.png
-   :width: 500px
    :align: center
 
 4. The earthquake point layer would now be loaded and displayed in QGIS. Let's
@@ -80,13 +77,11 @@ Procedure
    the layer in the :guilabel:`Select layers to add...` dialog.
 
 .. image:: /static/points_in_polygon/images/4.png
-   :width: 600px
    :align: center
 
 5. Click on :menuselection:`Vector --> Analysis Tools --> Point in Polygon`
 
 .. image:: /static/points_in_polygon/images/5.png
-   :width: 700px
    :align: center
 
 6. In th pop-up window, select the polygon layer and point layer respectively.
@@ -100,7 +95,6 @@ Procedure
 7. When asked whether you want to add the layer to TOC, click :guilabel:`Yes`.
 
 .. image:: /static/points_in_polygon/images/7.png
-   :width: 400px
    :align: center
 
 8. You will see a new layer is added to the table of content. Open the
@@ -108,7 +102,6 @@ Procedure
    Attribute Table`.
 
 .. image:: /static/points_in_polygon/images/8.png
-   :width: 700px
    :align: center
 
 9. In the attribute table, you will notice a new field named ``PNTCNT``. This is
@@ -116,7 +109,6 @@ Procedure
    each polygon.
 
 .. image:: /static/points_in_polygon/images/9.png
-   :width: 700px
    :align: center
 
 10. To get our answer, we can simply sort the table by ``PNTCNT`` field and the
@@ -125,7 +117,6 @@ Procedure
     select it and close the Attribute Table.
 
 .. image:: /static/points_in_polygon/images/10.png
-   :width: 700px
    :align: center
 
 11. Back in  the main QGIS window, you will see one feature highlighted in
@@ -135,7 +126,6 @@ Procedure
     country with the highest number of Significant earthquakes is **China**.
 
 .. image:: /static/points_in_polygon/images/11.png
-   :width: 700px
    :align: center
 
 We determined from the simple analysis of 2 datasets that China has had
