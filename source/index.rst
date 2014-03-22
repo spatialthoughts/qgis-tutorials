@@ -11,6 +11,7 @@ You may use these tutorials as a self-paced course to learn the software thoroug
    - :doc:`docs/making_a_map`
    - :doc:`docs/working_with_attributes`
    - :doc:`docs/importing_spreadsheets_csv`
+   - :doc:`docs/downloading_osm_data`
 * QGIS Basics
    - :doc:`docs/using_plugins`
 * Basics GIS operations
@@ -37,6 +38,7 @@ You may use these tutorials as a self-paced course to learn the software thoroug
    docs/making_a_map
    docs/working_with_attributes
    docs/importing_spreadsheets_csv
+   docs/downloading_osm_data
    docs/using_plugins
    docs/basic_vector_styling
    docs/raster_styling_and_analysis
