@@ -334,6 +334,7 @@ tutorials = [
         ('making_a_map', 'Making A Map'),
         ('working_with_attributes', 'Working with Attributes'),
         ('importing_spreadsheets_csv', 'Importing Spreadsheets or CSV files'),
+        ('downloading_osm_data', 'Searching and Downloading OpenStreetMap Data'),
         ('using_plugins', 'Using Plugins'),
         ('basic_vector_styling', 'Basic Vector Styling'),
         ('raster_styling_and_analysis', 'Basic Raster Styling and Analysis'),
