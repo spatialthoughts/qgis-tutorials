@@ -365,6 +365,6 @@ for doc_name, doc_title in tutorials:
 # PDF options
 pdf_style_path = ['.', '_styles', 'source/_styles']
 pdf_cover_template = 'pdf_coverpage.tmpl'
-pdf_default_dpi = 100
+pdf_default_dpi = 150
 pdf_use_toc = False
 pdf_compressed = True
