@@ -24,6 +24,7 @@ You may use these tutorials as a self-paced course to learn the software thoroug
    - :doc:`docs/advanced_georeferencing`
 * Intermediate GIS operations
    - :doc:`docs/performing_table_joins`
+   - :doc:`docs/performing_spatial_joins`
    - :doc:`docs/points_in_polygon`
    - :doc:`docs/performing_spatial_queries`
    - :doc:`docs/creating_heatmaps`
@@ -48,6 +49,7 @@ You may use these tutorials as a self-paced course to learn the software thoroug
    docs/georeferencing_basics
    docs/advanced_georeferencing
    docs/performing_table_joins
+   docs/performing_spatial_joins
    docs/points_in_polygon
    docs/creating_heatmaps
    docs/performing_spatial_queries

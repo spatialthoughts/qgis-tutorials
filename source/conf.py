@@ -344,6 +344,7 @@ tutorials = [
         ('georeferencing_basics', 'Georeferencing Topo Sheets and Scanned Maps'),
         ('advanced_georeferencing', 'Georeferencing Aerial Imagery'),
         ('performing_table_joins', 'Performing Table Joins'),
+        ('performing_spatial_joins', 'Performing Spatial Joins'),
         ('points_in_polygon', 'Points in Polygon Analysis'),
         ('performing_spatial_queries', 'Performing Spatial Queries'),
         ('creating_heatmaps', 'Creating Heatmaps'),
