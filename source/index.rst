@@ -1,19 +1,14 @@
 QGIS Tutorials and Tips
 =======================
 
-`QGIS <http://qgis.org>`_ is a popular open-source GIS with advanced capabilities. Here is a series of tutorials and tips that show you how to how to use it to tackle common GIS problems.  
+* Overview
+   - :doc:`docs/introduction`
 
-You may use these tutorials as a self-paced course to learn the software thoroughly. However, each section is fairly independent, so those familiar with QGIS can jump into any section .  
-
-:doc:`docs/preamble`
-
-* Getting Started
+* Quickstart
    - :doc:`docs/making_a_map`
    - :doc:`docs/working_with_attributes`
    - :doc:`docs/importing_spreadsheets_csv`
    - :doc:`docs/downloading_osm_data`
-* QGIS Basics
-   - :doc:`docs/using_plugins`
 * Basics GIS operations
    - :doc:`docs/basic_vector_styling`
    - :doc:`docs/raster_styling_and_analysis`
@@ -30,17 +25,18 @@ You may use these tutorials as a self-paced course to learn the software thoroug
    - :doc:`docs/creating_heatmaps`
 * Advanced GIS operations
    - :doc:`docs/nearest_neighbor_analysis`
+* Appendix
+   - :doc:`docs/using_plugins`
 
 .. toctree::
    :titlesonly:
    :hidden:
 
-   docs/preamble
+   docs/introduction
    docs/making_a_map
    docs/working_with_attributes
    docs/importing_spreadsheets_csv
    docs/downloading_osm_data
-   docs/using_plugins
    docs/basic_vector_styling
    docs/raster_styling_and_analysis
    docs/raster_mosaicing_and_clipping
@@ -54,5 +50,6 @@ You may use these tutorials as a self-paced course to learn the software thoroug
    docs/creating_heatmaps
    docs/performing_spatial_queries
    docs/nearest_neighbor_analysis
+   docs/using_plugins
    docs/teach_qgis
 
