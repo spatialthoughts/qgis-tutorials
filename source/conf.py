@@ -350,6 +350,7 @@ tutorials = [
         ('performing_spatial_queries', 'Performing Spatial Queries'),
         ('creating_heatmaps', 'Creating Heatmaps'),
         ('nearest_neighbor_analysis', 'Nearest Neighbor Analysis'),
+        ('counting_vertices', 'Counting Number of Vertices in a Layer'),
         ]
 author = 'Ujaval Gandhi'
 # We create 2 options dictionaries that let us specify different output paper

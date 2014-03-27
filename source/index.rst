@@ -26,6 +26,8 @@ QGIS Tutorials and Tips
    - :doc:`docs/creating_heatmaps`
 * Advanced GIS operations
    - :doc:`docs/nearest_neighbor_analysis`
+* Tips and Tricks
+   - :doc:`docs/counting_vertices`
 * Appendix
    - :doc:`docs/using_plugins`
 
@@ -52,6 +54,7 @@ QGIS Tutorials and Tips
    docs/creating_heatmaps
    docs/performing_spatial_queries
    docs/nearest_neighbor_analysis
+   docs/counting_vertices
    docs/using_plugins
    docs/teach_qgis
 
