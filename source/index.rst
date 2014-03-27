@@ -11,6 +11,7 @@ QGIS Tutorials and Tips
    - :doc:`docs/downloading_osm_data`
 * Basics GIS operations
    - :doc:`docs/basic_vector_styling`
+   - :doc:`docs/calculating_line_lengths`
    - :doc:`docs/raster_styling_and_analysis`
    - :doc:`docs/raster_mosaicing_and_clipping`
    - :doc:`docs/working_with_terrain`
@@ -38,6 +39,7 @@ QGIS Tutorials and Tips
    docs/importing_spreadsheets_csv
    docs/downloading_osm_data
    docs/basic_vector_styling
+   docs/calculating_line_lengths
    docs/raster_styling_and_analysis
    docs/raster_mosaicing_and_clipping
    docs/working_with_terrain

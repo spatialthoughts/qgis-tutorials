@@ -337,6 +337,7 @@ tutorials = [
         ('downloading_osm_data', 'Searching and Downloading OpenStreetMap Data'),
         ('using_plugins', 'Using Plugins'),
         ('basic_vector_styling', 'Basic Vector Styling'),
+        ('calculating_line_lengths', 'Calculating Line Lengths and Statistics'),
         ('raster_styling_and_analysis', 'Basic Raster Styling and Analysis'),
         ('raster_mosaicing_and_clipping', 'Raster Mosaicing and Clipping'),
         ('working_with_terrain', 'Working with Terrain Data'),
