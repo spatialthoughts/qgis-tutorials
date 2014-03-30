@@ -86,6 +86,15 @@ gettext:
 	@echo
 	@echo "Build finished. The message catalogs are in $(BUILDDIR)/locale."
 
+# Run this to register .po fles to transifex service
+transifex-push:
+	$(SPHINXINTL) update-txconfig-resources --p i18n/pot --transifex-project-name qgis-tutorials -c $(SOURCEDIR)/conf.py
+	tx push -s
+
+# Run this to pull latest translations from transifex service
+transifex-pull:
+	tx pull -l $(LANG)
+
 all:
 	rm -rf live/
 	# Move the localized pdfs to a pdf/ folder within localized html
