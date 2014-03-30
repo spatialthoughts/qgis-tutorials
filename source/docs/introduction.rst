@@ -2,7 +2,7 @@ Introduction
 ============
 
 `QGIS <http://qgis.org>`_ is a popular open-source GIS with advanced
-capabilities. Here is a series of tutorials and tips that show you how to how to
+capabilities. Here is a series of tutorials and tips that show you how to
 use it to tackle common GIS problems.
 
 You may use these tutorials as a self-paced course to learn the software
