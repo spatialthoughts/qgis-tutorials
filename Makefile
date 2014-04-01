@@ -3,8 +3,8 @@
 # https://github.com/qgis/QGIS-Documentation/blob/master/Makefile
 
 # You can set these variables from the command line.
-LANGUAGES     = en
-LANG          = en
+LANGUAGES     = es
+LANG          = es
 SPHINXBUILD   = sphinx-build
 SPHINXINTL    = sphinx-intl
 PAPER         = a4
