@@ -94,7 +94,9 @@ transifex-push: pretranslate
 
 # Run this to pull latest translations from transifex service
 transifex-pull:
-	tx pull -l $(LANG)
+	@for LANG in $(LANGUAGES) ; do \
+		tx pull -l $$LANG; \
+	done
 
 all:
 	rm -rf live/
