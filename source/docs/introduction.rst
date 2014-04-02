@@ -21,6 +21,16 @@ source code via `github <https://github.com/spatialthoughts/qgis-tutorials>`_.
    If you are an educator, see :doc:`teach_qgis` for using these tutorials to
    teach QGIS.
 
+Translations
+^^^^^^^^^^^^
+
+The tutorials are also available in following langugages:
+
+- `Spanish <http://qgistutorials.com/es>`_ (Translation by: *Juan Carlos*)
+
+If you would like to help translate these tutorials in your langugage, please
+`Join the team on Transifex
+<https://www.transifex.com/projects/p/qgis-tutorials/>`_.
 
 License
 -------
