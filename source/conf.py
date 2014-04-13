@@ -344,6 +344,7 @@ tutorials = [
         ('working_with_wms', 'Working with WMS Data'),
         ('georeferencing_basics', 'Georeferencing Topo Sheets and Scanned Maps'),
         ('advanced_georeferencing', 'Georeferencing Aerial Imagery'),
+        ('digitizing_basics', 'Digitizing Map Data'),
         ('performing_table_joins', 'Performing Table Joins'),
         ('performing_spatial_joins', 'Performing Spatial Joins'),
         ('points_in_polygon', 'Points in Polygon Analysis'),

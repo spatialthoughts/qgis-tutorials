@@ -18,6 +18,7 @@ QGIS Tutorials and Tips
    - :doc:`docs/working_with_wms`
    - :doc:`docs/georeferencing_basics`
    - :doc:`docs/advanced_georeferencing`
+   - :doc:`docs/digitizing_basics`
 * Intermediate GIS operations
    - :doc:`docs/performing_table_joins`
    - :doc:`docs/performing_spatial_joins`
@@ -31,6 +32,7 @@ QGIS Tutorials and Tips
    - :doc:`docs/counting_vertices`
 * Appendix
    - :doc:`docs/using_plugins`
+   - :doc:`docs/credits`
 
 .. toctree::
    :titlesonly:
@@ -49,6 +51,7 @@ QGIS Tutorials and Tips
    docs/working_with_wms
    docs/georeferencing_basics
    docs/advanced_georeferencing
+   docs/digitizing_basics
    docs/performing_table_joins
    docs/performing_spatial_joins
    docs/points_in_polygon
@@ -58,5 +61,6 @@ QGIS Tutorials and Tips
    docs/batch_processing
    docs/counting_vertices
    docs/using_plugins
+   docs/credits
    docs/teach_qgis
 
