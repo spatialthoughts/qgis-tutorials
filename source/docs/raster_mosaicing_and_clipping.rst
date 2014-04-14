@@ -70,6 +70,8 @@ Repeat the process for all 7 FAS subsets for Brazil.
    :download:`FAS_Brazil6.2013363.terra.ndvi.2km.tif <../static/raster_mosaicing_and_clipping/data/FAS_Brazil6.2013363.terra.ndvi.2km.tif>`
    :download:`FAS_Brazil7.2013363.aqua.ndvi.2km.tif <../static/raster_mosaicing_and_clipping/data/FAS_Brazil7.2013363.aqua.ndvi.2km.tif>`
 
+Data Sources: [LANCE]_ [NATURALEARTH]_
+
 Procedure
 ---------
 

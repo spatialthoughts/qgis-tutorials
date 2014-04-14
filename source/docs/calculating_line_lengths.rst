@@ -43,6 +43,8 @@ zip file from the portal.
    Download :download:`North America supplement
    <../static/calculating_line_lengths/data/ne_10m_railroads_north_america.zip>`
 
+Data Source [NATURALEARTH]_
+
 Procedure
 ---------
 

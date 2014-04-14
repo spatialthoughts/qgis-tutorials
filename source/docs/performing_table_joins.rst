@@ -23,13 +23,21 @@ Get the data
 
 `US Census Bureau <http://www.census.gov/geo/maps-data/data/tiger.html>`_ has various spatial extracts from the MAF/TIGER database. You can query and download census tracts shapefile for California.  
 
-`Americal FactFinder <http://factfinder2.census.gov/faces/nav/jsf/pages/searchresults.xhtml?refresh=t>`_ is a repository of all census data for the US. You can use `Advanced Search` and query for the `Topic - Total Population` and `Geographies - All Census Tracts in California` to create a custom CSV and download it.
+`Americal FactFinder
+<http://factfinder2.census.gov/faces/nav/jsf/pages/searchresults.xhtml?refresh=t>`_
+is a repository of all census data for the US. You can use `Advanced Search` and
+query for the `Topic - Total Population` and
+`Geographies - All Census Tracts in California` to create a custom CSV and
+download it. This tutorial uses `Total Population 2010 Census Summary File 1`
+data.
 
 .. only:: html
 
    Download `Census Tracts for California <http://www2.census.gov/geo/tiger/TIGER2013/TRACT/tl_2013_06_tract.zip>`_
 
    Download :download:`Total Population by Census Tracts CSV <../static/performing_table_joins/data/ca_tracts_pop.csv>`
+
+Data Source [TIGER]_ [USCENSUS]_
 
 Procedure
 ---------

@@ -41,6 +41,8 @@ layers. Download the following layers
 
 Once downloaded, unzip and extract all the shapefiles in a single folder.
 
+Data Source: [NATURALEARTH]_
+
 Procedure
 ---------
 

@@ -19,6 +19,7 @@ Overview of the task
 In this tutorial, we will load layers of `Mineral Resources
 <http://mrdata.usgs.gov/wms.html>`_ published by USGS.
 
+Data Source: [MRDATA]_
 
 Procedure
 ---------

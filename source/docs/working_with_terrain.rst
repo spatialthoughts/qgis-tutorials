@@ -69,6 +69,8 @@ data comes as GeoTiff files which are contained in this zip archive.
    For convenience, you can :download:`download a copy of the data from here.
    <../static/working_with_terrain/data/GMTED2010N10E060_300.zip>`.
 
+Data Source: [GMTED2010]_
+
 Procedure
 ---------
 

@@ -53,6 +53,8 @@ You will now have 2 zip files downloaded.
 
    :download:`gl_gpwv3_pdens_00_ascii_one.zip <../static/raster_styling_and_analysis/data/gl_gpwv3_pdens_00_ascii_one.zip>`
 
+Data Source [GPW3]_
+
 Procedure
 ---------
 

@@ -19,6 +19,7 @@ NOAA’s National Geophysical Data Center produces a great dataset of all signif
 
 Download `Significant Earthquake Database <http://www.ngdc.noaa.gov/nndc/struts/results?type_0=Exact&query_0=$ID&t=101650&s=13&d=189&dfn=signif.txt>`_ text file.
 
+Data Source [NGDC]_
 
 Procedure
 ---------

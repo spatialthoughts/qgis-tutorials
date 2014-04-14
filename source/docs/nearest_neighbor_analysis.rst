@@ -45,6 +45,8 @@ dataset. Download the `simple (less columns) dataset
 
    :download:`ne_10m_populated_places_simple.zip </static/nearest_neighbor_analysis/data/ne_10m_populated_places_simple.zip>`
 
+Data Sources: [NGDC]_ [NATURALEARTH]_
+
 Procedure
 ---------
 

@@ -42,6 +42,8 @@ dataset. Download the `countries
 
    :download:`ne_10m_admin_0_countries.zip </static/points_in_polygon/data/ne_10m_admin_0_countries.zip>`
 
+Data Sources: [NGDC]_ [NATURALEARTH]_
+
 Procedure
 ---------
 

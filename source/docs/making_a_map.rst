@@ -18,6 +18,7 @@ We will use the Natural Earth dataset - specifically the Natural Earth Quick Sta
 
 Download the `Natural Earth Quickstart Kit <http://kelso.it/x/nequickstart>`_.
 
+Data Source [NATURALEARTH]_
 
 Procedure
 ---------
