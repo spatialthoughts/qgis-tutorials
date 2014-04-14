@@ -11,196 +11,528 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: ../../source/docs/digitizing_basics.rst:2
-msgid "Digitizing in QGIS"
-msgstr ""
-
-#: ../../source/docs/digitizing_basics.rst:3
-msgid ""
-"Digitizing is one of the most common tasks that a GIS Specialist has to do. "
-"Often a large amount of *GIS time* is spent in digitizing raster data to "
-"create vector layers that you use in your analysis. Quantum GIS has powerful"
-" capabilities to digitize raster data. In this tutorial, we will take some "
-"high resolution satellite imagery and digitize it to create a vector polygon"
-" layer."
-msgstr ""
-
-#: ../../source/docs/digitizing_basics.rst:6
+#: ../../source/docs/digitizing_basics.rst:15
 msgid "Overview of the task"
 msgstr ""
 
-#: ../../source/docs/digitizing_basics.rst:8
-msgid ""
-"The task at hand is to digitize all the water bodies from the satellite "
-"image and create a :file:`waterbodies` polygon layer."
-msgstr ""
-
-#: ../../source/docs/digitizing_basics.rst:11
+#: ../../source/docs/digitizing_basics.rst:28
 msgid "Get the data"
 msgstr ""
 
-#: ../../source/docs/digitizing_basics.rst:13
-msgid ""
-"The imagery we are using today is from Quickbird satellite. This particular "
-"image of Kolkata, India is made available freely by DigitalGlobe for "
-"educational use. You can download this image from "
-"http://glcf.umd.edu/data/quickbird"
-msgstr ""
-
-#: ../../source/docs/digitizing_basics.rst:16
+#: ../../source/docs/digitizing_basics.rst:51
 msgid "Procedure"
 msgstr ""
 
-#: ../../source/docs/digitizing_basics.rst:18
+#: ../../source/docs/digitizing_basics.rst:2
+msgid "Digitizing Map Data"
+msgstr ""
+
+#: ../../source/docs/digitizing_basics.rst:9
 msgid ""
-"Prepare and load the satellite imagery to QGIS. Once you have downloaded the"
-" data, unzip it and extract the TIF file. Load this TIF file in QGIS by "
-"clicking :menuselection:`Layer --> Add Raster Layer`."
+"Digitizing is one of the most common tasks that a GIS Specialist has to do. "
+"Often a large amount of *GIS time* is spent in digitizing raster data to "
+"create vector layers that you use in your analysis. QGIS has powerful on-"
+"screen digitizing and editing capabilities that we will explore in this "
+"tutorial."
+msgstr ""
+
+#: ../../source/docs/digitizing_basics.rst:16
+msgid ""
+"We will use a raster topographic map and create several vector layers "
+"representing features around a park."
+msgstr ""
+
+#: ../../source/docs/digitizing_basics.rst:20
+msgid "Other skills you will learn"
+msgstr ""
+
+#: ../../source/docs/digitizing_basics.rst:22
+msgid ""
+"Building pyramids for large raster datasets to speed up zoom and pan "
+"operations."
 msgstr ""
 
 #: ../../source/docs/digitizing_basics.rst:24
-msgid ""
-"Browse to the TIF file and Click :guilabel:`Open` to load the image into "
-"your project."
+msgid "Working with a Spatialite database."
 msgstr ""
 
 #: ../../source/docs/digitizing_basics.rst:30
 msgid ""
-"You will notice that the image seems completely black and without "
-"information. In reality, it contains a lot of information but we are not "
-"able to see it because it is very *low-contrast*. Right click the image "
-"layer and select :guilabel:`Properties`. In the Propoerties dialog, click on"
-" the :guilabel:`Histogram` tab. You see here that the pixels from 0-255 have"
-" some values, but the display range is from 0-2048."
+"`Land Information New Zealand (LINZ) <http://www.linz.govt.nz/>`_ provides "
+"raster topographic maps at 1:50,000 scale for the New Zealand mainland and "
+"Chatham Islands."
 msgstr ""
 
-#: ../../source/docs/digitizing_basics.rst:36
+#: ../../source/docs/digitizing_basics.rst:34
 msgid ""
-"To display this image to a contrast level that our eyes can distinguish, we "
-"will have to stretch these pixels over a much smaller range. Once we do "
-"this, the difference between individual pixel values will be large (i.e. "
-"*high-contrast*) and we will see the image clearly. To do this, go to the "
-":guilabel:`Style` tab. Select :guilabel:`Custom min/max values` and enter "
-"the value 500 as the max value. Then select :guilabel:`Stretch and Clip to "
-"Minmax` under :guilabel:`Contrast Enhancement` and click :guilabel:`OK`."
-msgstr ""
-
-#: ../../source/docs/digitizing_basics.rst:42
-msgid ""
-"Now you will see that the details in the image is visible clearly. Now we "
-"are ready to start Digitizing."
+"Download the `GeoTIFF Image file "
+"<http://topo.linz.govt.nz/Topo50_raster_images/GeoTIFFTopo50/BX24_GeoTifv1-02.tif>`_"
+" from the `Christchurch Topo50 map download page "
+"<http://www.linz.govt.nz/topography/topo-maps/map-"
+"chooser/christchurch/christchurch#digitalfile>`_."
 msgstr ""
 
 #: ../../source/docs/digitizing_basics.rst:48
-msgid ""
-"Zoom into the center part of the image so we can make out individual "
-"features. Use the :guilabel:`Zoom In` button on the :guilabel:`Map "
-"Navigation` toolbar to zoom and pan to the area."
+msgid "Data Source [LINZ]_"
 msgstr ""
 
-#: ../../source/docs/digitizing_basics.rst:54
+#: ../../source/docs/digitizing_basics.rst:53
 msgid ""
-"Now create a new empty layer where we can digitize the features. Click on "
-":menuselection:`Layer -->  New --> New Shapefile Layer.`"
+"Go to :menuselection:`Layer --> Add Raster Layer`. Locate the downloaded "
+"``BX24_GeoTifv1-02.tif`` and click :guilabel:`Open`."
 msgstr ""
 
-#: ../../source/docs/digitizing_basics.rst:60
+#: ../../source/docs/digitizing_basics.rst:59
 msgid ""
-"In the next dialog box, choose :guilabel:`WGS84` as the coordinate reference"
-" system. You can choose any projection that is suitable for your region. "
-"Here we are choosing WGS84 to keep it simple. Click :guilabel:`OK`."
+"This is a large raster file and you may notice that when you zoom or pan "
+"around the map, the map takes a little time to render the image. QGIS offers"
+" a simple solution to make rasters load much faster by using **Image "
+"Pyramids**. QGIS creates pre-rendered tiles at different resolutions and "
+"these are presented to you instead of the full raster. This makes map "
+"navigation snappy and responsive. Right-click the ``BX24_GeoTifv1-02`` layer"
+" and choose :guilabel:`Properties`."
 msgstr ""
 
-#: ../../source/docs/digitizing_basics.rst:66
+#: ../../source/docs/digitizing_basics.rst:70
 msgid ""
-"Another dialog box will pop up asking for more information about the new "
-"layer. Since we are creating a waterbodies polygon layer, choose "
-":guilabel:`Polygon` as the Type of the layer. Below that, there is a section"
-" named :guilabel:`New attribute`. Here you can specify what attribute "
-"information you want to collect about the features you are digitizing. These"
-" will differ from project to project, but here we will add a *name* "
-"attribute. Enter the details and click :guilabel:`Add to attributes list` "
-"button."
-msgstr ""
-
-#: ../../source/docs/digitizing_basics.rst:72
-msgid "When prompted, save the layer with the name :file:`water_bodies`."
+"Choose the :guilabel:`Pyramids` tab. Hold the :kbd:`Ctrl` key and select all"
+" the resolutios offered in the :guilabel:`Resolutions` panel. Leave other "
+"options to defaults and click :guilabel:`Build pyramids`. Once the process "
+"finishes, click :guilabel:`OK`."
 msgstr ""
 
 #: ../../source/docs/digitizing_basics.rst:78
 msgid ""
-"Before we start digitizing, we need to make sure we are using the correction"
-" projection. The layer we created is in *WGS84* projection, but the image is"
-" not. You can check that by right-clicking on the image layer and going to "
-":guilabel:`Properties`. In the :guilabel:`General` tab, you will see that "
-"the projection is *UTM*."
+"Back in the main QGIS window, use the :guilabel:`Zoom` tool to locate "
+"*Hagley Park* area in Christchurch. This is the park that we will be "
+"digitizing."
 msgstr ""
 
-#: ../../source/docs/digitizing_basics.rst:84
+#: ../../source/docs/digitizing_basics.rst:85
 msgid ""
-"We need to have both our layers in the same projection before we can start "
-"digitizing. Either you can reproject the image layer to match our "
-":file:`water_bodies` layer or vice-versa. There is an easier way to do this "
-"without re-projecting by enabling :guilabel:`On-the-fly reprojection`. Go to"
-" :menuselection:`Settings --> Project Properties`."
+"Before we start, we need to set default **Digitizing Options**. Go to "
+":menuselection:`Settings --> Options...`."
 msgstr ""
 
-#: ../../source/docs/digitizing_basics.rst:90
+#: ../../source/docs/digitizing_basics.rst:91
 msgid ""
-"In the :guilabel:`Project Properties` dialog, check the :guilabel:`Enable on"
-" the fly CRS transformation` box. In the :guilabel:`Coordinate Reference "
-"System` box below, choose :guilabel:`WGS 84`. This will ensure that "
-"regardless of the projection, all the layers will be transformed in real "
-"time and displayed in WGS 84 coordinate system. Click :guilabel:`OK`."
+"Select the :guilabel:`Digitizing` tab in the :guilabel:`Options` dialog. Set"
+" the :guilabel:`Default snap mode` to :guilabel:`To vertex and segment`. "
+"This will allow you to snap to the nearest vertex or line segment. I also "
+"prefer to set the :guilabel:`Default snapping tolerance` and "
+":guilabel:`Search radius for vertex edits` in pixels instead of map units. "
+"This will ensure that the snapping distance remains constant regardless of "
+"zoom level. Depending on your computer screen resolution, you may choose an "
+"appropriate value. Click :guilabel:`OK`."
 msgstr ""
 
-#: ../../source/docs/digitizing_basics.rst:96
+#: ../../source/docs/digitizing_basics.rst:103
 msgid ""
-"Once you get back to your Canvas, you will see the image is gone. This is "
-"because we are in WGS84 coordinate space and the image is not in the "
-"viewport. Right-click the image layer and choose :guilabel:`Zoom to layer "
-"extent`. The image will be back in the view."
+"Now we are ready to start digitizing. We will first create a roads layer and"
+" digitize the roads around the park area. Select :menuselection:`Layer --> "
+"New --> New Spatialite Layer...`. You may also choose to create a "
+":guilabel:`New Shapefile Layer...` instead if you prefer. Spatialite is an "
+"open database format similar to ESRI's geodatabase format. Spatialite "
+"database is contained within a single file on your hard drive and can "
+"contain diferent types of spatial (point, line, polygon) as well as non-"
+"spatial layers. This makes is much easier to move it around instead of a "
+"bunch of shapefiles. In this tutorial, we are creating a couple of polygon "
+"layers and a line layer, so a Spatialite database will be better suited. You"
+" can always load a spatialite layer and save it as a shapefile or any other "
+"format you want."
 msgstr ""
 
-#: ../../source/docs/digitizing_basics.rst:102
+#: ../../source/docs/digitizing_basics.rst:118
 msgid ""
-"Now enable the :guilabel:`Digitizing` toolbar by right clicking in the "
-":guilabel:`Toolbar` section of QGIS. In the pop up menu, make sure "
-":guilabel:`Digitizing` box is checked."
+"In the :guilabel:`New Spatialite Layer` dialog, click the :guilabel:`...` "
+"button and save a new spatialite database named ``nztopo.sqlite``. Choose "
+"the :guilabel:`Layer name` as ``Roads`` and select ``Line`` as the "
+":guilabel:`Type`. The base topographic map is in the ``EPSG:2193 - NZGD "
+"2000`` CRS, so we can select the same for our roads layer. Check the "
+":guilabel:`Create an autoincrementing primary key` box. This will create a "
+"field called **pkuid** in the attribute table and assign a unique numeric id"
+" automatically to each feature. When creating a GIS layer, you must decide "
+"on the attributes that each feature will have. Since this is a roads layer, "
+"we will have 2 basic attributes - Name and Class. Enter ``Name`` as the "
+":guilabel:`Name` of the attribute in the :guilabel:`New attribute` section "
+"and click :guilabel:`Add to attribute list.`"
 msgstr ""
 
-#: ../../source/docs/digitizing_basics.rst:108
+#: ../../source/docs/digitizing_basics.rst:135
 msgid ""
-"Select the :file:`water_bodies` layer. Zoom to a region where you can see "
-"water bodies in the image. Then click :guilabel:`Toggle Editing`."
+"Similarly create a new attribute ``Class`` of the type :guilabel:`Text "
+"data`. Click :guilabel:`OK`."
 msgstr ""
 
-#: ../../source/docs/digitizing_basics.rst:114
+#: ../../source/docs/digitizing_basics.rst:141
 msgid ""
-"Various other buttons in the toolbar will be enabled now. To start drawing a"
-" polygon, click on the :guilabel:`Capture Polygon` button."
+"Once the layer is loaded, click the :guilabel:`Toggle Editing` button to put"
+" the layer in editing mode."
 msgstr ""
 
-#: ../../source/docs/digitizing_basics.rst:120
+#: ../../source/docs/digitizing_basics.rst:147
 msgid ""
-"Draw the polygon by click on the edge of the visible lake. Keep clicking "
-"till the polygon is complete. Right click to join the last node to the first"
-" one and close the polygon. A dialog will pop-up asking for attribute "
-"information. Enter the :guilabel:`Id` and :guilabel:`Name` of the feature "
-"you just digitized and click :guilabel:`OK`."
+"Click the :guilabel:`Add feature` button. Click on the map canvas to add a "
+"new vertex. Add new vertices along the road feature. Once you have digitized"
+" a road segment, right-click to end the feature."
 msgstr ""
 
-#: ../../source/docs/digitizing_basics.rst:131
+#: ../../source/docs/digitizing_basics.rst:153
 msgid ""
-"Similarly, draw polygons for other features in the image. You can look at "
-"the other options in the toolbar to help you with your editing. Once you are"
-" done, click on :guilabel:`Toggle Editing` button. In the pop-up dialog, "
-"click on :guilabel:`Yes` to save your edits."
+"You can use the scroll wheel of the mouse to zoom in or out while "
+"digitizing. You can also hold the scroll button and move the mouse to pan "
+"around."
 msgstr ""
 
-#: ../../source/docs/digitizing_basics.rst:137
+#: ../../source/docs/digitizing_basics.rst:159
 msgid ""
-"Now your basic digitizing is complete. You will have a shapefile with "
-"polygon features and an attribute table with :guilabel:`id` and "
-":guilabel:`name` attributes."
+"After you right-click to end the feature, you will get a pop-up dialog "
+"called :guilabel:`Attributes`. Here you can enter attributes of the newly "
+"created feature. Since the **pkuid** is an auto-incrementing field, you will"
+" not be able to enter a value manually. Leave it blank and enter the road "
+"name as it appears on the topo map. Optionally, assign a Road Class value as"
+" well. Click :guilabel:`OK`."
 msgstr ""
+
+#: ../../source/docs/digitizing_basics.rst:169
+msgid ""
+"The default style of the new line layer is a thin line. Let's change it so "
+"we can better see the digitized features on the canvas. Right-click the "
+"``Roads`` layer and select :guilabel:`Properties`."
+msgstr ""
+
+#: ../../source/docs/digitizing_basics.rst:176
+msgid ""
+"Select the :guilabel:`Style` tab in the :guilabel:`Layer Properties` dialog."
+" Choose a thicker line style such as :guilabel:`Primary` from the predefined"
+" styles. Click :guilabel:`OK`."
+msgstr ""
+
+#: ../../source/docs/digitizing_basics.rst:183
+msgid ""
+"Now you will see the digitized road feature clearly. Click :guilabel:`Save "
+"Layer Edits` to commit the new feature to disk."
+msgstr ""
+
+#: ../../source/docs/digitizing_basics.rst:189
+msgid ""
+"Before we digitize remaining roads, it is important to update some other "
+"settings that are important to create an error free layer. Go to "
+":menuselection:`Settings --> Snapping Options...`."
+msgstr ""
+
+#: ../../source/docs/digitizing_basics.rst:196
+msgid ""
+"In the :guilabel:`Snapping Options` dialog, check the :guilabel:`Enable "
+"topological editing`. This option will ensure that the common boundaries are"
+" maintained correctly in polygon layers. Also check the :guilabel:`Enable "
+"snapping on intersection` which allows you to snap on an intersection of a "
+"background layer."
+msgstr ""
+
+#: ../../source/docs/digitizing_basics.rst:205
+msgid ""
+"Now you can click :guilabel:`Add feature` button and digitize other roads "
+"around the park. Make sure to click :guilabel:`Save Edits` after you add a "
+"new feaure to save your work. A useful tool to help you with digitizing is "
+"the **Node Tool**. Click the :guilabel:`Node Tool` button."
+msgstr ""
+
+#: ../../source/docs/digitizing_basics.rst:213
+msgid ""
+"Once the node tool is activated, click on any feature to show the vertices. "
+"Click on any vertex to select it. The vertex will change the color once it "
+"is selected. Now you can move the click and drag your mouse to move the "
+"vertex. This is useful when you want to make adjustments after the feature "
+"is created. You can also delete a selected vertex by clicking the "
+":kbd:`Delete` key. (:kbd:`Option+Delete` on a mac)"
+msgstr ""
+
+#: ../../source/docs/digitizing_basics.rst:223
+msgid ""
+"Once you have finished digitizing all the roads, click the :guilabel:`Toggle"
+" Editing` button."
+msgstr ""
+
+#: ../../source/docs/digitizing_basics.rst:229
+msgid ""
+"Now we will create a polygon layer representing the park boundaries. Go to "
+":menuselection:`Layer --> New --> New Spatialite Layer...`. Select the "
+"``nztopo.sqlite`` database from the dropdown list. Name the new layer as "
+"``Parks``. Select ``Polygon`` as the :guilabel:`Type`. Create a new "
+"attribute called ``Name``. Click :guilabel:`OK`."
+msgstr ""
+
+#: ../../source/docs/digitizing_basics.rst:238
+msgid ""
+"Click the :guilabel:`Add feature` button and click on the map canvas to add "
+"a polygon vertex. Digitize the polygon represneting the park. Make sure you "
+"snap to the roads vertices so there are no gaps between the park polygons "
+"and road lines. Right-click to finish the polygon."
+msgstr ""
+
+#: ../../source/docs/digitizing_basics.rst:246
+msgid "Enter the park name in the :guilabel:`Attributes` pop-up."
+msgstr ""
+
+#: ../../source/docs/digitizing_basics.rst:251
+msgid ""
+"Polygon layers offer another very useful setting called **Avoid "
+"intersections of new polygons**. Go to :menuselection:`Settings --> Snapping"
+" Options...`. Check the box in the :guilabel:`Avoid Int` column in the row "
+"for the ``Parks`` layer. Click :guilabel:`OK`."
+msgstr ""
+
+#: ../../source/docs/digitizing_basics.rst:259
+msgid ""
+"Now click on :guilabel:`Add feature` to add a polygon. With the **Avoid "
+"intersections of new polygons**, you will be able quickly digitize a new "
+"polygon without worrying about snapping exactly to the neighboring polygons."
+msgstr ""
+
+#: ../../source/docs/digitizing_basics.rst:266
+msgid ""
+"Right-click to finish the polygon and enter the attributes. Magically the "
+"new polygon is shrunk and snapped exactly to the boundary of the neighboring"
+" polygons! This is very useful when digitizing complex boundaries where you "
+"need not be very precise and still have topologically correct polygon. Click"
+" :guilabel:`Toggle Editing` to finish editing the ``Parks`` layer."
+msgstr ""
+
+#: ../../source/docs/digitizing_basics.rst:275
+msgid ""
+"Now it is time to digitize a buildings layer. Create a new polygon layer "
+"named ``Buildings`` by going to :menuselection:`Layer --> New --> New "
+"Spatialite Layer`."
+msgstr ""
+
+#: ../../source/docs/digitizing_basics.rst:282
+msgid ""
+"Once the ``Buildings`` layer is added, turn off the ``Parks`` and ``Roads`` "
+"layer so the base topo map is visible. Select the ``Buildings`` layer and "
+"click :guilabel:`Toggle Editing`."
+msgstr ""
+
+#: ../../source/docs/digitizing_basics.rst:289
+msgid ""
+"Digitizing buildings can be a cumbersome task. Also it is difficult to add "
+"vertices manually so that the edges are perpendicular and form a rectangle. "
+"We will use a plugin called **Rectangles Ovals Digitizing** to help with "
+"this task. See :doc:`using_plugins` to see how to search and install "
+"plugins. Once the **Rectangles Ovals Digitizing** plugin is installed, you "
+"will see a new toolbar appear above the canvas."
+msgstr ""
+
+#: ../../source/docs/digitizing_basics.rst:299
+msgid ""
+"Zoom to an area with the buildings and click :guilabel:`Rectangle by Extent`"
+" button. Click and drag the mouse to draw a perfect rectangle. Similarly, "
+"add remaining buildings."
+msgstr ""
+
+#: ../../source/docs/digitizing_basics.rst:306
+msgid ""
+"You will notice that some buildings are not vertical. We will need to draw a"
+" rectangle at an angle to match the building footprint. Click the "
+":guilabel:`Rectangle from center`."
+msgstr ""
+
+#: ../../source/docs/digitizing_basics.rst:313
+msgid ""
+"Click at the center of the building and drag the mouse to draw a vertical "
+"rectangle."
+msgstr ""
+
+#: ../../source/docs/digitizing_basics.rst:319
+msgid ""
+"We need to rotate this rectangle to match the image on the topo map. The "
+"rotate tool is available in the **Advanced Digitizing** toolbar. Right-click"
+" on an empty area on the toolbar section and enable the :guilabel:`Advanced "
+"Digitizing` toolbar."
+msgstr ""
+
+#: ../../source/docs/digitizing_basics.rst:327
+msgid "Click the :guilabel:`Rotate Feature(s)` button."
+msgstr ""
+
+#: ../../source/docs/digitizing_basics.rst:332
+msgid ""
+"Use the :guilabel:`Select Single feature` tool to select the polygon that "
+"you want to rotate. Once the :guilabel:`Rotate Feature(s)` tool is "
+"activated, you will see crosshairs at the center of the polygon. Click "
+"exactly on that crosshairs and drag the mouse while holding the left-click "
+"button. A preview of the rotated feature will appear. Let go of the mouse "
+"button when the polygon aligns with the building footprint."
+msgstr ""
+
+#: ../../source/docs/digitizing_basics.rst:342
+msgid ""
+"Save the layer edits and click :guilabel:`Toggle Editing` once you finish "
+"digitizing all buildings. You can drag the layers to change their order of "
+"appearance."
+msgstr ""
+
+#: ../../source/docs/digitizing_basics.rst:349
+msgid ""
+"The digitizing task is now complete. You can play with the styling and "
+"labelling options in layer properties to create a nice looking map from the "
+"data you created."
+msgstr ""
+
+#~ msgid "Digitizing in QGIS"
+#~ msgstr ""
+
+#~ msgid ""
+#~ "Digitizing is one of the most common tasks that a GIS Specialist has to do. "
+#~ "Often a large amount of *GIS time* is spent in digitizing raster data to "
+#~ "create vector layers that you use in your analysis. Quantum GIS has powerful"
+#~ " capabilities to digitize raster data. In this tutorial, we will take some "
+#~ "high resolution satellite imagery and digitize it to create a vector polygon"
+#~ " layer."
+#~ msgstr ""
+
+#~ msgid ""
+#~ "The task at hand is to digitize all the water bodies from the satellite "
+#~ "image and create a :file:`waterbodies` polygon layer."
+#~ msgstr ""
+
+#~ msgid ""
+#~ "The imagery we are using today is from Quickbird satellite. This particular "
+#~ "image of Kolkata, India is made available freely by DigitalGlobe for "
+#~ "educational use. You can download this image from "
+#~ "http://glcf.umd.edu/data/quickbird"
+#~ msgstr ""
+
+#~ msgid ""
+#~ "Prepare and load the satellite imagery to QGIS. Once you have downloaded the"
+#~ " data, unzip it and extract the TIF file. Load this TIF file in QGIS by "
+#~ "clicking :menuselection:`Layer --> Add Raster Layer`."
+#~ msgstr ""
+
+#~ msgid ""
+#~ "Browse to the TIF file and Click :guilabel:`Open` to load the image into "
+#~ "your project."
+#~ msgstr ""
+
+#~ msgid ""
+#~ "You will notice that the image seems completely black and without "
+#~ "information. In reality, it contains a lot of information but we are not "
+#~ "able to see it because it is very *low-contrast*. Right click the image "
+#~ "layer and select :guilabel:`Properties`. In the Propoerties dialog, click on"
+#~ " the :guilabel:`Histogram` tab. You see here that the pixels from 0-255 have"
+#~ " some values, but the display range is from 0-2048."
+#~ msgstr ""
+
+#~ msgid ""
+#~ "To display this image to a contrast level that our eyes can distinguish, we "
+#~ "will have to stretch these pixels over a much smaller range. Once we do "
+#~ "this, the difference between individual pixel values will be large (i.e. "
+#~ "*high-contrast*) and we will see the image clearly. To do this, go to the "
+#~ ":guilabel:`Style` tab. Select :guilabel:`Custom min/max values` and enter "
+#~ "the value 500 as the max value. Then select :guilabel:`Stretch and Clip to "
+#~ "Minmax` under :guilabel:`Contrast Enhancement` and click :guilabel:`OK`."
+#~ msgstr ""
+
+#~ msgid ""
+#~ "Now you will see that the details in the image is visible clearly. Now we "
+#~ "are ready to start Digitizing."
+#~ msgstr ""
+
+#~ msgid ""
+#~ "Zoom into the center part of the image so we can make out individual "
+#~ "features. Use the :guilabel:`Zoom In` button on the :guilabel:`Map "
+#~ "Navigation` toolbar to zoom and pan to the area."
+#~ msgstr ""
+
+#~ msgid ""
+#~ "Now create a new empty layer where we can digitize the features. Click on "
+#~ ":menuselection:`Layer -->  New --> New Shapefile Layer.`"
+#~ msgstr ""
+
+#~ msgid ""
+#~ "In the next dialog box, choose :guilabel:`WGS84` as the coordinate reference"
+#~ " system. You can choose any projection that is suitable for your region. "
+#~ "Here we are choosing WGS84 to keep it simple. Click :guilabel:`OK`."
+#~ msgstr ""
+
+#~ msgid ""
+#~ "Another dialog box will pop up asking for more information about the new "
+#~ "layer. Since we are creating a waterbodies polygon layer, choose "
+#~ ":guilabel:`Polygon` as the Type of the layer. Below that, there is a section"
+#~ " named :guilabel:`New attribute`. Here you can specify what attribute "
+#~ "information you want to collect about the features you are digitizing. These"
+#~ " will differ from project to project, but here we will add a *name* "
+#~ "attribute. Enter the details and click :guilabel:`Add to attributes list` "
+#~ "button."
+#~ msgstr ""
+
+#~ msgid "When prompted, save the layer with the name :file:`water_bodies`."
+#~ msgstr ""
+
+#~ msgid ""
+#~ "Before we start digitizing, we need to make sure we are using the correction"
+#~ " projection. The layer we created is in *WGS84* projection, but the image is"
+#~ " not. You can check that by right-clicking on the image layer and going to "
+#~ ":guilabel:`Properties`. In the :guilabel:`General` tab, you will see that "
+#~ "the projection is *UTM*."
+#~ msgstr ""
+
+#~ msgid ""
+#~ "We need to have both our layers in the same projection before we can start "
+#~ "digitizing. Either you can reproject the image layer to match our "
+#~ ":file:`water_bodies` layer or vice-versa. There is an easier way to do this "
+#~ "without re-projecting by enabling :guilabel:`On-the-fly reprojection`. Go to"
+#~ " :menuselection:`Settings --> Project Properties`."
+#~ msgstr ""
+
+#~ msgid ""
+#~ "In the :guilabel:`Project Properties` dialog, check the :guilabel:`Enable on"
+#~ " the fly CRS transformation` box. In the :guilabel:`Coordinate Reference "
+#~ "System` box below, choose :guilabel:`WGS 84`. This will ensure that "
+#~ "regardless of the projection, all the layers will be transformed in real "
+#~ "time and displayed in WGS 84 coordinate system. Click :guilabel:`OK`."
+#~ msgstr ""
+
+#~ msgid ""
+#~ "Once you get back to your Canvas, you will see the image is gone. This is "
+#~ "because we are in WGS84 coordinate space and the image is not in the "
+#~ "viewport. Right-click the image layer and choose :guilabel:`Zoom to layer "
+#~ "extent`. The image will be back in the view."
+#~ msgstr ""
+
+#~ msgid ""
+#~ "Now enable the :guilabel:`Digitizing` toolbar by right clicking in the "
+#~ ":guilabel:`Toolbar` section of QGIS. In the pop up menu, make sure "
+#~ ":guilabel:`Digitizing` box is checked."
+#~ msgstr ""
+
+#~ msgid ""
+#~ "Select the :file:`water_bodies` layer. Zoom to a region where you can see "
+#~ "water bodies in the image. Then click :guilabel:`Toggle Editing`."
+#~ msgstr ""
+
+#~ msgid ""
+#~ "Various other buttons in the toolbar will be enabled now. To start drawing a"
+#~ " polygon, click on the :guilabel:`Capture Polygon` button."
+#~ msgstr ""
+
+#~ msgid ""
+#~ "Draw the polygon by click on the edge of the visible lake. Keep clicking "
+#~ "till the polygon is complete. Right click to join the last node to the first"
+#~ " one and close the polygon. A dialog will pop-up asking for attribute "
+#~ "information. Enter the :guilabel:`Id` and :guilabel:`Name` of the feature "
+#~ "you just digitized and click :guilabel:`OK`."
+#~ msgstr ""
+
+#~ msgid ""
+#~ "Similarly, draw polygons for other features in the image. You can look at "
+#~ "the other options in the toolbar to help you with your editing. Once you are"
+#~ " done, click on :guilabel:`Toggle Editing` button. In the pop-up dialog, "
+#~ "click on :guilabel:`Yes` to save your edits."
+#~ msgstr ""
+
+#~ msgid ""
+#~ "Now your basic digitizing is complete. You will have a shapefile with "
+#~ "polygon features and an attribute table with :guilabel:`id` and "
+#~ ":guilabel:`name` attributes."
+#~ msgstr ""
