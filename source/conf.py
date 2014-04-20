@@ -330,7 +330,9 @@ intersphinx_mapping = {'http://docs.python.org/': None}
 # dict(pdf_compressed = True))
 # would mean that specific document would be compressed
 # regardless of the global pdf_compressed setting.
-tutorials = [
+
+# List of English langugage tutorials
+tutorials_en = [
         ('making_a_map', 'Making A Map'),
         ('working_with_attributes', 'Working with Attributes'),
         ('importing_spreadsheets_csv', 'Importing Spreadsheets or CSV files'),
@@ -354,11 +356,42 @@ tutorials = [
         ('batch_processing', 'Batch Processing using Processing Framework'),
         ('counting_vertices', 'Counting Number of Vertices in a Layer'),
         ]
+# List of Spanish langugage tutorials
+tutorials_es = [
+        ('making_a_map', 'Making A Map'),
+        ('working_with_attributes', 'Working with Attributes'),
+        ('importing_spreadsheets_csv', 'Importación de hojas de cálculo o archivos CSV'),
+        ('downloading_osm_data', 'Searching and Downloading OpenStreetMap Data'),
+        ('using_plugins', 'Using Plugins'),
+        ('basic_vector_styling', 'Estilos vectoriales básicos'),
+        ('calculating_line_lengths', 'Calculating Line Lengths and Statistics'),
+        ('raster_styling_and_analysis', 'Basic Raster Styling and Analysis'),
+        ('raster_mosaicing_and_clipping', 'Raster Mosaicing and Clipping'),
+        ('working_with_terrain', 'Working with Terrain Data'),
+        ('working_with_wms', 'Working with WMS Data'),
+        ('georeferencing_basics', 'Georeferencing Topo Sheets and Scanned Maps'),
+        ('advanced_georeferencing', 'Georeferencing Aerial Imagery'),
+        ('digitizing_basics', 'Digitizing Map Data'),
+        ('performing_table_joins', 'Performing Table Joins'),
+        ('performing_spatial_joins', 'Performing Spatial Joins'),
+        ('points_in_polygon', 'Points in Polygon Analysis'),
+        ('performing_spatial_queries', 'Performing Spatial Queries'),
+        ('creating_heatmaps', 'Creating Heatmaps'),
+        ('nearest_neighbor_analysis', 'Nearest Neighbor Analysis'),
+        ('batch_processing', 'Batch Processing using Processing Framework'),
+        ('counting_vertices', 'Counting Number of Vertices in a Layer'),
+        ]
 author = 'Ujaval Gandhi'
 # We create 2 options dictionaries that let us specify different output paper
 # sizes.
 a4_options_dict = dict(pdf_stylesheets = ['sphinx','twelvepoint','a4', 'pdf_customstyle'])
 letter_options_dict = dict(pdf_stylesheets = ['sphinx','twelvepoint','letter', 'pdf_customstyle'])
+
+language = os.environ.get('LANG')
+if language == 'es':
+    tutorials = tutorials_es
+else:
+    tutorials = tutorials_en
 
 pdf_documents = []
 for doc_name, doc_title in tutorials:
