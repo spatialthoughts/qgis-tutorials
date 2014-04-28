@@ -217,6 +217,7 @@ tutorials_en = [
         ('nearest_neighbor_analysis', 'Nearest Neighbor Analysis'),
         ('batch_processing', 'Batch Processing using Processing Framework'),
         ('counting_vertices', 'Counting Number of Vertices in a Layer'),
+        ('open_bil_bip_bsq_files', 'Open BIL, BIP or BSQ files in QGIS'),
         ]
 # List of Spanish langugage tutorials
 tutorials_es = [
