@@ -69,3 +69,9 @@ Data Credits
 .. [USCENSUS] Census Summary File 1— California [machine-readable data files]
    prepared by the U.S. Census Bureau, 2011.
 
+- :doc:`open_bil_bip_bsq_files`
+
+.. [GLCF] DeFries, R., Hansen, M., Townshend, J. R. G. and Sohlberg, R., 1998,
+   Global land cover classifications at 8 km spatial resolution: The use of
+   training data derived from Landsat imagery in decision tree classifiers,
+   International Journal of Remote Sensing; 19 (16): 3141-3168.

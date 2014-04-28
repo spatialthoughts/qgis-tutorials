@@ -30,6 +30,7 @@ QGIS Tutorials and Tips
    - :doc:`docs/batch_processing`
 * Tips and Tricks
    - :doc:`docs/counting_vertices`
+   - :doc:`docs/open_bil_bip_bsq_files`
 * Appendix
    - :doc:`docs/using_plugins`
    - :doc:`docs/credits`
@@ -60,6 +61,7 @@ QGIS Tutorials and Tips
    docs/nearest_neighbor_analysis
    docs/batch_processing
    docs/counting_vertices
+   docs/open_bil_bip_bsq_files
    docs/using_plugins
    docs/credits
    docs/teach_qgis
