@@ -31,6 +31,8 @@ QGIS Tutorials and Tips
 * Tips and Tricks
    - :doc:`docs/counting_vertices`
    - :doc:`docs/open_bil_bip_bsq_files`
+* Python Scripting (PyQGIS)
+   - :doc:`docs/find_neighbor_polygons`
 * Appendix
    - :doc:`docs/using_plugins`
    - :doc:`docs/credits`
@@ -62,6 +64,7 @@ QGIS Tutorials and Tips
    docs/batch_processing
    docs/counting_vertices
    docs/open_bil_bip_bsq_files
+   docs/find_neighbor_polygons
    docs/using_plugins
    docs/credits
    docs/teach_qgis

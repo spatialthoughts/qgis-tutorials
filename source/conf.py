@@ -218,6 +218,7 @@ tutorials_en = [
         ('batch_processing', 'Batch Processing using Processing Framework'),
         ('counting_vertices', 'Counting Number of Vertices in a Layer'),
         ('open_bil_bip_bsq_files', 'Open BIL, BIP or BSQ files in QGIS'),
+        ('find_neighbor_polygons', 'Find Neighbor Polygons in a Layer'),
         ]
 # List of Spanish langugage tutorials
 tutorials_es = [
@@ -244,6 +245,7 @@ tutorials_es = [
         ('batch_processing', 'Batch Processing using Processing Framework'),
         ('counting_vertices', 'Counting Number of Vertices in a Layer'),
         ('open_bil_bip_bsq_files', 'Open BIL, BIP or BSQ files in QGIS'),
+        ('find_neighbor_polygons', 'Find Neighbor Polygons in a Layer'),
         ]
 author = 'Ujaval Gandhi'
 # We create 2 options dictionaries that let us specify different output paper
