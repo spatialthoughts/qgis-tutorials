@@ -8,6 +8,7 @@ QGIS Tutorials and Tips
    - :doc:`docs/making_a_map`
    - :doc:`docs/working_with_attributes`
    - :doc:`docs/importing_spreadsheets_csv`
+   - :doc:`docs/using_plugins`
    - :doc:`docs/downloading_osm_data`
 * Basics GIS operations
    - :doc:`docs/basic_vector_styling`
@@ -34,7 +35,8 @@ QGIS Tutorials and Tips
 * Python Scripting (PyQGIS)
    - :doc:`docs/find_neighbor_polygons`
 * Appendix
-   - :doc:`docs/using_plugins`
+   - :doc:`docs/learning_resources`
+   - :doc:`docs/teach_qgis`
    - :doc:`docs/credits`
 
 .. toctree::
@@ -45,6 +47,7 @@ QGIS Tutorials and Tips
    docs/making_a_map
    docs/working_with_attributes
    docs/importing_spreadsheets_csv
+   docs/using_plugins
    docs/downloading_osm_data
    docs/basic_vector_styling
    docs/calculating_line_lengths
@@ -65,7 +68,7 @@ QGIS Tutorials and Tips
    docs/counting_vertices
    docs/open_bil_bip_bsq_files
    docs/find_neighbor_polygons
-   docs/using_plugins
-   docs/credits
+   docs/learning_resources
    docs/teach_qgis
+   docs/credits
 

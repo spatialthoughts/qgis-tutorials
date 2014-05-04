@@ -9,17 +9,18 @@ You may use these tutorials as a self-paced course to learn the software
 thoroughly. However, each section is fairly independent, so those familiar with
 QGIS can jump into any section.
 
+If you are an educator, see :doc:`teach_qgis` for resources and examples of
+using these tutorials to teach GIS curriculam.
+
+You can also check out :doc:`learning_resources` for other materials to help you
+learn QGIS.
+
 
 Extending and Contributing
 --------------------------
 
 This document has been typeset with reStructuredText. It is available as reST
 source code via `github <https://github.com/spatialthoughts/qgis-tutorials>`_.
-
-.. note::
-
-   If you are an educator, see :doc:`teach_qgis` for using these tutorials to
-   teach QGIS.
 
 Translations
 ^^^^^^^^^^^^

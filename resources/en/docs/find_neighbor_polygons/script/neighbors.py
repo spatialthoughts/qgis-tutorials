@@ -20,9 +20,9 @@ from PyQt4.QtCore import QVariant
 # For example, if your identifier field is called 'XYZ', then change the line
 # below to _NAME_FIELD = 'XYZ'
 _NAME_FIELD = 'NAME'
-# Replace the value below with the field name that you want to sum up. If the
-# field that you want to sum up is called 'VALUES', then change the line below
-# to _SUM_FIELD = 'VALUES'
+# Replace the value below with the field name that you want to sum up.
+# For example, if the # field that you want to sum up is called 'VALUES', then
+# change the line below to _SUM_FIELD = 'VALUES'
 _SUM_FIELD = 'POP_EST'
 
 # Names of the new fields to be added to the layer

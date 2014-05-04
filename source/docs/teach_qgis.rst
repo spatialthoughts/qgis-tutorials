@@ -1,7 +1,8 @@
 Teaching QGIS
 =============
 
-QGIS is great for teaching since it is both *free* and *open*. Here are some
+These tutorials are available free of cost and under a very permissible license
+that allows educators to use these materials in classroom. Here are some
 examples of instructors using these tutorials to teach GIS.
 
 * `Prof. John Barr <http://faculty.ithaca.edu/barr/>`_ is using these tutorials
