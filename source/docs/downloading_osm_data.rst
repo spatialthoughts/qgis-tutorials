@@ -93,7 +93,7 @@ Procedure
 
    Now that we do not need the **OSM Place Search** functionality, you can
    click the close button to remove it from the main window. If you need to use
-   it again, you can enable it from  :menuselection:`View --> Panels --> OSM
+   it again, you can enable it from  :menuselection:`Settings --> Panels --> OSM
    place search..`.
 
 .. image:: /static/downloading_osm_data/images/9.png
