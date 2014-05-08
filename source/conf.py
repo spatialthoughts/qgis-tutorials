@@ -222,11 +222,11 @@ tutorials_en = [
         ]
 # List of Spanish langugage tutorials
 tutorials_es = [
-        ('making_a_map', 'Making A Map'),
+        ('making_a_map', 'Creando un Mapa'),
         ('working_with_attributes', 'Working with Attributes'),
         ('importing_spreadsheets_csv', 'Importación de hojas de cálculo o archivos CSV'),
         ('using_plugins', 'Using Plugins'),
-        ('downloading_osm_data', 'Searching and Downloading OpenStreetMap Data'),
+        ('downloading_osm_data', 'Buscando y descargando datos de OpenStreetMap'),
         ('basic_vector_styling', 'Estilos vectoriales básicos'),
         ('calculating_line_lengths', 'Calculating Line Lengths and Statistics'),
         ('raster_styling_and_analysis', 'Basic Raster Styling and Analysis'),
