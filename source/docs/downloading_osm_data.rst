@@ -94,7 +94,7 @@ Procedure
    Now that we do not need the **OSM Place Search** functionality, you can
    click the close button to remove it from the main window. If you need to use
    it again, you can enable it from  :menuselection:`View --> Panels --> OSM
-   place search..`.
+   place search...` (Windows) or :menuselection:`Settings --> Panels --> OSM place search...` (Linux).
 
 .. image:: /static/downloading_osm_data/images/9.png
    :align: center
@@ -125,7 +125,7 @@ Procedure
     its location, so we need to export that information as well. Click on
     :guilabel:`Load from DB` under :guilabel:`Exported tags` section. This will
     fetch all attributes from the ``london.osm.db`` file. Check
-    :guilabel:`name` and :guilabel:`amenities` tags. See `OSM Tags
+    :guilabel:`name` and :guilabel:`amenity` tags. See `OSM Tags
     <http://wiki.openstreetmap.org/wiki/Tags>`_ to learn more about what
     each attribute means. Make sure the :guilabel:`Load into canvas when
     finished` is checked, and click :guilabel:`OK`.
@@ -161,7 +161,7 @@ Procedure
 .. image:: /static/downloading_osm_data/images/16.png
    :align: center
 
-17. In te :guilabel:`Save vector layer as...` dialog, enter the name of the
+17. In the :guilabel:`Save vector layer as...` dialog, enter the name of the
     output file as ``london_pubs.shp``. Leave all other options as they are and
     make sure the :guilabel:`Add saved file to map` option is checked. Click
     :guilabel:`OK`.
@@ -169,7 +169,7 @@ Procedure
 .. image:: /static/downloading_osm_data/images/17.png
    :align: center
 
-18. You will see a new layer named ``london_pubs`` in the QGIS canvas. uncheck
+18. You will see a new layer named ``london_pubs`` in the QGIS canvas. Uncheck
     the ``london_points`` layer as we don't need that anymore.
 
 .. image:: /static/downloading_osm_data/images/18.png
