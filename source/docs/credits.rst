@@ -9,6 +9,7 @@ Data Credits
 - :doc:`performing_spatial_queries`
 - :doc:`nearest_neighbor_analysis`
 - :doc:`batch_processing`
+- :doc:`getting_started_with_pyqgis`
 - :doc:`find_neighbor_polygons`
 
 .. [NATURALEARTH] Made with Natural Earth. Free vector and raster map data
