@@ -159,7 +159,8 @@ Procedure
 
    for f in layer.getFeatures():
      geom = f.geometry()
-     print '%s, %s, %f, %f' % (f['name'], f['iata_code'], geom.asPoint().y(), geom.asPoint().x())
+     print '%s, %s, %f, %f' % (f['name'], f['iata_code'],
+            geom.asPoint().y(), geom.asPoint().x())
 
 .. image:: /static/getting_started_with_pyqgis/images/11.png
    :align: center
@@ -179,7 +180,8 @@ Procedure
    output_file = open('c:/Users/Ujaval/Desktop/airports.txt', 'w')
    for f in layer.getFeatures():
      geom = f.geometry()
-     line = '%s, %s, %f, %f\n' % (f['name'], f['iata_code'], geom.asPoint().y(), geom.asPoint().x())
+     line = '%s, %s, %f, %f\n' % (f['name'], f['iata_code'],
+             geom.asPoint().y(), geom.asPoint().x())
      unicode_line = line.encode('utf-8')
      output_file.write(unicode_line)
    output_file.close()
