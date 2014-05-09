@@ -7,10 +7,10 @@ Getting Started With Python Programming
 
 QGIS has a powerful programming interface that allows you to extend the core
 functionality of the software as well as write scripts to automate your tasks.
-QGIS has support for the popular Python scripting language. Even if you are a
+QGIS supports the popular Python scripting language. Even if you are a
 beginner, learning a little bit of Python and QGIS programming interface will
 allow you to be much more productive in your work. This tutorial assumes no
-prior programming knowledge and is intended to give you an introduction to
+prior programming knowledge and is intended to give an introduction to
 python scripting in QGIS (PyQGIS).
 
 
@@ -57,7 +57,7 @@ Procedure
    :align: center
 
 4. QGIS provides a built-in console where you can type python commands and get
-   the result. This console is a great way to learn scripting and also for
+   the result. This console is a great way to learn scripting and also to do
    quick data processing. Open the :guilabel:`Python Console` by going to
    :menuselection:`Plugins --> Python Console`.
 
@@ -65,11 +65,11 @@ Procedure
    :align: center
 
 5. You will see a new panel open at the bottom of QGIS canvas. You will see a
-   prompt like ``>>>`` at the bottom where you type commands. For interactive
-   with the QGIS environment, we must use the ``iface`` variable. To access the
-   currently active layer in QGIS, you can type the following and press
-   :kbd:`Enter`. This command fetches the reference to the currently loaded
-   layer and stores it in the ``layer`` variable.
+   prompt like ``>>>`` at the bottom where you can type commands. For
+   interacting with the QGIS environment, we must use the ``iface`` variable.
+   To access the currently active layer in QGIS, you can type the following and
+   press :kbd:`Enter`. This command fetches the reference to the currently
+   loaded layer and stores it in the ``layer`` variable.
 
 .. code-block:: python
 
@@ -79,7 +79,7 @@ Procedure
    :align: center
 
 6. There is a handy function called ``dir()`` in python that shows you all
-   available methods for any object. This is useful when you are not sure of
+   available methods for any object. This is useful when you are not sure
    what functions are available for the object. Run the following command to
    see what operations we can do on the ``layer`` variable.
 
@@ -91,9 +91,9 @@ Procedure
    :align: center
 
 7. You will see a long list of available functions. For now, we will use a
-   function called ``getFeatures()`` which will gets you all features
-   of a layer. In our case, each feature will be a point representing an
-   airport. You can type the following command to iterate through each of the
+   function called ``getFeatures()`` which will gets you the reference to all
+   features of a layer. In our case, each feature will be a point representing
+   an airport. You can type the following command to iterate through each of the
    features in the current layer. Make sure to add 2 spaces before typing the
    second line.
 
@@ -169,9 +169,10 @@ Procedure
     file and write the output there. Replace the file path with a path on your
     own system. Note that we add ``\n`` at the end of our line formatting. This
     is to add a newline after we add the data for each feature. You should also
-    note the ``unicode_line = line.encode('utf-8')`` line. Since our layer contains some features with
-    unicode characters, we can't simply write it to a text file. We encode the
-    text using the UTF-8 encoding and then write to the text file.
+    note the ``unicode_line = line.encode('utf-8')`` line. Since our layer
+    contains some features with unicode characters, we can't simply write it to
+    a text file. We encode the text using the UTF-8 encoding and then write to
+    the text file.
 
 .. code-block:: python
 
