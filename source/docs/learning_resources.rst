@@ -28,3 +28,7 @@ Blogs
 - `Nathan's QGIS Blog <http://nathanw.net/>`_
 - `Free and Open Source GIS Ramblings <http://anitagraser.com/>`_
 
+Video Tutorials
+---------------
+
+- `MangoMap QGIS Video Tutorials <http://qgis-tutorials.mangomap.com/>`_

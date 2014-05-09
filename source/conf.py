@@ -233,7 +233,7 @@ tutorials_es = [
         ('raster_styling_and_analysis', 'Basic Raster Styling and Analysis'),
         ('raster_mosaicing_and_clipping', 'Raster Mosaicing and Clipping'),
         ('working_with_terrain', 'Working with Terrain Data'),
-        ('working_with_wms', 'Working with WMS Data'),
+        ('working_with_wms', 'Trabajando con información WMS'),
         ('georeferencing_basics', 'Georeferencing Topo Sheets and Scanned Maps'),
         ('advanced_georeferencing', 'Georeferencing Aerial Imagery'),
         ('digitizing_basics', 'Digitizing Map Data'),
