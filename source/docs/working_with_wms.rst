@@ -62,7 +62,7 @@ Procedure
 
     - Quality: PNG is a lossless compressed image format. JPEG is lossy
       compressed format. TIFF can be either. That means the quality of PNG
-      images will be better compared to JPEG. if your main purpose is to print
+      images will be better compared to JPEG. If your main purpose is to print
       a map, use PNG.
 
     - Speed: Since PNG images are uncompressed and thus larger in size,
