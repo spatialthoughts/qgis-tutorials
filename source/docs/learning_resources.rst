@@ -32,3 +32,5 @@ Video Tutorials
 ---------------
 
 - `MangoMap QGIS Video Tutorials <http://qgis-tutorials.mangomap.com/>`_
+- `QGIS under 10 minutes <https://www.youtube.com/channel/UCjG-0L40prQXtCS_E525aCw>`_
+  by VisionZ
