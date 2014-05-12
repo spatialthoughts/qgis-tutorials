@@ -104,6 +104,8 @@ html_theme = 'bootstrap'
 # further.  For a list of options available for each theme, see the
 # documentation.
 html_theme_options = {'bootswatch_theme': 'united',
+                      'navbar_pagenav': False,
+                      'navbar_site_name': "Tutorials List",
                      }
 
 # Add any paths that contain custom themes here, relative to this directory.
@@ -140,7 +142,7 @@ html_last_updated_fmt = '%b %d, %Y'
 
 # Custom sidebar templates, maps document names to template names.
 html_sidebars = {
-       '**': ['custom_sidebar.html', 'sourcelink.html', 'searchbox.html'],
+       '**': ['custom_sidebar.html'],
           }
 
 # Additional templates that should be rendered to pages, maps page names to
@@ -157,7 +159,7 @@ html_use_index = False
 #html_split_index = False
 
 # If true, links to the reST sources are added to the pages.
-#html_show_sourcelink = True
+html_show_sourcelink = False
 
 # If true, "Created using Sphinx" is shown in the HTML footer. Default is True.
 #html_show_sphinx = True
