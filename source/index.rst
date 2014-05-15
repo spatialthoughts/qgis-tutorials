@@ -30,6 +30,7 @@ QGIS Tutorials and Tips
    - :doc:`docs/nearest_neighbor_analysis`
    - :doc:`docs/batch_processing`
 * Tips and Tricks
+   - :doc:`docs/using_qgis_browser`
    - :doc:`docs/counting_vertices`
    - :doc:`docs/open_bil_bip_bsq_files`
 * Python Scripting (PyQGIS)
@@ -66,6 +67,7 @@ QGIS Tutorials and Tips
    docs/performing_spatial_queries
    docs/nearest_neighbor_analysis
    docs/batch_processing
+   docs/using_qgis_browser
    docs/counting_vertices
    docs/open_bil_bip_bsq_files
    docs/getting_started_with_pyqgis
