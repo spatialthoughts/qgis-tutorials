@@ -20,7 +20,7 @@ QGIS Browser is part of the standard install of QGIS.
 - Windows: If you installed QGIS via OSGEO4W installer, you will see
   ``QGIS Browser`` in your start menu.
 - Mac: The application is located at
-  ``QGIS.app/Contents/MacOS/bin/qbrowser.app``. You can create a symlink to this
+  ``QGIS.app/Contents/MacOS/bin/QGIS Browser.app``. You can create a symlink to this
   app. Navigate to the Application folder, right-click the QGIS icon and select
   :guilabel:`Show Package Contents`. Browse to :menuselection:`MacOS --> bin
   --> QGIS Browser`. Right-click the ``QGIS Browser`` icon and select
