@@ -105,7 +105,7 @@ html_theme = 'bootstrap'
 # documentation.
 html_theme_options = {'bootswatch_theme': 'united',
                       'navbar_pagenav': False,
-                      'navbar_site_name': "Tutorials List",
+                      'navbar_site_name': 'Tutorials List'
                      }
 
 # Add any paths that contain custom themes here, relative to this directory.
@@ -120,7 +120,7 @@ html_title = 'QGIS Tutorials and Tips'
 
 # The name of an image file (relative to this directory) to place at the top
 # of the sidebar.
-#html_logo = None
+html_logo = '../resources/en/logo.png'
 
 # The name of an image file (within the static path) to use as favicon of the
 # docs.  This file should be a Windows icon file (.ico) being 16x16 or 32x32
