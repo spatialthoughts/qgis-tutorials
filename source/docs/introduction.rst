@@ -29,6 +29,8 @@ The tutorials are also available in following langugages:
 
 - `Spanish <http://qgistutorials.com/es>`_ (Translation by: *Juan Carlos Méndez*
   , *Felipe Raimann*)
+- `Portuguese (Brazil) <http://qgistutorials.com/pt_BR>`_ ( Translation by: *Narcélio de
+  Sá*)
 
 If you would like to help translate these tutorials in your langugage, please
 `Join the team on Transifex
