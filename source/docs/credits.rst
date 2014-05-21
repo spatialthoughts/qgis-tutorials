@@ -77,3 +77,8 @@ Data Credits
    Global land cover classifications at 8 km spatial resolution: The use of
    training data derived from Landsat imagery in decision tree classifiers,
    International Journal of Remote Sensing; 19 (16): 3141-3168.
+
+- :doc:`using_gme_connector`
+
+.. [SFMTA] `SFMTA Livable Streets <https://data.sfgov.org/Transportation/SFMTA-Bikeway-Network/sshc-gutjOpens in new window.>`_.
+   Published by: Municipal Transportation Agency

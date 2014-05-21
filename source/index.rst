@@ -36,6 +36,8 @@ QGIS Tutorials and Tips
 * Python Scripting (PyQGIS)
    - :doc:`docs/getting_started_with_pyqgis`
    - :doc:`docs/find_neighbor_polygons`
+* Web Mapping
+   - :doc:`docs/using_gme_connector`
 * Appendix
    - :doc:`docs/learning_resources`
    - :doc:`docs/teach_qgis`
@@ -72,6 +74,7 @@ QGIS Tutorials and Tips
    docs/open_bil_bip_bsq_files
    docs/getting_started_with_pyqgis
    docs/find_neighbor_polygons
+   docs/using_gme_connector
    docs/learning_resources
    docs/teach_qgis
    docs/credits
