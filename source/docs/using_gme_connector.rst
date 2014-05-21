@@ -159,7 +159,7 @@ Create a Google Developer Console project
 .. image:: /static/using_gme_connector/images/15.png
    :align: center
 
-16. One of the features of the ``Google Maps Engine Connector `` plugin
+16. One of the features of the ``Google Maps Engine Connector`` plugin
     is the ability to upload datasets directly from QGIS. Select the
     ``SFMTA_Bikeway_Network`` layer and click :guilabel:`Upload` icon in the
     toolbar.
