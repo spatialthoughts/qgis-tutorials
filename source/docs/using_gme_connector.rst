@@ -22,7 +22,7 @@ using Google Maps Engine and consuming the resulting map in QGIS.
 Overview of the task
 --------------------
 
-We will take a line layer represneting bike routes in San Francisco and upload
+We will take a line layer representing bike routes in San Francisco and upload
 it to Google Maps Engine using the plugin. Once the layer is styled and a map
 is created, we will add that map to QGIS as a WMS layer.
 
