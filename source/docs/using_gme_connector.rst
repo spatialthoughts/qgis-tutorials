@@ -7,7 +7,7 @@ Using Google Maps Engine Connector for QGIS
    <../pdf/using_gme_connector_letter.pdf>`_ ]
 
 Google Maps Engine is a cloud based mapping platform for creating and sharing
-custom maps. `Google Maps Engine Connector for QGIS
+custom maps. `Google Maps Engine Connector
 <https://github.com/googlemaps/mapsengine-qgis-connector>`_ is a plugin
 that allows you to view and upload Google Maps Engine data from within QGIS.
 This tutorial will go through the process of creating a Google Maps Engine
@@ -16,7 +16,7 @@ using Google Maps Engine and consuming the resulting map in QGIS.
 
 .. note::
 
-   Disclaimer: I am the author of the Google Maps Engine Connector for QGIS and
+   Disclaimer: I am the author of the Google Maps Engine Connector and
    currently part of the Google Maps team.
 
 Overview of the task
@@ -72,7 +72,7 @@ Create a Google Maps Engine account
 Create a Google Developer Console project
 -----------------------------------------
 
-4. The Google Maps Engine Connector for QGIS uses the ``Google Maps Engine
+4. The Google Maps Engine Connector uses the ``Google Maps Engine
    API`` to access the data stored in your account. You will need to obtain
    special credentials which the plugin will use to programatically access your
    data. Visit `Google Developer Console <https://console.developers.google.com/>`_
@@ -105,16 +105,16 @@ Create a Google Developer Console project
 .. image:: /static/using_gme_connector/images/7.png
    :align: center
 
-8. Once the client id is created, you will see a new section called :guilabel:
-   `Client ID for native application`. Note the :guilabel:`Client ID` and
-   :guilabel:`Client secret`. These are the credentials you will need to use in
-   QGIS.
+8. Once the client id is created, you will see a new section called
+   :guilabel:`Client ID for native application`. Note the :guilabel:`Client ID`
+   and :guilabel:`Client secret`. These are the credentials you will need to use
+   in QGIS.
 
 .. image:: /static/using_gme_connector/images/8.png
    :align: center
 
 9. Back in QGIS, visit :menuselection:`Plugins --> Manage and Install
-   Plugins...`. Find the ``Google Maps Engine Connector for QGIS`` plugin and
+   Plugins...`. Find the ``Google Maps Engine Connector `` plugin and
    click :guilabel:`Install plugin`.
 
 .. image:: /static/using_gme_connector/images/9.png
@@ -159,7 +159,7 @@ Create a Google Developer Console project
 .. image:: /static/using_gme_connector/images/15.png
    :align: center
 
-16. One of the features of the ``Google Maps Engine Connector for QGIS`` plugin
+16. One of the features of the ``Google Maps Engine Connector `` plugin
     is the ability to upload datasets directly from QGIS. Select the
     ``SFMTA_Bikeway_Network`` layer and click :guilabel:`Upload` icon in the
     toolbar.
