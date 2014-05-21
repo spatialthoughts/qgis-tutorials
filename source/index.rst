@@ -37,6 +37,7 @@ QGIS Tutorials and Tips
    - :doc:`docs/getting_started_with_pyqgis`
    - :doc:`docs/find_neighbor_polygons`
 * Web Mapping
+   - :doc:`docs/leaflet_maps_with_qgis2leaf`
    - :doc:`docs/using_gme_connector`
 * Appendix
    - :doc:`docs/learning_resources`
@@ -74,6 +75,7 @@ QGIS Tutorials and Tips
    docs/open_bil_bip_bsq_files
    docs/getting_started_with_pyqgis
    docs/find_neighbor_polygons
+   docs/leaflet_maps_with_qgis2leaf
    docs/using_gme_connector
    docs/learning_resources
    docs/teach_qgis

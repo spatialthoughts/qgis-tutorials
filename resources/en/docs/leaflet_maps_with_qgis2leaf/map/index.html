@@ -1,0 +1,52 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+	<title>QGIS2leaf webmap</title>
+	<meta charset="utf-8" />
+	
+	<link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.2/leaflet.css" /> <!-- we will us e this as the styling script for our webmap-->
+	<link rel="stylesheet" type="text/css" href="css/own_style.css">
+</head>
+<body>
+	<div id="map"></div> <!-- this is the initial look of the map. in most cases it is done externally using something like a map.css stylesheet were you can specify the look of map elements, like background color tables and so on.-->
+	<script src="http://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.2/leaflet.js"></script> <!-- this is the javascript file that does the magic-->
+  
+		<script src='data\exp_ne10mairports.js' ></script>
+		
+	<script>
+		var map = L.map('map', { zoomControl:true });
+		var additional_attrib = 'created with <a href="https://github.com/geolicious/qgis2leaf" target ="_blank">gis2leaf</a> by <a href="http://www.geolicious.de" target ="_blank">Geolicious</a> & contributors<br>';
+	var feature_group = new L.featureGroup([]);
+	
+		map.attributionControl.addAttribution(additional_attrib + '&copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors,<a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>'); 
+		L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map);
+		
+			function pop_ne10mairports(feature, layer) {
+				var popupContent = feature.properties.html_exp;
+				layer.bindPopup(popupContent);
+			}
+					
+			var exp_ne10mairportsJSON = new L.geoJson(exp_ne10mairports,{
+				onEachFeature: pop_ne10mairports,
+				pointToLayer: function (feature, latlng) {  
+					return L.circleMarker(latlng, {
+						radius: feature.properties.radius_qgis2leaf,
+						fillColor: feature.properties.color_qgis2leaf,
+						color: '#000',
+						weight: 1,
+						opacity: feature.properties.transp_qgis2leaf,
+						fillOpacity: feature.properties.transp_fill_qgis2leaf
+						})
+					}
+				});
+			feature_group.addLayer(exp_ne10mairportsJSON);
+			
+					//add comment sign to hide this layer on the map in the initial view.
+					exp_ne10mairportsJSON.addTo(map);
+	L.control.layers({},{"ne10mairports": exp_ne10mairportsJSON}).addTo(map);
+		map.fitBounds(feature_group.getBounds());
+	</script>
+</body>
+</html>
+	

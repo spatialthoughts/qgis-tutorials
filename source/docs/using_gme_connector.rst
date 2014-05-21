@@ -114,7 +114,7 @@ Create a Google Developer Console project
    :align: center
 
 9. Back in QGIS, visit :menuselection:`Plugins --> Manage and Install
-   Plugins...`. Find the ``Google Maps Engine Connector `` plugin and
+   Plugins...`. Find the ``Google Maps Engine Connector`` plugin and
    click :guilabel:`Install plugin`.
 
 .. image:: /static/using_gme_connector/images/9.png

@@ -11,6 +11,7 @@ Data Credits
 - :doc:`batch_processing`
 - :doc:`getting_started_with_pyqgis`
 - :doc:`find_neighbor_polygons`
+- :doc:`leaflet_maps_with_qgis2leaf`
 
 .. [NATURALEARTH] Made with Natural Earth. Free vector and raster map data
    @ naturalearthdata.com.
