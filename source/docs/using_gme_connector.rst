@@ -304,6 +304,7 @@ visit the `plugin homepage <https://github.com/googlemaps/mapsengine-qgis-connec
 to view the source code and learn more about the plugin.
 
 .. only:: html
+
    Below is the Google Maps Engine map that was created for this tutorial.
 
 .. raw:: html
@@ -311,5 +312,5 @@ to view the source code and learn more about the plugin.
    <div style="margin-top:10px;">
    <iframe
    src="https://mapsengine.google.com/13476080153727555143-08887688179650036554-4/widget/in_iframe"
-   width="70%" height="600px"></iframe>
+   width="100%" height="600px"></iframe>
    </div>
