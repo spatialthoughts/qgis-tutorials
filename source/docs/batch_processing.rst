@@ -148,11 +148,12 @@ Procedure
 14. You will notice that the :guilabel:`Input layer` columns will be
     auto-populated with all layers you had selected. You may use :guilabel:`Add
     row` button to add more rows and define more inputs. Next, we need to
-    select the layer containing the boundary to clip our input layers. There is
-    no multiple-selection available for this field - so you will have to
-    individually click the :guilabel:`...` button for each row and add the
-    ``africa.shp`` :guilabel:`Clip layer`. Next, we need to define our outputs.
-    Click the :guilabel:`...` buton next to the first row in the
+    select the layer containing the boundary to clip our input layers. Click the
+    :guilabel:`...` button for the first row and add the ``africa.shp``
+    :guilabel:`Clip layer`. Since the clip layer is the same for all our inputs,
+    you can double-click the column header :guilabel:`Clip layer` and the same
+    layer will be auto-filled for all the rows. Next, we need to define our
+    outputs.  Click the :guilabel:`...` buton next to the first row in the
     :guilabel:`Clipped` column.
 
 .. image:: /static/batch_processing/images/14.png

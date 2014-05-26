@@ -88,7 +88,7 @@ Procedure
    command-line tool called **cs2cs** comes handy. If you have installed QGIS
    from OSGeo4W installer, you will already have it installed on your system.
    On Linux and Mac too, it comes pre-installed with QGIS. Launch a terminal
-   window and type `cs2cs` to check if it is available. Windows users can find
+   window and type ``cs2cs`` to check if it is available. Windows users can find
    a terminal at :menuselection:`Start --> OSGeo4W --> MSYS`.
 
 .. image:: /static/advanced_georeferencing/images/5.png
