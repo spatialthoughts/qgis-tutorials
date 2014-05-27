@@ -16,8 +16,8 @@ Overview of the task
 --------------------
 
 Given a raster grid of maximum temperature in the US, we need to extract the
-maximum temperature at all urban areas and also the average maximum temperature
-for each county.
+temperature at all urban areas and also calculate the average temperature for
+each county in the US.
 
 Other skills you will learn
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^
