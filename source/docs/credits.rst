@@ -63,6 +63,7 @@ Data Credits
    Zealand licence <http://creativecommons.org/licenses/by/3.0/nz/>`_.
 
 - :doc:`performing_table_joins`
+- :doc:`sampling_raster_data`
 
 .. [TIGER] 2013 TIGER/Line Shapefiles [machine-readable data files] prepared by
    the U.S. Census Bureau, 2013
@@ -71,6 +72,18 @@ Data Credits
 
 .. [USCENSUS] Census Summary File 1— California [machine-readable data files]
    prepared by the U.S. Census Bureau, 2011.
+
+- :doc:`sampling_raster_data`
+
+.. [NOAACPC] `US Daily Maximum Temperature Analysis (C).
+   <http://www.cpc.ncep.noaa.gov/products/GIS/GIS_DATA/>`_ Viviane Silva - NOAA
+   Climate Prediction Center. Retrieved 2014-05-27
+
+- :doc:`sampling_raster_data`
+
+.. [USGAZETTEER] `US Gazetteer files: 2013
+   <https://www.census.gov/geo/maps-data/data/gazetteer2013.html>`_. United
+   States Census Bureau.  Retrieved 2014-05-27.
 
 - :doc:`open_bil_bip_bsq_files`
 

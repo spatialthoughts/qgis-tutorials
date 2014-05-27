@@ -28,6 +28,7 @@ QGIS Tutorials and Tips
    - :doc:`docs/creating_heatmaps`
 * Advanced GIS operations
    - :doc:`docs/nearest_neighbor_analysis`
+   - :doc:`docs/sampling_raster_data`
    - :doc:`docs/batch_processing`
 * Tips and Tricks
    - :doc:`docs/using_qgis_browser`
@@ -69,6 +70,7 @@ QGIS Tutorials and Tips
    docs/creating_heatmaps
    docs/performing_spatial_queries
    docs/nearest_neighbor_analysis
+   docs/sampling_raster_data
    docs/batch_processing
    docs/using_qgis_browser
    docs/counting_vertices
