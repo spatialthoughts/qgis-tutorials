@@ -6,11 +6,11 @@ Sampling Raster Data using Points or Polygons
    <../pdf/sampling_raster_data_letter.pdf>`_ ]
 
 Many scientific and environmental datasets come as gridded rasters. Elevation
-data is also distributed as raster files. In these raster files, the parameter
-that is being represented is encoded as the pixel values of the raster. Often,
-one needs to extract the pixel values at certain locations or aggregate them
-over some area. This functionality is available in QGIS via two plugins -
-``Point Sampling Tool`` and ``Zonal Statistics plugin``.
+data (DEM) is also distributed as raster files. In these raster files, the
+parameter that is being represented is encoded as the pixel values of the
+raster. Often, one needs to extract the pixel values at certain locations or
+aggregate them over some area. This functionality is available in QGIS via two
+plugins - ``Point Sampling Tool`` and ``Zonal Statistics plugin``.
 
 Overview of the task
 --------------------
