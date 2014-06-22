@@ -9,7 +9,8 @@ Official Documentation
 ----------------------
 - `QGIS 2.0 Documentation
   <http://www.qgis.org/en/docs/index.html#documentation-for-qgis-2-0>`_
-- `A Gentle Introduction to GIS <http://www.qgis.org/en/docs/gentle_gis_introduction/>`_
+- `A Gentle Introduction to GIS
+  <http://docs.qgis.org/2.2/en/docs/gentle_gis_introduction>`_
 
 Training Documentation
 ----------------------
