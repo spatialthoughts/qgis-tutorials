@@ -32,7 +32,7 @@ The tutorials are also available in following langugages:
 - `Portuguese (Brazil) <http://qgistutorials.com/pt_BR>`_ (Translation by: *Narcélio de
   Sá*)
 - `Dutch <http://qgistutorials.com/nl>`_ (Translation by: *Dick Groskamp*)
-- `Italian <http://qgistutorials.com/it>`_ (Translation by: *Rattus*)
+- `Italian <http://qgistutorials.com/it>`_ (Translation by: *Pino Nicolosi a.k.a Rattus*)
 
 If you would like to help translate these tutorials in your langugage, please
 `Join the team on Transifex
