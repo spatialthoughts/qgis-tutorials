@@ -72,7 +72,6 @@ epub:
 # For a completely new langugage, run this first
 createlang:
 	@echo Creating a new Language: $(LANG)
-	mkdir -p resources/${LANG}/docs
 	mkdir -p i18n/${LANG}/LC_MESSAGES/docs
 
 # Run this for generatig .po files for translation.
