@@ -34,6 +34,7 @@ The tutorials are also available in following langugages:
 - `Dutch <http://qgistutorials.com/nl>`_ (Translation by: *Dick Groskamp*)
 - `Italian <http://qgistutorials.com/it>`_ (Translation by: *Pino Nicolosi a.k.a Rattus*)
 - `Russian <http://qgistutorials.com/ru>`_ (Translation by: *Fayçal Fatihi*)
+- `Finnish <http://qgistutorials.com/fi_FI>`_ (Translation by: *Kari Salovaara*)
 
 If you would like to help translate these tutorials in your langugage, please
 `Join the team on Transifex
