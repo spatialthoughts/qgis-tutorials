@@ -94,5 +94,5 @@ Data Credits
 
 - :doc:`using_gme_connector`
 
-.. [SFMTA] `SFMTA Livable Streets <https://data.sfgov.org/Transportation/SFMTA-Bikeway-Network/sshc-gutjOpens in new window.>`_.
+.. [SFMTA] `SFMTA Livable Streets <https://data.sfgov.org/Transportation/SFMTA-Bikeway-Network/sshc-gutj>`_.
    Published by: Municipal Transportation Agency
