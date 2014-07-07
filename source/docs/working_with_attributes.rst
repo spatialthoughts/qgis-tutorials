@@ -10,7 +10,7 @@ GIS data has two parts - features and attributes. Attributes are structured data
 Overview of the task
 --------------------
 
-The dataset for this tutorial contains information about populated places of the world. The task is to query and find all the capital cities in the world that have a population greater than 10,00,000.
+The dataset for this tutorial contains information about populated places of the world. The task is to query and find all the capital cities in the world that have a population greater than 1,000,000.
 
 Get the data
 ------------
@@ -70,12 +70,12 @@ Procedure
 .. image:: /static/working_with_attributes/images/9.png
    :align: center
 
-10. In the :guilabel:`Select By Expression` window, expand the :guilabel:`Fields and Values` section and double-click the `pop_max` label. You will notice that it is added to the expression section at the bottom. If you aren't sure about the field values, you can click the :guilabel:`Load all unique values` to see what the attribute values are present in the dataset. For this exercise, we are looking to find all features that have a population greater than 10,00,000. So complete the expression as `"pop_max" > 1000000` and click :guilabel:`Select`. 
+10. In the :guilabel:`Select By Expression` window, expand the :guilabel:`Fields and Values` section and double-click the `pop_max` label. You will notice that it is added to the expression section at the bottom. If you aren't sure about the field values, you can click the :guilabel:`Load all unique values` to see what the attribute values are present in the dataset. For this exercise, we are looking to find all features that have a population greater than 1,000,000. So complete the expression as `"pop_max" > 1000000` and click :guilabel:`Select`. 
 
 .. image:: /static/working_with_attributes/images/10.png
    :align: center
 
-11. Click on :guilabel:`Close` and return to the main QGIS window. You will notice that a subset of points is now rendered in yellow. This is the result of our query and you are seeing all places from the dataset that have the `pop_max` attribute value greater than 10,00,000.
+11. Click on :guilabel:`Close` and return to the main QGIS window. You will notice that a subset of points is now rendered in yellow. This is the result of our query and you are seeing all places from the dataset that have the `pop_max` attribute value greater than 1,000,000.
  
 .. image:: /static/working_with_attributes/images/11.png
    :align: center
@@ -90,7 +90,7 @@ Procedure
 .. image:: /static/working_with_attributes/images/13.png
    :align: center
 
-14. Click on :guilabel:`Close` and return to the main QGIS window. Now you will see a smaller subset of the points selected. This is the result of the second query and shows all places from the dataset that are country capitals as well as have population greater than 10,00,000.
+14. Click on :guilabel:`Close` and return to the main QGIS window. Now you will see a smaller subset of the points selected. This is the result of the second query and shows all places from the dataset that are country capitals as well as have population greater than 1,000,000.
 
 .. image:: /static/working_with_attributes/images/14.png
    :align: center
@@ -105,7 +105,7 @@ Procedure
 .. image:: /static/working_with_attributes/images/16.png
    :align: center
 
-17. The newly created shapefile will be automaticlally loaded into QGIS. Turn off the populated places layer by un-checking the box next to it. Now, you will see only the features from the newly created layer containing capital cities of the world that have population greater than 10,00,000.
+17. The newly created shapefile will be automaticlally loaded into QGIS. Turn off the populated places layer by un-checking the box next to it. Now, you will see only the features from the newly created layer containing capital cities of the world that have population greater than 1,000,000.
 
 .. image:: /static/working_with_attributes/images/17.png
    :align: center
