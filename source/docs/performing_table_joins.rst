@@ -57,7 +57,7 @@ Procedure
 .. image:: /static/performing_table_joins/images/3.png
    :align: center
 
-4. You will the census tracts loaded into QGIS.
+4. You will see the census tracts loaded into QGIS.
 
 .. image:: /static/performing_table_joins/images/4.png
    :align: center
