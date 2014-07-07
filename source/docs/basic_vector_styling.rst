@@ -194,7 +194,7 @@ Procedure
 
 17. Back in the :guilabel:`Layer Properties` dialog, you can double-click on the
     :guilabel:`Label` column next to each value and enter the text that you
-    want to display. Similarly, you may double-click on the :guilabel:`Range`
+    want to display. Similarly, you may double-click on the :guilabel:`Value`
     column to edit the selected ranges. Click :guilabel:`OK` once you are
     satisfied with the classes.
 
