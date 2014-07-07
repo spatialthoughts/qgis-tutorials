@@ -107,8 +107,9 @@ Procedure
     :guilabel:`Properties`. This time choose :guilabel:`Categorized` from the
     :guilabel:`Style` tab. Categorized means the features in the layer will be
     shown in different shades of a color based on unique values in an attribute
-    field. Choose :guilabel:`LIFEXPCT` value as the :guilabel:`Column` and click
-    :guilabel:`Classify` at the bottom. Click :guilabel:`OK`.
+    field. Choose :guilabel:`LIFEXPCT` value as the :guilabel:`Column`. Choose
+    a :guilabel:`color ramp` of your chice and click :guilabel:`Classify`
+    at the bottom. Click :guilabel:`OK`.
 
 .. image:: /static/basic_vector_styling/images/10.png
    :align: center
@@ -191,11 +192,11 @@ Procedure
 .. image:: /static/basic_vector_styling/images/16.png
    :align: center
 
-17. Back in the :guilabel:`Layer Properties` dialog, you can click on the
+17. Back in the :guilabel:`Layer Properties` dialog, you can double-click on the
     :guilabel:`Label` column next to each value and enter the text that you
-    want to display. Similarly, you may click on the :guilabel:`Range` column
-    to edit the selected ranges. Click :guilabel:`OK` once you are satisfied
-    with the classes.
+    want to display. Similarly, you may double-click on the :guilabel:`Range`
+    column to edit the selected ranges. Click :guilabel:`OK` once you are
+    satisfied with the classes.
 
 .. image:: /static/basic_vector_styling/images/17.png
    :align: center
