@@ -44,8 +44,9 @@ Procedure
    :align: center
 
 2. Browse to the downloaded ``lifeexpectancy.zip`` file and click
-   :guilabel:`Open`. When prompted, select `WGS84 EPSG:4326` as the Coordinate
-   Reference System (CRS).
+   :guilabel:`Open`. Select ``newsweek_data.shp`` and click :guilabel:`Open`.
+   Next you will be prompted for choosing the CRS. Select `WGS84 EPSG:4326`
+   as the Coordinate Reference System (CRS).
 
 .. image:: /static/basic_vector_styling/images/2.png
    :align: center
