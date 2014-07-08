@@ -5,7 +5,7 @@ Working with Attributes
    [ Download PDF `A4 <../pdf/working_with_attributes_a4.pdf>`_ `Letter
    <../pdf/working_with_attributes_letter.pdf>`_ ]
 
-GIS data has two parts - features and attributes. Attributes are structured data about each feature. This tutorial shows how to view the attributes and do basic queries on them QGIS.
+GIS data has two parts - features and attributes. Attributes are structured data about each feature. This tutorial shows how to view the attributes and do basic queries on them in QGIS.
 
 Overview of the task
 --------------------

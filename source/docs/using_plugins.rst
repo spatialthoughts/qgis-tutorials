@@ -95,7 +95,7 @@ Now you know how to install and find an *External Plugin* in QGIS. Let's explore
 .. image:: /static/using_plugins/images/12.png
    :align: center
 
-4. Now when you come back to the main QGIS window, you will see a new *Panel* at the bottom of the canvas. This panel is created by the TimeManager plugin. This yet another way of plugins to add useful functionality to the user interfac .
+4. Now when you come back to the main QGIS window, you will see a new *Panel* at the bottom of the canvas. This panel is created by the TimeManager plugin. This is yet another way of plugins to add useful functionality to the user interface .
 
 .. image:: /static/using_plugins/images/13.png
    :align: center
