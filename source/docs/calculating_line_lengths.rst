@@ -141,16 +141,16 @@ Procedure
 .. image:: /static/calculating_line_lengths/images/12.png
    :align: center
 
-13. Once the export process finishes, you will see a new layer
-    ``usa_railroads`` loaded in QGIS. You can uncheck the box next to
+13. Once the export process finishes, you will see a new layer ``usa_railroads``
+    loaded in QGIS. You can uncheck the box next to
     ``ne_10m_railroads_north_america`` layer to turn it off as we don't need it
     anymore.
 
 .. image:: /static/calculating_line_lengths/images/13.png
    :align: center
 
-14. Right-click on the ``usa_railroads`` layer and select :guilabel:`Open
-    Attribute Table`.
+14. Right-click on the ``usa_railroads`` layer and select
+    :guilabel:`Open Attribute Table`.
 
 .. image:: /static/calculating_line_lengths/images/14.png
    :align: center

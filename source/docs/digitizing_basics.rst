@@ -167,7 +167,7 @@ Procedure
    :align: center
 
 13. The default style of the new line layer is a thin line. Let's change it so
-    we can better see the digitized features on the canvas. Right-click the
+    we can better see the digitized features on the canvas. Right click the
     ``Roads`` layer and select :guilabel:`Properties`.
 
 .. image:: /static/digitizing_basics/images/13.png

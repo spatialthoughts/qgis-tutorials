@@ -108,7 +108,7 @@ Procedure
     :guilabel:`Style` tab. Categorized means the features in the layer will be
     shown in different shades of a color based on unique values in an attribute
     field. Choose :guilabel:`LIFEXPCT` value as the :guilabel:`Column`. Choose
-    a :guilabel:`color ramp` of your chice and click :guilabel:`Classify`
+    a :guilabel:`color ramp` of your choice and click :guilabel:`Classify`
     at the bottom. Click :guilabel:`OK`.
 
 .. image:: /static/basic_vector_styling/images/10.png
@@ -149,7 +149,7 @@ Procedure
       will be maximum variance between individual classes and least variance
       within each class.
     - Standard Deviation - This method will calculate the mean of the data, and
-      create classes based on standard eviation from the mean.
+      create classes based on standard deviation from the mean.
     - Pretty Breaks - This is based on the statistical package R’s pretty
       algorithm. It is a bit complex, but the `pretty` in the name means it
       creates class boundaries that are round numbers.

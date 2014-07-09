@@ -12,7 +12,9 @@
 # serve to show the default.
 
 import sys, os
-import sphinx_bootstrap_theme 
+import sphinx_bootstrap_theme
+sys.path.insert(0, os.path.abspath('.'))
+import i18n_pdf_docs
 # If extensions (or modules to document with autodoc) are in another directory,
 # add these directories to sys.path here. If the directory is relative to the
 # documentation root, use os.path.abspath to make it absolute, like shown here.
@@ -195,70 +197,6 @@ htmlhelp_basename = 'QGISTutorialsdoc'
 # would mean that specific document would be compressed
 # regardless of the global pdf_compressed setting.
 
-# List of English langugage tutorials
-tutorials_en = [
-        ('making_a_map', 'Making A Map'),
-        ('working_with_attributes', 'Working with Attributes'),
-        ('importing_spreadsheets_csv', 'Importing Spreadsheets or CSV files'),
-        ('using_plugins', 'Using Plugins'),
-        ('downloading_osm_data', 'Searching and Downloading OpenStreetMap Data'),
-        ('basic_vector_styling', 'Basic Vector Styling'),
-        ('calculating_line_lengths', 'Calculating Line Lengths and Statistics'),
-        ('raster_styling_and_analysis', 'Basic Raster Styling and Analysis'),
-        ('raster_mosaicing_and_clipping', 'Raster Mosaicing and Clipping'),
-        ('working_with_terrain', 'Working with Terrain Data'),
-        ('working_with_wms', 'Working with WMS Data'),
-        ('georeferencing_basics', 'Georeferencing Topo Sheets and Scanned Maps'),
-        ('advanced_georeferencing', 'Georeferencing Aerial Imagery'),
-        ('digitizing_basics', 'Digitizing Map Data'),
-        ('performing_table_joins', 'Performing Table Joins'),
-        ('performing_spatial_joins', 'Performing Spatial Joins'),
-        ('points_in_polygon', 'Points in Polygon Analysis'),
-        ('performing_spatial_queries', 'Performing Spatial Queries'),
-        ('creating_heatmaps', 'Creating Heatmaps'),
-        ('nearest_neighbor_analysis', 'Nearest Neighbor Analysis'),
-        ('sampling_raster_data', 'Sampling Raster Data using Points or Polygons'),
-        ('batch_processing', 'Batch Processing using Processing Framework'),
-        ('using_qgis_browser', 'Using the QGIS Browser'),
-        ('counting_vertices', 'Counting Number of Vertices in a Layer'),
-        ('open_bil_bip_bsq_files', 'Open BIL, BIP or BSQ files in QGIS'),
-        ('getting_started_with_pyqgis', 'Getting Started with Python Programming'),
-        ('find_neighbor_polygons', 'Find Neighbor Polygons in a Layer'),
-        ('leaflet_maps_with_qgis2leaf', 'Leaflet Web Maps with qgis2leaf'),
-        ('using_gme_connector', 'Using Google Maps Engine Connector for QGIS'),
-        ]
-# List of Spanish langugage tutorials
-tutorials_es = [
-        ('making_a_map', 'Creando un Mapa'),
-        ('working_with_attributes', 'Working with Attributes'),
-        ('importing_spreadsheets_csv', 'Importación de hojas de cálculo o archivos CSV'),
-        ('using_plugins', 'Using Plugins'),
-        ('downloading_osm_data', 'Buscando y descargando datos de OpenStreetMap'),
-        ('basic_vector_styling', 'Estilos vectoriales básicos'),
-        ('calculating_line_lengths', 'Calculating Line Lengths and Statistics'),
-        ('raster_styling_and_analysis', 'Basic Raster Styling and Analysis'),
-        ('raster_mosaicing_and_clipping', 'Raster Mosaicing and Clipping'),
-        ('working_with_terrain', 'Working with Terrain Data'),
-        ('working_with_wms', 'Trabajando con información WMS'),
-        ('georeferencing_basics', 'Georeferencing Topo Sheets and Scanned Maps'),
-        ('advanced_georeferencing', 'Georeferencing Aerial Imagery'),
-        ('digitizing_basics', 'Digitizing Map Data'),
-        ('performing_table_joins', 'Performing Table Joins'),
-        ('performing_spatial_joins', 'Performing Spatial Joins'),
-        ('points_in_polygon', 'Points in Polygon Analysis'),
-        ('performing_spatial_queries', 'Performing Spatial Queries'),
-        ('creating_heatmaps', 'Creating Heatmaps'),
-        ('nearest_neighbor_analysis', 'Nearest Neighbor Analysis'),
-        ('sampling_raster_data', 'Sampling Raster Data using Points or Polygons'),
-        ('batch_processing', 'Batch Processing using Processing Framework'),
-        ('using_qgis_browser', 'Using the QGIS Browser'),
-        ('counting_vertices', 'Counting Number of Vertices in a Layer'),
-        ('open_bil_bip_bsq_files', 'Open BIL, BIP or BSQ files in QGIS'),
-        ('getting_started_with_pyqgis', 'Getting Started with Python Programming'),
-        ('find_neighbor_polygons', 'Find Neighbor Polygons in a Layer'),
-        ('leaflet_maps_with_qgis2leaf', 'Leaflet Web Maps with qgis2leaf'),
-        ('using_gme_connector', 'Using Google Maps Engine Connector for QGIS'),
-        ]
 author = 'Ujaval Gandhi'
 # We create 2 options dictionaries that let us specify different output paper
 # sizes.
@@ -266,10 +204,10 @@ a4_options_dict = dict(pdf_stylesheets = ['sphinx','twelvepoint','a4', 'pdf_cust
 letter_options_dict = dict(pdf_stylesheets = ['sphinx','twelvepoint','letter', 'pdf_customstyle'])
 
 language = os.environ.get('LANG')
-if language == 'es':
-    tutorials = tutorials_es
+if language in i18n_pdf_docs.tutorials:
+    tutorials = i18n_pdf_docs.tutorials[language]
 else:
-    tutorials = tutorials_en
+    tutorials = i18n_pdf_docs.tutorials['en']
 
 pdf_documents = []
 for doc_name, doc_title in tutorials:
@@ -280,7 +218,7 @@ for doc_name, doc_title in tutorials:
 
 # PDF options
 pdf_style_path = ['.', '_styles', 'source/_styles']
-pdf_cover_template = 'pdf_coverpage.tmpl'
+pdf_cover_template = 'pdf_coverpage_%s.tmpl' % language
 pdf_default_dpi = 150
 pdf_use_toc = False
 pdf_compressed = True
