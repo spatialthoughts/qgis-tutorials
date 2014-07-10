@@ -50,5 +50,49 @@
 
 <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=spatialthoughts"></script>
 
+<!-- Script fpr language switching. Largely adapted from https://github.com/pcav/faunalia-website -->
+<script>
+    var currentPage = '{{current_page_name}}.html'; // coming from sphinx, always without starting '/'
+    var currentLang = 'en';
+    $(document).ready(function(){
+
+        var search = new RegExp('\/[a-zA-Z_]{2,8}\/'+ currentPage, 'gi');
+        var langPlusPage = window.location.href.match(search);
+        // it's possible this is a index.html page called without 'index.html', try without the currentPage
+        if (langPlusPage==undefined){
+            search = new RegExp('\/[a-zA-Z_]{2,8}\/$', 'gi');
+            langPlusPage = window.location.href.match(search);
+        }
+
+        // it's possible this is an index.html page called without 'index.html', try removing index.html
+        if (langPlusPage==undefined){
+            currentPage = currentPage.replace('index.html','')
+            search = new RegExp('\/[a-zA-Z_]{2,8}\/'+ currentPage, 'gi');
+            langPlusPage = window.location.href.match(search);
+        }
+        // still no langPlugPage: stop, because the language swicher will misbehave 
+
+        if (langPlusPage == undefined || langPlusPage.length != 1){
+            alert('You hit an error, please report back to us.');
+            return;
+        }
+        langPlusPage = langPlusPage[0];
+        currentLang = langPlusPage.replace(currentPage, '');
+
+        $("#languages").val(currentLang.replace(/\//g,'')); // currentLang is something like '/nl/'
+
+        $("#languages").change(function() {
+            gotoLang($(this).val());
+        });
+
+    });
+
+    // load current page in a different language
+    function gotoLang(lang){
+        var currentUrl = window.location.href;
+        var newUrl = currentUrl.replace(currentLang, '/'+lang+'/');
+        window.location.href = newUrl;
+    }
+</script>
 {% endblock %}
 
