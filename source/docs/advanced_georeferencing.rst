@@ -191,7 +191,7 @@ Procedure
 .. image:: /static/advanced_georeferencing/images/16.png
    :align: center
 
-17. To make our output look nicer, let’s remove the back and white no-data
+17. To make our output look nicer, let’s remove the black and white no-data
     values. Right click on the image layer and choose :guilabel:`Properties`.
 
 .. image:: /static/advanced_georeferencing/images/17.png
