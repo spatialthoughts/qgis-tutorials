@@ -20,7 +20,7 @@ accuracy georeferencing.
 Overview of the task
 --------------------
 
-We will use a scanned map of southen India from 1870 and geo-reference it using QGIS.
+We will use a scanned map of southern India from 1870 and geo-reference it using QGIS.
 
 Other skills you will learn
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -146,7 +146,7 @@ with plugins.
    :align: center
 
 16. The georeferencing is now complete. But as always, it's a good practice to
-    always verify your work. How do we check if our georeferencing is accurate?
+    verify your work. How do we check if our georeferencing is accurate?
     In this case, load the country boundaries shapefile from a trusted source
     like the Natural Earth dataset and compare them. You will notice they match
     up pretty nicely. There is some error and it can be further improved by
