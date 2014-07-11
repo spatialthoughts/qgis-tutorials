@@ -50,7 +50,7 @@ Procedure
 4. Next, click on the :guilabel:`Connect` button to fetch the list of layers available. You
    will notice different IDs listed next to the layers. ID ``0`` means you get a
    map of all the layers. If you do not want all the layers, you can expand the
-   list by clicking on :guilabel:`+` icon and selecting the layer of interest. Selet the
+   list by clicking on :guilabel:`+` icon and selecting the layer of interest. Select the
    layer ``0`` for this tutorial.
 
 .. image:: /static/working_with_wms/images/4.png
