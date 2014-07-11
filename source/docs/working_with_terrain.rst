@@ -170,7 +170,7 @@ Procedure
 .. image:: /static/working_with_terrain/images/15.png
    :align: center
 
-16. You will see that each line feature as an attribute named :guilabel:`ELEV`.
+16. You will see that each line feature has an attribute named :guilabel:`ELEV`.
     This is the height in metres that each line represents. Click on the column header
     a couple of times to sort the values in descending order. Here you will
     find the line representing the highest elevation in our data, i.e. Mt.
