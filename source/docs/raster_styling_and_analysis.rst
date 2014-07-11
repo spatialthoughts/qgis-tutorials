@@ -187,7 +187,8 @@ Procedure
    :align: center
 
 19. Now you will see a much more powerful visualization where you can see areas
-    which has seen positive and negative population density changes. Click on :guilabel:`Zoom In` button and draw a rectangle around Europe to
+    which has seen positive and negative population density changes. Click on
+    :guilabel:`Zoom In` button and draw a rectangle around Europe to
     explore the region in more detail.
 
 .. image:: /static/raster_styling_and_analysis/images/19.png
@@ -218,7 +219,7 @@ Procedure
 23. Once the new layer is loaded, right-click on it and select
     :guilabel:`Properties`. In the :guilabel:`Transparency` tab, add 0 as the
     :guilabel:`Additional no data value`. This setting will make the pixels
-    will 0 values also transparent. Click :guilabel:`OK`.
+    with 0 values also transparent. Click :guilabel:`OK`.
 
 .. image:: /static/raster_styling_and_analysis/images/23.png
    :align: center
