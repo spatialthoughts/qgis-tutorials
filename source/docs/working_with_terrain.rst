@@ -219,7 +219,7 @@ Procedure
 .. image:: /static/working_with_terrain/images/22.png
    :align: center
 
-23. You can visualize also visualize your contour layer and verify your analysis
+23. You can also visualize your contour layer and verify your analysis
     by exporting the contours layer as KML and viewing it in Google Earth.
     Right click on the contours layer, select :guilabel:`Save as..`.
 
