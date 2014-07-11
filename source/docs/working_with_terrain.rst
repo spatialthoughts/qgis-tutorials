@@ -233,7 +233,7 @@ Procedure
 .. image:: /static/working_with_terrain/images/24.png
    :align: center
 
-25. Browse to the output file on your diesk and double-click on it to open Google Earth.
+25. Browse to the output file on your disk and double-click on it to open Google Earth.
 
 .. image:: /static/working_with_terrain/images/25.png
    :align: center
