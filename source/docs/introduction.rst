@@ -34,7 +34,7 @@ The tutorials are also available in following langugages:
   Sá*)
 - `Dutch <http://qgistutorials.com/nl>`_ (Translation by: *Dick Groskamp*)
 - `Italian <http://qgistutorials.com/it>`_ (Translation by: *Pino Nicolosi a.k.a Rattus*)
-- `Russian <http://qgistutorials.com/ru>`_ (Translation by: * Ilya Trofimov*,
+- `Russian <http://qgistutorials.com/ru>`_ (Translation by: *Ilya Trofimov*,
   *Fayçal Fatihi*)
 - `Romanian <http://qgistutorials.com/ro>`_ (Translation by: *Sorin Călinică*)
 
