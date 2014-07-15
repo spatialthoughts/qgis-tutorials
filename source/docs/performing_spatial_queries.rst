@@ -225,8 +225,8 @@ Procedure
 .. image:: /static/performing_spatial_queries/images/24.png
    :align: center
 
-25. Zoom-in to any area and compare the results. You will notice that only the
-    features that intersect with river buffers.
+25. Zoom-in to any area and compare the results. You will notice that the new
+    layer contains only the features that intersect with river buffers.
 
 .. image:: /static/performing_spatial_queries/images/25.png
    :align: center

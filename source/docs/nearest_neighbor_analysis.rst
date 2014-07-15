@@ -5,7 +5,7 @@ Nearest Neighbor Analysis
    [ Download PDF `A4 <../pdf/nearest_neighbor_analysis_a4.pdf>`_ `Letter
    <../pdf/nearest_neighbor_analysis_letter.pdf>`_ ]
 
-GIS is very useful is analyzing spatial relationship between features. One such
+GIS is very useful in analyzing spatial relationship between features. One such
 analysis is finding out which features are closest to a given feature. QGIS has
 a tool called **Distance Matrix** which helps with such analysis. In this
 tutorial, we will use 2 datasets and find out which points from one layer are
@@ -134,7 +134,7 @@ Procedure
 .. image:: /static/nearest_neighbor_analysis/images/10.png
    :align: center
 
-11. You will the the CSV file loaded as a table. Right-click on the table layer
+11. You will see the CSV file loaded as a table. Right-click on the table layer
     and select :guilabel:`Open Attribute Table`.
 
 .. image:: /static/nearest_neighbor_analysis/images/11.png

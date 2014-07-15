@@ -83,7 +83,7 @@ Procedure
 .. image:: /static/creating_heatmaps/images/12.png
    :align: center
 
-13. Now you have your heatmap. It is useful for visual interpretation, but not very useful if you want to use these results in analysis. Many times, you want to identify the `hotspots` whese there is high-concentration of points. We will now try to identify such `hotspots` using this heatmap. Go to :menuselection:`Raster --> Raster Calculator`.
+13. Now you have your heatmap. It is useful for visual interpretation, but not very useful if you want to use these results in analysis. Many times, you want to identify the `hotspots` where there is high-concentration of points. We will now try to identify such `hotspots` using this heatmap. Go to :menuselection:`Raster --> Raster Calculator`.
 
 .. image:: /static/creating_heatmaps/images/13.png
    :align: center
@@ -118,7 +118,7 @@ Procedure
 .. image:: /static/creating_heatmaps/images/19.png
    :align: center
 
-20. In the mian QGIS window, you will see some features highlighted in yellow. These are the features that matched our query. Right-click on the layer and select :guilabel:`Save Selection As...`. 
+20. In the main QGIS window, you will see some features highlighted in yellow. These are the features that matched our query. Right-click on the layer and select :guilabel:`Save Selection As...`. 
  
 .. image:: /static/creating_heatmaps/images/20.png
    :align: center

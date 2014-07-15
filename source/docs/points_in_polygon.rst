@@ -86,7 +86,7 @@ Procedure
 .. image:: /static/points_in_polygon/images/5.png
    :align: center
 
-6. In th pop-up window, select the polygon layer and point layer respectively.
+6. In the pop-up window, select the polygon layer and point layer respectively.
    Name the output layer as ``earthquake_per_coutry.shp`` and Click :guilabel:`OK`.
 
 .. note::
@@ -115,7 +115,7 @@ Procedure
 
 10. To get our answer, we can simply sort the table by ``PNTCNT`` field and the
     country with highest count will be our answer. Click 2-times on the ``PNTCNT``
-    columnto get it sorted in descending order. Click on the first row to
+    column to get it sorted in descending order. Click on the first row to
     select it and close the Attribute Table.
 
 .. image:: /static/points_in_polygon/images/10.png

@@ -212,10 +212,10 @@ Procedure
 
 19. Once the node tool is activated, click on any feature to show the vertices.
     Click on any vertex to select it. The vertex will change the color once it
-    is selected. Now you can move the click and drag your mouse to move the
-    vertex. This is useful when you want to make adjustments after the feature
-    is created. You can also delete a selected vertex by clicking the
-    :kbd:`Delete` key. (:kbd:`Option+Delete` on a mac)
+    is selected. Now you can click and drag your mouse to move the vertex. This
+    is useful when you want to make adjustments after the feature is created.
+    You can also delete a selected vertex by clicking the :kbd:`Delete` key.
+    (:kbd:`Option+Delete` on a mac)
 
 .. image:: /static/digitizing_basics/images/19.png
    :align: center
@@ -236,7 +236,7 @@ Procedure
    :align: center
 
 22. Click the :guilabel:`Add feature` button and click on the map canvas to add
-    a polygon vertex. Digitize the polygon represneting the park. Make sure you
+    a polygon vertex. Digitize the polygon representing the park. Make sure you
     snap to the roads vertices so there are no gaps between the park polygons
     and road lines. Right-click to finish the polygon.
 
