@@ -10,7 +10,7 @@ each of the polygons in a layer. With a little python script, we can accomplish
 this and much more in QGIS. Here is an example script you can use to find all
 polygons that share boundary with each of the polygons in a layer and also add
 their names to the attribute table. As an added bonus, the script also sums up
-an attribute of your choice form all the neighboring polygons.
+an attribute of your choice from all the neighboring polygons.
 
 Overview of the task
 --------------------
