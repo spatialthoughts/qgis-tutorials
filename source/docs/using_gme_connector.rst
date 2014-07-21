@@ -50,7 +50,7 @@ Data Source: [SFMTA]_
 Create a Google Maps Engine account
 -----------------------------------
 
-2. You can sign up for a free Google Maps Engine trail account. The trial
+2. You can sign up for a free Google Maps Engine trial account. The trial
    account is a full featured Maps Engine instance with limited storage quota.
    Visit `Google Maps Engine homepage
    <http://www.google.com/enterprise/mapsearth/products/mapsengine.html>`_ and
@@ -194,7 +194,7 @@ Create a Google Developer Console project
 .. image:: /static/using_gme_connector/images/20.png
    :align: center
 
-21. Click :guilabel:`Add rule` to add create a custom style for the layer.
+21. Click :guilabel:`Add rule` to add a custom style for the layer.
 
 .. image:: /static/using_gme_connector/images/21.png
    :align: center
