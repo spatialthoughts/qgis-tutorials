@@ -36,7 +36,7 @@ layers. Download the following layers
   <http://www.naturalearthdata.com/http//www.naturalearthdata.com/download/10m/cultural/ne_10m_railroads.zip>`_
 - `Ports
   <http://www.naturalearthdata.com/http//www.naturalearthdata.com/download/10m/cultural/ne_10m_ports.zip>`_
-- `Airpots
+- `Airports
   <http://www.naturalearthdata.com/http//www.naturalearthdata.com/download/10m/cultural/ne_10m_airports.zip>`_
 
 Once downloaded, unzip and extract all the shapefiles in a single folder.
