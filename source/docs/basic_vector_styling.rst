@@ -128,8 +128,8 @@ Procedure
     unique *classes* and choose a different style for each of the classes. We
     can think of classifying our life expectancy data into 3 classes, ``LOW``,
     ``MEDIUM`` and ``HIGH``. Choose :guilabel:`LIFEXPCT` as the :guilabel:`Column` and
-    choose :guilabel:`3` as the classes. you will see there are many :guilabel:`Mode`
-    optionsavailable. Let us see the logic behind each of these modes.
+    choose :guilabel:`3` as the classes. You will see there are many :guilabel:`Mode`
+    optionsa vailable. Let us see the logic behind each of these modes.
     There are 5 modes available. :guilabel:`Equal Interval`,
     :guilabel:`Quantile`, :guilabel:`Natural Breaks (Jenks)`,
     :guilabel:`Standard Deviation` and :guilabel:`Pretty Breaks`.
