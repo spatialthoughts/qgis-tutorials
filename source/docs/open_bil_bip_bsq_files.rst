@@ -90,7 +90,7 @@ Procedure
 5. Open a text editor and create a file in the format specified in the previous
    step. Save the file as ``gl-latlong-1deg-landcover.hdr``. Make sure the file
    doesn’t have ``.txt`` at the end. Some of the values in the text files are
-   easy to understand. the **ncols** and **nrows** come from the metadata as the
+   easy to understand. The **ncols** and **nrows** come from the metadata as the
    Number of Lines and Number of Pixels per Line. The **cellsize** is 1 as the
    Pixel resolution from the metadata. The X,Y coordinate of lower-left corner
    needs to be worked out by us. Since the file covers the entire world and
