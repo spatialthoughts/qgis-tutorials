@@ -56,7 +56,7 @@ Procedure
    :align: center
 
 2. Once the layer is loaded, select the :guilabel:`Identify` tool and click
-   anywhere on the layer. You will see the temperature value in celcius as the
+   anywhere on the layer. You will see the temperature value in celsius as the
    value or Band 1 at that location.
 
 .. image:: /static/sampling_raster_data/images/2.png
