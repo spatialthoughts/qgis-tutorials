@@ -126,7 +126,7 @@ Procedure
    store in the variable ``geom``. You can run ``asPoint()`` function on the
    geometry object to get the x and y coordinates of the point. If your feature
    is a line or a polygon, you can use ``asPolyline()`` or ``asPolygon()``
-   functions. Type the folloing code at the prompt and press :kbd:`Enter` to see
+   functions. Type the following code at the prompt and press :kbd:`Enter` to see
    the x and y coordinates of each feature.
 
 .. code-block:: python
