@@ -107,7 +107,7 @@ Procedure
 .. image:: /static/making_a_map/images/16.png
    :align: center
 
-17. Click on the layout where you want the scalebar to appear. From the :guilabel:`Item Properties` tab, choose the Style that fit your requirement.  Also change the units to be :guilabel:`Map units` and label it 'Degree' since the map units are degress. You should also set the transparency by un-cecking the :guilabel:`Background` option.
+17. Click on the layout where you want the scalebar to appear. From the :guilabel:`Item Properties` tab, choose the Style that fit your requirement.  Also change the units to be :guilabel:`Map units` and label it 'Degree' since the map units are degrees. You should also set the transparency by un-cecking the :guilabel:`Background` option.
 
 .. image:: /static/making_a_map/images/17.png
    :align: center
