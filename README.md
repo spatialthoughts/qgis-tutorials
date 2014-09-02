@@ -1,7 +1,7 @@
 QGIS Tutorials
 ==============
 
-This repository contains the source files for QGIS Tutorails and Tips at http://www.qgistutorials.com
+This repository contains the source files for QGIS Tutorials and Tips at http://www.qgistutorials.com
 
 The website and PDFs are generated using [Sphinx](http://sphinx-doc.org) based on [restructured text sources](http://docutils.sourceforge.net/rst.html)
 
