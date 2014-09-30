@@ -39,7 +39,7 @@ Get the data
 of open data for San Francisco.
 
 1. Download the `SFMTA Bikeway Network
-   <https://data.sfgov.org/Transportation/SFMTA-Bikeway-Network/sshc-gutj>`_
+   <https://data.sfgov.org/Transportation/SFMTA-Bikeway-Network/t6vv-tjkd>`_
    shapefile using the Export option on the portal.
 
 .. image:: /static/using_gme_connector/images/1.png
