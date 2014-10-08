@@ -35,7 +35,8 @@ The tutorials are also available in following langugages:
 - `Russian <http://qgistutorials.com/ru>`_ (Translation by: *Ilya Trofimov*, *Fayçal Fatihi*)
 - `Portuguese (Brazil) <http://qgistutorials.com/pt_BR>`_ (Translation by: *Narcélio de
   Sá*)
-- `French <http://qgistutorials.com/fr>`_ (Translation by: *Sylvain Dorey*)
+- `French <http://qgistutorials.com/fr>`_ (Translation by: *Sylvain Dorey*,
+  *Allan Stockman*)
 
 
 If you would like to help translate these tutorials in your langugage, please
