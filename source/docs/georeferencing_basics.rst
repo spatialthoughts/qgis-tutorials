@@ -35,6 +35,12 @@ scanned maps that one can use for research.
 
 Download the `1870 map of southern India <http://www.hipkiss.org/data/maps/william-mackenzie_gallery-of-geography_1870_southern-india_3975_3071_600.jpg>`_ and save it as a JPG image on your hard drive.
 
+.. only:: html
+
+   For convenience, you can directly download sample data used in this tutorial
+   from the link below.
+
+   :download:`1870_southern_india.jpg <../static/georeferencing_basics/data/1870_southern-india.jpg>`
 
 Procedure
 ---------
