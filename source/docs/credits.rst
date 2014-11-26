@@ -85,6 +85,12 @@ Data Credits
    <https://www.census.gov/geo/maps-data/data/gazetteer2013.html>`_. United
    States Census Bureau.  Retrieved 2014-05-27.
 
+- :doc:`interpolating_point_data`
+
+.. [TWDB] `Texas Water Development Board <http://www.twdb.state.tx.us/>`_ .
+   Completed Surveys and Data for Lake Arlington. 2007-12 Shapefiles. Retrieved
+   2014-11-26.
+
 - :doc:`open_bil_bip_bsq_files`
 
 .. [GLCF] DeFries, R., Hansen, M., Townshend, J. R. G. and Sohlberg, R., 1998,
