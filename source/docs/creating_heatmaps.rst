@@ -19,6 +19,12 @@ London datastore provides the `raw data from the Police.uk crime mapping website
 
 Download the `Surrey data <http://data.london.gov.uk/datafiles/crime-community-safety/police-uk-crime-data-surrey.zip>`_.
 
+.. only:: html
+
+   For convenience, you can directly download the sample data used in this
+   tutorial from link below.
+
+   :download:`police-uk-crime-data-surrey.zip <../static/creating_heatmaps/data/police-uk-crime-data-surrey.zip>`
 
 Procedure
 ---------
