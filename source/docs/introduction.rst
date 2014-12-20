@@ -37,6 +37,7 @@ The tutorials are also available in following langugages:
   Sá*)
 - `French <http://qgistutorials.com/fr>`_ (Translation by: *Sylvain Dorey*,
   *Allan Stockman*)
+- `Korean <http://qgistutorials.com/ko>`_ (Translation by: *SongHyun Choi*)
 
 
 If you would like to help translate these tutorials in your langugage, please
