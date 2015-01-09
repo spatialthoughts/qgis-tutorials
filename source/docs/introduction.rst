@@ -38,7 +38,8 @@ The tutorials are also available in following langugages:
 - `French <http://qgistutorials.com/fr>`_ (Translation by: *Sylvain Dorey*,
   *Allan Stockman*)
 - `Korean <http://qgistutorials.com/ko>`_ (Translation by: *SongHyun Choi*)
-
+- `Greek <http://qgistutorials.com/el>`_ (Translation by: *Christina Dimitriadou*,
+  *Paliogiannis Konstantinos*, *Tom Karagkounis*)
 
 If you would like to help translate these tutorials in your langugage, please
 `Join the team on Transifex
