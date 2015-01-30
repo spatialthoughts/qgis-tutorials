@@ -91,7 +91,7 @@ Procedure
    :align: center
 
 8. The :guilabel:`Target vector layer` is the one we want to add the attributes
-   to. In our case, this will be the burrounds boundary ``nybb`` layer. The
+   to. In our case, this will be the boroughs boundary ``nybb`` layer. The
    :guilabel:`Join vector layer` will be the nursing homes
    ``OEM_NursingHomes_001`` layer. As we want to sum the capacity of nursing
    homes, select :guilabel:`Take summary of intersecting features` and choose
