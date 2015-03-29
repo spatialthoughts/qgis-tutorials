@@ -108,8 +108,11 @@ all:
 		 make LANG=$$LANG pdf; \
 		 mv $(BUILDDIR)/html/$$LANG live/html/; \
 		 mv $(BUILDDIR)/pdf/$$LANG live/html/$$LANG/pdf; \
+<<<<<<< HEAD
 	     zip -j live/html/$$LANG/pdf/qgis_tutorials_a4.zip live/html/$$LANG/pdf/*_a4.pdf; \
 	     zip -j live/html/$$LANG/pdf/qgis_tutorials_letter.zip live/html/$$LANG/pdf/*_letter.pdf; \
+=======
+>>>>>>> parent of f9cacec... add a zip of all PDFs on request of some users
 	done
 
 # Deploying generated files in GitHub pages.

@@ -1,7 +1,6 @@
 QGIS Tutorials and Tips
 =======================
 
-
 * Overview
    - :doc:`docs/introduction`
 
@@ -46,8 +45,6 @@ QGIS Tutorials and Tips
    - :doc:`docs/learning_resources`
    - :doc:`docs/teach_qgis`
    - :doc:`docs/credits`
-
-[ Download all tutorials as PDF `A4 <pdf/qgis_tutorials_a4.zip>`_ `Letter <pdf/qgis_tutorials_letter.zip>`_ ]
 
 .. toctree::
    :titlesonly:
