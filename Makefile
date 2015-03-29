@@ -108,8 +108,6 @@ all:
 		 make LANG=$$LANG pdf; \
 		 mv $(BUILDDIR)/html/$$LANG live/html/; \
 		 mv $(BUILDDIR)/pdf/$$LANG live/html/$$LANG/pdf; \
-		 # Zip all the PDFs for easy downloads. -j option stirps the
-		 # sub-directories
 	     zip -j live/html/$$LANG/pdf/qgis_tutorials_a4.zip live/html/$$LANG/pdf/*_a4.pdf; \
 	     zip -j live/html/$$LANG/pdf/qgis_tutorials_letter.zip live/html/$$LANG/pdf/*_letter.pdf; \
 	done
