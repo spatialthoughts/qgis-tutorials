@@ -6,6 +6,12 @@ Using Google Maps Engine Connector for QGIS
    [ Download PDF `A4 <../pdf/using_gme_connector_a4.pdf>`_ `Letter
    <../pdf/using_gme_connector_letter.pdf>`_ ]
 
+.. warning::
+
+   As of 29 January, 2015 Google Maps Engine has stopped creation of new free
+   accounts. If you already have a Maps Engine account, the Google Maps Engine
+   Connector will continue to work till 29 January, 2016.
+   
 Google Maps Engine is a cloud based mapping platform for creating and sharing
 custom maps. `Google Maps Engine Connector
 <https://github.com/googlemaps/mapsengine-qgis-connector>`_ is a plugin
