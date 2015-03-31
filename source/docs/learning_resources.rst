@@ -21,6 +21,7 @@ Books
 - Graser, Anita `Learning QGIS 2.0
   <http://www.packtpub.com/learning-qgis-2-0-to-create-maps-and-perform-geoprocessing-tasks/book>`_,
   Packt Publishing, 2013
+- Kurt Menke, GISP, Dr. Richard Smith Jr., GISP, Dr. Luigi Pirelli, Dr. John Van Hoesen, GISP `Mastering QGIS <https://www.packtpub.com/application-development/mastering-qgis>`_, Packt Publishing, 2015
 - Sherman, Gary `The PyQGIS Programmer's Guide <https://locatepress.com/ppg>`_,
   Locate Press, 2014
 
