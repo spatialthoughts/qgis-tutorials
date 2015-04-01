@@ -113,7 +113,7 @@ all:
 # Deploying generated files in GitHub pages.
 gh-pages:
 	git checkout gh-pages
-	git checkout master source Makefile resources i18n redirector.html 404.html favicon.ico
+	git checkout master source Makefile resources data i18n redirector.html 404.html favicon.ico
 	make all
 	@for LANG in $(LANGUAGES) ; do \
 		rm -rf $$LANG/; \
