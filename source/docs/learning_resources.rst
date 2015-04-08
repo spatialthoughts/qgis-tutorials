@@ -33,6 +33,7 @@ Blogs
 Video Tutorials
 ---------------
 
+- `QGIS Uncovered <https://www.youtube.com/channel/UCrBM8Ka8HhDAYvQY1VX2P0w/videos>`_ by Steven Bernard 
 - `MangoMap QGIS Video Tutorials <http://qgis-tutorials.mangomap.com/>`_
 - `QGIS under 10 minutes <https://www.youtube.com/channel/UCjG-0L40prQXtCS_E525aCw>`_
   by VisionZ
