@@ -37,6 +37,7 @@ QGIS Tutorials and Tips
    - :doc:`docs/open_bil_bip_bsq_files`
 * Python Scripting (PyQGIS)
    - :doc:`docs/getting_started_with_pyqgis`
+   - :doc:`docs/building_a_python_plugin`
    - :doc:`docs/find_neighbor_polygons`
 * Web Mapping
    - :doc:`docs/leaflet_maps_with_qgis2leaf`
@@ -78,6 +79,7 @@ QGIS Tutorials and Tips
    docs/counting_vertices
    docs/open_bil_bip_bsq_files
    docs/getting_started_with_pyqgis
+   docs/building_a_python_plugin
    docs/find_neighbor_polygons
    docs/leaflet_maps_with_qgis2leaf
    docs/using_gme_connector
