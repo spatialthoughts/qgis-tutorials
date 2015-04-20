@@ -5,8 +5,8 @@ Building a Python Plugin
    [ Download PDF `A4 <../pdf/building_a_python_plugin_a4.pdf>`_ `Letter
    <../pdf/building_a_python_plugin_letter.pdf>`_ ]
 
-Plugins are a great way to extend the functionality of QGIS. You can wrote
-plugins using Python that can range from adding a simple button to a toolbar to
+Plugins are a great way to extend the functionality of QGIS. You can write
+plugins using Python that can range from adding a simple button to
 sohpisticated toolkits. This tutorial will outline the process involved in
 setting up your development environment, designing the user interface for a
 plugin and writing code to interact with QGIS. Please review the
