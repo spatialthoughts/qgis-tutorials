@@ -91,6 +91,13 @@ Data Credits
    Completed Surveys and Data for Lake Arlington. 2007-12 Shapefiles. Retrieved
    2014-11-26.
 
+- :doc:`processing_graphical_modeler`
+
+.. [GLCF_MODIS] Channan, S., K. Collins, and W. R. Emanuel. 2014. Global
+    mosaics of the standard MODIS land cover type data. University of Maryland
+    and the Pacific Northwest National Laboratory, College Park, Maryland, USA.
+
+
 - :doc:`open_bil_bip_bsq_files`
 
 .. [GLCF] DeFries, R., Hansen, M., Townshend, J. R. G. and Sohlberg, R., 1998,
