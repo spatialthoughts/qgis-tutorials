@@ -2,7 +2,7 @@ Automating Complex Workflows using Processing Modeler
 =====================================================
 .. only:: html
 
-   [ Download PDF `A4 <../pdf/processing_graphical_modeler_A4.pdf>`_ `Letter
+   [ Download PDF `A4 <../pdf/processing_graphical_modeler_a4.pdf>`_ `Letter
    <../pdf/processing_graphical_modeler_letter.pdf>`_ ]
 
 GIS Workflows typically involve many steps - with each step generating
