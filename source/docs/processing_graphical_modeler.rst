@@ -112,7 +112,7 @@ and run it on the downloaded datasets.
 .. image:: /static/processing_graphical_modeler/images/6.png
    :align: center
 
-7. Select ``'Filtered Grid' from algorithm 'Majority Filter'`` as the value for
+7. Select 'Filtered Grid' from algorithm 'Majority Filter' as the value for
    :guilabel:`Input layer`. Click :guilabel:`OK`.
 
 .. image:: /static/processing_graphical_modeler/images/7.png
@@ -125,7 +125,7 @@ and run it on the downloaded datasets.
 .. image:: /static/processing_graphical_modeler/images/8.png
    :align: center
 
-9. Select ``'Vectorized' from algorithm 'Polygonize (raster to vector)`` as the
+9. Select 'Vectorized' from algorithm 'Polygonize (raster to vector) as the
    :guilabel:`Input Layer`. We want to extract the pixels that represent
    Croplands. The corresponding pixel value for this class will be 12. (see
    `Code Values <http://www.landcover.org/data/lc/>`_). Enter ``DN`` as the
