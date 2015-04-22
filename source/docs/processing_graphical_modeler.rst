@@ -52,7 +52,7 @@ Our workflow for this exercise will have the following steps.
 The following steps outline the process to code the above process into a model
 and run it on the downloaded datasets.
 
-1. Launch QGIS and go to :guilabel:`Processing --> Graphical Modeler...`.
+1. Launch QGIS and go to :menuselection:`Processing --> Graphical Modeler...`.
 
 .. image:: /static/processing_graphical_modeler/images/1.png
    :align: center
