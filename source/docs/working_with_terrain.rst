@@ -64,10 +64,10 @@ QGIS supports a wide `variety of raster formats
 <http://www.gdal.org/formats_list.html>`_ via the GDAL library. The GMTED
 data comes as GeoTiff files which are contained in this zip archive.
 
-.. only:: html
+For convenience, you can download a copy of the data directly from below.
 
-   For convenience, you can :download:`download a copy of the data from here.
-   <../static/working_with_terrain/data/GMTED2010N10E060_300.zip>`.
+`GMTED2010N10E060_300.zip <../../downloads/GMTED2010N10E060_300.zip>`_
+
 
 Data Source: [GMTED2010]_
 

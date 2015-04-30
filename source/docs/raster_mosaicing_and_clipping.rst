@@ -57,18 +57,24 @@ Here is how to search and download the revelant data.
 
 Repeat the process for all 7 FAS subsets for Brazil.
 
-.. only:: html
 
-   For convenience, you can directly download sample data used in this tutorial from links below.
+For convenience, you can directly download sample data used in this tutorial from links below.
 
-   :download:`ne_10m_admin_0_countries.zip <../static/raster_mosaicing_and_clipping/data/ne_10m_admin_0_countries.zip>`
-   :download:`FAS_Brazil1.2013363.aqua.ndvi.2km.tif <../static/raster_mosaicing_and_clipping/data/FAS_Brazil1.2013363.aqua.ndvi.2km.tif>`
-   :download:`FAS_Brazil2.2013363.terra.ndvi.2km.tif <../static/raster_mosaicing_and_clipping/data/FAS_Brazil2.2013363.terra.ndvi.2km.tif>`
-   :download:`FAS_Brazil3.2013363.aqua.ndvi.2km.tif <../static/raster_mosaicing_and_clipping/data/FAS_Brazil3.2013363.aqua.ndvi.2km.tif>`
-   :download:`FAS_Brazil4.2013363.aqua.ndvi.2km.tif <../static/raster_mosaicing_and_clipping/data/FAS_Brazil4.2013363.aqua.ndvi.2km.tif>`
-   :download:`FAS_Brazil5.2013363.aqua.ndvi.2km.tif <../static/raster_mosaicing_and_clipping/data/FAS_Brazil5.2013363.aqua.ndvi.2km.tif>`
-   :download:`FAS_Brazil6.2013363.terra.ndvi.2km.tif <../static/raster_mosaicing_and_clipping/data/FAS_Brazil6.2013363.terra.ndvi.2km.tif>`
-   :download:`FAS_Brazil7.2013363.aqua.ndvi.2km.tif <../static/raster_mosaicing_and_clipping/data/FAS_Brazil7.2013363.aqua.ndvi.2km.tif>`
+`ne_10m_admin_0_countries.zip <../../downloads/ne_10m_admin_0_countries.zip>`_
+
+`FAS_Brazil1.2013363.aqua.ndvi.2km.tif <../../downloads/FAS_Brazil1.2013363.aqua.ndvi.2km.tif>`_
+
+`FAS_Brazil2.2013363.terra.ndvi.2km.tif <../../downloads/FAS_Brazil2.2013363.terra.ndvi.2km.tif>`_
+
+`FAS_Brazil3.2013363.aqua.ndvi.2km.tif <../../downloads/FAS_Brazil3.2013363.aqua.ndvi.2km.tif>`_
+
+`FAS_Brazil4.2013363.aqua.ndvi.2km.tif <../../downloads/FAS_Brazil4.2013363.aqua.ndvi.2km.tif>`_
+
+`FAS_Brazil5.2013363.aqua.ndvi.2km.tif <../../downloads/FAS_Brazil5.2013363.aqua.ndvi.2km.tif>`_
+
+`FAS_Brazil6.2013363.terra.ndvi.2km.tif <../../downloads/FAS_Brazil6.2013363.terra.ndvi.2km.tif>`_
+
+`FAS_Brazil7.2013363.aqua.ndvi.2km.tif <../../downloads/FAS_Brazil7.2013363.aqua.ndvi.2km.tif>`_
 
 Data Sources: [LANCE]_ [NATURALEARTH]_
 
