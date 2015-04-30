@@ -97,6 +97,9 @@ Data Credits
     mosaics of the standard MODIS land cover type data. University of Maryland
     and the Pacific Northwest National Laboratory, College Park, Maryland, USA.
 
+- :doc:`automating_map_creation`
+
+.. [HAWAII] `State of Hawaii - Office of Planning <http://planning.hawaii.gov/gis/>`_
 
 - :doc:`open_bil_bip_bsq_files`
 
