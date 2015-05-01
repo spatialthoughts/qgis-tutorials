@@ -72,7 +72,7 @@ and run it on the downloaded datasets.
    :align: center
 
 4. You will see a box with the name :guilabel:`Input` appear in the canvas.
-   This represents the landconver raster that we will use as input. Next step
+   This represents the landcover raster that we will use as input. Next step
    is to apply a ``Majority filter`` algorithm. Switch to the
    :guilabel:`Algorithm` tab from the bottom-left corner. Search for the
    algorithm and you will find it listed under :guilabel:`SAGA` provider. Drag
@@ -274,7 +274,7 @@ and run it on the downloaded datasets.
 Models can be a great timesaver and allow you to write your workflow once and
 run it multiple times. You can even share your model with other users. The
 model files are saved in the ``.qgis2`` directory. You can send the ``.model``
-file to another user who can copy it the the appropriate directory on their
+file to another user who can copy it to the appropriate directory on their
 computer and it will appear in the :guilabel:`Processing toolbox`. The models
 directory location will depend on the platform as follows: (Replace
 ``username`` with your login name)

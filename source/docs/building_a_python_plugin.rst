@@ -72,7 +72,7 @@ A Text Editor or a Python IDE
 Any kind of software development requires a good text editor. If you already
 have a favorite text editor or an IDE (Integrated Development Environment), you
 may use it for this tutorial. Otherwise, each platform offers a wide variety of
-free or paid options for text editros. Choose the one that fits your needs.
+free or paid options for text editors. Choose the one that fits your needs.
 
 This tutorial uses Notepad++ editor on Windows.
 
@@ -94,7 +94,7 @@ Plugin Builder plugin
 ^^^^^^^^^^^^^^^^^^^^^
 
 There is a helpful QGIS plugin named ``Plugin Builder`` which creates all the
-neccesary files and the boilerplate code for a plugin. Find and install the
+necessary files and the boilerplate code for a plugin. Find and install the
 ``Plugin Builder`` plugin. See :doc:`using_plugins` for more details on how to
 install plugins.
 
@@ -218,7 +218,7 @@ Procedure
 .. image:: /static/building_a_python_plugin/images/9.png
    :align: center
 
-10. We will not design our dialog box and add some user interface elements to
+10. We will now design our dialog box and add some user interface elements to
     it. Open the ``Qt Creator`` program and to to :guilabel:`File --> Open File
     or Project...`.
 
@@ -318,7 +318,7 @@ Procedure
     :guilabel:`Display Widget` and change the text to ``Select output file``.
     Add a ``LineEdit`` type :guilabel:`Input Widget` that will show the output
     file path that the user has chosen. Next, add a ``Push Button`` type
-    :guilabel:`Button` and chage the button label to ``...``. Note the object
+    :guilabel:`Button` and change the button label to ``...``. Note the object
     names of the widgets that we will have to use to interact with them. Save
     the file.
 
@@ -348,7 +348,7 @@ Procedure
 
 25. Now we need to add code so that when the `...` button is clicked,
     ``select_output_file`` method is called. Scroll up to the ``__init__``
-    method and add the following lines at the botton. This code will clear the
+    method and add the following lines at the bottom. This code will clear the
     previously loaded text (if any) in the line edit widget and also connect
     the ``select_output_file`` method to the ``clicked`` signal of the push
     button widget.

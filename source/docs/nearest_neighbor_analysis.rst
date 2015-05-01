@@ -29,7 +29,7 @@ Get the data
 
 We will use NOAA’s National Geophysical Data Center’s `Significant Earthquake
 Database <http://www.ngdc.noaa.gov/nndc/struts/form?t=101650&s=1&d=1>`_ as our
-layer represenging all major earthquakes. Download the `tab-delimited
+layer representing all major earthquakes. Download the `tab-delimited
 earthquake data
 <http://www.ngdc.noaa.gov/nndc/struts/results?type_0=Exact&query_0=$ID&t=101650&s=13&d=189&dfn=signif.txt>`_.
 
@@ -275,7 +275,7 @@ Procedure
 .. image:: /static/nearest_neighbor_analysis/images/26.png
    :align: center
 
-27. The processsing may take a few minutes. You can see the progress on the
+27. The processing may take a few minutes. You can see the progress on the
     bottom-left corner of the QGIS window.
 
 .. image:: /static/nearest_neighbor_analysis/images/27.png

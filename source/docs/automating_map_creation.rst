@@ -6,7 +6,7 @@ Automating Map Creation with Print Composer Atlas
    <../pdf/automating_map_creation_letter.pdf>`_ ]
 
 If your organization publishes printed or online maps, you often would need to
-create many maps with the same template - usually one for each adminitrative
+create many maps with the same template - usually one for each administrative
 unit or a region of interest. Creating these maps manually can take a long time
 and if you want to update these on a regular basis, it can turn into a chore.
 QGIS has a tool called ``Atlas`` that can help you create a map template and
@@ -24,7 +24,7 @@ Hawaii.
 Other skills you will learn
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^
 - How to use the ``Inverted Polygons`` style renderer to fill areas outside of
-  polygons.
+ polygons.
 - How to use an expression in the ``Rule Based`` style renderer to show only
   the current feature in Atlas.
 - Apply expressions to create dynamic labels in Print Composer.
@@ -110,7 +110,7 @@ Procedure
 .. image:: /static/automating_map_creation/images/9.png
    :align: center
 
-10. Swich to the :guilabel:`Atlas generation` tab. Check the
+10. Switch to the :guilabel:`Atlas generation` tab. Check the
     :guilabel:`Generate an atlas` box. Select the ``county10`` as the
     :guilabel:`Coverage layer`. This will indicate that we want to create 1 map
     each for every polygon feature in the ``county10`` layer. You can also
@@ -173,7 +173,7 @@ Procedure
    :align: center
 
 19. Add another label and enter ``Wetlands Map`` under the :guilabel:`Main
-    properties`. Since there is no expression here, this text will remain hte
+    properties`. Since there is no expression here, this text will remain the
     same on all maps.
 
 .. image:: /static/automating_map_creation/images/19.png
