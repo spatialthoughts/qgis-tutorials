@@ -35,12 +35,10 @@ surveys
 Download the `2007-12 survey shapefiles for Lake Arlington
 <http://www.twdb.texas.gov/hydro_survey/Arlington/2007-12/Shapefiles.zip>`_.
 
-.. only:: html
+For convenience, you can directly download the sample data used in this
+tutorial from link below.
 
-   For convenience, you can directly download the sample data used in this
-   tutorial from link below.
-
-   :download:`Shapefiles.zip <../static/interpolating_point_data/data/Shapefiles.zip>`
+`Shapefiles.zip <../../downloads/Shapefiles.zip>`_
 
 Data Sources: [TWDB]_
 
