@@ -23,8 +23,7 @@ Hawaii.
 
 Other skills you will learn
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^
-- How to use the ``Inverted Polygons`` style renderer to fill areas outside of
- polygons.
+- How to use the ``Inverted Polygons`` style renderer to fill areas outside of polygons.
 - How to use an expression in the ``Rule Based`` style renderer to show only
   the current feature in Atlas.
 - Apply expressions to create dynamic labels in Print Composer.
