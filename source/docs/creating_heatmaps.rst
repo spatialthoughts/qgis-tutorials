@@ -5,6 +5,10 @@ Creating Heatmaps
    [ Download PDF `A4 <../pdf/creating_heatmaps_a4.pdf>`_ `Letter
    <../pdf/creating_heatmaps_letter.pdf>`_ ]
 
+.. warning::
+
+   The Heatmap plugin has a bug in QGIS 2.8.1. See `this post <http://gis.stackexchange.com/questions/137770/why-are-heatmaps-on-qgis-2-8-1-produced-in-the-wrong-crs>`_ for workarounds.
+  
 Heatmaps are one of the best visualization tools for dense point data. Heatmaps are used to easily identify find clusters where there is a high concentration of activity. They are also useful for doing `cluster analysis` or `hotspot analysis`.
 
 Overview of the task
