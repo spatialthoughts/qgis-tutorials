@@ -7,7 +7,7 @@ Using Custom Python Expression Functions
 
 Expressions in QGIS have a lot of power and are used in many core features -
 selection, calculating field values, styling, labelling etc. QGIS also has
-support for user-defined expressions. Using a little bit of python programming,
+support for user-defined expressions. With a little bit of python programming,
 you can define your own functions that can be used within the expression
 engine.
 
