@@ -10,6 +10,7 @@ Data Credits
 - :doc:`nearest_neighbor_analysis`
 - :doc:`batch_processing`
 - :doc:`getting_started_with_pyqgis`
+- :doc:`custom_python_functions`
 - :doc:`find_neighbor_polygons`
 - :doc:`leaflet_maps_with_qgis2leaf`
 
