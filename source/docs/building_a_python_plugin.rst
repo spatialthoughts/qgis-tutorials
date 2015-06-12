@@ -204,10 +204,12 @@ Procedure
    :align: center
 
 8. Now we are ready to have a first look at the brand new plugin we created.
-   Close QGIS and launch it again. You will notice that there is a new icon in
-   the toolbar and a new menu entry under :menuselection:`Vector --> Save
-   Attributes --> Save Attributes as CSV``. Select it to launch the plugin
-   dialog.
+   Close QGIS and launch it again. Go to :menuselection:`Plugins --> Manage
+   and Install plugins` and enable the ``Save Attributes`` plugin in the
+   :guilabel:`Installed` tab. You will notice that there is a new icon
+   in the toolbar and a new menu entry under :menuselection:`Vector
+   --> Save Attributes --> Save Attributes as CSV``. Select it to launch 
+   the plugin dialog.
 
 .. image:: /static/building_a_python_plugin/images/8.png
    :align: center
