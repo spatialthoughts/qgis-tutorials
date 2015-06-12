@@ -160,7 +160,7 @@ Procedure
    :align: center
 
 15. Browse the the directory where you want your output layers. Type the
-    filename as ``output_`` and click :guilabel:`Save`.
+    filename as ``clipped_`` and click :guilabel:`Save`.
 
 .. image:: /static/batch_processing/images/15.png
    :align: center
