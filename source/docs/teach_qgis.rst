@@ -40,6 +40,11 @@ examples of instructors using these tutorials to teach GIS.
   Ecological Research, Advocacy and Learning (FERAL)
   <http://www.feralindia.org/>`_.
 
-* `Yves Barthélemy <http://www.sciencespo.fr/master-public-affairs/content/barthelemy>`_ used the tutorials at Sciences-PO in Paris for a GIS course given to `Master of Public Affairs <http://www.sciencespo.fr/master-public-affairs/>`_ students.
+* `Yves Barthélemy
+  <http://www.sciencespo.fr/master-public-affairs/content/barthelemy>`_ used
+  the tutorials at Sciences-PO in Paris for a GIS course given to `Master of
+  Public Affairs <http://www.sciencespo.fr/master-public-affairs/>`_ students.
 
-* Florian Hoedt at  `University of Applied Sciences Höxter <http://www.hs-owl.de>`_ is teaches the specialization GIS course to Landscape Artchitects and uses the QGIS tutorials as exercises.
+* Florian Hoedt at `University of Applied Sciences Höxter
+  <http://www.hs-owl.de>`_ teaches the specialization GIS course to
+  Landscape Artchitects and uses the QGIS tutorials as exercises.
