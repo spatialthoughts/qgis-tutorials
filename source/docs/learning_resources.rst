@@ -41,5 +41,4 @@ Video Tutorials
 Online Courses
 --------------
 
-- `Introduction to Geospatial Technology Using QGIS <http://foss4geo.org/>`_,
-  Free online course by FOSS4G Academy @ Del Mar College.
+- `GeoAcademy <http://fossgeo.org/>`_ offers 5 Free online courses and covers a full GIS curriculam using QGIS.
