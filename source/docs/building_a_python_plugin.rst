@@ -411,4 +411,4 @@ Procedure
 
 Below is the full ``save_attributes.py`` file as a reference.
 
-.. literalinclude:: /static/building_a_python_plugin/script/save_attributes.py
+.. literalinclude:: /static/building_a_python_plugin/scripts/save_attributes.py
