@@ -102,6 +102,10 @@ Data Credits
 
 .. [HAWAII] `State of Hawaii - Office of Planning <http://planning.hawaii.gov/gis/>`_
 
+- :doc:`running_qgis_jobs`
+
+.. [GEOFABRIK] Data/Maps Copyright 2015 `Geofabrik GmbH <http://www.geofabrik.de/>`_ and `OpenStreetMap Contributors <http://www.openstreetmap.org/>`_
+
 - :doc:`open_bil_bip_bsq_files`
 
 .. [GLCF] DeFries, R., Hansen, M., Townshend, J. R. G. and Sohlberg, R., 1998,
