@@ -156,9 +156,8 @@ Procedure
 
 .. note::
 
-   Linux and Mac users need not create a separate launcher file like this. You
-   can set the PATH and other Environment variables in the terminal and run
-   your script directly.
+   Linux and Mac users will need to create a shell script to set the paths
+   and environment variables.
 
 .. code-block:: none
 
