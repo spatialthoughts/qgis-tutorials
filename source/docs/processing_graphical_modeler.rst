@@ -107,7 +107,7 @@ and run it on the downloaded datasets.
 
    The boxes can be moved and arranged by clicking on it and dragging it while
    holding the left mouse button. You can also use the scroll-wheel to zoom in
-   and out in the model cavas.
+   and out in the model canvas.
 
 .. image:: /static/processing_graphical_modeler/images/6.png
    :align: center
@@ -263,7 +263,7 @@ and run it on the downloaded datasets.
 .. image:: /static/processing_graphical_modeler/images/28.png
    :align: center
 
-29. In the :guilabel:`Help editor` dialog, select an from the
+29. In the :guilabel:`Help editor` dialog, select any item from the
     :guilabel:`Select element to edit` panel and enter the help text in
     :guilabel:`Element description`. Click :guilabel:`OK`. This help will be
     available in the :guilabel:`Help` tab when you launch the model to run.
