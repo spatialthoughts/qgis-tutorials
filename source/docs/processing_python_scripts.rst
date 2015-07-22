@@ -118,7 +118,7 @@ Procedure
 .. note::
 
    This script uses python list comprehensions extensively. Take a look at this 
-   `list compregension tutorial <https://docs.python.org/2/tutorial/datastructures.html#list-comprehensions>`_
+   `list comprehension tutorial <https://docs.python.org/2/tutorial/datastructures.html#list-comprehensions>`_
    to get familiar with the syntax.
 
 .. code-block:: python
