@@ -11,6 +11,7 @@ Data Credits
 - :doc:`batch_processing`
 - :doc:`getting_started_with_pyqgis`
 - :doc:`custom_python_functions`
+- :doc:`processing_python_scripts`
 - :doc:`find_neighbor_polygons`
 - :doc:`leaflet_maps_with_qgis2leaf`
 

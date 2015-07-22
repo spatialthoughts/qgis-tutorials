@@ -41,6 +41,7 @@ QGIS Tutorials and Tips
    - :doc:`docs/getting_started_with_pyqgis`
    - :doc:`docs/building_a_python_plugin`
    - :doc:`docs/custom_python_functions`
+   - :doc:`docs/processing_python_scripts`
    - :doc:`docs/running_qgis_jobs`
    - :doc:`docs/find_neighbor_polygons`
 * Web Mapping
@@ -87,6 +88,7 @@ QGIS Tutorials and Tips
    docs/getting_started_with_pyqgis
    docs/building_a_python_plugin
    docs/custom_python_functions
+   docs/processing_python_scripts
    docs/running_qgis_jobs
    docs/find_neighbor_polygons
    docs/leaflet_maps_with_qgis2leaf
