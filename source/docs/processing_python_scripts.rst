@@ -6,10 +6,10 @@ Writing Python Scripts for Processing Framework
    <../pdf/processing_python_scripts_letter.pdf>`_ ]
 
 One can write standalone pyqgis scripts that can be run via the Python Console
-in QGIS. You can also adapt your pyqgis scripts so they can be run via the
+in QGIS. With a few tweaks, you can make your standalone scripts run via the
 Processing Framework. This has several advantages. First, taking user input and
-writing output files is far easier as Processing Framework offers standardized
-user interface for these. Having your script in the Processing Toolbox also
+writing output files is far easier because Processing Framework offers standardized
+user interface for these. Second, having your script in the Processing Toolbox also
 allows it to be part of any Processing Model or be run as a Batch job with
 multiple inputs. This tutorial will show how to write a custom python script
 that can be part of the Processing Framework in QGIS.
@@ -114,6 +114,12 @@ Procedure
    <https://docs.qgis.org/2.8/en/docs/user_manual/processing/console.html#additional-functions-for-handling-data>`_
    section of QGIS Processing Documentation. Click :guilabel:`Save` to save the
    newly entered code and then the :guilabel:`X` button to close the editor.
+   
+.. note::
+
+   This script uses python list comprehensions extensively. Take a look at this 
+   `list compregension tutorial <https://docs.python.org/2/tutorial/datastructures.html#list-comprehensions>`_
+   to get familiar with the syntax.
 
 .. code-block:: python
 
