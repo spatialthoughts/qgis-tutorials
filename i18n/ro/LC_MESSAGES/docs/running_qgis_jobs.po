@@ -1,0 +1,363 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2015, Ujaval Gandhi
+# This file is distributed under the same license as the QGIS Tutorials and Tips package.
+# 
+# Translators:
+# Sorin Călinică <scalinica@gmail.com>, 2015
+msgid ""
+msgstr ""
+"Project-Id-Version: QGIS Tutorials\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2015-07-22 16:33+0530\n"
+"PO-Revision-Date: 2015-07-12 10:56+0000\n"
+"Last-Translator: Sorin Călinică <scalinica@gmail.com>\n"
+"Language-Team: Romanian (http://www.transifex.com/projects/p/qgis-tutorials/language/ro/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: ro\n"
+"Plural-Forms: nplurals=3; plural=(n==1?0:(((n%100>19)||((n%100==0)&&(n!=0)))?2:1));\n"
+
+# 19ec56df6f6a41bbb09c9f993877b588
+#: ../../source/docs/running_qgis_jobs.rst:2
+msgid "Running and Scheduling QGIS Processing Jobs"
+msgstr "Rularea și programarea Activităților de Prelucrare QGIS"
+
+# 76b1a44a776a4543a6e224c672d48a55
+#: ../../source/docs/running_qgis_jobs.rst:8
+msgid ""
+"You can automate a lot of tasks in QGIS using Python scripting (PyQGIS) and "
+"the Processing Framework. Most of the time, you would run these scripts "
+"manually while QGIS is open. While that is helpful, many times you need a "
+"way to run this jobs via the command-line and without needing to open QGIS. "
+"Fortunately, you can write standalone python scripts that use QGIS libraries"
+" and can be run via the command-line. In this tutorial, we will learn how to"
+" write and schedule a job that uses the QGIS Processing framework."
+msgstr "Puteți automatiza o mulțime de sarcini în QGIS folosind scriptarea Python (PyQGIS) și cadrul de Procesare. De cele mai multe ori, veți rula manual aceste scripturi, atât timp cât este deschis QGIS. Deși acest lucru este util, de multe ori e nevoie de o modalitate de a rula aceste activități prin intermediul liniei de comandă, fără a fi nevoie de deschiderea QGIS. Din fericire, puteți scrie scripturi python de sine stătătoare, care folosesc bibliotecile QGIS, și care pot fi rulate prin intermediul liniei de comandă. In acest tutorial, vom învăța cum să scriem și să programăm o acțiune care utilizează cadrul de Procesare din QGIS."
+
+# aaaef4090442415b93919556ed10b356
+#: ../../source/docs/running_qgis_jobs.rst:17
+msgid "Overview of the task"
+msgstr "Privire de ansamblu asupra activității"
+
+# 39a0d55faa29425da8a0f4c8180fe67c
+#: ../../source/docs/running_qgis_jobs.rst:19
+msgid ""
+"Let's say we are working on some analysis using shapefiles of a region. The "
+"shapefiles are updated on a daily basis and we always need the latest file. "
+"But before we can use these files, we need to cleanup the data. We can setup"
+" a QGIS job that automates this process and runs it daily so you have the "
+"latest cleaned up shapefiles for your work. We will write a standalone "
+"Python script that downloads a shapefile and run topological cleaning "
+"operations on a daily basis."
+msgstr "Să spunem că lucrăm la unele analize folosind fișierele shape ale unei regiuni. Fișierele shape sunt actualizate zilnic și avem nevoie întotdeauna cel mai recent fișier. Dar înainte de a putea folosi aceste fișiere, trebuie să efectuăm o curățare a datelor. Putem seta o acțiune QGIS care automatizează acest proces, și care rulează zilnic, astfel încât să aveți ultimele fișiere shape curățate. Vom scrie un script Python de sine stătător, care descarcă un fișier shape și rulează operațiuni de curățare topologică o dată pe zi."
+
+# b1e7b36fcc834c82aa0b0ec46507c49c
+#: ../../source/docs/running_qgis_jobs.rst:28
+msgid "Other skills you will learn"
+msgstr "Alte competențe pe care le veți dobândi"
+
+# 48447ce092b04cfd88f9b10e9db980a4
+#: ../../source/docs/running_qgis_jobs.rst:29
+msgid "Downloading and unzipping files using Python."
+msgstr "Descărcarea și dezarhivarea fișierelor folosind Python."
+
+# 2d4f64cf9ac74b9e970772453cb12f8d
+#: ../../source/docs/running_qgis_jobs.rst:30
+msgid "Running any Processing algorithm via PyQGIS."
+msgstr "Rularea oricărui algoritm de prelucrare prin PyQGIS."
+
+# ed6d0af79e064fd9a2fff7d89dfc8b18
+#: ../../source/docs/running_qgis_jobs.rst:31
+msgid "Fixing topological errors in a vector layer."
+msgstr "Repararea erorilor topologice dintr-un strat vectorial."
+
+# 8c7692ee487444eeb62e723536c36568
+#: ../../source/docs/running_qgis_jobs.rst:34
+msgid "Get the data"
+msgstr "Obținerea datelor"
+
+# 6cefe38c5a4a453e875377ced6af2bd5
+#: ../../source/docs/running_qgis_jobs.rst:36
+msgid ""
+"`Geofabrik <http://www.geofabrik.de/>`_ provides daily updated shapefiles of"
+" `OpenStreetMap <http://www.openstreetmap.org/>`_ datasets."
+msgstr "`Geofabrik <http://www.geofabrik.de/>`_ furnizează zilnic seturi de date conținând fișiere shape actualizate ale `OpenStreetMap <http://www.openstreetmap.org/>`_."
+
+# cac4df23636f47e7bd03be6ac26e8bae
+#: ../../source/docs/running_qgis_jobs.rst:39
+msgid ""
+"We will use `shapefiles for Fiji <http://download.geofabrik.de/australia-"
+"oceania.html>`_ for this exercise. Download the `fiji-latest.shp.zip "
+"<http://download.geofabrik.de/australia-oceania/fiji-latest.shp.zip>`_ and "
+"unzip it to a folder on your disk."
+msgstr "Vom folosi `fișierele shape pentru Fiji <http://download.geofabrik.de/australia-oceania.html>`_ în cadrul acestui exercițiu. Descărcați `fiji-latest.shp.zip <http://download.geofabrik.de/australia-oceania/fiji-latest.shp.zip>`_ și dezarhivați-l într-un dosar de pe discul dvs."
+
+# a53ce0d31e8e49fd876904b469d8e67a
+#: ../../source/docs/running_qgis_jobs.rst:45
+msgid "Data Source [GEOFABRIK]_"
+msgstr "Sursa de date [GEOFABRIK]_"
+
+# 7f0f0cfdf8a14d59905aa8121bcadf09
+#: ../../source/docs/running_qgis_jobs.rst:48
+msgid "Procedure"
+msgstr "Procedura"
+
+# da76977625c64c0cbbddfd1ceda686ae
+#: ../../source/docs/running_qgis_jobs.rst:50
+msgid ""
+"We will first run through the process of cleaning the shapefile manually to "
+"note the commands that we will use in the python script. Launch QGIS and go "
+"to :menuselection:`Layer --> Add Layer --> Add Vector Layer`."
+msgstr "Vom trece mai întâi prin procesul manual de curățare a fișierului shape, pentru a nota comenzile pe care le vom folosi în scriptul python. Lansați QGIS și mergeți la :menuselection:`Strat --> Adăugare Strat --> Adăugare Strat Vectorial`."
+
+# e388eae0300846189d9198b2663f1d48
+#: ../../source/docs/running_qgis_jobs.rst:57
+msgid ""
+"Browse to the folder containing the unzipped shapefiles and select the "
+"``roads.shp`` file and click :guilabel:`Open`."
+msgstr "Navigați la folderul care conține fișierele shape dezarhivate, apoi selectați fișierul ``roads.shp`` și faceți clic pe :guilabel:`Open`."
+
+# a8b6da5fa4a9452081c8de883bfa551c
+#: ../../source/docs/running_qgis_jobs.rst:63
+msgid ""
+"First we must re-project the roads layer to a Projected CRS. This will allow"
+" us to use *meters* as units when performing analysis instead of degrees. "
+"Open :menuselection:`Processing --> Toolbox`."
+msgstr "În primul rând trebuie să reproiectăm stratul drumurilor, folosind un CRS Proiectat. Aceasta ne va permite să folosim ca unități *metrii* în locul gradelor, atunci când se va efectua o analiză. Deschideți :menuselection:`Procesare --> Instrumentar`."
+
+# 3d225988414948818282e40859226fc9
+#: ../../source/docs/running_qgis_jobs.rst:70
+msgid ""
+"Search for the :guilabel:`Reproject layer` tool. Double-click it to launch "
+"the dialog."
+msgstr "Căutați instrumentul :guilabel:`Reproiectare strat`. Faceți dublu clic pe el pentru a lansa dialogul."
+
+# 57de02d7bcde41709db73d4f95f9ed46
+#: ../../source/docs/running_qgis_jobs.rst:76
+msgid ""
+"In the :guilabel:`Reproject layer` dialog, select the ``roads`` layer as "
+":guilabel:`Input layer`. We will use ``EPSG:3460 Fiji 1986 / Fiji Map Grid``"
+" CRS as the :guilabel:`Target CRS`. Click :guilabel:`Run`."
+msgstr "În dialogul :guilabel:`Reproiectare strat`, folosiți stratul ``roads`` ca :guilabel:`Strat de intrare`. Vom folosi CRS-ul ``EPSG:3460 Fiji 1986 / Fiji Map Grid`` ca :guilabel:`CRS Destinație`. Clic pe :guilabel:`Rulează`."
+
+# 3d072f2f7eaa4fc79225e905ec1da0db
+#: ../../source/docs/running_qgis_jobs.rst:83
+msgid ""
+"Once the process finishes, you will see the reprojected layer loaded in "
+"QGIS. Go to :menuselection:`Processing --> History and Log..`."
+msgstr "O dată ce procesul s-a încheiat, stratul reproiectat se va încărca în QGIS. Mergeți la :menuselection:`Procesare --> Istoric și Jurnal..`."
+
+# df164909930f4fb5b9da962f0924824e
+#: ../../source/docs/running_qgis_jobs.rst:89
+msgid ""
+"In the :guilabel:`History and Log` dialog, expand the :guilabel:`Algorithm` "
+"folder and select the latest entry. You will see the full processing command"
+" shown in the bottom panel. Note this command for use in our script."
+msgstr "În dialogul :guilabel:`Istoric și Jurnal`, expandați folderul :guilabel:`Algoritm` și selectați ultima intrare. Veți vedea comanda completă de procesare afișată în panoul de jos. Notați această comandă, pentru a o utiliza în script-ul nostru."
+
+# 41b0cc8bba3d43a4942bd691ea7210e2
+#: ../../source/docs/running_qgis_jobs.rst:96
+msgid ""
+"Back in the main QGIS Window, click at the :guilabel:`CRS` button in the "
+"bottom-right corner."
+msgstr "Înapoi în fereastra principală a QGIS, faceți clic pe butonul :guilabel:`CRS` din colțul din dreapta-jos."
+
+# f2f4e20bd5534882be2f75d23adcfcbc
+#: ../../source/docs/running_qgis_jobs.rst:102
+msgid ""
+"In the :guilabel:`Project Properties | CRS` dialog, check the "
+":guilabel:`Enable on-the-fly CRS transformation` and select ``EPSG:3460 Fiji"
+" 1986 / Fiji Map Grid`` as the CRS. This will ensure that our original and "
+"reprojected layers will line up correctly."
+msgstr "În dialogul :guilabel:`Proprietățile Proiectului | CRS`, bifați :guilabel:`Activează transformarea din zbor a CRS-ului`, apoi selectați ``EPSG:3460 Fiji 1986 / Fiji Map Grid`` ca CRS. Acest lucru vă asigură că straturile noastre originale și cele reproiectate se vor alinia corect."
+
+# 52433c09a67242ee829dcd9714965e94
+#: ../../source/docs/running_qgis_jobs.rst:110
+msgid ""
+"Now we will run the cleaning operation. GRASS has a very powerful set of "
+"topological cleaning tools. These are available in QGIS via the ``v.clean`` "
+"algorithm. Search for this algorithm in the :guilabel:`Processing Toolbox` "
+"and double-click it to launch the dialog."
+msgstr "Acum, vom rula operația de curățare. GRASS având un set foarte puternic de instrumente de curățare topologică. Acestea sunt disponibile în QGIS prin algoritmul ``v.clean``. Căutați acest algoritm în :guilabel:`Instrumentarul de Procesare`, apoi faceți dublu clic pe el pentru a lansa dialogul."
+
+# 2db3bcdfd51f409a895ffaeb9de9a3be
+#: ../../source/docs/running_qgis_jobs.rst:118
+msgid ""
+"You can read more about various tools and options in the :guilabel:`Help` "
+"tab. For this tutorial, we will be using the ``snap`` tool to remove "
+"duplicate vertices that are within 1 meter of each other. Select "
+"``Reprojected layer`` as the :guilabel:`Layer to clean`. Choose ``snap`` as "
+"the :guilabel:`Cleaning tool`.  Enter ``1.00`` as the :guilabel:`Threshold`."
+" Leave the other fields blank and click :guilabel:`Run`."
+msgstr "Puteți citi despre mai multe instrumente diferite și despre opțiunile acestora în fila :guilabel:`Ajutor`. Pentru acest tutorial, vom folosi instrumentul ``snap`` pentru a elimina vertexurile duplicate, care se află cel mult la 1 metru unul față de celălalt. Selectați ``Stratul reproiectat`` ca :guilabel:`Stratul de curățat`. Alegeți ``snap`` ca :guilabel:`Instrument de curățare`. Introduceți ``1.00`` ca :guilabel:`Prag`. Lăsați celelalte câmpuri goale și faceți clic pe :guilabel:`Rulează`."
+
+# 8d851d7fbc5c4bff83b77ade72d0636c
+#: ../../source/docs/running_qgis_jobs.rst:129
+msgid ""
+"Once the processing finishes, you will see 2 new layers added to QGIS. The "
+"``Cleaned vector layer`` is the layer with topological errors corrected. You"
+" will also have a ``Errors layer`` which will highlight the features which "
+"were repaired. You can use the errors layer as a guide and zoom in to see "
+"vertices that were removed."
+msgstr "După ce termină prelucrarea, veți vedea 2 straturi noi adăugate în QGIS. ``Stratul vectorial curățat`` este stratul cu erori topologice corectate. Veți avea, de asemenea, un ``Strat cu erori`` care va evidenția entitățile care au fost reparate. Puteți utiliza stratul erorilor ca un ghid și să-l măriți, pentru a vedea vertexurile care au fost eliminate."
+
+# 11692287a38b4918bacfe3b4a24403a0
+#: ../../source/docs/running_qgis_jobs.rst:138
+msgid ""
+"Go to :menuselection:`Processing --> History and Log` dialog and note the "
+"full processing command for later use."
+msgstr "Mergeți în dialogul :menuselection:`Procesare --> Istoric și Jurnal` și notați comanda de procesare completă, pentru o utilizare ulterioară."
+
+# 796bd56d1e5248ac8451a40f03620eea
+#: ../../source/docs/running_qgis_jobs.rst:144
+msgid ""
+"We are ready to start coding now. See the **A Text Editor or a Python IDE** "
+"section in the :doc:`building_a_python_plugin` tutorial for instructions to "
+"setup your text editor or IDE. For running standalone python scripts that "
+"use QGIS, we must set various configuration options. A good way to run "
+"standalone scripts is to launch them via a ``.bat`` file. This file will "
+"first set the correct configuration options and then call the python script."
+" Create a new file named ``launch.bat`` and enter the following text. Change"
+" the values according to your QGIS configuration. Don't forget to replace "
+"the username with your own username in the path to the python script.  The "
+"paths in this file will be the same on your system if you installed QGIS via"
+" the ``OSGeo4W Installer``. Save the file on your Desktop."
+msgstr "Acum suntem gata să începem codificarea. Vedeți secțiunea unui **Editor de Text sau IDE Python** în tutorialul :doc:`building_a_python_plugin` pentru instrucțiunile de instalare. Pentru rularea script-urilor python standalone, care utilizează QGIS, trebuie să setați diverse opțiuni de configurare. O modalitate bună de a rula scripturi independente este de a le lansa printr-un fișier ``.bat``. Acest fișier va stabili mai întâi opțiunile de configurare corecte, apoi va apela script-ul python. Creați un nou fișier numit ``launch.bat`` și introduceți textul următor. Modificați valorile în funcție de configurația QGIS. Nu uitați să înlocuiți numele de utilizator cu al dvs. în calea către script-ul python. Căile din acest fișier vor fi similare pe sistemul dumneavoastră, cu acelea ale QGIS, dacă l-ați instalat prin ``Programul de instalare OSGeo4W``. Salvați fișierul pe desktop."
+
+# 1a3e01bcc8864a569245805c503590ba
+#: ../../source/docs/running_qgis_jobs.rst:159
+msgid ""
+"Linux and Mac users will need to create a shell script to set the paths and "
+"environment variables."
+msgstr "Utilizatorii de Linux și Mac trebuie să creeze un script pentru linia de comandă, în scopul stabilirii căilor și variabilelor de mediu."
+
+# 374a329b0a4a460aa1ebcf37bf3d2223
+#: ../../source/docs/running_qgis_jobs.rst:183
+msgid ""
+"Create a new python file and enter the following code. Name the file as "
+"``download_and_clean.py`` and save it on your Desktop."
+msgstr "Creați un nou fișier python și introduceți următorul cod. Denumiți fișierul ca ``download_and_clean.py``, apoi salvați-l pe desktop."
+
+# a61e23e2c75f4b0c8e0f2b15a690e693
+#: ../../source/docs/running_qgis_jobs.rst:194
+msgid ""
+"Switch to your Desktop and locate the ``launch.bat`` icon. Double-click it "
+"to launch a new command window and run the script. If you see ``Hello "
+"QGIS!`` printed in the command window, your configuration and setup worked "
+"fine. If you see errors or do not see the text, check your ``launch.bat`` "
+"file and make sure all the paths match the locations on your system."
+msgstr "Comutați la Desktop-ul dvs. și localizați pictograma ``launch.bat``. Faceți dublu clic pe el pentru a lansa o nouă fereastră de comandă și rulați scriptul. Dacă vedeți ``Hello QGIS!`` afișat în fereastra de comandă, instalarea și configurarea au fost corecte. Dacă vedeți erori sau nu vedeți textul, verificați fișierul ``launch.bat`` și asigurați-vă că toate căile se potrivesc cu locațiile de pe sistemul dumneavoastră."
+
+# 6fa5588f19d044fba351dd9937df3f5e
+#: ../../source/docs/running_qgis_jobs.rst:203
+msgid ""
+"Back in your text editor, modify the ``download_and_clean.py`` script to add"
+" the following code. This is the bootstrap code to initialize QGIS. These "
+"are unnecessary if you are running the script within QGIS. But since we are "
+"running it outside QGIS, we need to add these at the beginning. Make sure "
+"you replace the username with your username. After making these changes, "
+"save the file and run ``launch.bat`` again. If you see ``Hello QGIS!`` "
+"printed, you are all set to do add the processing logic to the script."
+msgstr "Înapoi în editorul de text, modificați scriptul ``download_and_clean.py`` și adăugați următorul cod. Acesta este codul bootstrap de inițializare a QGIS. El este inutil dacă scriptul se execută din interiorul QGIS. Dar din moment ce îl executăm din afară, este necesar să-l adăugăm la început. Asigurați-vă că înlocuiți numele de utilizator cu al dvs. După efectuarea acestor modificări, salvați din nou fișierul, apoi rulați ``launch.bat``. Dacă apare afișat ``Hello QGIS!``, sunteți gata să adăugați logica de procesare a script-ului."
+
+# 3009bbac6f6849bfbc8eeb3953de0704
+#: ../../source/docs/running_qgis_jobs.rst:235
+msgid ""
+"Recall the first processing command that we had saved from the log. This was"
+" the command to re-project a layer. Paste the command to your script and add"
+" the surrounding code as follows. Note that processing commands return the "
+"path to the output layers as a dictionary. We are storing this as the "
+"``ret`` value and printing the path to the reprojected layer."
+msgstr "Reveniți la prima comandă de prelucrare pe care am salvat-o în jurnal. Aceasta a fost comanda de reproiectare a unui strat. Lipiți comanda pentru script și adăugați codul înconjurător, după cum urmează. Așa cum se observă, comenzile de prelucrare returnează calea către straturile de ieșire sub formă de dicționar. Această valoare este stocată ca ``ret`` și afișează calea către stratul reproiectat."
+
+# b67fad27895345ada64ca49b9ea6d6cd
+#: ../../source/docs/running_qgis_jobs.rst:252
+msgid ""
+"Run the script via ``launch.bat`` and you will see the path to the newly "
+"created reprojected layer."
+msgstr "Rulați scriptul, cu ajutorul ``launch.bat``, apoi veți vedea calea către noul strat reproiectat creat."
+
+# b7d25ed5147149e58d808dc01430e7db
+#: ../../source/docs/running_qgis_jobs.rst:258
+msgid ""
+"Now add the code for cleaning the topology. Since this is our final output, "
+"we will add the output file paths as the last 2 arguments for the "
+"``grass.v.clean`` algorithm. If you left these blank, the output will be "
+"created in a temporary directory."
+msgstr "Acum adăugați codul pentru curățarea topologică. Deoarece acesta este rezultatul nostru final, vom adăuga căile fișierului de ieșire, ca ultimele 2 argumente pentru algoritmul ``grass.v.clean``. Dacă nu le completați, rezultatul va fi creat într-un director temporar."
+
+# 8c5a88752e4f47ff809b08dcb8fc9682
+#: ../../source/docs/running_qgis_jobs.rst:278
+msgid ""
+"Run the script and you will see 2 new shapefiles created on your Desktop. "
+"This completes the processing part of the script. Let's add the code to "
+"download the data from the original website and unzip it automatically. We "
+"will also store the path to the unzipped file in a variable that we can pass"
+" to the processing algorithm later. We will need to import some additional "
+"modules for doing this. (See the end of the tutorial for the full script "
+"with all the changes)"
+msgstr "Rulați scriptul și veți vedea 2 fișiere shape nou create pe desktop. Acesta completează partea de procesare a script-ului. Haideți să adăugăm codul pentru a descărca datele de pe site-ul original, și să-l dezarhivăm în mod automat. Vom stoca, de asemenea, calea către fișierul dezarhivat într-o variabilă pe care o putem transmite algoritmului de procesare ulterioară. Va trebui să importăm unele module suplimentare pentru a face acest lucru. (Vedeți sfârșitul tutorialului pentru script-ul complet, cu toate modificările)"
+
+# ce2aa0cbfc6b4a27abb0a5190189691a
+#: ../../source/docs/running_qgis_jobs.rst:312
+msgid ""
+"Run the completed script. Everytime you run the script, a fresh copy of the "
+"data will be downloaded and processed."
+msgstr "Rulați scriptul finalizat. De fiecare dată când rulați scriptul, o copie proaspătă a datelor va fi descărcată și procesată."
+
+# 2aa66dc737b7446ab1e23dd314eb257d
+#: ../../source/docs/running_qgis_jobs.rst:318
+msgid ""
+"To automate running on this script on a daily basis, we can use the ``Task "
+"Scheduler`` in Windows. Launch the Task Scheduler and click "
+":guilabel:`Create Basic Task`."
+msgstr "Pentru a automatiza rularea acestui script pe o bază zilnică, putem folosi ``Programatorul de Sarcini`` din Windows. Lansați Programatorul de Sarcini și faceți clic pe :guilabel:`Creează o Acțiune de Bază`."
+
+# 44141e1a916e491794bf813165bfe5e4
+#: ../../source/docs/running_qgis_jobs.rst:322
+msgid "Linux and Mac users can use cron jobs to schedule  tasks."
+msgstr "Utilizatorii de Linux și Mac pot folosi acțiuni cron pentru programarea sarcinilor."
+
+# 0768bcc265d241a2be222ef51538deaf
+#: ../../source/docs/running_qgis_jobs.rst:327
+msgid ""
+"Name the task as ``Daily Download and Cleanup`` and click :guilabel:`Next`."
+msgstr "Denumiți sarcina \"Descărcare zilnică și Curățare\", apoi faceți clic pe :guilabel:`Next`."
+
+# 6d8645a6a4d241e69daaaf7878d428c0
+#: ../../source/docs/running_qgis_jobs.rst:332
+msgid "Select ``Daily`` as the :guilabel:`Trigger` and click :guilabel:`Next`"
+msgstr "Selectați ``Zilnic`` ca :guilabel:`Declanșator`, apoi faceți clic pe :guilabel:`Next`"
+
+# 6f83c7d44b3f454fb17890d879f84ae1
+#: ../../source/docs/running_qgis_jobs.rst:337
+msgid "Select a time as per your liking and click :guilabel:`Next`."
+msgstr "Selectați o dată pe placul dumneavoastră, apoi faceți clic pe :guilabel:`Next`."
+
+# ed04a6d2b9164ca1a3f84769f0e1f89c
+#: ../../source/docs/running_qgis_jobs.rst:342
+msgid ""
+"Choose ``Start a program`` as the :guilabel:`Action` and click "
+":guilabel:`Next`."
+msgstr "Selectați ``Rulează un program`` ca :guilabel:`Intrare`, apoi efectuați clic pe :guilabel:`Next`."
+
+# ddd04595ad614d83b7c4b158f737334a
+#: ../../source/docs/running_qgis_jobs.rst:348
+msgid ""
+"Click :guilabel:`Browse` and locate the ``launch.bat`` script. Click "
+":guilabel:`Next`."
+msgstr "Clic pe :guilabel:`Răsfoire` și localizați scriptul ``launch.bat``. Clic :guilabel:`Next`."
+
+# 7f80b9fbb2104bc2bea068b2def20ae4
+#: ../../source/docs/running_qgis_jobs.rst:354
+msgid ""
+"Click :guilabel:`Finish` at the last screen to schedule the task. Now the "
+"script will automatically launch at the specified time to give you a fresh "
+"copy of cleaned data everyday."
+msgstr "Faceți clic pe :guilabel:`Finish` din ultimul ecran, pentru a planifica sarcina. Acum, scriptul se va lansa automat la ora specificată, pentru a vă oferi zilnic o copie recentă și curată a datelor."
+
+# 009bf8d5b0cd407b9696245e4b873919
+#: ../../source/docs/running_qgis_jobs.rst:361
+msgid "Below is the full ``download_and_clean.py`` script for your reference."
+msgstr "Mai jos este scriptul ``download_and_clean.py``, pentru referința dvs."
