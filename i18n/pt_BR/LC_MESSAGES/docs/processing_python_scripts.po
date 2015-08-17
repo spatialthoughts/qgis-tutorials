@@ -1,0 +1,316 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2015, Ujaval Gandhi
+# This file is distributed under the same license as the QGIS Tutorials and Tips package.
+# 
+# Translators:
+msgid ""
+msgstr ""
+"Project-Id-Version: QGIS Tutorials\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2015-07-22 16:33+0530\n"
+"PO-Revision-Date: 2015-07-22 11:07+0000\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: Portuguese (Brazil) (http://www.transifex.com/spatialthoughts/qgis-tutorials/language/pt_BR/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: pt_BR\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+
+# bff287c4ed9e42e8adf9e8b8e2235ce4
+#: ../../source/docs/processing_python_scripts.rst:2
+msgid "Writing Python Scripts for Processing Framework"
+msgstr ""
+
+# efe651af6e844cf599f488944de3ef9b
+#: ../../source/docs/processing_python_scripts.rst:8
+msgid ""
+"One can write standalone pyqgis scripts that can be run via the Python "
+"Console in QGIS. You can also adapt your pyqgis scripts so they can be run "
+"via the Processing Framework. This has several advantages. First, taking "
+"user input and writing output files is far easier as Processing Framework "
+"offers standardized user interface for these. Having your script in the "
+"Processing Toolbox also allows it to be part of any Processing Model or be "
+"run as a Batch job with multiple inputs. This tutorial will show how to "
+"write a custom python script that can be part of the Processing Framework in"
+" QGIS."
+msgstr ""
+
+# 4e145f8bb0634f8ca078cc8833d940c8
+#: ../../source/docs/processing_python_scripts.rst:18
+msgid "Overview of the task"
+msgstr ""
+
+# eb97a2e2bc3a409c8528186a931cb963
+#: ../../source/docs/processing_python_scripts.rst:20
+msgid ""
+"Our script will perform a dissolve operation based on a field chosen by the "
+"user. It will also sum up values of another field for the dissolved "
+"features. In the example, we will dissolve a world shapefile based on a "
+"``SUBREGION`` attribute and sum up ``POP_EST`` field to calculate total "
+"population in the dissolved region."
+msgstr ""
+
+# 3792a5e0d292460a816075a91e48cb1d
+#: ../../source/docs/processing_python_scripts.rst:28
+msgid ""
+"If you are looking to do a Dissolve operation along with Statistics, you can"
+" use the excellent ``DissolveWithStats`` plugin. This script is a "
+"demonstration how to implement similar functionality via a Processing "
+"script."
+msgstr ""
+
+# 080ea62b67084dc59dbb97e37abf7140
+#: ../../source/docs/processing_python_scripts.rst:34
+msgid "Get the data"
+msgstr ""
+
+# 7b9843bb028741eb8459929a7b282f43
+#: ../../source/docs/processing_python_scripts.rst:35
+msgid ""
+"We will use the `Admin 0 - Countries "
+"<http://www.naturalearthdata.com/downloads/10m-cultural-vectors/10m-"
+"admin-0-countries/>`_ dataset from Natural Earth."
+msgstr ""
+
+# ccf05015ad4545f08d13a0dad3deb2f8
+#: ../../source/docs/processing_python_scripts.rst:39
+msgid ""
+"Download the `Admin 0 - countries shapefile. "
+"<http://www.naturalearthdata.com/http//www.naturalearthdata.com/download/10m/cultural/ne_10m_admin_0_countries.zip>`_."
+msgstr ""
+
+# 3e4d3c494a3140b7bd8aad0927c73807
+#: ../../source/docs/processing_python_scripts.rst:42
+msgid "Data Source [NATURALEARTH]_"
+msgstr ""
+
+# 13bf80faa5de4489837e7aff6b66093f
+#: ../../source/docs/processing_python_scripts.rst:44
+msgid ""
+"For convenience, you may directly download a copy of the dataset from the "
+"links below:"
+msgstr ""
+
+# 1ed3f683ccfd463289842a3ff3efd073
+#: ../../source/docs/processing_python_scripts.rst:47
+msgid ""
+"`ne_10_admin_0_countries.zip "
+"<../../downloads/ne_10m_admin_0_countries.zip>`_"
+msgstr ""
+
+# d767eb4a0d604e4088cb867a0d8d50c0
+#: ../../source/docs/processing_python_scripts.rst:51
+msgid "Procedure"
+msgstr ""
+
+# c4e5582e1b2c4757b3cd62acf35981b6
+#: ../../source/docs/processing_python_scripts.rst:53
+msgid ""
+"Open QGIS and go to :menuselection:`Layers --> Add Vector --> Add Vector "
+"Layer`. Browse to the downloaded ``ne_10_admin_0_countries.zip`` file and "
+"load the ``ne_10_admin_0_countries`` layer. Go to :menuselection:`Processing"
+" --> Toolbox`."
+msgstr ""
+
+# 4a77527b62464f1d98dc565a559a1a1f
+#: ../../source/docs/processing_python_scripts.rst:61
+msgid ""
+"Expand the :guilabel:`Scripts` group in the :guilabel:`Processing Toolbox` "
+"and select :guilabel:`Create a new script`."
+msgstr ""
+
+# a40f74403bbc48a4a38af4509524be6e
+#: ../../source/docs/processing_python_scripts.rst:67
+msgid ""
+"For a python script to be recognized as a Processing script, the beginning "
+"of the script must be the specifications of the input and outputs. This will"
+" be used to construct the user interface to run the script. You can learn "
+"more about the format of these lines from `QGIS Processing Documentation "
+"<https://docs.qgis.org/2.8/en/docs/user_manual/processing/scripts.html>`_. "
+"Enter the following lines in the :guilabel:`Script editor`. Here we are "
+"specifying 3 user inputs: ``dissolve_layer``, ``dissolve_field`` and "
+"``sum_field``. Note that we are adding ``dissolve_layer`` after both the "
+"field input definitions. This means that input will be pre-populated with "
+"choice of fields from the ``dissolve_layer``. We also specify the "
+"``output_layer`` as the output vector layer. Click :guilabel:`Save` button."
+msgstr ""
+
+# 3af3957c8cfd443d86a6be076b6088f3
+#: ../../source/docs/processing_python_scripts.rst:89
+msgid ""
+"Name the script ``dissolve_with_sum`` and save it at the default location "
+"under :menuselection:`.qgis2 --> processing --> scripts` folder."
+msgstr ""
+
+# e302d2afd116498cad330a1a9e5100fe
+#: ../../source/docs/processing_python_scripts.rst:95
+msgid ""
+"Back in the :guilabel:`Script editor`, click :guilabel:`Run algorithm` "
+"button to preview the user interface."
+msgstr ""
+
+# 17235c614ec74b88935e16bc48bb5e37
+#: ../../source/docs/processing_python_scripts.rst:101
+msgid ""
+"You can see that just by adding a few lines, we have a nice user interface "
+"for the user to specify the inputs. It is also consistent with all other "
+"Processing algorithms, so there is no learning curve involved in using your "
+"custom algorithm."
+msgstr ""
+
+# 3791b43564e54f7e821d53b400c69dbe
+#: ../../source/docs/processing_python_scripts.rst:109
+msgid ""
+"In the :guilabel:`Script editor`, enter the following code. You will notice "
+"that we are using some special methods such as ``processing.getObject()`` "
+"and ``processing.features()``. These are convenience wrappers that make it "
+"easy to work with data. You can learn more about these from `Additional "
+"functions for handling data "
+"<https://docs.qgis.org/2.8/en/docs/user_manual/processing/console.html"
+"#additional-functions-for-handling-data>`_ section of QGIS Processing "
+"Documentation. Click :guilabel:`Save` to save the newly entered code and "
+"then the :guilabel:`X` button to close the editor."
+msgstr ""
+
+# e0704c517ef840778c49238d941337ff
+#: ../../source/docs/processing_python_scripts.rst:136
+msgid ""
+"While writing code, it is important to be able to see errors and debug your "
+"code. Your processing scripts can be debugged easily via the built-in Python"
+" Console. In the main QGIS window, go to :menuselection:`Plugins --> Python "
+"Console`. Once the console is open, find your script in the "
+":guilabel:`Processing Toolbox` and double-click it to launch it."
+msgstr ""
+
+# 34750cd8d2a84f458446d1afb0d5dd81
+#: ../../source/docs/processing_python_scripts.rst:145
+msgid ""
+"Select ``SUBREGION`` as the :guilabel:`dissolve field`. You may choose any "
+"field as the :guilabel:`sum field` as the script doesn't have any code yet "
+"to deal with it. Click :guilabel:`Run`."
+msgstr ""
+
+# e2ec1427950148b99c7049fe186f9703
+#: ../../source/docs/processing_python_scripts.rst:152
+msgid ""
+"You will see an error dialog. This is expected since the script is "
+"incomplete and doesn't generate any output yet."
+msgstr ""
+
+# 6042e29075324c139db9b14e4ab6c3f7
+#: ../../source/docs/processing_python_scripts.rst:158
+msgid ""
+"In the main QGIS windows, you will see the debug output from the script "
+"printed in the console. This is useful way to add print statements and see "
+"intermediate variable values."
+msgstr ""
+
+# d8eba9408fa8493db65d517e2c06bf5f
+#: ../../source/docs/processing_python_scripts.rst:165
+msgid ""
+"Let's go back to editing the script by right-clicking the script and select "
+":guilabel:`Edit script`."
+msgstr ""
+
+# bee0726b2a8848ee97366f4d3a1f5740
+#: ../../source/docs/processing_python_scripts.rst:171
+msgid ""
+"Enter the following code to complete the script. Note that we are using the "
+"existing dissolve algorithm in QGIS via processing using "
+"``processing.runalg()`` method."
+msgstr ""
+
+# 4e3ab27779c7464ebe662a83ba71210f
+#: ../../source/docs/processing_python_scripts.rst:205
+msgid ""
+"Run the algorithm by selecting ``SUBREGION`` as the :guilabel:`dissolve "
+"field` and ``POP_EST`` as the :guilabel:`sum field`. Click :guilabel:`Run`."
+msgstr ""
+
+# 767caa96ca334bb1acbd12f6eacf60f2
+#: ../../source/docs/processing_python_scripts.rst:210
+msgid ""
+"The processing algorithm may take upto 10 minutes to finish depending on "
+"your system."
+msgstr ""
+
+# aafa7bb475fb48c3b77dffba61f2fa66
+#: ../../source/docs/processing_python_scripts.rst:216
+msgid ""
+"Once the processing finishes, you can use the :guilabel:`Identify` tool and "
+"click on any polygon. You will see the newly added ``SUM`` field with the "
+"``POP_EST`` values from all original polygons added up."
+msgstr ""
+
+# 21900dd972254fa5a88abf62c88a27cd
+#: ../../source/docs/processing_python_scripts.rst:223
+msgid ""
+"You will note that all other fields in the output are still present. When "
+"you dissolve many features to create a single feature, it doesn't make sense"
+" to keep the original fields in the output. Go back to the :guilabel:`Script"
+" editor` and add the following code to delete all fields except the ``SUM`` "
+"field and the field that was used to dissolve the original layer. Click "
+":guilabel:`Save` button and close the window."
+msgstr ""
+
+# d463da5cde4f4ba9a6ce28fe961adb15
+#: ../../source/docs/processing_python_scripts.rst:244
+msgid ""
+"One of the hidden features of the Processing Framework is that all "
+"algorithms can work on selected features of a layer. This is very helpful "
+"when you want to run an algorithm on the subset of a layer. As our script "
+"uses ``processing.features()`` method to read features, it will respect the "
+"current selection. To demonstrate that, let's make a selection first. Click "
+"on the :guilabel:`Select features using an expression` button."
+msgstr ""
+
+# 1c037d0181a84f9bb01fa4b298f88700
+#: ../../source/docs/processing_python_scripts.rst:254
+msgid ""
+"Enter the following expression to select features from North and South "
+"America and click :guilabel:`Select`."
+msgstr ""
+
+# c6e34e82378841d0985c4a80688e7c03
+#: ../../source/docs/processing_python_scripts.rst:264
+msgid ""
+"You will see the selected features highlighted in yellow. Right-click the "
+"``dissolve_with_sum`` script and select :guilabel:`Execute`."
+msgstr ""
+
+# e84bc0a7a34946f0a35ccd3e94450720
+#: ../../source/docs/processing_python_scripts.rst:270
+msgid "Select the inputs as before and click :guilabel:`Run`."
+msgstr ""
+
+# 56054c8463a74c218f4ba192674e8196
+#: ../../source/docs/processing_python_scripts.rst:275
+msgid ""
+"A new ``output layer`` will be added to QGIS. This will contain dissolved "
+"geometries only from the selected features in the input layer. You will also"
+" note that the ``output layer`` will contain only 2 fields as expected."
+msgstr ""
+
+# c530552fb22e4a288bbfab74ecda1a29
+#: ../../source/docs/processing_python_scripts.rst:282
+msgid ""
+"One last but important remmaining work is to document our algorithm. The "
+"Processing Framework has nice tools to write and access help. Go to the "
+":guilabel:`Script editor` and click the :guilabel:`Edit script help` button."
+msgstr ""
+
+# 6174b4b3f1d142e6b4a16f16e0a24411
+#: ../../source/docs/processing_python_scripts.rst:290
+msgid ""
+"Fill in the details for different elements and click :guilabel:`OK`. Now a "
+"detailed help will be available to all users of your script in the "
+":guilabel:`Help` tab when they launch the algorithm."
+msgstr ""
+
+# 3fe9aad9aaaf4f20974b00d63bf5dad8
+#: ../../source/docs/processing_python_scripts.rst:297
+msgid ""
+"Below is the complete script for reference. You may modify it to suit your "
+"needs."
+msgstr ""
