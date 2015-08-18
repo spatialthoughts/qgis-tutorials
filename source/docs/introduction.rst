@@ -42,7 +42,7 @@ The tutorials are also available in following langugages:
 - `Greek <http://qgistutorials.com/el>`_ (Translation by: *Christina Dimitriadou*,
   *Paliogiannis Konstantinos*, *Tom Karagkounis*, *Despoina Karfi*)
 - `German <http://qgistutorials.com/de>`_ (Translation by: *Michael Gieding*)
-- `Indonesian <http://qgistutorials.com/id>`_ (Translation by: *Maruli Tua Manullang*)
+- `Indonesian <http://qgistutorials.com/id>`_ (Translation by: *Maruli Tua Manullang*, *Bakhtiar Arif*)
 
 If you would like to help translate these tutorials in your langugage, please
 `Join the team on Transifex
