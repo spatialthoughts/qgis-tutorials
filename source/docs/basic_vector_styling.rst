@@ -26,7 +26,7 @@ The data we will use is from `Center for Sustainability and the Global
 Environment (SAGE) <http://www.sage.wisc.edu/atlas/maps.php>`_ at the
 University of Wisconsin-Madison.
 
-You can download the `Life Expectancy GIS Grid data <http://www.sage.wisc.edu/atlas/data.php?incdataset=Life%20Expectancy>`_
+You can download the `Life Expectancy GIS Grid data <http://nelson.wisc.edu/sage/data-and-models/atlas/data.php?incdataset=Life%20Expectancy>`_
 from the human impact dataset. For convenience, you can also download a copy of this data by clicking on following
 link:
 
