@@ -11,10 +11,13 @@ Official Documentation
   <http://www.qgis.org/en/docs/index.html#documentation-for-qgis-2-0>`_
 - `A Gentle Introduction to GIS
   <http://docs.qgis.org/2.2/en/docs/gentle_gis_introduction>`_
+- `The QGIS Training Manual <http://docs.qgis.org/2.8/en/docs/training_manual/>`_
 
-Training Documentation
-----------------------
-- `The QGIS Training Manual <http://manual.linfiniti.com/>`_
+Training Manual
+---------------
+- `GIS Practicum - Introduction to GIS Using Open Source Software
+  <https://www.baruch.cuny.edu/confluence/display/geoportal/GIS+Practicum>`_ by
+  Frank Donnelly, Baruch College CUNY
 
 Books
 -----
@@ -29,6 +32,7 @@ Blogs
 -----
 - `Nathan's QGIS Blog <http://nathanw.net/>`_
 - `Free and Open Source GIS Ramblings <http://anitagraser.com/>`_
+- `Mapping, GIS, QGIS & MapBasic <http://nyalldawson.net/>`_
 
 Video Tutorials
 ---------------
