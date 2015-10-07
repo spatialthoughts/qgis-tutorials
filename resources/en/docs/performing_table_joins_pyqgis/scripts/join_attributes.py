@@ -13,6 +13,7 @@ joinObject = QgsVectorJoinInfo()
 joinObject.joinLayerId = csv.id()
 joinObject.joinFieldName = csvField
 joinObject.targetFieldName = shpField
+joinObject.memoryCache = True
 shp.addJoin(joinObject)
 
 myColumn = 'ca_tracts_pop_D001 '
