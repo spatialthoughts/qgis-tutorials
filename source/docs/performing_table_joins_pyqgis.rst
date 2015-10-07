@@ -73,7 +73,7 @@ built-in :guilabel:`Editor` in QGIS.
 
 .. note::
    A common pitfall when using QgsVectorJoinInfo is that both the layers must be
-   loaded in the QgsMapLayerRegistry - otherwise the join woul not work.
+   loaded in the QgsMapLayerRegistry - otherwise the join would not work.
 
 .. code-block:: python
 
