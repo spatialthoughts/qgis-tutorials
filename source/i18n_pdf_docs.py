@@ -36,6 +36,7 @@ tutorials['en'] = [
         ('building_a_python_plugin', 'Building a Python Plugin'),
         ('running_qgis_jobs', 'Running and Scheduling QGIS Processing Jobs'),
         ('find_neighbor_polygons', 'Find Neighbor Polygons in a Layer'),
+        ('performing_table_joins_pyqgis', 'Performing Table Joins (PyQGIS)'),
         ('leaflet_maps_with_qgis2leaf', 'Leaflet Web Maps with qgis2leaf'),
         ('using_gme_connector', 'Using Google Maps Engine Connector for QGIS'),
         ]
@@ -75,6 +76,7 @@ tutorials['es'] = [
         ('building_a_python_plugin', 'Building a Python Plugin'),
         ('running_qgis_jobs', 'Running and Scheduling QGIS Processing Jobs'),
         ('find_neighbor_polygons', 'Find Neighbor Polygons in a Layer'),
+        ('performing_table_joins_pyqgis', 'Performing Table Joins (PyQGIS)'),
         ('leaflet_maps_with_qgis2leaf', 'Leaflet Web Maps with qgis2leaf'),
         ('using_gme_connector', 'Using Google Maps Engine Connector for QGIS'),
         ]
@@ -114,6 +116,7 @@ tutorials['fi_FI'] = [
         ('building_a_python_plugin', 'Building a Python Plugin'),
         ('running_qgis_jobs', 'Running and Scheduling QGIS Processing Jobs'),
         ('find_neighbor_polygons', 'Find Neighbor Polygons in a Layer'),
+        ('performing_table_joins_pyqgis', 'Performing Table Joins (PyQGIS)'),
         ('leaflet_maps_with_qgis2leaf', 'Leaflet Web Maps with qgis2leaf'),
         ('using_gme_connector', 'Using Google Maps Engine Connector for QGIS'),
         ]
@@ -153,6 +156,7 @@ tutorials['ro'] = [
         ('building_a_python_plugin', 'Building a Python Plugin'),
         ('running_qgis_jobs', 'Running and Scheduling QGIS Processing Jobs'),
         ('find_neighbor_polygons', 'Găsirea poligoanelor învecinate dintr-un strat'),
+        ('performing_table_joins_pyqgis', 'Performing Table Joins (PyQGIS)'),
         ('leaflet_maps_with_qgis2leaf', 'Crearea hărților web Leaflet cu ajutorul qgis2leaf'),
         ('using_gme_connector', 'Folosirea conectorului Google Maps Engine pentru QGIS'),
         ]
@@ -191,6 +195,7 @@ tutorials['fr'] = [
         ('building_a_python_plugin', 'Building a Python Plugin'),
         ('running_qgis_jobs', 'Running and Scheduling QGIS Processing Jobs'),
         ('find_neighbor_polygons', 'Find Neighbor Polygons in a Layer'),
+        ('performing_table_joins_pyqgis', 'Performing Table Joins (PyQGIS)'),
         ('leaflet_maps_with_qgis2leaf', 'Leaflet Web Maps with qgis2leaf'),
         ('using_gme_connector', 'Using Google Maps Engine Connector for QGIS'),
         ]
@@ -229,6 +234,7 @@ tutorials['ko'] = [
         ('building_a_python_plugin', 'Building a Python Plugin'),
         ('running_qgis_jobs', 'Running and Scheduling QGIS Processing Jobs'),
         ('find_neighbor_polygons', 'Find Neighbor Polygons in a Layer'),
+        ('performing_table_joins_pyqgis', 'Performing Table Joins (PyQGIS)'),
         ('leaflet_maps_with_qgis2leaf', 'Leaflet Web Maps with qgis2leaf'),
         ('using_gme_connector', 'Using Google Maps Engine Connector for QGIS'),
         ]
@@ -267,6 +273,7 @@ tutorials['el'] = [
         ('building_a_python_plugin', 'Building a Python Plugin'),
         ('running_qgis_jobs', 'Running and Scheduling QGIS Processing Jobs'),
         ('find_neighbor_polygons', 'Find Neighbor Polygons in a Layer'),
+        ('performing_table_joins_pyqgis', 'Performing Table Joins (PyQGIS)'),
         ('leaflet_maps_with_qgis2leaf', 'Leaflet Web Maps with qgis2leaf'),
         ('using_gme_connector', 'Using Google Maps Engine Connector for QGIS'),
         ]
@@ -305,6 +312,7 @@ tutorials['id'] = [
         ('building_a_python_plugin', 'Building a Python Plugin'),
         ('running_qgis_jobs', 'Running and Scheduling QGIS Processing Jobs'),
         ('find_neighbor_polygons', 'Find Neighbor Polygons in a Layer'),
+        ('performing_table_joins_pyqgis', 'Performing Table Joins (PyQGIS)'),
         ('leaflet_maps_with_qgis2leaf', 'Leaflet Web Maps with qgis2leaf'),
         ('using_gme_connector', 'Using Google Maps Engine Connector for QGIS'),
         ]
@@ -343,6 +351,7 @@ tutorials['vi'] = [
         ('building_a_python_plugin', 'Building a Python Plugin'),
         ('running_qgis_jobs', 'Running and Scheduling QGIS Processing Jobs'),
         ('find_neighbor_polygons', 'Find Neighbor Polygons in a Layer'),
+        ('performing_table_joins_pyqgis', 'Performing Table Joins (PyQGIS)'),
         ('leaflet_maps_with_qgis2leaf', 'Leaflet Web Maps with qgis2leaf'),
         ('using_gme_connector', 'Using Google Maps Engine Connector for QGIS'),
         ]

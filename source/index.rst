@@ -44,6 +44,7 @@ QGIS Tutorials and Tips
    - :doc:`docs/processing_python_scripts`
    - :doc:`docs/running_qgis_jobs`
    - :doc:`docs/find_neighbor_polygons`
+   - :doc:`docs/performing_table_joins_pyqgis`
 * Web Mapping
    - :doc:`docs/leaflet_maps_with_qgis2leaf`
    - :doc:`docs/using_gme_connector`
@@ -91,6 +92,7 @@ QGIS Tutorials and Tips
    docs/processing_python_scripts
    docs/running_qgis_jobs
    docs/find_neighbor_polygons
+   docs/performing_table_joins_pyqgis
    docs/leaflet_maps_with_qgis2leaf
    docs/using_gme_connector
    docs/learning_resources
