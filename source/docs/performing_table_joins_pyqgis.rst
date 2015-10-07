@@ -83,6 +83,7 @@ built-in :guilabel:`Editor` in QGIS.
    joinObject.joinLayerId = csv.id()
    joinObject.joinFieldName = csvField
    joinObject.targetFieldName = shpField
+   joinObject.memoryCache = True
    shp.addJoin(joinObject)
 
 4. An easier - and preferred way of accomplishing the same thing is via the
