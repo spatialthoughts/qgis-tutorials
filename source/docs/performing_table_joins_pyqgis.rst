@@ -48,6 +48,11 @@ built-in :guilabel:`Editor` in QGIS.
    Adding ``/vsizip/`` in the path, we can access the shapefile contained in
    the zip archive.
 
+.. note::
+
+   The zip_uri would begin with ``/vsizip//`` on Linux and Mac systems.
+   (Note the extra /)
+   
 .. code-block:: python
 
    zip_uri = '/vsizip/C:/Users/Ujaval/Downloads/tl_2013_06_tract.zip'
@@ -104,8 +109,8 @@ built-in :guilabel:`Editor` in QGIS.
    csvField='GEO.id2'
    result = processing.runandload('qgis:joinattributestable', shp, csv, shpField, csvField, None)
 
-5. We will stick with the original join using QgsVectorJoinInfo for the
-   remaining of the tutorial. Now it is time to apply a graduated style to the
+5. We will stick with the original join using ``QgsVectorJoinInfo`` for the
+   remainder of the tutorial. Now it is time to apply a graduated style to the
    joined layer. The population field name in the joined layer is
    ``ca_tracts_pop_D001``. We will apply a graduated renderer using the
    ``QgsGraduatedSymbolRendererV2`` class in the ``Quantile`` mode. Refer to
