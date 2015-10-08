@@ -65,6 +65,7 @@ Data Credits
    Zealand licence <http://creativecommons.org/licenses/by/3.0/nz/>`_.
 
 - :doc:`performing_table_joins`
+- :doc:`performing_table_joins_pyqgis`
 - :doc:`sampling_raster_data`
 
 .. [TIGER] 2013 TIGER/Line Shapefiles [machine-readable data files] prepared by
