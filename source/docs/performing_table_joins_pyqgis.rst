@@ -52,12 +52,15 @@ built-in :guilabel:`Editor` in QGIS.
 
    The zip_uri would begin with ``/vsizip//`` on Linux and Mac systems.
    (Note the extra /)
-   
+
 .. code-block:: python
 
    zip_uri = '/vsizip/C:/Users/Ujaval/Downloads/tl_2013_06_tract.zip'
    shp =  QgsVectorLayer(zip_uri, 'tl_2013_06_tract', 'ogr')
    QgsMapLayerRegistry.instance().addMapLayer(shp)
+
+.. image:: /static/performing_table_joins_pyqgis/images/1.png
+   :align: center
 
 2. Load the CSV file. As the CSV file doesn't contain any spatial data, we load
    it as a table using the ``delimitedtext`` provider.
@@ -68,6 +71,8 @@ built-in :guilabel:`Editor` in QGIS.
    csv = QgsVectorLayer(csv_uri, 'ca_tracts_pop', 'delimitedtext')
    QgsMapLayerRegistry.instance().addMapLayer(csv)
 
+.. image:: /static/performing_table_joins_pyqgis/images/2.png
+   :align: center
 
 3. Create the table join. Table joins in QGIS are performed using
    ``QgsVectorJoinInfo`` object. We need to specify the ``GEO.id2`` field from
@@ -91,6 +96,9 @@ built-in :guilabel:`Editor` in QGIS.
    joinObject.memoryCache = True
    shp.addJoin(joinObject)
 
+.. image:: /static/performing_table_joins_pyqgis/images/3.png
+   :align: center
+
 4. An easier - and preferred way of accomplishing the same thing is via the
    Processing Framework. You can call the algorithm
    ``qgis:joinattributestable`` and create a joined layer.
@@ -108,6 +116,9 @@ built-in :guilabel:`Editor` in QGIS.
    shpField='GEOID'
    csvField='GEO.id2'
    result = processing.runandload('qgis:joinattributestable', shp, csv, shpField, csvField, None)
+
+.. image:: /static/performing_table_joins_pyqgis/images/4.png
+   :align: center
 
 5. We will stick with the original join using ``QgsVectorJoinInfo`` for the
    remainder of the tutorial. Now it is time to apply a graduated style to the
@@ -168,6 +179,18 @@ built-in :guilabel:`Editor` in QGIS.
    myRenderer.setClassAttribute(myColumn)
 
    shp.setRendererV2(myRenderer)
+
+.. image:: /static/performing_table_joins_pyqgis/images/5.png
+   :align: center
+
+6. Typing the code in the Python Console is useful for small tasks, but it
+   is far easier to use the built-in :guilabel:`Editor`. You can copy the
+   entire script in the :guilabel:`Editor` and click :guilabel:`Run`. As the
+   script finishes, you would have created a table join and styled the
+   resulting layer without any manual steps.
+
+.. image:: /static/performing_table_joins_pyqgis/images/6.png
+   :align: center
 
 
 Below is the full ``join_attributes.py`` file as a reference.

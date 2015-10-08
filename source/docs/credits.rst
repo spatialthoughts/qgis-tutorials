@@ -71,6 +71,7 @@ Data Credits
    the U.S. Census Bureau, 2013
 
 - :doc:`performing_table_joins`
+- :doc:`performing_table_joins_pyqgis`
 
 .. [USCENSUS] Census Summary File 1— California [machine-readable data files]
    prepared by the U.S. Census Bureau, 2011.
