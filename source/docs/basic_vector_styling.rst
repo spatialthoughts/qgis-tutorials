@@ -27,11 +27,12 @@ Environment (SAGE) <http://nelson.wisc.edu/sage/index.php>`_ at the
 University of Wisconsin-Madison.
 
 You can download the `Life Expectancy GIS Grid data <http://nelson.wisc.edu/sage/data-and-models/atlas/data.php?incdataset=Life%20Expectancy>`_
-from the human impact dataset. For convenience, you can also download a copy of this data by clicking on following
-link:
+from the human impact dataset.
 
-:download:`lifeexpectancy.zip
-<../static/basic_vector_styling/data/lifeexpectancy.zip>`
+For convenience, you may directly download a copy of the dataset from the
+link below:
+
+`lifeexpectancy.zip <../../downloads/lifeexpectancy.zip>`_
 
 Data Source [SAGE]_
 

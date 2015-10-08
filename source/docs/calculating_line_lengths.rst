@@ -35,13 +35,11 @@ has a public domain railroads dataset. Download the `North America supplement
 <http://www.naturalearthdata.com/http//www.naturalearthdata.com/download/10m/cultural/ne_10m_railroads_north_america.zip>`_
 zip file from the portal.
 
-.. only:: html
+For convenience, you may directly download a copy of the dataset from the link
+below:
 
-   For convenience, the version of railroad dataset used in this tutorial can be
-   downloaded directly from the links below:
-
-   Download :download:`North America supplement
-   <../static/calculating_line_lengths/data/ne_10m_railroads_north_america.zip>`
+`ne_10m_railroads_north_america..zip
+<../../downloads/ne_10m_railroads_north_america.zip>`_
 
 Data Source [NATURALEARTH]_
 

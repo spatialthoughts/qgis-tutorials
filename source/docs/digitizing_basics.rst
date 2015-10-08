@@ -36,14 +36,10 @@ Download the `GeoTIFF Image file
 from the `Christchurch Topo50 map download page
 <http://www.linz.govt.nz/topography/topo-maps/map-chooser/christchurch/christchurch#digitalfile>`_.
 
+For convenience, you may directly download a copy of the dataset from the
+link below:
 
-.. only:: html
-
-   If you are on a slow connection, you may download a clipped version of the
-   original GeoTIFF which is a much smaller file size.
-
-   :download:`BX24_GeoTifv1-02-clip.tif
-   </static/digitizing_basics/data/BX24_GeoTifv1-02-clip.tif>`
+`BX24_GeoTifv1-02-clip.tif <../../downloads/BX24_GeoTifv1-02-clip.tif>`_
 
 Data Source [LINZ]_
 
