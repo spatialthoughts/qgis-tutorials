@@ -20,7 +20,8 @@ accuracy georeferencing.
 Overview of the task
 --------------------
 
-We will use a scanned map of southern India from 1870 and geo-reference it using QGIS.
+We will use a scanned map of southern India from 1870 and geo-reference it
+using QGIS.
 
 Other skills you will learn
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -30,17 +31,19 @@ Other skills you will learn
 Get the data
 ------------
 
-`Hipkiss’s Scanned Old Maps <http://www.hipkiss.org/data/maps.html>`_ website has an excellent collection out-of-copyright
-scanned maps that one can use for research.
+`Hipkiss’s Scanned Old Maps <http://www.hipkiss.org/data/maps.html>`_ website
+has an excellent collection out-of-copyright scanned maps that one can use for
+research.
 
-Download the `1870 map of southern India <http://www.hipkiss.org/data/maps/william-mackenzie_gallery-of-geography_1870_southern-india_3975_3071_600.jpg>`_ and save it as a JPG image on your hard drive.
+Download the `1870 map of southern India
+<http://www.hipkiss.org/data/maps/william-mackenzie_gallery-of-geography_1870_southern-india_3975_3071_600.jpg>`_
+and save it as a JPG image on your hard drive.
 
-.. only:: html
+For convenience, you may directly download a copy of the dataset from the link
+below:
 
-   For convenience, you can directly download sample data used in this tutorial
-   from the link below.
+`1870_southern_india.jpg <../../downloads/1870_southern_india.jpg>`_
 
-   :download:`1870_southern_india.jpg <../static/georeferencing_basics/data/1870_southern-india.jpg>`
 
 Procedure
 ---------
@@ -49,8 +52,8 @@ Procedure
 core plugin - meaning it is already part of your QGIS installation. You just
 need to enable it. Go to :menuselection:`Plugins --> Manage and Install
 Plugins` and enable the :guilabel:`Georeferencer GDAL` plugin in the
-:guilabel:`Installed` tab. See :doc:`using_plugins` for more details on how to work
-with plugins.
+:guilabel:`Installed` tab. See :doc:`using_plugins` for more details on how to
+work with plugins.
 
 .. image:: /static/georeferencing_basics/images/1.png
    :align: center
@@ -77,12 +80,13 @@ with plugins.
 
 5. In the next screen, you will asked to choose the raster’s coordinate
    reference system (CRS). This is to specify the projection and datum of your
-   control points. If you have collected the ground control points using a GPS device, you would have the WGS84
-   CRS. If you are geo-referencing a scanned map like this, you can obtain the
-   CRS information from the map itself. Looking at our map image, the
-   coordinates are in Lat/Long. There is no datum information given, so we
-   have to assume an appropriate one. Since it is India and the map is quite
-   old, we can bet the Everest 1830 datum would give us good results.
+   control points. If you have collected the ground control points using a GPS
+   device, you would have the WGS84 CRS. If you are geo-referencing a scanned
+   map like this, you can obtain the CRS information from the map itself.
+   Looking at our map image, the coordinates are in Lat/Long. There is no datum
+   information given, so we have to assume an appropriate one. Since it is
+   India and the map is quite old, we can bet the Everest 1830 datum would give
+   us good results.
 
 .. image:: /static/georeferencing_basics/images/5.png
    :align: center
@@ -105,8 +109,8 @@ with plugins.
 .. image:: /static/georeferencing_basics/images/8.png
    :align: center
 
-9. In the pop-up window, enter the coordinates. Remember that X=longitude and Y=latitude.
-   Click :guilabel:`OK`.
+9. In the pop-up window, enter the coordinates. Remember that X=longitude and
+   Y=latitude.  Click :guilabel:`OK`.
 
 .. image:: /static/georeferencing_basics/images/9.png
    :align: center
@@ -146,7 +150,8 @@ with plugins.
 .. image:: /static/georeferencing_basics/images/14.png
    :align: center
 
-15. Once the process finishes, you will see the georeferenced layer loaded in QGIS.
+15. Once the process finishes, you will see the georeferenced layer loaded in
+    QGIS.
 
 .. image:: /static/georeferencing_basics/images/15.png
    :align: center

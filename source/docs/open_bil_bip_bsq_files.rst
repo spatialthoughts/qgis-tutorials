@@ -35,10 +35,16 @@ We will use the `AVHRR Global Land Cover Classification data
 <http://glcf.umd.edu/data/landcover/data.shtml>`_ from `Global Land Cover
 Facility <http://glcf.umd.edu/>`_ as an example.
 
-The Global Coverage datasets are distributed as **BSQ** files. Download the
-`1 Degree pixel resolution
+The Global Coverage datasets are distributed as **BSQ** files. Download the `1
+Degree pixel resolution
 <ftp://ftp.glcf.umd.edu/glcf/Global_Land_Cover/Global/1deg/gl-latlong-1deg-landcover.bsq.gz>`_
 dataset.
+
+For convenience, you may directly download a copy of the dataset from the link
+below:
+
+`gl-latlong-1deg-landcover.bsq.gz <../../downloads/gl-latlong-1deg-landcover.bsq.gz>`_
+
 
 Data Source [GLCF]_
 
@@ -47,8 +53,8 @@ Procedure
 
 1. Unzip and extract the .bsq file. On Windows, you may use the excellent
    `7-Zip utility <http://www.7-zip.org/>`_ to read and extract .gz file. You
-   will see that you only have a .bsq file named ``gl-latlong-1deg-landcover.bsq``.
-   There is no hdr file.
+   will see that you only have a .bsq file named
+   ``gl-latlong-1deg-landcover.bsq``.  There is no hdr file.
 
 .. image:: /static/open_bil_bip_bsq_files/images/1.png
    :align: center
@@ -98,7 +104,9 @@ Procedure
    respectively. We do not have any information about the nodata_value, so -9999
    is a safe bet. From metadata again, Pixel Format is Byte, so **nbits** will
    equal to 8 and pixeltype will be **byte_unsigned**. We do not have
-   information about the byteorder, so leave it as msbfirst.
+   information about the byteorder, so leave it as msbfirst. You may download
+   the correctly formatted HDR file from `here
+   <../../downloads/gl-latlong-1deg-landcover.hdr>`_.
 
 .. image:: /static/open_bil_bip_bsq_files/images/5.png
    :align: center
