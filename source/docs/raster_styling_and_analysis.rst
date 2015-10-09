@@ -26,8 +26,9 @@ Get the data
 ------------
 
 We will use the `Gridded Population of the World (GPW) v3
-<http://sedac.ciesin.columbia.edu/data/collection/gpw-v3>`_
-dataset from Columbia University. Specifically, we need the Population Density Grid for the entire globe in ASCII format and for the year 1990 and 2000.
+<http://sedac.ciesin.columbia.edu/data/collection/gpw-v3>`_ dataset from
+Columbia University. Specifically, we need the Population Density Grid for the
+entire globe in ASCII format and for the year 1990 and 2000.
 
 Here is how to search and download the revelant data.
 
@@ -45,13 +46,12 @@ Here is how to search and download the revelant data.
 
 You will now have 2 zip files downloaded.
 
-.. only:: html
+For convenience, you may directly download a copy of the datasets from the
+links below:
 
-   For convenience, you can also download a copy of this data by clicking on following links:
+`gl_gpwv3_pdens_90_ascii_one.zip <../../downloads/gl_gpwv3_pdens_90_ascii_one.zip>`_
 
-   :download:`gl_gpwv3_pdens_90_ascii_one.zip <../static/raster_styling_and_analysis/data/gl_gpwv3_pdens_90_ascii_one.zip>`
-
-   :download:`gl_gpwv3_pdens_00_ascii_one.zip <../static/raster_styling_and_analysis/data/gl_gpwv3_pdens_00_ascii_one.zip>`
+`gl_gpwv3_pdens_00_ascii_one.zip <../../downloads/gl_gpwv3_pdens_00_ascii_one.zip>`_
 
 Data Source [GPW3]_
 
@@ -63,9 +63,9 @@ Procedure
 .. image:: /static/raster_styling_and_analysis/images/2.png
    :align: center
 
-3. Locate the downloaded zip files. Hold down the :kbd:`Ctrl` key and click on both
-   the zip files to select them. This way you are able to load both the files
-   in a single step.
+3. Locate the downloaded zip files. Hold down the :kbd:`Ctrl` key and click on
+   both the zip files to select them. This way you are able to load both the
+   files in a single step.
 
 .. image:: /static/raster_styling_and_analysis/images/3.png
    :align: center
@@ -104,16 +104,17 @@ Procedure
    :align: center
 
 9. Each pixel in the raster has a value assigned. This value is the population
-   density for that grid. Click on :guilabel:`Identify Features` button to select the
-   tool and click anywhere on the raster to see the value of that pixel.
+   density for that grid. Click on :guilabel:`Identify Features` button to
+   select the tool and click anywhere on the raster to see the value of that
+   pixel.
 
 .. image:: /static/raster_styling_and_analysis/images/9.png
    :align: center
 
 10. To better visualize the pattern of population density, we would need to
-    style it. Right-click on the layer name and select :guilabel:`Properties`. You can also
-    double-click on the layer name in the TOC to bring up the Layer
-    Properties dialog.
+    style it. Right-click on the layer name and select :guilabel:`Properties`.
+    You can also double-click on the layer name in the TOC to bring up the
+    Layer Properties dialog.
 
 .. image:: /static/raster_styling_and_analysis/images/10.png
    :align: center
@@ -140,15 +141,15 @@ Procedure
 .. image:: /static/raster_styling_and_analysis/images/13.png
    :align: center
 
-14. In the :guilabel:`Raster bands` section, you can select the layer by double-clicking
-    on them. The bands are named after the raster name followed by @ and band
-    number. Since each of our rasters have only 1 band, you will see only 1
-    entry per raster. The raster calculator can apply mathematical operations
-    on the raster pixels. In this case we want to enter a simple formula to
-    subtract the 1990 population density from 2000. Enter ``glds00ag60@1 - glds90ag60@1``
-    as the formula. Name your output layer as :guilabel:`pop_density_change_2000_1990.tif`
-    and check the box next to :guilabel:`Add result to project`. Click
-    :guilabel:`OK`.
+14. In the :guilabel:`Raster bands` section, you can select the layer by
+    double-clicking on them. The bands are named after the raster name followed
+    by @ and band number. Since each of our rasters have only 1 band, you will
+    see only 1 entry per raster. The raster calculator can apply mathematical
+    operations on the raster pixels. In this case we want to enter a simple
+    formula to subtract the 1990 population density from 2000. Enter
+    ``glds00ag60@1 - glds90ag60@1`` as the formula. Name your output layer as
+    ``pop_density_change_2000_1990.tif`` and check the box next to
+    :guilabel:`Add result to project`. Click :guilabel:`OK`.
 
 .. image:: /static/raster_styling_and_analysis/images/14.png
    :align: center
@@ -158,16 +159,17 @@ Procedure
 .. image:: /static/raster_styling_and_analysis/images/15.png
    :align: center
 
-16. This grayscale visualization is useful, but we can create a much more informative
-    output. Right-click on the ``pop_density_change_2000_1990`` layer and
-    select :guilabel:`Properties`.
+16. This grayscale visualization is useful, but we can create a much more
+    informative output. Right-click on the ``pop_density_change_2000_1990``
+    layer and select :guilabel:`Properties`.
 
 .. image:: /static/raster_styling_and_analysis/images/16.png
    :align: center
 
 17. We want to style the layer so pixel values in certain ranges get the same
-    color. Before we dive in to that, go to the :guilabel:`Metadata` tab and look at the
-    properties of the raster. Note the minimum and maximum values of this layer.
+    color. Before we dive in to that, go to the :guilabel:`Metadata` tab and
+    look at the properties of the raster. Note the minimum and maximum values
+    of this layer.
 
 .. image:: /static/raster_styling_and_analysis/images/17.png
    :align: center
@@ -175,13 +177,13 @@ Procedure
 18. Now go to the :guilabel:`Style` tab. Select :guilabel:`Singleband
     pseudocolor` as the :guilabel:`Render type` under :guilabel:`Band
     Rendering`. Set the :guilabel:`Color interpolation` to
-    :guilabel:`Discrete`.  Click the :guilabel:`Add entry` button 4 times to create 4
-    unique classes. Click on an entry to change the values. The way color map
-    works is that all values lower than the value entered will be given the
-    color of that entry. Since the minmum value in our raster is just above
-    -2000, we choose -2000 as the first entry. This will be for the No Data
-    values. Enter the values and Labels for other entries as below and click
-    :guilabel:`OK`.
+    :guilabel:`Discrete`.  Click the :guilabel:`Add entry` button 4 times to
+    create 4 unique classes. Click on an entry to change the values. The way
+    color map works is that all values lower than the value entered will be
+    given the color of that entry. Since the minmum value in our raster is just
+    above -2000, we choose -2000 as the first entry. This will be for the No
+    Data values. Enter the values and Labels for other entries as below and
+    click :guilabel:`OK`.
 
 .. image:: /static/raster_styling_and_analysis/images/18.png
    :align: center
@@ -201,17 +203,22 @@ Procedure
    :align: center
 
 21. Now let’s take this analysis one-step further and find areas with only
-    `negative` population density change. Open :menuselection:`Raster --> Raster calculator`.
+    `negative` population density change. Open :menuselection:`Raster -->
+    Raster calculator`.
 
 .. image:: /static/raster_styling_and_analysis/images/21.png
    :align: center
 
-22. Enter the expression ``pop_density_change_2000_1990@1 < -10``. What this
-    expression will do is set the value of the pixel to 1 is if matches the
-    expression and 0 if it doesn't.  So we will get a raster with pixel value
-    of 1 where there was negative change and 0 where there wasn't. Name the
-    output layer as ``negative_pop_change_2000_1990`` and check the box next to
-    :guilabel:`Add result to project`. Click OK.
+22. Enter the expression as shown below What this expression will do is set the
+    value of the pixel to 1 is if matches the expression and 0 if it doesn't.
+    So we will get a raster with pixel value of 1 where there was negative
+    change and 0 where there wasn't. Name the output layer as
+    ``negative_pop_change_2000_1990`` and check the box next to :guilabel:`Add
+    result to project`. Click OK.
+
+.. code-block:: none
+
+   pop_density_change_2000_1990@1 < -10
 
 .. image:: /static/raster_styling_and_analysis/images/22.png
    :align: center

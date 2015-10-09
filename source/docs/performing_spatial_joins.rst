@@ -43,16 +43,13 @@ of free data for New York city.
 .. image:: /static/performing_spatial_joins/images/2.png
    :align: center
 
-.. only:: html
 
-   For convenience, the version of datasets used in this tutorial can be
-   downloaded directly from the links below:
+For convenience, you may directly download a copy of the datasets from the
+links below:
 
-   Download :download:`Borough Boundaries
-   <../static/performing_spatial_joins/data/nybb_12c.zip>`
+`nybb_12c.zip <../../downloads/nybb_12c.zip>`_
 
-   Download :download:`Nursing Homes
-   <../static/performing_spatial_joins/data/OEM_NursingHomes_001.zip>`
+`OEM_NursingHomes_001.zip <../../downloads/OEM_NursingHomes_001.zip>`_
 
 
 Procedure

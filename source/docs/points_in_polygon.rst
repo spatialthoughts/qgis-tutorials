@@ -33,14 +33,12 @@ Natural Earth has `Admin 0 - Countries
 dataset. Download the `countries
 <http://www.naturalearthdata.com/http//www.naturalearthdata.com/download/10m/cultural/ne_10m_admin_0_countries.zip>`_
 
-.. only:: html
+For convenience, you may directly download a copy of the dataset from the link
+below:
 
-   For convenience, you may directly download a copy of both the datasets from the links
-   below:
+`signif.txt <../../downloads/signif.txt>`_
 
-   :download:`signif.txt </static/points_in_polygon/data/signif.txt>`
-
-   :download:`ne_10m_admin_0_countries.zip </static/points_in_polygon/data/ne_10m_admin_0_countries.zip>`
+`ne_10m_admin_0_countries.zip <../../downloads/ne_10m_admin_0_countries.zip>`_
 
 Data Sources: [NGDC]_ [NATURALEARTH]_
 
@@ -66,17 +64,17 @@ Procedure
    :align: center
 
 3. As the earthquake dataset has Latitude/Longitude coordinates, choose
-   :guilabel:`WGS 84 EPSG:436` as the CRS in the :guilabel:`Coordinate Reference System Selector`
-   dialog.
+   :guilabel:`WGS 84 EPSG:436` as the CRS in the :guilabel:`Coordinate
+   Reference System Selector` dialog.
 
 .. image:: /static/points_in_polygon/images/3.png
    :align: center
 
 4. The earthquake point layer would now be loaded and displayed in QGIS. Let's
-   also open the Countries layer. Go to :menuselection:`Layer --> Add Vector Layer`.
-   Browse to the downloaded ``ne_10m_admin_0_countries.zip`` file and
-   click :guilabel:`Open`. Select the ``ne_10m_admin_0_countries.shp`` as
-   the layer in the :guilabel:`Select layers to add...` dialog.
+   also open the Countries layer. Go to :menuselection:`Layer --> Add Vector
+   Layer`.  Browse to the downloaded ``ne_10m_admin_0_countries.zip`` file and
+   click :guilabel:`Open`. Select the ``ne_10m_admin_0_countries.shp`` as the
+   layer in the :guilabel:`Select layers to add...` dialog.
 
 .. image:: /static/points_in_polygon/images/4.png
    :align: center
@@ -87,7 +85,8 @@ Procedure
    :align: center
 
 6. In the pop-up window, select the polygon layer and point layer respectively.
-   Name the output layer as ``earthquake_per_coutry.shp`` and Click :guilabel:`OK`.
+   Name the output layer as ``earthquake_per_coutry.shp`` and Click
+   :guilabel:`OK`.
 
 .. note::
 
@@ -114,9 +113,9 @@ Procedure
    :align: center
 
 10. To get our answer, we can simply sort the table by ``PNTCNT`` field and the
-    country with highest count will be our answer. Click 2-times on the ``PNTCNT``
-    column to get it sorted in descending order. Click on the first row to
-    select it and close the Attribute Table.
+    country with highest count will be our answer. Click 2-times on the
+    ``PNTCNT`` column to get it sorted in descending order. Click on the first
+    row to select it and close the Attribute Table.
 
 .. image:: /static/points_in_polygon/images/10.png
    :align: center
