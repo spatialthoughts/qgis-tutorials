@@ -43,6 +43,15 @@ Shapefiles <https://www.census.gov/cgi-bin/geo/shapefiles2013/main>`_. Download
 the `Counties (and equivalents) shapefile
 <http://www2.census.gov/geo/tiger/TIGER2013/COUNTY/tl_2013_us_county.zip>`_.
 
+For convenience, you may directly download a copy of the datasets from the
+links below:
+
+`us.tmax_nohads_ll_20140525_float.tif <../../downloads/us.tmax_nohads_ll_20140525_float.tif>`_
+
+`2013_Gaz_ua_national.zip <../../downloads/2013_Gaz_ua_national.zip>`_
+
+`tl_2013_us_county.zip <../../downloads/tl_2013_us_county.zip>`_
+
 Data Sources: [NOAACPC]_, [USGAZETTEER]_ [TIGER]_
 
 Procedure
@@ -158,7 +167,8 @@ Procedure
    :align: center
 
 15. Enable the ``Zonal Statistics Plugins``. This is a core plugin so it is
-    already installed. See :doc:`using_plugins` to know to how enable core plugins.
+    already installed. See :doc:`using_plugins` to know to how enable core
+    plugins.
 
 .. image:: /static/sampling_raster_data/images/15.png
    :align: center
@@ -201,8 +211,8 @@ Procedure
 21. Switch to the :guilabel:`Style` tab. Choose :guilabel:`Graduated` style and
     select ``ZS_mean`` as the :guilabel:`Column`. Choose a :guilabel:`Color
     Ramp` and :guilabel:`Mode` of your chose. Click :guilabel:`Classify` to
-    create the classes. Click :guilabel:`OK`. (See :doc:`basic_vector_styling` for
-    more details on styling.)
+    create the classes. Click :guilabel:`OK`. (See :doc:`basic_vector_styling`
+    for more details on styling.)
 
 .. image:: /static/sampling_raster_data/images/21.png
    :align: center
