@@ -80,12 +80,11 @@ and run it on the downloaded datasets.
 
 .. note::
 
-   If you do not see this algorithm or get an error while using it, you may not
-   have SAGA installed on your system. Please see `Configuring external
-   applications
-   <https://docs.qgis.org/2.6/en/docs/user_manual/processing/3rdParty.html#saga>`_
-   for instructions on how to install SAGA. If you cannot install SAGA, you may
-   skip this step entirely.
+   If you do not see this algorithm or any of the subsequent algorithms
+   mentioned in thi tutorial, you may be using the :guilabel:`Simplified
+   Interface` of the Processing Toolbox. Switch to the :guilabel:`Advanced
+   Interface` by using the dropdown at the bottom of the Processing
+   Toolbox in the main QGIS window.
 
 .. image:: /static/processing_graphical_modeler/images/4.png
    :align: center
