@@ -77,6 +77,11 @@ Data Credits
 .. [USCENSUS] Census Summary File 1— California [machine-readable data files]
    prepared by the U.S. Census Bureau, 2011.
 
+- :doc:`creating_heatmaps`
+
+.. [POLICEUK] `ASB Incidents, Crime and Outcome
+   <https://data.police.uk/about/>`_ - UK Home Office. Retrieved 2015-10-10.
+
 - :doc:`sampling_raster_data`
 
 .. [NOAACPC] `US Daily Maximum Temperature Analysis (C).
