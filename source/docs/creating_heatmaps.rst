@@ -5,12 +5,16 @@ Creating Heatmaps
    [ Download PDF `A4 <../pdf/creating_heatmaps_a4.pdf>`_ `Letter
    <../pdf/creating_heatmaps_letter.pdf>`_ ]
 
-Heatmaps are one of the best visualization tools for dense point data. Heatmaps are used to easily identify find clusters where there is a high concentration of activity. They are also useful for doing `cluster analysis` or `hotspot analysis`.
+Heatmaps are one of the best visualization tools for dense point data. Heatmaps
+are used to easily identify find clusters where there is a high concentration
+of activity. They are also useful for doing `cluster analysis` or `hotspot
+analysis`.
 
 Overview of the task
 --------------------
 
-We will work with a dataset of crime locations in Surrey, UK for the year 2011 and find crime hotspots in the county.
+We will work with a dataset of crime locations in Surrey, UK for the year 2011
+and find crime hotspots in the county.
 
 Other skills you will learn
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -19,11 +23,11 @@ Other skills you will learn
 Get the data
 ------------
 
-`data.police.uk <https://data.police.uk>`_ provides street-level crime, outcome, and
-stop and search data in simple CSV format.
+`data.police.uk <https://data.police.uk>`_ provides street-level crime,
+outcome, and stop and search data in simple CSV format.
 
-Download the data for `Surrey Police <https://data.police.uk/data/>`_ and unzip the
-downloaded archive to extract the CSV file.
+Download the data for `Surrey Police <https://data.police.uk/data/>`_ and unzip
+the downloaded archive to extract the CSV file.
 
 For convenience, you may directly download a copy of the dataset from the link
 below:
@@ -100,7 +104,7 @@ Procedure
    :align: center
 
 8. You will see a nice heatmap of your data and pockets of *heat* where there
-   is a high concentraiton of crime. There are quite a few options available in
+   is a high concentration of crime. There are quite a few options available in
    the heatmap renderer to create the most appropriate visualization for your
    dataset. If you just wanted to create a heatmap for print or visual
    inspection - you are done! But we will explore another more powerful heatmap
@@ -128,8 +132,8 @@ Procedure
    :align: center
 
 11. Once the processing is finished, you will see a grayscale layer called
-   ``crime_heatmap`` loaded into the canvas. Uncheck the
-   ``2015-08-surrey-street`` layer.
+    ``crime_heatmap`` loaded into the canvas. Uncheck the
+    ``2015-08-surrey-street`` layer.
 
 .. image:: /static/creating_heatmaps/images/11.png
    :align: center
