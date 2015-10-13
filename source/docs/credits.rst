@@ -4,7 +4,7 @@ Data Credits
 - :doc:`making_a_map`
 - :doc:`working_with_attributes`
 - :doc:`calculating_line_lengths`
-- :doc:`raster_mosaicing_and_clipping`
+- :doc:`raster_mosaicing_and_clipping`in
 - :doc:`points_in_polygon`
 - :doc:`performing_spatial_queries`
 - :doc:`nearest_neighbor_analysis`
@@ -96,7 +96,7 @@ Data Credits
 
 - :doc:`interpolating_point_data`
 
-.. [TWDB] `Texas Water Development Board <http://www.twdb.state.tx.us/>`_ .
+.. [TWDB] `Texas Water Development Board <http://www.twdb.texas.gov>`_ .
    Completed Surveys and Data for Lake Arlington. 2007-12 Shapefiles. Retrieved
    2014-11-26.
 
