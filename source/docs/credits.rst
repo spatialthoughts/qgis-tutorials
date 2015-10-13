@@ -123,5 +123,5 @@ Data Credits
 
 - :doc:`using_gme_connector`
 
-.. [SFMTA] `SFMTA Livable Streets <https://data.sfgov.org/Transportation/SFMTA-Bikeway-Network/sshc-gutj>`_.
+.. [SFMTA] `SFMTA Livable Streets <https://data.sfgov.org/Transportation/SFMTA-Bikeway-Network/t6vv-tjkd>`_.
    Published by: Municipal Transportation Agency
