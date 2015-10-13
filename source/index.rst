@@ -50,7 +50,6 @@ QGIS Tutorials and Tips
    - :doc:`docs/using_gme_connector`
 * Appendix
    - :doc:`docs/learning_resources`
-   - :doc:`docs/teach_qgis`
    - :doc:`docs/credits`
 
 .. toctree::
@@ -96,6 +95,5 @@ QGIS Tutorials and Tips
    docs/leaflet_maps_with_qgis2leaf
    docs/using_gme_connector
    docs/learning_resources
-   docs/teach_qgis
    docs/credits
 
