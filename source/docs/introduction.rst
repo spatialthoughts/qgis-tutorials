@@ -9,9 +9,6 @@ You may use these tutorials as a self-paced course to learn the software
 thoroughly. However, each section is fairly independent, so those familiar with
 QGIS can jump into any section.
 
-If you are an educator, see :doc:`teach_qgis` for resources and examples of
-using these tutorials to teach GIS curriculum.
-
 You can also check out :doc:`learning_resources` for other materials to help you
 learn QGIS.
 
