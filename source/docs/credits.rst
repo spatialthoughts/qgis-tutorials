@@ -4,7 +4,7 @@ Data Credits
 - :doc:`making_a_map`
 - :doc:`working_with_attributes`
 - :doc:`calculating_line_lengths`
-- :doc:`raster_mosaicing_and_clipping`in
+- :doc:`raster_mosaicing_and_clipping`
 - :doc:`points_in_polygon`
 - :doc:`performing_spatial_queries`
 - :doc:`nearest_neighbor_analysis`
