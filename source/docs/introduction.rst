@@ -24,19 +24,19 @@ Translations
 
 The tutorials are also available in following langugages:
 
-- `Dutch <http://qgistutorials.com/nl/>`_ (Translation by: *Dick Groskamp*)
-- `Finnish <http://qgistutorials.com/fi_FI/>`_ (Translation by: *Kari Salovaara*)
-- `French <http://qgistutorials.com/fr/>`_ (Translation by: *Sylvain Dorey*, *Allan Stockman*, *Delphine Petit*)
-- `German <http://qgistutorials.com/de/>`_ (Translation by: *Michael Gieding*)
-- `Greek <http://qgistutorials.com/el/>`_ (Translation by: *Christina Dimitriadou*, *Paliogiannis Konstantinos*, *Tom Karagkounis*, *Despoina Karfi*)
-- `Indonesian <http://qgistutorials.com/id/>`_ (Translation by: *Maruli Tua Manullang*, *Bakhtiar Arif*)
-- `Italian <http://qgistutorials.com/it/>`_ (Translation by: *Pino Nicolosi a.k.a Rattus*)
-- `Korean <http://qgistutorials.com/ko/>`_ (Translation by: *SongHyun Choi*)
-- `Portuguese (Brazil) <http://qgistutorials.com/pt_BR/>`_ (Translation by: *Narcélio de Sá*, *Wesley Kevin Souto do Vale*)
-- `Romanian <http://qgistutorials.com/ro/>`_ (Translation by: *Sorin Călinică*)
-- `Russian <http://qgistutorials.com/ru/>`_ (Translation by: *Marina Pavlova*, *Ilya Trofimov*, *Fayçal Fatihi*)
-- `Spanish <http://qgistutorials.com/es/>`_ (Translation by: *Juan Carlos Méndez*, *Felipe Raimann*)
-- `Vietnamese <http://qgistutorials.com/vi/>`_ (Translation by: *Hang Nguyen Thuy*)
+- `Dutch <http://www.qgistutorials.com/nl/>`_ (Translation by: *Dick Groskamp*)
+- `Finnish <http://www.qgistutorials.com/fi_FI/>`_ (Translation by: *Kari Salovaara*)
+- `French <http://www.qgistutorials.com/fr/>`_ (Translation by: *Sylvain Dorey*, *Allan Stockman*, *Delphine Petit*)
+- `German <http://www.qgistutorials.com/de/>`_ (Translation by: *Michael Gieding*)
+- `Greek <http://www.qgistutorials.com/el/>`_ (Translation by: *Christina Dimitriadou*, *Paliogiannis Konstantinos*, *Tom Karagkounis*, *Despoina Karfi*)
+- `Indonesian <http://www.qgistutorials.com/id/>`_ (Translation by: *Maruli Tua Manullang*, *Bakhtiar Arif*)
+- `Italian <http://www.qgistutorials.com/it/>`_ (Translation by: *Pino Nicolosi a.k.a Rattus*)
+- `Korean <http://www.qgistutorials.com/ko/>`_ (Translation by: *SongHyun Choi*)
+- `Portuguese (Brazil) <http://www.qgistutorials.com/pt_BR/>`_ (Translation by: *Narcélio de Sá*, *Wesley Kevin Souto do Vale*)
+- `Romanian <http://www.qgistutorials.com/ro/>`_ (Translation by: *Sorin Călinică*)
+- `Russian <http://www.qgistutorials.com/ru/>`_ (Translation by: *Marina Pavlova*, *Ilya Trofimov*, *Fayçal Fatihi*)
+- `Spanish <http://www.qgistutorials.com/es/>`_ (Translation by: *Juan Carlos Méndez*, *Felipe Raimann*)
+- `Vietnamese <http://www.qgistutorials.com/vi/>`_ (Translation by: *Hang Nguyen Thuy*)
 
 If you would like to help translate these tutorials in your langugage, please
 `Join the team on Transifex
