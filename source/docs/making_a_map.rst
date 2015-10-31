@@ -1,8 +1,13 @@
 Making a Map
 ============
-.. only:: html
 
-   [ Download PDF `A4 <../pdf/making_a_map_a4.pdf>`_ `Letter <../pdf/making_a_map_letter.pdf>`_ ]
+.. raw:: html
+
+   <p>[ Download PDF
+   <a class="reference external" href="../pdf/making_a_map_a4.pdf" onClick=”_gaq.push(['_trackEvent', 'PDF Download', 'making_a_map_a4']);” target=”_blank”>A4</a>
+
+   <a class="reference external" href="../pdf/making_a_map_letter.pdf" onClick=”_gaq.push(['_trackEvent', 'PDF Download', 'making_a_map_letter']);” target=”_blank”>Letter</a>
+   ]</p>
 
 Often one needs to create a map that can be printed or published. QGIS has a
 powerful tool called :guilabel:`Print Composer` that allows you to take your
