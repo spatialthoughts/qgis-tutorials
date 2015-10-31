@@ -42,7 +42,7 @@ and save it as a JPG image on your hard drive.
 For convenience, you may directly download a copy of the dataset from the link
 below:
 
-`1870_southern_india.jpg <../../downloads/1870_southern_india.jpg>`_
+`1870_southern_india.jpg <../../downloads/1870_southern-india.jpg>`_
 
 
 Procedure
