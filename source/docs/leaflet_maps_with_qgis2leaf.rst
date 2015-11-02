@@ -12,6 +12,11 @@ Leaflet Web Maps with qgis2leaf
    'event', 'PDF Download', 'leaflet_maps_with_qgis2leaf_letter');"
    target="_blank">Letter</a> ]</p>
 
+.. warning::
+
+   qgis2leaf plugin is no longer in active development. The functionality of
+   this plugin is folded into a new plugin called **qgis2web**.
+
 Leaflet is a popular open-source Javascript library for building web mapping
 applications. **qgis2leaf** plugin provides a simple way to export your QGIS
 map to a functioning leaflet-based web map. This plugin is a useful way to get
