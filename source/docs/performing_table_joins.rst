@@ -1,9 +1,16 @@
 Performing Table Joins
 ======================
-.. only:: html
+.. raw:: html
 
-   [ Download PDF `A4 <../pdf/performing_table_joins_a4.pdf>`_ `Letter
-   <../pdf/performing_table_joins_letter.pdf>`_ ]
+   <p>[ Download PDF
+   <a class="reference external" href="../pdf/performing_table_joins_a4.pdf"
+   onClick="ga('send', 'event', 'PDF Download', 'performing_table_joins_a4');"
+   target="_blank">A4</a>
+
+   <a class="reference external"
+   href="../pdf/performing_table_joins_letter.pdf" onClick="ga('send',
+   'event', 'PDF Download', 'performing_table_joins_letter');"
+   target="_blank">Letter</a> ]</p>
 
 Not every dataset you want to use comes as a shapefile, or in a spatial format. Often the data would come as a table or a spreadsheet and you would need to link it with your existing spatial data for use in your analysis. This operation is known as a `Table Join` and this tutorial will cover how to carry out table joins in QGIS.
 

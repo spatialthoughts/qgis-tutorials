@@ -1,9 +1,16 @@
 Using Plugins
 =============
-.. only:: html
+.. raw:: html
 
-   [ Download PDF `A4 <../pdf/using_plugins_a4.pdf>`_ `Letter
-   <../pdf/using_plugins_letter.pdf>`_ ]
+   <p>[ Download PDF
+   <a class="reference external" href="../pdf/using_plugins_a4.pdf"
+   onClick="ga('send', 'event', 'PDF Download', 'using_plugins_a4');"
+   target="_blank">A4</a>
+
+   <a class="reference external"
+   href="../pdf/using_plugins_letter.pdf" onClick="ga('send',
+   'event', 'PDF Download', 'using_plugins_letter');"
+   target="_blank">Letter</a> ]</p>
 
 Plugins in QGIS add useful features to the software. Plugins are written by QGIS developers and other independent users who want to extend the core functionality of the software. These plugins are made available in QGIS for all the users. 
 

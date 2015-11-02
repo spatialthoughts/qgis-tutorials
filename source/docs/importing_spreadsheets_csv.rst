@@ -1,9 +1,16 @@
 Importing Spreadsheets or CSV files
 ===================================
-.. only:: html
+.. raw:: html
 
-   [ Download PDF `A4 <../pdf/importing_spreadsheets_csv_a4.pdf>`_ `Letter
-   <../pdf/importing_spreadsheets_csv_letter.pdf>`_ ]
+   <p>[ Download PDF
+   <a class="reference external" href="../pdf/importing_spreadsheets_csv_a4.pdf"
+   onClick="ga('send', 'event', 'PDF Download', 'importing_spreadsheets_csv_a4');"
+   target="_blank">A4</a>
+
+   <a class="reference external"
+   href="../pdf/importing_spreadsheets_csv_letter.pdf" onClick="ga('send',
+   'event', 'PDF Download', 'importing_spreadsheets_csv_letter');"
+   target="_blank">Letter</a> ]</p>
 
 Many times the GIS data comes in a table or an Excel spreadsheet. Also, if you have a list lat/long coordinates, you can easily import this data in your GIS project.
 

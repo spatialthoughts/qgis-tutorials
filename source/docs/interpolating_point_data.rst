@@ -1,9 +1,16 @@
 Interpolating Point Data
 ========================
-.. only:: html
+.. raw:: html
 
-   [ Download PDF `A4 <../pdf/interpolating_point_data_a4.pdf>`_ `Letter
-   <../pdf/interpolating_point_data_letter.pdf>`_ ]
+   <p>[ Download PDF
+   <a class="reference external" href="../pdf/interpolating_point_data_a4.pdf"
+   onClick="ga('send', 'event', 'PDF Download', 'interpolating_point_data_a4');"
+   target="_blank">A4</a>
+
+   <a class="reference external"
+   href="../pdf/interpolating_point_data_letter.pdf" onClick="ga('send',
+   'event', 'PDF Download', 'interpolating_point_data_letter');"
+   target="_blank">Letter</a> ]</p>
 
 Interpolation is a commonly used GIS technique to create continuous surface
 from discrete points. A lot of real world phenomena are continuous -

@@ -1,9 +1,16 @@
 Creating Heatmaps
 =================
-.. only:: html
+.. raw:: html
 
-   [ Download PDF `A4 <../pdf/creating_heatmaps_a4.pdf>`_ `Letter
-   <../pdf/creating_heatmaps_letter.pdf>`_ ]
+   <p>[ Download PDF
+   <a class="reference external" href="../pdf/creating_heatmaps_a4.pdf"
+   onClick="ga('send', 'event', 'PDF Download', 'creating_heatmaps_a4');"
+   target="_blank">A4</a>
+
+   <a class="reference external"
+   href="../pdf/creating_heatmaps_letter.pdf" onClick="ga('send',
+   'event', 'PDF Download', 'creating_heatmaps_letter');"
+   target="_blank">Letter</a> ]</p>
 
 Heatmaps are one of the best visualization tools for dense point data. Heatmaps
 are used to easily identify find clusters where there is a high concentration

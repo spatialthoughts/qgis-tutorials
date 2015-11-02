@@ -1,9 +1,16 @@
 Automating Map Creation with Print Composer Atlas
 =================================================
-.. only:: html
+.. raw:: html
 
-   [ Download PDF `A4 <../pdf/automating_map_creation_a4.pdf>`_ `Letter
-   <../pdf/automating_map_creation_letter.pdf>`_ ]
+   <p>[ Download PDF
+   <a class="reference external" href="../pdf/automating_map_creation_a4.pdf"
+   onClick="ga('send', 'event', 'PDF Download', 'automating_map_creation_a4');"
+   target="_blank">A4</a>
+
+   <a class="reference external"
+   href="../pdf/automating_map_creation_letter.pdf" onClick="ga('send',
+   'event', 'PDF Download', 'automating_map_creation_letter');"
+   target="_blank">Letter</a> ]</p>
 
 If your organization publishes printed or online maps, you often would need to
 create many maps with the same template - usually one for each administrative
@@ -13,7 +20,6 @@ QGIS has a tool called ``Atlas`` that can help you create a map template and
 easily publish a large number of maps for different geographic regions. If you
 are not familiar with the basics of Print Composer, please go through the
 :doc:`making_a_map` tutorial.
-
 
 Overview of the task
 --------------------

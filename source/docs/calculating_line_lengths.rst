@@ -1,10 +1,16 @@
 Calculating Line Lengths and Statistics
 =======================================
+.. raw:: html
 
-.. only:: html
+   <p>[ Download PDF
+   <a class="reference external" href="../pdf/calculating_line_lengths_a4.pdf"
+   onClick="ga('send', 'event', 'PDF Download', 'calculating_line_lengths_a4');"
+   target="_blank">A4</a>
 
-   [ Download PDF `A4 <../pdf/calculating_line_lengths_a4.pdf>`_ `Letter
-   <../pdf/calculating_line_lengths_letter.pdf>`_ ]
+   <a class="reference external"
+   href="../pdf/calculating_line_lengths_letter.pdf" onClick="ga('send',
+   'event', 'PDF Download', 'calculating_line_lengths_letter');"
+   target="_blank">Letter</a> ]</p>
 
 QGIS has built-in functions to calculate various properties based on the
 geometry of the feature - such as length, area, perimeter etc. This tutorial

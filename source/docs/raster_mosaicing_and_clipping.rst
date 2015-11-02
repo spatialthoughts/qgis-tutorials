@@ -1,9 +1,17 @@
 Raster Mosaicing and Clipping
 =============================
-.. only:: html
+.. raw:: html
 
-   [ Download PDF `A4 <../pdf/raster_mosaicing_and_clipping_a4.pdf>`_ `Letter
-   <../pdf/raster_mosaicing_and_clipping_letter.pdf>`_ ]
+   <p>[ Download PDF
+   <a class="reference external"
+   href="../pdf/raster_mosaicing_and_clipping_a4.pdf" onClick="ga('send',
+   'event', 'PDF Download', 'raster_mosaicing_and_clipping_a4');"
+   target="_blank">A4</a>
+
+   <a class="reference external"
+   href="../pdf/raster_mosaicing_and_clipping_letter.pdf" onClick="ga('send',
+   'event', 'PDF Download', 'raster_mosaicing_and_clipping_letter');"
+   target="_blank">Letter</a> ]</p>
 
 This tutorial explores some basic raster operations in QGIS such as viewing, mosaicing
 and subsetting.

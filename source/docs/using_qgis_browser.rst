@@ -1,9 +1,16 @@
 Using the QGIS Browser
 ======================
-.. only:: html
+.. raw:: html
 
-   [ Download PDF `A4 <../pdf/using_qgis_browser_a4.pdf>`_ `Letter
-   <../pdf/using_qgis_browser_letter.pdf>`_ ]
+   <p>[ Download PDF
+   <a class="reference external" href="../pdf/using_qgis_browser_a4.pdf"
+   onClick="ga('send', 'event', 'PDF Download', 'using_qgis_browser_a4');"
+   target="_blank">A4</a>
+
+   <a class="reference external"
+   href="../pdf/using_qgis_browser_letter.pdf" onClick="ga('send',
+   'event', 'PDF Download', 'using_qgis_browser_letter');"
+   target="_blank">Letter</a> ]</p>
 
 QGIS comes with a standalone application called **QGIS Browser**. This is a
 useful companion tool to QGIS and helpful in managing GIS datasets. ArcGIS users

@@ -1,9 +1,16 @@
 Using Custom Python Expression Functions
 ========================================
-.. only:: html
+.. raw:: html
 
-   [ Download PDF `A4 <../pdf/custom_python_functions_a4.pdf>`_ `Letter
-   <../pdf/custom_python_functions_letter.pdf>`_ ]
+   <p>[ Download PDF
+   <a class="reference external" href="../pdf/custom_python_functions_a4.pdf"
+   onClick="ga('send', 'event', 'PDF Download', 'custom_python_functions_a4');"
+   target="_blank">A4</a>
+
+   <a class="reference external"
+   href="../pdf/custom_python_functions_letter.pdf" onClick="ga('send',
+   'event', 'PDF Download', 'custom_python_functions_letter');"
+   target="_blank">Letter</a> ]</p>
 
 Expressions in QGIS have a lot of power and are used in many core features -
 selection, calculating field values, styling, labelling etc. QGIS also has

@@ -1,10 +1,16 @@
 Digitizing Map Data
 ===================
+.. raw:: html
 
-.. only:: html
+   <p>[ Download PDF
+   <a class="reference external" href="../pdf/digitizing_basics_a4.pdf"
+   onClick="ga('send', 'event', 'PDF Download', 'digitizing_basics_a4');"
+   target="_blank">A4</a>
 
-   [ Download PDF `A4 <../pdf/digitizing_basics_a4.pdf>`_ `Letter
-   <../pdf/digitizing_basics_letter.pdf>`_ ]
+   <a class="reference external"
+   href="../pdf/digitizing_basics_letter.pdf" onClick="ga('send',
+   'event', 'PDF Download', 'digitizing_basics_letter');"
+   target="_blank">Letter</a> ]</p>
 
 Digitizing is one of the most common tasks that a GIS Specialist has to do.
 Often a large amount of *GIS time* is spent in digitizing raster data to create

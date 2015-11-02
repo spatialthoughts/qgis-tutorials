@@ -1,9 +1,16 @@
 Georeferencing Topo Sheets and Scanned Maps
 ===========================================
-.. only:: html
+.. raw:: html
 
-   [ Download PDF `A4 <../pdf/georeferencing_basics_a4.pdf>`_ `Letter
-   <../pdf/georeferencing_basics_letter.pdf>`_ ]
+   <p>[ Download PDF
+   <a class="reference external" href="../pdf/georeferencing_basics_a4.pdf"
+   onClick="ga('send', 'event', 'PDF Download', 'georeferencing_basics_a4');"
+   target="_blank">A4</a>
+
+   <a class="reference external"
+   href="../pdf/georeferencing_basics_letter.pdf" onClick="ga('send',
+   'event', 'PDF Download', 'georeferencing_basics_letter');"
+   target="_blank">Letter</a> ]</p>
 
 Most GIS projects require georeferencing some raster data. *Georeferencing* is
 the process of assigning real-world coordinates to each pixel of the raster.

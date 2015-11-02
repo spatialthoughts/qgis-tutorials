@@ -1,9 +1,17 @@
 Performing Table Joins (PyQGIS)
 ===============================
-.. only:: html
+.. raw:: html
 
-   [ Download PDF `A4 <../pdf/performing_table_joins_pyqgis_a4.pdf>`_ `Letter
-   <../pdf/performing_table_joins_pyqgis_letter.pdf>`_ ]
+   <p>[ Download PDF
+   <a class="reference external"
+   href="../pdf/performing_table_joins_pyqgis_a4.pdf" onClick="ga('send',
+   'event', 'PDF Download', 'performing_table_joins_pyqgis_a4');"
+   target="_blank">A4</a>
+
+   <a class="reference external"
+   href="../pdf/performing_table_joins_pyqgis_letter.pdf" onClick="ga('send',
+   'event', 'PDF Download', 'performing_table_joins_pyqgis_letter');"
+   target="_blank">Letter</a> ]</p>
 
 This tutorial shows how to use Python scripting in QGIS (PyQGIS) to perform a
 table join and apply a graduated style to the resulting layer. This tutorial

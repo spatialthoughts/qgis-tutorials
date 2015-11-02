@@ -1,9 +1,16 @@
 Open BIL, BIP or BSQ files in QGIS
 ==================================
-.. only:: html
+.. raw:: html
 
-   [ Download PDF `A4 <../pdf/open_bil_bip_bsq_files_a4.pdf>`_ `Letter
-   <../pdf/open_bil_bip_bsq_files_letter.pdf>`_ ]
+   <p>[ Download PDF
+   <a class="reference external" href="../pdf/open_bil_bip_bsq_files_a4.pdf"
+   onClick="ga('send', 'event', 'PDF Download', 'open_bil_bip_bsq_files_a4');"
+   target="_blank">A4</a>
+
+   <a class="reference external"
+   href="../pdf/open_bil_bip_bsq_files_letter.pdf" onClick="ga('send',
+   'event', 'PDF Download', 'open_bil_bip_bsq_files_letter');"
+   target="_blank">Letter</a> ]</p>
 
 When dealing with remote sensing and scientific datasets, one often comes
 across data in formats like **BIL**, **BIP** or **BSQ**. `The GDAL library

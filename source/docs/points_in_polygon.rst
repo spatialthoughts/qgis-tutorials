@@ -1,9 +1,16 @@
 Points in Polygon Analysis
 ==========================
-.. only:: html
+.. raw:: html
 
-   [ Download PDF `A4 <../pdf/points_in_polygon_a4.pdf>`_ `Letter
-   <../pdf/points_in_polygon_letter.pdf>`_ ]
+   <p>[ Download PDF
+   <a class="reference external" href="../pdf/points_in_polygon_a4.pdf"
+   onClick="ga('send', 'event', 'PDF Download', 'point_in_polygon_a4');"
+   target="_blank">A4</a>
+
+   <a class="reference external"
+   href="../pdf/points_in_polygon_letter.pdf" onClick="ga('send',
+   'event', 'PDF Download', 'point_in_polygon_letter');"
+   target="_blank">Letter</a> ]</p>
 
 The power of GIS lies in analysing multiple data sources together. Often the
 answer you are seeking lies in many different layers and you need to do some
@@ -11,7 +18,6 @@ analysis to extract and compile this information. One such type of analysis is
 **Points-in-Polygon**. When you have a polygon layer and a point layer - and
 want to know how many or which of the points fall within the bounds of each
 polygon, you can use this method of analysis.
-
 
 Overview of the task
 --------------------

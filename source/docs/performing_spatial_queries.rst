@@ -1,9 +1,16 @@
 Performing Spatial Queries
 ==========================
-.. only:: html
+.. raw:: html
 
-   [ Download PDF `A4 <../pdf/performing_spatial_queries_a4.pdf>`_ `Letter
-   <../pdf/performing_spatial_queries_letter.pdf>`_ ]
+   <p>[ Download PDF
+   <a class="reference external" href="../pdf/performing_spatial_queries_a4.pdf"
+   onClick="ga('send', 'event', 'PDF Download', 'performing_spatial_queries_a4');"
+   target="_blank">A4</a>
+
+   <a class="reference external"
+   href="../pdf/performing_spatial_queries_letter.pdf" onClick="ga('send',
+   'event', 'PDF Download', 'performing_spatial_queries_letter');"
+   target="_blank">Letter</a> ]</p>
 
 Spatial queries are core to many types of GIS analysis. In QGIS, this
 functionality is available via the **Spatial Query** plugin.
