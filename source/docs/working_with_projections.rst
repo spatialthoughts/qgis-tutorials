@@ -41,7 +41,7 @@ dataset. Download the `countries
 <http://www.naturalearthdata.com/http//www.naturalearthdata.com/download/10m/cultural/ne_10m_admin_0_countries.zip>`_
 
 `UK's Ordnance Survey <https://www.ordnancesurvey.co.uk/>`_ provides open data
-for download. We will use the `MiniScale raster product
+for download. Download the `MiniScale raster product
 <https://www.ordnancesurvey.co.uk/opendatadownload/products.html>`_ for Great
 Britain and extract it to a folder on your computer.
 
@@ -130,7 +130,7 @@ Procedure
 
 .. note::
    We choose Albers Equal Area Conic projection for this tutorial as it is a
-   popular proejction choice for thematic maps of the US. The choice of
+   popular projection choice for thematic maps of the US. The choice of
    projection for your particular use-case will depend on a lot of factors. See
    `this guide
    <http://docs.qgis.org/2.8/en/docs/gentle_gis_introduction/coordinate_reference_systems.html>`_
