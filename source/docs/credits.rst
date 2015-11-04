@@ -5,6 +5,7 @@ Data Credits
 - :doc:`working_with_attributes`
 - :doc:`calculating_line_lengths`
 - :doc:`raster_mosaicing_and_clipping`
+- :doc:`working_with_projections`
 - :doc:`points_in_polygon`
 - :doc:`performing_spatial_queries`
 - :doc:`nearest_neighbor_analysis`
@@ -57,6 +58,10 @@ Data Credits
 
 .. [MRDATA] Jennings, C.W., Strand, R.G., and Rogers, T.H., 1977, Geologic map of
    California: California Division of Mines and Geology, scale 1:750,000.
+
+- :doc:`working_with_projections`
+
+.. [OSOPENDATA] Contains OS data © Crown copyright [and database right] (2015)
 
 - :doc:`digitizing_basics`
 
