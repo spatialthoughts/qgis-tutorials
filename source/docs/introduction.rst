@@ -26,7 +26,7 @@ The tutorials are also available in following langugages:
 
 - `Dutch <http://www.qgistutorials.com/nl/>`_ (Translation by: *Dick Groskamp*)
 - `Finnish <http://www.qgistutorials.com/fi_FI/>`_ (Translation by: *Kari Salovaara*)
-- `French <http://www.qgistutorials.com/fr/>`_ (Translation by: *Sylvain Dorey*, *Allan Stockman*, *Delphine Petit*, *Alexis Athlani*, *Florian Texier*)
+- `French <http://www.qgistutorials.com/fr/>`_ (Translation by: *Sylvain Dorey*, *Allan Stockman*, *Delphine Petit*, *Alexis Athlani*, *Florian Texier*, *Quentin Paternoster*)
 - `German <http://www.qgistutorials.com/de/>`_ (Translation by: *Michael Gieding*)
 - `Greek <http://www.qgistutorials.com/el/>`_ (Translation by: *Christina Dimitriadou*, *Paliogiannis Konstantinos*, *Tom Karagkounis*, *Despoina Karfi*)
 - `Indonesian <http://www.qgistutorials.com/id/>`_ (Translation by: *Maruli Tua Manullang*, *Bakhtiar Arif*)
