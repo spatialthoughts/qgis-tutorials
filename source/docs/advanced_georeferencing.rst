@@ -52,6 +52,12 @@ Download the JPG image of `Washington Square Park, New York <http://
 publiclaboratory.org/map/washington-square-park-new-york-new-york/2012-10-01>`_.
 You can right-click the JPG button and choose :guilabel:`Save link as...`.
 
+For convenience, you may directly download a copy of the dataset from the link
+below:
+
+`newyorkcity-washingtonsquarepark.jpg
+<../../downloads/newyorkcity-washingtonsquarepark.jpg>`_
+
 Procedure
 ---------
 
