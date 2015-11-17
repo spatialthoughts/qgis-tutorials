@@ -34,7 +34,7 @@ The tutorials are also available in following langugages:
 - `Korean <http://www.qgistutorials.com/ko/>`_ (Translation by: *SongHyun Choi*)
 - `Portuguese (Brazil) <http://www.qgistutorials.com/pt_BR/>`_ (Translation by: *Narcélio de Sá*, *Wesley Kevin Souto do Vale*)
 - `Romanian <http://www.qgistutorials.com/ro/>`_ (Translation by: *Sorin Călinică*)
-- `Russian <http://www.qgistutorials.com/ru/>`_ (Translation by: *Marina Pavlova*, *Ilya Trofimov*, *Fayçal Fatihi*)
+- `Russian <http://www.qgistutorials.com/ru/>`_ (Translation by: *Marina Pavlova*, *Ilya Trofimov*, *Fayçal Fatihi*, *Константин Сергеевич*)
 - `Spanish <http://www.qgistutorials.com/es/>`_ (Translation by: *Juan Carlos Méndez*, *Felipe Raimann*)
 - `Vietnamese <http://www.qgistutorials.com/vi/>`_ (Translation by: *Hang Nguyen Thuy*)
 
