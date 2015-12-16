@@ -243,13 +243,13 @@ Procedure
 .. code-block:: python
 
    # Delete all fields except dissolve field and the newly created 'SUM' field. 
-   olayer.startEditing()
+   outlayer.startEditing()
 
    fields_to_delete = [fid for fid in range(len(provider.fields())) if fid != new_field_index and fid != dissolve_field_index]
    provider.deleteAttributes(fields_to_delete)
-   olayer.updateFields()
+   outlayer.updateFields()
 
-   olayer.commitChanges()
+   outlayer.commitChanges()
 
 .. image:: /static/processing_python_scripts/images/16.png
    :align: center
