@@ -24,6 +24,7 @@ Translations
 
 The tutorials are also available in following langugages:
 
+- `Chinese (Taiwan) <http://www.qgistutorials.com/zh_TW/>`_ (Translation by: *Whyjay Zheng*)
 - `Dutch <http://www.qgistutorials.com/nl/>`_ (Translation by: *Dick Groskamp*)
 - `Finnish <http://www.qgistutorials.com/fi_FI/>`_ (Translation by: *Kari Salovaara*)
 - `French <http://www.qgistutorials.com/fr/>`_ (Translation by: *Sylvain Dorey*, *Allan Stockman*, *Delphine Petit*, *Alexis Athlani*, *Florian Texier*, *Quentin Paternoster*)
