@@ -11,7 +11,7 @@ Building the QGIS Tutorials
 
 The following instructions work for linux based systems. If you are on Windows, you can use [Cygwin](http://cygwin.com/).
 
-    git clone https://github.com/spatialthoughts/qgis-tutorials.git
+    git clone --depth 1 git@github.com:spatialthoughts/qgis-tutorials.git --no-single-branch 
     cd qgis-tutorials
     pip install -r requirements.txt
 
