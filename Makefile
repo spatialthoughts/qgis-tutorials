@@ -3,7 +3,9 @@
 # https://github.com/qgis/QGIS-Documentation/blob/master/Makefile
 
 # You can set these variables from the command line.
-LANGUAGES     = en zh_TW th uk ko vi id el fi_FI ro es pt_BR nl it ru fr de
+#LANGUAGES     = en zh_TW th uk ko vi id el fi_FI ro es pt_BR nl it ru fr de
+LANGUAGES     = en zh_TW
+PDF_LANGUAGES = en
 LANG          = en
 SPHINXBUILD   = sphinx-build
 SPHINXINTL    = sphinx-intl
@@ -55,7 +57,7 @@ localizeresources: springclean
 	fi
 
 html: localizeresources
-	$(SPHINXINTL) build -l $(LANG) -c $(SOURCEDIR)/conf.py
+	$(SPHINXINTL) build -l $(LANG)
 	$(SPHINXBUILD) -b html $(ALLSPHINXOPTS) $(BUILDDIR)/html/$(LANG)
 	@echo
 	@echo "Build finished. The HTML pages are in $(BUILDDIR)/html/$(LANG)."
@@ -77,7 +79,7 @@ createlang:
 # Run this for generatig .po files for translation.
 pretranslate: gettext
 	@echo "Generating the pot files."
-	$(SPHINXINTL) update -p i18n/pot -c $(SOURCEDIR)/conf.py -l $(LANG)
+	$(SPHINXINTL) update -p i18n/pot -l $(LANG)
 
 gettext:
 	rm -rf i18n/pot
@@ -87,7 +89,7 @@ gettext:
 
 # Run this to register .po fles to transifex service
 transifex-push: pretranslate
-	$(SPHINXINTL) update-txconfig-resources --p i18n/pot --transifex-project-name qgis-tutorials -c $(SOURCEDIR)/conf.py
+	$(SPHINXINTL) update-txconfig-resources --p i18n/pot --transifex-project-name qgis-tutorials
 	tx push -s
 	rm -rf i18n/pot
 
@@ -105,9 +107,12 @@ all:
 	@echo Building html for the following languages: $(LANGUAGES)
 	@for LANG in $(LANGUAGES) ; do \
 		 make LANG=$$LANG html; \
-		 make LANG=$$LANG pdf; \
 		 mv $(BUILDDIR)/html/$$LANG live/html/; \
-		 mv $(BUILDDIR)/pdf/$$LANG live/html/$$LANG/pdf; \
+	done
+	@echo Building pdf for the following languages: $(PDF_LANGUAGES)
+	@for LANG in $(PDF_LANGUAGES) ; do \
+		make LANG=$$LANG pdf; \
+		mv $(BUILDDIR)/pdf/$$LANG live/html/$$LANG/pdf; \
 	done
 
 # Deploying generated files in GitHub pages.
