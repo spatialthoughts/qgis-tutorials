@@ -88,7 +88,7 @@ gettext:
 
 # Run this to register .po fles to transifex service
 transifex-push: pretranslate
-	$(SPHINXINTL) update-txconfig-resources --p i18n/pot --transifex-project-name qgis-tutorials
+	$(SPHINXINTL) update-txconfig-resources --pot-dir i18n/pot --transifex-project-name qgis-tutorials
 	tx push -s
 	rm -rf i18n/pot
 
