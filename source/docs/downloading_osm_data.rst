@@ -1,17 +1,5 @@
 Searching and Downloading OpenStreetMap Data
 ============================================
-.. raw:: html
-
-   <p>[ Download PDF
-   <a class="reference external" href="../pdf/downloading_osm_data_a4.pdf"
-   onClick="ga('send', 'event', 'PDF Download', 'downloading_osm_data_a4');"
-   target="_blank">A4</a>
-
-   <a class="reference external"
-   href="../pdf/downloading_osm_data_letter.pdf" onClick="ga('send',
-   'event', 'PDF Download', 'downloading_osm_data_letter');"
-   target="_blank">Letter</a> ]</p>
-
 Getting high quality data is essential for any GIS task. One great resource for
 free and openly licensed data is `OpenStreetMap(OSM)
 <http://www.openstreetmap.org/>`_ . The OSM database consits of streets, local

@@ -1,17 +1,5 @@
 Using Google Maps Engine Connector for QGIS
 ===========================================
-.. raw:: html
-
-   <p>[ Download PDF
-   <a class="reference external" href="../pdf/using_gme_connector_a4.pdf"
-   onClick="ga('send', 'event', 'PDF Download', 'using_gme_connector_a4');"
-   target="_blank">A4</a>
-
-   <a class="reference external"
-   href="../pdf/using_gme_connector_letter.pdf" onClick="ga('send',
-   'event', 'PDF Download', 'using_gme_connector_letter');"
-   target="_blank">Letter</a> ]</p>
-
 .. warning::
 
    As of 29 January, 2015 Google Maps Engine has stopped creation of new free

@@ -1,17 +1,5 @@
 Running and Scheduling QGIS Processing Jobs
 ===========================================
-.. raw:: html
-
-   <p>[ Download PDF
-   <a class="reference external" href="../pdf/running_qgis_jobs_a4.pdf"
-   onClick="ga('send', 'event', 'PDF Download', 'running_qgis_jobs_a4');"
-   target="_blank">A4</a>
-
-   <a class="reference external"
-   href="../pdf/running_qgis_jobs_letter.pdf" onClick="ga('send',
-   'event', 'PDF Download', 'running_qgis_jobs_letter');"
-   target="_blank">Letter</a> ]</p>
-
 You can automate a lot of tasks in QGIS using Python scripting (PyQGIS) and the
 Processing Framework. Most of the time, you would run these scripts manually
 while QGIS is open. While that is helpful, many times you need a way to run

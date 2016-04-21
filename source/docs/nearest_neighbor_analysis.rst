@@ -1,17 +1,5 @@
 Nearest Neighbor Analysis
 =========================
-.. raw:: html
-
-   <p>[ Download PDF
-   <a class="reference external" href="../pdf/nearest_neighbor_analysis_a4.pdf"
-   onClick="ga('send', 'event', 'PDF Download', 'nearest_neighbor_analysis_a4');"
-   target="_blank">A4</a>
-
-   <a class="reference external"
-   href="../pdf/nearest_neighbor_analysis_letter.pdf" onClick="ga('send',
-   'event', 'PDF Download', 'nearest_neighbor_analysis_letter');"
-   target="_blank">Letter</a> ]</p>
-
 GIS is very useful in analyzing spatial relationship between features. One such
 analysis is finding out which features are closest to a given feature. QGIS has
 a tool called **Distance Matrix** which helps with such analysis. In this

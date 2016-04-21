@@ -1,17 +1,5 @@
 Find Neighbor Polygons in a Layer
 =================================
-.. raw:: html
-
-   <p>[ Download PDF
-   <a class="reference external" href="../pdf/find_neighbor_polygons_a4.pdf"
-   onClick="ga('send', 'event', 'PDF Download', 'find_neighbor_polygons_a4');"
-   target="_blank">A4</a>
-
-   <a class="reference external"
-   href="../pdf/find_neighbor_polygons_letter.pdf" onClick="ga('send',
-   'event', 'PDF Download', 'find_neighbor_polygons_letter');"
-   target="_blank">Letter</a> ]</p>
-
 There are some use cases where you want to find all neighboring polygons of
 each of the polygons in a layer. With a little python script, we can accomplish
 this and much more in QGIS. Here is an example script you can use to find all

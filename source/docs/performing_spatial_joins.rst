@@ -1,17 +1,5 @@
 Performing Spatial Joins
 ========================
-.. raw:: html
-
-   <p>[ Download PDF
-   <a class="reference external" href="../pdf/performing_spatial_joins_a4.pdf"
-   onClick="ga('send', 'event', 'PDF Download', 'performing_spatial_joins_a4');"
-   target="_blank">A4</a>
-
-   <a class="reference external"
-   href="../pdf/performing_spatial_joins_letter.pdf" onClick="ga('send',
-   'event', 'PDF Download', 'performing_spatial_joins_letter');"
-   target="_blank">Letter</a> ]</p>
-
 Spatial Join is a classic GIS problem - transferring attributes from one layer
 to another based on their spatial relationship. In QGIS, this functionality is
 available through the **Join Attributes by Location** tool.

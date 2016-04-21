@@ -1,17 +1,5 @@
 Building a Python Plugin
 ========================
-.. raw:: html
-
-   <p>[ Download PDF
-   <a class="reference external" href="../pdf/building_a_python_plugin_a4.pdf"
-   onClick="ga('send', 'event', 'PDF Download', 'building_a_python_plugin_a4');"
-   target="_blank">A4</a>
-
-   <a class="reference external"
-   href="../pdf/building_a_python_plugin_letter.pdf" onClick="ga('send',
-   'event', 'PDF Download', 'building_a_python_plugin_letter');"
-   target="_blank">Letter</a> ]</p>
-
 Plugins are a great way to extend the functionality of QGIS. You can write
 plugins using Python that can range from adding a simple button to
 sohpisticated toolkits. This tutorial will outline the process involved in

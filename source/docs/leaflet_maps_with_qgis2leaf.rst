@@ -1,17 +1,5 @@
 Leaflet Web Maps with qgis2leaf
 ===============================
-.. raw:: html
-
-   <p>[ Download PDF
-   <a class="reference external" href="../pdf/leaflet_maps_with_qgis2leaf_a4.pdf"
-   onClick="ga('send', 'event', 'PDF Download', 'leaflet_maps_with_qgis2leaf_a4');"
-   target="_blank">A4</a>
-
-   <a class="reference external"
-   href="../pdf/leaflet_maps_with_qgis2leaf_letter.pdf" onClick="ga('send',
-   'event', 'PDF Download', 'leaflet_maps_with_qgis2leaf_letter');"
-   target="_blank">Letter</a> ]</p>
-
 .. warning::
 
    qgis2leaf plugin is no longer in active development. The functionality of

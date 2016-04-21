@@ -1,17 +1,5 @@
 Writing Python Scripts for Processing Framework
 ===============================================
-.. raw:: html
-
-   <p>[ Download PDF
-   <a class="reference external" href="../pdf/processing_python_scripts_a4.pdf"
-   onClick="ga('send', 'event', 'PDF Download', 'processing_python_scripts_a4');"
-   target="_blank">A4</a>
-
-   <a class="reference external"
-   href="../pdf/processing_python_scripts_letter.pdf" onClick="ga('send',
-   'event', 'PDF Download', 'processing_python_scripts_letter');"
-   target="_blank">Letter</a> ]</p>
-
 One can write standalone pyqgis scripts that can be run via the Python Console
 in QGIS. With a few tweaks, you can make your standalone scripts run via the
 Processing Framework. This has several advantages. First, taking user input and

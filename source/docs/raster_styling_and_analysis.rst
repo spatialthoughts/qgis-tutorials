@@ -1,17 +1,5 @@
 Basic Raster Styling and Analysis
 =================================
-.. raw:: html
-
-   <p>[ Download PDF
-   <a class="reference external" href="../pdf/raster_styling_and_analysis_a4.pdf"
-   onClick="ga('send', 'event', 'PDF Download', 'raster_styling_and_analysis_a4');"
-   target="_blank">A4</a>
-
-   <a class="reference external"
-   href="../pdf/raster_styling_and_analysis_letter.pdf" onClick="ga('send',
-   'event', 'PDF Download', 'raster_styling_and_analysis_letter');"
-   target="_blank">Letter</a> ]</p>
-
 A lot of scientific observations and research produces raster datasets. Rasters
 are essentially grids of pixels that have a specific value assigned to them. By
 doing mathematical operations on these values, one can do some interesting

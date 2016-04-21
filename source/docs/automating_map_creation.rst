@@ -1,17 +1,5 @@
 Automating Map Creation with Print Composer Atlas
 =================================================
-.. raw:: html
-
-   <p>[ Download PDF
-   <a class="reference external" href="../pdf/automating_map_creation_a4.pdf"
-   onClick="ga('send', 'event', 'PDF Download', 'automating_map_creation_a4');"
-   target="_blank">A4</a>
-
-   <a class="reference external"
-   href="../pdf/automating_map_creation_letter.pdf" onClick="ga('send',
-   'event', 'PDF Download', 'automating_map_creation_letter');"
-   target="_blank">Letter</a> ]</p>
-
 If your organization publishes printed or online maps, you often would need to
 create many maps with the same template - usually one for each administrative
 unit or a region of interest. Creating these maps manually can take a long time

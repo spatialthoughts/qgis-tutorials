@@ -1,17 +1,5 @@
 Points in Polygon Analysis
 ==========================
-.. raw:: html
-
-   <p>[ Download PDF
-   <a class="reference external" href="../pdf/points_in_polygon_a4.pdf"
-   onClick="ga('send', 'event', 'PDF Download', 'point_in_polygon_a4');"
-   target="_blank">A4</a>
-
-   <a class="reference external"
-   href="../pdf/points_in_polygon_letter.pdf" onClick="ga('send',
-   'event', 'PDF Download', 'point_in_polygon_letter');"
-   target="_blank">Letter</a> ]</p>
-
 The power of GIS lies in analysing multiple data sources together. Often the
 answer you are seeking lies in many different layers and you need to do some
 analysis to extract and compile this information. One such type of analysis is

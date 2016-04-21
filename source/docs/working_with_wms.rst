@@ -1,17 +1,5 @@
 Working with WMS Data
 ======================
-.. raw:: html
-
-   <p>[ Download PDF
-   <a class="reference external" href="../pdf/working_with_wms_a4.pdf"
-   onClick="ga('send', 'event', 'PDF Download', 'working_with_wms_a4');"
-   target="_blank">A4</a>
-
-   <a class="reference external"
-   href="../pdf/working_with_wms_letter.pdf" onClick="ga('send',
-   'event', 'PDF Download', 'working_with_wms_letter');"
-   target="_blank">Letter</a> ]</p>
-
 Often you need reference data layers for your basemap or to display your
 results in the context of other datasets. Many organizations publish datasets
 online that can be readily used in GIS. A popular standard for publishing maps

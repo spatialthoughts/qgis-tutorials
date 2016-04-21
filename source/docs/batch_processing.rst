@@ -1,17 +1,5 @@
 Batch Processing using Processing Framework
 ===========================================
-.. raw:: html
-
-   <p>[ Download PDF
-   <a class="reference external" href="../pdf/batch_processing_a4.pdf"
-   onClick="ga('send', 'event', 'PDF Download', 'batch_processing_a4');"
-   target="_blank">A4</a>
-
-   <a class="reference external"
-   href="../pdf/batch_processing_letter.pdf" onClick="ga('send',
-   'event', 'PDF Download', 'batch_processing_letter');"
-   target="_blank">Letter</a> ]</p>
-
 QGIS 2.0 introduced a new concept called **Processing Framework**. Previously
 known as **Sextante**, the Processing Framework provides an environment within
 QGIS to run native and third-party algorithms for processing data. It contains

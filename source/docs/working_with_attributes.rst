@@ -1,17 +1,5 @@
 Working with Attributes
 =======================
-.. raw:: html
-
-   <p>[ Download PDF
-   <a class="reference external" href="../pdf/working_with_attributes_a4.pdf"
-   onClick="ga('send', 'event', 'PDF Download', 'working_with_attributes_a4');"
-   target="_blank">A4</a>
-
-   <a class="reference external"
-   href="../pdf/working_with_attributes_letter.pdf" onClick="ga('send',
-   'event', 'PDF Download', 'working_with_attributes_letter');"
-   target="_blank">Letter</a> ]</p>
-
 GIS data has two parts - features and attributes. Attributes are structured
 data about each feature. This tutorial shows how to view the attributes and do
 basic queries on them in QGIS.

@@ -1,17 +1,5 @@
 Basic Vector Styling
 ====================
-.. raw:: html
-
-   <p>[ Download PDF
-   <a class="reference external" href="../pdf/basic_vector_styling_a4.pdf"
-   onClick="ga('send', 'event', 'PDF Download', 'basic_vector_styling_a4');"
-   target="_blank">A4</a>
-
-   <a class="reference external"
-   href="../pdf/basic_vector_styling_letter.pdf" onClick="ga('send',
-   'event', 'PDF Download', 'basic_vector_styling_letter');"
-   target="_blank">Letter</a> ]</p>
-
 To create a map, one has to style the GIS data and present it in a form that is
 visually informative. There are a large number of options available in QGIS to
 apply different types of symbology to the underlying data. In this tutorial, we

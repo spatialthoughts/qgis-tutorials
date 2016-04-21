@@ -1,17 +1,5 @@
 Working with Projections
 ========================
-.. raw:: html
-
-   <p>[ Download PDF
-   <a class="reference external" href="../pdf/working_with_projections_a4.pdf"
-   onClick="ga('send', 'event', 'PDF Download', 'working_with_projections_a4');"
-   target="_blank">A4</a>
-
-   <a class="reference external"
-   href="../pdf/working_with_projections_letter.pdf" onClick="ga('send',
-   'event', 'PDF Download', 'working_with_projections_letter');"
-   target="_blank">Letter</a> ]</p>
-
 Map projections - or Coordinate Reference System (CRS) - often cause a lot of
 frustration when working with GIS data.  But proper understanding of the
 concepts and access to the right tools will make it much easier to deal with

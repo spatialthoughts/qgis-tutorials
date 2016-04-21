@@ -1,17 +1,5 @@
 Georeferencing Aerial Imagery
 =============================
-.. raw:: html
-
-   <p>[ Download PDF
-   <a class="reference external" href="../pdf/advanced_georeferencing_a4.pdf"
-   onClick="ga('send', 'event', 'PDF Download', 'advanced_georeferencing_a4');"
-   target="_blank">A4</a>
-
-   <a class="reference external"
-   href="../pdf/advanced_georeferencing_letter.pdf" onClick="ga('send',
-   'event', 'PDF Download', 'advanced_georeferencing_letter');"
-   target="_blank">Letter</a> ]</p>
-
 In the tutorial :doc:`georeferencing_basics` we covered the basic process of
 georeferencing in QGIS. That method involved reading the coordinates from your
 scanned map and inputting it manually. Many times though you may not have the

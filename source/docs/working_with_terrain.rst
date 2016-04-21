@@ -1,17 +1,5 @@
 Working with Terrain Data
 =========================
-.. raw:: html
-
-   <p>[ Download PDF
-   <a class="reference external" href="../pdf/working_with_terrain_a4.pdf"
-   onClick="ga('send', 'event', 'PDF Download', 'working_with_terrain_a4');"
-   target="_blank">A4</a>
-
-   <a class="reference external"
-   href="../pdf/working_with_terrain_letter.pdf" onClick="ga('send',
-   'event', 'PDF Download', 'working_with_terrain_letter');"
-   target="_blank">Letter</a> ]</p>
-
 Terrain or elevation data is useful for many GIS Analysis and it is often used
 in maps. QGIS has good terrain processing capabilities built-in. In this
 tutorial, we will work through the steps to generate various products from
