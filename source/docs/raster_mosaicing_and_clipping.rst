@@ -55,21 +55,21 @@ Repeat the process for all 7 FAS subsets for Brazil.
 
 For convenience, you can directly download sample data used in this tutorial from links below.
 
-`ne_10m_admin_0_countries.zip <../../downloads/ne_10m_admin_0_countries.zip>`_
+`ne_10m_admin_0_countries.zip <http://www.qgistutorials.com/downloads/ne_10m_admin_0_countries.zip>`_
 
-`FAS_Brazil1.2013363.aqua.ndvi.2km.tif <../../downloads/FAS_Brazil1.2013363.aqua.ndvi.2km.tif>`_
+`FAS_Brazil1.2013363.aqua.ndvi.2km.tif <http://www.qgistutorials.com/downloads/FAS_Brazil1.2013363.aqua.ndvi.2km.tif>`_
 
-`FAS_Brazil2.2013363.terra.ndvi.2km.tif <../../downloads/FAS_Brazil2.2013363.terra.ndvi.2km.tif>`_
+`FAS_Brazil2.2013363.terra.ndvi.2km.tif <http://www.qgistutorials.com/downloads/FAS_Brazil2.2013363.terra.ndvi.2km.tif>`_
 
-`FAS_Brazil3.2013363.aqua.ndvi.2km.tif <../../downloads/FAS_Brazil3.2013363.aqua.ndvi.2km.tif>`_
+`FAS_Brazil3.2013363.aqua.ndvi.2km.tif <http://www.qgistutorials.com/downloads/FAS_Brazil3.2013363.aqua.ndvi.2km.tif>`_
 
-`FAS_Brazil4.2013363.aqua.ndvi.2km.tif <../../downloads/FAS_Brazil4.2013363.aqua.ndvi.2km.tif>`_
+`FAS_Brazil4.2013363.aqua.ndvi.2km.tif <http://www.qgistutorials.com/downloads/FAS_Brazil4.2013363.aqua.ndvi.2km.tif>`_
 
-`FAS_Brazil5.2013363.aqua.ndvi.2km.tif <../../downloads/FAS_Brazil5.2013363.aqua.ndvi.2km.tif>`_
+`FAS_Brazil5.2013363.aqua.ndvi.2km.tif <http://www.qgistutorials.com/downloads/FAS_Brazil5.2013363.aqua.ndvi.2km.tif>`_
 
-`FAS_Brazil6.2013363.terra.ndvi.2km.tif <../../downloads/FAS_Brazil6.2013363.terra.ndvi.2km.tif>`_
+`FAS_Brazil6.2013363.terra.ndvi.2km.tif <http://www.qgistutorials.com/downloads/FAS_Brazil6.2013363.terra.ndvi.2km.tif>`_
 
-`FAS_Brazil7.2013363.aqua.ndvi.2km.tif <../../downloads/FAS_Brazil7.2013363.aqua.ndvi.2km.tif>`_
+`FAS_Brazil7.2013363.aqua.ndvi.2km.tif <http://www.qgistutorials.com/downloads/FAS_Brazil7.2013363.aqua.ndvi.2km.tif>`_
 
 Data Sources: [LANCE]_ [NATURALEARTH]_
 

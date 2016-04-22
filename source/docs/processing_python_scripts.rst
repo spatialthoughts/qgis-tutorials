@@ -39,8 +39,7 @@ Data Source [NATURALEARTH]_
 For convenience, you may directly download a copy of the dataset from the links
 below:
 
-`ne_10_admin_0_countries.zip
-<../../downloads/ne_10m_admin_0_countries.zip>`_
+`ne_10_admin_0_countries.zip <http://www.qgistutorials.com/downloads/ne_10m_admin_0_countries.zip>`_
 
 Procedure
 ---------

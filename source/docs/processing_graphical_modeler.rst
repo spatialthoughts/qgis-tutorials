@@ -27,9 +27,9 @@ and 2012.
 For convenience, you may directly download a copy of both the datasets from the links
 below:
 
-`LC_hd_global_2001.tif.gz <../../downloads/LC_hd_global_2001.tif.gz>`_
+`LC_hd_global_2001.tif.gz <http://www.qgistutorials.com/downloads/LC_hd_global_2001.tif.gz>`_
 
-`LC_hd_global_2012.tif.gz <../../downloads/LC_hd_global_2012.tif.gz>`_
+`LC_hd_global_2012.tif.gz <http://www.qgistutorials.com/downloads/LC_hd_global_2012.tif.gz>`_
 
 Data Source [GLCF_MODIS]_
 

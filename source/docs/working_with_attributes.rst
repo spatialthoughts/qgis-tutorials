@@ -28,7 +28,7 @@ For convenience, you may directly download a copy of datasets from the link
 below:
 
 `ne_10m_populated_places_simple.zip
-<../../downloads/ne_10m_populated_places_simple.zip>`_
+<http://www.qgistutorials.com/downloads/ne_10m_populated_places_simple.zip>`_
 
 Data Source [NATURALEARTH]_
 

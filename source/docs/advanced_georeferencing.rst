@@ -43,8 +43,7 @@ You can right-click the JPG button and choose :guilabel:`Save link as...`.
 For convenience, you may directly download a copy of the dataset from the link
 below:
 
-`newyorkcity-washingtonsquarepark.jpg
-<../../downloads/newyorkcity-washingtonsquarepark.jpg>`_
+`newyorkcity-washingtonsquarepark.jpg <http://www.qgistutorials.com/downloads/newyorkcity-washingtonsquarepark.jpg>`_
 
 Procedure
 ---------

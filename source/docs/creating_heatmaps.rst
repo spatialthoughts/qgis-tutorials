@@ -27,7 +27,7 @@ the downloaded archive to extract the CSV file.
 For convenience, you may directly download a copy of the dataset from the link
 below:
 
-`2015-08-surrey-street.csv <../../downloads/2015-08-surrey-street.csv>`_
+`2015-08-surrey-street.csv <http://www.qgistutorials.com/downloads/2015-08-surrey-street.csv>`_
 
 
 Data Source [POLICEUK]_

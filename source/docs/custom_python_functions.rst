@@ -29,8 +29,7 @@ dataset. Download the `simple (less columns) dataset
 For convenience, you may directly download a copy of the dataset from the links
 below:
 
-`ne_10m_populated_places_simple.zip
-<../../downloads/ne_10m_populated_places_simple.zip>`_
+`ne_10m_populated_places_simple.zip <http://www.qgistutorials.com/downloads/ne_10m_populated_places_simple.zip>`_
 
 Procedure
 ---------

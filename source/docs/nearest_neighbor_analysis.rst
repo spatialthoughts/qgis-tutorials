@@ -37,10 +37,9 @@ dataset. Download the `simple (less columns) dataset
 For convenience, you may directly download a copy of both the datasets from the links
 below:
 
-`signif.txt <../../downloads/signif.txt>`_
+`signif.txt <http://www.qgistutorials.com/downloads/signif.txt>`_
 
-`ne_10m_populated_places_simple.zip
-<../../downloads/ne_10m_populated_places_simple.zip>`_
+`ne_10m_populated_places_simple.zip <http://www.qgistutorials.com/downloads/ne_10m_populated_places_simple.zip>`_
 
 Data Sources: [NGDC]_ [NATURALEARTH]_
 

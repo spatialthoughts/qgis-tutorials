@@ -40,9 +40,9 @@ Cultural and Demographic category.
 For convenience, you may directly download a copy of both the datasets from the links
 below:
 
-`HI_Wetlands.shp.zip <../../downloads/HI_Wetlands.shp.zip>`_
+`HI_Wetlands.shp.zip <http://www.qgistutorials.com/downloads/HI_Wetlands.shp.zip>`_
 
-`county10.shp.zip <../../downloads/county10.shp.zip>`_
+`county10.shp.zip <http://www.qgistutorials.com/downloads/county10.shp.zip>`_
 
 Data Source [HAWAII]_
 

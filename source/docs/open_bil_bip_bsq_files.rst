@@ -38,7 +38,7 @@ dataset.
 For convenience, you may directly download a copy of the dataset from the link
 below:
 
-`gl-latlong-1deg-landcover.bsq.gz <../../downloads/gl-latlong-1deg-landcover.bsq.gz>`_
+`gl-latlong-1deg-landcover.bsq.gz <http://www.qgistutorials.com/downloads/gl-latlong-1deg-landcover.bsq.gz>`_
 
 
 Data Source [GLCF]_

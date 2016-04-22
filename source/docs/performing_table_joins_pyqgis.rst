@@ -10,7 +10,6 @@ Overview of the task
 
 Please refer to :doc:`performing_table_joins` tutorial for the overview.
 
-
 Other skills you will learn
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^
 - Loading zipped layers in QGIS via Python.
@@ -19,14 +18,13 @@ Other skills you will learn
 
 Get the data
 ------------
-
 Download the following files to your computer.
 
-`tl_2013_06_tract.zip <../../downloads/tl_2013_06_tract.zip>`_
+`tl_2013_06_tract.zip <http://www.qgistutorials.com/downloads/tl_2013_06_tract.zip>`_
 
-`ca_tracts_pop.csv <../../downloads/ca_tracts_pop.csv>`_
+`ca_tracts_pop.csv <http://www.qgistutorials.com/downloads/ca_tracts_pop.csv>`_
 
-`ca_tracts_pop.csvt <../../downloads/ca_tracts_pop.csvt>`_
+`ca_tracts_pop.csvt <http://www.qgistutorials.com/downloads/ca_tracts_pop.csvt>`_
 
 Data Source [TIGER]_ [USCENSUS]_
 

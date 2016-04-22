@@ -27,7 +27,7 @@ from the human impact dataset.
 For convenience, you may directly download a copy of the dataset from the
 link below:
 
-`lifeexpectancy.zip <../../downloads/lifeexpectancy.zip>`_
+`lifeexpectancy.zip <http://www.qgistutorials.com/downloads/lifeexpectancy.zip>`_
 
 Data Source [SAGE]_
 

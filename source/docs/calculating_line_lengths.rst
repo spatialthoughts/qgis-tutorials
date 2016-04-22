@@ -32,8 +32,7 @@ zip file from the portal.
 For convenience, you may directly download a copy of the dataset from the link
 below:
 
-`ne_10m_railroads_north_america..zip
-<../../downloads/ne_10m_railroads_north_america.zip>`_
+`ne_10m_railroads_north_america..zip <http://www.qgistutorials.com/downloads/ne_10m_railroads_north_america.zip>`_
 
 Data Source [NATURALEARTH]_
 

@@ -33,10 +33,9 @@ data.
 For convenience, you may directly download a copy of both the datasets from the
 links below:
 
-`tl_2013_06_tract.zip <../../downloads/tl_2013_06_tract.zip>`_
+`tl_2013_06_tract.zip <http://www.qgistutorials.com/downloads/tl_2013_06_tract.zip>`_
 
-`ca_tracts_pop.csv <../../downloads/ca_tracts_pop.csv>`_
-
+`ca_tracts_pop.csv <http://www.qgistutorials.com/downloads/ca_tracts_pop.csv>`_
 
 Data Source [TIGER]_ [USCENSUS]_
 

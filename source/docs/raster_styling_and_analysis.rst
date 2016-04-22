@@ -44,9 +44,9 @@ You will now have 2 zip files downloaded.
 For convenience, you may directly download a copy of the datasets from the
 links below:
 
-`gl_gpwv3_pdens_90_ascii_one.zip <../../downloads/gl_gpwv3_pdens_90_ascii_one.zip>`_
+`gl_gpwv3_pdens_90_ascii_one.zip <http://www.qgistutorials.com/downloads/gl_gpwv3_pdens_90_ascii_one.zip>`_
 
-`gl_gpwv3_pdens_00_ascii_one.zip <../../downloads/gl_gpwv3_pdens_00_ascii_one.zip>`_
+`gl_gpwv3_pdens_00_ascii_one.zip <http://www.qgistutorials.com/downloads/gl_gpwv3_pdens_00_ascii_one.zip>`_
 
 Data Source [GPW3]_
 

@@ -30,9 +30,9 @@ dataset. Download the `countries
 For convenience, you may directly download a copy of the dataset from the link
 below:
 
-`signif.txt <../../downloads/signif.txt>`_
+`signif.txt <http://www.qgistutorials.com/downloads/signif.txt>`_
 
-`ne_10m_admin_0_countries.zip <../../downloads/ne_10m_admin_0_countries.zip>`_
+`ne_10m_admin_0_countries.zip <http://www.qgistutorials.com/downloads/ne_10m_admin_0_countries.zip>`_
 
 Data Sources: [NGDC]_ [NATURALEARTH]_
 
