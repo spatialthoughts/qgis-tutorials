@@ -41,9 +41,9 @@ of free data for New York city.
 For convenience, you may directly download a copy of the datasets from the
 links below:
 
-`nybb_12c.zip <../../downloads/nybb_12c.zip>`_
+`nybb_12c.zip <http://www.qgistutorials.com/downloads/nybb_12c.zip>`_
 
-`OEM_NursingHomes_001.zip <../../downloads/OEM_NursingHomes_001.zip>`_
+`OEM_NursingHomes_001.zip <http://www.qgistutorials.com/downloads/OEM_NursingHomes_001.zip>`_
 
 
 Procedure
