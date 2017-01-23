@@ -65,7 +65,7 @@ Procedure
    attributes present in the layer. Some of these aren't relevant to the users
    of our web map, so we can choose to hide these. We will keep ``type``,
    ``name``, ``iata_code`` and ``wikipedia`` fields and hide the others. Click
-   on :guilabel:`Text Edit` button under the :guilabel:`Edit widget`` column
+   on :guilabel:`Text Edit` button under the :guilabel:`Edit widget` column
    for ```scalerank`` field.
 
 .. image:: /static/web_mapping_with_qgis2web/images/3.png
@@ -164,8 +164,8 @@ Procedure
    :align: center
 
 15. Apart from assigning a different color to the category, we can change the
-    size of the symbol to visually help ouor users distinguish different type
-    of airports. Right-click on the a category and select :guilabel:`Change
+    size of the symbol to visually help our users distinguish different type
+    of airports. Right-click on a category and select :guilabel:`Change
     size`.
 
 .. image:: /static/web_mapping_with_qgis2web/images/15.png
@@ -296,7 +296,7 @@ Procedure
     follow the instructions to create a bucket. Once a bucket is created, you
     can upload the contents of your exported folder to the bucket and set it to
     public. Here I created a bucket named ``qgis-tutorials`` and uploaded the
-    contents of my exported folder to a subfolder named ``qgis2web``. You can
+    contents of my exported folder to a sub-folder named ``qgis2web``. You can
     access the resulting map at
     http://s3.amazonaws.com/qgis-tutorials/qgis2web/index.html
 
