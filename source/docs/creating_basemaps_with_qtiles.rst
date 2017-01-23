@@ -43,11 +43,11 @@ Procedure
    :align: center
 
 2. Install the ``QTiles`` plugin by going to :menuselection:`Plugins --> Manage and
-    Install Plugin`. Note that the plugin is currently marked **experimental**,
-    so you will need to check :guilabel:`Show also experimental plugins` in
-    Plugin Settings. (See :doc:`using_plugins` for more details on installing
-    plugins in QGIS). Once the plugin is installed, go to
-    :menuselection:`Plugins --> QTiles --> QTiles`.
+   Install Plugin`. Note that the plugin is currently marked **experimental**,
+   so you will need to check :guilabel:`Show also experimental plugins` in
+   Plugin Settings. (See :doc:`using_plugins` for more details on installing
+   plugins in QGIS). Once the plugin is installed, go to
+   :menuselection:`Plugins --> QTiles --> QTiles`.
 
 .. image:: /static/creating_basemaps_with_qtiles/images/2.png
    :align: center
