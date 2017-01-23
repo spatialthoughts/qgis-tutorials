@@ -48,6 +48,7 @@ QGIS Tutorials and Tips
    - :doc:`docs/performing_table_joins_pyqgis`
 * Web Mapping
    - :doc:`docs/web_mapping_with_qgis2web`
+   - :doc:`docs/creating_basemaps_with_qtiles`
 * Appendix
    - :doc:`docs/learning_resources`
    - :doc:`docs/credits`
@@ -94,6 +95,7 @@ QGIS Tutorials and Tips
    docs/find_neighbor_polygons
    docs/performing_table_joins_pyqgis
    docs/web_mapping_with_qgis2web
+   docs/creating_basemaps_with_qtiles
    docs/learning_resources
    docs/credits
 

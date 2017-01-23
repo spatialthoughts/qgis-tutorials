@@ -39,6 +39,7 @@ tutorials['en'] = [
         ('find_neighbor_polygons', 'Find Neighbor Polygons in a Layer'),
         ('performing_table_joins_pyqgis', 'Performing Table Joins (PyQGIS)'),
         ('web_mapping_with_qgis2web', 'Web Mapping with QGIS2Web'),
+        ('creating_basemaps_with_qtiles', 'Creating Basemaps with QTiles'),
         ('leaflet_maps_with_qgis2leaf', 'Leaflet Web Maps with qgis2leaf'),
         ('using_gme_connector', 'Using Google Maps Engine Connector for QGIS'),
         ]
