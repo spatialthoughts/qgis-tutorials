@@ -75,7 +75,7 @@ Procedure
 .. image:: /static/creating_basemaps_with_qtiles/images/4.png
    :align: center
 
-5. In the parent directory of top-levle tiles directory, you will find a
+5. In the parent directory of top-level tiles directory, you will find a
    ``QTiles.html`` file. This is a simple viewer to explore the tiles using the
    Leaflet web mapping library.
 
@@ -86,4 +86,48 @@ Procedure
    and pan around to see the tiles seamlessly form the original raster layer.
 
 .. image:: /static/creating_basemaps_with_qtiles/images/6.png
+   :align: center
+
+7. You can use these tiles with any web-mapping library that supports XYZ
+   tiling schemes and overlay other layers on top. To demonstrate the
+   usefulness and portability of such tiles, we will now add the tiles created
+   in this tutorial as the basemap for the airports map created in
+   :doc:`web_mapping_with_qgis2web` tutorial. In that tutorial, we chose to use
+   a ready-made basemap from OpenStreetMap. We can easily swap that with our
+   own custom basemap created in this tutorial. Go to the output directory
+   where the qgis2web map was exported. Open the :menuselection:`Layers -->
+   layers.js` file created during the export.
+
+.. image:: /static/creating_basemaps_with_qtiles/images/7.png
+   :align: center
+
+8. Locate the code block where the ``OSM B & W`` base layer is defined.
+
+.. image:: /static/creating_basemaps_with_qtiles/images/8.png
+   :align: center
+
+9. Replace the definition of the base layer with our own tiles. At this point,
+   the tiles exist only on your computer, so the URL will be the local
+   directory. But you can also upload the tiles to a server and give the URL of
+   the server. Change the title and source with appropriate values for Natural
+   Earth. Save the file.
+
+.. code-block:: javascript
+
+   new ol.layer.Tile({
+    'title': 'Natural Earth 2',
+    'type': 'base',
+    source: new ol.source.XYZ({
+        url: 'C://Users/Ujaval/Desktop/QTiles/{z}/{x}/{y}.png',
+        attributions: [new ol.Attribution({html: 'Made with Natural Earth. Free vector and raster map data @ naturalearthdata.com.'})]
+    })
+   })
+
+.. image:: /static/creating_basemaps_with_qtiles/images/9.png
+   :align: center
+
+10. Open the web map in a browser and you will see that the B & W OSM layer is
+    replaced by our freshly created tiles.
+
+.. image:: /static/creating_basemaps_with_qtiles/images/10.png
    :align: center
