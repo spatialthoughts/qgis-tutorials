@@ -214,9 +214,7 @@ Procedure
 
 21. Now we are ready to export our project to a web map. Install the
     ``qgis2web`` plugin by going to :menuselection:`Plugins --> Manage and
-    Install Plugin`. Note that the plugin is currently marked **experimental**,
-    so you will need to check :guilabel:`Show also experimental plugins` in
-    Plugin Settings. (See :doc:`using_plugins` for more details on installing
+    Install Plugin` (See :doc:`using_plugins` for more details on installing
     plugins in QGIS). Once the plugin is installed, go to :menuselection:`Web --> qgis2web -->
     Create a web map`.
 
