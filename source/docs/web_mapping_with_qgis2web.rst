@@ -1,7 +1,7 @@
 Web Mapping with QGIS2Web
 =========================
 
-Web mapping is a great medium to publish your GIS data to ther web and make it
+Web mapping is a great medium to publish your GIS data to the web and make it
 accessible by other users. Creating a web map is a very different process than
 creating one in a GIS. GIS users are typically aren't web programmers and it
 presents a challenge when one needs to create a web map that is of the same
@@ -86,7 +86,7 @@ Procedure
    :align: center
 
 6. Select ``Web View`` as the field type. This type indicates that the value
-   contained in this field is a URL.
+   contained in this field is an URL.
 
 .. image:: /static/web_mapping_with_qgis2web/images/6.png
    :align: center
@@ -101,7 +101,7 @@ Procedure
 
 8. Back in the main QGIS window, choose the :guilabel:`Identify` tool and click
    on any point. The :guilabel:`Identify Results` panel will display the
-   nicely formallted attributes with the newly added aliases. You will notice
+   nicely formatted attributes with the newly added aliases. You will notice
    that the hidden fields do not appear in the results.
 
 .. image:: /static/web_mapping_with_qgis2web/images/8.png
@@ -155,7 +155,7 @@ Procedure
 .. image:: /static/web_mapping_with_qgis2web/images/13.png
    :align: center
 
-14. You will see a different colored circle gets assigned to a differnt type of
+14. You will see a different colored circle gets assigned to a different type of
     airport. For the purpose of this tutorial, we will restrict the map to
     civilian airports. Hold the :kbd:`Ctrl` key and select all categories for
     military airports. Once selected, click :guilabel:`Delete`.
@@ -304,7 +304,7 @@ Procedure
 29. Similarly, Google also offers a cloud storage service called `Google Cloud
     Storage <https://cloud.google.com/storage/>`_. Once you have created an
     account and enable billing, you can create a bucket and upload objects to
-    the bucket. I create a bucket and sub-folder similar to Amazon and set the
+    the bucket. I created a bucket and sub-folder similar to Amazon and set the
     folder to public. The resulting map can be viewed at
     https://storage.googleapis.com/qgis-tutorials/qgis2web/index.html
 
