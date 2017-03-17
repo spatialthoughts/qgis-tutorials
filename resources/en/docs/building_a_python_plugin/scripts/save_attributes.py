@@ -3,11 +3,11 @@
 /***************************************************************************
  SaveAttributes
                                  A QGIS plugin
- This plugin saves the attribute of the selected vector layer as a CSV file.
+ Save attributes of a vector layer to a text file
                               -------------------
-        begin                : 2015-04-20
+        begin                : 2017-03-17
         git sha              : $Format:%H$
-        copyright            : (C) 2015 by Ujaval Gandhi
+        copyright            : (C) 2017 by Ujaval Gandhi
         email                : ujaval@spatialthoughts.com
  ***************************************************************************/
 
@@ -23,7 +23,7 @@
 from PyQt4.QtCore import QSettings, QTranslator, qVersion, QCoreApplication
 from PyQt4.QtGui import QAction, QIcon, QFileDialog
 # Initialize Qt resources from file resources.py
-import resources_rc
+import resources
 # Import the code for the dialog
 from save_attributes_dialog import SaveAttributesDialog
 import os.path
@@ -58,8 +58,6 @@ class SaveAttributes:
             if qVersion() > '4.3.3':
                 QCoreApplication.installTranslator(self.translator)
 
-        # Create the dialog (after translation) and keep reference
-        self.dlg = SaveAttributesDialog()
 
         # Declare instance attributes
         self.actions = []
@@ -67,10 +65,6 @@ class SaveAttributes:
         # TODO: We are going to let the user set this up in a future iteration
         self.toolbar = self.iface.addToolBar(u'SaveAttributes')
         self.toolbar.setObjectName(u'SaveAttributes')
-        
-        self.dlg.lineEdit.clear()
-        self.dlg.pushButton.clicked.connect(self.select_output_file)
-        
 
     # noinspection PyMethodMayBeStatic
     def tr(self, message):
@@ -138,6 +132,9 @@ class SaveAttributes:
         :rtype: QAction
         """
 
+        # Create the dialog (after translation) and keep reference
+        self.dlg = SaveAttributesDialog()
+
         icon = QIcon(icon_path)
         action = QAction(icon, text, parent)
         action.triggered.connect(callback)
@@ -170,7 +167,9 @@ class SaveAttributes:
             text=self.tr(u'Save Attributes as CSV'),
             callback=self.run,
             parent=self.iface.mainWindow())
-
+            
+        self.dlg.lineEdit.clear()
+        self.dlg.pushButton.clicked.connect(self.select_output_file)
 
     def unload(self):
         """Removes the plugin menu item and icon from QGIS GUI."""
@@ -185,14 +184,14 @@ class SaveAttributes:
     def select_output_file(self):
         filename = QFileDialog.getSaveFileName(self.dlg, "Select output file ","", '*.txt')
         self.dlg.lineEdit.setText(filename)
-        
+
     def run(self):
         """Run method that performs all the real work"""
         layers = self.iface.legendInterface().layers()
         layer_list = []
         for layer in layers:
-                layer_list.append(layer.name())
-            
+            layer_list.append(layer.name())
+        self.dlg.comboBox.clear()
         self.dlg.comboBox.addItems(layer_list)
         # show the dialog
         self.dlg.show()
@@ -200,16 +199,14 @@ class SaveAttributes:
         result = self.dlg.exec_()
         # See if OK was pressed
         if result:
-            # Do something useful here - delete the line containing pass and
-            # substitute with your code.
             filename = self.dlg.lineEdit.text()
             output_file = open(filename, 'w')
-           
+
             selectedLayerIndex = self.dlg.comboBox.currentIndex()
             selectedLayer = layers[selectedLayerIndex]
-            fields = selectedLayer.pendingFields()
+            fields = selectedLayer.fields()
             fieldnames = [field.name() for field in fields]
-            
+
             for f in selectedLayer.getFeatures():
                 line = ','.join(unicode(f[x]) for x in fieldnames) + '\n'
                 unicode_line = line.encode('utf-8')
