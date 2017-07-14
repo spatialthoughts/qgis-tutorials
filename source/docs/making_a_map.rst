@@ -23,7 +23,7 @@ We will use the Natural Earth dataset - specifically the Natural Earth Quick
 Start Kit that comes with beautifully styled global layers that can be loaded
 directly to QGIS.
 
-Download the `Natural Earth Quickstart Kit <http://kelso.it/x/nequickstart>`_.
+Download the `Natural Earth Quickstart Kit <http://naciscdn.org/naturalearth/packages/Natural_Earth_quick_start.zip>`_.
 
 Data Source [NATURALEARTH]_
 
