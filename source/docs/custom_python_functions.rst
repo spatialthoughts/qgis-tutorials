@@ -79,7 +79,7 @@ Procedure
    from qgis.core import *
    from qgis.gui import *
 
-   @qgsfunction(args=0, group='Custom')
+   @qgsfunction(args=0, group='Custom', usesgeometry=True)
    def GetUtmZone(value1, feature, parent):
        centroid = feature.geometry()
        longitude = centroid.asPoint().x()
