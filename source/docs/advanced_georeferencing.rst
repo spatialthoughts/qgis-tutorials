@@ -114,6 +114,13 @@ Procedure
 
    -8237364.02 4972720.34 0.00
 
+If the above command does not work for you, please try the following variant
+
+.. code-block:: none
+
+   echo -73d59'51 40d43'51 | cs2cs +init=EPSG:4326 +to +init=EPSG:3857
+
+
 .. image:: /static/advanced_georeferencing/images/6.png
    :align: center
 
