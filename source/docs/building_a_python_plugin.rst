@@ -16,18 +16,19 @@ users to pick a vector layer and write its attributes to a CSV file.
 Get the Tools
 -------------
 
-Qt Creator
-^^^^^^^^^^
+Qt Designer
+^^^^^^^^^^^
 
 `Qt <http://www.qt.io/>`_ is a software development framework that is used to
 develop applications that run on Windows, Mac, Linux as well as various mobile
 operating systems. QGIS itself is written using the Qt framework. For plugin
-development, we will use an application called `Qt Creator
-<http://doc.qt.io/qtcreator/index.html>`_ to design the interface for our
+development, we will use an application called `Qt Designer
+<http://doc.qt.io/archives/qt-4.8/designer-manual.html>`_ to design the interface for our
 plugin.
 
-Download and install the Qt Creator software from `SourgeForge
-<http://sourceforge.net/projects/qtcreator.mirror/files/latest/download>`_
+Qt Designer is bundled on Windows with the OSGeo4W, alternatively you can download and
+install the Qt Designer software from `the QT download site
+<https://download.qt.io/archive/qt/4.8/4.8.4/>`_.
 
 Python Bindings for Qt
 ^^^^^^^^^^^^^^^^^^^^^^
@@ -247,7 +248,7 @@ Procedure
 |
 
 8. We will now design our dialog box and add some user interface elements to
-   it. Open the ``Qt Creator`` program and to to :guilabel:`File --> Open File
+   it. Open the ``Qt Designer`` program and to to :guilabel:`File --> Open File
    or Project...`.
 
 |
@@ -391,7 +392,7 @@ Procedure
 
 |
 
-20. Let's add remaining user interface elements. Switch back to ``Qt Creator``
+20. Let's add remaining user interface elements. Switch back to ``Qt Designer``
     and load the ``save_attributes_dialog_base.ui`` file. Add a ``Label``
     :guilabel:`Display Widget` and change the text to ``Select output file``.
     Add a ``LineEdit`` type :guilabel:`Input Widget` that will show the output
