@@ -91,6 +91,8 @@ Procedure
    window and type ``cs2cs`` to check if it is available. Windows users can find
    a terminal at :menuselection:`Start --> OSGeo4W --> MSYS`.
 
+.. note:: MacOS users can locate the cs2cs tool at /Library/Frameworks/PROJ.Framework/Programs/cs2cs
+   
 .. image:: /static/advanced_georeferencing/images/5.png
    :align: center
 
