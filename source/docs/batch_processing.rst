@@ -1,5 +1,9 @@
-Batch Processing using Processing Framework
-===========================================
+Batch Processing using Processing Framework (QGIS2)
+===================================================
+.. warning:: 
+
+   A new version of this tutorial is available at :doc:`3/batch_processing`
+
 QGIS 2.0 introduced a new concept called **Processing Framework**. Previously
 known as **Sextante**, the Processing Framework provides an environment within
 QGIS to run native and third-party algorithms for processing data. It contains

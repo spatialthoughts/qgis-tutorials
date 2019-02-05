@@ -212,9 +212,9 @@ else:
 pdf_documents = []
 for doc_name, doc_title in tutorials:
     pdf_documents.append(
-            ('docs/'+ doc_name, doc_name + '_a4', doc_title, author, a4_options_dict))
+            ('docs/'+ doc_name, os.path.basename(doc_name) + os.path.dirname(doc_name) + '_a4' , doc_title, author, a4_options_dict))
     pdf_documents.append(
-            ('docs/'+ doc_name, doc_name + '_letter', doc_title, author, letter_options_dict))
+            ('docs/'+ doc_name, os.path.basename(doc_name) + os.path.dirname(doc_name) + '_letter', doc_title, author, letter_options_dict))
 
 # PDF options
 pdf_style_path = ['.', '_styles', 'source/_styles']

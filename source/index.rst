@@ -31,7 +31,7 @@ QGIS Tutorials and Tips
    - :doc:`docs/nearest_neighbor_analysis`
    - :doc:`docs/sampling_raster_data`
    - :doc:`docs/interpolating_point_data`
-   - :doc:`docs/batch_processing`
+   - :doc:`docs/3/batch_processing` [ :doc:`QGIS2 version <docs/batch_processing>` ]
    - :doc:`docs/processing_graphical_modeler`
    - :doc:`docs/automating_map_creation`
 * Tips and Tricks
@@ -81,7 +81,7 @@ QGIS Tutorials and Tips
    docs/nearest_neighbor_analysis
    docs/sampling_raster_data
    docs/interpolating_point_data
-   docs/batch_processing
+   docs/3/batch_processing
    docs/processing_graphical_modeler
    docs/automating_map_creation
    docs/using_qgis_browser
@@ -98,4 +98,5 @@ QGIS Tutorials and Tips
    docs/creating_basemaps_with_qtiles
    docs/learning_resources
    docs/credits
+   docs/batch_processing
 

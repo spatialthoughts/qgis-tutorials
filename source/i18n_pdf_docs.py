@@ -2,6 +2,7 @@
 tutorials = {}
 # List of English langugage tutorials
 tutorials['en'] = [
+        ('3/batch_processing', 'Batch Processing using Processing Framework (QGIS 3)'),
         ('making_a_map', 'Making A Map'),
         ('working_with_attributes', 'Working with Attributes'),
         ('importing_spreadsheets_csv', 'Importing Spreadsheets or CSV files'),
