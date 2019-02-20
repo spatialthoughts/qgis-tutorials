@@ -10,11 +10,13 @@ Data Credits
 - :doc:`performing_spatial_queries`
 - :doc:`nearest_neighbor_analysis`
 - :doc:`batch_processing`
+- :doc:`3/batch_processing`
 - :doc:`getting_started_with_pyqgis`
 - :doc:`custom_python_functions`
 - :doc:`processing_python_scripts`
 - :doc:`find_neighbor_polygons`
 - :doc:`leaflet_maps_with_qgis2leaf`
+- :doc:`3/processing_graphical_modeler`
 
 .. [NATURALEARTH] Made with Natural Earth. Free vector and raster map data
    @ naturalearthdata.com.
@@ -113,6 +115,10 @@ Data Credits
     mosaics of the standard MODIS land cover type data. University of Maryland
     and the Pacific Northwest National Laboratory, College Park, Maryland, USA.
 
+- :doc:`3/processing_graphical_modeler`
+
+.. [NGA_MSI] `Maritine Safety Information portal <https://msi.nga.mil/NGAPortal/MSI.porta>`_ ,  National Geospatial-Intelligence Agency
+ 
 - :doc:`automating_map_creation`
 
 .. [HAWAII] `State of Hawaii - Office of Planning <http://planning.hawaii.gov/gis/>`_

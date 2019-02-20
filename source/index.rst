@@ -32,7 +32,7 @@ QGIS Tutorials and Tips
    - :doc:`docs/sampling_raster_data`
    - :doc:`docs/interpolating_point_data`
    - :doc:`docs/3/batch_processing` [ :doc:`QGIS2 version <docs/batch_processing>` ]
-   - :doc:`docs/processing_graphical_modeler`
+   - :doc:`docs/3/processing_graphical_modeler` [ :doc:`QGIS2 version <docs/processing_graphical_modeler>` ]
    - :doc:`docs/automating_map_creation`
 * Tips and Tricks
    - :doc:`docs/using_qgis_browser`
@@ -82,7 +82,7 @@ QGIS Tutorials and Tips
    docs/sampling_raster_data
    docs/interpolating_point_data
    docs/3/batch_processing
-   docs/processing_graphical_modeler
+   docs/3/processing_graphical_modeler
    docs/automating_map_creation
    docs/using_qgis_browser
    docs/counting_vertices
