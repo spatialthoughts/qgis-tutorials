@@ -177,7 +177,7 @@ Procedure
 
 28. The Graduated symbology will divide the values in the selected column into distinct classes and assign a different color to each of the classes. Select ``Natural Breaks (Jenks)`` as the :guilabel:`Mode` and click :guilabel:`Classify` and click :guilabel:`OK`.
 
-.. note:: see :doc:`docs/basic_vector_styling` for a detailed explanation of different modes.
+.. note:: see :doc:`../basic_vector_styling` for a detailed explanation of different modes.
 
 .. image:: /static/3/processing_graphical_modeler/images/28.png
    :align: center

@@ -1,5 +1,9 @@
 Automating Complex Workflows using Processing Modeler
 =====================================================
+.. warning:: 
+
+   A new version of this tutorial is available at :doc:`3/processing_graphical_modeler`
+	 
 GIS Workflows typically involve many steps - with each step generating
 intermediate output that is used by the next step. If you change the input data
 or want to tweak a parameter, you will need to run through the entire process
@@ -18,14 +22,14 @@ Get the data
 
 We will use the `Global Mosaics of the standard MODIS land cover type data
 product <http://www.landcover.org/data/lc/>`_ from `Global Land Cover
-Facility <http://www.landcover.org/>`_ as an example.
+Facility (GLCF) <http://www.landcover.org/>`_ as an example.
 
-Download the `0.5 Degree resolution GeoTIFFs
-<ftp://ftp.glcf.umd.edu/glcf/Global_LNDCVR/Global_HD_Rev1/GeoTIFF/>`_ for 2001
-and 2012.
+.. warning::
 
-For convenience, you may directly download a copy of both the datasets from the links
-below:
+  As of 31 December 2018, GLCF has shut down its services and the files needed for this tutorial are no longer accessible. 
+	
+You may directly download an archival copy of both the datasets from the links
+below if you wish to work on this tutorial:
 
 `LC_hd_global_2001.tif.gz <http://www.qgistutorials.com/downloads/LC_hd_global_2001.tif.gz>`_
 
