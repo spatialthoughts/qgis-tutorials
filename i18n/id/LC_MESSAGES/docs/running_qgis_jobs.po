@@ -1,0 +1,318 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2016, Ujaval Gandhi
+# This file is distributed under the same license as the QGIS Tutorials and Tips package.
+# 
+# Translators:
+# Maruli Tua Manullang <maruli.tsm@gmail.com>, 2015
+msgid ""
+msgstr ""
+"Project-Id-Version: QGIS Tutorials\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-02-20 19:16+0000\n"
+"PO-Revision-Date: 2017-09-22 11:41+0000\n"
+"Last-Translator: Maruli Tua Manullang <maruli.tsm@gmail.com>\n"
+"Language-Team: Indonesian (http://www.transifex.com/spatialthoughts/qgis-tutorials/language/id/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: id\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+#: ../../source/docs/running_qgis_jobs.rst:2
+msgid "Running and Scheduling QGIS Processing Jobs"
+msgstr "Menjalankan dan Menjadwalkan Pekerjaan Pemrosesan QGIS"
+
+#: ../../source/docs/running_qgis_jobs.rst:3
+msgid ""
+"You can automate a lot of tasks in QGIS using Python scripting (PyQGIS) and "
+"the Processing Framework. Most of the time, you would run these scripts "
+"manually while QGIS is open. While that is helpful, many times you need a "
+"way to run this jobs via the command-line and without needing to open QGIS. "
+"Fortunately, you can write standalone python scripts that use QGIS libraries"
+" and can be run via the command-line. In this tutorial, we will learn how to"
+" write and schedule a job that uses the QGIS Processing framework."
+msgstr "Anda dapat mengotomatisai banyak tugas di QGIS menggunakan skript Python (PyQGIS) dan kerangka pemrosessan. Seringkali, anda akan menjalankan skrip ini secara manual saat QGIS terbuka. Karena itu cukup menolong, sering kali anda membutuhkan sebuah cara untuk menjalankan p-ekerjaan ini melalui command-line dan tidak perlu membuka QGIS. Beruntung, anda dapat menulis skript python tunggal yang menggunakan libraries QGIS dan dapat dijalankan melalui command-line. Pada tutorial ini, kita akan belajar bagaimana menulis dan menjadwalkan sebuah pekerjaan yang menggunakan kerangka pemrosessan QGIS."
+
+#: ../../source/docs/running_qgis_jobs.rst:12
+msgid "Overview of the task"
+msgstr "Tinjauan Tugas"
+
+#: ../../source/docs/running_qgis_jobs.rst:14
+msgid ""
+"Let's say we are working on some analysis using shapefiles of a region. The "
+"shapefiles are updated on a daily basis and we always need the latest file. "
+"But before we can use these files, we need to cleanup the data. We can setup"
+" a QGIS job that automates this process and runs it daily so you have the "
+"latest cleaned up shapefiles for your work. We will write a standalone "
+"Python script that downloads a shapefile and run topological cleaning "
+"operations on a daily basis."
+msgstr "Mari katakan kita bekerja pada sejumlah analisis menggunakan shapefiles dari sebuah wilayah. "
+
+#: ../../source/docs/running_qgis_jobs.rst:23
+msgid "Other skills you will learn"
+msgstr "Skill lain yang akan anda pelajari"
+
+#: ../../source/docs/running_qgis_jobs.rst:24
+msgid "Downloading and unzipping files using Python."
+msgstr "Mengunduh dan meng-unzip file menggunjakan Python."
+
+#: ../../source/docs/running_qgis_jobs.rst:25
+msgid "Running any Processing algorithm via PyQGIS."
+msgstr "Menjalankan algoritma processing mana saja lewat PyQGIS."
+
+#: ../../source/docs/running_qgis_jobs.rst:26
+msgid "Fixing topological errors in a vector layer."
+msgstr "Memperbaiki error topologis pada sebuah layer vektor"
+
+#: ../../source/docs/running_qgis_jobs.rst:29
+msgid "Get the data"
+msgstr "Mendapatkan data"
+
+#: ../../source/docs/running_qgis_jobs.rst:31
+msgid ""
+"`Geofabrik <http://www.geofabrik.de/>`_ provides daily updated shapefiles of"
+" `OpenStreetMap <http://www.openstreetmap.org/>`_ datasets."
+msgstr "`Geofabrik <http://www.geofabrik.de/>`_ menyediakan shapefile aktual harian dari dataset `OpenStreetMap <http://www.openstreetmap.org/>`_"
+
+#: ../../source/docs/running_qgis_jobs.rst:34
+msgid ""
+"We will use `shapefiles for Fiji <http://download.geofabrik.de/australia-"
+"oceania.html>`_ for this exercise. Download the `fiji-latest.shp.zip "
+"<http://download.geofabrik.de/australia-oceania/fiji-latest.shp.zip>`_ and "
+"unzip it to a folder on your disk."
+msgstr "Kita akan menggunakan  `shapefiles for Fiji <http://download.geofabrik.de/australia-oceania.html>`_ untuk latihan ini. Unduh  `fiji-latest.shp.zip <http://download.geofabrik.de/australia-oceania/fiji-latest.shp.zip>`_ dan unzip ke sebuah folder dan disk anda."
+
+#: ../../source/docs/running_qgis_jobs.rst:40
+msgid "Data Source [GEOFABRIK]_"
+msgstr "Sumber Data [GEOFABRIK]_"
+
+#: ../../source/docs/running_qgis_jobs.rst:43
+msgid "Procedure"
+msgstr "Prosedur"
+
+#: ../../source/docs/running_qgis_jobs.rst:45
+msgid ""
+"We will first run through the process of cleaning the shapefile manually to "
+"note the commands that we will use in the python script. Launch QGIS and go "
+"to :menuselection:`Layer --> Add Layer --> Add Vector Layer`."
+msgstr "Pertama kita akan melewati proses pembersihan shapfelie secara manual untuk melihat command yang akan kita gunakan pada skript phyton. Luncurkan QGIS dan akses :menuselection:`Layer --> Add Layer --> Add Vector Layer`."
+
+#: ../../source/docs/running_qgis_jobs.rst:52
+msgid ""
+"Browse to the folder containing the unzipped shapefiles and select the "
+"``roads.shp`` file and click :guilabel:`Open`."
+msgstr "Jelajah folder yang berisi shapefile yang belum di unzip dan pilih file ``roads.shp`` dan klik :guilabel:`Open`."
+
+#: ../../source/docs/running_qgis_jobs.rst:58
+msgid ""
+"First we must re-project the roads layer to a Projected CRS. This will allow"
+" us to use *meters* as units when performing analysis instead of degrees. "
+"Open :menuselection:`Processing --> Toolbox`."
+msgstr "Pertama kita harus mere-proyeksi layer jalan ke sebuah CRS terproyeksi. Ini akan membuat kita menggunakan *meters* sebagai unit saat melakukan analisis bukan derajat. Buka :menuselection:`Processing --> Toolbox`."
+
+#: ../../source/docs/running_qgis_jobs.rst:65
+msgid ""
+"Search for the :guilabel:`Reproject layer` tool. Double-click it to launch "
+"the dialog."
+msgstr "Caru tool :guilabel:`Reproject layer` . Dobel-klik untuk meluncurkan dialog."
+
+#: ../../source/docs/running_qgis_jobs.rst:71
+msgid ""
+"In the :guilabel:`Reproject layer` dialog, select the ``roads`` layer as "
+":guilabel:`Input layer`. We will use ``EPSG:3460 Fiji 1986 / Fiji Map Grid``"
+" CRS as the :guilabel:`Target CRS`. Click :guilabel:`Run`."
+msgstr "Pada dialog :guilabel:`Reproject layer` , pilih layer ``roads`` sebagai :guilabel:`Input layer` .Kita akan menggunakan CRS  ``EPSG:3460 Fiji 1986 / Fiji Map Grid``  untuk :guilabel:`Target CRS` . Klik :guilabel:`Run`."
+
+#: ../../source/docs/running_qgis_jobs.rst:78
+msgid ""
+"Once the process finishes, you will see the reprojected layer loaded in "
+"QGIS. Go to :menuselection:`Processing --> History and Log..`."
+msgstr "Ketika proses selesai, anda akan melihat layer yang terproyeksi terbuka di QGIS. Akses :menuselection:`Processing --> History and Log..`."
+
+#: ../../source/docs/running_qgis_jobs.rst:84
+msgid ""
+"In the :guilabel:`History and Log` dialog, expand the :guilabel:`Algorithm` "
+"folder and select the latest entry. You will see the full processing command"
+" shown in the bottom panel. Note this command for use in our script."
+msgstr "Pada dialog :guilabel:`History and Log` , telusuri folder :guilabel:`Algorithm`  dan pilih entry terakhir. Anda akan melihat command pemrosessan penuh pada panel bawah. Perhatikan bahwa command ini untuk digunakan pada skript kita."
+
+#: ../../source/docs/running_qgis_jobs.rst:91
+msgid ""
+"Back in the main QGIS Window, click at the :guilabel:`CRS` button in the "
+"bottom-right corner."
+msgstr "Kembali ke jendela utama QGIS, klik tombol :guilabel:`CRS` di sudut bawah kanan."
+
+#: ../../source/docs/running_qgis_jobs.rst:97
+msgid ""
+"In the :guilabel:`Project Properties | CRS` dialog, check the "
+":guilabel:`Enable on-the-fly CRS transformation` and select ``EPSG:3460 Fiji"
+" 1986 / Fiji Map Grid`` as the CRS. This will ensure that our original and "
+"reprojected layers will line up correctly."
+msgstr "Pada dialog :guilabel:`Project Properties | CRS`  , beri tanda cek pada :guilabel:`Enable on-the-fly CRS transformation` dan pilih ``EPSG:3460 Fiji 1986 / Fiji Map Grid`` sebagai CRS. Ini akan memastikan bahwa layer original dan layar terproyeksi akan terbaris secara benar."
+
+#: ../../source/docs/running_qgis_jobs.rst:105
+msgid ""
+"Now we will run the cleaning operation. GRASS has a very powerful set of "
+"topological cleaning tools. These are available in QGIS via the ``v.clean`` "
+"algorithm. Search for this algorithm in the :guilabel:`Processing Toolbox` "
+"and double-click it to launch the dialog."
+msgstr "Sekarang kita akan menjalankan operasi pembersihan. GRASS memiliki sebuah set ampuh alat pembersihan topologi . Ini tersedia di QGIS lewat algoritma ``v.clean`` . Cari algoritma ini di :guilabel:`Processing Toolbox` dan dobel-klik untuk meluncurkan dialog."
+
+#: ../../source/docs/running_qgis_jobs.rst:113
+msgid ""
+"You can read more about various tools and options in the :guilabel:`Help` "
+"tab. For this tutorial, we will be using the ``snap`` tool to remove "
+"duplicate vertices that are within 1 meter of each other. Select "
+"``Reprojected layer`` as the :guilabel:`Layer to clean`. Choose ``snap`` as "
+"the :guilabel:`Cleaning tool`.  Enter ``1.00`` as the :guilabel:`Threshold`."
+" Leave the other fields blank and click :guilabel:`Run`."
+msgstr "Anda dapat membaca lebih dalam tentang berbagai tool dan opsi pada tab :guilabel:`Help` . Untuk tutorial kali ini, kita akan menggunakan tool ``snap`` to menghapus vertices duplikat yang berada pada rentang 1 meter satu sama lain. Pilih ``Reprojected layer`` sebagai :guilabel:`Layer to clean` . Pilih ``snap`` sebagai :guilabel:`Cleaning tool` . Masukkan  ``1.00`` sebagai :guilabel:`Threshold` . Biarkan field yang lain kosong dan klik :guilabel:`Run`."
+
+#: ../../source/docs/running_qgis_jobs.rst:124
+msgid ""
+"Once the processing finishes, you will see 2 new layers added to QGIS. The "
+"``Cleaned vector layer`` is the layer with topological errors corrected. You"
+" will also have a ``Errors layer`` which will highlight the features which "
+"were repaired. You can use the errors layer as a guide and zoom in to see "
+"vertices that were removed."
+msgstr "Ketika proses selesai, anda akan melihat 2 layer baru ditambahkan ke QGIS. ``Cleaned vector layer`` adalah layer dengan error topologi yang sudah dikoreski. Anda juga akan memiliki sebuah ``Errors layer`` yang akan menandai fitur yang digantikan. Anda dapat menggunakan layer error sebagai panduan dan zoom ini untuk melihat vertices yang terhapus-"
+
+#: ../../source/docs/running_qgis_jobs.rst:133
+msgid ""
+"Go to :menuselection:`Processing --> History and Log` dialog and note the "
+"full processing command for later use."
+msgstr "Akses dialog :menuselection:`Processing --> History and Log` dan perhatikan command pemrosessan penuh untuk penggunaan dimasa yang akan datang."
+
+#: ../../source/docs/running_qgis_jobs.rst:139
+msgid ""
+"We are ready to start coding now. See the **A Text Editor or a Python IDE** "
+"section in the :doc:`building_a_python_plugin` tutorial for instructions to "
+"setup your text editor or IDE. For running standalone python scripts that "
+"use QGIS, we must set various configuration options. A good way to run "
+"standalone scripts is to launch them via a ``.bat`` file. This file will "
+"first set the correct configuration options and then call the python script."
+" Create a new file named ``launch.bat`` and enter the following text. Change"
+" the values according to your QGIS configuration. Don't forget to replace "
+"the username with your own username in the path to the python script.  The "
+"paths in this file will be the same on your system if you installed QGIS via"
+" the ``OSGeo4W Installer``. Save the file on your Desktop."
+msgstr "Sekarang kita siap untuk melakukan coding Lihat  bagian xxx pada tutorial xxx untuk instruksi untuk mensetting teks editor anda atau IDE. Untuk menjalankan skrip python tunggal menggunakan QGIS, kita harus menset beragam opsi konfigurasi. Cara yang baik untuk menjalankan skrip tunggal adalah dengan meluncurkan mereke lewat sebuah file xxx . File ini pertama akan mengatur opsi konfigurasi dengan benar dan kemudian memanggil skript python. Buat sebuah file baru bernama xxx dan masukkan teks berikut. Ubah nilai berdasarkan konfigurasi QGIS anda. Jangan lupa untuk mengganti username dengan username anda pada path yang ada di skript python. Path dalam file ini akan sama dengan sistem anda jika anda menginstall QGIS lewat xx .Simpan file pada desktop anda"
+
+#: ../../source/docs/running_qgis_jobs.rst:154
+msgid ""
+"Linux and Mac users will need to create a shell script to set the paths and "
+"environment variables."
+msgstr "Pengguna Linux dan Mac perlu itnuk membuat sebuah skrip shell untu mengatur path dan variabel lingkungan."
+
+#: ../../source/docs/running_qgis_jobs.rst:178
+msgid ""
+"Create a new python file and enter the following code. Name the file as "
+"``download_and_clean.py`` and save it on your Desktop."
+msgstr "Membuat sebuah file python yang baru dan masukkan kode berikut. Beri nama ``download_and_clean.py`` dan simpan pada desktop anda"
+
+#: ../../source/docs/running_qgis_jobs.rst:189
+msgid ""
+"Switch to your Desktop and locate the ``launch.bat`` icon. Double-click it "
+"to launch a new command window and run the script. If you see ``Hello "
+"QGIS!`` printed in the command window, your configuration and setup worked "
+"fine. If you see errors or do not see the text, check your ``launch.bat`` "
+"file and make sure all the paths match the locations on your system."
+msgstr "Pindah ke Desktop anda dan cari lokasi ikon ``launch.bat`` . Dobel-klik untuk meluncurkan jendela window yang baru dan jalankan skrip. Jika anda melihat ``Hello QGIS!`` tercetak di jendela command, konfigurasi dan pengaturan bekerja dengan baik. Jika anda melihat error atau tidak melihat teks, periksa file ``launch.bat`` anda dan pastikan semua path cocok dengan lokasi file pada sistem anda."
+
+#: ../../source/docs/running_qgis_jobs.rst:198
+msgid ""
+"Back in your text editor, modify the ``download_and_clean.py`` script to add"
+" the following code. This is the bootstrap code to initialize QGIS. These "
+"are unnecessary if you are running the script within QGIS. But since we are "
+"running it outside QGIS, we need to add these at the beginning. Make sure "
+"you replace the username with your username. After making these changes, "
+"save the file and run ``launch.bat`` again. If you see ``Hello QGIS!`` "
+"printed, you are all set to do add the processing logic to the script."
+msgstr "Kembali pada editor teks anda , modifikasi skrip ``download_and_clean.py`` untuk menambah kode berikut. Ini adalah kode bootstrap untuk meluncurkan QGIS. Ini tidak diperlukan jika anda menjalankan skrip di QGIS. Tapi karena kita menjalankannya di luar QGIS, kita perlu menmbah ini di awal. Pastikan anda mengganti username dengan username anda. Setelah melakukan perubahan, simpan file dan jalankan ``launch.bat`` kembali. Jika anda melihat ``Hello QGIS!`` tercetak, anda sudah siap untuk menambah logika pemrossean pada skrip."
+
+#: ../../source/docs/running_qgis_jobs.rst:230
+msgid ""
+"Recall the first processing command that we had saved from the log. This was"
+" the command to re-project a layer. Paste the command to your script and add"
+" the surrounding code as follows. Note that processing commands return the "
+"path to the output layers as a dictionary. We are storing this as the "
+"``ret`` value and printing the path to the reprojected layer."
+msgstr "Panggil kembali command processing yang pertama yang tadi kita simpan dari log. Ini adalah command untuk mereproyeksi sebuah layer. Salin command ke skrip anda dan tambahkan kode tambahan sebagai berikut. Perhatikan bahwa command pemrossesan memberikan path dari layer output sebagai dictionary. Ke akan menyimpan ini sebagai nilai ``ret`` dan mencetak path le layer yang terproyeksi."
+
+#: ../../source/docs/running_qgis_jobs.rst:247
+msgid ""
+"Run the script via ``launch.bat`` and you will see the path to the newly "
+"created reprojected layer."
+msgstr "Jalankan skrip lewat ``launch.bat`` dan anda akan melihat path ke layer terproyeksi yang baru."
+
+#: ../../source/docs/running_qgis_jobs.rst:253
+msgid ""
+"Now add the code for cleaning the topology. Since this is our final output, "
+"we will add the output file paths as the last 2 arguments for the "
+"``grass.v.clean`` algorithm. If you left these blank, the output will be "
+"created in a temporary directory."
+msgstr "Sekarang tamahkan kode untuk membersihkan topologi. Sejak ini adalah output akhir kita, kita akan menambahkan path file output kita pada 2 argument terakhir untuk algoritma ``grass.v.clean`` . Jika anda membiarkan ini kosong, output akan tercipta di sebuah direktori sementara atau temporer."
+
+#: ../../source/docs/running_qgis_jobs.rst:273
+msgid ""
+"Run the script and you will see 2 new shapefiles created on your Desktop. "
+"This completes the processing part of the script. Let's add the code to "
+"download the data from the original website and unzip it automatically. We "
+"will also store the path to the unzipped file in a variable that we can pass"
+" to the processing algorithm later. We will need to import some additional "
+"modules for doing this. (See the end of the tutorial for the full script "
+"with all the changes)"
+msgstr "Jalankan skrip dan akan melihat 2 shapefile naru yang tercipta pada Desktop anda. Selesaikan bagian pemrosesan pada skrip. Mari tambahkan kode untuk mengunduh data dari website asli dan mengunzip file secara otomatis. Kita juga akan menyimpan path untuk mengunzip file dengan sebuah variabel yang dapat kita kirim ke algoritma pemrosesan nantinya. Kita akan perlu mengimpor sejumlah modul tambahan untuk melakukan ini, (Lihat bagian akhir tutorial ini untuk melihat skrip utuh dengan semua perubahan)"
+
+#: ../../source/docs/running_qgis_jobs.rst:307
+msgid ""
+"Run the completed script. Everytime you run the script, a fresh copy of the "
+"data will be downloaded and processed."
+msgstr "Jalankan skrip yang sudah lengkap. Setiap anda menjalankan skrip, sebuah kopian asli dari data akan terunduh dan diproses."
+
+#: ../../source/docs/running_qgis_jobs.rst:313
+msgid ""
+"To automate running on this script on a daily basis, we can use the ``Task "
+"Scheduler`` in Windows. Launch the Task Scheduler and click "
+":guilabel:`Create Basic Task`."
+msgstr "Untuk mengotomatisasi dalam menjalankan skrip ini secara harian. Kita dapat menggunakan ``Task Scheduler`` pada Windows. Luncurkan Task Scheduler dan klik :guilabel:`Create Basic Task`."
+
+#: ../../source/docs/running_qgis_jobs.rst:317
+msgid "Linux and Mac users can use cron jobs to schedule  tasks."
+msgstr "Pengguna Linux dan Mac dapat menggunakan cron jobs untuk penjadwalan tugas atau schedule task. "
+
+#: ../../source/docs/running_qgis_jobs.rst:322
+msgid ""
+"Name the task as ``Daily Download and Cleanup`` and click :guilabel:`Next`."
+msgstr "Beri nama task atau tugas dengan ``Daily Download and Cleanup`` dan klik :guilabel:`Next`."
+
+#: ../../source/docs/running_qgis_jobs.rst:327
+msgid "Select ``Daily`` as the :guilabel:`Trigger` and click :guilabel:`Next`"
+msgstr "Pilih ``Daily`` as the :guilabel:`Trigger` untuk :guilabel:`Trigger` dan klik :guilabel:`Next`"
+
+#: ../../source/docs/running_qgis_jobs.rst:332
+msgid "Select a time as per your liking and click :guilabel:`Next`."
+msgstr "Tentukan waktu sesuai dengan pilihan anda dan klik :guilabel:`Next`."
+
+#: ../../source/docs/running_qgis_jobs.rst:337
+msgid ""
+"Choose ``Start a program`` as the :guilabel:`Action` and click "
+":guilabel:`Next`."
+msgstr "Pilih ``Start a program`` sebagai :guilabel:`Action` dan klik :guilabel:`Next`."
+
+#: ../../source/docs/running_qgis_jobs.rst:343
+msgid ""
+"Click :guilabel:`Browse` and locate the ``launch.bat`` script. Click "
+":guilabel:`Next`."
+msgstr "Klik :guilabel:`Browse` dan cari lokasi ``launch.bat`` . Klik :guilabel:`Next`."
+
+#: ../../source/docs/running_qgis_jobs.rst:349
+msgid ""
+"Click :guilabel:`Finish` at the last screen to schedule the task. Now the "
+"script will automatically launch at the specified time to give you a fresh "
+"copy of cleaned data everyday."
+msgstr "Klik :guilabel:`Finish` pada layar akhir untuk menjadwalkan tugas. Sekarang skrip akan secara otomatis jalan pada waktu yang sudah ditentukan untuk memberikan anda kopian asli dari data bersih setiap hari."
+
+#: ../../source/docs/running_qgis_jobs.rst:356
+msgid "Below is the full ``download_and_clean.py`` script for your reference."
+msgstr "Dibawah ini merupakan skrip penuh ``download_and_clean.py`` untuk referensi anda."
