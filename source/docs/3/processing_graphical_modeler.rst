@@ -1,18 +1,13 @@
 Automating Complex Workflows using Processing Modeler (QGIS3)
 =============================================================
 
-GIS Workflows typically involve many steps - with each step generating
-intermediate output that is used by the next step. If you change the input data
-or want to tweak a parameter, you will need to run through the entire process
-again manually.  Fortunately, QGIS has a graphical modeler built-in that can
-help you define your workflow and run it with a single invocation. You can also
-run these workflows as a batch over a large number of inputs.
+GIS Workflows typically involve many steps - with each step generating intermediate output that is used by the next step. If you change the input data or want to tweak a parameter, you will need to run through the entire process again manually.  Fortunately, QGIS has a graphical modeler built-in that can help you define your workflow and run it with a single invocation. You can also run these workflows as a batch over a large number of inputs.
 
 
 Overview of the task
 --------------------
 
-We will take a point layer of maritime piracy incidents and create a processing model to aggregate them over a global hexagonal grid.
+We will take a point layer of maritime piracy incidents and create a processing model to create a density map by aggregating them over a global hexagonal grid.
 
 Other skills you will learn
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^
