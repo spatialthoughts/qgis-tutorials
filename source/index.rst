@@ -33,7 +33,7 @@ QGIS Tutorials and Tips
    - :doc:`docs/interpolating_point_data`
    - :doc:`docs/3/batch_processing` [ :doc:`QGIS2 version <docs/batch_processing>` ]
    - :doc:`docs/3/processing_graphical_modeler` [ :doc:`QGIS2 version <docs/processing_graphical_modeler>` ]
-   - :doc:`docs/automating_map_creation`
+   - :doc:`docs/3/automating_map_creation` [ :doc:`QGIS2 version <docs/automating_map_creation>` ]
 * Tips and Tricks
    - :doc:`docs/using_qgis_browser`
    - :doc:`docs/counting_vertices`
@@ -83,7 +83,7 @@ QGIS Tutorials and Tips
    docs/interpolating_point_data
    docs/3/batch_processing
    docs/3/processing_graphical_modeler
-   docs/automating_map_creation
+   docs/3/automating_map_creation
    docs/using_qgis_browser
    docs/counting_vertices
    docs/open_bil_bip_bsq_files

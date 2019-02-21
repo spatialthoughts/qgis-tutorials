@@ -4,6 +4,7 @@ tutorials = {}
 tutorials['en'] = [
         ('3/batch_processing', 'Batch Processing using Processing Framework (QGIS 3)'),
         ('3/processing_graphical_modeler', 'Automating Complex Workflows using Processing Modeler (QGIS3)'),
+				('3/automating_map_creation', 'Automating Map Creation with Print Composer Atlas (QGIS3)'),
         ('making_a_map', 'Making A Map'),
         ('working_with_attributes', 'Working with Attributes'),
         ('importing_spreadsheets_csv', 'Importing Spreadsheets or CSV files'),

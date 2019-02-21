@@ -120,6 +120,7 @@ Data Credits
 .. [NGA_MSI] `Maritine Safety Information portal <https://msi.nga.mil/NGAPortal/MSI.porta>`_ ,  National Geospatial-Intelligence Agency
  
 - :doc:`automating_map_creation`
+- :doc:`3/automating_map_creation`
 
 .. [HAWAII] `State of Hawaii - Office of Planning <http://planning.hawaii.gov/gis/>`_
 
