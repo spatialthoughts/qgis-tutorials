@@ -1,12 +1,12 @@
-Automating Map Creation with Print Composer Atlas (QGIS3)
-=========================================================
+Automating Map Creation with Print Layout Atlas (QGIS3)
+=======================================================
 If your organization publishes printed or online maps, you often would need to
 create many maps with the same template - usually one for each administrative
 unit or a region of interest. Creating these maps manually can take a long time
 and if you want to update these on a regular basis, it can turn into a chore.
 QGIS has a tool called ``Atlas`` that can help you create a map template and
 easily publish a large number of maps for different geographic regions. If you
-are not familiar with the basics of Print Composer, please go through the
+are not familiar with the basics of Print Layout, please go through the
 :doc:`../making_a_map` tutorial.
 
 Overview of the task
@@ -20,7 +20,7 @@ Other skills you will learn
 - How to use the ``Inverted Polygons`` style renderer to fill areas outside of polygons.
 - How to use an expression in the ``Rule Based`` style renderer to show only
   the current feature in Atlas.
-- Apply expressions to create dynamic labels in Print Composer.
+- Apply expressions to create dynamic labels in Print Layout.
 - How to use ``Shapeburst fill`` style renderer to create a dual-tone polygon fill.
 
 Get the data
