@@ -236,7 +236,7 @@ Procedure
 .. image:: /static/3/automating_map_creation/images/33.png
    :align: center
 
-34. In the :guilabel:`Symbology` tab, click on :guilabel:`Sinple fill` and select ``Shapeburst fill`` as the :guilabel:`Symbol layer type`. Choose the :guilabel:`Two color` option and select shades of green and blue that you like. Click :guilabel:`OK`.
+34. In the :guilabel:`Symbology` tab, click on :guilabel:`Simple fill` and select ``Shapeburst fill`` as the :guilabel:`Symbol layer type`. Choose the :guilabel:`Two color` option and select shades of green and blue that you like. Click :guilabel:`OK`.
 
 .. image:: /static/3/automating_map_creation/images/34.png
    :align: center
