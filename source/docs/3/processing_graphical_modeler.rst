@@ -7,7 +7,7 @@ GIS Workflows typically involve many steps - with each step generating intermedi
 Overview of the task
 --------------------
 
-We will take a point layer of maritime piracy incidents and create a processing model to create a density map by aggregating them over a global hexagonal grid.
+We will take a point layer of maritime piracy incidents and create a processing model to produce a density map by aggregating them over a global hexagonal grid.
 
 Other skills you will learn
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -80,7 +80,7 @@ Procedure
 
 10. Now that we have our user inputs defined, we are ready to add processing steps. All of the processing algorithms are available to you under the :guilabel:`Algorithms` tab. The first step in our pipeline will be to reproject the base layer to the Project CRS.  Search for ``Reproject layer`` algorithm and drag it to the canvas.
 
-.. note:: This  necessity of this reprojection step will become clear shortly. The grid generation algorithm requires us to specify the extent of the grid in the unit of the Project CRS. We can supply this reprojected layer to compute this extent.
+.. note:: The necessity of this reprojection step will become clear shortly. The grid generation algorithm requires us to specify the extent of the grid in the unit of the Project CRS. We can supply this reprojected layer to compute this extent.
 
 .. image:: /static/3/processing_graphical_modeler/images/10.png
    :align: center
@@ -145,7 +145,7 @@ Procedure
 .. image:: /static/3/processing_graphical_modeler/images/22.png
    :align: center
 
-23. Our :guilabel:`Base Layer`` in the ``ne_10m_land`` and the :guilabel:`Input Points`` layer is ``ASAM 11 OCT 18``. The :guilabel:`Grid Size`` needs to be specified in the units of the selected CRS. The World_Mollweide CRS unit is meters, so we specify ``100000`` m (100 Kms) as the :guilabel:`Grid Size``. Click :guilabel:`Run` to start the processing pipeline. Once the process finishes, click :guilabel:`Close`.
+23. Our :guilabel:`Base Layer` is the ``ne_10m_land`` and the :guilabel:`Input Points` layer is ``ASAM 11 OCT 18``. The :guilabel:`Grid Size` needs to be specified in the units of the selected CRS. The World_Mollweide CRS unit is meters, so we specify ``100000`` m (100 Kms) as the :guilabel:`Grid Size`. Click :guilabel:`Run` to start the processing pipeline. Once the process finishes, click :guilabel:`Close`.
 
 .. image:: /static/3/processing_graphical_modeler/images/23.png
    :align: center
