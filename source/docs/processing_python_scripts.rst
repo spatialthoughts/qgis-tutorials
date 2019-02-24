@@ -1,5 +1,9 @@
 Writing Python Scripts for Processing Framework
 ===============================================
+.. warning:: 
+
+   A new version of this tutorial is available at :doc:`3/processing_python_scripts`
+
 One can write standalone pyqgis scripts that can be run via the Python Console
 in QGIS. With a few tweaks, you can make your standalone scripts run via the
 Processing Framework. This has several advantages. First, taking user input and
