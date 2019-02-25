@@ -2,6 +2,10 @@ Writing Python Scripts for Processing Framework (QGIS3)
 =======================================================
 One can write standalone pyqgis scripts that can be run via the Python Console in QGIS. With a few tweaks, you can make your standalone scripts run via the Processing Framework. This has several advantages. First, taking user input and writing output files is far easier because Processing Framework offers standardized user interface for these. Second, having your script in the Processing Toolbox also allows it to be part of any Processing Model or be run as a Batch job with multiple inputs. This tutorial will show how to write a custom python script that can be part of the Processing Framework in QGIS.
 
+.. note:: 
+
+	The Processing API was completely overhauled in QGIS3. Please refer to `this guide <https://raw.githubusercontent.com/qgis/QGIS/master/doc/porting_processing.dox>`_ for best practices and tips.
+
 Overview of the task
 --------------------
 
@@ -40,7 +44,7 @@ Procedure
 .. image:: /static/3/processing_python_scripts/images/3.png
    :align: center
 
-4. As you scroll down, you will see methods that assign name, group, description etc. to the script. Change the return values for ``name`` method to be ``dissolve_with_sum``, ``displayName`` method to ``Dissolve with Sum``, ``group`` method and ``groupId`` method to  ``scripts``. Change the return value of ``shortHelpString`` method to a description that will appear to the user. Click the :guilabel:`Save` button.
+4. As you scroll down, you will see methods that assign name, group, description etc. to the script. Change the return values for *name* method to be ``dissolve_with_sum``, *displayName* method to ``Dissolve with Sum``, *group* method and *groupId* method to  ``scripts``. Change the return value of *shortHelpString* method to a description that will appear to the user. Click the :guilabel:`Save` button.
 
 .. image:: /static/3/processing_python_scripts/images/4.png
    :align: center
@@ -82,7 +86,7 @@ Procedure
 .. image:: /static/3/processing_python_scripts/images/7.png
    :align: center
 
-8. Now we define our custom logic for processing data in the ``processAlgorithm`` method. This method gets passed a dictionary called ``parameters``. It contains the inputs that the user has selected. There are helper methods that allow you to take these inputs and create appropriate objects. We first get our inputs using ``parameterAsSource`` and ``parameterAsStrong`` methods. Next we want to create a feature sink where we will write the output. QGIS3 has a new class called ``classQgsFeatureSink`` which is the preferred way to create objects that can accept new features. The output needs only 2 fields - one for the value of dissolved field and another for the sum of the selected field. 
+8. Now we define our custom logic for processing data in the ``processAlgorithm`` method. This method gets passed a dictionary called ``parameters``. It contains the inputs that the user has selected. There are helper methods that allow you to take these inputs and create appropriate objects. We first get our inputs using ``parameterAsSource`` and ``parameterAsString`` methods. Next we want to create a feature sink where we will write the output. QGIS3 has a new class called ``QgsFeatureSink`` which is the preferred way to create objects that can accept new features. The output needs only 2 fields - one for the value of dissolved field and another for the sum of the selected field. 
 
 .. code-block:: python
 
@@ -192,7 +196,7 @@ Procedure
 .. image:: /static/3/processing_python_scripts/images/13.png
    :align: center
 
-14. One another advantage of writing processing script is that the methods within the Processing Framework are aware of layer selection and automatically filter your inputs to use only the selected features. Here's a quick demonstration of this functionality. Let's say we want to dissolve only certain continents. Let's create a selection using :guilabel:`Select feature by Expression` tool.
+14. One another advantage of writing processing script is that the methods within the Processing Framework are aware of layer selection and automatically filter your inputs to use only the selected features. This happens because we are defining our input as a ``QgsProcessingParameterFeatureSource``. A feature source allows use of ANY object which contains vector features, not just a vector layer, so when there are selected features in your layer and ask Processing to use selected features, the input is passed on to your script as a ``QgsProcessingFeatureSource`` object containing selected features and not the full vector layer. Here's a quick demonstration of this functionality. Let's say we want to dissolve only certain continents. Let's create a selection using :guilabel:`Select feature by Expression` tool.
 
 .. image:: /static/3/processing_python_scripts/images/14.png
    :align: center
