@@ -28,11 +28,12 @@ Books
 - Sherman, Gary `The PyQGIS Programmer's Guide <https://locatepress.com/ppg>`_,
   Locate Press, 2014
 
-Blogs
------
+Blogs and Online Resources
+--------------------------
 - `Nathan's QGIS Blog <http://nathanw.net/>`_
 - `Free and Open Source GIS Ramblings <http://anitagraser.com/>`_
 - `Mapping, GIS, QGIS & MapBasic <http://nyalldawson.net/>`_
+- `PyQGIS Cheat Sheet by Fran Raga <https://github.com/All4Gis/QGIS-cheat-sheet/blob/master/QGIS3.md>`_
 
 Video Tutorials
 ---------------
