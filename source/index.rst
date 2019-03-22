@@ -88,7 +88,7 @@ QGIS Tutorials and Tips
    docs/using_qgis_browser
    docs/counting_vertices
    docs/open_bil_bip_bsq_files
-   docs/getting_started_with_pyqgis
+   docs/3/getting_started_with_pyqgis
    docs/building_a_python_plugin
    docs/custom_python_functions
    docs/3/processing_python_scripts
