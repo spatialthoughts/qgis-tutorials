@@ -1,5 +1,5 @@
-Using the QGIS Python console (QGIS3)
-=====================================
+Getting Started With Python Programming (QGIS3)
+===============================================
 
 QGIS has a powerful programming interface that allows you to extend the core functionality of the software as well as write scripts to automate your tasks. QGIS supports the popular Python scripting language. Even if you are a beginner, learning a little bit of Python and QGIS programming interface will allow you to be much more productive in your work. This tutorial assumes no prior programming knowledge and is intended to give an introduction to python scripting in QGIS (PyQGIS).
 
