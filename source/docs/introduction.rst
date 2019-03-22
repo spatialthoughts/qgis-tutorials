@@ -19,8 +19,17 @@ Extending and Contributing
 This document has been typeset with reStructuredText. It is available as reST
 source code via `github <https://github.com/spatialthoughts/qgis-tutorials>`_.
 
+Contributors
+^^^^^^^^^^^^
+- `Ian Turton <https://www.ianturton.com/>`_ 
+
 Translations
 ^^^^^^^^^^^^
+
+If you would like to help translate these tutorials in your langugage, please
+`Join the team on Transifex
+<https://www.transifex.com/projects/p/qgis-tutorials/>`_.
+
 
 The tutorials are also available in following langugages:
 
@@ -43,10 +52,6 @@ The tutorials are also available in following langugages:
 - `Ukrainian <http://www.qgistutorials.com/uk/>`_ (Translation by: *Igor Konovalov*)
 - `Vietnamese <http://www.qgistutorials.com/vi/>`_ (Translation by: *Hang Nguyen Thuy*)
 
-If you would like to help translate these tutorials in your langugage, please
-`Join the team on Transifex
-<https://www.transifex.com/projects/p/qgis-tutorials/>`_.
-
 License
 -------
 
@@ -57,7 +62,7 @@ Under this license, you are allowed to use, share or modify the document in any
 way you seem fit and even make commercial use of it. You only need to give
 appropriate credit to the author for the original work.
 
-Copyright (c)  2014 Ujaval Gandhi.
+Copyright (c)  2019 Ujaval Gandhi.
 
 Disclaimer
 ----------
