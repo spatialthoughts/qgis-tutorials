@@ -8,6 +8,7 @@ tutorials['en'] = [
 				('3/processing_python_scripts', 'Writing Python Scripts for Processing Framework (QGIS3)'),
         ('making_a_map', 'Making A Map'),
 				('3/getting_started_with_pyqgis', 'Getting Started with Python Programming (QGIS3)'),
+        ('3/building_a_python_plugin', 'Building a Python Plugin (QGIS3)'),
         ('working_with_attributes', 'Working with Attributes'),
         ('importing_spreadsheets_csv', 'Importing Spreadsheets or CSV files'),
         ('using_plugins', 'Using Plugins'),
