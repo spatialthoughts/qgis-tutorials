@@ -1,5 +1,9 @@
 Getting Started With Python Programming
 =======================================
+.. warning:: 
+
+   A new version of this tutorial is available at :doc:`3/getting_started_with_pyqgis`
+   
 QGIS has a powerful programming interface that allows you to extend the core
 functionality of the software as well as write scripts to automate your tasks.
 QGIS supports the popular Python scripting language. Even if you are a

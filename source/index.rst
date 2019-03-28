@@ -39,9 +39,8 @@ QGIS Tutorials and Tips
    - :doc:`docs/counting_vertices`
    - :doc:`docs/open_bil_bip_bsq_files`
 * Python Scripting (PyQGIS)
-   - :doc:`docs/3/getting_started_with_pyqgis` [:doc:`QGIS2 version
-     <docs/getting_started_with_pyqgis>`]
-   - :doc:`docs/building_a_python_plugin`
+   - :doc:`docs/3/getting_started_with_pyqgis` [:doc:`QGIS2 version <docs/getting_started_with_pyqgis>`]
+   - :doc:`docs/3/building_a_python_plugin` [:doc:`QGIS2 version <docs/building_a_python_plugin>`]
    - :doc:`docs/3/custom_python_functions` [:doc:`QGIS2 version <docs/custom_python_functions>`]
    - :doc:`docs/3/processing_python_scripts` [ :doc:`QGIS2 version <docs/processing_python_scripts>` ]
    - :doc:`docs/running_qgis_jobs`
@@ -89,8 +88,8 @@ QGIS Tutorials and Tips
    docs/counting_vertices
    docs/open_bil_bip_bsq_files
    docs/3/getting_started_with_pyqgis
-   docs/building_a_python_plugin
-   docs/custom_python_functions
+   docs/3/building_a_python_plugin
+   docs/3/custom_python_functions
    docs/3/processing_python_scripts
    docs/running_qgis_jobs
    docs/find_neighbor_polygons
