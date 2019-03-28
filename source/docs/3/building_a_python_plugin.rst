@@ -158,6 +158,12 @@ You can now copy the ``compile.bat`` file (created during the *Python Bindings f
   
 **Mac and Linux**
 
+You will need to install ``pb_tool`` first. Open a Terminal and install it via pip.
+
+  .. code-block:: none
+  
+    sudo pip3 install pb_tool
+    
 Open a Terminal and go to the plugin directory and type ``pb_tool compile``. This will run the ``pyrcc5`` command that we had installed as part *Python Bindings for Qt* section. 
 
   .. code-block:: none
