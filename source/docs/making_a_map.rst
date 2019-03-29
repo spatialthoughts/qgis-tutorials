@@ -1,5 +1,10 @@
 Making a Map
 ============
+
+.. warning:: 
+
+   A new version of this tutorial is available at :doc:`3/making_a_map`
+   
 Often one needs to create a map that can be printed or published. QGIS has a
 powerful tool called :guilabel:`Print Composer` that allows you to take your
 GIS layers and package them to create maps.
