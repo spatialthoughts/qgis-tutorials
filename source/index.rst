@@ -5,7 +5,7 @@ QGIS Tutorials and Tips
    - :doc:`docs/introduction`
 
 * Quickstart
-   - :doc:`docs/making_a_map`
+   - :doc:`docs/3/making_a_map` [ :doc:`QGIS2 version <docs/making_a_map>` ]
    - :doc:`docs/working_with_attributes`
    - :doc:`docs/importing_spreadsheets_csv`
    - :doc:`docs/using_plugins`
@@ -58,7 +58,7 @@ QGIS Tutorials and Tips
    :hidden:
 
    docs/introduction
-   docs/making_a_map
+   docs/3/making_a_map
    docs/working_with_attributes
    docs/importing_spreadsheets_csv
    docs/using_plugins
