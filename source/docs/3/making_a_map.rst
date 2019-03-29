@@ -159,16 +159,20 @@ Procedure
   .. image:: /static/3/making_a_map/images/23.png
      :align: center
 
-24. Scroll down to the :guilabel:`Grid frame` section and check the :guilabel:`Draw coordinates` box. The default format is ``Degrees`` but we can customize is to append a degree symbol. Choose ``Custom`` and click the :guilabel:`Expression` button next to it.
-
+24. Scroll down to the :guilabel:`Grid frame` section and check the :guilabel:`Draw coordinates` box. The default format is ``Degrees`` but it appears as a number. We can customize is to append a |degree| symbol. Choose ``Custom`` and click the :guilabel:`Expression` button next to it.
+  
+  .. |degree| unicode:: U+00B0
+  
   .. image:: /static/3/making_a_map/images/24.png
      :align: center
 
-25. Enter the following expression to create a string that takes the grid number and appends degree symbol to it.
+25. Enter the following expression to create a string that takes the grid number and appends |degree| symbol to it.
 
+  .. |degree| unicode:: U+00B0
+  
   .. code-block:: none
 
-    concat(to_string(@grid_number), '°   ')
+    concat(to_string(@grid_number), 'Â°    ')
 
   .. image:: /static/3/making_a_map/images/25.png
      :align: center
