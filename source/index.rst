@@ -5,9 +5,9 @@ QGIS Tutorials and Tips
    - :doc:`docs/introduction`
 
 * Quickstart
-   - :doc:`docs/3/making_a_map` [ :doc:`QGIS2 version <docs/making_a_map>` ]
+   - :doc:`docs/3/making_a_map`
    - :doc:`docs/working_with_attributes`
-   - :doc:`docs/importing_spreadsheets_csv`
+   - :doc:`docs/3/importing_spreadsheets_csv`
    - :doc:`docs/using_plugins`
    - :doc:`docs/downloading_osm_data`
 * Basics GIS operations
@@ -31,18 +31,18 @@ QGIS Tutorials and Tips
    - :doc:`docs/nearest_neighbor_analysis`
    - :doc:`docs/sampling_raster_data`
    - :doc:`docs/interpolating_point_data`
-   - :doc:`docs/3/batch_processing` [ :doc:`QGIS2 version <docs/batch_processing>` ]
-   - :doc:`docs/3/processing_graphical_modeler` [ :doc:`QGIS2 version <docs/processing_graphical_modeler>` ]
-   - :doc:`docs/3/automating_map_creation` [ :doc:`QGIS2 version <docs/automating_map_creation>` ]
+   - :doc:`docs/3/batch_processing`
+   - :doc:`docs/3/processing_graphical_modeler`
+   - :doc:`docs/3/automating_map_creation`
 * Tips and Tricks
    - :doc:`docs/using_qgis_browser`
    - :doc:`docs/counting_vertices`
    - :doc:`docs/open_bil_bip_bsq_files`
 * Python Scripting (PyQGIS)
-   - :doc:`docs/3/getting_started_with_pyqgis` [:doc:`QGIS2 version <docs/getting_started_with_pyqgis>`]
-   - :doc:`docs/3/building_a_python_plugin` [:doc:`QGIS2 version <docs/building_a_python_plugin>`]
-   - :doc:`docs/3/custom_python_functions` [:doc:`QGIS2 version <docs/custom_python_functions>`]
-   - :doc:`docs/3/processing_python_scripts` [ :doc:`QGIS2 version <docs/processing_python_scripts>` ]
+   - :doc:`docs/3/getting_started_with_pyqgis`
+   - :doc:`docs/3/building_a_python_plugin`
+   - :doc:`docs/3/custom_python_functions`
+   - :doc:`docs/3/processing_python_scripts`
    - :doc:`docs/running_qgis_jobs`
    - :doc:`docs/find_neighbor_polygons`
    - :doc:`docs/performing_table_joins_pyqgis`
@@ -60,7 +60,7 @@ QGIS Tutorials and Tips
    docs/introduction
    docs/3/making_a_map
    docs/working_with_attributes
-   docs/importing_spreadsheets_csv
+   docs/3/importing_spreadsheets_csv
    docs/using_plugins
    docs/downloading_osm_data
    docs/basic_vector_styling

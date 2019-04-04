@@ -168,8 +168,6 @@ Procedure
 
 25. Enter the following expression to create a string that takes the grid number and appends |degree| symbol to it.
 
-  .. |degree| unicode:: U+00B0
-  
   .. code-block:: none
 
     concat(to_string(@grid_number), '°    ')
