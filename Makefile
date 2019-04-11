@@ -108,11 +108,6 @@ all:
 		 make LANG=$$LANG html; \
 		 mv $(BUILDDIR)/html/$$LANG live/html/; \
 	done
-	@echo Building pdf for the following languages: $(PDF_LANGUAGES)
-	@for LANG in $(PDF_LANGUAGES) ; do \
-		make LANG=$$LANG pdf; \
-		mv $(BUILDDIR)/pdf/$$LANG live/html/$$LANG/pdf; \
-	done
 
 # Deploying generated files in GitHub pages.
 gh-pages:
