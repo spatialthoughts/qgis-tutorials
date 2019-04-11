@@ -18,7 +18,7 @@ QGIS Tutorials and Tips
    - :doc:`docs/working_with_terrain`
    - :doc:`docs/working_with_wms`
    - :doc:`docs/working_with_projections`
-   - :doc:`docs/georeferencing_basics`
+   - :doc:`docs/3/georeferencing_basics`
    - :doc:`docs/advanced_georeferencing`
    - :doc:`docs/digitizing_basics`
 * Intermediate GIS operations
@@ -70,7 +70,7 @@ QGIS Tutorials and Tips
    docs/working_with_terrain
    docs/working_with_wms
    docs/working_with_projections
-   docs/georeferencing_basics
+   docs/3/georeferencing_basics
    docs/advanced_georeferencing
    docs/digitizing_basics
    docs/performing_table_joins

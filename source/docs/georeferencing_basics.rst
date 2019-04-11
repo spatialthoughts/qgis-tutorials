@@ -1,5 +1,11 @@
 Georeferencing Topo Sheets and Scanned Maps
 ===========================================
+
+.. warning:: 
+
+   A new version of this tutorial is available at :doc:`3/georeferencing_basics`
+   
+   
 Most GIS projects require georeferencing some raster data. *Georeferencing* is
 the process of assigning real-world coordinates to each pixel of the raster.
 Many times these coordinates are obtained by doing field surveys - collecting
