@@ -2,6 +2,8 @@ Georeferencing Topo Sheets and Scanned Maps (QGIS3)
 ===================================================
 Most GIS projects require georeferencing some raster data. *Georeferencing* is the process of assigning real-world coordinates to each pixel of the raster. Many times these coordinates are obtained by doing field surveys - collecting coordinates with a GPS device for few easily identifiable features in the image or map. In some cases, where you are looking to digitize scanned maps, you can obtain the coordinates from the markings on the map image itself. Using these sample coordinates or GCPs ( Ground Control Points ), the image is warped and made to fit within the chosen coordinate system. In this tutorial I will discuss the concepts, strategies and tools within QGIS to achieve a high accuracy georeferencing.
 
+This tutorial is to geo-reference an image which has coordinates information available on the map image itself (i.e. grids with labels). If your source image does not have such information, you can use the method outlined in :doc:`../advanced_georeferencing` 
+
 Overview of the task
 --------------------
 
@@ -83,6 +85,10 @@ Procedure
     
     +proj=longlat +a=6377301.243 +b=6356100.2284 +towgs84=295,736,257,0,0,0,0 +no_defs
 
+.. note:: 
+
+  Most maps are created using a Projected CRS. If the map you are trying to georeference uses a projected CRS that you know of, but the graticules labels are in a Geographic CRS (latitude/longitude), you may use an alternate workflow to minimize distortion. Instead of using a Geographic CRS like we are using here, you can create a vector grid in QGIS and transform it to the projected CRS to be used as a reference for accurate coordinate capture. See `this page <https://raisedbeaches.net/2018/02/01/georeferencing-in-qgis/>`_ for more details.
+  
 11. Name your output raster as  ``1870_southern_india_modified.tif``. Choose ``LZW`` as the :guilabel:`Compression`. Make sure the :guilabel:`Load in QGIS when done` option is checked. CLick :guilabel:`OK`.
 
   .. image:: /static/3/georeferencing_basics/images/11.png
