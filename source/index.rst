@@ -19,7 +19,7 @@ QGIS Tutorials and Tips
    - :doc:`docs/working_with_wms`
    - :doc:`docs/working_with_projections`
    - :doc:`docs/3/georeferencing_basics`
-   - :doc:`docs/advanced_georeferencing`
+   - :doc:`docs/3/advanced_georeferencing`
    - :doc:`docs/digitizing_basics`
 * Intermediate GIS operations
    - :doc:`docs/performing_table_joins`
@@ -71,7 +71,7 @@ QGIS Tutorials and Tips
    docs/working_with_wms
    docs/working_with_projections
    docs/3/georeferencing_basics
-   docs/advanced_georeferencing
+   docs/3/advanced_georeferencing
    docs/digitizing_basics
    docs/performing_table_joins
    docs/performing_spatial_joins

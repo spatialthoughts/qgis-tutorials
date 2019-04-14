@@ -1,5 +1,11 @@
 Georeferencing Aerial Imagery
 =============================
+
+.. warning:: 
+
+   This tutorial is now obsolete. A new and updated version is available at :doc:`3/advanced_georeferencing`
+   
+   
 In the tutorial :doc:`georeferencing_basics` we covered the basic process of
 georeferencing in QGIS. That method involved reading the coordinates from your
 scanned map and inputting it manually. Many times though you may not have the

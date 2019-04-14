@@ -3,7 +3,7 @@ Georeferencing Topo Sheets and Scanned Maps
 
 .. warning:: 
 
-   A new version of this tutorial is available at :doc:`3/georeferencing_basics`
+   This tutorial is now obsolete. A new and updated version is available at :doc:`3/georeferencing_basics`
    
    
 Most GIS projects require georeferencing some raster data. *Georeferencing* is
