@@ -13,12 +13,17 @@ Get the Tools
 
 Qt Creator
 ^^^^^^^^^^
-`Qt <http://www.qt.io/>`_ is a software development framework that is used to develop applications that run on Windows, Mac, Linux as well as various mobile operating systems. QGIS itself is written using the Qt framework. For plugin development, we will use an application called `Qt Designer <https://doc.qt.io/qt-5/qtdesigner-manual.html>`_ to design the interface for our plugin. 
+`Qt <http://www.qt.io/>`_ is a software development framework that is used to develop applications that run on Windows, Mac, Linux as well as various mobile operating systems. QGIS itself is written using the Qt framework. For plugin development, we will use an application called `Qt Creator <https://doc.qt.io/qt-5/qtdesigner-manual.html>`_ to design the interface for our plugin. 
 
 Download and install the Qt Creator installer from `Qt Offline Installers <https://www.qt.io/offline-installers>`_. Make sure you select **Qt Creator** on the download page. Note that you will have to create a free Qt account to install the package.
 
+.. note:: 
+
+  OSGeo4w installer for QGIS on Windows include a copy of **Qt Designer** program which is a lightweight version of **Qt Creator** and perfectly suitable for building plugins. You may skip downloading Qt Creator and use it instead from :menuselection:`C:\\OSGeo4W64\\bin\\qgis-designer`. 
+  
 .. image:: /static/3/building_a_python_plugin/images/setup1.png
   :align: center
+
       
 Python Bindings for Qt
 ^^^^^^^^^^^^^^^^^^^^^^

@@ -1,6 +1,6 @@
 Georeferencing Aerial Imagery (QGIS3)
 =====================================
-In the tutorial :doc:`georeferencing_basics` we covered the basic process of georeferencing in QGIS. That method involved reading the coordinates from your scanned map and inputting them manually. Many times though you may not have the coordinates printed on your map, or you are trying to georeference an image. In that case, you can use another georeferenced data-source as your input. In this tutorial, you will learn how to use existing open data sources in your georeferencing process.
+In the tutorial :doc:`georeferencing_basics` we covered the basic process of georeferencing in QGIS. That method involved reading the coordinates from your scanned map and entering them manually as control points. Many times though you may not have the coordinates printed on your map, or you are trying to georeference an image. In that case, you can use another georeferenced data-source as your input. In this tutorial, you will learn how to use existing open data sources in your georeferencing process.
 
 Overview of the task
 --------------------
@@ -28,7 +28,7 @@ For convenience, you may directly download a copy of the dataset from the link b
 Procedure
 ---------
 
-1. We will use a basemap from OpenStreetMap to capture the coordinates for georeferencing. QGIS3 comes with  built-in support for tile layers. These are commonly known as 'XYZ' layers since they are made using individual map tiles for each zoom level (z) on a x,y coordinate grid. You can find the ``OpenStreetMap`` layer under :guilabel:`XYZ` in the :guilabel:`Browser Panel`. Drag the layer to the main canvas. Once loaded, note the Coordinate Reference System (CRS) for this layer in the bottom-right corder. It is set as ``EPSG 3857 Pseudo Mercator``. This is important because the coordinates we infer from this layer during georeferencing will be in this CRS.
+1. We will use a basemap from OpenStreetMap to capture the coordinates for georeferencing. QGIS3 comes with  built-in support for tile layers. These are commonly known as 'XYZ' layers since they are made using individual map tiles for each zoom level (z) on a x,y coordinate grid. You can find the ``OpenStreetMap`` layer under :guilabel:`XYZ Tiles` in the :guilabel:`Browser Panel`. Drag the layer to the main canvas. Once loaded, note the Coordinate Reference System (CRS) for this layer in the bottom-right corder. It is set as ``EPSG 3857 Pseudo Mercator``. This is important because the coordinates we infer from this layer during georeferencing will be in this CRS.
 
   .. image:: /static/3/advanced_georeferencing/images/1.png
      :align: center
