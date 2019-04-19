@@ -3,7 +3,7 @@ Making a Map
 
 .. warning:: 
 
-   A new version of this tutorial is available at :doc:`3/making_a_map`
+  This tutorial is now obsolete. A new and updated version is available at :doc:`3/making_a_map`
    
 Often one needs to create a map that can be printed or published. QGIS has a
 powerful tool called :guilabel:`Print Composer` that allows you to take your
