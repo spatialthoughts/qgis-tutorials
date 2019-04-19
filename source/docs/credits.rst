@@ -77,14 +77,13 @@ Data Credits
 - :doc:`performing_table_joins_pyqgis`
 - :doc:`sampling_raster_data`
 
-.. [TIGER] 2013 TIGER/Line Shapefiles [machine-readable data files] prepared by
-   the U.S. Census Bureau, 2013
+.. [TIGER] 2018 TIGER/Line Shapefiles [machine-readable data files] prepared by
+   the U.S. Census Bureau, 2018
 
 - :doc:`performing_table_joins`
 - :doc:`performing_table_joins_pyqgis`
 
-.. [USCENSUS] Census Summary File 1— California [machine-readable data files]
-   prepared by the U.S. Census Bureau, 2011.
+.. [USCENSUS] U.S. Census Bureau, 2013-2017 American Community Survey 5-Year Estimates
 
 - :doc:`creating_heatmaps`
 

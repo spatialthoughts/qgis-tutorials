@@ -1,5 +1,10 @@
 Performing Table Joins
 ======================
+
+.. warning:: 
+
+   This tutorial is now obsolete. A new and updated version is available at :doc:`3/performing_table_joins`
+
 Not every dataset you want to use comes as a shapefile, or in a spatial format. Often the data would come as a table or a spreadsheet and you would need to link it with your existing spatial data for use in your analysis. This operation is known as a `Table Join` and this tutorial will cover how to carry out table joins in QGIS.
 
 Overview of the task
