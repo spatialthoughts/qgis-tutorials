@@ -1,5 +1,10 @@
 Performing Spatial Joins
 ========================
+
+.. warning:: 
+
+  This tutorial is now obsolete. A new and updated version is available at :doc:`3/performing_spatial_joins`
+  
 Spatial Join is a classic GIS problem - transferring attributes from one layer
 to another based on their spatial relationship. In QGIS, this functionality is
 available through the **Join Attributes by Location** tool.

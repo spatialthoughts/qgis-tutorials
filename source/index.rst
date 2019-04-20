@@ -23,7 +23,7 @@ QGIS Tutorials and Tips
    - :doc:`docs/digitizing_basics`
 * Intermediate GIS operations
    - :doc:`docs/3/performing_table_joins`
-   - :doc:`docs/performing_spatial_joins`
+   - :doc:`docs/3/performing_spatial_joins`
    - :doc:`docs/points_in_polygon`
    - :doc:`docs/performing_spatial_queries`
    - :doc:`docs/creating_heatmaps`
@@ -74,7 +74,7 @@ QGIS Tutorials and Tips
    docs/3/advanced_georeferencing
    docs/digitizing_basics
    docs/3/performing_table_joins
-   docs/performing_spatial_joins
+   docs/3/performing_spatial_joins
    docs/points_in_polygon
    docs/creating_heatmaps
    docs/performing_spatial_queries

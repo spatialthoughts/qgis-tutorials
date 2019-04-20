@@ -85,6 +85,10 @@ Data Credits
 
 .. [USCENSUS] U.S. Census Bureau, 2013-2017 American Community Survey 5-Year Estimates
 
+- :doc:`3/performing_table_joins`
+
+.. [CITYOFNY] © 2019 The City of New York. All Right Reserve. NYC is a trademark and service mark of the City of New York.
+
 - :doc:`creating_heatmaps`
 
 .. [POLICEUK] `ASB Incidents, Crime and Outcome

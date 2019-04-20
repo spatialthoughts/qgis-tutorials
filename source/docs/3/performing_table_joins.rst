@@ -90,7 +90,7 @@ Procedure
   .. image:: /static/3/performing_table_joins/images/11.png
      :align: center
 
-12. In the :guilabel:`Join Attributes by Field Values` dialog, select ``tl_2018_06_tract`` as :guilabel:`Input layer` and ``GEOID`` as the :guilabel:`Table field`. Select ``ACS_17_5YR_B01003_with_ann`` as the :guilabel:`Input layer 2` and ``GEO.id2`` as the :guilabel:`Table field 2`. Leave other options to their default values and click the :guilabel:`...` button to select the output file location and select ``Save to GeoPackage...`.
+12. In the :guilabel:`Join Attributes by Field Values` dialog, select ``tl_2018_06_tract`` as :guilabel:`Input layer` and ``GEOID`` as the :guilabel:`Table field`. Select ``ACS_17_5YR_B01003_with_ann`` as the :guilabel:`Input layer 2` and ``GEO.id2`` as the :guilabel:`Table field 2`. Leave other options to their default values and click the :guilabel:`...` button to select the output file location and select ``Save to GeoPackage...``.
 
   .. image:: /static/3/performing_table_joins/images/12.png
      :align: center
