@@ -26,7 +26,7 @@ QGIS Tutorials and Tips
    - :doc:`docs/3/performing_spatial_joins`
    - :doc:`docs/points_in_polygon`
    - :doc:`docs/performing_spatial_queries`
-   - :doc:`docs/creating_heatmaps`
+   - :doc:`docs/3/creating_heatmaps`
 * Advanced GIS operations
    - :doc:`docs/nearest_neighbor_analysis`
    - :doc:`docs/sampling_raster_data`
@@ -76,7 +76,7 @@ QGIS Tutorials and Tips
    docs/3/performing_table_joins
    docs/3/performing_spatial_joins
    docs/points_in_polygon
-   docs/creating_heatmaps
+   docs/3/creating_heatmaps
    docs/performing_spatial_queries
    docs/nearest_neighbor_analysis
    docs/sampling_raster_data
