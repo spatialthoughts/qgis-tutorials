@@ -158,4 +158,4 @@ Procedure
 
 .. note::
 
-  Notice the legend that appears for the ``OUTPUT`` layer in the :guilabel:`Layers` panel. A common problem with using a heatmap layer created with the Heatmap renderer is the lack of a legend. Say you want use the heatmap in the :guilabel:`Print Layout` and add a legend. A raster heatmap created with the Heatmap processing algorithm and styled with Singleband Pseudocolor renderer makes it possible to add a legend as well.
+   Notice that ``OUTPUT`` layer in the :guilabel:`Layers` panel has a legend but the ``2019-02-surrey-street`` layer does not. A common problem with using a heatmap layer created with the Heatmap renderer is the lack of a legend. Say you want use the heatmap in the :guilabel:`Print Layout` and add a legend. A raster heatmap created with the Heatmap processing algorithm method makes this possible.

@@ -1,5 +1,10 @@
 Creating Heatmaps
 =================
+
+.. warning:: 
+
+   This tutorial is now obsolete. A new and updated version is available at :doc:`3/creating_heatmaps`
+   
 Heatmaps are one of the best visualization tools for dense point data. Heatmaps
 are used to easily identify find clusters where there is a high concentration
 of activity. They are also useful for doing `cluster analysis` or `hotspot
