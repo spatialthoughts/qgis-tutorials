@@ -1,0 +1,298 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2019, Ujaval Gandhi
+# This file is distributed under the same license as the QGIS Tutorials and Tips package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# 
+# Translators:
+# Whyjay Zheng <jhsttshj@gmail.com>, 2019
+# 
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: QGIS Tutorials and Tips v1.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-04-19 08:38+0000\n"
+"PO-Revision-Date: 2019-04-11 09:34+0000\n"
+"Last-Translator: Whyjay Zheng <jhsttshj@gmail.com>, 2019\n"
+"Language-Team: Chinese (Taiwan) (https://www.transifex.com/spatialthoughts/teams/7952/zh_TW/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: zh_TW\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+#: ../../source/docs/3/georeferencing_basics.rst:2
+msgid "Georeferencing Topo Sheets and Scanned Maps (QGIS3)"
+msgstr "為紙本地圖進行空間對位 (QGIS3)"
+
+#: ../../source/docs/3/georeferencing_basics.rst:3
+msgid ""
+"Most GIS projects require georeferencing some raster data. *Georeferencing* "
+"is the process of assigning real-world coordinates to each pixel of the "
+"raster. Many times these coordinates are obtained by doing field surveys - "
+"collecting coordinates with a GPS device for few easily identifiable "
+"features in the image or map. In some cases, where you are looking to "
+"digitize scanned maps, you can obtain the coordinates from the markings on "
+"the map image itself. Using these sample coordinates or GCPs ( Ground "
+"Control Points ), the image is warped and made to fit within the chosen "
+"coordinate system. In this tutorial I will discuss the concepts, strategies "
+"and tools within QGIS to achieve a high accuracy georeferencing."
+msgstr ""
+"大部分的 GIS 專案都會需要對某些影像進行「 *空間對位 （Georeferencing）* "
+"」，也就是說要為影像的每個像素指定它在世界上的地理空間座標。在許多的情況下，這些座標是透過野外調查收集而來，例如說用 GPS "
+"裝置定位那些易於辨識的地標。但有的時候，例如說如果你要使用的是某地圖的數位化掃描檔，你也可以藉由地圖上的一些標記來蒐集空間座標。一旦我們有了這些採樣的座標點或地面控制點"
+" (Ground Control Points)，這些影像就可以用給定的座標系統來投影繪製。在本章節中，我們會討論相關的概念、作法與 QGIS "
+"提供的工具，以達成高準確度空間對位的目標。"
+
+#: ../../source/docs/3/georeferencing_basics.rst:5
+msgid ""
+"This tutorial is to geo-reference an image which has coordinates information"
+" available on the map image itself (i.e. grids with labels). If your source "
+"image does not have such information, you can use the method outlined in "
+":doc:`advanced_georeferencing`"
+msgstr ""
+
+#: ../../source/docs/3/georeferencing_basics.rst:8
+msgid "Overview of the task"
+msgstr "內容說明"
+
+#: ../../source/docs/3/georeferencing_basics.rst:10
+msgid ""
+"We will use a scanned map of southern India from 1870 and geo-reference it "
+"using QGIS."
+msgstr "我們要為一份 1870 年的南印地圖掃描檔，以 QGIS 進行空間對位。"
+
+#: ../../source/docs/3/georeferencing_basics.rst:13
+msgid "Other skills you will learn"
+msgstr "你還會學到這些"
+
+#: ../../source/docs/3/georeferencing_basics.rst:15
+msgid "How to determine datum and coordinate system for old maps."
+msgstr "如何判斷老地圖的大地座標（Datum）與座標系統（Coordinate System）。"
+
+#: ../../source/docs/3/georeferencing_basics.rst:18
+msgid "Get the data"
+msgstr "取得資料"
+
+#: ../../source/docs/3/georeferencing_basics.rst:19
+msgid ""
+"`Hipkiss’s Scanned Old Maps <http://www.hipkiss.org/data/maps.html>`_ "
+"website has an excellent collection out-of-copyright scanned maps that one "
+"can use for research."
+msgstr ""
+"`Hipkiss’s Scanned Old Maps <http://www.hipkiss.org/data/maps.html>`_ "
+"網站蒐集了不少版權過期的老地圖掃描檔，非常適合用在研究上。"
+
+#: ../../source/docs/3/georeferencing_basics.rst:21
+msgid ""
+"Download the `1870 map of southern India <http://www.hipkiss.org/data/maps"
+"/william-mackenzie_gallery-of-geography_1870_southern-"
+"india_3975_3071_600.jpg>`_ and save it as a JPG image on your hard drive."
+msgstr ""
+"這邊可以下載儲存 `1870 年的南印度地圖 <http://www.hipkiss.org/data/maps/william-"
+"mackenzie_gallery-of-geography_1870_southern-india_3975_3071_600.jpg>`_ 的 "
+"JPG 檔。"
+
+#: ../../source/docs/3/georeferencing_basics.rst:23
+msgid ""
+"For convenience, you may directly download a copy of the dataset from the "
+"link below:"
+msgstr "為了方便起見，你也可以直接用下面的連結下載："
+
+#: ../../source/docs/3/georeferencing_basics.rst:25
+msgid ""
+"`1870_southern_india.jpg <http://www.qgistutorials.com/downloads"
+"/1870_southern-india.jpg>`_"
+msgstr ""
+"`1870_southern_india.jpg <http://www.qgistutorials.com/downloads"
+"/1870_southern-india.jpg>`_"
+
+#: ../../source/docs/3/georeferencing_basics.rst:28
+msgid "Procedure"
+msgstr "操作流程"
+
+#: ../../source/docs/3/georeferencing_basics.rst:30
+msgid ""
+"1.Georeferencing in QGIS is done via the **Georeferencer GDAL** plugin. This"
+" is a core plugin - meaning it is already part of your QGIS installation. "
+"You just need to enable it. Go to :menuselection:`Plugins --> Manage and "
+"Install Plugins` and enable the :guilabel:`Georeferencer GDAL` plugin in the"
+" :guilabel:`Installed` tab. See :doc:`../using_plugins` for more details on "
+"how to work with plugins."
+msgstr ""
+
+#: ../../source/docs/3/georeferencing_basics.rst:35
+msgid ""
+"The plugin is installed in the Raster menu. Click on :menuselection:`Raster "
+"--> Georeferencer` to open the plugin."
+msgstr ""
+
+#: ../../source/docs/3/georeferencing_basics.rst:40
+msgid ""
+"The plugin window is divided into 2 sections. The top section where the "
+"image will be displayed and the bottom section where a table showing your "
+"GCPs will appear."
+msgstr ""
+
+#: ../../source/docs/3/georeferencing_basics.rst:45
+msgid ""
+"Now we will open our JPG image. Go to :menuselection:`File --> Open Raster`."
+" Browse to the downloaded image of the scanned map and click "
+":guilabel:`Open`."
+msgstr ""
+"現在就來開啟我們的 JPG 影像。選擇 :menuselection:`檔案 --> Open Raster`，然後找到剛才下載的地圖掃描檔，按下 "
+":guilabel:`開啟舊檔`。"
+
+#: ../../source/docs/3/georeferencing_basics.rst:50
+msgid ""
+"In the next screen, you will asked to choose the raster’s coordinate "
+"reference system (CRS). Our source image is a plain JPEG file and doesn't "
+"have any coordinate reference system atached to it, so you can click "
+":guilabel:`Cancel`."
+msgstr ""
+
+#: ../../source/docs/3/georeferencing_basics.rst:55
+msgid ""
+"You will see the image will be loaded on the top section. You can use the "
+"zoom/pan controls in the toolbar to learn more about the map."
+msgstr ""
+
+#: ../../source/docs/3/georeferencing_basics.rst:60
+msgid ""
+"Now we need to assign coordinates to some points on this map. If you look "
+"closely, you will see coordinate grid with markings. These are Latitude and "
+"Longitude  grid lines."
+msgstr ""
+
+#: ../../source/docs/3/georeferencing_basics.rst:65
+msgid ""
+"Before we start adding Ground Control Points (GCP), we need to define the "
+"Transformation Settings. Go to :menuselection:`Settings --> Transformation "
+"settings`."
+msgstr ""
+
+#: ../../source/docs/3/georeferencing_basics.rst:70
+msgid ""
+"In the :guilabel:`Transformation settings` dialog, choose the "
+":guilabel:`Transformation type` as ``Polynomial 2``. See `QGIS Documentation"
+" "
+"<https://docs.qgis.org/testing/en/docs/user_manual/plugins/plugins_georeferencer.html"
+"#available-transformation-algorithms>`_ to learn about different "
+"transofrmation types and their uses. Click :guilabel:`Select CRS` button "
+"next to :guilabel:`Target SRS`."
+msgstr ""
+
+#: ../../source/docs/3/georeferencing_basics.rst:75
+msgid ""
+"If you are geo-referencing a scanned map like this, you can obtain the CRS "
+"information from the map itself. Looking at our map image, the coordinates "
+"are in Latitude/Longitude. There is no datum information given, so we have "
+"to assume an appropriate one. Since it is India and the map is quite old, we"
+" can bet the Everest 1830 datum would give us good results. Search for "
+"``everest`` and select the CRS with oldest definition of the Everest datum "
+"(EPSG:4042). Click :guilabel:`OK`."
+msgstr ""
+
+#: ../../source/docs/3/georeferencing_basics.rst:82
+msgid ""
+"Survey of India Topo Sheets created between the year 1960 and 2000 use the "
+"Everest 1956 spheroid and India_nepal datum. If you are georeferencing SOI "
+"Topo Sheets, , you can define a Custom CRS in QGIS with the following "
+"paramters and use it in this step. This definition includes a delta_x, "
+"delta_y and delta_z parameters for transforming this datum to WGS84. See "
+"this page for more information on the `Indian Grid System "
+"<https://deeppradhan.heliohost.org/gis/indian-grid/>`_."
+msgstr ""
+
+#: ../../source/docs/3/georeferencing_basics.rst:90
+msgid ""
+"Most maps are created using a Projected CRS. If the map you are trying to "
+"georeference uses a projected CRS that you know of, but the graticules "
+"labels are in a Geographic CRS (latitude/longitude), you may use an "
+"alternate workflow to minimize distortion. Instead of using a Geographic CRS"
+" like we are using here, you can create a vector grid in QGIS and transform "
+"it to the projected CRS to be used as a reference for accurate coordinate "
+"capture. See `this page <https://raisedbeaches.net/2018/02/01"
+"/georeferencing-in-qgis/>`_ for more details."
+msgstr ""
+
+#: ../../source/docs/3/georeferencing_basics.rst:92
+msgid ""
+"Name your output raster as  ``1870_southern_india_modified.tif``. Choose "
+"``LZW`` as the :guilabel:`Compression`. Make sure the :guilabel:`Load in "
+"QGIS when done` option is checked. CLick :guilabel:`OK`."
+msgstr ""
+
+#: ../../source/docs/3/georeferencing_basics.rst:99
+msgid ""
+"Uncompressed GeoTIFF files can be very large in size. So compressing them is"
+" always a good idea. You can learn more about different TIFF compression "
+"options (LZW, PACKBITS or DEFLATE) in `this article "
+"<https://www.accusoft.com/faqs/differences-compressions-used-tiff-files/>`_."
+msgstr ""
+
+#: ../../source/docs/3/georeferencing_basics.rst:101
+msgid ""
+"Now we can start adding the Ground Control Points (GCP). The intersections "
+"of the grid lines will serve as the *ground-truth* in our case. As the grid "
+"lines are labeled, we can determine the X and Y coordinates of the points "
+"using them. Click :guilabel:`Add Point`."
+msgstr ""
+
+#: ../../source/docs/3/georeferencing_basics.rst:106
+msgid ""
+"13 . In the pop-up window, enter the coordinates. Remember that X=longitude "
+"and Y=latitude. Click :guilabel:`OK`."
+msgstr "在跳出的視窗中輸入此點的座標，記得 X 是經度，Y 是緯度。完成後按下 :guilabel:`確定`。"
+
+#: ../../source/docs/3/georeferencing_basics.rst:111
+msgid ""
+"You will notice the GCP table now has a row with details of your first GCP."
+msgstr "這下子，下半部的地面控制點表格會新增一欄你剛剛選的地面控制點。"
+
+#: ../../source/docs/3/georeferencing_basics.rst:116
+msgid ""
+"Similarly, add at least more GCPs covering the entire image. The more points"
+" you have, the more accurate your image is registered to the target "
+"coordinates. The ``Polynomial 2`` transform requires at least 6 GCPs."
+msgstr ""
+
+#: ../../source/docs/3/georeferencing_basics.rst:121
+msgid ""
+"Once you have added the minimum number of points required for the transform,"
+" you will notice that the GCPs now have a non-zero ``dX``, ``dY`` and "
+"``Residual`` error values. If a particular GCP has unusually high error "
+"values, that usually means a human-error in entering the coordinate values. "
+"So you can delete that GCP and capture it again. You can also edit the "
+"coordinate values in the :guilabel:`GCP Table` by clicking the cell in "
+"either :guilabel:`Dest. X` or :guilabel:`Dest. Y` columns. Once you are "
+"satisfied with the GCPs, go to :menuselection:`File --> Start "
+"georeferencing`. This will start the process of warping the image using the "
+"GCPs and creating the target raster."
+msgstr ""
+
+#: ../../source/docs/3/georeferencing_basics.rst:126
+msgid ""
+"Once the process finishes, you will see the georeferenced layer loaded in "
+"QGIS. The georeferencing is now complete."
+msgstr ""
+
+#: ../../source/docs/3/georeferencing_basics.rst:133
+msgid ""
+"The GCPs will also be displayed in the main QGIS Canvas. If you wish to "
+"remove them, you can switch to the :guilabel:`Georeferencer` window, and "
+"choose :menuselection:`File --> Reset Georeferencer`."
+msgstr ""
+
+#: ../../source/docs/3/georeferencing_basics.rst:135
+msgid ""
+"It is a good practice to verify your work. How do we check if our "
+"georeferencing is accurate? In this case, you can load the boundary "
+"shapefile from a trusted source like the Natural Earth dataset and compare "
+"them. You will notice they match up pretty nicely. There is some error and "
+"it can be further improved by taking more control points, changing "
+"transformation parameters and trying a different datum."
+msgstr ""
+"驗證做過的事永遠是件好習慣，現在就讓我們好好檢查一下本操作是否準確。請試著從可信的來源（例如 Natural Earth "
+"資料庫）尋找並讀取含有國家邊界的 "
+"shapefile，然後跟我們的結果比對一下。你可以看到，他們基本上對應得相當良好，不過仍然有一點小誤差。如要減少這些誤差，可以增加更多控制點、修改空間對位的參數，或是換另一個猜測的大地座標系統來試試。"
