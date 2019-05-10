@@ -31,19 +31,20 @@ Procedure
   .. image:: /static/3/making_a_map/images/1.png
      :align: center
 
-2. You may notice that the map has labels in Greek. We can change the language easily in :menuselection:`Project --> Properties`.
+2. You may notice that the map has labels in Greek. This project uses variables to set the language. We can change the variables by going to :menuselection:`Project --> Properties`.
 
   .. image:: /static/3/making_a_map/images/2.png
-     :align: center
-
-3. Switch to the :guilabel:`Variables` tab in the :guilabel:`Project Proerties` dialog. Locate the ``project_language`` variable and click on the :guilabel:`Value` column to edit it. Change the language to ``name_en`` and click :guilabel:`OK`.
-
-  .. image:: /static/3/making_a_map/images/3.png
      :align: center
 
 .. note::
 
   Project variables are a great way to store project-specific values for use anywhere you can use an expression in QGIS. The ``Natural_Earth_quick_start_for_QGIS_v3`` project comes with many preset variables that are used for styling within that project.
+
+
+3. Switch to the :guilabel:`Variables` tab in the :guilabel:`Project Properties` dialog. Locate the ``project_language`` variable and click on the :guilabel:`Value` column to edit it. Change the language to ``name_en`` and click :guilabel:`OK`.
+
+  .. image:: /static/3/making_a_map/images/3.png
+     :align: center
 
 4. Back in the main QGIS window, click the :guilabel:`Refresh` button in the :guilabel:`Map Navigation Toolbar`. You will now see the map rendered with English labels.
 
