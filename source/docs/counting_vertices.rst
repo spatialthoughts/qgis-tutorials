@@ -1,7 +1,7 @@
 Counting Number of Vertices in a Layer
 ======================================
 
-.. warning::
+.. note::
 
   For QGIS3, there is much simple solution using the expression num_points($geometry). See `this answer <https://gis.stackexchange.com/a/292003/5160>`_ for details.
 

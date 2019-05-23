@@ -1,5 +1,9 @@
 Find Neighbor Polygons in a Layer
 =================================
+.. note::
+
+  If you are using QGIS3, there is a simpler and better way to do this analysis using the aggregate function. See my post `Find Neighbor Polygons using Summary Aggregate Function in QGIS <https://spatialthoughts.com/2019/05/23/neighbor-polygons-aggregate-qgis/>`_
+
 There are some use cases where you want to find all neighboring polygons of
 each of the polygons in a layer. With a little python script, we can accomplish
 this and much more in QGIS. Here is an example script you can use to find all

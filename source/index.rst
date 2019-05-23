@@ -34,9 +34,6 @@ QGIS Tutorials and Tips
    - :doc:`docs/3/batch_processing`
    - :doc:`docs/3/processing_graphical_modeler`
    - :doc:`docs/3/automating_map_creation`
-* Tips and Tricks
-   - :doc:`docs/using_qgis_browser`
-   - :doc:`docs/open_bil_bip_bsq_files`
 * Python Scripting (PyQGIS)
    - :doc:`docs/3/getting_started_with_pyqgis`
    - :doc:`docs/3/processing_algorithms_pyqgis`
@@ -44,7 +41,6 @@ QGIS Tutorials and Tips
    - :doc:`docs/3/custom_python_functions`
    - :doc:`docs/3/processing_python_scripts`
    - :doc:`docs/running_qgis_jobs`
-   - :doc:`docs/find_neighbor_polygons`
    - :doc:`docs/performing_table_joins_pyqgis`
 * Web Mapping
    - :doc:`docs/web_mapping_with_qgis2web`
@@ -52,6 +48,8 @@ QGIS Tutorials and Tips
 * Appendix
    - :doc:`docs/learning_resources`
    - :doc:`docs/credits`
+
+Want more QGIS Tips and Tricks? See `Spatial Thoughts Blog <https://spatialthoughts.com/category/qgis/>`_.
 
 .. toctree::
    :titlesonly:
@@ -92,7 +90,6 @@ QGIS Tutorials and Tips
    docs/3/custom_python_functions
    docs/3/processing_python_scripts
    docs/running_qgis_jobs
-   docs/find_neighbor_polygons
    docs/performing_table_joins_pyqgis
    docs/web_mapping_with_qgis2web
    docs/creating_basemaps_with_qtiles
