@@ -40,6 +40,7 @@ QGIS Tutorials and Tips
    - :doc:`docs/open_bil_bip_bsq_files`
 * Python Scripting (PyQGIS)
    - :doc:`docs/3/getting_started_with_pyqgis`
+   - :doc:`docs/3/processing_algorithms_pyqgis`
    - :doc:`docs/3/building_a_python_plugin`
    - :doc:`docs/3/custom_python_functions`
    - :doc:`docs/3/processing_python_scripts`
@@ -88,6 +89,7 @@ QGIS Tutorials and Tips
    docs/counting_vertices
    docs/open_bil_bip_bsq_files
    docs/3/getting_started_with_pyqgis
+   docs/3/processing_algorithms_pyqgis
    docs/3/building_a_python_plugin
    docs/3/custom_python_functions
    docs/3/processing_python_scripts

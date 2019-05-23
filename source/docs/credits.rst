@@ -127,6 +127,14 @@ Data Credits
 
 .. [HAWAII] `State of Hawaii - Office of Planning <http://planning.hawaii.gov/gis/>`_
 
+- :doc:`3/processing_algorithms_pyqgis`
+
+.. [PRISM] `PRISM Climate Group <http://prism.oregonstate.edu>`_ , Oregon State University, , published on 2 May 2019.
+
+- :doc:`3/processing_algorithms_pyqgis`
+
+.. [CITYOFSEATTLE] `City of Seattle Open Data portal <https://data.seattle.gov/>`_, Zip code data supplied by King County.
+
 - :doc:`running_qgis_jobs`
 
 .. [GEOFABRIK] Data/Maps Copyright 2015 `Geofabrik GmbH <http://www.geofabrik.de/>`_ and `OpenStreetMap Contributors <http://www.openstreetmap.org/>`_
