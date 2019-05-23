@@ -36,7 +36,6 @@ QGIS Tutorials and Tips
    - :doc:`docs/3/automating_map_creation`
 * Tips and Tricks
    - :doc:`docs/using_qgis_browser`
-   - :doc:`docs/counting_vertices`
    - :doc:`docs/open_bil_bip_bsq_files`
 * Python Scripting (PyQGIS)
    - :doc:`docs/3/getting_started_with_pyqgis`
@@ -86,7 +85,6 @@ QGIS Tutorials and Tips
    docs/3/processing_graphical_modeler
    docs/3/automating_map_creation
    docs/using_qgis_browser
-   docs/counting_vertices
    docs/open_bil_bip_bsq_files
    docs/3/getting_started_with_pyqgis
    docs/3/processing_algorithms_pyqgis
