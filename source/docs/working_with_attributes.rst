@@ -1,5 +1,11 @@
 Working with Attributes
 =======================
+
+.. warning:: 
+
+  This tutorial is now obsolete. A new and updated version is available at :doc:`3/working_with_attributes`
+   
+   
 GIS data has two parts - features and attributes. Attributes are structured
 data about each feature. This tutorial shows how to view the attributes and do
 basic queries on them in QGIS.

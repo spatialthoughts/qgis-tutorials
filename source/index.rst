@@ -6,7 +6,7 @@ QGIS Tutorials and Tips
 
 * Quickstart
    - :doc:`docs/3/making_a_map`
-   - :doc:`docs/working_with_attributes`
+   - :doc:`docs/3/working_with_attributes`
    - :doc:`docs/3/importing_spreadsheets_csv`
    - :doc:`docs/using_plugins`
    - :doc:`docs/downloading_osm_data`
@@ -57,7 +57,7 @@ Want more QGIS Tips and Tricks? See `Spatial Thoughts Blog <https://spatialthoug
 
    docs/introduction
    docs/3/making_a_map
-   docs/working_with_attributes
+   docs/3/working_with_attributes
    docs/3/importing_spreadsheets_csv
    docs/using_plugins
    docs/downloading_osm_data
