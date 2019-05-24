@@ -1,5 +1,5 @@
-Working with Attributes
-=======================
+Working with Attributes (QGIS3)
+===============================
 GIS data has two parts - features and attributes. Attributes are structured data about each feature. This tutorial shows how to view the attributes of a GIS vector layer and do basic queries on them in QGIS.
 
 Overview of the task
@@ -36,7 +36,7 @@ Procedure
   .. image:: /static/3/working_with_attributes/images/2.png
      :align: center
 
-..note::
+.. note::
 
   If you do not see the toolbar, you can enable it from :menuselection:`View --> Toolbars --> Attributes Toolbar`
 

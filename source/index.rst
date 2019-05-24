@@ -24,7 +24,6 @@ QGIS Tutorials and Tips
 * Intermediate GIS operations
    - :doc:`docs/3/performing_table_joins`
    - :doc:`docs/3/performing_spatial_joins`
-   - :doc:`docs/points_in_polygon`
    - :doc:`docs/performing_spatial_queries`
    - :doc:`docs/3/creating_heatmaps`
 * Advanced GIS operations
@@ -73,7 +72,6 @@ Want more QGIS Tips and Tricks? See `Spatial Thoughts Blog <https://spatialthoug
    docs/digitizing_basics
    docs/3/performing_table_joins
    docs/3/performing_spatial_joins
-   docs/points_in_polygon
    docs/3/creating_heatmaps
    docs/performing_spatial_queries
    docs/nearest_neighbor_analysis
