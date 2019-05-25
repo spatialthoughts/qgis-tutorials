@@ -89,6 +89,10 @@ Data Credits
 
 .. [CITYOFNY] © 2019 The City of New York. All Right Reserve. NYC is a trademark and service mark of the City of New York.
 
+- :doc:`3/performing_spatial_queries`
+
+.. [CITYOFMELBOURNE] © 2019 The City of Melbourne Open Data Portal. Data provided by Metro Trains Melbourne and Census of Land Use and Employment (CLUE)
+
 - :doc:`creating_heatmaps`
 
 .. [POLICEUK] `ASB Incidents, Crime and Outcome

@@ -24,7 +24,7 @@ QGIS Tutorials and Tips
 * Intermediate GIS operations
    - :doc:`docs/3/performing_table_joins`
    - :doc:`docs/3/performing_spatial_joins`
-   - :doc:`docs/performing_spatial_queries`
+   - :doc:`docs/3/performing_spatial_queries`
    - :doc:`docs/3/creating_heatmaps`
 * Advanced GIS operations
    - :doc:`docs/nearest_neighbor_analysis`
@@ -73,7 +73,7 @@ Want more QGIS Tips and Tricks? See `Spatial Thoughts Blog <https://spatialthoug
    docs/3/performing_table_joins
    docs/3/performing_spatial_joins
    docs/3/creating_heatmaps
-   docs/performing_spatial_queries
+   docs/3/performing_spatial_queries
    docs/nearest_neighbor_analysis
    docs/sampling_raster_data
    docs/interpolating_point_data
