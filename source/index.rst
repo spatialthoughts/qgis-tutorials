@@ -4,13 +4,10 @@ QGIS Tutorials and Tips
 * Overview
    - :doc:`docs/introduction`
 
-* Quickstart
+* Basic GIS operations
    - :doc:`docs/3/making_a_map`
    - :doc:`docs/3/working_with_attributes`
    - :doc:`docs/3/importing_spreadsheets_csv`
-   - :doc:`docs/using_plugins`
-   - :doc:`docs/downloading_osm_data`
-* Basics GIS operations
    - :doc:`docs/basic_vector_styling`
    - :doc:`docs/calculating_line_lengths`
    - :doc:`docs/raster_styling_and_analysis`
@@ -45,6 +42,8 @@ QGIS Tutorials and Tips
    - :doc:`docs/web_mapping_with_qgis2web`
    - :doc:`docs/creating_basemaps_with_qtiles`
 * Appendix
+   - :doc:`docs/using_plugins`
+   - :doc:`docs/downloading_osm_data`
    - :doc:`docs/learning_resources`
    - :doc:`docs/credits`
 
@@ -58,8 +57,6 @@ Want more QGIS Tips and Tricks? See `Spatial Thoughts Blog <https://spatialthoug
    docs/3/making_a_map
    docs/3/working_with_attributes
    docs/3/importing_spreadsheets_csv
-   docs/using_plugins
-   docs/downloading_osm_data
    docs/basic_vector_styling
    docs/calculating_line_lengths
    docs/raster_styling_and_analysis
@@ -91,6 +88,8 @@ Want more QGIS Tips and Tricks? See `Spatial Thoughts Blog <https://spatialthoug
    docs/performing_table_joins_pyqgis
    docs/web_mapping_with_qgis2web
    docs/creating_basemaps_with_qtiles
+   docs/using_plugins
+   docs/downloading_osm_data
    docs/learning_resources
    docs/credits
    docs/batch_processing
