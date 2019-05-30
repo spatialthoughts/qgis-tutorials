@@ -1,5 +1,11 @@
 Sampling Raster Data using Points or Polygons
 =============================================
+
+.. warning:: 
+
+   This tutorial is now obsolete. A new and updated version is available at :doc:`3/sampling_raster_data`
+   
+   
 Many scientific and environmental datasets come as gridded rasters. Elevation
 data (DEM) is also distributed as raster files. In these raster files, the
 parameter that is being represented is encoded as the pixel values of the

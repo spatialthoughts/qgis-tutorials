@@ -25,7 +25,7 @@ QGIS Tutorials and Tips
    - :doc:`docs/3/creating_heatmaps`
 * Advanced GIS operations
    - :doc:`docs/nearest_neighbor_analysis`
-   - :doc:`docs/sampling_raster_data`
+   - :doc:`docs/3/sampling_raster_data`
    - :doc:`docs/interpolating_point_data`
    - :doc:`docs/3/batch_processing`
    - :doc:`docs/3/processing_graphical_modeler`
@@ -72,7 +72,7 @@ Want more QGIS Tips and Tricks? See `Spatial Thoughts Blog <https://spatialthoug
    docs/3/creating_heatmaps
    docs/3/performing_spatial_queries
    docs/nearest_neighbor_analysis
-   docs/sampling_raster_data
+   docs/3/sampling_raster_data
    docs/interpolating_point_data
    docs/3/batch_processing
    docs/3/processing_graphical_modeler

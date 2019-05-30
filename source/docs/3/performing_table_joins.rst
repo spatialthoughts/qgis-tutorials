@@ -39,7 +39,7 @@ Procedure
   .. image:: /static/3/performing_table_joins/images/1.png
      :align: center
 
-2. You will see the layer ``tl_2018_06_tract`` loaded in the :guilabel:`Layers` panel. This layer contains the bounaries of census tracts in California. Right-click on the ``tl_2018_06_tract`` layer and select :guilabel:`Open Attribute Table`.
+2. You will see the layer ``tl_2018_06_tract`` loaded in the :guilabel:`Layers` panel. This layer contains the boundaries of census tracts in California. Right-click on the ``tl_2018_06_tract`` layer and select :guilabel:`Open Attribute Table`.
 
   .. image:: /static/3/performing_table_joins/images/2.png
      :align: center
