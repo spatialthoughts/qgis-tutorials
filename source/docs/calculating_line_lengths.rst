@@ -1,5 +1,10 @@
 Calculating Line Lengths and Statistics
 =======================================
+
+.. warning:: 
+
+   This tutorial is now obsolete. A new and updated version is available at :doc:`3/calculating_line_lengths`
+   
 QGIS has built-in functions to calculate various properties based on the
 geometry of the feature - such as length, area, perimeter etc. This tutorial
 will show how to use **Field Calculator** to add a column with a value

@@ -9,7 +9,7 @@ QGIS Tutorials and Tips
    - :doc:`docs/3/working_with_attributes`
    - :doc:`docs/3/importing_spreadsheets_csv`
    - :doc:`docs/basic_vector_styling`
-   - :doc:`docs/calculating_line_lengths`
+   - :doc:`docs/3/calculating_line_lengths`
    - :doc:`docs/raster_styling_and_analysis`
    - :doc:`docs/raster_mosaicing_and_clipping`
    - :doc:`docs/working_with_terrain`
@@ -58,7 +58,7 @@ Want more QGIS Tips and Tricks? See `Spatial Thoughts Blog <https://spatialthoug
    docs/3/working_with_attributes
    docs/3/importing_spreadsheets_csv
    docs/basic_vector_styling
-   docs/calculating_line_lengths
+   docs/3/calculating_line_lengths
    docs/raster_styling_and_analysis
    docs/raster_mosaicing_and_clipping
    docs/working_with_terrain
