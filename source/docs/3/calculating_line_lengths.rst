@@ -1,5 +1,5 @@
-Calculating Line Lengths and Statistics
-=======================================
+Calculating Line Lengths and Statistics (QGIS3)
+===============================================
 
 QGIS has built-in functions and algorithms to calculate various properties based on the geometry of the feature - such as length, area, perimeter etc. This tutorial will show how to use the **Add geometry attributess** tool to add a column with a value representing length of each feature.
 
