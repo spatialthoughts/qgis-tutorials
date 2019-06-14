@@ -1,5 +1,10 @@
 Basic Vector Styling
 ====================
+
+.. warning:: 
+
+   This tutorial is now obsolete. A new and updated version is available at :doc:`3/basic_vector_styling`
+   
 To create a map, one has to style the GIS data and present it in a form that is
 visually informative. There are a large number of options available in QGIS to
 apply different types of symbology to the underlying data. In this tutorial, we

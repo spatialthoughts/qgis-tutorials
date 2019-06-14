@@ -1,9 +1,10 @@
 Data Credits
 ============
 
-- :doc:`making_a_map`
-- :doc:`working_with_attributes`
-- :doc:`calculating_line_lengths`
+- :doc:`3/making_a_map`
+- :doc:`3/working_with_attributes`
+- :doc:`3/basic_vector_styling`
+- :doc:`3/calculating_line_lengths`
 - :doc:`raster_mosaicing_and_clipping`
 - :doc:`working_with_projections`
 - :doc:`points_in_polygon`
@@ -32,6 +33,8 @@ Data Credits
    doi:10.7289/V5TD9V7K
 
 - :doc:`basic_vector_styling`
+
+.. [WRI] Global Energy Observatory, Google, KTH Royal Institute of Technology in Stockholm, Enipedia, World Resources Institute. 2018. Global Power Plant Database. Published on Resource Watch and Google Earth Engine; http://resourcewatch.org/ https://earthengine.google.com/
 
 .. [SAGE] Used by permission of The Center for Sustainability and the Global
    Environment, Nelson Institute for Environmental Studies, University of
