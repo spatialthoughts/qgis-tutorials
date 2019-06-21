@@ -1,5 +1,10 @@
 Searching and Downloading OpenStreetMap Data
 ============================================
+
+.. warning:: 
+
+   This tutorial is now obsolete. A new and updated version is available at :doc:`3/downloading_osm_data`
+   
 Getting high quality data is essential for any GIS task. One great resource for
 free and openly licensed data is `OpenStreetMap(OSM)
 <http://www.openstreetmap.org/>`_ . The OSM database consits of streets, local
