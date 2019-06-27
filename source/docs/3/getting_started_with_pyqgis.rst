@@ -64,7 +64,7 @@ Procedure
 
   Indentation (or number of spaces before each statement) is very important in Python. If you get error in this step, make sure you have added 2 spaces before typing the second line.
   
-  As the print(f) statement is inside a for-loop, you will need to press :kbd:`Enter` twice - once to exit the loop - and another to execute the command.
+  As the print(f) statement is inside a for-loop, you will need to press :kbd:`Enter` twice after that statement - once to exit the loop - and another to execute the command.
   
 .. code-block:: python
 
