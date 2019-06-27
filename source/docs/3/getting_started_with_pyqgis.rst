@@ -67,7 +67,7 @@ Procedure
 .. code-block:: python
 
    for f in layer.getFeatures():
-     print f
+     print(f)
 
 .. image:: /static/3/getting_started_with_pyqgis/images/7.gif
    :align: center
