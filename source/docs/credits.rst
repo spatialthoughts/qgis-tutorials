@@ -49,6 +49,10 @@ Data Credits
    http://sedac.ciesin.columbia.edu/data/set/gpw-v3-population-density. Accessed
    30 Jan 2014
 
+- :doc:`3/raster_styling_and_analysis`
+
+.. [GPW4] Center for International Earth Science Information Network - CIESIN - Columbia University. 2018. Gridded Population of the World, Version 4 (GPWv4): Population Count, Revision 11. Palisades, NY: NASA Socioeconomic Data and Applications Center (SEDAC). https://doi.org/10.7927/H4JW8BX5. Accessed 27 JUNE 2019
+
 - :doc:`raster_mosaicing_and_clipping`
 
 .. [LANCE] We acknowledge the use of data products or imagery from the Land

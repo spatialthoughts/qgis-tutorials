@@ -1,5 +1,10 @@
 Basic Raster Styling and Analysis
 =================================
+
+.. warning:: 
+
+   This tutorial is now obsolete. A new and updated version is available at :doc:`3/raster_styling_and_analysis`
+   
 A lot of scientific observations and research produces raster datasets. Rasters
 are essentially grids of pixels that have a specific value assigned to them. By
 doing mathematical operations on these values, one can do some interesting
