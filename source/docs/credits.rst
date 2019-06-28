@@ -5,7 +5,7 @@ Data Credits
 - :doc:`3/working_with_attributes`
 - :doc:`3/basic_vector_styling`
 - :doc:`3/calculating_line_lengths`
-- :doc:`raster_mosaicing_and_clipping`
+- :doc:`3/raster_mosaicing_and_clipping`
 - :doc:`working_with_projections`
 - :doc:`points_in_polygon`
 - :doc:`performing_spatial_queries`
@@ -58,6 +58,10 @@ Data Credits
 .. [LANCE] We acknowledge the use of data products or imagery from the Land
    Atmosphere Near-real time Capability for EOS (LANCE) system operated by the
    NASA/GSFC/Earth Science Data and Information System (ESDIS) with funding provided by NASA/HQ.
+
+- :doc:`3/raster_mosaicing_and_clipping`
+
+.. [SRTM] `NASA Shuttle Radar Topography Mission Global 1 arc second <http://dx.doi.org/10.5067/MEaSUREs/SRTM/SRTMGL1.003>`_ provided by The Land Processes Distributed Active Archive Center (LP DAAC). Downloaded using `30-Meter SRTM Tile Downloader <https://dwtkns.com/srtm30m/>`_
 
 - :doc:`working_with_terrain`
 

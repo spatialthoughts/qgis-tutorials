@@ -11,7 +11,7 @@ QGIS Tutorials and Tips
    - :doc:`docs/3/basic_vector_styling`
    - :doc:`docs/3/calculating_line_lengths`
    - :doc:`docs/3/raster_styling_and_analysis`
-   - :doc:`docs/raster_mosaicing_and_clipping`
+   - :doc:`docs/3/raster_mosaicing_and_clipping`
    - :doc:`docs/working_with_terrain`
    - :doc:`docs/working_with_wms`
    - :doc:`docs/working_with_projections`
@@ -44,7 +44,6 @@ QGIS Tutorials and Tips
    - :doc:`docs/creating_basemaps_with_qtiles`
 * Appendix
    - :doc:`docs/using_plugins`
-   - :doc:`docs/downloading_osm_data`
    - :doc:`docs/learning_resources`
    - :doc:`docs/credits`
 
@@ -61,7 +60,7 @@ Want more QGIS Tips and Tricks? See `Spatial Thoughts Blog <https://spatialthoug
    docs/3/basic_vector_styling
    docs/3/calculating_line_lengths
    docs/3/raster_styling_and_analysis
-   docs/raster_mosaicing_and_clipping
+   docs/3/raster_mosaicing_and_clipping
    docs/working_with_terrain
    docs/working_with_wms
    docs/working_with_projections

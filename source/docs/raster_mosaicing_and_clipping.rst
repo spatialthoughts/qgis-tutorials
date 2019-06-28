@@ -1,5 +1,10 @@
 Raster Mosaicing and Clipping
 =============================
+
+.. warning:: 
+
+   This tutorial is now obsolete. A new and updated version is available at :doc:`3/raster_mosaicing_and_clipping`
+   
 This tutorial explores some basic raster operations in QGIS such as viewing, mosaicing
 and subsetting.
 
