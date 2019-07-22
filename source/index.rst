@@ -67,6 +67,7 @@ Want more QGIS Tips and Tricks? See `Spatial Thoughts Blog <https://spatialthoug
    docs/3/georeferencing_basics
    docs/3/advanced_georeferencing
    docs/digitizing_basics
+   docs/3/downloading_osm_data
    docs/3/performing_table_joins
    docs/3/performing_spatial_joins
    docs/3/creating_heatmaps
@@ -89,7 +90,6 @@ Want more QGIS Tips and Tricks? See `Spatial Thoughts Blog <https://spatialthoug
    docs/web_mapping_with_qgis2web
    docs/creating_basemaps_with_qtiles
    docs/using_plugins
-   docs/downloading_osm_data
    docs/learning_resources
    docs/credits
    docs/batch_processing
