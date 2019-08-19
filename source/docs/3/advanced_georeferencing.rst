@@ -119,7 +119,6 @@ Procedure
      :align: center
 
 17. Switch to the :guilabel:`Transparency` tab. Add ``255`` as the :guilabel:`Additional no data value` and click :guilabel:`OK`. 
-    ::guilabel:`Percent transparent`. Click :guilabel:`OK`.
 
   .. image:: /static/3/advanced_georeferencing/images/17.png
      :align: center
