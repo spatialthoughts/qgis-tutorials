@@ -142,6 +142,11 @@ Data Credits
 
 .. [HAWAII] `State of Hawaii - Office of Planning <http://planning.hawaii.gov/gis/>`_
 
+- :doc:`3/service_area_analysis`
+
+.. [KMRL] Contains data provided by `Kochi Metro Rail Limited <https://kochimetro.org/open-data/>`_. Downloaded: August 2019
+
+
 - :doc:`3/processing_algorithms_pyqgis`
 
 .. [PRISM] `PRISM Climate Group <http://prism.oregonstate.edu>`_ , Oregon State University, , published on 2 May 2019.

@@ -31,6 +31,8 @@ QGIS Tutorials and Tips
    - :doc:`docs/3/batch_processing`
    - :doc:`docs/3/processing_graphical_modeler`
    - :doc:`docs/3/automating_map_creation`
+* Network Analysis
+   - :doc:`docs/3/service_area_analysis`
 * Python Scripting (PyQGIS)
    - :doc:`docs/3/getting_started_with_pyqgis`
    - :doc:`docs/3/processing_algorithms_pyqgis`
@@ -67,7 +69,6 @@ Want more QGIS Tips and Tricks? See `Spatial Thoughts Blog <https://spatialthoug
    docs/3/georeferencing_basics
    docs/3/advanced_georeferencing
    docs/digitizing_basics
-   docs/3/downloading_osm_data
    docs/3/performing_table_joins
    docs/3/performing_spatial_joins
    docs/3/creating_heatmaps
@@ -78,6 +79,7 @@ Want more QGIS Tips and Tricks? See `Spatial Thoughts Blog <https://spatialthoug
    docs/3/batch_processing
    docs/3/processing_graphical_modeler
    docs/3/automating_map_creation
+   docs/3/service_area_analysis
    docs/using_qgis_browser
    docs/open_bil_bip_bsq_files
    docs/3/getting_started_with_pyqgis
@@ -90,6 +92,7 @@ Want more QGIS Tips and Tricks? See `Spatial Thoughts Blog <https://spatialthoug
    docs/web_mapping_with_qgis2web
    docs/creating_basemaps_with_qtiles
    docs/using_plugins
+   docs/downloading_osm_data
    docs/learning_resources
    docs/credits
    docs/batch_processing
