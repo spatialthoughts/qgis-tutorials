@@ -32,6 +32,7 @@ QGIS Tutorials and Tips
    - :doc:`docs/3/processing_graphical_modeler`
    - :doc:`docs/3/automating_map_creation`
 * Network Analysis
+   - :doc:`docs/3/basic_network_analysis`
    - :doc:`docs/3/service_area_analysis`
 * Python Scripting (PyQGIS)
    - :doc:`docs/3/getting_started_with_pyqgis`
@@ -79,6 +80,7 @@ Want more QGIS Tips and Tricks? See `Spatial Thoughts Blog <https://spatialthoug
    docs/3/batch_processing
    docs/3/processing_graphical_modeler
    docs/3/automating_map_creation
+   docs/3/basic_network_analysis
    docs/3/service_area_analysis
    docs/using_qgis_browser
    docs/open_bil_bip_bsq_files

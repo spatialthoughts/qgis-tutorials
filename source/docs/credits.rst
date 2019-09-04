@@ -142,6 +142,10 @@ Data Credits
 
 .. [HAWAII] `State of Hawaii - Office of Planning <http://planning.hawaii.gov/gis/>`_
 
+- :doc:`3/basic_network_analysis`
+
+.. [DCOPENDATA] Street Centerlines by DCGISopendata. Accessed from District of Columbia `Open Data Catalog <https://opendata.dc.gov/>`_. Downloaded: August 2019
+
 - :doc:`3/service_area_analysis`
 
 .. [KMRL] Contains data provided by `Kochi Metro Rail Limited <https://kochimetro.org/open-data/>`_. Downloaded: August 2019
