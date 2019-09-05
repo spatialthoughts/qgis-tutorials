@@ -1,4 +1,4 @@
-Nearest Facility Analysis with Origin-Destination Matrix (QGIS3)
+Locating Nearest Facility with Origin-Destination Matrix (QGIS3)
 ================================================================
 
 In the previous tutorial, :doc:`basic_network_analysis`, we learnt how to build a network and calculate the shortest path between 2 points. We can apply that technique for many different types of network-based analysis. One such application is to compute **Origin-Destination Matrix** or **OD Matrix**. Given a set of origin points and another set of destination points, we can calculate shortest path between each origin-destination pairs and find out the travel distance/time between them. Such analysis is useful to locate the closest facility to any given point. For example, a logistics company may use this analysis to find the closest warehouse to their customers to optimize delivery routes. Here we use Distance Matrix algorithm from **QGIS Network Analysis Toolbox (QNEAT3)** plugin to find the nearest health facility to each address in the city.
