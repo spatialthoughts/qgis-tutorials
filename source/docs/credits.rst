@@ -143,8 +143,9 @@ Data Credits
 .. [HAWAII] `State of Hawaii - Office of Planning <http://planning.hawaii.gov/gis/>`_
 
 - :doc:`3/basic_network_analysis`
+- :doc:`3/origin_destination_matrix`
 
-.. [DCOPENDATA] Street Centerlines by DCGISopendata. Accessed from District of Columbia `Open Data Catalog <https://opendata.dc.gov/>`_. Downloaded: August 2019
+.. [DCOPENDATA] District of Columbia `Open Data Catalog <https://opendata.dc.gov/>`_. Accessed: August 2019
 
 - :doc:`3/service_area_analysis`
 
