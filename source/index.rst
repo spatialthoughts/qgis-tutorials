@@ -39,6 +39,7 @@ QGIS Tutorials and Tips
    - :doc:`docs/3/getting_started_with_pyqgis`
    - :doc:`docs/3/processing_algorithms_pyqgis`
    - :doc:`docs/3/building_a_python_plugin`
+   - :doc:`docs/3/processing_python_plugin`
    - :doc:`docs/3/custom_python_functions`
    - :doc:`docs/3/processing_python_scripts`
    - :doc:`docs/running_qgis_jobs`
@@ -89,6 +90,7 @@ Want more QGIS Tips and Tricks? See `Spatial Thoughts Blog <https://spatialthoug
    docs/3/getting_started_with_pyqgis
    docs/3/processing_algorithms_pyqgis
    docs/3/building_a_python_plugin
+   docs/3/processing_python_plugin
    docs/3/custom_python_functions
    docs/3/processing_python_scripts
    docs/running_qgis_jobs
