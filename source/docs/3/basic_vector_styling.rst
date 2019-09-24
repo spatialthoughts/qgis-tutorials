@@ -22,7 +22,7 @@ layers. Download the `10m Physical Vectors - Land <https://www.naturalearthdata.
 
 For convenience, you may directly download a copy of the above layers from below:
 
-`ASAM_shp.zip <http://www.qgistutorials.com/downloads/globalpowerplantdatabasev120>`_
+`globalpowerplantdatabasev120.zip <http://www.qgistutorials.com/downloads/globalpowerplantdatabasev120.zip>`_
 
 `ne_10m_land.zip <http://www.qgistutorials.com/downloads/ne_10m_land.zip>`_
 
