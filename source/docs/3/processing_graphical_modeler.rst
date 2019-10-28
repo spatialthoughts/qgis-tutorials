@@ -17,7 +17,7 @@ Other skills you will learn
 
 Get the data
 ------------
-National Geospatial-Intelligence Agency's `Maritime Safety Information portal <https://msi.nga.mil/NGAPortal/MSI.portal>`_ provides a shapefile of all incidencts of maritine piracy in the form on `Anti-shipping Activity Messages <https://msi.nga.mil/NGAPortal/MSI.portal?_nfpb=true&_pageLabel=msi_portal_page_65>`_. Download the `Arc Shape file <https://msi.nga.mil/MSISiteContent/StaticFiles/Files/ASAM_shp.zip>`_ version of the database.
+National Geospatial-Intelligence Agency's `Maritime Safety Information portal <https://msi.nga.mil/NGAPortal/MSI.portal>`_ provides a shapefile of all incidencts of maritine piracy in the form on `Anti-shipping Activity Messages <https://msi.nga.mil/Piracy>`_. Download the `Arc Shape file <https://msi.nga.mil/api/publications/download?key=16920958/SFH00000/ASAM_shp.zip&type=download>`_ version of the database.
 
 `Natural Earth <http://naturalearthdata.com>`_ has several global vector
 layers. Download the `10m Physical Vectors - Land <https://www.naturalearthdata.com/http//www.naturalearthdata.com/download/10m/physical/ne_10m_land.zip>`_ containing Land polygons.
@@ -33,12 +33,12 @@ Data Source: [NGA_MSI]_ [NATURALEARTH]_
 Procedure
 ---------
 
-1. In the QGIS Browser Panel, locate the directory where you saved your downloaded data. Expand the ``ne_10m_land.zip`` and select the ``ne_10m_land.shp`` layer. Drag the layer to the canvas. Next, locate the ``ASAM_shp.zip`` file. Expand it and select the ``ASAM 11 OCT 18.shp`` layer and drag it on to the canvas.
+1. In the QGIS Browser Panel, locate the directory where you saved your downloaded data. Expand the ``ne_10m_land.zip`` and select the ``ne_10m_land.shp`` layer. Drag the layer to the canvas. Next, locate the ``ASAM_shp.zip`` file. Expand it and select the ``asam_data_download/ASAM_events.shp`` layer and drag it on to the canvas.
 	
 .. image:: /static/3/processing_graphical_modeler/images/1.png
    :align: center
 	 
-2. The ``ASAM 11 OCT 18.shp`` layer does not have projection information associated with it, so you will be prompted to select a CRS in the :guilabel:`Coordinate Reference System Selector`. Here, the points are in the Latitude and Longitude coordinates, so select the ``WGS 84`` CRS and click :guilabel:`OK`.
+2. The ``ASAM_events.shp`` layer does not have projection information associated with it, so you will be prompted to select a CRS in the :guilabel:`Coordinate Reference System Selector`. Here, the points are in the Latitude and Longitude coordinates, so select the ``WGS 84`` CRS and click :guilabel:`OK`.
 
 .. image:: /static/3/processing_graphical_modeler/images/2.png
    :align: center
@@ -145,7 +145,7 @@ Procedure
 .. image:: /static/3/processing_graphical_modeler/images/22.png
    :align: center
 
-23. Our :guilabel:`Base Layer` is the ``ne_10m_land`` and the :guilabel:`Input Points` layer is ``ASAM 11 OCT 18``. The :guilabel:`Grid Size` needs to be specified in the units of the selected CRS. The World_Mollweide CRS unit is meters, so we specify ``100000`` m (100 Kms) as the :guilabel:`Grid Size`. Click :guilabel:`Run` to start the processing pipeline. Once the process finishes, click :guilabel:`Close`.
+23. Our :guilabel:`Base Layer` is the ``ne_10m_land`` and the :guilabel:`Input Points` layer is ``ASAM_events``. The :guilabel:`Grid Size` needs to be specified in the units of the selected CRS. The World_Mollweide CRS unit is meters, so we specify ``100000`` m (100 Kms) as the :guilabel:`Grid Size`. Click :guilabel:`Run` to start the processing pipeline. Once the process finishes, click :guilabel:`Close`.
 
 .. image:: /static/3/processing_graphical_modeler/images/23.png
    :align: center
@@ -177,7 +177,7 @@ Procedure
 .. image:: /static/3/processing_graphical_modeler/images/28.png
    :align: center
 
-29. Back in the main QGIS window, turn off the ``ASAM 11 OCT 18`` layer. You will see a nice visualization of piracy hotspots across the globe.
+29. Back in the main QGIS window, turn off the ``ASAM_events`` layer. You will see a nice visualization of piracy hotspots across the globe.
 
 .. image:: /static/3/processing_graphical_modeler/images/29.png
    :align: center
