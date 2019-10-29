@@ -134,8 +134,9 @@ Data Credits
     and the Pacific Northwest National Laboratory, College Park, Maryland, USA.
 
 - :doc:`3/processing_graphical_modeler`
+- :doc:`3/animating_time_series`
 
-.. [NGA_MSI] `Maritine Safety Information portal <https://msi.nga.mil/NGAPortal/MSI.porta>`_ ,  National Geospatial-Intelligence Agency
+.. [NGA_MSI] `Maritime Safety Information portal <https://msi.nga.mil/NGAPortal/MSI.porta>`_ ,  National Geospatial-Intelligence Agency
  
 - :doc:`automating_map_creation`
 - :doc:`3/automating_map_creation`
