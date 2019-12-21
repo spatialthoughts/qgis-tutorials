@@ -162,8 +162,9 @@ Data Credits
 .. [CITYOFSEATTLE] `City of Seattle Open Data portal <https://data.seattle.gov/>`_, Zip code data supplied by King County.
 
 - :doc:`running_qgis_jobs`
+- :doc:`3/multi_criteria_overlay`
 
-.. [GEOFABRIK] Data/Maps Copyright 2015 `Geofabrik GmbH <http://www.geofabrik.de/>`_ and `OpenStreetMap Contributors <http://www.openstreetmap.org/>`_
+.. [GEOFABRIK] Data/Maps Copyright 2019 `Geofabrik GmbH <http://www.geofabrik.de/>`_ and `OpenStreetMap Contributors <http://www.openstreetmap.org/>`_
 
 - :doc:`open_bil_bip_bsq_files`
 
