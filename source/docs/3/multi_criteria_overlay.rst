@@ -27,7 +27,7 @@ Get the data
 ------------
 We will use vector data layers from `OpenStreetMap (OSM) <http://www.openstreetmap.org/>`_. OSM is a global database of freely available base map data. `Geofabrik <http://download.geofabrik.de/>`_ provides daily updated shapefiles of OpenStreetMap datasets.
 
-We will be using the OSM data layers for the the state of Assam in India. Geofabrik `India shapefiles <http://download.geofabrik.de/asia/india.html>`_ were downloaded, clipped to the state boundary and packaged in a single GeoPackage file. You can download a copy of the geopackage from the link below:
+We will be using the OSM data layers for the state of Assam in India. Geofabrik `India shapefiles <http://download.geofabrik.de/asia/india.html>`_ were downloaded, clipped to the state boundary and packaged in a single GeoPackage file. You can download a copy of the geopackage from the link below:
 
 `assam.gpkg <http://www.qgistutorials.com/downloads/assam.gpkg>`_
 
@@ -61,7 +61,7 @@ Procedure
   .. image:: /static/3/multi_criteria_overlay/images/5.png
     :align: center
 
-6. In the :guilabel:`Batch Processing` dialog, click the :guilabel:`...` button in the first row of the :guilabel:`Input layer` column. Select ``boundary``, ``protected_regions``, ``water_polygons`` and `water_polylines`` layers and click :guilabel:`OK`.
+6. In the :guilabel:`Batch Processing` dialog, click the :guilabel:`...` button in the first row of the :guilabel:`Input layer` column. Select ``boundary``, ``protected_regions``, ``water_polygons`` and ``water_polylines`` layers and click :guilabel:`OK`.
 
   .. image:: /static/3/multi_criteria_overlay/images/6.png
     :align: center
@@ -182,7 +182,7 @@ Procedure
 
   .. code-block:: none
 
-    ("roads_reclass@1" + "water_reclass@1")*("raster_protected_regions@1"  !=  1 )*"raster_boundry@1"
+    ("roads_reclass@1" + "water_reclass@1")*("raster_protected_regions@1"  !=  1 )*"raster_boundary@1"
 
   .. image:: /static/3/multi_criteria_overlay/images/23.png
     :align: center
