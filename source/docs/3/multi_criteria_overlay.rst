@@ -1,7 +1,17 @@
 Multi Criteria Overlay Analysis (QGIS3)
 ====================================================
 
-Multi-criteria analysis is the process of the allocating areas on the basis of a variety of attributes that the selected areas should possess. Although this is a common GIS operation, it is best performed in the raster space using a grid-based approach. This tutorial goes through the typical workflow for performing a site-suitability analysis - converting source vector data to appropriate rasters, re-classify them and perform mathematical operations.
+Multi-criteria weighted-overlay analysis is the process of the allocating areas on the basis of a variety of attributes that the selected areas should possess. Although this is a common GIS operation, it is best performed in the raster space using a grid-based approach. 
+
+.. note:: 
+
+  Vector vs Raster Overlays
+  
+  You can do the overlay analysis on vector layers using geoprocessing tools such as buffer, dissolve, difference and intersection. This method is ideal if you wanted to find a binary **suitable/non-suitable** answer and you are working with a handful of layers. 
+  
+  Working in the raster space gives you a **ranking** of the suitability - not just the best suited site. It also allows you to combine any number of input layers easily and assign different weights to each criteria. In general, this is the preferred approach for site suitability.
+
+This tutorial goes through the typical workflow for performing a site-suitability analysis - converting source vector data to appropriate rasters, re-classify them and perform mathematical operations.
 
 Overview of the task
 --------------------
@@ -177,6 +187,10 @@ Procedure
   .. image:: /static/3/multi_criteria_overlay/images/23.png
     :align: center
 
+.. note::
+
+  In this example, we are giving equal *weight* to both road and water proximity. In real-life scenario, you may have multiple criteria with different importance. You can simulate that by multiplying the rasters with appropriate *weights* in the above expression. For example, if proximity to roads is twice as importance as proximity away from water, you can multiply the ``roads_reclass`` raster with ``2`` in the expression above.
+  
 24. Once the processing finishes, the resulting raster ``overlay`` will be added to the :guilabel:`Layers` panel. The pixel values in this raster range from 0 to 200 - where 0 is the least suitable and 200 is the most suitable area for development. Click the :guilabel:`Open the Layer Styling panel` button in the :guilabel:`Layers` panel. 
 
   .. image:: /static/3/multi_criteria_overlay/images/24.png
