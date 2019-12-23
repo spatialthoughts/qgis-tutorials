@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: QGIS Tutorials and Tips v1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-12-21 16:10+0000\n"
+"POT-Creation-Date: 2019-12-23 12:49+0000\n"
 "PO-Revision-Date: 2019-12-21 16:12+0000\n"
 "Last-Translator: Narcélio de Sá Pereira Filho <narceliosapereira@gmail.com>, 2019\n"
 "Language-Team: Portuguese (Brazil) (https://www.transifex.com/spatialthoughts/teams/7952/pt_BR/)\n"
@@ -27,27 +27,59 @@ msgstr "Análise de sobreposição de múltiplos critérios (QGIS3)"
 
 #: ../../source/docs/3/multi_criteria_overlay.rst:4
 msgid ""
-"Multi-criteria analysis is the process of the allocating areas on the basis "
-"of a variety of attributes that the selected areas should possess. Although "
-"this is a common GIS operation, it is best performed in the raster space "
-"using a grid-based approach. This tutorial goes through the typical workflow"
-" for performing a site-suitability analysis - converting source vector data "
-"to appropriate rasters, re-classify them and perform mathematical "
-"operations."
+"Multi-criteria weighted-overlay analysis is the process of the allocating "
+"areas on the basis of a variety of attributes that the selected areas should"
+" possess. Although this is a common GIS operation, it is best performed in "
+"the raster space using a grid-based approach."
 msgstr ""
 "A análise de múltiplos critérios é o processo de alocar áreas com base em "
 "uma variedade de atributos que as áreas selecionadas devem possuir. Embora "
 "essa seja uma operação comum em ambiente SIG, ela é melhor executada "
-"utilizando camadas raster usando uma abordagem baseada em GRID. Este "
-"tutorial percorre o fluxo de trabalho típico para executar uma análise de "
-"adequação de locais - converter dados vetoriais de origem em rasters "
+"utilizando camadas raster usando uma abordagem baseada em GRID."
+
+#: ../../source/docs/3/multi_criteria_overlay.rst:8
+msgid "Vector vs Raster Overlays"
+msgstr "Sobreposições de Vetor versus Raster"
+
+#: ../../source/docs/3/multi_criteria_overlay.rst:10
+msgid ""
+"You can do the overlay analysis on vector layers using geoprocessing tools "
+"such as buffer, dissolve, difference and intersection. This method is ideal "
+"if you wanted to find a binary **suitable/non-suitable** answer and you are "
+"working with a handful of layers."
+msgstr ""
+"Você pode fazer a análise de sobreposição em camadas vetoriais usando "
+"ferramentas de geoprocessamento, como buffer, dissolução, diferença e "
+"interseção. Esse método é ideal se você deseja encontrar uma resposta "
+"binária ** adequada / não adequada ** e está trabalhando com várias camadas."
+
+#: ../../source/docs/3/multi_criteria_overlay.rst:12
+msgid ""
+"Working in the raster space gives you a **ranking** of the suitability - not"
+" just the best suited site. It also allows you to combine any number of "
+"input layers easily and assign different weights to each criteria. In "
+"general, this is the preferred approach for site suitability."
+msgstr ""
+"Trabalhar com camadas raster oferece uma ** classificação ** da adequação - "
+"não apenas o local mais adequado. Também permite combinar qualquer número de"
+" camadas de entrada facilmente e atribuir pesos diferentes a cada critério. "
+"Em geral, essa é a abordagem preferida para a adequação locacional."
+
+#: ../../source/docs/3/multi_criteria_overlay.rst:14
+msgid ""
+"This tutorial goes through the typical workflow for performing a site-"
+"suitability analysis - converting source vector data to appropriate rasters,"
+" re-classify them and perform mathematical operations."
+msgstr ""
+"Este tutorial percorre o fluxo de trabalho típico para executar uma análise "
+"de adequação de locais - converter dados vetoriais de origem em rasters "
 "apropriados, classificá-los novamente e executar operações matemáticas."
 
-#: ../../source/docs/3/multi_criteria_overlay.rst:7
+#: ../../source/docs/3/multi_criteria_overlay.rst:17
 msgid "Overview of the task"
 msgstr "Visão geral da tarefa"
 
-#: ../../source/docs/3/multi_criteria_overlay.rst:9
+#: ../../source/docs/3/multi_criteria_overlay.rst:19
 msgid ""
 "In this tutorial, we will identify the suitable areas for development, that "
 "are"
@@ -55,23 +87,23 @@ msgstr ""
 "Neste tutorial, identificaremos as áreas adequadas para o desenvolvimento, "
 "que são"
 
-#: ../../source/docs/3/multi_criteria_overlay.rst:11
+#: ../../source/docs/3/multi_criteria_overlay.rst:21
 msgid "Close to roads, and"
 msgstr "Perto de estradas e"
 
-#: ../../source/docs/3/multi_criteria_overlay.rst:12
+#: ../../source/docs/3/multi_criteria_overlay.rst:22
 msgid "Away from water bodies, and"
 msgstr "Longe de corpos d'água, e"
 
-#: ../../source/docs/3/multi_criteria_overlay.rst:13
+#: ../../source/docs/3/multi_criteria_overlay.rst:23
 msgid "Not in a protected region."
 msgstr "Não em uma região protegida."
 
-#: ../../source/docs/3/multi_criteria_overlay.rst:17
+#: ../../source/docs/3/multi_criteria_overlay.rst:27
 msgid "Get the data"
 msgstr "Obtendo os dados"
 
-#: ../../source/docs/3/multi_criteria_overlay.rst:18
+#: ../../source/docs/3/multi_criteria_overlay.rst:28
 msgid ""
 "We will use vector data layers from `OpenStreetMap (OSM) "
 "<http://www.openstreetmap.org/>`_. OSM is a global database of freely "
@@ -84,41 +116,46 @@ msgstr ""
 "<http://download.geofabrik.de/>`_ fornece shapefiles atualizados diariamente"
 " dos conjuntos de dados do OpenStreetMap."
 
-#: ../../source/docs/3/multi_criteria_overlay.rst:20
+#: ../../source/docs/3/multi_criteria_overlay.rst:30
 msgid ""
-"We will be using the OSM data layers for the the state of Assam in India. "
+"We will be using the OSM data layers for the state of Assam in India. "
 "Geofabrik `India shapefiles <http://download.geofabrik.de/asia/india.html>`_"
 " were downloaded, clipped to the state boundary and packaged in a single "
 "GeoPackage file. You can download a copy of the geopackage from the link "
 "below:"
 msgstr ""
-"Usaremos as camadas de dados OSM do estado de Assam na Índia. Geofabrik "
-"`India shapefiles <http://download.geofabrik.de/asia/india.html>`_ foram "
-"baixados, cortados no limite do estado e empacotados em um único arquivo "
-"GeoPackage. Você pode fazer o download de uma cópia do geopackage no link "
-"abaixo:"
+"Usaremos as camadas de dados OSM do estado de Assam na Índia. Os shapefiles "
+"da `India  obtidos do Geofabrik  "
+"<http://download.geofabrik.de/asia/india.html>`_ foram baixados, cortados no"
+" limite do estado e empacotados em um único arquivo GeoPackage. Você pode "
+"fazer o download de uma cópia do geopackage no link abaixo:"
 
-#: ../../source/docs/3/multi_criteria_overlay.rst:22
+#: ../../source/docs/3/multi_criteria_overlay.rst:32
 msgid "`assam.gpkg <http://www.qgistutorials.com/downloads/assam.gpkg>`_"
 msgstr "`assam.gpkg <http://www.qgistutorials.com/downloads/assam.gpkg>`_"
 
-#: ../../source/docs/3/multi_criteria_overlay.rst:24
+#: ../../source/docs/3/multi_criteria_overlay.rst:34
 msgid "Data Source: [GEOFABRIK]_"
 msgstr "Fonte de Dados: [GEOFABRIK]_"
 
-#: ../../source/docs/3/multi_criteria_overlay.rst:27
+#: ../../source/docs/3/multi_criteria_overlay.rst:37
 msgid "Procedure"
 msgstr "Procedimento"
 
-#: ../../source/docs/3/multi_criteria_overlay.rst:29
+#: ../../source/docs/3/multi_criteria_overlay.rst:39
 msgid ""
 "Browse to the downloaded ``assam.gpkg`` file in QGIS Browser. Expand it and "
 "drag each of the 5 individual data layers to the map canvas. You will see "
 "``boundary``, ``roads``, ``protected_regions``, ``water_polygons`` and "
 "``water_polylines`` layers loaded in the :guilabel:`Layers` panel."
 msgstr ""
+"Navegue até o arquivos ``assam.gpkg`` no QGIS Browser. Expanda e arraste "
+"cada uma das 5 camadas de dados individuais para a tela do mapa. Você verá "
+"as camadas ``boundary``, ``roads``, ``protected_regions``, "
+"``water_polygons`` and ``water_polylines`` carregadas no painel "
+":guilabel:`Layers` de camadas"
 
-#: ../../source/docs/3/multi_criteria_overlay.rst:34
+#: ../../source/docs/3/multi_criteria_overlay.rst:44
 msgid ""
 "First step in the overlay analysis, is to convert each data layer to raster."
 " An important consideration is that all rasters must be of the same extent. "
@@ -127,8 +164,15 @@ msgid ""
 ":menuselection:`GDAL --> Vector conversion --> Rasterize (vector to "
 "raster)`` algorithm. Double-click to launch it."
 msgstr ""
+"O primeiro passo na análise de sobreposição é converter cada camada de dados"
+" em Raster. Uma consideração importante é que todos os rasters devem ter a "
+"mesma extensão. Usaremos a camada `` limite '' como extensão para todos os "
+"rasters. Vá para: menuselection: `Processar -> Caixa de Ferramentas`. "
+"Pesquise e localize o algoritmo: menuelection: `GDAL -> Conversão de vetor "
+"-> Converter vetor para raster (rasterizar)` `. Clique duas vezes para "
+"iniciá-lo."
 
-#: ../../source/docs/3/multi_criteria_overlay.rst:39
+#: ../../source/docs/3/multi_criteria_overlay.rst:49
 msgid ""
 "In the :guilabel:`Rasterize (vector to raster)` dialog, select ``roads`` as "
 "the :guilabel:`Input layer`. We want to create an output raster where pixel "
@@ -142,8 +186,19 @@ msgid ""
 ":guilabel:`Output extent` and select ``boundary`` for :guilabel:`Use extent "
 "for`."
 msgstr ""
+"Na caixa de diálogo: guilabel: `Converter vetor para raster (rasterizar)`, "
+"selecione ``roads`` como a: guilabel: `Camada de entrada`. Queremos criar um"
+" raster de saída em que os valores de pixel sejam 1 onde há uma estrada e 0 "
+"onde não há estradas. Digite `` 1`` como o: guilabel: `Um valor fixo to "
+"burn`. As camadas de entrada estão em um CRS projetado métrico. Selecione "
+"``Unidades georreferenciadas`` como: guilabel: `Unidades de tamanho da "
+"saída`. Definiremos a resolução do Raster de saída como 15 metros. Selecione"
+" `` 15`` como ambos: guilabel: `Largura / resolução horizontal` e: "
+"guilabel:` Altura / resolução vertical`. Em seguida, clique no botão: "
+"guilabel: `...` ao lado de: guilabel: `Extensão da saída` e selecione` "
+"`boundary`` para: guilabel:` Usar extensão da camada`."
 
-#: ../../source/docs/3/multi_criteria_overlay.rst:44
+#: ../../source/docs/3/multi_criteria_overlay.rst:54
 msgid ""
 "Scroll down further and click the arrow button in the :guilabel:`Assign a "
 "specific nodata value to output bands`. That field should now be set to "
@@ -153,8 +208,15 @@ msgid ""
 ":guilabel:`Rasterized` output raster as ``raster_roads.tif`` and click "
 ":guilabel:`Run`."
 msgstr ""
+"Role para baixo e clique no botão de seta no: guilabel: `Atribua um valor "
+"sem dados específicado às bandas de saída`. Esse campo agora deve ser "
+"definido como ``Não definido``. Isso é importante porque quando a "
+"calculadora raster (que usaremos mais tarde) encontra um pixel com valor não"
+" definido em qualquer camada, ela define a saída como não definido, "
+"resultando em uma saída incorreta. Defina o raster de saída: guilabel: "
+"`Rasterizado` como` `raster_roads.tif`` e clique em: guilabel:` Executar`."
 
-#: ../../source/docs/3/multi_criteria_overlay.rst:49
+#: ../../source/docs/3/multi_criteria_overlay.rst:59
 msgid ""
 "Once the processing finishes, you will see a new layer "
 ":guilabel:`raster_roads` loaded in the :guilabel:`Layers` panel. The default"
@@ -166,40 +228,67 @@ msgid ""
 "(vector to raster)`` algorithm and select :guilabel:`Execute as Batch "
 "Process`."
 msgstr ""
+"Quando o processamento terminar, você verá uma nova camada: guilabel: "
+"`raster_roads` carregada no painel: guilabel:` Camadas`. O estilo padrão "
+"mostrará pixels com estradas brancas e outras pretas. Também queremos "
+"converter outras 4 camadas vetoriais em rasters. Em vez de executar o "
+"algoritmo de rasterização um por um, podemos usar a funcionalidade interna "
+"de processamento em lote para convertê-los todos de uma vez. Consulte o "
+"tutorial: doc: `batch-processing` para aprender mais sobre o processamento "
+"em lote. Clique com o botão direito do mouse no algoritmo `` Rasterize "
+"(vector to raster) `` e selecione: guilabel: `Executar como processo em "
+"lote`."
 
-#: ../../source/docs/3/multi_criteria_overlay.rst:54
+#: ../../source/docs/3/multi_criteria_overlay.rst:64
 msgid ""
 "In the :guilabel:`Batch Processing` dialog, click the :guilabel:`...` button"
 " in the first row of the :guilabel:`Input layer` column. Select "
 "``boundary``, ``protected_regions``, ``water_polygons`` and "
-"`water_polylines`` layers and click :guilabel:`OK`."
+"``water_polylines`` layers and click :guilabel:`OK`."
 msgstr ""
+"Na caixa de diálogo: guilabel: `Processamento em lote`, clique no botão: "
+"guilabel:` ... `na primeira linha da coluna: guilabel:` Camada de entrada`. "
+"Selecione as camadas `` boundary``, `` protected_regions``, `` "
+"water_polygons`` e `` water_polylines`` e clique em: guilabel: `OK`."
 
-#: ../../source/docs/3/multi_criteria_overlay.rst:59
+#: ../../source/docs/3/multi_criteria_overlay.rst:69
 msgid ""
 "Fill in the parameters with the same values we used in the roads layer. "
 "After filling the first-row of the parameter, use the "
 ":menuselection:`Autofill --> Fill Down` button to add the same value for all"
 " layers."
 msgstr ""
+"Preencha os parâmetros com os mesmos valores que usamos na camada de "
+"estradas. Após preencher a primeira linha do parâmetro, use a opção: "
+"menuselection: `Preenchimento automático -> Preencher para baixo` para "
+"adicionar o mesmo valor para todas as camadas."
 
-#: ../../source/docs/3/multi_criteria_overlay.rst:64
+#: ../../source/docs/3/multi_criteria_overlay.rst:74
 msgid ""
 "In the last column :guilabel:`Rasterized`, click the :guilabel:`...` button "
 "in the first row. Select ``Fill with parameter values`` as the "
 ":guilabel:`Autofill mode` and ``Input layer`` as the :guilabel:`Parameter to"
 " use`. Click :guilabel:`OK`."
 msgstr ""
+"Na última coluna: guilabel: `Rasterized`, clique no botão: guilabel:` ... "
+"`na primeira linha. Selecione `` Preencher com valores de parâmetros`` como:"
+" guilabel: `modo de preenchimento automático` e` `Camada de entrada`` como "
+"o: guilabel:` Parâmetro a ser usado`. Clique em: guilabel: `OK`."
 
-#: ../../source/docs/3/multi_criteria_overlay.rst:69
+#: ../../source/docs/3/multi_criteria_overlay.rst:79
 msgid ""
 "Browse to a directory on your computer and name the layer as ``raster_``. "
 "The batch processing interface will autocomplete the name with the layer "
 "name and fill in all rows. Make sure the :guilabel:`Load layers on "
 "completion` box is checked and click :guilabel:`OK`."
 msgstr ""
+"Navegue até um diretório no seu computador e nomeie a camada como `` "
+"raster_``. A interface de processamento em lote completará automaticamente o"
+" nome com o nome da camada e preencherá todas as linhas. Verifique se a "
+"caixa: guilabel: `Carregar camadas após a conclusão` está marcada e clique "
+"em: guilabel:` OK`."
 
-#: ../../source/docs/3/multi_criteria_overlay.rst:74
+#: ../../source/docs/3/multi_criteria_overlay.rst:84
 msgid ""
 "Once the processing finishes, you will have 4 new raster layers loaded in "
 "the :guilabel:`Layers` panel. You will notice that we have 2 water related "
@@ -208,8 +297,14 @@ msgid ""
 ":menuselection:`Raster analysis --> Raster calculator` algorithm in the "
 "Processing Toolbox. Double-click to launch it."
 msgstr ""
+"Quando o processamento terminar, você terá 4 novas camadas raster carregadas"
+" no painel: guilabel: `Camadas`. Você notará que temos 2 camadas "
+"relacionadas à água - ambas representando água. Podemos mesclá-los para ter "
+"uma única camada representando áreas de água na região. Procure e localize: "
+"menuelection: `Raster analysis -> Raster calculator` algoritmo na Processing"
+" Toolbox. Clique duas vezes para iniciá-lo."
 
-#: ../../source/docs/3/multi_criteria_overlay.rst:79
+#: ../../source/docs/3/multi_criteria_overlay.rst:89
 msgid ""
 "Enter the following expression in the :guilabel:`Expression` box. You can "
 "click on the appropriate layer in the :guilabel:`Layers` box to auto insert "
@@ -219,8 +314,16 @@ msgid ""
 "``raster_water_polygons`` as the reference layer. Name the output "
 "``raster_water_merged.tif`` and click :guilabel:`Run`."
 msgstr ""
+"Digite a seguinte expressão na caixa: guilabel: `Expressão`. Você pode "
+"clicar na camada apropriada na caixa: guilabel: `Layers` para inserir "
+"automaticamente os nomes das camadas. Essa expressão significa que queremos "
+"somar os valores de pixel na primeira banda das duas camadas Raster de água."
+" Clique no botão: guilabel: `...` ao lado de: guilabel: `Camada(s) de "
+"referência e selecione` `raster_water_polygons`` como a camada de "
+"referência. Nomeie a saída `` raster_water_merged.tif`` e clique em: "
+"guilabel: `Run`."
 
-#: ../../source/docs/3/multi_criteria_overlay.rst:88
+#: ../../source/docs/3/multi_criteria_overlay.rst:98
 msgid ""
 "The resulting merged raster will have pixels with value 1 for all areas with"
 " water. But you will notice that there are some regions where there was both"
@@ -228,22 +331,35 @@ msgid ""
 "value 2 - which is not correct. We can fix it with a simple expression. Open"
 " :menuselection:`Raster analysis --> Raster calculator` algorithm again."
 msgstr ""
+"A varredura resultante resultante terá pixels com o valor 1 para todas as "
+"áreas com água. Mas você notará que existem algumas regiões em que havia um "
+"polígono da água e uma polilinha da água. Essas áreas terão pixels com o "
+"valor 2 - o que não está correto. Podemos corrigi-lo com uma expressão "
+"simples. Abra: menuselection: `Análise de varredura -> Calculadora Raster` "
+"novamente."
 
-#: ../../source/docs/3/multi_criteria_overlay.rst:93
+#: ../../source/docs/3/multi_criteria_overlay.rst:103
 msgid ""
 "Enter the following expression which will assign the value 1 that match the "
 "expression and 0 where it doesn't. Click the :guilabel:`...` button next to "
 ":guilabel:`Reference layer(s) and select ``raster_water_merged`` layer. Name"
 " the output ``raster_water.tif`` and click :guilabel:`Run`."
 msgstr ""
+"Digite a expressão a seguir, que atribuirá o valor 1 que corresponde à "
+"expressão e 0, caso contrário. Clique no botão: guilabel: `...` ao lado de: "
+"guilabel: `Camada (s) de referência e selecione a camada` "
+"`raster_water_merged``. Nomeie a saída `` raster_water.tif`` e clique em: "
+"guilabel: `Executar`."
 
-#: ../../source/docs/3/multi_criteria_overlay.rst:102
+#: ../../source/docs/3/multi_criteria_overlay.rst:112
 msgid ""
 "The resulting layer ``raster_water`` now has pixels with only 0 and 1 "
 "values."
 msgstr ""
+"A camada resultante `` raster_water`` agora possui pixels com apenas 0 e 1 "
+"valores."
 
-#: ../../source/docs/3/multi_criteria_overlay.rst:107
+#: ../../source/docs/3/multi_criteria_overlay.rst:117
 msgid ""
 "Now that we have layers representing road and water pixels, we can generate "
 "proximity rasters. These are also known as Euclidean distances - where each "
@@ -253,8 +369,16 @@ msgid ""
 "and locate the :menuselection:`GDAL --> Raster analysis --> Proximity "
 "(raster distance)` algorithm. Double-click to launch it."
 msgstr ""
+"Agora que temos camadas que representam os pixels da estrada e da água, "
+"podemos gerar rasters de proximidade. Também são conhecidas como distâncias "
+"euclidianas - onde cada pixel do raster de saída representa a distância do "
+"pixel mais próximo no raster de entrada. Esse raster resultante pode ser "
+"usado para determinar as áreas adequadas que estão a uma certa distância da "
+"camada de entrada. Procure e localize o: menuelection: `GDAL -> Análise de "
+"dados Raster -> Proximidade (distancia raster)` algoritmo `. Clique duas "
+"vezes para iniciá-lo."
 
-#: ../../source/docs/3/multi_criteria_overlay.rst:112
+#: ../../source/docs/3/multi_criteria_overlay.rst:122
 msgid ""
 "In the :guilabel:`Proximity (Raster Distance)` dialog, select "
 "``raster_roads`` as the :guilabel:`Input layer`. Choose ``Georeferenced "
@@ -265,15 +389,27 @@ msgid ""
 "is ``Not set``. Name the output file as ``roads_proximity.tif`` and click "
 ":guilabel:`Run`."
 msgstr ""
+"Na caixa de diálogo: guilabel: `Proximidade (distancia raster)`, selecione "
+"`` raster_roads`` como a: guilabel: `Camada de entrada`. Escolha `` "
+"Coordenadas georreferenciadas`` como: guilabel: `Unidades de distância`. "
+"Como as camadas de entrada estão em um CRS projetado com metros como "
+"unidades, insira `` 5000`` (5 quilômetros) como: guilabel: `Distância máxima"
+" a ser gerada`. Certifique-se de que o valor: guilabel: `Nodata a ser usado "
+"para o raster de proximidade de destino` seja` `Não definido``. Nomeie o "
+"arquivo de saída como `` roads_proximity.tif`` e clique em: guilabel: `Run`."
 
-#: ../../source/docs/3/multi_criteria_overlay.rst:119
+#: ../../source/docs/3/multi_criteria_overlay.rst:129
 msgid ""
 "It make take upto 15 minutes for this process to run. It is computationaly "
 "intensive algorithm that needs to compute distance for each pixel of the "
 "input raster and our input contains over 1 billion pixels."
 msgstr ""
+"Demora 15 minutos para que esse processo seja executado. É um algoritmo "
+"computacionalmente intensivo que precisa calcular a distância para cada "
+"pixel do raster de entrada e nossa entrada contém mais de 1 bilhão de "
+"pixels."
 
-#: ../../source/docs/3/multi_criteria_overlay.rst:121
+#: ../../source/docs/3/multi_criteria_overlay.rst:131
 msgid ""
 "Once the processing is over, a new layer ``roads_proximity`` will be added "
 "to the :guilabel:`Layers` panel. To visualize it better, let's change the "
@@ -281,15 +417,23 @@ msgid ""
 "in the :guilabel:`Layers` panel. Change the :guilabel:`Max` value to "
 "``5000`` under :guilabel:`Color gradient`."
 msgstr ""
+"Quando o processamento terminar, uma nova camada `` roads_proximity`` será "
+"adicionada ao painel: guilabel: `Camadas`. Para visualizá-lo melhor, vamos "
+"mudar o estilo padrão. Clique no botão: guilabel: `Abra o painel Layer "
+"Styling` no painel: guilabel:` Camadas`. Altere o valor: guilabel: `Max` "
+"para` `5000`` em: guilabel:` Gradiente de cor`."
 
-#: ../../source/docs/3/multi_criteria_overlay.rst:126
+#: ../../source/docs/3/multi_criteria_overlay.rst:136
 msgid ""
 "Repeat the :guilabel:`Proximity (Raster Distance)` algorithm for the "
 "``raster_water`` layer with same parameters and name the output "
 "``water_proximity.tif``."
 msgstr ""
+"Repita o algoritmo: guilabel: `Proximity (Raster Distance)` para a camada ``"
+" raster_water`` com os mesmos parâmetros e nomeie a saída `` "
+"water_proximity.tif``."
 
-#: ../../source/docs/3/multi_criteria_overlay.rst:131
+#: ../../source/docs/3/multi_criteria_overlay.rst:141
 msgid ""
 "Once the processing finishes, you can apply the similar styling as before to"
 " visualize the results better. If you click around the resulting raster, you"
@@ -298,34 +442,46 @@ msgid ""
 "values. Open :menuselection:`Raster analysis --> Raster calculator` "
 "algorithm again."
 msgstr ""
+"Depois que o processamento terminar, você poderá aplicar o estilo semelhante"
+" ao anterior para visualizar melhor os resultados. Se você clicar em torno "
+"do raster resultante, verá que é um continuum de valores de 0 a 5000. Para "
+"usar esse raster na análise de sobreposição, devemos primeiro classificá-la "
+"novamente para criar valores discretos. Abra: menuselection: `Análise de "
+"Raster -> Calculadora Raster` novamente."
 
-#: ../../source/docs/3/multi_criteria_overlay.rst:136
+#: ../../source/docs/3/multi_criteria_overlay.rst:146
 msgid ""
 "We want to give higher score to pixels that are near to roads. So let's use "
 "the following scheme."
 msgstr ""
+"Queremos atribuir uma pontuação mais alta aos pixels próximos às estradas. "
+"Então, vamos usar o seguinte esquema."
 
-#: ../../source/docs/3/multi_criteria_overlay.rst:138
+#: ../../source/docs/3/multi_criteria_overlay.rst:148
 msgid "0-1000m –> 100"
 msgstr "0-1000m –> 100"
 
-#: ../../source/docs/3/multi_criteria_overlay.rst:139
+#: ../../source/docs/3/multi_criteria_overlay.rst:149
 msgid "1000-5000m –> 50"
 msgstr "1000-5000m –> 50"
 
-#: ../../source/docs/3/multi_criteria_overlay.rst:140
+#: ../../source/docs/3/multi_criteria_overlay.rst:150
 msgid ">5000m –> 10"
 msgstr ">5000m –> 10"
 
-#: ../../source/docs/3/multi_criteria_overlay.rst:142
+#: ../../source/docs/3/multi_criteria_overlay.rst:152
 msgid ""
 "Enter the following expression that applies the above criteria on the input."
 " Click the :guilabel:`...` button next to :guilabel:`Reference layer(s) and "
 "select ``roads_proximity`` layer. Name the output ``roads_reclass.tif`` and "
 "click :guilabel:`Run`."
 msgstr ""
+"Digite a seguinte expressão que aplica os critérios acima na entrada. Clique"
+" no botão: guilabel: `...` ao lado de: guilabel: `Camada (s) de referência e"
+" selecione a camada` `roads_proximity``. Nomeie a saída `` "
+"roads_reclass.tif`` e clique em: guilabel: `Run`."
 
-#: ../../source/docs/3/multi_criteria_overlay.rst:151
+#: ../../source/docs/3/multi_criteria_overlay.rst:161
 msgid ""
 "Once the re-classification process finishes, a new layer ``roads_proximity``"
 " will be added to the :guilabel:`Layers` panel. This layer has only 3 "
@@ -333,35 +489,47 @@ msgid ""
 "pixels with regards to distance from roads. Open :menuselection:`Raster "
 "analysis --> Raster calculator` algorithm again."
 msgstr ""
+"Quando o processo de reclassificação terminar, uma nova camada `` "
+"roads_proximity`` será adicionada ao painel: guilabel: `Layers`. Essa camada"
+" possui apenas 3 valores diferentes, 10, 50 e 100, indicando a adequação "
+"relativa dos pixels em relação à distância das estradas. Abra: "
+"menuselection: `Análise de Raster -> Calculadora Raster` novamente."
 
-#: ../../source/docs/3/multi_criteria_overlay.rst:156
+#: ../../source/docs/3/multi_criteria_overlay.rst:166
 msgid ""
 "Repeat the re-classification process for the ``water_proximity`` layer. Here"
 " the scheme will be reverse, where pixels that are further away from water "
 "shall have higher score."
 msgstr ""
+"Repita o processo de reclassificação para a camada `` water_proximity``. "
+"Aqui o esquema será inverso, onde os pixels mais distantes da água terão uma"
+" pontuação mais alta."
 
-#: ../../source/docs/3/multi_criteria_overlay.rst:158
+#: ../../source/docs/3/multi_criteria_overlay.rst:168
 msgid "0-1000m –> 10"
 msgstr "0-1000m –> 10"
 
-#: ../../source/docs/3/multi_criteria_overlay.rst:159
+#: ../../source/docs/3/multi_criteria_overlay.rst:169
 msgid "1000 -5000m —> 50"
 msgstr "1000 -5000m —> 50"
 
-#: ../../source/docs/3/multi_criteria_overlay.rst:160
+#: ../../source/docs/3/multi_criteria_overlay.rst:170
 msgid ">5000m –> 100"
 msgstr ">5000m –> 100"
 
-#: ../../source/docs/3/multi_criteria_overlay.rst:162
+#: ../../source/docs/3/multi_criteria_overlay.rst:172
 msgid ""
 "Enter the following expression that applies the above criteria on the input."
 " Click the :guilabel:`...` button next to :guilabel:`Reference layer(s) and "
 "select ``water_proximity`` layer. Name the output ``water_reclass.tif`` and "
 "click :guilabel:`Run`."
 msgstr ""
+"Digite a seguinte expressão que aplica os critérios acima na entrada. Clique"
+" no botão: guilabel: `...` ao lado de: guilabel: `Camada (s) de referência e"
+" selecione camada` `water_proximity``. Nomeie a saída `` water_reclass.tif``"
+" e clique em: guilabel: `Run`."
 
-#: ../../source/docs/3/multi_criteria_overlay.rst:171
+#: ../../source/docs/3/multi_criteria_overlay.rst:181
 msgid ""
 "Now we are ready to do the final overlay analysis. Recall that our criteria "
 "for determining suitability is as follows - close to roads, away from water "
@@ -373,8 +541,35 @@ msgid ""
 "``raster_boundary`` layer. Name the output ``overlay.tif`` and click "
 ":guilabel:`Run`."
 msgstr ""
+"Agora estamos prontos para fazer a análise final da sobreposição. Lembre-se "
+"de que nossos critérios para determinar a adequação são os seguintes - "
+"próximos às estradas, longe da água e não em uma região protegida. Abra: "
+"menuselection: `Análise de varredura -> Calculadora de varredura`. Digite a "
+"seguinte expressão que aplica esses critérios. Observe que multiplicamos o "
+"resultado com `` raster_boundary @ 1`` no final para descartar os valores de"
+" pixel fora do limite do estado. Clique no botão: guilabel: `...` ao lado "
+"de: guilabel: `Camada (s) de referência` e selecione camada `` "
+"raster_boundary``. Nomeie a saída como `` overlay.tif`` e clique em: "
+"guilabel: `Run`."
 
-#: ../../source/docs/3/multi_criteria_overlay.rst:180
+#: ../../source/docs/3/multi_criteria_overlay.rst:192
+msgid ""
+"In this example, we are giving equal *weight* to both road and water "
+"proximity. In real-life scenario, you may have multiple criteria with "
+"different importance. You can simulate that by multiplying the rasters with "
+"appropriate *weights* in the above expression. For example, if proximity to "
+"roads is twice as importance as proximity away from water, you can multiply "
+"the ``roads_reclass`` raster with ``2`` in the expression above."
+msgstr ""
+"Neste exemplo, estamos atribuindo *peso* igual à proximidade da estrada e da"
+" água. No cenário da vida real, você pode ter vários critérios com "
+"importância diferente. Você pode simular isso multiplicando os separadores "
+"pelos pesos *apropriados* na expressão acima. Por exemplo, se a proximidade "
+"das estradas tiver o dobro da importância da proximidade da água, você "
+"poderá multiplicar o raster `` roads_reclass`` por `` 2`` na expressão "
+"acima."
+
+#: ../../source/docs/3/multi_criteria_overlay.rst:194
 msgid ""
 "Once the processing finishes, the resulting raster ``overlay`` will be added"
 " to the :guilabel:`Layers` panel. The pixel values in this raster range from"
@@ -382,21 +577,32 @@ msgid ""
 "for development. Click the :guilabel:`Open the Layer Styling panel` button "
 "in the :guilabel:`Layers` panel."
 msgstr ""
+"Quando o processamento terminar, a rasterização resultante `` overlay`` será"
+" adicionada ao painel: guilabel: `Layers`. Os valores de pixel nessa "
+"varredura variam de 0 a 200 - onde 0 é o menos adequado e 200 é a área mais "
+"adequada para o desenvolvimento. Clique no botão: guilabel: `Abra o painel "
+"Layer Styling` no painel: guilabel:` Layers`."
 
-#: ../../source/docs/3/multi_criteria_overlay.rst:185
+#: ../../source/docs/3/multi_criteria_overlay.rst:199
 msgid ""
 "Select ``singleband_pseudocolor`` renderer and the ``Spectral`` color ramp. "
 "Click :guilabel:`Classify` to apply the color ramp to the raster."
 msgstr ""
+"Selecione o renderizador `` singleband_pseudocolor`` e a rampa de cor `` "
+"Spectral``. Clique em: guilabel: `Classificar` para aplicar a rampa de cores"
+" no raster."
 
-#: ../../source/docs/3/multi_criteria_overlay.rst:190
+#: ../../source/docs/3/multi_criteria_overlay.rst:204
 msgid ""
 "Click on the default label values next to each color and enter appropriate "
 "labels. The labels will also appear as the legend under the ``overlay`` "
 "layer."
 msgstr ""
+"Clique nos valores padrão das etiquetas ao lado de cada cor e insira as "
+"etiquetas apropriadas. Os rótulos também aparecerão como a legenda na camada"
+" `` overlay``."
 
-#: ../../source/docs/3/multi_criteria_overlay.rst:195
+#: ../../source/docs/3/multi_criteria_overlay.rst:209
 msgid ""
 "Raster layers are rectangular grids. We want to hide pixels outside the "
 "state boundary. An easy way to achieve this is applying an ``Inverted "
@@ -404,17 +610,29 @@ msgid ""
 ":guilabel:`Layers` panel and locate the ``boundary`` layer. Select "
 "``Inverted Polygons`` as the renderer and leave other options to default."
 msgstr ""
+"Camadas de varredura são grades retangulares. Queremos ocultar pixels fora "
+"do limite do estado. Uma maneira fácil de conseguir isso é aplicar um `` "
+"polígono invertido '' renderizado na camada limite do vetor. Role para baixo"
+" no painel: guilabel: `Layers` e localize a camada` `boundary``. Selecione "
+"`` Polígonos invertidos`` como renderizador e deixe outras opções como "
+"padrão."
 
-#: ../../source/docs/3/multi_criteria_overlay.rst:200
+#: ../../source/docs/3/multi_criteria_overlay.rst:214
 msgid ""
 "For the effect of the renderer to show, it needs to be at the top of the "
 "Table of Contents. Right-click the ``boundary`` layer and select "
 ":guilabel:`Move to Top`."
 msgstr ""
+"Para que o efeito do renderizador seja mostrado, ele precisa estar da lista "
+"de camadas. Clique com o botão direito do mouse na camada `` boundary`` e "
+"selecione: guilabel: `Mover para cima`."
 
-#: ../../source/docs/3/multi_criteria_overlay.rst:205
+#: ../../source/docs/3/multi_criteria_overlay.rst:219
 msgid ""
 "Check the layer and the map canvas would update to show the ``overlay`` "
 "raster clipped to the ``boundary`` layer. This is the final output that "
 "shows areas within the state that are suitable for development."
 msgstr ""
+"Verifique a camada e a tela do mapa será atualizada para mostrar o raster ``"
+" overlay`` cortada na camada ``boundary``. Esta é a saída final que mostra "
+"áreas dentro do estado que são adequadas para o desenvolvimento."
