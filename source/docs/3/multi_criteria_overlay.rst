@@ -126,7 +126,7 @@ Procedure
 
 .. note:: 
 
-  It make take upto 15 minutes for this process to run. It is computationaly intensive algorithm that needs to compute distance for each pixel of the input raster and our input contains over 1 billion pixels.
+  It make take upto 15 minutes for this process to run. It is a computationaly intensive algorithm that needs to compute distance for each pixel of the input raster and our input contains over 1 billion pixels.
   
 17. Once the processing is over, a new layer ``roads_proximity`` will be added to the :guilabel:`Layers` panel. To visualize it better, let's change the default styling. Click the :guilabel:`Open the Layer Styling panel` button in the :guilabel:`Layers` panel. Change the :guilabel:`Max` value to ``5000`` under :guilabel:`Color gradient`.
 
