@@ -62,10 +62,4 @@ Under this license, you are allowed to use, share or modify the document in any
 way you seem fit and even make commercial use of it. You only need to give
 appropriate credit to the author for the original work.
 
-Copyright (c)  2019 Ujaval Gandhi.
-
-Disclaimer
-----------
-
-The is my personal project done in my spare time. The views and opinions
-expressed here are mine alone and do not represent the views of my employer.
+Copyright (c)  2020 Ujaval Gandhi
