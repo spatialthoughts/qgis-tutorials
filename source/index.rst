@@ -25,6 +25,7 @@ QGIS Tutorials and Tips
    - :doc:`docs/3/performing_spatial_queries`
    - :doc:`docs/3/creating_heatmaps`
    - :doc:`docs/3/animating_time_series`
+   - :doc:`docs/3/handling_invalid_geometries`
 * Advanced GIS operations
    - :doc:`docs/3/nearest_neighbor_analysis`
    - :doc:`docs/3/sampling_raster_data`
@@ -90,6 +91,7 @@ Want more QGIS Tips and Tricks? See |blog| |nearrow|.
    docs/3/performing_spatial_joins
    docs/3/creating_heatmaps
    docs/3/animating_time_series
+   docs/3/handling_invalid_geometries
    docs/3/performing_spatial_queries
    docs/3/nearest_neighbor_analysis
    docs/3/sampling_raster_data

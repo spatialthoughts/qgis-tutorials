@@ -109,6 +109,10 @@ Data Credits
 .. [POLICEUK] `ASB Incidents, Crime and Outcome
    <https://data.police.uk/about/>`_ - UK Home Office. Retrieved 2015-10-10.
 
+- :doc:`handling_invalid_geometries`
+
+.. [DATAMEET] India State boundary: Downloaded from `Datameet Spatial Data repository <https://github.com/datameet/maps/tree/master/States>`_.
+
 - :doc:`sampling_raster_data`
 
 .. [NOAACPC] `US Daily Maximum Temperature Analysis (C).
