@@ -21,11 +21,9 @@ Other skills you will learn
 Get the data
 ------------
 
-`Datameet <https://github.com/datameet>`_ provides community-created administrative boundary shapefiles for India. Download the `India - State Boundaries <http://projects.datameet.org/maps/states/>`_ shapefile.
+`Datameet <http://projects.datameet.org/maps/>`_ provides community-created administrative boundary shapefiles for India. 
 
-You may directly download the following version of the dataset that contains the geometry error shown in this tutorial.
-
-`India-States.zip <http://www.qgistutorials.com/downloads/India-States.zip>`_
+Download the `India - State Boundaries <http://projects.datameet.org/maps/states/>`_ shapefile. The downloaded archive contains multiple folders. Extract the archive and use the files in the ``States/`` folder.
 
 Data Source: [DATAMEET]_
 
