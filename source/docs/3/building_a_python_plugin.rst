@@ -3,6 +3,10 @@ Building a Python Plugin (QGIS3)
 
 Plugins are a great way to extend the functionality of QGIS. You can write plugins using Python that can range from adding a simple button to sohpisticated toolkits. This tutorial will outline the process involved in setting up your development environment, designing the user interface for a plugin and writing code to interact with QGIS. Please review the :doc:`getting_started_with_pyqgis` tutorial to get familiar with the basics. 
 
+.. note::
+
+  If you are building a new plugin, I strongly recommend building a Processing Plugin instead of the GUI plugin described in this tutorial. See  :doc:`processing_python_plugin` for details.
+  
 Overview of the Task
 --------------------
 
