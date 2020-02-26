@@ -56,7 +56,7 @@ Procedure
   .. image:: /static/3/multi_criteria_overlay/images/4.png
     :align: center
 
-5. Once the processing finishes, you will see a new layer :guilabel:`raster_roads` loaded in the :guilabel:`Layers` panel. The default styling will show pixels with roads as white and others as black. We want to convert other 4 vector layers to rasters as well. Rather than running the rasterize algorithm one-by-one, we can use the built-in batch-processing functionality to convert them all at once. See :doc:`batch-processing` tutorial to learn more about batch processing. Right-click the ``Rasterize (vector to raster)`` algorithm and select :guilabel:`Execute as Batch Process`.
+5. Once the processing finishes, you will see a new layer :guilabel:`raster_roads` loaded in the :guilabel:`Layers` panel. The default styling will show pixels with roads as white and others as black. We want to convert other 4 vector layers to rasters as well. Rather than running the rasterize algorithm one-by-one, we can use the built-in batch-processing functionality to convert them all at once. See :doc:`batch_processing` tutorial to learn more about batch processing. Right-click the ``Rasterize (vector to raster)`` algorithm and select :guilabel:`Execute as Batch Process`.
 
   .. image:: /static/3/multi_criteria_overlay/images/5.png
     :align: center

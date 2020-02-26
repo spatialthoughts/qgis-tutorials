@@ -6,7 +6,7 @@ Not every dataset you want to use comes in spatial format. Often the data would 
 Overview of the task
 --------------------
 
-We will use a shapefile of census tracts for California and population data table from US Census Bureau to create a population map for california.
+We will use a shapefile of census tracts for California and population data table from US Census Bureau to create a population density map for california.
 
 Other skills you will learn
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -115,41 +115,40 @@ Procedure
   .. image:: /static/3/performing_table_joins/images/16.png
      :align: center
 
-17. Now that we have the population data in the census tracts layer, we can style it to create a visualization of population distribution. Select the ``joined`` layer and click the :guilabel:`Open the Layer Styling Panel` button.
+17. Now that we have the population data in the census tracts layer, we can style it to create a visualization of population density distribution. Select the ``joined`` layer and click the :guilabel:`Open the Layer Styling Panel` button.
 
   .. image:: /static/3/performing_table_joins/images/17.png
      :align: center
 
-18. In the :guilabel:`Layer Styling` panel, select ``Graduated`` from the drop-down menu. As we are looking to create a population map, we want to assign different color to each census tract feature based on the population estimate. Select  ``HD01_VD01`` as the :guilabel:`Column`. Select a color ramp of your liking from the :guilabel:`Color ramp` drop-down. In the :guilabel:`Mode`, select :guilabel:`Quantile (Equal Count)` with ``5`` :guilabel:`Classes`. Click the :guilabel:`Classify` button and see the map layer update with a color assigned to a population range. You can close the :guilabel:`Layer Styling` panel once you are satisfied with the map.
+18. In the :guilabel:`Layer Styling` panel, select ``Graduated`` from the drop-down menu. As we are looking to create a population density map, we want to assign different color to each census tract feature based on the population density. We have the population in the **HD01_VD01** field, but we don't have population density in any fields to select as the :guilabel:`Value`. Fortunately, QGIS allows us to input an expression here. Click :guilabel:`Expression` button.
 
   .. image:: /static/3/performing_table_joins/images/18.png
      :align: center
 
-19. A good practice in any GIS analysis is to validate your results. To check our work, we can run some simple queries on the output layer to make sure the results are correct. Go to :menuselection:`Database --> DB Manager...`.
+.. note::
+
+  When creating a thematic (choropleth) map such as this, it is important to normalize the values you are mapping. Mapping total counts per polygon is not correct. It is important to normalize the values dividing by the area. If you are displaying totals such as crime, you can normalize them by diving by total population, thus mapping crime rate and not crime. `Learn more <https://en.wikipedia.org/wiki/Choropleth_map#Normalization>`_
+  
+19. Enter the following expression to calculate the population density. ``$area`` calculates the area of the feature in square meters. We then convert it to square miles and calculate the population density with the formula *Population/Area*. Click :guilabel:`OK`.
+
+  .. code-block:: sql
+
+    "HD01_VD01"/ (0.386*$area/1e6)
 
   .. image:: /static/3/performing_table_joins/images/19.png
      :align: center
 
-20. All layers loaded in QGIS are available as *Virtual Layers* that can be queried using SQL without loading them into a separate database. This add a lot of useful functionality by enabling spatial and non-spatial SQL queries via SQLite engine and the `Spatialite library <https://www.gaia-gis.it/fossil/libspatialite/index>`_. Locate the output layer from :menuselection:`Virtual Layers --> Project layers --> joined`` and select it. Click the :guilabel:`SQL Window` button.
+20. Back in the :guilabel:`Layer Styling Panel`, choose a color ramp of your choice and click :guilabel:`Classify`. You can adjust the class ranges to be more appropriate to the region.
 
   .. image:: /static/3/performing_table_joins/images/20.png
      :align: center
-   
-21. Type the following query that sums the ``HD01_VD01`` field to count the total population of the state. Enter the query in the :guilabel:`Query` tab and click :guilabel:`Execute`. The result will appear in the bottom panel. You can verify that the result matches the `population of California <https://en.wikipedia.org/wiki/California>`_.
-
-  .. code-block:: sql
-  
-    select sum(HD01_VD01) as population from joined 
+     
+21. The visualization feels a bit cluttered because of the polygon borders. Click on the dropdown next to :guilabel:`Symbol`. Select :guilabel:`Simple fill` and check :guilabel:`Transparent stroke`.
 
   .. image:: /static/3/performing_table_joins/images/21.png
      :align: center
-   
-22. SQL queries are also well-suited to perform group statistics. Here's a query that sums the population field but adds a ``group by`` clause to group all census tracts by county and create a table of total population by county. The query also sorts the result by population. We can also cross-verify that the county with FIPS id ``037`` (Los Angeles County) is the `most populated county in california <https://en.wikipedia.org/wiki/List_of_counties_in_California>`_ . 
-
-  .. code-block:: sql
-    
-    select COUNTYFP as county, sum(HD01_VD01) as population 
-    from joined group by COUNTYFP order by population desc
+     
+22. Now we have a nice looking information visualization of population density in California.
 
   .. image:: /static/3/performing_table_joins/images/22.png
      :align: center
