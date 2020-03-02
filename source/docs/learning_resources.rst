@@ -45,5 +45,7 @@ Video Tutorials
 
 Online Courses
 --------------
+- I publish complete course materials for courses offered through my company Spatial Thoughts. See `Free Course Materials <https://courses.spatialthoughts.com/>`_.
+- `GeoAcademy <http://spatialquerylab.com/foss4g-academy-curriculum/>`_ offers free online courses and covers a full GIS curriculam using QGIS.
+- Allen Downey has an excellent introductory python course `Elements of Data Science <https://allendowney.github.io/ElementsOfDataScience/>`_ which is suited for complete beginners.
 
-- `GeoAcademy <http://fossgeo.org/>`_ offers 5 Free online courses and covers a full GIS curriculam using QGIS.
