@@ -229,7 +229,15 @@ Procedure
       from qgis.core import QgsProcessingAlgorithm, QgsApplication
       import processing
 
-    Scroll down and locate the ``initGui`` method. It only contains the code to initialize the processing provider. We will add the code to add a toolbar button and a menu item. We will also need to add code to the ``unload`` method, to remove these elements when plugin is removed.
+    Scroll down and modify the ``__init__()`` method to initialize iface.
+    
+    .. code-block:: python
+    
+       def __init__(self, iface):
+        self.provider = None
+        self.iface = iface
+        
+    Scroll down further and locate the ``initGui`` method. It only contains the code to initialize the processing provider. We will add the code to add a toolbar button and a menu item. We will also need to add code to the ``unload`` method, to remove these elements when plugin is removed.
   
     .. code-block:: python
   
