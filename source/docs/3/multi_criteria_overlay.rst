@@ -158,7 +158,7 @@ Procedure
   .. image:: /static/3/multi_criteria_overlay/images/20.png
     :align: center
 
-21. Once the re-classification process finishes, a new layer ``roads_proximity`` will be added to the :guilabel:`Layers` panel. This layer has only 3 different values, 10, 50 and 100 indicating relative suitability of the pixels with regards to distance from roads. Open :menuselection:`Raster analysis --> Raster calculator` algorithm again.
+21. Once the re-classification process finishes, a new layer ``roads_reclass`` will be added to the :guilabel:`Layers` panel. This layer has only 3 different values, 10, 50 and 100 indicating relative suitability of the pixels with regards to distance from roads. Open :menuselection:`Raster analysis --> Raster calculator` algorithm again.
 
   .. image:: /static/3/multi_criteria_overlay/images/21.png
     :align: center
