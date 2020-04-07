@@ -3,13 +3,17 @@
 # This file is distributed under the same license as the QGIS Tutorials and Tips package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 # 
+# Translators:
+# YoViajo, 2020
+# 
 #, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: QGIS Tutorials and Tips v1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-12-21 16:10+0000\n"
+"POT-Creation-Date: 2020-01-28 07:24+0000\n"
 "PO-Revision-Date: 2019-03-29 06:45+0000\n"
+"Last-Translator: YoViajo, 2020\n"
 "Language-Team: Spanish (https://www.transifex.com/spatialthoughts/teams/7952/es/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -19,7 +23,7 @@ msgstr ""
 
 #: ../../source/docs/3/custom_python_functions.rst:2
 msgid "Using Custom Python Expression Functions (QGIS3)"
-msgstr ""
+msgstr "Usando Funciones de Expresión Python Personalizadas (QGIS3)"
 
 #: ../../source/docs/3/custom_python_functions.rst:4
 msgid ""
@@ -29,10 +33,15 @@ msgid ""
 "programming, you can define your own functions that can be used within the "
 "expression engine."
 msgstr ""
+"Las expresiones en QGIS tiene bastante poder y son usadas en varias "
+"funcionalidades centrales: selección, cálculo de valores de campo, estilo, "
+"etiquetado, etc. QGIS también tiene soporte para expresiones definidas por "
+"el usuario. Con un poco de programación python, puedes definir tus propias "
+"funciones que pueden ser usadas dentro del motor de expresión."
 
 #: ../../source/docs/3/custom_python_functions.rst:7
 msgid "Overview of the task"
-msgstr ""
+msgstr "Vista general de la tarea"
 
 #: ../../source/docs/3/custom_python_functions.rst:9
 msgid ""
@@ -41,20 +50,26 @@ msgid ""
 "function to write an expression that displays the UTM zone as a map tip when"
 " hovered over the point."
 msgstr ""
+"Definiremos una función personalizada que encuentra el  `número de zona UTM "
+"<http://www.dmap.co.uk/utmworld.htm>`_ de una entidad de mapa y usaremos "
+"esta función para escribir un expresión que muestra la zona UTM como una "
+"nota de mapa cuando se pasa por encima del punto."
 
 #: ../../source/docs/3/custom_python_functions.rst:12
 msgid "Other skills you will learn"
-msgstr ""
+msgstr "Otras habilidades que aprenderá"
 
 #: ../../source/docs/3/custom_python_functions.rst:14
 msgid ""
 "How to use the ``Map Tips`` tool to display custom text when hovering over a"
 " feature."
 msgstr ""
+"Como usar la herramienta ``Notas de Mapa`` para mostrar texto personalizado "
+"cuando se pasa por encima de una entidad."
 
 #: ../../source/docs/3/custom_python_functions.rst:17
 msgid "Get the data"
-msgstr ""
+msgstr "Obtener los datos"
 
 #: ../../source/docs/3/custom_python_functions.rst:19
 msgid ""
@@ -63,10 +78,15 @@ msgid ""
 "populated-places/>`__ dataset. Download the `simple (less columns) dataset "
 "<http://www.naturalearthdata.com/http//www.naturalearthdata.com/download/10m/cultural/ne_10m_populated_places_simple.zip>`__"
 msgstr ""
+"Usaremos el conjunto de datos `Lugares Poblados "
+"<http://www.naturalearthdata.com/downloads/10m-cultural-vectors/10m-"
+"populated-places/>`__ de Natural Earth. Descargue el `conjunto de datos "
+"simple (menos columnas)  "
+"<http://www.naturalearthdata.com/http//www.naturalearthdata.com/download/10m/cultural/ne_10m_populated_places_simple.zip>`__"
 
 #: ../../source/docs/3/custom_python_functions.rst:22
 msgid "Procedure"
-msgstr ""
+msgstr "Procedimiento"
 
 #: ../../source/docs/3/custom_python_functions.rst:24
 msgid ""
@@ -74,6 +94,9 @@ msgid ""
 "and expand it. Select the ``ne_10m_populated_places_simple.shp`` file and "
 "drag it to the canvas."
 msgstr ""
+"Ubique el archivo ``ne_10m_populated_places_simple.zip`` en el Navegador "
+"QGIS y expándalo. Seleccione el archivo "
+"``ne_10m_populated_places_simple.shp`` y arrástrelo a la pantalla. "
 
 #: ../../source/docs/3/custom_python_functions.rst:30
 msgid ""
@@ -81,6 +104,9 @@ msgid ""
 "or click the :guilabel:`Select features using an expression` button on the "
 ":guilabel:`Attributes Toolbar`."
 msgstr ""
+"Vaya a :menuselection:`Editar --> Seleccionar --> Seleccionar Entidades Por "
+"Expresión...` o clic en el botón :guilabel:`Seleccionar entidades usando una"
+" expresión` en la :guilabel:`Barra de Herramientas Atributos`."
 
 #: ../../source/docs/3/custom_python_functions.rst:36
 msgid ""
@@ -88,6 +114,9 @@ msgid ""
 ":guilabel:`Function Editor` tab. Here you can write any PyQGIS code that "
 "will be executed by the expression engine."
 msgstr ""
+"En el diálogo :guilabel:`Seleccionar por Expresión`, cambie a la pestaña "
+":guilabel:`Editor de Función`. Aquí podrás escribir cualquier código PyQGIS "
+"que será ejecutado por el motor de expresión."
 
 #: ../../source/docs/3/custom_python_functions.rst:41
 msgid ""
@@ -101,6 +130,16 @@ msgid ""
 "``utm_zones.py`` as the file name. You can click the :guilabel:`Help` label "
 "in the bottom panel to close it and expand the code panel."
 msgstr ""
+"Definiremos una función personalizada llamada ``GetUtmZone`` que calculará "
+"el número de zona UTM para cada entidad. Debido a que las funciones "
+"personalizadas en QGIS trabajan a nivel de entidad. Usaremos el centroide de"
+" la geometría de la entidad y calcularemos la Zona UTM a partir de la "
+"latitud y longitud de la geometría del centroide. También agregaremos una "
+"designación 'N' o 'S' a la zona para indicar si la zona está en el "
+"hemisferio norte o sur. Presione el botón :guilaber:`+` abajo a la izquierda"
+" de la pantalla y escriba ``utm_zones.py`` como el nombre de archivo. Puedes"
+" hacer clic en el :guilabel:`Help` en el panel de abajo para cerrar y "
+"expandir el panel de código."
 
 #: ../../source/docs/3/custom_python_functions.rst:46
 msgid ""
@@ -112,6 +151,13 @@ msgid ""
 " Type the following code into the editor window. When you are finished click"
 " :guilabel:`Save and Load Functions`."
 msgstr ""
+"Las Zonas UTm son una proyección longitudinal numerada de 1 a 60. Cada zona "
+"UTM tiene un ancho de 6 grados. Aquí usaremos una fórmula matemática para "
+"encontrar la zona apropiada para un valor dado de longitud. Esta fórmula "
+"funciona para todas excepto una pocas `zonas UTM especiales "
+"<https://en.wikipedia.org/wiki/Universal_Transverse_Mercator_coordinate_system#Exceptions>`_."
+" Escriba el siguiente código en la ventana del editor. Cuando haya terminada"
+" clic en :guilabel:`Guardar y Cargar Funciones`."
 
 #: ../../source/docs/3/custom_python_functions.rst:74
 msgid ""
@@ -120,6 +166,11 @@ msgid ""
 ":menuselection:`Settings --> User Profiles --> Open Active Profile Folder` "
 "and delete the file from :menuselection:`python --> expressions`."
 msgstr ""
+"Actualmente no hay manera de borrar un archivo de expresión desde el IGU. Si"
+" desea borrar el archivo ``utm_zone.py``, puede ir a "
+":menuselection:`Configuración --> Perfiles de Usuario --> Abrir Carpeta de "
+"Perfil Activo` y borrar el archivo desde :menuselection:`python --> "
+"expresiones`."
 
 #: ../../source/docs/3/custom_python_functions.rst:77
 msgid ""
@@ -132,12 +183,23 @@ msgid ""
 " and the map will change, if you click :guilabel:`Select Features` you "
 "should see the points in UTM zone 33N change colour to yellow."
 msgstr ""
+"Cambie a la pestaña Expresión en el diálogo Seleccionar por expresión. "
+"Encuentre y expanda el grupo :guilabel:`Personalizado` en la sección "
+"Funciones. Notará una nueva función personalizada ``GetUtmZone`` en la "
+"lista. Ahora podemos usar esta función en las expresiones justo como "
+"cualquier otra función. Escriba la siguiente expresión en el editor. Esta "
+"expresión seleccionará todos los puntos que caen en la Zona UTM ``33N``. "
+"Clic :guilabel:`Acercamiento a Entidades` y el mapa cambiará, si haces clic "
+"en :guilabel:`Seleccionar Entidades` deberías ver cambiar los puntos en la "
+"zona UTM 33N a amarillo."
 
 #: ../../source/docs/3/custom_python_functions.rst:88
 msgid ""
 "Due to a bug, this feature did not work in earlier versions of QGIS 3. It "
 "has been fixed from version 3.4.5 onwards."
 msgstr ""
+"Debido a un error, esta funcionalidad no trabajaba en versiones previas a "
+"QGIS3. Ha sido corregida desde la versión 3.4.5 en adelante."
 
 #: ../../source/docs/3/custom_python_functions.rst:90
 msgid ""
@@ -145,6 +207,9 @@ msgid ""
 "yellow. These are the points falling in the UTM Zone we specified in the "
 "expression."
 msgstr ""
+"De vuelta en la ventana principal QGIS, debería ver algunos puntos "
+"resaltados en amarillo. Estos son puntos que caen en la Zona UTM que "
+"especificamos en la expresión."
 
 #: ../../source/docs/3/custom_python_functions.rst:95
 msgid ""
@@ -154,6 +219,12 @@ msgid ""
 "text when you hover over a feature. Right-click the "
 "``ne_10m_populated_places_simple`` layer and select Properties."
 msgstr ""
+"Usted vio como definimos y usamos una función para seleccionar entidades por"
+" expresión. Ahora usaremos la misma función en otro contexto. Una de las "
+"gemas escondidas en QGIS es la herramienta **Aviso de Mapa**. Esta "
+"herramienta muestra texto definido por el usuario cuando pasas por encima de"
+" una entidad. Clic-derecho en la capa ``ne_10m_populated_places_simple`` y "
+"seleccione Propiedades."
 
 #: ../../source/docs/3/custom_python_functions.rst:100
 msgid ""
@@ -162,6 +233,10 @@ msgid ""
 "can use layer field values and expressions to define a much more useful "
 "message. Click on the :guilabel:`Ɛ` button."
 msgstr ""
+"Cambie a la pestaña Despliegue. Aquí puede ingresar cualquier texto que será"
+" mostrado cuando pase por encima de las entidades de la capa. Aún mejor, "
+"puede usar los valores o expresiones de un campo de la capa para definir un "
+"mensaje mucho más útil. Clic sobre el botón :guilabel:`Ɛ`."
 
 #: ../../source/docs/3/custom_python_functions.rst:105
 msgid ""
@@ -170,12 +245,19 @@ msgid ""
 "of our custom function ``GetUtmZone``. Enter the following expression and "
 "click :guilabel:`OK`."
 msgstr ""
+"Verá de nuevo el familiar editor de expresión. Usaremos la función "
+"``concat`` para unir el valor del campo ``name`` y el resultado de nuestra "
+"función ``GetUtmZone``. Ingrese la siguiente expresión y clic "
+":guilabel:`Aceptar`."
 
 #: ../../source/docs/3/custom_python_functions.rst:114
 msgid ""
 "You will see the expression entered as the value of the Display text. Click "
 ":guilabel:`Insert` to add it to the HTML box and then press :guilabel:`OK`."
 msgstr ""
+"Verá la expresión ingresada como el valor del texto Despliegue. Clic en "
+":guilabel:`Insert` para agregarlo a la caja HTML y luego presiona "
+":guilabel:`Aceptar`."
 
 #: ../../source/docs/3/custom_python_functions.rst:119
 msgid ""
@@ -184,6 +266,11 @@ msgid ""
 "From All Layers` or click the :guilabel:`Deselect Features From All Layers` "
 "button on the :guilabel:`Attribute Toolbar`."
 msgstr ""
+"Antes que procedamos, deseleccionemos las entidades que fueron seleccionadas"
+" en el paso previo. Vaya a :menuselection:`Editar --> Seleccionar --> "
+"Deseleccionar Entidades de Todas las Capas` o clic al botón  "
+":guilabel:`Deseleccionar Entidades de Todas las Capas` en la "
+":guilabel:`Barra de Herramientas de Atributo`."
 
 #: ../../source/docs/3/custom_python_functions.rst:124
 msgid ""
@@ -191,6 +278,9 @@ msgid ""
 "Tips` or clicking the :guilabel:`Show Map Tips` button on the "
 ":guilabel:`Attributes Toolbar`."
 msgstr ""
+"Active la herramienta ``Avisos de Mapa`` yendo a :menuselection:`Vista --> "
+"Avisos de Mapa` o haciendo clic en el botón :guilabel:`Mostrar Avisos de "
+"Mapa` en la :guilabel:`Barra de Herramientas de Atributos`."
 
 #: ../../source/docs/3/custom_python_functions.rst:129
 msgid ""
@@ -198,3 +288,6 @@ msgid ""
 "You will see the name of the city and corresponding UTM zone displayed as "
 "the map tip."
 msgstr ""
+"Acérquese a cualquier área del mapa y ponga el cursor del ratón sobre "
+"cualquier entidad. Verá el nombre de la ciudad y la zona UTM correspondiente"
+" mostradas como el aviso del mapa."
