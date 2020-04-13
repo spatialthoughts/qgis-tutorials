@@ -62,7 +62,7 @@ Procedure
 
   The *Add Geometry Attribute* tool adds different set of attributes depending on whether the input layer is points, lines or polygons. See `QGIS documentation <https://docs.qgis.org/testing/en/docs/user_manual/processing_algs/qgis/vectorgeometry.html#add-geometry-attributes>`_ for more details.
 
-6. In the :guilabel:`Attribute Table`, you will see a new column called **distance**. This contains the length of each line feature in *meters*. Also note that the **sov_a3** attribute which contains the contry code for each feature. Close the :guilabel:`Attribute Table` window.
+6. In the :guilabel:`Attribute Table`, you will see a new column called **distance**. This contains the length of each line feature in *meters*. Also note that the **sov_a3** attribute which contains the country code for each feature. Close the :guilabel:`Attribute Table` window.
 
   .. image:: /static/3/calculating_line_lengths/images/6.png
      :align: center

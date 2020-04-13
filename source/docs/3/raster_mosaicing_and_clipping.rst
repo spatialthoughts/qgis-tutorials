@@ -103,7 +103,7 @@ Procedure
   .. image:: /static/3/raster_mosaicing_and_clipping/images/9.png
      :align: center
    
-10. Select the newly added ``ne_10m_admin_0_countries`` layers in the :guilabel:`Layers` panel. Click the :guilabel:`Select Features by area of  single click` button on the :guilabel:`Attributes Toolbar`. Once selected, click the polygon for Sri Lanka to select it.
+10. Select the newly added ``ne_10m_admin_0_countries`` layers in the :guilabel:`Layers` panel. Click the :guilabel:`Select Features by area or single click` button on the :guilabel:`Attributes Toolbar`. Once selected, click the polygon for Sri Lanka to select it.
 
   .. image:: /static/3/raster_mosaicing_and_clipping/images/10.png
      :align: center
