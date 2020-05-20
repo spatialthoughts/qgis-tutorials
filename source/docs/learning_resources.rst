@@ -7,45 +7,31 @@ GIS techniques. Here are a few selected external resources.
 
 Official Documentation
 ----------------------
-- `QGIS 2.0 Documentation
-  <http://www.qgis.org/en/docs/index.html#documentation-for-qgis-2-0>`_
+- `QGIS User Guide 
+  <https://docs.qgis.org/testing/en/docs/user_manual/>`_
 - `A Gentle Introduction to GIS
-  <http://docs.qgis.org/2.2/en/docs/gentle_gis_introduction>`_
-- `The QGIS Training Manual <http://docs.qgis.org/2.8/en/docs/training_manual/>`_
-
-Training Manual
----------------
-- `GIS Practicum - Introduction to GIS Using Open Source Software
-  <https://www.baruch.cuny.edu/confluence/display/geoportal/GIS+Practicum>`_ by
-  Frank Donnelly, Baruch College CUNY
+  <https://docs.qgis.org/testing/en/docs/gentle_gis_introduction/>`_
+- `The QGIS Training Manual <https://docs.qgis.org/testing/en/docs/training_manual/>`_
 
 Books
 -----
-- Graser, Anita `Learning QGIS 2.0
-  <http://www.packtpub.com/learning-qgis-2-0-to-create-maps-and-perform-geoprocessing-tasks/book>`_,
-  Packt Publishing, 2013
-- Kurt Menke, GISP, Dr. Richard Smith Jr., GISP, Dr. Luigi Pirelli, Dr. John Van Hoesen, GISP `Mastering QGIS <https://www.packtpub.com/application-development/mastering-qgis>`_, Packt Publishing, 2015
-- Sherman, Gary `The PyQGIS Programmer's Guide <https://locatepress.com/ppg>`_,
-  Locate Press, 2014
+- `Discover QGIS 3.x <https://locatepress.com/dq3>`_ by Kurt Menke
+- `QGIS Map Design <https://locatepress.com/qmd2>`_ by  Anita Graser and Gretchen N. Peterson
+- `QGIS for Hydrological Applications <https://locatepress.com/hyd>`_ by by Hans van der Kwast and Kurt Menke
+
 
 Blogs and Online Resources
 --------------------------
 - `Nathan's QGIS Blog <http://nathanw.net/>`_
 - `Free and Open Source GIS Ramblings <http://anitagraser.com/>`_
 - `Mapping, GIS, QGIS & MapBasic <http://nyalldawson.net/>`_
-- `PyQGIS Cheat Sheet by Fran Raga <https://github.com/All4Gis/QGIS-cheat-sheet/blob/master/QGIS3.md>`_
 
 Video Tutorials
 ---------------
-
 - `QGIS Uncovered <https://www.youtube.com/channel/UCrBM8Ka8HhDAYvQY1VX2P0w/videos>`_ by Steven Bernard 
-- `MangoMap QGIS Video Tutorials <http://qgis-tutorials.mangomap.com/>`_
-- `QGIS under 10 minutes <https://www.youtube.com/channel/UCjG-0L40prQXtCS_E525aCw>`_
-  by VisionZ
+- `Klas Karlsson's YouTube channel <https://www.youtube.com/channel/UCxs7cfMwzgGZhtUuwhny4-Q>`_
+- `Hans van der Kwast's YouTube channel <https://www.youtube.com/channel/UCHGe8ccP2z2wHQa6B04m4Lg>`_
 
 Online Courses
 --------------
-- I publish complete course materials for courses offered through my company Spatial Thoughts. See `Free Course Materials <https://courses.spatialthoughts.com/>`_.
-- `GeoAcademy <http://spatialquerylab.com/foss4g-academy-curriculum/>`_ offers free online courses and covers a full GIS curriculam using QGIS.
-- Allen Downey has an excellent introductory python course `Elements of Data Science <https://allendowney.github.io/ElementsOfDataScience/>`_ which is suited for complete beginners.
-
+- Spatial Thoughts's QGIS.org certified `online courses <https://spatialthoughts.com/courses/>`_. 
