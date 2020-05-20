@@ -34,4 +34,4 @@ Video Tutorials
 
 Online Courses
 --------------
-- Spatial Thoughts's QGIS.org certified `online courses <https://spatialthoughts.com/courses/>`_. 
+- My company - Spatial Thoughts - offers `Online courses with QGIS.org certification <https://spatialthoughts.com/courses/>`_. 
