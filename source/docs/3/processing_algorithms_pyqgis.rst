@@ -48,6 +48,10 @@ Procedure
 
   .. image:: /static/3/processing_algorithms_pyqgis/images/2.png
      :align: center
+
+.. note::
+
+  The unzip step is important because the Zonal Statistics algorithm works by adding a new field to the layer. If the layer is zipped, QGIS cannot update the layer.
      
 3. Right-click the ``Zip_Codes`` layer and select :guilabel:`Zoom to Layer`. You will see the zip code polygons for the city of seattle and neighboring areas. 
 
