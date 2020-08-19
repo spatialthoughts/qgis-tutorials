@@ -40,7 +40,6 @@ QGIS Tutorials and Tips
    - :doc:`docs/3/origin_destination_matrix`
    - :doc:`docs/3/service_area_analysis`
 * Python Scripting (PyQGIS)
-   - **new!** |pyqgis_in_a_day| |nearrow|
    - :doc:`docs/3/getting_started_with_pyqgis`
    - :doc:`docs/3/processing_algorithms_pyqgis`
    - :doc:`docs/3/building_a_python_plugin`
@@ -57,15 +56,11 @@ QGIS Tutorials and Tips
    - :doc:`docs/learning_resources`
    - :doc:`docs/credits`
 
-Want more QGIS Tips and Tricks? See |blog| |nearrow|.
+What next? Hungry for more QGIS materials? Work through my full length QGIS courses completely free. See |courses| |nearrow|.
 
-.. |pyqgis_in_a_day| raw:: html
+.. |courses| raw:: html
 
-   <a href="https://courses.spatialthoughts.com/pyqgis-in-a-day.html" target="_blank">PyQGIS in a Day - Course Material</a>
-
-.. |blog| raw:: html
-
-   <a href="https://spatialthoughts.com/category/qgis/" target="_blank">Spatial Thoughts Blog</a>
+   <a href="https://courses.spatialthoughts.com/index.html" target="_blank">Spatial Thoughts OpenCourseWare</a>
 
 .. |nearrow| unicode:: U+2197 .. North East Arrow
    
