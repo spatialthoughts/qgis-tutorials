@@ -49,7 +49,7 @@ Procedure
 .. image:: /static/making_a_map/images/2.png
    :align: center
 
-3. You would see a lot of layers in the table of content and a styled world map
+3. You would see a lot of layers in the table of content and a styled World map
    in the QGIS canvas. If you see errors displayed at the top of the canvas,
    click on the cross to close it.
 

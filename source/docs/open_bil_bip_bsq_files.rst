@@ -94,7 +94,7 @@ Procedure
    easy to understand. The **ncols** and **nrows** come from the metadata as the
    Number of Lines and Number of Pixels per Line. The **cellsize** is 1 as the
    Pixel resolution from the metadata. The X,Y coordinate of lower-left corner
-   needs to be worked out by us. Since the file covers the entire world and
+   needs to be worked out by us. Since the file covers the entire World and
    units are lat/long, **xllcorner** and **yllcorner** are -180 and -90
    respectively. We do not have any information about the nodata_value, so -9999
    is a safe bet. From metadata again, Pixel Format is Byte, so **nbits** will

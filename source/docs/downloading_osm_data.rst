@@ -43,7 +43,7 @@ Procedure
 .. image:: /static/downloading_osm_data/images/3.png
    :align: center
 
-4. You will see a world map loaded in QGIS.
+4. You will see a World map loaded in QGIS.
 
 .. note::
 

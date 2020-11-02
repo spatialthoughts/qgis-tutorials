@@ -2,7 +2,7 @@ Creating Basemaps with QTiles
 =============================
 
 Tiles have revolutionized the idea of web mapping and has given us fast and
-easy access to large datasets. Tiling schemes divide the world into small tiles
+easy access to large datasets. Tiling schemes divide the World into small tiles
 (typically 256 x 256 pixels) for each zoom level and pre-render datasets to
 these tiles. This way only a small fraction of a large dataset is served to the
 user at any given time - resulting in a map that can be zoomed or panned with
@@ -61,7 +61,7 @@ Procedure
    to start the process of rendering the tiles.
 
 .. note:: The number of tiles increase 4 times for every additional zoom level
-   and since our layer has an extend of the entire world - there will be millions
+   and since our layer has an extend of the entire World - there will be millions
    of tiles at higher zoom levels.
 
 .. image:: /static/creating_basemaps_with_qtiles/images/3.png

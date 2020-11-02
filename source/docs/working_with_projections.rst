@@ -172,7 +172,7 @@ Procedure
 .. image:: /static/working_with_projections/images/15.png
    :align: center
 
-16. Back in the main QGIS window, you will see the nice world map disappear.
+16. Back in the main QGIS window, you will see the nice World map disappear.
     This is because the Project CRS changed to
     ``North_America_Albers_Equal_Area_Conic`` and the coordinates and scale are
     different now. Right-click the ``united_states`` layer and select
