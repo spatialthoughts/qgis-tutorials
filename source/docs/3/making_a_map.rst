@@ -51,7 +51,7 @@ Procedure
   .. image:: /static/3/making_a_map/images/4.png
      :align: center
   
-5. Use the pan and zoom controls in the :guilabel:`Map Navigation Toolbar` and to zoom to Japan.
+5. Use the pan and zoom controls in the :guilabel:`Map Navigation Toolbar` and zoom to Japan.
 
   .. image:: /static/3/making_a_map/images/5.png
      :align: center
@@ -110,7 +110,7 @@ Procedure
   .. image:: /static/3/making_a_map/images/13.png
      :align: center
 
-14. Switch to the main QGIS window. Turn off the layer group ``z5 - 1:18m`` and activate the ``z7 - 1: 4m`` group. This layer group has styling that is more appropriate for a zoomed-in view. Use the pan and zoom controls in the :guilabel:`Map Navigation Toolbar` and to zoom around Tokyo.
+14. Switch to the main QGIS window. Turn off the layer group ``z5 - 1:18m`` and activate the ``z7 - 1: 4m`` group. This layer group has styling that is more appropriate for a zoomed-in view. Use the pan and zoom controls in the :guilabel:`Map Navigation Toolbar` and zoom around Tokyo.
 
   .. image:: /static/3/making_a_map/images/14.png
      :align: center

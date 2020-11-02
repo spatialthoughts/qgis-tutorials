@@ -5,17 +5,17 @@ GIS data has two parts - features and attributes. Attributes are structured data
 Overview of the task
 --------------------
 
-The dataset for this tutorial contains information about populated places of the world. The task is to query and find all the capital cities in the world that have a population greater than 1 million and save the resulting subset as a GeoJSON file.
+The dataset for this tutorial contains information about populated places of the world. The task is to query and find all the capital cities in the World that have a population greater than 1 million and save the resulting subset as a GeoJSON file.
 
 Other skills you will learn
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^
 - Select features from a layer using expressions.
 - Using the :guilabel:`Attributes` toolbar.
-- Exporting selected features in a layer
+- Exporting selected features in a layer.
 
 Get the data
 ------------
-Natural Earth provides a `Populated Places <http://www.naturalearthdata.com/downloads/10m-cultural-vectors/10m-populated-places/>`_ dataset. Download the `simple (less columns) dataset <http://www.naturalearthdata.com/http//www.naturalearthdata.com/download/10m/cultural/ne_10m_populated_places_simple.zip>`_
+Natural Earth provides a `Populated Places <http://www.naturalearthdata.com/downloads/10m-cultural-vectors/10m-populated-places/>`_ dataset. Download the `simple (less columns) dataset <http://www.naturalearthdata.com/http//www.naturalearthdata.com/download/10m/cultural/ne_10m_populated_places_simple.zip>`_.
 
 For convenience, you may directly download a copy of datasets from the link below:
 
@@ -38,7 +38,7 @@ Procedure
 
 .. note::
 
-  If you do not see the toolbar, you can enable it from :menuselection:`View --> Toolbars --> Attributes Toolbar`
+  If you do not see the toolbar, you can enable it from :menuselection:`View --> Toolbars --> Attributes Toolbar`.
 
 3. Click the :guilabel:`Identify` button on the :guilabel:`Attributes Toolbar`. Once the tool is selected, click on any point on the canvas. The associated attributes of that point will be displayed in a new :guilabel:`Identify Results` panel. Once you are done exploring attributes of different points, you can click the :guilabel:`Close` button. 
 
@@ -88,7 +88,7 @@ Procedure
   .. image:: /static/3/working_with_attributes/images/10.png
      :align: center
 
-11. The field containing data about capitals is **adm0cap**. The value ``1`` indicates that the place is a capital. We can add this criteria to our previous expression using the *and* operator. Enter the expression as below and click :guilabel:`Select features` and then :guilabel:`Close`.
+11. The field containing data about capitals is **adm0cap**. The value ``1`` indicates that the place is a capital. We can add this criteria to our previous expression using the *and* operator. Enter the expression as below and click :guilabel:`Select Features` and then :guilabel:`Close`.
 
   .. code-block:: none
 

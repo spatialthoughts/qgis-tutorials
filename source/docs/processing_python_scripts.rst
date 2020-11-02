@@ -18,7 +18,7 @@ Overview of the task
 
 Our script will perform a dissolve operation based on a field chosen by the
 user. It will also sum up values of another field for the dissolved features.
-In the example, we will dissolve a world shapefile based on a ``SUBREGION``
+In the example, we will dissolve a World shapefile based on a ``SUBREGION``
 attribute and sum up ``POP_EST`` field to calculate total population in the
 dissolved region.
 

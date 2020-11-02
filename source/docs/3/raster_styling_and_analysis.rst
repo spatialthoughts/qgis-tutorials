@@ -107,7 +107,7 @@ Procedure
   .. image:: /static/3/raster_styling_and_analysis/images/14.png
     :align: center
     
-15. One option is to use the similar styling technique as earlier and choose a diverging color ramp. Click the :guilabel:`Color ramp` drop-down and select ``Spectral`` ramp. Click the dro-down again and choose ``Invert Color Ramp`` to assign blues to low values and reds to high values.
+15. One option is to use the similar styling technique as earlier and choose a diverging color ramp. Click the :guilabel:`Color ramp` drop-down and select ``Spectral`` ramp. Click the drop-down again and choose ``Invert Color Ramp`` to assign blues to low values and reds to high values.
 
   .. image:: /static/3/raster_styling_and_analysis/images/15.png
     :align: center
@@ -122,7 +122,7 @@ Procedure
   .. image:: /static/3/raster_styling_and_analysis/images/17.png
     :align: center
     
-18. Complete the color-map with suitable values. I chose ``100``, ``1000`` and ``100000`` as the upper-bounds for the ``Neutral``, ``Growth`` and ``High Growth`` categories respectively.
+18. Complete the color-map with suitable values. I chose ``100``, ``1000`` and ``100000`` as the upper-bounds for the ``Neutral``, ``Growth`` and ``High Growth`` categories respectively. Assign colors to each of created categories, for example beige, orange and red.
 
   .. image:: /static/3/raster_styling_and_analysis/images/18.png
     :align: center

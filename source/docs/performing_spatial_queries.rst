@@ -101,7 +101,7 @@ Procedure
 9. Now we must choose an appropriate CRS for our purpose. For creating buffers,
    a Azimuthal Equidistant projection would be best suited as radial distances
    around the center of the projection are accurate. In our case, since the
-   dataset is global, we will choose a world projection. In the
+   dataset is global, we will choose a World projection. In the
    :guilabel:`Coordinate Reference System Selector` dialog, start searching for
    `world az..` and you will see the results show up. Select the
    `World_Azimuthal_Equidistant` and click :guilabel:`OK`.

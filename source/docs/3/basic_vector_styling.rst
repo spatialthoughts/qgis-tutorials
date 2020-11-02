@@ -6,7 +6,7 @@ To create a map, one has to style the GIS data and present it in a form that is 
 Overview of the task
 --------------------
 
-We will take a CSV file containing the location of all power plants in the world and create a visualization showing distribution of renewable and non-renewable fuels used in these power plants.
+We will take a CSV file containing the location of all power plants in the World and create a visualization showing distribution of renewable and non-renewable fuels used in these power plants.
 
 Other skills you will learn
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -15,7 +15,7 @@ Other skills you will learn
 Get the data
 ------------
 
-`World Resources Institute <https://www.wri.org>`_ has compiled a comprehensive, open source database of power plants around the world covering over 30000 plants. Download the `The Global Power Plant Database <http://datasets.wri.org/dataset/globalpowerplantdatabase>`_ from the WRI Open Data Portal.
+`World Resources Institute <https://www.wri.org>`_ has compiled a comprehensive, open source database of power plants around the World covering over 30000 plants. Download the `The Global Power Plant Database <http://datasets.wri.org/dataset/globalpowerplantdatabase>`_ from the WRI Open Data Portal.
 
 `Natural Earth <http://naturalearthdata.com>`_ has several global vector
 layers. Download the `10m Physical Vectors - Land <https://www.naturalearthdata.com/http//www.naturalearthdata.com/download/10m/physical/ne_10m_land.zip>`_ containing Land polygons.
@@ -36,7 +36,7 @@ Procedure
   .. image:: /static/3/basic_vector_styling/images/1.png
      :align: center
      
-2. You will a new layer ``ne_10m_land`` added to the :guilabel:`Layers` panel. The global power plant database comes as a CSV file, so we will need to import it. Click the :guilabel:`Open Data Source Manager` button on the :guilabel:`Data Source Toolbar`. You can also use :kbd:`Ctrl + L` keyboard shortcut.
+2. You will get a new layer ``ne_10m_land`` added to the :guilabel:`Layers` panel. The global power plant database comes as a CSV file, so we will need to import it. Click the :guilabel:`Open Data Source Manager` button on the :guilabel:`Data Source Toolbar`. You can also use :kbd:`Ctrl + L` keyboard shortcut.
 
   .. image:: /static/3/basic_vector_styling/images/2.png
      :align: center
