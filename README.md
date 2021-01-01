@@ -14,11 +14,12 @@ The following instructions work for linux based systems. I prefer conda for envi
     git clone --depth 1 git@github.com:spatialthoughts/qgis-tutorials.git --no-single-branch 
     cd qgis-tutorials
 
-Create a new environment named 'sphinx' and install dependencies. Most dependencies for sphinx based system are not yet available in conda, so we install `pip` and use it instead. Do not rely on your system `pip` as it will do a global install and may break your other python environments.
+Create a new environment named 'sphinx' and install dependencies. Most dependencies for sphinx based system are not yet available in conda, so we install `pip` and use it instead. Do not rely on your system `pip` as it will do a global install and may break your other python environments. We also need `make` to build the source files.
 
 ```
 conda create --name sphinx
 conda install pip
+conda install make
 pip install -r requirements.txt
 ```
 
