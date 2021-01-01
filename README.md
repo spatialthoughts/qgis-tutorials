@@ -9,26 +9,39 @@ The website and PDFs are generated using [Sphinx](http://sphinx-doc.org) based o
 Building the QGIS Tutorials
 ---------------------------
 
-The following instructions work for linux based systems. If you are on Windows, you can use [Cygwin](http://cygwin.com/).
+The following instructions work for linux based systems. I prefer conda for environment management so the instructions use conda, but if you prefer virtualenv, you can use it instead
 
     git clone --depth 1 git@github.com:spatialthoughts/qgis-tutorials.git --no-single-branch 
     cd qgis-tutorials
-    pip install -r requirements.txt
+
+Create a new environment named 'sphinx' and install dependencies. Most dependencies for sphinx based system are not yet available in conda, so we install `pip` and use it instead. Do not rely on your system `pip` as it will do a global install and may break your other python environments.
+
+```
+conda create --name sphinx
+conda install pip
+pip install -r requirements.txt
+```
+
+[optional] Activate `transifex-client` with your API token. You need this only to pull new translations from transifex.
+
+```
+tx init
+```
 
 Then build:
 
     make html
-    
-This will generate HTML pages in build/html/ directory
 
-    make pdf
+This will generate HTML pages in build/html/ directory. Start a local HTTP server and preview them. Python comes with a built-in server that we can use
 
-This will generate PDF documents in build/pdf/ directory
+    python -m http.server
+
+A server will start on port 8000. Visit http://localhost:8000/build/html/en/ and preview the files.
 
 License
 -------
 
 All the tutorials are available under a [Creative Commons Attribution 4.0 International License](http://creativecommons.org/licenses/by/4.0/deed.en_US)
 
-Copyright 2014 Ujaval Gandhi
+Copyright 2021 Ujaval Gandhi
 
