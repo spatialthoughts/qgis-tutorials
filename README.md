@@ -18,6 +18,7 @@ Create a new environment named 'sphinx' and install dependencies. Most dependenc
 
 ```
 conda create --name sphinx
+conda activate sphinx
 conda install pip
 conda install make
 pip install -r requirements.txt
