@@ -9,7 +9,7 @@ The website and PDFs are generated using [Sphinx](http://sphinx-doc.org) based o
 Building the QGIS Tutorials
 ---------------------------
 
-The following instructions work for linux based systems. I prefer conda for environment management so the instructions use conda, but if you prefer virtualenv, you can use it instead
+The following instructions work for any system that runs conda. I prefer conda for environment management so the instructions use conda, but if you prefer virtualenv, you can use it instead as well.
 
     git clone --depth 1 git@github.com:spatialthoughts/qgis-tutorials.git --no-single-branch 
     cd qgis-tutorials
