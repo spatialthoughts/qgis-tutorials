@@ -27,7 +27,7 @@ pip install -r requirements.txt
 [optional] Activate `transifex-client` with your API token. You need this only to pull new translations from transifex.
 
 ```
-tx init
+tx config
 ```
 
 Then build:
