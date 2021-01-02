@@ -2,9 +2,9 @@
 
 This repository contains the source files for QGIS Tutorials and Tips at http://www.qgistutorials.com
 
-The website is generated using [Sphinx](http://sphinx-doc.org) based on [restructured text sources](http://docutils.sourceforge.net/rst.html)
+The website is generated using [Sphinx](http://sphinx-doc.org) and source files are written using [restructured text](http://docutils.sourceforge.net/rst.html)
 
-To contribute or update the tutorials, you must install Sphinx locally and build the HTML pages.
+To contribute or update the tutorials, you must install Sphinx locally, make changes to the `.rst` files, build the HTML pages and send a pull request.
 
 ## Install Dependencies
 
