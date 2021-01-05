@@ -1,7 +1,7 @@
-Animating Time Series Data (QGIS 3.16)
-======================================
+Animating Time Series Data (QGIS3)
+==================================
 
-Time is an important component of many spatial datasets. Along with location information, time providers another dimension for analysis and visualization of data. If you are working with dataset that contains timestamps or have observations recorded at multiple time-steps, you can easily visualize it using the **Temporal controler** only available from version 3.16. Temporal controler allows you to view and export 
+Time is an important component of many spatial datasets. Along with location information, time providers another dimension for analysis and visualization of data. If you are working with dataset that contains timestamps or have observations recorded at multiple time-steps, you can easily visualize it using the **Temporal controler** only available from version 3.14. Temporal controler allows you to view and export 
 'slices' of data between certain time intervals that can be combined into animations. 
 
 
@@ -74,7 +74,7 @@ Procedure
   .. image:: /static/3/animating_time_series/images/8.png
       :align: center
 
-9. Click on the ``Animated Temporal Navigation`` (play icon) to start the rendering. To increase the duration click ``Temporal Settings`` (yellow gear icon) and increase the input frame rate (frames per second).
+9. Click on the ``Animated Temporal Navigation`` (play icon) to start the animation. To increase the duration click ``Temporal Settings`` (yellow gear icon) and increase the input frame rate (frames per second).
 
   .. image:: /static/3/animating_time_series/images/9.png
       :align: center
@@ -94,7 +94,7 @@ Procedure
   .. image:: /static/3/animating_time_series/images/11.png
       :align: center 
 
-12. Select :guilabel:`font size` as 25, set :guilabel:`background bar colour` as ``White`` and set the transparency to ``50%``. In :guilabel:`Placement` choose ``Bottom Right``. Now click Ok.
+12. Select :guilabel:`font size` as ``25``, set :guilabel:`background bar colour` as ``White`` and set the transparency to ``50%``. In :guilabel:`Placement` choose ``Bottom Right``. Now click Ok.
 
   .. image:: /static/3/animating_time_series/images/12.png
       :align: center
