@@ -1,7 +1,7 @@
 Animating Time Series Data (QGIS3)
 ==================================
 
-Time is an important component of many spatial datasets. Along with location information, time providers another dimension for analysis and visualization of data. If you are working with dataset that contains timestamps or have observations recorded at multiple time-steps, you can easily visualize it using the **TimeManager** plugin in QGIS. TimeManager allows you to view and export 
+Time is an important component of many spatial datasets. Along with location information, time providers another dimension for analysis and visualization of data. If you are working with dataset that contains timestamps or have observations recorded at multiple time-steps, you can easily visualize it using the **Temporal controler** only available from version 3.14. Temporal controler allows you to view and export 
 'slices' of data between certain time intervals that can be combined into animations. 
 
 
@@ -30,14 +30,7 @@ For convenience, you may directly download a copy of the above layers from below
 
 Data Source: [NGA_MSI]_ [NATURALEARTH]_
 
-Setup
------
 
-Go to :menuselection:`Plugins --> Manage and Install Plugins...`. Search for and install the **TimeManager** plugin.
-
-.. image:: /static/3/animating_time_series/images/setup1.png
-   :align: center
-   
 Procedure
 ---------
 
@@ -61,101 +54,64 @@ Procedure
   .. image:: /static/3/animating_time_series/images/4.png
       :align: center
 
-5. Now let's animate this data to show the yearly map of piracy incidents. Go to :menuselection:`Plugins --> TimeManager --> Toggle visibility`.
+5. Now let’s animate this data to show the yearly map of piracy incidents. Right click on ``ASAM_event`` layer, and choose ``Properties``.
 
   .. image:: /static/3/animating_time_series/images/5.png
       :align: center
 
-6. In the :guilabel:`TimeManager` panel, click :guilabel:`Settings`.
+6. In the :guilabel:`Layer properties` dialog box, select the :guilabel:`Temporal` tab and enable it by clicking the checkbox..
 
   .. image:: /static/3/animating_time_series/images/6.png
       :align: center
 
-7. In the :guilabel:`Time manager settings` window, click :guilabel:`Add layer` button.
+7. The source data contains an attribute ``dateofocc`` - representing the date on which the incident took place. This is the field that will be used to determine the points that are rendered for each time period. Select ``Single Field with Data/Time`` in :guilabel:`Configuration` Drop down menu, ``dateofocc`` as :guilabel:`Field` and ``1 Year`` for :guilabel:`Event duration`.
 
   .. image:: /static/3/animating_time_series/images/7.png
       :align: center
 
-8. The source data contains an attribute ``dateofocc`` - representing the date on which the incident took place. This is the field that will be used by the plugin to determine the points that are rendered for each time period. Select ``ASAM_events`` as the :guilabel:`Layer` and ``dateofocc`` as the :guilabel:`Start time`. The :guilabel:`End time` should be set to ``Same as start``. Click :guilabel:`OK`.
+8. Now a clock symbol will appear next to the layer name. Click on the ``Temporal Control Panel`` (Clock icon) from Map Navigation Toolbar.
 
   .. image:: /static/3/animating_time_series/images/8.png
       :align: center
 
-9. Back in the :guilabel:`Time manager settings` window, click :guilabel:`OK`.
+9. Click on the ``Animated Temporal Navigation`` (play icon) to start the animation. To increase the duration click ``Temporal Settings`` (yellow gear icon) and increase the input frame rate (frames per second).
 
   .. image:: /static/3/animating_time_series/images/9.png
       :align: center
 
-10. Click the :guilabel:`Power` icon in the :guilabel:`TimeManager` panel to enable the plugin. Set the :guilabel:`Time frame size` to be ``1 years``. Once enabled, you will see a filter icon next to the ``ASAM_events`` layer. TimeManager works by applying a filter to the layer based on the selected field and specified time period. 
+10. To show the year of display, goto :menuselection:`View --> Decorations --> Title Label` Decorations. 
 
   .. image:: /static/3/animating_time_series/images/10.png
       :align: center
-
-.. note::
-
-  As TimeManager works by applying a filter on the layer, it only works with layer types that support this feature. Most data source types do support it - with a notable exception being temporary memory layers. If you had done some processing earlier and have a temporary layer, right-click and select :guilabel:`Make Permanent` before using TimeManager on that layer.
   
-11. Now you are ready to see the animation. Click the :guilabel:`Play` button to see the yearly piracy hotspot animation.
+11. Click the checkbox to enable it and click ``Insert an Expression`` button and enter the following expression to display the year.
 
-  .. image:: /static/3/animating_time_series/images/11.gif
-      :align: center
+.. code-block:: none
 
-12. You will notice that for each frame of the animation, a date is displayed at the bottom-right. Instead of the full date and time, let's change it to display the year that the map represents. Click :guilabel:`Settings` in the :guilabel:`Time Manager` panel. Click :guilabel:`Time display options` in the :guilabel:`Time manager settings` dialog.
+  format_date(@map_start_time, 'yyyy-MM-dd')
+.
+
+  .. image:: /static/3/animating_time_series/images/11.png
+      :align: center 
+
+12. Select :guilabel:`font size` as ``25``, set :guilabel:`background bar colour` as ``White`` and set the transparency to ``50%``. In :guilabel:`Placement` choose ``Bottom Right``. Now click Ok.
 
   .. image:: /static/3/animating_time_series/images/12.png
       :align: center
 
-13. Adjust the :guilabel:`Font Size` to ``25``. Change the :guilabel:`DateTime` format to ``%Y``. The time format should be specified in the `Python strftime <https://docs.python.org/3/library/datetime.html#strftime-and-strptime-behavior>`_ format. ``%Y`` is the short-code for a 4 digit year. Also you can change the :guilabel:`Placement direction` to ``NW``. Click :guilabel:`OK`.
+13. Once the parameters are set accordingly, the year will display as shown. To export these as images and convert them as GIF select the ``Export Animation`` (save icon) in the Temporal control window.
 
   .. image:: /static/3/animating_time_series/images/13.png
       :align: center
 
-14. Back in :guilabel:`Time manager settings` dialog, check the :guilabel:`Looping animation` checkbox. This helps when you are making changes to styling and adjusting styling to make the animation continue playing back from start. Click :guilabel:`OK`.
+14. Choose the directory to save the images and select the :menuselection:`Calculate from Layer --> ne_10_land` for map extent. Click save
 
   .. image:: /static/3/animating_time_series/images/14.png
       :align: center
 
-15. Now if you replay the animation, you will see the label will show the year of the animation in the top-left corner. At this point, we can export the animation, but there is one more change that we can apply to make our map better. The default map projection is ``EPSG:4326`` which is ok for storing the source data, but not ideal for global visualization like this. I really like the `Equal Earth Projection <http://equal-earth.com/equal-earth-projection.html>`_ for a visually pleasing and more accurate representation of the world. It is a fairly new projection and not yet available as a predefined option in QGIS. But there is an easy way to use it in QGIS by defining a custom projection. Go to :menuselection:`Settings --> Custom Projections...`.
+15. Once the export finishes, you will see PNG images for each year in the output directory. Now let’s create an animated GIF from these images. There are many options for creating animations from individual image frames. I like `ezgif <http://ezgif.com>`_ for an easy and online tool. Visit the site and click Choose Files and select all the .png files. You may want to sort the images by Type to allow easy bulk selection of only .png files. Once selected, click the Upload and make a GIF! button.
 
-  .. image:: /static/3/animating_time_series/images/15.png
+  .. image:: /static/3/animating_time_series/images/15.gif
       :align: center
 
-16. In the :guilabel:`Custom Coordinate Reference System Definition` dialog, click the :guilabel:`+` button. Enter ``Equal Earth`` as the :guilabel:`name`. Enter the following definition in the :guilabel:`Parameters` box. The parameters need to be specified in the `PROJ format <https://proj.org/operations/projections/eqearth.html>`_. After entering the parameters, click :guilabel:`OK`.
-
-  .. code-block:: none
-
-    +proj=eqearth +datum=WGS84 +wktext
-
-  .. image:: /static/3/animating_time_series/images/16.png
-      :align: center
-  
-17. In the main QGIS window, click the :guilabel:`Current CRS` display on the bottom-right corner.
-
-  .. image:: /static/3/animating_time_series/images/17.png
-      :align: center
-
-18. Search for ``Equal Earth`` to find and select the newly defined projection. Click :guilabel:`OK`.
-
-  .. image:: /static/3/animating_time_series/images/18.png
-      :align: center
-
-19. You will see the map transform to the Equal Earth projection. Now we are ready to export the animation. Before exporting, make sure to set the time-slider in the :guilabel:`Time Manager` panel to the start position. Export of the animation will start from the current position of the time slider. Click :guilabel:`Export Video` button in the :guilabel:`Time Manager` panel.
-
-  .. image:: /static/3/animating_time_series/images/19.png
-      :align: center
-
-20. In the :guilabel:`Export Video dialog`, click :guilabel:`Select output folder` and select a directory on your computer. Select the :guilabel:`Frames only` option and click :guilabel:`OK` to start the export process.
-
-  .. image:: /static/3/animating_time_series/images/20.png
-      :align: center
-
-21. Once the export finishes, you will see PNG images for each year in the output directory. Now let's create an animated GIF from these images. There are many options for creating animations from individual image frames. I like `ezgif.com <https://ezgif.com/maker>`_ for an easy and online tool. Visit the site and click :guilabel:`Choose Files` and select all the ``.png`` files. Note that the export folder will also have a ``.pgw`` file for each frame which contains the georeference information. You may want to sort the images by ``Type`` to allow easy bulk selection of only ``.png`` files. Once selected, click the :guilabel:`Upload and  make a GIF!` button.
-
-  .. image:: /static/3/animating_time_series/images/21.png
-      :align: center
-
-22. Once the process finishes, click the :guilabel:`Save` button to download the GIF to your computer.
-
-  .. image:: /static/3/animating_time_series/images/animation.gif
-      :align: center
 
