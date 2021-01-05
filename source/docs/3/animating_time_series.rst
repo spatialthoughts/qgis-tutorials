@@ -1,8 +1,7 @@
 Animating Time Series Data (QGIS3)
 ==================================
 
-Time is an important component of many spatial datasets. Along with location information, time providers another dimension for analysis and visualization of data. If you are working with dataset that contains timestamps or have observations recorded at multiple time-steps, you can easily visualize it using the **Temporal controler** only available from version 3.14. Temporal controler allows you to view and export 
-'slices' of data between certain time intervals that can be combined into animations. 
+Time is an important component of many spatial datasets. Along with location information, time providers another dimension for analysis and visualization of data. If you are working with dataset that contains timestamps or have observations recorded at multiple time-steps, you can easily visualize it using the **Temporal controler** only available from QGIS 3.14 onwards. Temporal controler allows you to view and export 'slices' of data between certain time intervals that can be combined into animations. 
 
 
 Overview of the task
@@ -74,25 +73,24 @@ Procedure
   .. image:: /static/3/animating_time_series/images/8.png
       :align: center
 
-9. Click on the ``Animated Temporal Navigation`` (play icon) to start the animation. To increase the duration click ``Temporal Settings`` (yellow gear icon) and increase the input frame rate (frames per second).
+9. Click on the ``Animated Temporal Navigation`` (play icon) to activate the animation controls. Click the :guilabel:`Set to Full Range` next to :guilabel:`Range` to atuomatically set the time range to the match the dataset. Next, set the :guilabel:`Step` to ``1`` ``years``. Now you are ready to preview the animation. Click the :guilabel:`Play` button to start the animation. If the animation is too fast, you can adjust the frame rate by clicking ``Temporal Settings`` (yellow gear icon). Decreasing the the frame rate (frames per second) will slow down the animation.
 
   .. image:: /static/3/animating_time_series/images/9.png
       :align: center
 
-10. To show the year of display, goto :menuselection:`View --> Decorations --> Title Label` Decorations. 
+10. It would be helpful to also display a label showing the current time frame on the map. We can do that using the built in Title decoration. Go to :menuselection:`View --> Decorations --> Title Label`.
 
   .. image:: /static/3/animating_time_series/images/10.png
       :align: center
   
-11. Click the checkbox to enable it and click ``Insert an Expression`` button and enter the following expression to display the year.
+11. Click the checkbox to enable it and click ``Insert an Expression`` button and enter the following expression to display the year. Here the variable ``@map_start_time`` contains the timestamp of the current time slice being displayed. So we can use that timestamp and format it to display it as a date.
 
-.. code-block:: none
+  .. code-block:: none
 
-  format_date(@map_start_time, 'yyyy-MM-dd')
-.
+     format_date(@map_start_time, 'yyyy-MM-dd')
 
   .. image:: /static/3/animating_time_series/images/11.png
-      :align: center 
+     :align: center 
 
 12. Select :guilabel:`font size` as ``25``, set :guilabel:`background bar colour` as ``White`` and set the transparency to ``50%``. In :guilabel:`Placement` choose ``Bottom Right``. Now click Ok.
 
@@ -104,7 +102,7 @@ Procedure
   .. image:: /static/3/animating_time_series/images/13.png
       :align: center
 
-14. Choose the directory to save the images and select the :menuselection:`Calculate from Layer --> ne_10_land` for map extent. Click save
+14. Choose the directory to save the images and for :guilabel:`Extent` using select the :menuselection:`Calculate from Layer --> ne_10_land` layer. Click save
 
   .. image:: /static/3/animating_time_series/images/14.png
       :align: center
