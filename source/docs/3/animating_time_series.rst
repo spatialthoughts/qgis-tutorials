@@ -63,7 +63,7 @@ Procedure
   .. image:: /static/3/animating_time_series/images/6.png
       :align: center
 
-7. The source data contains an attribute ``dateofocc`` - representing the date on which the incident took place. This is the field that will be used to determine the points that are rendered for each time period. Select ``Single Field with Data/Time`` in :guilabel:`Configuration` Drop down menu, ``dateofocc`` as :guilabel:`Field` and ``1 Year`` for :guilabel:`Event duration`.
+7. The source data contains an attribute ``dateofocc`` - representing the date on which the incident took place. This is the field that will be used to determine the points that are rendered for each time period. Select ``Single Field with Data/Time`` in :guilabel:`Configuration` Drop down menu, ``dateofocc`` as :guilabel:`Field`.
 
   .. image:: /static/3/animating_time_series/images/7.png
       :align: center
@@ -73,43 +73,61 @@ Procedure
   .. image:: /static/3/animating_time_series/images/8.png
       :align: center
 
-9. Click on the ``Animated Temporal Navigation`` (play icon) to activate the animation controls. Click the :guilabel:`Set to Full Range` next to :guilabel:`Range` to atuomatically set the time range to the match the dataset. Next, set the :guilabel:`Step` to ``1`` ``years``. Now you are ready to preview the animation. Click the :guilabel:`Play` button to start the animation. If the animation is too fast, you can adjust the frame rate by clicking ``Temporal Settings`` (yellow gear icon). Decreasing the the frame rate (frames per second) will slow down the animation.
+9. Click on the ``Animated Temporal Navigation`` (play icon) to activate the animation controls. Click the :guilabel:`Set to Full Range` (refresh icon) next to :guilabel:`Range` to atuomatically set the time range to the match the dataset. 
 
   .. image:: /static/3/animating_time_series/images/9.png
       :align: center
 
-10. It would be helpful to also display a label showing the current time frame on the map. We can do that using the built in Title decoration. Go to :menuselection:`View --> Decorations --> Title Label`.
+10. Now you are ready to preview the animation. Set the :guilabel:`Step` as ``1 Year`` then Click the :guilabel:`Play` button to start the animation. 
 
   .. image:: /static/3/animating_time_series/images/10.png
       :align: center
+
+.. note:: 
+  If the animation is too fast, you can adjust the frame rate by clicking ``Temporal Settings`` (yellow gear icon) at right end of Temporal Controller. Decreasing the the frame rate (frames per second) will slow down the animation.
+
+11. It would be helpful to also display a label showing the current time frame on the map. We can do that using the built in Title decoration. Go to :menuselection:`View --> Decorations --> Title Label`.
+
+  .. image:: /static/3/animating_time_series/images/11.png
+      :align: center
   
-11. Click the checkbox to enable it and click ``Insert an Expression`` button and enter the following expression to display the year. Here the variable ``@map_start_time`` contains the timestamp of the current time slice being displayed. So we can use that timestamp and format it to display it as a date.
+12. Click the checkbox to enable it and click ``Insert an Expression`` button and enter the following expression to display the year. Here the variable ``@map_start_time`` contains the timestamp of the current time slice being displayed. So we can use that timestamp and format it to display year of occurrence.
 
   .. code-block:: none
 
-     format_date(@map_start_time, 'yyyy-MM-dd')
-
-  .. image:: /static/3/animating_time_series/images/11.png
-     :align: center 
-
-12. Select :guilabel:`font size` as ``25``, set :guilabel:`background bar colour` as ``White`` and set the transparency to ``50%``. In :guilabel:`Placement` choose ``Bottom Right``. Now click Ok.
+     format_date(@map_start_time, 'yyyy')
 
   .. image:: /static/3/animating_time_series/images/12.png
-      :align: center
+     :align: center 
 
-13. Once the parameters are set accordingly, the year will display as shown. To export these as images and convert them as GIF select the ``Export Animation`` (save icon) in the Temporal control window.
+13. Select :guilabel:`font size` as ``25``, set :guilabel:`background bar colour` as ``White`` and set the transparency to ``50%``. In :guilabel:`Placement` choose ``Bottom Right``. Now click Ok.
 
   .. image:: /static/3/animating_time_series/images/13.png
       :align: center
 
-14. Choose the directory to save the images and for :guilabel:`Extent` using select the :menuselection:`Calculate from Layer --> ne_10_land` layer. Click save
+14. Once the parameters are set accordingly, the year will display as shown. To export these as images and convert them as GIF select the ``Export Animation`` (save icon) in the Temporal control window.
 
   .. image:: /static/3/animating_time_series/images/14.png
       :align: center
 
-15. Once the export finishes, you will see PNG images for each year in the output directory. Now let’s create an animated GIF from these images. There are many options for creating animations from individual image frames. I like `ezgif <http://ezgif.com>`_ for an easy and online tool. Visit the site and click Choose Files and select all the .png files. You may want to sort the images by Type to allow easy bulk selection of only .png files. Once selected, click the Upload and make a GIF! button.
+15. Click on the ``...`` :guilabel:`Output directory` to choose the directory at which the images will be saved.  :guilabel:`Extent` using select the :menuselection:`Calculate from Layer --> ne_10_land` layer. Click save
 
-  .. image:: /static/3/animating_time_series/images/15.gif
+  .. image:: /static/3/animating_time_series/images/15.png
+      :align: center
+
+16. Under the :guilabel:`Extent` select the :menuselection:`Calculate from Layer --> ne_10_land` layer. Click save
+
+  .. image:: /static/3/animating_time_series/images/16.png
+      :align: center
+
+17. Once the export finishes, you will see PNG images for each year(total 18 images) in the output directory. 
+
+  .. image:: /static/3/animating_time_series/images/17.png
+      :align: center
+
+18. Now let’s create an animated GIF from these images. There are many options for creating animations from individual image frames. I like `ezgif <http://ezgif.com>`_ for an easy and online tool. Visit the site and click Choose Files and select all the .png files. You may want to sort the images by Type to allow easy bulk selection of only .png files. Once selected, click the Upload and make a GIF! button.
+
+  .. image:: /static/3/animating_time_series/images/18.gif
       :align: center
 
 
