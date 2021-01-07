@@ -84,14 +84,14 @@ Procedure
       :align: center
 
 .. note:: 
-  If the animation is too fast, you can adjust the frame rate by clicking ``Temporal Settings`` (yellow gear icon) at right end of Temporal Controller. Decreasing the the frame rate (frames per second) will slow down the animation.
+  If the animation is too fast, you can adjust the frame rate by clicking ``Temporal Settings`` (yellow gear icon) at top-right corner of Temporal Controller panel. Decreasing the the frame rate (frames per second) will slow down the animation.
 
 11. It would be helpful to also display a label showing the current time frame on the map. We can do that using the built in Title decoration. Go to :menuselection:`View --> Decorations --> Title Label`.
 
   .. image:: /static/3/animating_time_series/images/11.png
       :align: center
   
-12. Click the checkbox to enable it and click ``Insert an Expression`` button and enter the following expression to display the year. Here the variable ``@map_start_time`` contains the timestamp of the current time slice being displayed. So we can use that timestamp and format it to display year of occurrence.
+12. Click the checkbox to enable it and click ``Insert an Expression`` button and enter the following expression to display the year. Here the variable ``@map_start_time`` contains the timestamp of the current time slice being displayed. So we can use that timestamp and format it to display year of occurrence. See the `QGIS Documentation <https://docs.qgis.org/testing/en/docs/user_manual/working_with_vector/functions_list.html#format-date>`_ for details on various supported formatting options for the timestamp.
 
   .. code-block:: none
 
@@ -110,7 +110,7 @@ Procedure
   .. image:: /static/3/animating_time_series/images/14.png
       :align: center
 
-15. Click on the ``...`` :guilabel:`Output directory` to choose the directory at which the images will be saved.  :guilabel:`Extent` using select the :menuselection:`Calculate from Layer --> ne_10_land` layer. Click save
+15. Click on the ``...`` :guilabel:`Output directory` to choose the directory at which the images will be saved. 
 
   .. image:: /static/3/animating_time_series/images/15.png
       :align: center
@@ -125,7 +125,7 @@ Procedure
   .. image:: /static/3/animating_time_series/images/17.png
       :align: center
 
-18. Now let’s create an animated GIF from these images. There are many options for creating animations from individual image frames. I like `ezgif <http://ezgif.com>`_ for an easy and online tool. Visit the site and click Choose Files and select all the .png files. You may want to sort the images by Type to allow easy bulk selection of only .png files. Once selected, click the Upload and make a GIF! button.
+18. Now let’s create an animated GIF from these images. There are many options for creating animations from individual image frames. I like `ezgif <https://ezgif.com/maker>`_ for an easy and online tool. Visit the site and click :guilabel:`Choose Files` and select all the .png files. Once selected, click the :guilabel:`Upload and make a GIF!` button. Once created, you can download the GIF using the :guilabel:`Save` button.
 
   .. image:: /static/3/animating_time_series/images/18.gif
       :align: center
