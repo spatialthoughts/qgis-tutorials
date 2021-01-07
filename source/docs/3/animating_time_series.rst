@@ -1,7 +1,11 @@
 Animating Time Series Data (QGIS3)
 ==================================
 
-Time is an important component of many spatial datasets. Along with location information, time providers another dimension for analysis and visualization of data. If you are working with dataset that contains timestamps or have observations recorded at multiple time-steps, you can easily visualize it using the **Temporal controler** only available from QGIS 3.14 onwards. Temporal controler allows you to view and export 'slices' of data between certain time intervals that can be combined into animations. 
+Time is an important component of many spatial datasets. Along with location information, time providers another dimension for analysis and visualization of data. If you are working with dataset that contains timestamps or have observations recorded at multiple time-steps, you can easily visualize it using the **Temporal controler**. Temporal controler allows you to view and export 'slices' of data between certain time intervals that can be combined into animations. 
+
+.. note::
+
+  Temporal Controller is available from QGIS 3.14 onwards. For older versions of QGIS, the **Time Manager plugin** provides a similar functionality.
 
 
 Overview of the task
