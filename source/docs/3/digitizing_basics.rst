@@ -102,10 +102,8 @@ Procedure
 .. image:: /static/3/digitizing_basics/images/7.png
    :align: center
 
-8. When creating a GIS layer, you must decide on the attributes that
-   each feature will have. Since this is a roads layer, we additionally will have 2 basic
-   attributes - Name and Class. In :guilabel:`New Field` Enter ``Name`` of the type :guilabel:`Text data`, with ``50`` as :guilabel:`Maximum length` and click
-   :guilabel:`Add to attribute list.` Now create a new attribute ``Class`` of the type :guilabel:`Text data`, with ``50`` as :guilabel:`Maximum length`. Click :guilabel:`OK` 
+8. When creating a GIS layer, you must decide on the attributes that each feature will have. Since this is a roads layer, we additionally will have 2 basic attributes - Name and Class. In :guilabel:`New Field` Enter ``Name`` of the type :guilabel:`Text data`, with ``50`` as :guilabel:`Maximum length` and click :guilabel:`Add to attribute list.` Now create a new attribute ``Class`` of the type :guilabel:`Text data`, with ``50`` as :guilabel:`Maximum length`. Click :guilabel:`OK`
+ 
 
 .. image:: /static/3/digitizing_basics/images/8.png
    :align: center
@@ -159,13 +157,13 @@ Procedure
    :align: center
 
 15. Before we digitize the remaining roads, it is important to update some other
-    snap settings that are important to create an error free layer. Right-click on the Panel :guilabel:`Snapping toolbar` 
+    snap settings that are important to create an error free layer. Right-click on any empty space on the toolbar area and activate the :guilabel:`Snapping toolbar` 
 
 .. image:: /static/3/digitizing_basics/images/15.png
    :align: center
 
-16. Now an :guilabel:`Enable Snapping`(Magnet Icon) will appear in the panel. 
-    Click on it to enable it and select :guilabel:` All Layers` and select ``Open Snapping Options..``. 
+16. Now an :guilabel:`Enable Snapping` (Magnet Icon) will appear in the panel. 
+    Click on it to enable it and select :guilabel:`All Layers` and select ``Open Snapping Options..``. 
 
 .. image:: /static/3/digitizing_basics/images/16.png
    :align: center
@@ -264,7 +262,7 @@ Procedure
 29. Digitizing buildings can be a cumbersome task. Also, it is difficult to add
     vertices manually so that the edges are perpendicular and form a rectangle.
     We will use a QGIS toolbar called **Shapes Digitizing** to help with
-    this task. Right-click on th panel and check the ``Shapes Digitizing Toolbar``. 
+    this task. Right-click on any empty space on the toolbar area and activate the ``Shapes Digitizing Toolbar``. 
 
 .. image:: /static/3/digitizing_basics/images/29.png
    :align: center
