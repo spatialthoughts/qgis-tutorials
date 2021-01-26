@@ -17,7 +17,7 @@ QGIS Tutorials and Tips
    - :doc:`docs/working_with_projections`
    - :doc:`docs/3/georeferencing_basics`
    - :doc:`docs/3/advanced_georeferencing`
-   - :doc:`docs/digitizing_basics`
+   - :doc:`docs/3/digitizing_basics`
    - :doc:`docs/3/downloading_osm_data`
 * Intermediate GIS operations
    - :doc:`docs/3/performing_table_joins`
