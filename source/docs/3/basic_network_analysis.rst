@@ -1,12 +1,12 @@
 Basic Network Visualization and Routing (QGIS3)
 ===============================================
 
-Creating, visualizing, and managing networks is an important part of GIS. Many types of physical infrastructure such as roads, railways, utilities can be modeled as networks with lines and nodes - with properties attached to them. In this tutorial, we will learn how road networks are commonly modeled and apply some styling techniques to visualize the routing properties. We will also use QGIS3's built-in tools for network analysis that to find shortest path between 2 points along the network.
+Creating, visualizing, and managing networks is an important part of GIS. Many types of physical infrastructure such as roads, railways, utilities can be modeled as networks with lines and nodes - with properties attached to them. In this tutorial, we will learn how road networks are commonly modeled and apply some styling techniques to visualize the routing properties. We will also use QGIS3's built-in tools for network analysis that to find the shortest path between 2 points along with the network.
 
 Overview of the task
 --------------------
 
-We will take a layer of road centerlines for Washington DC, visualize the connectivity and build a network to find shortest path between any 2 points in the city.
+We will take a layer of roadway block for Washington DC, visualize the connectivity and build a network to find shortest path between any 2 points in the city.
 
 Other skills you will learn
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -16,7 +16,7 @@ Get the data
 ------------
 District of Columbia government freely shares hundreds of datasets on the `Open Data Catalog <https://opendata.dc.gov/>`_. 
 
-Download the `Street Centerlines <https://opendata.dc.gov/datasets/street-centerlines>`_ shared by DCGISopendata data as a shapefile.
+Download the `Roadway Block <https://opendata.dc.gov/datasets/roadway-block>`_ shared by DCGISopendata data as a shapefile.
 
 .. image:: /static/3/basic_network_analysis/images/data1.png
   :align: center
@@ -24,7 +24,7 @@ Download the `Street Centerlines <https://opendata.dc.gov/datasets/street-center
 For convenience, you may directly download a copy of the datasets from the
 links below:
 
-`Street_Centerlines.zip <http://www.qgistutorials.com/downloads/Street_Centerlines.zip>`_
+`Roadway_Block-shp.zip <http://www.qgistutorials.com/downloads/Roadway_Block-shp.zip>`_
 
 Data Source: [DCOPENDATA]_
 
@@ -32,12 +32,12 @@ Data Source: [DCOPENDATA]_
 Procedure
 ---------
 
-1. Locate the downloaded ``Street_Centerlines.zip`` file in the :guilabel:`Browser` panel. Expand it and drag the ``Street_Centerlines.shp`` file to the canvas.
+1. Locate the downloaded ``Roadway_Block-shp.zip`` file in the :guilabel:`Browser` panel. Expand it and drag the ``Roadway_Block.shp`` file to the canvas.
 
   .. image:: /static/3/basic_network_analysis/images/1.png
     :align: center
   
-2. You will see a new line layer called ``Street_Centerlines`` added to the :guilabel:`Layers` panel. This layer represents each road in Washington DC. Select the :guilabel:`Identify` tool in the :guilabel:`Attributes Toolbar`. Click on any road segment to see what attributes are attached to it. There are standard attributes like road name, type etc. there is an attribute called ``DIRECTIONA``. This is an import attribute for routing as it specifies whether the segment is two-way or one-way. It contains 4 different values. ``Two Way`` for two-way streets. ``One Way (Digitizing direction)`` for one-way streets where the traffic is allowed in the direction of the line (start-point to end-point) and ``One way (Against digitizing direction)`` for one-way streets where the traffic flows in the opposite direction of the line. There is also ``Unknown`` value where we will assume two-way traffic. We will now use the information in that attribute to display an arrow on streets that are one-way.
+2. You will see a new line layer called ``Roadway_Block`` added to the :guilabel:`Layers` panel. This layer represents each road in Washington DC. Select the :guilabel:`Identify` tool in the :guilabel:`Attributes Toolbar`. Click on any road segment to see what attributes are attached to it. There are standard attributes like Route-name, Road-type etc. there is an attribute called ``SUMMARYDIR``. This is an import attribute for routing as it specifies whether the segment is two-way or one-way. It contains 4 different values. ``BD`` (Both Directions) for two-way streets. ``OB``  (Out Bound) for one-way streets where the traffic is allowed in the direction of the line (start-point to end-point) and ``IB`` (In Bound) for one-way streets where the traffic flows in the opposite direction of the line. There is also ``??`` value where we will assume two-way traffic. We will now use the information in that attribute to display an arrow on one-way streets.
 
   .. image:: /static/3/basic_network_analysis/images/2.png
     :align: center
@@ -57,7 +57,7 @@ Procedure
   .. image:: /static/3/basic_network_analysis/images/5.png
     :align: center
   
-6. In the :guilabel:`Expression string builder` dialog, expand the :guilabel:`Fields and Values` section in the middle-panel. Select ``DIRECTIONA`` attribute and click :guilabel:`All Unique` in the right-hand panel. The 4 values that we discussed earlier will appear. Having these values here as a reference helps when building the expression. Also, you can double-click on any value to add them to the expression.
+6. In the :guilabel:`Expression string builder` dialog, expand the :guilabel:`Fields and Values` section in the middle-panel. Select the ``SUMMARYDIR`` attribute and click :guilabel:`All Unique` in the right-hand panel. The 4 values that we discussed earlier will appear. Having these values here as a reference helps when building the expression. Also, you can double-click on any value to add them to the expression.
 
   .. image:: /static/3/basic_network_analysis/images/6.png
     :align: center
@@ -66,7 +66,7 @@ Procedure
 
   .. code-block:: none
 
-    "DIRECTIONA" = 'One way (Against digitizing direction)' OR  "DIRECTIONA" ='One Way (Digitizing direction)' 
+    "SUMMARYDIR" in ('IB', 'OB') 
   
   .. image:: /static/3/basic_network_analysis/images/7.png
     :align: center
@@ -91,21 +91,16 @@ Procedure
   .. image:: /static/3/basic_network_analysis/images/11.png
     :align: center
   
-12. We can put a conditional expression that returns different rotation value depending on the one-way direction. A simple 0 or 180 degree rotation works to account for the direction, but it works only for horizontal lines. To align the arrow-head perpendicular to all the lines - we need to account for the angle of the line in the expression as well. The ``angle_at_vertex`` function helps us find the angle and use it in the expression. Enter the following expression and click :guilabel:`OK`.
+12. We can put a conditional expression that returns different rotation values depending on the one-way direction. A 180° degree rotation for the road with opposite direction will make the direction perfect, In this, we will make the Roads with ``IB`` attribute rotate 180° hence all roads will have the correct traffic flow direction. Enter the following expression and click :guilabel:`OK`.
 
   .. code-block:: none
   
-    CASE 
-      WHEN "DIRECTIONA" =  'One Way (Digitizing direction)'
-        THEN angle_at_vertex($geometry, 1) - 90
-      WHEN "DIRECTIONA" =  'One way (Against digitizing direction)'
-        THEN angle_at_vertex($geometry, 1) - 90 + 180
-    END
+    if( "SUMMARYDIR" = 'IB', 180, 0)
  
   .. image:: /static/3/basic_network_analysis/images/12.png
     :align: center
   
-13. Now you will see the arrow-heads aligned to the correct road direction and angle. To keep the style uncluttered, we are choosing to display arrows only on one-way streets. Unlabeled streets are assumed to be two-way. Now that we have the network styled correctly, we can do some analysis. Go to :menuselection:`Processing --> Toolbox`.
+13. Now you will see the arrow-heads aligned to the correct road direction. To keep the style uncluttered, we are choosing to display arrows only on one-way streets. Unlabeled streets are assumed to be two-way. Now that we have the network styled correctly, we can do some analysis. Go to :menuselection:`Processing --> Toolbox`.
 
   .. image:: /static/3/basic_network_analysis/images/13.png
     :align: center
@@ -115,17 +110,17 @@ Procedure
   .. image:: /static/3/basic_network_analysis/images/14.png
     :align: center
   
-15. In the :guilabel:`Shortest Path (Point to Point)` dialog, select ``Street_Centerlines`` as the :guilabel:`Vector layer representing network`.  Keep the :guilabel:`Path type to calculate` as ``Shortest``. Next we need to pick a start and end point. You can click the :guilabel:`...` button and click on any point on the network in the canvas. If you want to replicate the results in this tutorial, you can enter ``-76.99730092166396,38.887624846748984`` as the :guilabel:`Start point` and ``-76.99154831062152,38.89151000569929`` as the :guilabel:`End point`. Expand the :guilabel:`Advanced parameter` section. Choose ``DIRECTIONA`` as the :guilabel:`Direction field`. You must be familiar with the one-way direction values for forward and backward traffic flow. Enter ``One Way (Digitizing direction)`` as the :guilabel:`Value for forward direction` and ``One way (Against digitizing direction)`` as the :guilabel:`Value for backward direction`. Keep other options to their default values and click :guilabel:`Run`.
+15. In the :guilabel:`Shortest Path (Point to Point)` dialog, select ``Roadway_Block`` as the :guilabel:`Vector layer representing network`.  Keep the :guilabel:`Path type to calculate` as ``Shortest``. Next, we need to pick a start and endpoint. You can click the :guilabel:`...` button and click on any point on the network in the canvas. If you want to replicate the results in this tutorial, you can enter ``-76.99730092166396,38.887624846748984`` as the :guilabel:`Start point` and ``-76.99154831062152,38.89151000569929`` as the :guilabel:`End point`. Expand the :guilabel:`Advanced parameter` section. Choose ``SUMMARYDIR`` as the :guilabel:`Direction field`. You must be familiar with the one-way direction values for the forward and backward traffic flow. Enter ``OB`` as the :guilabel:`Value for the forward direction` and ``IB`` as the :guilabel:`Value for the backward direction`. Keep other options to their default values and click :guilabel:`Run`.
 
   .. image:: /static/3/basic_network_analysis/images/15.png
     :align: center
   
-16. The algorithm will use the geometry of the layer and provided parameters to build a network graph. This graph is then used to find the shortest path between the start and end points. Once the algorithm finishes, you will see a new layer ``Shortest path`` added to the :guilabel:`Layers` panel that shows the shortest path between start and end points.
+16. The algorithm will use the geometry of the layer and provided parameters to build a network graph. This graph is then used to find the shortest path between the start and endpoints. Once the algorithm finishes, you will see a new layer ``Shortest path`` added to the :guilabel:`Layers` panel that shows the shortest path between start and endpoints.
 
   .. image:: /static/3/basic_network_analysis/images/16.png
     :align: center
   
-17. You will see that there are many possible paths between start and end points. But given the constraints of the network - such as one-ways, the result is the shortest possible path. It is always a good idea to validate your analysis and assumptions. One easy way to validate it is to use a third-party mapping service to see if their results match with the ones we derived. Here is the shortest path `suggested by Google Maps <https://goo.gl/maps/XwTXTkvuaCuteocr8>`_ between the same start and end points. As you can see the recommended shortest route matches exactly with our results - validating our analysis.
+17. You will see that there are many possible paths between start and endpoints. But given the constraints of the network - such as one-ways, the result is the shortest possible path. It is always a good idea to validate your analysis and assumptions. One easy way to validate it is to use a third-party mapping service to see if their results match with the ones we derived. Here is the shortest path `suggested by Google Maps <https://goo.gl/maps/XwTXTkvuaCuteocr8>`_ between the same start and endpoints. As you can see the recommended shortest route matches exactly with our results - validating our analysis.
 
   .. image:: /static/3/basic_network_analysis/images/17.png
     :align: center
