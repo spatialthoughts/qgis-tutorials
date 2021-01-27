@@ -21,6 +21,7 @@ source code via `github <https://github.com/spatialthoughts/qgis-tutorials>`_.
 
 Contributors
 ^^^^^^^^^^^^
+- `Santhosh M <mailto:santhoshm@spatialthoughts.com>`_ 
 - `Ian Turton <https://www.ianturton.com/>`_ 
 
 Translations
