@@ -37,7 +37,7 @@ Procedure
   .. image:: /static/3/basic_network_analysis/images/1.png
     :align: center
   
-2. You will see a new line layer called ``Roadway_Block`` added to the :guilabel:`Layers` panel. This layer represents each road in Washington DC. Select the :guilabel:`Identify` tool in the :guilabel:`Attributes Toolbar`. Click on any road segment to see what attributes are attached to it. There are standard attributes like Route-name, Road-type etc. there is an attribute called ``SUMMARYDIR``. This is an import attribute for routing as it specifies whether the segment is two-way or one-way. It contains 4 different values. ``BD`` (Both Directions) for two-way streets. ``OB``  (Digitizing direction) for one-way streets where the traffic is allowed in the direction of the line (start-point to end-point) and ``IB`` (Against digitizing direction) for one-way streets where the traffic flows in the opposite direction of the line. There is also ``?? `` value where we will assume two-way traffic. We will now use the information in that attribute to display an arrow on one-way streets.
+2. You will see a new line layer called ``Roadway_Block`` added to the :guilabel:`Layers` panel. This layer represents each road in Washington DC. Select the :guilabel:`Identify` tool in the :guilabel:`Attributes Toolbar`. Click on any road segment to see what attributes are attached to it. There are standard attributes like Route-name, Road-type etc. there is an attribute called ``SUMMARYDIR``. This is an import attribute for routing as it specifies whether the segment is two-way or one-way. It contains 4 different values. ``BD`` (Both Directions) for two-way streets. ``OB``  (Out Bound) for one-way streets where the traffic is allowed in the direction of the line (start-point to end-point) and ``IB`` (In Bound) for one-way streets where the traffic flows in the opposite direction of the line. There is also ``??`` value where we will assume two-way traffic. We will now use the information in that attribute to display an arrow on one-way streets.
 
   .. image:: /static/3/basic_network_analysis/images/2.png
     :align: center
@@ -65,6 +65,7 @@ Procedure
 7. The goal is to create an expression that selects all one-way streets. Enter the following expression and click :guilabel:`OK`.
 
   .. code-block:: none
+
     "SUMMARYDIR" in ('IB', 'OB') 
   
   .. image:: /static/3/basic_network_analysis/images/7.png
