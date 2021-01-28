@@ -14,9 +14,8 @@ We will take 2 layers for Washington DC - one with points representing addresses
 
 Other skills you will learn
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^
-- Extract a stratified random sample from a point layer.
+- Extract a random sample from a point layer.
 - Use Virtual Layers to run SQL query on a QGIS layer.
-- Use Python Console Editor to run a pyqgis script.
 
 Get the data
 ------------
@@ -55,7 +54,7 @@ Procedure
   .. image:: /static/3/origin_destination_matrix/images/1.png
     :align: center
   
-2. Next, locate the ``Address_Points.zip`` file, expand it and add the ``Address_Points.shp``. You will see a lot of points around the city. Each point represents a valid address. We will not randomly select 1 point in each ward to use as the origin points. This technique is called stratified sampling. Go to :menuselection:`Processing --> Toolbox`.
+2. Next, locate the ``Address_Points.zip`` file, expand it and add the ``Address_Points.shp``. You will see a lot of points around the city. Each point represents a valid address. We will select 1000 points randomly. This technique is called random sampling. Go to :menuselection:`Processing --> Toolbox`.
 
   .. image:: /static/3/origin_destination_matrix/images/2.png
     :align: center
@@ -67,7 +66,7 @@ Procedure
   
 4. Select ``Address_Points`` as the :guilabel:`Input layer`, ``Number of feature`` as the :guilabel:`Method` and, enter ``1000`` in the :guilabel:`Number/percentage of features`. In the :guilabel:`Extracted (random)` choose the ``...``  and click :guilabel:`Save to a file`. Now choose the directory and enter the name as ``address_point_subset.shp`` and click :guilabel:`Run`. 
 
-    .. code-block:: none
+    .. note::
 
       As the algorithm will extract 1000 random points from the given data set, to replicate the exact points used in this exercise you can download the subset file which we got during the execution of the algorithm here `address_point_subset.zip <http://www.qgistutorials.com/downloads/address_point_subset.zip>`_ . After downloading load address_point_subset.shp layer into QGIS. 
 
@@ -89,12 +88,12 @@ Procedure
   .. image:: /static/3/origin_destination_matrix/images/7.png
     :align: center
   
-8. Locate the :menuselection:`QNEAT3 --> Distance matrices --> OD Matrix from Layers as Table (m:n)` algorithm. If you do not see this algorithm in the toolbox, make sure you have installed the **QNEAT3** plugin.
+8. Locate the :menuselection:`QNEAT3 --> Distance matrices --> OD Matrix from Layers as Line (m:n)` algorithm. If you do not see this algorithm in the toolbox, make sure you have installed the **QNEAT3** plugin.
 
   .. image:: /static/3/origin_destination_matrix/images/8.png
     :align: center
   
-9. This algorithm helps find the distances along with the network between selected origin and destination layers. Select ``Roadway_Block`` as the :guilabel:`Network layer`. Select ``origin_points`` as the :guilabel:`From-Points layer` and ``OBJECTID`` as the :guilabel:`Unique Point ID field`. Similarly, set ``destination_points`` as the :guilabel:`To-Points Layer` and ``OBJECTID`` as  the :guilabel:`Unique Point ID field`. Set the :guilabel:`Optimization Criterion` as ``Shortest Path (distance optimization)``.
+9. This algorithm helps find the distances along with the network between selected origin and destination layers. Select ``Roadway_Block`` as the :guilabel:`Network layer`. Select ``origin_points`` as the :guilabel:`From-Points layer` and ``OBJECTID_1`` as the :guilabel:`Unique Point ID field`. Similarly, set ``destination_points`` as the :guilabel:`To-Points Layer` and ``OBJECTID`` as  the :guilabel:`Unique Point ID field`. Set the :guilabel:`Optimization Criterion` as ``Shortest Path (distance optimization)``.
 
   .. image:: /static/3/origin_destination_matrix/images/9.png
     :align: center
@@ -123,7 +122,7 @@ Procedure
 
   .. code-block:: none
 
-    select origin_id, destination_id, min(total_cost) as shortest_distance 
+    select origin_id, destination_id, min(total_cost) as shortest_distance, geometry 
     from input1 group by origin_id
 
   .. image:: /static/3/origin_destination_matrix/images/14.png
@@ -133,18 +132,18 @@ Procedure
 
   .. image:: /static/3/origin_destination_matrix/images/15.png
     :align: center
-  
-16. Note that even though the lines connecting the origin and destination is a straight-line, the destination was found using the distance along with the network. It will be much useful visualization to show the actual shortest-path between each origin-destination. As of now, there is no easy way to generate the shortest-path between multiple origin-destination pairs the way we generated the distance matrix. But I will demonstrate a way to use some python scripting to generate this visualization. First, let's run the shortest path algorithm on 1 pair. Locate the :menuselection:`QNEAT3 --> Routing --> Shortest path (point to point)` algorithm and launch it.
+
+16. To validate this let us build the Shortest path. The point *(OBJECTID_1 = 853046)* is visually near to Health center *(OBJECTID = 3)*, but from the SQL query it is connected to health center *(OBJECTID = 9)*. Let's validate this by finding the actual distance between these origins and destination. First, let's run the shortest path algorithm on 1 pair. Locate the :menuselection:`QNEAT3 --> Routing --> Shortest path (point to point)` algorithm and launch it.
 
   .. image:: /static/3/origin_destination_matrix/images/16.png
     :align: center
   
-17. Select ``Roadway_Block`` as the :guilabel:`Network Layer`. To pick a start and endpoint. You can click the :guilabel:`...` button next to the :guilabel:`Start point` and click on the origin point in the canvas. Similarly, select the destination point as the :guilabel:`End point`. Keep the :guilabel:`Optimization Criterion` as ``Shortest Path (distance optimization)``. Expand the :guilabel:`Advanced parameter` section. Choose ``SUMMARYDIR`` as the :guilabel:`Direction field`. Enter ``OB`` as the :guilabel:`Value for forward direction` and ``IB`` as the :guilabel:`Value for backward direction`. Set the :guilabel:`Topology tolerance` as ``0.0000150``. Keep other options to their default values and click :guilabel:`Run`.
+17. Select ``Roadway_Block`` as the :guilabel:`Network Layer`. To pick a start and endpoint. You can click the :guilabel:`...` button next to the :guilabel:`Start point` and click on the origin point *(OBJECTID_1 = 853046)* in the canvas. Similarly, select the destination point *(OBJECTID = 3)* as the :guilabel:`End point`. Keep the :guilabel:`Optimization Criterion` as ``Shortest Path (distance optimization)``. Expand the :guilabel:`Advanced parameter` section. Choose ``SUMMARYDIR`` as the :guilabel:`Direction field`. Enter ``OB`` as the :guilabel:`Value for forward direction` and ``IB`` as the :guilabel:`Value for backward direction`. Set the :guilabel:`Topology tolerance` as ``0.0000150``. Keep other options to their default values and click :guilabel:`Run`. Now change the destination point *(OBJECTID = 9)* in the :guilabel:`End point` and click :guilabel:`Run`
 
   .. image:: /static/3/origin_destination_matrix/images/17.png
     :align: center
   
-18. A new layer ``Shortest Path Layer`` will be added to the :guilabel:`Layers` panel. You will see that this path follows the network rather than connecting the origin and destination with a straight line. The reason we ran the algorithm on 1 pair is to easily identify the parameter values that we can use in our script. 
+18. Two new layers ``Shortest Path Layer`` will be added to the :guilabel:`Layers` panel. You will see that although the destination point *(OBJECTID = 9)* visually is closed to the origin point, the actual distance is longer when compared to the destination point *(OBJECTID = 3)*. 
 
   .. image:: /static/3/origin_destination_matrix/images/18.png
     :align: center
