@@ -66,12 +66,13 @@ Procedure
   
 4. Select ``Address_Points`` as the :guilabel:`Input layer`, ``Number of feature`` as the :guilabel:`Method` and, enter ``1000`` in the :guilabel:`Number/percentage of features`. In the :guilabel:`Extracted (random)` choose the ``...``  and click :guilabel:`Save to a file`. Now choose the directory and enter the name as ``address_point_subset.shp`` and click :guilabel:`Run`. 
 
-    .. note::
-
-      As the algorithm will extract 1000 random points from the given data set, to replicate the exact points used in this exercise you can download the subset file which we got during the execution of the algorithm here `address_point_subset.zip <http://www.qgistutorials.com/downloads/address_point_subset.zip>`_ . After downloading load address_point_subset.shp layer into QGIS. 
-
   .. image:: /static/3/origin_destination_matrix/images/4.png
     :align: center
+
+.. note::
+
+   As the algorithm will extract 1000 random points from the given data set, to replicate the exact points used in this exercise you can download the subset file which we got during the execution of the algorithm here `address_point_subset.zip <http://www.qgistutorials.com/downloads/address_point_subset.zip>`_ . After downloading load address_point_subset.shp layer into QGIS. 
+
   
 5. A new layer ``address_point_subset`` will be added to the :guilabel:`Layers` panel, you can turn off the visibility of ``Address_Points`` address points layer.
 
