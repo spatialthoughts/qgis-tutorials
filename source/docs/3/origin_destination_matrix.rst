@@ -71,7 +71,7 @@ Procedure
 
 .. note::
 
-   As the algorithm will extract 1000 random points from the given data set, to replicate the exact points used in this exercise you can download the subset file which we got during the execution of the algorithm here `address_point_subset.zip <http://www.qgistutorials.com/downloads/address_point_subset.zip>`_ . After downloading load address_point_subset.shp layer into QGIS. 
+   As the algorithm will extract 1000 random points from the given data set, to replicate the exact points used in this exercise you can download the subset file which we got during the execution of the algorithm here `address_point_subset.zip <http://www.qgistutorials.com/downloads/address_point_subset.zip>`_ . After downloading load ``address_point_subset.shp`` layer into QGIS. 
 
   
 5. A new layer ``address_point_subset`` will be added to the :guilabel:`Layers` panel, you can turn off the visibility of ``Address_Points`` address points layer.
@@ -164,7 +164,7 @@ Procedure
   .. image:: /static/3/origin_destination_matrix/images/21.png
     :align: center
 
-22. In the :guilabel:`History` dialog, Select the lastest command(command used for Shortest path). Now the used plugin will be displayed. This code snippet, which will be plugged into the python script. Click :guilabel:`Close`.
+22. In the :guilabel:`History` dialog, Select the lastest command(command used for Shortest path). This command displays all the parameters and their values that we used. We can now take these values and put them in a script that can allow us to run this command on many origin-destination pairs. Click :guilabel:`Close`.
 
   .. image:: /static/3/origin_destination_matrix/images/22.png
     :align: center
@@ -174,19 +174,24 @@ Procedure
   .. image:: /static/3/origin_destination_matrix/images/23.png
     :align: center
 
-24. In the :guilabel:`Processing Script Editor`, copy/paste the below code. Save the file as ``get_routes_from_matrix.py``. Now close the :guilabel:`Processing Script Editor`.
+24. In the :guilabel:`Processing Script Editor`, copy/paste the below code. Save the file as ``get_routes_from_matrix.py``. Now close the :guilabel:`Processing Script Editor`. If you are using a different dataset than the one used in this tutorial, you will have to update the script with the parameter values from step 22.
+
 
   .. literalinclude:: /static/3/origin_destination_matrix/scripts/matrix_to_routes.py
 
   .. image:: /static/3/origin_destination_matrix/images/24.png
     :align: center
 
-25. Select a few connections for the layer ``SQL Output`` (this is done to reduce the computation for this demo purpose). In the :guilabel:`Processing Toolbox`, a new dropdown :guilabel:`Scripts` will be added. Click on it and select ``Get Routes from Matrix``.
+25. Now we can test the script. Select a few connections for the layer ``SQL Output`` for which you want the actual routes computed. In the :guilabel:`Processing Toolbox`, a new dropdown :guilabel:`Scripts` will be added. Click on it and select ``Get Routes from Matrix``.
 
   .. image:: /static/3/origin_destination_matrix/images/25.png
     :align: center
 
-26. In the :guilabel:`Network Layer` select ``Roadway_Block`` and in the :guilabel:`Distance Matrix layer` select ``SQL Output`` then check selected features only. Click :guilabel:`Run`
+.. note::
+
+	This script needs to compute the network graph for each iteration and thus quite slow. If you have a lot of origin-destination pairs, it can take time.
+	
+26. In the :guilabel:`Network Layer` select ``Roadway_Block`` and in the :guilabel:`Distance Matrix layer` select ``SQL Output`` then check selected features only. Click :guilabel:`Run`.
 
   .. image:: /static/3/origin_destination_matrix/images/26.png
     :align: center
