@@ -127,7 +127,7 @@ Procedure
 
 .. note::
 
-  When creating a thematic (choropleth) map such as this, it is important to normalize the values you are mapping. Mapping total counts per polygon is not correct. It is important to normalize the values dividing by the area. If you are displaying totals such as crime, you can normalize them by diving by total population, thus mapping crime rate and not crime. `Learn more <https://en.wikipedia.org/wiki/Choropleth_map#Normalization>`_
+  When creating a thematic (choropleth) map such as this, it is important to normalize the values you are mapping. Mapping total counts per polygon is not correct. It is important to normalize the values dividing by the area. If you are displaying totals such as crime, you can normalize them by dividing by total population, thus mapping crime rate and not crime. `Learn more <https://en.wikipedia.org/wiki/Choropleth_map#Normalization>`_
   
 19. Enter the following expression to calculate the population density. ``$area`` calculates the area of the feature in square meters. We then convert it to square miles and calculate the population density with the formula *Population/Area*. Click :guilabel:`OK`.
 
