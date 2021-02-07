@@ -17,7 +17,7 @@ Books
 -----
 - `Discover QGIS 3.x <https://locatepress.com/dq3>`_ by Kurt Menke
 - `QGIS Map Design <https://locatepress.com/qmd2>`_ by  Anita Graser and Gretchen N. Peterson
-- `QGIS for Hydrological Applications <https://locatepress.com/hyd>`_ by by Hans van der Kwast and Kurt Menke
+- `QGIS for Hydrological Applications <https://locatepress.com/hyd>`_ by Hans van der Kwast and Kurt Menke
 
 
 Blogs and Online Resources
