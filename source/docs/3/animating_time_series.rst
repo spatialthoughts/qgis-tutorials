@@ -77,12 +77,12 @@ Procedure
   .. image:: /static/3/animating_time_series/images/8.png
       :align: center
 
-9. Click on the ``Animated Temporal Navigation`` (play icon) to activate the animation controls. Click the :guilabel:`Set to Full Range` (refresh icon) next to :guilabel:`Range` to atuomatically set the time range to the match the dataset. 
+9. Click on the ``Animated Temporal Navigation`` (play icon) to activate the animation controls. Click the :guilabel:`Set to Full Range` (refresh icon) next to :guilabel:`Range` to automatically set the time range to the match the dataset. 
 
   .. image:: /static/3/animating_time_series/images/9.png
       :align: center
 
-10. Now you are ready to preview the animation. Set the :guilabel:`Step` as ``1 Year`` then Click the :guilabel:`Play` button to start the animation. 
+10. Now you are ready to preview the animation. Set the :guilabel:`Step` as ``1 Year`` then click the :guilabel:`Play` button to start the animation. 
 
   .. image:: /static/3/animating_time_series/images/10.png
       :align: center
@@ -119,12 +119,12 @@ Procedure
   .. image:: /static/3/animating_time_series/images/15.png
       :align: center
 
-16. Under the :guilabel:`Extent` select the :menuselection:`Calculate from Layer --> ne_10_land` layer. Click save
+16. Under the :guilabel:`Extent` select the :menuselection:`Calculate from Layer --> ne_10_land` layer. Click Save.
 
   .. image:: /static/3/animating_time_series/images/16.png
       :align: center
 
-17. Once the export finishes, you will see PNG images for each year(total 18 images) in the output directory. 
+17. Once the export finishes, you will see PNG images for each year (total 18 images) in the output directory. 
 
   .. image:: /static/3/animating_time_series/images/17.png
       :align: center
