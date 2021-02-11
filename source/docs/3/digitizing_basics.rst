@@ -178,7 +178,7 @@ Procedure
 18. Now you can click :guilabel:`Add feature` button and digitize other roads
     around the park. Make sure to click :guilabel:`Save Edits` after you add a
     new feature to save your work. A useful tool to help you with digitizing is
-    the **Vertex Tool**. Click the :guilabel:`Vertex Tool` button and select ``Vertex Tool(Current Layer)``.
+    the **Vertex Tool**. Click the :guilabel:`Vertex Tool` button and select ``Vertex Tool (Current Layer)``.
 
 .. image:: /static/3/digitizing_basics/images/18.png
    :align: center
@@ -194,7 +194,7 @@ Procedure
    :align: center
 
 20. Once you have finished digitizing all the roads, click the
-    :guilabel:`Toggle Editing` button. Click :guilabel:`Save`
+    :guilabel:`Toggle Editing` button. Click :guilabel:`Save`.
 
 .. image:: /static/3/digitizing_basics/images/20.png
    :align: center
@@ -224,7 +224,7 @@ Procedure
    :align: center
 
 24. Multi-Polygon layers offer another very useful setting called **Avoid
-    intersections of new polygons**. Select :guilabel:`Enable Snapping`(Magnet Icon), click on it to enable it and click :guilabel:` All Layers` and select ``Advanced Configuration``. Choose ``Avoid Overlap on Active layers`` from the forth button in Enable snapping toolbar.  Now in :guilabel:`Edit Advanced Configuration` Check the box in the :guilabel:`Avoid Overlap` column in
+    intersections of new polygons**. Select :guilabel:`Enable Snapping` (Magnet Icon), click on it to enable it and click :guilabel:` All Layers` and select ``Advanced Configuration``. Choose ``Avoid Overlap on Active layers`` from the forth button in Enable snapping toolbar.  Now in :guilabel:`Edit Advanced Configuration` Check the box in the :guilabel:`Avoid Overlap` column in
     the row for the ``Parks`` layer. 
 
 .. image:: /static/3/digitizing_basics/images/24.png
