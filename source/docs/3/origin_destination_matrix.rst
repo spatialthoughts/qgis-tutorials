@@ -104,7 +104,7 @@ Procedure
   .. image:: /static/3/origin_destination_matrix/images/10.png
     :align: center
   
-11. A new table layer called ``Output OD Matrix`` will be added to the :guilabel:`Layers` panel. Right-click and select :guilabel:`Open Attributes Table`. You will see that the table contains *13000* rows. We had 9 origin points and 1000 destination points - so the output contains *13x1000 = 13000* pairs of origins and destination. The ``total_cost`` column contains distance in meters between each origin point to every destination point. 
+11. A new table layer called ``Output OD Matrix`` will be added to the :guilabel:`Layers` panel. Right-click and select :guilabel:`Open Attributes Table`. You will see that the table contains *13000* rows. We had 13 origin points and 1000 destination points - so the output contains *13x1000 = 13000* pairs of origins and destination. The ``total_cost`` column contains distance in meters between each origin point to every destination point. 
 
   .. image:: /static/3/origin_destination_matrix/images/11.png
     :align: center
@@ -139,7 +139,7 @@ Procedure
   .. image:: /static/3/origin_destination_matrix/images/16.png
     :align: center
   
-17. Select ``Roadway_Block`` as the :guilabel:`Network Layer`. To pick a start and endpoint. You can click the :guilabel:`...` button next to the :guilabel:`Start point` and click on the origin point *(OBJECTID_1 = 853046)* in the canvas. Similarly, select the destination point *(OBJECTID = 3)* as the :guilabel:`End point`. Keep the :guilabel:`Optimization Criterion` as ``Shortest Path (distance optimization)``. Expand the :guilabel:`Advanced parameter` section. Choose ``SUMMARYDIR`` as the :guilabel:`Direction field`. Enter ``OB`` as the :guilabel:`Value for forward direction` and ``IB`` as the :guilabel:`Value for backward direction`. Set the :guilabel:`Topology tolerance` as ``0.0000150``. Keep other options to their default values and click :guilabel:`Run`. Now change the destination point *(OBJECTID = 9)* in the :guilabel:`End point` and click :guilabel:`Run`
+17. Select ``Roadway_Block`` as the :guilabel:`Network Layer`. To pick a start and endpoint. You can click the :guilabel:`...` button next to the :guilabel:`Start point` and click on the origin point *(OBJECTID_1 = 853046)* in the canvas. Similarly, select the destination point *(OBJECTID = 3)* as the :guilabel:`End point`. Keep the :guilabel:`Optimization Criterion` as ``Shortest Path (distance optimization)``. Expand the :guilabel:`Advanced parameter` section. Choose ``SUMMARYDIR`` as the :guilabel:`Direction field`. Enter ``OB`` as the :guilabel:`Value for forward direction` and ``IB`` as the :guilabel:`Value for backward direction`. Set the :guilabel:`Topology tolerance` as ``0.000015``. Keep other options to their default values and click :guilabel:`Run`. Now change the destination point *(OBJECTID = 9)* in the :guilabel:`End point` and click :guilabel:`Run`
 
   .. image:: /static/3/origin_destination_matrix/images/17.png
     :align: center
@@ -154,7 +154,7 @@ Procedure
   .. image:: /static/3/origin_destination_matrix/images/19.png
     :align: center
 
-20. In the :guilabel:`Shortest Path (Point to Point)` dialog, select ``Roadway_Block`` as the :guilabel:`Network Layer`. Keep the :guilabel:`Optimization criteria` as Shortest Path (distance optimization). Next we need to pick a start and end point. You can click the :guilabel:`...` button next to :guilabel:`Start point` and click on the origin point in the canvas. Similarly select the destination point as the :guilabel:`End point`. Expand the :guilabel:`Advanced parameter` section. Choose ``SUMMARYDIR`` as the :guilabel:`Direction field`. Enter ``OB`` as the :guilabel:`Value for forward direction` and ``IB`` as the :guilabel:`Value for backward direction`. In :guilabel:`Topology tollerance` enter ``0.00015``. Keep other options to their default values and click :guilabel:`Run`.
+20. In the :guilabel:`Shortest Path (Point to Point)` dialog, select ``Roadway_Block`` as the :guilabel:`Network Layer`. Keep the :guilabel:`Optimization criteria` as Shortest Path (distance optimization). Next we need to pick a start and end point. You can click the :guilabel:`...` button next to :guilabel:`Start point` and click on the origin point in the canvas. Similarly select the destination point as the :guilabel:`End point`. Expand the :guilabel:`Advanced parameter` section. Choose ``SUMMARYDIR`` as the :guilabel:`Direction field`. Enter ``OB`` as the :guilabel:`Value for forward direction` and ``IB`` as the :guilabel:`Value for backward direction`. In :guilabel:`Topology tolerance` enter ``0.000015``. Keep other options to their default values and click :guilabel:`Run`.
 
   .. image:: /static/3/origin_destination_matrix/images/20.png
     :align: center
@@ -164,7 +164,7 @@ Procedure
   .. image:: /static/3/origin_destination_matrix/images/21.png
     :align: center
 
-22. In the :guilabel:`History` dialog, Select the lastest command(command used for Shortest path). This command displays all the parameters and their values that we used. We can now take these values and put them in a script that can allow us to run this command on many origin-destination pairs. Click :guilabel:`Close`.
+22. In the :guilabel:`History` dialog, Select the latest command(command used for Shortest path). This command displays all the parameters and their values that we used. We can now take these values and put them in a script that can allow us to run this command on many origin-destination pairs. Click :guilabel:`Close`.
 
   .. image:: /static/3/origin_destination_matrix/images/22.png
     :align: center
@@ -196,7 +196,7 @@ Procedure
   .. image:: /static/3/origin_destination_matrix/images/26.png
     :align: center
 
-27. A new layer ``Network Routes`` Layer will be added to the :guilabel:`Layers` panel. This will contain the actual route to the destination. 
+27. A new layer ``Network Routes`` will be added to the :guilabel:`Layers` panel. This will contain the actual route to the destination. 
 
   .. image:: /static/3/origin_destination_matrix/images/27.png
     :align: center
