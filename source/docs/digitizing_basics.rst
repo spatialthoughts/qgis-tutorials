@@ -1,5 +1,9 @@
 Digitizing Map Data
 ===================
+.. warning:: 
+
+   A new version of this tutorial is available at :doc:`3/digitizing_basics`
+
 Digitizing is one of the most common tasks that a GIS Specialist has to do.
 Often a large amount of *GIS time* is spent in digitizing raster data to create
 vector layers that you use in your analysis. QGIS has powerful on-screen
