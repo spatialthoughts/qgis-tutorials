@@ -1,5 +1,11 @@
 Working with Projections
 ========================
+
+.. warning:: 
+
+   This tutorial is now obsolete. A new and updated version is available at :doc:`3/working_with_projections`
+
+   
 Map projections - or Coordinate Reference System (CRS) - often cause a lot of
 frustration when working with GIS data.  But proper understanding of the
 concepts and access to the right tools will make it much easier to deal with
