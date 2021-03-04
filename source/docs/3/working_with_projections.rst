@@ -95,7 +95,7 @@ Procedure
 .. image:: /static/3/working_with_projections/images/7.png
    :align: center
 
-8. Select ``ne_10m_admin_0_countries`` as the :guilabel:`Input layer`, check :guilabel:`Selected features only` then click on the globe icon next to :guilabel:`Targert CRS`, search and select ``EPSG:27700 - OSGB 1936 / British National Grid``. In :guilabel:`Reprojected`. In the :guilabel:`Extracted (random)` choose the ``...``  and click :guilabel:`Save to a file`. Now choose the directory and enter the name as ``united_kingdom.gkpg`` and click :guilabel:`Run`. 
+8. Select ``ne_10m_admin_0_countries`` as the :guilabel:`Input layer`, check :guilabel:`Selected features only` then click on the globe icon next to :guilabel:`Target CRS`, search and select ``EPSG:27700 - OSGB 1936 / British National Grid``. In :guilabel:`Reprojected`. In the :guilabel:`Extracted (random)` choose the ``...``  and click :guilabel:`Save to a file`. Now choose the directory and enter the name as ``united_kingdom.gkpg`` and click :guilabel:`Run`. 
 
 .. image:: /static/3/working_with_projections/images/8.png
    :align: center
@@ -126,7 +126,7 @@ Procedure
 .. image:: /static/3/working_with_projections/images/13.png
    :align: center
 
-14. Now let’s switch the order of the layer to view it better. Bring ``MiniScale_(standard)_R23`` to bottom.
+14. Now let’s switch the order of the layer to view it better. Bring ``MiniScale_(standard)_R23`` to the bottom.
 
 .. image:: /static/3/working_with_projections/images/14.png
    :align: center
@@ -136,7 +136,7 @@ Procedure
 .. image:: /static/3/working_with_projections/images/15.png
    :align: center
 
-16. In the :guilabel:`Layer Properties`, switch to :guilabel:`Information`, the :guilabel:`CRS` is ``EPSG:27700 - OSBG 1935 / British National Grid - Projected``, hence it get matced perfectily with the vector file. Also, the file is georeferenced can be verified by :guilabel:`GDAL Drive` as ``GeoTIFF``.   
+16. In the :guilabel:`Layer Properties`, switch to :guilabel:`Information`, the :guilabel:`CRS` is ``EPSG:27700 - OSBG 1935 / British National Grid - Projected``, hence it get mathced perfectly with the vector file. Also, the file is georeferenced can be verified by :guilabel:`GDAL Drive` as ``GeoTIFF``.   
 
 .. image:: /static/3/working_with_projections/images/16.png
    :align: center
