@@ -6,6 +6,15 @@ The website is generated using [Sphinx](http://sphinx-doc.org) and source files 
 
 To contribute or update the tutorials, you must install Sphinx locally, make changes to the `.rst` files, build the HTML pages and send a pull request.
 
+
+## Clone the Repository
+
+The respository is very large and contains over 10 years of history. You don't need all the history locally, so just clone it with `--depth 1` option to get only the latest files.
+
+    git clone --depth 1 git@github.com:spatialthoughts/qgis-tutorials.git --no-single-branch 
+    cd qgis-tutorials
+    
+    
 ## Install Dependencies
 
 ### Linux/Mac
@@ -45,13 +54,6 @@ easy_install-3.8 pillow
 pip3 install -r requirements.txt
 ```
 
-## Clone the Repository
-
-The respository is very large and contains over 10 years of history. You don't need all the history locally, so just clone it with `--depth 1` option to get only the latest files.
-
-    git clone --depth 1 git@github.com:spatialthoughts/qgis-tutorials.git --no-single-branch 
-    cd qgis-tutorials
-    
 ## Make Changes and Preview the Results
 
 From the root `qgis-tutorials` directory, run the following command
