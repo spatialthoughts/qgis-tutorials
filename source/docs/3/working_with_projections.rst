@@ -15,12 +15,6 @@ Overview of the task
 The task is to re-project and overlay data layers of difference projections
 together in QGIS.
 
-Other skills you will learn
-^^^^^^^^^^^^^^^^^^^^^^^^^^^
-- Use ``.tfw`` files to georeference to rasters.
-- How to save selected features from a layer to a new layer.
-- How to view metadata information for layers in QGIS.
-
 Get the data
 ------------
 
