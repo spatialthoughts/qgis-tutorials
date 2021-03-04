@@ -14,7 +14,7 @@ QGIS Tutorials and Tips
    - :doc:`docs/3/raster_mosaicing_and_clipping`
    - :doc:`docs/working_with_terrain`
    - :doc:`docs/working_with_wms`
-   - :doc:`docs/working_with_projections`
+   - :doc:`docs/3/working_with_projections`
    - :doc:`docs/3/georeferencing_basics`
    - :doc:`docs/3/advanced_georeferencing`
    - :doc:`docs/3/digitizing_basics`
@@ -78,7 +78,7 @@ What next? Hungry for more QGIS materials? Work through my full length QGIS cour
    docs/3/raster_mosaicing_and_clipping
    docs/working_with_terrain
    docs/working_with_wms
-   docs/working_with_projections
+   docs/3/working_with_projections
    docs/3/georeferencing_basics
    docs/3/advanced_georeferencing
    docs/digitizing_basics
