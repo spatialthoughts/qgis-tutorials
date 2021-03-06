@@ -2,7 +2,7 @@ Working with Projections (QGIS3)
 ================================
 
 Map projections - or Coordinate Reference System (CRS) - often cause a lot of
-frustration when working with GIS data.  But proper understanding of the
+frustration when working with GIS data.  But a proper understanding of the
 concepts and access to the right tools will make it much easier to deal with
 projections. In this tutorial, we will explore how projections work in QGIS and learn about tools available for vector and rasters data layers.
 
@@ -24,11 +24,6 @@ for download. Download the `MiniScale raster product
 <https://www.ordnancesurvey.co.uk/opendatadownload/products.html>`_ for Great
 Britain and extract it to a folder on your computer.
 
-.. note::
-
-   You will need to enter your personal details to be able to download the
-   Ordnance Survey dataset.
-
 For convenience, you may directly download a copy of the dataset from the link
 below:
 
@@ -45,7 +40,7 @@ Procedure
    Layer...`.
 
 .. image:: /static/3/working_with_projections/images/1.png
-   :align: center
+   :align: center 
 
 2. Click on :guilabel:`...` next to :guilabel:`Source`, Browse to the downloaded ``ne_10m_admin_0_countries.shp`` file and click
    :guilabel:`Add`.
