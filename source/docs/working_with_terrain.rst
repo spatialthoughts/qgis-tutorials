@@ -1,5 +1,11 @@
 Working with Terrain Data
 =========================
+
+.. warning:: 
+
+   This tutorial is now obsolete. A new and updated version is available at :doc:`3/working_with_terrain`
+
+   
 Terrain or elevation data is useful for many GIS Analysis and it is often used
 in maps. QGIS has good terrain processing capabilities built-in. In this
 tutorial, we will work through the steps to generate various products from

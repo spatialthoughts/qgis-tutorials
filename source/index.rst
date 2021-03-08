@@ -12,7 +12,7 @@ QGIS Tutorials and Tips
    - :doc:`docs/3/calculating_line_lengths`
    - :doc:`docs/3/raster_styling_and_analysis`
    - :doc:`docs/3/raster_mosaicing_and_clipping`
-   - :doc:`docs/working_with_terrain`
+   - :doc:`docs/3/working_with_terrain`
    - :doc:`docs/working_with_wms`
    - :doc:`docs/3/working_with_projections`
    - :doc:`docs/3/georeferencing_basics`
