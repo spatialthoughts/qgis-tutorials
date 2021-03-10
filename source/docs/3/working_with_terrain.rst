@@ -2,7 +2,7 @@ Working with Terrain Data (QGIS3)
 =================================
 
 Terrain or elevation data is useful for many GIS analyses, and it is often used
-in maps. QGIS 3 has good terrain processing capabilities built-in. In this
+in maps. QGIS3 has good terrain processing capabilities built-in. In this
 tutorial, we will work through the steps to generate various products from
 elevation data such as hillshade and contour.
 
@@ -175,7 +175,7 @@ Procedure
 22. In the :guilabel:`Smooth` window, select ``mt_everest_contour`` as :guilabel:`Input Layer`,  enter ``5`` in :guilabel:`Iterations`. Click :guilabel:`Run`. 
 
 .. warning:: 
-    As you increase the number of iteration, the number of vertices in the contour lines gets increased, this can take up huge space in the disk so the resulting file will be very large compared to the original. An alternative way to do this is using `Mapshapper <http://mapshaper.org/>`_. Here geopackage cannot be uploaded. So, export the layer ``mt_everest_contour`` as shapefile. Then import the file in mapshapper to use `Simplify` which will make contour lines smoother. 
+    The smoothing algorithm works by adding extra vertices along the lines. As you increase the number of iterations, the number of vertices in the contour lines increase by a large amount. So be careful in using higher number of iterations. You can reduce the file size of the output by exporting it as a shapefile and simplifying the results using `Mapshapper <http://mapshaper.org/>`_.
       
 
 .. image:: /static/3/working_with_terrain/images/22.png
