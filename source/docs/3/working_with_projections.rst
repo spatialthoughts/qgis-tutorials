@@ -63,7 +63,7 @@ Procedure
 .. image:: /static/3/working_with_projections/images/5.png
    :align: center
 
-6. Now let's see how we can change the layer's projection. This operation is called **Re-Projection**. Rather than re-projecting the entire layer, we can also select a subset of features and re-project them to a new layer. Use the :guilabel:`Select features by area or single click` tool and click on United kingdom feature to select it.
+6. Now let's see how we can change the layer's projection. This operation is called **Re-Projection**. Rather than re-projecting the entire layer, we can also select a subset of features and re-project them to a new layer. Use the :guilabel:`Select features by area or single click` tool and click on United Kingdom feature to select it.
 
 .. image:: /static/3/working_with_projections/images/6.png
    :align: center
@@ -94,7 +94,7 @@ Procedure
 .. image:: /static/3/working_with_projections/images/11.png
    :align: center
 
-12.Click on the ``...`` next to :guilabel:`Source`, select the layer ``MiniScale_(standard)_R23.tif``. Click :guilabel:`Add`. 
+12. Click on the ``...`` next to :guilabel:`Source`, select the layer ``MiniScale_(standard)_R23.tif``. Click :guilabel:`Add`. 
 
 .. image:: /static/3/working_with_projections/images/12.png
    :align: center
