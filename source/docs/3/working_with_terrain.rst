@@ -21,25 +21,25 @@ Get the data
 ------------
 
 We will be working with GMTED2010 dataset from USGS. This data can be
-downloaded from the `USGS Earthexplorer <http://earthexplorer.usgs.gov/>`_ site. `GMTED (Global Multi-resolution
+downloaded from the `USGS Earthexplorer <https://earthexplorer.usgs.gov/>`_ site. `GMTED (Global Multi-resolution
 Terrain Elevation Data)
-<http://eros.usgs.gov/#/Find_Data/Products_and_Data_Available/GMTED2010>`_ is a global terrain dataset that is the newer version
+<https://eros.usgs.gov/#/Find_Data/Products_and_Data_Available/GMTED2010>`_ is a global terrain dataset that is the newer version
 of GTOPO30 dataset.
 
 Here is how to search and download the revelant data from USGS Earthexplorer.
 
 1. Go to the `USGS Earthexplorer <http://earthexplorer.usgs.gov/>`_ . In the
-   :guilabel:`Search Criteria` tab, click on :guilabel:`World Features`. In :guilabel:`Feature Name` enter ``Everest``, in :guilabel:`Country` enter ``NEPAL``, click on :guilabel:`Show` . This will display a table with the location information. Select `Everest` under :guilabel:`Placename`.
+   :guilabel:`Search Criteria` tab, click on :guilabel:`World Features`. In :guilabel:`Feature Name` enter ``Everest``, in :guilabel:`Country` enter ``NEPAL``, click on :guilabel:`Show`. This will display a table with the location information. Select `Everest` under :guilabel:`Placename`.
 
 .. image:: /static/3/working_with_terrain/images/1.png
    :align: center
 
-2. Now the canvas will move to `Mt. Everest` location. Click on the :guilabel:`Data Sets`. 
+2. Now the canvas will move to `Mt. Everest` location. Click on :guilabel:`Data Sets`. 
 
 .. image:: /static/3/working_with_terrain/images/2.png
    :align: center
 
-3. Expand the :guilabel:`Digital Elevation` group, and check :guilabel:`GMTED2010`. Click the :guilabel:`Results`.
+3. Expand the :guilabel:`Digital Elevation` group, and check :guilabel:`GMTED2010`. Click on :guilabel:`Results`.
 
 .. image:: /static/3/working_with_terrain/images/3.png
    :align: center
@@ -61,7 +61,7 @@ Here is how to search and download the revelant data from USGS Earthexplorer.
 You will now have a file named `GMTED2010N10E060_300.zip`. Elevation data is
 distributed in various raster formats such as ASC, BIL, GeoTiff, etc.
 QGIS supports a wide `variety of raster formats
-<http://www.gdal.org/formats_list.html>`_ via the GDAL library. The GMTED
+<https://www.gdal.org/formats_list.html>`_ via the GDAL library. The GMTED
 data comes as GeoTiff files which are contained in this zip archive.
 
 For convenience, you can download a copy of the data directly from below.
@@ -74,7 +74,7 @@ Data Source: [GMTED2010]_
 Procedure
 ---------
 
-6. Open :menuselection:`Layer --> Add Raster Layer`.
+6. Open :menuselection:`Layer --> Add Layer --> Add Raster Layer`.
 
 .. image:: /static/3/working_with_terrain/images/6.png
    :align: center
@@ -92,7 +92,7 @@ Procedure
 .. image:: /static/3/working_with_terrain/images/8.png
    :align: center
 
-9. Let's find our area of interest. From `Wikipedia <http://en.wikipedia.org/wiki/Mount_Everest>`_,
+9. Let's find our area of interest. From `Wikipedia <https://en.wikipedia.org/wiki/Mount_Everest>`_,
    we find that the coordinates for our area of interest - Mt. Everest - is located
    at the coordinates 27.9881° N, 86.9253° E. Note that QGIS
    uses the coordinates in (X, Y) format, so you must use the coordinates as
@@ -121,7 +121,7 @@ Procedure
 .. image:: /static/3/working_with_terrain/images/12.png
    :align: center
 
-13. In the :guilabel:`Hillshade` window, select ``mt_everest`` as :guilabel:`Elevation Layer`,  enter ``315.000`` in :guilabel:`Azimuth (horizontal angle)`, enter ``45.000`` in :guilabel:`Vertical angle`. Click ``...`` in :guilabel:`Hillshade` and enter the name as ``mt_everest_hillshade.tif``. Click :guilabel:`Run`.  
+13. In the :guilabel:`Hillshade` window, select ``mt_everest`` as :guilabel:`Elevation Layer`, enter ``315.000`` in :guilabel:`Azimuth (horizontal angle)`, enter ``45.000`` in :guilabel:`Vertical angle`. Click ``...`` in :guilabel:`Hillshade` and enter the name as ``mt_everest_hillshade.tif``. Click :guilabel:`Run`.  
 
 .. image:: /static/3/working_with_terrain/images/13.png
    :align: center
@@ -175,7 +175,7 @@ Procedure
 22. In the :guilabel:`Smooth` window, select ``mt_everest_contour`` as :guilabel:`Input Layer`,  enter ``5`` in :guilabel:`Iterations`. Click :guilabel:`Run`. 
 
 .. warning:: 
-    The smoothing algorithm works by adding extra vertices along the lines. As you increase the number of iterations, the number of vertices in the contour lines increase by a large amount. So be careful in using higher number of iterations. You can reduce the file size of the output by exporting it as a shapefile and simplifying the results using `Mapshapper <http://mapshaper.org/>`_.
+    The smoothing algorithm works by adding extra vertices along the lines. As you increase the number of iterations, the number of vertices in the contour lines increase by a large amount. So be careful in using higher number of iterations. You can reduce the file size of the output by exporting it as a shapefile and simplifying the results using `Mapshaper <https://mapshaper.org/>`_.
       
 
 .. image:: /static/3/working_with_terrain/images/22.png
