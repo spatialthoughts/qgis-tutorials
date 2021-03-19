@@ -97,7 +97,7 @@ Procedure
    The TIN method is commonly used for elevation data whereas the IDW method is used
    for interpolating other types of data such as mineral concentrations,
    populations etc. See the `Spatial Analysis
-   <http://docs.qgis.org/2.2/en/docs/gentle_gis_introduction/spatial_analysis_interpolation.html>`_
+   <https://docs.qgis.org/testing/en/docs/gentle_gis_introduction/spatial_analysis_interpolation.html>`_
    module of the QGIS documentation for more details.
 
 .. image:: /static/3/interpolating_point_data/images/9.png
@@ -109,11 +109,14 @@ Procedure
   .. image:: /static/3/interpolating_point_data/images/10.png
      :align: center
 
-11. Now, select ``Islands_2004_550_stpl83`` as the :guilabel:`Vector layer`, ``Elevation`` as the :guilabel:`Interpolation attribute`. Then click on the :guilabel:`Add` icon. Now change the :guilabel:`Type` of the layer as ``Break line``. 
+11. Now, select ``Islands_2004_550_stpl83`` as the :guilabel:`Vector layer`, ``Elevation`` as the :guilabel:`Interpolation attribute`. Then click on the :guilabel:`Add` icon. Now change the :guilabel:`Type` of the layer as ``Break lines``. 
 
   .. image:: /static/3/interpolating_point_data/images/11.png
      :align: center
 
+.. note:: 
+
+  A Break line allows us to model sudden interruptions in the elevation while modeling surface layers. Specifying the layer type to be *Break lines* will tell the interpolation algorithm to use a constant elevation for the islands instead of interpolated values from the points.
 
 12. In :guilabel:`Extent` click on the ``...`` and select the ``Boundary2004_550_stpl83``. 
 
@@ -165,6 +168,11 @@ Procedure
   .. image:: /static/3/interpolating_point_data/images/20.png
      :align: center
 
+.. note::
+ 
+ 	The interval is specified in the unit of the CRS of the layer. Our source data is in the *EPSG:2276 NAD83 / Texas North Central (ftUS)* - so the interval for coutours will be interpreted as ``5 feet``.
+	
+ 
 21.  Now a new layer ``contour`` will be added to the canvas. Click on the :guilabel:`Open the Layer styling panel` icon. Switch to :guilabel:`Labels`. 
 
   .. image:: /static/3/interpolating_point_data/images/21.png
