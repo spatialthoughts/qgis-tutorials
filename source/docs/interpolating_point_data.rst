@@ -1,5 +1,10 @@
 Interpolating Point Data
 ========================
+
+.. warning:: 
+
+   This tutorial is now obsolete. A new and updated version is available at :doc:`3/interpolating_point_data`
+
 Interpolation is a commonly used GIS technique to create continuous surface
 from discrete points. A lot of real world phenomena are continuous -
 elevations, soils, temperatures etc. If we wanted to model these surfaces for
@@ -10,6 +15,7 @@ interpolation is achieved using the built-in ``Interpolation plugin``.
 
 Overview of the task
 --------------------
+
 
 We will take field depth measurements for a Lake Arlington in Texas and create
 an elevation relief map and contours from these measurements.
