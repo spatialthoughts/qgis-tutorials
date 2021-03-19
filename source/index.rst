@@ -29,7 +29,7 @@ QGIS Tutorials and Tips
 * Advanced GIS operations
    - :doc:`docs/3/nearest_neighbor_analysis`
    - :doc:`docs/3/sampling_raster_data`
-   - :doc:`docs/interpolating_point_data`
+   - :doc:`docs/3/interpolating_point_data`
    - :doc:`docs/3/batch_processing`
    - :doc:`docs/3/processing_graphical_modeler`
    - :doc:`docs/3/automating_map_creation`
