@@ -94,7 +94,12 @@ Procedure
   .. image:: /static/3/processing_algorithms_pyqgis/images/10.png
      :align: center
      
-11. To run the processing algorithm via Python, we need to access names of all the layers. Enter the following code in the :guilabel:`Python Console` and hit :kbd:`Enter`. Then click on the :guilabel:`Play` button. You will see the names of all layers printed in the console.
+11. Click on the :guilabel:`show editor` button. This will open the python editor were a bunch of python code can be written and executed with a single click of a button.
+
+  .. image:: /static/3/processing_algorithms_pyqgis/images/11.png
+     :align: center
+
+12. To run the processing algorithm via Python, we need to access names of all the layers. Enter the following code in the editor and click on the :guilabel:`Play` button. You will see the names of all layers printed in the console.
 
   .. code-block:: python
 
@@ -102,30 +107,53 @@ Procedure
     for layer in root.children():
       print(layer.name())
 
-  .. image:: /static/3/processing_algorithms_pyqgis/images/11.gif
-     :align: center
-
-12. Click on the :guilabel:`show editor` button. This will open the python editor were a bunch of python code cab be written and executed with a single click of a button.
-
   .. image:: /static/3/processing_algorithms_pyqgis/images/12.png
      :align: center
 
-13. For adding a custom prefix, we need to look at the layer name and extract a substring representing the month number. Enter the following code to iterate over all raster layers, extract the custom prefix and run the ``qgis:zonalstatistics`` algorithm using it.
+13. Now, lets calculate ``Mean`` across all months and create an single layer by adding 12 columns for each month (i.e) ``01_mean`` for January, ``02_mean`` for February and so on. This can be achieved by custom prefixing. So, for adding a custom prefix, we need to look at the layer name and extract a substring representing the month number. Enter the following code to iterate over all raster layers, extract the custom prefix and run the ``native:zonalstatisticsfb`` algorithm using it.
 
   .. code-block:: python
 
+  
     root = QgsProject.instance().layerTreeRoot()
+
+    input_layer = 'Zip_Codes'
+    result_layer = input_layer
+    unique_field = 'OBJECTID'
+
+    # Iterate through all raster layers
     for layer in root.children():
       if layer.name().startswith('PRISM'):
+        # Run Zonal Stats algorithm
+      
         prefix = layer.name()[-6:-4]
-        params = {'INPUT_RASTER': layer.name(), 'RASTER_BAND': 1, 'INPUT_VECTOR': 'Zip_Codes',
-                   'COLUMN_PREFIX': prefix+'_', 'STATISTICS': [2]}
-        processing.run("qgis:zonalstatistics", params)
+        params = {'INPUT_RASTER': layer.name(),
+            'RASTER_BAND': 1, 'INPUT': input_layer,
+            'COLUMN_PREFIX': prefix+'_', 'STATISTICS': [2],
+            'OUTPUT': 'memory:'
+            }
+        result = processing.run("native:zonalstatisticsfb", params)
+        zonalstats = result['OUTPUT']
+        
+        # Run Join Attributes by Table to join the newly created
+        # column with original layer
+        params = { 'INPUT': result_layer, 'FIELD':unique_field,
+            'INPUT_2': zonalstats, 'FIELD_2': unique_field, 
+            'FIELDS_TO_COPY': prefix + '_' + 'mean',
+            'OUTPUT': 'memory:'}
+            
+        result = processing.run("native:joinattributestable", params)
+    
+    # At the end of each iteration, update the result layer to the
+    # newly processed layer, so we keep adding new fields to the same layer
+    result_layer = result['OUTPUT']
+    
+    QgsProject.instance().addMapLayer(result_layer)
 
   .. image:: /static/3/processing_algorithms_pyqgis/images/13.png
      :align: center
      
-14. Once the processing finishes, right-click on the ``Zip_Codes`` layer and select :guilabel:`Open Attribute Table`.
+14. Once the processing finishes, a new layer ``output`` will be added to canvas, right-click on the layer and select :guilabel:`Open Attribute Table`.
 
   .. image:: /static/3/processing_algorithms_pyqgis/images/14.png
      :align: center
