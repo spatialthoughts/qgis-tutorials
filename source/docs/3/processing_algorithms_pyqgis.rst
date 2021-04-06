@@ -73,7 +73,7 @@ Procedure
   .. image:: /static/3/processing_algorithms_pyqgis/images/6.png
      :align: center
      
-7. We will do a manual test run of the algorithm for a single layer. This is a useful way to check if the algorithm behaves as expected and also an easy way to find out how to pass on relevant parameters to the algorithm when using it via Python. In the :guilabel:`Zonal Statistics` dialog, select ``Zip_Codes`` as the :guilabel:`Input layer` ``PRISM_ppt_stable_4kmM3_201701_bil`` as the :guilabel:`Raster Layer` and, leave other parameters to default. Click the :guilabel:`...` button next to :guilabel:`Statistics to calculate` and select only ``Mean``, next click the :guilabel:`...` button next to :guilabel:`Zonal Statistics` and save the layer as ``january_mean.gpkg`` Click :guilabel:`Run`.
+7. We will do a manual test run of the algorithm for a single layer. This is a useful way to check if the algorithm behaves as expected and also an easy way to find out how to pass on relevant parameters to the algorithm when using it via Python. In the :guilabel:`Zonal Statistics` dialog, select ``Zip_Codes`` as the :guilabel:`Input layer` ``PRISM_ppt_stable_4kmM3_201701_bil`` as the :guilabel:`Raster Layer` and, leave other parameters to default. Click the :guilabel:`...` button next to :guilabel:`Statistics to calculate` and select only ``Mean``, next click the :guilabel:`...` button next to :guilabel:`Zonal Statistics` and save the layer as ``january_mean.gpkg`` Click :guilabel:`Run` .
 
   .. image:: /static/3/processing_algorithms_pyqgis/images/7.png
      :align: center
