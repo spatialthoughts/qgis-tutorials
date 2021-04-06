@@ -152,6 +152,10 @@ Procedure
 
   .. image:: /static/3/processing_algorithms_pyqgis/images/13.png
      :align: center
+
+  .. note::
+
+    The ``native:zonalstatisticsfb`` algorithm will produce new layer for each month by aggregating each month **mean** as a single layer. But to get an single layer by combaining all the individual layer, we need to join all the new layers by using ``native:joinattributestable``. 
      
 14. Once the processing finishes, a new layer ``output`` will be added to canvas, right-click on the layer and select :guilabel:`Open Attribute Table`.
 
