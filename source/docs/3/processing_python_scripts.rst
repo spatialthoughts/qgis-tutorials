@@ -24,7 +24,7 @@ Data Source [NATURALEARTH]_
 
 For convenience, you may directly download a geopackage containing the above layer from below:
 
-`ne_global.gpkg <http://www.qgistutorials.com/downloads/ne_global.gpkg>`_
+`ne_global.gpkg <https://www.qgistutorials.com/downloads/ne_global.gpkg>`_
 
 Procedure
 ---------

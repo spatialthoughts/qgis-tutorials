@@ -22,9 +22,9 @@ layers. Download the `10m Physical Vectors - Land <https://www.naturalearthdata.
 
 For convenience, you may directly download a copy of the above layers from below:
 
-`globalpowerplantdatabasev120.zip <http://www.qgistutorials.com/downloads/globalpowerplantdatabasev120.zip>`_
+`globalpowerplantdatabasev120.zip <https://www.qgistutorials.com/downloads/globalpowerplantdatabasev120.zip>`_
 
-`ne_10m_land.zip <http://www.qgistutorials.com/downloads/ne_10m_land.zip>`_
+`ne_10m_land.zip <https://www.qgistutorials.com/downloads/ne_10m_land.zip>`_
 
 Data Source [WRI]_ [NATURALEARTH]_
 

@@ -23,9 +23,9 @@ Natural Earth has a nice `Populated Places <http://www.naturalearthdata.com/down
 For convenience, you may directly download a copy of both the datasets from the links
 below:
 
-`signif.txt <http://www.qgistutorials.com/downloads/signif.txt>`_
+`signif.txt <https://www.qgistutorials.com/downloads/signif.txt>`_
 
-`ne_10m_populated_places_simple.zip <http://www.qgistutorials.com/downloads/ne_10m_populated_places_simple.zip>`_
+`ne_10m_populated_places_simple.zip <https://www.qgistutorials.com/downloads/ne_10m_populated_places_simple.zip>`_
 
 Data Sources: [NGDC]_ [NATURALEARTH]_
 

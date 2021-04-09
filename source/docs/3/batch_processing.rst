@@ -36,7 +36,7 @@ layers. Download the following layers
 
 For convenience, you may directly download a geopackage containing the above layers from below:
 
-`ne_global.gpkg <http://www.qgistutorials.com/downloads/ne_global.gpkg>`_
+`ne_global.gpkg <https://www.qgistutorials.com/downloads/ne_global.gpkg>`_
 
 Data Source: [NATURALEARTH]_
 

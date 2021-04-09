@@ -21,7 +21,7 @@ Get the data
 For convenience, you may directly download a copy of the datasets from the
 links below:
 
-`KMRL-Open-Data.zip <http://www.qgistutorials.com/downloads/KMRL-Open-Data.zip>`_
+`KMRL-Open-Data.zip <https://www.qgistutorials.com/downloads/KMRL-Open-Data.zip>`_
 
 Data Source [KMRL]_
 

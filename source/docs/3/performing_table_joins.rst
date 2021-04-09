@@ -25,9 +25,9 @@ Get the data
 
 For convenience, you may directly download a copy of both the datasets from the links below:
 
-`tl_2018_06_tract.zip <http://www.qgistutorials.com/downloads/tl_2018_06_tract.zip>`_
+`tl_2018_06_tract.zip <https://www.qgistutorials.com/downloads/tl_2018_06_tract.zip>`_
 
-`ACS_17_5YR_B01003.zip <http://www.qgistutorials.com/downloads/ACS_17_5YR_B01003.zip>`_
+`ACS_17_5YR_B01003.zip <https://www.qgistutorials.com/downloads/ACS_17_5YR_B01003.zip>`_
 
 Data Source [TIGER]_ [USCENSUS]_
 

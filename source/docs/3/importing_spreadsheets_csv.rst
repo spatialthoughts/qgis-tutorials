@@ -16,7 +16,7 @@ Download `Significant Earthquake Database <http://www.ngdc.noaa.gov/nndc/struts/
 
 For convenience, you may directly download a copy of both the datasets from the links below:
 
-`signif.txt <http://www.qgistutorials.com/downloads/signif.txt>`_ 
+`signif.txt <https://www.qgistutorials.com/downloads/signif.txt>`_ 
 
 Data Source [NGDC]_
 

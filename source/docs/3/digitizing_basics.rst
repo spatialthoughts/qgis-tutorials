@@ -33,7 +33,7 @@ from the `Christchurch Topo50 map download page
 For convenience, you may directly download a copy of the dataset from the
 link below:
 
-`BX24_GeoTifv1-02-clip.tif <http://www.qgistutorials.com/downloads/BX24_GeoTifv1-02-clip.tif>`_
+`BX24_GeoTifv1-02-clip.tif <https://www.qgistutorials.com/downloads/BX24_GeoTifv1-02-clip.tif>`_
 
 Data Source [LINZ]_
 

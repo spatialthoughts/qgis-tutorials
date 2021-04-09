@@ -22,7 +22,7 @@ Download the `North America supplement <http://www.naturalearthdata.com/http//ww
 
 For convenience, you may directly download a copy of the dataset from the link below:
 
-`ne_10m_railroads_north_america..zip <http://www.qgistutorials.com/downloads/ne_10m_railroads_north_america.zip>`_  
+`ne_10m_railroads_north_america..zip <https://www.qgistutorials.com/downloads/ne_10m_railroads_north_america.zip>`_  
 
 Data Source [NATURALEARTH]_
 

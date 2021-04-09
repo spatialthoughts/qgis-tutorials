@@ -31,11 +31,11 @@ Download the following data layers as shapefiles.
 For convenience, you may directly download a copy of the datasets from the
 links below:
 
-`Roadway_Block-shp.zip <http://www.qgistutorials.com/downloads/Roadway_Block-shp.zip>`_
+`Roadway_Block-shp.zip <https://www.qgistutorials.com/downloads/Roadway_Block-shp.zip>`_
 
-`Address_Points.zip <http://www.qgistutorials.com/downloads/Address_Points.zip>`_
+`Address_Points.zip <https://www.qgistutorials.com/downloads/Address_Points.zip>`_
 
-`Adult_Mental_Health_Providers.zip <http://www.qgistutorials.com/downloads/Adult_Mental_Health_Providers.zip>`_
+`Adult_Mental_Health_Providers.zip <https://www.qgistutorials.com/downloads/Adult_Mental_Health_Providers.zip>`_
 
 Data Source: [DCOPENDATA]_
 
@@ -71,7 +71,7 @@ Procedure
 
 .. note::
 
-   As the algorithm will extract 1000 random points from the given data set, to replicate the exact points used in this exercise you can download the subset file which we got during the execution of the algorithm here `address_point_subset.zip <http://www.qgistutorials.com/downloads/address_point_subset.zip>`_ . After downloading load ``address_point_subset.shp`` layer into QGIS. 
+   As the algorithm will extract 1000 random points from the given data set, to replicate the exact points used in this exercise you can download the subset file which we got during the execution of the algorithm here `address_point_subset.zip <https://www.qgistutorials.com/downloads/address_point_subset.zip>`_ . After downloading load ``address_point_subset.shp`` layer into QGIS. 
 
   
 5. A new layer ``address_point_subset`` will be added to the :guilabel:`Layers` panel, you can turn off the visibility of ``Address_Points`` address points layer.

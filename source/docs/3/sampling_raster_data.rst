@@ -27,11 +27,11 @@ urban areas in the US.  Download the `Urban Areas Gazetteer File
 For convenience, you may directly download a copy of the datasets from the
 links below:
 
-`us.tmax_nohads_ll_20190501_float.tif <http://www.qgistutorials.com/downloads/us.tmax_nohads_ll_20190501_float.tif>`_
+`us.tmax_nohads_ll_20190501_float.tif <https://www.qgistutorials.com/downloads/us.tmax_nohads_ll_20190501_float.tif>`_
 
-`2018_Gaz_ua_national.zip <http://www.qgistutorials.com/downloads/2018_Gaz_ua_national.zip>`_
+`2018_Gaz_ua_national.zip <https://www.qgistutorials.com/downloads/2018_Gaz_ua_national.zip>`_
 
-`tl_2018_us_county.zip <http://www.qgistutorials.com/downloads/tl_2018_us_county.zip>`_
+`tl_2018_us_county.zip <https://www.qgistutorials.com/downloads/tl_2018_us_county.zip>`_
 
 Data Sources: [NOAACPC]_, [USGAZETTEER]_ [TIGER]_
 
