@@ -28,9 +28,9 @@ Download the `Street Pavement Rating <https://data.cityofnewyork.us/Transportati
 
 For convenience, you may directly download a copy of the datasets from the links below:
 
-`nybb_19a.zip <http://www.qgistutorials.com/downloads/nybb_19a.zip>`_
+`nybb_19a.zip <https://www.qgistutorials.com/downloads/nybb_19a.zip>`_
 
-`V_SSS_SEGMENTRATING_1.zip <http://www.qgistutorials.com/downloads/V_SSS_SEGMENTRATING_1.zip>`_
+`V_SSS_SEGMENTRATING_1.zip <https://www.qgistutorials.com/downloads/V_SSS_SEGMENTRATING_1.zip>`_
 
 Data Source [CITYOFNY]_
 

@@ -15,11 +15,11 @@ Other skills you will learn
 
 Get the data
 ------------
-Natural Earth provides a `Populated Places <http://www.naturalearthdata.com/downloads/10m-cultural-vectors/10m-populated-places/>`_ dataset. Download the `simple (less columns) dataset <http://www.naturalearthdata.com/http//www.naturalearthdata.com/download/10m/cultural/ne_10m_populated_places_simple.zip>`_.
+Natural Earth provides a `Populated Places <https://www.naturalearthdata.com/downloads/10m-cultural-vectors/10m-populated-places/>`_ dataset. Download the `simple (less columns) dataset <https://www.naturalearthdata.com/http//www.naturalearthdata.com/download/10m/cultural/ne_10m_populated_places_simple.zip>`_.
 
 For convenience, you may directly download a copy of datasets from the link below:
 
-`ne_10m_populated_places_simple.zip <http://www.qgistutorials.com/downloads/ne_10m_populated_places_simple.zip>`_
+`ne_10m_populated_places_simple.zip <https://www.qgistutorials.com/downloads/ne_10m_populated_places_simple.zip>`_
 
 Data Source [NATURALEARTH]_
 

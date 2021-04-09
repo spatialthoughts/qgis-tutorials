@@ -24,7 +24,7 @@ Download the `Roadway Block <https://opendata.dc.gov/datasets/roadway-block>`_ s
 For convenience, you may directly download a copy of the datasets from the
 links below:
 
-`Roadway_Block-shp.zip <http://www.qgistutorials.com/downloads/Roadway_Block-shp.zip>`_
+`Roadway_Block-shp.zip <https://www.qgistutorials.com/downloads/Roadway_Block-shp.zip>`_
 
 Data Source: [DCOPENDATA]_
 

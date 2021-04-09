@@ -18,16 +18,16 @@ Get the data
 ------------
 `US Census Bureau <https://www.census.gov/en.html>`_ provides `TIGER/Line Shapefiles <https://www.census.gov/geographies/mapping-files/time-series/geo/tiger-line-file.html>`_. You can visit the `FTP site <https://www2.census.gov/geo/tiger/TIGER2018/>`_ and download census tracts shapefile for California. Download `Census Tracts for California <https://www2.census.gov/geo/tiger/TIGER2018/TRACT/tl_2018_06_tract.zip>`_ file. 
 
-`Americal FactFinder <http://factfinder2.census.gov/faces/nav/jsf/pages/searchresults.xhtml?refresh=t>`_ is a repository of all census data for the US. You can use `Advanced Search` and query for the `Topic - Basic Count/Estimate` and `Geographies - All Census Tracts in California` to create a custom CSV and download it. This tutorial uses ``TOTAL POPULATION | 2017 ACS 5-year estimates`` data.
+`Americal FactFinder <https://factfinder2.census.gov/faces/nav/jsf/pages/searchresults.xhtml?refresh=t>`_ is a repository of all census data for the US. You can use `Advanced Search` and query for the `Topic - Basic Count/Estimate` and `Geographies - All Census Tracts in California` to create a custom CSV and download it. This tutorial uses ``TOTAL POPULATION | 2017 ACS 5-year estimates`` data.
 
 .. image:: /static/3/performing_table_joins/images/data1.png
    :align: center
 
 For convenience, you may directly download a copy of both the datasets from the links below:
 
-`tl_2018_06_tract.zip <http://www.qgistutorials.com/downloads/tl_2018_06_tract.zip>`_
+`tl_2018_06_tract.zip <https://www.qgistutorials.com/downloads/tl_2018_06_tract.zip>`_
 
-`ACS_17_5YR_B01003.zip <http://www.qgistutorials.com/downloads/ACS_17_5YR_B01003.zip>`_
+`ACS_17_5YR_B01003.zip <https://www.qgistutorials.com/downloads/ACS_17_5YR_B01003.zip>`_
 
 Data Source [TIGER]_ [USCENSUS]_
 

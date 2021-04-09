@@ -16,13 +16,13 @@ Other skills you will learn
 
 Get the data
 ------------
-`Hipkiss’s Scanned Old Maps <http://www.hipkiss.org/data/maps.html>`_ website has an excellent collection out-of-copyright scanned maps that one can use for research.
+`Hipkiss’s Scanned Old Maps <https://www.hipkiss.org/data/maps.html>`_ website has an excellent collection out-of-copyright scanned maps that one can use for research.
 
-Download the `1870 map of southern India <http://www.hipkiss.org/data/maps/william-mackenzie_gallery-of-geography_1870_southern-india_3975_3071_600.jpg>`_ and save it as a JPG image on your hard drive. 
+Download the `1870 map of southern India <https://www.hipkiss.org/data/maps/william-mackenzie_gallery-of-geography_1870_southern-india_3975_3071_600.jpg>`_ and save it as a JPG image on your hard drive. 
 
 For convenience, you may directly download a copy of the dataset from the link below:
 
-`1870_southern_india.jpg <http://www.qgistutorials.com/downloads/1870_southern-india.jpg>`_ 
+`1870_southern_india.jpg <https://www.qgistutorials.com/downloads/1870_southern-india.jpg>`_ 
 
 Procedure
 ---------

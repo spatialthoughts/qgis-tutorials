@@ -21,19 +21,19 @@ Other skills you will learn
 Get the data
 ------------
 
-`Land Information New Zealand (LINZ) <http://www.linz.govt.nz/>`_ provides
+`Land Information New Zealand (LINZ) <https://www.linz.govt.nz/>`_ provides
 raster topographic maps at 1:50,000 scale for the New Zealand mainland and
 Chatham Islands.
 
 Download the `GeoTIFF Image file
-<http://topo.linz.govt.nz/Topo50_raster_images/GeoTIFFTopo50/BX24_GeoTifv1-02.tif>`_
+<https://topo.linz.govt.nz/Topo50_raster_images/GeoTIFFTopo50/BX24_GeoTifv1-02.tif>`_
 from the `Christchurch Topo50 map download page
-<http://www.linz.govt.nz/topography/topo-maps/map-chooser/christchurch/christchurch#digitalfile>`_.
+<https://www.linz.govt.nz/topography/topo-maps/map-chooser/christchurch/christchurch#digitalfile>`_.
 
 For convenience, you may directly download a copy of the dataset from the
 link below:
 
-`BX24_GeoTifv1-02-clip.tif <http://www.qgistutorials.com/downloads/BX24_GeoTifv1-02-clip.tif>`_
+`BX24_GeoTifv1-02-clip.tif <https://www.qgistutorials.com/downloads/BX24_GeoTifv1-02-clip.tif>`_
 
 Data Source [LINZ]_
 

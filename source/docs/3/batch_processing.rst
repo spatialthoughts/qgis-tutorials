@@ -21,22 +21,22 @@ Other skills you will learn
 Get the data
 ------------
 
-`Natural Earth <http://naturalearthdata.com>`_ has several global vector
+`Natural Earth <https://naturalearthdata.com>`_ has several global vector
 layers. Download the following layers
 
 - `Admin 0 - Countries
-  <http://www.naturalearthdata.com/http//www.naturalearthdata.com/download/10m/cultural/ne_10m_admin_0_countries.zip>`_
+  <https://www.naturalearthdata.com/http//www.naturalearthdata.com/download/10m/cultural/ne_10m_admin_0_countries.zip>`_
 - `Railroads
-  <http://www.naturalearthdata.com/http//www.naturalearthdata.com/download/10m/cultural/ne_10m_railroads.zip>`_
+  <https://www.naturalearthdata.com/http//www.naturalearthdata.com/download/10m/cultural/ne_10m_railroads.zip>`_
 - `Ports
-  <http://www.naturalearthdata.com/http//www.naturalearthdata.com/download/10m/cultural/ne_10m_ports.zip>`_
+  <https://www.naturalearthdata.com/http//www.naturalearthdata.com/download/10m/cultural/ne_10m_ports.zip>`_
 - `Urban Areas
   <https://www.naturalearthdata.com/http//www.naturalearthdata.com/download/10m/cultural/ne_10m_urban_areas.zip>`_
 
 
 For convenience, you may directly download a geopackage containing the above layers from below:
 
-`ne_global.gpkg <http://www.qgistutorials.com/downloads/ne_global.gpkg>`_
+`ne_global.gpkg <https://www.qgistutorials.com/downloads/ne_global.gpkg>`_
 
 Data Source: [NATURALEARTH]_
 

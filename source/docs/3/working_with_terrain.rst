@@ -28,7 +28,7 @@ of GTOPO30 dataset.
 
 Here is how to search and download the revelant data from USGS Earthexplorer.
 
-1. Go to the `USGS Earthexplorer <http://earthexplorer.usgs.gov/>`_ . In the
+1. Go to the `USGS Earthexplorer <https://earthexplorer.usgs.gov/>`_ . In the
    :guilabel:`Search Criteria` tab, click on :guilabel:`World Features`. In :guilabel:`Feature Name` enter ``Everest``, in :guilabel:`Country` enter ``NEPAL``, click on :guilabel:`Show`. This will display a table with the location information. Select `Everest` under :guilabel:`Placename`.
 
 .. image:: /static/3/working_with_terrain/images/1.png
@@ -66,7 +66,7 @@ data comes as GeoTiff files which are contained in this zip archive.
 
 For convenience, you can download a copy of the data directly from below.
 
-`GMTED2010N10E060_300.zip <http://www.qgistutorials.com/downloads/GMTED2010N10E060_300.zip>`_
+`GMTED2010N10E060_300.zip <https://www.qgistutorials.com/downloads/GMTED2010N10E060_300.zip>`_
 
 
 Data Source: [GMTED2010]_

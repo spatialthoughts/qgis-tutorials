@@ -16,7 +16,7 @@ Other skills you will learn
 Get the data
 ------------
 
-`The PRISM Climate Group <http://www.prism.oregonstate.edu/>`_ gathers climate observation and provides historic and current climate data for the conterminous US. Head over to the `Recent Years <http://www.prism.oregonstate.edu/recent/>`_ data page and download the monthly precipitation data for the year 2017 in BIL format.
+`The PRISM Climate Group <https://www.prism.oregonstate.edu/>`_ gathers climate observation and provides historic and current climate data for the conterminous US. Head over to the `Recent Years <https://www.prism.oregonstate.edu/recent/>`_ data page and download the monthly precipitation data for the year 2017 in BIL format.
 
 .. image:: /static/3/processing_algorithms_pyqgis/images/data1.png
    :align: center
@@ -26,9 +26,9 @@ Get the data
 
 For convenience, you may directly download a copy of both the datasets from the links below:
 
-`PRISM_ppt_stable_4kmM3_2017_all_bil.zip <http://www.qgistutorials.com/downloads/PRISM_ppt_stable_4kmM3_2017_all_bil.zip>`_
+`PRISM_ppt_stable_4kmM3_2017_all_bil.zip <https://www.qgistutorials.com/downloads/PRISM_ppt_stable_4kmM3_2017_all_bil.zip>`_
 
-`Zip_Codes.zip <http://www.qgistutorials.com/downloads/Zip_Codes.zip>`_
+`Zip_Codes.zip <https://www.qgistutorials.com/downloads/Zip_Codes.zip>`_
 
 Data Source [PRISM]_ [CITYOFSEATTLE]_
 
@@ -42,7 +42,7 @@ Procedure
 
 .. note::
 
-  The data is provided in the `BIL format <http://desktop.arcgis.com/en/arcmap/10.3/manage-data/raster-and-images/bil-bip-and-bsq-raster-files.htm>`_. Each layer is presented with a set of files ``.bil`` file containing the actual data, a ``.hdr`` file describing the data structure and a ``.prj`` file containing the projection information. QGIS can load the ``.bil`` file and provided the other files exist in the same directory.
+  The data is provided in the `BIL format <https://desktop.arcgis.com/en/arcmap/10.3/manage-data/raster-and-images/bil-bip-and-bsq-raster-files.htm>`_. Each layer is presented with a set of files ``.bil`` file containing the actual data, a ``.hdr`` file describing the data structure and a ``.prj`` file containing the projection information. QGIS can load the ``.bil`` file and provided the other files exist in the same directory.
 
 2. A :guilabel:`Select Transformation of PRISM_ppt_stable_4kmM3_2017_all_bil` dialog box will appear, leave the selection to default and click :guilabel:`OK`. 
 

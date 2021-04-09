@@ -21,7 +21,7 @@ Other skills you will learn
 Get the data
 ------------
 
-`Datameet <http://projects.datameet.org/maps/>`_ provides community-created administrative boundary shapefiles for India. 
+`Datameet <https://projects.datameet.org/maps/>`_ provides community-created administrative boundary shapefiles for India. 
 
 Download the `Datameet Spatial Data Repository [~150 MB] <https://codeload.github.com/datameet/maps/zip/0fa9fd850eda3d2062e66f2caabc65872639c85a>`_ zipfile. The downloaded archive contains multiple folders. Extract the archive and use the files in the ``States/`` folder.
 

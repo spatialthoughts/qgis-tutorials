@@ -17,13 +17,13 @@ Other skills you will learn
 Get the data
 ------------
 
-In this tutorial, we will be using kite and balloon imagery collected by `The Public Laboratory <http://publiclaboratory.org/archive>`_. They make the georeferenced versions of the images also available, but we will download a non-georeferenced JPG image and go through the process of georeferencing it in QGIS.
+In this tutorial, we will be using kite and balloon imagery collected by `The Public Laboratory <https://publiclaboratory.org/archive>`_. They make the georeferenced versions of the images also available, but we will download a non-georeferenced JPG image and go through the process of georeferencing it in QGIS.
  
-Download the JPG image of `Washington Square Park, New York <http:// publiclaboratory.org/map/washington-square-park-new-york-new-york/2012-10-01>`_. You can right-click the JPG button and choose :guilabel:`Save link as...`.
+Download the JPG image of `Washington Square Park, New York <https:// publiclaboratory.org/map/washington-square-park-new-york-new-york/2012-10-01>`_. You can right-click the JPG button and choose :guilabel:`Save link as...`.
  
 For convenience, you may directly download a copy of the dataset from the link below:
  
-`newyorkcity-washingtonsquarepark.jpg <http://www.qgistutorials.com/downloads/newyorkcity-washingtonsquarepark.jpg>`_
+`newyorkcity-washingtonsquarepark.jpg <https://www.qgistutorials.com/downloads/newyorkcity-washingtonsquarepark.jpg>`_
 
 Procedure
 ---------

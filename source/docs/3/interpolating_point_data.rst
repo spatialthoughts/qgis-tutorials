@@ -20,15 +20,15 @@ Get the data
 
 Texas Water Development Board provides the `shapefiles for completed lake
 surveys
-<http://www.twdb.texas.gov/surfacewater/surveys/completed/list/index.asp>`_.
+<https://www.twdb.texas.gov/surfacewater/surveys/completed/list/index.asp>`_.
 
 Download the `2007-12 survey shapefiles for Lake Arlington
-<http://www.twdb.texas.gov/hydro_survey/Arlington/2007-12/Shapefiles.zip>`_.
+<https://www.twdb.texas.gov/hydro_survey/Arlington/2007-12/Shapefiles.zip>`_.
 
 For convenience, you can directly download the sample data used in this
 tutorial from link below.
 
-`Shapefiles.zip <http://www.qgistutorials.com/downloads/Shapefiles.zip>`_
+`Shapefiles.zip <https://www.qgistutorials.com/downloads/Shapefiles.zip>`_
 
 Data Sources: [TWDB]_
 

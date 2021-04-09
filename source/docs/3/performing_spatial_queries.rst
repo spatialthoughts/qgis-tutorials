@@ -31,9 +31,9 @@ Download the `Bars and pubs, with patron capacity <https://data.melbourne.vic.go
    
 For convenience, you may directly download a copy of datasets from the link below:
 
-`metro_stations_accessbility.zip <http://www.qgistutorials.com/downloads/metro_stations_accessbility.zip>`_
+`metro_stations_accessbility.zip <https://www.qgistutorials.com/downloads/metro_stations_accessbility.zip>`_
 
-`Bars_and_pubs__with_patron_capacity <http://www.qgistutorials.com/downloads/Bars_and_pubs__with_patron_capacity.csv>`_
+`Bars_and_pubs__with_patron_capacity <https://www.qgistutorials.com/downloads/Bars_and_pubs__with_patron_capacity.csv>`_
 
 Data Source: [CITYOFMELBOURNE]_
 
@@ -77,7 +77,7 @@ Procedure
 
 .. note::
 
-  If you are not sure of the a local CRS for the region that you are working in, selecting a CRS for the UTM zone based on the WGS84 datum is a safe choice. You can find out the UTM zone number of your region using `UTM Grid Zones of the World <http://www.dmap.co.uk/utmworld.htm>`_.
+  If you are not sure of the a local CRS for the region that you are working in, selecting a CRS for the UTM zone based on the WGS84 datum is a safe choice. You can find out the UTM zone number of your region using `UTM Grid Zones of the World <https://www.dmap.co.uk/utmworld.htm>`_.
   
 8. Next, click the :guilabel:`...` button next to :guilabel:`Reprojected` and select ``Save to GeoPackage``. `Geopackage <https://www.geopackage.org/>`_ is the recommended open data format spatial data and is the default data exchange format for QGIS3. A single GeoPackage ``.gpkg`` file can contain multiple vector and raster layers.
 

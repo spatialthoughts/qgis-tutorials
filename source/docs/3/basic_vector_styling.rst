@@ -15,16 +15,16 @@ Other skills you will learn
 Get the data
 ------------
 
-`World Resources Institute <https://www.wri.org>`_ has compiled a comprehensive, open source database of power plants around the World covering over 30000 plants. Download the `The Global Power Plant Database <http://datasets.wri.org/dataset/globalpowerplantdatabase>`_ from the WRI Open Data Portal.
+`World Resources Institute <https://www.wri.org>`_ has compiled a comprehensive, open source database of power plants around the World covering over 30000 plants. Download the `The Global Power Plant Database <https://datasets.wri.org/dataset/globalpowerplantdatabase>`_ from the WRI Open Data Portal.
 
-`Natural Earth <http://naturalearthdata.com>`_ has several global vector
+`Natural Earth <https://naturalearthdata.com>`_ has several global vector
 layers. Download the `10m Physical Vectors - Land <https://www.naturalearthdata.com/http//www.naturalearthdata.com/download/10m/physical/ne_10m_land.zip>`_ containing Land polygons.
 
 For convenience, you may directly download a copy of the above layers from below:
 
-`globalpowerplantdatabasev120.zip <http://www.qgistutorials.com/downloads/globalpowerplantdatabasev120.zip>`_
+`globalpowerplantdatabasev120.zip <https://www.qgistutorials.com/downloads/globalpowerplantdatabasev120.zip>`_
 
-`ne_10m_land.zip <http://www.qgistutorials.com/downloads/ne_10m_land.zip>`_
+`ne_10m_land.zip <https://www.qgistutorials.com/downloads/ne_10m_land.zip>`_
 
 Data Source [WRI]_ [NATURALEARTH]_
 

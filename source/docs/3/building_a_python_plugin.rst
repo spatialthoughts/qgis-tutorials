@@ -17,7 +17,7 @@ Get the Tools
 
 Qt Creator
 ^^^^^^^^^^
-`Qt <http://www.qt.io/>`_ is a software development framework that is used to develop applications that run on Windows, Mac, Linux as well as various mobile operating systems. QGIS itself is written using the Qt framework. For plugin development, we will use an application called `Qt Creator <https://doc.qt.io/qt-5/qtdesigner-manual.html>`_ to design the interface for our plugin. 
+`Qt <https://www.qt.io/>`_ is a software development framework that is used to develop applications that run on Windows, Mac, Linux as well as various mobile operating systems. QGIS itself is written using the Qt framework. For plugin development, we will use an application called `Qt Creator <https://doc.qt.io/qt-5/qtdesigner-manual.html>`_ to design the interface for our plugin. 
 
 Download and install the Qt Creator installer from `Qt Offline Installers <https://www.qt.io/offline-installers>`_. Make sure you select **Qt Creator** on the download page. Note that you will have to create a free Qt account to install the package.
 
@@ -58,7 +58,7 @@ Create a Windows Batch file (.bat extension) with the following content and save
 
 **Mac**
 
-Install the `Homebrew <http://brew.sh>`_ package manager. Install ``PyQt`` package by running the following command:
+Install the `Homebrew <https://brew.sh>`_ package manager. Install ``PyQt`` package by running the following command:
 
 .. code-block:: none
 
@@ -83,7 +83,7 @@ This tutorial uses Notepad++ editor on Windows.
 
 **Windows**
 
-`Notepad++ <http://notepad-plus-plus.org/>`_ is a good free editor for windows.
+`Notepad++ <https://notepad-plus-plus.org/>`_ is a good free editor for windows.
 Download and install the `Notepad++ editor
 <https://notepad-plus-plus.org/download/>`_.
 

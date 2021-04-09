@@ -11,9 +11,9 @@ We will load a vector point layer representing all major airports and use python
 Get the data
 ------------
 
-We will use the `Airports <http://www.naturalearthdata.com/downloads/10m-cultural-vectors/airports/>`_ dataset from Natural Earth.
+We will use the `Airports <https://www.naturalearthdata.com/downloads/10m-cultural-vectors/airports/>`_ dataset from Natural Earth.
 
-Download the `Airports shapefile <http://www.naturalearthdata.com/http//www.naturalearthdata.com/download/10m/cultural/ne_10m_airports.zip>`_.
+Download the `Airports shapefile <https://www.naturalearthdata.com/http//www.naturalearthdata.com/download/10m/cultural/ne_10m_airports.zip>`_.
 
 Procedure
 ---------

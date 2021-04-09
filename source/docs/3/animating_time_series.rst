@@ -22,14 +22,14 @@ Get the data
 ------------
 National Geospatial-Intelligence Agency's `Maritime Safety Information portal <https://msi.nga.mil/NGAPortal/MSI.portal>`_ provides a shapefile of all incidencts of maritine piracy in the form on `Anti-shipping Activity Messages <https://msi.nga.mil/Piracy>`_. Download the `Arc Shape file <https://msi.nga.mil/api/publications/download?key=16920958/SFH00000/ASAM_shp.zip&type=download>`_ version of the database.
 
-`Natural Earth <http://naturalearthdata.com>`_ has several global vector
+`Natural Earth <https://naturalearthdata.com>`_ has several global vector
 layers. Download the `10m Physical Vectors - Land <https://www.naturalearthdata.com/http//www.naturalearthdata.com/download/10m/physical/ne_10m_land.zip>`_ containing Land polygons.
 
 For convenience, you may directly download a copy of the above layers from below:
 
-`ASAM_shp.zip <http://www.qgistutorials.com/downloads/ASAM_shp.zip>`_
+`ASAM_shp.zip <https://www.qgistutorials.com/downloads/ASAM_shp.zip>`_
 
-`ne_10m_land.zip <http://www.qgistutorials.com/downloads/ne_10m_land.zip>`_
+`ne_10m_land.zip <https://www.qgistutorials.com/downloads/ne_10m_land.zip>`_
 
 Data Source: [NGA_MSI]_ [NATURALEARTH]_
 

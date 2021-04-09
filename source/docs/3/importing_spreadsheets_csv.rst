@@ -10,13 +10,13 @@ We will be importing a text file of earthquake data to QGIS.
 Get the data
 ------------
 
-NOAA’s National Geophysical Data Center produces a great dataset of all significant earthquakes since 2150 BC. `Learn more. <http://www.ngdc.noaa.gov/nndc/struts/form?t=101650&s=1&d=1>`_
+NOAA’s National Geophysical Data Center produces a great dataset of all significant earthquakes since 2150 BC. `Learn more. <https://www.ngdc.noaa.gov/nndc/struts/form?t=101650&s=1&d=1>`_
 
-Download `Significant Earthquake Database <http://www.ngdc.noaa.gov/nndc/struts/results?type_0=Exact&query_0=$ID&t=101650&s=13&d=189&dfn=signif.txt>`_ text file.
+Download `Significant Earthquake Database <https://www.ngdc.noaa.gov/nndc/struts/results?type_0=Exact&query_0=$ID&t=101650&s=13&d=189&dfn=signif.txt>`_ text file.
 
 For convenience, you may directly download a copy of both the datasets from the links below:
 
-`signif.txt <http://www.qgistutorials.com/downloads/signif.txt>`_ 
+`signif.txt <https://www.qgistutorials.com/downloads/signif.txt>`_ 
 
 Data Source [NGDC]_
 

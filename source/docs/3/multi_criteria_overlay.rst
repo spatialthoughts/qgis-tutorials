@@ -25,11 +25,11 @@ In this tutorial, we will identify the suitable areas for development, that are
 
 Get the data
 ------------
-We will use vector data layers from `OpenStreetMap (OSM) <http://www.openstreetmap.org/>`_. OSM is a global database of freely available base map data. `Geofabrik <http://download.geofabrik.de/>`_ provides daily updated shapefiles of OpenStreetMap datasets.
+We will use vector data layers from `OpenStreetMap (OSM) <https://www.openstreetmap.org/>`_. OSM is a global database of freely available base map data. `Geofabrik <https://download.geofabrik.de/>`_ provides daily updated shapefiles of OpenStreetMap datasets.
 
-We will be using the OSM data layers for the state of Assam in India. Geofabrik `India shapefiles <http://download.geofabrik.de/asia/india.html>`_ were downloaded, clipped to the state boundary and packaged in a single GeoPackage file. You can download a copy of the geopackage from the link below:
+We will be using the OSM data layers for the state of Assam in India. Geofabrik `India shapefiles <https://download.geofabrik.de/asia/india.html>`_ were downloaded, clipped to the state boundary and packaged in a single GeoPackage file. You can download a copy of the geopackage from the link below:
 
-`assam.gpkg <http://www.qgistutorials.com/downloads/assam.gpkg>`_
+`assam.gpkg <https://www.qgistutorials.com/downloads/assam.gpkg>`_
 
 Data Source: [GEOFABRIK]_
 

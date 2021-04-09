@@ -214,7 +214,7 @@ Procedure
   .. image:: /static/3/processing_python_plugin/images/21.png
      :align: center
      
-22. The plugin is ready and you can ship it in the current form. But we can improve the user experience by making the processing plugin behave like a regular plugin. Using the hybrid approach outlined below, you can add a menu item and a toolbar button. This way, you give the users an easier way to discover and launch the tools that are installed as part of the plugin. We will need an icon for the plugin. Download `logo.png <http://www.qgistutorials.com/downloads/logo.png>`_ and copy it to the plugin directory.
+22. The plugin is ready and you can ship it in the current form. But we can improve the user experience by making the processing plugin behave like a regular plugin. Using the hybrid approach outlined below, you can add a menu item and a toolbar button. This way, you give the users an easier way to discover and launch the tools that are installed as part of the plugin. We will need an icon for the plugin. Download `logo.png <https://www.qgistutorials.com/downloads/logo.png>`_ and copy it to the plugin directory.
 
   .. image:: /static/3/processing_python_plugin/images/22.png
      :align: center

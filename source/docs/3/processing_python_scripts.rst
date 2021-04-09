@@ -14,17 +14,17 @@ Our script will perform a dissolve operation based on a field chosen by the user
 Get the data
 ------------
 We will use the `Admin 0 - Countries
-<http://www.naturalearthdata.com/downloads/10m-cultural-vectors/10m-admin-0-countries/>`_
+<https://www.naturalearthdata.com/downloads/10m-cultural-vectors/10m-admin-0-countries/>`_
 dataset from Natural Earth.
 
 Download the `Admin 0 - countries shapefile.
-<http://www.naturalearthdata.com/http//www.naturalearthdata.com/download/10m/cultural/ne_10m_admin_0_countries.zip>`_.
+<https://www.naturalearthdata.com/http//www.naturalearthdata.com/download/10m/cultural/ne_10m_admin_0_countries.zip>`_.
 
 Data Source [NATURALEARTH]_
 
 For convenience, you may directly download a geopackage containing the above layer from below:
 
-`ne_global.gpkg <http://www.qgistutorials.com/downloads/ne_global.gpkg>`_
+`ne_global.gpkg <https://www.qgistutorials.com/downloads/ne_global.gpkg>`_
 
 Procedure
 ---------

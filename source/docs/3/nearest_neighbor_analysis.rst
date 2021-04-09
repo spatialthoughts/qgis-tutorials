@@ -15,17 +15,17 @@ Other skills you will learn
 Get the data
 ------------
 
-We will use NOAA’s National Geophysical Data Center’s `Significant Earthquake Database <http://www.ngdc.noaa.gov/nndc/struts/form?t=101650&s=1&d=1>`_ as our layer representing all major earthquakes. Download the `tab-delimited earthquake data <https://www.ngdc.noaa.gov/nndc/struts/results?type_0=Exact&query_0=$ID&t=101650&s=13&d=189&dfn=signif.txt>`_.  
+We will use NOAA’s National Geophysical Data Center’s `Significant Earthquake Database <https://www.ngdc.noaa.gov/nndc/struts/form?t=101650&s=1&d=1>`_ as our layer representing all major earthquakes. Download the `tab-delimited earthquake data <https://www.ngdc.noaa.gov/nndc/struts/results?type_0=Exact&query_0=$ID&t=101650&s=13&d=189&dfn=signif.txt>`_.  
 
-Natural Earth has a nice `Populated Places <http://www.naturalearthdata.com/downloads/10m-cultural-vectors/10m-populated-places/>`_ dataset. Download the `simple (less columns) dataset <http://www.naturalearthdata.com/http//www.naturalearthdata.com/download/10m/cultural/ne_10m_populated_places_simple.zip>`_
+Natural Earth has a nice `Populated Places <https://www.naturalearthdata.com/downloads/10m-cultural-vectors/10m-populated-places/>`_ dataset. Download the `simple (less columns) dataset <https://www.naturalearthdata.com/http//www.naturalearthdata.com/download/10m/cultural/ne_10m_populated_places_simple.zip>`_
 
 
 For convenience, you may directly download a copy of both the datasets from the links
 below:
 
-`signif.txt <http://www.qgistutorials.com/downloads/signif.txt>`_
+`signif.txt <https://www.qgistutorials.com/downloads/signif.txt>`_
 
-`ne_10m_populated_places_simple.zip <http://www.qgistutorials.com/downloads/ne_10m_populated_places_simple.zip>`_
+`ne_10m_populated_places_simple.zip <https://www.qgistutorials.com/downloads/ne_10m_populated_places_simple.zip>`_
 
 Data Sources: [NGDC]_ [NATURALEARTH]_
 

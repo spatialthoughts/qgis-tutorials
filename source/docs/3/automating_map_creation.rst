@@ -27,23 +27,23 @@ Get the data
 ------------
 
 We will use the `GIS Data Layers
-<http://planning.hawaii.gov/gis/download-gis-data/>`_ from `State of Hawaii -
-Office of Planning <http://planning.hawaii.gov/>`_
+<https://planning.hawaii.gov/gis/download-gis-data/>`_ from `State of Hawaii -
+Office of Planning <https://planning.hawaii.gov/>`_
 
 Download the `Wetlands
-<http://files.hawaii.gov/dbedt/op/gis/data/HI_Wetlands.shp.zip>`_ layer from
+<https://files.hawaii.gov/dbedt/op/gis/data/HI_Wetlands.shp.zip>`_ layer from
 Biologic and Ecologic category.
 
 Download the `Census County Boundaries 2010
-<http://files.hawaii.gov/dbedt/op/gis/data/county10.shp.zip>`_ layer from the
+<https://files.hawaii.gov/dbedt/op/gis/data/county10.shp.zip>`_ layer from the
 Cultural and Demographic category.
 
 For convenience, you may directly download a copy of both the datasets from the links
 below:
 
-`HI_Wetlands.shp.zip <http://www.qgistutorials.com/downloads/HI_Wetlands.shp.zip>`_
+`HI_Wetlands.shp.zip <https://www.qgistutorials.com/downloads/HI_Wetlands.shp.zip>`_
 
-`county10.shp.zip <http://www.qgistutorials.com/downloads/county10.shp.zip>`_
+`county10.shp.zip <https://www.qgistutorials.com/downloads/county10.shp.zip>`_
 
 Data Source [HAWAII]_
 

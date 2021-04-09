@@ -1,7 +1,7 @@
 Searching and Downloading OpenStreetMap Data (QGIS3)
 ====================================================
 
-Getting high quality data is essential for any GIS task. One great resource for free and openly licensed data is `OpenStreetMap(OSM) <http://www.openstreetmap.org/>`_ . The OSM database consists of all types of mapping data - streets, local data, building polygons, administrative boundaries etc. Getting access to OSM data in a GIS format in QGIS is possible via the *QuickOSM** plugin. This tutorial explains the process for searching, downloading and using this plugin.
+Getting high quality data is essential for any GIS task. One great resource for free and openly licensed data is `OpenStreetMap(OSM) <https://www.openstreetmap.org/>`_ . The OSM database consists of all types of mapping data - streets, local data, building polygons, administrative boundaries etc. Getting access to OSM data in a GIS format in QGIS is possible via the *QuickOSM** plugin. This tutorial explains the process for searching, downloading and using this plugin.
 
 Overview of the task
 --------------------

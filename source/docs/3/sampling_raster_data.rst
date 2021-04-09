@@ -14,7 +14,7 @@ Other skills you will learn
 Get the data
 ------------
 
-NOAA’s `Climate Prediction Center <http://www.cpc.ncep.noaa.gov/>`_ provides `GIS data <http://www.cpc.ncep.noaa.gov/products/GIS/GIS_DATA/>`_ related to temperature and precipitation in the US. Download the `latest grid file for maximum temperatures <ftp://ftp.cpc.ncep.noaa.gov/GIS/GRADS_GIS/GeoTIFF/TEMP/us_tmax/>`_. The file will be named ``us.tmax_nohads_ll_{YYYYMMDD}_float.tif``
+NOAA’s `Climate Prediction Center <https://www.cpc.ncep.noaa.gov/>`_ provides `GIS data <https://www.cpc.ncep.noaa.gov/products/GIS/GIS_DATA/>`_ related to temperature and precipitation in the US. Download the `latest grid file for maximum temperatures <ftp://ftp.cpc.ncep.noaa.gov/GIS/GRADS_GIS/GeoTIFF/TEMP/us_tmax/>`_. The file will be named ``us.tmax_nohads_ll_{YYYYMMDD}_float.tif``
 
 We will use a CSV file from `2018 US Gazetteer
 <https://www.census.gov/geographies/reference-files/time-series/geo/gazetteer-files.2018.html>`_ representing
@@ -27,11 +27,11 @@ urban areas in the US.  Download the `Urban Areas Gazetteer File
 For convenience, you may directly download a copy of the datasets from the
 links below:
 
-`us.tmax_nohads_ll_20190501_float.tif <http://www.qgistutorials.com/downloads/us.tmax_nohads_ll_20190501_float.tif>`_
+`us.tmax_nohads_ll_20190501_float.tif <https://www.qgistutorials.com/downloads/us.tmax_nohads_ll_20190501_float.tif>`_
 
-`2018_Gaz_ua_national.zip <http://www.qgistutorials.com/downloads/2018_Gaz_ua_national.zip>`_
+`2018_Gaz_ua_national.zip <https://www.qgistutorials.com/downloads/2018_Gaz_ua_national.zip>`_
 
-`tl_2018_us_county.zip <http://www.qgistutorials.com/downloads/tl_2018_us_county.zip>`_
+`tl_2018_us_county.zip <https://www.qgistutorials.com/downloads/tl_2018_us_county.zip>`_
 
 Data Sources: [NOAACPC]_, [USGAZETTEER]_ [TIGER]_
 

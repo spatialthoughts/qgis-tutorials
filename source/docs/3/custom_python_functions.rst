@@ -6,7 +6,7 @@ Expressions in QGIS have a lot of power and are used in many core features: sele
 Overview of the task
 --------------------
 
-We will define a custom function that finds the `UTM zone number <http://www.dmap.co.uk/utmworld.htm>`_ of a map feature and use this function to write an expression that displays the UTM zone as a map tip when hovered over the point. 
+We will define a custom function that finds the `UTM zone number <https://www.dmap.co.uk/utmworld.htm>`_ of a map feature and use this function to write an expression that displays the UTM zone as a map tip when hovered over the point. 
  
 Other skills you will learn
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -16,7 +16,7 @@ Other skills you will learn
 Get the data
 ------------
 
-We will use Natural Earth's `Populated Places <http://www.naturalearthdata.com/downloads/10m-cultural-vectors/10m-populated-places/>`__ dataset. Download the `simple (less columns) dataset <http://www.naturalearthdata.com/http//www.naturalearthdata.com/download/10m/cultural/ne_10m_populated_places_simple.zip>`__
+We will use Natural Earth's `Populated Places <https://www.naturalearthdata.com/downloads/10m-cultural-vectors/10m-populated-places/>`__ dataset. Download the `simple (less columns) dataset <https://www.naturalearthdata.com/http//www.naturalearthdata.com/download/10m/cultural/ne_10m_populated_places_simple.zip>`__
 
 Procedure
 ---------
