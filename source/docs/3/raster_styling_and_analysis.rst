@@ -24,9 +24,9 @@ We will use the `Gridded Population of the World (GPW) v4 <https://sedac.ciesin.
 For convenience, you may directly download a copy of the datasets from the
 links below:
 
-`gpw-v4-population-count-rev11_2000_2pt5_min_tif.zip <http://www.qgistutorials.com/downloads/gpw-v4-population-count-rev11_2000_2pt5_min_tif.zip>`_
+`gpw-v4-population-count-rev11_2000_2pt5_min_tif.zip <https://www.qgistutorials.com/downloads/gpw-v4-population-count-rev11_2000_2pt5_min_tif.zip>`_
 
-`gpw-v4-population-count-rev11_2010_2pt5_min_tif.zip <http://www.qgistutorials.com/downloads/gpw-v4-population-count-rev11_2010_2pt5_min_tif.zip>`_
+`gpw-v4-population-count-rev11_2010_2pt5_min_tif.zip <https://www.qgistutorials.com/downloads/gpw-v4-population-count-rev11_2010_2pt5_min_tif.zip>`_
 
 Data Source [GPW4]_
 
