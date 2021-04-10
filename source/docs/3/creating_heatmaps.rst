@@ -17,7 +17,7 @@ Get the data
 
 For convenience, you may directly download a copy of the dataset from the link below:
  
-`2019-02-surrey-street.csv <http://www.qgistutorials.com/downloads/2019-02-surrey-street.csv>`_
+`2019-02-surrey-street.csv <https://www.qgistutorials.com/downloads/2019-02-surrey-street.csv>`_
 
 Data Source [POLICEUK]_
 

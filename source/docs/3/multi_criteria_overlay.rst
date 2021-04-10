@@ -29,7 +29,7 @@ We will use vector data layers from `OpenStreetMap (OSM) <http://www.openstreetm
 
 We will be using the OSM data layers for the state of Assam in India. Geofabrik `India shapefiles <http://download.geofabrik.de/asia/india.html>`_ were downloaded, clipped to the state boundary and packaged in a single GeoPackage file. You can download a copy of the geopackage from the link below:
 
-`assam.gpkg <http://www.qgistutorials.com/downloads/assam.gpkg>`_
+`assam.gpkg <https://www.qgistutorials.com/downloads/assam.gpkg>`_
 
 Data Source: [GEOFABRIK]_
 

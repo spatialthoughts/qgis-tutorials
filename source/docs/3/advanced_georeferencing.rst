@@ -23,7 +23,7 @@ Download the JPG image of `Washington Square Park, New York <http:// publiclabor
  
 For convenience, you may directly download a copy of the dataset from the link below:
  
-`newyorkcity-washingtonsquarepark.jpg <http://www.qgistutorials.com/downloads/newyorkcity-washingtonsquarepark.jpg>`_
+`newyorkcity-washingtonsquarepark.jpg <https://www.qgistutorials.com/downloads/newyorkcity-washingtonsquarepark.jpg>`_
 
 Procedure
 ---------

@@ -28,7 +28,7 @@ Download the `2007-12 survey shapefiles for Lake Arlington
 For convenience, you can directly download the sample data used in this
 tutorial from link below.
 
-`Shapefiles.zip <http://www.qgistutorials.com/downloads/Shapefiles.zip>`_
+`Shapefiles.zip <https://www.qgistutorials.com/downloads/Shapefiles.zip>`_
 
 Data Sources: [TWDB]_
 

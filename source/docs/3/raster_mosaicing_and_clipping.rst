@@ -28,29 +28,29 @@ We will also need the `Admin 0 - Countries <http://www.naturalearthdata.com/http
 
 For convenience, you may directly download a copy of the datasets from the links below:
 
-`N05E080.SRTMGL1.hgt.zip <http://www.qgistutorials.com/downloads/N05E080.SRTMGL1.hgt.zip>`_
+`N05E080.SRTMGL1.hgt.zip <https://www.qgistutorials.com/downloads/N05E080.SRTMGL1.hgt.zip>`_
 
-`N06E079.SRTMGL1.hgt.zip <http://www.qgistutorials.com/downloads/N06E079.SRTMGL1.hgt.zip>`_
+`N06E079.SRTMGL1.hgt.zip <https://www.qgistutorials.com/downloads/N06E079.SRTMGL1.hgt.zip>`_
 
-`N06E080.SRTMGL1.hgt.zip <http://www.qgistutorials.com/downloads/N06E080.SRTMGL1.hgt.zip>`_
+`N06E080.SRTMGL1.hgt.zip <https://www.qgistutorials.com/downloads/N06E080.SRTMGL1.hgt.zip>`_
 
-`N06E081.SRTMGL1.hgt.zip <http://www.qgistutorials.com/downloads/N06E081.SRTMGL1.hgt.zip>`_
+`N06E081.SRTMGL1.hgt.zip <https://www.qgistutorials.com/downloads/N06E081.SRTMGL1.hgt.zip>`_
 
-`N07E079.SRTMGL1.hgt.zip <http://www.qgistutorials.com/downloads/N07E079.SRTMGL1.hgt.zip>`_
+`N07E079.SRTMGL1.hgt.zip <https://www.qgistutorials.com/downloads/N07E079.SRTMGL1.hgt.zip>`_
 
-`N07E080.SRTMGL1.hgt.zip <http://www.qgistutorials.com/downloads/N07E080.SRTMGL1.hgt.zip>`_
+`N07E080.SRTMGL1.hgt.zip <https://www.qgistutorials.com/downloads/N07E080.SRTMGL1.hgt.zip>`_
 
-`N07E081.SRTMGL1.hgt.zip <http://www.qgistutorials.com/downloads/N07E081.SRTMGL1.hgt.zip>`_
+`N07E081.SRTMGL1.hgt.zip <https://www.qgistutorials.com/downloads/N07E081.SRTMGL1.hgt.zip>`_
 
-`N08E079.SRTMGL1.hgt.zip <http://www.qgistutorials.com/downloads/N08E079.SRTMGL1.hgt.zip>`_
+`N08E079.SRTMGL1.hgt.zip <https://www.qgistutorials.com/downloads/N08E079.SRTMGL1.hgt.zip>`_
 
-`N08E080.SRTMGL1.hgt.zip <http://www.qgistutorials.com/downloads/N08E080.SRTMGL1.hgt.zip>`_
+`N08E080.SRTMGL1.hgt.zip <https://www.qgistutorials.com/downloads/N08E080.SRTMGL1.hgt.zip>`_
 
-`N08E081.SRTMGL1.hgt.zip <http://www.qgistutorials.com/downloads/N08E081.SRTMGL1.hgt.zip>`_
+`N08E081.SRTMGL1.hgt.zip <https://www.qgistutorials.com/downloads/N08E081.SRTMGL1.hgt.zip>`_
 
-`N09E080.SRTMGL1.hgt.zip <http://www.qgistutorials.com/downloads/N09E080.SRTMGL1.hgt.zip>`_
+`N09E080.SRTMGL1.hgt.zip <https://www.qgistutorials.com/downloads/N09E080.SRTMGL1.hgt.zip>`_
 
-`ne_10m_admin_0_countries.zip <http://www.qgistutorials.com/downloads/ne_10m_admin_0_countries.zip>`_
+`ne_10m_admin_0_countries.zip <https://www.qgistutorials.com/downloads/ne_10m_admin_0_countries.zip>`_
 
 Data Source [SRTM]_ , [NATURALEARTH]_
 

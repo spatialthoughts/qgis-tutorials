@@ -31,9 +31,9 @@ Download the `Bars and pubs, with patron capacity <https://data.melbourne.vic.go
    
 For convenience, you may directly download a copy of datasets from the link below:
 
-`metro_stations_accessbility.zip <http://www.qgistutorials.com/downloads/metro_stations_accessbility.zip>`_
+`metro_stations_accessbility.zip <https://www.qgistutorials.com/downloads/metro_stations_accessbility.zip>`_
 
-`Bars_and_pubs__with_patron_capacity <http://www.qgistutorials.com/downloads/Bars_and_pubs__with_patron_capacity.csv>`_
+`Bars_and_pubs__with_patron_capacity <https://www.qgistutorials.com/downloads/Bars_and_pubs__with_patron_capacity.csv>`_
 
 Data Source: [CITYOFMELBOURNE]_
 

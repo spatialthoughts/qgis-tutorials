@@ -22,7 +22,7 @@ Download the `1870 map of southern India <http://www.hipkiss.org/data/maps/willi
 
 For convenience, you may directly download a copy of the dataset from the link below:
 
-`1870_southern_india.jpg <http://www.qgistutorials.com/downloads/1870_southern-india.jpg>`_ 
+`1870_southern_india.jpg <https://www.qgistutorials.com/downloads/1870_southern-india.jpg>`_ 
 
 Procedure
 ---------

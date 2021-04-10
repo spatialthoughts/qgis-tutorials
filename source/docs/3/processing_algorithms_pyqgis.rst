@@ -26,9 +26,9 @@ Get the data
 
 For convenience, you may directly download a copy of both the datasets from the links below:
 
-`PRISM_ppt_stable_4kmM3_2017_all_bil.zip <http://www.qgistutorials.com/downloads/PRISM_ppt_stable_4kmM3_2017_all_bil.zip>`_
+`PRISM_ppt_stable_4kmM3_2017_all_bil.zip <https://www.qgistutorials.com/downloads/PRISM_ppt_stable_4kmM3_2017_all_bil.zip>`_
 
-`Zip_Codes.zip <http://www.qgistutorials.com/downloads/Zip_Codes.zip>`_
+`Zip_Codes.zip <https://www.qgistutorials.com/downloads/Zip_Codes.zip>`_
 
 Data Source [PRISM]_ [CITYOFSEATTLE]_
 

@@ -66,7 +66,7 @@ data comes as GeoTiff files which are contained in this zip archive.
 
 For convenience, you can download a copy of the data directly from below.
 
-`GMTED2010N10E060_300.zip <http://www.qgistutorials.com/downloads/GMTED2010N10E060_300.zip>`_
+`GMTED2010N10E060_300.zip <https://www.qgistutorials.com/downloads/GMTED2010N10E060_300.zip>`_
 
 
 Data Source: [GMTED2010]_

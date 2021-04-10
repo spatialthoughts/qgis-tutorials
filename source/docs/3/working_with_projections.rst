@@ -27,9 +27,9 @@ Britain and extract it to a folder on your computer.
 For convenience, you may directly download a copy of the dataset from the link
 below:
 
-`ne_10m_admin_0_countries.zip <http://www.qgistutorials.com/downloads/ne_10m_admin_0_countries.zip>`_
+`ne_10m_admin_0_countries.zip <https://www.qgistutorials.com/downloads/ne_10m_admin_0_countries.zip>`_
 
-`minisc_gb.zip <http://www.qgistutorials.com/downloads/minisc_gb.zip>`_ (Contains only the files
+`minisc_gb.zip <https://www.qgistutorials.com/downloads/minisc_gb.zip>`_ (Contains only the files
 required for this tutorial)
 
 Data Sources: [NATURALEARTH]_ [OSOPENDATA]_
