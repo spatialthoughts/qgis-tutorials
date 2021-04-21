@@ -141,12 +141,16 @@ Procedure
   .. image:: /static/3/processing_algorithms_pyqgis/images/13.png
      :align: center
 
+.. note::
+
+	You can also run a QGIS Processing algorithm via Python using the `processing.runAndLoadResults()` function instead of `processing.run()` as shown above - which will load the result to QGIS canvas directly.
+	
 14. A new layer ``output`` will be added to the canvas, right-click on the layer and select :guilabel:`Open Attribute Table`. :guilabel:`01_mean` represents one month mean, likewise the above algorithm will produce 12 new layers if executed without the break.
 
   .. image:: /static/3/processing_algorithms_pyqgis/images/14.png
      :align: center
 
-15. Now lets add code to merge all the months mean, and create an single output layer from it. Enter the following code to iterate over all raster layers, extract the custom prefix and run the :guilabel:`native:joinattributestable` algorithm to create an single layer containing all months mean. 
+15. Now lets add code to merge all the months mean, and create an single output layer from it. Enter the following code to iterate over all raster layers, extract the custom prefix and run the ``native:joinattributestable`` algorithm to create an single layer containing all months mean. 
 
   .. code-block:: python
 
