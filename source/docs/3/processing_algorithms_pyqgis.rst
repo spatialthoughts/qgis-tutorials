@@ -11,7 +11,9 @@ We will use 12 gridded raster layers representing precipitation for each month o
 Other skills you will learn
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-- How to delete a column (i.e. field) from a vector layer.
+- Access all layer(Raster and vector) from Python console and print their names. 
+- Merge diffrent layer into single layer using Python script. 
+
 
 Get the data
 ------------
@@ -35,7 +37,7 @@ Data Source [PRISM]_ [CITYOFSEATTLE]_
 Procedure
 ---------
 
-1. Unzip the ``PRISM_ppt_stable_4kmM3_2017_all_bil.zip`` file. Locate the ``PRISM_ppt_stable_4kmM3_2017_all_bil`` folder in the QGIS Browser and expand it. The folder contains 12 individual layers for each month. Hold the :kbd:`Ctrl` key and select the ``.bil`` files for all 12 months. Once selected, drag them to the canvas.
+1. Locate the ``PRISM_ppt_stable_4kmM3_2017_all_bil.zip`` folder in the QGIS Browser and expand it. The folder contains 12 individual layers for each month. Hold the :kbd:`Ctrl` key and select the ``.bil`` files for all 12 months. Once selected, drag them to the canvas.
 
   .. image:: /static/3/processing_algorithms_pyqgis/images/1.png
      :align: center
@@ -49,14 +51,10 @@ Procedure
   .. image:: /static/3/processing_algorithms_pyqgis/images/2.png
      :align: center
 
-3. Next, unzip the ``Zip_Codes.zip`` file and extract the shapefile to a folder. Locate the ``Zip_Codes`` folder and expand it. Drag the ``Zip_Codes.shp`` file to the canvas.
+3. Next, locate the ``Zip_Codes.zip`` folder and expand it. Drag the ``Zip_Codes.shp`` file to the canvas.
 
   .. image:: /static/3/processing_algorithms_pyqgis/images/3.png
      :align: center
-
-.. note::
-
-  The unzip step is important because the Zonal Statistics algorithm works by adding a new field to the layer. If the layer is zipped, QGIS cannot update the layer.
      
 4. Right-click the ``Zip_Codes`` layer and select :guilabel:`Zoom to Layer`. You will see the zip code polygons for the city of seattle and neighboring areas. 
 
@@ -68,7 +66,7 @@ Procedure
   .. image:: /static/3/processing_algorithms_pyqgis/images/5.png
      :align: center
      
-6. The algorithm to sample a raster layer using vector polygons is known as ``Zonal statistics``. Search for the algorithm in the :guilabel:`Processing Toolbox`. Select the algorithm and hover your mouse over it. You will see a tooltip with the text *Algorithm ID: 'native:zonalstatistics'*. Note this id which will be needed  to call this algorithm via the Python API. Double-click the ``Zonal Statistics`` algorithm to launch it.
+6. The algorithm to sample a raster layer using vector polygons is known as ``Zonal statistics``. Search for the algorithm in the :guilabel:`Processing Toolbox`. Select the algorithm and hover your mouse over it. You will see a tooltip with the text *Algorithm ID: 'native:zonalstatisticsfb'*. Note this id which will be needed  to call this algorithm via the Python API. Double-click the ``Zonal Statistics`` algorithm to launch it.
 
   .. image:: /static/3/processing_algorithms_pyqgis/images/6.png
      :align: center
@@ -94,7 +92,7 @@ Procedure
   .. image:: /static/3/processing_algorithms_pyqgis/images/10.png
      :align: center
      
-11. Click on the :guilabel:`show editor` button. This will open the python editor were a bunch of python code can be written and executed with a single click of a button.
+11. Click on the :guilabel:`show editor` button. This will open the python editor where a bunch of python code can be written and executed with a single click of a button.
 
   .. image:: /static/3/processing_algorithms_pyqgis/images/11.png
      :align: center
@@ -110,60 +108,94 @@ Procedure
   .. image:: /static/3/processing_algorithms_pyqgis/images/12.png
      :align: center
 
-13. Now, lets calculate ``Mean`` across all months and create an single layer by adding 12 columns for each month (i.e) ``01_mean`` for January, ``02_mean`` for February and so on. This can be achieved by custom prefixing. So, for adding a custom prefix, we need to look at the layer name and extract a substring representing the month number. Enter the following code to iterate over all raster layers, extract the custom prefix and run the ``native:zonalstatisticsfb`` algorithm using it.
+13. Now, let's calculate the ``Mean`` for one month and create an output layer. In the below code :guilabel:`break` is used to exit the loop after the first execution, by this we can calculate the mean for January month. 
 
   .. code-block:: python
 
   
-    root = QgsProject.instance().layerTreeRoot()
+      root = QgsProject.instance().layerTreeRoot()
 
-    input_layer = 'Zip_Codes'
-    result_layer = input_layer
-    unique_field = 'OBJECTID'
+      input_layer = 'Zip_Codes'
+      result_layer = input_layer
+      unique_field = 'OBJECTID'
 
-    # Iterate through all raster layers
-    for layer in root.children():
-      if layer.name().startswith('PRISM'):
-        # Run Zonal Stats algorithm
-      
-        prefix = layer.name()[-6:-4]
-        params = {'INPUT_RASTER': layer.name(),
-            'RASTER_BAND': 1, 'INPUT': input_layer,
-            'COLUMN_PREFIX': prefix+'_', 'STATISTICS': [2],
-            'OUTPUT': 'memory:'
-            }
-        result = processing.run("native:zonalstatisticsfb", params)
-        zonalstats = result['OUTPUT']
+      # Iterate through all raster layers
+      for layer in root.children():
+        if layer.name().startswith('PRISM'):
+          # Run Zonal Stats algorithm
         
-        # Run Join Attributes by Table to join the newly created
-        # column with original layer
-        params = { 'INPUT': result_layer, 'FIELD':unique_field,
-            'INPUT_2': zonalstats, 'FIELD_2': unique_field, 
-            'FIELDS_TO_COPY': prefix + '_' + 'mean',
-            'OUTPUT': 'memory:'}
-            
-        result = processing.run("native:joinattributestable", params)
-    
-    # At the end of each iteration, update the result layer to the
-    # newly processed layer, so we keep adding new fields to the same layer
-    result_layer = result['OUTPUT']
-    
-    QgsProject.instance().addMapLayer(result_layer)
+          prefix = layer.name()[-6:-4]
+          params = {'INPUT_RASTER': layer.name(),
+              'RASTER_BAND': 1, 'INPUT': input_layer,
+              'COLUMN_PREFIX': prefix+'_', 'STATISTICS': [2],
+              'OUTPUT': 'memory:'
+              }
+          result = processing.run("native:zonalstatisticsfb", params)
+          
+          result_layer = result['OUTPUT']
+          # Breaking out of loop to demonstrate the zonalstatistics algorithm. 
+          break 
+          
+      QgsProject.instance().addMapLayer(result_layer)
 
   .. image:: /static/3/processing_algorithms_pyqgis/images/13.png
      :align: center
 
-  .. note::
-
-    The ``native:zonalstatisticsfb`` will produce new layers for each month by aggregating each month **mean** as new  layer. But to get an single layer by combaining it, we need to join all the new layers by using ``native:joinattributestable``. 
-     
-14. Once the processing finishes, a new layer ``output`` will be added to canvas, right-click on the layer and select :guilabel:`Open Attribute Table`.
+14. A new layer ``output`` will be added to the canvas, right-click on the layer and select :guilabel:`Open Attribute Table`. :guilabel:`01_mean` represents one month mean, likewise the above algorithm will produce 12 new layers if executed without the break.
 
   .. image:: /static/3/processing_algorithms_pyqgis/images/14.png
      :align: center
-     
-15. You will see 12 new columns added to the table with custom prefixes and mean precipitation values extracted from the raster layers.
+
+15. Now lets add code to merge all the months mean, and create an single output layer from it. Enter the following code to iterate over all raster layers, extract the custom prefix and run the :guilabel:`native:joinattributestable` algorithm to create an single layer containing all months mean. 
+
+  .. code-block:: python
+
+  
+        root = QgsProject.instance().layerTreeRoot()
+
+        input_layer = 'Zip_Codes'
+        result_layer = input_layer
+        unique_field = 'OBJECTID'
+
+        # Iterate through all raster layers
+        for layer in root.children():
+          if layer.name().startswith('PRISM'):
+            # Run Zonal Stats algorithm
+          
+            prefix = layer.name()[-6:-4]
+            params = {'INPUT_RASTER': layer.name(),
+                'RASTER_BAND': 1, 'INPUT': input_layer,
+                'COLUMN_PREFIX': prefix+'_', 'STATISTICS': [2],
+                'OUTPUT': 'memory:'
+                }
+            result = processing.run("native:zonalstatisticsfb", params)
+            zonalstats = result['OUTPUT']
+            
+            # Run Join Attributes by Table to join the newly created
+            # column with original layer
+            params = { 'INPUT': result_layer, 'FIELD':unique_field,
+                'INPUT_2': zonalstats, 'FIELD_2': unique_field, 
+                'FIELDS_TO_COPY': prefix + '_' + 'mean',
+                'OUTPUT': 'memory:'}
+                
+            result = processing.run("native:joinattributestable", params)
+            
+            # At the end of each iteration, update the result layer to the
+            # newly processed layer, so we keep adding new fields to the same layer
+            result_layer = result['OUTPUT']
+            
+        QgsProject.instance().addMapLayer(result_layer)
 
   .. image:: /static/3/processing_algorithms_pyqgis/images/15.png
+     :align: center
+     
+16. Once the processing finishes, a new layer ``output`` will be added to canvas, right-click on the layer and select :guilabel:`Open Attribute Table`.
+
+  .. image:: /static/3/processing_algorithms_pyqgis/images/16.png
+     :align: center
+     
+17. You will see 12 new columns added to the table with custom prefixes and mean precipitation values extracted from the raster layers.
+
+  .. image:: /static/3/processing_algorithms_pyqgis/images/17.png
      :align: center
      
