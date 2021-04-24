@@ -20,10 +20,10 @@ Get the data
 
 Texas Water Development Board provides the `shapefiles for completed lake
 surveys
-<http://www.twdb.texas.gov/surfacewater/surveys/completed/list/index.asp>`_.
+<https://www.twdb.texas.gov/surfacewater/surveys/completed/list/index.asp>`_.
 
 Download the `2007-12 survey shapefiles for Lake Arlington
-<http://www.twdb.texas.gov/hydro_survey/Arlington/2007-12/Shapefiles.zip>`_.
+<https://www.twdb.texas.gov/hydro_survey/Arlington/2007-12/Shapefiles.zip>`_.
 
 For convenience, you can directly download the sample data used in this
 tutorial from link below.
@@ -46,13 +46,13 @@ Procedure
   .. image:: /static/3/interpolating_point_data/images/2.png
      :align: center
 
-3. The layer will be added, now locate and drag the ``Boundary2004_550_stpl83.shp`` the layer to canvas.
+3. The layer will be added, now locate and drag the ``Boundary2004_550_stpl83.shp`` layer to canvas.
 
   .. image:: /static/3/interpolating_point_data/images/3.png
      :align: center
 
 
-4. The layer will be added to the canvas, now turn off the layer to visualize the ``Arlington_Soundings_2007_stpl83`` .
+4. The layer will be added to the canvas, now turn off this layer to visualize the ``Arlington_Soundings_2007_stpl83`` .
 
   .. image:: /static/3/interpolating_point_data/images/4.png
      :align: center  
@@ -76,7 +76,7 @@ Procedure
   .. image:: /static/3/interpolating_point_data/images/6.png
      :align: center
 
-7. From :guilabel:`Browser` locate and drag the ``Islands_2004_550_stpl83.shp`` the layer to canvas.
+7. From :guilabel:`Browser` locate and drag the ``Islands_2004_550_stpl83.shp`` layer to canvas.
 
   .. image:: /static/3/interpolating_point_data/images/7.png
      :align: center
