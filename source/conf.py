@@ -50,7 +50,7 @@ copyright = u'2019, Ujaval Gandhi'
 # built documents.
 #
 # The short X.Y version.
-version = 'v1.0'
+version = 'v1'
 # The full version, including alpha/beta/rc tags.
 release = '1'
 
