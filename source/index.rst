@@ -13,7 +13,7 @@ QGIS Tutorials and Tips
    - :doc:`docs/3/raster_styling_and_analysis`
    - :doc:`docs/3/raster_mosaicing_and_clipping`
    - :doc:`docs/3/working_with_terrain`
-   - :doc:`docs/working_with_wms`
+   - :doc:`docs/3/working_with_wms`
    - :doc:`docs/3/working_with_projections`
    - :doc:`docs/3/georeferencing_basics`
    - :doc:`docs/3/advanced_georeferencing`
