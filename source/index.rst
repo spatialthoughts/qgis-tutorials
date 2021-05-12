@@ -77,7 +77,7 @@ What next? Hungry for more QGIS materials? Work through my full length QGIS cour
    docs/3/raster_styling_and_analysis
    docs/3/raster_mosaicing_and_clipping
    docs/working_with_terrain
-   docs/working_with_wms
+   docs/3/working_with_wms
    docs/3/working_with_projections
    docs/3/georeferencing_basics
    docs/3/advanced_georeferencing
