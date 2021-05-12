@@ -1,5 +1,10 @@
 Working with WMS Data
 ======================
+
+.. warning:: 
+
+   This tutorial is now obsolete. A new and updated version is available at :doc:`3/working_with_wms`
+   
 Often you need reference data layers for your basemap or to display your
 results in the context of other datasets. Many organizations publish datasets
 online that can be readily used in GIS. A popular standard for publishing maps
