@@ -52,7 +52,7 @@ QGIS Tutorials and Tips
    - :doc:`docs/web_mapping_with_qgis2web`
    - :doc:`docs/creating_basemaps_with_qtiles`
 * Appendix
-   - :doc:`docs/using_plugins`
+   - :doc:`docs/3/using_plugins`
    - :doc:`docs/learning_resources`
    - :doc:`docs/credits`
 
@@ -110,7 +110,7 @@ What next? Hungry for more QGIS materials? Work through my full length QGIS cour
    docs/performing_table_joins_pyqgis
    docs/web_mapping_with_qgis2web
    docs/creating_basemaps_with_qtiles
-   docs/using_plugins
+   docs/3/using_plugins
    docs/downloading_osm_data
    docs/learning_resources
    docs/credits

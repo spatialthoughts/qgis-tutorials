@@ -1,5 +1,10 @@
 Using Plugins
 =============
+
+.. warning:: 
+
+   This tutorial is now obsolete. A new and updated version is available at :doc:`3/using_plugins`
+   
 Plugins in QGIS add useful features to the software. Plugins are written by QGIS developers and other independent users who want to extend the core functionality of the software. These plugins are made available in QGIS for all the users. 
 
 Overview of the task
