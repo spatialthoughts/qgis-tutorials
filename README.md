@@ -70,7 +70,8 @@ A server will start on port 8000. Visit http://localhost:8000/build/html/en/ and
 
 Activate `transifex-client` with your API token. You need this only to pull new translations from transifex.
 
-    tx config
+    tx init
+    tx config mapping-remote https://www.transifex.com/spatialthoughts/qgis-tutorials
 
 Once configure, you can run the following command to pull new translations from Transifex
 
