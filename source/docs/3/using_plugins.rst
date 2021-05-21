@@ -33,7 +33,7 @@ Core plugins are already part of the standard QGIS installation. To use these, y
 
    .. note::
 
-      Many core plugins are not enabled by default. Plugins get loaded on QGIS startup, so enabling many plugins can the startup time. Disable all plugins you don't need for a better experience.
+      Many core plugins are not enabled by default. Plugins get loaded on QGIS startup, so enabling many plugins can increase startup time. Disable all plugins you don't need for a better experience.
 
 4. Now that the :guilabel:`Topology Checker Plugin` is enabled, you can go to the :menuselection:`Vector --> Topology Checker` to use the functionality added by the plugin.
 
@@ -44,7 +44,7 @@ Core plugins are already part of the standard QGIS installation. To use these, y
 Third-party Plugins
 ^^^^^^^^^^^^^^^^^^^
 
-Third-plugins  are available in the `QGIS Plugins Repository <https://plugins.qgis.org/>`_ and need to be installed by the users before using them. Third-party plugins can be broadly categorized into the following sub-groups. 
+Third-party plugins are available in the `QGIS Plugins Repository <https://plugins.qgis.org/>`_ and need to be installed by the users before using them. Third-party plugins can be broadly categorized into the following sub-groups. 
 
 * GUI Plugins 
 * Processing Plugins
@@ -124,7 +124,7 @@ These plugins will add new algorithms (i.e. tools) to the :guilabel:`Processing 
 
 .. note::
 
-	Plugins can add new tools as well as new menu items. The *ORS Tools* plugin also adds a new menu item for configuration under the :menuselection:`Web --> ORS Tools`.
+	Plugins can add new tools as well as new menu items. The *ORS Tools* plugin also adds a new menu item for configuration under the menu :menuselection:`Web --> ORS Tools`.
 	
 
 Experimental Plugins
@@ -177,7 +177,7 @@ QGIS has a rich ecosystem of 3rd-party plugins. The official QGIS plugin reposit
       .. image:: /static/3/using_plugins/images/p3.png
          :align: center
 
-4. Switch to :guilabel:`Version`, here the history of releases and available versions are listed. Many plugins are only compatible with certain versions of QGIS. The :guilabel:`Minimum QGIS version` lists the QGIS version requirement for the plugin.
+4. Switch to :guilabel:`Versions`, here the history of releases and available versions are listed. Many plugins are only compatible with certain versions of QGIS. The :guilabel:`Minimum QGIS version` lists the QGIS version requirement for the plugin.
 
       .. image:: /static/3/using_plugins/images/p4.png
          :align: center
