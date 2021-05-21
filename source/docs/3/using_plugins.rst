@@ -33,7 +33,7 @@ Core plugins are already part of the standard QGIS installation. To use these, y
 
    .. note::
 
-      Many core plugins are not enabled by default. Plugins get loaded on QGIS startup, so enabling many plugins can increase startup time. Disable all plugins you don't need for a better experience.
+      Many core plugins are not enabled by default. Plugins get loaded on QGIS startup, so enabling many plugins can increase the startup time. Disable all plugins you don't need for a better experience.
 
 4. Now that the :guilabel:`Topology Checker Plugin` is enabled, you can go to the :menuselection:`Vector --> Topology Checker` to use the functionality added by the plugin.
 
@@ -112,7 +112,7 @@ These plugins will add new algorithms (i.e. tools) to the :guilabel:`Processing 
       .. image:: /static/3/using_plugins/images/processing4.png
          :align: center
 
-5.  There are many groups of tools, and the ones that have the QGIS logo next to them are called *Native algorithms*. You will notice a new folder at the bottom called :guilabel:`QRS Tools`. This is added by the plugin we just installed.
+5.  There are many groups of tools, and the ones that have the QGIS logo next to them are called *Native algorithms*. You will notice a new folder at the bottom called :guilabel:`QRS Tools`.  This is added by the plugin we just installed and is known as a *Provider*. QGIS Processing Plugins are able to add new *Providers* - such as ORS Tools - which can contain one or more new processing algorithms.
 
       .. image:: /static/3/using_plugins/images/processing5.png
          :align: center
