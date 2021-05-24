@@ -82,6 +82,71 @@ Once configure, you can run the following command to pull new translations from 
 Once the changes are pushed to the main branch, run the following to update the `gh_pages` branch which serves the live website. You will need commit access to the repository to run this command.
 
     make gh-pages
+
+## Formatting guide 
+
+All the tutorials written follow the same format and styling pattern, for those who translate in other languages this section would be helpful. 
+
+1. Title  
+```
+==========
+```
+
+2. Heading 1  
+```
+----------
+```
+
+3. Heading 2  
+```
+^^^^^^^^^^
+```
+
+4. Heading 3 
+```
+""""""""
+```
+
+5. Making selection in GUI window dropdown  
+```
+:menuselection:`menu --> submenu1 -->submenu2` 
+```
+
+6. Dialog box/layer names and making a single selection  
+```
+:guilabel:`label` 
+```
+
+7. The information displayed in the GUI window  
+```
+*information* 
+```
+
+8. Keyboard buttons 
+``` 
+kbd:`Ctrl` 
+```
+
+9. User entering information and specifying a layer name 
+``` 
+``type text / layer name``
+``` 
+
+10. Images are intended in each step and center aligned. 
+
+```
+     .. image:: /static/3/ex_name/images/2.png
+         :align: center
+```
+
+11. Note is always below image. 
+
+```
+    .. note::
+    
+      Exter your note here... 
+```
+
     
 License
 -------
