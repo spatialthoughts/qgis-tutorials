@@ -83,76 +83,23 @@ Once the changes are pushed to the main branch, run the following to update the 
 
     make gh-pages
 
-## Formatting guide
+## Formatting Guide
 
- 1. Title  
+We prefer the following style while writing the tutorials.
 
-```
-==========
-```
+| Type                                       |  rst Formatting  |
+| ------------------------------------------ | ---------------  |
+| Title                                      | ```==========``` |
+| Heading 1                                  | ```----------``` |
+| Heading 2                                  | ```^^^^^^^^^^``` |
+| Heading 3                                  | ```""""""""""``` |
+| Menu items and processing algorithms       |```:menuselection:`menu --> submenu1 -->submenu2` ``` |
+| Window titles, dialog boxes and buttons.   |```:guilabel:`label` ``` |
+| The information displayed in the GUI window|```*information* ``` |
+| Keyboard shortcuts                         |``` kbd:`Ctrl+L` ``` |
+| Layer and file names                       |``` ``layer_name`` ``` |
+| Text input by the user                     |``` ``value`` ```| 
 
-2. Heading 1 
-
-```
-----------
-```
-
-3. Heading 2
-
-```
-^^^^^^^^^^
-```
-
-4. Heading 3 
-
-```
-""""""""
-```
-
-5. Making a selection in GUI window dropdown 
-
-```
-:menuselection:`menu --> submenu1 -->submenu2` 
-```
-
-6. Dialog box/layer names and making a single selection 
-
-```
-:guilabel:`label` 
-```
-
-7. The information displayed in the GUI window  
-
-```
-*information* 
-```
-
-8. Keyboard buttons
-
-``` 
-kbd:`Ctrl` 
-```
-
-9. User entering information and specifying a layer name 
-
-``` 
-``type text / layer name``
-``` 
-
-10. Images are intended in each step and center-aligned. 
-
-```
-     .. image:: /static/3/ex_name/images/2.png
-         :align: center
-```
-
-11. Note is always below image. 
-
-```
-    .. note::
-    
-      Exter your note here... 
-```
 
 License
 -------
