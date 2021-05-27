@@ -93,12 +93,13 @@ We prefer the following style while writing the tutorials.
 | Heading 1                                  | ```----------``` |
 | Heading 2                                  | ```^^^^^^^^^^``` |
 | Heading 3                                  | ```""""""""""``` |
-| Menu items and processing algorithms       |```:menuselection:`menu --> submenu1 -->submenu2` ``` |
-| Window titles, dialog boxes and buttons.   |```:guilabel:`label` ``` |
-| The information displayed in the GUI window|```*information* ``` |
-| Keyboard shortcuts                         |``` kbd:`Ctrl+L` ``` |
-| Layer and file names                       |``` ``layer_name`` ``` |
-| Text input by the user                     |``` ``value`` ```| 
+| Menu items                                 | ``` :menuselection:`menu --> submenu1 --> submenu2` ``` |
+| Processing algorithms                      | ``` :menuselection:`Processing Toolbox --> Vector Overlay --> Clip` ``` |
+| Window titles, Tabs, Dialogs and buttons   | ``` :guilabel:`label` ``` |
+| Error and info messages                    | ``` *information* ``` |
+| Keyboard shortcuts                         | ``` kbd:`Ctrl+L` ``` |
+| Layer and file names                       | ``` ``layer_name`` ``` |
+| Text input by the user                     | ``` ``value`` ```| 
 
 
 License
