@@ -112,7 +112,7 @@ These plugins will add new algorithms (i.e. tools) to the :guilabel:`Processing 
       .. image:: /static/3/using_plugins/images/processing4.png
          :align: center
 
-5.  There are many groups of tools, and the ones that have the QGIS logo next to them are called *Native algorithms*. You will notice a new folder at the bottom called :guilabel:`QRS Tools`.  This is added by the plugin we just installed and is known as a *Provider*. QGIS Processing Plugins are able to add new *Providers* - such as ORS Tools - which can contain one or more new processing algorithms.
+5.  There are many groups of tools, and the ones that have the QGIS logo next to them are called *Native algorithms*. You will notice a new folder at the bottom called :guilabel:`ORS Tools`.  This is added by the plugin we just installed and is known as a *Provider*. QGIS Processing Plugins are able to add new *Providers* - such as ORS Tools - which can contain one or more new processing algorithms.
 
       .. image:: /static/3/using_plugins/images/processing5.png
          :align: center
