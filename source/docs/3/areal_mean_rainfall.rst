@@ -35,7 +35,7 @@ Other skills you will learn
 Get the data
 ------------
 
-We will use `NOAA Climate data <https://www.ncdc.noaa.gov/cdo-web/>`_ , `HydroSHEDS <https://www.hydrosheds.org/>`_ and `US Census Bureau Cartographic Boundary <https://www.census.gov/geographies/mapping-files/time-series/geo/carto-boundary-file.html>` data layers.
+We will use `NOAA Climate data <https://www.ncdc.noaa.gov/cdo-web/>`_ , `HydroSHEDS <https://www.hydrosheds.org/>`_ and `US Census Bureau Cartographic Boundary <https://www.census.gov/geographies/mapping-files/time-series/geo/carto-boundary-file.html>`_ data layers.
 
 Station-wise Precipitation
 ^^^^^^^^^^^^^^^^^^^^^^^^^^
