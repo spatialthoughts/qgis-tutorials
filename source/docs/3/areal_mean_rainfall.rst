@@ -98,7 +98,11 @@ Hydrological Basins
 
 It is good to download the data by yourself for the exercise but you can also download a copy of the data from the link below
 
-`amr.zip <https://www.qgistutorials.com/downloads/amr.zip>`_ 
+`Florida July 2020 Precipitation <https://www.qgistutorials.com/downloads/florida_2020_07_prcp.csv>`_
+
+`HydroSHEDS Basin boundaries <https://www.qgistutorials.com/downloads/hybas_na_lev06_v1c.zip>`_ 
+
+`US state boundaries <https://www.qgistutorials.com/downloads/cb_2018_us_state_500k.zip>`_ 
 
 Procedure
 ---------
