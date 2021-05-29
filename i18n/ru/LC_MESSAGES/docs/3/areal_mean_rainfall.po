@@ -1,0 +1,492 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2019, Ujaval Gandhi
+# This file is distributed under the same license as the QGIS Tutorials and Tips package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# 
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: QGIS Tutorials and Tips v1\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2021-05-29 09:04+0000\n"
+"PO-Revision-Date: 2021-05-29 09:07+0000\n"
+"Language-Team: Russian (https://www.transifex.com/spatialthoughts/teams/7952/ru/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: ru\n"
+"Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n%100>=11 && n%100<=14)? 2 : 3);\n"
+
+#: ../../source/docs/3/areal_mean_rainfall.rst:2
+msgid "Calculating Areal Mean Rainfall (QGIS3)"
+msgstr ""
+
+#: ../../source/docs/3/areal_mean_rainfall.rst:4
+msgid ""
+"Calculation of water balance, flood modeling, runoff forecasting, climate "
+"studies etc. often need the average depth of rainfall in a hydrological "
+"basin as an input. This estimation is called Areal Precipitation or Areal "
+"Mean Rainfall (AMR)."
+msgstr ""
+
+#: ../../source/docs/3/areal_mean_rainfall.rst:6
+msgid ""
+"AMR calculation can be done using rain gauge data. By using the rain gauge "
+"location and observed precipitation, one can estimate the average "
+"precipitation at a given location by using any of the following techniques:"
+msgstr ""
+
+#: ../../source/docs/3/areal_mean_rainfall.rst:8
+msgid ""
+"**Arithmetic Average**: One can simply take an average of all the observed "
+"values. This method assumes that the rainfall field is homogeneous and that "
+"the rain gauge observations are independent and give equal weight to all "
+"rain gauges."
+msgstr ""
+
+#: ../../source/docs/3/areal_mean_rainfall.rst:10
+msgid ""
+"**Thiessen Polygon**: This method divides the area using Thiessen polygons "
+"with the assumption that rainfall is homogeneous within the coverage area of"
+" each station. This method is also called an area-weighted average. These "
+"assumptions are fine for low-lying or flat terrain, but not suitable for "
+"mountainous terrain."
+msgstr ""
+
+#: ../../source/docs/3/areal_mean_rainfall.rst:12
+msgid ""
+"**Iso-hyetal Method**: This interpolation technique calculates Isohyets - "
+"lines joining equal precipitation. It assumes that rainfall between 2 "
+"isohyets is homogeneous. This method is suitable when the rain-gauge network"
+" is dense."
+msgstr ""
+
+#: ../../source/docs/3/areal_mean_rainfall.rst:14
+msgid ""
+"**Distance Weighting/Gridded** - This is an interpolation technique where a "
+"raster grid is created and a value for each pixel is estimated based on the "
+"distance to stations. Once the grid points have all been estimated they are "
+"summed and the sum is divided by the number of grid cells to obtain the "
+"areal mean precipitation."
+msgstr ""
+
+#: ../../source/docs/3/areal_mean_rainfall.rst:16
+msgid ""
+"**Geostatistical Methods**: Rainfall is strongly influenced by local factors"
+" - such as elevation. Using multivariate regression or Kriging techniques, "
+"one can account for spatial autocorrelation and can achieve better accuracy."
+" These methods are suited when the distribution of the rain gauge station is"
+" uniform and dense."
+msgstr ""
+
+#: ../../source/docs/3/areal_mean_rainfall.rst:18
+msgid ""
+"In this tutorial, we will learn the QGIS workflow to calculate Areal Mean "
+"Rainfall using the **Thiessen Polygon** method."
+msgstr ""
+
+#: ../../source/docs/3/areal_mean_rainfall.rst:21
+msgid "Overview of the task"
+msgstr ""
+
+#: ../../source/docs/3/areal_mean_rainfall.rst:23
+msgid ""
+"In this tutorial, we will take the precipitation measured by the Global "
+"Historical Climatology Network (GHCN) stations and compute Areal Mean "
+"Rainfall in each Hydrological basin in the state of Florida."
+msgstr ""
+
+#: ../../source/docs/3/areal_mean_rainfall.rst:27
+msgid "Other skills you will learn"
+msgstr ""
+
+#: ../../source/docs/3/areal_mean_rainfall.rst:29
+msgid "How to remove data with Null values."
+msgstr ""
+
+#: ../../source/docs/3/areal_mean_rainfall.rst:30
+msgid "How to fix invalid geometries in a layer."
+msgstr ""
+
+#: ../../source/docs/3/areal_mean_rainfall.rst:31
+msgid ""
+"How to check your Processing History and re-run a tool with the same "
+"parameters."
+msgstr ""
+
+#: ../../source/docs/3/areal_mean_rainfall.rst:32
+msgid "How to dissolve polygons and summarize statistics."
+msgstr ""
+
+#: ../../source/docs/3/areal_mean_rainfall.rst:33
+msgid "How to use only selected features in Processing algorithms."
+msgstr ""
+
+#: ../../source/docs/3/areal_mean_rainfall.rst:36
+msgid "Get the data"
+msgstr ""
+
+#: ../../source/docs/3/areal_mean_rainfall.rst:38
+msgid ""
+"We will use `NOAA Climate data <https://www.ncdc.noaa.gov/cdo-web/>`_ , "
+"`HydroSHEDS <https://www.hydrosheds.org/>`_ and `US Census Bureau "
+"Cartographic Boundary <https://www.census.gov/geographies/mapping-files"
+"/time-series/geo/carto-boundary-file.html>`_ data layers."
+msgstr ""
+
+#: ../../source/docs/3/areal_mean_rainfall.rst:41
+msgid "Station-wise Precipitation"
+msgstr ""
+
+#: ../../source/docs/3/areal_mean_rainfall.rst:43
+msgid ""
+"Go to `NOAA Climate data <https://www.ncdc.noaa.gov/cdo-web/>`_ website. "
+"Click on the Search tool."
+msgstr ""
+
+#: ../../source/docs/3/areal_mean_rainfall.rst:49
+msgid ""
+"Select ``Global Summary of the Month`` in :guilabel:`Select weather "
+"Observation Type/Dataset`, then in :guilabel:`Select Date Range` choose July"
+" 2020, in :guilabel:`Search For` select ``States``, in :guilabel:`Enter a "
+"Search Term`  type ``Florida``. Click :guilabel:`Search`."
+msgstr ""
+
+#: ../../source/docs/3/areal_mean_rainfall.rst:55
+msgid "Click :guilabel:`Add To Cart`, in items click :guilabel:`View Items`."
+msgstr ""
+
+#: ../../source/docs/3/areal_mean_rainfall.rst:61
+msgid ""
+"Switch to :guilabel:`Custom Global Summary of the Month CSV`, click "
+":guilabel:`Continue`."
+msgstr ""
+
+#: ../../source/docs/3/areal_mean_rainfall.rst:67
+msgid ""
+"Check the :guilabel:`Geographic Locations` and in :guilabel:`Select data "
+"types for custom output` expand ``Precipitation`` select ``Precipitation "
+"(PRCP)``. Click :guilabel:`Continue`."
+msgstr ""
+
+#: ../../source/docs/3/areal_mean_rainfall.rst:73
+msgid ""
+"Enter the mail address and click :guilabel:`SUBMIT ORDER` to Download the "
+"data."
+msgstr ""
+
+#: ../../source/docs/3/areal_mean_rainfall.rst:81
+msgid "Hydrological Basins"
+msgstr ""
+
+#: ../../source/docs/3/areal_mean_rainfall.rst:83
+msgid ""
+"Go-to `HydroSHEDS website <https://www.hydrosheds.org/>`_ and click "
+":guilabel:`Download`."
+msgstr ""
+
+#: ../../source/docs/3/areal_mean_rainfall.rst:89
+msgid ""
+"Select :menuselection:`HydroBASINS --> North America and Caribbean --> "
+"hybas_na_lev06_v1c.zip`"
+msgstr ""
+
+#: ../../source/docs/3/areal_mean_rainfall.rst:96
+msgid ""
+"Enter the mail address and click :guilabel:`Submit Request` to Download the "
+"data."
+msgstr ""
+
+#: ../../source/docs/3/areal_mean_rainfall.rst:103
+msgid "State Boundaries"
+msgstr ""
+
+#: ../../source/docs/3/areal_mean_rainfall.rst:105
+msgid ""
+"Visit the `Cartographic Boundary Files - Shapefile "
+"<https://www.census.gov/geographies/mapping-files/time-series/geo/carto-"
+"boundary-file.html>`_ page. Download the ``cb_2018_us_state_500k.zip`` file "
+"from the *States* section."
+msgstr ""
+
+#: ../../source/docs/3/areal_mean_rainfall.rst:108
+msgid ""
+"For convenience, you may directly download a copy of all the datasets from "
+"the links below:"
+msgstr ""
+
+#: ../../source/docs/3/areal_mean_rainfall.rst:110
+msgid ""
+"`florida_2020_07_prcp "
+"<https://www.qgistutorials.com/downloads/florida_2020_07_prcp.csv>`_"
+msgstr ""
+
+#: ../../source/docs/3/areal_mean_rainfall.rst:112
+msgid ""
+"`hybas_na_lev06_v1c "
+"<https://www.qgistutorials.com/downloads/hybas_na_lev06_v1c.zip>`_"
+msgstr ""
+
+#: ../../source/docs/3/areal_mean_rainfall.rst:114
+msgid ""
+"`cb_2018_us_state_500k "
+"<https://www.qgistutorials.com/downloads/cb_2018_us_state_500k.zip>`_"
+msgstr ""
+
+#: ../../source/docs/3/areal_mean_rainfall.rst:116
+msgid "Data Sources: [GHCN]_, [HYDROSHEDS]_, [USCENSUS]_"
+msgstr ""
+
+#: ../../source/docs/3/areal_mean_rainfall.rst:120
+msgid "Procedure"
+msgstr ""
+
+#: ../../source/docs/3/areal_mean_rainfall.rst:122
+msgid "Open QGIS and click on the :guilabel:`Open Data Source Manager`."
+msgstr ""
+
+#: ../../source/docs/3/areal_mean_rainfall.rst:127
+msgid ""
+"In the :guilabel:`Data Source Manager` dialog box, switch to "
+":guilabel:`Delimited Text`. Click on the ``…``  in :guilabel:`File name` "
+"then browse and select the ``florida_2020_07_prcp.csv``"
+msgstr ""
+
+#: ../../source/docs/3/areal_mean_rainfall.rst:133
+msgid ""
+"Now, under :guilabel:`Geometry Definition` choose :guilabel:`Point "
+"coordinates`, :guilabel:`X field` and :guilabel:`Y field` should be "
+":guilabel:`Longitude` and :guilabel:`Latitude` respectively. Choose the "
+":guilabel:`Geometry CRS` as :guilabel:`EPSG 4326 - WGS 84`. Click "
+":guilabel:`Add`."
+msgstr ""
+
+#: ../../source/docs/3/areal_mean_rainfall.rst:138
+msgid ""
+"Now a new point layer will be added, click on the :guilabel:`Open Attribute "
+"Table` icon."
+msgstr ""
+
+#: ../../source/docs/3/areal_mean_rainfall.rst:143
+msgid ""
+"In the Attribute table the field :guilabel:`PRCP` represents the amount of "
+"precipitation in the station during the July 2020. Also, this data is "
+"recorded in *inches*.  Note there are few ``Null`` values which can cause "
+"problems during calculation. Sort the PRCP column, and you would see there "
+"is only a small fraction of the dataset is Null. We will now remove the "
+"stations with Null values."
+msgstr ""
+
+#: ../../source/docs/3/areal_mean_rainfall.rst:148
+msgid ""
+"Open the Processing Toolbox by going to :menuselection:`Processing --> "
+"Toolbox`, and search and locate the :menuselection:`Vector selection --> "
+"Extract by attribute` algorithm."
+msgstr ""
+
+#: ../../source/docs/3/areal_mean_rainfall.rst:153
+msgid ""
+"In the :guilabel:`Extract by Attribute` dialog box, Select the "
+":guilabel:`Input layer` as ``florida_2020_07_prcp``, then choose ``PRCP`` in"
+" :guilabel:`Selection attribute`, then ``is not null`` in "
+":guilabel:`Operator`. Click on the ``…`` next to "
+":guilabel:`Extracted(attribute)`, choose :guilabel:`Save to File...`, enter "
+"the layer name as ``precipitation_filtered.gpkg`` and click :guilabel:`Run`."
+msgstr ""
+
+#: ../../source/docs/3/areal_mean_rainfall.rst:158
+msgid ""
+"Now a new layer is added to canvas, turn off the older layer, and you can "
+"see the station with Null value has been removed."
+msgstr ""
+
+#: ../../source/docs/3/areal_mean_rainfall.rst:163
+msgid ""
+"Now we will generate thiessen polygons from this layer. Open the processing "
+"toolbox by going to :menuselection:`Processing --> Toolbox`, and search and "
+"locate the :menuselection:`Vector Geometry --> Voronoi polygon`."
+msgstr ""
+
+#: ../../source/docs/3/areal_mean_rainfall.rst:167
+msgid "..note::"
+msgstr ""
+
+#: ../../source/docs/3/areal_mean_rainfall.rst:171
+msgid ""
+"Select ``precipitation_filtered`` as the :guilabel:`Input layer`. Since we "
+"do not have data for any rain-gauge stations outside the basin boundary, we "
+"can add some buffer area. Enter ``15`` as the :guilabel:`Buffer region (% of"
+" extent)`. Click on the ``…`` in :guilabel:`Voronoi polygons` and select "
+":guilabel:`Save to File…`, then enter the name as "
+"``thiessen_polygons.gpkg``. Click :guilabel:`Run`."
+msgstr ""
+
+#: ../../source/docs/3/areal_mean_rainfall.rst:176
+msgid ""
+"A new layer `thiessen_polygons` will be added to canvas. Let's clip this "
+"layer to the state boundary. Search for ``cb_2018_us_state_500k.shp`` file "
+"in :guilabel:`Browser` and drag it to canvas."
+msgstr ""
+
+#: ../../source/docs/3/areal_mean_rainfall.rst:181
+msgid ""
+"The states layer is in a different CRS than the *Project CRS*. You will get "
+"a prompt with different options for transforming this CRS to the Project "
+"CRS. In :guilabel:`Select Transformation` Dialog box, you can choose the "
+"default transformation and click :guilabel:`OK`."
+msgstr ""
+
+#: ../../source/docs/3/areal_mean_rainfall.rst:186
+msgid ""
+"We will now clip the ``thiessen polygons`` layer to the Florida state "
+"boundary. Click on the  :guilabel:`Select Feature by area or Single Click "
+"icon` and click over Florida state."
+msgstr ""
+
+#: ../../source/docs/3/areal_mean_rainfall.rst:191
+msgid ""
+"Open the Processing Toolbox by going to :menuselection:`Processing --> "
+"Toolbox`, and search and locate the :menuselection:`Vector overlay --> "
+"Clip`."
+msgstr ""
+
+#: ../../source/docs/3/areal_mean_rainfall.rst:197
+msgid ""
+"In the :guilabel:`Clip` dialog box, select the :guilabel:`Input layer` as "
+"``thiessen_polygon``, in the :guilabel:`Overlay layer` select the "
+"``cb_2018_us_state_500K layer`` and check the :guilabel:`Selected features "
+"only` checkbox, then click on the ``…`` in :guilabel:`Clipped` and select "
+":guilabel:`Save to File...` , then enter the name as "
+"``thiessen_polygon_clipped.gpkg``. Click :guilabel:`Run`."
+msgstr ""
+
+#: ../../source/docs/3/areal_mean_rainfall.rst:203
+msgid ""
+"The clipped thiessen polygon layer ``thiessen_polygon_clipped`` will be "
+"added to the canvas. Turn-off the visibility of all other layers. As our "
+"task is to calculate average rainfall over each basin, we will now load the "
+"polygons representing basins. Locate the ``hybas_na_lev06_v1c.shp`` layer "
+"from the :guilabel:`Browser` and add it to the canvas."
+msgstr ""
+
+#: ../../source/docs/3/areal_mean_rainfall.rst:208
+msgid ""
+"You will notice that each basin is covered by many thiessen polygons and "
+"each polygon spans multiple basins. To visualise this :guilabel:`Open layer "
+"styling panel` icon and change the :guilabel:`Opacity` to ``75%``. We will "
+"now intersect both the layers to cut the thiessen polygons to the boundary "
+"of each basin."
+msgstr ""
+
+#: ../../source/docs/3/areal_mean_rainfall.rst:213
+msgid ""
+"Open the Processing Toolbox by going to :menuselection:`Processing --> "
+"Toolbox`, and search and locate the :menuselection:`Vector overlay -->  "
+"Intersection` algorithm."
+msgstr ""
+
+#: ../../source/docs/3/areal_mean_rainfall.rst:218
+msgid ""
+"In the :guilabel:`Intersection` dialog box, select the :guilabel:`Input "
+"layer` as ``thessen_polygon_clipped`` and :guilabel:`Overlay layer` as "
+"``hybas_na_lev06_v1c``, then click on the ``…`` in :guilabel:`Clipped` and "
+"select :guilabel:`Save to File...` , then enter the name as "
+"``thiessen_polygon_basin.gpkg``. Click :guilabel:`Run`."
+msgstr ""
+
+#: ../../source/docs/3/areal_mean_rainfall.rst:224
+msgid ""
+"The execution will fail with an error message *has invalid geometry. Please "
+"fix the geometry or change the Processing setting to the “Ignore invalid "
+"input features” option.*. You can learn more about this error in the "
+":doc:`handling_invalid_geometries` tutorial."
+msgstr ""
+
+#: ../../source/docs/3/areal_mean_rainfall.rst:229
+msgid ""
+"To fix the geometries, open the Processing Toolbox by going to "
+":menuselection:`Processing --> Toolbox`, and search and locate the "
+":menuselection:`Vector geometry --> Fix geometries`."
+msgstr ""
+
+#: ../../source/docs/3/areal_mean_rainfall.rst:234
+msgid ""
+"In the :guilabel:`Fix Geometries` dialog box select the :guilabel:`Input "
+"layer` as ``hybas_na_lev06_v1c`` and click on ``…`` on :guilabel:`Fixed "
+"geometries` and select the :guilabel:`Save to File`, enter the file name as "
+"``hybas_na_lev06_v1c_fixed.gpkg`` and click :guilabel:`Run`."
+msgstr ""
+
+#: ../../source/docs/3/areal_mean_rainfall.rst:239
+msgid ""
+"Now a new layer will be added to canvas. We can now try the intersection "
+"again. Instead of running the tool from scratch and filling all the "
+"parameters, we can retrieve the pre-filled dialog from *Processing History* "
+"and modify only the Overlay layer. Click :menuselection:`Processing --> "
+"History`."
+msgstr ""
+
+#: ../../source/docs/3/areal_mean_rainfall.rst:244
+msgid "Double-click on the *native:interaction* algorithm from the list."
+msgstr ""
+
+#: ../../source/docs/3/areal_mean_rainfall.rst:249
+msgid ""
+"Change the :guilabel:`Overlay layer` to ``hybas_na_lev06_v1c_fixed`` and "
+"click :guilabel:`Run`."
+msgstr ""
+
+#: ../../source/docs/3/areal_mean_rainfall.rst:254
+msgid ""
+"Now a new layer will be loaded, and you can see the "
+"``thiessen_polygon_basin`` is clipped based on the basin boundary."
+msgstr ""
+
+#: ../../source/docs/3/areal_mean_rainfall.rst:259
+msgid ""
+"Now, let’s calculate the average rainfall value from the thiessen polygons "
+"for each basin. This is done using the ``Aggregate`` tool which allows us to"
+" dissolve individual polygons while calculating statistics on the attribute "
+"values. Now, open the Processing Toolbox by going to "
+":menuselection:`Processing --> Toolbox`, and search and locate the "
+":menuselection:`Vector geometry --> Aggregate`."
+msgstr ""
+
+#: ../../source/docs/3/areal_mean_rainfall.rst:264
+msgid ""
+"In the :guilabel:`Aggregate` dialog box choose :guilabel:`Input layer` as "
+"``thiessen_polygon_basin``, select all fields except ``PRCP`` and "
+"``HYBAS_ID`` and click :guilabel:`Delete selected field`."
+msgstr ""
+
+#: ../../source/docs/3/areal_mean_rainfall.rst:269
+msgid ""
+"In :guilabel:`Group by expression` select ``HYBAS_ID``. This means that the "
+"tool will dissolve all polygons that have the same value of ``HYBAS_ID``. In"
+" our case, these will be all thiessen polygons falling a basin. In the "
+":guilabel:`Aggregates` section, we can configure how different field values "
+"will be aggregated from all polygons that gets dissolved. For "
+":guilabel:`PRCP`, click on the :guilabel:`expression` button to enter the "
+"below expression. The expression calculates the area-weighted fraction for "
+"each polygon. Set the :guilabel:`Aggregate Function` to ``sum``, which will "
+"sum up all the area-weighted fractions resulting in the area-weighted mean. "
+"For :guilabel:`HYBAS_ID`, change the :guilabel:`Aggregate Function` to "
+"``first_value``. Since we are grouping all thiessen polygons by their "
+"HYBAS_ID, all the values will be the same and the *first_value* function "
+"will use the attribute value from the first polygon in each basin. Click on "
+"``…`` on :guilabel:`Aggregated` and select the :guilabel:`Save to File`, "
+"enter the file name as ``areal_mean_rainfall.gpkg`` and click "
+":guilabel:`Run`."
+msgstr ""
+
+#: ../../source/docs/3/areal_mean_rainfall.rst:278
+msgid ""
+"A new layer will be added to canvas, lets open the Attribute table to "
+"explore. Click on the :guilabel:`Open Attribute Tabel` icon."
+msgstr ""
+
+#: ../../source/docs/3/areal_mean_rainfall.rst:283
+msgid ""
+"The field :guilabel:`PRCP` contains the areal mean rainfall for each basin "
+"in inches."
+msgstr ""
