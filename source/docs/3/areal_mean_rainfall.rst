@@ -155,16 +155,16 @@ Procedure
   .. image:: /static/3/areal_mean_rainfall/images/07.png
     
 
-8. Now a new layer is added to canvas, turn off the older layer, and you can see the station with Null value has been removed. 
+8. Now a new layer is added to canvas, turn off the older layer, and you can see the stations with Null values have been removed. 
 
   .. image:: /static/3/areal_mean_rainfall/images/08.png
     
 
-9. Now we will generate thiessen polygons from this layer. Open the processing toolbox by going to :menuselection:`Processing --> Toolbox`, and search and locate the :menuselection:`Vector Geometry --> Voronoi polygon`. 
+9. Now we will generate thiessen polygons from this layer. Open the processing toolbox by going to :menuselection:`Processing --> Toolbox`, and search and locate the :menuselection:`Vector Geometry --> Voronoi polygon` algorithm. 
 
   .. image:: /static/3/areal_mean_rainfall/images/09.png
     
-..note::
+.. note::
 
 	Thiessen polygons represent the area of influence around each point. Every polygon defines the area which is closer to a particular station than any other station. This means the precipitation at any point is assumed to be the same as the nearest station.
 		
@@ -173,7 +173,7 @@ Procedure
   .. image:: /static/3/areal_mean_rainfall/images/10.png
     
 
-11.   A new layer `thiessen_polygons` will be added to canvas. Let's clip this layer to the state boundary. Search for ``cb_2018_us_state_500k.shp`` file in :guilabel:`Browser` and drag it to canvas. 
+11. A new layer ``thiessen_polygons`` will be added to canvas. Let's clip this layer to the state boundary. Search for ``cb_2018_us_state_500k.shp`` file in :guilabel:`Browser` and drag it to canvas. 
 
   .. image:: /static/3/areal_mean_rainfall/images/11.png
     
@@ -188,7 +188,7 @@ Procedure
   .. image:: /static/3/areal_mean_rainfall/images/13.png
     
 
-14. Open the Processing Toolbox by going to :menuselection:`Processing --> Toolbox`, and search and locate the :menuselection:`Vector overlay --> Clip`. 
+14. Open the Processing Toolbox by going to :menuselection:`Processing --> Toolbox`, and search and locate the :menuselection:`Vector overlay --> Clip` algorithm.
 
   .. image:: /static/3/areal_mean_rainfall/images/14.png
     
