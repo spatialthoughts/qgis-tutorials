@@ -113,6 +113,9 @@ For convenience, you may directly download a copy of all the datasets from the l
 
 `cb_2018_us_state_500k <https://www.qgistutorials.com/downloads/cb_2018_us_state_500k.zip>`_ 
 
+Data Sources: [GHCN]_, [HYDROSHEDS]_, [USCENSUS]_ 
+
+
 Procedure
 ---------
 
