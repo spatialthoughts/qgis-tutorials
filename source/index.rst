@@ -19,6 +19,7 @@ QGIS Tutorials and Tips
    - :doc:`docs/3/advanced_georeferencing`
    - :doc:`docs/3/digitizing_basics`
    - :doc:`docs/3/downloading_osm_data`
+
 * Intermediate GIS operations
    - :doc:`docs/3/performing_table_joins`
    - :doc:`docs/3/performing_spatial_joins`
@@ -26,6 +27,7 @@ QGIS Tutorials and Tips
    - :doc:`docs/3/creating_heatmaps`
    - :doc:`docs/3/animating_time_series`
    - :doc:`docs/3/handling_invalid_geometries`
+
 * Advanced GIS operations
    - :doc:`docs/3/nearest_neighbor_analysis`
    - :doc:`docs/3/sampling_raster_data`
@@ -34,11 +36,13 @@ QGIS Tutorials and Tips
    - :doc:`docs/3/processing_graphical_modeler`
    - :doc:`docs/3/automating_map_creation`
    - :doc:`docs/3/multi_criteria_overlay`
+   - :doc:`docs/3/areal_mean_rainfall`
 
 * Network Analysis
    - :doc:`docs/3/basic_network_analysis`
    - :doc:`docs/3/origin_destination_matrix`
    - :doc:`docs/3/service_area_analysis`
+
 * Python Scripting (PyQGIS)
    - :doc:`docs/3/getting_started_with_pyqgis`
    - :doc:`docs/3/processing_algorithms_pyqgis`
@@ -48,9 +52,11 @@ QGIS Tutorials and Tips
    - :doc:`docs/3/processing_python_scripts`
    - :doc:`docs/running_qgis_jobs`
    - :doc:`docs/performing_table_joins_pyqgis`
+
 * Web Mapping
    - :doc:`docs/web_mapping_with_qgis2web`
    - :doc:`docs/creating_basemaps_with_qtiles`
+   
 * Appendix
    - :doc:`docs/3/using_plugins`
    - :doc:`docs/learning_resources`
@@ -95,6 +101,7 @@ What next? Hungry for more QGIS materials? Work through my full length QGIS cour
    docs/3/processing_graphical_modeler
    docs/3/automating_map_creation
    docs/3/multi_criteria_overlay
+   docs/3/areal_mean_rainfall
    docs/3/basic_network_analysis
    docs/3/origin_destination_matrix
    docs/3/service_area_analysis
