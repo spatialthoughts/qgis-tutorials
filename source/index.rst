@@ -36,12 +36,14 @@ QGIS Tutorials and Tips
    - :doc:`docs/3/processing_graphical_modeler`
    - :doc:`docs/3/automating_map_creation`
    - :doc:`docs/3/multi_criteria_overlay`
-   - :doc:`docs/3/areal_mean_rainfall`
 
 * Network Analysis
    - :doc:`docs/3/basic_network_analysis`
    - :doc:`docs/3/origin_destination_matrix`
    - :doc:`docs/3/service_area_analysis`
+
+* Hydrology
+   - :doc:`docs/3/areal_mean_rainfall`
 
 * Python Scripting (PyQGIS)
    - :doc:`docs/3/getting_started_with_pyqgis`
@@ -101,12 +103,10 @@ What next? Hungry for more QGIS materials? Work through my full length QGIS cour
    docs/3/processing_graphical_modeler
    docs/3/automating_map_creation
    docs/3/multi_criteria_overlay
-   docs/3/areal_mean_rainfall
    docs/3/basic_network_analysis
    docs/3/origin_destination_matrix
    docs/3/service_area_analysis
-   docs/using_qgis_browser
-   docs/open_bil_bip_bsq_files
+   docs/3/areal_mean_rainfall
    docs/3/getting_started_with_pyqgis
    docs/3/processing_algorithms_pyqgis
    docs/3/building_a_python_plugin
