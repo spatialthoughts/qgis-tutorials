@@ -86,14 +86,12 @@ Procedure
  .. image:: /static/3/web_mapping_with_qgis2web/images/9.png
    :align: center
 
- .. note::
-      You can also use double pipe operator instead of concat.
+.. note::
 
-       .. code-block:: none 
+	You can also use concatenation ``||`` operator to join strings. The expression can be re-written as ``(title("type") || ' Airport')``
+	
 
-            (title("type") || ' Airport')
-
-10. Now, right-click on the layer select :guilabel:`Properties`, switch to  :guilabel:`Attribute Forms` turn off the *type* field by switching it to ``Hidden``. Click :guilabel:`OK`.
+10. Now we have a much better looking field for airpor type, we no longer need the *type* field. Right-click on the layer and select :guilabel:`Properties`, switch to  :guilabel:`Attribute Forms` and turn off the *type* field by switching it to ``Hidden``. Click :guilabel:`OK`.
 
    .. image:: /static/3/web_mapping_with_qgis2web/images/10.png
       :align: center
@@ -156,7 +154,7 @@ Procedure
       :align: center
 
 
-21. Now switch to the :guilabel:`Appearance` tab, make sure you're using ``Leaflet`` to gain access to all options in the appearance window, then check the following - ``Add address search``, ``Geolocate user``, ``Highlight on hover``. In :guilabel:`Add layer list:` choose ``Collapsed``, (``Expanded`` is choosen if there are many layer and all layer name have to be shown in web map) and in :guilabel:`Layer search` choose ``ne_10m_airport: iata_code``, by doing this we can enable a search bar from which the user and easily identify any airport with its code. Once made all the changes, click :guilabel:`Update preview`. 
+21. Now switch to the :guilabel:`Appearance` tab, make sure you're using ``Leaflet`` to gain access to all options in the appearance window, then check the following - ``Add address search``, ``Geolocate user``, ``Highlight on hover``. In :guilabel:`Add layer list:` choose ``Collapsed``, (``Expanded`` is chosen if there are many layer and all layer name have to be shown in web map) and in :guilabel:`Layer search` choose ``ne_10m_airport: iata_code``, by doing this we can enable a search bar from which the user and easily identify any airport with its code. Once made all the changes, click :guilabel:`Update preview`. 
 
    .. image:: /static/3/web_mapping_with_qgis2web/images/21.png
       :align: center
@@ -177,14 +175,12 @@ Procedure
       :align: center
 
 
-25. Now the map will be centered to new your city, you can try for any place/address to get the location, this location is retrieved using  **geocoding** of the address.  We will also add a measure too to get the linear distance between any given points in the web map. In :guilabel:`Measure tool` choose ``Metric``. Click :guilabel:`Update preview`.  
+25. Now the map will be centered to new your city, you can try for any place/address to get the location, this location is retrieved using by  **geocoding** the address.  We will also add a measure too to get the linear distance between any given points in the web map. In :guilabel:`Measure tool` choose ``Metric``. Click :guilabel:`Update preview`.  
 
    .. image:: /static/3/web_mapping_with_qgis2web/images/25.png
       :align: center
 
-   .. note:: 
-      To know more on geocoding follow this `wiki link <https://en.wikipedia.org/wiki/Address_geocoding>`_
-
+ 
 26. Now lets measure the linear distance in SI units, between *EWR* and *JFK* airports. Click on the :guilabel:`Measure` (ruler) icon, this measure uses the QGIS native measure algorithm which is based on the *haversine formula*,  and select ``Create a new measurement``. Then, click over the airports once the point is chosen, the latitude and longitude of the point are captured and used to compute the distance, now the distance is displayed in *meters*. 
 
    .. image:: /static/3/web_mapping_with_qgis2web/images/26.png
@@ -210,8 +206,9 @@ Procedure
    .. image:: /static/3/web_mapping_with_qgis2web/images/30.png
       :align: center
 
-   .. note::
-      The ``qgis2web`` plugin has many limitations and it cannot do everything that the powerful web mapping libraries ``OpenLayers`` and ``Leaflet`` can do. This process can act as the starting point in your web mapping process and save you valuable time by creating a basic template from which you can further customize the web map. You can edit these files in a code editor to customize as you wish. 
+.. note::
+
+	The ``qgis2web`` plugin has many limitations and it cannot do everything that the powerful web mapping libraries ``OpenLayers`` and ``Leaflet`` can do. This process can act as the starting point in your web mapping process and save you valuable time by creating a basic template from which you can further customize the web map. You can edit these files in a code editor to customize as you wish. 
 
 31. Now the map will be render in your default web browser. Now let’s test the last option added to map, (i.e) *Geolocate user*, click on the :guilabel:`Marker` icon. 
 
@@ -224,8 +221,6 @@ Procedure
    .. image:: /static/3/web_mapping_with_qgis2web/images/32.png
       :align: center
 
-32. The exported map resides on your computer. While you can see it in action, it is not very useful since you cannot share it with anyone. For others to be able to see the map, you need to upload it to a web server. While the upload process will vary on the type of server you have access to - a cheap and easy way to publish your map on the web would be to use any of the public cloud storage services. Amazon S3 is a popular storage service. You will need to sign up for an account and follow the instructions to create a bucket. Once a bucket is created, you can upload the contents of your exported folder to the bucket and set it to public. Here I created a bucket named qgis-tutorials and uploaded the contents of my exported folder to a sub-folder named qgis2web. You can access the resulting map at …….
-
-33. Similarly, Google also offers a cloud storage service called Google Cloud Storage. Once you have created an account and enable billing, you can create a bucket and upload objects to the bucket. I create a bucket and sub-folder similar to Amazon and set the folder to public. The resulting map can be viewed at ……… 
+The exported map resides on your computer. While you can see it in action, it is not very useful since you cannot share it with anyone. For others to be able to see the map, you need to upload it to a web server. While the upload process will vary on the type of server you have access to - a cheap and easy way to publish your map on the web would be to use any of the public cloud storage services. Amazon S3 is a popular storage service. You will need to sign up for an account and follow the instructions to create a bucket. Once a bucket is created, you can upload the contents of your exported folder to the bucket and set it to public. Similarly, Google also offers a cloud storage service called Google Cloud Storage. Once you have created an account and enable billing, you can create a bucket and upload objects to the bucket. 
 
 
