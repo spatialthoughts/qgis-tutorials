@@ -56,7 +56,7 @@ QGIS Tutorials and Tips
    - :doc:`docs/performing_table_joins_pyqgis`
 
 * Web Mapping
-   - :doc:`docs/web_mapping_with_qgis2web`
+   - :doc:`docs/3/web_mapping_with_qgis2web`
    - :doc:`docs/creating_basemaps_with_qtiles`
    
 * Appendix
@@ -115,7 +115,7 @@ What next? Hungry for more QGIS materials? Work through my full length QGIS cour
    docs/3/processing_python_scripts
    docs/running_qgis_jobs
    docs/performing_table_joins_pyqgis
-   docs/web_mapping_with_qgis2web
+   docs/3/web_mapping_with_qgis2web
    docs/creating_basemaps_with_qtiles
    docs/3/using_plugins
    docs/downloading_osm_data
