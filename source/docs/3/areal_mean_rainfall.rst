@@ -1,7 +1,7 @@
 Calculating Areal Mean Rainfall (QGIS3)
 =======================================
 
-Calculation of water balance, flood modeling, runoff forecasting, climate studies etc. often need the average depth of rainfall in a hydrological basin as an input. This estimation is called Areal Precipitation or Areal Mean Rainfall (AMR). 
+Calculation of water balance, flood modeling, runoff forecasting, climate studies etc. often need the average depth of rainfall in a hydrological basin as an input - which is also called Areal Precipitation or Areal Mean Rainfall (AMR). 
 
 AMR calculation can be done using rain gauge data. By using the rain gauge location and observed precipitation, one can estimate the average precipitation at a given location by using any of the following techniques:
 
