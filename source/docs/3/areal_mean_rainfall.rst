@@ -86,7 +86,7 @@ Hydrological Basins
     :align: center
     
 
-2. Select :menuselection:`HydroBASINS --> North America and Caribbean --> hybas_na_lev06_v1c.zip` 
+2. Select :menuselection:`HydroBASINS --> Standard --> North America and Caribbean --> hybas_na_lev06_v1c.zip` 
 
   .. image:: /static/3/areal_mean_rainfall/images/hydrosheds2.png
     :align: center
@@ -124,7 +124,7 @@ Procedure
   .. image:: /static/3/areal_mean_rainfall/images/01.png
     
 
-2. In the :guilabel:`Data Source Manager` dialog box, switch to :guilabel:`Delimited Text`. Click on the ``…``  in :guilabel:`File name` then browse and select the ``florida_2020_07_prcp.csv`` 
+2. In the :guilabel:`Data Source Manager` dialog box, switch to :guilabel:`Delimited Text`. Click on the ``…``  in :guilabel:`File name` then browse and select the ``florida_2020_07_prcp.csv`` file. 
 
   .. image:: /static/3/areal_mean_rainfall/images/02.png
     
@@ -150,7 +150,7 @@ Procedure
   .. image:: /static/3/areal_mean_rainfall/images/06.png
     
 
-7. In the :guilabel:`Extract by Attribute` dialog box, Select the :guilabel:`Input layer` as ``florida_2020_07_prcp``, then choose ``PRCP`` in :guilabel:`Selection attribute`, then ``is not null`` in :guilabel:`Operator`. Click on the ``…`` next to :guilabel:`Extracted(attribute)`, choose :guilabel:`Save to File...`, enter the layer name as ``precipitation_filtered.gpkg`` and click :guilabel:`Run`.
+7. In the :guilabel:`Extract by Attribute` dialog box, Select the :guilabel:`Input layer` as ``florida_2020_07_prcp``, then choose ``PRCP`` in :guilabel:`Selection attribute`, then ``is not null`` in :guilabel:`Operator`. Click on the ``…`` next to :guilabel:`Extracted (attribute)`, choose :guilabel:`Save to File...`, enter the layer name as ``precipitation_filtered.gpkg`` and click :guilabel:`Run`.
 
   .. image:: /static/3/areal_mean_rainfall/images/07.png
     
@@ -183,7 +183,7 @@ Procedure
   .. image:: /static/3/areal_mean_rainfall/images/12.png
     
 
-13. We will now clip the ``thiessen polygons`` layer to the Florida state boundary. Click on the  :guilabel:`Select Feature by area or Single Click icon` and click over Florida state. 
+13. We will now clip the ``thiessen polygons`` layer to the Florida state boundary. Click on the :guilabel:`Select Feature by area or Single Click` icon and click over Florida state. 
 
   .. image:: /static/3/areal_mean_rainfall/images/13.png
     
@@ -194,13 +194,13 @@ Procedure
     
 
 
-15. In the :guilabel:`Clip` dialog box, select the :guilabel:`Input layer` as ``thiessen_polygon``, in the :guilabel:`Overlay layer` select the ``cb_2018_us_state_500K layer`` and check the :guilabel:`Selected features only` checkbox, then click on the ``…`` in :guilabel:`Clipped` and select :guilabel:`Save to File...` , then enter the name as ``thiessen_polygon_clipped.gpkg``. Click :guilabel:`Run`.
+15. In the :guilabel:`Clip` dialog box, select the :guilabel:`Input layer` as ``thiessen_polygons``, in the :guilabel:`Overlay layer` select the ``cb_2018_us_state_500K layer`` and check the :guilabel:`Selected features only` checkbox, then click on the ``…`` in :guilabel:`Clipped` and select :guilabel:`Save to File…` , then enter the name as ``thiessen_polygons_clipped.gpkg``. Click :guilabel:`Run`.
 
   .. image:: /static/3/areal_mean_rainfall/images/15.png
     
 
 
-16. The clipped thiessen polygon layer ``thiessen_polygon_clipped`` will be added to the canvas. Turn-off the visibility of all other layers. As our task is to calculate average rainfall over each basin, we will now load the polygons representing basins. Locate the ``hybas_na_lev06_v1c.shp`` layer from the :guilabel:`Browser` and add it to the canvas. 
+16. The clipped thiessen polygons layer ``thiessen_polygons_clipped`` will be added to the canvas. Turn-off the visibility of all other layers. As our task is to calculate average rainfall over each basin, we will now load the polygons representing basins. Locate the ``hybas_na_lev06_v1c.shp`` layer from the :guilabel:`Browser` and add it to the canvas. 
 
   .. image:: /static/3/areal_mean_rainfall/images/16.png
     
@@ -215,7 +215,7 @@ Procedure
   .. image:: /static/3/areal_mean_rainfall/images/18.png
     
 
-19. In the :guilabel:`Intersection` dialog box, select the :guilabel:`Input layer` as ``thessen_polygon_clipped`` and :guilabel:`Overlay layer` as ``hybas_na_lev06_v1c``, then click on the ``…`` in :guilabel:`Clipped` and select :guilabel:`Save to File...` , then enter the name as ``thiessen_polygon_basin.gpkg``. Click :guilabel:`Run`. 
+19. In the :guilabel:`Intersection` dialog box, select the :guilabel:`Input layer` as ``thiessen_polygons_clipped`` and :guilabel:`Overlay layer` as ``hybas_na_lev06_v1c``, then click on the ``…`` in :guilabel:`Intersected` and select :guilabel:`Save to File…` , then enter the name as ``thiessen_polygons_basin.gpkg``. Click :guilabel:`Run`. 
 
   .. image:: /static/3/areal_mean_rainfall/images/19.png
     
@@ -226,12 +226,12 @@ Procedure
   .. image:: /static/3/areal_mean_rainfall/images/20.png
     
 
-21. To fix the geometries, open the Processing Toolbox by going to :menuselection:`Processing --> Toolbox`, and search and locate the :menuselection:`Vector geometry --> Fix geometries`.
+21. To fix the geometries, open the Processing Toolbox by going to :menuselection:`Processing --> Toolbox`, and search and locate the :menuselection:`Vector geometry --> Fix geometries` algorithm.
 
   .. image:: /static/3/areal_mean_rainfall/images/21.png
     
 
-22. In the :guilabel:`Fix Geometries` dialog box select the :guilabel:`Input layer` as ``hybas_na_lev06_v1c`` and click on ``…`` on :guilabel:`Fixed geometries` and select the :guilabel:`Save to File`, enter the file name as ``hybas_na_lev06_v1c_fixed.gpkg`` and click :guilabel:`Run`.
+22. In the :guilabel:`Fix Geometries` dialog box select the :guilabel:`Input layer` as ``hybas_na_lev06_v1c`` and click on ``…`` on :guilabel:`Fixed geometries` and select :guilabel:`Save to File…`, enter the file name as ``hybas_na_lev06_v1c_fixed.gpkg`` and click :guilabel:`Run`.
 
   .. image:: /static/3/areal_mean_rainfall/images/22.png
     
@@ -241,7 +241,7 @@ Procedure
   .. image:: /static/3/areal_mean_rainfall/images/23.png
     
 
-24. Double-click on the *native:interaction* algorithm from the list.
+24. Double-click on the *native:intersection* algorithm from the list.
 
   .. image:: /static/3/areal_mean_rainfall/images/24.png
     
@@ -251,22 +251,22 @@ Procedure
   .. image:: /static/3/areal_mean_rainfall/images/25.png
     
 
-26. Now a new layer will be loaded, and you can see the ``thiessen_polygon_basin`` is clipped based on the basin boundary.   
+26. Now a new layer will be loaded, and you can see the ``thiessen_polygons_basin`` is clipped based on the basin boundary.   
 
   .. image:: /static/3/areal_mean_rainfall/images/26.png
     
 
-27. Now, let’s calculate the average rainfall value from the thiessen polygons for each basin. This is done using the ``Aggregate`` tool which allows us to dissolve individual polygons while calculating statistics on the attribute values. Now, open the Processing Toolbox by going to :menuselection:`Processing --> Toolbox`, and search and locate the :menuselection:`Vector geometry --> Aggregate`. 
+27. Now, let’s calculate the average rainfall value from the thiessen polygons for each basin. This is done using the ``Aggregate`` tool which allows us to dissolve individual polygons while calculating statistics on the attribute values. Now, open the Processing Toolbox by going to :menuselection:`Processing --> Toolbox`, and search and locate the :menuselection:`Vector geometry --> Aggregate`algorithm. 
 
   .. image:: /static/3/areal_mean_rainfall/images/27.png
     
 
-28. In the :guilabel:`Aggregate` dialog box choose :guilabel:`Input layer` as ``thiessen_polygon_basin``, select all fields except ``PRCP`` and ``HYBAS_ID`` and click :guilabel:`Delete selected field`.
+28. In the :guilabel:`Aggregate` dialog box choose :guilabel:`Input layer` as ``thiessen_polygons_basin``, select all fields except ``PRCP`` and ``HYBAS_ID`` and click :guilabel:`Delete selected field`.
 
   .. image:: /static/3/areal_mean_rainfall/images/28.png
     
 
-29. In :guilabel:`Group by expression` select ``HYBAS_ID``. This means that the tool will dissolve all polygons that have the same value of ``HYBAS_ID``. In our case, these will be all thiessen polygons falling a basin. In the :guilabel:`Aggregates` section, we can configure how different field values will be aggregated from all polygons that gets dissolved. For :guilabel:`PRCP`, click on the :guilabel:`expression` button to enter the below expression. The expression calculates the area-weighted fraction for each polygon. Set the :guilabel:`Aggregate Function` to ``sum``, which will sum up all the area-weighted fractions resulting in the area-weighted mean. For :guilabel:`HYBAS_ID`, change the :guilabel:`Aggregate Function` to ``first_value``. Since we are grouping all thiessen polygons by their HYBAS_ID, all the values will be the same and the *first_value* function will use the attribute value from the first polygon in each basin. Click on ``…`` on :guilabel:`Aggregated` and select the :guilabel:`Save to File`, enter the file name as ``areal_mean_rainfall.gpkg`` and click :guilabel:`Run`.
+29. In :guilabel:`Group by expression` select ``HYBAS_ID``. This means that the tool will dissolve all polygons that have the same value of ``HYBAS_ID``. In our case, these will be all thiessen polygons falling a basin. In the :guilabel:`Aggregates` section, we can configure how different field values will be aggregated from all polygons that gets dissolved. For :guilabel:`PRCP`, click on the :guilabel:`expression` button to enter the below expression. The expression calculates the area-weighted fraction for each polygon. Set the :guilabel:`Aggregate Function` to ``sum``, which will sum up all the area-weighted fractions resulting in the area-weighted mean. For :guilabel:`HYBAS_ID`, change the :guilabel:`Aggregate Function` to ``first_value``. Since we are grouping all thiessen polygons by their HYBAS_ID, all the values will be the same and the *first_value* function will use the attribute value from the first polygon in each basin. Click on ``…`` on :guilabel:`Aggregated` and select the :guilabel:`Save to File…`, enter the file name as ``areal_mean_rainfall.gpkg`` and click :guilabel:`Run`.
 
   .. code-block:: none
   
@@ -275,7 +275,7 @@ Procedure
   .. image:: /static/3/areal_mean_rainfall/images/29.png
     
 
-30. A new layer will be added to canvas, lets open the Attribute table to explore. Click on the :guilabel:`Open Attribute Tabel` icon. 
+30. A new layer will be added to canvas, lets open the Attribute table to explore. Click on the :guilabel:`Open Attribute Table` icon. 
 
   .. image:: /static/3/areal_mean_rainfall/images/30.png
     
