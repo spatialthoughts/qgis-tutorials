@@ -34,7 +34,8 @@ Data Source [NATURALEARTH]_
 Procedure
 ---------
 
-1. Open QGIS In the :guilabel:`Browser` navigate to the *ne_10m_airports.zip* (downloaded) folder, click and drag the ``ne_10m_airports.shp`` into the canvas.
+1. Open QGIS. Using the :guilabel:`Browser` panel, navigate to the folder containing the downloaded file. Expand the ``ne_10m_airports.zip`` file and drag the ``ne_10m_airports.shp`` into the canvas.
+
  .. image:: /static/3/web_mapping_with_qgis2web/images/1.png
    :align: center
 
@@ -72,7 +73,7 @@ Procedure
  .. image:: /static/3/web_mapping_with_qgis2web/images/7.png
    :align: center
 
-8. The field *type* is somewhat improper, so let's create a new field called *class* and add the word Airport after each entry in type field. (i.e) an entry as major will become a *Major Airport*.
+8. The values in the field *type* can be a bit more informative. Let's create a new field called *class* and add the word Airport after each entry in type field. (i.e) an entry as major will become a *Major Airport*.
 
  .. image:: /static/3/web_mapping_with_qgis2web/images/8.png
    :align: center
@@ -121,20 +122,18 @@ Procedure
    .. image:: /static/3/web_mapping_with_qgis2web/images/15.png
       :align: center
 
-16. Let's add a base layer for Geo-referencing, ``Stamen Watercolor`` would be a nice background map for this project, to add the layer select :menuselection:`Web --> QuickMapServises --> Stamen --> Stamen Watercolor`. To know more about this plugin visit :doc:`using_plugins` tutorials.  
+16. Let's add a base layer for Geo-referencing, ``Stamen Watercolor`` would be a nice background map for this project, to add the layer select :menuselection:`Web --> QuickMapServices --> Stamen --> Stamen Watercolor`. To know more about this plugin visit :doc:`using_plugins` tutorials.  
 
    .. image:: /static/3/web_mapping_with_qgis2web/images/16.png
       :align: center
 
-17. Our map is now ready. This is a good time to save our work. Click on the :guilabel:`Save Project` icon in toolbar or go-to
-    :menuselection:`Project --> Save`. Enter ``Airports`` as the name of the
-    project.
+17. Our map is now ready. This is a good time to save our work. Click on the :guilabel:`Save Project` icon in toolbar and Enter ``Airports`` as the name of the project.
 
    .. image:: /static/3/web_mapping_with_qgis2web/images/17.png
       :align: center
 
 18. Now we are ready to export our project to a web map. Install the
-    ``qgis2web`` plugin by going to :menuselection:`Plugins --> Manage and
+    **qgis2web** plugin by going to :menuselection:`Plugins --> Manage and
     Install Plugin` (See :doc:`using_plugins` for more details on installing
     plugins in QGIS). Once the plugin is installed, go to :menuselection:`Web --> qgis2web -->
     Create a web map`.
@@ -142,7 +141,7 @@ Procedure
    .. image:: /static/3/web_mapping_with_qgis2web/images/18.png
       :align: center
 
-19. Now :guilabel:`Export to web map` dialog box will appear, this is the primary console for customizing the web layout of your web map, on the left part all the controls are present after making changes we can preview the updates on the right side by clicking the :guilabel:`Update preview`. 
+19. Now :guilabel:`Export to web map` dialog box will appear. This is the primary console for customizing the web layout of your web map. The left-hand panel contains all the configuration options. You can change any setting and preview the updates on the right side by clicking the :guilabel:`Update preview`. The plugin can export the map using many different web mapping libraries. For this tutorial, we will use the `Leaflet <https://leafletjs.com/>`_ library. Make sure you have selected the :guilabel:`Leaflet` option at the bottom.
 
    .. image:: /static/3/web_mapping_with_qgis2web/images/19.png
       :align: center
@@ -153,7 +152,7 @@ Procedure
       :align: center
 
 
-21. Now switch to the :guilabel:`Appearance` tab, make sure you're using ``Leaflet`` to gain access to all options in the appearance window, then check the following - ``Add address search``, ``Geolocate user``, ``Highlight on hover``. In :guilabel:`Add layer list:` choose ``Collapsed``, (``Expanded`` is chosen if there are many layer and all layer name have to be shown in web map) and in :guilabel:`Layer search` choose ``ne_10m_airport: iata_code``, by doing this we can enable a search bar from which the user and easily identify any airport with its code. Once made all the changes, click :guilabel:`Update preview`. 
+21. Now switch to the :guilabel:`Appearance` tab. Check the following boxes - :guilabel:`Add address search`, :guilabel:`Geolocate user`, :guilabel:`Highlight on hover`. In :guilabel:`Add layer list:` choose ``Collapsed``. For :guilabel:`Layer search` choose ``ne_10m_airport: iata_code`` field. This option adds a search box where the user to search for an airport with its code. Once made all the changes, click :guilabel:`Update preview`. 
 
    .. image:: /static/3/web_mapping_with_qgis2web/images/21.png
       :align: center
@@ -180,12 +179,12 @@ Procedure
       :align: center
 
  
-26. Now lets measure the linear distance in SI units, between *EWR* and *JFK* airports. Click on the :guilabel:`Measure` (ruler) icon, this measure uses the QGIS native measure algorithm which is based on the `haversine formula <https://spatialthoughts.com/2013/07/06/calculate-distance-spreadsheet/>`_ ,  and select ``Create a new measurement``. Then, click over the airports once the point is chosen, the latitude and longitude of the point are captured and used to compute the distance, now the distance is displayed in *meters*. 
+26. Now lets measure the linear distance in SI units, between *EWR* and *JFK* airports. Click on the :guilabel:`Measure` (ruler) icon and select :guilabel:`Create a new measurement`. Then, click over the airports once the point is chosen, the latitude and longitude of the point are captured and used to compute the distance, now the distance is displayed in *meters*. 
 
    .. image:: /static/3/web_mapping_with_qgis2web/images/26.png
       :align: center
 
-27. Switch to the :guilabel:`Export` tab and check the ``Minify GeoJSON files``, by doing this we can reduce the size of the resulting file. Click on the ``…`` next to :guilabel:`Exporter`.
+27. Switch to the :guilabel:`Export` tab and check the :guilabel:`Minify GeoJSON files` box. This reduces the size of the resulting file. Click on the :guilabel:`…` next to :guilabel:`Exporter`.
 
    .. image:: /static/3/web_mapping_with_qgis2web/images/27.png
       :align: center
