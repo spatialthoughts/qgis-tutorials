@@ -34,7 +34,7 @@ Data Source [NATURALEARTH]_
 Procedure
 ---------
 
-1. Open QGIS In the :guilabel:`Browser` navigate to the *qgis2web* (downloaded) folder, click and drag the ``ne_10m_airports.shp`` into the canvas.
+1. Open QGIS In the :guilabel:`Browser` navigate to the *ne_10m_airports.zip* (downloaded) folder, click and drag the ``ne_10m_airports.shp`` into the canvas.
  .. image:: /static/3/web_mapping_with_qgis2web/images/1.png
    :align: center
 
@@ -47,7 +47,7 @@ Procedure
  .. image:: /static/3/web_mapping_with_qgis2web/images/2.png
    :align: center
 
-3. In the :guilabel:`Layer Properties` dialog box, switch to :guilabel:`Attribute Forms`. You will notice all the fields name of the layer. 
+3. In the :guilabel:`Layer Properties` dialog box, switch to :guilabel:`Attributes Form`. You will notice all the fields name of the layer. 
 
  .. image:: /static/3/web_mapping_with_qgis2web/images/3.png
    :align: center
@@ -57,27 +57,27 @@ Procedure
  .. image:: /static/3/web_mapping_with_qgis2web/images/4.png
    :align: center
 
-5. In the *Wikipedia* field check the ``Multiline`` and ``HTML`` so that the link present in this field will be rendered as a hyperlink for the user. After setting the respective widget type for each field, click :guilabel:`OK`. 
+5. In the *wikipedia* field check the ``Multiline`` and ``HTML`` so that the link present in this field will be rendered as a hyperlink for the user. After setting the respective Widget Type for each field, click :guilabel:`OK`. 
 
 .. image:: /static/3/web_mapping_with_qgis2web/images/5.png
    :align: center
 
-6. Click on the :guilabel:`Identify Feature` button in the toolbar. 
+6. Click on the :guilabel:`Identify Features` button in the toolbar. 
 
  .. image:: /static/3/web_mapping_with_qgis2web/images/6.png
    :align: center
 
-7. Click on a point, this will fetch the details of the airport in that location, only the *type*, *name*, *iata_code* and *wikipedia* fields are displayed as other fields are hidden. Also, Wikipedia field is highlighted as hyperlink. 
+7. Click on a point, this will fetch the details of the airport in that location, only the *type*, *name*, *iata_code* and *wikipedia* fields are displayed as other fields are hidden. Also, wikipedia field is highlighted as hyperlink. 
 
  .. image:: /static/3/web_mapping_with_qgis2web/images/7.png
    :align: center
 
-8. Let's create a new field called *class* and add the word Airport after each entry in type field. (i.e) an entry as major will become a *Major Airport*.
+8. The field *type* is somewhat improper, so let's create a new field called *class* and add the word Airport after each entry in type field. (i.e) an entry as major will become a *Major Airport*.
 
  .. image:: /static/3/web_mapping_with_qgis2web/images/8.png
    :align: center
 
-9. Enter the :guilabel:`Output field name` as ``class``, choose ``Text (String)`` in :guilabel:`Output field type`. The field ``type`` contains values such as ``small``, ``mid``, ``large`` etc. We can add an expression to change the case of the words to sentence case and append the word *airport* for better readability. Enter the following expression in the :guilabel:`Expression` box and click :guilabel:`OK`.
+9. Enter the :guilabel:`Output field name` as ``class``, choose ``Text(String)`` in :guilabel:`Output field type`. The layer field ``type`` contains values such as ``small``, ``mid``, ``large`` etc. We can add an expression to change the case of the words to sentence case and append the word *airport* for better readability. Enter the following expression in the :guilabel:`Expression` box and click :guilabel:`OK`.
 
  .. code-block:: none
 
@@ -91,12 +91,12 @@ Procedure
 	You can also use concatenation ``||`` operator to join strings. The expression can be re-written as ``(title("type") || ' Airport')``
 	
 
-10. Now we have a much better looking field for airpor type, we no longer need the *type* field. Right-click on the layer and select :guilabel:`Properties`, switch to  :guilabel:`Attribute Forms` and turn off the *type* field by switching it to ``Hidden``. Click :guilabel:`OK`.
+10. Now we have a better looking field for airport type, we no longer need the *type* field. Right-click on the layer and select :guilabel:`Properties`, switch to  :guilabel:`Attributes Form` and turn off the *type* field by switching the :guilabel:`Widget Type` to ``Hidden``. Click :guilabel:`OK`.
 
    .. image:: /static/3/web_mapping_with_qgis2web/images/10.png
       :align: center
 
-11. Now use :guilabel:`Identify Feature` tool and select an airport, you will see a new field *class* with the category of airport nicely formatted and the *type* field is removed.
+11. Now use :guilabel:`Identify Features` tool and select an airport, you will see a new field *class* with the category of airport nicely formatted and the *type* field is removed.
 
    .. image:: /static/3/web_mapping_with_qgis2web/images/11.png
       :align: center
@@ -106,28 +106,27 @@ Procedure
    .. image:: /static/3/web_mapping_with_qgis2web/images/12.png
       :align: center
 
-13. You will see a different colored circle gets assigned to a different type of airport. For this tutorial, we will restrict the map to civilian airports. Hold the :kbd:`Ctrl` key and select all categories for military airports. Once selected, click :guilabel:`Delete`.
+13. You will see different colored circle gets assigned to a different type of airport. For this tutorial, we will restrict the map to civilian airports. Hold the :kbd:`Ctrl` key and select all categories for military airports. Once selected, click :guilabel:`Delete`.
 
    .. image:: /static/3/web_mapping_with_qgis2web/images/13.png
       :align: center
 
-14. Apart from assigning a different color to the category, we can change the size of the symbol to visually help our users distinguish different types of airports. Double-click on the symbol icon in ``Major Airport`` to change the size. 
+14. Apart from assigning different color to the category, we can change the size of the symbol to visually help our users distinguish different types of airports. Double-click on the symbol icon in ``Major Airport`` to change the size. 
 
    .. image:: /static/3/web_mapping_with_qgis2web/images/14.png
       :align: center
 
-15. Now, set the :guilabel:`Size` value to ``4`` , now follow the above step to set the size as ``3`` for ``Mid Airport`` and ``2``
-    for ``Small Airport``.
+15. Set the :guilabel:`Size` to ``4`` , now follow the above step to set the size of ``Mid Airport`` as ``3`` and ``Small Airport`` as ``2``.
 
    .. image:: /static/3/web_mapping_with_qgis2web/images/15.png
       :align: center
 
-16. Let's add a base layer for Geo-referencing, ``Stamen Watercolor`` would be a nice background map for this project, to add the layer select :menuselection:`Web QuickMapServises --> Stamen --> Stamen Watercolor`. To know more about this plugin visit :doc:`using_plugins` tutorials.  
+16. Let's add a base layer for Geo-referencing, ``Stamen Watercolor`` would be a nice background map for this project, to add the layer select :menuselection:`Web --> QuickMapServises --> Stamen --> Stamen Watercolor`. To know more about this plugin visit :doc:`using_plugins` tutorials.  
 
    .. image:: /static/3/web_mapping_with_qgis2web/images/16.png
       :align: center
 
-17. Our map is now ready. This is a good time to save our work. Go to
+17. Our map is now ready. This is a good time to save our work. Click on the :guilabel:`Save Project` icon in toolbar or go-to
     :menuselection:`Project --> Save`. Enter ``Airports`` as the name of the
     project.
 
@@ -169,7 +168,7 @@ Procedure
    .. image:: /static/3/web_mapping_with_qgis2web/images/23.png
       :align: center
 
-24. Click the :guilabel:`Search` (Magnifying glass) icon, and search for ``New York`` and press enter. 
+24. Click the :guilabel:`Search` (Magnifying glass) icon, and search for ``new york`` and press enter. 
 
    .. image:: /static/3/web_mapping_with_qgis2web/images/24.png
       :align: center
@@ -181,7 +180,7 @@ Procedure
       :align: center
 
  
-26. Now lets measure the linear distance in SI units, between *EWR* and *JFK* airports. Click on the :guilabel:`Measure` (ruler) icon, this measure uses the QGIS native measure algorithm which is based on the *haversine formula*,  and select ``Create a new measurement``. Then, click over the airports once the point is chosen, the latitude and longitude of the point are captured and used to compute the distance, now the distance is displayed in *meters*. 
+26. Now lets measure the linear distance in SI units, between *EWR* and *JFK* airports. Click on the :guilabel:`Measure` (ruler) icon, this measure uses the QGIS native measure algorithm which is based on the `haversine formula <https://spatialthoughts.com/2013/07/06/calculate-distance-spreadsheet/>`_ ,  and select ``Create a new measurement``. Then, click over the airports once the point is chosen, the latitude and longitude of the point are captured and used to compute the distance, now the distance is displayed in *meters*. 
 
    .. image:: /static/3/web_mapping_with_qgis2web/images/26.png
       :align: center
@@ -210,7 +209,7 @@ Procedure
 
 	The ``qgis2web`` plugin has many limitations and it cannot do everything that the powerful web mapping libraries ``OpenLayers`` and ``Leaflet`` can do. This process can act as the starting point in your web mapping process and save you valuable time by creating a basic template from which you can further customize the web map. You can edit these files in a code editor to customize as you wish. 
 
-31. Now the map will be render in your default web browser. Now let’s test the last option added to map, (i.e) *Geolocate user*, click on the :guilabel:`Marker` icon. 
+31. The web-map will be rendered in your default web browser. Now, let’s test the last option added to map, (i.e) *Geolocate user*, click on the :guilabel:`Marker` icon. 
 
    .. image:: /static/3/web_mapping_with_qgis2web/images/31.png
       :align: center

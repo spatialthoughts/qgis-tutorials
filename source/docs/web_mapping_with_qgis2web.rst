@@ -1,6 +1,10 @@
 Web Mapping with QGIS2Web
 =========================
 
+.. warning:: 
+
+   This tutorial is now obsolete. A new and updated version is available at :doc:`3/web_mapping_with_qgis2web`
+
 Web mapping is a great medium to publish your GIS data to ther web and make it
 accessible by other users. Creating a web map is a very different process than
 creating one in a GIS. GIS users are typically aren't web programmers and it
