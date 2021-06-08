@@ -75,7 +75,7 @@ Procedure
   .. image:: /static/3/handling_invalid_geometries/images/8.png
     :align: center
     
-..note::
+.. note::
 
   The QGIS documentation has a detailed article on `Types of error messages and their meanings <https://docs.qgis.org/testing/en/docs/user_manual/processing_algs/qgis/vectorgeometry.html#types-of-error-messages-and-their-meanings>`_ that explains the causes of all the errors.
   
