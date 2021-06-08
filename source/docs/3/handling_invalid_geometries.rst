@@ -74,7 +74,11 @@ Procedure
 
   .. image:: /static/3/handling_invalid_geometries/images/8.png
     :align: center
+    
+..note::
 
+  The QGIS documentation has a detailed article on `Types of error messages and their meanings <https://docs.qgis.org/testing/en/docs/user_manual/processing_algs/qgis/vectorgeometry.html#types-of-error-messages-and-their-meanings>`_ that explains the causes of all the errors.
+  
 9. You will see that the error message is *Ring self-intersection*. Select the row and click :guilabel:`Zoom map to selected features` button. As you zoom in, you will see the root cause of the geometry error.
 
   .. image:: /static/3/handling_invalid_geometries/images/9.png
