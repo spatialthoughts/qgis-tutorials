@@ -219,6 +219,37 @@ Procedure
    .. image:: /static/3/web_mapping_with_qgis2web/images/32.png
       :align: center
 
-The exported map resides on your computer. While you can see it in action, it is not very useful since you cannot share it with anyone. For others to be able to see the map, you need to upload it to a web server. While the upload process will vary on the type of server you have access to - a cheap and easy way to publish your map on the web would be to use any of the public cloud storage services. Amazon S3 is a popular storage service. You will need to sign up for an account and follow the instructions to create a bucket. Once a bucket is created, you can upload the contents of your exported folder to the bucket and set it to public. Similarly, Google also offers a cloud storage service called Google Cloud Storage. Once you have created an account and enable billing, you can create a bucket and upload objects to the bucket. 
+33. The exported map resides on your computer. While you can see it in action, it is not very useful since you cannot share it with anyone. For others to be able to see the map, you need to upload it to a web server. While the upload process will vary on the type of server you have access to - a cheap and easy way to publish your map on the web would be to use any of the public cloud storage services. `Amazon S3 <https://aws.amazon.com/s3/>`_ is a popular storage service that can be used to serve static web pages like our map. You will need to sign up for an account. Once your account is setyp, visit the `AWS Console <https://s3.console.aws.amazon.com/s3/home>`_ and follow the instructions to create a bucket. 
+
+   .. image:: /static/3/web_mapping_with_qgis2web/images/aws1.png
+      :align: center
+
+.. note::
+
+	While AWS includes a generious `Free-Tier <https://aws.amazon.com/free/?all-free-tier>`_, you may get charged fees for using this service if you exceed the free usage limits.
+	
+34. Once a bucket is created, you can upload the contents of your exported folder to the bucket.
+
+   .. image:: /static/3/web_mapping_with_qgis2web/images/aws2.png
+      :align: center
+
+35. If you want the map to be publicly accessible, make sure to select :guilabel:`Grant public-read access` while uploading.
+
+   .. image:: /static/3/web_mapping_with_qgis2web/images/aws3.png
+      :align: center
+
+
+36. Once the data is uploaded, locate the `index.html` file. The :guilabel:`Object URL` is the URL that can be used to access the map.
+   
+   .. image:: /static/3/web_mapping_with_qgis2web/images/aws4.png
+      :align: center
+
+
+I have uploaded the files generated from this exercise to an AWS S3 bucket. The AWS-hosted version of the map is embedded via an IFrame below. You can also browse the map directly at https://qgis-tutorials-data.s3.us-east-2.amazonaws.com/qgis2web/index.html
+
+.. raw:: html
+
+	<iframe src="https://qgis-tutorials-data.s3.us-east-2.amazonaws.com/qgis2web/index.html"" width="808px" height="515px" style="border:1px solid black;">
+	</iframe>
 
 
