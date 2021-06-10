@@ -1,5 +1,10 @@
 Performing Table Joins (PyQGIS)
 ===============================
+
+.. warning:: 
+
+   This tutorial is now obsolete. The preferred way to do table joins via pyqgis is to run the ``native:joinattributestable`` algorithm via Python. See details at :doc:`3/processing_algorithms_pyqgis`.
+	 
 This tutorial shows how to use Python scripting in QGIS (PyQGIS) to perform a
 table join and apply a graduated style to the resulting layer. This tutorial
 replicates the steps of the :doc:`performing_table_joins` tutorial using only

@@ -48,12 +48,11 @@ QGIS Tutorials and Tips
 * Python Scripting (PyQGIS)
    - :doc:`docs/3/getting_started_with_pyqgis`
    - :doc:`docs/3/processing_algorithms_pyqgis`
-   - :doc:`docs/3/building_a_python_plugin`
-   - :doc:`docs/3/processing_python_plugin`
    - :doc:`docs/3/custom_python_functions`
    - :doc:`docs/3/processing_python_scripts`
+   - :doc:`docs/3/building_a_python_plugin`
+   - :doc:`docs/3/processing_python_plugin`
    - :doc:`docs/running_qgis_jobs`
-   - :doc:`docs/performing_table_joins_pyqgis`
 
 * Web Mapping
    - :doc:`docs/3/web_mapping_with_qgis2web`
@@ -109,12 +108,11 @@ What next? Hungry for more QGIS materials? Work through my full length QGIS cour
    docs/3/areal_mean_rainfall
    docs/3/getting_started_with_pyqgis
    docs/3/processing_algorithms_pyqgis
-   docs/3/building_a_python_plugin
-   docs/3/processing_python_plugin
    docs/3/custom_python_functions
    docs/3/processing_python_scripts
+   docs/3/building_a_python_plugin
+   docs/3/processing_python_plugin
    docs/running_qgis_jobs
-   docs/performing_table_joins_pyqgis
    docs/3/web_mapping_with_qgis2web
    docs/creating_basemaps_with_qtiles
    docs/3/using_plugins
