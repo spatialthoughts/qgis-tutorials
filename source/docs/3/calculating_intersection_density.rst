@@ -164,7 +164,7 @@ Procedure
   .. image:: /static/3/calculating_intersection_density/images/image12.png
      :align: center
 
-13. The new layer ``road_intersections`` layer has the correct number of road intersections extracted from the source layer. Right-click the old ``road_line_intersections`` layer and select :guilable:`Remove layer` to remove it.
+13. The new layer ``road_intersections`` layer has the correct number of road intersections extracted from the source layer. Right-click the old ``road_line_intersections`` layer and select :guilabel:`Remove layer` to remove it.
 
   .. image:: /static/3/calculating_intersection_density/images/image13.png
      :align: center
