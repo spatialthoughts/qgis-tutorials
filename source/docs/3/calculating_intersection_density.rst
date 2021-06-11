@@ -202,7 +202,7 @@ Procedure
      :align: center
 
 
-20. The ``grid`` layer containing rectangular grid polygons will be created. We can now count the number of points in each polygon, but since our layers are large, this process can take a long time. One way to speed up spatial operations is to use a *Spatial Index*. Open the Processing Toolbox and locate the :guilabel:`Vector general --> Create spatial index` tool. Double click to open it. 
+20. The ``grid`` layer containing rectangular grid polygons will be created. We can now count the number of points in each polygon, but since our layers are large, this process can take a long time. One way to speed up spatial operations is to use a *Spatial Index*. Open the Processing Toolbox and locate the :menuselection:`Vector general --> Create spatial index` tool. Double click to open it. 
 
   .. image:: /static/3/calculating_intersection_density/images/image20.png
      :align: center
