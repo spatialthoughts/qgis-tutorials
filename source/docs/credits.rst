@@ -19,6 +19,7 @@ Data Credits
 - :doc:`leaflet_maps_with_qgis2leaf`
 - :doc:`3/processing_graphical_modeler`
 
+
 .. [NATURALEARTH] Made with Natural Earth. Free vector and raster map data
    @ naturalearthdata.com.
 
@@ -176,6 +177,7 @@ Data Credits
 
 - :doc:`running_qgis_jobs`
 - :doc:`3/multi_criteria_overlay`
+- :doc:`3/calculating_intersection_density`
 
 .. [GEOFABRIK] Data/Maps Copyright 2019 `Geofabrik GmbH <http://www.geofabrik.de/>`_ and `OpenStreetMap Contributors <http://www.openstreetmap.org/>`_
 
@@ -190,3 +192,7 @@ Data Credits
 
 .. [SFMTA] `SFMTA Livable Streets <https://data.sfgov.org/Transportation/SFMTA-Bikeway-Network/t6vv-tjkd>`_.
    Published by: Municipal Transportation Agency
+
+- :doc:`3/calculating_intersection_density`
+
+.. [OPENCITIES] `Downloaded from OpenCity Urban Data Portal by Oorvani Foundation and DataMeet <https://opencity.in/data/chennai-gcc-greater-chennai-corporation-wards-map>`_.

@@ -32,6 +32,7 @@ QGIS Tutorials and Tips
    - :doc:`docs/3/nearest_neighbor_analysis`
    - :doc:`docs/3/sampling_raster_data`
    - :doc:`docs/3/interpolating_point_data`
+   - :doc:`docs/3/calculating_intersection_density`
    - :doc:`docs/3/batch_processing`
    - :doc:`docs/3/processing_graphical_modeler`
    - :doc:`docs/3/automating_map_creation`
@@ -98,6 +99,7 @@ What next? Hungry for more QGIS materials? Work through my full length QGIS cour
    docs/3/nearest_neighbor_analysis
    docs/3/sampling_raster_data
    docs/interpolating_point_data
+   docs/3/calculating_intersection_density
    docs/3/batch_processing
    docs/3/processing_graphical_modeler
    docs/3/automating_map_creation
