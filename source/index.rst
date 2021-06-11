@@ -84,12 +84,12 @@ What next? Hungry for more QGIS materials? Work through my full length QGIS cour
    docs/3/calculating_line_lengths
    docs/3/raster_styling_and_analysis
    docs/3/raster_mosaicing_and_clipping
-   docs/working_with_terrain
+   docs/3/working_with_terrain
    docs/3/working_with_wms
    docs/3/working_with_projections
    docs/3/georeferencing_basics
    docs/3/advanced_georeferencing
-   docs/digitizing_basics
+   docs/3/digitizing_basics
    docs/3/performing_table_joins
    docs/3/performing_spatial_joins
    docs/3/creating_heatmaps
@@ -98,7 +98,7 @@ What next? Hungry for more QGIS materials? Work through my full length QGIS cour
    docs/3/performing_spatial_queries
    docs/3/nearest_neighbor_analysis
    docs/3/sampling_raster_data
-   docs/interpolating_point_data
+   docs/3/interpolating_point_data
    docs/3/calculating_intersection_density
    docs/3/batch_processing
    docs/3/processing_graphical_modeler

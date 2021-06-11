@@ -1,7 +1,7 @@
 Calculating Street Intersection Density (QGIS3)
 ================================================
 
-Street intersection density is a useful measure of network connectivity. One can extract and aggregate street intersections over a regular grid to calculate the density. This analysis is commonly used in transportation design as well as urban planning in the design of more walkable neighborhoods. With the availability of an easily accessible and global street network dataset from OpenStreetMap and QGIS, we can easily calculate and visualize intersection density for any region of the world.
+Street intersection density is a useful measure of network connectivity. One can extract and aggregate street intersections over a regular grid to calculate the density. This analysis is commonly used in transportation design as well as urban planning to determine walkability of neighborhoods. With the availability of global street network dataset from OpenStreetMap and QGIS, we can easily calculate and visualize intersection density for any region of the world.
 
 Overview of the task
 --------------------
@@ -12,14 +12,14 @@ Other skills you will learn
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 - How to download OpenStreetMap data as shapefiles and clip it to your area of interest. 
-- How to create grids in QGISIS 
+- How to create grids in QGIS.
 
 Get the data
 ------------
 
-We will use the data from `opencities <https://opencity.in/data/chennai-gcc-greater-chennai-corporation-wards-map>`_ to get city boundary, then the road network data from `OpenStreetMap Data Extracts <https://download.geofabrik.de/asia/india.html>`_. 
+We will use the data from `opencities <https://opencity.in/>`_ to get the city boundary for Chennai and, then the road network data from `OpenStreetMap Data Extracts <https://download.geofabrik.de/>`_ for India.
 
-Download the city boundary
+Download the City Boundary
 ^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 1. Visit the `opencity <https://opencity.in/>`_ website, then search for “Chennai wards map”. 
@@ -33,10 +33,10 @@ Download the city boundary
      :align: center
 
 
-Download the road network data
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Download the Road Network
+^^^^^^^^^^^^^^^^^^^^^^^^^
 
-1. Visit the `OpenStreetMap Data Extracts download <https://download.geofabrik.de/>`_ server by GEOFABRIK website. For this tutorial, we need the data for the city of Chennai in India. Click :guilabel:`Asia`.  
+1. Visit the `OpenStreetMap Data Extracts download <https://download.geofabrik.de/>`_ server by GEOFABRIK. For this tutorial, we need the data for the city of Chennai in India. Click :guilabel:`Asia`.  
 
   .. image:: /static/3/calculating_intersection_density/images/data3.png
      :align: center
@@ -56,8 +56,8 @@ Download the road network data
   .. image:: /static/3/calculating_intersection_density/images/data6.png
      :align: center
 
-Clip road network to city boundary
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Clip the Road Network to the City Boundary
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 1. We will now clip the country-level roads layer to our area of interest. Open QGIS, and drag and drop the ``Chennai-wards-2011.kml``. 
 
@@ -74,23 +74,23 @@ Clip road network to city boundary
   .. image:: /static/3/calculating_intersection_density/images/data9.png
      :align: center
 
-4. Navigate and select ``gis_osm_roads_free_1.shp``, in the :guilabel:`Overlay layer` choose  ``New Wards from Oct 2011``. Then click  ``…`` in :guilabel:`Clipped` and select :guilabel:`Save to File…`, enter the name as ``chennai_roads.gpkg``, and click :guilabel:`Run`. 
+4. Navigate to the directory where you downloaded the OpenStreetMap data and select ``gis_osm_roads_free_1.shp``. In the :guilabel:`Overlay layer` choose  ``New Wards from Oct 2011``. Then click  ``…`` in :guilabel:`Clipped` and select :guilabel:`Save to File…`, browse to a folder where you want to save the results, enter the name as ``chennai_roads.gpkg``, and click :guilabel:`Run`. 
 
   .. image:: /static/3/calculating_intersection_density/images/data10.png
      :align: center
 
-5. Now a layer ``chennai_road`` will be loaded in the canvas. 
+5. Once the processing finishes, a new layer ``chennai_road`` will be loaded in the canvas. 
 
   .. image:: /static/3/calculating_intersection_density/images/data11.png
      :align: center
 
 
-For convenience, you may directly download a copy of the dataset from the link below:
+For convenience, you may directly download a copy of the clipped dataset from the link below:
 
 - `chennai_wards_2011.kml <https://www.qgistutorials.com/downloads/Chennai_Wards_2011.kml>`_
 - `chennai_roads.gpkg <https://www.qgistutorials.com/downloads/chennai_roads.gpkg>`_
 
-Data source [OPENCITIES]_ [GEOFABRIK]_
+Data source: [OPENCITIES]_ [GEOFABRIK]_
 
 
 Procedure
@@ -101,7 +101,7 @@ Procedure
   .. image:: /static/3/calculating_intersection_density/images/image1.png
      :align: center
 
-2. The first task is to extract the road intersections. This can be done using the built-in Line intersections tool. Let’s test this on a small subset first to see if the results are satisfactory. Select the roads layer, use the :guilabel:`Select features by Area` tool and select a few roads.
+2. The first task is to extract the road intersections. This can be done using the built-in Line intersections tool. Let’s test this on a small subset first to see if the results are satisfactory. Select the roads layer, and use the :guilabel:`Select features by Area` tool to draw a rectangle and select a few roads.
 
   .. image:: /static/3/calculating_intersection_density/images/image2.png
      :align: center
@@ -122,7 +122,7 @@ Procedure
   .. image:: /static/3/calculating_intersection_density/images/image5.png
      :align: center
 
-6. Remove the Intersections layer and click :guilabel:`Deselect features from all layers` button to remove the selection. We will now merge all adjacent road segments, so the segments between intersections are merged into a single feature. Open the Processing Toolbox and locate the :guilabel:`Vector geometry --> Dissolve` tool. Double-click to open it.
+6. Remove the Intersections layer and click :guilabel:`Deselect features from all layers` button to remove the selection. We will now merge all adjacent road segments, so the segments between intersections are merged into a single feature. Open the Processing Toolbox and locate the :menuselection:`Vector geometry --> Dissolve` tool. Double-click to open it.
 
   .. image:: /static/3/calculating_intersection_density/images/image6.png
      :align: center
@@ -157,25 +157,25 @@ Procedure
 
 .. note::
 
-   This is a computationally intensive operation and may take longer depending on your computer processing capacity. 
+   This is a computationally intensive operation and may take a long time depending on your computer processing capacity. 
 
 12. The resulting layer ``roads_line_intersections`` now have all intersections correctly identified. But it is still not perfect. Use the :guilabel:`Select features by Area tool` and select any intersection. You will see that at each intersection there are few duplicate points from adjacent segments. If we use this layer for further analysis, it will result in an inflated number of intersections. Let’s remove duplicates, open the Processing Toolbox and locate the :menuselection:`Vector general --> Delete duplicate geometries` tool. Select ``roads_line_intersections`` as the :guilabel:`Input layer` and enter ``road_intersections.gpkg`` as the :guilabel:`Cleaned` output layer. Click :guilabel:`Run`. 
 
   .. image:: /static/3/calculating_intersection_density/images/image12.png
      :align: center
 
-13. Now remove the ``road_line_intersections`` layer. The new layer ``road_intersections`` layer has the correct number of road intersections extracted from the source layer.
+13. The new layer ``road_intersections`` layer has the correct number of road intersections extracted from the source layer. Right-click the old ``road_line_intersections`` layer and select :guilable:`Remove layer` to remove it.
 
   .. image:: /static/3/calculating_intersection_density/images/image13.png
      :align: center
 
 
-14. We will now compute the density of points by overlaying a regular grid and counting points in each grid polygon. We must reproject the data to a projected CRS so we can use linear units of measurements. We can use an appropriate CRS based on the UTM zone where the city is located. Open the Processing Toolbox and locate the :menuselection:`Vector general --> Reproject` layer. Double click to open it. 
+14. We will now compute the density of points by overlaying a regular grid and counting points in each grid polygon. We must reproject the data to a projected CRS so we can use linear units of measurements. We can use an appropriate CRS based on the UTM zone where the city is located. You can see `UTM Grid Zones of the World <http://www.dmap.co.uk/utmworld.htm>`_ map to locate the UTM zone for your city. Chennai falls in the UTM Zone **44N**. Open the Processing Toolbox and locate the :menuselection:`Vector general --> Reproject` layer. Double click to open it. 
 
   .. image:: /static/3/calculating_intersection_density/images/image14.png
      :align: center
 
-15. Select ``road_intersections`` as the :guilabel:`Input layer`. Search by clicking the :guilabel:`globe` icon next to :guilabel:`Target CRS` and select ``EPSG:32664 - WGS 84 / UTM zone 44N``. Enter the :guilabel:`Reprojected` output layer as ``road_intersections_reprojected.gpkg``. Click :guilabel:`Run`. 
+15. Select ``road_intersections`` as the :guilabel:`Input layer`. Search by clicking the :guilabel:`globe` icon next to :guilabel:`Target CRS` and select ``EPSG:32664 - WGS 84 / UTM zone 44N``. This is a CRS based on the WGS84 datum for the *UTM Zone 44N*. Enter the :guilabel:`Reprojected` output layer as ``road_intersections_reprojected.gpkg``. Click :guilabel:`Run`. 
 
   .. image:: /static/3/calculating_intersection_density/images/image15.png
      :align: center
@@ -196,7 +196,7 @@ Procedure
   .. image:: /static/3/calculating_intersection_density/images/image18.png
      :align: center
 
-19. Select the Project CRS as the Grid CRS. Set both :guilabel:`Horizontal spacing` and :guilabel:`Vertical spacing` as ``1000`` meters. Save the :guilabel:`Grid` output layer as ``grid.gpkg``. Click :guilabel:`Run`. 
+19. Select the Project CRS as the Grid CRS. We want to create a grid of 1km x 1km, so set both :guilabel:`Horizontal spacing` and :guilabel:`Vertical spacing` as ``1000`` meters. Save the :guilabel:`Grid` output layer as ``grid.gpkg``. Click :guilabel:`Run`. 
 
   .. image:: /static/3/calculating_intersection_density/images/image19.png
      :align: center
@@ -222,7 +222,7 @@ Procedure
   .. image:: /static/3/calculating_intersection_density/images/image23.png
      :align: center
 
-24. The resulting layer ``grid_count`` will have an attribute :guilabel:`NUMPOINTS` which contains the number of intersection points within each grid. There are many grids with 0 points. It will help our analysis and visualization to remove grid polygons that have no intersections. Open the Processing Toolbox and locate the :guilabel:`Vector selection --> Extract by attribute` algorithm.  
+24. The resulting layer ``grid_count`` will have an attribute :guilabel:`NUMPOINTS` which contains the number of intersection points within each grid. There are many grids with 0 points. It will help our analysis and visualization to remove grid polygons that contain no intersections. Open the Processing Toolbox and locate the :menuselection:`Vector selection --> Extract by attribute` algorithm.  
 
   .. image:: /static/3/calculating_intersection_density/images/image24.png
      :align: center
@@ -243,18 +243,18 @@ Procedure
   .. image:: /static/3/calculating_intersection_density/images/image27.png
      :align: center
 
-28. Rename the :guilabel:`NUMPOINTS` as ``intersection_density`` and save the layer as ``road_intersectionDensity.gpkg``, click :guilabel:`Run`. 
+28. Rename the :guilabel:`NUMPOINTS` as ``intersection_density`` and save the layer as ``road_intersection_density.gpkg``, click :guilabel:`Run`. 
 
   .. image:: /static/3/calculating_intersection_density/images/image28.png
      :align: center
 
-29. Let's style this layer to view the density of each grid, select the ``road_intersectionsDensity`` and click :guilabel:`Open the Layer Styling Panel`. Select :guilabel:`Graduated` renderer, and in :guilabel:`Values` select :guilabel:`Intersection Density`, a :guilabel:`Color ramp` of your choice, set the :guilabel:`classes` to ``7`` and click :guilabel:`Classify`.
+29. Let's style this layer to view the density of each grid, select the ``road_intersection_density`` layer and click :guilabel:`Open the Layer Styling Panel`. Select :guilabel:`Graduated` renderer, and in :guilabel:`Values` select :guilabel:`Intersection Density`, a :guilabel:`Color ramp` of your choice, set the :guilabel:`classes` to ``7`` and click :guilabel:`Classify`.
 
   .. image:: /static/3/calculating_intersection_density/images/image29.png
      :align: center
 
 
-30. In the values enter ``0-50``, ``50-100``, ``100-150`` and so on upto ``300 - 350``. 
+30. In the values enter ``0-50``, ``50-100``, ``100-150`` and so on upto ``300 - 350``. You have now created a map showing intersection density across the city.
 
   .. image:: /static/3/calculating_intersection_density/images/image30.png
      :align: center
