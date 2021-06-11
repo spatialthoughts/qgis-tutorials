@@ -6,7 +6,7 @@ Street intersection density is a useful measure of network connectivity. One can
 Overview of the task
 --------------------
 
-In this tutorial, we will take OpenStreetMap road network data and calculate the street intersection density, and generate a map for the city of Chennai in India. 
+In this tutorial, we will take OpenStreetMap road network data and calculate the street intersection density for the city of Chennai in India. 
 
 Other skills you will learn
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^
