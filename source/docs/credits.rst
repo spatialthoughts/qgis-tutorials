@@ -179,7 +179,7 @@ Data Credits
 - :doc:`3/multi_criteria_overlay`
 - :doc:`3/calculating_intersection_density`
 
-.. [GEOFABRIK] Data/Maps Copyright 2019 `Geofabrik GmbH <http://www.geofabrik.de/>`_ and `OpenStreetMap Contributors <http://www.openstreetmap.org/>`_
+.. [GEOFABRIK] Data/Maps Copyright 2021 `Geofabrik GmbH <http://www.geofabrik.de/>`_ and `OpenStreetMap Contributors <http://www.openstreetmap.org/>`_
 
 - :doc:`open_bil_bip_bsq_files`
 
@@ -195,4 +195,4 @@ Data Credits
 
 - :doc:`3/calculating_intersection_density`
 
-.. [OPENCITIES] `Downloaded from OpenCity Urban Data Portal by Oorvani Foundation and DataMeet <https://opencity.in/data/chennai-gcc-greater-chennai-corporation-wards-map>`_.
+.. [OPENCITIES] Downloaded from `OpenCity Urban Data Portal <https://opencity.in/data/chennai-gcc-greater-chennai-corporation-wards-map>`_ by Oorvani Foundation and DataMeet.
