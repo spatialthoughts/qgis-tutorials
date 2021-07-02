@@ -12,7 +12,6 @@ Other skills you will learn
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 - Loading CSV files that do not contain any geometry in QGIS.
-- Using DB Manager to perform SQL queries to calculate group statistics.
 
 Get the data
 ------------
