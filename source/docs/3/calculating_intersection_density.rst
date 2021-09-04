@@ -186,7 +186,7 @@ Procedure
      :align: center
 
 
-17. Now we can create the grid. Open the Processing Toolbox and locate the :menuselection:`Vector creation --> Create grid` algorithm. Double click to open. 
+17. Project CRS will be updated in the bottom right of the window, and now we can create the grid. Open the Processing Toolbox and locate the :menuselection:`Vector creation --> Create grid` algorithm. Double click to open. 
 
   .. image:: /static/3/calculating_intersection_density/images/image17.png
      :align: center
