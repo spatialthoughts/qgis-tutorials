@@ -186,7 +186,7 @@ Procedure
      :align: center
 
 
-17. Project CRS will be updated in the bottom right of the window, and now we can create the grid. Open the Processing Toolbox and locate the :menuselection:`Vector creation --> Create grid` algorithm. Double click to open. 
+17. Project CRS will be updated in the bottom right of the window. The purpose of this step to ensure that all layers are displayed in the CRS of new layer. We are now ready to create the grid using the ``road_intersections_reprojected`` as reference. Open the Processing Toolbox and locate the :menuselection:`Vector creation --> Create grid` algorithm. Double click to open. 
 
   .. image:: /static/3/calculating_intersection_density/images/image17.png
      :align: center
