@@ -26,7 +26,7 @@ Procedure
   .. image:: /static/3/downloading_osm_data/images/2.png
      :align: center
      
-3. In the :guilabel:`Quick query` tab, you can set a filter to select a subset. The attributes of the map features in the OSM database are stored as `Tags <https://wiki.openstreetmap.org/wiki/Tags>`_. Tags are represented with a key and a value. The key is a topic and a value is a specific form. See `this page <https://wiki.openstreetmap.org/wiki/Map_Features>`_ for a comprehensive list of tags for various types of features. Bars are represented using the tag ``amenity:bar`` and pubs with the tag ``amenity:pub``. We will first extract the bars. Select ``amenity`` as the :guilabel:`Key` from the drop-down menu.
+3. In the :guilabel:`Quick query` tab, you can set a filter to select a subset. The attributes of the map features in the OSM database are stored as `Tags <https://wiki.openstreetmap.org/wiki/Tags>`_. Tags are represented with a key and a value. The key is a topic and a value is a specific form. See the OSM `Map Features <https://wiki.openstreetmap.org/wiki/Map_Features>`_ wiki page for a comprehensive list of tags for various types of features. Bars are represented using the tag ``amenity:bar`` and pubs with the tag ``amenity:pub``. We will first extract the bars. Select ``amenity`` as the :guilabel:`Key` from the drop-down menu.
 
   .. image:: /static/3/downloading_osm_data/images/3.png
      :align: center
