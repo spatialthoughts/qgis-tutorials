@@ -1,34 +1,34 @@
 Advanced Raster Analysis (QGIS3)
 =================================
 
-For city planning a most usefull rastre data is Land-Cover, this data informs a wide variety of strategic planning activities. To do this QGIS has advanced raster capabilities built in via ``Raster Claculator``. In this tutorial, we will explore the options available for styling categorical raster and functionality provided by the raster calculator.
+For city planning, the most useful raster data is Land-Cover. This data informs a wide variety of strategic planning activities. To do this, QGIS has advanced raster capabilities built-in via the ``Raster Calculator``. In this tutorial, we will explore the options available for styling categorical raster and the functionality provided by the raster calculator.
 
 Overview of the task
 --------------------
 
-We will identify the suitable areas for development by monitoring change / class transition in city of Johannesburg, South Africa. 
+We will identify the suitable areas for development by monitoring change/class transition in the city of Johannesburg, South Africa. 
 
 Other skills you will learn
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-- How to load a excel file in QGIS.  
-- How to view a particular class in raster layer.
+- How to load an excel file in QGIS.  
+- How to view a particular class in the raster layer.
 
 Get the data
 ------------
 
-- We will use the `The South African National Land Cover 2018 (SANLC) <https://www.environment.gov.za/projectsprogrammes/egis_landcover_datasets>`_ data, and the  *Land Cover Change 2014-18* data. 
+- We will use `The South African National Land Cover 2018 (SANLC) <https://www.environment.gov.za/projectsprogrammes/egis_landcover_datasets>`_ data, and the  *Land Cover Change 2014-18* data. 
 
   .. image:: /static/3/advanced_raster_analysis/images/data1.png
     :align: center
 
-- City of Johannesburg Boundary: A polygon shapefile indicating the city administrative boundary for Johannesburg. Available as `COJ_Boundary.shp` in your data package.
+- City of Johannesburg Boundary, can be downloaded from `COJ Spatial Development Framework 2040 <https://www.joburg.org.za/documents_/Pages/Key%20Documents/policies/Development%20Planning%20%EF%BC%86%20Urban%20Management/Citywide%20Spatial%20Policies/Spatial-Development-Framework-2040.aspx>`_
 
-You can download the clipped version of the data from the link below:
+For your convenience, you can download the clipped version of the data from the link below:
 
 `landuse_change.zip <https://www.qgistutorials.com/downloads/advanced_raster_analysis.zip>`_
 
-Data Source: [GEOFABRIK]_
+Data Source: [SANLC]_ [COJ]_
 
 
 Procedure
@@ -56,9 +56,10 @@ Procedure
 
 5. The source image has only 1 band. The ``@1`` suffix indicates the band number. Enter the following expression to select pixels from class 51-54. 
 
-```
-"SA_NLC_2018_Gauteng@1" >= 51 AND "SA_NLC_2018_Gauteng@1" <= 54
-```
+  .. code-block:: none
+
+     "SA_NLC_2018_Gauteng@1" >= 51 AND "SA_NLC_2018_Gauteng@1" <= 54
+
 
   .. image:: /static/3/advanced_raster_analysis/images/05.png
     :align: center
@@ -103,7 +104,7 @@ Procedure
   .. image:: /static/3/advanced_raster_analysis/images/13.png
     :align: center
 
-14. To identify the urban growth pattern in all the areas where the land cover changed to built-up area from 2014 to 2018. Drag and drop the ``SA_NLC_2014_2018_CHANGE_Gauteng.tif`` file from the *Browser* to the canvas. 
+14. To identify the urban growth pattern in all the areas where the land cover changed to the built-up area from 2014 to 2018. Drag and drop the ``SA_NLC_2014_2018_CHANGE_Gauteng.tif`` file from the *Browser* to the canvas. 
 
   .. image:: /static/3/advanced_raster_analysis/images/14.png
     :align: center
