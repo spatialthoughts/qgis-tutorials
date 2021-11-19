@@ -1,32 +1,81 @@
 Advanced Raster Analysis (QGIS3)
 =================================
 
-For city planning, the most useful raster data is Land-Cover. This data informs a wide variety of strategic planning activities. To do this, QGIS has advanced raster capabilities built-in via the ``Raster Calculator``. In this tutorial, we will explore the options available for styling categorical raster and the functionality provided by the raster calculator.
+For city planning, the most useful raster data is Land-Cover. This data informs a wide variety of strategic planning activities. To do this, QGIS has advanced raster capabilities built-in via the *Processing Toolbax*. In this tutorial, we will explore the options available for styling categorical raster and the functionality provided by the ``Reclassify by layer``, ``Raster Calculator``.
 
 Overview of the task
 --------------------
 
-We will identify the suitable areas for development by monitoring change/class transition in the city of Johannesburg, South Africa. 
+To explore the advanced rater tools by identifying the suitable areas for development by monitoring change/class transition in the city of Johannesburg, South Africa. 
 
 Other skills you will learn
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+- How to add a basemap in QGIS.
 - How to load an excel file in QGIS.  
 - How to view a particular class in the raster layer.
 
 Get the data
 ------------
 
-- We will use `The South African National Land Cover 2018 (SANLC) <https://www.environment.gov.za/projectsprogrammes/egis_landcover_datasets>`_ data, and the  *Land Cover Change 2014-18* data. 
+Download the raster file
+^^^^^^^^^^^^^^^^^^^^^^^^^
+
+1. We will use `The South African National Land Cover 2018 <https://www.environment.gov.za/projectsprogrammes/egis_landcover_datasets>`_ data, click on the download link. 
 
   .. image:: /static/3/advanced_raster_analysis/images/data1.png
     :align: center
 
-- City of Johannesburg Boundary, can be downloaded from `COJ Spatial Development Framework 2040 <https://www.joburg.org.za/documents_/Pages/Key%20Documents/policies/Development%20Planning%20%EF%BC%86%20Urban%20Management/Citywide%20Spatial%20Policies/Spatial-Development-Framework-2040.aspx>`_
+2. Click :guilabel:`I agree` to accept the Condition of use and proceed. 
+
+  .. image:: /static/3/advanced_raster_analysis/images/data2.png
+    :align: center
+
+3. :guilabel:`Log in` to your account if didnt have one, click :guilabel:`I want to create an account` and create an account. 
+
+  .. image:: /static/3/advanced_raster_analysis/images/data3.png
+    :align: center
+
+4. Once logged in search for ``SANIC 2018 GEOTIFF`` and download that dataset.  
+
+  .. image:: /static/3/advanced_raster_analysis/images/data4.png
+    :align: center
+
+.. note:: 
+
+   This is a huge file (1.04GB). Make sure you have the enough data and bandwidth to download it. A clipped version of this data is available at this section end for convenience.  
+
+5. Then search for ``SA_NLC_2014_2018_CLASS_CHANGE_CALC (DATASET AND REPORT)`` and download it. Use the :menuselection:`Processing Toolbox --> GDAL --> Raster extraction --> Clip raster by Mask Layer` to clip to bounday.  
+
+  .. image:: /static/3/advanced_raster_analysis/images/data5.png
+    :align: center
+
+Download the vector file (Boundary)
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+6. We will use City of Johannesburg shapefile is provided by `COJ Spatial Development Framework 2040 <https://www.joburg.org.za/documents_/Pages/Key%20Documents/policies/Development%20Planning%20%EF%BC%86%20Urban%20Management/Citywide%20Spatial%20Policies/Spatial-Development-Framework-2040.aspx>`_ data, click on the download link. 
+
+  .. image:: /static/3/advanced_raster_analysis/images/data6.png
+    :align: center
+
+7. Click on the ``SDF Shapefiles`` directory. 
+
+  .. image:: /static/3/advanced_raster_analysis/images/data7.png
+    :align: center
+
+8. Download the ``SDF Shapefiles.zip`` file, and unzip.  
+
+  .. image:: /static/3/advanced_raster_analysis/images/data8.png
+    :align: center
+
+9. In the unzipped ``SDF Shapefiles`` directory search :menuselection:`SDF Shapefiles --> Boundaries --> COJ_Boundary.shp`. 
+
+  .. image:: /static/3/advanced_raster_analysis/images/data9.png
+    :align: center
 
 For your convenience, you can download the clipped version of the data from the link below:
 
-`landuse_change.zip <https://www.qgistutorials.com/downloads/advanced_raster_analysis.zip>`_
+`landuse_change.zip <https://www.qgistutorials.com/downloads/landuse_change.zip>`_
 
 Data Source: [SANLC]_ [COJ]_
 
@@ -104,22 +153,26 @@ Procedure
   .. image:: /static/3/advanced_raster_analysis/images/13.png
     :align: center
 
-14. To identify the urban growth pattern in all the areas where the land cover changed to the built-up area from 2014 to 2018. Drag and drop the ``SA_NLC_2014_2018_CHANGE_Gauteng.tif`` file from the *Browser* to the canvas. 
+
+Now that we have identified informal settlements, lets learn about identifying urban growth
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+1. To identify the urban growth pattern in all the areas where the land cover changed to the built-up area from 2014 to 2018. Drag and drop the ``SA_NLC_2014_2018_CHANGE_Gauteng.tif`` file from the *Browser* to the canvas. 
 
   .. image:: /static/3/advanced_raster_analysis/images/14.png
     :align: center
 
-15.  Use the :guilabel:`identify` tool in the :guilabel:`Attributes Toolbar` to click on the image and inspect the pixel values. You will see that the pixel values range from 21-420. Each value indicates transition from one of the 73 source classes to another class.
+2.  Use the :guilabel:`identify` tool in the :guilabel:`Attributes Toolbar` to click on the image and inspect the pixel values. You will see that the pixel values range from 21-420. Each value indicates transition from one of the 73 source classes to another class.
 
   .. image:: /static/3/advanced_raster_analysis/images/15.png
     :align: center
 
-16. The *SANLC 2018 Change Assessment Report* comes with a spreadsheet named ``20_class_change_matrix_codes_final_1990-2014-2018_vs1.xlsx``. This sheet has the matrix that gives more details about each pixel value. We are interested in all pixel values where any source class changed into a destination built-up class. In the image below, these are highlighted in blue.
+3. The *SANLC 2018 Change Assessment Report* comes with a spreadsheet named ``20_class_change_matrix_codes_final_1990-2014-2018_vs1.xlsx``. This sheet has the matrix that gives more details about each pixel value. We are interested in all pixel values where any source class changed into a destination built-up class. In the image below, these are highlighted in blue.
 
   .. image:: /static/3/advanced_raster_analysis/images/16.png
     :align: center
 
-17. Drag and drop the ``reclass.xlsx`` file in the browser
+4. Drag and drop the ``reclass.xlsx`` file in the browser
 
   .. image:: /static/3/advanced_raster_analysis/images/17.png
     :align: center
@@ -134,42 +187,42 @@ Procedure
   
   - 0 is All remaining values. 
 
-18. A new layer ``reclass Sheet1`` will be added to the :guilabel:`Layers` panel. Select it and open the :guilabel:`Attribute Table`. The expected format for this file is 3 columns. ``MIN`` and ``MAX`` columns with range of input values and ``OUTPUT`` column with target values. Open the :menuselection:`Processing Toolbox --> Reclassify by layer` tool.
+5. A new layer ``reclass Sheet1`` will be added to the :guilabel:`Layers` panel. Select it and open the :guilabel:`Attribute Table`. The expected format for this file is 3 columns. ``MIN`` and ``MAX`` columns with range of input values and ``OUTPUT`` column with target values. Open the :menuselection:`Processing Toolbox --> Reclassify by layer` tool.
 
   .. image:: /static/3/advanced_raster_analysis/images/18.png
     :align: center
 
-19. In the :guilabel:`Reclassify by layer` dialog, select ``SA_NLC_2014_2018_CHANGE_Gauteng`` as the :guilabel:`Raster layer`. Select ``reclass Sheet1`` as the :guilabel:`Layer containing class breaks`. Select ``MIN``, ``MAX`` and ``OUTPUT`` fields for their respective fields.
+6. In the :guilabel:`Reclassify by layer` dialog, select ``SA_NLC_2014_2018_CHANGE_Gauteng`` as the :guilabel:`Raster layer`. Select ``reclass Sheet1`` as the :guilabel:`Layer containing class breaks`. Select ``MIN``, ``MAX`` and ``OUTPUT`` fields for their respective fields.
 
   .. image:: /static/3/advanced_raster_analysis/images/19.png
     :align: center
 
-20. Expand the :guilabel:`Advanced Parameters` section. Change the :guilabel:`Range boundaries` to ``min <= value <= max``. Click the :guilabel:`...` button for :guilabel:`Reclassified raster` and enter the output file name as ``builtup_change.tif``. Click :guilabel:`Run`.
+7. Expand the :guilabel:`Advanced Parameters` section. Change the :guilabel:`Range boundaries` to ``min <= value <= max``. Click the :guilabel:`...` button for :guilabel:`Reclassified raster` and enter the output file name as ``builtup_change.tif``. Click :guilabel:`Run`.
 
   .. image:: /static/3/advanced_raster_analysis/images/20.png
     :align: center
 
-21. Once the processing finishes, a new layer ``builtup_change`` with pixel values ``0-2`` will be added to the canvas. 
+8. Once the processing finishes, a new layer ``builtup_change`` with pixel values ``0-2`` will be added to the canvas. 
 
   .. image:: /static/3/advanced_raster_analysis/images/21.png
     :align: center
 
-22. Open the :guilabel:`Layer styling panel` and click the :guilabel:`Add values manually` (+) button to add 3 categories: ``Non Built-up``, ``Existing Built-up`` and ``New Built-up`` for pixel values ``0``, ``1`` and ``2`` respectively.
+9. Open the :guilabel:`Layer styling panel` and click the :guilabel:`Add values manually` (+) button to add 3 categories: ``Non Built-up``, ``Existing Built-up`` and ``New Built-up`` for pixel values ``0``, ``1`` and ``2`` respectively.
 
   .. image:: /static/3/advanced_raster_analysis/images/22.png
     :align: center
 
-23. Drag and drop the ``COJ_Boundary.shp`` file in the browser, to see the growth in context of the city boundary.
+10. Drag and drop the ``COJ_Boundary.shp`` file in the browser, to see the growth in context of the city boundary.
 
   .. image:: /static/3/advanced_raster_analysis/images/23.png
     :align: center
 
-24. Change the sub-renderer from :guilabel:`Simple Fill` to :guilabel:`Simple Line` and increase the line width. You can now see the city boundary overlaid on the raster layer.
+11. Change the sub-renderer from :guilabel:`Simple Fill` to :guilabel:`Simple Line` and increase the line width. You can now see the city boundary overlaid on the raster layer.
 
   .. image:: /static/3/advanced_raster_analysis/images/24.png
     :align: center
 
-25. Explore the pattern of built-up area growth indicated by the red pixels.
+12. Explore the pattern of built-up area growth indicated by the red pixels.
  
   .. image:: /static/3/advanced_raster_analysis/images/25.png
     :align: center
