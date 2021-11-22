@@ -1,25 +1,25 @@
 Advanced Raster Analysis (QGIS3)
-=================================
+===========================
 
-For city planning, the most useful raster data is Land-Cover. This data informs a wide variety of strategic planning activities. To do this, QGIS has advanced raster capabilities built-in via the *Processing Toolbax*. In this tutorial, we will explore the options available for styling categorical raster and the functionality provided by the ``Reclassify by layer``, ``Raster Calculator``.
+For city planning, the most useful raster data is the Land-Cover. This data informs a wide variety of strategic planning activities. To create and analyze  this type of data, QGIS has advanced raster capabilities built-in via the *Processing Toolbox*. In this tutorial, we will explore the options available for styling categorical raster and the functionality provided by the ``Reclassify by layer``, ``Raster Calculator``.
 
 Overview of the task
---------------------
+---------------------------
 
-To explore the advanced rater tools by identifying the suitable areas for development by monitoring change/class transition in the city of Johannesburg, South Africa. 
+To explore the advanced raster tools by identifying the suitable areas for development. Then monitoring change/class transition in the city of Johannesburg, South Africa. 
 
 Other skills you will learn
-^^^^^^^^^^^^^^^^^^^^^^^^^^^
+^^^^^^^^^^^^^^^^^^^^^^^
 
-- How to add a basemap in QGIS.
+- How to add a base-map in QGIS.
 - How to load an excel file in QGIS.  
 - How to view a particular class in the raster layer.
 
 Get the data
-------------
+-----------------
 
 Download the raster file
-^^^^^^^^^^^^^^^^^^^^^^^^^
+^^^^^^^^^^^^^^^^^^^^^^^
 
 1. We will use `The South African National Land Cover 2018 <https://www.environment.gov.za/projectsprogrammes/egis_landcover_datasets>`_ data, click on the download link. 
 
@@ -31,7 +31,7 @@ Download the raster file
   .. image:: /static/3/advanced_raster_analysis/images/data2.png
     :align: center
 
-3. :guilabel:`Log in` to your account if didnt have one, click :guilabel:`I want to create an account` and create an account. 
+3. :guilabel:`Log in` to your account if didn't have one, click :guilabel:`I want to create an account` and create an account. 
 
   .. image:: /static/3/advanced_raster_analysis/images/data3.png
     :align: center
@@ -43,9 +43,9 @@ Download the raster file
 
 .. note:: 
 
-   This is a huge file (1.04GB). Make sure you have the enough data and bandwidth to download it. A clipped version of this data is available at this section end for convenience.  
+   This is a huge file (1.04GB). Make sure you have the enough data and bandwidth to download it. A ready-to-use clipped version of this data is available at this section end for convenience.  
 
-5. Then search for ``SA_NLC_2014_2018_CLASS_CHANGE_CALC (DATASET AND REPORT)`` and download it. Use the :menuselection:`Processing Toolbox --> GDAL --> Raster extraction --> Clip raster by Mask Layer` to clip to bounday.  
+5. Then search for ``SA_NLC_2014_2018_CLASS_CHANGE_CALC (DATASET AND REPORT)`` and download it. Use the :menuselection:`Processing Toolbox --> GDAL --> Raster extraction --> Clip raster by Mask Layer` to clip to boundary.  
 
   .. image:: /static/3/advanced_raster_analysis/images/data5.png
     :align: center
@@ -81,7 +81,7 @@ Data Source: [SANLC]_ [COJ]_
 
 
 Procedure
----------
+--------------
 
 1. Browse to the unzipped ``landuse_change`` folder in QGIS Browser. Expand it and drag and drop the ``SA_NLC_2018_Gauteng.tif`` in canvas.
 
@@ -143,19 +143,19 @@ Procedure
   .. image:: /static/3/advanced_raster_analysis/images/11.png
     :align: center
 
-12. We can now see all the informal settlement in the Gauteng region. It would be helpful to see them in context with a basemap. We have access to a variety of base-maps from the :guilabel:`QuickMapServices` plugin. Once you install the plugin, go to :menuselection:`Web --> QuickMapServices --> OSM --> OSM Standard` to add the OpenStreetMap layer.
+12. We can now see all the informal settlement in the Gauteng region. It would be helpful to see them in context with a base-map. We have access to a variety of base-maps from the :guilabel:`QuickMapServices` plugin. Once you install the plugin, go to :menuselection:`Web --> QuickMapServices --> OSM --> OSM Standard` to add the OpenStreetMap layer.
 
   .. image:: /static/3/advanced_raster_analysis/images/12.png
     :align: center
 
-13. Now you can easily identify and verify whether our analysis correctly identified the informal settlements. You can select the ``residential_informal`` layer and switch to the :guilabel:`Transparency` tab in the :guilabel:`Layer styling panel`. You can reduce the :guilabel:`Global Opacity` to see both the extracted pixels and the basemap together.
+13. Now you can easily identify and verify whether our analysis correctly identified the informal settlements. You can select the ``residential_informal`` layer and switch to the :guilabel:`Transparency` tab in the :guilabel:`Layer styling panel`. You can reduce the :guilabel:`Global Opacity` to see both the extracted pixels and the base-map together.
 
   .. image:: /static/3/advanced_raster_analysis/images/13.png
     :align: center
 
 
 Now that we have identified informal settlements, lets learn about identifying urban growth
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
 
 1. To identify the urban growth pattern in all the areas where the land cover changed to the built-up area from 2014 to 2018. Drag and drop the ``SA_NLC_2014_2018_CHANGE_Gauteng.tif`` file from the *Browser* to the canvas. 
 
