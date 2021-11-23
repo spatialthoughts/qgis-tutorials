@@ -93,7 +93,7 @@ Procedure
   .. image:: /static/3/advanced_raster_analysis/images/02.png
     :align: center
 
-3. The dataset is accompanied by the ``SANLC 2018 Launch Presentation`` which describes these classes in detail. For this exercise, we are interested in the *informal settlements* which are represented by class numbers 51 through 54.
+3. The dataset classes are described in the ``SANLC 2018 Presentation`` which can be downloaded from same `EGIS GIS Data Portal <https://egis.environment.gov.za/gis_data_downloads>`_. For this exercise, we are interested in the *informal settlements* which are represented by class numbers 51 through 54.
 
   .. image:: /static/3/advanced_raster_analysis/images/03.png
     :align: center
