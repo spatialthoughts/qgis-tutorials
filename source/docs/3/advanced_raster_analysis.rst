@@ -71,7 +71,11 @@ The `City of Johannesburg <https://www.joburg.org.za/>`_ publishes spatial datas
  
 For your convenience, a clipped version of the required layers is available from the link below:
 
-`landuse_change.zip <https://www.qgistutorials.com/downloads/landuse_change.zip>`_
+`SA_NLC_2018_ALBERS_CALC.tif  <https://www.qgistutorials.com/downloads/SA_NLC_2018_ALBERS_CALC.tif>`_
+
+`SA_NLC_2014_2018_CLASS_CHANGE_ALBERS_CALC.tif <https://www.qgistutorials.com/downloads/SA_NLC_2014_2018_CLASS_CHANGE_ALBERS_CALC.tif>`_
+
+`COJ_Boundary.zip  <https://www.qgistutorials.com/downloads/COJ_Boundary.zip>`_
 
 Data Source: [SANLC]_ [COJ]_
 
