@@ -1,79 +1,75 @@
 Advanced Raster Analysis (QGIS3)
-===========================
+===============================
 
-For city planning, the most useful raster data is the Land-Cover. This data informs a wide variety of strategic planning activities. To create and analyze  this type of data, QGIS has advanced raster capabilities built-in via the *Processing Toolbox*. In this tutorial, we will explore the options available for styling categorical raster and the functionality provided by the ``Reclassify by layer``, ``Raster Calculator``.
+In the previous tutorial :doc:`raster_styling_and_analysis`, you learnt about performing raster algebra with *Raster Calculator*. This tutorial builds on these techniques and shows you how to use other raster analysis tools from the Processing Toolbox. You will learn how to process with Land Use Land Cover (LULC) rasters in QGIS to extract certain types of landcover classes and map changes.
 
 Overview of the task
----------------------------
+--------------------
 
-To explore the advanced raster tools by identifying the suitable areas for development. Then monitoring change/class transition in the city of Johannesburg, South Africa. 
+We will use the South African National Land Cover dataset to identify and extract informal settlements in the City of Johannesburg, South Africa. We will also use a change assessment dataset to identify urban growth patterns in the city from 2014 to 2018.
+
 
 Other skills you will learn
-^^^^^^^^^^^^^^^^^^^^^^^
-
-- How to add a base-map in QGIS.
+^^^^^^^^^^^^^^^^^^^^^^^^^^^
+- How to reproject raster data to another projection.
 - How to load an excel file in QGIS.  
-- How to view a particular class in the raster layer.
+- How to adjust the transperancy of a raster layer in QGIS.
 
 Get the data
------------------
+------------
 
-Download the raster file
-^^^^^^^^^^^^^^^^^^^^^^^
+We will download the following datasets for this tutorial
 
-1. We will use `The South African National Land Cover 2018 <https://www.environment.gov.za/projectsprogrammes/egis_landcover_datasets>`_ data, click on the download link. 
+1. *The South African National Land Cover 2018 dataset*: The new South African National Land-Cover 2018 dataset has been generated from 20 meter multi-seasonal Sentinel 2 satellite imagery and contains 73 landcover classes.
+2. *The South African National Land Cover 2018 Change Assessments*: This dataset compares the change in 20 landcover classes from 2014 to 2018.
+3. *COJ Boundary*: A boundary shapefile for the City of Johannesburg, South Africa.
 
-  .. image:: /static/3/advanced_raster_analysis/images/data1.png
-    :align: center
 
-2. Click :guilabel:`I agree` to accept the Condition of use and proceed. 
+The `Environmental Geographical Information Systems (E-GIS) <https://egis.environment.gov.za/>`_ provides access to environmental geospatial data for South Africa. We will download the South African National Land-Cover (SANLC) rasters from this portal.
+
+1. Visit the `GIS Data Download <https://egis.environment.gov.za/gis_data_downloads>`_  page. Click :guilabel:`I agree` to accept the *Conditions of Use* and proceed. 
 
   .. image:: /static/3/advanced_raster_analysis/images/data2.png
     :align: center
 
-3. :guilabel:`Log in` to your account if didn't have one, click :guilabel:`I want to create an account` and create an account. 
+3. You will need to create a free account to download the dataset. Click :guilabel:`I want to create an account` and follow the instructions to create an account.
 
   .. image:: /static/3/advanced_raster_analysis/images/data3.png
     :align: center
 
-4. Once logged in search for ``SANIC 2018 GEOTIFF`` and download that dataset.  
+4. Once logged in, search for *South African National Land Cover (SANLC) 2018 Computer Automated Land Cover (CALC)*. This dataset is provided in 2 different projections. For this tutorial, we will downnload the `ALBERS` dataset. Click to it to download the `SA_NLC_2018_Albers_CALC_data.zip` file.
+
+[CHANGE SCREENSHOT]
 
   .. image:: /static/3/advanced_raster_analysis/images/data4.png
     :align: center
 
-.. note:: 
 
-   This is a huge file (1.04GB). Make sure you have the enough data and bandwidth to download it. A ready-to-use clipped version of this data is available at this section end for convenience.  
-
-5. Then search for ``SA_NLC_2014_2018_CLASS_CHANGE_CALC (DATASET AND REPORT)`` and download it. Use the :menuselection:`Processing Toolbox --> GDAL --> Raster extraction --> Clip raster by Mask Layer` to clip to boundary.  
+5. Next, search for *New South African National Land Cover (SANLC) 2014 and 2018 Change Assessment Datasets Computer Automated Land Cover (CALC)* and click on the `SA_NLC_2014_2018_CLASS_CHANGE_CALC (DATASET AND REPORT)` to download the `SA_NLC_2014_2018_CLASS_CHANGE_ALBERS_CALC.tif.vat.zip` file.
 
   .. image:: /static/3/advanced_raster_analysis/images/data5.png
     :align: center
 
-Download the vector file (Boundary)
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-6. We will use City of Johannesburg shapefile is provided by `COJ Spatial Development Framework 2040 <https://www.joburg.org.za/documents_/Pages/Key%20Documents/policies/Development%20Planning%20%EF%BC%86%20Urban%20Management/Citywide%20Spatial%20Policies/Spatial-Development-Framework-2040.aspx>`_ data, click on the download link. 
+The `City of Johannesburg <https://www.joburg.org.za/>`_ publishes spatial datasets as part of the  `Spatial Development Framework 2040 (SDF) for Johannesburg  <https://www.joburg.org.za/documents_/Pages/Key%20Documents/policies/Development%20Planning%20%EF%BC%86%20Urban%20Management/Citywide%20Spatial%20Policies/Spatial-Development-Framework-2040.aspx>`_ data. We will download the boundary shapefile from this site.
+
+1. Click the download link `http://bit.ly/joburg-sdf-16 <http://bit.ly/joburg-sdf-16>`_.
 
   .. image:: /static/3/advanced_raster_analysis/images/data6.png
     :align: center
 
-7. Click on the ``SDF Shapefiles`` directory. 
+2. Click on the ``SDF Shapefiles`` directory. 
 
   .. image:: /static/3/advanced_raster_analysis/images/data7.png
     :align: center
 
-8. Download the ``SDF Shapefiles.zip`` file, and unzip.  
+2. Download the ``SDF Shapefiles.zip`` file, and unzip it to a folder. 
 
   .. image:: /static/3/advanced_raster_analysis/images/data8.png
     :align: center
-
-9. In the unzipped ``SDF Shapefiles`` directory search :menuselection:`SDF Shapefiles --> Boundaries --> COJ_Boundary.shp`. 
-
-  .. image:: /static/3/advanced_raster_analysis/images/data9.png
-    :align: center
-
-For your convenience, you can download the clipped version of the data from the link below:
+ 
+ 
+For your convenience, a clipped version of the required layers is available from the link below:
 
 `landuse_change.zip <https://www.qgistutorials.com/downloads/landuse_change.zip>`_
 
