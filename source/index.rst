@@ -31,6 +31,7 @@ QGIS Tutorials and Tips
 * Advanced GIS operations
    - :doc:`docs/3/nearest_neighbor_analysis`
    - :doc:`docs/3/sampling_raster_data`
+   - :doc:`docs/3/advanced_raster_analysis`
    - :doc:`docs/3/interpolating_point_data`
    - :doc:`docs/3/calculating_intersection_density`
    - :doc:`docs/3/batch_processing`
@@ -98,6 +99,7 @@ What next? Hungry for more QGIS materials? Work through my full length QGIS cour
    docs/3/performing_spatial_queries
    docs/3/nearest_neighbor_analysis
    docs/3/sampling_raster_data
+   docs/3/advanced_raster_analysis
    docs/3/interpolating_point_data
    docs/3/calculating_intersection_density
    docs/3/batch_processing
