@@ -221,7 +221,7 @@ Procedure
    * - ``0``
      - All remaining pixels
 
-27. To do this, we need to create a table specifying these rules. As QGIS is able to read spreadsheets directly, it is the most convenient method to create this table. Our spreadsheet should have 3 columns, ``MIN``, ``MAX``, and ``OUTPUT``. Each row should be the range of input raster values that should be assigned an output value. Create a spreadsheet as shown below and name is ``reclass.xlsx``. You may also download a ready-to-use copy from this link - `reclass.xlsx <https://www.qgistutorials.com/downloads/reclass.xlsx>`_
+27. To do this, we need to create a table specifying these rules. As QGIS is able to read spreadsheets directly, it is the most convenient method to create this table. Our spreadsheet should have 3 columns, ``MIN``, ``MAX``, and ``OUTPUT``. Each row should be the range of input raster values that should be assigned an output value. Create a spreadsheet as shown below and save it to your computer as ``reclass.xlsx``. You may also download a ready-to-use copy from this link - `reclass.xlsx <https://www.qgistutorials.com/downloads/reclass.xlsx>`_
 
   .. image:: /static/3/advanced_raster_analysis/images/27.png
     :align: center
@@ -231,7 +231,7 @@ Procedure
   .. image:: /static/3/advanced_raster_analysis/images/28.png
     :align: center
 
-29. A new layer ``reclass Sheet1`` will be added to the :guilabel:`Layers` panel. Select it and open the :guilabel:`Attribute Table` to verify that you have 3 columns named ``MIN``, ``MAX`` and ``OUTPUT``. Open the :menuselection:`Processing Toolbox --> Reclassify by layer` tool.
+29. A new layer ``reclass Sheet1`` will be added to the :guilabel:`Layers` panel. Right-click on it and select :guilabel:`Open Attribute Table`. Verify that the sheet was imported correctly and you have 3 columns named ``MIN``, ``MAX`` and ``OUTPUT``. Open the :menuselection:`Processing Toolbox --> Reclassify by layer` tool.
 
   .. image:: /static/3/advanced_raster_analysis/images/29.png
     :align: center
