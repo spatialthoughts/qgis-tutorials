@@ -223,38 +223,41 @@ Procedure
 
 27. To do this, we need to create a table specifying these rules. As QGIS is able to read spreadsheets directly, it is the most convenient method to create this table. Our spreadsheet should have 3 columns, ``MIN``, ``MAX``, and ``OUTPUT``. Each row should be the range of input raster values that should be assigned an output value. Create a spreadsheet as shown below and name is ``reclass.xlsx``. You may also download a ready-to-use copy from this link - `reclass.xlsx <https://www.qgistutorials.com/downloads/reclass.xlsx>`_
 
-26. Locate the``reclass.xlsx`` file in the browser. Drag-and-drop it to the main window.
-
-  .. image:: /static/3/advanced_raster_analysis/images/26.png
-    :align: center
-
-27. A new layer ``reclass Sheet1`` will be added to the :guilabel:`Layers` panel. Select it and open the :guilabel:`Attribute Table` to verify that you have 3 columns named ``MIN``, ``MAX`` and ``OUTPUT``. Open the :menuselection:`Processing Toolbox --> Reclassify by layer` tool.
-
   .. image:: /static/3/advanced_raster_analysis/images/27.png
     :align: center
 
-28. In the :guilabel:`Reclassify by layer` dialog, select ``SA_NLC_2014_2018_CHANGE_Clipped`` as the :guilabel:`Raster layer`. Select ``reclass Sheet1`` as the :guilabel:`Layer containing class breaks`. Select ``MIN``, ``MAX`` and ``OUTPUT`` fields for their respective fields.
+28. Locate the ``reclass.xlsx`` file in the browser. Drag-and-drop it to the main window.
 
   .. image:: /static/3/advanced_raster_analysis/images/28.png
     :align: center
 
-29. Expand the :guilabel:`Advanced Parameters` section. Change the :guilabel:`Range boundaries` to ``min <= value <= max``. Click the :guilabel:`...` button for :guilabel:`Reclassified raster` and enter the output file name as ``builtup_change.tif``. Click :guilabel:`Run`.
+29. A new layer ``reclass Sheet1`` will be added to the :guilabel:`Layers` panel. Select it and open the :guilabel:`Attribute Table` to verify that you have 3 columns named ``MIN``, ``MAX`` and ``OUTPUT``. Open the :menuselection:`Processing Toolbox --> Reclassify by layer` tool.
 
   .. image:: /static/3/advanced_raster_analysis/images/29.png
     :align: center
 
-30. Once the processing finishes, a new layer ``builtup_change`` with pixel values ``0-2`` will be added to the canvas. In the :guilabel:`Layer styling panel`, choose ``Paletted/Unique values``, then click ``Classify``. 
+30. In the :guilabel:`Reclassify by layer` dialog, select ``SA_NLC_2014_2018_CHANGE_Clipped`` as the :guilabel:`Raster layer`. Select ``reclass Sheet1`` as the :guilabel:`Layer containing class breaks`. Select ``MIN``, ``MAX`` and ``OUTPUT`` fields for their respective fields.
 
   .. image:: /static/3/advanced_raster_analysis/images/30.png
     :align: center
 
-31. Choose the color of your choice for each category and label the ``0``, ``1`` , and ``2`` pixel values as ``Non Built-up``, ``Existing Built-up`` and ``New Built-up``.
+31. Expand the :guilabel:`Advanced Parameters` section. Change the :guilabel:`Range boundaries` to ``min <= value <= max``. Click the :guilabel:`...` button for :guilabel:`Reclassified raster` and enter the output file name as ``builtup_change.tif``. Click :guilabel:`Run`.
 
   .. image:: /static/3/advanced_raster_analysis/images/31.png
     :align: center
 
-32. Now in the :guilabel:`Transparency` tab, reduce the :guilabel:`Global Opacity`, and turn on the ``OSM Standard`` layer to see both the builtup_change pixels and the base-map together.
+32. Once the processing finishes, a new layer ``builtup_change`` with pixel values ``0-2`` will be added to the canvas. In the :guilabel:`Layer styling panel`, choose ``Paletted/Unique values``, then click ``Classify``. 
 
   .. image:: /static/3/advanced_raster_analysis/images/32.png
+    :align: center
+
+33. Choose the color of your choice for each category and label the ``0``, ``1`` , and ``2`` pixel values as ``Non Built-up``, ``Existing Built-up`` and ``New Built-up``.
+
+  .. image:: /static/3/advanced_raster_analysis/images/33.png
+    :align: center
+
+34. Now in the :guilabel:`Transparency` tab, reduce the :guilabel:`Global Opacity`, and turn on the ``OSM Standard`` layer to see both the builtup_change pixels and the base-map together.
+
+  .. image:: /static/3/advanced_raster_analysis/images/34.png
     :align: center
 
