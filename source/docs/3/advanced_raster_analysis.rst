@@ -118,7 +118,7 @@ Procedure
   .. image:: /static/3/advanced_raster_analysis/images/08.png
     :align: center
 
-9.  All the three remaining layers are in the same CRS. We can switch the project CRS to the CRS of the layers now. Right click on any clipped layer and choose :menuselection:`Layer CRS --> Set Project CRS from Layer`. 
+9.  All the three remaining layers are now in the same CRS. We can switch the project CRS to the CRS of the layers now. Right click on any clipped layer and choose :menuselection:`Layer CRS --> Set Project CRS from Layer`. 
 
   .. image:: /static/3/advanced_raster_analysis/images/09.png
     :align: center
@@ -199,12 +199,12 @@ Procedure
   .. image:: /static/3/advanced_raster_analysis/images/23.png
     :align: center
 
-24.  Use the :guilabel:`identify` tool in the :guilabel:`Attributes Toolbar` to click on the image and inspect the pixel values. You will see that the pixel values range from 21-420. Each value indicates a transition from one of the 73 source classes to another class.
+24.  Use the :guilabel:`Identify` tool in the :guilabel:`Attributes Toolbar` to click on the image and inspect the pixel values. You will see that the pixel values range from 21-420. Each value indicates a transition from one of the 73 source classes to another class.
 
   .. image:: /static/3/advanced_raster_analysis/images/24.png
     :align: center
 
-25. Your data download comes with a spreadsheet named ``change_2014_2018_6_lcc.xlsx``. This sheet has the matrix that gives more details about each pixel value. We are interested in all pixel values where any 2014 class changed into a 2018 built-up class. In the image below, these are highlighted in blue.
+25. Your data download comes with a spreadsheet named ``lcccodes.xlsx``. This sheet has a sheet **03 urban_change_codes** that gives more details about each pixel value. We are interested in all pixel values where any 2014 class changed into a 2018 built-up class. In the image below, these are highlighted in blue.
 
   .. image:: /static/3/advanced_raster_analysis/images/25.png
     :align: center
@@ -221,7 +221,7 @@ Procedure
    * - ``0``
      - All remaining pixels
 
-27. To do this, we need to create a table specifying these rules. As QGIS is able to read spreadsheets directly, it is the most convenient method to create this table. Our spreadsheet should have 3 columns, ``MIN``, ``MAX``, and ``OUTPUT``. Each row should be the range of input raster values that should be assigned an output value. Create a spreadsheet as shown below and name is `reclass.xlsx`. You may also download a ready-to-use copy from this link - `reclass.xlsx <https://www.qgistutorials.com/downloads/reclass.xlsx>`_
+27. To do this, we need to create a table specifying these rules. As QGIS is able to read spreadsheets directly, it is the most convenient method to create this table. Our spreadsheet should have 3 columns, ``MIN``, ``MAX``, and ``OUTPUT``. Each row should be the range of input raster values that should be assigned an output value. Create a spreadsheet as shown below and name is ``reclass.xlsx``. You may also download a ready-to-use copy from this link - `reclass.xlsx <https://www.qgistutorials.com/downloads/reclass.xlsx>`_
 
 26. Locate the``reclass.xlsx`` file in the browser. Drag-and-drop it to the main window.
 
