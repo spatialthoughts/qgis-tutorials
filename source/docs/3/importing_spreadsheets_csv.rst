@@ -24,7 +24,7 @@ For convenience, you may directly download a copy of the above datasets from the
 
 `earthquakes_2021_11_25_14_31_59_0530.tsv <https://www.qgistutorials.com/downloads/earthquakes-2021-11-25_14-31-59_+0530.tsv>`_ 
 
-Data Source [NGDC]_
+Data Source [NCEI]_
 
 Procedure
 ---------
