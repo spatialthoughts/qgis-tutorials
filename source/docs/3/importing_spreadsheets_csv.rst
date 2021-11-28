@@ -1,11 +1,11 @@
 Importing Spreadsheets or CSV files (QGIS3)
 ===========================================
-Many times the GIS data comes in a table or an Excel spreadsheet. Also, if you have a list lat/long coordinates, you can easily import this data in your GIS project.
+Many times the GIS data comes in a table or in a spreadsheet. QGIS allows you to import structured text files with coordinates as a vector layer. This tutorial shows how you can use the **Data Source Manager** to import **Delimited Text** files.
 
 Overview of the task
 --------------------
 
-We will be importing a text file text file of tab-separated values (TSV) of earthquake data to QGIS. 
+We will be importing a text file with earthquake locations in the tab-separated values (TSV) format to QGIS and create a points layer.
 
 Get the data
 ------------
@@ -22,14 +22,14 @@ Get the data
 
 For convenience, you may directly download a copy of the above datasets from the link below:
 
-`earthquakes_2021_11_25_14_31_59_0530 <https://www.qgistutorials.com/downloads/earthquakes-2021-11-25_14-31-59_+0530.tsv>`_ 
+`earthquakes_2021_11_25_14_31_59_0530.tsv <https://www.qgistutorials.com/downloads/earthquakes-2021-11-25_14-31-59_+0530.tsv>`_ 
 
 Data Source [NGDC]_
 
 Procedure
 ---------
 
-1. Examine your tabular data source. If you have a spreadsheet, use `Save As` function in your program to save it as a `Tab Delimited File` or a `Comma Separated Values (CSV)` file.  The downloaded earthquake database contains the ``Latitude`` and ``Longitude`` fields indicating the location of the earthquake epicenter and other related attributes. We will use these fields to import the file as a point layer. Open the data in a text editor such as Notepad/TextMate to view the contents. You will see that a TAB separates each field.
+1. Examine your tabular data source. The downloaded earthquake database contains the ``Latitude`` and ``Longitude`` fields indicating the location of the earthquake epicenter and other related attributes. We will use these fields to import the file as a point layer. Open the data in a text editor such as Notepad/TextMate to view the contents. You will see that a TAB separates each field.
 
   .. image:: /static/3/importing_spreadsheets_csv/images/01.png
      :align: center
@@ -47,7 +47,7 @@ Procedure
   .. image:: /static/3/importing_spreadsheets_csv/images/03.png
      :align: center
 
-4. Depending upon the operating system, you may or may not view the file at the downloaded location. In File formats, switch to ``All files (* *.*)`` to view the *tsv* file. 
+4. Depending upon the operating system, you may or may not view the file at the downloaded location. In File formats, switch to ``All files (*; *.*)`` to view the *tsv* file. 
 
   .. image:: /static/3/importing_spreadsheets_csv/images/04.png
      :align: center
@@ -57,7 +57,7 @@ Procedure
   .. image:: /static/3/importing_spreadsheets_csv/images/05.png
      :align: center
 
-6. In the :guilabel:`Data Source Manager` dialog box, the path to file will be available in :guilabel:`File Name`. Change the :guilabel:`Layer name` to ``1900_2000_earthquake``. In the :guilabel:`File format` section, select :guilabel:`Custom delimiters` and check :guilabel:`Tab`. In the :guilabel:`Geometry definition` section, choose :guilabel:`Point coordinates`. By default :guilabel:`X field` and :guilabel:`Y field`  values will be auto-populated if it finds a suitable name field in the input. In our case, they are ``Longitude`` and ``Latitude``. You may change it if the import selects the wrong fields. You can leave the :guilabel:`Geometry CRS` to the default ``EPSG:4326 - WGS 84`` CRS. If your file contained coordinates in a different CRS, you could select the appropriate CRS here. Click :guilabel:`Add`.
+6. In the :guilabel:`Data Source Manager` dialog box, the path to file will be available in :guilabel:`File Name`. Change the :guilabel:`Layer name` to ``1900_2000_earthquakes``. In the :guilabel:`File format` section, select :guilabel:`Custom delimiters` and check :guilabel:`Tab`. In the :guilabel:`Geometry definition` section, choose :guilabel:`Point coordinates`. By default :guilabel:`X field` and :guilabel:`Y field`  values will be auto-populated if it finds a suitable name field in the input. In our case, they are ``Longitude`` and ``Latitude``. You may change it if the import selects the wrong fields. You can leave the :guilabel:`Geometry CRS` to the default ``EPSG:4326 - WGS 84`` CRS. If your file contains coordinates in a different CRS, you could select the appropriate CRS here. Click :guilabel:`Add`.
  
    .. image:: /static/3/importing_spreadsheets_csv/images/06.png
      :align: center
@@ -66,7 +66,7 @@ Procedure
 
    It is easy to get confused between X and Y coordinates. Latitude specifies the north-south position of a point and hence it is a **Y** coordinate. Similarly Longitude specifies the east-west position of a point and it is a **X** coordinate.
    
-07. You will now see that the data will be imported and displayed in the QGIS canvas as a new layer called ``1900_2000_earthquake`` with CRS ``EPSG:4326``.  
+07. You will now see that the data will be imported and displayed in the QGIS canvas as a new layer called ``1900_2000_earthquakes`` with CRS ``EPSG:4326``.  
 
   .. image:: /static/3/importing_spreadsheets_csv/images/07.png
      :align: center
