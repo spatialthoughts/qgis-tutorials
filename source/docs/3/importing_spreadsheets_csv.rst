@@ -24,7 +24,7 @@ For convenience, you may directly download a copy of the above datasets from the
 
 `earthquakes_2021_11_25_14_31_59_0530.tsv <https://www.qgistutorials.com/downloads/earthquakes-2021-11-25_14-31-59_+0530.tsv>`_ 
 
-Data Source [NGDC]_
+Data Source [NCEI]_
 
 Procedure
 ---------
@@ -35,7 +35,7 @@ Procedure
      :align: center
 
 .. note::
-   If you have a spreadsheet, use `Save As` function in your program to save it as a `Tab Separated Values (TSV)` or a `Comma Separated Values (CSV)` file.
+   If you have a spreadsheet, use `Save As` function in your program to save it as a `Tab Delimited File` or a `Comma Separated Values (CSV)` file.
 
 2. QGIS comes with a unified data manager that allows you to load all the various supported data formats. Click the :guilabel:`Open Data Source Manager` button on the :guilabel:`Data Source Toolbar`. You may also use :kbd:`Ctrl + L` keyboard shortcut.
 

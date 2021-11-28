@@ -39,7 +39,7 @@ below:
 
 `ne_10m_admin_0_countries.zip <http://www.qgistutorials.com/downloads/ne_10m_admin_0_countries.zip>`_
 
-Data Sources: [NGDC]_ [NATURALEARTH]_
+Data Sources: [NCEI]_  [NATURALEARTH]_
 
 Procedure
 ---------

@@ -27,7 +27,7 @@ below:
 
 `ne_10m_populated_places_simple.zip <https://www.qgistutorials.com/downloads/ne_10m_populated_places_simple.zip>`_
 
-Data Sources: [NGDC]_ [NATURALEARTH]_
+Data Sources: [NCEI]_ [NATURALEARTH]_
 
 Procedure
 ---------

@@ -27,11 +27,10 @@ Data Credits
 - :doc:`importing_spreadsheets_csv`
 - :doc:`points_in_polygon`
 - :doc:`nearest_neighbor_analysis`
-- :doc:`web_mapping_with_qgis2web`
-- :doc:`creating_basemaps_with_qtiles`
 
-.. [NGDC] National Geophysical Data Center / World Data Service (NGDC/WDS):
-   Significant Earthquake Database. National Geophysical Data Center, NOAA.
+
+.. [NCEI] National Centers for Environmental Information / World Data Service (NGDC/WDS):
+   The significant Earthquake Database. National Centers for Environmental Information, NOAA.
    doi:10.7289/V5TD9V7K
 
 - :doc:`basic_vector_styling`
