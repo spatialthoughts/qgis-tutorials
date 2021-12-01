@@ -1,7 +1,7 @@
 Nearest Neighbor Analysis (QGIS3)
 =================================
 
-GIS is very useful in analyzing spatial relationship between features. One such analysis is finding out which features are closest to a given feature. There are multiple ways to do this analysis in QGIS. In this tutorial, We will explore the **Distance to nearest hub**
+GIS is very useful in analyzing spatial relationship between features. One such analysis is finding out which features are closest to a given feature. There are multiple ways to do this analysis in QGIS. In this tutorial, We will explore the **Distance to nearest hub**.
 
 Overview of the task
 --------------------
