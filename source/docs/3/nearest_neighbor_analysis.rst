@@ -1,7 +1,7 @@
 Nearest Neighbor Analysis (QGIS3)
 =================================
 
-GIS is very useful in analyzing spatial relationship between features. One such analysis is finding out which features are closest to a given feature. There are multiple ways to do this analysis in QGIS. In this tutorial, We will explore the **Distance to nearest hub** tool.
+GIS is very useful in analyzing spatial relationship between features. One such analysis is finding out which features are closest to a given feature. There are multiple ways to do this analysis in QGIS. You can do a spatial join using the **Join Attributes by Nearest** or get the distances to all features from another layer using the **Distance Matrix** tool from the Processing Toolbox.  In this tutorial, we will explore a tool named **Distance to nearest hub** from the Processing Toolbox that can not only find the distance to the closest feature but join it with a line to it for visualizing the results.
 
 Overview of the task
 --------------------
@@ -52,7 +52,7 @@ Procedure
   .. image:: /static/3/nearest_neighbor_analysis/images/03.png
      :align: center
 
-4. Click the :guilabel:`...` button next to :guilabel:`File name`. Depending upon the operating system, you may or may not view the file at the downloaded location. In File formats, switch to :guilabel:`All files (*; .)` to view the tsv file then, browse to the downloaded ``earthquakes-2021-11-25_13-39-30_+0530.tsv`` file. Once loaded, the :guilabel:`File Format` and :guilabel:`Geometry Definition` fields should be auto-populated with correct values. Cross verify it with the markings below if required update field acordingly. Click :guilabel:`Add` followed by :guilabel:`Close`.
+4. Click the :guilabel:`...` button next to :guilabel:`File name` and browse to the downloaded ``earthquakes-2021-11-25_13-39-30_+0530.tsv`` file. Depending upon the operating system, you may not see the file at the downloaded directory. If that is the case, switch to :guilabel:`All files (*; .)` in the :guilabel:`Choose a Delimited Text File to Open` dialog. Once opened, select  :guilabel:`Custom delimiters` in the :guilabel:`File format` section, and check ``Tab``. In the :guilabel:`Geometry definition` section, choose :guilabel:`Point coordinates`. By default :guilabel:`X field` and :guilabel:`Y field`  values will be auto-populated with the appropriate fields in the input. In our case, they are ``Longitude`` and ``Latitude``. You can leave the :guilabel:`Geometry CRS` to the default ``EPSG:4326 - WGS 84`` CRS. If your file contains coordinates in a different CRS, you could select the appropriate CRS here. Click :guilabel:`Add` followed by :guilabel:`Close`.
 
   .. image:: /static/3/nearest_neighbor_analysis/images/04.png
      :align: center
@@ -72,17 +72,17 @@ Procedure
   .. image:: /static/3/nearest_neighbor_analysis/images/07.png
      :align: center
 
-8. In the :guilabel:`Remove Null Geometries` dialog box, Select ``earthquakes-2021-11-25_13-39-30_+0530`` as the :guilabel:`Input layer` and check the :guilabel:`Also remove empty geometries`. So both the invalid and empty geometry records will be removed. Click :guilabel:`Run`. Once the processing finishes, click :guilabel:`Close`.
+8. In the :guilabel:`Remove Null Geometries` dialog box, Select ``earthquakes-2021-11-25_13-39-30_+0530`` as the :guilabel:`Input layer` and check the :guilabel:`Also remove empty geometries`. Click :guilabel:`Run`. Once the processing finishes, click :guilabel:`Close`.
 
   .. image:: /static/3/nearest_neighbor_analysis/images/08.png
      :align: center
 
-9. A new layer ``Non null geometries`` will be added to the :guilabel:`Layers` panel. Open the Attribute table by clicking the :guilabel:`Open Attribute Tabel` icon in :guilabel:`Toolbar`. For analysis we will use this layer instead of the original layer ``earthquakes-2021-11-25_13-39-30_+0530``. Un-check the ``earthquakes-2021-11-25_13-39-30_+0530`` layer in the :guilabel:`Layers` panel to hide it.
+9. A new layer ``Non null geometries`` will be added to the :guilabel:`Layers` panel. For analysis we will use this layer instead of the original layer. Un-check the ``earthquakes-2021-11-25_13-39-30_+0530`` layer in the :guilabel:`Layers` panel to hide it. Select the ``Non null geometries`` layer and click the :guilabel:`Open Attribute Table` button from the :guilabel:`Attributes Toolbar`.
 
   .. image:: /static/3/nearest_neighbor_analysis/images/09.png
      :align: center
 
-10. Now you can see only ``2578`` Features are there, as the invalid and null geometries were removed. Close the attribute table.   
+10. You will see a lower count for total features as all rows with empty latitude and longitude values were removed. Close the attribute table.   
 
   .. image:: /static/3/nearest_neighbor_analysis/images/10.png
      :align: center
