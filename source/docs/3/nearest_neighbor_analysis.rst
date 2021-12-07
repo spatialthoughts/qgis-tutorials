@@ -1,12 +1,12 @@
 Nearest Neighbor Analysis (QGIS3)
 =================================
 
-GIS is very useful in analyzing spatial relationship between features. One such analysis is finding out which features are closest to a given feature. There are multiple ways to do this analysis in QGIS. In this tutorial, We will explore the **Distance to nearest hub**.
+GIS is very useful in analyzing spatial relationship between features. One such analysis is finding out which features are closest to a given feature. There are multiple ways to do this analysis in QGIS. In this tutorial, We will explore the **Distance to nearest hub** tool.
 
 Overview of the task
 --------------------
 
-Given the locations of all known earthquakes between years 1900 - 2000, find out the nearest populated place for each location where the earthquake happened.
+Given the locations of all known earthquakes between years 1900 and 2000, find out the nearest populated place for each location where the earthquake happened.
  
 
 Get the data
@@ -52,7 +52,7 @@ Procedure
   .. image:: /static/3/nearest_neighbor_analysis/images/03.png
      :align: center
 
-4. Click the :guilabel:`...` button next to :guilabel:`File name` and browse to the downloaded ``earthquakes-2021-11-25_13-39-30_+0530.tsv`` file. Once loaded, the :guilabel:`File Format` and :guilabel:`Geometry Definition` fields should be auto-populated with correct values. Cross verify it with the markings below if required update field acordingly. Click :guilabel:`Add` followed by :guilabel:`Close`.
+4. Click the :guilabel:`...` button next to :guilabel:`File name`. Depending upon the operating system, you may or may not view the file at the downloaded location. In File formats, switch to :guilabel:`All files (*; .)` to view the tsv file then, browse to the downloaded ``earthquakes-2021-11-25_13-39-30_+0530.tsv`` file. Once loaded, the :guilabel:`File Format` and :guilabel:`Geometry Definition` fields should be auto-populated with correct values. Cross verify it with the markings below if required update field acordingly. Click :guilabel:`Add` followed by :guilabel:`Close`.
 
   .. image:: /static/3/nearest_neighbor_analysis/images/04.png
      :align: center
@@ -62,7 +62,7 @@ Procedure
   .. image:: /static/3/nearest_neighbor_analysis/images/05.png
      :align: center
 
-6.  There are ``2586`` features, but the data contains few entries with invalid geometry. We have to remove that before proceeding further. Close the Attribute Table. 
+6.  There are ``2586`` features, but the data contains few entries with no latitude or longitude infomation. We have to remove that before proceeding further. Close the Attribute Table. 
 
   .. image:: /static/3/nearest_neighbor_analysis/images/06.png
      :align: center
