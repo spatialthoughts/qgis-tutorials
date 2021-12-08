@@ -173,7 +173,7 @@ Procedure
   .. image:: /static/3/advanced_raster_analysis/images/18.png
     :align: center
 
-19.  Select the ``residential_informal`` layer and  Change the renderer to be :guilabel:`Paletted/Unique values`. Click the :guilabel:`Add values manually` (+) button.
+19.  Select the ``residential_informal`` layer and change the renderer to be :guilabel:`Paletted/Unique values`. Click the :guilabel:`Add values manually` (+) button.
 
   .. image:: /static/3/advanced_raster_analysis/images/19.png
     :align: center
@@ -231,12 +231,12 @@ Procedure
   .. image:: /static/3/advanced_raster_analysis/images/28.png
     :align: center
 
-29. A new layer ``reclass Sheet1`` will be added to the :guilabel:`Layers` panel. Right-click on it and select :guilabel:`Open Attribute Table`. Verify that the sheet was imported correctly and you have 3 columns named ``MIN``, ``MAX`` and ``OUTPUT``. Open the :menuselection:`Processing Toolbox --> Reclassify by layer` tool.
+29. A new layer ``Sheet1`` will be added to the :guilabel:`Layers` panel. Right-click on it and select :guilabel:`Open Attribute Table`. Verify that the sheet was imported correctly and you have 3 columns named ``MIN``, ``MAX`` and ``OUTPUT``. Open the :menuselection:`Processing Toolbox --> Reclassify by layer` tool.
 
   .. image:: /static/3/advanced_raster_analysis/images/29.png
     :align: center
 
-30. In the :guilabel:`Reclassify by layer` dialog, select ``SA_NLC_2014_2018_CHANGE_Clipped`` as the :guilabel:`Raster layer`. Select ``reclass Sheet1`` as the :guilabel:`Layer containing class breaks`. Select ``MIN``, ``MAX`` and ``OUTPUT`` fields for their respective fields.
+30. In the :guilabel:`Reclassify by layer` dialog, select ``SA_NLC_2014_2018_CHANGE_Clipped`` as the :guilabel:`Raster layer`. Select ``Sheet1`` as the :guilabel:`Layer containing class breaks`. Select ``MIN``, ``MAX`` and ``OUTPUT`` fields for their respective fields.
 
   .. image:: /static/3/advanced_raster_analysis/images/30.png
     :align: center
