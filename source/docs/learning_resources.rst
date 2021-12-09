@@ -22,16 +22,19 @@ Books
 
 Blogs and Online Resources
 --------------------------
-- `Nathan's QGIS Blog <http://nathanw.net/>`_
-- `Free and Open Source GIS Ramblings <http://anitagraser.com/>`_
-- `Mapping, GIS, QGIS & MapBasic <http://nyalldawson.net/>`_
 
-Video Tutorials
+- `Free and Open Source GIS Ramblings <http://anitagraser.com/>`_ by Anita Graser
+- `North Road Blog <https://north-road.com/blog/>`_ by Nyall Dawson
+- `QGIS Introduction Tutorials<https://kevelyn1.github.io/QGIS-Intro/>`_ by Evelyn Uuemaa 
+- `Xenocartography, neogeography & colorful pixels <https://tjukanov.org/blog>`_ by Topi Tjukanov
+- 
+
+Free Video Tutorials
 ---------------
 - `QGIS Uncovered <https://www.youtube.com/channel/UCrBM8Ka8HhDAYvQY1VX2P0w/videos>`_ by Steven Bernard 
 - `Klas Karlsson's YouTube channel <https://www.youtube.com/channel/UCxs7cfMwzgGZhtUuwhny4-Q>`_
 - `Hans van der Kwast's YouTube channel <https://www.youtube.com/channel/UCHGe8ccP2z2wHQa6B04m4Lg>`_
 
-Online Courses
+Free Online Courses
 --------------
-- My company - Spatial Thoughts - offers `Online courses with QGIS.org certification <https://spatialthoughts.com/courses/>`_. 
+- `GIS OpenCourseWare <https://courses.gisopencourseware.org/>`_ by IHE Delft
