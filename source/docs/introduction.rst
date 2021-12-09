@@ -2,22 +2,21 @@ Introduction
 ============
 
 `QGIS <http://qgis.org>`_ is a popular open-source GIS with advanced
-capabilities. Here is a series of tutorials and tips that show you how to
-use it to tackle common GIS problems.
-
-You may use these tutorials as a self-paced course to learn the software
-thoroughly. However, each section is fairly independent, so those familiar with
-QGIS can jump into any section.
+capabilities. This website contains a series of tutorials and tips that show you how to use it to tackle common GIS problems. You may use these tutorials as a self-paced course to learn the software thoroughly. However, each section is fairly independent, so those familiar with QGIS can jump into any section.
 
 You can also check out :doc:`learning_resources` for other materials to help you
 learn QGIS.
+
+This tutorials are written and maintained by `Ujaval Gandhi <https://twitter.com/spatialthoughts>`_, with translations and contributions from the global QGIS community.
+
+If you or your organization benefit from using QGIS, please consider supporting the QGIS project by `making a small donation <https://donate.qgis.org/>`_ or `becoming a sustaining member <https://www.qgis.org/en/site/getinvolved/governance/sustaining_members/sustaining_members.html>`_ of the QGIS open-source project.
 
 
 Extending and Contributing
 --------------------------
 
-This document has been typeset with reStructuredText. It is available as reST
-source code via `github <https://github.com/spatialthoughts/qgis-tutorials>`_.
+This document has been typeset with reStructuredText. The
+source code is open-source and avaiable on `GitHub <https://github.com/spatialthoughts/qgis-tutorials>`_.
 
 Contributors
 ^^^^^^^^^^^^
@@ -64,4 +63,4 @@ Under this license, you are allowed to use, share or modify the document in any
 way you seem fit and even make commercial use of it. You only need to give
 appropriate credit to the author for the original work.
 
-Copyright (c)  2020 Ujaval Gandhi
+Copyright (c)  2021 Ujaval Gandhi
