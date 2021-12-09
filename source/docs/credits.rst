@@ -94,8 +94,9 @@ Data Credits
 
 - :doc:`performing_table_joins`
 - :doc:`performing_table_joins_pyqgis`
+- :doc:`3/areal_mean_rainfall`
 
-.. [USCENSUS] U.S. Census Bureau, 2013-2017 American Community Survey 5-Year Estimates
+.. [USCENSUS] U.S. Census Bureau, 2013-2017 American Community Survey 5-Year Estimates and Cartographic Boundary Files - Shapefile: 2018
 
 - :doc:`3/performing_table_joins`
 
@@ -158,10 +159,6 @@ Data Credits
 .. [KMRL] Contains data provided by `Kochi Metro Rail Limited <https://kochimetro.org/open-data/>`_. Downloaded: August 2019
 
 - :doc:`3/areal_mean_rainfall`
-
-.. [USCENSUS] `United States Cartographic Boundary Files - Shapefile: 2018
-   <https://www.census.gov/geographies/mapping-files/time-series/geo/carto-boundary-file.html>`_. United
-   States Census Bureau.  Accessed on 2020-05-01.
 
 .. [HYDROSHEDS] This product HydroBASINS incorporates data from the HydroSHEDS database which is © World Wildlife Fund, Inc. (2006-2013) and has been used herein under license. WWF has not evaluated the data as altered and incorporated within [insert Licensee Derivative Product name], and therefore gives no warranty regarding its accuracy, completeness, currency or suitability for any particular purpose. Portions of the HydroSHEDS database incorporate data which are the intellectual property rights of © USGS (2006-2008), NASA (2000-2005), ESRI (1992-1998), CIAT (2004-2006), UNEP-WCMC (1993), WWF (2004), Commonwealth of Australia (2007), and Her Royal Majesty and the British Crown and are used under license. The HydroSHEDS database and more information are available at http://www.hydrosheds.org.
 

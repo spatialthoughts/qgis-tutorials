@@ -72,6 +72,7 @@ Procedure
      :align: center
      
 12. Now right-click on the layer, :menuselection:`Export --> Save Feature As...` to export the layer as GeoPackage.
+
   .. image:: /static/3/downloading_osm_data/images/12.png
      :align: center
      

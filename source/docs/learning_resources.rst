@@ -26,7 +26,7 @@ Blogs and Online Resources
 
 - `Free and Open Source GIS Ramblings <http://anitagraser.com/>`_ by Anita Graser
 - `North Road Blog <https://north-road.com/blog/>`_ by Nyall Dawson
-- `QGIS Introduction Tutorials<https://kevelyn1.github.io/QGIS-Intro/>`_ by Evelyn Uuemaa 
+- `QGIS Introduction Tutorials <https://kevelyn1.github.io/QGIS-Intro/>`_ by Evelyn Uuemaa 
 - `Xenocartography, neogeography & colorful pixels <https://tjukanov.org/blog>`_ by Topi Tjukanov
 - 
 

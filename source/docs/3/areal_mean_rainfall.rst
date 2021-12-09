@@ -256,7 +256,7 @@ Procedure
   .. image:: /static/3/areal_mean_rainfall/images/26.png
     
 
-27. Now, let’s calculate the average rainfall value from the thiessen polygons for each basin. This is done using the ``Aggregate`` tool which allows us to dissolve individual polygons while calculating statistics on the attribute values. Now, open the Processing Toolbox by going to :menuselection:`Processing --> Toolbox`, and search and locate the :menuselection:`Vector geometry --> Aggregate`algorithm. 
+27. Now, let’s calculate the average rainfall value from the thiessen polygons for each basin. This is done using the **Aggregate** tool which allows us to dissolve individual polygons while calculating statistics on the attribute values. Now, open the Processing Toolbox by going to :menuselection:`Processing --> Toolbox`, and search and locate the :menuselection:`Vector geometry --> Aggregate` algorithm. 
 
   .. image:: /static/3/areal_mean_rainfall/images/27.png
     

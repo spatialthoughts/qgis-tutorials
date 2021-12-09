@@ -24,7 +24,7 @@ below:
 
 `signif.txt <http://www.qgistutorials.com/downloads/signif.txt>`_
 
-Data Source [NGDC]_
+Data Source [NCEI]_
 
 Procedure
 ---------

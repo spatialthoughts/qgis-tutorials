@@ -262,8 +262,7 @@ Procedure
 29. Digitizing buildings can be a cumbersome task. Also, it is difficult to add
     vertices manually so that the edges are perpendicular and form a rectangle.
     We will use a QGIS toolbar called **Shapes Digitizing** to help with
-    this task. Right-click on any empty space on the toolbar area and activate
-	 the ``Shapes Digitizing Toolbar``. 
+    this task. Right-click on any empty space on the toolbar area and activate 	the ``Shapes Digitizing Toolbar``. 
 
 .. image:: /static/3/digitizing_basics/images/29.png
    :align: center

@@ -130,7 +130,7 @@ Procedure
   
 19. Enter the following expression to calculate the population density. ``$area`` calculates the area of the feature in square meters. We then convert it to square miles and calculate the population density with the formula *Population/Area*. Click :guilabel:`OK`.
 
-  .. code-block:: sql
+  .. code-block::
 
     "HD01_VD01"/ (0.386*$area/1e6)
 

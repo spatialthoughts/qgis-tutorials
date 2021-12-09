@@ -20,8 +20,7 @@ Other skills you will learn
 Get the data
 ------------
 
-We will be working with GMTED2010 dataset from USGS. This data can be
-downloaded from the `USGS Earthexplorer <https://earthexplorer.usgs.gov/>`_ site. `GMTED (Global Multi-resolution
+We will be working with GMTED2010 dataset from USGS. `GMTED (Global Multi-resolution
 Terrain Elevation Data)
 <https://eros.usgs.gov/#/Find_Data/Products_and_Data_Available/GMTED2010>`_ is a global terrain dataset that is the newer version
 of GTOPO30 dataset.
