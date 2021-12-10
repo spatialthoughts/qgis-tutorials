@@ -72,7 +72,7 @@ Procedure
   .. image:: /static/3/nearest_neighbor_analysis/images/07.png
      :align: center
 
-8. In the :guilabel:`Remove Null Geometries` dialog box, Select ``earthquakes-2021-11-25_13-39-30_+0530`` as the :guilabel:`Input layer` and check the :guilabel:`Also remove empty geometries`. Click :guilabel:`Run`. Once the processing finishes, click :guilabel:`Close`.
+8. In the :guilabel:`Remove Null Geometries` dialog box, select ``earthquakes-2021-11-25_13-39-30_+0530`` as the :guilabel:`Input layer` and check the box :guilabel:`Also remove empty geometries`. Click :guilabel:`Run`. Once the processing finishes, click :guilabel:`Close`.
 
   .. image:: /static/3/nearest_neighbor_analysis/images/08.png
      :align: center
