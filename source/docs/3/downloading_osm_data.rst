@@ -76,7 +76,7 @@ Procedure
   .. image:: /static/3/downloading_osm_data/images/12.png
      :align: center
      
-13. In the :guilabel:`Save Vector Layer as...` dialog box, in :guilabel:`Format` Choose ``GeoPackage``,  in :guilabel:`File name` click ``...`` and browse to the directory where you want to save the data and name the output ``longon.gpkg``. In :guilabel:`Layer name` enter ``bar_and_pubs``. Click :guilabel:`OK`.
+13. In the :guilabel:`Save Vector Layer as...` dialog box, in :guilabel:`Format` choose ``GeoPackage``,  in :guilabel:`File name` click ``...`` and browse to the directory where you want to save the data and name the output ``london.gpkg``. In :guilabel:`Layer name` enter ``bar_and_pubs``. Click :guilabel:`OK`.
 
   .. image:: /static/3/downloading_osm_data/images/13.png
      :align: center
