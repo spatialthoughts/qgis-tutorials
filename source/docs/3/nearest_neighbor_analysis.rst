@@ -27,8 +27,7 @@ Natural Earth has a nice `Populated Places <http://www.naturalearthdata.com/down
 For convenience, you may directly download a copy of both the datasets from the links
 below:
 
-`earthquakes_2021_11_25_14_31_59_+0530.tsv <https://www.qgistutorials.com/downloads/earthquakes-2021-11-25_14-31-59_+0530.tsv>`_ 
-
+`earthquakes_2021_11_25_14_31_59_+0530.tsv <https://www.qgistutorials.com/downloads/earthquakes_2021_11_25_14_31_59_+0530.tsv>`_ 
 
 `ne_10m_populated_places_simple.zip <https://www.qgistutorials.com/downloads/ne_10m_populated_places_simple.zip>`_
 
