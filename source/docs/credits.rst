@@ -19,6 +19,7 @@ Data Credits
 - :doc:`leaflet_maps_with_qgis2leaf`
 - :doc:`3/processing_graphical_modeler`
 - :doc:`3/advanced_raster_analysis`
+- :doc:`3/travel_time_analysis`
 
 
 .. [NATURALEARTH] Made with Natural Earth. Free vector and raster map data
@@ -199,4 +200,8 @@ Data Credits
 .. [SANLC] The land cover datasets are provided by Department of Environment, Forestry and Fisheries, South Africa. Downloaded from E-GIS website `E-GIS website <https://egis.environment.gov.za/data_egis/data_download/current>`_ 
 
 .. [COJ] City of Johannesburg shapefile is provided by `COJ Spatial Development Framework 2040 <https://www.joburg.org.za/documents_/Pages/Key%20Documents/policies/Development%20Planning%20%EF%BC%86%20Urban%20Management/Citywide%20Spatial%20Policies/Spatial-Development-Framework-2040.aspx>`_ 
+
+- :doc:`3/travel_time_analysis`
+
+.. [UM] Travel Time data provided by `Uber Movement <https://movement.uber.com/explore/bangalore/travel-times/query?si=89&ti=&ag=wards&dt[tpb]=ALL_DAY&dt[wd;]=1,2,3,4,5,6,7&dt[dr][sd]=2020-03-01&dt[dr][ed]=2020-03-31&cd=&sa;=&sdn=&lang=en-US>`_
 
