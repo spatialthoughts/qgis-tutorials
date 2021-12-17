@@ -40,10 +40,10 @@ QGIS Tutorials and Tips
    - :doc:`docs/3/multi_criteria_overlay`
 
 * Network Analysis
-   - :doc:`docs/3/travel_time_analysis`
    - :doc:`docs/3/basic_network_analysis`
    - :doc:`docs/3/origin_destination_matrix`
    - :doc:`docs/3/service_area_analysis`
+   - :doc:`docs/3/travel_time_analysis`
 
 * Hydrology
    - :doc:`docs/3/areal_mean_rainfall`
@@ -107,10 +107,10 @@ What next? Hungry for more QGIS materials? Work through my full length QGIS cour
    docs/3/processing_graphical_modeler
    docs/3/automating_map_creation
    docs/3/multi_criteria_overlay
-   docs/3/travel_time_analysis
    docs/3/basic_network_analysis
    docs/3/origin_destination_matrix
    docs/3/service_area_analysis
+   docs/3/travel_time_analysis
    docs/3/areal_mean_rainfall
    docs/3/getting_started_with_pyqgis
    docs/3/processing_algorithms_pyqgis

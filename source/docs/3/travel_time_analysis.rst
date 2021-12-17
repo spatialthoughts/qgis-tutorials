@@ -1,27 +1,28 @@
 Travel Time Analysis with Uber Movement (QGIS3)
-=================================
+===============================================
 
-Travel Time is dependent not only on the speed limit of the road but also on the traffic. Analyzing this travel time taken in a city will help in better planning the infrastructure of the city. Using the tools from ``Vector table``, ``Vector geometry``, and ``Vector general`` in QGIS *Processing Toolbox*, we can do almost all vector-based analysis.
+`Uber Movement <https://movement.uber.com/>`_ shares anonymized and aggregated travel time data for many cities across the world. Uber Movement's *Travel Times* product is a public dataset measuring zone-to-zone travel across a city. These times are based on actual Uber rides and is an accurate representation of congestion and traffic patterns in the city. This is a large openly accessible dataset aggregated from millions of actual cab rides. This tutorial shows the techniques to work use such aggregated traffic datasets for doing travel time analysis in QGIS.
 
 Overview of the task
 --------------------
 
-We will take the `Travel Times data <https://movement.uber.com/explore/bangalore/travel-times/query?lang=hi-IN>`_ for the city of Bangalore to analyze the traffic patterns and find out the areas that are accessible within 30 minutes of driving. This type of map is an `Isochrone Map <https://en.wikipedia.org/wiki/Isochrone_map>`_ and is useful in urban planning.
+We will use an aggregated traffic dataset for the city of Bangalore, India to find travel times to a chosen location in the city. We will also create an `Isochrone Map <https://en.wikipedia.org/wiki/Isochrone_map>`_ for a 30-min travel time threshold.
 
 Other skills you will learn
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^
-- Load GeoJSON file in QGIS
-- Create Isochrone in QGIS
+- Load a GeoJSON file in QGIS
 
 Get the data
 ------------
+
+We will download the Travel Times dataset for the city of Bangalore, India.
 
 1. Go to the `Uber Movement <https://movement.uber.com/>`_ site and click on the :guilabel:`Cities`. 
 
   .. image:: /static/3/travel_time_analysis/images/data01.png
     :align: center
 
-2. Search for ``Banglore``. It is one of the IT hubs of India. This city has a nickname as `Silicon Valley of Asia <https://thescalers.com/how-bangalore-became-asias-silicon-valley/>`_ . 
+2. Search for ``Banglore``.
 
   .. image:: /static/3/travel_time_analysis/images/data02.png
     :align: center
@@ -36,7 +37,7 @@ Get the data
   .. image:: /static/3/travel_time_analysis/images/data04.png
     :align: center
 
-5. Then switch to ``ALL DATA``. This data is available from 2016 to 2020, and each year is divided inTO 4 quarterS, select ``2019 Quarter 3``. Then click the ``Travel Times by Hour of Day (Weekdays Only)``. This file will contain all anonymous information about the weekday uber travel in Banglore from July to September 2019.
+5. Then switch to ``ALL DATA``. This data is available from 2016 to 2020, and each year is divided into 4 quarters. We will download the data for ``2019 Quarter 3``. Select it and  click the ``Travel Times by Hour of Day (Weekdays Only)``. This file will contain all anonymous information about the weekday uber travel in Banglore from July to September 2019. 
 
   .. image:: /static/3/travel_time_analysis/images/data05.png
     :align: center
@@ -47,12 +48,12 @@ For your convenience, you can download the data from the links below.
 
 `bangalore-wards-2019-3-OnlyWeekdays-HourlyAggregate.csv <https://www.qgistutorials.com/downloads/bangalore-wards-2019-3-OnlyWeekdays-HourlyAggregate.csv>`_
 
-Data Source: [UM]_
+Data Source: [UBER]_
 
 Procedure
---------------
+---------
 
-1. Locate the ``bangalore_wards.json`` file in the :guilabel:`Browser` panel and drag it to the canvas. Next, we will load a basemap layer from OpenStreetMap. Go to :menuselection:`Web --> QuickMapServices --> OSM --> OSM Standard`. Once loaded, click :guilabel:`Open Data Source Manager` button.
+1. Locate the ``bangalore_wards.json`` file in the :guilabel:`Browser` panel and drag it to the canvas. Next, we will load a basemap layer from OpenStreetMap. We will use the `QuickMapServices` plugin to access the basemap. Once installed, go to :menuselection:`Web --> QuickMapServices --> OSM --> OSM Standard`. A basemap tile layer from OpenStreetMap will be added to the project. Next, click the :guilabel:`Open Data Source Manager` button.
 
   .. image:: /static/3/travel_time_analysis/images/01.png
     :align: center
@@ -62,17 +63,17 @@ Procedure
   .. image:: /static/3/travel_time_analysis/images/02.png
     :align: center
 
-3. Once the ``bangalore-wards-2019-3-OnlyWeekdays-HourlyAggregate`` layer is added to the :guilabel:`Layers` panel, right-click on it and select :guilabel:`Show Feature Count`. The total rows from the table will be displayed next to it.
+3. The ``bangalore-wards-2019-3-OnlyWeekdays-HourlyAggregate`` layer will be added to the :guilabel:`Layers` panel. This layer contains anonymized and aggregated trip location data between different zones of the city. Each row of the table contains columns for source zone (`sourceid`), destination zone (`dstid`), hour of the day (`hod`) and average travel time aggregated from all trips between these zone at that hour (`mean_travel_time`). You can learn more about this dataset in the `Movement: Travel Times Calculation Methodology (pdf) <https://d3i4yxtzktqr9n.cloudfront.net/web-movement/76002ded222a46a02ae89f207e91e335.pdf>`_. Before moving forward, let's check how many data records are present in the layer. Right-click the ``bangalore-wards-2019-3-OnlyWeekdays-HourlyAggregate`` layer and select :guilabel:`Show Feature Count`. The total rows from the table will be displayed next to it. This is a fairly large table but we don't need all the data rows for our analysis. We will now identify our target location and filter this table to data records for it.
 
   .. image:: /static/3/travel_time_analysis/images/03.png
     :align: center
 
-4. For the purpose of this exercise, we will calculate all areas that are accessible within 30 minutes from [Spatial Thoughts office](https://g.page/spatialthoughts?share). When you find the area on the basemap, you can select the :guilabel:`Identify` button and select ``bangalore_wards`` layer and click on it. The results will confirm that the office is located in the *JP Nagar* ward with the *MOVEMENT_ID* **193**.
+4. We want to calculate all areas that are accessible within 30 minutes from a specific location. Using the `OSM Standard` basemap, you can find the location of interest. Then select the ``bangalore_wards`` layer, use the :guilabel:`Identify` tool and click on it. The results will show the attributes of the zone containing the location. For the purpose of this tutorial, let's assume our target location is within the *JP Nagar* zone with the *MOVEMENT_ID* **193**.
 
   .. image:: /static/3/travel_time_analysis/images/04.png
     :align: center
 
-5. We can filter the travel time records to just those which have this ward as the destination. We can also restrict our analysis to the peak morning commute hours of 9am-10am. Right-click the ``bangalore-wards-2019-3-OnlyWeekdays-HourlyAggregate`` layer and select :guilabel:`Filter`.
+5. We can filter the travel time records to just those which have this zone as the destination. We can also restrict our analysis to the peak morning commute hour of 9am - 10am. Right-click the ``bangalore-wards-2019-3-OnlyWeekdays-HourlyAggregate`` layer and select :guilabel:`Filter`.
 
   .. image:: /static/3/travel_time_analysis/images/05.png
     :align: center
@@ -87,7 +88,7 @@ Procedure
   .. image:: /static/3/travel_time_analysis/images/06.png
     :align: center
 
-7. Back in the main QGIS window, you will see that the number of records in the filtered table are now down to just *197*. Since there are a total of 198 wards in the city, we have records of travel times between the 1 destination ward and 197 source wards. Open the attribute table of both the layers using the  :guilabel:`Open Attribute Table` button in the :guilabel:`Attributes` toolbar.
+7. Back in the main QGIS window, you will see that the number of records in the filtered table are now down to just *197*. Since there are a total of 198 zones in the city, we have records of travel times between the 1 destination ward and 197 source zones. Open the attribute table of both the layers using the  :guilabel:`Open Attribute Table` button in the :guilabel:`Attributes` toolbar.
 
   .. image:: /static/3/travel_time_analysis/images/07.png
     :align: center
@@ -97,7 +98,7 @@ Procedure
   .. image:: /static/3/travel_time_analysis/images/08.png
     :align: center
 
-9. Before we can join these two layers, we must ensure that the values in both columns match exactly. Thought they appear the same, they are of different type. Since GeoJSON format has no way of specifying property types, all values are assumed to be of the type *String* - i.e. Text. But when we import a CSV to QGIS, QGIS intelligently determines the types of the columns based on the values and hence has assigned the type *Integer* to the column ``sourceid``. So we need to convert the column from the GeoJSON to an integer type as well.  Go to :menuselection:`Processing --> Toolbox --> Vector Table --> Field Calculator algorithm`. Double-click to launch it.
+9. Before we can join these two layers, we must ensure that the values in both columns match exactly. Thought they appear the same, they are of different type. Since GeoJSON format has no way of specifying property types, all values are assumed to be of the type *String* - i.e. Text. But when we import a CSV to QGIS, by default, QGIS tries to determines the types of the columns based on the values and assign appropriate field type. For the CSV file, the data type for the column ``sourceid`` was assigned as *Integer*. So we need to convert the column from the GeoJSON to an *Integer* type as well.  Go to :menuselection:`Processing --> Toolbox --> Vector Table --> Field Calculator algorithm`. Double-click to launch it.
 
   .. image:: /static/3/travel_time_analysis/images/09.png
     :align: center
@@ -127,7 +128,7 @@ Procedure
   .. image:: /static/3/travel_time_analysis/images/14.png
     :align: center
 
-15. Enter the following expression to select all wards within 1800 seconds (30 minutes) of mean travel time. We also need to include our destination ward which will have 0 travel time.
+15. Enter the following expression to select all zones within 1800 seconds (30 minutes) of mean travel time. We also need to include our destination zone which will have 0 travel time.
 
   .. code-block:: none
 

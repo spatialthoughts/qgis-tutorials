@@ -203,5 +203,5 @@ Data Credits
 
 - :doc:`3/travel_time_analysis`
 
-.. [UM] Travel Time data provided by `Uber Movement <https://movement.uber.com/explore/bangalore/travel-times/query?si=89&ti=&ag=wards&dt[tpb]=ALL_DAY&dt[wd;]=1,2,3,4,5,6,7&dt[dr][sd]=2020-03-01&dt[dr][ed]=2020-03-31&cd=&sa;=&sdn=&lang=en-US>`_
+.. [UBER] Data retrieved from Uber Movement, (c) 2021 Uber Technologies, Inc., https://movement.uber.com. Maps Provided by Spatial Data of Municipalities (Maps) Project [http://projects.datameet.org/Municipal_Spatial_Data/] by Data{Meet}. It's made available under the Creative Commons Attribution-ShareAlike 2.5 India.
 
