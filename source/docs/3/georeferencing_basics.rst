@@ -67,7 +67,7 @@ Procedure
   .. image:: /static/3/georeferencing_basics/images/8.png
      :align: center
 
-9. In the :guilabel:`Transformation settings` dialog, choose the :guilabel:`Transformation type` as ``Polynomial 2``. See `QGIS Documentation <https://docs.qgis.org/testing/en/docs/user_manual/plugins/plugins_georeferencer.html#available-transformation-algorithms>`_ to learn about different transofrmation types and their uses. Click :guilabel:`Select CRS` button next to :guilabel:`Target SRS`. 
+9. In the :guilabel:`Transformation settings` dialog, choose the :guilabel:`Transformation type` as ``Polynomial 2``. See `QGIS Documentation <https://docs.qgis.org/3.4/en/docs/user_manual/plugins/core_plugins/plugins_georeferencer.html#available-transformation-algorithms>`_ to learn about different transofrmation types and their uses. Click :guilabel:`Select CRS` button next to :guilabel:`Target SRS`. 
 
   .. image:: /static/3/georeferencing_basics/images/9.png
      :align: center
