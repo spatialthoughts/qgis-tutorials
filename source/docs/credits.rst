@@ -196,7 +196,7 @@ Data Credits
 
 - :doc:`3/advanced_raster_analysis`
 
-.. [SANLC] The land cover datasets are provided by Department of Environment, Forestry and Fisheries, South Africa. Downloadeded from E-GIS website `E-GIS website <https://egis.environment.gov.za/data_egis/data_download/current>`_ 
+.. [SANLC] The land cover datasets are provided by Department of Environment, Forestry and Fisheries, South Africa. Downloaded from E-GIS website `E-GIS website <https://egis.environment.gov.za/data_egis/data_download/current>`_ 
 
-.. [COJ] City of Johannesburg shapefile is provided by `COJ Spatial Development Framework 2040 <hhttps://www.joburg.org.za/documents_/Pages/Key%20Documents/policies/Development%20Planning%20%EF%BC%86%20Urban%20Management/Citywide%20Spatial%20Policies/Spatial-Development-Framework-2040.aspx>`_ 
+.. [COJ] City of Johannesburg shapefile is provided by `COJ Spatial Development Framework 2040 <https://www.joburg.org.za/documents_/Pages/Key%20Documents/policies/Development%20Planning%20%EF%BC%86%20Urban%20Management/Citywide%20Spatial%20Policies/Spatial-Development-Framework-2040.aspx>`_ 
 
