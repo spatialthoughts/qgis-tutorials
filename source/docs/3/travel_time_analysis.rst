@@ -37,7 +37,7 @@ We will download the Travel Times dataset for the city of Bangalore, India.
   .. image:: /static/3/travel_time_analysis/images/data04.png
     :align: center
 
-5. Then switch to ``ALL DATA``. This data is available from 2016 to 2020, and each year is divided into 4 quarters. We will download the data for ``2019 Quarter 3``. Select it and  click the ``Travel Times by Hour of Day (Weekdays Only)``. This file will contain all anonymous information about the weekday uber travel in Banglore from July to September 2019. 
+5. Then switch to ``ALL DATA``. This data is available from 2016 to 2020, and each year is divided into 4 quarters. We will download the data for ``2019 Quarter 3``. Select it and click the ``Travel Times by Hour of Day (Weekdays Only)``. This file will contain all anonymous information about the weekday uber travel in Bangalore from July to September 2019. 
 
   .. image:: /static/3/travel_time_analysis/images/data05.png
     :align: center
@@ -88,7 +88,7 @@ Procedure
   .. image:: /static/3/travel_time_analysis/images/06.png
     :align: center
 
-7. Back in the main QGIS window, you will see that the number of records in the filtered table are now down to just *197*. Since there are a total of 198 zones in the city, we have records of travel times between the 1 destination ward and 197 source zones. Open the attribute table of both the layers using the  :guilabel:`Open Attribute Table` button in the :guilabel:`Attributes` toolbar.
+7. Back in the main QGIS window, you will see that the number of records in the filtered table are now down to just *197*. Since there are a total of 198 zones in the city, we have records of travel times between the 1 destination ward and 197 source zones. Open the attribute table of both the layers using the :guilabel:`Open Attribute Table` button in the :guilabel:`Attributes` toolbar.
 
   .. image:: /static/3/travel_time_analysis/images/07.png
     :align: center
@@ -98,17 +98,17 @@ Procedure
   .. image:: /static/3/travel_time_analysis/images/08.png
     :align: center
 
-9. Before we can join these two layers, we must ensure that the values in both columns match exactly. Thought they appear the same, they are of different type. Since GeoJSON format has no way of specifying property types, all values are assumed to be of the type *String* - i.e. Text. But when we import a CSV to QGIS, by default, QGIS tries to determines the types of the columns based on the values and assign appropriate field type. For the CSV file, the data type for the column ``sourceid`` was assigned as *Integer*. So we need to convert the column from the GeoJSON to an *Integer* type as well.  Go to :menuselection:`Processing --> Toolbox --> Vector Table --> Field Calculator algorithm`. Double-click to launch it.
+9. Before we can join these two layers, we must ensure that the values in both columns match exactly. Thought they appear the same, they are of different type. Since GeoJSON format has no way of specifying property types, all values are assumed to be of the type *String* - i.e. Text. But when we import a CSV to QGIS, by default, QGIS tries to determines the types of the columns based on the values and assign appropriate field type. For the CSV file, the data type for the column ``sourceid`` was assigned as *Integer*. So we need to convert the column from the GeoJSON to an *Integer* type as well. Go to :menuselection:`Processing --> Toolbox --> Vector Table --> Field Calculator algorithm`. Double-click to launch it.
 
   .. image:: /static/3/travel_time_analysis/images/09.png
     :align: center
 
-10. Choose ``bangalore_wards`` as the :guilabel:`Input Layer`.  Name the Field Name as ``joinfield`` and select the :guilabel:`Result field type` as ``Integer``. Enter ``MOVEMENT_ID`` as the Expression. Click the :guilabel:`...` button next to the :guilabel:`Calculated` and select :guilabel:`Save to File...` then enter the name of the output file as ``bangalore_wards_fixed.gpkg``. Click :guilabel:`Run`. Close the field calculator.
+10. Choose ``bangalore_wards`` as the :guilabel:`Input Layer`. Name the Field Name as ``joinfield`` and select the :guilabel:`Result field type` as ``Integer``. Enter ``MOVEMENT_ID`` as the Expression. Click the :guilabel:`...` button next to the :guilabel:`Calculated` and select :guilabel:`Save to File...` then enter the name of the output file as ``bangalore_wards_fixed.gpkg``. Click :guilabel:`Run`. Close the field calculator.
 
   .. image:: /static/3/travel_time_analysis/images/10.png
     :align: center
 
-11.  A new layer ``bangalore_wards_fixed`` will be added to the :guilabel:`Layers` panel. Now we are ready to perform the join. Go to :menuselection:`Processing --> Toolbox --> Vector General --> Join attributes by field value`. Double-click to launch it.
+11. A new layer ``bangalore_wards_fixed`` will be added to the :guilabel:`Layers` panel. Now we are ready to perform the join. Go to :menuselection:`Processing --> Toolbox --> Vector General --> Join attributes by field value`. Double-click to launch it.
 
   .. image:: /static/3/travel_time_analysis/images/11.png
     :align: center
