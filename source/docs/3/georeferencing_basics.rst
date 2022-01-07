@@ -13,7 +13,7 @@ Other skills you will learn
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 - How to determine datum and coordinate system for old maps.
-- Save the GCP created
+- Save the GCP created.
 - Edit the created GCP for fine tuning. 
 
 Get the data
