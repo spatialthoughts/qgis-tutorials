@@ -13,6 +13,8 @@ Other skills you will learn
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 - How to determine datum and coordinate system for old maps.
+- Save the GCP created.
+- Edit the created GCP for fine tuning. 
 
 Get the data
 ------------
@@ -27,56 +29,47 @@ For convenience, you may directly download a copy of the dataset from the link b
 Procedure
 ---------
 
-1.Georeferencing in QGIS is done via the **Georeferencer GDAL** plugin. This is a core plugin - meaning it is already part of your QGIS installation. You just need to enable it. Go to :menuselection:`Plugins --> Manage and Install Plugins` and enable the :guilabel:`Georeferencer GDAL` plugin in the :guilabel:`Installed` tab. See :doc:`../using_plugins` for more details on how to work with plugins.
+1. Open QGIS and click on :menuselection:`Raster --> Georeferencer` to open the tool.
 
-  .. image:: /static/3/georeferencing_basics/images/1.png
+  .. image:: /static/3/georeferencing_basics/images/01.png
      :align: center
 
-2. The plugin is installed in the Raster menu. Click on :menuselection:`Raster --> Georeferencer` to open the plugin.
+2. The Georeferencer is divided into 2 sections. The top section where the image will be displayed and the bottom section where a table showing your GCPs will appear.
 
-  .. image:: /static/3/georeferencing_basics/images/2.png
+  .. image:: /static/3/georeferencing_basics/images/02.png
      :align: center
 
-3. The plugin window is divided into 2 sections. The top section where the image will be displayed and the bottom section where a table showing your GCPs will appear.
+3. Now we will open our JPG image. Go to :menuselection:`File --> Open Raster`. Browse to the downloaded image of the scanned map and click :guilabel:`Open`. 
 
-  .. image:: /static/3/georeferencing_basics/images/3.png
+  .. image:: /static/3/georeferencing_basics/images/03.png
      :align: center
 
-4. Now we will open our JPG image. Go to :menuselection:`File --> Open Raster`. Browse to the downloaded image of the scanned map and click :guilabel:`Open`. 
+4. You will see the image will be loaded on the top section. You can use the zoom/pan controls in the toolbar to learn more about the map.
 
-  .. image:: /static/3/georeferencing_basics/images/4.png
+  .. image:: /static/3/georeferencing_basics/images/04.png
     :align: center
 
-5. In the next screen, you will asked to choose the raster’s coordinate reference system (CRS). Our source image is a plain JPEG file and doesn't have any coordinate reference system atached to it, so you can click :guilabel:`Cancel`.
+5. Now we need to assign coordinates to some points on this map. If you look closely, you will see coordinate grid with markings. These are Latitude and Longitude  grid lines.
 
-  .. image:: /static/3/georeferencing_basics/images/5.png
+  .. image:: /static/3/georeferencing_basics/images/05.png
      :align: center
 
-6. You will see the image will be loaded on the top section. You can use the zoom/pan controls in the toolbar to learn more about the map.
+6. Before adding Ground Control Points (GCP), we need to define the Transformation Settings. Click on the gear icon in georeferencing window to open the Transformation settings dialog.
 
-  .. image:: /static/3/georeferencing_basics/images/6.png
+  .. image:: /static/3/georeferencing_basics/images/06.png
      :align: center
 
-7. Now we need to assign coordinates to some points on this map. If you look closely, you will see coordinate grid with markings. These are Latitude and Longitude  grid lines.
+7. In the :guilabel:`Transformation settings` dialog, choose the :guilabel:`Transformation type` as ``Polynomial 2``. See `QGIS Documentation <https://docs.qgis.org/testing/en/docs/user_manual/plugins/plugins_georeferencer.html#available-transformation-algorithms>`_ to learn about different transformation types and their uses. Then select the :guilabel:`Resampling method` as the ``Nearest neighbor``. Click the :guilabel:`Select CRS` button next to :guilabel:`Target SRS`.
 
-  .. image:: /static/3/georeferencing_basics/images/7.png
+  .. image:: /static/3/georeferencing_basics/images/07.png
      :align: center
 
-8. Before we start adding Ground Control Points (GCP), we need to define the Transformation Settings. Go to :menuselection:`Settings --> Transformation settings`.
+8. If you are geo-referencing a scanned map like this, you can obtain the CRS information from the map itself. Looking at our map image, the coordinates are in Latitude/Longitude. There is no datum information given, so we have to assume an appropriate one. Since it is India and the map is quite old, we can bet the Everest 1830 datum would give us good results. Search for ``everest`` and select the CRS with oldest definition of the Everest datum (EPSG:4042). Click :guilabel:`OK`.
 
-  .. image:: /static/3/georeferencing_basics/images/8.png
+  .. image:: /static/3/georeferencing_basics/images/08.png
      :align: center
 
-9. In the :guilabel:`Transformation settings` dialog, choose the :guilabel:`Transformation type` as ``Polynomial 2``. See `QGIS Documentation <https://docs.qgis.org/3.4/en/docs/user_manual/plugins/core_plugins/plugins_georeferencer.html#available-transformation-algorithms>`_ to learn about different transofrmation types and their uses. Click :guilabel:`Select CRS` button next to :guilabel:`Target SRS`. 
-
-  .. image:: /static/3/georeferencing_basics/images/9.png
-     :align: center
-
-10. If you are geo-referencing a scanned map like this, you can obtain the CRS information from the map itself. Looking at our map image, the coordinates are in Latitude/Longitude. There is no datum information given, so we have to assume an appropriate one. Since it is India and the map is quite old, we can bet the Everest 1830 datum would give us good results. Search for ``everest`` and select the CRS with oldest definition of the Everest datum (EPSG:4042). Click :guilabel:`OK`.
-
-  .. image:: /static/3/georeferencing_basics/images/10.png
-     :align: center
-     
+   
 .. note::
 
   Survey of India Topo Sheets created between the year 1960 and 2000 use the Everest 1956 spheroid and India_nepal datum. If you are georeferencing SOI Topo Sheets, , you can define a Custom CRS in QGIS with the following paramters and use it in this step. This definition includes a delta_x, delta_y and delta_z parameters for transforming this datum to WGS84. See this page for more information on the `Indian Grid System <https://deeppradhan.heliohost.org/gis/indian-grid/>`_.
@@ -88,51 +81,58 @@ Procedure
 .. note:: 
 
   Most maps are created using a Projected CRS. If the map you are trying to georeference uses a projected CRS that you know of, but the graticules labels are in a Geographic CRS (latitude/longitude), you may use an alternate workflow to minimize distortion. Instead of using a Geographic CRS like we are using here, you can create a vector grid in QGIS and transform it to the projected CRS to be used as a reference for accurate coordinate capture. See `this page <https://raisedbeaches.net/2018/02/01/georeferencing-in-qgis/>`_ for more details.
-  
-11. Name your output raster as  ``1870_southern_india_modified.tif``. Choose ``LZW`` as the :guilabel:`Compression`. Make sure the :guilabel:`Load in QGIS when done` option is checked. CLick :guilabel:`OK`.
 
-  .. image:: /static/3/georeferencing_basics/images/11.png
+9. Name your output raster as  ``1870_southern_india_modified.tif``. Choose ``LZW`` as the :guilabel:`Compression`. Check the :guilabel:`Save GCP points` to store the points as seperate file for future purpose. Make sure the :guilabel:`Load in QGIS when done` option is checked. Click :guilabel:`OK`.
+
+  .. image:: /static/3/georeferencing_basics/images/09.png
      :align: center
 
 .. note::
 
   Uncompressed GeoTIFF files can be very large in size. So compressing them is always a good idea. You can learn more about different TIFF compression options (LZW, PACKBITS or DEFLATE) in `this article <https://www.accusoft.com/faqs/differences-compressions-used-tiff-files/>`_.
+
+10. Now we can start adding the Ground Control Points (GCP).  Click on the :guilabel:`Add Point` button. 
+
+  .. image:: /static/3/georeferencing_basics/images/10.png
+     :align: center
   
-12. Now we can start adding the Ground Control Points (GCP). The intersections of the grid lines will serve as the *ground-truth* in our case. As the grid lines are labeled, we can determine the X and Y coordinates of the points using them. Click :guilabel:`Add Point`.
+  
+11. Now place the cross-hair at the intersections of the grid lines and left-click, this will serve as the *ground-truth* in our case. As the grid lines are labeled, we can determine the X and Y coordinates of the points using them. In the pop-up window, enter the coordinates. Remember that X=longitude and Y=latitude. Click :guilabel:`OK`. 
+
+  .. image:: /static/3/georeferencing_basics/images/11.png
+     :align: center
+
+12. You will notice the GCP table now has a row with details of your first GCP.
 
   .. image:: /static/3/georeferencing_basics/images/12.png
      :align: center
 
-13 . In the pop-up window, enter the coordinates. Remember that X=longitude and Y=latitude. Click :guilabel:`OK`. 
+13 . Similarly, add more GCPs covering the entire image. The more points you have, the more accurate your image is registered to the target coordinates. The ``Polynomial 2`` transform requires at least 6 GCPs. Once you have added the minimum number of points required for the transform, you will notice that the GCPs now have a non-zero ``dX``, ``dY`` and ``Residual`` error values. If a particular GCP has unusually high error values, that usually means a human-error in entering the coordinate values. So you can delete that GCP and capture it again. You can also edit the coordinate values in the :guilabel:`GCP Table` by clicking the cell in either :guilabel:`Dest. X` or :guilabel:`Dest. Y` columns. 
 
   .. image:: /static/3/georeferencing_basics/images/13.png
      :align: center
 
-14. You will notice the GCP table now has a row with details of your first GCP.
+14. Once you are satisfied with the GCPs, click the :guilabel:`Play` button. This will start the process of warping the image using the GCPs and creating the target raster.
 
   .. image:: /static/3/georeferencing_basics/images/14.png
      :align: center
 
-15. Similarly, add at least more GCPs covering the entire image. The more points you have, the more accurate your image is registered to the target coordinates. The ``Polynomial 2`` transform requires at least 6 GCPs.
+15. Once the process finishes, you will see the georeferenced layer loaded in QGIS. The georeferencing is now complete. Also, you will notice the Project CRS in the bottom right is set to *EPSG:4042* as described in Transformation Settings. 
 
   .. image:: /static/3/georeferencing_basics/images/15.png
      :align: center
-
-16. Once you have added the minimum number of points required for the transform, you will notice that the GCPs now have a non-zero ``dX``, ``dY`` and ``Residual`` error values. If a particular GCP has unusually high error values, that usually means a human-error in entering the coordinate values. So you can delete that GCP and capture it again. You can also edit the coordinate values in the :guilabel:`GCP Table` by clicking the cell in either :guilabel:`Dest. X` or :guilabel:`Dest. Y` columns. Once you are satisfied with the GCPs, go to :menuselection:`File --> Start georeferencing`. This will start the process of warping the image using the GCPs and creating the target raster.
+16. Drag and drop the ``OpenStreetMap`` as Base Map from the :guilabel:`XYZ Tiles` dropdown at the bottom of the Browser panel to verify the georeferenced layer. To set the transparency, click on the :guilabel:`Open layer styling panel` icon  and select :guilabel:`Transparency` tab. Set the transparency to ``40 %``. Now the georeferenced image must overlay with the basemap outline. 
 
   .. image:: /static/3/georeferencing_basics/images/16.png
      :align: center
 
-17. Once the process finishes, you will see the georeferenced layer loaded in QGIS. The georeferencing is now complete.
+17. If the georeference needs more fine-tuning, we can start from the collected GCP points. Browse the ``1870_southern_india_modified.tif`` file location. You can find an additional file, ``1870_southern_india_modified.tif.points``. This file will contain the GCP points information.
 
   .. image:: /static/3/georeferencing_basics/images/17.png
      :align: center
-     
-.. note::
 
-  The GCPs will also be displayed in the main QGIS Canvas. If you wish to remove them, you can switch to the :guilabel:`Georeferencer` window, and choose :menuselection:`File --> Reset Georeferencer`.
+18. Open the georeferencing tool in QGIS, click :menuselection:`File --> Load GCP Points`, and select the ``1870_southern_india_modified.tif.points``. This will load the GCP created previously. Then load the ``1870_southern_india_modified.png`` to fine-tune your work.
 
-18. It is a good practice to verify your work. How do we check if our georeferencing is accurate? In this case, you can load the boundary shapefile from a trusted source like the Natural Earth dataset and compare them. You will notice they match up pretty nicely. There is some error and it can be further improved by taking more control points, changing transformation parameters and trying a different datum.
 
   .. image:: /static/3/georeferencing_basics/images/18.png
      :align: center
