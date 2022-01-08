@@ -24,12 +24,12 @@ Data Source [POLICEUK]_
 Procedure
 ---------
 
-1. We will first load a basemap layer from *OpenStreetMap* and then import the CSV data. In Browser tab scroll down and locate the :guilabel:`XYZ Tiles` dropdown. 
+1. We will first load a basemap layer from *OpenStreetMap* and then import the CSV data. In the :guilabel:`Browser` tab, scroll down and locate the :guilabel:`XYZ Tiles` section. 
 
   .. image:: /static/3/creating_heatmaps/images/1.png
      :align: center
 
-2. Open it, drag and drop the :guilabel:`OpenStreetMap` to load the basemap. To load the CSV file, Click the :guilabel:`Open Data Source Manager` button. 
+2. Expand it to see the :guilabel:`OpenStreetMap` tile layer. Drag and drop it to the main canvas. Next we will load the CSV file. Click the :guilabel:`Open Data Source Manager` button. 
 
   .. image:: /static/3/creating_heatmaps/images/2.png
      :align: center

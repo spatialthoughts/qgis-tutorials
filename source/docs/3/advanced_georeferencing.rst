@@ -52,7 +52,7 @@ Procedure
   .. image:: /static/3/advanced_georeferencing/images/4.png
      :align: center
 
-5. Now it is time to start georeferencing. Launch the **Georeferencer** from :menuselection:`Raster --> Georeferencer --> Georeferencer`. If you do not see that menu item, you will need to enable the :guilabel:`Georeferencer GDAL` plugin from :menuselection:`Plugins --> Manage and install Plugins --> Installed`.
+5. Now it is time to start georeferencing. Launch the **Georeferencer** from :menuselection:`Raster --> Georeferencer`.
 
   .. image:: /static/3/advanced_georeferencing/images/5.png
      :align: center
