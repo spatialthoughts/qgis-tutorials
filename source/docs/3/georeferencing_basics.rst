@@ -59,7 +59,7 @@ Procedure
   .. image:: /static/3/georeferencing_basics/images/06.png
      :align: center
 
-7. In the :guilabel:`Transformation settings` dialog, choose the :guilabel:`Transformation type` as ``Polynomial 2``. See `QGIS Documentation <https://docs.qgis.org/testing/en/docs/user_manual/plugins/plugins_georeferencer.html#available-transformation-algorithms>`_ to learn about different transformation types and their uses. Then select the :guilabel:`Resampling method` as the ``Nearest neighbor``. Click the :guilabel:`Select CRS` button next to :guilabel:`Target SRS`.
+7. In the :guilabel:`Transformation settings` dialog, choose the :guilabel:`Transformation type` as ``Polynomial 2``. See `QGIS Documentation <https://docs.qgis.org/testing/en/docs/user_manual/working_with_raster/georeferencer.html?highlight=georeferencer#available-transformation-algorithms>`_ to learn about different transformation types and their uses. Then select the :guilabel:`Resampling method` as the ``Nearest neighbor``. Click the :guilabel:`Select CRS` button next to :guilabel:`Target SRS`.
 
   .. image:: /static/3/georeferencing_basics/images/07.png
      :align: center
@@ -89,7 +89,7 @@ Procedure
 
 .. note::
 
-  Uncompressed GeoTIFF files can be very large in size. So compressing them is always a good idea. You can learn more about different TIFF compression options (LZW, PACKBITS or DEFLATE) in `this article <https://www.accusoft.com/faqs/differences-compressions-used-tiff-files/>`_.
+  Uncompressed GeoTIFF files can be very large in size. So compressing them is always a good idea. You can learn more about different TIFF compression options (LZW, PACKBITS or DEFLATE) in `this article <https://kokoalberti.com/articles/geotiff-compression-optimization-guide>`_.
 
 10. Now we can start adding the Ground Control Points (GCP).  Click on the :guilabel:`Add Point` button. 
 
@@ -112,7 +112,7 @@ Procedure
   .. image:: /static/3/georeferencing_basics/images/13.png
      :align: center
 
-14. Once you are satisfied with the GCPs, click the :guilabel:`Play` button. This will start the process of warping the image using the GCPs and creating the target raster.
+14. Once you are satisfied with the GCPs, click the :guilabel:`Start Georeferencing` button. This will start the process of warping the image using the GCPs and creating the target raster.
 
   .. image:: /static/3/georeferencing_basics/images/14.png
      :align: center
@@ -131,7 +131,7 @@ Procedure
   .. image:: /static/3/georeferencing_basics/images/17.png
      :align: center
 
-18. Open the georeferencing tool in QGIS, click :menuselection:`File --> Load GCP Points`, and select the ``1870_southern_india_modified.tif.points``. This will load the GCP created previously. Then load the ``1870_southern_india_modified.png`` to fine-tune your work.
+18. Open the georeferencing tool in QGIS, click :menuselection:`File --> Load GCP Points`, and select the ``1870_southern_india_modified.tif.points``. This will load the GCP created previously. Then load the ``1870_southern_india_modified.tif`` to fine-tune your work.
 
 
   .. image:: /static/3/georeferencing_basics/images/18.png
