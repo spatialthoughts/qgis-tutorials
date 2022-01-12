@@ -1,18 +1,19 @@
 Georeferencing Aerial Imagery (QGIS3)
 =====================================
-In the tutorial :doc:`georeferencing_basics` we covered the basic process of georeferencing in QGIS. That method involved reading the coordinates from your scanned map and entering them manually as control points. Many times though you may not have the coordinates printed on your map, or you are trying to georeference an image. In that case, you can use another georeferenced data-source as your input. In this tutorial, you will learn how to use existing open data sources in your georeferencing process.
+
+In the tutorial :doc:`georeferencing_basics`, we covered the basic georeferencing process in QGIS. That method involved reading the coordinates from your scanned map and entering them manually as control points. Many times though, you may not have the coordinates printed on your map, or you are trying to georeference an image. In that case, you can use another georeferenced data source as your input. This tutorial will teach you how to use existing open data sources in your georeferencing process. 
 
 Overview of the task
 --------------------
 
-We will georeference high resolution balloon-imagery using reference coordinates from OpenStreetMap. 
+We will georeference a high resolution balloon-imagery using reference coordinates from OpenStreetMap. 
 
 Other skills you will learn
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^
-- Downloading super high-resolution public domain imagery.
 - Using XYZ Tile Layers as basemap.
-- Using the OSM Place Search plugin in QGIS.
-- Setting a custom no-data value for a layer.
+- Using the QGIS Inbuilt Nominatim Geocoder.
+- Setting a user-defined no-data value for a layer.
+- Dock Georeferencer in QGIS main window. 
 
 Get the data
 ------------
@@ -30,104 +31,74 @@ Procedure
 
 1. We will use a basemap from OpenStreetMap to capture the coordinates for georeferencing. QGIS3 comes with  built-in support for tile layers. These are commonly known as 'XYZ' layers since they are made using individual map tiles for each zoom level (z) on a x,y coordinate grid. You can find the ``OpenStreetMap`` layer under :guilabel:`XYZ Tiles` in the :guilabel:`Browser Panel`. Drag the layer to the main canvas. Once loaded, note the Coordinate Reference System (CRS) for this layer in the bottom-right corder. It is set as ``EPSG 3857 Pseudo Mercator``. This is important because the coordinates we infer from this layer during georeferencing will be in this CRS.
 
-  .. image:: /static/3/advanced_georeferencing/images/1.png
+  .. image:: /static/3/advanced_georeferencing/images/01.png
      :align: center
 
 .. note::
 
   See `this page <https://www.spatialbias.com/2018/02/qgis-3.0-xyz-tile-layers/>`_ for more details on XYZ layers and how to add other basemaps in QGIS.
   
-2. The image we are georeferencing is for ``Washington Square Park, New York``. You can zoom/pan try to locate this park in the map. But that is cumbersome and may not be practical. An easier way is to use the OpenStreetMap (OSM) Place Search plugin to search for the exact location. Install the ``OSM Place Search`` plugin from :menuselection:`Plugins --> Manage and install plugins --> All`. If you do not see this plugin in the search results, make sure you have checked :guilabel:`Also show experimental plugins` under :guilabel:`Settings`. See :doc:`../using_plugins` for more information on using plugins in QGIS.
+2. The image we are georeferencing is for ``Washington Square Park, New York``. You can zoom/pan to locate this park on the map. But that is cumbersome and practical. The QGIS 3.20 or higher version has the support for Nominatim Geocoder inbuilt. Click the search bar in the bottom left of the QGIS window. To use this as a geocoder prefix, the search place with ``>``. Search ``> Washington Square Park`` will pop up a list of addresses to choose from. Click the first address.
 
-  .. image:: /static/3/advanced_georeferencing/images/2.png
+  .. image:: /static/3/advanced_georeferencing/images/02.png
      :align: center
 
-3. Once the plugin is installed, you will see a new panel called :guilabel:`OSM Place Search...`. Search for ``Washington Square Park`` in the :guilabel:`Name contains..` box and click :guilabel:`->`. You will see the matching place names appear in the results panel. Select the correct result and click the :guilabel:`Zoom` button.
+3. Map canvas will be centered to the Square Park. Now let's start georeferencing. Launch the **Georeferencer** from :menuselection:`Raster --> Georeferencer`.
 
-  .. image:: /static/3/advanced_georeferencing/images/3.png
+  .. image:: /static/3/advanced_georeferencing/images/03.png
      :align: center
 
-4. You will see the map that is familiar and contains the landmarks that we can identify from the image. You may close the :guilabel:`OSM Place Search` panel now. If you need it again, you can open it from :menuselection:`View --> Panels --> OSM Place Search`.
+4. For georeferencing an aerial image, we have to choose coordinate points from the OpenStreetMap, so let's first dock the Georeferencer tool into to main QGIS window. Select Configure Georeference from :menuselection:`Settings --> Configure Georeference`.
 
-  .. image:: /static/3/advanced_georeferencing/images/4.png
+  .. image:: /static/3/advanced_georeferencing/images/04.png
      :align: center
 
-5. Now it is time to start georeferencing. Launch the **Georeferencer** from :menuselection:`Raster --> Georeferencer`.
+5. Check :guilabel:`Show georeferencer window docked` and click :guilabel:`OK`. 
 
-  .. image:: /static/3/advanced_georeferencing/images/5.png
+  .. image:: /static/3/advanced_georeferencing/images/05.png
      :align: center
 
-6. In the :guilabel:`Georeferencer` window, go to :menuselection:`File --> Open Raster`. Navigate to the downloaded JPG file and click :guilabel:`Open`.
+6. The :guilabel:`Georeferencer` window will be docked at the bottom of the main QGIS window. Let us load the image file by clicking the :guilabel:`Open Raster` icon in the :guilabel:`Georeference` window and navigate to the downloaded JPG file and click :guilabel:`Open.`
 
-  .. image:: /static/3/advanced_georeferencing/images/6.png
+  .. image:: /static/3/advanced_georeferencing/images/06.png
      :align: center
 
-7. In the next screen, you will asked to choose the raster’s coordinate reference system (CRS). Our source image is a plain JPEG file and doesn't have any coordinate reference system atached to it, so you can click :guilabel:`Cancel`.
+7. Before adding Ground Control Points (GCP), we need to define the Transformation Settings. Click on the :guilabel:`Transformation Settings` icon to open the Transformation Settings dialog. Choose the :guilabel:`Transformation type` as ``Polynomial 2``. See `QGIS Documentation <https://docs.qgis.org/testing/en/docs/user_manual/working_with_raster/georeferencer.html?highlight=georeferencer#available-transformation-algorithms>`_ to learn about different transformation types and their uses. As noted earlier, our base map is in ``EPSG 3857 Pseudo Mercator`` CRS, so set that as the :guilabel:`Target CRS`. You can leave the :guilabel:`Output raster` name to the default ad choose ``LZW`` as the :guilabel:`Compression`. Check the :guilabel:`Use 0 for transparency when needed`. Check the :guilabel:`Save GCP points` to store the points as a separate file for future purposes. Make sure the :guilabel:`Load in QGIS when done` option is checked. Click :guilabel:`OK`.
 
-  .. image:: /static/3/advanced_georeferencing/images/7.png
+  .. image:: /static/3/advanced_georeferencing/images/07.png
      :align: center
 
 
-8. Before we start adding Ground Control Points (GCP), we need to define the Transformation Settings. Go to :menuselection:`Settings --> Transformation settings`.
+8. Now click on the :guilabel:`Add Point` button on the toolbar and select an easily identifiable location on the image. Corners, intersections, poles etc., make good control points. Once you click on the image at a control point location, you will see a pop-up asking you to enter map coordinates. Click the button :guilabel:`From map canvas`. 
 
-  .. image:: /static/3/advanced_georeferencing/images/8.png
+  .. image:: /static/3/advanced_georeferencing/images/08.png
      :align: center
 
-9. In the :guilabel:`Transformation settings` dialog, choose the :guilabel:`Transformation type` as ``Polynomial 2``. See `QGIS Documentation <https://docs.qgis.org/testing/en/docs/user_manual/plugins/plugins_georeferencer.html#available-transformation-algorithms>`_ to learn about different transofrmation types and their uses. As noted earlier, our basemap is in ``EPSG 3857 Pseudo Mercator`` CRS, so set that as the :guilabel:`Target CRS`. You can leave the :guilabel:`Output raster` name to the default and choose ``LZW`` as the :guilabel:`Compression`. Check the :guilabel:`Use 0 for transparency when needed`. Make sure the :guilabel:`Load in QGIS when done` option is checked. CLick :guilabel:`OK`.
+9. In the ``OpenStreetMap`` layer, click on the exact location in the reference layer. The coordinates will be auto-populated from your click on the map canvas. Click :guilabel:`Ok`.
 
-  .. image:: /static/3/advanced_georeferencing/images/9.png
+  .. image:: /static/3/advanced_georeferencing/images/09.png
      :align: center
 
-10. Now click on the :guilabel:`Add Point` button on the toolbar and select an easily identifiable location on the image. Corners, intersections, poles etc. make good control points.
+.. note::
+
+  Tip: When selecting a GCP on a building, always choose the bottom of the building. Most aerial and satellite imagery have leaning buildings, so picking a point on the rooftop will introduce errors.
+
+10.  Similarly, choose at least 6 points on the image and add their coordinates from the reference layer. Once you have added the minimum number of points required for the transform, you will notice that the GCPs now have non-zero ``dX``, ``dY``, and ``Residual`` error values. If a particular GCP has unusually high error values, that usually means a human error in entering the coordinate values. So you can delete that GCP and capture it again.
 
   .. image:: /static/3/advanced_georeferencing/images/10.png
      :align: center
 
-11. Once you click on the image at a control point location, you will see a pop-up asking you to enter map coordinates. Click the button :guilabel:`From map canvas`.
+11. Once you are satisfied with the GCPs, click :guilabel:`Start georeferencing`. This will start the process of warping the image using the GCPs and creating the target raster. Once the process is finished, you will see the layer loaded in QGIS. Close the :guilabel:`Georeferencer` window. 
 
   .. image:: /static/3/advanced_georeferencing/images/11.png
      :align: center
 
-12. Find the same location in the reference layer and click at the precise point. The coordinates are auto-populated from your click on the map canvas. Click Ok. Similarly, choose at least 6 points on the image and add their coordinates from the reference layer.
+12. Now click on the :guilabel:`Open layer styling panel` icon and Switch to the :guilabel:`Transparency` tab. Add ``255`` as the :guilabel:`Additional no data value`. This will remove the white border around the image. Now you will see your georeferenced image nicely overlaid on the base layer. 
 
   .. image:: /static/3/advanced_georeferencing/images/12.png
      :align: center
 
 .. note::
 
-  Tip: When selecting a GCP on a building, always choose the bottom of the building. Many aerial and satellite imagery have leaning buildings, so choosing a point on the rooftop will introduce errors.
-  
-13. Once you have added the minimum number of points required for the transform, you will notice that the GCPs now have a non-zero ``dX``, ``dY`` and ``Residual`` error values. If a particular GCP has unusually high error values, that usually means a human-error in entering the coordinate values. So you can delete that GCP and capture it again.
-
-  .. image:: /static/3/advanced_georeferencing/images/13.png
-     :align: center
-
-14. Once you are satisfied with the GCPs, go to :menuselection:`File --> Start georeferencing`. This will start the process of warping the image using the GCPs and creating the target raster.
-
-  .. image:: /static/3/advanced_georeferencing/images/14.png
-     :align: center
-
-
-15. Once the process finishes, you will see the georeferenced layer loaded in QGIS. If all went well, you will see it nicely overlay the basemap.
-
-  .. image:: /static/3/advanced_georeferencing/images/15.png
-     :align: center
-
-16. To make the output look nicer, let’s remove the white border. Right-click on the image layer and choose :guilabel:`Properties`.
-
-  .. image:: /static/3/advanced_georeferencing/images/16.png
-     :align: center
-
-17. Switch to the :guilabel:`Transparency` tab. Add ``255`` as the :guilabel:`Additional no data value` and click :guilabel:`OK`. 
-
-  .. image:: /static/3/advanced_georeferencing/images/17.png
-     :align: center
-
-.. note::
-
   8-bit images have pixel values in the range 0-255. 0 is black and 255 is white.
   
-18. Now you will see your georeferenced image nicely overlaid on the base layer.
-
-  .. image:: /static/3/advanced_georeferencing/images/18.png
-     :align: center
