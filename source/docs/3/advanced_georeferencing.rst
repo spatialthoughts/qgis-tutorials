@@ -10,10 +10,9 @@ We will georeference a high resolution balloon-imagery using reference coordinat
 
 Other skills you will learn
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^
-- Using XYZ Tile Layers as basemap.
-- Using the QGIS Inbuilt Nominatim Geocoder.
-- Setting a user-defined no-data value for a layer.
-- Dock Georeferencer in QGIS main window. 
+- Using XYZ Tile Layers as a Basemap in QGIS.
+- Using Built-in Nominatim Geocoder.
+- Setting a user-defined No-Data value for a layer.
 
 Get the data
 ------------
@@ -38,12 +37,12 @@ Procedure
 
   See `this page <https://www.spatialbias.com/2018/02/qgis-3.0-xyz-tile-layers/>`_ for more details on XYZ layers and how to add other basemaps in QGIS.
   
-2. The image we are georeferencing is for ``Washington Square Park, New York``. You can zoom/pan to locate this park on the map. But that is cumbersome and practical. The QGIS 3.20 or higher version has the support for Nominatim Geocoder inbuilt. Click the search bar in the bottom left of the QGIS window. To use this as a geocoder prefix, the search place with ``>``. Search ``> Washington Square Park`` will pop up a list of addresses to choose from. Click the first address.
+2. The image we are georeferencing is for ``Washington Square Park, New York``. You can zoom/pan to locate this park on the map. But that is cumbersome and practical. From QGIS version 3.20 onwards, there is built-in support for the OpenStreetMap based Nominatim Geocoder. Click the search bar in the bottom left of the QGIS window. To use this as a geocoder prefix, the search place with ``>``. Searching for ``> Washington Square Park`` will pop up a list of addresses to choose from. Click the first address.
 
   .. image:: /static/3/advanced_georeferencing/images/02.png
      :align: center
 
-3. Map canvas will be centered to the Square Park. Now let's start georeferencing. Launch the **Georeferencer** from :menuselection:`Raster --> Georeferencer`.
+3. The map canvas will be centered to the Square Park. Now let's start georeferencing. Launch the **Georeferencer** from :menuselection:`Raster --> Georeferencer`.
 
   .. image:: /static/3/advanced_georeferencing/images/03.png
      :align: center
@@ -58,7 +57,7 @@ Procedure
   .. image:: /static/3/advanced_georeferencing/images/05.png
      :align: center
 
-6. The :guilabel:`Georeferencer` window will be docked at the bottom of the main QGIS window. Let us load the image file by clicking the :guilabel:`Open Raster` icon in the :guilabel:`Georeference` window and navigate to the downloaded JPG file and click :guilabel:`Open.`
+6. The :guilabel:`Georeferencer` window will be docked at the bottom of the main QGIS window. Let us load the image file by clicking the :guilabel:`Open Raster` icon in the :guilabel:`Georeference` window and navigating to the downloaded JPG file. Click :guilabel:`Open.`
 
   .. image:: /static/3/advanced_georeferencing/images/06.png
      :align: center
