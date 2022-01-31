@@ -17,9 +17,9 @@ Other skills you will learn
 Get the data
 ------------
 
-In this tutorial, we will be using kite and balloon imagery collected by `The Public Laboratory <http://publiclaboratory.org/archive>`_. They make the georeferenced versions of the images also available, but we will download a non-georeferenced JPG image and go through the process of georeferencing it in QGIS.
+In this tutorial, we will be using kite and balloon imagery collected by `The Public Laboratory <https://publiclab.org/archive>`_. They make the georeferenced versions of the images also available, but we will download a non-georeferenced JPG image and go through the process of georeferencing it in QGIS.
  
-Download the JPG image of `Washington Square Park, New York <http:// publiclaboratory.org/map/washington-square-park-new-york-new-york/2012-10-01>`_. You can right-click the JPG button and choose :guilabel:`Save link as...`.
+Download the JPG image of `Washington Square Park, New York <https://publiclab.org/map/washington-square-park-new-york-new-york/2012-10-01>`_. You can right-click the JPG button and choose :guilabel:`Save link as...`.
  
 For convenience, you may directly download a copy of the dataset from the link below:
  
@@ -37,7 +37,7 @@ Procedure
 
   See `this page <https://www.spatialbias.com/2018/02/qgis-3.0-xyz-tile-layers/>`_ for more details on XYZ layers and how to add other basemaps in QGIS.
   
-2. The image we are georeferencing is for ``Washington Square Park, New York``. You can zoom/pan to locate this park on the map. But that is cumbersome and practical. From QGIS version 3.20 onwards, there is built-in support for the OpenStreetMap based Nominatim Geocoder. Click the search bar in the bottom left of the QGIS window. To use this as a geocoder prefix, the search place with ``>``. Searching for ``> Washington Square Park`` will pop up a list of addresses to choose from. Click the first address.
+2. The image we are georeferencing is for ``Washington Square Park, New York``. You can zoom/pan to locate this park on the map. But that is cumbersome and not practical. From QGIS version 3.20 onwards, there is built-in support for the OpenStreetMap based Nominatim Geocoder. Click the search bar in the bottom left of the QGIS window. To use this as a geocoder prefix, the search place with ``>``. Searching for ``> Washington Square Park`` will pop up a list of addresses to choose from. Click the first address.
 
   .. image:: /static/3/advanced_georeferencing/images/02.png
      :align: center
@@ -62,7 +62,7 @@ Procedure
   .. image:: /static/3/advanced_georeferencing/images/06.png
      :align: center
 
-7. Before adding Ground Control Points (GCP), we need to define the Transformation Settings. Click on the :guilabel:`Transformation Settings` icon to open the Transformation Settings dialog. Choose the :guilabel:`Transformation type` as ``Polynomial 2``. See `QGIS Documentation <https://docs.qgis.org/testing/en/docs/user_manual/working_with_raster/georeferencer.html?highlight=georeferencer#available-transformation-algorithms>`_ to learn about different transformation types and their uses. As noted earlier, our base map is in ``EPSG 3857 Pseudo Mercator`` CRS, so set that as the :guilabel:`Target CRS`. You can leave the :guilabel:`Output raster` name to the default ad choose ``LZW`` as the :guilabel:`Compression`. Check the :guilabel:`Use 0 for transparency when needed`. Check the :guilabel:`Save GCP points` to store the points as a separate file for future purposes. Make sure the :guilabel:`Load in QGIS when done` option is checked. Click :guilabel:`OK`.
+7. Before adding Ground Control Points (GCP), we need to define the Transformation Settings. Click on the :guilabel:`Transformation Settings` icon to open the Transformation Settings dialog. Choose the :guilabel:`Transformation type` as ``Polynomial 2``. See `QGIS Documentation <https://docs.qgis.org/testing/en/docs/user_manual/working_with_raster/georeferencer.html?highlight=georeferencer#available-transformation-algorithms>`_ to learn about different transformation types and their uses. As noted earlier, our base map is in ``EPSG 3857 Pseudo Mercator`` CRS, so set that as the :guilabel:`Target CRS`. You can leave the :guilabel:`Output raster` name to the default and choose ``LZW`` as the :guilabel:`Compression`. Check the :guilabel:`Use 0 for transparency when needed`. Check the :guilabel:`Save GCP points` to store the points as a separate file for future purposes. Make sure the :guilabel:`Load in QGIS when done` option is checked. Click :guilabel:`OK`.
 
   .. image:: /static/3/advanced_georeferencing/images/07.png
      :align: center
