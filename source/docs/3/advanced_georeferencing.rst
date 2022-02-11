@@ -47,7 +47,7 @@ Procedure
   .. image:: /static/3/advanced_georeferencing/images/03.png
      :align: center
 
-4. For georeferencing an aerial image, we have to choose coordinate points from the OpenStreetMap, so let's first dock the Georeferencer tool into to main QGIS window. Select Configure Georeference from :menuselection:`Settings --> Configure Georeference`.
+4. For georeferencing an aerial image, we have to choose coordinate points from the OpenStreetMap, so let's first dock the Georeferencer tool into to main QGIS window. Select Configure Georeference from :menuselection:`Settings --> Configure Georeferencer`.
 
   .. image:: /static/3/advanced_georeferencing/images/04.png
      :align: center
@@ -57,7 +57,7 @@ Procedure
   .. image:: /static/3/advanced_georeferencing/images/05.png
      :align: center
 
-6. The :guilabel:`Georeferencer` window will be docked at the bottom of the main QGIS window. Let us load the image file by clicking the :guilabel:`Open Raster` icon in the :guilabel:`Georeference` window and navigating to the downloaded JPG file. Click :guilabel:`Open.`
+6. The :guilabel:`Georeferencer` window will be docked at the bottom of the main QGIS window. Let us load the image file by clicking the :guilabel:`Open Raster` icon in the :guilabel:`Georeferencer` window and navigating to the downloaded JPG file. Click :guilabel:`Open.`
 
   .. image:: /static/3/advanced_georeferencing/images/06.png
      :align: center
