@@ -271,7 +271,7 @@ Procedure
   .. image:: /static/3/performing_table_joins/images/29.png
      :align: center
 
-29.  Once your satisfied close the Layer styling panel. 
+30.  Once your satisfied close the Layer styling panel. 
 
-  .. image:: /static/3/performing_table_joins/images/30png
+  .. image:: /static/3/performing_table_joins/images/30.png
      :align: center
