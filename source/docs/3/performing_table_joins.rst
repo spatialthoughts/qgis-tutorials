@@ -19,8 +19,10 @@ Other skills you will learn
 Get the data
 ------------
 
-Download population of cencus tracts
-^^^^^^^^^^^^^^^^^^^^^^^^^^^
+We want to prepare a population density map for the state of California, USA. We will first get a table with population counts for each census tract in the state. 
+
+Download Census Table
+^^^^^^^^^^^^^^^^^^^^^
 
 1.  Visit `US Census Bureau <https://data.census.gov/cedsci/>`_  and click :guilabel:`VIEW TABLES`. 
 
@@ -47,7 +49,7 @@ Download population of cencus tracts
   .. image:: /static/3/performing_table_joins/images/data05.png
      :align: center
 
-6.  Check :guilabel:`All Census Tracts within California`. This all us to download all information as a single file instead of downloading it separately for each tract. Now we have set the geography, click on :guilabel:`Topics`. 
+6.  Check :guilabel:`All Census Tracts within California`. This all us to download all information as a single file instead of downloading it separately for each tract. Now that we have set the geography, click on :guilabel:`Topics`. 
 
   .. image:: /static/3/performing_table_joins/images/data06.png
      :align: center
@@ -77,13 +79,15 @@ Download population of cencus tracts
   .. image:: /static/3/performing_table_joins/images/data11.png
      :align: center
 
-12. The :guilabel:`ACS 5-Year Estimate Subject Tables` contain all the information. Check on it for the year ``2019``. Click :guilabel:`Download`, and this will start a zip file download. Once it finishes, unzip it on your local disk.
+12. The selected data is available for multiple years and using different estimation techniques. The :guilabel:`ACS 5-Year Estimate Subject Tables` is recommended as multi-year estimates increases the reliability of the data. It also has no data gaps and contains information for all tracts. Select the year ``2019``. and click :guilabel:`Download`. This will download a zip file. Once it finishes, unzip it on your local disk.
 
   .. image:: /static/3/performing_table_joins/images/data12.png
      :align: center
 
-Download boundry of cencus tracts
-^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Download Census Tract Boundaries
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+To create a map from the census table, we also need the boundaries representing each census tract in the state of California.
 
 01. Visit `TIGER Line Shapefiles <https://www.census.gov/geographies/mapping-files/time-series/geo/tiger-line-file.2019.html>`_  and click :guilabel:`Web Interface`. 
 
@@ -117,7 +121,7 @@ Procedure
   .. image:: /static/3/performing_table_joins/images/01.png
      :align: center
 
-2. The :guilabel:`Select Transformation` dialog will prompt to convert from *EPSG:4269* to *EPSG:4326*.  Click :guilabel:`OK`.  
+2. The :guilabel:`Select Transformation` dialog will prompt to convert from *EPSG:4269* to *EPSG:4326*.  This dialog presents several transformations to convert between the coordinates between these projections. Leave the selection to the default choice and click :guilabel:`OK`.  
 
   .. image:: /static/3/performing_table_joins/images/02.png
      :align: center
@@ -143,12 +147,12 @@ Procedure
   .. image:: /static/3/performing_table_joins/images/06.png
      :align: center
 
-7. Now under :guilabel:`Sample Data`, we can inspect the data even before loading it as a layer. The representation shows that the data provider gives more than one header.
+7. Now under :guilabel:`Sample Data`, we can inspect the data even before loading it as a layer. The representation shows that the data table contains  2 header rows.
 
   .. image:: /static/3/performing_table_joins/images/07.png
      :align: center
 
-8. To eliminate the additional header, under :guilabel:`Record and Fields Options` increase the :guilabel:`Number of header line to discard` to ``1``. Now the table will contain proper column headers. Click :guilabel:`Add` to add it as a layer and then click :guilabel:`Close` this dialog box. 
+8. To eliminate the additional header row, under :guilabel:`Record and Fields Options` set the :guilabel:`Number of header line to discard` to ``1``. Now the table will contain proper column headers. Click :guilabel:`Add` to add it as a layer and then click :guilabel:`Close` this dialog box. 
 
   .. image:: /static/3/performing_table_joins/images/08.png
      :align: center
@@ -158,7 +162,7 @@ Procedure
   .. image:: /static/3/performing_table_joins/images/09.png
      :align: center
 
-10. The ``ID`` column contains the unique id for each record, which can be used to perform a table join. But each id is attached with an additional character *1400000US*, which has to be removed, and the remaining 11 characters can be used to match the census tract layer.  
+10. The ``ID`` column contains the unique id for each record, which can be used to join this table with the ``tl_2019_06_tract`` layer. If you compare the values of the ``ID`` with the ``GEOID`` column from the  ``tl_2019_06_tract``. you will notice that it is prefixed with *1400000US*. To merge these two tables successfully, the values must match exactly. Let's remove this prefix and add a new column with the last 11 characters which contain the value that is an exact match.
 
   .. image:: /static/3/performing_table_joins/images/10.png
      :align: center
@@ -173,7 +177,7 @@ Procedure
   .. image:: /static/3/performing_table_joins/images/12.png
      :align: center
 
-13. Enter the below expression, and the *-11* will count 11 characters in reverse and extract them. The final result can be viewed in the :guilabel:`Preview` section. Click :guilabel:`Run`. 
+13. Enter the below expression. We use the `substr` function and extract the value from position *-11* (negative value is counted from the end). The final result can be viewed in the :guilabel:`Preview` section. Click :guilabel:`Run`. 
 
   .. code-block::
 
@@ -182,7 +186,7 @@ Procedure
   .. image:: /static/3/performing_table_joins/images/13.png
      :align: center
 
-14. Now a new layer ``Calculated`` will be loaded in the canvas, lets inspect the attribute table. A new column ``geoid`` with the id that can be matched with the cencus tract will be present. 
+14. Now a new layer ``Calculated`` will be loaded in the canvas, lets inspect the attribute table. A new column ``geoid`` with the value that can be matched with the cencus tract will be present. 
 
   .. image:: /static/3/performing_table_joins/images/14.png
      :align: center
@@ -202,7 +206,7 @@ Procedure
   .. image:: /static/3/performing_table_joins/images/17.png
      :align: center
 
-18. Check the :guilabel:`Discard records which could not be joined`. This will eliminate the additional one record in the population table. Click the :guilabel:`...` button under :guilabel:`joined layer` to select the output file location and select ``Save to File...``.
+18. Check the :guilabel:`Discard records which could not be joined`. This will eliminate any extra records in the population table. Click the :guilabel:`...` button under :guilabel:`joined layer` to select the output file location and select ``Save to File...``.
 
   .. image:: /static/3/performing_table_joins/images/18.png
      :align: center
@@ -271,7 +275,7 @@ Procedure
   .. image:: /static/3/performing_table_joins/images/29.png
      :align: center
 
-30.  Once your satisfied close the Layer styling panel. 
+30.  Once your satisfied close the Layer styling panel. We now have a nice looking information visualization of population density in California.
 
   .. image:: /static/3/performing_table_joins/images/30.png
      :align: center
