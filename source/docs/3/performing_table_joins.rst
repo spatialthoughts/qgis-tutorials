@@ -29,7 +29,7 @@ Download Census Table
   .. image:: /static/3/performing_table_joins/images/data01.png
      :align: center
 
-2.  Click on the :guilabel:`Filter` icon in top-left. 
+2.  Click on the :guilabel:`Filters` icon in top-left. 
 
   .. image:: /static/3/performing_table_joins/images/data02.png
      :align: center
@@ -49,7 +49,7 @@ Download Census Table
   .. image:: /static/3/performing_table_joins/images/data05.png
      :align: center
 
-6.  Check :guilabel:`All Census Tracts within California`. This all us to download all information as a single file instead of downloading it separately for each tract. Now that we have set the geography, click on :guilabel:`Topics`. 
+6.  Check :guilabel:`All Census Tracts within California`. This allows us to download all information as a single file instead of downloading it separately for each tract. Now that we have set the geography, click on :guilabel:`Topics`. 
 
   .. image:: /static/3/performing_table_joins/images/data06.png
      :align: center
@@ -59,7 +59,7 @@ Download Census Table
   .. image:: /static/3/performing_table_joins/images/data07.png
      :align: center
 
-8.  Check the :guilabel:`Population and People`.  Now we have selected all the necessary filters. Close the filter window. 
+8.  Check the :guilabel:`Population and People`. Now we have selected all the necessary filters. Close the filter window. 
 
   .. image:: /static/3/performing_table_joins/images/data08.png
      :align: center
@@ -152,7 +152,7 @@ Procedure
   .. image:: /static/3/performing_table_joins/images/07.png
      :align: center
 
-8. To eliminate the additional header row, under :guilabel:`Record and Fields Options` set the :guilabel:`Number of header line to discard` to ``1``. Now the table will contain proper column headers. Click :guilabel:`Add` to add it as a layer and then click :guilabel:`Close` this dialog box. 
+8. To eliminate the additional header row, under :guilabel:`Record and Fields Options` set the :guilabel:`Number of header line to discard` to ``1``. Now the table will contain proper column headers. Click :guilabel:`Add` to add it as a layer and then click :guilabel:`Close` to close this dialog box. 
 
   .. image:: /static/3/performing_table_joins/images/08.png
      :align: center
@@ -191,7 +191,7 @@ Procedure
   .. image:: /static/3/performing_table_joins/images/14.png
      :align: center
 
-15. To create a table join, open the Processing Toolbox by going to :menuselection:`Processing --> Toolbox`, and search and locate the :menuselection:`Vector table --> Join attributes by field value` algorithm. 
+15. To create a table join, open the Processing Toolbox by going to :menuselection:`Processing --> Toolbox`, and search and locate the :menuselection:`Vector general --> Join attributes by field value` algorithm. 
 
   .. image:: /static/3/performing_table_joins/images/15.png
      :align: center
@@ -255,7 +255,7 @@ Procedure
   .. image:: /static/3/performing_table_joins/images/25.png
      :align: center
      
-26. The higher density concerns more so, let's assign green to lower density and reg to high-density areas. Click on the color ramp and choose :guilabel:`Invert Color Ramp`. 
+26. The higher density concerns more so, let's assign green to lower density and red to high-density areas. Click on the color ramp and choose :guilabel:`Invert Color Ramp`. 
 
   .. image:: /static/3/performing_table_joins/images/26.png
      :align: center
