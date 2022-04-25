@@ -38,6 +38,7 @@ QGIS Tutorials and Tips
    - :doc:`docs/3/processing_graphical_modeler`
    - :doc:`docs/3/automating_map_creation`
    - :doc:`docs/3/multi_criteria_overlay`
+   - :doc:`docs/3/calculating_raster_area`
 
 * Network Analysis
    - :doc:`docs/3/basic_network_analysis`
@@ -106,6 +107,7 @@ What next? Hungry for more QGIS materials? Work through my full length QGIS cour
    docs/3/batch_processing
    docs/3/processing_graphical_modeler
    docs/3/automating_map_creation
+   docs/3/calculating_raster_area
    docs/3/multi_criteria_overlay
    docs/3/basic_network_analysis
    docs/3/origin_destination_matrix
