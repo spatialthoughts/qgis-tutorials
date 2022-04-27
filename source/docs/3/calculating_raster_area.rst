@@ -5,7 +5,7 @@ Many applications require quantifying the landuse patterns in a region. Land Use
 
 .. note::
 
-	Historically, the suggested approach for calculating areas for rasters was to convert the raster to a vector layer and use vector area calculation techniques. This approach is quite computationally intensive and error-prone. The suggested approach is to use the processing tool **Raster layer unique values report** which can directly compute the pixel areas. If you have a layer with many polygons and need areas for each of them, you can use the **Zonal histogram** tool to get pixel counts for each class and then multiply it with the area of each pixel.
+	Historically the suggested approach for calculating areas for rasters was to convert the raster to a vector layer and use vector area calculation techniques. This approach is quite computationally intensive and error-prone. The recommended approach is to use the processing tool **Raster layer unique values report** which can directly compute the pixel areas. If you have a layer with many polygons and need areas for each of them, you can use the **Zonal histogram** tool to get pixel counts for each class and then multiply it with the area of each pixel.
 
 Overview of the task
 --------------------
