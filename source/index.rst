@@ -24,13 +24,14 @@ QGIS Tutorials and Tips
    - :doc:`docs/3/performing_table_joins`
    - :doc:`docs/3/performing_spatial_joins`
    - :doc:`docs/3/performing_spatial_queries`
+   - :doc:`docs/3/nearest_neighbor_analysis`
+   - :doc:`docs/3/sampling_raster_data`
+   - :doc:`docs/3/calculating_raster_area`
    - :doc:`docs/3/creating_heatmaps`
    - :doc:`docs/3/animating_time_series`
    - :doc:`docs/3/handling_invalid_geometries`
 
 * Advanced GIS operations
-   - :doc:`docs/3/nearest_neighbor_analysis`
-   - :doc:`docs/3/sampling_raster_data`
    - :doc:`docs/3/advanced_raster_analysis`
    - :doc:`docs/3/interpolating_point_data`
    - :doc:`docs/3/calculating_intersection_density`
@@ -38,7 +39,6 @@ QGIS Tutorials and Tips
    - :doc:`docs/3/processing_graphical_modeler`
    - :doc:`docs/3/automating_map_creation`
    - :doc:`docs/3/multi_criteria_overlay`
-   - :doc:`docs/3/calculating_raster_area`
 
 * Network Analysis
    - :doc:`docs/3/basic_network_analysis`
@@ -95,19 +95,19 @@ What next? Hungry for more QGIS materials? Work through my full length QGIS cour
    docs/3/digitizing_basics
    docs/3/performing_table_joins
    docs/3/performing_spatial_joins
-   docs/3/creating_heatmaps
-   docs/3/animating_time_series
-   docs/3/handling_invalid_geometries
    docs/3/performing_spatial_queries
    docs/3/nearest_neighbor_analysis
    docs/3/sampling_raster_data
+   docs/3/calculating_raster_area
+   docs/3/creating_heatmaps
+   docs/3/animating_time_series
+   docs/3/handling_invalid_geometries
    docs/3/advanced_raster_analysis
    docs/3/interpolating_point_data
    docs/3/calculating_intersection_density
    docs/3/batch_processing
    docs/3/processing_graphical_modeler
    docs/3/automating_map_creation
-   docs/3/calculating_raster_area
    docs/3/multi_criteria_overlay
    docs/3/basic_network_analysis
    docs/3/origin_destination_matrix

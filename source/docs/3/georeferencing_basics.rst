@@ -121,6 +121,7 @@ Procedure
 
   .. image:: /static/3/georeferencing_basics/images/15.png
      :align: center
+	 
 16. Drag and drop the ``OpenStreetMap`` as Base Map from the :guilabel:`XYZ Tiles` dropdown at the bottom of the Browser panel to verify the georeferenced layer. To set the transparency, click on the :guilabel:`Open layer styling panel` icon  and select :guilabel:`Transparency` tab. Set the transparency to ``40 %``. Now the georeferenced image must overlay with the basemap outline. 
 
   .. image:: /static/3/georeferencing_basics/images/16.png

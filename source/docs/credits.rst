@@ -20,7 +20,6 @@ Data Credits
 - :doc:`3/processing_graphical_modeler`
 - :doc:`3/advanced_raster_analysis`
 - :doc:`3/travel_time_analysis`
-- :doc:`3/calculating_raster_area`
 
 
 .. [NATURALEARTH] Made with Natural Earth. Free vector and raster map data
@@ -208,7 +207,7 @@ Data Credits
 
 - :doc:`3/calculating_raster_area`
 
-.. [WDPA] UNEP-WCMC (2022). Protected Area Profile for Kaziranga National Park from the World Database of Protected Areas, April 2022. Available at: `www.protectedplanet.net <www.protectedplanet.net>`_
+.. [WDPA] UNEP-WCMC and IUCN (2022), Protected Planet: The World Database on Protected Areas (WDPA) and World Database on Other Effective Area-based Conservation Measures (WD-OECM) [Online], April 2022, Cambridge, UK: UNEP-WCMC and IUCN. Available at: www.protectedplanet.net.
 
 .. [WorldCover] Zanaga, D., Van De Kerchove, R., De Keersmaecker, W., Souverijns, N., Brockmann, C., Quast, R., Wevers, J., Grosu, A., Paccini, A., Vergnaud, S., Cartus, O., Santoro, M., Fritz, S., Georgieva, I., Lesiv, M., Carter, S., Herold, M., Li, Linlin, Tsendbazar, N.E., Ramoino, F., Arino, O., 2021. ESA WorldCover 10 m 2020 v100. https://doi.org/10.5281/zenodo.5571936 
 
