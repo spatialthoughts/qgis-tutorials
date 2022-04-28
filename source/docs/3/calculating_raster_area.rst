@@ -284,7 +284,7 @@ Procedure
   .. image:: /static/3/calculating_raster_area/images/28.png
      :align: center
 
-29. Under the :guilabel:`Refactored`, click on ``...`` and choose :guilabel:`Save To File...`. Enter the name as ``park_ara_by_landcover.xlxs``. Click :guilabel:`Run`. 
+29. Now switch the order of the fields by using the :guilabel:`Move Selected Fields` button. Under the :guilabel:`Refactored`, click on ``...`` and choose :guilabel:`Save To File...`. Enter the name as ``park_ara_by_landcover.xlxs``. Click :guilabel:`Run`. 
 
   .. image:: /static/3/calculating_raster_area/images/29.png
      :align: center
