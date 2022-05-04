@@ -103,7 +103,7 @@ Procedure
   .. image:: /static/3/advanced_raster_analysis/images/05.png
     :align: center
 
-6. The default output data format is GeoTiff. GeoTiff files can get very large if they are not compressed. A good practice is to always apply a loss-less compression when creating new raster layers. Expand :guilabel:`Advanced Parameters` and choose ``High Compression`` as the :guilabel:`Profile`. Next, click the ``...`` button next to :guilabel:`Clipped (mask)` and select :guilabel:`Save to file... ` to enter layer name as ``SA_NLC_2018_Clipped``. Click :guilabel:`Run`.
+6. The default output data format is GeoTiff. GeoTiff files can get very large if they are not compressed. A good practice is to always apply a loss-less compression when creating new raster layers. Expand :guilabel:`Advanced Parameters` and choose ``High Compression`` as the :guilabel:`Profile`. Next, click the ``...`` button next to :guilabel:`Clipped (mask)` and select :guilabel:`Save to file...` to enter layer name as ``SA_NLC_2018_Clipped``. Click :guilabel:`Run`.
 
   .. image:: /static/3/advanced_raster_analysis/images/06.png
     :align: center
@@ -123,7 +123,7 @@ Procedure
   .. image:: /static/3/advanced_raster_analysis/images/09.png
     :align: center
 
-10. Now the project CRS will be set to ``EPSG:4326``. 
+10. Now the project CRS will be set to ``EPSG:4326``. Bring the :guilabel:`SA_NLC_2018_Clipped` layer to top. 
 
   .. image:: /static/3/advanced_raster_analysis/images/10.png
     :align: center
