@@ -43,7 +43,8 @@ Procedure
 	.. image:: /static/3/working_with_wms/images/2.png
 	   :align: center
 
-3. In the :guilabel:`Create a New WMS/WMTS Connection` dialog box under :guilabel:`Connection Details` enter the :guilabel:`Name` as ``SEDAC``, and paste the copied URL in :guilabel:`URL` textbox. Click :guilabel:`OK`. 
+3. In the :guilabel:`Create a New WMS/WMTS Connection` dialog box under :guilabel:`Connection Details` enter the :guilabel:`Name` as ``SEDAC``, and paste the copied URL in :guilabel:`URL` textbox. Click :guilabel:`OK`. If you get an error with the copied URL, try with the alternate URL ``https://sedac.ciesin.columbia.edu/geoserver/ows``.
+
 
 	.. image:: /static/3/working_with_wms/images/3.png
 	   :align: center
