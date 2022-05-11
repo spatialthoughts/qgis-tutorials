@@ -224,7 +224,7 @@ Procedure
    :align: center
 
 24. Multi-Polygon layers offer another very useful setting called **Avoid
-    intersections of new polygons**. Select :guilabel:`Enable Snapping` (Magnet Icon), click on it to enable it and click :guilabel:` All Layers` and select ``Advanced Configuration``. Choose ``Avoid Overlap on Active layers`` from the forth button in Enable snapping toolbar.  Now in :guilabel:`Edit Advanced Configuration` Check the box in the :guilabel:`Avoid Overlap` column in
+    intersections of new polygons**. Select :guilabel:`Enable Snapping` (Magnet Icon), click on it to enable it and click :guilabel:`All Layers` and select ``Advanced Configuration``. Click the  ``Avoid Overlap on Active layers`` button in the snapping toolbar.  Now in :guilabel:`Edit Advanced Configuration` Check the box in the :guilabel:`Avoid Overlap` column in
     the row for the ``Parks`` layer. 
 
 .. image:: /static/3/digitizing_basics/images/24.png
