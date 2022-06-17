@@ -284,7 +284,7 @@ Procedure
   .. image:: /static/3/calculating_raster_area/images/28.png
      :align: center
 
-29. You can also change the order of fields in the table using the :guilabel:`Move Selected Fields` button. Once you are done with the edits, click on the ``...`` button next to :guilabel:`Refactored` and choose :guilabel:`Save To File...`. Select ``XLSX Files (*.xlsx)`` as the format. Enter the file name as ``park_area_by_landcover.xlxs`` and click :guilabel:`Save`. In the :guilabel:`Refactor Fields` dialog, click :guilabel:`Run` to apply your changes.
+29. You can also change the order of fields in the table using the :guilabel:`Move Selected Fields` button. Once you are done with the edits, click on the ``...`` button next to :guilabel:`Refactored` and choose :guilabel:`Save To File...`. Select ``XLSX Files (*.xlsx)`` as the format. Enter the file name as ``park_area_by_landcover.xlsx`` and click :guilabel:`Save`. In the :guilabel:`Refactor Fields` dialog, click :guilabel:`Run` to apply your changes.
 
   .. image:: /static/3/calculating_raster_area/images/29.png
      :align: center
