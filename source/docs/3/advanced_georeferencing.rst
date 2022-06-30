@@ -47,6 +47,10 @@ Procedure
   .. image:: /static/3/advanced_georeferencing/images/03.png
      :align: center
 
+.. note::
+
+  In QGIS versions 3.26 or higher, launch the **Georeferencer** from :menuselection:`Layer --> Georeferencer`.
+
 4. For georeferencing an aerial image, we have to choose coordinate points from the OpenStreetMap, so let's first dock the Georeferencer tool into to main QGIS window. Select Configure Georeference from :menuselection:`Settings --> Configure Georeferencer`.
 
   .. image:: /static/3/advanced_georeferencing/images/04.png
