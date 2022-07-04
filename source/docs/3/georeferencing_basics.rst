@@ -31,12 +31,13 @@ Procedure
 
 1. Open QGIS and click on :menuselection:`Raster --> Georeferencer` to open the tool.
 
+  .. note::
+  
+	From QGIS versions 3.26 onwards, the **Georeferencer** can be launched from :menuselection:`Layer --> Georeferencer`.
+
   .. image:: /static/3/georeferencing_basics/images/01.png
      :align: center
 
-.. note::
-
-  In QGIS versions 3.26 or higher, launch the **Georeferencer** from :menuselection:`Layer --> Georeferencer`.
 
 2. The Georeferencer is divided into 2 sections. The top section where the image will be displayed and the bottom section where a table showing your GCPs will appear.
 

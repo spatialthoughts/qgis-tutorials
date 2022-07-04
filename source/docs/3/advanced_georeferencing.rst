@@ -43,13 +43,13 @@ Procedure
      :align: center
 
 3. The map canvas will be centered to the Square Park. Now let's start georeferencing. Launch the **Georeferencer** from :menuselection:`Raster --> Georeferencer`.
-
+  
+  .. note::
+  
+	From QGIS versions 3.26 onwards, the **Georeferencer** can be launched from :menuselection:`Layer --> Georeferencer`.
+	
   .. image:: /static/3/advanced_georeferencing/images/03.png
      :align: center
-
-.. note::
-
-  In QGIS versions 3.26 or higher, launch the **Georeferencer** from :menuselection:`Layer --> Georeferencer`.
 
 4. For georeferencing an aerial image, we have to choose coordinate points from the OpenStreetMap, so let's first dock the Georeferencer tool into to main QGIS window. Select Configure Georeference from :menuselection:`Settings --> Configure Georeferencer`.
 
