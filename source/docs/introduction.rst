@@ -20,7 +20,7 @@ source code is open-source and avaiable on `GitHub <https://github.com/spatialth
 
 Contributors
 ^^^^^^^^^^^^
-- `Santhosh M <mailto:santhoshm@spatialthoughts.com>`_ 
+- `Santhosh M <https://www.linkedin.com/in/santhoshm31>`_ 
 - `Ian Turton <https://www.ianturton.com/>`_ 
 
 Translations
