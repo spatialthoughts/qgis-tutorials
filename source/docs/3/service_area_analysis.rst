@@ -82,7 +82,7 @@ Procedure
   .. image:: /static/3/service_area_analysis/images/5.png
     :align: center
 
-6. Select ``shapes`` as the :guilabel:`Input point layer`. As per GTFS specifications, each individual route has a unique ``shape_id`` so select that as the :guilabel:`Group field`. We can also specify the order of points that will form the line by selecting ``shape_pt_sequence`` as the :guilabel:`Order field`. Click :guilabel:`Run`.
+6. In the :guilabel:`Points to Path` dialog, select ``shapes`` as the :guilabel:`Input point layer`. As per GTFS specifications, each individual route has a unique ``shape_id`` so select that from the drop-down menu as the :guilabel:`Path group expression`. We can also specify the order of points that will form the line by selecting ``shape_pt_sequence`` as the :guilabel:`Order expression`. Click :guilabel:`Run`.
 
   .. image:: /static/3/service_area_analysis/images/6.png
     :align: center
