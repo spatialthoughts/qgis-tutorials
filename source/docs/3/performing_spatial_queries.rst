@@ -55,7 +55,7 @@ Procedure
   .. image:: /static/3/performing_spatial_queries/images/3.png
      :align: center
 
-4. You will see a new ``Bars_and_pubs__with_patron_capacity`` layer added to the :guilabel:`Layers` panel. Both of the input layers are in the Geograhpic Coordinate Reference System (CRS) ``EPSG:436 WGS84``. For performing spatial analysis, it is recommended to use a Projected Coordinate Reference System (CRS). So we will now re-project both the layers to an appropriate regional CRS that minimizes distortions and allows us to work in units of distance such as meters instead of degrees. Go to :menuselection:`Processing --> Toolbox`.
+4. You will see a new ``Bars_and_pubs__with_patron_capacity`` layer added to the :guilabel:`Layers` panel. Both of the input layers are in the Geograhpic Coordinate Reference System (CRS) ``EPSG:4326 WGS84``. For performing spatial analysis, it is recommended to use a Projected Coordinate Reference System (CRS). So we will now re-project both the layers to an appropriate regional CRS that minimizes distortions and allows us to work in units of distance such as meters instead of degrees. Go to :menuselection:`Processing --> Toolbox`.
 
   .. image:: /static/3/performing_spatial_queries/images/4.png
      :align: center
@@ -109,7 +109,7 @@ Procedure
   .. image:: /static/3/performing_spatial_queries/images/13.png
      :align: center
 
-14. In the :guilabel:`Buufer` dialog, select ``metro_stations`` as the :guilabel:`Input layer`. Set ``500`` meters as the :guilabel:`Distance`. Save the output to the same ``spatialquery`` geopackage and enter ``metro_stations_buffers`` as the :guilabel:`Layer name`. Click :guilabel:`Run`.
+14. In the :guilabel:`Buffer` dialog, select ``metro_stations`` as the :guilabel:`Input layer`. Set ``500`` meters as the :guilabel:`Distance`. Save the output to the same ``spatialquery`` geopackage and enter ``metro_stations_buffers`` as the :guilabel:`Layer name`. Click :guilabel:`Run`.
 
   .. image:: /static/3/performing_spatial_queries/images/14.png
      :align: center
