@@ -152,7 +152,7 @@ Procedure
   .. image:: /static/3/performing_table_joins/images/07.png
      :align: center
 
-8. To eliminate the additional header row, under :guilabel:`Record and Fields Options` set the :guilabel:`Number of header line to discard` to ``1``. Now the table will contain proper column headers. Click :guilabel:`Add` to add it as a layer and then click :guilabel:`Close` to close this dialog box. 
+8. To eliminate the additional header row, under :guilabel:`Record and Fields Options` set the :guilabel:`Number of header line to discard` to ``1``. Now the table will contain proper column headers. Since this layer contains only tabular data, select ``No geometry (attribute only table)`` under :guilabel:`Geometry Definition`. Click :guilabel:`Add` to add it as a layer and then click :guilabel:`Close` to close this dialog box. 
 
   .. image:: /static/3/performing_table_joins/images/08.png
      :align: center
