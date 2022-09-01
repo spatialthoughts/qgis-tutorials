@@ -3,7 +3,8 @@
 # https://github.com/qgis/QGIS-Documentation/blob/master/Makefile
 
 # You can set these variables from the command line.
-LANGUAGES     = en nl es fa it sl tr zh_TW th uk ko vi id el fi_FI ro pt_BR ru fr de
+# LANGUAGES     = en nl es fa it sl tr zh_TW th uk ko vi id el fi_FI ro pt_BR ru fr de
+LANGUAGES     = en nl es fa it sl tr zh_TW ko id el ro ru de
 PDF_LANGUAGES = en
 LANG          = en
 SPHINXBUILD   = sphinx-build
