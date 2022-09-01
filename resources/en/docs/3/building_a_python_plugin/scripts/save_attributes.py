@@ -221,7 +221,7 @@ class SaveAttributes:
             # write header
             line = ','.join(name for name in fieldnames) + '\n'
             output_file.write(line)
-            # wirte feature attributes
+            # write feature attributes
             for f in selectedLayer.getFeatures():
               line = ','.join(str(f[name]) for name in fieldnames) + '\n'
               output_file.write(line)
