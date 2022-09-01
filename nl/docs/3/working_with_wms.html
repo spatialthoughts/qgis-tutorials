@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+
+<html lang="nl">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>Werken met gegevens van WMS (QGIS3) &#8212; QGIS Tutorials and Tips</title>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-sphinx.css" />
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/translations.js"></script>
+    <link rel="search" title="Zoeken" href="../../search.html" />
+    <link rel="next" title="Werken met projecties (QGIS3)" href="working_with_projections.html" />
+    <link rel="prev" title="Werken met gegevens over het terrein (QGIS3)" href="working_with_terrain.html" />
+
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<script type="text/javascript" src="../../_static/js/jquery-1.11.0.min.js "></script>
+<script type="text/javascript" src="../../_static/js/jquery-fix.js "></script>
+<script type="text/javascript" src="../../_static/bootstrap-3.3.7/js/bootstrap.min.js "></script>
+<script type="text/javascript" src="../../_static/bootstrap-sphinx.js "></script>
+
+
+<!-- Cookie Notice -->
+<!-- Script from https://github.com/AOEpeople/cookie-notice -->
+<script type="text/javascript" src="../../_static/cookie.notice.min.js"></script>
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-B1WQ7B80XJ"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-B1WQ7B80XJ');
+</script>
+
+
+  </head><body>
+
+  <div id="navbar" class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="../../index.html"><span><img src="../../_static/logo.png"></span>
+          QGIS Tutorials and Tips</a>
+        <span class="navbar-text navbar-version pull-left"><b>v1</b></span>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="../../index.html">Tutorials List <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"><ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../introduction.html">Introductie</a></li>
+<li class="toctree-l1"><a class="reference internal" href="making_a_map.html">Een kaart maken (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="working_with_attributes.html">Werken met attributen (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="importing_spreadsheets_csv.html">Werkbladen of CSV-bestanden importeren (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="basic_vector_styling.html">Basis opmaken van vectoren (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="calculating_line_lengths.html">Lengten van lijnen en statistieken berekenen (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="raster_styling_and_analysis.html">Basis opmaken en analyses van rasters (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="raster_mosaicing_and_clipping.html">Rasters mozaïeken en clippen (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="working_with_terrain.html">Werken met gegevens over het terrein (QGIS3)</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Werken met gegevens van WMS (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="working_with_projections.html">Werken met projecties (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="georeferencing_basics.html">Topobladen en gescande kaarten voorzien van geoverwijzingen (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="advanced_georeferencing.html">Geo-verwijzingen voor satellietbeelden (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="digitizing_basics.html">Kaartgegevens digitaliseren</a></li>
+<li class="toctree-l1"><a class="reference internal" href="performing_table_joins.html">Samenvoegen van tabellen uitvoeren (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="performing_spatial_joins.html">Ruimtelijke samenvoegingen uitvoeren (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="performing_spatial_queries.html">Ruimtelijke query’s uitvoeren (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="nearest_neighbor_analysis.html">Analyse Nearest Neighbor (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="sampling_raster_data.html">Monsters nemen van rastergegevens met behulp van punten of polygonen (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="calculating_raster_area.html">Rastergebied berekenen (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="creating_heatmaps.html">Heatmaps maken (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="animating_time_series.html">Geanimeerde gegevens tijdreeks (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="handling_invalid_geometries.html">Ongeldige geometrieën afhandelen (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="advanced_raster_analysis.html">Gevorderde rasteranalyses (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="interpolating_point_data.html">Interpoleren van puntgegevens</a></li>
+<li class="toctree-l1"><a class="reference internal" href="calculating_intersection_density.html">Dichtheid van straatkruisingen berekenen (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="batch_processing.html">Massa verwerken met behulp van Framework Processing (QGIS 3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="processing_graphical_modeler.html">Complexe werkstromen automatiseren met behulp van Grafische modellen bouwen (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="automating_map_creation.html">Maken van kaarten automatiseren met Atlas van afdruklay-out (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="multi_criteria_overlay.html">Multi Criteria Overlay Analyse (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="basic_network_analysis.html">Basis netwerk visualisatie en routeren (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="origin_destination_matrix.html">Dichtstbijzijnde faciliteit zoeken met Origin-Destination Matrix (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="service_area_analysis.html">Analyse Servicegebied met Openrouteservice (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="travel_time_analysis.html">Reistijd-analyse met Uber Movement (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="areal_mean_rainfall.html">Berekenen gemiddelde regenval voor gebied (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="getting_started_with_pyqgis.html">Beginnen met programmeren in Python (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="processing_algorithms_pyqgis.html">Algoritmes van Processing uitvoeren via Python (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="custom_python_functions.html">Aangepaste Python expressie-functies gebruiken (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="processing_python_scripts.html">Python-scripts schrijven voor framework Processing (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="building_a_python_plugin.html">Een plug-in in Python bouwen (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="processing_python_plugin.html">Een plug-in voor Processing bouwen (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../running_qgis_jobs.html">Taken voor QGIS uitvoeren en in schema zetten</a></li>
+<li class="toctree-l1"><a class="reference internal" href="web_mapping_with_qgis2web.html">In kaart brengen op het web met QGIS2Web (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../creating_basemaps_with_qtiles.html">Basiskaarten maken met QTiles</a></li>
+<li class="toctree-l1"><a class="reference internal" href="using_plugins.html">Plug-ins gebruiken (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../downloading_osm_data.html">Zoeken en downloaden van gegevens van OpenStreetMap</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../learning_resources.html">QGIS bronnen om te leren</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../credits.html">Gebruik van gegevens</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../batch_processing.html">Massa verwerken met behulp van Framework Processing (QGIS2)</a></li>
+</ul>
+</ul>
+</li>
+              
+            
+            
+              
+                
+  <li>
+    <a href="working_with_terrain.html" title="Previous Chapter: Werken met gegevens over het terrein (QGIS3)"><span class="glyphicon glyphicon-chevron-left visible-sm"></span><span class="hidden-sm hidden-tablet">&laquo; Werken met ge...</span>
+    </a>
+  </li>
+  <li>
+    <a href="working_with_projections.html" title="Next Chapter: Werken met projecties (QGIS3)"><span class="glyphicon glyphicon-chevron-right visible-sm"></span><span class="hidden-sm hidden-tablet">Werken met pr... &raquo;</span>
+    </a>
+  </li>
+              
+            
+            
+
+            
+
+            
+              <li class="hidden-sm"></li>
+            
+          </ul>
+
+          
+            
+<form class="navbar-form navbar-right" action="../../search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+      <div class="col-md-3">
+        <div id="sidebar" class="bs-sidenav" role="complementary"><h4>Author</h4>
+<p>Ujaval Gandhi</p>
+<a href="https://twitter.com/intent/follow?screen_name=spatialthoughts" class="twitter-follow-button" data-show-count="false">Follow @spatialthoughts</a>
+<hr>
+<p>Want to learn QGIS in a structured way? Check out <a href="https://spatialthoughts.com/" target="_blank">Spatial Thoughts</a> for more learning materials and instructor-led online programs with QGIS.org certification.</p>
+
+
+<h4>Change Language</h4>
+<form role="form" class="sidebar-form sidebar-left">
+<select id="languages" class="form-control select-mini">
+  <option value="en">English</option>
+  <option value="zh_TW">Chinese (Taiwan)</option>
+  <option value="nl">Dutch</option>
+  <option value="fi_FI">Finnish</option>
+  <option value="fr">French</option>
+  <option value="de">German</option>
+  <option value="el">Greek</option>
+  <option value="id">Indonesian</option>
+  <option value="it">Italian</option>
+  <option value="ko">Korean</option>
+  <option value="fa">Persian</option>
+  <option value="pt_BR">Portuguese</option>
+  <option value="ro">Romanian</option>
+  <option value="ru">Russian</option>
+  <option value="sl">Slovenian</option>
+  <option value="es">Spanish</option>
+  <option value="th">Thai</option>
+  <option value="tr">Turkish</option>
+  <option value="uk">Ukrainian</option>
+  <option value="vi">Vietnamese</option>
+</select>
+</form>
+        </div>
+      </div>
+    <div class="body col-md-9 content" role="main">
+      
+
+  <section id="working-with-wms-data-qgis3">
+<h1>Werken met gegevens van WMS (QGIS3)<a class="headerlink" href="#working-with-wms-data-qgis3" title="Permalink naar deze titel">¶</a></h1>
+<p>Vaak zult u moeten verwijzen naar gegevenslagen voor uw basiskaart of om uw resultaten weer te kunnen geven in andere gegevenssets. Vele organisaties publiceren gegevenssets online die voor direct gebruik in GIS gereed zijn. Een populaire standaard voor het online publiceren van kaarten is genaamd <strong>WMS (Web Map Service)</strong>. Dit is een betere keuze om verwijzingslagen te gebruiken omdat u toegang krijgt tot rijke gegevenssets in uw GIS zonder het gedoe van het downloaden op opmaken van de gegevens.</p>
+<section id="overview-of-the-task">
+<h2>Overzicht van de taak<a class="headerlink" href="#overview-of-the-task" title="Permalink naar deze titel">¶</a></h2>
+<p>Voor deze handleiding zullen we een WMS-laag laden van <a class="reference external" href="https://sedac.ciesin.columbia.edu/data/set/lulc-global-grid-prob-urban-expansion-2030">Urban Expansion to 2030</a> gepubliceerddoor het Socioeconomic Data and Applications Center (SEDAC).</p>
+</section>
+<section id="other-skills-you-will-learn">
+<h2>Andere vaardigheden die u zult leren<a class="headerlink" href="#other-skills-you-will-learn" title="Permalink naar deze titel">¶</a></h2>
+<ul class="simple">
+<li><p>Hoe de transparantie van een laag aan te passen en het   toevoegen van een widget schuifbalk voor het beheren van doorzichtbaarheid in QGIS.</p></li>
+</ul>
+</section>
+<section id="get-the-data">
+<h2>De gegevens ophalen<a class="headerlink" href="#get-the-data" title="Permalink naar deze titel">¶</a></h2>
+<ol class="arabic simple">
+<li><p>Bezoek de <a class="reference external" href="https://sedac.ciesin.columbia.edu/data/set/lulc-global-grid-prob-urban-expansion-2030">Global Grid of Probabilities of Urban Expansion by SEDAC</a>, deze gegevens bevatten geschatte vooruitzichten voor wijzigingen in de globale stedelijke landbedekking van 2000 tot en met 2030 op een 2.5 arc-minute resolutie. Klik op <span class="guilabel">Map Services</span>.</p></li>
+</ol>
+<img alt="../../_images/data117.png" class="align-center" src="../../_images/data117.png" />
+<ol class="arabic simple" start="2">
+<li><p>Kopieer de URL voor de service WMS. Dit is de URL naar de WMS-service die de gegevenslaag host.</p></li>
+</ol>
+<img alt="../../_images/data24.png" class="align-center" src="../../_images/data24.png" />
+</section>
+<section id="procedure">
+<h2>Procedure<a class="headerlink" href="#procedure" title="Permalink naar deze titel">¶</a></h2>
+<ol class="arabic">
+<li><p>Open QGIS en klik op <span class="guilabel">Databronnen beheren openen</span>.</p>
+<blockquote>
+<div><img alt="../../_images/1146.png" class="align-center" src="../../_images/1146.png" />
+</div></blockquote>
+</li>
+<li><p>Schakel, in het dialoogvenster <span class="guilabel">Databronnen beheren</span>, naar <span class="guilabel">WMS/WMTS</span>, klik op <span class="guilabel">Nieuw</span>.</p>
+<blockquote>
+<div><img alt="../../_images/2122.png" class="align-center" src="../../_images/2122.png" />
+</div></blockquote>
+</li>
+<li><p>Voer, in het dialoogvenster <span class="guilabel">Nieuwe WMS/WMTS-verbinding maken</span> het vak <span class="guilabel">Naam</span> onder <span class="guilabel">Verbindingsdetails</span> in als <code class="docutils literal notranslate"><span class="pre">SEDAC</span></code>, en plak de gekopieerde URL in het tekstvak <span class="guilabel">URL</span>. Klik op <span class="guilabel">OK</span>. Als u een fout krijgt met de gekopieerde URL, probeer dan de alternatieve URL <code class="docutils literal notranslate"><span class="pre">https://sedac.ciesin.columbia.edu/geoserver/ows</span></code>.</p>
+<blockquote>
+<div><img alt="../../_images/355.png" class="align-center" src="../../_images/355.png" />
+</div></blockquote>
+</li>
+</ol>
+<div class="admonition note">
+<p class="admonition-title">Notitie</p>
+<p>U maakt nu een nieuwe verbinding naar een WMS-service - niet naar een specifieke laag. Eén enkele service biedt gewoonlijk meerdere lagen aan di kunnen worden toegevoegd aan uw project.</p>
+</div>
+<ol class="arabic" start="4">
+<li><p>Klik vervolgens, in het dialoogvenster <span class="guilabel">Databronnen beheren</span>, op de knop <span class="guilabel">Verbinden</span>. Alle beschikbare lagen zullen wordne geladen. U zullen de verschillende ID’s opvallen die zijn vermeld naast de lagen. ID <code class="docutils literal notranslate"><span class="pre">0</span></code> betekent dat u een kaart van alle lagen krijgt. Als u niet alle lagen wilt, kunt u de lijst uitbreiden door te klikken op het pictogram <span class="guilabel">▸</span> en de laag van uw interesse selecteren. Selecteer voor deze handleiding de laag <code class="docutils literal notranslate"><span class="pre">0</span></code>.</p>
+<blockquote>
+<div><img alt="../../_images/432.png" class="align-center" src="../../_images/432.png" />
+</div></blockquote>
+</li>
+<li><p>Voor deze handleiding zijn we geïnteresseerd in een specifieke laag. Zoek naar <code class="docutils literal notranslate"><span class="pre">Probabilities</span> <span class="pre">of</span> <span class="pre">Urban</span> <span class="pre">Expansion</span> <span class="pre">to</span> <span class="pre">2030</span></code>. Selecteer de versie <em>default</em> van de laag urban expansion 2030.</p>
+<blockquote>
+<div><img alt="../../_images/530.png" class="align-center" src="../../_images/530.png" />
+</div></blockquote>
+</li>
+<li><p>In het gedeelte <span class="guilabel">Afbeeldingsformaat</span> moet u een indeling voor de afbeelding kiezen. Indelingen voor afbeeldingen zijn van groot belang en welke u kiest s afhankelijk van gebruiksdoel. Gebaseerd op ervaringen vanuit het perspectief van gebruikers zijn hier enkele hints,</p>
+<ul>
+<li><p><strong>Kwaliteit</strong>: Bestandscompressie voor PNG is verliesloos, voor JPEG is er een compressie met verlies en TIFF kan beide zijn. Dat betekent dat de kwaliteit van PNG’s beter zal zijn, vergeleken met JPEG. Als uw hoofddoel is om een kaart af te drukken, gebruik dan PNG.</p></li>
+<li><p><strong>Snelheid</strong>: Omdat PNG’s niet gecomprimeerd zijn en dus groter in grootte, zullen zij langer duren om te laden. Als u de laag in uw project gebruikt als een verwijzingslaag en veel moet inzoomen of verplaatsen, gebruik dan JPEG.</p></li>
+<li><p><strong>Cliënt-ondersteuning</strong>: QGIS ondersteunt de meeste indelingen, maar als u toepassingen voor het web ontwikkelt, browsers ondersteunen TIFF gewoonlijk niet, dus zou u een andere indeling moeten kiezen.</p></li>
+<li><p><strong>Type gegevens</strong>: Als uw lagen primair vector zijn zal PNG betere resultaten geven. Voor luchtfoto’s is JPEG gewoonlijk een betere keuze.</p>
+<blockquote>
+<div><p>Kies, voor deze handleiding, <span class="guilabel">PNG</span> als de indeling. Wijzig de <span class="guilabel">Laagnaam</span> als u dat wilt en klik op <span class="guilabel">Toevoegen</span>.</p>
+<img alt="../../_images/629.png" class="align-center" src="../../_images/629.png" />
+</div></blockquote>
+</li>
+</ul>
+</li>
+<li><p>Nu zult een laag <span class="guilabel">Probabilities of Urban Expansion to 2030</span> zien geladen in het kaartvenster. Gebruik de gereedschappen Zoomen/Verplaatsen om de laag te verkennen. De manier waarop de WMS-service werkt is dat die, elke keer dat u zoomt/verplaatst, uw weergavecoördinaten naar de server zendt en de server maakt een afbeelding voor die weergave en stuurt die terug naar de cliënt. Er zal dus enige vertraging optreden voordat u de afbeelding ziet voor het gebied, nadat u daarop ingezoomd hebt. Daarom is altijd een internetverbinding vereist om toegang tot deze laag te krijgen.</p>
+<blockquote>
+<div><img alt="../../_images/729.png" class="align-center" src="../../_images/729.png" />
+</div></blockquote>
+</li>
+<li><p>Zoom nu naar een bekende plaats en klik op het pictogram <span class="guilabel">Objecten identificeren</span> op de werkbalk.</p>
+<blockquote>
+<div><img alt="../../_images/828.png" class="align-center" src="../../_images/828.png" />
+</div></blockquote>
+</li>
+<li><p>Klik op een willekeurige pixel in het kaartvenster, het zal een dialoogvenster tevoorschijn laten komen met de waarde van de cel. Dit is de waarde van de pixel in de laag - wat de waarschijnlijkheid weergeeft voor het feit of de pixel zal zijn bevolkt in 2030. Omdat de laag niet lokaal is opgeslagen worden deze waarden opgehaald vanaf de serviceprovider. U kunt het resultaat beter zien door de <span class="guilabel">Indeling</span> te selecteren als <code class="docutils literal notranslate"><span class="pre">HTML</span></code> en <span class="guilabel">Weergave</span> as <code class="docutils literal notranslate"><span class="pre">Boom</span></code>.</p>
+<blockquote>
+<div><img alt="../../_images/929.png" class="align-center" src="../../_images/929.png" />
+</div></blockquote>
+</li>
+</ol>
+<div class="admonition note">
+<p class="admonition-title">Notitie</p>
+<p>De informatie wordt opgehaald door <em>GetFeatureInfo</em>, het is een WMS standaard aanroep die het voor ons mogelijk maakt informatie op te halen over objecten en bedekking die wordt weergegeven op de kaart. Als de kaart is samengesteld uit verscheidene lagen, en GetFeatureInfo kan worden geïnstrueerd om meerdere beschrijvingen van objecten terug te geven, is <em>HTML/GeoJSON</em> de gebruikelijke bestandsindeling waarin de informatie wordt opgehaald.</p>
+</div>
+<ol class="arabic" start="10">
+<li><p>Klik met rechts, om de aanvullende informatie over de laag te bekijken, op de laag en selecteer <span class="guilabel">Eigenschappen…</span>.</p>
+<blockquote>
+<div><img alt="../../_images/1036.png" class="align-center" src="../../_images/1036.png" />
+</div></blockquote>
+</li>
+<li><p>Schakel, in het dialoogvenster <span class="guilabel">Laageigenschappen</span>, naar de tab <span class="guilabel">Informatie</span> waar alle informatie, zoals <em>gegevensprovider</em>, <em>projecties</em>, <em>bereik</em>, is te vinden. Klik op <span class="guilabel">OK</span> om het dialoogvenster te sluiten na het verkennen.</p>
+<blockquote>
+<div><img alt="../../_images/1147.png" class="align-center" src="../../_images/1147.png" />
+</div></blockquote>
+</li>
+<li><p>Zoek, in QGIS <span class="guilabel">Browser</span>, naar <span class="guilabel">XYZ Tiles</span> en klik en sleep <code class="docutils literal notranslate"><span class="pre">OpenStreetMap</span></code> naar het kaartvenster.</p>
+<blockquote>
+<div><img alt="../../_images/1239.png" class="align-center" src="../../_images/1239.png" />
+</div></blockquote>
+</li>
+<li><p>Klik op het pictogram <span class="guilabel">Paneel Laag opmaken openen</span> en schakel naar <span class="guilabel">Transparantie</span>.</p>
+<blockquote>
+<div><img alt="../../_images/1337.png" class="align-center" src="../../_images/1337.png" />
+</div></blockquote>
+</li>
+<li><p>Stel de <span class="guilabel">Globale doorzichtbaarheid</span> in op <code class="docutils literal notranslate"><span class="pre">50</span> <span class="pre">%</span></code></p>
+<blockquote>
+<div><img alt="../../_images/1434.png" class="align-center" src="../../_images/1434.png" />
+</div></blockquote>
+</li>
+<li><p>Nu kan, in het kaartvenster, de laag Urban worden verkend met geografische verwijzingen.</p>
+<blockquote>
+<div><img alt="../../_images/1532.png" class="align-center" src="../../_images/1532.png" />
+</div></blockquote>
+</li>
+<li><p>Klik met rechts, om meer toegang te krijgen tot de transparantie van de laag, op de laag en selecteer <span class="guilabel">Eigenschappen…</span>.</p>
+<blockquote>
+<div><img alt="../../_images/1630.png" class="align-center" src="../../_images/1630.png" />
+</div></blockquote>
+</li>
+<li><p>Schakel, in het dialoogvenster <span class="guilabel">Laageigenschappen</span>, naar de tab <span class="guilabel">Legenda</span>, selecteer <code class="docutils literal notranslate"><span class="pre">Doorzichtbaarheid</span> <span class="pre">schuifbalk</span></code> onder <span class="guilabel">Beschikbare widgets</span> en klik op het pictogram <span class="guilabel">Geselecteerde widgets toevoegen</span>. Klik op <span class="guilabel">OK</span>.</p>
+<blockquote>
+<div><img alt="../../_images/1728.png" class="align-center" src="../../_images/1728.png" />
+</div></blockquote>
+</li>
+<li><p>Nu zal een widget Schuifbalk beschikbaar zijn om de doorzichtbaarheid van de laag te beheren.</p>
+<blockquote>
+<div><img alt="../../_images/1825.png" class="align-center" src="../../_images/1825.png" />
+</div></blockquote>
+</li>
+</ol>
+</section>
+</section>
+
+
+
+
+
+  <div id="disqus_thread"></div>
+  <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+
+    </div>
+      
+  </div>
+</div>
+
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+    </p>
+    <p>
+        &copy; Copyright 2021, Ujaval Gandhi.<br/>
+      Laatste aanpassing op aug. 30, 2022.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 4.0.1.<br/>
+    </p>
+  </div>
+</footer>
+<div class="container">
+  <p>This work is licensed under a <a href="http://creativecommons.org/licenses/by/4.0/deed.en_US">Creative Commons Attribution 4.0 International License</a></p>
+</div>
+<!-- Twitter Button -->
+<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+
+<!-- Disqus comments widget -->
+<script type="text/javascript">
+  /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+  var disqus_shortname = 'qgistutorials'; // required: replace example with your forum shortname
+  /* * * DON'T EDIT BELOW THIS LINE * * */
+  (function () {
+    var s = document.createElement('script'); s.async = true;
+    s.type = 'text/javascript';
+    s.src = '//' + disqus_shortname + '.disqus.com/count.js';
+    (document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);
+  }());
+</script>
+
+<script type="text/javascript">
+  /* * * DON'T EDIT BELOW THIS LINE * * */
+  (function() {
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+
+<!-- Script fpr language switching. Largely adapted from https://github.com/pcav/faunalia-website -->
+<script>
+    var currentPage = 'docs/3/working_with_wms.html'; // coming from sphinx, always without starting '/'
+    var currentLang = 'en';
+    $(document).ready(function(){
+
+        var search = new RegExp('\/[a-zA-Z_]{2,8}\/'+ currentPage, 'gi');
+        var langPlusPage = window.location.href.match(search);
+        // it's possible this is a index.html page called without 'index.html', try without the currentPage
+        if (langPlusPage==undefined){
+            search = new RegExp('\/[a-zA-Z_]{2,8}\/$', 'gi');
+            langPlusPage = window.location.href.match(search);
+        }
+
+        // it's possible this is an index.html page called without 'index.html', try removing index.html
+        if (langPlusPage==undefined){
+            currentPage = currentPage.replace('index.html','')
+            search = new RegExp('\/[a-zA-Z_]{2,8}\/'+ currentPage, 'gi');
+            langPlusPage = window.location.href.match(search);
+        }
+        // still no langPlugPage: stop, because the language swicher will misbehave 
+
+        if (langPlusPage == undefined || langPlusPage.length != 1){
+            alert('You hit an error, please report back to us.');
+            return;
+        }
+        langPlusPage = langPlusPage[0];
+        currentLang = langPlusPage.replace(currentPage, '');
+
+        $("#languages").val(currentLang.replace(/\//g,'')); // currentLang is something like '/nl/'
+
+        $("#languages").change(function() {
+            gotoLang($(this).val());
+        });
+
+    });
+
+    // load current page in a different language
+    function gotoLang(lang){
+        var currentUrl = window.location.href;
+        var newUrl = currentUrl.replace(currentLang, '/'+lang+'/');
+        window.location.href = newUrl;
+    }
+</script>
+
+  </body>
+</html>

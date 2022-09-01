@@ -1,0 +1,595 @@
+<!DOCTYPE html>
+
+<html lang="zh_TW">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>執行 QGIS 工作排程 &#8212; QGIS Tutorials and Tips</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/bootstrap-sphinx.css" />
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/translations.js"></script>
+    <link rel="search" title="搜尋" href="../search.html" />
+    <link rel="next" title="Web Mapping with QGIS2Web (QGIS3)" href="3/web_mapping_with_qgis2web.html" />
+    <link rel="prev" title="Building a Processing Plugin (QGIS3)" href="3/processing_python_plugin.html" />
+
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<script type="text/javascript" src="../_static/js/jquery-1.11.0.min.js "></script>
+<script type="text/javascript" src="../_static/js/jquery-fix.js "></script>
+<script type="text/javascript" src="../_static/bootstrap-3.3.7/js/bootstrap.min.js "></script>
+<script type="text/javascript" src="../_static/bootstrap-sphinx.js "></script>
+
+
+<!-- Cookie Notice -->
+<!-- Script from https://github.com/AOEpeople/cookie-notice -->
+<script type="text/javascript" src="../_static/cookie.notice.min.js"></script>
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-B1WQ7B80XJ"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-B1WQ7B80XJ');
+</script>
+
+
+  </head><body>
+
+  <div id="navbar" class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="../index.html"><span><img src="../_static/logo.png"></span>
+          QGIS Tutorials and Tips</a>
+        <span class="navbar-text navbar-version pull-left"><b>v1</b></span>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="../index.html">Tutorials List <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"><ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="introduction.html">簡介</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/making_a_map.html">製作地圖 (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/working_with_attributes.html">Working with Attributes (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/importing_spreadsheets_csv.html">匯入工作表或 CSV 檔 (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/basic_vector_styling.html">Basic Vector Styling (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/calculating_line_lengths.html">Calculating Line Lengths and Statistics (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/raster_styling_and_analysis.html">Basic Raster Styling and Analysis (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/raster_mosaicing_and_clipping.html">Raster Mosaicing and Clipping (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/working_with_terrain.html">Working with Terrain Data (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/working_with_wms.html">Working with WMS Data (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/working_with_projections.html">Working with Projections (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/georeferencing_basics.html">為紙本地圖進行空間對位 (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/advanced_georeferencing.html">為空照圖進行空間對位 (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/digitizing_basics.html">Digitizing Map Data (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/performing_table_joins.html">資料表連接 (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/performing_spatial_joins.html">空間連接 (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/performing_spatial_queries.html">Performing Spatial Queries (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/nearest_neighbor_analysis.html">Nearest Neighbor Analysis (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/sampling_raster_data.html">Sampling Raster Data using Points or Polygons (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/calculating_raster_area.html">Calculating Raster Area (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/creating_heatmaps.html">製作熱區圖 (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/animating_time_series.html">Animating Time Series Data (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/handling_invalid_geometries.html">Handling Invalid Geometries (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/advanced_raster_analysis.html">Advanced Raster Analysis (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/interpolating_point_data.html">Interpolating Point Data (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/calculating_intersection_density.html">Calculating Street Intersection Density (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/batch_processing.html">使用處理框架進行批次處理 (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/processing_graphical_modeler.html">利用處理建模自動執行複雜的工作流程 (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/automating_map_creation.html">Automating Map Creation with Print Layout Atlas (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/multi_criteria_overlay.html">Multi Criteria Overlay Analysis (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/basic_network_analysis.html">Basic Network Visualization and Routing (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/origin_destination_matrix.html">Locating Nearest Facility with Origin-Destination Matrix (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/service_area_analysis.html">Service Area Analysis using Openrouteservice (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/travel_time_analysis.html">Travel Time Analysis with Uber Movement (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/areal_mean_rainfall.html">Calculating Areal Mean Rainfall (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/getting_started_with_pyqgis.html">Python 程式設計的初步上手 (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/processing_algorithms_pyqgis.html">Running Processing Algorithms via Python (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/custom_python_functions.html">使用自訂的 Python 表達式函數 (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/processing_python_scripts.html">撰寫 Python 腳本並在處理框架下執行（QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/building_a_python_plugin.html">以 Python 製作附加元件 (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/processing_python_plugin.html">Building a Processing Plugin (QGIS3)</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">執行 QGIS 工作排程</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/web_mapping_with_qgis2web.html">Web Mapping with QGIS2Web (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="creating_basemaps_with_qtiles.html">用 QTiles 製作底圖</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/using_plugins.html">Using Plugins (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="downloading_osm_data.html">搜尋和下載開放街圖資料</a></li>
+<li class="toctree-l1"><a class="reference internal" href="learning_resources.html">QGIS 學習資源</a></li>
+<li class="toctree-l1"><a class="reference internal" href="credits.html">資料來源</a></li>
+<li class="toctree-l1"><a class="reference internal" href="batch_processing.html">使用處理框架進行批次處理 (QGIS2)</a></li>
+</ul>
+</ul>
+</li>
+              
+            
+            
+              
+                
+  <li>
+    <a href="3/processing_python_plugin.html" title="Previous Chapter: Building a Processing Plugin (QGIS3)"><span class="glyphicon glyphicon-chevron-left visible-sm"></span><span class="hidden-sm hidden-tablet">&laquo; Building a Pr...</span>
+    </a>
+  </li>
+  <li>
+    <a href="3/web_mapping_with_qgis2web.html" title="Next Chapter: Web Mapping with QGIS2Web (QGIS3)"><span class="glyphicon glyphicon-chevron-right visible-sm"></span><span class="hidden-sm hidden-tablet">Web Mapping w... &raquo;</span>
+    </a>
+  </li>
+              
+            
+            
+
+            
+
+            
+              <li class="hidden-sm"></li>
+            
+          </ul>
+
+          
+            
+<form class="navbar-form navbar-right" action="../search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+      <div class="col-md-3">
+        <div id="sidebar" class="bs-sidenav" role="complementary"><h4>Author</h4>
+<p>Ujaval Gandhi</p>
+<a href="https://twitter.com/intent/follow?screen_name=spatialthoughts" class="twitter-follow-button" data-show-count="false">Follow @spatialthoughts</a>
+<hr>
+<p>Want to learn QGIS in a structured way? Check out <a href="https://spatialthoughts.com/" target="_blank">Spatial Thoughts</a> for more learning materials and instructor-led online programs with QGIS.org certification.</p>
+
+
+<h4>Change Language</h4>
+<form role="form" class="sidebar-form sidebar-left">
+<select id="languages" class="form-control select-mini">
+  <option value="en">English</option>
+  <option value="zh_TW">Chinese (Taiwan)</option>
+  <option value="nl">Dutch</option>
+  <option value="fi_FI">Finnish</option>
+  <option value="fr">French</option>
+  <option value="de">German</option>
+  <option value="el">Greek</option>
+  <option value="id">Indonesian</option>
+  <option value="it">Italian</option>
+  <option value="ko">Korean</option>
+  <option value="fa">Persian</option>
+  <option value="pt_BR">Portuguese</option>
+  <option value="ro">Romanian</option>
+  <option value="ru">Russian</option>
+  <option value="sl">Slovenian</option>
+  <option value="es">Spanish</option>
+  <option value="th">Thai</option>
+  <option value="tr">Turkish</option>
+  <option value="uk">Ukrainian</option>
+  <option value="vi">Vietnamese</option>
+</select>
+</form>
+        </div>
+      </div>
+    <div class="body col-md-9 content" role="main">
+      
+
+  <section id="running-and-scheduling-qgis-processing-jobs">
+<h1>執行 QGIS 工作排程<a class="headerlink" href="#running-and-scheduling-qgis-processing-jobs" title="本標題的永久連結">¶</a></h1>
+<p>使用 Python 腳本 (PyQGIS) 搭配處理框架，許多工作可以在 QGIS 中自動處理。在一般情況下，我們是在 QGIS 開啟時，手動執行這些腳本；不過有些時候，你或許會希望有方法可以讓這些腳本在不開啟 QGIS 的情況下，直接於指令列中執行。沒問題，在本教學中，我們就來看看要怎麼使用獨立的 Python 環境，使用 QGIS 提供的函數庫與處理框架，撰寫腳本和工作排程，並直接在命令列中執行。</p>
+<section id="overview-of-the-task">
+<h2>內容說明<a class="headerlink" href="#overview-of-the-task" title="本標題的永久連結">¶</a></h2>
+<p>讓我們假設我們要為某區域的 shapefile 進行分析，此 shapefile 每天會更新一次，而我們隨時都要使用最新的檔案，而且在我們使用檔案內的資料之前，還要稍微「清理」一下它們。因此，我們要設計一個 QGIS 流程，可以每日自動執行以上工作，這樣我們隨時都能把我們的資料分析保持在最新的狀態。以下我們要撰寫一個獨立的 Python 腳本，每日下載最新的 shapefile，然後對其執行拓樸清理（topological cleaning）運算。</p>
+<section id="other-skills-you-will-learn">
+<h3>你還會學到這些<a class="headerlink" href="#other-skills-you-will-learn" title="本標題的永久連結">¶</a></h3>
+<ul class="simple">
+<li><p>使用 Python 下載檔案並解壓縮</p></li>
+<li><p>使用 PyQGIS 執行地理運算</p></li>
+<li><p>修正向量圖層中的拓撲誤差</p></li>
+</ul>
+</section>
+</section>
+<section id="get-the-data">
+<h2>取得資料<a class="headerlink" href="#get-the-data" title="本標題的永久連結">¶</a></h2>
+<p><a class="reference external" href="http://www.geofabrik.de/">Geofabrik</a> 提供每日更新的 <a class="reference external" href="http://www.openstreetmap.org/">OpenStreetMap</a> 資料集的 shapefile。</p>
+<p>我們在本練習中要使用 <a class="reference external" href="http://download.geofabrik.de/australia-oceania.html">斐濟的 shapefiles</a>。下載 <a class="reference external" href="http://download.geofabrik.de/australia-oceania/fiji-latest.shp.zip">fiji-latest.shp.zip</a> 然後解壓到硬碟中。</p>
+<p>資料來源 <a class="reference internal" href="credits.html#geofabrik" id="id1"><span>[GEOFABRIK]</span></a></p>
+</section>
+<section id="procedure">
+<h2>操作流程<a class="headerlink" href="#procedure" title="本標題的永久連結">¶</a></h2>
+<ol class="arabic simple">
+<li><p>首先我們來手動清理此 shapefile，熟悉一下我們等一下要在 Python 腳本中加入的指令。打開 QGIS，選擇 <span class="menuselection">圖層 ‣ 加入圖層 ‣ 加入向量圖層</span>。</p></li>
+</ol>
+<img alt="../_images/1201.png" class="align-center" src="../_images/1201.png" />
+<ol class="arabic simple" start="2">
+<li><p>選擇下載後解壓縮的內容中的 <code class="docutils literal notranslate"><span class="pre">roads.shp</span></code> 並按下 <span class="guilabel">確定</span>。</p></li>
+</ol>
+<img alt="../_images/2164.png" class="align-center" src="../_images/2164.png" />
+<ol class="arabic simple" start="3">
+<li><p>第一件事是重投影道路圖層到專案的 CRS，這樣一來我們就可以使用 <em>公尺</em> 而不是角度來當作等下分析使用的單位。選擇 <span class="menuselection">地理運算 ‣ 工具箱</span>。</p></li>
+</ol>
+<img alt="../_images/392.png" class="align-center" src="../_images/392.png" />
+<ol class="arabic simple" start="4">
+<li><p>尋找 <span class="guilabel">Reproject layer</span> 工具，點兩下開啟對話窗。</p></li>
+</ol>
+<img alt="../_images/464.png" class="align-center" src="../_images/464.png" />
+<ol class="arabic simple" start="5">
+<li><p>在 <span class="guilabel">Reproject layer</span> 視窗中，<span class="guilabel">輸入圖層</span> 選擇 <code class="docutils literal notranslate"><span class="pre">roads</span></code>，<span class="guilabel">目標 CRS</span> 選擇 <code class="docutils literal notranslate"><span class="pre">EPSG:3460</span> <span class="pre">Fiji</span> <span class="pre">1986</span> <span class="pre">/</span> <span class="pre">Fiji</span> <span class="pre">Map</span> <span class="pre">Grid</span></code>，按下 <span class="guilabel">Run</span>。</p></li>
+</ol>
+<img alt="../_images/561.png" class="align-center" src="../_images/561.png" />
+<ol class="arabic simple" start="6">
+<li><p>處理完成後可以看到重投影的圖層已載入到 QGIS 中。選擇 <span class="menuselection">地理運算 ‣ 歷程與日誌</span>。</p></li>
+</ol>
+<img alt="../_images/658.png" class="align-center" src="../_images/658.png" />
+<ol class="arabic simple" start="7">
+<li><p>在 <span class="guilabel">歷程與日誌</span> 視窗中，展開 <span class="guilabel">Algorithm</span> 資料夾然後選擇最新一筆的紀錄，就會看到完整的處理指令顯示在下方面板中。這就是我們等下要使用在腳本內的指令。</p></li>
+</ol>
+<img alt="../_images/757.png" class="align-center" src="../_images/757.png" />
+<ol class="arabic simple" start="8">
+<li><p>回到 QGIS 視窗，按下右下角的 <span class="guilabel">CRS</span> 按鈕。</p></li>
+</ol>
+<img alt="../_images/855.png" class="align-center" src="../_images/855.png" />
+<ol class="arabic simple" start="9">
+<li><p>在 <span class="guilabel">專案屬性 | CRS</span> 視窗中，勾選 <span class="guilabel">開啟即時 CRS 轉換</span>，然後選擇 <code class="docutils literal notranslate"><span class="pre">EPSG:3460</span> <span class="pre">Fiji</span> <span class="pre">1986</span> <span class="pre">/</span> <span class="pre">Fiji</span> <span class="pre">Map</span> <span class="pre">Grid</span></code> 為專案 CRS，這樣就能確保原本的圖層和重投影過的圖層都會正確顯示。</p></li>
+</ol>
+<img alt="../_images/954.png" class="align-center" src="../_images/954.png" />
+<ol class="arabic simple" start="10">
+<li><p>現在我們要來執行清理操作了。GRASS 具有強大的拓樸清理工具，在 QGIS 中可透過 <code class="docutils literal notranslate"><span class="pre">v.clean</span></code> 運算法存取。在 <span class="guilabel">地理運算工具箱</span> 中尋找此演算法，然後點兩下開啟視窗。</p></li>
+</ol>
+<img alt="../_images/1062.png" class="align-center" src="../_images/1062.png" />
+<ol class="arabic simple" start="11">
+<li><p>有關此工具的更多說明，可以在 <span class="guilabel">Help</span> 分頁中找到，而在此教學中，我們要使用 <code class="docutils literal notranslate"><span class="pre">snap</span></code> 工具來清除任何在 1 公尺之內多餘的線條頂點。在 <span class="guilabel">Layer to clean</span> 中選擇 <code class="docutils literal notranslate"><span class="pre">Reprojected</span> <span class="pre">layer</span></code>，然後在 <span class="guilabel">Cleaning tool</span> 中選擇 <code class="docutils literal notranslate"><span class="pre">snap</span></code>，在 <span class="guilabel">Threshold</span> 中輸入 <code class="docutils literal notranslate"><span class="pre">1.00</span></code>，其他欄位留白，按下 <span class="guilabel">Run</span>。</p></li>
+</ol>
+<img alt="../_images/11101.png" class="align-center" src="../_images/11101.png" />
+<ol class="arabic simple" start="12">
+<li><p>處理完成後，會有 2 個新圖層加入 QGIS 中。<code class="docutils literal notranslate"><span class="pre">Cleaned</span></code> 是經過拓樸誤差修正後的圖層，而 <code class="docutils literal notranslate"><span class="pre">Errors</span></code> 則顯示了有修改過的圖徵，因此你可以參考 Errors 圖層，縮放地圖以查看被移除的頂點們。</p></li>
+</ol>
+<img alt="../_images/1263.png" class="align-center" src="../_images/1263.png" />
+<ol class="arabic simple" start="13">
+<li><p>選擇 <span class="menuselection">地理運算 ‣ 歷程與日誌</span>，然後查看我們等一下要使用的命令列指令。</p></li>
+</ol>
+<img alt="../_images/1360.png" class="align-center" src="../_images/1360.png" />
+<ol class="arabic simple" start="14">
+<li><p>現在我們已經做好寫程式碼的準備了！如果你需要設定文字編輯器或 IDE，請參考在 <a class="reference internal" href="building_a_python_plugin.html"><span class="doc">以 Python 製作附加元件</span></a> 一章中的 <strong>編輯器或 Python IDE</strong> 的說明。為了要在獨立的 Python 腳本中使用 QGIS，我們必須要先設定好系統配置才行。有個方便的方法是透過 <code class="docutils literal notranslate"><span class="pre">.bat</span></code> 檔案來執行，此檔案會先設定好正確的配置選項，然後再呼叫 Python 腳本。因此，請建立稱為 <code class="docutils literal notranslate"><span class="pre">launch.bat</span></code> 的新檔案然後輸入以下文字，記得根據你的 QGIS 配置改動其中的一些參數值，也別忘記把存取 Python 檔案的路徑中的使用者名稱替換成你自己的。如果你是透過 <code class="docutils literal notranslate"><span class="pre">OSGeo4W</span> <span class="pre">Installer</span></code> 安裝 QGIS 的話，在此檔案中的路徑會與你的系統路徑相同。最後存檔到你的桌面。</p></li>
+</ol>
+<div class="admonition note">
+<p class="admonition-title">備註</p>
+<p>Linux 和 Mac 的使用者則需要使用 shell 腳本來設定路徑和環境變數。</p>
+</div>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>REM Change OSGEO4W_ROOT to point to the base install folder
+SET OSGEO4W_ROOT=C:\OSGeo4W64
+SET QGISNAME=qgis
+SET QGIS=%OSGEO4W_ROOT%\apps\%QGISNAME%
+set QGIS_PREFIX_PATH=%QGIS%
+REM Gdal Setup
+set GDAL_DATA=%OSGEO4W_ROOT%\share\gdal\
+REM Python Setup
+set PATH=%OSGEO4W_ROOT%\bin;%QGIS%\bin;%PATH%
+SET PYTHONHOME=%OSGEO4W_ROOT%\apps\Python27
+set PYTHONPATH=%QGIS%\python;%PYTHONPATH%
+
+REM Launch python job
+python c:\Users\Ujaval\Desktop\download_and_clean.py
+pause
+</pre></div>
+</div>
+<img alt="../_images/1457.png" class="align-center" src="../_images/1457.png" />
+<ol class="arabic simple" start="15">
+<li><p>建立新的 Python 檔然後輸入以下程式碼，檔名取為 <code class="docutils literal notranslate"><span class="pre">download_and_clean.py</span></code> 然後儲存至桌面。</p></li>
+</ol>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">qgis.core</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="nb">print</span> <span class="s1">&#39;Hello QGIS!&#39;</span>
+</pre></div>
+</div>
+<img alt="../_images/1554.png" class="align-center" src="../_images/1554.png" />
+<ol class="arabic simple" start="16">
+<li><p>切換到桌面，找到 <code class="docutils literal notranslate"><span class="pre">launch.bat</span></code> 然後點它兩下，腳本會開始執行，並會同時開啟一個命令列視窗。如果你在命令列視窗中看到了 <code class="docutils literal notranslate"><span class="pre">Hello</span> <span class="pre">QGIS!</span></code> 字樣出現，那就表示之前的設定和操作一切順利。如果你發現錯誤或沒有看到以上文字的話，請檢查 <code class="docutils literal notranslate"><span class="pre">launch.bat</span></code> 的內容，然後確認所有的路徑在你的作業系統中都是正確的。</p></li>
+</ol>
+<img alt="../_images/1651.png" class="align-center" src="../_images/1651.png" />
+<ol class="arabic simple" start="17">
+<li><p>回到文字編輯器，編輯 <code class="docutils literal notranslate"><span class="pre">download_and_clean.py</span></code> 並加入以下的程式碼。這個段落用來快速啟動 QGIS，如果你在 QGIS 中執行腳本，並不需要此段落；但由於我們要在 QGIS 不開啟的狀況下執行，程式最前端就必須放上這幾行，同時要注意有把使用者名稱改成你自己的才行。完成之後，存檔然後再次執行 <code class="docutils literal notranslate"><span class="pre">launch.bat</span></code>，如果你看到 <code class="docutils literal notranslate"><span class="pre">Hello</span> <span class="pre">QGIS!</span></code> 列印出來，就表示可以開始在腳本中加入地理運算的流程了。</p></li>
+</ol>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">sys</span>
+<span class="kn">from</span> <span class="nn">qgis.core</span> <span class="kn">import</span> <span class="o">*</span>
+
+<span class="c1"># Initialize QGIS Application</span>
+<span class="n">QgsApplication</span><span class="o">.</span><span class="n">setPrefixPath</span><span class="p">(</span><span class="s2">&quot;C:</span><span class="se">\\</span><span class="s2">OSGeo4W64</span><span class="se">\\</span><span class="s2">apps</span><span class="se">\\</span><span class="s2">qgis&quot;</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
+<span class="n">app</span> <span class="o">=</span> <span class="n">QgsApplication</span><span class="p">([],</span> <span class="kc">True</span><span class="p">)</span>
+<span class="n">QgsApplication</span><span class="o">.</span><span class="n">initQgis</span><span class="p">()</span>
+
+<span class="c1"># Add the path to Processing framework</span>
+<span class="n">sys</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;c:</span><span class="se">\\</span><span class="s1">Users</span><span class="se">\\</span><span class="s1">Ujaval</span><span class="se">\\</span><span class="s1">.qgis2</span><span class="se">\\</span><span class="s1">python</span><span class="se">\\</span><span class="s1">plugins&#39;</span><span class="p">)</span>
+
+<span class="c1"># Import and initialize Processing framework</span>
+<span class="kn">from</span> <span class="nn">processing.core.Processing</span> <span class="kn">import</span> <span class="n">Processing</span>
+<span class="n">Processing</span><span class="o">.</span><span class="n">initialize</span><span class="p">()</span>
+<span class="kn">import</span> <span class="nn">processing</span>
+
+<span class="nb">print</span> <span class="s1">&#39;Hello QGIS!&#39;</span>
+</pre></div>
+</div>
+<img alt="../_images/1747.png" class="align-center" src="../_images/1747.png" />
+<ol class="arabic simple" start="18">
+<li><p>我們從地理運算的歷程日誌中看到的第一個運算指令，就是要放在這邊的重投影指令。因此，貼上此段指令到腳本中，然後前後加入如下所示的幾行。注意運算指令的回傳值為字典（dict）變數，其中包含了輸出圖層的路徑，因此我們在這邊把字典存成 <code class="docutils literal notranslate"><span class="pre">ret</span></code> 然後再列印出重投影後圖層的路徑。</p></li>
+</ol>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">roads_shp_path</span> <span class="o">=</span> <span class="s2">&quot;C:</span><span class="se">\\</span><span class="s2">Users</span><span class="se">\\</span><span class="s2">Ujaval</span><span class="se">\\</span><span class="s2">Downloads</span><span class="se">\\</span><span class="s2">fiji-latest.shp</span><span class="se">\\</span><span class="s2">roads.shp&quot;</span>
+<span class="n">ret</span> <span class="o">=</span> <span class="n">processing</span><span class="o">.</span><span class="n">runalg</span><span class="p">(</span><span class="s1">&#39;qgis:reprojectlayer&#39;</span><span class="p">,</span> <span class="n">roads_shp_path</span><span class="p">,</span> <span class="s1">&#39;EPSG:3460&#39;</span><span class="p">,</span>
+<span class="kc">None</span><span class="p">)</span>
+<span class="n">output</span> <span class="o">=</span> <span class="n">ret</span><span class="p">[</span><span class="s1">&#39;OUTPUT&#39;</span><span class="p">]</span>
+<span class="nb">print</span> <span class="n">output</span>
+</pre></div>
+</div>
+<img alt="../_images/1845.png" class="align-center" src="../_images/1845.png" />
+<ol class="arabic simple" start="19">
+<li><p>透過 <code class="docutils literal notranslate"><span class="pre">launch.bat</span></code> 執行此腳本，就可以看到新建立的重投影圖層的路徑。</p></li>
+</ol>
+<img alt="../_images/1937.png" class="align-center" src="../_images/1937.png" />
+<ol class="arabic simple" start="20">
+<li><p>接下來要增加拓樸清理的程式碼。由於這會是我們的最終輸出，所以我們要在 <code class="docutils literal notranslate"><span class="pre">grass.v.clean</span></code> 函數中的最後 2 個參數加上輸出檔路徑。如果這兩個參數是空白的話，輸出檔就只會放在一個暫時資料夾之中。</p></li>
+</ol>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">processing</span><span class="o">.</span><span class="n">runalg</span><span class="p">(</span><span class="s2">&quot;grass:v.clean&quot;</span><span class="p">,</span>
+                  <span class="n">output</span><span class="p">,</span>
+                  <span class="mi">1</span><span class="p">,</span>
+                  <span class="mi">1</span><span class="p">,</span>
+                  <span class="kc">None</span><span class="p">,</span>
+                  <span class="o">-</span><span class="mi">1</span><span class="p">,</span>
+                  <span class="mf">0.0001</span><span class="p">,</span>
+                  <span class="s1">&#39;C:</span><span class="se">\\</span><span class="s1">Users</span><span class="se">\\</span><span class="s1">Ujaval</span><span class="se">\\</span><span class="s1">Desktop</span><span class="se">\\</span><span class="s1">clean.shp&#39;</span><span class="p">,</span>
+                  <span class="s1">&#39;C:\Users</span><span class="se">\\</span><span class="s1">Ujaval</span><span class="se">\\</span><span class="s1">Desktop</span><span class="se">\\</span><span class="s1">errors.shp&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<img alt="../_images/2032.png" class="align-center" src="../_images/2032.png" />
+<ol class="arabic simple" start="21">
+<li><p>執行腳本後可以看到 2 個新的 shapefiles 出現在你的桌面了，到此為止我們已完成腳本的地理運算部分，接下來我們來加入從網頁中下載資料和自動解壓縮的程式碼。我們也順便把解壓縮後的檔案路徑儲存起來，給之後的地理運算函數使用。要做到這些得需要一些額外的模組才行。(本教學最後附有完整的腳本檔案供參考)</p></li>
+</ol>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">urllib</span>
+<span class="kn">import</span> <span class="nn">zipfile</span>
+<span class="kn">import</span> <span class="nn">tempfile</span>
+
+<span class="n">temp_dir</span> <span class="o">=</span> <span class="n">tempfile</span><span class="o">.</span><span class="n">mkdtemp</span><span class="p">()</span>
+<span class="n">download_url</span> <span class="o">=</span> <span class="s1">&#39;http://download.geofabrik.de/australia-oceania/fiji-latest.shp.zip&#39;</span>
+<span class="nb">print</span> <span class="s1">&#39;Downloading file&#39;</span>
+<span class="nb">zip</span><span class="p">,</span> <span class="n">headers</span> <span class="o">=</span> <span class="n">urllib</span><span class="o">.</span><span class="n">urlretrieve</span><span class="p">(</span><span class="n">download_url</span><span class="p">)</span>
+<span class="k">with</span> <span class="n">zipfile</span><span class="o">.</span><span class="n">ZipFile</span><span class="p">(</span><span class="nb">zip</span><span class="p">)</span> <span class="k">as</span> <span class="n">zf</span><span class="p">:</span>
+    <span class="n">files</span> <span class="o">=</span> <span class="n">zf</span><span class="o">.</span><span class="n">namelist</span><span class="p">()</span>
+    <span class="k">for</span> <span class="n">filename</span> <span class="ow">in</span> <span class="n">files</span><span class="p">:</span>
+        <span class="k">if</span> <span class="s1">&#39;roads&#39;</span> <span class="ow">in</span> <span class="n">filename</span><span class="p">:</span>
+            <span class="n">file_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">temp_dir</span><span class="p">,</span> <span class="n">filename</span><span class="p">)</span>
+            <span class="n">f</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="n">file_path</span><span class="p">,</span> <span class="s1">&#39;wb&#39;</span><span class="p">)</span>
+            <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">zf</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="n">filename</span><span class="p">))</span>
+            <span class="n">f</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+            <span class="k">if</span> <span class="n">filename</span> <span class="o">==</span> <span class="s1">&#39;roads.shp&#39;</span><span class="p">:</span>
+                <span class="n">roads_shp_path</span> <span class="o">=</span> <span class="n">file_path</span>
+</pre></div>
+</div>
+<img alt="../_images/2165.png" class="align-center" src="../_images/2165.png" />
+<ol class="arabic simple" start="22">
+<li><p>執行完成的腳本。每次執行腳本之後，就會有一份新的資料被下載並進行處理。</p></li>
+</ol>
+<img alt="../_images/2231.png" class="align-center" src="../_images/2231.png" />
+<ol class="arabic simple" start="23">
+<li><p>為了要每日自動執行腳本，我們可以使用 Windows 中的 <code class="docutils literal notranslate"><span class="pre">工作排程器</span></code>。開啟工作排程器之後，按下 <span class="guilabel">建立基本工作</span>。</p></li>
+</ol>
+<div class="admonition note">
+<p class="admonition-title">備註</p>
+<p>Linux 和 Mac 的使用者可以使用 <a class="reference external" href="http://linux.vbird.org/linux_basic/0430cron.php">crontab</a> 執行排程工作。</p>
+</div>
+<img alt="../_images/2329.png" class="align-center" src="../_images/2329.png" />
+<ol class="arabic simple" start="24">
+<li><p>把工作命名為 <code class="docutils literal notranslate"><span class="pre">Daily</span> <span class="pre">Download</span> <span class="pre">and</span> <span class="pre">Cleanup</span></code> 然後按下 <span class="guilabel">下一步</span>。</p></li>
+</ol>
+<img alt="../_images/2428.png" class="align-center" src="../_images/2428.png" />
+<ol class="arabic simple" start="25">
+<li><p>在 <span class="guilabel">觸發程序</span> 設定中選擇 <code class="docutils literal notranslate"><span class="pre">每天</span></code>，然後按 <span class="guilabel">下一步</span>。</p></li>
+</ol>
+<img alt="../_images/2524.png" class="align-center" src="../_images/2524.png" />
+<ol class="arabic simple" start="26">
+<li><p>選擇你喜歡的時段然後按 <span class="guilabel">下一步</span>。</p></li>
+</ol>
+<img alt="../_images/2622.png" class="align-center" src="../_images/2622.png" />
+<ol class="arabic simple" start="27">
+<li><p>在 <span class="guilabel">執行</span> 設定中選擇 <span class="guilabel">啟動程式</span>，按 <span class="guilabel">下一步</span>。</p></li>
+</ol>
+<img alt="../_images/2722.png" class="align-center" src="../_images/2722.png" />
+<ol class="arabic simple" start="28">
+<li><p>按下 <span class="guilabel">瀏覽</span> 然後選擇 <code class="docutils literal notranslate"><span class="pre">launch.bat</span></code> 腳本，按下 <span class="guilabel">下一步</span>。</p></li>
+</ol>
+<img alt="../_images/2820.png" class="align-center" src="../_images/2820.png" />
+<ol class="arabic simple" start="29">
+<li><p>在最後一個視窗按下 <span class="guilabel">完成</span>，就完成了例行排程的設定。從現在開始腳本就會每天在你選擇的時段執行，然後新的、處理過的資料就會每天產生。</p></li>
+</ol>
+<img alt="../_images/2917.png" class="align-center" src="../_images/2917.png" />
+<p>以下放上完整的 <code class="docutils literal notranslate"><span class="pre">download_and_clean.py</span></code> 檔做為參考。</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">sys</span>
+<span class="kn">from</span> <span class="nn">qgis.core</span> <span class="kn">import</span> <span class="o">*</span>
+
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">urllib</span>
+<span class="kn">import</span> <span class="nn">zipfile</span>
+<span class="kn">import</span> <span class="nn">tempfile</span>
+
+<span class="c1"># Initialize QGIS Application</span>
+<span class="n">QgsApplication</span><span class="o">.</span><span class="n">setPrefixPath</span><span class="p">(</span><span class="s2">&quot;C:</span><span class="se">\\</span><span class="s2">OSGeo4W64</span><span class="se">\\</span><span class="s2">apps</span><span class="se">\\</span><span class="s2">qgis&quot;</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
+<span class="n">app</span> <span class="o">=</span> <span class="n">QgsApplication</span><span class="p">([],</span> <span class="kc">True</span><span class="p">)</span>
+<span class="n">QgsApplication</span><span class="o">.</span><span class="n">initQgis</span><span class="p">()</span>
+
+<span class="c1"># Add the path to Processing framework  </span>
+<span class="n">sys</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;c:</span><span class="se">\\</span><span class="s1">Users</span><span class="se">\\</span><span class="s1">Ujaval</span><span class="se">\\</span><span class="s1">.qgis2</span><span class="se">\\</span><span class="s1">python</span><span class="se">\\</span><span class="s1">plugins&#39;</span><span class="p">)</span>
+
+<span class="c1"># Import and initialize Processing framework</span>
+<span class="kn">from</span> <span class="nn">processing.core.Processing</span> <span class="kn">import</span> <span class="n">Processing</span>
+<span class="n">Processing</span><span class="o">.</span><span class="n">initialize</span><span class="p">()</span>
+<span class="kn">import</span> <span class="nn">processing</span>
+
+<span class="c1"># Download and unzip the latest shapefile</span>
+<span class="n">temp_dir</span> <span class="o">=</span> <span class="n">tempfile</span><span class="o">.</span><span class="n">mkdtemp</span><span class="p">()</span>
+<span class="n">download_url</span> <span class="o">=</span> <span class="s1">&#39;http://download.geofabrik.de/australia-oceania/fiji-latest.shp.zip&#39;</span>
+<span class="nb">print</span> <span class="s1">&#39;Downloading file&#39;</span>
+<span class="nb">zip</span><span class="p">,</span> <span class="n">headers</span> <span class="o">=</span> <span class="n">urllib</span><span class="o">.</span><span class="n">urlretrieve</span><span class="p">(</span><span class="n">download_url</span><span class="p">)</span>
+<span class="k">with</span> <span class="n">zipfile</span><span class="o">.</span><span class="n">ZipFile</span><span class="p">(</span><span class="nb">zip</span><span class="p">)</span> <span class="k">as</span> <span class="n">zf</span><span class="p">:</span>
+    <span class="n">files</span> <span class="o">=</span> <span class="n">zf</span><span class="o">.</span><span class="n">namelist</span><span class="p">()</span>
+    <span class="k">for</span> <span class="n">filename</span> <span class="ow">in</span> <span class="n">files</span><span class="p">:</span>
+        <span class="k">if</span> <span class="s1">&#39;roads&#39;</span> <span class="ow">in</span> <span class="n">filename</span><span class="p">:</span>
+            <span class="n">file_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">temp_dir</span><span class="p">,</span> <span class="n">filename</span><span class="p">)</span>
+            <span class="n">f</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="n">file_path</span><span class="p">,</span> <span class="s1">&#39;wb&#39;</span><span class="p">)</span>
+            <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">zf</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="n">filename</span><span class="p">))</span>
+            <span class="n">f</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+            <span class="k">if</span> <span class="n">filename</span> <span class="o">==</span> <span class="s1">&#39;roads.shp&#39;</span><span class="p">:</span>
+                <span class="n">roads_shp_path</span> <span class="o">=</span> <span class="n">file_path</span>
+
+<span class="nb">print</span> <span class="s1">&#39;Downloaded file to </span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">roads_shp_path</span>
+
+<span class="c1"># Reproject the Roads layer</span>
+<span class="nb">print</span> <span class="s1">&#39;Reprojecting the roads layer&#39;</span>
+
+<span class="n">ret</span> <span class="o">=</span> <span class="n">processing</span><span class="o">.</span><span class="n">runalg</span><span class="p">(</span><span class="s1">&#39;qgis:reprojectlayer&#39;</span><span class="p">,</span> <span class="n">roads_shp_path</span><span class="p">,</span> <span class="s1">&#39;EPSG:3460&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+<span class="n">output</span> <span class="o">=</span> <span class="n">ret</span><span class="p">[</span><span class="s1">&#39;OUTPUT&#39;</span><span class="p">]</span>
+
+<span class="c1"># Clean the Roads layer</span>
+<span class="nb">print</span> <span class="s1">&#39;Cleaning the roads layer&#39;</span>
+
+<span class="n">processing</span><span class="o">.</span><span class="n">runalg</span><span class="p">(</span><span class="s2">&quot;grass:v.clean&quot;</span><span class="p">,</span>
+                  <span class="n">output</span><span class="p">,</span>
+                  <span class="mi">1</span><span class="p">,</span>
+                  <span class="mi">1</span><span class="p">,</span>
+                  <span class="kc">None</span><span class="p">,</span>
+                  <span class="o">-</span><span class="mi">1</span><span class="p">,</span>
+                  <span class="mf">0.0001</span><span class="p">,</span>
+                  <span class="s1">&#39;C:</span><span class="se">\\</span><span class="s1">Users</span><span class="se">\\</span><span class="s1">Ujaval</span><span class="se">\\</span><span class="s1">Desktop</span><span class="se">\\</span><span class="s1">clean.shp&#39;</span><span class="p">,</span>
+                  <span class="s1">&#39;C:\Users</span><span class="se">\\</span><span class="s1">Ujaval</span><span class="se">\\</span><span class="s1">Desktop</span><span class="se">\\</span><span class="s1">errors.shp&#39;</span><span class="p">)</span>
+<span class="nb">print</span> <span class="s1">&#39;Success&#39;</span>
+</pre></div>
+</div>
+</section>
+</section>
+
+
+
+
+
+  <div id="disqus_thread"></div>
+  <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+
+    </div>
+      
+  </div>
+</div>
+
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+    </p>
+    <p>
+        &copy; Copyright 2021, Ujaval Gandhi.<br/>
+      最後更新於 8月 30, 2022。<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 4.0.1.<br/>
+    </p>
+  </div>
+</footer>
+<div class="container">
+  <p>This work is licensed under a <a href="http://creativecommons.org/licenses/by/4.0/deed.en_US">Creative Commons Attribution 4.0 International License</a></p>
+</div>
+<!-- Twitter Button -->
+<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+
+<!-- Disqus comments widget -->
+<script type="text/javascript">
+  /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+  var disqus_shortname = 'qgistutorials'; // required: replace example with your forum shortname
+  /* * * DON'T EDIT BELOW THIS LINE * * */
+  (function () {
+    var s = document.createElement('script'); s.async = true;
+    s.type = 'text/javascript';
+    s.src = '//' + disqus_shortname + '.disqus.com/count.js';
+    (document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);
+  }());
+</script>
+
+<script type="text/javascript">
+  /* * * DON'T EDIT BELOW THIS LINE * * */
+  (function() {
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+
+<!-- Script fpr language switching. Largely adapted from https://github.com/pcav/faunalia-website -->
+<script>
+    var currentPage = 'docs/running_qgis_jobs.html'; // coming from sphinx, always without starting '/'
+    var currentLang = 'en';
+    $(document).ready(function(){
+
+        var search = new RegExp('\/[a-zA-Z_]{2,8}\/'+ currentPage, 'gi');
+        var langPlusPage = window.location.href.match(search);
+        // it's possible this is a index.html page called without 'index.html', try without the currentPage
+        if (langPlusPage==undefined){
+            search = new RegExp('\/[a-zA-Z_]{2,8}\/$', 'gi');
+            langPlusPage = window.location.href.match(search);
+        }
+
+        // it's possible this is an index.html page called without 'index.html', try removing index.html
+        if (langPlusPage==undefined){
+            currentPage = currentPage.replace('index.html','')
+            search = new RegExp('\/[a-zA-Z_]{2,8}\/'+ currentPage, 'gi');
+            langPlusPage = window.location.href.match(search);
+        }
+        // still no langPlugPage: stop, because the language swicher will misbehave 
+
+        if (langPlusPage == undefined || langPlusPage.length != 1){
+            alert('You hit an error, please report back to us.');
+            return;
+        }
+        langPlusPage = langPlusPage[0];
+        currentLang = langPlusPage.replace(currentPage, '');
+
+        $("#languages").val(currentLang.replace(/\//g,'')); // currentLang is something like '/nl/'
+
+        $("#languages").change(function() {
+            gotoLang($(this).val());
+        });
+
+    });
+
+    // load current page in a different language
+    function gotoLang(lang){
+        var currentUrl = window.location.href;
+        var newUrl = currentUrl.replace(currentLang, '/'+lang+'/');
+        window.location.href = newUrl;
+    }
+</script>
+
+  </body>
+</html>

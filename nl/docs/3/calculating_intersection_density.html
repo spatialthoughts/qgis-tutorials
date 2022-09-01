@@ -1,0 +1,593 @@
+<!DOCTYPE html>
+
+<html lang="nl">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>Dichtheid van straatkruisingen berekenen (QGIS3) &#8212; QGIS Tutorials and Tips</title>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-sphinx.css" />
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/translations.js"></script>
+    <link rel="search" title="Zoeken" href="../../search.html" />
+    <link rel="next" title="Massa verwerken met behulp van Framework Processing (QGIS 3)" href="batch_processing.html" />
+    <link rel="prev" title="Interpoleren van puntgegevens" href="interpolating_point_data.html" />
+
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<script type="text/javascript" src="../../_static/js/jquery-1.11.0.min.js "></script>
+<script type="text/javascript" src="../../_static/js/jquery-fix.js "></script>
+<script type="text/javascript" src="../../_static/bootstrap-3.3.7/js/bootstrap.min.js "></script>
+<script type="text/javascript" src="../../_static/bootstrap-sphinx.js "></script>
+
+
+<!-- Cookie Notice -->
+<!-- Script from https://github.com/AOEpeople/cookie-notice -->
+<script type="text/javascript" src="../../_static/cookie.notice.min.js"></script>
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-B1WQ7B80XJ"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-B1WQ7B80XJ');
+</script>
+
+
+  </head><body>
+
+  <div id="navbar" class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="../../index.html"><span><img src="../../_static/logo.png"></span>
+          QGIS Tutorials and Tips</a>
+        <span class="navbar-text navbar-version pull-left"><b>v1</b></span>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="../../index.html">Tutorials List <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"><ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../introduction.html">Introductie</a></li>
+<li class="toctree-l1"><a class="reference internal" href="making_a_map.html">Een kaart maken (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="working_with_attributes.html">Werken met attributen (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="importing_spreadsheets_csv.html">Werkbladen of CSV-bestanden importeren (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="basic_vector_styling.html">Basis opmaken van vectoren (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="calculating_line_lengths.html">Lengten van lijnen en statistieken berekenen (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="raster_styling_and_analysis.html">Basis opmaken en analyses van rasters (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="raster_mosaicing_and_clipping.html">Rasters mozaïeken en clippen (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="working_with_terrain.html">Werken met gegevens over het terrein (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="working_with_wms.html">Werken met gegevens van WMS (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="working_with_projections.html">Werken met projecties (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="georeferencing_basics.html">Topobladen en gescande kaarten voorzien van geoverwijzingen (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="advanced_georeferencing.html">Geo-verwijzingen voor satellietbeelden (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="digitizing_basics.html">Kaartgegevens digitaliseren</a></li>
+<li class="toctree-l1"><a class="reference internal" href="performing_table_joins.html">Samenvoegen van tabellen uitvoeren (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="performing_spatial_joins.html">Ruimtelijke samenvoegingen uitvoeren (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="performing_spatial_queries.html">Ruimtelijke query’s uitvoeren (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="nearest_neighbor_analysis.html">Analyse Nearest Neighbor (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="sampling_raster_data.html">Monsters nemen van rastergegevens met behulp van punten of polygonen (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="calculating_raster_area.html">Rastergebied berekenen (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="creating_heatmaps.html">Heatmaps maken (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="animating_time_series.html">Geanimeerde gegevens tijdreeks (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="handling_invalid_geometries.html">Ongeldige geometrieën afhandelen (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="advanced_raster_analysis.html">Gevorderde rasteranalyses (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="interpolating_point_data.html">Interpoleren van puntgegevens</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Dichtheid van straatkruisingen berekenen (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="batch_processing.html">Massa verwerken met behulp van Framework Processing (QGIS 3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="processing_graphical_modeler.html">Complexe werkstromen automatiseren met behulp van Grafische modellen bouwen (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="automating_map_creation.html">Maken van kaarten automatiseren met Atlas van afdruklay-out (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="multi_criteria_overlay.html">Multi Criteria Overlay Analyse (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="basic_network_analysis.html">Basis netwerk visualisatie en routeren (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="origin_destination_matrix.html">Dichtstbijzijnde faciliteit zoeken met Origin-Destination Matrix (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="service_area_analysis.html">Analyse Servicegebied met Openrouteservice (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="travel_time_analysis.html">Reistijd-analyse met Uber Movement (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="areal_mean_rainfall.html">Berekenen gemiddelde regenval voor gebied (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="getting_started_with_pyqgis.html">Beginnen met programmeren in Python (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="processing_algorithms_pyqgis.html">Algoritmes van Processing uitvoeren via Python (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="custom_python_functions.html">Aangepaste Python expressie-functies gebruiken (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="processing_python_scripts.html">Python-scripts schrijven voor framework Processing (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="building_a_python_plugin.html">Een plug-in in Python bouwen (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="processing_python_plugin.html">Een plug-in voor Processing bouwen (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../running_qgis_jobs.html">Taken voor QGIS uitvoeren en in schema zetten</a></li>
+<li class="toctree-l1"><a class="reference internal" href="web_mapping_with_qgis2web.html">In kaart brengen op het web met QGIS2Web (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../creating_basemaps_with_qtiles.html">Basiskaarten maken met QTiles</a></li>
+<li class="toctree-l1"><a class="reference internal" href="using_plugins.html">Plug-ins gebruiken (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../downloading_osm_data.html">Zoeken en downloaden van gegevens van OpenStreetMap</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../learning_resources.html">QGIS bronnen om te leren</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../credits.html">Gebruik van gegevens</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../batch_processing.html">Massa verwerken met behulp van Framework Processing (QGIS2)</a></li>
+</ul>
+</ul>
+</li>
+              
+            
+            
+              
+                
+  <li>
+    <a href="interpolating_point_data.html" title="Previous Chapter: Interpoleren van puntgegevens"><span class="glyphicon glyphicon-chevron-left visible-sm"></span><span class="hidden-sm hidden-tablet">&laquo; Interpoleren ...</span>
+    </a>
+  </li>
+  <li>
+    <a href="batch_processing.html" title="Next Chapter: Massa verwerken met behulp van Framework Processing (QGIS 3)"><span class="glyphicon glyphicon-chevron-right visible-sm"></span><span class="hidden-sm hidden-tablet">Massa verwerk... &raquo;</span>
+    </a>
+  </li>
+              
+            
+            
+
+            
+
+            
+              <li class="hidden-sm"></li>
+            
+          </ul>
+
+          
+            
+<form class="navbar-form navbar-right" action="../../search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+      <div class="col-md-3">
+        <div id="sidebar" class="bs-sidenav" role="complementary"><h4>Author</h4>
+<p>Ujaval Gandhi</p>
+<a href="https://twitter.com/intent/follow?screen_name=spatialthoughts" class="twitter-follow-button" data-show-count="false">Follow @spatialthoughts</a>
+<hr>
+<p>Want to learn QGIS in a structured way? Check out <a href="https://spatialthoughts.com/" target="_blank">Spatial Thoughts</a> for more learning materials and instructor-led online programs with QGIS.org certification.</p>
+
+
+<h4>Change Language</h4>
+<form role="form" class="sidebar-form sidebar-left">
+<select id="languages" class="form-control select-mini">
+  <option value="en">English</option>
+  <option value="zh_TW">Chinese (Taiwan)</option>
+  <option value="nl">Dutch</option>
+  <option value="fi_FI">Finnish</option>
+  <option value="fr">French</option>
+  <option value="de">German</option>
+  <option value="el">Greek</option>
+  <option value="id">Indonesian</option>
+  <option value="it">Italian</option>
+  <option value="ko">Korean</option>
+  <option value="fa">Persian</option>
+  <option value="pt_BR">Portuguese</option>
+  <option value="ro">Romanian</option>
+  <option value="ru">Russian</option>
+  <option value="sl">Slovenian</option>
+  <option value="es">Spanish</option>
+  <option value="th">Thai</option>
+  <option value="tr">Turkish</option>
+  <option value="uk">Ukrainian</option>
+  <option value="vi">Vietnamese</option>
+</select>
+</form>
+        </div>
+      </div>
+    <div class="body col-md-9 content" role="main">
+      
+
+  <section id="calculating-street-intersection-density-qgis3">
+<h1>Dichtheid van straatkruisingen berekenen (QGIS3)<a class="headerlink" href="#calculating-street-intersection-density-qgis3" title="Permalink naar deze titel">¶</a></h1>
+<p>Dichtheid van straatkruisingen is een betekenisvolle meting van de verbondenheid van een netwerk. Men kan straatkruisingen van een normaal raster uitnemen en samenvoegen om de dichtheid te berekenen. Deze analyse wordt gewoonlijk gebruikt bij het ontwerpen van vervoer als ook bij stedelijke ontwikkeling voor het bepalen van het doorlopen van buurten. Met de beschikbaarheid van een globale gegevensset voor netwerken van straten uit OpenStreetMap en QGIS, kunnen we eenvoudig de dichtheid van kruisingen berekenen en visualiseren voor elk deel van de wereld.</p>
+<section id="overview-of-the-task">
+<h2>Overzicht van de taak<a class="headerlink" href="#overview-of-the-task" title="Permalink naar deze titel">¶</a></h2>
+<p>In this tutorial, we will take OpenStreetMap road network data and calculate the street intersection density for the city of Chennai in India.</p>
+<section id="other-skills-you-will-learn">
+<h3>Andere vaardigheden die u zult leren<a class="headerlink" href="#other-skills-you-will-learn" title="Permalink naar deze titel">¶</a></h3>
+<ul class="simple">
+<li><p>Hoe de gegevens van OpenStreetMap als shapefiles te downloaden en te clippen naar uw gebied van interesse.</p></li>
+<li><p>Hoe rasters te maken in QGIS.</p></li>
+</ul>
+</section>
+</section>
+<section id="get-the-data">
+<h2>De gegevens ophalen<a class="headerlink" href="#get-the-data" title="Permalink naar deze titel">¶</a></h2>
+<p>We zullen de gegevens gebruiken uit <a class="reference external" href="https://opencity.in/">opencities</a> om de stadsgrenzen voor Chennai te verkrijgen en dan het netwerk van straten vanuit <a class="reference external" href="https://download.geofabrik.de/">OpenStreetMap Data Extracts</a> voor India.</p>
+<section id="download-the-city-boundary">
+<h3>De stadsgrenzen downloaden<a class="headerlink" href="#download-the-city-boundary" title="Permalink naar deze titel">¶</a></h3>
+<ol class="arabic simple">
+<li><p>Ga naar de website <a class="reference external" href="https://opencity.in/">opencity</a> en zoek naar “Chennai wards map”.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/data12.png" class="align-center" src="../../_images/data12.png" />
+</div></blockquote>
+<ol class="arabic simple" start="2">
+<li><p>Klik op de eerste link en download de gegevens in de indeling KML. Een laag <code class="docutils literal notranslate"><span class="pre">Chennai-wards-2011.kml</span></code> zal worden gedownload.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/data21.png" class="align-center" src="../../_images/data21.png" />
+</div></blockquote>
+</section>
+<section id="download-the-road-network">
+<h3>Het netwerk van straten downloaden<a class="headerlink" href="#download-the-road-network" title="Permalink naar deze titel">¶</a></h3>
+<ol class="arabic simple">
+<li><p>Ga naar de server <a class="reference external" href="https://download.geofabrik.de/">OpenStreetMap Data Extracts download</a> van GEOFABRIK. Voor deze handleiding hebben we de gegevens nodig van de stad Chennai in India. Klik op <span class="guilabel">Asia</span>.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/data31.png" class="align-center" src="../../_images/data31.png" />
+</div></blockquote>
+<ol class="arabic simple" start="2">
+<li><p>Selecteer dan in <span class="guilabel">sub-regions</span><span class="guilabel">India</span>.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/data41.png" class="align-center" src="../../_images/data41.png" />
+</div></blockquote>
+<ol class="arabic simple" start="3">
+<li><p>De <code class="docutils literal notranslate"><span class="pre">india-latest-free.shp.zip</span></code> is het bestand waar we naar zoeken, klik er op om het te downloaden. Deze gegevens kunnen, indien gewenst, ook in andere indelingen worden gedownload.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/data51.png" class="align-center" src="../../_images/data51.png" />
+</div></blockquote>
+<ol class="arabic simple" start="4">
+<li><p>Dit is een grote download die een extract bevat van gegevens voor het gehele land. Pak het bestand <code class="docutils literal notranslate"><span class="pre">india-latest-free.shp.zip</span></code> uit. U zult heel veel Shapefile-lagen krijgen.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/data61.png" class="align-center" src="../../_images/data61.png" />
+</div></blockquote>
+</section>
+<section id="clip-the-road-network-to-the-city-boundary">
+<h3>Het netwerk van straten clippen naar de stadsgrenzen<a class="headerlink" href="#clip-the-road-network-to-the-city-boundary" title="Permalink naar deze titel">¶</a></h3>
+<ol class="arabic simple">
+<li><p>We zullen nu de laag met wegen op landniveau clippen tot ons interessegebied. Open QGIS en sleep <code class="docutils literal notranslate"><span class="pre">Chennai-wards-2011.kml</span></code> naar het kaartvenster en zet het neer.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/data71.png" class="align-center" src="../../_images/data71.png" />
+</div></blockquote>
+<ol class="arabic simple" start="2">
+<li><p>Instead of opening a large layer in QGIS, we can directly read it from the disk and clip it. Open the Processing Toolbox and locate the <span class="menuselection">Vector overlay ‣ Clip</span> algorithm. Double-click to open it.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/data8.png" class="align-center" src="../../_images/data8.png" />
+</div></blockquote>
+<ol class="arabic simple" start="3">
+<li><p>Selecteer, in de <span class="guilabel">Invoerlaag</span>, de <code class="docutils literal notranslate"><span class="pre">…</span></code> en klik op <span class="guilabel">Bladeren naar laag…</span></p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/data9.png" class="align-center" src="../../_images/data9.png" />
+</div></blockquote>
+<ol class="arabic simple" start="4">
+<li><p>Navigeer naar de map waar u de gegevens van OpenStreetMap hebt gedownload en selecteer <code class="docutils literal notranslate"><span class="pre">gis_osm_roads_free_1.shp</span></code>. Kies, in de <span class="guilabel">Overleglaag</span>, <code class="docutils literal notranslate"><span class="pre">New</span> <span class="pre">Wards</span> <span class="pre">from</span> <span class="pre">Oct</span> <span class="pre">2011</span></code>. Klik dan op  <code class="docutils literal notranslate"><span class="pre">…</span></code> in <span class="guilabel">Geclipt</span> en selecteer <span class="guilabel">Opslaan als bestand…</span>, blader naar de map waar u het resultaat wilt opslaan, voer als naam in <code class="docutils literal notranslate"><span class="pre">chennai_roads.gpkg</span></code>, en klik op <span class="guilabel">Uitvoeren</span>.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/data10.png" class="align-center" src="../../_images/data10.png" />
+</div></blockquote>
+<ol class="arabic simple" start="5">
+<li><p>Once the processing finishes, a new layer <code class="docutils literal notranslate"><span class="pre">chennai_roads</span></code> will be loaded in the canvas.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/data111.png" class="align-center" src="../../_images/data111.png" />
+</div></blockquote>
+<p>Voor het gemak kunt u direct een kopie van de geclipte gegevensset downloaden vanaf de link hieronder:</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://www.qgistutorials.com/downloads/Chennai_Wards_2011.kml">chennai_wards_2011.kml</a></p></li>
+<li><p><a class="reference external" href="https://www.qgistutorials.com/downloads/chennai_roads.gpkg">chennai_roads.gpkg</a></p></li>
+</ul>
+<p>Gegevensbron: <a class="reference internal" href="../credits.html#opencities" id="id1"><span>[OPENCITIES]</span></a> <a class="reference internal" href="../credits.html#geofabrik" id="id2"><span>[GEOFABRIK]</span></a></p>
+</section>
+</section>
+<section id="procedure">
+<h2>Procedure<a class="headerlink" href="#procedure" title="Permalink naar deze titel">¶</a></h2>
+<ol class="arabic simple">
+<li><p>Now both layers used for the calculation will be available, if you have downloaded the data, then locate the <code class="docutils literal notranslate"><span class="pre">Chennai-Wards-2011.kml</span></code> and <code class="docutils literal notranslate"><span class="pre">chennai_roads.gpkg</span></code> in <span class="guilabel">Browser</span>, then drag and drop them on the canvas.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/image1.png" class="align-center" src="../../_images/image1.png" />
+</div></blockquote>
+<ol class="arabic simple" start="2">
+<li><p>De eerste taak is om de kruisingen van wegen uit te nemen. Dit kan worden gedaan met het ingebouwde gereedschap Kruisingen van lijnen. Laten we dit eerst testen op een kleine subset om te zien of de resultaten voldoen. Selecteer de laag met wegen en gebruik het gereedschap <span class="guilabel">Objecten selecteren per gebied of een enkele klik</span> om een rechthoek te tekenen en een aantal wegen te selecteren.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/image2.png" class="align-center" src="../../_images/image2.png" />
+</div></blockquote>
+<ol class="arabic simple" start="3">
+<li><p>Open the Processing Toolbox and locate the <span class="menuselection">Vector overlay ‣ Line intersections</span> algorithm. Double-click to open it.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/image3.png" class="align-center" src="../../_images/image3.png" />
+</div></blockquote>
+<ol class="arabic simple" start="4">
+<li><p>Selecteer <code class="docutils literal notranslate"><span class="pre">chennai_roads</span></code> als zowel <span class="guilabel">Invoerlaag</span> als <span class="guilabel">Intersectie van laag</span>. Zorg er voor om <span class="guilabel">Alleen geselecteerde objecten</span>. Klik op <span class="guilabel">Uitvoeren</span>.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/image4.png" class="align-center" src="../../_images/image4.png" />
+</div></blockquote>
+<ol class="arabic simple" start="5">
+<li><p>Een nieuwe laag <code class="docutils literal notranslate"><span class="pre">Kruisingen</span></code> zal worden toegevoegd. Het zal u opvallen dat, waar de meeste kruisingspunten correct zijn, er toch enkele valse positieven zijn. Dat komt omdat het algoritme kruisingen van elk lijnsegment als een geldige kruising beschouwt. Maar voor onze analyse moeten we alleen de kruisingen uitnemen voor 2 of meer straten die elkaar rkuisen.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/image5.png" class="align-center" src="../../_images/image5.png" />
+</div></blockquote>
+<ol class="arabic simple" start="6">
+<li><p>Remove the Intersections layer and click <span class="guilabel">Deselect features from all layers</span> button to remove the selection. We will now merge all adjacent road segments, so the segments between intersections are merged into a single feature. Open the Processing Toolbox and locate the <span class="menuselection">Vector geometry ‣ Dissolve</span> algorithm. Double-click to open it.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/image6.png" class="align-center" src="../../_images/image6.png" />
+</div></blockquote>
+<ol class="arabic simple" start="7">
+<li><p>Selecteer <code class="docutils literal notranslate"><span class="pre">chennai_roads</span></code> als de <span class="guilabel">Invoerlaag</span>. Voer de naam voor de uitvoerlaag van Samensmelten in als <code class="docutils literal notranslate"><span class="pre">roads_dissolved.gpkg</span></code>. Klik op <span class="guilabel">Uitvoeren</span>.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/image7.png" class="align-center" src="../../_images/image7.png" />
+</div></blockquote>
+<ol class="arabic simple" start="8">
+<li><p>De resulterende laag <code class="docutils literal notranslate"><span class="pre">roads_dissolved</span></code> bevat alle wegsegmenten, samengevoegd tot één enkel object.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/image8.png" class="align-center" src="../../_images/image8.png" />
+</div></blockquote>
+<ol class="arabic simple" start="9">
+<li><p>Next, open the Processing Toolbox and locate <span class="menuselection">Vector geometry ‣ Multipart to single parts</span> algorithm. Double-click to open it. Select <code class="docutils literal notranslate"><span class="pre">roads_dissolved</span></code> layer as the <span class="guilabel">Input layer</span>. Enter <code class="docutils literal notranslate"><span class="pre">roads_singleparts.gpkg</span></code> as the Single parts output. Click <span class="guilabel">Run</span>.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/image9.png" class="align-center" src="../../_images/image9.png" />
+</div></blockquote>
+<ol class="arabic simple" start="10">
+<li><p>The resulting layer <code class="docutils literal notranslate"><span class="pre">roads_singleparts</span></code> will have all adjacent segments merged, remove the <code class="docutils literal notranslate"><span class="pre">roads_dissolved</span></code> and <code class="docutils literal notranslate"><span class="pre">chennai_roads</span></code> layers. Now, open the Processing Toolbox and locate the <span class="menuselection">Vector overlay ‣ Line intersections</span> algorithm. Double-click to launch it.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/image10.png" class="align-center" src="../../_images/image10.png" />
+</div></blockquote>
+<ol class="arabic simple" start="11">
+<li><p>Selecteer <code class="docutils literal notranslate"><span class="pre">roads_singleparts</span></code> als zowel de <span class="guilabel">Invoerlaag</span> als de <span class="guilabel">Intersectie van laag</span>. Noem de uitvoer <span class="guilabel">Kruisingen</span> <code class="docutils literal notranslate"><span class="pre">roads_line_intersections.gpkg</span></code>. Klik op Uitvoeren.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/image11.png" class="align-center" src="../../_images/image11.png" />
+</div></blockquote>
+<div class="admonition note">
+<p class="admonition-title">Notitie</p>
+<p>Dit is een, computertechnisch gezien, intensieve bewerking en zou enige tijd kunnen vergen, afhankelijk van de verwerkingscapaciteit van uw computer.</p>
+</div>
+<ol class="arabic simple" start="12">
+<li><p>The resulting layer <code class="docutils literal notranslate"><span class="pre">roads_line_intersections</span></code> now has all intersections correctly identified. But it is still not perfect. Use the <span class="guilabel">Select features by Area tool</span> and select any intersection. You will see that at each intersection there are few duplicate points from adjacent segments. If we use this layer for further analysis, it will result in an inflated number of intersections. Let’s remove duplicates, open the Processing Toolbox and locate the <span class="menuselection">Vector general ‣ Delete duplicate geometries</span> algorithm. Select <code class="docutils literal notranslate"><span class="pre">roads_line_intersections</span></code> as the <span class="guilabel">Input layer</span> and enter <code class="docutils literal notranslate"><span class="pre">road_intersections.gpkg</span></code> as the <span class="guilabel">Cleaned</span> output layer. Click <span class="guilabel">Run</span>.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/image12.png" class="align-center" src="../../_images/image12.png" />
+</div></blockquote>
+<ol class="arabic simple" start="13">
+<li><p>The new <code class="docutils literal notranslate"><span class="pre">road_intersections</span></code> layer has the correct number of road intersections extracted from the source layer. Right-click the old <code class="docutils literal notranslate"><span class="pre">road_line_intersections</span></code> layer and select <span class="guilabel">Remove layer</span> to remove it.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/image13.png" class="align-center" src="../../_images/image13.png" />
+</div></blockquote>
+<ol class="arabic simple" start="14">
+<li><p>We will now compute the density of points by overlaying a regular grid and counting points in each grid polygon. We must reproject the data to a projected CRS so we can use linear units of measurements. We can use an appropriate CRS based on the UTM zone where the city is located. You can see <a class="reference external" href="http://www.dmap.co.uk/utmworld.htm">UTM Grid Zones of the World</a> map to locate the UTM zone for your city. Chennai falls in the UTM Zone <strong>44N</strong>. Open the Processing Toolbox and locate the <span class="menuselection">Vector general ‣ Reproject</span> algorithm. Double click to open it.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/image14.png" class="align-center" src="../../_images/image14.png" />
+</div></blockquote>
+<ol class="arabic simple" start="15">
+<li><p>Selecteer <code class="docutils literal notranslate"><span class="pre">road_intersections</span></code> als de <span class="guilabel">Invoerlaag</span>. Zoek door te klikken op het pictogram <span class="guilabel">globe</span> naast <span class="guilabel">Doel-CRS</span> en selecteer <code class="docutils literal notranslate"><span class="pre">EPSG:32664</span> <span class="pre">-</span> <span class="pre">WGS</span> <span class="pre">84</span> <span class="pre">/</span> <span class="pre">UTM</span> <span class="pre">zone</span> <span class="pre">44N</span></code>. Dit is een CRS dat is gebaseerd op de WGS84 datum voor de <em>UTM-zone 44N</em>. Voer de uitvoerlaag <span class="guilabel">Opnieuw geprojecteerd</span> in als <code class="docutils literal notranslate"><span class="pre">road_intersections_reprojected.gpkg</span></code>. Klik op <span class="guilabel">Uitvoeren</span>.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/image15.png" class="align-center" src="../../_images/image15.png" />
+</div></blockquote>
+<ol class="arabic simple" start="16">
+<li><p>Als de verwerking is voltooid en de laag <code class="docutils literal notranslate"><span class="pre">road_intersections_reprojected</span></code> is toegevoegd, klik met rechts en selecteer <span class="menuselection">Laag-CRS ‣ Project CRS van laag overnemen</span>. Verwijder de laag <code class="docutils literal notranslate"><span class="pre">road_intersections</span></code>.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/image16.png" class="align-center" src="../../_images/image16.png" />
+</div></blockquote>
+<ol class="arabic simple" start="17">
+<li><p>Project CRS will be updated in the bottom right of the window. The purpose of this step to ensure that all layers are displayed in the CRS of new layer. We are now ready to create the grid using the <code class="docutils literal notranslate"><span class="pre">road_intersections_reprojected</span></code> as reference. Open the Processing Toolbox and locate the <span class="menuselection">Vector creation ‣ Create grid</span> algorithm. Double click to open.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/image17.png" class="align-center" src="../../_images/image17.png" />
+</div></blockquote>
+<ol class="arabic simple" start="18">
+<li><p>Selecteer <span class="guilabel">Type raster</span> als <span class="guilabel">Rechthoek (polygoon)</span>. Klik op de knop  <code class="docutils literal notranslate"><span class="pre">…</span></code>  in <span class="guilabel">Grid-bereik</span> en selecteer <span class="menuselection">Uit laag berekenen ‣ road_intersections_reprojected</span>.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/image18.png" class="align-center" src="../../_images/image18.png" />
+</div></blockquote>
+<ol class="arabic simple" start="19">
+<li><p>Selecteer het project-CRS als het CRS raster. We willen een raster maken van 1km x 1km, dus stel beide <span class="guilabel">Horizontale afstand</span> en <span class="guilabel">Verticale afstand</span> in op <code class="docutils literal notranslate"><span class="pre">1000</span></code> meter. Sla de uitvoerlaag <span class="guilabel">Grid</span> op als <code class="docutils literal notranslate"><span class="pre">grid.gpkg</span></code>. Klik op <span class="guilabel">Uitvoeren</span>.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/image19.png" class="align-center" src="../../_images/image19.png" />
+</div></blockquote>
+<ol class="arabic simple" start="20">
+<li><p>The <code class="docutils literal notranslate"><span class="pre">grid</span></code> layer containing rectangular grid polygons will be created. We can now count the number of points in each polygon, but since our layers are large, this process can take a long time. One way to speed up spatial operations is to use a <em>Spatial Index</em>. Open the Processing Toolbox and locate the <span class="menuselection">Vector general ‣ Create spatial index</span> algorithm. Double click to open it.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/image20.png" class="align-center" src="../../_images/image20.png" />
+</div></blockquote>
+<ol class="arabic simple" start="21">
+<li><p>Select <code class="docutils literal notranslate"><span class="pre">grid</span></code> layer and click <span class="guilabel">Run</span>, now the layer will have a spatial index which can boost the performance of computation with this layer.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/image21.png" class="align-center" src="../../_images/image21.png" />
+</div></blockquote>
+<ol class="arabic simple" start="22">
+<li><p>Open de Toolbox van Processing en zoek naar het algoritme <span class="menuselection">Vector analyse ‣ Punten in polygonen tellen</span>.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/image22.png" class="align-center" src="../../_images/image22.png" />
+</div></blockquote>
+<ol class="arabic simple" start="23">
+<li><p>Selecteer <code class="docutils literal notranslate"><span class="pre">grid</span></code> als de laag <span class="guilabel">Polygonen</span> en <code class="docutils literal notranslate"><span class="pre">road_intersections_reprojected</span></code> als de laag <span class="guilabel">Punten</span>. Sla de uitvoerlaag <span class="guilabel">Aantal</span> op als <code class="docutils literal notranslate"><span class="pre">grid_count.gpkg</span></code>. Klik op <span class="guilabel">Uitvoeren</span>.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/image23.png" class="align-center" src="../../_images/image23.png" />
+</div></blockquote>
+<ol class="arabic simple" start="24">
+<li><p>De resulterende laag <code class="docutils literal notranslate"><span class="pre">grid_count</span></code> zal een attribuut <span class="guilabel">NUMPOINTS</span> hebben dat het aantal kruispunten binnen elke rasterpolygoon zal bevatten. Er zijn veel rasterpolygonen met 0 punten. Het zou onze analyse en visualisatie helpen om rasterpolygonen te verwijderen die geen kruisingen bevatten. Open de Toolbox van Processing en zoek naar het algoritme <span class="menuselection">Vector selectie ‣ Uitnemen op attribuut</span>.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/image24.png" class="align-center" src="../../_images/image24.png" />
+</div></blockquote>
+<ol class="arabic simple" start="25">
+<li><p>Selecteer <code class="docutils literal notranslate"><span class="pre">grid_count</span></code> als de <span class="guilabel">Invoerlaag</span>, en selecteer <code class="docutils literal notranslate"><span class="pre">NUMPOINTS</span></code> in <span class="guilabel">Attribuut selecteren</span>, <code class="docutils literal notranslate"><span class="pre">&gt;</span></code> in <span class="guilabel">Operator</span> en voer <code class="docutils literal notranslate"><span class="pre">0</span></code> als de <span class="guilabel">Waarde</span>. Sla de uitvoerlaag <span class="guilabel">Uitgenomen (attribuut)</span> op als <code class="docutils literal notranslate"><span class="pre">grid_counts_chennai.gpkg</span></code>. Klik op <span class="guilabel">Uitvoeren</span>.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/image25.png" class="align-center" src="../../_images/image25.png" />
+</div></blockquote>
+<ol class="arabic simple" start="26">
+<li><p>The resulting layer <code class="docutils literal notranslate"><span class="pre">grid_counts_chennai</span></code> will have grid polygons over the Chennai city and contains the number of road intersections as an attribute for each polygon. Remove all layers except <code class="docutils literal notranslate"><span class="pre">grid_counts_chennai</span></code>.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/image26.png" class="align-center" src="../../_images/image26.png" />
+</div></blockquote>
+<ol class="arabic simple" start="27">
+<li><p>Let’s clean up the attribute table of our data layer. The preferred method to make any changes to the attribute table is to use a processing algorithm called Refactor Fields, open the Processing Toolbox and locate the <span class="menuselection">Vector table ‣ Refactor Fields</span> algorithm. Double-click to open it. Click on any row in the <span class="guilabel">Field Mapping</span> section to select it. You can hold the <kbd class="kbd docutils literal notranslate">Shift</kbd> key to select multiple rows, select all fields except <span class="guilabel">fid</span> and <span class="guilabel">NUMPOINTS</span>. Click the <span class="guilabel">Delete selected fields</span> button.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/image27.png" class="align-center" src="../../_images/image27.png" />
+</div></blockquote>
+<ol class="arabic simple" start="28">
+<li><p>Rename the <span class="guilabel">NUMPOINTS</span> field as <code class="docutils literal notranslate"><span class="pre">intersection_density</span></code> and save the layer as <code class="docutils literal notranslate"><span class="pre">road_intersection_density.gpkg</span></code>, click <span class="guilabel">Run</span>.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/image28.png" class="align-center" src="../../_images/image28.png" />
+</div></blockquote>
+<ol class="arabic simple" start="29">
+<li><p>Laten we deze laag opmaken om de dichtheid van elke rasterpolygoon te bekijken. Selecteer de laag <code class="docutils literal notranslate"><span class="pre">road_intersection_density</span></code> en klik op <span class="guilabel">Paneel Laag opmaken openen</span>. Selecteer de renderer <span class="guilabel">Gradueel</span>, en selecteer in <span class="guilabel">Waarde</span> <span class="guilabel">Intersection Density</span>, een <span class="guilabel">Kleurverloop</span> van uw keuze, stel de <span class="guilabel">classes</span> in op <code class="docutils literal notranslate"><span class="pre">7</span></code> en klik op <span class="guilabel">Classificeren</span>.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/image29.png" class="align-center" src="../../_images/image29.png" />
+</div></blockquote>
+<ol class="arabic simple" start="30">
+<li><p>In the values enter <code class="docutils literal notranslate"><span class="pre">0-50</span></code>, <code class="docutils literal notranslate"><span class="pre">50-100</span></code>, <code class="docutils literal notranslate"><span class="pre">100-150</span></code> and so on up to <code class="docutils literal notranslate"><span class="pre">300</span> <span class="pre">-</span> <span class="pre">350</span></code>. You have now created a map showing intersection density across the city.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/image30.png" class="align-center" src="../../_images/image30.png" />
+</div></blockquote>
+</section>
+</section>
+
+
+
+
+
+  <div id="disqus_thread"></div>
+  <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+
+    </div>
+      
+  </div>
+</div>
+
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+    </p>
+    <p>
+        &copy; Copyright 2021, Ujaval Gandhi.<br/>
+      Laatste aanpassing op aug. 30, 2022.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 4.0.1.<br/>
+    </p>
+  </div>
+</footer>
+<div class="container">
+  <p>This work is licensed under a <a href="http://creativecommons.org/licenses/by/4.0/deed.en_US">Creative Commons Attribution 4.0 International License</a></p>
+</div>
+<!-- Twitter Button -->
+<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+
+<!-- Disqus comments widget -->
+<script type="text/javascript">
+  /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+  var disqus_shortname = 'qgistutorials'; // required: replace example with your forum shortname
+  /* * * DON'T EDIT BELOW THIS LINE * * */
+  (function () {
+    var s = document.createElement('script'); s.async = true;
+    s.type = 'text/javascript';
+    s.src = '//' + disqus_shortname + '.disqus.com/count.js';
+    (document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);
+  }());
+</script>
+
+<script type="text/javascript">
+  /* * * DON'T EDIT BELOW THIS LINE * * */
+  (function() {
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+
+<!-- Script fpr language switching. Largely adapted from https://github.com/pcav/faunalia-website -->
+<script>
+    var currentPage = 'docs/3/calculating_intersection_density.html'; // coming from sphinx, always without starting '/'
+    var currentLang = 'en';
+    $(document).ready(function(){
+
+        var search = new RegExp('\/[a-zA-Z_]{2,8}\/'+ currentPage, 'gi');
+        var langPlusPage = window.location.href.match(search);
+        // it's possible this is a index.html page called without 'index.html', try without the currentPage
+        if (langPlusPage==undefined){
+            search = new RegExp('\/[a-zA-Z_]{2,8}\/$', 'gi');
+            langPlusPage = window.location.href.match(search);
+        }
+
+        // it's possible this is an index.html page called without 'index.html', try removing index.html
+        if (langPlusPage==undefined){
+            currentPage = currentPage.replace('index.html','')
+            search = new RegExp('\/[a-zA-Z_]{2,8}\/'+ currentPage, 'gi');
+            langPlusPage = window.location.href.match(search);
+        }
+        // still no langPlugPage: stop, because the language swicher will misbehave 
+
+        if (langPlusPage == undefined || langPlusPage.length != 1){
+            alert('You hit an error, please report back to us.');
+            return;
+        }
+        langPlusPage = langPlusPage[0];
+        currentLang = langPlusPage.replace(currentPage, '');
+
+        $("#languages").val(currentLang.replace(/\//g,'')); // currentLang is something like '/nl/'
+
+        $("#languages").change(function() {
+            gotoLang($(this).val());
+        });
+
+    });
+
+    // load current page in a different language
+    function gotoLang(lang){
+        var currentUrl = window.location.href;
+        var newUrl = currentUrl.replace(currentLang, '/'+lang+'/');
+        window.location.href = newUrl;
+    }
+</script>
+
+  </body>
+</html>

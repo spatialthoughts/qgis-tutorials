@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+
+<html lang="zh_TW">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>近鄰分析 &#8212; QGIS Tutorials and Tips</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/bootstrap-sphinx.css" />
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/translations.js"></script>
+    <link rel="search" title="搜尋" href="../search.html" />
+
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<script type="text/javascript" src="../_static/js/jquery-1.11.0.min.js "></script>
+<script type="text/javascript" src="../_static/js/jquery-fix.js "></script>
+<script type="text/javascript" src="../_static/bootstrap-3.3.7/js/bootstrap.min.js "></script>
+<script type="text/javascript" src="../_static/bootstrap-sphinx.js "></script>
+
+
+<!-- Cookie Notice -->
+<!-- Script from https://github.com/AOEpeople/cookie-notice -->
+<script type="text/javascript" src="../_static/cookie.notice.min.js"></script>
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-B1WQ7B80XJ"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-B1WQ7B80XJ');
+</script>
+
+
+  </head><body>
+
+  <div id="navbar" class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="../index.html"><span><img src="../_static/logo.png"></span>
+          QGIS Tutorials and Tips</a>
+        <span class="navbar-text navbar-version pull-left"><b>v1</b></span>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="../index.html">Tutorials List <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"><ul>
+<li class="toctree-l1"><a class="reference internal" href="introduction.html">簡介</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/making_a_map.html">製作地圖 (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/working_with_attributes.html">Working with Attributes (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/importing_spreadsheets_csv.html">匯入工作表或 CSV 檔 (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/basic_vector_styling.html">Basic Vector Styling (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/calculating_line_lengths.html">Calculating Line Lengths and Statistics (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/raster_styling_and_analysis.html">Basic Raster Styling and Analysis (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/raster_mosaicing_and_clipping.html">Raster Mosaicing and Clipping (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/working_with_terrain.html">Working with Terrain Data (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/working_with_wms.html">Working with WMS Data (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/working_with_projections.html">Working with Projections (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/georeferencing_basics.html">為紙本地圖進行空間對位 (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/advanced_georeferencing.html">為空照圖進行空間對位 (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/digitizing_basics.html">Digitizing Map Data (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/performing_table_joins.html">資料表連接 (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/performing_spatial_joins.html">空間連接 (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/performing_spatial_queries.html">Performing Spatial Queries (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/nearest_neighbor_analysis.html">Nearest Neighbor Analysis (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/sampling_raster_data.html">Sampling Raster Data using Points or Polygons (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/calculating_raster_area.html">Calculating Raster Area (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/creating_heatmaps.html">製作熱區圖 (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/animating_time_series.html">Animating Time Series Data (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/handling_invalid_geometries.html">Handling Invalid Geometries (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/advanced_raster_analysis.html">Advanced Raster Analysis (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/interpolating_point_data.html">Interpolating Point Data (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/calculating_intersection_density.html">Calculating Street Intersection Density (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/batch_processing.html">使用處理框架進行批次處理 (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/processing_graphical_modeler.html">利用處理建模自動執行複雜的工作流程 (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/automating_map_creation.html">Automating Map Creation with Print Layout Atlas (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/multi_criteria_overlay.html">Multi Criteria Overlay Analysis (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/basic_network_analysis.html">Basic Network Visualization and Routing (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/origin_destination_matrix.html">Locating Nearest Facility with Origin-Destination Matrix (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/service_area_analysis.html">Service Area Analysis using Openrouteservice (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/travel_time_analysis.html">Travel Time Analysis with Uber Movement (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/areal_mean_rainfall.html">Calculating Areal Mean Rainfall (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/getting_started_with_pyqgis.html">Python 程式設計的初步上手 (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/processing_algorithms_pyqgis.html">Running Processing Algorithms via Python (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/custom_python_functions.html">使用自訂的 Python 表達式函數 (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/processing_python_scripts.html">撰寫 Python 腳本並在處理框架下執行（QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/building_a_python_plugin.html">以 Python 製作附加元件 (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/processing_python_plugin.html">Building a Processing Plugin (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="running_qgis_jobs.html">執行 QGIS 工作排程</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/web_mapping_with_qgis2web.html">Web Mapping with QGIS2Web (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="creating_basemaps_with_qtiles.html">用 QTiles 製作底圖</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/using_plugins.html">Using Plugins (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="downloading_osm_data.html">搜尋和下載開放街圖資料</a></li>
+<li class="toctree-l1"><a class="reference internal" href="learning_resources.html">QGIS 學習資源</a></li>
+<li class="toctree-l1"><a class="reference internal" href="credits.html">資料來源</a></li>
+<li class="toctree-l1"><a class="reference internal" href="batch_processing.html">使用處理框架進行批次處理 (QGIS2)</a></li>
+</ul>
+</ul>
+</li>
+              
+            
+            
+              
+                
+              
+            
+            
+
+            
+
+            
+              <li class="hidden-sm"></li>
+            
+          </ul>
+
+          
+            
+<form class="navbar-form navbar-right" action="../search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+      <div class="col-md-3">
+        <div id="sidebar" class="bs-sidenav" role="complementary"><h4>Author</h4>
+<p>Ujaval Gandhi</p>
+<a href="https://twitter.com/intent/follow?screen_name=spatialthoughts" class="twitter-follow-button" data-show-count="false">Follow @spatialthoughts</a>
+<hr>
+<p>Want to learn QGIS in a structured way? Check out <a href="https://spatialthoughts.com/" target="_blank">Spatial Thoughts</a> for more learning materials and instructor-led online programs with QGIS.org certification.</p>
+
+
+<h4>Change Language</h4>
+<form role="form" class="sidebar-form sidebar-left">
+<select id="languages" class="form-control select-mini">
+  <option value="en">English</option>
+  <option value="zh_TW">Chinese (Taiwan)</option>
+  <option value="nl">Dutch</option>
+  <option value="fi_FI">Finnish</option>
+  <option value="fr">French</option>
+  <option value="de">German</option>
+  <option value="el">Greek</option>
+  <option value="id">Indonesian</option>
+  <option value="it">Italian</option>
+  <option value="ko">Korean</option>
+  <option value="fa">Persian</option>
+  <option value="pt_BR">Portuguese</option>
+  <option value="ro">Romanian</option>
+  <option value="ru">Russian</option>
+  <option value="sl">Slovenian</option>
+  <option value="es">Spanish</option>
+  <option value="th">Thai</option>
+  <option value="tr">Turkish</option>
+  <option value="uk">Ukrainian</option>
+  <option value="vi">Vietnamese</option>
+</select>
+</form>
+        </div>
+      </div>
+    <div class="body col-md-9 content" role="main">
+      
+
+  <section id="nearest-neighbor-analysis">
+<h1>近鄰分析<a class="headerlink" href="#nearest-neighbor-analysis" title="本標題的永久連結">¶</a></h1>
+<div class="admonition warning">
+<p class="admonition-title">警告</p>
+<p>This tutorial is now obsolete. A new and updated version is available at <a class="reference internal" href="3/nearest_neighbor_analysis.html"><span class="doc">Nearest Neighbor Analysis (QGIS3)</span></a></p>
+</div>
+<p>GIS 非常適合用於分析圖徵的空間關係。這些分析的其中之一是為特定的圖徵尋找最接近的另一個圖徵，這時 QGIS 的<strong>距離矩陣（Distance Matrix）</strong>工具就可以派上用場。在本教學中，我們會使用 2 個資料集，並且尋找這兩個圖層中，哪些點彼此最為靠近。</p>
+<section id="overview-of-the-task">
+<h2>內容說明<a class="headerlink" href="#overview-of-the-task" title="本標題的永久連結">¶</a></h2>
+<p>我們已有許多重要地震的位置，現在要找出這些離地震最近的人口聚居地。</p>
+<section id="other-skills-you-will-learn">
+<h3>你還會學到這些<a class="headerlink" href="#other-skills-you-will-learn" title="本標題的永久連結">¶</a></h3>
+<ul class="simple">
+<li><p>如何在 QGIS 中操作資料表連結 (如需更多介紹請看 <a class="reference internal" href="performing_table_joins.html"><span class="doc">資料表連接</span></a>)</p></li>
+<li><p>使用 <span class="guilabel">查詢建構器</span> 來顯示圖層中的次群組</p></li>
+<li><p>使用 MMQGIS 附加元件畫出樞紐線以呈現近鄰分析的結果</p></li>
+</ul>
+</section>
+</section>
+<section id="get-the-data">
+<h2>取得資料<a class="headerlink" href="#get-the-data" title="本標題的永久連結">¶</a></h2>
+<p>這裡我們要使用 NOAA 的美國國立地球物理資料中心（NGDC）的 <a class="reference external" href="http://www.ngdc.noaa.gov/nndc/struts/form?t=101650&amp;s=1&amp;d=1">Significant Earthquake Database</a>，內含所有的全球重大地震。下載 <a class="reference external" href="http://www.ngdc.noaa.gov/nndc/struts/results?type_0=Exact&amp;query_0=$ID&amp;t=101650&amp;s=13&amp;d=189&amp;dfn=signif.txt">地震資料的 tab 分隔檔</a></p>
+<p>Natural Earth <a class="reference external" href="http://www.naturalearthdata.com/downloads/10m-cultural-vectors/10m-populated-places/">上有不錯的 `人口居住地</a> 資料庫，<a href="#id3"><span class="problematic" id="id4">`其中也有 `簡化版 (欄位較少) 的資料庫&lt;http://www.naturalearthdata.com/http//www.naturalearthdata.com/download/10m/cultural/ne_10m_populated_places_simple.zip&gt;`_</span></a></p>
+<p>為了方便起見，你也可以直接用下面的連結下載這兩份資料集：</p>
+<p><a href="#id1"><span class="problematic" id="id2">`</span></a>signif.txt &lt;<a class="reference external" href="http://www.qgistutorials.com/downloads/signif.txt">http://www.qgistutorials.com/downloads/signif.txt</a>&gt;</p>
+<p><a class="reference external" href="http://www.qgistutorials.com/downloads/ne_10m_populated_places_simple.zip">ne_10m_populated_places_simple.zip</a></p>
+<p>Data Sources: <a class="reference internal" href="credits.html#ncei" id="id1"><span>[NCEI]</span></a> <a class="reference internal" href="credits.html#naturalearth" id="id2"><span>[NATURALEARTH]</span></a></p>
+</section>
+<section id="procedure">
+<h2>操作流程<a class="headerlink" href="#procedure" title="本標題的永久連結">¶</a></h2>
+<ol class="arabic simple">
+<li><p>打開 QGIS，選擇 <span class="menuselection">圖層 ‣ 加入分隔文字圖層</span>，然後選擇剛下載的 <code class="docutils literal notranslate"><span class="pre">signif.txt</span></code>。</p></li>
+</ol>
+<img alt="../_images/1182.png" class="align-center" src="../_images/1182.png" />
+<ol class="arabic simple" start="2">
+<li><p>這個檔案是 <em>Tab 分隔檔</em>，所以我們可以在 <span class="guilabel">檔案格式</span> 欄位選擇 <span class="guilabel">定位鍵</span>。程式會自動選擇 <span class="guilabel">X</span> 和 <span class="guilabel">Y</span> 欄位，所以按下 <span class="guilabel">確定</span> 即可。</p></li>
+</ol>
+<div class="admonition note">
+<p class="admonition-title">備註</p>
+<p>可能你會看到 QGIS 顯示讀取檔案的時候出現了一些錯誤，這是由於檔案中的某些值異常所引起的，這些異常的資料不會被讀取。在本教學中，我們就先忽略這些錯誤沒關係。</p>
+</div>
+<img alt="../_images/2148.png" class="align-center" src="../_images/2148.png" />
+<ol class="arabic simple" start="3">
+<li><p>由於地震資料採用經緯度座標，輸入的 CRS 應該會採用 <code class="docutils literal notranslate"><span class="pre">EPSG:</span> <span class="pre">4326</span></code>，可在視窗右下角檢查是否正確。接下來來開啟人口聚居地圖層，選擇 <span class="menuselection">圖層 ‣ 加入向量圖層</span>。</p></li>
+</ol>
+<img alt="../_images/379.png" class="align-center" src="../_images/379.png" />
+<ol class="arabic simple" start="4">
+<li><p>選擇剛下載的 <code class="docutils literal notranslate"><span class="pre">ne_10m_populated_places_simple.zip</span></code> 並按下 <span class="guilabel">確定</span>。</p></li>
+</ol>
+<img alt="../_images/454.png" class="align-center" src="../_images/454.png" />
+<ol class="arabic simple" start="5">
+<li><p>稍微縮放一下瀏覽這兩個資料庫。每個紫色的點都是一個重要地震，而每個藍色的點都是一個人口聚居地（譯按：你的點顏色可能會不同，請對照圖層各自的名字）。我們要做的是為每個地震點找出最接近的人口聚居地。</p></li>
+</ol>
+<img alt="../_images/550.png" class="align-center" src="../_images/550.png" />
+<ol class="arabic simple" start="6">
+<li><p>選擇 <span class="menuselection">向量 ‣ 分析工具 ‣ 距離矩陣</span>。</p></li>
+</ol>
+<img alt="../_images/648.png" class="align-center" src="../_images/648.png" />
+<ol class="arabic simple" start="7">
+<li><p>在開啟的視窗中，「輸入點圖層」選擇 <code class="docutils literal notranslate"><span class="pre">signif</span></code>，「目標點圖層」選擇 <code class="docutils literal notranslate"><span class="pre">ne_10m_populated_places_simple</span></code>。此外，我們還要為這兩個圖層選擇一個「唯一ID欄位」（每個點的此欄位值都不相同），輸出檔將會依照此欄位顯示。在此例中，我們只要尋找最接近的 <code class="docutils literal notranslate"><span class="pre">1</span></code> 個點，所以要勾選 <span class="guilabel">僅使用最鄰近(k)目標點</span>，然後輸入 <span class="guilabel">1</span>。把輸出檔命名為 <code class="docutils literal notranslate"><span class="pre">matrix.csv</span></code>，然後按下確定。程式執行完畢後，點選 <span class="guilabel">關閉</span>。</p></li>
+</ol>
+<div class="admonition note">
+<p class="admonition-title">備註</p>
+<p>有件事值得一提：你可以只針對單一圖層執行近鄰分析，只需要把輸入點圖層和目標點圖層都設為相同圖層即可。輸入就會是在 1 個圖層中的點的近鄰結果。</p>
+</div>
+<img alt="../_images/747.png" class="align-center" src="../_images/747.png" />
+<ol class="arabic simple" start="8">
+<li><p>程式執行完畢後，在 <span class="guilabel">距離矩陣</span> 視窗點選 <span class="guilabel">關閉</span>。現在你可以使用 Notepad 或任何的文字編輯器瀏覽 <code class="docutils literal notranslate"><span class="pre">matrix.csv</span></code>。QGIS 也可以把此檔案匯入，這樣就可以把結果加到 QGIS 中瀏覽了。選擇 <span class="menuselection">圖層 ‣ 加入分隔文字圖層</span>。</p></li>
+</ol>
+<img alt="../_images/846.png" class="align-center" src="../_images/846.png" />
+<ol class="arabic simple" start="9">
+<li><p>選擇剛剛產生的新檔案 <code class="docutils literal notranslate"><span class="pre">matrix.csv</span></code>，因為它只包含了文字的欄位，所以要在 <span class="guilabel">幾何欄位定義</span> 選項中勾選 <span class="guilabel">無幾何欄位 (僅產生屬性表格)</span>。按下 <span class="guilabel">確定</span>。</p></li>
+</ol>
+<img alt="../_images/945.png" class="align-center" src="../_images/945.png" />
+<ol class="arabic simple" start="10">
+<li><p>現在此 CSV 檔案已以表格的形式匯入 QGIS 中。在這個表格上按右鍵，選擇 <span class="guilabel">開啟屬性表格</span>，</p></li>
+</ol>
+<img alt="../_images/1053.png" class="align-center" src="../_images/1053.png" />
+<ol class="arabic simple" start="11">
+<li><p>現在就可以看到近鄰分析的結果了。<span class="guilabel">InputID</span> 欄位是從地震的圖層過來的，<span class="guilabel">TargetID</span> 則是從人口聚居地的圖層過來的，代表距離地震最近的人口聚居點。<span class="guilabel">Distance</span> 則是 2 個點的距離。</p></li>
+</ol>
+<div class="admonition note">
+<p class="admonition-title">備註</p>
+<p>這裡距離的計算是使用圖層的 CRS，也就是說因為我們的來源圖層是經緯度座標，輸入距離的單位也會是<em>角度</em>。如果你想要把距離用公尺呈現，在執行近鄰分析之前，要先重投影輸入的圖層。</p>
+</div>
+<img alt="../_images/1183.png" class="align-center" src="../_images/1183.png" />
+<ol class="arabic simple" start="12">
+<li><p>本結果已相當接近我們想要的樣子。對某些使用者來說，得到一張表格已顯足夠；然而，我們可以把結果進一步<strong>連接</strong>到原本的地震圖層屬性表格上。以右鍵點選地震圖層，選擇 <span class="guilabel">屬性</span>。</p></li>
+</ol>
+<img alt="../_images/1255.png" class="align-center" src="../_images/1255.png" />
+<ol class="arabic simple" start="13">
+<li><p>前往 <span class="guilabel">連結（Joins）</span>的分頁，按下 <span class="guilabel">+</span> 按鈕。</p></li>
+</ol>
+<img alt="../_images/1449.png" class="align-center" src="../_images/1449.png" />
+<ol class="arabic simple" start="14">
+<li><p>我們要作的是連接我們的分析結果到此圖層上，所以必須要為兩個表格各選擇一個能夠連接起來（具有相同數值）的欄位。為 <span class="guilabel">連結（Join）圖層</span> 選擇 <code class="docutils literal notranslate"><span class="pre">matrix</span></code>，再為 <span class="guilabel">連結欄位</span> 選擇 <code class="docutils literal notranslate"><span class="pre">InputID</span></code>，而 <span class="guilabel">目標欄位</span> 就選擇 <code class="docutils literal notranslate"><span class="pre">I_D</span></code>。其他選項使用預設值，最後按下 <span class="guilabel">確定</span>。</p></li>
+</ol>
+<img alt="../_images/1449.png" class="align-center" src="../_images/1449.png" />
+<ol class="arabic simple" start="15">
+<li><p>在 <span class="guilabel">連結（Joins）</span>的分頁中，就出現了一筆連接資訊。按下 <span class="guilabel">確定</span>。</p></li>
+</ol>
+<img alt="../_images/1547.png" class="align-center" src="../_images/1547.png" />
+<ol class="arabic simple" start="16">
+<li><p>現在在 <code class="docutils literal notranslate"><span class="pre">signif</span></code> 圖層上按右鍵選 <span class="guilabel">開啟屬性表格</span>。</p></li>
+</ol>
+<img alt="../_images/1644.png" class="align-center" src="../_images/1644.png" />
+<ol class="arabic simple" start="17">
+<li><p>現在每個地震的圖徵，都多了新屬性顯示最近的 (人口聚居地) 點圖徵，以及其距離。</p></li>
+</ol>
+<img alt="../_images/1740.png" class="align-center" src="../_images/1740.png" />
+<ol class="arabic simple" start="18">
+<li><p>接下來我們要來看看怎麼視覺畫這些結果。首先，我們要另存新圖層，把資料表連接的結果永久保存下來。以右鍵點選 <code class="docutils literal notranslate"><span class="pre">signif</span></code> 然後選擇 <span class="guilabel">存檔為…</span>，</p></li>
+</ol>
+<img alt="../_images/1838.png" class="align-center" src="../_images/1838.png" />
+<ol class="arabic simple" start="19">
+<li><p>點選在 <span class="guilabel">另存為</span> 欄位側邊的 <span class="guilabel">瀏覽</span> 鈕，把新檔案命名為 <code class="docutils literal notranslate"><span class="pre">earthquake_with_places.shp</span></code>，確認一下 <span class="guilabel">加入儲存檔案至地圖中</span> 有開啟，最後按下 <span class="guilabel">確定</span>。</p></li>
+</ol>
+<img alt="../_images/1930.png" class="align-center" src="../_images/1930.png" />
+<ol class="arabic simple" start="20">
+<li><p>新圖層載入後，就可以把 <code class="docutils literal notranslate"><span class="pre">signif</span></code> 圖層取消勾選以隱藏起來。由於本資料集相當大，所以我們可以先對資料集的一部分進行視覺化試試看。QGIS 可以讓你不用另存新檔或匯入新圖層，就載入某個圖層的子集。在 <code class="docutils literal notranslate"><span class="pre">earthquake_with_places</span></code> 上以右鍵點選進入 <span class="guilabel">屬性</span>。</p></li>
+</ol>
+<img alt="../_images/2025.png" class="align-center" src="../_images/2025.png" />
+<ol class="arabic simple" start="21">
+<li><p>在「<span class="guilabel">一般</span>」分頁中，找到 <span class="guilabel">Feature subset</span> （或 Provider feature filter）的欄位，選擇 <span class="guilabel">查詢建構器</span>。</p></li>
+</ol>
+<img alt="../_images/2149.png" class="align-center" src="../_images/2149.png" />
+<ol class="arabic simple" start="22">
+<li><p>本教學中，我們要把焦點放在墨西哥附近的地震和人口聚居地。因此，請在 <span class="guilabel">查詢建構器</span> 中輸入以下的表達式。</p></li>
+</ol>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>&quot;COUNTRY&quot; = &#39;MEXICO&#39;
+</pre></div>
+</div>
+<img alt="../_images/2226.png" class="align-center" src="../_images/2226.png" />
+<ol class="arabic simple" start="23">
+<li><p>可以看到在 QGIS 視窗中，只剩下落在墨西哥境內的地震會顯示。接下來對人口聚居地的層進行相同操作，在 <code class="docutils literal notranslate"><span class="pre">ne_10m_populated_places_simple</span></code> 上以右鍵點選進入 <span class="guilabel">屬性</span>。</p></li>
+</ol>
+<img alt="../_images/2324.png" class="align-center" src="../_images/2324.png" />
+<ol class="arabic simple" start="24">
+<li><p>在「<span class="guilabel">一般</span>」分頁中，開啟 <span class="guilabel">查詢建構器</span>，輸入以下的表達式。</p></li>
+</ol>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>&quot;adm0name&quot; = &#39;Mexico&#39;
+</pre></div>
+</div>
+<img alt="../_images/2424.png" class="align-center" src="../_images/2424.png" />
+<ol class="arabic simple" start="25">
+<li><p>資料呈現的準備已經完成。我們接下來要使用一個稱為 <code class="docutils literal notranslate"><span class="pre">MMQGIS</span></code> 的核心附加元件，可參考 <a class="reference internal" href="using_plugins.html"><span class="doc">使用附加元件</span></a> 進行搜尋及安裝等相關操作。安裝後，選擇 <span class="menuselection">MMQGIS ‣ Create ‣ Hub Lines</span>。</p></li>
+</ol>
+<img alt="../_images/2521.png" class="align-center" src="../_images/2521.png" />
+<ol class="arabic simple" start="26">
+<li><p><span class="guilabel">Hub Point Layer</span> 欄位選擇 <code class="docutils literal notranslate"><span class="pre">ne_10m_populated_places_simple</span></code>，<span class="guilabel">Hub ID Attribute</span> 欄位選 <code class="docutils literal notranslate"><span class="pre">name</span></code>，<span class="guilabel">Spoke Point Layer</span> 欄位選擇 <code class="docutils literal notranslate"><span class="pre">earthquake_with_places</span></code>，<span class="guilabel">Spoke Hub ID Attribute</span> 欄位選擇 <code class="docutils literal notranslate"><span class="pre">matrix_Tar</span></code>。此程式會藉由比對屬性欄位值，把每個地震點和最鄰近的人口點用線連接起來。點選 <span class="guilabel">Browse</span> 然後把 <span class="guilabel">Output Shapefile</span> 命名為 <code class="docutils literal notranslate"><span class="pre">earthquake_hub_lines.shp</span></code>，最後按下 <span class="guilabel">確定</span> 開始執行。</p></li>
+</ol>
+<img alt="../_images/2619.png" class="align-center" src="../_images/2619.png" />
+<ol class="arabic simple" start="27">
+<li><p>程式可能會花幾分鐘的時間。你可以在 QGIS 螢幕左下角看到目前進度。</p></li>
+</ol>
+<img alt="../_images/2719.png" class="align-center" src="../_images/2719.png" />
+<ol class="arabic simple" start="28">
+<li><p>處理結束後，<code class="docutils literal notranslate"><span class="pre">earthquake_hub_lines</span></code> 圖層會載到 QGIS 中，可以看到現在每個地震都附帶一條線，連接到最接近的人口聚居地。</p></li>
+</ol>
+<img alt="../_images/2817.png" class="align-center" src="../_images/2817.png" />
+</section>
+</section>
+
+
+
+
+
+  <div id="disqus_thread"></div>
+  <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+
+    </div>
+      
+  </div>
+</div>
+
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+    </p>
+    <p>
+        &copy; Copyright 2021, Ujaval Gandhi.<br/>
+      最後更新於 8月 30, 2022。<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 4.0.1.<br/>
+    </p>
+  </div>
+</footer>
+<div class="container">
+  <p>This work is licensed under a <a href="http://creativecommons.org/licenses/by/4.0/deed.en_US">Creative Commons Attribution 4.0 International License</a></p>
+</div>
+<!-- Twitter Button -->
+<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+
+<!-- Disqus comments widget -->
+<script type="text/javascript">
+  /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+  var disqus_shortname = 'qgistutorials'; // required: replace example with your forum shortname
+  /* * * DON'T EDIT BELOW THIS LINE * * */
+  (function () {
+    var s = document.createElement('script'); s.async = true;
+    s.type = 'text/javascript';
+    s.src = '//' + disqus_shortname + '.disqus.com/count.js';
+    (document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);
+  }());
+</script>
+
+<script type="text/javascript">
+  /* * * DON'T EDIT BELOW THIS LINE * * */
+  (function() {
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+
+<!-- Script fpr language switching. Largely adapted from https://github.com/pcav/faunalia-website -->
+<script>
+    var currentPage = 'docs/nearest_neighbor_analysis.html'; // coming from sphinx, always without starting '/'
+    var currentLang = 'en';
+    $(document).ready(function(){
+
+        var search = new RegExp('\/[a-zA-Z_]{2,8}\/'+ currentPage, 'gi');
+        var langPlusPage = window.location.href.match(search);
+        // it's possible this is a index.html page called without 'index.html', try without the currentPage
+        if (langPlusPage==undefined){
+            search = new RegExp('\/[a-zA-Z_]{2,8}\/$', 'gi');
+            langPlusPage = window.location.href.match(search);
+        }
+
+        // it's possible this is an index.html page called without 'index.html', try removing index.html
+        if (langPlusPage==undefined){
+            currentPage = currentPage.replace('index.html','')
+            search = new RegExp('\/[a-zA-Z_]{2,8}\/'+ currentPage, 'gi');
+            langPlusPage = window.location.href.match(search);
+        }
+        // still no langPlugPage: stop, because the language swicher will misbehave 
+
+        if (langPlusPage == undefined || langPlusPage.length != 1){
+            alert('You hit an error, please report back to us.');
+            return;
+        }
+        langPlusPage = langPlusPage[0];
+        currentLang = langPlusPage.replace(currentPage, '');
+
+        $("#languages").val(currentLang.replace(/\//g,'')); // currentLang is something like '/nl/'
+
+        $("#languages").change(function() {
+            gotoLang($(this).val());
+        });
+
+    });
+
+    // load current page in a different language
+    function gotoLang(lang){
+        var currentUrl = window.location.href;
+        var newUrl = currentUrl.replace(currentLang, '/'+lang+'/');
+        window.location.href = newUrl;
+    }
+</script>
+
+  </body>
+</html>

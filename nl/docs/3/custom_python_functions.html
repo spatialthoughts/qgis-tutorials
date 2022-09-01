@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+
+<html lang="nl">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>Aangepaste Python expressie-functies gebruiken (QGIS3) &#8212; QGIS Tutorials and Tips</title>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-sphinx.css" />
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/translations.js"></script>
+    <link rel="search" title="Zoeken" href="../../search.html" />
+    <link rel="next" title="Python-scripts schrijven voor framework Processing (QGIS3)" href="processing_python_scripts.html" />
+    <link rel="prev" title="Algoritmes van Processing uitvoeren via Python (QGIS3)" href="processing_algorithms_pyqgis.html" />
+
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<script type="text/javascript" src="../../_static/js/jquery-1.11.0.min.js "></script>
+<script type="text/javascript" src="../../_static/js/jquery-fix.js "></script>
+<script type="text/javascript" src="../../_static/bootstrap-3.3.7/js/bootstrap.min.js "></script>
+<script type="text/javascript" src="../../_static/bootstrap-sphinx.js "></script>
+
+
+<!-- Cookie Notice -->
+<!-- Script from https://github.com/AOEpeople/cookie-notice -->
+<script type="text/javascript" src="../../_static/cookie.notice.min.js"></script>
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-B1WQ7B80XJ"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-B1WQ7B80XJ');
+</script>
+
+
+  </head><body>
+
+  <div id="navbar" class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="../../index.html"><span><img src="../../_static/logo.png"></span>
+          QGIS Tutorials and Tips</a>
+        <span class="navbar-text navbar-version pull-left"><b>v1</b></span>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="../../index.html">Tutorials List <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"><ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../introduction.html">Introductie</a></li>
+<li class="toctree-l1"><a class="reference internal" href="making_a_map.html">Een kaart maken (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="working_with_attributes.html">Werken met attributen (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="importing_spreadsheets_csv.html">Werkbladen of CSV-bestanden importeren (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="basic_vector_styling.html">Basis opmaken van vectoren (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="calculating_line_lengths.html">Lengten van lijnen en statistieken berekenen (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="raster_styling_and_analysis.html">Basis opmaken en analyses van rasters (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="raster_mosaicing_and_clipping.html">Rasters mozaïeken en clippen (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="working_with_terrain.html">Werken met gegevens over het terrein (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="working_with_wms.html">Werken met gegevens van WMS (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="working_with_projections.html">Werken met projecties (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="georeferencing_basics.html">Topobladen en gescande kaarten voorzien van geoverwijzingen (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="advanced_georeferencing.html">Geo-verwijzingen voor satellietbeelden (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="digitizing_basics.html">Kaartgegevens digitaliseren</a></li>
+<li class="toctree-l1"><a class="reference internal" href="performing_table_joins.html">Samenvoegen van tabellen uitvoeren (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="performing_spatial_joins.html">Ruimtelijke samenvoegingen uitvoeren (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="performing_spatial_queries.html">Ruimtelijke query’s uitvoeren (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="nearest_neighbor_analysis.html">Analyse Nearest Neighbor (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="sampling_raster_data.html">Monsters nemen van rastergegevens met behulp van punten of polygonen (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="calculating_raster_area.html">Rastergebied berekenen (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="creating_heatmaps.html">Heatmaps maken (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="animating_time_series.html">Geanimeerde gegevens tijdreeks (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="handling_invalid_geometries.html">Ongeldige geometrieën afhandelen (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="advanced_raster_analysis.html">Gevorderde rasteranalyses (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="interpolating_point_data.html">Interpoleren van puntgegevens</a></li>
+<li class="toctree-l1"><a class="reference internal" href="calculating_intersection_density.html">Dichtheid van straatkruisingen berekenen (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="batch_processing.html">Massa verwerken met behulp van Framework Processing (QGIS 3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="processing_graphical_modeler.html">Complexe werkstromen automatiseren met behulp van Grafische modellen bouwen (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="automating_map_creation.html">Maken van kaarten automatiseren met Atlas van afdruklay-out (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="multi_criteria_overlay.html">Multi Criteria Overlay Analyse (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="basic_network_analysis.html">Basis netwerk visualisatie en routeren (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="origin_destination_matrix.html">Dichtstbijzijnde faciliteit zoeken met Origin-Destination Matrix (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="service_area_analysis.html">Analyse Servicegebied met Openrouteservice (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="travel_time_analysis.html">Reistijd-analyse met Uber Movement (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="areal_mean_rainfall.html">Berekenen gemiddelde regenval voor gebied (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="getting_started_with_pyqgis.html">Beginnen met programmeren in Python (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="processing_algorithms_pyqgis.html">Algoritmes van Processing uitvoeren via Python (QGIS3)</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Aangepaste Python expressie-functies gebruiken (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="processing_python_scripts.html">Python-scripts schrijven voor framework Processing (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="building_a_python_plugin.html">Een plug-in in Python bouwen (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="processing_python_plugin.html">Een plug-in voor Processing bouwen (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../running_qgis_jobs.html">Taken voor QGIS uitvoeren en in schema zetten</a></li>
+<li class="toctree-l1"><a class="reference internal" href="web_mapping_with_qgis2web.html">In kaart brengen op het web met QGIS2Web (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../creating_basemaps_with_qtiles.html">Basiskaarten maken met QTiles</a></li>
+<li class="toctree-l1"><a class="reference internal" href="using_plugins.html">Plug-ins gebruiken (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../downloading_osm_data.html">Zoeken en downloaden van gegevens van OpenStreetMap</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../learning_resources.html">QGIS bronnen om te leren</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../credits.html">Gebruik van gegevens</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../batch_processing.html">Massa verwerken met behulp van Framework Processing (QGIS2)</a></li>
+</ul>
+</ul>
+</li>
+              
+            
+            
+              
+                
+  <li>
+    <a href="processing_algorithms_pyqgis.html" title="Previous Chapter: Algoritmes van Processing uitvoeren via Python (QGIS3)"><span class="glyphicon glyphicon-chevron-left visible-sm"></span><span class="hidden-sm hidden-tablet">&laquo; Algoritmes va...</span>
+    </a>
+  </li>
+  <li>
+    <a href="processing_python_scripts.html" title="Next Chapter: Python-scripts schrijven voor framework Processing (QGIS3)"><span class="glyphicon glyphicon-chevron-right visible-sm"></span><span class="hidden-sm hidden-tablet">Python-script... &raquo;</span>
+    </a>
+  </li>
+              
+            
+            
+
+            
+
+            
+              <li class="hidden-sm"></li>
+            
+          </ul>
+
+          
+            
+<form class="navbar-form navbar-right" action="../../search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+      <div class="col-md-3">
+        <div id="sidebar" class="bs-sidenav" role="complementary"><h4>Author</h4>
+<p>Ujaval Gandhi</p>
+<a href="https://twitter.com/intent/follow?screen_name=spatialthoughts" class="twitter-follow-button" data-show-count="false">Follow @spatialthoughts</a>
+<hr>
+<p>Want to learn QGIS in a structured way? Check out <a href="https://spatialthoughts.com/" target="_blank">Spatial Thoughts</a> for more learning materials and instructor-led online programs with QGIS.org certification.</p>
+
+
+<h4>Change Language</h4>
+<form role="form" class="sidebar-form sidebar-left">
+<select id="languages" class="form-control select-mini">
+  <option value="en">English</option>
+  <option value="zh_TW">Chinese (Taiwan)</option>
+  <option value="nl">Dutch</option>
+  <option value="fi_FI">Finnish</option>
+  <option value="fr">French</option>
+  <option value="de">German</option>
+  <option value="el">Greek</option>
+  <option value="id">Indonesian</option>
+  <option value="it">Italian</option>
+  <option value="ko">Korean</option>
+  <option value="fa">Persian</option>
+  <option value="pt_BR">Portuguese</option>
+  <option value="ro">Romanian</option>
+  <option value="ru">Russian</option>
+  <option value="sl">Slovenian</option>
+  <option value="es">Spanish</option>
+  <option value="th">Thai</option>
+  <option value="tr">Turkish</option>
+  <option value="uk">Ukrainian</option>
+  <option value="vi">Vietnamese</option>
+</select>
+</form>
+        </div>
+      </div>
+    <div class="body col-md-9 content" role="main">
+      
+
+  <section id="using-custom-python-expression-functions-qgis3">
+<h1>Aangepaste Python expressie-functies gebruiken (QGIS3)<a class="headerlink" href="#using-custom-python-expression-functions-qgis3" title="Permalink naar deze titel">¶</a></h1>
+<p>Expressies in QGIS zijn bijzonder krachtig en worden in vele bron-mogelijkheden gebruikt: selectie, berekenen van veldwaarden, opmaken, labelen etc. QGIS hefet ook ondersteuning voor gebruikergedefinieerde expressies. Met slechts weinig programmeren in Python kunt u uw eigen functies definiëren die kunnen worden gebruikt binnen het programma voor de expressie.</p>
+<section id="overview-of-the-task">
+<h2>Overzicht van de taak<a class="headerlink" href="#overview-of-the-task" title="Permalink naar deze titel">¶</a></h2>
+<p>We zullen een aangepaste functie definiëren die het <a class="reference external" href="http://www.dmap.co.uk/utmworld.htm">UTM zonenummer</a> van een kaartobject zoekt en deze functie gebruikt om een expressie te schrijven die de UTM-zone als een kaarttip weergeeft als over het punt wordt gegaan.</p>
+<section id="other-skills-you-will-learn">
+<h3>Andere vaardigheden die u zult leren<a class="headerlink" href="#other-skills-you-will-learn" title="Permalink naar deze titel">¶</a></h3>
+<ul class="simple">
+<li><p>Hoe het gereedschap <code class="docutils literal notranslate"><span class="pre">Kaarttips</span></code> te gebruiken om aangepaste tekst weer te geven indien er over een object wordt gegaan.</p></li>
+</ul>
+</section>
+</section>
+<section id="get-the-data">
+<h2>De gegevens ophalen<a class="headerlink" href="#get-the-data" title="Permalink naar deze titel">¶</a></h2>
+<p>We zullen de gegevensset Natural Earth’s <a class="reference external" href="http://www.naturalearthdata.com/downloads/10m-cultural-vectors/10m-populated-places/">Populated Places</a> gebruiken. Download de <a class="reference external" href="http://www.naturalearthdata.com/http//www.naturalearthdata.com/download/10m/cultural/ne_10m_populated_places_simple.zip">simple (less columns) dataset</a></p>
+</section>
+<section id="procedure">
+<h2>Procedure<a class="headerlink" href="#procedure" title="Permalink naar deze titel">¶</a></h2>
+<ol class="arabic simple">
+<li><p>Zoek in de QGIS Browser naar het bestand <code class="docutils literal notranslate"><span class="pre">ne_10m_populated_places_simple.zip</span></code> en vergroot het. Selecteer het bestand <code class="docutils literal notranslate"><span class="pre">ne_10m_populated_places_simple.shp</span></code> en sleep het naar het kaartvenster.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/140.png" class="align-center" src="../../_images/140.png" />
+</div></blockquote>
+<ol class="arabic simple" start="2">
+<li><p>Ga naar <span class="menuselection">Bewerken ‣ Selecteren ‣ Objecten selecteren met een expressie…</span> of klik op de knop <span class="guilabel">Objecten selecteren met een expressie</span> op de <span class="guilabel">werkbalk Attributen</span>.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/229.png" class="align-center" src="../../_images/229.png" />
+</div></blockquote>
+<ol class="arabic simple" start="3">
+<li><p>Schakel, in het dialoogvenster <span class="guilabel">Select by Expression</span>, naar de tab <span class="guilabel">Functiebewerker</span>. Hier kunt u alle code voor PyQGIS schrijven die zal worden uitgevoerd door het programma voor expressies.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/319.png" class="align-center" src="../../_images/319.png" />
+</div></blockquote>
+<ol class="arabic simple" start="4">
+<li><p>We zullen een aangepaste functie maken, genaamd <code class="docutils literal notranslate"><span class="pre">GetUtmZone</span></code> dat het getal van de UTM-zone zal berekenen voor elk object. Omdat aangepaste functies in QGIS werken op het niveau van objecten. We zullen het zwaartepunt van de geometrie van het object gebruiken en de UTM-zone berekenen uit de latitude en longitude van de geometrie van het zwaartepunt. We zullen ook een bestemming ‘N’ of ‘S’ toevoegen aan de zone om aan te geven of de zone zich bevindt in de noordelijke of zuidelijke hemisfeer. Druk op de knop <span class="guilabel">+</span> in de linker benedenhoek van het scherm en typ <code class="docutils literal notranslate"><span class="pre">utm_zones.py</span></code> als de bestandsnaam. U kunt op het label <span class="guilabel">Help</span> in het onderste paneel klikken om het te sluiten en het paneel voor de code te vergroten.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/4.gif" class="align-center" src="../../_images/4.gif" />
+</div></blockquote>
+<ol class="arabic" start="5">
+<li><p>UTM-zones zijn projectiezones op de lengtegraad, genummerd van 1 tot en met 60. Elke UTM-zone is 6 graden breed. Hier gebruiken we een eenvoudige wiskundige formule om de toepasselijke zone te zoeken voor een bepaalde waarde voor de lengtegraad. Deze formule werkt voor alles, met uitzondering van enkele  <a class="reference external" href="https://en.wikipedia.org/wiki/Universal_Transverse_Mercator_coordinate_system#Exceptions">speciale UTM-zones</a>. Typ de volgende code in het venster van de bewerker. Klik, als u klaar bent, op <span class="guilabel">Functies voor laden en opslaan</span>.</p>
+<blockquote>
+<div><div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">math</span>
+<span class="kn">from</span> <span class="nn">qgis.core</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="kn">from</span> <span class="nn">qgis.gui</span> <span class="kn">import</span> <span class="o">*</span>
+
+<span class="nd">@qgsfunction</span><span class="p">(</span><span class="n">args</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">group</span><span class="o">=</span><span class="s1">&#39;Custom&#39;</span><span class="p">,</span> <span class="n">usesgeometry</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">GetUtmZone</span><span class="p">(</span><span class="n">value1</span><span class="p">,</span> <span class="n">feature</span><span class="p">,</span> <span class="n">parent</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Return the UTM Zone of the feature&#39;s geometry as a String&quot;&quot;&quot;</span>
+    <span class="n">centroid</span> <span class="o">=</span> <span class="n">feature</span><span class="o">.</span><span class="n">geometry</span><span class="p">()</span>
+    <span class="n">longitude</span> <span class="o">=</span> <span class="n">centroid</span><span class="o">.</span><span class="n">asPoint</span><span class="p">()</span><span class="o">.</span><span class="n">x</span><span class="p">()</span>
+    <span class="n">latitude</span> <span class="o">=</span> <span class="n">centroid</span><span class="o">.</span><span class="n">asPoint</span><span class="p">()</span><span class="o">.</span><span class="n">y</span><span class="p">()</span>
+    <span class="n">zone_number</span> <span class="o">=</span> <span class="n">math</span><span class="o">.</span><span class="n">floor</span><span class="p">(((</span><span class="n">longitude</span> <span class="o">+</span> <span class="mi">180</span><span class="p">)</span> <span class="o">/</span> <span class="mi">6</span><span class="p">)</span> <span class="o">%</span> <span class="mi">60</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span>
+
+    <span class="k">if</span> <span class="n">latitude</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="n">zone_letter</span> <span class="o">=</span> <span class="s1">&#39;N&#39;</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">zone_letter</span> <span class="o">=</span> <span class="s1">&#39;S&#39;</span>
+
+    <span class="k">return</span> <span class="s1">&#39;</span><span class="si">%d%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">zone_number</span><span class="p">),</span> <span class="n">zone_letter</span><span class="p">)</span>
+</pre></div>
+</div>
+<img alt="../../_images/58.png" class="align-center" src="../../_images/58.png" />
+</div></blockquote>
+</li>
+</ol>
+<div class="admonition note">
+<p class="admonition-title">Notitie</p>
+<p>Momenteel is er geen manier om een bestand voor een expressie uit de gebruikersinterface te verwijderen. Als u het bestand <code class="docutils literal notranslate"><span class="pre">utm_zone.py</span></code> wilt verwijderen, kunt u gaan naar <span class="menuselection">Extra ‣ Gebruikerprofielen ‣ Actieve profielmap openen</span> en verwijder het bestand uit <span class="menuselection">python ‣ expressions</span>.</p>
+</div>
+<ol class="arabic" start="6">
+<li><p>Schakel naar de tab Expressie in het dialoogvenster Select by expression. Zoek en vergroot de groep <span class="guilabel">Custom</span> in het gedeelte Functies. U zult een nieuwe aangepaste functie <code class="docutils literal notranslate"><span class="pre">$GetUtmZone</span></code> in de lijst zien. We kunnen nu deze functie nu gebruiken in expressies, net als alle andere functies. Typ de volgende expressie in de bewerker. Deze expressie zal alle punten selecteren die in de UTM Zone <code class="docutils literal notranslate"><span class="pre">40N</span></code> vallen. Klik op <span class="guilabel">Selecteren</span>. Klik op <span class="guilabel">Zoom naar objecten</span> en de kaart zal wijzigen, als u klikt op <span class="guilabel">Objecten selecteren</span> zou u de punten in UTM zone 33N hun kleur zijn veranderen naar geel.</p>
+<blockquote>
+<div><div class="highlight-none notranslate"><div class="highlight"><pre><span></span>GetUtmZone() = &#39;33N&#39;
+</pre></div>
+</div>
+<img alt="../../_images/68.png" class="align-center" src="../../_images/68.png" />
+</div></blockquote>
+</li>
+</ol>
+<div class="admonition note">
+<p class="admonition-title">Notitie</p>
+<p>Wegens een probleem werkte deze mogelijkheid niet in vroege versies van QGIS 3. Het is gerepareerd vanaf versie 3.4.5 en hoger.</p>
+</div>
+<ol class="arabic" start="7">
+<li><p>Terug in het hoofdvenster van QGIS zou u enkele punten zien die geel zijn geaccentueerd. Dit zijn de punten die vallen in de UTM Zone die we hebben gespecificeerd in de expressie.</p>
+<blockquote>
+<div><img alt="../../_images/78.png" class="align-center" src="../../_images/78.png" />
+</div></blockquote>
+</li>
+<li><p>U zag hoe we een aangepaste functie om objecten met een expressie te selecteren hebben gedefinieerd en gebruikt. We zullen du dezelfde functie in een andere context gebruiken. Eén van de verborgen juwelen in QGIS is het gereedschap <strong>Kaarttips</strong>. Dit gereedschap geeft gebruiker-gedefinieerde tekst weer indien u over een object gaat. Klik met rechts op de laag <code class="docutils literal notranslate"><span class="pre">ne_10m_populated_places_simple</span></code> en selecteer Eigenschappen.</p>
+<img alt="../../_images/88.png" class="align-center" src="../../_images/88.png" />
+</li>
+<li><p>Schakel over naar de tab Tonen. Hier kunt u elke tekst invullen die zal worden weergegeven als u over de objecten van de laag gaat. Beter nog, u kunt veldwaarden van de laag gebruiken en ook expressies om veel betere nuttige berichten weer te geven. Klik op de knop <span class="guilabel">Ɛ</span>.</p>
+<img alt="../../_images/98.png" class="align-center" src="../../_images/98.png" />
+</li>
+<li><p>U zult opnieuw de bekende expressiebewerker zien. We zullen de functie <code class="docutils literal notranslate"><span class="pre">concat</span></code> gebruiken om de waarde van het veld <code class="docutils literal notranslate"><span class="pre">name</span></code> samen te voegen met het resultaat van onze aangepaste functie <code class="docutils literal notranslate"><span class="pre">GetUtmZone</span></code>. Voer de volgende expressie in en klik op <span class="guilabel">OK</span>.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">concat</span><span class="p">(</span><span class="s2">&quot;name&quot;</span><span class="p">,</span><span class="s1">&#39; | UTM Zone: &#39;</span><span class="p">,</span> <span class="n">GetUtmZone</span><span class="p">())</span>
+</pre></div>
+</div>
+<img alt="../../_images/1012.png" class="align-center" src="../../_images/1012.png" />
+</li>
+<li><p>U zult de expressie zien ingevoerd als de waarde van de tekst in Tonen. Klik op <span class="guilabel">Toevoegen</span> om het toe te voegen aan het vak HTML en druk dan op <span class="guilabel">OK</span>.</p>
+<img alt="../../_images/1115.png" class="align-center" src="../../_images/1115.png" />
+</li>
+<li><p>Laten we, vóórdat we doorgaan, de objecten die werden geselecteerd in de vorige stap deselecteren. Ga naar <span class="menuselection">Beeld ‣ Selecteren ‣ Objecten uit alle lagen deselecteren</span> of klik op de knop <span class="guilabel">Objecten uit alle lagen deselecteren</span> op de <span class="guilabel">werkbalk Attributen</span>.</p>
+<img alt="../../_images/1213.png" class="align-center" src="../../_images/1213.png" />
+</li>
+<li><p>Activeer het gereedschap <code class="docutils literal notranslate"><span class="pre">Kaarttips</span></code> door te gaan naar <span class="menuselection">Beeld ‣ Kaarttips</span> of door te klikken op de knop <span class="guilabel">Kaarttips weergeven</span> op de <span class="guilabel">werkbalk Attributen</span>.</p>
+<img alt="../../_images/1311.png" class="align-center" src="../../_images/1311.png" />
+</li>
+<li><p>Zoom in op een willekeurig gebied van de kaart en plaats uw muiscursor boven een object. U zult de naam van de stad en de corresponderende UTM-zone weergegeven zien worden als een kaarttip.</p>
+<img alt="../../_images/14.gif" class="align-center" src="../../_images/14.gif" />
+</li>
+</ol>
+</section>
+</section>
+
+
+
+
+
+  <div id="disqus_thread"></div>
+  <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+
+    </div>
+      
+  </div>
+</div>
+
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+    </p>
+    <p>
+        &copy; Copyright 2021, Ujaval Gandhi.<br/>
+      Laatste aanpassing op aug. 30, 2022.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 4.0.1.<br/>
+    </p>
+  </div>
+</footer>
+<div class="container">
+  <p>This work is licensed under a <a href="http://creativecommons.org/licenses/by/4.0/deed.en_US">Creative Commons Attribution 4.0 International License</a></p>
+</div>
+<!-- Twitter Button -->
+<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+
+<!-- Disqus comments widget -->
+<script type="text/javascript">
+  /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+  var disqus_shortname = 'qgistutorials'; // required: replace example with your forum shortname
+  /* * * DON'T EDIT BELOW THIS LINE * * */
+  (function () {
+    var s = document.createElement('script'); s.async = true;
+    s.type = 'text/javascript';
+    s.src = '//' + disqus_shortname + '.disqus.com/count.js';
+    (document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);
+  }());
+</script>
+
+<script type="text/javascript">
+  /* * * DON'T EDIT BELOW THIS LINE * * */
+  (function() {
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+
+<!-- Script fpr language switching. Largely adapted from https://github.com/pcav/faunalia-website -->
+<script>
+    var currentPage = 'docs/3/custom_python_functions.html'; // coming from sphinx, always without starting '/'
+    var currentLang = 'en';
+    $(document).ready(function(){
+
+        var search = new RegExp('\/[a-zA-Z_]{2,8}\/'+ currentPage, 'gi');
+        var langPlusPage = window.location.href.match(search);
+        // it's possible this is a index.html page called without 'index.html', try without the currentPage
+        if (langPlusPage==undefined){
+            search = new RegExp('\/[a-zA-Z_]{2,8}\/$', 'gi');
+            langPlusPage = window.location.href.match(search);
+        }
+
+        // it's possible this is an index.html page called without 'index.html', try removing index.html
+        if (langPlusPage==undefined){
+            currentPage = currentPage.replace('index.html','')
+            search = new RegExp('\/[a-zA-Z_]{2,8}\/'+ currentPage, 'gi');
+            langPlusPage = window.location.href.match(search);
+        }
+        // still no langPlugPage: stop, because the language swicher will misbehave 
+
+        if (langPlusPage == undefined || langPlusPage.length != 1){
+            alert('You hit an error, please report back to us.');
+            return;
+        }
+        langPlusPage = langPlusPage[0];
+        currentLang = langPlusPage.replace(currentPage, '');
+
+        $("#languages").val(currentLang.replace(/\//g,'')); // currentLang is something like '/nl/'
+
+        $("#languages").change(function() {
+            gotoLang($(this).val());
+        });
+
+    });
+
+    // load current page in a different language
+    function gotoLang(lang){
+        var currentUrl = window.location.href;
+        var newUrl = currentUrl.replace(currentLang, '/'+lang+'/');
+        window.location.href = newUrl;
+    }
+</script>
+
+  </body>
+</html>

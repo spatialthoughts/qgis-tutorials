@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+
+<html lang="th">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>Using Plugins (QGIS3) &#8212; QGIS Tutorials and Tips</title>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-sphinx.css" />
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="ค้นหาและดาวน์โหลดข้อมูลจาก OpenStreetMap" href="../downloading_osm_data.html" />
+    <link rel="prev" title="Creating Basemaps with QTiles" href="../creating_basemaps_with_qtiles.html" />
+
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<script type="text/javascript" src="../../_static/js/jquery-1.11.0.min.js "></script>
+<script type="text/javascript" src="../../_static/js/jquery-fix.js "></script>
+<script type="text/javascript" src="../../_static/bootstrap-3.3.7/js/bootstrap.min.js "></script>
+<script type="text/javascript" src="../../_static/bootstrap-sphinx.js "></script>
+
+
+<!-- Cookie Notice -->
+<!-- Script from https://github.com/AOEpeople/cookie-notice -->
+<script type="text/javascript" src="../../_static/cookie.notice.min.js"></script>
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-B1WQ7B80XJ"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-B1WQ7B80XJ');
+</script>
+
+
+  </head><body>
+
+  <div id="navbar" class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="../../index.html"><span><img src="../../_static/logo.png"></span>
+          QGIS Tutorials and Tips</a>
+        <span class="navbar-text navbar-version pull-left"><b>v1</b></span>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="../../index.html">Tutorials List <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"><ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../introduction.html">บทนำ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="making_a_map.html">Making a Map (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="working_with_attributes.html">Working with Attributes (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="importing_spreadsheets_csv.html">Importing Spreadsheets or CSV files (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="basic_vector_styling.html">Basic Vector Styling (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="calculating_line_lengths.html">Calculating Line Lengths and Statistics (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="raster_styling_and_analysis.html">Basic Raster Styling and Analysis (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="raster_mosaicing_and_clipping.html">Raster Mosaicing and Clipping (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="working_with_terrain.html">Working with Terrain Data (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="working_with_wms.html">Working with WMS Data (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="working_with_projections.html">Working with Projections (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="georeferencing_basics.html">Georeferencing Topo Sheets and Scanned Maps (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="advanced_georeferencing.html">Georeferencing Aerial Imagery (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="digitizing_basics.html">Digitizing Map Data (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="performing_table_joins.html">Performing Table Joins (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="performing_spatial_joins.html">Performing Spatial Joins (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="performing_spatial_queries.html">Performing Spatial Queries (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="nearest_neighbor_analysis.html">Nearest Neighbor Analysis (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="sampling_raster_data.html">Sampling Raster Data using Points or Polygons (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="calculating_raster_area.html">Calculating Raster Area (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="creating_heatmaps.html">Creating Heatmaps (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="animating_time_series.html">Animating Time Series Data (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="handling_invalid_geometries.html">Handling Invalid Geometries (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="advanced_raster_analysis.html">Advanced Raster Analysis (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="interpolating_point_data.html">Interpolating Point Data (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="calculating_intersection_density.html">Calculating Street Intersection Density (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="batch_processing.html">Batch Processing using Processing Framework (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="processing_graphical_modeler.html">Automating Complex Workflows using Processing Modeler (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="automating_map_creation.html">Automating Map Creation with Print Layout Atlas (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="multi_criteria_overlay.html">Multi Criteria Overlay Analysis (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="basic_network_analysis.html">Basic Network Visualization and Routing (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="origin_destination_matrix.html">Locating Nearest Facility with Origin-Destination Matrix (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="service_area_analysis.html">Service Area Analysis using Openrouteservice (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="travel_time_analysis.html">Travel Time Analysis with Uber Movement (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="areal_mean_rainfall.html">Calculating Areal Mean Rainfall (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="getting_started_with_pyqgis.html">Getting Started With Python Programming (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="processing_algorithms_pyqgis.html">Running Processing Algorithms via Python (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="custom_python_functions.html">Using Custom Python Expression Functions (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="processing_python_scripts.html">Writing Python Scripts for Processing Framework (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="building_a_python_plugin.html">Building a Python Plugin (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="processing_python_plugin.html">Building a Processing Plugin (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../running_qgis_jobs.html">Running and Scheduling QGIS Processing Jobs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="web_mapping_with_qgis2web.html">Web Mapping with QGIS2Web (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../creating_basemaps_with_qtiles.html">Creating Basemaps with QTiles</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Using Plugins (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../downloading_osm_data.html">ค้นหาและดาวน์โหลดข้อมูลจาก OpenStreetMap</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../learning_resources.html">QGIS Learning Resources</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../credits.html">Data Credits</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../batch_processing.html">Batch Processing using Processing Framework (QGIS2)</a></li>
+</ul>
+</ul>
+</li>
+              
+            
+            
+              
+                
+  <li>
+    <a href="../creating_basemaps_with_qtiles.html" title="Previous Chapter: Creating Basemaps with QTiles"><span class="glyphicon glyphicon-chevron-left visible-sm"></span><span class="hidden-sm hidden-tablet">&laquo; Creating Base...</span>
+    </a>
+  </li>
+  <li>
+    <a href="../downloading_osm_data.html" title="Next Chapter: ค้นหาและดาวน์โหลดข้อมูลจาก OpenStreetMap"><span class="glyphicon glyphicon-chevron-right visible-sm"></span><span class="hidden-sm hidden-tablet">ค้นหาและดาวน์... &raquo;</span>
+    </a>
+  </li>
+              
+            
+            
+
+            
+
+            
+              <li class="hidden-sm"></li>
+            
+          </ul>
+
+          
+            
+<form class="navbar-form navbar-right" action="../../search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+      <div class="col-md-3">
+        <div id="sidebar" class="bs-sidenav" role="complementary"><h4>Author</h4>
+<p>Ujaval Gandhi</p>
+<a href="https://twitter.com/intent/follow?screen_name=spatialthoughts" class="twitter-follow-button" data-show-count="false">Follow @spatialthoughts</a>
+<hr>
+<p>Want to learn QGIS in a structured way? Check out <a href="https://spatialthoughts.com/" target="_blank">Spatial Thoughts</a> for more learning materials and instructor-led online programs with QGIS.org certification.</p>
+
+
+<h4>Change Language</h4>
+<form role="form" class="sidebar-form sidebar-left">
+<select id="languages" class="form-control select-mini">
+  <option value="en">English</option>
+  <option value="zh_TW">Chinese (Taiwan)</option>
+  <option value="nl">Dutch</option>
+  <option value="fi_FI">Finnish</option>
+  <option value="fr">French</option>
+  <option value="de">German</option>
+  <option value="el">Greek</option>
+  <option value="id">Indonesian</option>
+  <option value="it">Italian</option>
+  <option value="ko">Korean</option>
+  <option value="fa">Persian</option>
+  <option value="pt_BR">Portuguese</option>
+  <option value="ro">Romanian</option>
+  <option value="ru">Russian</option>
+  <option value="sl">Slovenian</option>
+  <option value="es">Spanish</option>
+  <option value="th">Thai</option>
+  <option value="tr">Turkish</option>
+  <option value="uk">Ukrainian</option>
+  <option value="vi">Vietnamese</option>
+</select>
+</form>
+        </div>
+      </div>
+    <div class="body col-md-9 content" role="main">
+      
+
+  <section id="using-plugins-qgis3">
+<h1>Using Plugins (QGIS3)<a class="headerlink" href="#using-plugins-qgis3" title="Permalink to this headline">¶</a></h1>
+<p>Plugins in QGIS add useful features to the software. Plugins are written by QGIS developers and other independent developers who want to extend the core functionality of the software. These plugins are then uploaded to the QGIS Plugin Repository, reviewed by the community members, and then made available to all QGIS users.</p>
+<section id="overview-of-the-task">
+<h2>Overview of the task<a class="headerlink" href="#overview-of-the-task" title="Permalink to this headline">¶</a></h2>
+<p>In this tutorial, you will learn how to enable <em>Core Plugins</em> as well as download and install <em>Third-party Plugins</em>. You will also learn how to locate and run the plugins once they are installed.</p>
+</section>
+<section id="procedure">
+<h2>Procedure<a class="headerlink" href="#procedure" title="Permalink to this headline">¶</a></h2>
+<section id="core-plugins">
+<h3>Core Plugins<a class="headerlink" href="#core-plugins" title="Permalink to this headline">¶</a></h3>
+<p>Core plugins are already part of the standard QGIS installation. To use these, you just need to enable them.</p>
+<ol class="arabic">
+<li><p>Open QGIS. Click on <span class="menuselection">Plugins ‣ Manage and Install Plugins...</span>. to open the <span class="guilabel">Plugins</span> dialog.</p>
+<blockquote>
+<div><img alt="../../_images/core1.png" class="align-center" src="../../_images/core1.png" />
+</div></blockquote>
+</li>
+<li><p>Even if this is your first time using QGIS, you will see a lot of plugins listed under the <span class="guilabel">Installed</span> tab. This is because they are <em>Core Plugins</em> and were installed during QGIS installation.</p>
+<blockquote>
+<div><img alt="../../_images/core2.png" class="align-center" src="../../_images/core2.png" />
+</div></blockquote>
+</li>
+<li><p>Let's enable one of the plugins. Check on the checkbox next to <span class="guilabel">Topology Checker Plugin</span>. This will enable the plugin and you will be able to use it. One thing to note is that plugins can insert menu items at various locations and create new panels and toolbars. Sometimes it is difficult to know how to find the newly enabled tools. One clue is to look in the plugin description. Here the description says <em>Category: Vector</em>. That indicates that the plugin would be found under the <span class="guilabel">Vector</span> menu once enabled. Also, these plugins cannot be uninstalled. Click <span class="guilabel">Close</span>.</p>
+<blockquote>
+<div><img alt="../../_images/core3.png" class="align-center" src="../../_images/core3.png" />
+</div></blockquote>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Many core plugins are not enabled by default. Plugins get loaded on QGIS startup, so enabling many plugins can increase the startup time. Disable all plugins you don't need for a better experience.</p>
+</div>
+</li>
+<li><p>Now that the <span class="guilabel">Topology Checker Plugin</span> is enabled, you can go to the <span class="menuselection">Vector ‣ Topology Checker</span> to use the functionality added by the plugin.</p>
+<blockquote>
+<div><img alt="../../_images/core4.png" class="align-center" src="../../_images/core4.png" />
+</div></blockquote>
+</li>
+</ol>
+</section>
+<section id="third-party-plugins">
+<h3>Third-party Plugins<a class="headerlink" href="#third-party-plugins" title="Permalink to this headline">¶</a></h3>
+<p>Third-party plugins are available in the <a class="reference external" href="https://plugins.qgis.org/">QGIS Plugins Repository</a> and need to be installed by the users before using them. Third-party plugins can be broadly categorized into the following sub-groups.</p>
+<ul class="simple">
+<li><p>GUI Plugins</p></li>
+<li><p>Processing Plugins</p></li>
+<li><p>Experimental Plugins</p></li>
+</ul>
+<p>We will now learn how to install plugins from each of these categories.</p>
+<section id="gui-plugins">
+<h4>GUI Plugins<a class="headerlink" href="#gui-plugins" title="Permalink to this headline">¶</a></h4>
+<p>These plugins get installed to one of the <em>Menus</em> or <em>Toolbars</em>. We will now install a plugin called <strong>QuickWKT</strong> that allows users to copy/paste WKT geometry strings and visualize them.</p>
+<ol class="arabic">
+<li><p>Open QGIS. Click on <span class="menuselection">Plugins ‣ Manage and Install Plugins...</span>. to open the <span class="guilabel">Plugins</span> dialog.</p>
+<blockquote>
+<div><img alt="../../_images/gui1.png" class="align-center" src="../../_images/gui1.png" />
+</div></blockquote>
+</li>
+<li><p>Click on the <span class="guilabel">All</span> tab. Here you will see a list of plugins listed.</p>
+<blockquote>
+<div><img alt="../../_images/gui2.png" class="align-center" src="../../_images/gui2.png" />
+</div></blockquote>
+</li>
+<li><p>For this tutorial, let's find and install a plugin called <strong>QuickWKT</strong>. As you start typing <em>qui</em> in the <span class="guilabel">search</span> box, you will see the search results below. Click on the <span class="guilabel">QuickWKT</span>.</p>
+<blockquote>
+<div><img alt="../../_images/gui3.png" class="align-center" src="../../_images/gui3.png" />
+</div></blockquote>
+</li>
+<li><p>Now information about the plugin will be displayed, this plugin is a WKT viewer. Click the <code class="docutils literal notranslate"><span class="pre">wkt</span></code> in <span class="guilabel">Tags</span>, this will fetch all the plugins under this tag.</p>
+<blockquote>
+<div><img alt="../../_images/gui4.png" class="align-center" src="../../_images/gui4.png" />
+</div></blockquote>
+</li>
+<li><p>Now, click <span class="guilabel">Install Plugin</span> in the QGIS <span class="guilabel">Plugins</span> dialog box. Now a QGIS info message bar will display a message <code class="docutils literal notranslate"><span class="pre">Plugin</span> <span class="pre">installed</span> <span class="pre">successfully</span></code>.</p>
+<blockquote>
+<div><img alt="../../_images/gui5.png" class="align-center" src="../../_images/gui5.png" />
+</div></blockquote>
+</li>
+<li><p>If you noticed, there was no mention of the plugin category in the description. That makes it hard to determine how to access the newly installed plugin. Most plugins are installed under the <span class="guilabel">Plugins</span> menu in QGIS. Click on <span class="menuselection">Plugins ‣ QuickWKT</span> and you will see the newly installed plugin. The plugin also adds a button to the <span class="guilabel">Plugins</span> toolbar. You may also use that button to access the plugin.</p>
+<blockquote>
+<div><img alt="../../_images/gui6.png" class="align-center" src="../../_images/gui6.png" />
+</div></blockquote>
+</li>
+</ol>
+</section>
+<section id="processing-plugins">
+<h4>Processing Plugins<a class="headerlink" href="#processing-plugins" title="Permalink to this headline">¶</a></h4>
+<p>These plugins will add new algorithms (i.e. tools) to the <span class="guilabel">Processing toolbox</span> of QGIS. This is the preferred way to build plugins that add new spatial analysis functionality. Rather than a standalone tool, a processing toolbox algorithm can be used as a part of the model builder or in a batch processing mode for automating GIS workflows. We will now install a processing plugin.</p>
+<ol class="arabic">
+<li><p>Open QGIS. Click on <span class="menuselection">Plugins ‣ Manage and Install Plugins...</span>. to open the <span class="guilabel">Plugins</span> dialog.</p>
+<blockquote>
+<div><img alt="../../_images/processing1.png" class="align-center" src="../../_images/processing1.png" />
+</div></blockquote>
+</li>
+<li><p>Click on the <span class="guilabel">All</span> tab, and search for <em>ORS tools</em>.</p>
+<blockquote>
+<div><img alt="../../_images/processing2.png" class="align-center" src="../../_images/processing2.png" />
+</div></blockquote>
+</li>
+<li><p>Click on the plugin and click <span class="guilabel">Install Plugin</span> in the QGIS <span class="guilabel">Plugins</span> dialog box. On successful installation, a QGIS info message bar will display a message <code class="docutils literal notranslate"><span class="pre">Plugin</span> <span class="pre">installed</span> <span class="pre">successfully</span></code>.</p>
+<blockquote>
+<div><img alt="../../_images/processing3.png" class="align-center" src="../../_images/processing3.png" />
+</div></blockquote>
+</li>
+<li><p>The plugin will add a folder with tools in the <span class="guilabel">Process Toolbox</span>. Go to <span class="menuselection">Processing ‣ Toolbox</span>.</p>
+<blockquote>
+<div><img alt="../../_images/processing4.png" class="align-center" src="../../_images/processing4.png" />
+</div></blockquote>
+</li>
+<li><p>There are many groups of tools, and the ones that have the QGIS logo next to them are called <em>Native algorithms</em>. You will notice a new folder at the bottom called <span class="guilabel">ORS Tools</span>.  This is added by the plugin we just installed and is known as a <em>Provider</em>. QGIS Processing Plugins are able to add new <em>Providers</em> - such as ORS Tools - which can contain one or more new processing algorithms.</p>
+<blockquote>
+<div><img alt="../../_images/processing5.png" class="align-center" src="../../_images/processing5.png" />
+</div></blockquote>
+</li>
+<li><p>Expand the ORS tool folder to explore all available tools under it. You can double-click on the tool to run it.</p>
+<blockquote>
+<div><img alt="../../_images/processing6.png" class="align-center" src="../../_images/processing6.png" />
+</div></blockquote>
+</li>
+</ol>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Plugins can add new tools as well as new menu items. The <em>ORS Tools</em> plugin also adds a new menu item for configuration under the menu <span class="menuselection">Web ‣ ORS Tools</span>.</p>
+</div>
+</section>
+<section id="experimental-plugins">
+<h4>Experimental Plugins<a class="headerlink" href="#experimental-plugins" title="Permalink to this headline">¶</a></h4>
+<p>Sometimes you are looking for a specific plugin, but cannot find it in the <span class="guilabel">All</span> tab. It may be because the plugin is marked <em>Experimental</em>. Here is how to install an <em>experimental</em> plugin.</p>
+<ol class="arabic">
+<li><p>Open <span class="guilabel">Plugins</span> by <span class="menuselection">Plugins ‣ Manage and Install Plugins...</span>. Click on the <span class="guilabel">Settings</span> tab. You will see an option called <span class="guilabel">Show also experimental plugins</span>. Click the checkbox next to it, to enable it.</p>
+<blockquote>
+<div><img alt="../../_images/exp1.png" class="align-center" src="../../_images/exp1.png" />
+</div></blockquote>
+</li>
+<li><p>Now switch back to the <span class="guilabel">All</span> tab and search for 'RasterAttributeTable' plugin.</p>
+<blockquote>
+<div><img alt="../../_images/exp2.png" class="align-center" src="../../_images/exp2.png" />
+</div></blockquote>
+</li>
+<li><p>Click on the plugin, you can see it is marked as experimental. Click <span class="guilabel">Install Experimental Plugin</span> and close the <span class="guilabel">Plugins</span> dialog box.</p>
+<blockquote>
+<div><img alt="../../_images/exp3.png" class="align-center" src="../../_images/exp3.png" />
+</div></blockquote>
+</li>
+</ol>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Use experimental plugins with caution. The experimental plugin may not be well tested or under rapid development.</p>
+</div>
+<ol class="arabic" start="4">
+<li><p>You can use the plugin by going to from <span class="menuselection">Plugins ‣ RasterAttributeTable</span>.</p>
+<blockquote>
+<div><img alt="../../_images/exp4.png" class="align-center" src="../../_images/exp4.png" />
+</div></blockquote>
+</li>
+</ol>
+</section>
+</section>
+<section id="exploring-the-qgis-plugins-repository">
+<h3>Exploring the QGIS Plugins Repository<a class="headerlink" href="#exploring-the-qgis-plugins-repository" title="Permalink to this headline">¶</a></h3>
+<p>QGIS has a rich ecosystem of 3rd-party plugins. The official QGIS plugin repository contains over 1000 plugins. You can browse and discover new plugins that may be of interest to you. We will now explore the plugin repository.</p>
+<ol class="arabic">
+<li><p>Go to the <a class="reference external" href="https://plugins.qgis.org/">QGIS Plugins Repository</a>, and click <span class="guilabel">PLUGINS</span>.</p>
+<blockquote>
+<div><img alt="../../_images/repo1.png" class="align-center" src="../../_images/repo1.png" />
+</div></blockquote>
+</li>
+<li><p>This page lists all available plugins. You can click on the headings to sort the plugins by different attributes.</p>
+<blockquote>
+<div><img alt="../../_images/repo2.png" class="align-center" src="../../_images/repo2.png" />
+</div></blockquote>
+</li>
+<li><p>There are also different sections such as <span class="guilabel">Featured</span>, <span class="guilabel">Popular</span> etc. to allow for the discovery of interesting plugins. Click on the <span class="guilabel">New Plugins</span>, this will fetch all the latest plugins. You can select any plugin of your choice. For this tutorial, we will pick <span class="guilabel">RasterAttributeTabel</span>.</p>
+<blockquote>
+<div><img alt="../../_images/repo3.png" class="align-center" src="../../_images/repo3.png" />
+</div></blockquote>
+</li>
+<li><p>Switch to <span class="guilabel">Versions</span>, here the history of releases and available versions are listed. Many plugins are only compatible with certain versions of QGIS. The <span class="guilabel">Minimum QGIS version</span> lists the QGIS version requirement for the plugin.</p>
+<blockquote>
+<div><img alt="../../_images/repo4.png" class="align-center" src="../../_images/repo4.png" />
+</div></blockquote>
+</li>
+</ol>
+<p>Once you find a plugin, you can open QGIS and install it from the <span class="guilabel">Plugin Manager</span> as shown in the previous sections.</p>
+</section>
+</section>
+</section>
+
+
+
+
+
+  <div id="disqus_thread"></div>
+  <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+
+    </div>
+      
+  </div>
+</div>
+
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+    </p>
+    <p>
+        &copy; Copyright 2021, Ujaval Gandhi.<br/>
+      Last updated on ส.ค. 30, 2022.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 4.0.1.<br/>
+    </p>
+  </div>
+</footer>
+<div class="container">
+  <p>This work is licensed under a <a href="http://creativecommons.org/licenses/by/4.0/deed.en_US">Creative Commons Attribution 4.0 International License</a></p>
+</div>
+<!-- Twitter Button -->
+<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+
+<!-- Disqus comments widget -->
+<script type="text/javascript">
+  /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+  var disqus_shortname = 'qgistutorials'; // required: replace example with your forum shortname
+  /* * * DON'T EDIT BELOW THIS LINE * * */
+  (function () {
+    var s = document.createElement('script'); s.async = true;
+    s.type = 'text/javascript';
+    s.src = '//' + disqus_shortname + '.disqus.com/count.js';
+    (document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);
+  }());
+</script>
+
+<script type="text/javascript">
+  /* * * DON'T EDIT BELOW THIS LINE * * */
+  (function() {
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+
+<!-- Script fpr language switching. Largely adapted from https://github.com/pcav/faunalia-website -->
+<script>
+    var currentPage = 'docs/3/using_plugins.html'; // coming from sphinx, always without starting '/'
+    var currentLang = 'en';
+    $(document).ready(function(){
+
+        var search = new RegExp('\/[a-zA-Z_]{2,8}\/'+ currentPage, 'gi');
+        var langPlusPage = window.location.href.match(search);
+        // it's possible this is a index.html page called without 'index.html', try without the currentPage
+        if (langPlusPage==undefined){
+            search = new RegExp('\/[a-zA-Z_]{2,8}\/$', 'gi');
+            langPlusPage = window.location.href.match(search);
+        }
+
+        // it's possible this is an index.html page called without 'index.html', try removing index.html
+        if (langPlusPage==undefined){
+            currentPage = currentPage.replace('index.html','')
+            search = new RegExp('\/[a-zA-Z_]{2,8}\/'+ currentPage, 'gi');
+            langPlusPage = window.location.href.match(search);
+        }
+        // still no langPlugPage: stop, because the language swicher will misbehave 
+
+        if (langPlusPage == undefined || langPlusPage.length != 1){
+            alert('You hit an error, please report back to us.');
+            return;
+        }
+        langPlusPage = langPlusPage[0];
+        currentLang = langPlusPage.replace(currentPage, '');
+
+        $("#languages").val(currentLang.replace(/\//g,'')); // currentLang is something like '/nl/'
+
+        $("#languages").change(function() {
+            gotoLang($(this).val());
+        });
+
+    });
+
+    // load current page in a different language
+    function gotoLang(lang){
+        var currentUrl = window.location.href;
+        var newUrl = currentUrl.replace(currentLang, '/'+lang+'/');
+        window.location.href = newUrl;
+    }
+</script>
+
+  </body>
+</html>

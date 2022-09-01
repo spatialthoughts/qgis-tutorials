@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+
+<html lang="ro">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>Folosirea conectorului Google Maps Engine pentru QGIS &#8212; QGIS Tutorials and Tips</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/bootstrap-sphinx.css" />
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/translations.js"></script>
+    <link rel="search" title="Căutare" href="../search.html" />
+
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<script type="text/javascript" src="../_static/js/jquery-1.11.0.min.js "></script>
+<script type="text/javascript" src="../_static/js/jquery-fix.js "></script>
+<script type="text/javascript" src="../_static/bootstrap-3.3.7/js/bootstrap.min.js "></script>
+<script type="text/javascript" src="../_static/bootstrap-sphinx.js "></script>
+
+
+<!-- Cookie Notice -->
+<!-- Script from https://github.com/AOEpeople/cookie-notice -->
+<script type="text/javascript" src="../_static/cookie.notice.min.js"></script>
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-B1WQ7B80XJ"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-B1WQ7B80XJ');
+</script>
+
+
+  </head><body>
+
+  <div id="navbar" class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="../index.html"><span><img src="../_static/logo.png"></span>
+          QGIS Tutorials and Tips</a>
+        <span class="navbar-text navbar-version pull-left"><b>v1</b></span>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="../index.html">Tutorials List <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"><ul>
+<li class="toctree-l1"><a class="reference internal" href="introduction.html">Introducere</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/making_a_map.html">Crearea unei Hărți (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/working_with_attributes.html">Working with Attributes (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/importing_spreadsheets_csv.html">Importul Foilor de Calcul sau a Fișierelor CSV (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/basic_vector_styling.html">Noțiuni de Bază Despre Stilizarea Vectorilor (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/calculating_line_lengths.html">Determinarea Lungimii Liniilor și a Statisticilor (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/raster_styling_and_analysis.html">Basic Raster Styling and Analysis (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/raster_mosaicing_and_clipping.html">Mozaicarea și Tăierea Rasterelor (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/working_with_terrain.html">Working with Terrain Data (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/working_with_wms.html">Working with WMS Data (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/working_with_projections.html">Working with Projections (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/georeferencing_basics.html">Georeferențierea Foilor Topografice și a Hărților Scanate (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/advanced_georeferencing.html">Georeferențierea Imaginilor Aeriene (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/digitizing_basics.html">Digitizing Map Data (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/performing_table_joins.html">Efectuarea Joncțiunilor Tabelare (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/performing_spatial_joins.html">Realizarea Joncțiunilor Tabelare (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/performing_spatial_queries.html">Efectuarea Interogărilor Spațiale (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/nearest_neighbor_analysis.html">Analiza Celui Mai Apropiat Vecin (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/sampling_raster_data.html">Sampling Raster Data using Points or Polygons (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/calculating_raster_area.html">Calculating Raster Area (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/creating_heatmaps.html">Crearea Hărților Calorice (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/animating_time_series.html">Animating Time Series Data (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/handling_invalid_geometries.html">Gestionarea Geometriilor Nevalide (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/advanced_raster_analysis.html">Advanced Raster Analysis (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/interpolating_point_data.html">Interpolating Point Data (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/calculating_intersection_density.html">Calculating Street Intersection Density (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/batch_processing.html">Procesarea În Serie, folosind Cadrul de Procesare (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/processing_graphical_modeler.html">Automatizarea Fluxurilor de Lucru Complexe utilizând Modelatorul de Procese (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/automating_map_creation.html">Automatizarea Creării Hărților cu ajutorul Atlasului (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/multi_criteria_overlay.html">Multi Criteria Overlay Analysis (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/basic_network_analysis.html">Basic Network Visualization and Routing (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/origin_destination_matrix.html">Locating Nearest Facility with Origin-Destination Matrix (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/service_area_analysis.html">Service Area Analysis using Openrouteservice (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/travel_time_analysis.html">Travel Time Analysis with Uber Movement (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/areal_mean_rainfall.html">Calculating Areal Mean Rainfall (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/getting_started_with_pyqgis.html">Noțiuni de Bază Despre Programarea în Python (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/processing_algorithms_pyqgis.html">Running Processing Algorithms via Python (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/custom_python_functions.html">Utilizarea Funcțiilor în Expresiile Python Personalizate (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/processing_python_scripts.html">Scriptare în Python pentru Cadrul de Procesare (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/building_a_python_plugin.html">Construirea unui Plugin Python (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/processing_python_plugin.html">Construirea unui Plugin de Procesare (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="running_qgis_jobs.html">Rularea și programarea Activităților de Prelucrare QGIS</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/web_mapping_with_qgis2web.html">Web Mapping with QGIS2Web (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="creating_basemaps_with_qtiles.html">Crearea hărților de bază folosind QTiles</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/using_plugins.html">Using Plugins (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="downloading_osm_data.html">Căutarea și descărcarea datelor OpenStreetMap</a></li>
+<li class="toctree-l1"><a class="reference internal" href="learning_resources.html">Resurse de învățare QGIS</a></li>
+<li class="toctree-l1"><a class="reference internal" href="credits.html">Creditare date</a></li>
+<li class="toctree-l1"><a class="reference internal" href="batch_processing.html">Procesarea în serie, folosind Cadrul de Procesare (QGIS2)</a></li>
+</ul>
+</ul>
+</li>
+              
+            
+            
+              
+                
+              
+            
+            
+
+            
+
+            
+              <li class="hidden-sm"></li>
+            
+          </ul>
+
+          
+            
+<form class="navbar-form navbar-right" action="../search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+      <div class="col-md-3">
+        <div id="sidebar" class="bs-sidenav" role="complementary"><h4>Author</h4>
+<p>Ujaval Gandhi</p>
+<a href="https://twitter.com/intent/follow?screen_name=spatialthoughts" class="twitter-follow-button" data-show-count="false">Follow @spatialthoughts</a>
+<hr>
+<p>Want to learn QGIS in a structured way? Check out <a href="https://spatialthoughts.com/" target="_blank">Spatial Thoughts</a> for more learning materials and instructor-led online programs with QGIS.org certification.</p>
+
+
+<h4>Change Language</h4>
+<form role="form" class="sidebar-form sidebar-left">
+<select id="languages" class="form-control select-mini">
+  <option value="en">English</option>
+  <option value="zh_TW">Chinese (Taiwan)</option>
+  <option value="nl">Dutch</option>
+  <option value="fi_FI">Finnish</option>
+  <option value="fr">French</option>
+  <option value="de">German</option>
+  <option value="el">Greek</option>
+  <option value="id">Indonesian</option>
+  <option value="it">Italian</option>
+  <option value="ko">Korean</option>
+  <option value="fa">Persian</option>
+  <option value="pt_BR">Portuguese</option>
+  <option value="ro">Romanian</option>
+  <option value="ru">Russian</option>
+  <option value="sl">Slovenian</option>
+  <option value="es">Spanish</option>
+  <option value="th">Thai</option>
+  <option value="tr">Turkish</option>
+  <option value="uk">Ukrainian</option>
+  <option value="vi">Vietnamese</option>
+</select>
+</form>
+        </div>
+      </div>
+    <div class="body col-md-9 content" role="main">
+      
+
+  <section id="using-google-maps-engine-connector-for-qgis">
+<h1>Folosirea conectorului Google Maps Engine pentru QGIS<a class="headerlink" href="#using-google-maps-engine-connector-for-qgis" title="Link permanent la acest titlu">¶</a></h1>
+<div class="admonition warning">
+<p class="admonition-title">Atenționare</p>
+<p>Din 29 ianuarie 2015, Google Maps Engine a oprit crearea de noi conturi gratuite. Dacă aveți deja un cont, Google Maps Engine Connector va continua să funcționeze până la 29 ianuarie 2016.</p>
+</div>
+<p>Google Maps Engine este o platformă de cartografiere, bazată pe cloud, pentru crearea și partajarea hărților personalizate. <a class="reference external" href="https://github.com/googlemaps/mapsengine-qgis-connector">Google Maps Engine Connector</a> reprezintă un plugin care vă permite să vizualizați și să încărcați date Google Maps Engine în QGIS. În acest tutorial veți merge prin procesul de creare a unui cont Google Maps Engine, de obținere a acreditărilor necesare pentru utilizarea conectorului, de creare a unei hărți cu ajutorul Google Maps Engine și de a utiliza în QGIS harta rezultată.</p>
+<div class="admonition note">
+<p class="admonition-title">Notă</p>
+<p>Precizare: Eu sunt autorul Google Maps Engine Connector și, în prezent, fac parte din echipa Google Maps.</p>
+</div>
+<section id="overview-of-the-task">
+<h2>Privire de ansamblu asupra activității<a class="headerlink" href="#overview-of-the-task" title="Link permanent la acest titlu">¶</a></h2>
+<p>Vom lua un strat de tip linie, care reprezintă traseele de bicicletă din San Francisco, și-l vom încărca în Google Maps Engine cu ajutorul plugin-ului. O dată ce stratul este stilizat iar harta este creată, vom adăuga un strat WMS al hărții în QGIS.</p>
+<section id="other-skills-you-will-learn">
+<h3>Alte competențe pe care le veți dobândi<a class="headerlink" href="#other-skills-you-will-learn" title="Link permanent la acest titlu">¶</a></h3>
+<ul class="simple">
+<li><p>Utilizarea Google Developer Console la înființarea unui nou proiect pentru utilizarea API-urilor Google.</p></li>
+</ul>
+</section>
+</section>
+<section id="get-the-data">
+<h2>Obținerea datelor<a class="headerlink" href="#get-the-data" title="Link permanent la acest titlu">¶</a></h2>
+<p><a class="reference external" href="https://data.sfgov.org/">San Francisco Data</a> este o excelentă sursă de date deschise, pentru San Francisco.</p>
+<ol class="arabic simple">
+<li><p>Descărcați fișierul shape <a class="reference external" href="https://data.sfgov.org/Transportation/SFMTA-Bikeway-Network/t6vv-tjkd">SFMTA Bikeway Network</a> folosind opțiunea de Export de pe portal.</p></li>
+</ol>
+<img alt="../_images/1203.png" class="align-center" src="../_images/1203.png" />
+<p>Sursa datelor: <a class="reference internal" href="credits.html#sfmta" id="id1"><span>[SFMTA]</span></a></p>
+</section>
+<section id="create-a-google-maps-engine-account">
+<h2>Crearea unui cont Google Maps Engine<a class="headerlink" href="#create-a-google-maps-engine-account" title="Link permanent la acest titlu">¶</a></h2>
+<ol class="arabic simple" start="2">
+<li><p>Vă puteți crea un cont gratuit de testare pentru Google Maps Engine. Contul de testare reprezintă o instanță a motorului de hărți, complet funcțională, dar cu o cotă de stocare limitată. Vizitați <a class="reference external" href="http://www.google.com/enterprise/mapsearth/products/mapsengine.html">Google Maps Engine homepage</a> și faceți clic pe link-ul <span class="guilabel">Get started with a free account</span>.</p></li>
+</ol>
+<img alt="../_images/2168.png" class="align-center" src="../_images/2168.png" />
+<ol class="arabic simple" start="3">
+<li><p>Trebuie să vă conectați la contul dvs Google. De asemenea, dacă doriți să vă folosiți e-mailul de lucru, aveți posibilitatea să vă creați un nou cont Google cu adresa dorită. După ce v-ați logat, veți vedea ecranul <span class="guilabel">Create a Maps Engine Project</span>. Introduceți un <span class="guilabel">Project Name</span>, care va identifica contul dvs. atunci când utilizați Google Maps Engine. Acceptați termenii și faceți clic pe butonul <span class="guilabel">Accept and create</span>.</p></li>
+</ol>
+<img alt="../_images/394.png" class="align-center" src="../_images/394.png" />
+</section>
+<section id="create-a-google-developer-console-project">
+<h2>Crearea unui proiect Google Developer Console<a class="headerlink" href="#create-a-google-developer-console-project" title="Link permanent la acest titlu">¶</a></h2>
+<ol class="arabic simple" start="4">
+<li><p>Google Maps Engine Connector folosește <code class="docutils literal notranslate"><span class="pre">Google</span> <span class="pre">Maps</span> <span class="pre">Engine</span> <span class="pre">API</span></code> pentru a accesa datele stocate în contul dumneavoastră. Veți avea nevoie de acreditări speciale, pe care plugin-ul le va folosi pentru a vă accesa programatic datele. Vizitați <a class="reference external" href="https://console.developers.google.com/">Google Developer Console</a> și faceți clic pe <span class="guilabel">Create Project</span>. Introduceți <code class="docutils literal notranslate"><span class="pre">GME</span> <span class="pre">Connector</span> <span class="pre">for</span> <span class="pre">QGIS</span> <span class="pre">API</span></code> ca <span class="guilabel">PROJECT NAME</span>, și <code class="docutils literal notranslate"><span class="pre">gme-qgis-api</span></code> ca <span class="guilabel">PROJECT ID</span>. Aceste nume sunt doar o sugestie - puteți utiliza orice nume și orice id vă place.</p></li>
+</ol>
+<img alt="../_images/466.png" class="align-center" src="../_images/466.png" />
+<ol class="arabic simple" start="5">
+<li><p>O dată ce proiectul este creat, faceți clic pe link-ul <span class="guilabel">APIs &amp; auth</span>. Derulați în jos și găsiți <span class="guilabel">Google Maps Engine API</span>. Clic pe butonul <span class="guilabel">OFF</span> pentru a-l pune pe <span class="guilabel">ON</span>.</p></li>
+</ol>
+<img alt="../_images/563.png" class="align-center" src="../_images/563.png" />
+<ol class="arabic simple" start="6">
+<li><p>Apoi, faceți clic pe link-ul <span class="guilabel">Credentials</span>. Clic pe <span class="guilabel">CREATE NEW CLIEND ID</span> din secțiunea <span class="guilabel">OAuth</span>.</p></li>
+</ol>
+<img alt="../_images/660.png" class="align-center" src="../_images/660.png" />
+<ol class="arabic simple" start="7">
+<li><p>În fereastra de dialog <span class="guilabel">Create Client ID</span>, selectați <span class="guilabel">Installed Application</span> ca <span class="guilabel">APPLICATION TYPE</span> și <span class="guilabel">Other</span> ca <span class="guilabel">INSTALLED APPLICATION TYPE</span>. Apăsați <span class="guilabel">Create Client ID.</span></p></li>
+</ol>
+<img alt="../_images/759.png" class="align-center" src="../_images/759.png" />
+<ol class="arabic simple" start="8">
+<li><p>O dată ce id-ul clientului este creat, veți vedea o nouă secțiune numită <span class="guilabel">Client ID for native application</span>. Observați <span class="guilabel">Client ID</span> și <span class="guilabel">Client secret</span>. Acestea sunt acreditările de care aveți nevoie în QGIS.</p></li>
+</ol>
+<img alt="../_images/857.png" class="align-center" src="../_images/857.png" />
+<ol class="arabic simple" start="9">
+<li><p>Înapoi în QGIS, vizitați <span class="menuselection">Plugins ‣ Manage and Install Plugins…</span>. Găsiți plugin-ul <code class="docutils literal notranslate"><span class="pre">Google</span> <span class="pre">Maps</span> <span class="pre">Engine</span> <span class="pre">Connector</span></code> și faceți click pe <span class="guilabel">Install plugin</span>.</p></li>
+</ol>
+<img alt="../_images/956.png" class="align-center" src="../_images/956.png" />
+<ol class="arabic simple" start="10">
+<li><p>O dată ce plugin-ul este instalat, veți vedea o nouă bară de instrumente în QGIS. Această bară de instrumente conține diferite instrumente pentru lucrul cu Google Maps Engine. Faceți clic pe butonul <span class="guilabel">More</span>.</p></li>
+</ol>
+<img alt="../_images/1064.png" class="align-center" src="../_images/1064.png" />
+<ol class="arabic simple" start="11">
+<li><p>În fereastra de dialog <span class="guilabel">Advanced Settings</span>, introduceți <span class="guilabel">Client ID</span> și <span class="guilabel">Client Secret</span> pe care le-ați obținut din Google Developer Console. Clic pe <span class="guilabel">OK</span>.</p></li>
+</ol>
+<img alt="../_images/11103.png" class="align-center" src="../_images/11103.png" />
+<ol class="arabic simple" start="12">
+<li><p>După ce ați introdus noile acreditări API, vi se va cere să vă logați și să autorizați plugin-ul pentru a le folosi pe acestea. Conectați-vă la contul dvs. Google.</p></li>
+</ol>
+<img alt="../_images/1265.png" class="align-center" src="../_images/1265.png" />
+<ol class="arabic simple" start="13">
+<li><p>Clic pe <span class="guilabel">Accept</span>, în ecranul următor.</p></li>
+</ol>
+<img alt="../_images/1362.png" class="align-center" src="../_images/1362.png" />
+<ol class="arabic simple" start="14">
+<li><p>Dacă totul a mers bine, veți vedea un mesaj care indică faptul că v-ați conectat cu succes.</p></li>
+</ol>
+<img alt="../_images/1459.png" class="align-center" src="../_images/1459.png" />
+<ol class="arabic simple" start="15">
+<li><p>Acum, haideți să adăugăm stratul SFMTA Bikeway Network, care a fost descărcat mai devreme. Mergeți la <span class="menuselection">Layer ‣ Add Vector Layer</span>. Navigați la fișierul descărcat <code class="docutils literal notranslate"><span class="pre">SFMTA_Bikeway_Network.zip</span></code> și faceți clic pe <span class="guilabel">Open</span>. Selectați stratul <code class="docutils literal notranslate"><span class="pre">SFMTA_Bikeway_Network.shp</span></code>, și apoi apăsați <span class="guilabel">OK</span>.</p></li>
+</ol>
+<img alt="../_images/1556.png" class="align-center" src="../_images/1556.png" />
+<ol class="arabic simple" start="16">
+<li><p>Una dintre caracteristicile plugin-ului <code class="docutils literal notranslate"><span class="pre">Google</span> <span class="pre">Maps</span> <span class="pre">Engine</span> <span class="pre">Connector</span></code> este abilitatea de a încărca seturi de date direct din QGIS. Selectați stratul <code class="docutils literal notranslate"><span class="pre">SFMTA_Bikeway_Network</span></code> și faceți clic pe pictograma <span class="guilabel">Upload</span> din bara de instrumente.</p></li>
+</ol>
+<img alt="../_images/1653.png" class="align-center" src="../_images/1653.png" />
+<ol class="arabic simple" start="17">
+<li><p>În fereastra de dialog <span class="guilabel">Upload a dataset to Google Maps Engine</span>, introduceți o <span class="guilabel">Descriere</span> a setului de date. Puteți lăsa toate celelalte setări la valorile implicite. Clic pe <span class="guilabel">OK</span>.</p></li>
+</ol>
+<img alt="../_images/1749.png" class="align-center" src="../_images/1749.png" />
+<ol class="arabic simple" start="18">
+<li><p>Plugin-ul va folosi Google Maps Engine API pentru a încărca stratul și va crea o <em>Sursă de date</em> pentru motorul Google Maps. După ce încărcarea s-a încheiat, o nouă filă de browser se va deschide și vă va duce la sursa de date nou creată.</p></li>
+</ol>
+<img alt="../_images/1847.png" class="align-center" src="../_images/1847.png" />
+<ol class="arabic simple" start="19">
+<li><p>Pașii următori vor demonstra procesul de creare a unei hărți cu ajutorul Google Maps Engine. O dată ce harta este creată, o vom accesa folosind plugin-ul din QGIS. O dată ce tabela vectorială a fost prelucrată, faceți clic pe <span class="guilabel">Create styled layer</span>.</p></li>
+</ol>
+<img alt="../_images/1939.png" class="align-center" src="../_images/1939.png" />
+<ol class="arabic simple" start="20">
+<li><p>Denumiți stratul ca <code class="docutils literal notranslate"><span class="pre">SFMTA_Bikeway_Network</span></code> și faceți clic pe <span class="guilabel">Create</span>.</p></li>
+</ol>
+<img alt="../_images/2034.png" class="align-center" src="../_images/2034.png" />
+<ol class="arabic simple" start="21">
+<li><p>Clic pe <span class="guilabel">Add rule</span> pentru adăugarea unui stil personalizat pentru strat.</p></li>
+</ol>
+<img alt="../_images/2169.png" class="align-center" src="../_images/2169.png" />
+<ol class="arabic simple" start="22">
+<li><p>Alegeți culoarea și opțiunile de etichetare din secțiunea <span class="guilabel">Line style</span>. Clic pe <span class="guilabel">Apply</span> pentru a vizualiza setările de stil aplicate stratului dvs. De asemenea, puteți selecta opțiunea <span class="guilabel">No Basemap</span> din colțul din dreapta-sus, pentru a vă permite să vedeți stratul  fără harta de bază. O dată ce vă mulțumește stilul, treceți la fila <span class="guilabel">Info windows</span>.</p></li>
+</ol>
+<img alt="../_images/2233.png" class="align-center" src="../_images/2233.png" />
+<ol class="arabic simple" start="23">
+<li><p>Aici puteți specifica ce conținut să fie afișat atunci când se face clic pe o entitate din hartă. Puteți accesa atributele entității folosind marcajul <code class="docutils literal notranslate"><span class="pre">{attribute_name}</span></code>. În acest caz, vrem doar să afișăm numele străzii pentru entitatea tip linie. Introduceți următoarele în zona de text. Apăsați  <span class="guilabel">Apply</span> și apoi faceți clic pe orice entitate de tip linie de pe hartă, pentru a testa codul fereastrei info. Când ați terminat, bifați <span class="guilabel">Publish on exit</span> și faceți clic pe <span class="guilabel">Exit</span>.</p></li>
+</ol>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>&lt;div class=&#39;googeb-info-window&#39; style=&#39;font-family: sans-serif&#39;&gt;
+ {STREETNAME}  {TYPE}
+&lt;/div&gt;
+</pre></div>
+</div>
+<img alt="../_images/2330.png" class="align-center" src="../_images/2330.png" />
+<ol class="arabic simple" start="24">
+<li><p>Clic pe <span class="guilabel">Add to map</span> pentru a crea o hartă cu acest strat.</p></li>
+</ol>
+<img alt="../_images/2429.png" class="align-center" src="../_images/2429.png" />
+<ol class="arabic simple" start="25">
+<li><p>Selectați <span class="guilabel">Create new</span> și introduceți <code class="docutils literal notranslate"><span class="pre">SFMTA</span> <span class="pre">Bikeway</span> <span class="pre">Network</span></code> ca <span class="guilabel">Map title</span>.</p></li>
+</ol>
+<img alt="../_images/2525.png" class="align-center" src="../_images/2525.png" />
+<ol class="arabic simple" start="26">
+<li><p>Veți vedea o nouă hartă conținând stratul stilizat. Aveți o opțiune de a alege diferite hărți de bază pentru hartă. Deoarece aceasta este o hartă a traseelor de bicicletă, puteți selecta stilul de bază al hărții <span class="guilabel">Terrain</span>.</p></li>
+</ol>
+<img alt="../_images/2623.png" class="align-center" src="../_images/2623.png" />
+<ol class="arabic simple" start="27">
+<li><p>Apăsați <span class="guilabel">Publish map</span>.</p></li>
+</ol>
+<img alt="../_images/2723.png" class="align-center" src="../_images/2723.png" />
+<ol class="arabic simple" start="28">
+<li><p>O dată ce harta este publicată, apăsați pictograma <span class="guilabel">Access links</span>.</p></li>
+</ol>
+<img alt="../_images/2821.png" class="align-center" src="../_images/2821.png" />
+<ol class="arabic simple" start="29">
+<li><p>Veți observa mai multe opțiuni pentru a vizualiza, încapsula și accesa harta nou creată. Din moment ce vom accesa harta folosind plugin-ul QGIS, nu aveți nevoie de link-uri de aici.</p></li>
+</ol>
+<img alt="../_images/2918.png" class="align-center" src="../_images/2918.png" />
+<ol class="arabic simple" start="30">
+<li><p>Înapoi în QGIS, faceți clic pe pictograma <span class="guilabel">Search</span> din bara de instrumente.</p></li>
+</ol>
+<img alt="../_images/3014.png" class="align-center" src="../_images/3014.png" />
+<ol class="arabic simple" start="31">
+<li><p>În fereastra de dialog <span class="guilabel">Maps Engine Maps</span>, veți vedea listată harta dvs. Faceți clic pe rând, pentru a o selecta. Clic pe <span class="guilabel">Add Selected to Map</span>.</p></li>
+</ol>
+<img alt="../_images/3117.png" class="align-center" src="../_images/3117.png" />
+<ol class="arabic simple" start="32">
+<li><p>Plugin-ul va interoga Google Maps Engine și va încărca un strat vectorial care conține dreptunghiul de încadrare a hărții. Dacă nu vedeți nici un fel de date pe suportul hărții, faceți clic-dreapta pe stratul <code class="docutils literal notranslate"><span class="pre">SFMTA_Bikeway_Network</span></code> și selectați <span class="guilabel">Zoom to Layer Extent</span>.</p></li>
+</ol>
+<img alt="../_images/3214.png" class="align-center" src="../_images/3214.png" />
+<ol class="arabic simple" start="33">
+<li><p>Faceți clic pe stratul dreptunghiului de încadrare pentru a-l selecta. Veți observa că instrumentele <span class="guilabel">View</span> sunt activate. Apăsați pictograma <span class="guilabel">WMS Overlay</span> din bara de instrumente.</p></li>
+</ol>
+<img alt="../_images/3313.png" class="align-center" src="../_images/3313.png" />
+<ol class="arabic simple" start="34">
+<li><p>În fereastra de dialog <span class="guilabel">Select A Layer to Add</span>, alegeți stratul <code class="docutils literal notranslate"><span class="pre">SFMTA_Bikeway_Network</span></code> și apăsați <span class="guilabel">Add Selected to Map</span>.</p></li>
+</ol>
+<img alt="../_images/3413.png" class="align-center" src="../_images/3413.png" />
+<ol class="arabic simple" start="35">
+<li><p>Un nou strat WMS va fi adăugat în QGIS, stratul stilizat din Google Maps Engine fiind afișat în QGIS.</p></li>
+</ol>
+<img alt="../_images/3512.png" class="align-center" src="../_images/3512.png" />
+<p>Sper că acest tutorial v-a oferit o imagine de ansamblu a capacităților pluginului. Puteți vizita <a class="reference external" href="https://github.com/googlemaps/mapsengine-qgis-connector">plugin homepage</a> pentru a vizualiza codul sursă și pentru a afla mai multe despre plugin.</p>
+<p>Mai jos se află harta Google Maps Engine care a fost creată pentru acest tutorial.</p>
+<div style="margin-top:10px;">
+<iframe
+src="https://mapsengine.google.com/13476080153727555143-08887688179650036554-4/widget/in_iframe"
+width="100%" height="600px"></iframe>
+</div></section>
+</section>
+
+
+
+
+
+  <div id="disqus_thread"></div>
+  <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+
+    </div>
+      
+  </div>
+</div>
+
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+    </p>
+    <p>
+        &copy; Copyright 2021, Ujaval Gandhi.<br/>
+      Ultima actualizare la aug. 30, 2022.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 4.0.1.<br/>
+    </p>
+  </div>
+</footer>
+<div class="container">
+  <p>This work is licensed under a <a href="http://creativecommons.org/licenses/by/4.0/deed.en_US">Creative Commons Attribution 4.0 International License</a></p>
+</div>
+<!-- Twitter Button -->
+<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+
+<!-- Disqus comments widget -->
+<script type="text/javascript">
+  /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+  var disqus_shortname = 'qgistutorials'; // required: replace example with your forum shortname
+  /* * * DON'T EDIT BELOW THIS LINE * * */
+  (function () {
+    var s = document.createElement('script'); s.async = true;
+    s.type = 'text/javascript';
+    s.src = '//' + disqus_shortname + '.disqus.com/count.js';
+    (document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);
+  }());
+</script>
+
+<script type="text/javascript">
+  /* * * DON'T EDIT BELOW THIS LINE * * */
+  (function() {
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+
+<!-- Script fpr language switching. Largely adapted from https://github.com/pcav/faunalia-website -->
+<script>
+    var currentPage = 'docs/using_gme_connector.html'; // coming from sphinx, always without starting '/'
+    var currentLang = 'en';
+    $(document).ready(function(){
+
+        var search = new RegExp('\/[a-zA-Z_]{2,8}\/'+ currentPage, 'gi');
+        var langPlusPage = window.location.href.match(search);
+        // it's possible this is a index.html page called without 'index.html', try without the currentPage
+        if (langPlusPage==undefined){
+            search = new RegExp('\/[a-zA-Z_]{2,8}\/$', 'gi');
+            langPlusPage = window.location.href.match(search);
+        }
+
+        // it's possible this is an index.html page called without 'index.html', try removing index.html
+        if (langPlusPage==undefined){
+            currentPage = currentPage.replace('index.html','')
+            search = new RegExp('\/[a-zA-Z_]{2,8}\/'+ currentPage, 'gi');
+            langPlusPage = window.location.href.match(search);
+        }
+        // still no langPlugPage: stop, because the language swicher will misbehave 
+
+        if (langPlusPage == undefined || langPlusPage.length != 1){
+            alert('You hit an error, please report back to us.');
+            return;
+        }
+        langPlusPage = langPlusPage[0];
+        currentLang = langPlusPage.replace(currentPage, '');
+
+        $("#languages").val(currentLang.replace(/\//g,'')); // currentLang is something like '/nl/'
+
+        $("#languages").change(function() {
+            gotoLang($(this).val());
+        });
+
+    });
+
+    // load current page in a different language
+    function gotoLang(lang){
+        var currentUrl = window.location.href;
+        var newUrl = currentUrl.replace(currentLang, '/'+lang+'/');
+        window.location.href = newUrl;
+    }
+</script>
+
+  </body>
+</html>

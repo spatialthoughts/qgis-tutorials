@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+
+<html lang="ko">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>프로세싱 모델러를 사용하여 복잡한 작업흐름 자동화하기(QGIS3) &#8212; QGIS Tutorials and Tips</title>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-sphinx.css" />
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/translations.js"></script>
+    <link rel="search" title="검색" href="../../search.html" />
+    <link rel="next" title="Automating Map Creation with Print Layout Atlas (QGIS3)" href="automating_map_creation.html" />
+    <link rel="prev" title="프로세싱 프레임을 이용한 일괄처리과정" href="batch_processing.html" />
+
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<script type="text/javascript" src="../../_static/js/jquery-1.11.0.min.js "></script>
+<script type="text/javascript" src="../../_static/js/jquery-fix.js "></script>
+<script type="text/javascript" src="../../_static/bootstrap-3.3.7/js/bootstrap.min.js "></script>
+<script type="text/javascript" src="../../_static/bootstrap-sphinx.js "></script>
+
+
+<!-- Cookie Notice -->
+<!-- Script from https://github.com/AOEpeople/cookie-notice -->
+<script type="text/javascript" src="../../_static/cookie.notice.min.js"></script>
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-B1WQ7B80XJ"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-B1WQ7B80XJ');
+</script>
+
+
+  </head><body>
+
+  <div id="navbar" class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="../../index.html"><span><img src="../../_static/logo.png"></span>
+          QGIS Tutorials and Tips</a>
+        <span class="navbar-text navbar-version pull-left"><b>v1</b></span>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="../../index.html">Tutorials List <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"><ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../introduction.html">들어가는 말</a></li>
+<li class="toctree-l1"><a class="reference internal" href="making_a_map.html">지도 만들기 (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="working_with_attributes.html">속성 작업 (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="importing_spreadsheets_csv.html">스프레드시트 및 CSV 파일 불러오기 (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="basic_vector_styling.html">기본 벡터 스타일링 (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="calculating_line_lengths.html">선의 길이계산과 통계(QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="raster_styling_and_analysis.html">기본 래스터 스타일링 및 분석(QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="raster_mosaicing_and_clipping.html">래스터 붙이기 및 자르기 (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="working_with_terrain.html">Working with Terrain Data (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="working_with_wms.html">Working with WMS Data (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="working_with_projections.html">Working with Projections (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="georeferencing_basics.html">Georeferencing Topo Sheets and Scanned Maps (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="advanced_georeferencing.html">항공사진 지오레퍼런싱 (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="digitizing_basics.html">Digitizing Map Data (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="performing_table_joins.html">테이블 결합 작업(QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="performing_spatial_joins.html">공간 결합 수행 (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="performing_spatial_queries.html">공간 조회 실행(QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="nearest_neighbor_analysis.html">최근린 분석(QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="sampling_raster_data.html">점 또는 다각형을 이용한 래스터 데이터 표본 추출 작업(QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="calculating_raster_area.html">Calculating Raster Area (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="creating_heatmaps.html">열지도 만들기 (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="animating_time_series.html">Animating Time Series Data (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="handling_invalid_geometries.html">Handling Invalid Geometries (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="advanced_raster_analysis.html">Advanced Raster Analysis (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="interpolating_point_data.html">Interpolating Point Data (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="calculating_intersection_density.html">Calculating Street Intersection Density (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="batch_processing.html">프로세싱 프레임을 이용한 일괄처리과정</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">프로세싱 모델러를 사용하여 복잡한 작업흐름 자동화하기(QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="automating_map_creation.html">Automating Map Creation with Print Layout Atlas (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="multi_criteria_overlay.html">Multi Criteria Overlay Analysis (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="basic_network_analysis.html">Basic Network Visualization and Routing (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="origin_destination_matrix.html">가장 가까운 기-종점 매트릭스 위치 (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="service_area_analysis.html">Openrouteservice를 이용한 서비스 영역 분석(QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="travel_time_analysis.html">Travel Time Analysis with Uber Movement (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="areal_mean_rainfall.html">Calculating Areal Mean Rainfall (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="getting_started_with_pyqgis.html">Getting Started With Python Programming (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="processing_algorithms_pyqgis.html">Running Processing Algorithms via Python (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="custom_python_functions.html">Using Custom Python Expression Functions (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="processing_python_scripts.html">Writing Python Scripts for Processing Framework (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="building_a_python_plugin.html">Building a Python Plugin (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="processing_python_plugin.html">Building a Processing Plugin (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../running_qgis_jobs.html">Running and Scheduling QGIS Processing Jobs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="web_mapping_with_qgis2web.html">Web Mapping with QGIS2Web (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../creating_basemaps_with_qtiles.html">QTiles로 베이스 맵 만들기</a></li>
+<li class="toctree-l1"><a class="reference internal" href="using_plugins.html">Using Plugins (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../downloading_osm_data.html">오픈스트리트맵 데이터의 검색과 다운로드</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../learning_resources.html">QGIS 수업 자원</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../credits.html">데이터 크레딧</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../batch_processing.html">프로세싱 프레임을 이용한 일괄처리과정</a></li>
+</ul>
+</ul>
+</li>
+              
+            
+            
+              
+                
+  <li>
+    <a href="batch_processing.html" title="Previous Chapter: 프로세싱 프레임을 이용한 일괄처리과정"><span class="glyphicon glyphicon-chevron-left visible-sm"></span><span class="hidden-sm hidden-tablet">&laquo; 프로세싱 프레임을 이용한 일괄처리과정</span>
+    </a>
+  </li>
+  <li>
+    <a href="automating_map_creation.html" title="Next Chapter: Automating Map Creation with Print Layout Atlas (QGIS3)"><span class="glyphicon glyphicon-chevron-right visible-sm"></span><span class="hidden-sm hidden-tablet">Automating Ma... &raquo;</span>
+    </a>
+  </li>
+              
+            
+            
+
+            
+
+            
+              <li class="hidden-sm"></li>
+            
+          </ul>
+
+          
+            
+<form class="navbar-form navbar-right" action="../../search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+      <div class="col-md-3">
+        <div id="sidebar" class="bs-sidenav" role="complementary"><h4>Author</h4>
+<p>Ujaval Gandhi</p>
+<a href="https://twitter.com/intent/follow?screen_name=spatialthoughts" class="twitter-follow-button" data-show-count="false">Follow @spatialthoughts</a>
+<hr>
+<p>Want to learn QGIS in a structured way? Check out <a href="https://spatialthoughts.com/" target="_blank">Spatial Thoughts</a> for more learning materials and instructor-led online programs with QGIS.org certification.</p>
+
+
+<h4>Change Language</h4>
+<form role="form" class="sidebar-form sidebar-left">
+<select id="languages" class="form-control select-mini">
+  <option value="en">English</option>
+  <option value="zh_TW">Chinese (Taiwan)</option>
+  <option value="nl">Dutch</option>
+  <option value="fi_FI">Finnish</option>
+  <option value="fr">French</option>
+  <option value="de">German</option>
+  <option value="el">Greek</option>
+  <option value="id">Indonesian</option>
+  <option value="it">Italian</option>
+  <option value="ko">Korean</option>
+  <option value="fa">Persian</option>
+  <option value="pt_BR">Portuguese</option>
+  <option value="ro">Romanian</option>
+  <option value="ru">Russian</option>
+  <option value="sl">Slovenian</option>
+  <option value="es">Spanish</option>
+  <option value="th">Thai</option>
+  <option value="tr">Turkish</option>
+  <option value="uk">Ukrainian</option>
+  <option value="vi">Vietnamese</option>
+</select>
+</form>
+        </div>
+      </div>
+    <div class="body col-md-9 content" role="main">
+      
+
+  <section id="automating-complex-workflows-using-processing-modeler-qgis3">
+<h1>프로세싱 모델러를 사용하여 복잡한 작업흐름 자동화하기(QGIS3)<a class="headerlink" href="#automating-complex-workflows-using-processing-modeler-qgis3" title="이 표제에 대한 퍼머링크">¶</a></h1>
+<p>GIS 작업흐름도는 전형적으로 많은 단계를 포함합니다. 각 단계는 중간 결과물을 만들어 내고 이것은 다음 단계에 사용됩니다. 만약 입력 데이터가 바뀌거나 매개변수를 바꾸고 싶다면 전체 처리 과정을 일일히 다시 분석해야 할 필요가 있습니다. 다행이도, QGIS는 시각적 모델러가 기본적으로 포함되어 있어 작업흐름도를 정의할 수 있고 한번에 구동시킬 수 있습니다. 대량의 입력 데이터도 일괄처리로써 작업흐름도를 구동시킬수도 있습니다.</p>
+<section id="overview-of-the-task">
+<h2>작업 개요<a class="headerlink" href="#overview-of-the-task" title="이 표제에 대한 퍼머링크">¶</a></h2>
+<p>해상 해적행위 사건의 포인트 레이어를 취해서 전세계 육각 그리드에 걸쳐 집계하여 밀도 지도를 제작하는 처리 모델을 만들겠습니다.</p>
+<section id="other-skills-you-will-learn">
+<h3>이 예제에서 필요한 다른 기술<a class="headerlink" href="#other-skills-you-will-learn" title="이 표제에 대한 퍼머링크">¶</a></h3>
+<ul class="simple">
+<li><p>전지구 동일 면적 투영 및 프로젝트 CRS 설정</p></li>
+<li><p>폴리곤 레이어에 점진적 심볼로지 적용</p></li>
+</ul>
+</section>
+</section>
+<section id="get-the-data">
+<h2>데이터 획득<a class="headerlink" href="#get-the-data" title="이 표제에 대한 퍼머링크">¶</a></h2>
+<p>국립지질정보국의 ‘해양안전정보 포털&lt;<a class="reference external" href="https://msi.nga.mil/NGAPortal/MSI.portal">https://msi.nga.mil/NGAPortal/MSI.portal</a>&gt;`_은 해적 행위 방지 메시지&lt;<a class="reference external" href="https://msi.nga.mil/Piracy">https://msi.nga.mil/Piracy</a>&gt;`_.에 있는 형태로 모든 해양 해적 행위를 형상화한 파일을 제공합니다. 데이터베이스의 ‘Arc Shape 파일&lt;<a class="reference external" href="https://msi.nga.mil/api/publications/download?key=16920958/SFH00000/ASAM_shp.zip&amp;type=download">https://msi.nga.mil/api/publications/download?key=16920958/SFH00000/ASAM_shp.zip&amp;type=download</a>&gt;`_ 버전을 다운로드하십시오.</p>
+<p><a href="#id1"><span class="problematic" id="id2">`</span></a>자연 지구 &lt;<a class="reference external" href="http://naturalearthdata.com">http://naturalearthdata.com</a>&gt;`_에는 여러 글로벌 벡터 레이어가 있습니다. 랜드 폴리곤이 포함 된`10m 물리 벡터-랜드 &lt;<a class="reference external" href="https://www.naturalearthdata.com/http//www.naturalearthdata.com/download/10m/physical/ne_10m_land.zip">https://www.naturalearthdata.com/http//www.naturalearthdata.com/download/10m/physical/ne_10m_land.zip</a>&gt;`__를 다운로드하십시오.</p>
+<p>편의상 위의 레이어 사본을 아래에서 직접 다운로드 할 수 있습니다.</p>
+<p><a class="reference external" href="https://www.qgistutorials.com/downloads/ASAM_shp.zip">ASAM_shp.zip</a></p>
+<p><a class="reference external" href="https://www.qgistutorials.com/downloads/ne_10m_land.zip">ne_10m_land.zip</a></p>
+<p>데이터 출처: <a class="reference internal" href="../credits.html#nga-msi" id="id1"><span>[NGA_MSI]</span></a> <a class="reference internal" href="../credits.html#naturalearth" id="id2"><span>[NATURALEARTH]</span></a></p>
+</section>
+<section id="procedure">
+<h2>과정<a class="headerlink" href="#procedure" title="이 표제에 대한 퍼머링크">¶</a></h2>
+<ol class="arabic simple">
+<li><p>QGIS 브라우저 패널에서 다운로드한 데이터를 저장한 디렉터리를 찾으십시오. <a href="#id1"><span class="problematic" id="id2">``</span></a>ne_10m_land.zip”을 확장하고 <a href="#id3"><span class="problematic" id="id4">``</span></a>ne_10m_land”를 선택하십시오.”shp” 층 레이어를 캔버스로 끌어다 놓으십시오. 그런 다음 “ASAM_shp.zip” 파일을 찾으십시오. 그것을 확장하고 “asam_data_download/ASAM_events.shp”레이어를 선택하고 캔버스로 드래그하십시오..”</p></li>
+</ol>
+<img alt="../../_images/1105.png" class="align-center" src="../../_images/1105.png" />
+<ol class="arabic simple" start="2">
+<li><p><a href="#id1"><span class="problematic" id="id2">``</span></a>ASAM_events.shp ‘’레이어에는 이와 관련된 투영 정보가 없으므로 <a href="#id3"><span class="problematic" id="id4">`</span></a>Coordinate Reference System Selector`에서 CRS를 선택하라는 메시지가 표시됩니다. 여기에서 점은 위도 및 경도 좌표에 있으므로``WGS 84 ‘’CRS를 선택하고 <a href="#id5"><span class="problematic" id="id6">`</span></a>OK`를 클릭하십시오.</p></li>
+</ol>
+<img alt="../../_images/2100.png" class="align-center" src="../../_images/2100.png" />
+<ol class="arabic simple" start="3">
+<li><p>레이어가 로드되면 불법 복제 위치의 사건을 나타내는 개별 지점을 볼 수 있습니다. 이러한 레이어를 처리하기 위해 처리 모델 구축을 시작하겠습니다. <a href="#id1"><span class="problematic" id="id2">`</span></a>Processing-&gt; Graphical Modeler …`로 이동하십시오.</p></li>
+</ol>
+<img alt="../../_images/338.png" class="align-center" src="../../_images/338.png" />
+<ol class="arabic simple" start="4">
+<li><p><cite>Processing Modeler</cite> 대화 상자에서, <cite>모델 속성</cite> 패널을 찾으십시오. :<cite>Name`으로``piracy hexbin’’을 입력하고 `Groups``로 ``projects ‘’를 입력하십시오. `Save</cite> 버튼을 클릭하십시오.</p></li>
+</ol>
+<img alt="../../_images/419.png" class="align-center" src="../../_images/419.png" />
+<ol class="arabic simple" start="5">
+<li><p>모델을``piracy_hexbin ‘’으로 저장하십시오.</p></li>
+</ol>
+<img alt="../../_images/519.png" class="align-center" src="../../_images/519.png" />
+<ol class="arabic simple" start="6">
+<li><p>이제 처리 파이프 라인의 그래픽 모델 구축을 시작할 수 있습니다. <cite>Processing modeler</cite> 대화창에는 왼쪽 패널과 메인 캔버스가 있습니다. 왼쪽 패널에서 다양한 유형의 입력 데이터 유형을 나열하는 <cite>Inputs</cite> 패널을 찾으십시오. 아래로 스크롤하여 <cite>+ Vector Layer</cite> 입력을 선택하십시오. 캔버스로 드래그하십시오.</p></li>
+</ol>
+<img alt="../../_images/619.png" class="align-center" src="../../_images/619.png" />
+<ol class="arabic simple" start="7">
+<li><p><a href="#id1"><span class="problematic" id="id2">`</span></a>Parameter name`으로``Input Points ‘’를 입력하고 <a href="#id3"><span class="problematic" id="id4">`</span></a>Geometry type`으로``Point ‘’를 입력하십시오. 이 입력은 불법 사건 지점 계층을 나타냅니다.</p></li>
+</ol>
+<img alt="../../_images/718.png" class="align-center" src="../../_images/718.png" />
+<ol class="arabic simple" start="8">
+<li><p>다음으로 다른 <cite>+ Vector Layer</cite> 입력을 캔버스로 드래그하십시오. <a href="#id1"><span class="problematic" id="id2">`</span></a>Parameter name`으로``Base Layer ‘’를 입력하고 <a href="#id3"><span class="problematic" id="id4">`</span></a>Geometry type`으로``Polygon ‘’을 입력하십시오. 이 입력은 natural earth global land layer을 나타냅니다.</p></li>
+</ol>
+<img alt="../../_images/818.png" class="align-center" src="../../_images/818.png" />
+<ol class="arabic simple" start="9">
+<li><p>우리는 글로벌 육각그리드를 생성하고 있기 때문에, 사용자에게 격자 크기를 모델의 일부로 하드 코딩하는 대신 입력으로 제공하도록 요청할 수 있습니다. 이러한 방식으로 사용자는 모델을 전혀 변경하지 않고도 다양한 그리드 크기를 빠르게 실험 할 수 있습니다. <cite>+ Number</cite> 입력을 선택하고 캔버스로 드래그하십시오. <a href="#id1"><span class="problematic" id="id2">`</span></a>Parameter name`으로``Grid Size ‘’를 입력하고 <a href="#id3"><span class="problematic" id="id4">`</span></a>OK`를 클릭하십시오.</p></li>
+</ol>
+<img alt="../../_images/918.png" class="align-center" src="../../_images/918.png" />
+<ol class="arabic simple" start="10">
+<li><p>이제 사용자 입력이 정의되었으므로 처리 단계를 추가 할 준비가되었습니다. 모든 처리 알고리즘은 <cite>Algorithms</cite> 탭에서 사용할 수 있습니다. 파이프 라인의 첫 번째 단계는 기본 계층을 Project CRS에 다시 투영하는 것입니다. <a href="#id1"><span class="problematic" id="id2">``</span></a>Reproject layer ‘’알고리즘을 검색하여 캔버스로 드래그하십시오.</p></li>
+</ol>
+<div class="admonition note">
+<p class="admonition-title">참고</p>
+<p>이 재투영 단계의 필요성은 곧 분명해질 것입니다. 그리드 생성 알고리즘을 사용하려면 Project CRS 단위로 그리드의 범위를 지정해야합니다. 이 재계산 된 레이어를 제공하여이 범위를 계산할 수 있습니다.</p>
+</div>
+<img alt="../../_images/1026.png" class="align-center" src="../../_images/1026.png" />
+<ol class="arabic simple" start="11">
+<li><p><cite>Reproject layer</cite> 대화 상자에서 <a href="#id1"><span class="problematic" id="id2">`</span></a>Input layer`로``Base Layer ‘’를 선택하십시오. <a href="#id3"><span class="problematic" id="id4">`</span></a>프로젝트 CRS 사용`을 <a href="#id5"><span class="problematic" id="id6">`</span></a>Target CRS`로 확인하십시오. <a href="#id7"><span class="problematic" id="id8">`</span></a>OK`를 클릭하십시오.</p></li>
+</ol>
+<img alt="../../_images/1129.png" class="align-center" src="../../_images/1129.png" />
+<ol class="arabic simple" start="12">
+<li><p><cite>Processing Modeler</cite> 캔버스에서 <cite>+ Base Layer</cite> 입력과 <cite>Reproject layer</cite> 알고리즘 사이에 연결이 나타납니다. 이 연결은 처리 파이프 라인의 흐름을 나타냅니다. 다음 단계는 육각형 격자를 만드는 것입니다. <a href="#id1"><span class="problematic" id="id2">``</span></a>Create grid ‘’알고리즘을 검색하여 캔버스로 드래그하십시오.</p></li>
+</ol>
+<img alt="../../_images/1227.png" class="align-center" src="../../_images/1227.png" />
+<ol class="arabic simple" start="13">
+<li><p><cite>Generate grid</cite> 대화 상자에서 <cite>Grid type`으로``Hexagon (polygon)``을 선택하십시오. `Grid extent`로 ‘Reproject Layer’알고리즘에서 ‘Reprojected’범위 ‘를 선택하십시오. `Horizonal spacing</cite> 레이블 아래 <cite>123</cite> 버튼을 클릭하고 <a href="#id1"><span class="problematic" id="id2">`</span></a>Model input`을 선택하십시오.</p></li>
+</ol>
+<img alt="../../_images/1325.png" class="align-center" src="../../_images/1325.png" />
+<ol class="arabic simple" start="14">
+<li><p><a href="#id1"><span class="problematic" id="id2">`</span></a>모델 입력 사용`에 대해``격자 크기 ‘’입력을 선택하십시오. <a href="#id3"><span class="problematic" id="id4">`</span></a>Vertical Spacing`에 대해 동일한 프로세스를 반복하십시오. <a href="#id5"><span class="problematic" id="id6">`</span></a>OK`를 클릭하십시오.</p></li>
+</ol>
+<img alt="../../_images/1423.png" class="align-center" src="../../_images/1423.png" />
+<ol class="arabic simple" start="15">
+<li><p>이 시점에서, 우리는 글로벌 육각형 그리드를가집니다. 그리드는 토지 영역과 점이없는 장소를 포함하여 기본 레이어의 전체 범위에 걸쳐 있습니다. 입력 포인트가없는 그리드 폴리곤을 필터링 해 봅시다. <a href="#id1"><span class="problematic" id="id2">``</span></a>위치로 추출’’알고리즘을 검색하여 캔버스로 끕니다.</p></li>
+</ol>
+<img alt="../../_images/1521.png" class="align-center" src="../../_images/1521.png" />
+<ol class="arabic simple" start="16">
+<li><p>‘Extract features from’창을 누른 후  ‘Generate Grid’ 알고리즘에서 ‘Grid’를 선택하십시오. ‘Where the features (geometric)창에서는 ‘intersect’를 선택하고, ‘By compating to the features from’에서는 <a href="#id1"><span class="problematic" id="id2">``</span></a>Input points’를 선택한 후`확인`을 클릭하십시오.</p></li>
+</ol>
+<img alt="../../_images/1620.png" class="align-center" src="../../_images/1620.png" />
+<ol class="arabic simple" start="17">
+<li><p>이제 입력 포인트가 포함된 그리드 다각형만 있습니다. 이러한 점을 집계하기 위해 <a href="#id1"><span class="problematic" id="id2">``</span></a>다각형의 카운트 점 ‘’알고리즘을 사용합니다. 검색하여 캔버스로 드래그하십시오.</p></li>
+</ol>
+<img alt="../../_images/1721.png" class="align-center" src="../../_images/1721.png" />
+<ol class="arabic simple" start="18">
+<li><p><cite>Polygons`의 값으로 ‘Extract by location’알고리즘에서 ‘Extracted (location)’을 선택하십시오. `Points</cite> 레이어는``Input Points ‘’입니다. 맨 아래에서 <cite>Count</cite> 출력 레이어의 이름을``Aggregated ‘’로 지정하십시오. <a href="#id1"><span class="problematic" id="id2">`</span></a>OK`를 클릭하십시오.</p></li>
+</ol>
+<img alt="../../_images/1818.png" class="align-center" src="../../_images/1818.png" />
+<ol class="arabic simple" start="19">
+<li><p>이제 모델이 완성되었습니다. <cite>Save</cite> 버튼을 클릭하십시오.</p></li>
+</ol>
+<img alt="../../_images/1915.png" class="align-center" src="../../_images/1915.png" />
+<ol class="arabic simple" start="20">
+<li><p>메인 QGIS 창으로 전환하십시오. 새로 작성된 모델은 <a href="#id1"><span class="problematic" id="id2">`</span></a>Processing Toolbox`의 <a href="#id3"><span class="problematic" id="id4">`</span></a>Models-&gt; projects-&gt; piracy_hexbin에 있습니다. 이제 모델을 실행하고 테스트 할 차례입니다. 우리의 목표는 육각형 그리드를 통해 입력 포인트를 집계하는 것이므로 그리드를 등 면적 투영법을 사용하여 생성하는 것이 중요합니다. 이렇게 하면 그리드의 위치에 관계없이 정확히 같은 영역을 덮을 수 있습니다. 이 모델은 명시 적으로 CRS를 요구하지 않지만 ** 프로젝트 CRS <a href="#id5"><span class="problematic" id="id6">**</span></a>로 설정된 CRS를 사용합니다. 프로젝트 CRS로 글로벌 등가 투영법을 선택합시다. <a href="#id7"><span class="problematic" id="id8">`</span></a>Project –&gt; 속성`로 이동하십시오.</p></li>
+</ol>
+<img alt="../../_images/2014.png" class="align-center" src="../../_images/2014.png" />
+<ol class="arabic simple" start="21">
+<li><p><cite>프로젝트 속성</cite> 대화 상자에서 <cite>CRS</cite> 탭으로 전환하십시오. 이 연습에서는 등분 투영법 인 글로벌 ** 몰 바이드 ** 투영법을 사용합니다. <a href="#id1"><span class="problematic" id="id2">`</span></a>Filter ‘상자에서``Mollweide’ ‘를 검색하고 CRS로``World_Mollweide EPSG : 54009’ ‘를 선택하십시오. <a href="#id3"><span class="problematic" id="id4">`</span></a>OK`를 클릭하십시오.</p></li>
+</ol>
+<img alt="../../_images/2117.png" class="align-center" src="../../_images/2117.png" />
+<ol class="arabic simple" start="22">
+<li><p>선택한 CRS에 레이어가 즉석에서 재투영되는 것을 볼 수 있습니다. <a href="#id1"><span class="problematic" id="id2">`</span></a>Processing Toolbox`에서``piracy_hexbin ‘’모델을 찾아 두 번 클릭하십시오.</p></li>
+</ol>
+<img alt="../../_images/2216.png" class="align-center" src="../../_images/2216.png" />
+<ol class="arabic simple" start="23">
+<li><p>우리의 <cite>Base Layer ‘는``ne_10m_land’ ‘이고 `Input Points</cite> 레이어는``ASAM_events’ ‘입니다. 선택한 CRS 단위로 <a href="#id1"><span class="problematic" id="id2">`</span></a>Grid Size ‘를 지정해야합니다. World_Mollweide CRS 단위는 미터이므로``100000 ‘’m (100 Kms)을 <a href="#id3"><span class="problematic" id="id4">`</span></a>Grid Size ‘로 지정합니다. 처리 파이프 라인을 시작하려면 <a href="#id5"><span class="problematic" id="id6">`</span></a>Run`을 클릭하십시오. 프로세스가 완료되면 <a href="#id7"><span class="problematic" id="id8">`</span></a>Close`를 클릭하십시오.</p></li>
+</ol>
+<img alt="../../_images/2315.png" class="align-center" src="../../_images/2315.png" />
+<ol class="arabic simple" start="24">
+<li><p>모델 결과로``Aggregated ‘’라는 새 레이어가로드 된 것을 볼 수 있습니다. 탐색 할 때 해당 그리드 기능에 포함 된 불법 복제 사건 수를 포함하는 * NUMPOINTS <a href="#id1"><span class="problematic" id="id2">*</span></a>라는 특성이 레이어에 포함되어 있음을 알 수 있습니다. 이 레이어의 스타일을 지정하여이 정보를 더 잘 표시하십시오. <a href="#id3"><span class="problematic" id="id4">``</span></a>Aggregated ‘’레이어를 마우스 오른쪽 버튼으로 클릭하고 <a href="#id5"><span class="problematic" id="id6">`</span></a>속성`을 선택하십시오.</p></li>
+</ol>
+<img alt="../../_images/2414.png" class="align-center" src="../../_images/2414.png" />
+<ol class="arabic simple" start="25">
+<li><p><cite>Symbology</cite> 탭으로 전환하십시오. <cite>Column`으로``Graduated`</cite> 된 ‘’기호와``NUMPOINTS ‘’를 선택하십시오. <cite>Symbol</cite> 레이블 옆의 <a href="#id1"><span class="problematic" id="id2">``</span></a>Change..``을 클릭하십시오.</p></li>
+</ol>
+<img alt="../../_images/2512.png" class="align-center" src="../../_images/2512.png" />
+<ol class="arabic simple" start="26">
+<li><p><cite>Simple fill</cite> 기호를 선택하고 <cite>Stroke color`에서 `Transparent Stroke</cite> 버튼을 확인하십시오. 이것은 육각 모서리를 투명하게하기위한 것입니다.</p></li>
+</ol>
+<img alt="../../_images/2611.png" class="align-center" src="../../_images/2611.png" />
+<ol class="arabic simple" start="27">
+<li><p><cite>Color ramp</cite> 옆에있는 드롭 다운을 클릭하고``Viridis ‘’램프를 선택하십시오. 드롭 다운을 다시 클릭하고 <a href="#id1"><span class="problematic" id="id2">`</span></a>색상 반전 반전`을 선택하여 색상 순서를 반대로 바꿉니다.</p></li>
+</ol>
+<img alt="../../_images/2712.png" class="align-center" src="../../_images/2712.png" />
+<ol class="arabic simple" start="28">
+<li><p>점진적 기호는 선택한 열의 값을 개별 클래스로 나누고 각 클래스에 다른 색상을 지정합니다. <a href="#id1"><span class="problematic" id="id2">`</span></a>Mode`로``Natural Breaks (Jenks)``를 선택하고 <a href="#id3"><span class="problematic" id="id4">`</span></a>Classify`를 클릭하고 <a href="#id5"><span class="problematic" id="id6">`</span></a>OK`를 클릭하십시오.</p></li>
+</ol>
+<div class="admonition note">
+<p class="admonition-title">참고</p>
+<p>다른 모드에 대한 자세한 설명은 : doc :<a href="#id1"><span class="problematic" id="id2">`</span></a>../ basic_vector_styling`을 참조하십시오.</p>
+</div>
+<img alt="../../_images/2811.png" class="align-center" src="../../_images/2811.png" />
+<ol class="arabic simple" start="29">
+<li><p>메인 QGIS 창으로 돌아가서``ASAM_events ‘’레이어를 끕니다. 전세계의 불법   해적행위 핫스팟을 멋지게 시각화 할 수 있습니다.</p></li>
+</ol>
+<img alt="../../_images/2910.png" class="align-center" src="../../_images/2910.png" />
+<p>모델에서 전체 데이터 파이프 라인을 인코딩 했으므로 결과를 쉽게 재현 할 수 있습니다. 모델을 사용하면 매번 각 중간 단계를 수동으로 반복하지 않고도 신속하게 실험 할 수 있습니다. 시간이 지남에 따라 입력이 변경되면 몇 개월 후에 업데이트 된 불법 복제 데이터베이스가 릴리스되는 경우 각 입력을 기억할 필요없이 해당 입력에서 모델을 실행하여 유사한 시각화를 생성 할 수 있습니다.</p>
+</section>
+</section>
+
+
+
+
+
+  <div id="disqus_thread"></div>
+  <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+
+    </div>
+      
+  </div>
+</div>
+
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+    </p>
+    <p>
+        &copy; Copyright 2021, Ujaval Gandhi.<br/>
+      최종 업데이트: 8월 30, 2022<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 4.0.1.<br/>
+    </p>
+  </div>
+</footer>
+<div class="container">
+  <p>This work is licensed under a <a href="http://creativecommons.org/licenses/by/4.0/deed.en_US">Creative Commons Attribution 4.0 International License</a></p>
+</div>
+<!-- Twitter Button -->
+<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+
+<!-- Disqus comments widget -->
+<script type="text/javascript">
+  /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+  var disqus_shortname = 'qgistutorials'; // required: replace example with your forum shortname
+  /* * * DON'T EDIT BELOW THIS LINE * * */
+  (function () {
+    var s = document.createElement('script'); s.async = true;
+    s.type = 'text/javascript';
+    s.src = '//' + disqus_shortname + '.disqus.com/count.js';
+    (document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);
+  }());
+</script>
+
+<script type="text/javascript">
+  /* * * DON'T EDIT BELOW THIS LINE * * */
+  (function() {
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+
+<!-- Script fpr language switching. Largely adapted from https://github.com/pcav/faunalia-website -->
+<script>
+    var currentPage = 'docs/3/processing_graphical_modeler.html'; // coming from sphinx, always without starting '/'
+    var currentLang = 'en';
+    $(document).ready(function(){
+
+        var search = new RegExp('\/[a-zA-Z_]{2,8}\/'+ currentPage, 'gi');
+        var langPlusPage = window.location.href.match(search);
+        // it's possible this is a index.html page called without 'index.html', try without the currentPage
+        if (langPlusPage==undefined){
+            search = new RegExp('\/[a-zA-Z_]{2,8}\/$', 'gi');
+            langPlusPage = window.location.href.match(search);
+        }
+
+        // it's possible this is an index.html page called without 'index.html', try removing index.html
+        if (langPlusPage==undefined){
+            currentPage = currentPage.replace('index.html','')
+            search = new RegExp('\/[a-zA-Z_]{2,8}\/'+ currentPage, 'gi');
+            langPlusPage = window.location.href.match(search);
+        }
+        // still no langPlugPage: stop, because the language swicher will misbehave 
+
+        if (langPlusPage == undefined || langPlusPage.length != 1){
+            alert('You hit an error, please report back to us.');
+            return;
+        }
+        langPlusPage = langPlusPage[0];
+        currentLang = langPlusPage.replace(currentPage, '');
+
+        $("#languages").val(currentLang.replace(/\//g,'')); // currentLang is something like '/nl/'
+
+        $("#languages").change(function() {
+            gotoLang($(this).val());
+        });
+
+    });
+
+    // load current page in a different language
+    function gotoLang(lang){
+        var currentUrl = window.location.href;
+        var newUrl = currentUrl.replace(currentLang, '/'+lang+'/');
+        window.location.href = newUrl;
+    }
+</script>
+
+  </body>
+</html>

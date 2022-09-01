@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+
+<html lang="ko">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>qgis2leaf로 웹 지도 만들기 &#8212; QGIS Tutorials and Tips</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/bootstrap-sphinx.css" />
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/translations.js"></script>
+    <link rel="search" title="검색" href="../search.html" />
+
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<script type="text/javascript" src="../_static/js/jquery-1.11.0.min.js "></script>
+<script type="text/javascript" src="../_static/js/jquery-fix.js "></script>
+<script type="text/javascript" src="../_static/bootstrap-3.3.7/js/bootstrap.min.js "></script>
+<script type="text/javascript" src="../_static/bootstrap-sphinx.js "></script>
+
+
+<!-- Cookie Notice -->
+<!-- Script from https://github.com/AOEpeople/cookie-notice -->
+<script type="text/javascript" src="../_static/cookie.notice.min.js"></script>
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-B1WQ7B80XJ"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-B1WQ7B80XJ');
+</script>
+
+
+  </head><body>
+
+  <div id="navbar" class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="../index.html"><span><img src="../_static/logo.png"></span>
+          QGIS Tutorials and Tips</a>
+        <span class="navbar-text navbar-version pull-left"><b>v1</b></span>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="../index.html">Tutorials List <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"><ul>
+<li class="toctree-l1"><a class="reference internal" href="introduction.html">들어가는 말</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/making_a_map.html">지도 만들기 (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/working_with_attributes.html">속성 작업 (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/importing_spreadsheets_csv.html">스프레드시트 및 CSV 파일 불러오기 (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/basic_vector_styling.html">기본 벡터 스타일링 (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/calculating_line_lengths.html">선의 길이계산과 통계(QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/raster_styling_and_analysis.html">기본 래스터 스타일링 및 분석(QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/raster_mosaicing_and_clipping.html">래스터 붙이기 및 자르기 (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/working_with_terrain.html">Working with Terrain Data (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/working_with_wms.html">Working with WMS Data (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/working_with_projections.html">Working with Projections (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/georeferencing_basics.html">Georeferencing Topo Sheets and Scanned Maps (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/advanced_georeferencing.html">항공사진 지오레퍼런싱 (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/digitizing_basics.html">Digitizing Map Data (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/performing_table_joins.html">테이블 결합 작업(QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/performing_spatial_joins.html">공간 결합 수행 (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/performing_spatial_queries.html">공간 조회 실행(QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/nearest_neighbor_analysis.html">최근린 분석(QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/sampling_raster_data.html">점 또는 다각형을 이용한 래스터 데이터 표본 추출 작업(QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/calculating_raster_area.html">Calculating Raster Area (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/creating_heatmaps.html">열지도 만들기 (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/animating_time_series.html">Animating Time Series Data (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/handling_invalid_geometries.html">Handling Invalid Geometries (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/advanced_raster_analysis.html">Advanced Raster Analysis (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/interpolating_point_data.html">Interpolating Point Data (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/calculating_intersection_density.html">Calculating Street Intersection Density (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/batch_processing.html">프로세싱 프레임을 이용한 일괄처리과정</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/processing_graphical_modeler.html">프로세싱 모델러를 사용하여 복잡한 작업흐름 자동화하기(QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/automating_map_creation.html">Automating Map Creation with Print Layout Atlas (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/multi_criteria_overlay.html">Multi Criteria Overlay Analysis (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/basic_network_analysis.html">Basic Network Visualization and Routing (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/origin_destination_matrix.html">가장 가까운 기-종점 매트릭스 위치 (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/service_area_analysis.html">Openrouteservice를 이용한 서비스 영역 분석(QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/travel_time_analysis.html">Travel Time Analysis with Uber Movement (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/areal_mean_rainfall.html">Calculating Areal Mean Rainfall (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/getting_started_with_pyqgis.html">Getting Started With Python Programming (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/processing_algorithms_pyqgis.html">Running Processing Algorithms via Python (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/custom_python_functions.html">Using Custom Python Expression Functions (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/processing_python_scripts.html">Writing Python Scripts for Processing Framework (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/building_a_python_plugin.html">Building a Python Plugin (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/processing_python_plugin.html">Building a Processing Plugin (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="running_qgis_jobs.html">Running and Scheduling QGIS Processing Jobs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/web_mapping_with_qgis2web.html">Web Mapping with QGIS2Web (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="creating_basemaps_with_qtiles.html">QTiles로 베이스 맵 만들기</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/using_plugins.html">Using Plugins (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="downloading_osm_data.html">오픈스트리트맵 데이터의 검색과 다운로드</a></li>
+<li class="toctree-l1"><a class="reference internal" href="learning_resources.html">QGIS 수업 자원</a></li>
+<li class="toctree-l1"><a class="reference internal" href="credits.html">데이터 크레딧</a></li>
+<li class="toctree-l1"><a class="reference internal" href="batch_processing.html">프로세싱 프레임을 이용한 일괄처리과정</a></li>
+</ul>
+</ul>
+</li>
+              
+            
+            
+              
+                
+              
+            
+            
+
+            
+
+            
+              <li class="hidden-sm"></li>
+            
+          </ul>
+
+          
+            
+<form class="navbar-form navbar-right" action="../search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+      <div class="col-md-3">
+        <div id="sidebar" class="bs-sidenav" role="complementary"><h4>Author</h4>
+<p>Ujaval Gandhi</p>
+<a href="https://twitter.com/intent/follow?screen_name=spatialthoughts" class="twitter-follow-button" data-show-count="false">Follow @spatialthoughts</a>
+<hr>
+<p>Want to learn QGIS in a structured way? Check out <a href="https://spatialthoughts.com/" target="_blank">Spatial Thoughts</a> for more learning materials and instructor-led online programs with QGIS.org certification.</p>
+
+
+<h4>Change Language</h4>
+<form role="form" class="sidebar-form sidebar-left">
+<select id="languages" class="form-control select-mini">
+  <option value="en">English</option>
+  <option value="zh_TW">Chinese (Taiwan)</option>
+  <option value="nl">Dutch</option>
+  <option value="fi_FI">Finnish</option>
+  <option value="fr">French</option>
+  <option value="de">German</option>
+  <option value="el">Greek</option>
+  <option value="id">Indonesian</option>
+  <option value="it">Italian</option>
+  <option value="ko">Korean</option>
+  <option value="fa">Persian</option>
+  <option value="pt_BR">Portuguese</option>
+  <option value="ro">Romanian</option>
+  <option value="ru">Russian</option>
+  <option value="sl">Slovenian</option>
+  <option value="es">Spanish</option>
+  <option value="th">Thai</option>
+  <option value="tr">Turkish</option>
+  <option value="uk">Ukrainian</option>
+  <option value="vi">Vietnamese</option>
+</select>
+</form>
+        </div>
+      </div>
+    <div class="body col-md-9 content" role="main">
+      
+
+  <section id="leaflet-web-maps-with-qgis2leaf">
+<h1>qgis2leaf로 웹 지도 만들기<a class="headerlink" href="#leaflet-web-maps-with-qgis2leaf" title="이 표제에 대한 퍼머링크">¶</a></h1>
+<div class="admonition warning">
+<p class="admonition-title">경고</p>
+<p>qgis2leaf plugin is no longer in active development. The functionality of
+this plugin is folded into a new plugin called <strong>qgis2web</strong>.</p>
+<p>See <a class="reference internal" href="web_mapping_with_qgis2web.html"><span class="doc">Web Mapping with QGIS2Web</span></a> tutorial for an updated version of
+this tutorial.</p>
+</div>
+<p>리플릿은 웹 지도 어클리케이션을 만드는데 매우 인기 있는 오픈소프 자바스크립트 라이브러리입니다. <a href="#id1"><span class="problematic" id="id2">**</span></a>qgis2leaf**플러그인은 QGIS 지도를 리플릿에 기반한 웹 지도로 내보내는데 손쉬운 방법을 제공합니다. 이 플러그인은 웹 지도를 만드는 것과 딱딱한 GIS 데이터 레이어를 상호작용하는 웹지도로 만드는데 유용한 수단입니다.</p>
+<section id="overview-of-the-task">
+<h2>과업 개요<a class="headerlink" href="#overview-of-the-task" title="이 표제에 대한 퍼머링크">¶</a></h2>
+<p>세계 공항의 리플릿 웹맵을 만들고자 합니다.</p>
+<section id="other-skills-you-will-learn">
+<h3>기타 스킬<a class="headerlink" href="#other-skills-you-will-learn" title="이 표제에 대한 퍼머링크">¶</a></h3>
+<ul class="simple">
+<li><p>필드 계산기에서 <code class="docutils literal notranslate"><span class="pre">CASE</span></code> SQL구문을 이용하여 다른 상태를 바탕으로 새로운 필드값을 만들어 봅니다.</p></li>
+<li><p>QGIS에 SVG 사용자 아이콘을 위치시키고 사용합니다.</p></li>
+</ul>
+</section>
+</section>
+<section id="get-the-data">
+<h2>데이터 획득<a class="headerlink" href="#get-the-data" title="이 표제에 대한 퍼머링크">¶</a></h2>
+<p>Natural Earth의 <a href="#id1"><span class="problematic" id="id2">`</span></a>Airports &lt;<a class="reference external" href="http://www.naturalearthdata.com/downloads/10m-cultural-vectors/airports/">http://www.naturalearthdata.com/downloads/10m-cultural-vectors/airports/</a>&gt;`_데이터셋을 사용합니다.</p>
+<p>Download the <a class="reference external" href="http://www.naturalearthdata.com/http//www.naturalearthdata.com/download/10m/cultural/ne_10m_airports.zip">Airports shapefile</a>.</p>
+<p>데이터 출처:  <a class="reference internal" href="credits.html#naturalearth" id="id1"><span>[NATURALEARTH]</span></a></p>
+</section>
+<section id="procedure">
+<h2>과정<a class="headerlink" href="#procedure" title="이 표제에 대한 퍼머링크">¶</a></h2>
+<ol class="arabic simple">
+<li><p>메뉴 플러그인 –&gt; 플러그인 관리 및 설치  :menuselection:<a href="#id1"><span class="problematic" id="id2">`</span></a>Plugins –&gt; Manage and Install Plugin`로 가서 <a href="#id3"><span class="problematic" id="id4">``</span></a>qgis2leaf``를 설치합니다. 이 플러그인은 현재 설치되지 않음 <a href="#id5"><span class="problematic" id="id6">**</span></a>experimental**으로 표시되어 있습니다. 그래서 플러그인 세팅에서  :guilabel:<a href="#id7"><span class="problematic" id="id8">`</span></a>Show also experimental plugins`을 체크할 필요가 있습니다. 상위버젼에서는 명령어 등의 내용과 다소 틀릴 수 있습니다. (QGIS에서 플러그인 설치를 하기해 보다 자세한 사항은 :doc:<a href="#id9"><span class="problematic" id="id10">`</span></a>using_plugins`를 보시기 바랍니다.)</p></li>
+</ol>
+<img alt="../_images/1178.png" class="align-center" src="../_images/1178.png" />
+<ol class="arabic simple" start="2">
+<li><p>다운로드한 <a href="#id1"><span class="problematic" id="id2">``</span></a>ne_10m_airports.zip``파일을 압축해제합니다. QGIS를 구동시키고 메뉴 레이어 –&gt; 레이어 추가 –&gt; 벡터 레이어 추가 :menuselection:<a href="#id3"><span class="problematic" id="id4">`</span></a>Layer –&gt; Add Vector Layer`로 갑니다. 파일이 압축해제된 디렉토리를 찾아서 <a href="#id5"><span class="problematic" id="id6">``</span></a>ne_10m_airports.shp``를 선택합니다. 확인 :guilabel:<a href="#id7"><span class="problematic" id="id8">`</span></a>OK`을 클릭합니다.</p></li>
+</ol>
+<img alt="../_images/2144.png" class="align-center" src="../_images/2144.png" />
+<ol class="arabic simple" start="3">
+<li><p>일단 <a href="#id1"><span class="problematic" id="id2">``</span></a>ne_10m_airports``레이어가 불러들여지면 객체 확인 <span class="guilabel">Identify</span> 툴을 사용하여 아무 객체나 눌러 속성을 살펴봅니다. 여기서는 공항을 3개의 범주로 나누어 공항지도를 만들고자 합니다. 속성 <a href="#id3"><span class="problematic" id="id4">``</span></a>type``은 객체를 분리하는데 유용할 것입니다.</p></li>
+</ol>
+<img alt="../_images/377.png" class="align-center" src="../_images/377.png" />
+<ol class="arabic simple" start="4">
+<li><p><a href="#id1"><span class="problematic" id="id2">``</span></a>ne_10m_airports``레이어를 우측클릭하고 속성테이블 열기 :guilabel:<a href="#id3"><span class="problematic" id="id4">`</span></a>Open Attribute Table`를 선택합니다.</p></li>
+</ol>
+<img alt="../_images/452.png" class="align-center" src="../_images/452.png" />
+<ol class="arabic simple" start="5">
+<li><p>속성 테이블 다이알로그에서 편집모드전환 <span class="guilabel">Toggle Editing</span> 단추를 누릅니다. 일단 레이어가 편집모드가 되면 필드계산기 열기 <span class="guilabel">Open Field Calculator</span> 단추를 누릅니다.</p></li>
+</ol>
+<img alt="../_images/548.png" class="align-center" src="../_images/548.png" />
+<ol class="arabic simple" start="6">
+<li><p><a href="#id1"><span class="problematic" id="id2">``</span></a>type_code``라는 새로운 속성을 만들려고 하는데, 주요한 공항은 3, 중간 크기의 공항은 2 그리고 나머지 모든 공항은 1의 값을 부여하고자 합니다. 이 상태에서 <a href="#id3"><span class="problematic" id="id4">``</span></a>type``의 속성을 보고 <a href="#id5"><span class="problematic" id="id6">``</span></a>type_code``속성을 만드는 표현식을 만들기 위해 <a href="#id7"><span class="problematic" id="id8">*</span></a>CASE*구문을 사용할 수 있습니다. 출력 필드이름 <span class="guilabel">Output field name`으로 ``type_code``를 입력하고 새 필드 생성 :guilabel:`Create a new field</span> 상자를 체크합니다. 출력 필드 유형  :guilabel:<a href="#id9"><span class="problematic" id="id10">`</span></a>Output field type`으로 정수 :guilabel:<a href="#id11"><span class="problematic" id="id12">`</span></a>Whole number (integer)`를 선택합니다. 표현식  :guilabel:<a href="#id13"><span class="problematic" id="id14">`</span></a>Expression`창에는 다음의 식을 입력합니다.</p></li>
+</ol>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>CASE  WHEN &quot;type&quot; LIKE &#39;%major%&#39;  THEN 3
+ WHEN &quot;type&quot; LIKE &#39;%mid%&#39; THEN 2
+ ELSE 1
+END
+</pre></div>
+</div>
+<img alt="../_images/646.png" class="align-center" src="../_images/646.png" />
+<ol class="arabic simple" start="7">
+<li><p>속성 테이블  <span class="guilabel">Attribute Table`창으로 되돌아가면 끝에 새로운 컬럼을 볼 수 있을 것입니다. 표현식이 정확하게 작동했는지 확인하고 편집모드전환 :guilabel:`Toggle Editing</span> 단추를 눌러 변경된 내용을 저장합니다.</p></li>
+</ol>
+<img alt="../_images/745.png" class="align-center" src="../_images/745.png" />
+<ol class="arabic simple" start="8">
+<li><p>이제 새롭게 만들어진 <code class="docutils literal notranslate"><span class="pre">type_code``속성을</span> <span class="pre">이용하여</span> <span class="pre">공항</span> <span class="pre">레이어를</span> <span class="pre">스타일링합니다.</span> <span class="pre">``ne_10m_airports</span></code> 레이어를 우측클릭하고 속성 :guilabel:<a href="#id1"><span class="problematic" id="id2">`</span></a>Properties`을 선택합니다.</p></li>
+</ol>
+<img alt="../_images/844.png" class="align-center" src="../_images/844.png" />
+<ol class="arabic simple" start="9">
+<li><p>레이어 속성 <span class="guilabel">Layer Properties</span> 다이알로그에서 스타일 <span class="guilabel">Style</span> 탭을 선택합니다. 드롭다운 메뉴에서 분류된 <span class="guilabel">Categorized</span> 스타일을 선택하고 컬럼  <span class="guilabel">Column`으로  ``type_code`</span> 을 선택합니다. 색상표를 고르고 분류 :guilabel:<a href="#id1"><span class="problematic" id="id2">`</span></a>Classify`를 누릅니다. 확인 :guilabel:<a href="#id3"><span class="problematic" id="id4">`</span></a>OK`을 누르고 QGIS 메인 창으로 되돌아 갑니다.</p></li>
+</ol>
+<img alt="../_images/944.png" class="align-center" src="../_images/944.png" />
+<ol class="arabic simple" start="10">
+<li><p>멋지게 스타일링된 지도를 보게됩니다. 상호작용하는 웹맵을 만들기위해 이것을 내보내보도록 합시다. 메뉴  :menuselection:<a href="#id1"><span class="problematic" id="id2">`</span></a>Web –&gt; qgis2leaf –&gt; Exports a QGIS Project to a working leaflet webmap`로 갑니다.</p></li>
+</ol>
+<img alt="../_images/1051.png" class="align-center" src="../_images/1051.png" />
+<ol class="arabic simple" start="11">
+<li><p>In the <span class="guilabel">QGIS 2 Leaflet</span> dialog, click <span class="guilabel">Get Layers</span> to
+get the refreshed layer list. Select the <span class="guilabel">Full screen</span> option to
+have a full screen web map. Choose <span class="guilabel">layer extent</span> as the
+<span class="guilabel">Extent</span> of the exported map. Choose a <span class="guilabel">Output project
+folder</span> on your system where the plugin will write the output files. Click
+<span class="guilabel">OK</span>.</p></li>
+</ol>
+<img alt="../_images/1179.png" class="align-center" src="../_images/1179.png" />
+<ol class="arabic simple" start="12">
+<li><p>일단 내보내기 과정이 종료되면, 컴퓨터의 출력 폴더를 찾아보십시오. 탐색기에서 <a href="#id1"><span class="problematic" id="id2">``</span></a>index.html``파일을 여십시오. QGIS지도와 똑같은 상호작용 웹 지도를 보게됩니다. 지도 주위를 확대 그리고 이동할 수 있습니다. 그리고 아무 객체나 눌러서 속성정보가 담긴 팝업창을 볼 수 있습니다. 완전한 객체 웹 지도를 얻기 위해서 웹 서버에 이 폴더의 내용을 복사할 수 있습니다.</p></li>
+</ol>
+<img alt="../_images/1253.png" class="align-center" src="../_images/1253.png" />
+<ol class="arabic simple" start="13">
+<li><p>이제 지도를 보다 사용자 중심으로 만들기 위해 이플러그인의 고급 특성을 알보겠습니다. 주목해 보면 팝업창은 객체의 모든 속성을 포함하고 있습니다. 어떤 속성은 유용하지 않고 전체 팝업은 보기 좋지 않습니다. 이것을 보다 낫게 만들기 위해 사용자 HTML로 대체할 수 있습니다. 이것은 <a href="#id1"><span class="problematic" id="id2">``</span></a>html_exp``라는 컬럼에서 사용자 HTML을 추가함으로써 할 수 있습니다. <a href="#id3"><span class="problematic" id="id4">``</span></a>ne_10m_airports``레이어를 우측클릭하고 속성 테이블 열기 :guilabel:<a href="#id5"><span class="problematic" id="id6">`</span></a>Open Attribute Table`를 선택합니다.</p></li>
+</ol>
+<img alt="../_images/1351.png" class="align-center" src="../_images/1351.png" />
+<ol class="arabic simple" start="14">
+<li><p>속성 테이블 다이알로그에서 편집모드전환 <span class="guilabel">Toggle Editing</span> 단추를 누릅니다. 일단 레이어가 편집모드가 되면 필드계산기 열기 <span class="guilabel">Open Field Calculator</span> 단추를 누릅니다.</p></li>
+</ol>
+<img alt="../_images/1447.png" class="align-center" src="../_images/1447.png" />
+<ol class="arabic simple" start="15">
+<li><p>새필드생성 <span class="guilabel">Create a new field</span> 상자를 체크하고 출력필드이름 <span class="guilabel">Output field name`으로  ``html_exp``를 입력합니다. 출력필드유형  :guilabel:`Output field type`으로 텍스트 :guilabel:`Text (string)`를 선택합니다. 긴 HTML 문자열을 입력해야 하므로 출력필드폭 :guilabel:`Output field width`으로 ``200``을 입력합니다. 표현식 :guilabel:`Expression`영역에서 다음의 식을 입력합니다. 복잡해 보이는 표현식은 단순하게 ``iata_code`</span>, <code class="docutils literal notranslate"><span class="pre">name</span></code> 그리고 <code class="docutils literal notranslate"><span class="pre">type</span></code> 속성으로부터 HTML표를 정의하고 셀값을 대신합니다. 표현식이 정확한지 확인하기 위해 출력미리보기 <span class="guilabel">Output preview</span> 를 체크합니다.</p></li>
+</ol>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>concat(&#39;&lt;h3&gt;&#39;, &quot;iata_code&quot;, &#39;&lt;/h3&gt;&lt;table&gt;&#39;, &#39;&lt;tr&gt;&lt;td&gt;Airport Name: &lt;b&gt; &#39;,
+&quot;name&quot;, &#39;&lt;/b&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;Category: &lt;b&gt; &#39;, &quot;type&quot;,
+&#39;&lt;/b&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&#39;)
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">참고</p>
+<p>Shapefile 형식은 필드에서 최대 254자까지 포함할 수 있습니다. 필드에 보다 긴 텍스트를 저장하고 싶다면 다른 형식을 선택하십시오.</p>
+</div>
+<img alt="../_images/1545.png" class="align-center" src="../_images/1545.png" />
+<ol class="arabic simple" start="16">
+<li><p>속성 테이블  <span class="guilabel">Attribute Table`창으로 되돌아가면 끝에 새로운 컬럼을 볼 수 있을 것입니다. 표현식이 정확하게 작동했는지 확인하고 편집모드전환 :guilabel:`Toggle Editing</span> 단추를 눌러 변경된 내용을 저장합니다.</p></li>
+</ol>
+<img alt="../_images/1642.png" class="align-center" src="../_images/1642.png" />
+<ol class="arabic simple" start="17">
+<li><p>이제 메뉴  :menuselection:<a href="#id1"><span class="problematic" id="id2">`</span></a>Web –&gt; qgis2leaf –&gt; Exports a QGIS Project to a working leaflet webmap`를 이용하여 다시 한번 지도를 내보내 보겠습니다.</p></li>
+</ol>
+<img alt="../_images/1738.png" class="align-center" src="../_images/1738.png" />
+<ol class="arabic simple" start="18">
+<li><p>전처럼 옵션을 선택합니다.</p></li>
+</ol>
+<img alt="../_images/1836.png" class="align-center" src="../_images/1836.png" />
+<ol class="arabic simple" start="19">
+<li><p>일단 내보내기 과정이 종료되면 출력 폴더로 갑니다. 현재의 시간이 적힌 하위 폴더가 생길 것입니다. 탐색기에서 하위 폴더 안에 있는  <a href="#id1"><span class="problematic" id="id2">``</span></a>index.html``를 찾아 엽니다. 아무 객체나 누르고 팝업을 봅니다. 전보다 깔끔하고 필요한 정보만 들어 있는 것을 알게됩니다.</p></li>
+</ol>
+<img alt="../_images/1928.png" class="align-center" src="../_images/1928.png" />
+<ol class="arabic simple" start="20">
+<li><p>Another useful feature of the <code class="docutils literal notranslate"><span class="pre">qgis2leaf</span></code> plugin is the ability to
+specify a custom icon to use with the web map. This is accomplished by
+specifying the path to the custom icon in a field called <code class="docutils literal notranslate"><span class="pre">icon_exp</span></code>. We
+will create a new layer containing only the major airports and style using
+a custom SVG icon.  Locate the <span class="guilabel">Select features using an
+expression</span> tool from the toolbar.</p></li>
+</ol>
+<img alt="../_images/2023.png" class="align-center" src="../_images/2023.png" />
+<ol class="arabic simple" start="21">
+<li><p>아래의 식을 입력하고 모든 주요 공항을 선택하기 위해 선택 :guilabel:<a href="#id1"><span class="problematic" id="id2">`</span></a>Select`을 누릅니다.</p></li>
+</ol>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>&quot;type_code&quot; = 3
+</pre></div>
+</div>
+<img alt="../_images/2145.png" class="align-center" src="../_images/2145.png" />
+<ol class="arabic simple" start="22">
+<li><p><code class="docutils literal notranslate"><span class="pre">ne_10m_airports</span></code> 레이어를 우측 클릭하고 다른 이름으로 저장 :guilabel:<a href="#id1"><span class="problematic" id="id2">`</span></a>Save Selection As…`을 선택합니다.</p></li>
+</ol>
+<img alt="../_images/2224.png" class="align-center" src="../_images/2224.png" />
+<ol class="arabic simple" start="23">
+<li><p>새 이름으로 벡터 레이어 저장하기 :guilabel:<a href="#id1"><span class="problematic" id="id2">`</span></a>Save vector layer as…`다이알로그에서 출력파일의 이름을 <a href="#id3"><span class="problematic" id="id4">``</span></a>major_airports.shp``로 입력합니다. 선택된 객체만 저장과  저장된 파일을 지도에 추가:guilabel:<a href="#id5"><span class="problematic" id="id6">`</span></a>Add saved file to map`를 체크하고 확인 :guilabel:<a href="#id7"><span class="problematic" id="id8">`</span></a>OK`을 누릅니다.</p></li>
+</ol>
+<img alt="../_images/2322.png" class="align-center" src="../_images/2322.png" />
+<ol class="arabic simple" start="24">
+<li><p>일다 QGiS에  <a href="#id1"><span class="problematic" id="id2">``</span></a>major_airports``레이어가 추가되면 우측클릭하고 속성 테이블 열기 :guilabel:<a href="#id3"><span class="problematic" id="id4">`</span></a>Open Attribute Table`를 선택합니다.</p></li>
+</ol>
+<img alt="../_images/2422.png" class="align-center" src="../_images/2422.png" />
+<ol class="arabic simple" start="25">
+<li><p>속성 테이블 다이알로그에서 편집모드전환 <span class="guilabel">Toggle Editing</span> 단추를 누릅니다. 일단 레이어가 편집모드가 되면 필드계산기 열기 <span class="guilabel">Open Field Calculator</span> 단추를 누릅니다.</p></li>
+</ol>
+<img alt="../_images/2519.png" class="align-center" src="../_images/2519.png" />
+<ol class="arabic simple" start="26">
+<li><p>필드계산기 <span class="guilabel">Field Calculator</span> 다이알로그에서 출력필드이름 :guilabel:<a href="#id1"><span class="problematic" id="id2">`</span></a>Output field name`으로 <a href="#id3"><span class="problematic" id="id4">``</span></a>icon_exp``를 입력합니다. 텍스트 :guilabel:<a href="#id5"><span class="problematic" id="id6">`</span></a>Text (string)`로 설정합니다. 표현식 :guilabel:<a href="#id7"><span class="problematic" id="id8">`</span></a>Expression`영역에서 다음의 식을 입력합니다.</p></li>
+</ol>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>&#39;airport.svg&#39;
+</pre></div>
+</div>
+<img alt="../_images/2617.png" class="align-center" src="../_images/2617.png" />
+<ol class="arabic simple" start="27">
+<li><p>속성테이블 <span class="guilabel">Attribute Table</span>.에서 편집모드전환 <span class="guilabel">Toggle Editing</span> 단추를 눌러 편집된 내용을 저장합니다.</p></li>
+</ol>
+<img alt="../_images/2717.png" class="align-center" src="../_images/2717.png" />
+<ol class="arabic simple" start="28">
+<li><p>메뉴  <span class="menuselection">Web ‣ qgis2leaf ‣ Exports a QGIS Project to a working leaflet webmap`에서  ``qgis2leaf`</span> 플러그인을 엽니다. QGIS에서 두 개의 레이어를 가져오기 위해  <span class="guilabel">Get Layers</span> 단추를 누릅니다. 베이스맵으로 사용가능한 많은 다른 타일 레이어가 있습니다. 여기서는 다른 것을 시도해보고자  :guilabel:<a href="#id1"><span class="problematic" id="id2">`</span></a>Basemap`으로 :guilabel:<a href="#id3"><span class="problematic" id="id4">`</span></a>Stamen Watercolor`를 선택하겠습니다.  :guilabel:<a href="#id5"><span class="problematic" id="id6">`</span></a>OK`를누릅니다.</p></li>
+</ol>
+<img alt="../_images/2815.png" class="align-center" src="../_images/2815.png" />
+<ol class="arabic simple" start="29">
+<li><p>공항의 아이콘으로 <code class="docutils literal notranslate"><span class="pre">airport.svg``을</span> <span class="pre">명시했던</span> <span class="pre">것을</span> <span class="pre">기억해</span> <span class="pre">봅시다.</span> <span class="pre">출력</span> <span class="pre">디렉토리에</span> <span class="pre">이</span> <span class="pre">아이콘을</span> <span class="pre">추가할</span> <span class="pre">필요가</span> <span class="pre">있습니다.</span> <span class="pre">QGIS는</span> <span class="pre">많은</span> <span class="pre">아이콘을</span> <span class="pre">제공합니다.</span> <span class="pre">윈도우상에서</span> <span class="pre">이러한</span> <span class="pre">아이콘들은</span>&#160; <span class="pre">메뉴</span>&#160; <span class="pre">:menuselection:`C:</span> <span class="pre">--&gt;</span> <span class="pre">Program</span> <span class="pre">Files</span> <span class="pre">--&gt;</span> <span class="pre">OSGEO4W64</span> <span class="pre">혹은</span> <span class="pre">QGIS</span> <span class="pre">Brighton</span> <span class="pre">--&gt;</span> <span class="pre">apps</span> <span class="pre">--&gt;</span> <span class="pre">qgis</span> <span class="pre">--&gt;</span> <span class="pre">svg`에</span> <span class="pre">위치해</span> <span class="pre">있습니다.</span> <span class="pre">경로는</span> <span class="pre">사용자</span> <span class="pre">컴퓨터의</span> <span class="pre">플랫폼과</span> <span class="pre">설치</span> <span class="pre">유형에</span> <span class="pre">따라</span> <span class="pre">다를</span> <span class="pre">수</span> <span class="pre">있습니다.</span> <span class="pre">디렉토리를</span> <span class="pre">찾아서</span> <span class="pre">좋아하는</span> <span class="pre">아이콘을</span> <span class="pre">고릅니다.</span> <span class="pre">지도에서는</span> <span class="pre">``transport</span></code> 카테고리 하위에 있는 <a href="#id1"><span class="problematic" id="id2">``</span></a>amenity=airport.svg``을 시도해 봅니다.</p></li>
+</ol>
+<img alt="../_images/2914.png" class="align-center" src="../_images/2914.png" />
+<ol class="arabic simple" start="30">
+<li><p>내보내기를 할 때 명시했던 출력 디렉토리에 이 아이콘을 복사하고 붙여넣기를 합니다. <a href="#id1"><span class="problematic" id="id2">``</span></a>airport.svg``로 이름을 바꿉니다.</p></li>
+</ol>
+<img alt="../_images/3012.png" class="align-center" src="../_images/3012.png" />
+<ol class="arabic simple" start="31">
+<li><p>이제 폴더에서  <code class="docutils literal notranslate"><span class="pre">index.html</span></code> 파일을 열어봅니다. 주요 공항에대한 사용자 아이콘을 가진 멋진 베이스맵을 볼 수 있을 것입니다. 또한 레이어 패널의 우측 상단 구석에 두개의 레이어가 컨트롤 될 수 있게 된 것을 주목하십시오.</p></li>
+</ol>
+<img alt="../_images/3115.png" class="align-center" src="../_images/3115.png" />
+<p>Hope this tutorial gives you a head start in creating web maps. Below is the
+live interactive map created for this tutorial.</p>
+<div>
+<iframe
+src="http://spatialthoughts.github.io/qgis2leaf-maps/airports_with_custom_popup/"
+width="100%" height="600px"></iframe>
+</div></section>
+</section>
+
+
+
+
+
+  <div id="disqus_thread"></div>
+  <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+
+    </div>
+      
+  </div>
+</div>
+
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+    </p>
+    <p>
+        &copy; Copyright 2021, Ujaval Gandhi.<br/>
+      최종 업데이트: 8월 30, 2022<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 4.0.1.<br/>
+    </p>
+  </div>
+</footer>
+<div class="container">
+  <p>This work is licensed under a <a href="http://creativecommons.org/licenses/by/4.0/deed.en_US">Creative Commons Attribution 4.0 International License</a></p>
+</div>
+<!-- Twitter Button -->
+<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+
+<!-- Disqus comments widget -->
+<script type="text/javascript">
+  /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+  var disqus_shortname = 'qgistutorials'; // required: replace example with your forum shortname
+  /* * * DON'T EDIT BELOW THIS LINE * * */
+  (function () {
+    var s = document.createElement('script'); s.async = true;
+    s.type = 'text/javascript';
+    s.src = '//' + disqus_shortname + '.disqus.com/count.js';
+    (document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);
+  }());
+</script>
+
+<script type="text/javascript">
+  /* * * DON'T EDIT BELOW THIS LINE * * */
+  (function() {
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+
+<!-- Script fpr language switching. Largely adapted from https://github.com/pcav/faunalia-website -->
+<script>
+    var currentPage = 'docs/leaflet_maps_with_qgis2leaf.html'; // coming from sphinx, always without starting '/'
+    var currentLang = 'en';
+    $(document).ready(function(){
+
+        var search = new RegExp('\/[a-zA-Z_]{2,8}\/'+ currentPage, 'gi');
+        var langPlusPage = window.location.href.match(search);
+        // it's possible this is a index.html page called without 'index.html', try without the currentPage
+        if (langPlusPage==undefined){
+            search = new RegExp('\/[a-zA-Z_]{2,8}\/$', 'gi');
+            langPlusPage = window.location.href.match(search);
+        }
+
+        // it's possible this is an index.html page called without 'index.html', try removing index.html
+        if (langPlusPage==undefined){
+            currentPage = currentPage.replace('index.html','')
+            search = new RegExp('\/[a-zA-Z_]{2,8}\/'+ currentPage, 'gi');
+            langPlusPage = window.location.href.match(search);
+        }
+        // still no langPlugPage: stop, because the language swicher will misbehave 
+
+        if (langPlusPage == undefined || langPlusPage.length != 1){
+            alert('You hit an error, please report back to us.');
+            return;
+        }
+        langPlusPage = langPlusPage[0];
+        currentLang = langPlusPage.replace(currentPage, '');
+
+        $("#languages").val(currentLang.replace(/\//g,'')); // currentLang is something like '/nl/'
+
+        $("#languages").change(function() {
+            gotoLang($(this).val());
+        });
+
+    });
+
+    // load current page in a different language
+    function gotoLang(lang){
+        var currentUrl = window.location.href;
+        var newUrl = currentUrl.replace(currentLang, '/'+lang+'/');
+        window.location.href = newUrl;
+    }
+</script>
+
+  </body>
+</html>

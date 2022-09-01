@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+
+<html lang="vi">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>Handling Invalid Geometries (QGIS3) &#8212; QGIS Tutorials and Tips</title>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-sphinx.css" />
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/translations.js"></script>
+    <link rel="search" title="Tìm Kiếm" href="../../search.html" />
+    <link rel="next" title="Advanced Raster Analysis (QGIS3)" href="advanced_raster_analysis.html" />
+    <link rel="prev" title="Animating Time Series Data (QGIS3)" href="animating_time_series.html" />
+
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<script type="text/javascript" src="../../_static/js/jquery-1.11.0.min.js "></script>
+<script type="text/javascript" src="../../_static/js/jquery-fix.js "></script>
+<script type="text/javascript" src="../../_static/bootstrap-3.3.7/js/bootstrap.min.js "></script>
+<script type="text/javascript" src="../../_static/bootstrap-sphinx.js "></script>
+
+
+<!-- Cookie Notice -->
+<!-- Script from https://github.com/AOEpeople/cookie-notice -->
+<script type="text/javascript" src="../../_static/cookie.notice.min.js"></script>
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-B1WQ7B80XJ"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-B1WQ7B80XJ');
+</script>
+
+
+  </head><body>
+
+  <div id="navbar" class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="../../index.html"><span><img src="../../_static/logo.png"></span>
+          QGIS Tutorials and Tips</a>
+        <span class="navbar-text navbar-version pull-left"><b>v1</b></span>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="../../index.html">Tutorials List <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"><ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../introduction.html">Giới thiệu</a></li>
+<li class="toctree-l1"><a class="reference internal" href="making_a_map.html">Making a Map (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="working_with_attributes.html">Working with Attributes (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="importing_spreadsheets_csv.html">Importing Spreadsheets or CSV files (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="basic_vector_styling.html">Basic Vector Styling (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="calculating_line_lengths.html">Calculating Line Lengths and Statistics (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="raster_styling_and_analysis.html">Basic Raster Styling and Analysis (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="raster_mosaicing_and_clipping.html">Raster Mosaicing and Clipping (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="working_with_terrain.html">Working with Terrain Data (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="working_with_wms.html">Working with WMS Data (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="working_with_projections.html">Working with Projections (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="georeferencing_basics.html">Georeferencing Topo Sheets and Scanned Maps (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="advanced_georeferencing.html">Tham chiếu địa lý ảnh hàng không</a></li>
+<li class="toctree-l1"><a class="reference internal" href="digitizing_basics.html">Digitizing Map Data (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="performing_table_joins.html">Performing Table Joins (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="performing_spatial_joins.html">Performing Spatial Joins (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="performing_spatial_queries.html">Performing Spatial Queries (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="nearest_neighbor_analysis.html">Nearest Neighbor Analysis (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="sampling_raster_data.html">Sampling Raster Data using Points or Polygons (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="calculating_raster_area.html">Calculating Raster Area (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="creating_heatmaps.html">Creating Heatmaps (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="animating_time_series.html">Animating Time Series Data (QGIS3)</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Handling Invalid Geometries (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="advanced_raster_analysis.html">Advanced Raster Analysis (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="interpolating_point_data.html">Interpolating Point Data (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="calculating_intersection_density.html">Calculating Street Intersection Density (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="batch_processing.html">Batch Processing using Processing Framework (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="processing_graphical_modeler.html">Automating Complex Workflows using Processing Modeler (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="automating_map_creation.html">Automating Map Creation with Print Layout Atlas (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="multi_criteria_overlay.html">Multi Criteria Overlay Analysis (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="basic_network_analysis.html">Basic Network Visualization and Routing (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="origin_destination_matrix.html">Locating Nearest Facility with Origin-Destination Matrix (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="service_area_analysis.html">Service Area Analysis using Openrouteservice (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="travel_time_analysis.html">Travel Time Analysis with Uber Movement (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="areal_mean_rainfall.html">Calculating Areal Mean Rainfall (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="getting_started_with_pyqgis.html">Getting Started With Python Programming (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="processing_algorithms_pyqgis.html">Running Processing Algorithms via Python (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="custom_python_functions.html">Using Custom Python Expression Functions (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="processing_python_scripts.html">Writing Python Scripts for Processing Framework (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="building_a_python_plugin.html">Building a Python Plugin (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="processing_python_plugin.html">Building a Processing Plugin (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../running_qgis_jobs.html">Chạy và thiết lập chương trình xử lý QGIS</a></li>
+<li class="toctree-l1"><a class="reference internal" href="web_mapping_with_qgis2web.html">Web Mapping with QGIS2Web (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../creating_basemaps_with_qtiles.html">Creating Basemaps with QTiles</a></li>
+<li class="toctree-l1"><a class="reference internal" href="using_plugins.html">Using Plugins (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../downloading_osm_data.html">Tìm kiếm và tải xuống dữ liệu OpenStreetMap</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../learning_resources.html">Các nguồn học QGIS</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../credits.html">Data Credits</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../batch_processing.html">Batch Processing using Processing Framework (QGIS2)</a></li>
+</ul>
+</ul>
+</li>
+              
+            
+            
+              
+                
+  <li>
+    <a href="animating_time_series.html" title="Previous Chapter: Animating Time Series Data (QGIS3)"><span class="glyphicon glyphicon-chevron-left visible-sm"></span><span class="hidden-sm hidden-tablet">&laquo; Animating Tim...</span>
+    </a>
+  </li>
+  <li>
+    <a href="advanced_raster_analysis.html" title="Next Chapter: Advanced Raster Analysis (QGIS3)"><span class="glyphicon glyphicon-chevron-right visible-sm"></span><span class="hidden-sm hidden-tablet">Advanced Rast... &raquo;</span>
+    </a>
+  </li>
+              
+            
+            
+
+            
+
+            
+              <li class="hidden-sm"></li>
+            
+          </ul>
+
+          
+            
+<form class="navbar-form navbar-right" action="../../search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+      <div class="col-md-3">
+        <div id="sidebar" class="bs-sidenav" role="complementary"><h4>Author</h4>
+<p>Ujaval Gandhi</p>
+<a href="https://twitter.com/intent/follow?screen_name=spatialthoughts" class="twitter-follow-button" data-show-count="false">Follow @spatialthoughts</a>
+<hr>
+<p>Want to learn QGIS in a structured way? Check out <a href="https://spatialthoughts.com/" target="_blank">Spatial Thoughts</a> for more learning materials and instructor-led online programs with QGIS.org certification.</p>
+
+
+<h4>Change Language</h4>
+<form role="form" class="sidebar-form sidebar-left">
+<select id="languages" class="form-control select-mini">
+  <option value="en">English</option>
+  <option value="zh_TW">Chinese (Taiwan)</option>
+  <option value="nl">Dutch</option>
+  <option value="fi_FI">Finnish</option>
+  <option value="fr">French</option>
+  <option value="de">German</option>
+  <option value="el">Greek</option>
+  <option value="id">Indonesian</option>
+  <option value="it">Italian</option>
+  <option value="ko">Korean</option>
+  <option value="fa">Persian</option>
+  <option value="pt_BR">Portuguese</option>
+  <option value="ro">Romanian</option>
+  <option value="ru">Russian</option>
+  <option value="sl">Slovenian</option>
+  <option value="es">Spanish</option>
+  <option value="th">Thai</option>
+  <option value="tr">Turkish</option>
+  <option value="uk">Ukrainian</option>
+  <option value="vi">Vietnamese</option>
+</select>
+</form>
+        </div>
+      </div>
+    <div class="body col-md-9 content" role="main">
+      
+
+  <section id="handling-invalid-geometries-qgis3">
+<h1>Handling Invalid Geometries (QGIS3)<a class="headerlink" href="#handling-invalid-geometries-qgis3" title="Permalink to this headline">¶</a></h1>
+<p>When working with vector data layers, you may encounter geometry errors. These errors often become part of your data after running geoprocessing, digitizing, editing or data conversion. QGIS3 comes with build-in tools and algorithms to detect and fix invalid geometries. This tutorial will show you a typical workflow for handling invalid geometries in your data.</p>
+<div class="admonition note">
+<p class="admonition-title">Ghi chú</p>
+<p>Different software systems implement different notions of geometry validity. But the leading standard for the geometry model for use in a GIS is the OGC <a class="reference external" href="https://www.opengeospatial.org/standards/sfs">Simple Features Specifications (SFS)</a>. In this tutorial, we will use GEOS library to check for geometry validity which uses this standard. <a class="reference external" href="https://knowledge.safe.com/articles/21674/invalid-ogc-geometry-examples.html">This post</a> gives a good overview of common geometry errors as defined by the OGC standard.</p>
+</div>
+<section id="overview-of-the-task">
+<h2>Overview of the task<a class="headerlink" href="#overview-of-the-task" title="Permalink to this headline">¶</a></h2>
+<p>We will work with an admin boundary layer for India and fix a geometry error for a state polygon.</p>
+<section id="other-skills-you-will-learn">
+<h3>Other skills you will learn<a class="headerlink" href="#other-skills-you-will-learn" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><p>Using the <em>Topological Coloring</em> algorithm to apply a coloring scheme to a polygon layer.</p></li>
+</ul>
+</section>
+</section>
+<section id="get-the-data">
+<h2>Get the data<a class="headerlink" href="#get-the-data" title="Permalink to this headline">¶</a></h2>
+<p><a class="reference external" href="http://projects.datameet.org/maps/">Datameet</a> provides community-created administrative boundary shapefiles for India.</p>
+<p>Download the <a class="reference external" href="https://codeload.github.com/datameet/maps/zip/0fa9fd850eda3d2062e66f2caabc65872639c85a">Datameet Spatial Data Repository [~150 MB]</a> zipfile. The downloaded archive contains multiple folders. Extract the archive and use the files in the <code class="docutils literal notranslate"><span class="pre">States/</span></code> folder.</p>
+<p>Data Source: <a class="reference internal" href="../credits.html#datameet" id="id1"><span>[DATAMEET]</span></a></p>
+</section>
+<section id="procedure">
+<h2>Procedure<a class="headerlink" href="#procedure" title="Permalink to this headline">¶</a></h2>
+<ol class="arabic simple">
+<li><p>Browse to the downloaded <code class="docutils literal notranslate"><span class="pre">India-States.zip</span></code> file in QGIS Browser. Expand it and drag the <code class="docutils literal notranslate"><span class="pre">India-States.shp</span></code> file to the map canvas.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/170.png" class="align-center" src="../../_images/170.png" />
+</div></blockquote>
+<ol class="arabic simple" start="2">
+<li><p>You will see a new <code class="docutils literal notranslate"><span class="pre">India-States</span></code> layer loaded in the <span class="guilabel">Layers</span> panel. Go to <span class="menuselection">Processing ‣ Toolbox</span>.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/239.png" class="align-center" src="../../_images/239.png" />
+</div></blockquote>
+<ol class="arabic simple" start="3">
+<li><p>We will attemp to run a processing algorithm on the input layer to demonstrate how invalid geometries can cause problems during geoprocessing operations. Search for and locate the <span class="menuselection">Cartography ‣ Topological coloring</span> algorithm. Double-click to launch it.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/326.png" class="align-center" src="../../_images/326.png" />
+</div></blockquote>
+<ol class="arabic simple" start="4">
+<li><p>In the <span class="guilabel">Topological coloring</span> dialog, select <code class="docutils literal notranslate"><span class="pre">India-States</span></code> as the <span class="guilabel">Input layer</span>. Keep all other parameters to default and click <span class="guilabel">Run</span>.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/410.png" class="align-center" src="../../_images/410.png" />
+</div></blockquote>
+<div class="admonition note">
+<p class="admonition-title">Ghi chú</p>
+<p>The <em>Topological coloring</em> algorithm implements an algorithm to color a map so that no adjacent polygons have the same color. This is a useful cartography technique and the <a class="reference external" href="https://en.wikipedia.org/wiki/Four_color_theorem">Four Color Theorem</a> states that 4 colors are enough to achieve this result. There is a graph-theory version of this thorem called <a class="reference external" href="https://en.wikipedia.org/wiki/Five_color_theorem">Five color theorem</a>. The QGIS algorithm implementation is based on  graphs so in practive you will see that complex polygon layers such as this will require upto 5 colors.</p>
+</div>
+<ol class="arabic simple" start="5">
+<li><p>As the algorithm runs, you will see a warning displayed in the <span class="guilabel">Log</span> tab. 1 feature in the input layer had invalid geometry and was skipped during the processing. The default setting to handle invalid geometry in the Processing Toolbox is located at <span class="menuselection">Settings ‣ Options ‣ Processing ‣ General ‣ Invalid features filtering</span> and is set to <code class="docutils literal notranslate"><span class="pre">Skip</span> <span class="pre">(ignore)</span> <span class="pre">features</span> <span class="pre">with</span> <span class="pre">invalid</span> <span class="pre">geometries</span></code>. This is a good default setting, but if your input is large, you may miss this warning and may not know that an input feature was skipped. You may want to change the value to <code class="docutils literal notranslate"><span class="pre">Stop</span> <span class="pre">algorithm</span> <span class="pre">execution</span> <span class="pre">when</span> <span class="pre">a</span> <span class="pre">geometry</span> <span class="pre">is</span> <span class="pre">invalid</span></code>.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/511.png" class="align-center" src="../../_images/511.png" />
+</div></blockquote>
+<ol class="arabic simple" start="6">
+<li><p>Back in the main QGIS window, you will see a new layer <code class="docutils literal notranslate"><span class="pre">Colored</span></code> added to the <span class="guilabel">Layers</span> panel. Notice that the new layer is missing a state which had invalid geometry. We now know that this particular state polygon had invalid geometry but we don't know what was the cause. We can easily find that out. Search for and locate the <span class="menuselection">Vector geometry ‣ Check validity</span> algorithm.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/611.png" class="align-center" src="../../_images/611.png" />
+</div></blockquote>
+<ol class="arabic simple" start="7">
+<li><p>In the <span class="guilabel">Check Validity</span> dialog, select <code class="docutils literal notranslate"><span class="pre">India-States</span></code> as the <span class="guilabel">Input layer</span>. Select <code class="docutils literal notranslate"><span class="pre">GEOS</span></code> as the <span class="guilabel">Method</span>. Click <span class="guilabel">Run</span>.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/710.png" class="align-center" src="../../_images/710.png" />
+</div></blockquote>
+<ol class="arabic simple" start="8">
+<li><p>As the algorithm finishes processing, you will see 3 new layers in the <span class="guilabel">Layers</span> panel - <code class="docutils literal notranslate"><span class="pre">Valid</span> <span class="pre">output</span></code>, <code class="docutils literal notranslate"><span class="pre">Invalid</span> <span class="pre">output</span></code> and <code class="docutils literal notranslate"><span class="pre">Error</span> <span class="pre">output</span></code>. The layer <code class="docutils literal notranslate"><span class="pre">Error</span> <span class="pre">output</span></code> contains the locations and description of the geometry errors. Right-click it and select <span class="guilabel">Open Attribute Table</span>.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/810.png" class="align-center" src="../../_images/810.png" />
+</div></blockquote>
+<div class="admonition note">
+<p class="admonition-title">Ghi chú</p>
+<p>The QGIS documentation has a detailed article on <a class="reference external" href="https://docs.qgis.org/testing/en/docs/user_manual/processing_algs/qgis/vectorgeometry.html#types-of-error-messages-and-their-meanings">Types of error messages and their meanings</a> that explains the causes of all the errors.</p>
+</div>
+<ol class="arabic simple" start="9">
+<li><p>You will see that the error message is <em>Ring self-intersection</em>. Select the row and click <span class="guilabel">Zoom map to selected features</span> button. As you zoom in, you will see the root cause of the geometry error.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/910.png" class="align-center" src="../../_images/910.png" />
+</div></blockquote>
+<ol class="arabic simple" start="10">
+<li><p>QGIS comes with a built-in algorithm to fix geometry errors automatically. Search for and locate the <span class="menuselection">Vector geometry ‣ Fix geometries</span> algorithm. Double-click to run it.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/1016.png" class="align-center" src="../../_images/1016.png" />
+</div></blockquote>
+<ol class="arabic simple" start="11">
+<li><p>In the <span class="guilabel">Fix Geometries</span> dialog, select <code class="docutils literal notranslate"><span class="pre">India-States</span></code> as the <span class="guilabel">Input layer</span> and click <span class="guilabel">Run</span>.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/1119.png" class="align-center" src="../../_images/1119.png" />
+</div></blockquote>
+<ol class="arabic simple" start="12">
+<li><p>A new layer <code class="docutils literal notranslate"><span class="pre">Fixed</span> <span class="pre">Geometries</span></code> will be added to the <span class="guilabel">Layers</span> panel. At this point, the geometry error is fixed and you can run any processing algorithm on this layer without problems. But we can see that there is still a gap between the adjacent polygons that is unexpected and can cause topological errors down the line. We can fix this too by editing the polygon. Click the <span class="guilabel">Toggle Editing</span> button in the <span class="guilabel">Digitizing Toolbar</span>. Select the <span class="guilabel">Vertex Tool</span> and from the drop-down select <code class="docutils literal notranslate"><span class="pre">Vertex</span> <span class="pre">Tool</span> <span class="pre">(Current</span> <span class="pre">Layer)</span></code>.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/1217.png" class="align-center" src="../../_images/1217.png" />
+</div></blockquote>
+<ol class="arabic simple" start="13">
+<li><p>When the vertex tool is active, click on a vertex to select it. You can press <kbd class="kbd docutils literal notranslate">Delete</kbd> key to delete a vertex or drag it to move it. You can move the vertex so that the polygon edge now touches the adjacent polygon.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/13.gif" class="align-center" src="../../_images/13.gif" />
+</div></blockquote>
+<ol class="arabic simple" start="14">
+<li><p>Once done, click the <span class="guilabel">Toggle Editing</span> button again and click <span class="guilabel">Save</span>.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/1413.png" class="align-center" src="../../_images/1413.png" />
+</div></blockquote>
+<ol class="arabic simple" start="15">
+<li><p>Let's run the <span class="menuselection">Cartography ‣ Topological coloring</span> algorithm again.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/1512.png" class="align-center" src="../../_images/1512.png" />
+</div></blockquote>
+<ol class="arabic simple" start="16">
+<li><p>In the <span class="guilabel">Topological Coloring</span> dialog, make sure you select <code class="docutils literal notranslate"><span class="pre">Fixed</span> <span class="pre">Geometries</span></code> as the <span class="guilabel">Input layer</span>. Click <span class="guilabel">Run</span>.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/1611.png" class="align-center" src="../../_images/1611.png" />
+</div></blockquote>
+<ol class="arabic simple" start="17">
+<li><p>You will see the algorithm run without any errors and a new layer <code class="docutils literal notranslate"><span class="pre">Colored</span></code> will be added to the <span class="guilabel">Layers</span> panel. Note that the algorithm doesn't color the layer by itself, but works by adding a new column called <code class="docutils literal notranslate"><span class="pre">color_id</span></code> to each polygon that can be used to assign a unique color that is different than adjacent polygons. Select the <code class="docutils literal notranslate"><span class="pre">Colored</span></code> layer and click the <span class="guilabel">Open the Layer Styling Panel</span> button.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/1712.png" class="align-center" src="../../_images/1712.png" />
+</div></blockquote>
+<ol class="arabic simple" start="18">
+<li><p>Select <code class="docutils literal notranslate"><span class="pre">Categorized</span></code> renderer and the column <code class="docutils literal notranslate"><span class="pre">color_id</span></code> as the <span class="guilabel">Value</span>. Click <span class="guilabel">Classify</span>. You will now see the map colored so that adjacent polygons have different colors.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/1810.png" class="align-center" src="../../_images/1810.png" />
+</div></blockquote>
+</section>
+</section>
+
+
+
+
+
+  <div id="disqus_thread"></div>
+  <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+
+    </div>
+      
+  </div>
+</div>
+
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+    </p>
+    <p>
+        &copy; Copyright 2021, Ujaval Gandhi.<br/>
+      Cập nhật mới nhất vào thg 8 30, 2022.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 4.0.1.<br/>
+    </p>
+  </div>
+</footer>
+<div class="container">
+  <p>This work is licensed under a <a href="http://creativecommons.org/licenses/by/4.0/deed.en_US">Creative Commons Attribution 4.0 International License</a></p>
+</div>
+<!-- Twitter Button -->
+<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+
+<!-- Disqus comments widget -->
+<script type="text/javascript">
+  /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+  var disqus_shortname = 'qgistutorials'; // required: replace example with your forum shortname
+  /* * * DON'T EDIT BELOW THIS LINE * * */
+  (function () {
+    var s = document.createElement('script'); s.async = true;
+    s.type = 'text/javascript';
+    s.src = '//' + disqus_shortname + '.disqus.com/count.js';
+    (document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);
+  }());
+</script>
+
+<script type="text/javascript">
+  /* * * DON'T EDIT BELOW THIS LINE * * */
+  (function() {
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+
+<!-- Script fpr language switching. Largely adapted from https://github.com/pcav/faunalia-website -->
+<script>
+    var currentPage = 'docs/3/handling_invalid_geometries.html'; // coming from sphinx, always without starting '/'
+    var currentLang = 'en';
+    $(document).ready(function(){
+
+        var search = new RegExp('\/[a-zA-Z_]{2,8}\/'+ currentPage, 'gi');
+        var langPlusPage = window.location.href.match(search);
+        // it's possible this is a index.html page called without 'index.html', try without the currentPage
+        if (langPlusPage==undefined){
+            search = new RegExp('\/[a-zA-Z_]{2,8}\/$', 'gi');
+            langPlusPage = window.location.href.match(search);
+        }
+
+        // it's possible this is an index.html page called without 'index.html', try removing index.html
+        if (langPlusPage==undefined){
+            currentPage = currentPage.replace('index.html','')
+            search = new RegExp('\/[a-zA-Z_]{2,8}\/'+ currentPage, 'gi');
+            langPlusPage = window.location.href.match(search);
+        }
+        // still no langPlugPage: stop, because the language swicher will misbehave 
+
+        if (langPlusPage == undefined || langPlusPage.length != 1){
+            alert('You hit an error, please report back to us.');
+            return;
+        }
+        langPlusPage = langPlusPage[0];
+        currentLang = langPlusPage.replace(currentPage, '');
+
+        $("#languages").val(currentLang.replace(/\//g,'')); // currentLang is something like '/nl/'
+
+        $("#languages").change(function() {
+            gotoLang($(this).val());
+        });
+
+    });
+
+    // load current page in a different language
+    function gotoLang(lang){
+        var currentUrl = window.location.href;
+        var newUrl = currentUrl.replace(currentLang, '/'+lang+'/');
+        window.location.href = newUrl;
+    }
+</script>
+
+  </body>
+</html>

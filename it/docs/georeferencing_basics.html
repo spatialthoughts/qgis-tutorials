@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+
+<html lang="it">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>Georeferenziare mappe e carte geografiche raster &#8212; QGIS Tutorials and Tips</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/bootstrap-sphinx.css" />
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/translations.js"></script>
+    <link rel="search" title="Cerca" href="../search.html" />
+
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<script type="text/javascript" src="../_static/js/jquery-1.11.0.min.js "></script>
+<script type="text/javascript" src="../_static/js/jquery-fix.js "></script>
+<script type="text/javascript" src="../_static/bootstrap-3.3.7/js/bootstrap.min.js "></script>
+<script type="text/javascript" src="../_static/bootstrap-sphinx.js "></script>
+
+
+<!-- Cookie Notice -->
+<!-- Script from https://github.com/AOEpeople/cookie-notice -->
+<script type="text/javascript" src="../_static/cookie.notice.min.js"></script>
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-B1WQ7B80XJ"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-B1WQ7B80XJ');
+</script>
+
+
+  </head><body>
+
+  <div id="navbar" class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="../index.html"><span><img src="../_static/logo.png"></span>
+          QGIS Tutorials and Tips</a>
+        <span class="navbar-text navbar-version pull-left"><b>v1</b></span>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="../index.html">Tutorials List <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"><ul>
+<li class="toctree-l1"><a class="reference internal" href="introduction.html">Introduzione</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/making_a_map.html">Creazione di una stampa (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/working_with_attributes.html">Lavorare con gli Attributi (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/importing_spreadsheets_csv.html">Importare fogli elettronici o file CSV (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/basic_vector_styling.html">Tematizzare i dati vettoriali (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/calculating_line_lengths.html">Calcolare la Lunghezza Lineare e le Statistiche (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/raster_styling_and_analysis.html">Tematizzazione ed analisi di RASTER (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/raster_mosaicing_and_clipping.html">Mosaici e operazioni di ritaglio con i layer raster (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/working_with_terrain.html">Working with Terrain Data (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/working_with_wms.html">Working with WMS Data (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/working_with_projections.html">Working with Projections (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/georeferencing_basics.html">Georeferenziazione carte topografiche e mappe scannerizzate (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/advanced_georeferencing.html">Georeferencing Aerial Imagery (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/digitizing_basics.html">Digitizing Map Data (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/performing_table_joins.html">Realizzare unioni tabellari (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/performing_spatial_joins.html">Realizzare unioni spaziali (Spatial Joins)  (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/performing_spatial_queries.html">Utilizzare le interrogazioni spaziali (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/nearest_neighbor_analysis.html">Nearest Neighbor Analysis (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/sampling_raster_data.html">Campionare i dati di un raster usando punti o poligoni (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/calculating_raster_area.html">Calculating Raster Area (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/creating_heatmaps.html">Realizzare Heatmaps (mappe di concentrazione)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/animating_time_series.html">Animating Time Series Data (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/handling_invalid_geometries.html">Handling Invalid Geometries (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/advanced_raster_analysis.html">Advanced Raster Analysis (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/interpolating_point_data.html">Interpolating Point Data (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/calculating_intersection_density.html">Calculating Street Intersection Density (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/batch_processing.html">Batch Processing using Processing Framework (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/processing_graphical_modeler.html">Automating Complex Workflows using Processing Modeler (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/automating_map_creation.html">Automating Map Creation with Print Layout Atlas (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/multi_criteria_overlay.html">Multi Criteria Overlay Analysis (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/basic_network_analysis.html">Basic Network Visualization and Routing (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/origin_destination_matrix.html">Locating Nearest Facility with Origin-Destination Matrix (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/service_area_analysis.html">Service Area Analysis using Openrouteservice (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/travel_time_analysis.html">Travel Time Analysis with Uber Movement (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/areal_mean_rainfall.html">Calculating Areal Mean Rainfall (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/getting_started_with_pyqgis.html">Getting Started With Python Programming (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/processing_algorithms_pyqgis.html">Running Processing Algorithms via Python (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/custom_python_functions.html">Using Custom Python Expression Functions (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/processing_python_scripts.html">Writing Python Scripts for Processing Framework (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/building_a_python_plugin.html">Building a Python Plugin (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/processing_python_plugin.html">Building a Processing Plugin (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="running_qgis_jobs.html">Running and Scheduling QGIS Processing Jobs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/web_mapping_with_qgis2web.html">Web Mapping with QGIS2Web (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="creating_basemaps_with_qtiles.html">Creating Basemaps with QTiles</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/using_plugins.html">Using Plugins (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="downloading_osm_data.html">Cercare e scaricare i dati di OpenStreetMap</a></li>
+<li class="toctree-l1"><a class="reference internal" href="learning_resources.html">Risorse disponibili per l’apprendimento di QGIS</a></li>
+<li class="toctree-l1"><a class="reference internal" href="credits.html">Fonti dei dati</a></li>
+<li class="toctree-l1"><a class="reference internal" href="batch_processing.html">Batch Processing using Processing Framework (QGIS2)</a></li>
+</ul>
+</ul>
+</li>
+              
+            
+            
+              
+                
+              
+            
+            
+
+            
+
+            
+              <li class="hidden-sm"></li>
+            
+          </ul>
+
+          
+            
+<form class="navbar-form navbar-right" action="../search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+      <div class="col-md-3">
+        <div id="sidebar" class="bs-sidenav" role="complementary"><h4>Author</h4>
+<p>Ujaval Gandhi</p>
+<a href="https://twitter.com/intent/follow?screen_name=spatialthoughts" class="twitter-follow-button" data-show-count="false">Follow @spatialthoughts</a>
+<hr>
+<p>Want to learn QGIS in a structured way? Check out <a href="https://spatialthoughts.com/" target="_blank">Spatial Thoughts</a> for more learning materials and instructor-led online programs with QGIS.org certification.</p>
+
+
+<h4>Change Language</h4>
+<form role="form" class="sidebar-form sidebar-left">
+<select id="languages" class="form-control select-mini">
+  <option value="en">English</option>
+  <option value="zh_TW">Chinese (Taiwan)</option>
+  <option value="nl">Dutch</option>
+  <option value="fi_FI">Finnish</option>
+  <option value="fr">French</option>
+  <option value="de">German</option>
+  <option value="el">Greek</option>
+  <option value="id">Indonesian</option>
+  <option value="it">Italian</option>
+  <option value="ko">Korean</option>
+  <option value="fa">Persian</option>
+  <option value="pt_BR">Portuguese</option>
+  <option value="ro">Romanian</option>
+  <option value="ru">Russian</option>
+  <option value="sl">Slovenian</option>
+  <option value="es">Spanish</option>
+  <option value="th">Thai</option>
+  <option value="tr">Turkish</option>
+  <option value="uk">Ukrainian</option>
+  <option value="vi">Vietnamese</option>
+</select>
+</form>
+        </div>
+      </div>
+    <div class="body col-md-9 content" role="main">
+      
+
+  <section id="georeferencing-topo-sheets-and-scanned-maps">
+<h1>Georeferenziare mappe e carte geografiche raster<a class="headerlink" href="#georeferencing-topo-sheets-and-scanned-maps" title="Link a questa intestazione">¶</a></h1>
+<div class="admonition warning">
+<p class="admonition-title">Avvertimento</p>
+<p>This tutorial is now obsolete. A new and updated version is available at <a class="reference internal" href="3/georeferencing_basics.html"><span class="doc">Georeferenziazione carte topografiche e mappe scannerizzate (QGIS3)</span></a></p>
+</div>
+<p>Molti progetti in ambito GIS richiedono la <em>georeferenziazione</em> di dati di tipo raster. Con il termine georeferenziazione ci si riferisce al processo mediante il quale si assegnano delle coordinate del mondo reale a ciascun pixel del raster. Molte volte queste coordinate si ottengono facendo ricerche sul campo -  raccogliendo con dispositivi GPS le coordinate di alcune geometrie facilmente identificabili nell’immagine o nelle carte. In determinati casi, per esempio quando state cercando di trattare carte digitalizzate con lo scanner, potete ottenere le coordinate dalle indicazioni della mappa stessa. Usando queste semplici coordinate o GCPs (Ground Control Points) l’immagine viene deformata e adeguata al sistema di coordinate che abbiamo scelto. In questa esercitazione affronteremo i concetti, le strategie e gli strumenti che, nell’ambito di QGIS permettono di ottenere un’alta accuratezza nella georeferenziazione.</p>
+<section id="overview-of-the-task">
+<h2>Descrizione del compito<a class="headerlink" href="#overview-of-the-task" title="Link a questa intestazione">¶</a></h2>
+<p>Useremo una carta geografica digitalizzata con lo scanner del sud dell’India nel 1870 e la georeferenzieremo usando QGIS.</p>
+<section id="other-skills-you-will-learn">
+<h3>Altri aspetti che avremo modo di apprendere nel corso dell’esercizio<a class="headerlink" href="#other-skills-you-will-learn" title="Link a questa intestazione">¶</a></h3>
+<ul class="simple">
+<li><p>Come determinare il datum e il sistema delle coordinate di riferimento di vecchie mappe e carte geografiche.</p></li>
+</ul>
+</section>
+</section>
+<section id="get-the-data">
+<h2>Ottenere i dati necessari<a class="headerlink" href="#get-the-data" title="Link a questa intestazione">¶</a></h2>
+<p><a class="reference external" href="http://www.hipkiss.org/data/maps.html">Hipkiss’s Scanned Old Maps</a> è un sito che offre una collezione eccellente di carte digitalizzate e libere da vincoli di copyright  che si possono utilizzare per scopi di ricerca.</p>
+<p>Scaricate la <a class="reference external" href="http://www.hipkiss.org/data/maps/william-mackenzie_gallery-of-geography_1870_southern-india_3975_3071_600.jpg">carta del Sud dell’India del 1870</a> e salvatela sul vostro disco.</p>
+<p>Per comodità, potete scaricare direttamente una copia del dataset dal seguente link:</p>
+<p><a class="reference external" href="http://www.qgistutorials.com/downloads/1870_southern-india.jpg">1870_southern_india.jpg</a></p>
+</section>
+<section id="procedure">
+<h2>Procedimento<a class="headerlink" href="#procedure" title="Link a questa intestazione">¶</a></h2>
+<p>Georeferenziare in QGIS significa in molti casi utilizzare il plugin ‘Georeferencer GDAL’. Si tratta di un plugin interno, cioè già residente nella vostra installazione. Dovete soltanto attivarlo. Andate sul menu  <span class="menuselection">Plugins ‣ Gestisti e Installa Plugins</span>  e attivate il plugin <span class="guilabel">Georeferenziatore Raster GDAL</span> nella scheda <span class="guilabel">Installato</span> . Per una descrizione accurata del funzionamento dei plugin andate sulla pagina <a class="reference internal" href="using_plugins.html"><span class="doc">Usare i Plugins</span></a>.</p>
+<img alt="../_images/1171.png" class="align-center" src="../_images/1171.png" />
+<ol class="arabic simple" start="2">
+<li><p>Il plugin è ora installato nel menu Raster. Fate click su <span class="menuselection">Raster ‣ Georeferencer ‣ Georeferencer</span> per aprire il plugin.</p></li>
+</ol>
+<img alt="../_images/2140.png" class="align-center" src="../_images/2140.png" />
+<ol class="arabic simple" start="3">
+<li><p>La finestra del plugin è suddivisa in 2 sezioni. La sezione in alto, quella dove il raster verrà visualizzato e quella in basso, dove verrà visualizzata una scheda con il vostro GCP.
+Che potrebbe essere tradotto in italiano con «Punto di Controllo al Suolo». N.d.T.</p></li>
+</ol>
+<img alt="../_images/373.png" class="align-center" src="../_images/373.png" />
+<ol class="arabic simple" start="4">
+<li><p>Ora apriremo la nostra immagine JPG. Andate su <span class="menuselection">File ‣ Apri Raster</span>. Individuate l’immagine della carta geografica che avete appena salvato e fate click su <span class="guilabel">Apri</span>.</p></li>
+</ol>
+<img alt="../_images/447.png" class="align-center" src="../_images/447.png" />
+<ol class="arabic simple" start="5">
+<li><p>Nella schermata successiva vi verrà chiesto di scegliere il sistema di riferimento delle coordinate (SR). Si tratta di specificare la proiezione e il datum dei vostri punti di controllo.  Qualora aveste raccolto i vostri punti usando un dispositivo GPS, sarebbe stato necessario usare un CRS WGS84. Visto che invece  state geo-referenziando una carta geografica digitalizzata allo scanner,  potete individuare il sistema di riferimento cercandolo nella mappa stessa. Esaminando la nostra immagine vediamo intanto che le coordinate sono in Latidudine/Longitudine. Non sono fornite informazioni specifiche riguardo il datum e dunque toccherà a noi individuarne uno adeguato. Visto che si tratta dell’India e che la mappa è piuttosto antica, possiamo ipotizzare che il datum Everest 1830 sia quello che fa al caso nostro.</p></li>
+</ol>
+<img alt="../_images/544.png" class="align-center" src="../_images/544.png" />
+<ol class="arabic simple" start="6">
+<li><p>A questo punto vedrete l’immagine caricata nella sezione in alto.</p></li>
+</ol>
+<img alt="../_images/642.png" class="align-center" src="../_images/642.png" />
+<ol class="arabic simple" start="7">
+<li><p>Potete utilizzare lo strumento zoom (ingrandisci) e lo strumento pan (sposta) nella barra degli strumenti per esplorare meglio la carta.</p></li>
+</ol>
+<img alt="../_images/742.png" class="align-center" src="../_images/742.png" />
+<ol class="arabic simple" start="8">
+<li><p>Adesso dobbiamo assegnare le coordinate ad alcuni punti di questa mappa. Se ingrandite a sufficienza potrete vedere le coordinate della griglia con i relativi contrassegni. Usando la griglia potete determinare le coordinate X e Y nei punti in cui la griglia fa un’intersezione. Fate click su <span class="guilabel">Aggiungi punto</span>  nella barra degli strumenti.</p></li>
+</ol>
+<img alt="../_images/841.png" class="align-center" src="../_images/841.png" />
+<ol class="arabic simple" start="9">
+<li><p>Nella finestra di pop-up aggiungete le coordinate ricordando che  X =  longitudine  e Y = latitudine. Fate click su <span class="guilabel">OK</span>.</p></li>
+</ol>
+<img alt="../_images/941.png" class="align-center" src="../_images/941.png" />
+<ol class="arabic simple" start="10">
+<li><p>Noterete adesso che la tabella GCP  ha una riga con i dettagli del vostro primo GCP.</p></li>
+</ol>
+<img alt="../_images/1048.png" class="align-center" src="../_images/1048.png" />
+<ol class="arabic simple" start="11">
+<li><p>In modo del tutto analogo aggiungete almeno 4 GCPs per coprire l’intera immagine. Tanto più numerosi saranno i punti di controllo al suolo che registrerete tanto più accurata sarà la riproiezione dell’immagine sul sistema di coordinate che abbiamo scelto.</p></li>
+</ol>
+<img alt="../_images/1172.png" class="align-center" src="../_images/1172.png" />
+<ol class="arabic simple" start="12">
+<li><p>Una volta che avete individuato un numero sufficiente di punti andate su <span class="menuselection">Preferenze -&gt; Impostazioni di Trasformazione</span>.</p></li>
+</ol>
+<img alt="../_images/1250.png" class="align-center" src="../_images/1250.png" />
+<ol class="arabic simple" start="13">
+<li><p>Nella finestra di dialogo <span class="guilabel">Impostazioni di trasformazione</span> , scegliete nella casella  <span class="guilabel">Tipo di trasformazione</span>  il tipo <span class="guilabel">Thin Plate Spline</span> e poi chiamate il vostro raster in uscita con il nome di <span class="guilabel">1870_southern_india_modified.tif</span>. Scegliete <span class="guilabel">EPSG:4326</span> come SR di destinazione in modo che l’immagine risultante sia collocata in un datum ampiamente compatibile. Assicuratevi che l’opzione <span class="guilabel">Carica in QGIS una volta eseguito</span>  sia spuntata.</p></li>
+</ol>
+<img alt="../_images/1348.png" class="align-center" src="../_images/1348.png" />
+<ol class="arabic simple" start="14">
+<li><p>Tornate sulla finestra di georeferenziazione, andate su <span class="menuselection">File ‣ Inizia georeferenziazione</span>. Questo darà inizio al processo di deformazione dell’immagine usando i punti di controllo al suolo e quindi alla creazione del raster che georeferenziato che volevamo ottenere.</p></li>
+</ol>
+<img alt="../_images/1445.png" class="align-center" src="../_images/1445.png" />
+<ol class="arabic simple" start="15">
+<li><p>Una volta che il processo è concluso vedrete il layer georeferenziato in QGIS.</p></li>
+</ol>
+<img alt="../_images/1543.png" class="align-center" src="../_images/1543.png" />
+<ol class="arabic simple" start="16">
+<li><p>La georeferenziazione a questo punto è stata completa. Ma, come sempre, è buona pratica verificare la bontà del nostro lavoro. Come possiamo verificare che la nostra georeferenziazione sia sufficientemente accurata ? In questo caso, possiamo caricare i confini amministrativi del paese da una fonte certa come il dataset di Natural Earth e confrontare con essa i nostri risultati. Noterete che le due mappe si sovrappongono piuttosto bene. Ci sono alcuni errori che potrebbero essere ridotti prendendo un numero maggiore di punti di controllo, cambiando i parametri di trasformazione oppure provando con un diverso tipo di datum.</p></li>
+</ol>
+<img alt="../_images/1640.png" class="align-center" src="../_images/1640.png" />
+</section>
+</section>
+
+
+
+
+
+  <div id="disqus_thread"></div>
+  <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+
+    </div>
+      
+  </div>
+</div>
+
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+    </p>
+    <p>
+        &copy; Copyright 2021, Ujaval Gandhi.<br/>
+      Ultimo aggiornamento ago 30, 2022.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 4.0.1.<br/>
+    </p>
+  </div>
+</footer>
+<div class="container">
+  <p>This work is licensed under a <a href="http://creativecommons.org/licenses/by/4.0/deed.en_US">Creative Commons Attribution 4.0 International License</a></p>
+</div>
+<!-- Twitter Button -->
+<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+
+<!-- Disqus comments widget -->
+<script type="text/javascript">
+  /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+  var disqus_shortname = 'qgistutorials'; // required: replace example with your forum shortname
+  /* * * DON'T EDIT BELOW THIS LINE * * */
+  (function () {
+    var s = document.createElement('script'); s.async = true;
+    s.type = 'text/javascript';
+    s.src = '//' + disqus_shortname + '.disqus.com/count.js';
+    (document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);
+  }());
+</script>
+
+<script type="text/javascript">
+  /* * * DON'T EDIT BELOW THIS LINE * * */
+  (function() {
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+
+<!-- Script fpr language switching. Largely adapted from https://github.com/pcav/faunalia-website -->
+<script>
+    var currentPage = 'docs/georeferencing_basics.html'; // coming from sphinx, always without starting '/'
+    var currentLang = 'en';
+    $(document).ready(function(){
+
+        var search = new RegExp('\/[a-zA-Z_]{2,8}\/'+ currentPage, 'gi');
+        var langPlusPage = window.location.href.match(search);
+        // it's possible this is a index.html page called without 'index.html', try without the currentPage
+        if (langPlusPage==undefined){
+            search = new RegExp('\/[a-zA-Z_]{2,8}\/$', 'gi');
+            langPlusPage = window.location.href.match(search);
+        }
+
+        // it's possible this is an index.html page called without 'index.html', try removing index.html
+        if (langPlusPage==undefined){
+            currentPage = currentPage.replace('index.html','')
+            search = new RegExp('\/[a-zA-Z_]{2,8}\/'+ currentPage, 'gi');
+            langPlusPage = window.location.href.match(search);
+        }
+        // still no langPlugPage: stop, because the language swicher will misbehave 
+
+        if (langPlusPage == undefined || langPlusPage.length != 1){
+            alert('You hit an error, please report back to us.');
+            return;
+        }
+        langPlusPage = langPlusPage[0];
+        currentLang = langPlusPage.replace(currentPage, '');
+
+        $("#languages").val(currentLang.replace(/\//g,'')); // currentLang is something like '/nl/'
+
+        $("#languages").change(function() {
+            gotoLang($(this).val());
+        });
+
+    });
+
+    // load current page in a different language
+    function gotoLang(lang){
+        var currentUrl = window.location.href;
+        var newUrl = currentUrl.replace(currentLang, '/'+lang+'/');
+        window.location.href = newUrl;
+    }
+</script>
+
+  </body>
+</html>

@@ -1,0 +1,561 @@
+<!DOCTYPE html>
+
+<html lang="zh_TW">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>製作地圖 (QGIS3) &#8212; QGIS Tutorials and Tips</title>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-sphinx.css" />
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/translations.js"></script>
+    <link rel="search" title="搜尋" href="../../search.html" />
+    <link rel="next" title="Working with Attributes (QGIS3)" href="working_with_attributes.html" />
+    <link rel="prev" title="簡介" href="../introduction.html" />
+
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<script type="text/javascript" src="../../_static/js/jquery-1.11.0.min.js "></script>
+<script type="text/javascript" src="../../_static/js/jquery-fix.js "></script>
+<script type="text/javascript" src="../../_static/bootstrap-3.3.7/js/bootstrap.min.js "></script>
+<script type="text/javascript" src="../../_static/bootstrap-sphinx.js "></script>
+
+
+<!-- Cookie Notice -->
+<!-- Script from https://github.com/AOEpeople/cookie-notice -->
+<script type="text/javascript" src="../../_static/cookie.notice.min.js"></script>
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-B1WQ7B80XJ"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-B1WQ7B80XJ');
+</script>
+
+
+  </head><body>
+
+  <div id="navbar" class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="../../index.html"><span><img src="../../_static/logo.png"></span>
+          QGIS Tutorials and Tips</a>
+        <span class="navbar-text navbar-version pull-left"><b>v1</b></span>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="../../index.html">Tutorials List <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"><ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../introduction.html">簡介</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">製作地圖 (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="working_with_attributes.html">Working with Attributes (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="importing_spreadsheets_csv.html">匯入工作表或 CSV 檔 (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="basic_vector_styling.html">Basic Vector Styling (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="calculating_line_lengths.html">Calculating Line Lengths and Statistics (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="raster_styling_and_analysis.html">Basic Raster Styling and Analysis (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="raster_mosaicing_and_clipping.html">Raster Mosaicing and Clipping (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="working_with_terrain.html">Working with Terrain Data (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="working_with_wms.html">Working with WMS Data (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="working_with_projections.html">Working with Projections (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="georeferencing_basics.html">為紙本地圖進行空間對位 (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="advanced_georeferencing.html">為空照圖進行空間對位 (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="digitizing_basics.html">Digitizing Map Data (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="performing_table_joins.html">資料表連接 (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="performing_spatial_joins.html">空間連接 (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="performing_spatial_queries.html">Performing Spatial Queries (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="nearest_neighbor_analysis.html">Nearest Neighbor Analysis (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="sampling_raster_data.html">Sampling Raster Data using Points or Polygons (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="calculating_raster_area.html">Calculating Raster Area (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="creating_heatmaps.html">製作熱區圖 (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="animating_time_series.html">Animating Time Series Data (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="handling_invalid_geometries.html">Handling Invalid Geometries (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="advanced_raster_analysis.html">Advanced Raster Analysis (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="interpolating_point_data.html">Interpolating Point Data (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="calculating_intersection_density.html">Calculating Street Intersection Density (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="batch_processing.html">使用處理框架進行批次處理 (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="processing_graphical_modeler.html">利用處理建模自動執行複雜的工作流程 (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="automating_map_creation.html">Automating Map Creation with Print Layout Atlas (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="multi_criteria_overlay.html">Multi Criteria Overlay Analysis (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="basic_network_analysis.html">Basic Network Visualization and Routing (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="origin_destination_matrix.html">Locating Nearest Facility with Origin-Destination Matrix (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="service_area_analysis.html">Service Area Analysis using Openrouteservice (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="travel_time_analysis.html">Travel Time Analysis with Uber Movement (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="areal_mean_rainfall.html">Calculating Areal Mean Rainfall (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="getting_started_with_pyqgis.html">Python 程式設計的初步上手 (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="processing_algorithms_pyqgis.html">Running Processing Algorithms via Python (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="custom_python_functions.html">使用自訂的 Python 表達式函數 (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="processing_python_scripts.html">撰寫 Python 腳本並在處理框架下執行（QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="building_a_python_plugin.html">以 Python 製作附加元件 (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="processing_python_plugin.html">Building a Processing Plugin (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../running_qgis_jobs.html">執行 QGIS 工作排程</a></li>
+<li class="toctree-l1"><a class="reference internal" href="web_mapping_with_qgis2web.html">Web Mapping with QGIS2Web (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../creating_basemaps_with_qtiles.html">用 QTiles 製作底圖</a></li>
+<li class="toctree-l1"><a class="reference internal" href="using_plugins.html">Using Plugins (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../downloading_osm_data.html">搜尋和下載開放街圖資料</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../learning_resources.html">QGIS 學習資源</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../credits.html">資料來源</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../batch_processing.html">使用處理框架進行批次處理 (QGIS2)</a></li>
+</ul>
+</ul>
+</li>
+              
+            
+            
+              
+                
+  <li>
+    <a href="../introduction.html" title="Previous Chapter: 簡介"><span class="glyphicon glyphicon-chevron-left visible-sm"></span><span class="hidden-sm hidden-tablet">&laquo; 簡介</span>
+    </a>
+  </li>
+  <li>
+    <a href="working_with_attributes.html" title="Next Chapter: Working with Attributes (QGIS3)"><span class="glyphicon glyphicon-chevron-right visible-sm"></span><span class="hidden-sm hidden-tablet">Working with ... &raquo;</span>
+    </a>
+  </li>
+              
+            
+            
+
+            
+
+            
+              <li class="hidden-sm"></li>
+            
+          </ul>
+
+          
+            
+<form class="navbar-form navbar-right" action="../../search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+      <div class="col-md-3">
+        <div id="sidebar" class="bs-sidenav" role="complementary"><h4>Author</h4>
+<p>Ujaval Gandhi</p>
+<a href="https://twitter.com/intent/follow?screen_name=spatialthoughts" class="twitter-follow-button" data-show-count="false">Follow @spatialthoughts</a>
+<hr>
+<p>Want to learn QGIS in a structured way? Check out <a href="https://spatialthoughts.com/" target="_blank">Spatial Thoughts</a> for more learning materials and instructor-led online programs with QGIS.org certification.</p>
+
+
+<h4>Change Language</h4>
+<form role="form" class="sidebar-form sidebar-left">
+<select id="languages" class="form-control select-mini">
+  <option value="en">English</option>
+  <option value="zh_TW">Chinese (Taiwan)</option>
+  <option value="nl">Dutch</option>
+  <option value="fi_FI">Finnish</option>
+  <option value="fr">French</option>
+  <option value="de">German</option>
+  <option value="el">Greek</option>
+  <option value="id">Indonesian</option>
+  <option value="it">Italian</option>
+  <option value="ko">Korean</option>
+  <option value="fa">Persian</option>
+  <option value="pt_BR">Portuguese</option>
+  <option value="ro">Romanian</option>
+  <option value="ru">Russian</option>
+  <option value="sl">Slovenian</option>
+  <option value="es">Spanish</option>
+  <option value="th">Thai</option>
+  <option value="tr">Turkish</option>
+  <option value="uk">Ukrainian</option>
+  <option value="vi">Vietnamese</option>
+</select>
+</form>
+        </div>
+      </div>
+    <div class="body col-md-9 content" role="main">
+      
+
+  <section id="making-a-map-qgis3">
+<h1>製作地圖 (QGIS3)<a class="headerlink" href="#making-a-map-qgis3" title="本標題的永久連結">¶</a></h1>
+<p>在你需要製作一張可供列印或出版的地圖時，QGIS 提供了一組稱為 <span class="guilabel">Print Layout</span> 的強大工具，它可以方便地把所有的圖層打包起來產生完整的地圖。</p>
+<section id="overview-of-the-task">
+<h2>內容說明<a class="headerlink" href="#overview-of-the-task" title="本標題的永久連結">¶</a></h2>
+<p>本教學示範如何製作一張包含基本製圖元素的日本地圖，像是網格線、方位標示、比例尺、圖例與標籤、插頁小圖等等。</p>
+<section id="other-skills-you-will-learn">
+<h3>你還會學到這些<a class="headerlink" href="#other-skills-you-will-learn" title="本標題的永久連結">¶</a></h3>
+<ul class="simple">
+<li><p>如何查看和更改 QGIS 專案的變數</p></li>
+<li><p>如何使用 QGIS 表達式</p></li>
+</ul>
+</section>
+</section>
+<section id="get-the-data">
+<h2>取得資料<a class="headerlink" href="#get-the-data" title="本標題的永久連結">¶</a></h2>
+<p>這邊使用的是 Natural Earth dataset 中的 Natural Earth Quick Start Kit ，這些資料包含相當不錯的全球圖層，而且可以直接載入到 QGIS 當中。</p>
+<p>Download the <a class="reference external" href="https://naciscdn.org/naturalearth/packages/Natural_Earth_quick_start.zip">Natural Earth Quickstart Kit</a>. If the download link doesn’t work, get it directly from <a class="reference external" href="https://www.naturalearthdata.com/downloads/">Natural Earth Downloads</a> page.</p>
+<p>資料來源  <a class="reference internal" href="../credits.html#naturalearth" id="id1"><span>[NATURALEARTH]</span></a></p>
+</section>
+<section id="procedure">
+<h2>操作流程<a class="headerlink" href="#procedure" title="本標題的永久連結">¶</a></h2>
+<ol class="arabic simple">
+<li><p>下載然後解壓縮 Natural Earth Quick Start Kit 的資料。打開 QGIS，然後在 <span class="guilabel">瀏覽器</span> 的面板中找到 <code class="docutils literal notranslate"><span class="pre">Natural</span> <span class="pre">Earth</span> <span class="pre">quick</span> <span class="pre">start</span></code> 資料夾。展開此資料夾，就可以找到一個叫 <code class="docutils literal notranslate"><span class="pre">Natural_Earth_quick_start_for_QGIS_v3</span></code> 的專案檔。此專案檔含有 QGIS 相容格式的圖層資料。點兩下以開啟此專案。</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/190.png" class="align-center" src="../../_images/190.png" />
+</div></blockquote>
+<ol class="arabic simple" start="2">
+<li><p>You may notice that the map has labels in Greek. This project uses variables to set the language. We can change the variables by going to <span class="menuselection">Project ‣ Properties</span>.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/249.png" class="align-center" src="../../_images/249.png" />
+</div></blockquote>
+<div class="admonition note">
+<p class="admonition-title">備註</p>
+<p>專案變數可以用來儲存每個專案特有的一些設定，在你要撰寫 QGIS 表達式的時候也可以使用。<code class="docutils literal notranslate"><span class="pre">Natural_Earth_quick_start_for_QGIS_v3</span></code> 專案本身已經包含了不少預先定義的變數，所以可以使用它們來設定本專案的樣式。</p>
+</div>
+<ol class="arabic simple" start="3">
+<li><p>Switch to the <span class="guilabel">Variables</span> tab in the <span class="guilabel">Project Properties</span> dialog. Locate the <code class="docutils literal notranslate"><span class="pre">project_language</span></code> variable and click on the <span class="guilabel">Value</span> column to edit it. Change the language to <code class="docutils literal notranslate"><span class="pre">name_en</span></code> and click <span class="guilabel">OK</span>.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/328.png" class="align-center" src="../../_images/328.png" />
+</div></blockquote>
+<ol class="arabic simple" start="4">
+<li><p>回到 QGIS 主視窗，按下在 <span class="guilabel">地圖瀏覽工具欄</span> 中的 <span class="guilabel">重新整理</span> 按鈕，就可以看到現在英文標籤已經套用在地圖上了。</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/413.png" class="align-center" src="../../_images/413.png" />
+</div></blockquote>
+<ol class="arabic simple" start="5">
+<li><p>Use the pan and zoom controls in the <span class="guilabel">Map Navigation Toolbar</span> and zoom to Japan.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/513.png" class="align-center" src="../../_images/513.png" />
+</div></blockquote>
+<ol class="arabic simple" start="6">
+<li><p>你可以把一些我們在這裡用不到的地圖圖層給關起來。展開 <code class="docutils literal notranslate"><span class="pre">z5</span> <span class="pre">-</span> <span class="pre">1:18m</span></code> 資料結然後取消勾選  <code class="docutils literal notranslate"><span class="pre">ne_10m_geography_marine_polys</span></code> 和  <code class="docutils literal notranslate"><span class="pre">ne_10m_admin_0_disputed_areas</span></code> 圖層旁邊的方格。在我們真的製作適合列印的地圖前，我們還得挑選一個適當的地圖投影。本專案的預設 CRS 是 <code class="docutils literal notranslate"><span class="pre">EPSG:3857</span> <span class="pre">Pseudo-Mercator</span></code>，在線上地圖中非常流行，而且也很適合我們的目的，所以我們就把沿用這個預設的投影模式。現在前往 <span class="menuselection">專案 ‣ New Print Layout</span>。</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/613.png" class="align-center" src="../../_images/613.png" />
+</div></blockquote>
+<div class="admonition note">
+<p class="admonition-title">備註</p>
+<p>在日本地區，其實還有一個投影法可以使用，稱為 Japan Plane Rectangular CS (日本平面矩形座標系統)。這個投影法可以最小化投影造成的變形。它目前把全日本分成 18 個子區，如果你考慮把地圖範圍縮到更小的話，使用這個 CRS 會更好一點。</p>
+</div>
+<ol class="arabic simple" start="7">
+<li><p>會有一個視窗跳出來要求你輸入設計標題，這邊可以先空著，點 <span class="guilabel">確定</span> 即可。</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/712.png" class="align-center" src="../../_images/712.png" />
+</div></blockquote>
+<div class="admonition note">
+<p class="admonition-title">備註</p>
+<p>如果標題是空白的話，程式會自動產生一個像是 <code class="docutils literal notranslate"><span class="pre">Layout</span> <span class="pre">1</span></code> 的預設標題。</p>
+</div>
+<ol class="arabic simple" start="8">
+<li><p>在 Print Layout 視窗中，按下 <span class="guilabel">全圖顯示</span> 鈕以顯示整張地圖。</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/812.png" class="align-center" src="../../_images/812.png" />
+</div></blockquote>
+<ol class="arabic simple" start="9">
+<li><p>現在我們要把在 QGIS 畫布中的東西放進來，請選擇 <span class="menuselection">Add Item ‣ Add 地圖</span>。</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/912.png" class="align-center" src="../../_images/912.png" />
+</div></blockquote>
+<ol class="arabic simple" start="10">
+<li><p>在 <span class="guilabel">加入地圖</span> 模式啟動之後，必須要在地圖版面上拖曳一塊你想插入地圖的區域。</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/1018.png" class="align-center" src="../../_images/1018.png" />
+</div></blockquote>
+<ol class="arabic simple" start="11">
+<li><p>你會看到這個區域馬上就填上了 QGIS 畫布中的東西。不過它未必會跟我們所要的製圖區域完全重合，這個時候可以使用 <span class="menuselection">編輯 ‣ Select/Move item</span>，和 <span class="menuselection">編輯 ‣ 移動內容</span> 然後直接把在這個區域裡的東西拖曳到你所想要的範圍。</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/1121.png" class="align-center" src="../../_images/1121.png" />
+</div></blockquote>
+<ol class="arabic simple" start="12">
+<li><p>地圖的比例尺也可以稍做調整，在右側的 <span class="guilabel">項目屬性</span> 分頁中的 <span class="guilabel">比例</span> 欄位輸入 <a href="#id1"><span class="problematic" id="id2">``</span></a>10000000``看看。</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/1219.png" class="align-center" src="../../_images/1219.png" />
+</div></blockquote>
+<ol class="arabic simple" start="13">
+<li><p>接下來我們會插入一個東京區域的放大版地圖，不過在進行任何更動之前，要把已經弄好的底圖給鎖起來。請勾選 <span class="guilabel">Lock layers</span> 以及 <span class="guilabel">Lock styles for layers</span>，這兩個選項是用來確保接下來在 QGIS 畫布上的更動，不會連帶影響到設計視窗中已經弄好的部分。</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/1317.png" class="align-center" src="../../_images/1317.png" />
+</div></blockquote>
+<ol class="arabic simple" start="14">
+<li><p>Switch to the main QGIS window. Turn off the layer group <code class="docutils literal notranslate"><span class="pre">z5</span> <span class="pre">-</span> <span class="pre">1:18m</span></code> and activate the <code class="docutils literal notranslate"><span class="pre">z7</span> <span class="pre">-</span> <span class="pre">1:</span> <span class="pre">4m</span></code> group. This layer group has styling that is more appropriate for a zoomed-in view. Use the pan and zoom controls in the <span class="guilabel">Map Navigation Toolbar</span> and zoom around Tokyo.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/1415.png" class="align-center" src="../../_images/1415.png" />
+</div></blockquote>
+<ol class="arabic simple" start="15">
+<li><p>接下來就可以弄插頁小圖了。切換到 <span class="guilabel">Print Layout</span> 視窗，然後選擇 <span class="menuselection">Add Item ‣ 加入地圖</span>。</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/1514.png" class="align-center" src="../../_images/1514.png" />
+</div></blockquote>
+<ol class="arabic simple" start="16">
+<li><p>在你想要插入東京區域地圖的地方拉一個長方形。現在我們有 2 個地圖物件在同一個設計稿上了，所以如果你要改動其中任意一個地圖，就要先確認正確的地圖物件有沒有被選取起來。</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/1613.png" class="align-center" src="../../_images/1613.png" />
+</div></blockquote>
+<ol class="arabic simple" start="17">
+<li><p>在 <span class="guilabel">項目</span> 分頁中，請選擇我們剛剛加入的 <code class="docutils literal notranslate"><span class="pre">地圖</span> <span class="pre">2</span></code> 物件，然後在 <span class="guilabel">項目屬性</span> 分頁中，往下捲動到 <span class="guilabel">框線</span> 的欄位，把那個框框勾起來，這樣我們就能自由調整小插圖的外框，使之與主要地圖區隔開以方便辨識。</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/1714.png" class="align-center" src="../../_images/1714.png" />
+</div></blockquote>
+<ol class="arabic simple" start="18">
+<li><p>這裡有個很方便的功能，可以幫你標示小插圖是位在主地圖的哪裡。首先在 <span class="guilabel">項目</span> 分頁中選擇 <code class="docutils literal notranslate"><span class="pre">地圖</span> <span class="pre">0</span></code>，然後在 <span class="guilabel">項目屬性</span> 分頁中，往下捲動到 <span class="guilabel">全覽圖</span> 的欄位，點選 <span class="guilabel">新增全覽圖</span> 的按鈕。</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/1812.png" class="align-center" src="../../_images/1812.png" />
+</div></blockquote>
+<ol class="arabic simple" start="19">
+<li><p>在 <span class="guilabel">圖框</span> 選單中選擇 <code class="docutils literal notranslate"><span class="pre">地圖</span> <span class="pre">2`，就可以把</span> <span class="pre">``地圖</span> <span class="pre">2</span></code> 的小圖範圍標示在 <code class="docutils literal notranslate"><span class="pre">地圖</span> <span class="pre">1</span></code> 中。</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/1910.png" class="align-center" src="../../_images/1910.png" />
+</div></blockquote>
+<ol class="arabic simple" start="20">
+<li><p>現在插頁小圖也完成了，下一步就來加個格線到主地圖上。在 <span class="guilabel">項目</span> 分頁中選擇 <code class="docutils literal notranslate"><span class="pre">地圖</span> <span class="pre">1</span></code>，然後在 <span class="guilabel">項目屬性</span> 分頁中，往下捲動到 <span class="guilabel">格線</span> 的欄位，點選 <span class="guilabel">加入格線</span> 的按鈕，然後再按下 <span class="guilabel">Modify grid…</span>。</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/2010.png" class="align-center" src="../../_images/2010.png" />
+</div></blockquote>
+<ol class="arabic simple" start="21">
+<li><p>在預設的情形中，格線會使用與選擇的地圖相同的投影法標示，不過使用「經緯度」標示的格線卻更常見，而且使用者也易於閱讀。所以這裡我們來為格線選擇一個不同的 CRS 試試看。請點選格線欄位中，<span class="guilabel">CRS</span> 右側的 <span class="guilabel">變更…</span> 按鈕。</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/2113.png" class="align-center" src="../../_images/2113.png" />
+</div></blockquote>
+<ol class="arabic simple" start="22">
+<li><p><span class="guilabel">選擇座標參考系統</span> 的視窗會跳出，在 <span class="guilabel">過濾條件</span> 內輸入 <code class="docutils literal notranslate"><span class="pre">4326</span></code>，然後選擇 <code class="docutils literal notranslate"><span class="pre">WGS84</span> <span class="pre">EPSG:4326</span></code> 當作格線的 CRS，按下<span class="guilabel">確定</span>。</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/2212.png" class="align-center" src="../../_images/2212.png" />
+</div></blockquote>
+<ol class="arabic simple" start="23">
+<li><p>在 <span class="guilabel">區間</span> 欄位中，把 <span class="guilabel">X</span> 和 <span class="guilabel">Y</span> 都設成 <code class="docutils literal notranslate"><span class="pre">5</span></code> 度，然後再適當的調整<span class="guilabel">偏移</span>，就可以設定格線要在哪出現。</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/2311.png" class="align-center" src="../../_images/2311.png" />
+</div></blockquote>
+<ol class="arabic simple" start="24">
+<li><p>往下移到 <span class="guilabel">框線</span> 的區塊然後勾選 <span class="guilabel">Draw coordinates</span>。預設使用的格式是 <code class="docutils literal notranslate"><span class="pre">經緯度</span></code> 但是卻是使用像數字格式一樣的顯示。我們可以修改設定讓數字後方添加度數的標誌。選擇 <code class="docutils literal notranslate"><span class="pre">自訂</span></code> 然後點選在旁邊的 <span class="guilabel">表達式</span> 按鈕。</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/2410.png" class="align-center" src="../../_images/2410.png" />
+</div></blockquote>
+<ol class="arabic simple" start="25">
+<li><p>輸入如下的表達式就可以建立含有數字和度數符號的字串。</p></li>
+</ol>
+<blockquote>
+<div><div class="highlight-none notranslate"><div class="highlight"><pre><span></span>concat(to_string(@grid_number), &#39;°    &#39;)
+</pre></div>
+</div>
+<img alt="../../_images/258.png" class="align-center" src="../../_images/258.png" />
+</div></blockquote>
+<ol class="arabic simple" start="26">
+<li><p>現在格線就有了我們定義的表達式標籤。你可依照你喜歡的樣式，調整 <span class="guilabel">上</span>、<span class="guilabel">下</span>、<span class="guilabel">左</span>、<span class="guilabel">右</span> 的標籤設定。</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/267.png" class="align-center" src="../../_images/267.png" />
+</div></blockquote>
+<ol class="arabic simple" start="27">
+<li><p>現在我們要加上一個方形區塊來擺放其他的地圖元素，項是指北符號、比例尺和圖例。選擇 <span class="menuselection">Add Item ‣ Add 形狀 ‣ Add 矩形</span>。</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/278.png" class="align-center" src="../../_images/278.png" />
+</div></blockquote>
+<ol class="arabic simple" start="28">
+<li><p>可以修改矩形的 <span class="guilabel">樣式</span> 以和地圖的背景顏色一致。</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/288.png" class="align-center" src="../../_images/288.png" />
+</div></blockquote>
+<ol class="arabic simple" start="29">
+<li><p>再來就是加個指北箭頭。QGIS 本身有內建一些不錯的現成圖片，其中當然也包括許多種類的指北箭頭，只要選擇 <span class="menuselection">Add Item ‣ 加入圖片</span>，</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/297.png" class="align-center" src="../../_images/297.png" />
+</div></blockquote>
+<ol class="arabic simple" start="30">
+<li><p>用滑鼠左鍵拖曳出一個方形，然後在右側的 <span class="guilabel">項目屬性</span> 中把 <span class="guilabel">Search directories</span> 點開，就可以選擇你喜歡的圖案了。</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/307.png" class="align-center" src="../../_images/307.png" />
+</div></blockquote>
+<ol class="arabic simple" start="31">
+<li><p>再加個比例尺好了。選擇 <span class="menuselection">Add Item ‣ Add Scalebar</span>。</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/3111.png" class="align-center" src="../../_images/3111.png" />
+</div></blockquote>
+<ol class="arabic simple" start="32">
+<li><p>在你想要比例尺出現的地方按一下，記得在 <span class="guilabel">項目屬性</span> 中確認這個比例尺顯示的是 <code class="docutils literal notranslate"><span class="pre">Map</span> <span class="pre">1</span></code> 的比例尺。各種你想要的設定都可以在這邊調整。在 <span class="guilabel">線段</span> 的欄位中，調整 <span class="guilabel">固定寬度</span> 至 <code class="docutils literal notranslate"><span class="pre">200</span></code> 單位然後依照你想要的方式調整黑白線段。</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/329.png" class="align-center" src="../../_images/329.png" />
+</div></blockquote>
+<ol class="arabic simple" start="33">
+<li><p>總算到了上標題的時間！選擇 <span class="menuselection">Add Item ‣ Add 標記</span>，</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/333.png" class="align-center" src="../../_images/333.png" />
+</div></blockquote>
+<ol class="arabic simple" start="34">
+<li><p>在地圖上拖曳標籤的範圍，接著展開 <span class="guilabel">項目屬性</span> 中的 <span class="guilabel">標記</span> 欄位，然後就可以輸入文字。接著利用相似的方法給資料和軟體加上提供者的文字。</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/343.png" class="align-center" src="../../_images/343.png" />
+</div></blockquote>
+<ol class="arabic simple" start="35">
+<li><p>當你把地圖調整到最佳狀態後，就可以輸出成圖片檔、PDF 或是 SVG 檔了。這裡我們試試看轉存成圖片檔：選擇 <span class="menuselection">圖層 ‣ Export as Image</span>。</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/353.png" class="align-center" src="../../_images/353.png" />
+</div></blockquote>
+<ol class="arabic simple" start="35">
+<li><p>存成任一種你喜歡的格式即可。這裡放的是存成 PNG 的圖片。</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/output.png" class="align-center" src="../../_images/output.png" />
+</div></blockquote>
+</section>
+</section>
+
+
+
+
+
+  <div id="disqus_thread"></div>
+  <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+
+    </div>
+      
+  </div>
+</div>
+
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+    </p>
+    <p>
+        &copy; Copyright 2021, Ujaval Gandhi.<br/>
+      最後更新於 8月 30, 2022。<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 4.0.1.<br/>
+    </p>
+  </div>
+</footer>
+<div class="container">
+  <p>This work is licensed under a <a href="http://creativecommons.org/licenses/by/4.0/deed.en_US">Creative Commons Attribution 4.0 International License</a></p>
+</div>
+<!-- Twitter Button -->
+<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+
+<!-- Disqus comments widget -->
+<script type="text/javascript">
+  /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+  var disqus_shortname = 'qgistutorials'; // required: replace example with your forum shortname
+  /* * * DON'T EDIT BELOW THIS LINE * * */
+  (function () {
+    var s = document.createElement('script'); s.async = true;
+    s.type = 'text/javascript';
+    s.src = '//' + disqus_shortname + '.disqus.com/count.js';
+    (document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);
+  }());
+</script>
+
+<script type="text/javascript">
+  /* * * DON'T EDIT BELOW THIS LINE * * */
+  (function() {
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+
+<!-- Script fpr language switching. Largely adapted from https://github.com/pcav/faunalia-website -->
+<script>
+    var currentPage = 'docs/3/making_a_map.html'; // coming from sphinx, always without starting '/'
+    var currentLang = 'en';
+    $(document).ready(function(){
+
+        var search = new RegExp('\/[a-zA-Z_]{2,8}\/'+ currentPage, 'gi');
+        var langPlusPage = window.location.href.match(search);
+        // it's possible this is a index.html page called without 'index.html', try without the currentPage
+        if (langPlusPage==undefined){
+            search = new RegExp('\/[a-zA-Z_]{2,8}\/$', 'gi');
+            langPlusPage = window.location.href.match(search);
+        }
+
+        // it's possible this is an index.html page called without 'index.html', try removing index.html
+        if (langPlusPage==undefined){
+            currentPage = currentPage.replace('index.html','')
+            search = new RegExp('\/[a-zA-Z_]{2,8}\/'+ currentPage, 'gi');
+            langPlusPage = window.location.href.match(search);
+        }
+        // still no langPlugPage: stop, because the language swicher will misbehave 
+
+        if (langPlusPage == undefined || langPlusPage.length != 1){
+            alert('You hit an error, please report back to us.');
+            return;
+        }
+        langPlusPage = langPlusPage[0];
+        currentLang = langPlusPage.replace(currentPage, '');
+
+        $("#languages").val(currentLang.replace(/\//g,'')); // currentLang is something like '/nl/'
+
+        $("#languages").change(function() {
+            gotoLang($(this).val());
+        });
+
+    });
+
+    // load current page in a different language
+    function gotoLang(lang){
+        var currentUrl = window.location.href;
+        var newUrl = currentUrl.replace(currentLang, '/'+lang+'/');
+        window.location.href = newUrl;
+    }
+</script>
+
+  </body>
+</html>

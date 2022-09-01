@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+
+<html lang="zh_TW">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>把地圖數位化 &#8212; QGIS Tutorials and Tips</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/bootstrap-sphinx.css" />
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/translations.js"></script>
+    <link rel="search" title="搜尋" href="../search.html" />
+
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<script type="text/javascript" src="../_static/js/jquery-1.11.0.min.js "></script>
+<script type="text/javascript" src="../_static/js/jquery-fix.js "></script>
+<script type="text/javascript" src="../_static/bootstrap-3.3.7/js/bootstrap.min.js "></script>
+<script type="text/javascript" src="../_static/bootstrap-sphinx.js "></script>
+
+
+<!-- Cookie Notice -->
+<!-- Script from https://github.com/AOEpeople/cookie-notice -->
+<script type="text/javascript" src="../_static/cookie.notice.min.js"></script>
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-B1WQ7B80XJ"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-B1WQ7B80XJ');
+</script>
+
+
+  </head><body>
+
+  <div id="navbar" class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="../index.html"><span><img src="../_static/logo.png"></span>
+          QGIS Tutorials and Tips</a>
+        <span class="navbar-text navbar-version pull-left"><b>v1</b></span>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="../index.html">Tutorials List <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"><ul>
+<li class="toctree-l1"><a class="reference internal" href="introduction.html">簡介</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/making_a_map.html">製作地圖 (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/working_with_attributes.html">Working with Attributes (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/importing_spreadsheets_csv.html">匯入工作表或 CSV 檔 (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/basic_vector_styling.html">Basic Vector Styling (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/calculating_line_lengths.html">Calculating Line Lengths and Statistics (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/raster_styling_and_analysis.html">Basic Raster Styling and Analysis (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/raster_mosaicing_and_clipping.html">Raster Mosaicing and Clipping (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/working_with_terrain.html">Working with Terrain Data (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/working_with_wms.html">Working with WMS Data (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/working_with_projections.html">Working with Projections (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/georeferencing_basics.html">為紙本地圖進行空間對位 (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/advanced_georeferencing.html">為空照圖進行空間對位 (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/digitizing_basics.html">Digitizing Map Data (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/performing_table_joins.html">資料表連接 (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/performing_spatial_joins.html">空間連接 (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/performing_spatial_queries.html">Performing Spatial Queries (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/nearest_neighbor_analysis.html">Nearest Neighbor Analysis (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/sampling_raster_data.html">Sampling Raster Data using Points or Polygons (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/calculating_raster_area.html">Calculating Raster Area (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/creating_heatmaps.html">製作熱區圖 (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/animating_time_series.html">Animating Time Series Data (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/handling_invalid_geometries.html">Handling Invalid Geometries (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/advanced_raster_analysis.html">Advanced Raster Analysis (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/interpolating_point_data.html">Interpolating Point Data (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/calculating_intersection_density.html">Calculating Street Intersection Density (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/batch_processing.html">使用處理框架進行批次處理 (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/processing_graphical_modeler.html">利用處理建模自動執行複雜的工作流程 (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/automating_map_creation.html">Automating Map Creation with Print Layout Atlas (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/multi_criteria_overlay.html">Multi Criteria Overlay Analysis (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/basic_network_analysis.html">Basic Network Visualization and Routing (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/origin_destination_matrix.html">Locating Nearest Facility with Origin-Destination Matrix (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/service_area_analysis.html">Service Area Analysis using Openrouteservice (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/travel_time_analysis.html">Travel Time Analysis with Uber Movement (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/areal_mean_rainfall.html">Calculating Areal Mean Rainfall (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/getting_started_with_pyqgis.html">Python 程式設計的初步上手 (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/processing_algorithms_pyqgis.html">Running Processing Algorithms via Python (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/custom_python_functions.html">使用自訂的 Python 表達式函數 (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/processing_python_scripts.html">撰寫 Python 腳本並在處理框架下執行（QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/building_a_python_plugin.html">以 Python 製作附加元件 (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/processing_python_plugin.html">Building a Processing Plugin (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="running_qgis_jobs.html">執行 QGIS 工作排程</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/web_mapping_with_qgis2web.html">Web Mapping with QGIS2Web (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="creating_basemaps_with_qtiles.html">用 QTiles 製作底圖</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/using_plugins.html">Using Plugins (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="downloading_osm_data.html">搜尋和下載開放街圖資料</a></li>
+<li class="toctree-l1"><a class="reference internal" href="learning_resources.html">QGIS 學習資源</a></li>
+<li class="toctree-l1"><a class="reference internal" href="credits.html">資料來源</a></li>
+<li class="toctree-l1"><a class="reference internal" href="batch_processing.html">使用處理框架進行批次處理 (QGIS2)</a></li>
+</ul>
+</ul>
+</li>
+              
+            
+            
+              
+                
+              
+            
+            
+
+            
+
+            
+              <li class="hidden-sm"></li>
+            
+          </ul>
+
+          
+            
+<form class="navbar-form navbar-right" action="../search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+      <div class="col-md-3">
+        <div id="sidebar" class="bs-sidenav" role="complementary"><h4>Author</h4>
+<p>Ujaval Gandhi</p>
+<a href="https://twitter.com/intent/follow?screen_name=spatialthoughts" class="twitter-follow-button" data-show-count="false">Follow @spatialthoughts</a>
+<hr>
+<p>Want to learn QGIS in a structured way? Check out <a href="https://spatialthoughts.com/" target="_blank">Spatial Thoughts</a> for more learning materials and instructor-led online programs with QGIS.org certification.</p>
+
+
+<h4>Change Language</h4>
+<form role="form" class="sidebar-form sidebar-left">
+<select id="languages" class="form-control select-mini">
+  <option value="en">English</option>
+  <option value="zh_TW">Chinese (Taiwan)</option>
+  <option value="nl">Dutch</option>
+  <option value="fi_FI">Finnish</option>
+  <option value="fr">French</option>
+  <option value="de">German</option>
+  <option value="el">Greek</option>
+  <option value="id">Indonesian</option>
+  <option value="it">Italian</option>
+  <option value="ko">Korean</option>
+  <option value="fa">Persian</option>
+  <option value="pt_BR">Portuguese</option>
+  <option value="ro">Romanian</option>
+  <option value="ru">Russian</option>
+  <option value="sl">Slovenian</option>
+  <option value="es">Spanish</option>
+  <option value="th">Thai</option>
+  <option value="tr">Turkish</option>
+  <option value="uk">Ukrainian</option>
+  <option value="vi">Vietnamese</option>
+</select>
+</form>
+        </div>
+      </div>
+    <div class="body col-md-9 content" role="main">
+      
+
+  <section id="digitizing-map-data">
+<h1>把地圖數位化<a class="headerlink" href="#digitizing-map-data" title="本標題的永久連結">¶</a></h1>
+<div class="admonition warning">
+<p class="admonition-title">警告</p>
+<p>A new version of this tutorial is available at <a class="reference internal" href="3/digitizing_basics.html"><span class="doc">Digitizing Map Data (QGIS3)</span></a></p>
+</div>
+<p>數位化操作是 GIS 專家最常進行的工作之一。把影像資料數位化、轉成向量圖層常常會花費許多的 <em>GIS 操作時間</em>。不過在 QGIS 中，有著強大的數位化螢幕編修功能，我們將會本教學中做個簡介。</p>
+<section id="overview-of-the-task">
+<h2>內容說明<a class="headerlink" href="#overview-of-the-task" title="本標題的永久連結">¶</a></h2>
+<p>我們要把一張地形圖的圖檔轉化成數個向量圖層，內容包括地圖中一個公園附近的一些地理標記。</p>
+<section id="other-skills-you-will-learn">
+<h3>你還會學到這些<a class="headerlink" href="#other-skills-you-will-learn" title="本標題的永久連結">¶</a></h3>
+<ul class="simple">
+<li><p>為大尺寸影像建立快取金字塔，增快瀏覽地圖的速度</p></li>
+<li><p>Spatialite 資料庫的操作</p></li>
+</ul>
+</section>
+</section>
+<section id="get-the-data">
+<h2>取得資料<a class="headerlink" href="#get-the-data" title="本標題的永久連結">¶</a></h2>
+<p>我們要使用 <a class="reference external" href="http://www.linz.govt.nz/">Land Information New Zealand (LINZ)</a> 提供的 1:50,000 地形圖，包括紐西蘭本土與查塔姆群島（Chatham Islands）。</p>
+<p>從 <a class="reference external" href="http://www.linz.govt.nz/topography/topo-maps/map-chooser/christchurch/christchurch#digitalfile">Christchurch Topo50 map download page</a> 下載 <a class="reference external" href="http://topo.linz.govt.nz/Topo50_raster_images/GeoTIFFTopo50/BX24_GeoTifv1-02.tif">GeoTIFF 影像</a> 。</p>
+<p>為了方便起見，你也可以直接用下面的連結下載（裁切過的版本）：</p>
+<p><a class="reference external" href="http://www.qgistutorials.com/downloads/BX24_GeoTifv1-02-clip.tif">BX24_GeoTifv1-02-clip.tif</a></p>
+<p>資料來源 <a class="reference internal" href="credits.html#linz" id="id1"><span>[LINZ]</span></a></p>
+</section>
+<section id="procedure">
+<h2>操作流程<a class="headerlink" href="#procedure" title="本標題的永久連結">¶</a></h2>
+<ol class="arabic simple">
+<li><p>選擇 <span class="menuselection">圖層 ‣ 加入影像圖層</span>，選擇剛才下載的 <code class="docutils literal notranslate"><span class="pre">BX24_GeoTifv1-02.tif</span></code> ，然後按 <span class="guilabel">開啟</span>。</p></li>
+</ol>
+<img alt="../_images/1166.png" class="align-center" src="../_images/1166.png" />
+<ol class="arabic simple" start="2">
+<li><p>這是張相當大的影像，當我們要拖曳或是縮放地圖時，都要花上一點時間讓程式調整影像的解析尺寸。QGIS 提供了簡單的解決方法來增進這些動作的速度，稱之為「<strong>影像金字塔</strong>」。這種方法其實就是預先產生不同解析度的相同影像，在地圖操作時，可以直接使用而不用再從全尺寸的影像做處理，加快瀏覽速度。請在 <code class="docutils literal notranslate"><span class="pre">BX24_GeoTifv1-02</span></code> 圖層上按右鍵選擇 <span class="guilabel">屬性</span>。</p></li>
+</ol>
+<img alt="../_images/2136.png" class="align-center" src="../_images/2136.png" />
+<ol class="arabic simple" start="3">
+<li><p>切換到 <span class="guilabel">影像金字塔</span> 分頁，在 <span class="guilabel">解析度</span> 欄位中把所有解析度都選取，其他選項使用預設值，然後按 <span class="guilabel">建立快取金字塔</span>。程式執行完畢後，按下 <span class="guilabel">確定</span>。</p></li>
+</ol>
+<img alt="../_images/367.png" class="align-center" src="../_images/367.png" />
+<ol class="arabic simple" start="4">
+<li><p>回到 QGIS 主視窗，使用 <span class="guilabel">放大</span> 鈕搜尋基督城的 <em>Hagley Park</em>，這就是等一下要數位化的區域。</p></li>
+</ol>
+<img alt="../_images/444.png" class="align-center" src="../_images/444.png" />
+<ol class="arabic simple" start="5">
+<li><p>在開始之前，先來調整預設的 <strong>數位化選項</strong>。選擇 <span class="menuselection">設定 ‣ 選項…</span>。</p></li>
+</ol>
+<img alt="../_images/541.png" class="align-center" src="../_images/541.png" />
+<ol class="arabic simple" start="6">
+<li><p>在 <span class="guilabel">選項</span> 頁面中切換到 <span class="guilabel">數位化</span> 分頁，<span class="guilabel">預設接合模式</span> 選擇 <span class="guilabel">自動接合 轉折點與線段</span>。這個選項可以使相近的轉折點與線段黏在一起。筆者個人也偏好把 <span class="guilabel">預設接合容許範圍</span> 和 <span class="guilabel">編輯轉控點的搜尋半徑</span> 設成以像素為單位，而非以地圖單位為單位，這樣在不同的縮放尺度下，自動接合的距離會保持一樣。接著你可以依照你螢幕的解析度選擇適合的值，最後按下 <span class="guilabel">確定</span>。</p></li>
+</ol>
+<img alt="../_images/639.png" class="align-center" src="../_images/639.png" />
+<ol class="arabic simple" start="7">
+<li><p>現在可以開始數位化了！我們先來做個道路的圖層，然後把公園附近的道路數位化到此圖層上。選擇 <span class="menuselection">圖層 ‣ 新增圖層 ‣ 「新增 Spatialite 圖層…」或「新增 Shape 檔圖層」</span>，看你喜歡哪個都可以。Spatialite 是和 ESRI 的地理資料庫（包含 Shapefile）格式相似的開放資料庫，它的特點是可以在一個檔案內塞進不同種類的空間資料 (點、線、多邊形) 與其他種類的圖層，所以在複製或移動檔案時，不用像 shapefiles 那樣每次都得移動一堆檔案。本教學中，我們會建立數個多邊形和一個線圖層，所以 Spatialite 會比較適合我們。你當然也可以在讀取 Spatialite 檔案後，另存成 shapefile 或其他類型的檔案格式。</p></li>
+</ol>
+<img alt="../_images/739.png" class="align-center" src="../_images/739.png" />
+<ol class="arabic simple" start="8">
+<li><p>在 <span class="guilabel">新增 Spatilaite 圖層</span> 視窗中，按下 <span class="guilabel">…</span> 鈕，把圖層存成新的名為 <code class="docutils literal notranslate"><span class="pre">nztopo.sqlite</span></code> 的資料庫。在 <span class="guilabel">圖層名稱</span> 中輸入 <code class="docutils literal notranslate"><span class="pre">Roads</span></code>，然後在 <span class="guilabel">類別</span> 中選擇 <code class="docutils literal notranslate"><span class="pre">線</span></code>。我們的地形底圖使用的 CRS 是  <code class="docutils literal notranslate"><span class="pre">EPSG:2193</span> <span class="pre">-</span> <span class="pre">NZGD</span> <span class="pre">2000</span></code>，所以這邊就選個跟底圖一樣的 CRS 即可。請勾選 <span class="guilabel">建立自動遞增的主鍵</span>，這個功能會在屬性表格中新增一個叫做 <strong>pkuid</strong> 的欄位，程式會自動為每個圖徵指定獨特的數值到此欄位中。因為這是個道路圖層，我們應還需要 2 個基本屬性：道路名和道路種類。所以請在 <span class="guilabel">新增屬性</span> 欄位中加入 <code class="docutils literal notranslate"><span class="pre">Name</span></code>，然後按下 <span class="guilabel">加入屬性列表</span>。</p></li>
+</ol>
+<img alt="../_images/838.png" class="align-center" src="../_images/838.png" />
+<ol class="arabic simple" start="9">
+<li><p>以同樣的方法建立新屬性 <code class="docutils literal notranslate"><span class="pre">Class</span></code>，類別選 <span class="guilabel">文字資料</span>。建立好後按下 <span class="guilabel">確定</span>。</p></li>
+</ol>
+<img alt="../_images/939.png" class="align-center" src="../_images/939.png" />
+<ol class="arabic simple" start="10">
+<li><p>圖層載入後，按一下 <span class="guilabel">切換編輯狀態</span> 以進入圖層編輯模式。</p></li>
+</ol>
+<img alt="../_images/1046.png" class="align-center" src="../_images/1046.png" />
+<ol class="arabic simple" start="11">
+<li><p>按下 <span class="guilabel">加入圖徵</span> 按鈕，然後在地圖上按滑鼠，就可以加入線段端點。沿著道路加入新的端點，直到全部的路都繞過後，按下右鍵結束圖徵的編輯。</p></li>
+</ol>
+<div class="admonition note">
+<p class="admonition-title">備註</p>
+<p>滑動滑鼠的滾輪鍵可以用來放大或縮小地圖，按住滾輪鍵則可以拖曳地圖。</p>
+</div>
+<img alt="../_images/1167.png" class="align-center" src="../_images/1167.png" />
+<ol class="arabic simple" start="12">
+<li><p>按下右鍵之後，會有一個視窗跳出，你可以在其中為剛剛創造的圖徵輸入屬性。因為 <strong>pkuid</strong> 已經被自動指定了，所以只有它是不能手動設定的。輸入在地圖中的道路名字，以及道路的種類，當然你也可以都不輸入就是了。完成後，按下 <span class="guilabel">確定</span>。</p></li>
+</ol>
+<img alt="../_images/1248.png" class="align-center" src="../_images/1248.png" />
+<ol class="arabic simple" start="13">
+<li><p>線圖層的預設樣式是非常細的線，我們要把它改粗一點，以方便在地圖上瀏覽。在 <code class="docutils literal notranslate"><span class="pre">Roads</span></code> 圖層上按右鍵選擇 <span class="guilabel">屬性</span>。</p></li>
+</ol>
+<img alt="../_images/1346.png" class="align-center" src="../_images/1346.png" />
+<ol class="arabic simple" start="14">
+<li><p>在 <span class="guilabel">圖層屬性</span> 視窗中切換到 <span class="guilabel">樣式</span> 分頁，再從樣式庫中選擇一個較粗的樣式，像是 <span class="guilabel">Primary</span>。最後按下 <span class="guilabel">確定</span>。</p></li>
+</ol>
+<img alt="../_images/1443.png" class="align-center" src="../_images/1443.png" />
+<ol class="arabic simple" start="15">
+<li><p>現在就很容易在地圖上找到此圖徵了。按下 <span class="guilabel">儲存圖層編輯</span>，就可以把剛才的更動寫到檔案內。</p></li>
+</ol>
+<img alt="../_images/1541.png" class="align-center" src="../_images/1541.png" />
+<ol class="arabic simple" start="16">
+<li><p>在把其他道路數位化之前，有些設定還需要更新，才能保證接下來創造圖層時不會發生錯誤。選擇 <span class="menuselection">選項 ‣ 自動接合選項</span>。</p></li>
+</ol>
+<img alt="../_images/1638.png" class="align-center" src="../_images/1638.png" />
+<ol class="arabic simple" start="17">
+<li><p>在 <span class="guilabel">自動接合選項</span> 視窗中，勾選 <span class="guilabel">使用拓撲（topological）編輯</span>，這個選項可以確保圖徵共同的邊界可以在多邊形圖層中正確的調整。再來，勾選 <span class="guilabel">開啟在相交處使用自動接合</span>，此選項可以自動連接圖徵的截切點，例如底圖的道路轉角。</p></li>
+</ol>
+<img alt="../_images/1735.png" class="align-center" src="../_images/1735.png" />
+<ol class="arabic simple" start="18">
+<li><p>接下來就繼續使用 <span class="guilabel">加入圖徵</span> 鈕，加入其他環繞公園的道路吧。記得每一次加入新圖徵後，都要按下 <span class="guilabel">儲存圖層編輯</span> 才會儲存起來。有一個稱為 <strong>節點工具</strong> 的功能也非常的方便，我們就來試試看。請按下 <span class="guilabel">節點工具</span> 鈕。</p></li>
+</ol>
+<img alt="../_images/1833.png" class="align-center" src="../_images/1833.png" />
+<ol class="arabic simple" start="19">
+<li><p>節點工具啟用後，點選任一個圖徵，節點就會顯現出來。點選任一節點後，它的顏色會改變，以表示這個節點已經被選取了，這時就可以使用滑鼠拖曳此節點。此操作對修改已有的圖層非常的方便，如果我們要刪掉選取的節點，只要按下 <kbd class="kbd docutils literal notranslate">Delete</kbd> 鍵即可。(Mac 上是 <kbd class="kbd compound docutils literal notranslate"><kbd class="kbd docutils literal notranslate">Option</kbd>+<kbd class="kbd docutils literal notranslate">Delete</kbd></kbd> 鍵)</p></li>
+</ol>
+<img alt="../_images/1925.png" class="align-center" src="../_images/1925.png" />
+<ol class="arabic simple" start="20">
+<li><p>所有的道路都數位化了之後，按一下 <span class="guilabel">切換編輯狀態</span> 關閉圖層編輯模式。</p></li>
+</ol>
+<img alt="../_images/2021.png" class="align-center" src="../_images/2021.png" />
+<ol class="arabic simple" start="21">
+<li><p>接下來我們要製作的是公園邊界的多邊形圖層。選擇 <span class="menuselection">圖層 ‣ 新增圖層 ‣ 新增 Spatialite 圖層</span>，資料庫要從下拉選單中選擇剛才的 <code class="docutils literal notranslate"><span class="pre">nztopo.sqlite</span></code>，新的圖層命名為 <code class="docutils literal notranslate"><span class="pre">Parks</span></code>， <span class="guilabel">類別</span> 選擇 <code class="docutils literal notranslate"><span class="pre">多邊形</span></code>。另外，新增一個稱為 <code class="docutils literal notranslate"><span class="pre">Name</span></code> 的屬性，最後按下 <span class="guilabel">確定</span>。</p></li>
+</ol>
+<img alt="../_images/2137.png" class="align-center" src="../_images/2137.png" />
+<ol class="arabic simple" start="22">
+<li><p>按下 <span class="guilabel">加入圖徵</span> 鈕，然後在地圖上點出多邊形的頂點。這些頂點圈住的多邊形，就是以數位化方式呈現的公園邊界。在用右鍵完成多邊形之前，請再次確認你有開啟自動接合選項，這樣公園多邊形和道路的線條中間就不會有任何空隙。</p></li>
+</ol>
+<img alt="../_images/2223.png" class="align-center" src="../_images/2223.png" />
+<ol class="arabic simple" start="23">
+<li><p>在跳出的 <span class="guilabel">圖徵屬性</span> 視窗中，輸入公園名字。</p></li>
+</ol>
+<img alt="../_images/2321.png" class="align-center" src="../_images/2321.png" />
+<ol class="arabic simple" start="24">
+<li><p>我們還可以為多邊形圖層選擇一個很有用的設定，稱為 <strong>避免相交</strong>。再次進入 <span class="menuselection">選項 ‣ 自動接合選項</span>，然後把 <code class="docutils literal notranslate"><span class="pre">Parks</span></code> 圖層後方的 <span class="guilabel">避免相交</span> 欄勾選起來，最後按下 <span class="guilabel">確定</span>。</p></li>
+</ol>
+<img alt="../_images/2421.png" class="align-center" src="../_images/2421.png" />
+<ol class="arabic simple" start="25">
+<li><p>接著使用 <span class="guilabel">加入圖徵</span> 再加入另一個多邊形。當 <strong>避免相交</strong> 功能啟用時，我們就可以快速地創造另一個圖徵，不用擔心它跟先前的圖徵的接合點是否在正確的位置上。</p></li>
+</ol>
+<img alt="../_images/2518.png" class="align-center" src="../_images/2518.png" />
+<ol class="arabic simple" start="26">
+<li><p>按下右鍵完成此多邊形，然後輸入屬性的內容。新的多邊形會與鄰接的多邊形完美的接在一起！這功能對比較複雜的邊界非常有用，我們在設定邊界時可以不需要非常的精確，就可以製作已校正的多邊形。最後，再次按下 <span class="guilabel">切換編輯狀態</span>，結束 <code class="docutils literal notranslate"><span class="pre">Parks</span></code> 圖層的編輯。</p></li>
+</ol>
+<img alt="../_images/2616.png" class="align-center" src="../_images/2616.png" />
+<ol class="arabic simple" start="27">
+<li><p>是時候來數位化地圖上的建築了。這次我們選擇 <span class="menuselection">圖層 ‣ 新增圖層 ‣ 新增 Spatialite 圖層</span>，建立一個新的多邊形圖層，稱為 <code class="docutils literal notranslate"><span class="pre">Buildings</span></code>。</p></li>
+</ol>
+<img alt="../_images/2716.png" class="align-center" src="../_images/2716.png" />
+<ol class="arabic simple" start="28">
+<li><p><code class="docutils literal notranslate"><span class="pre">Buildings</span></code> 圖層加入後，關掉 <code class="docutils literal notranslate"><span class="pre">Parks</span></code> 和 <code class="docutils literal notranslate"><span class="pre">Roads</span></code> 圖層，讓底下的地圖顯現出來，然後選擇 <code class="docutils literal notranslate"><span class="pre">Buildings</span></code> 圖層，再按下 <span class="guilabel">切換編輯狀態</span>。</p></li>
+</ol>
+<img alt="../_images/2616.png" class="align-center" src="../_images/2616.png" />
+<ol class="arabic simple" start="29">
+<li><p>建築的數位化通常是件繁瑣的任務，而且有個困難點是要手動設定垂直的節點以形成長方形的多邊形。這裡我們要使用一個稱為 <strong>Rectangles Ovals Digitizing</strong> 的附加元件來幫助我們數位化。關於如何搜尋和安裝附加元件，請參考 <a class="reference internal" href="using_plugins.html"><span class="doc">使用附加元件</span></a>。當 <strong>Rectangles Ovals Digitizing</strong> 安裝完成後，會看到一個新的工具列出現在畫布上方區塊。</p></li>
+</ol>
+<img alt="../_images/2913.png" class="align-center" src="../_images/2913.png" />
+<ol class="arabic simple" start="30">
+<li><p>放大到有建築的地方，然後按下 <span class="guilabel">Rectangle by Extent</span> 鈕，然後用滑鼠按下並拖曳出長方形。用類似的方法完成其餘的建築多邊形。</p></li>
+</ol>
+<img alt="../_images/3011.png" class="align-center" src="../_images/3011.png" />
+<ol class="arabic simple" start="31">
+<li><p>你會看到有些建築不是垂直的，這些形狀大概是傾斜成某種角度的多邊形。按下 <span class="guilabel">Rectangle from center</span>。</p></li>
+</ol>
+<img alt="../_images/3114.png" class="align-center" src="../_images/3114.png" />
+<ol class="arabic simple" start="32">
+<li><p>在建築物的中心按一下，用滑鼠拖曳出一個垂直的長方形。</p></li>
+</ol>
+<img alt="../_images/3212.png" class="align-center" src="../_images/3212.png" />
+<ol class="arabic simple" start="33">
+<li><p>接下來我們要旋轉此長方形，讓它符合地圖上的形狀。旋轉工具是放在 <strong>Advanced Digitizing</strong> 工具列中，在工具列上空白的地方按下右鍵，然後勾選 :guilabel:<a href="#id1"><span class="problematic" id="id2">`</span></a>Advanced Digitizing**，就可以讓它呈現在工具列上。</p></li>
+</ol>
+<img alt="../_images/3311.png" class="align-center" src="../_images/3311.png" />
+<ol class="arabic simple" start="34">
+<li><p>按下 <span class="guilabel">旋轉(多個)圖徵</span> 鈕，</p></li>
+</ol>
+<img alt="../_images/3411.png" class="align-center" src="../_images/3411.png" />
+<ol class="arabic simple" start="35">
+<li><p>使用 <span class="guilabel">選擇單一圖徵</span> 工具選擇你要旋轉的圖徵。在 <span class="guilabel">旋轉(多個)圖徵</span> 工具啟用的狀況下，被選取的圖徵中心會出現一個準心，點選此準心然後移動滑鼠，就會看到旋轉圖徵的預覽結果。在適當的角度按下滑鼠按鈕，讓多邊形對齊房屋的底座邊界。</p></li>
+</ol>
+<img alt="../_images/3510.png" class="align-center" src="../_images/3510.png" />
+<ol class="arabic simple" start="36">
+<li><p>儲存編輯的結果，全部完成後再次按下 <span class="guilabel">切換編輯狀態</span>。現在你可以拖曳調整圖層的顯示順序。</p></li>
+</ol>
+<img alt="../_images/368.png" class="align-center" src="../_images/368.png" />
+<ol class="arabic simple" start="37">
+<li><p>數位化的工作到此告一段落，接下來你可以在圖層屬性中調整標籤與樣式，利用你剛剛創造的資料製作一幅好看的地圖。</p></li>
+</ol>
+<img alt="../_images/372.png" class="align-center" src="../_images/372.png" />
+</section>
+</section>
+
+
+
+
+
+  <div id="disqus_thread"></div>
+  <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+
+    </div>
+      
+  </div>
+</div>
+
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+    </p>
+    <p>
+        &copy; Copyright 2021, Ujaval Gandhi.<br/>
+      最後更新於 8月 30, 2022。<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 4.0.1.<br/>
+    </p>
+  </div>
+</footer>
+<div class="container">
+  <p>This work is licensed under a <a href="http://creativecommons.org/licenses/by/4.0/deed.en_US">Creative Commons Attribution 4.0 International License</a></p>
+</div>
+<!-- Twitter Button -->
+<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+
+<!-- Disqus comments widget -->
+<script type="text/javascript">
+  /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+  var disqus_shortname = 'qgistutorials'; // required: replace example with your forum shortname
+  /* * * DON'T EDIT BELOW THIS LINE * * */
+  (function () {
+    var s = document.createElement('script'); s.async = true;
+    s.type = 'text/javascript';
+    s.src = '//' + disqus_shortname + '.disqus.com/count.js';
+    (document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);
+  }());
+</script>
+
+<script type="text/javascript">
+  /* * * DON'T EDIT BELOW THIS LINE * * */
+  (function() {
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+
+<!-- Script fpr language switching. Largely adapted from https://github.com/pcav/faunalia-website -->
+<script>
+    var currentPage = 'docs/digitizing_basics.html'; // coming from sphinx, always without starting '/'
+    var currentLang = 'en';
+    $(document).ready(function(){
+
+        var search = new RegExp('\/[a-zA-Z_]{2,8}\/'+ currentPage, 'gi');
+        var langPlusPage = window.location.href.match(search);
+        // it's possible this is a index.html page called without 'index.html', try without the currentPage
+        if (langPlusPage==undefined){
+            search = new RegExp('\/[a-zA-Z_]{2,8}\/$', 'gi');
+            langPlusPage = window.location.href.match(search);
+        }
+
+        // it's possible this is an index.html page called without 'index.html', try removing index.html
+        if (langPlusPage==undefined){
+            currentPage = currentPage.replace('index.html','')
+            search = new RegExp('\/[a-zA-Z_]{2,8}\/'+ currentPage, 'gi');
+            langPlusPage = window.location.href.match(search);
+        }
+        // still no langPlugPage: stop, because the language swicher will misbehave 
+
+        if (langPlusPage == undefined || langPlusPage.length != 1){
+            alert('You hit an error, please report back to us.');
+            return;
+        }
+        langPlusPage = langPlusPage[0];
+        currentLang = langPlusPage.replace(currentPage, '');
+
+        $("#languages").val(currentLang.replace(/\//g,'')); // currentLang is something like '/nl/'
+
+        $("#languages").change(function() {
+            gotoLang($(this).val());
+        });
+
+    });
+
+    // load current page in a different language
+    function gotoLang(lang){
+        var currentUrl = window.location.href;
+        var newUrl = currentUrl.replace(currentLang, '/'+lang+'/');
+        window.location.href = newUrl;
+    }
+</script>
+
+  </body>
+</html>

@@ -1,0 +1,604 @@
+<!DOCTYPE html>
+
+<html lang="nl">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>Gevorderde rasteranalyses (QGIS3) &#8212; QGIS Tutorials and Tips</title>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-sphinx.css" />
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/translations.js"></script>
+    <link rel="search" title="Zoeken" href="../../search.html" />
+    <link rel="next" title="Interpoleren van puntgegevens" href="interpolating_point_data.html" />
+    <link rel="prev" title="Ongeldige geometrieën afhandelen (QGIS3)" href="handling_invalid_geometries.html" />
+
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<script type="text/javascript" src="../../_static/js/jquery-1.11.0.min.js "></script>
+<script type="text/javascript" src="../../_static/js/jquery-fix.js "></script>
+<script type="text/javascript" src="../../_static/bootstrap-3.3.7/js/bootstrap.min.js "></script>
+<script type="text/javascript" src="../../_static/bootstrap-sphinx.js "></script>
+
+
+<!-- Cookie Notice -->
+<!-- Script from https://github.com/AOEpeople/cookie-notice -->
+<script type="text/javascript" src="../../_static/cookie.notice.min.js"></script>
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-B1WQ7B80XJ"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-B1WQ7B80XJ');
+</script>
+
+
+  </head><body>
+
+  <div id="navbar" class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="../../index.html"><span><img src="../../_static/logo.png"></span>
+          QGIS Tutorials and Tips</a>
+        <span class="navbar-text navbar-version pull-left"><b>v1</b></span>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="../../index.html">Tutorials List <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"><ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../introduction.html">Introductie</a></li>
+<li class="toctree-l1"><a class="reference internal" href="making_a_map.html">Een kaart maken (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="working_with_attributes.html">Werken met attributen (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="importing_spreadsheets_csv.html">Werkbladen of CSV-bestanden importeren (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="basic_vector_styling.html">Basis opmaken van vectoren (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="calculating_line_lengths.html">Lengten van lijnen en statistieken berekenen (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="raster_styling_and_analysis.html">Basis opmaken en analyses van rasters (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="raster_mosaicing_and_clipping.html">Rasters mozaïeken en clippen (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="working_with_terrain.html">Werken met gegevens over het terrein (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="working_with_wms.html">Werken met gegevens van WMS (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="working_with_projections.html">Werken met projecties (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="georeferencing_basics.html">Topobladen en gescande kaarten voorzien van geoverwijzingen (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="advanced_georeferencing.html">Geo-verwijzingen voor satellietbeelden (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="digitizing_basics.html">Kaartgegevens digitaliseren</a></li>
+<li class="toctree-l1"><a class="reference internal" href="performing_table_joins.html">Samenvoegen van tabellen uitvoeren (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="performing_spatial_joins.html">Ruimtelijke samenvoegingen uitvoeren (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="performing_spatial_queries.html">Ruimtelijke query’s uitvoeren (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="nearest_neighbor_analysis.html">Analyse Nearest Neighbor (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="sampling_raster_data.html">Monsters nemen van rastergegevens met behulp van punten of polygonen (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="calculating_raster_area.html">Rastergebied berekenen (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="creating_heatmaps.html">Heatmaps maken (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="animating_time_series.html">Geanimeerde gegevens tijdreeks (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="handling_invalid_geometries.html">Ongeldige geometrieën afhandelen (QGIS3)</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Gevorderde rasteranalyses (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="interpolating_point_data.html">Interpoleren van puntgegevens</a></li>
+<li class="toctree-l1"><a class="reference internal" href="calculating_intersection_density.html">Dichtheid van straatkruisingen berekenen (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="batch_processing.html">Massa verwerken met behulp van Framework Processing (QGIS 3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="processing_graphical_modeler.html">Complexe werkstromen automatiseren met behulp van Grafische modellen bouwen (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="automating_map_creation.html">Maken van kaarten automatiseren met Atlas van afdruklay-out (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="multi_criteria_overlay.html">Multi Criteria Overlay Analyse (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="basic_network_analysis.html">Basis netwerk visualisatie en routeren (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="origin_destination_matrix.html">Dichtstbijzijnde faciliteit zoeken met Origin-Destination Matrix (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="service_area_analysis.html">Analyse Servicegebied met Openrouteservice (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="travel_time_analysis.html">Reistijd-analyse met Uber Movement (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="areal_mean_rainfall.html">Berekenen gemiddelde regenval voor gebied (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="getting_started_with_pyqgis.html">Beginnen met programmeren in Python (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="processing_algorithms_pyqgis.html">Algoritmes van Processing uitvoeren via Python (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="custom_python_functions.html">Aangepaste Python expressie-functies gebruiken (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="processing_python_scripts.html">Python-scripts schrijven voor framework Processing (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="building_a_python_plugin.html">Een plug-in in Python bouwen (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="processing_python_plugin.html">Een plug-in voor Processing bouwen (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../running_qgis_jobs.html">Taken voor QGIS uitvoeren en in schema zetten</a></li>
+<li class="toctree-l1"><a class="reference internal" href="web_mapping_with_qgis2web.html">In kaart brengen op het web met QGIS2Web (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../creating_basemaps_with_qtiles.html">Basiskaarten maken met QTiles</a></li>
+<li class="toctree-l1"><a class="reference internal" href="using_plugins.html">Plug-ins gebruiken (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../downloading_osm_data.html">Zoeken en downloaden van gegevens van OpenStreetMap</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../learning_resources.html">QGIS bronnen om te leren</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../credits.html">Gebruik van gegevens</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../batch_processing.html">Massa verwerken met behulp van Framework Processing (QGIS2)</a></li>
+</ul>
+</ul>
+</li>
+              
+            
+            
+              
+                
+  <li>
+    <a href="handling_invalid_geometries.html" title="Previous Chapter: Ongeldige geometrieën afhandelen (QGIS3)"><span class="glyphicon glyphicon-chevron-left visible-sm"></span><span class="hidden-sm hidden-tablet">&laquo; Ongeldige geo...</span>
+    </a>
+  </li>
+  <li>
+    <a href="interpolating_point_data.html" title="Next Chapter: Interpoleren van puntgegevens"><span class="glyphicon glyphicon-chevron-right visible-sm"></span><span class="hidden-sm hidden-tablet">Interpoleren ... &raquo;</span>
+    </a>
+  </li>
+              
+            
+            
+
+            
+
+            
+              <li class="hidden-sm"></li>
+            
+          </ul>
+
+          
+            
+<form class="navbar-form navbar-right" action="../../search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+      <div class="col-md-3">
+        <div id="sidebar" class="bs-sidenav" role="complementary"><h4>Author</h4>
+<p>Ujaval Gandhi</p>
+<a href="https://twitter.com/intent/follow?screen_name=spatialthoughts" class="twitter-follow-button" data-show-count="false">Follow @spatialthoughts</a>
+<hr>
+<p>Want to learn QGIS in a structured way? Check out <a href="https://spatialthoughts.com/" target="_blank">Spatial Thoughts</a> for more learning materials and instructor-led online programs with QGIS.org certification.</p>
+
+
+<h4>Change Language</h4>
+<form role="form" class="sidebar-form sidebar-left">
+<select id="languages" class="form-control select-mini">
+  <option value="en">English</option>
+  <option value="zh_TW">Chinese (Taiwan)</option>
+  <option value="nl">Dutch</option>
+  <option value="fi_FI">Finnish</option>
+  <option value="fr">French</option>
+  <option value="de">German</option>
+  <option value="el">Greek</option>
+  <option value="id">Indonesian</option>
+  <option value="it">Italian</option>
+  <option value="ko">Korean</option>
+  <option value="fa">Persian</option>
+  <option value="pt_BR">Portuguese</option>
+  <option value="ro">Romanian</option>
+  <option value="ru">Russian</option>
+  <option value="sl">Slovenian</option>
+  <option value="es">Spanish</option>
+  <option value="th">Thai</option>
+  <option value="tr">Turkish</option>
+  <option value="uk">Ukrainian</option>
+  <option value="vi">Vietnamese</option>
+</select>
+</form>
+        </div>
+      </div>
+    <div class="body col-md-9 content" role="main">
+      
+
+  <section id="advanced-raster-analysis-qgis3">
+<h1>Gevorderde rasteranalyses (QGIS3)<a class="headerlink" href="#advanced-raster-analysis-qgis3" title="Permalink naar deze titel">¶</a></h1>
+<p>In de vorige handleiding <a class="reference internal" href="raster_styling_and_analysis.html"><span class="doc">Basis opmaken en analyses van rasters (QGIS3)</span></a>, leerde u over het uitvoeren van algebra voor rasters met <em>Raster Calculator</em>. Deze handleiding bouwt voort op deze technieken en laat zien hoe u andere gereedschappen voor rasteranalyses uit de Toolbox van Processing gebruikt. U zult leren over het verwerken van rasters van Land Use Land Cover (LULC) in QGIS om bepaalde typen klassen van landgebruik en wijzigingen aan de kaart uit te nemen.</p>
+<section id="overview-of-the-task">
+<h2>Overzicht van de taak<a class="headerlink" href="#overview-of-the-task" title="Permalink naar deze titel">¶</a></h2>
+<p>We zullen de gegevensset South African National Land Cover gebruiken om informele nederzettingen in Johannesburg, Zuid-Afrika te identificeren en uit te nemen. We zullen ook een gegevensset voor het bepalen van wijzigingen gebruiken om de stedelijke groeipatronen in de stad van 2014 tot en met 2018 te identificeren.</p>
+<section id="other-skills-you-will-learn">
+<h3>Andere vaardigheden die u zult leren<a class="headerlink" href="#other-skills-you-will-learn" title="Permalink naar deze titel">¶</a></h3>
+<ul class="simple">
+<li><p>Hoe rastergegevens opnieuw te projecteren naar een andere projectie.</p></li>
+<li><p>Hoe een bestand van Excel te laden in QGIS.</p></li>
+<li><p>Hoe de transparantie van een rasterlaag aan te passen in QGIS.</p></li>
+</ul>
+</section>
+</section>
+<section id="get-the-data">
+<h2>De gegevens ophalen<a class="headerlink" href="#get-the-data" title="Permalink naar deze titel">¶</a></h2>
+<p>We zullen voor deze handleiding de volgende gegevenssets downloaden:</p>
+<ol class="arabic simple">
+<li><p><em>De gegevensset South African National Land Cover 2018</em>: De nieuwe gegevensset South African National Land-Cover 2018 is gemaakt uit 20 meter multi-seizoen Sentinel 2 satellietafbeeldingen en bevat 73 klassen voor landgebruik.</p></li>
+<li><p><em>De South African National Land Cover 2018 Change Assessments</em>: Deze gegevensset vergelijkt de wijzigingen in 20 klassen voor landgebruik van 2014 tot en met 2018.</p></li>
+<li><p><em>COJ Boundary</em>: Een shapefile met de grenzen voor Johannesburg, Zuid-Afrika.</p></li>
+</ol>
+<p>De <a class="reference external" href="https://egis.environment.gov.za/">Environmental Geographical Information Systems (E-GIS)</a> verschaft toegang tot georuimtelijke gegevens voor het milieu voor Zuid-Afrika. We zullen de rasters South African National Land-Cover (SANLC) vanaf dit portaal downloaden.</p>
+<ol class="arabic simple">
+<li><p>Ga naar de pagina <a class="reference external" href="https://egis.environment.gov.za/gis_data_downloads">GIS Data Download</a> . Klik op <span class="guilabel">I agree</span> om de <em>Conditions of Use</em> te accepteren en ga door.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/data1.png" class="align-center" src="../../_images/data1.png" />
+</div></blockquote>
+<ol class="arabic simple" start="2">
+<li><p>U zult een gratis account moeten maken om de gegevensset te kunnen downloaden. Klik op <span class="guilabel">I want to create an account</span> en volg de instructies om een account te maken.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/data2.png" class="align-center" src="../../_images/data2.png" />
+</div></blockquote>
+<ol class="arabic simple" start="3">
+<li><p>Eenmaal ingelogd, zoek naar <em>South African National Land Cover (SANLC) 2018 Computer Automated Land Cover (CALC)</em>. Deze gegevensset wordt verschaft in  2 verschillende projecties. Voor deze handleiding zullen we de gegevensset <cite>ALBERS</cite> downloaden. Klik erop om het bestand <cite>SA_NLC_2018_Albers_CALC_data.zip</cite> te downloaden.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/data3.png" class="align-center" src="../../_images/data3.png" />
+</div></blockquote>
+<ol class="arabic simple" start="4">
+<li><p>Zoek vervolgens naar <em>New South African National Land Cover (SANLC) 2014 and 2018 Change Assessment Datasets Computer Automated Land Cover (CALC)</em> en klik op <cite>SA_NLC_2014_2018_CLASS_CHANGE_CALC (DATASET AND REPORT)</cite> om het bestand <cite>SA_NLC_2014_2018_CLASS_CHANGE_ALBERS_CALC.tif.vat.zip</cite> te downloaden.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/data4.png" class="align-center" src="../../_images/data4.png" />
+</div></blockquote>
+<p>De <a class="reference external" href="https://www.joburg.org.za/">City of Johannesburg</a> publiceert ruimtelijke gegevenssets als deel van de <a class="reference external" href="https://www.joburg.org.za/documents_/Pages/Key%20Documents/policies/Development%20Planning%20%EF%BC%86%20Urban%20Management/Citywide%20Spatial%20Policies/Spatial-Development-Framework-2040.aspx">Spatial Development Framework 2040 (SDF) voor Johannesburg</a> . We zullen de shapefile met grenzen van deze site downloaden.</p>
+<ol class="arabic simple">
+<li><p>Klik op de link voor het downloaden <a class="reference external" href="http://bit.ly/joburg-sdf-16">http://bit.ly/joburg-sdf-16</a>.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/data5.png" class="align-center" src="../../_images/data5.png" />
+</div></blockquote>
+<ol class="arabic simple" start="2">
+<li><p>Klik op de map <code class="docutils literal notranslate"><span class="pre">SDF</span> <span class="pre">Shapefiles</span></code>.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/data6.png" class="align-center" src="../../_images/data6.png" />
+</div></blockquote>
+<ol class="arabic simple" start="3">
+<li><p>Download het bestand <code class="docutils literal notranslate"><span class="pre">SDF</span> <span class="pre">Shapefiles.zip</span></code> en pak het uit in een map.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/data7.png" class="align-center" src="../../_images/data7.png" />
+</div></blockquote>
+<p>Voor uw gemak is een geclipte versie van de gewenste lagen beschikbaar vanaf de link hieronder:</p>
+<p><a class="reference external" href="https://www.qgistutorials.com/downloads/SA_NLC_2018_ALBERS_CALC.tif">SA_NLC_2018_ALBERS_CALC.tif</a></p>
+<p><a class="reference external" href="https://www.qgistutorials.com/downloads/SA_NLC_2014_2018_CLASS_CHANGE_ALBERS_CALC.tif">SA_NLC_2014_2018_CLASS_CHANGE_ALBERS_CALC.tif</a></p>
+<p><a class="reference external" href="https://www.qgistutorials.com/downloads/COJ_Boundary.zip">COJ_Boundary.zip</a></p>
+<p>Gegevensbron: <a class="reference internal" href="../credits.html#sanlc" id="id1"><span>[SANLC]</span></a> <a class="reference internal" href="../credits.html#coj" id="id2"><span>[COJ]</span></a></p>
+</section>
+<section id="procedure">
+<h2>Procedure<a class="headerlink" href="#procedure" title="Permalink naar deze titel">¶</a></h2>
+<ol class="arabic simple">
+<li><p>Blader naar de map met gedownloade en bestanden in de Browser. Vergroot de map en sleep <code class="docutils literal notranslate"><span class="pre">SA_NLC_2018_ALBERS_CALC.tif</span></code> naar het kaartvenster en zet het neer.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/011.png" class="align-center" src="../../_images/011.png" />
+</div></blockquote>
+<ol class="arabic simple" start="2">
+<li><p>Als de laag eenmaal is geladen, zult u opmerken dat het CRS zal zijn ingesteld als <span class="guilabel">Onbekend CRS</span> aan de rechteronderkant. Dubbelklik erop om het dialoogvenster <span class="guilabel">Projecteigenschappen - CRS</span> te openen.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/021.png" class="align-center" src="../../_images/021.png" />
+</div></blockquote>
+<ol class="arabic simple" start="3">
+<li><p>Aan de onderzijde zult u een voorbeeld zien van het bereik van de projectie. Dit <em>Onbekend CRS</em> is een aangepaste <em>Lambert Equal-Area Projection</em>, gedefinieerd voor het land Zuid-Afrika. We zullen deze laag later opnieuw projecteren naar een andere projectie. Klik op <span class="guilabel">OK</span>.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/031.png" class="align-center" src="../../_images/031.png" />
+</div></blockquote>
+<ol class="arabic simple" start="4">
+<li><p>Laad de andere twee lagen <code class="docutils literal notranslate"><span class="pre">SA_NLC_2014_2018_CLASS_CHANGE_ALBERS_CALC.tif</span></code> en <code class="docutils literal notranslate"><span class="pre">COJ_Boundary</span></code>. U zult zien dat de rasterlaag het gehele land bedekt. Voor onze analyse zijn we alleen geïnteresseerd in het gebied dat wordt bedekt door de laag <code class="docutils literal notranslate"><span class="pre">COJ_Boundary</span></code>. We zullen nu de rasterlaag clippen naar deze regio. Ga naar het gereedschap <span class="menuselection">Processing ‣ Toolbox ‣ GDAL ‣ Raster uitnemen ‣ Raster op maskerlaag clippen</span>. Dubbelklik om het te openen.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/041.png" class="align-center" src="../../_images/041.png" />
+</div></blockquote>
+<ol class="arabic simple" start="5">
+<li><p>Selecteer, in <span class="guilabel">Raster op maskerlaag clippen</span>, <code class="docutils literal notranslate"><span class="pre">SA_NLC_2018_ALBERS_CALC</span></code>  als de <span class="guilabel">Invoerlaag</span>, dan <code class="docutils literal notranslate"><span class="pre">COJ_Boundary</span></code> als <span class="guilabel">Maskerlaag</span>. We hebben ook een optie om de gegevens naar een andere projectie te projecteren. Het is goed gebruik om al uw gegevenslagen in dezelfde projectie te houden. We zullen de rasters opnieuw projecteren om overeen te komen met het CRS van de laag <code class="docutils literal notranslate"><span class="pre">COJ_Boundary</span></code>. Selecteer <code class="docutils literal notranslate"><span class="pre">EPSG:4326</span> <span class="pre">-</span> <span class="pre">WGS</span> <span class="pre">84</span></code> als het <span class="guilabel">Doel-CRS</span>.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/051.png" class="align-center" src="../../_images/051.png" />
+</div></blockquote>
+<ol class="arabic simple" start="6">
+<li><p>The default output data format is GeoTiff. GeoTiff files can get very large if they are not compressed. A good practice is to always apply a loss-less compression when creating new raster layers. Expand <span class="guilabel">Advanced Parameters</span> and choose <code class="docutils literal notranslate"><span class="pre">High</span> <span class="pre">Compression</span></code> as the <span class="guilabel">Profile</span>. Next, click the <code class="docutils literal notranslate"><span class="pre">...</span></code> button next to <span class="guilabel">Clipped (mask)</span> and select <span class="guilabel">Save to file…</span> to enter layer name as <code class="docutils literal notranslate"><span class="pre">SA_NLC_2018_Clipped</span></code>. Click <span class="guilabel">Run</span>.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/061.png" class="align-center" src="../../_images/061.png" />
+</div></blockquote>
+<ol class="arabic simple" start="7">
+<li><p>Als het algoritme is voltooid, sluit dan niet het venster. We zullen dezelfde bewerking nogmaals toepassen op de andere rasterlaag. Schakel naar de tab <span class="guilabel">Parameters</span> en wijzig de <span class="guilabel">Invoerlaag</span> naar <code class="docutils literal notranslate"><span class="pre">SA_NLC_2014_2018_CLASS_CHANGE_ALBERS_CALC</span></code>. Behoud alle andere opties, maar wijzig de naam van de uitvoerlaag naar <code class="docutils literal notranslate"><span class="pre">SA_NLC_2014_2018_CLASS_CHANGE_Clipped</span></code>. Klik op <span class="guilabel">Uitvoeren</span>.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/071.png" class="align-center" src="../../_images/071.png" />
+</div></blockquote>
+<ol class="arabic simple" start="8">
+<li><p>Beide geclipte lagen zullen nu zijn geladen in het kaartvenster. Selecteer de originele laag en klik op <span class="guilabel">Laag verwijderen</span> om ze te verwijderen.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/081.png" class="align-center" src="../../_images/081.png" />
+</div></blockquote>
+<ol class="arabic simple" start="9">
+<li><p>Alle drie resterende lagen zijn nu in hetzelfde CRS. We kunnen nu het project-CRS wijzigen naar het CRS van de lagen. Klik met rechts op een geclipte laag en kies <span class="menuselection">Laag-CRS ‣ Project-CRS van laag overnemen</span>.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/091.png" class="align-center" src="../../_images/091.png" />
+</div></blockquote>
+<ol class="arabic simple" start="10">
+<li><p>Now the project CRS will be set to <code class="docutils literal notranslate"><span class="pre">EPSG:4326</span></code>. Bring the <span class="guilabel">SA_NLC_2018_Clipped</span> layer to top.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/101.png" class="align-center" src="../../_images/101.png" />
+</div></blockquote>
+<ol class="arabic simple" start="11">
+<li><p>Klik op <cite>SA_NLC_2018_Clipped</cite> en gebruik het gereedschap <span class="guilabel">Objecten identificeren</span> op de <span class="guilabel">werkbalk Attributen</span> om op de afbeelding te klikken en de pixelwaarden te inspecteren. U zult zien dat het bereik van de pixelwaarden ligt tussen 1 tot en met 73. Deze waarden geven een bepaalde klasse voor landgebruik/landbedekking weer.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/111.png" class="align-center" src="../../_images/111.png" />
+</div></blockquote>
+<ol class="arabic simple" start="12">
+<li><p>De klassen voor de gegevensset worden beschreven in de <code class="docutils literal notranslate"><span class="pre">SANLC</span> <span class="pre">2018</span> <span class="pre">Presentation</span></code>, die kan worden gedownload vanaf het <a class="reference external" href="https://egis.environment.gov.za/sa_national_land_cover_datasets">EGIS Portal</a>. Voor deze oefening zijn we geïnteresseerd in de <em>informal settlements</em>, weergegeven door de klassenummers 51 tot en met 54.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/121.png" class="align-center" src="../../_images/121.png" />
+</div></blockquote>
+<ol class="arabic simple" start="13">
+<li><p>Laten we de pixels uitnemen die behoren tot deze klassen. Ga naar het gereedschap <span class="menuselection">Processing ‣ Toolbox ‣ Rasteranalyse ‣ Raster calculator</span>. Dubbelklik om het te openen.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/13.png" class="align-center" src="../../_images/13.png" />
+</div></blockquote>
+<ol class="arabic simple" start="14">
+<li><p>De bronafbeelding heeft slechts 1 band. Het voorvoegsel <code class="docutils literal notranslate"><span class="pre">&#64;1</span></code> geeft het bandnummer aan. Voer de volgende expressie in om pixels van de klassen 51-54 te selecteren.</p></li>
+</ol>
+<blockquote>
+<div><div class="highlight-none notranslate"><div class="highlight"><pre><span></span>&quot;SA_NLC_2018_Clipped@1&quot; &gt;= 51 AND &quot;SA_NLC_2018_Clipped@1&quot; &lt;= 54
+</pre></div>
+</div>
+<img alt="../../_images/14.png" class="align-center" src="../../_images/14.png" />
+</div></blockquote>
+<ol class="arabic simple" start="15">
+<li><p>Scroll naar beneden en klik op de knop <code class="docutils literal notranslate"><span class="pre">…</span></code> naast <span class="guilabel">Reference layer(s)</span>. Selecteer de laag <code class="docutils literal notranslate"><span class="pre">SA_NLC_2018_Clipped</span></code> en klik op <span class="guilabel">OK</span>.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/15.png" class="align-center" src="../../_images/15.png" />
+</div></blockquote>
+<ol class="arabic simple" start="16">
+<li><p>Klik vervolgens op de knop <code class="docutils literal notranslate"><span class="pre">…</span></code> naast <span class="guilabel">Output</span> en selecteer <span class="guilabel">Opslaan als bestand…</span>.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/16.png" class="align-center" src="../../_images/16.png" />
+</div></blockquote>
+<ol class="arabic simple" start="17">
+<li><p>Noem het uitvoerbestand <code class="docutils literal notranslate"><span class="pre">residential_informal.tif</span></code> en klik op <span class="guilabel">Uitvoeren</span>.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/17.png" class="align-center" src="../../_images/17.png" />
+</div></blockquote>
+<ol class="arabic simple" start="18">
+<li><p>Als het proces is voltooid zal een nieuwe laag, <code class="docutils literal notranslate"><span class="pre">residential_informal</span></code>, worden toegevoegd aan QGIS. Deze rasterlaag heeft slechts twee pixelwaarden - <code class="docutils literal notranslate"><span class="pre">1</span></code> waar onze expressie evalueerde naar <em>true</em> en <code class="docutils literal notranslate"><span class="pre">0</span></code> waar het <em>false</em> was. De pixels die als wit verschijnen zijn die welke behoren tot de klassen van de informal settlements. We zullen deze laag beter opmaken zodat we de informal settlements duidelijk kunnen zien. Klik op de knop <span class="guilabel">Paneel Laag opmaken openen</span>.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/18.png" class="align-center" src="../../_images/18.png" />
+</div></blockquote>
+<ol class="arabic simple" start="19">
+<li><p>Select the <code class="docutils literal notranslate"><span class="pre">residential_informal</span></code> layer and change the renderer to be <span class="guilabel">Paletted/Unique values</span>. Click the <span class="guilabel">Add values manually</span> (+) button.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/19.png" class="align-center" src="../../_images/19.png" />
+</div></blockquote>
+<ol class="arabic simple" start="20">
+<li><p>Wijzig de <span class="guilabel">Waarde</span> naar <code class="docutils literal notranslate"><span class="pre">1</span></code> en voer <code class="docutils literal notranslate"><span class="pre">Residential</span> <span class="pre">Informal</span></code> in als <span class="guilabel">Label</span>. Selecteer een kleur naar keuze.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/20.png" class="align-center" src="../../_images/20.png" />
+</div></blockquote>
+<ol class="arabic simple" start="21">
+<li><p>We kunnen nu alle informal settlements in de stad Johannesburg zien. Het zou nuttig zijn om ze te bekijken in context met een basiskaart. We hebben toegang tot een variëteit aan basiskaarten vanuit de plug-in <span class="guilabel">QuickMapServices</span>. Ga, als de plug-in eenmaal is geïnstalleerd, naar <span class="menuselection">Web ‣ QuickMapServices ‣ OSM ‣ OSM Standard</span> om de laag OpenStreetMap toe te voegen.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/21.png" class="align-center" src="../../_images/21.png" />
+</div></blockquote>
+<ol class="arabic simple" start="22">
+<li><p>Nu kunt u gemakkelijk identificeren en verifiëren of onze analyse de informal settlements correct identificeert. U kunt de laag <code class="docutils literal notranslate"><span class="pre">residential_informal</span></code> selecteren en schakelen  naar de tab <span class="guilabel">Transparency</span> in het <span class="guilabel">Paneel Laag opmaken</span>. U kunt de <span class="guilabel">Globale doorzichtbaarheid</span> verkleinen om zowel de uitgenomen pixels en de basiskaart samen te zien.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/22.png" class="align-center" src="../../_images/22.png" />
+</div></blockquote>
+<ol class="arabic simple" start="23">
+<li><p>U hebt nu het eerste gedeelte van de handleiding voltooid. Nu zullen we de rasterlaag <code class="docutils literal notranslate"><span class="pre">SA_NLC_2014_2018_CHANGE_Clipped</span></code> gebruiken om regio’s te identificeren die zijn verstedellijkt tussen 2014 en 2018. Schakel alle lagen uit, behalve <code class="docutils literal notranslate"><span class="pre">SA_NLC_2014_2018_CHANGE_Clipped</span></code>, en klik dan op de knop <span class="guilabel">Paneel Laag opmaken openen</span>. Schakel naar de tab <span class="guilabel">Transparantie</span> en voer <code class="docutils literal notranslate"><span class="pre">0</span></code> in als <span class="guilabel">Waarde voor ‘geen data’</span>. Dit zal de pixels met de waarde 0 als transparant instellen.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/23.png" class="align-center" src="../../_images/23.png" />
+</div></blockquote>
+<ol class="arabic simple" start="24">
+<li><p>Gebruik het gereedschap <span class="guilabel">Objecten identificeren</span> op de <span class="guilabel">werkbalk Attributen</span> om op de afbeelding te klikken en de pixelwaarden te inspecteren. U zult zien dat het bereik van de pixelwaarden ligt tussen 21-240. Elke waarde geeft een overgang weer van een van de 73 bronklassen naar een andere klasse.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/24.png" class="align-center" src="../../_images/24.png" />
+</div></blockquote>
+<ol class="arabic simple" start="25">
+<li><p>Uw download met gegevens bevat ook een werkbladdocument, genaamd <code class="docutils literal notranslate"><span class="pre">lcccodes.xlsx</span></code>. Dit werkbladdocument heeft een werkblad <strong>03 urban_change_codes</strong> dat meer details geeft over elke pixelwaarde. We zijn geïnteresseerd in alle pixelwaarden waarvan een klasse uit 2014 wijzigde naar een in 2018 opgebouwde klasse. In de afbeelding hieronder zijn die in blauw geaccentueerd.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/25.png" class="align-center" src="../../_images/25.png" />
+</div></blockquote>
+<ol class="arabic simple" start="26">
+<li><p>Ons doel is om wijzigingen in de opgebouwde klassen in kaart te brengen. We zullen een transformatie toepassen op de laag <code class="docutils literal notranslate"><span class="pre">SA_NLC_2014_2018_CHANGE_Clipped</span></code> zodat alle pixelwaarden in kaart worden gebracht vanuit hun originele waarden naar een van de volgende waarden.</p></li>
+</ol>
+<table class="colwidths-given docutils align-default">
+<colgroup>
+<col style="width: 17%" />
+<col style="width: 83%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">1</span></code></p></td>
+<td><p>Alle pixels die een opgebouwde klasse waren in zowel 2014 als in 2018</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">2</span></code></p></td>
+<td><p>Alle pixels die wijzigden van een niet-opgebouwde klasse in 2014 naar een opgebouwde klasse in 2018.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">0</span></code></p></td>
+<td><p>Alle resterende pixels</p></td>
+</tr>
+</tbody>
+</table>
+<ol class="arabic simple" start="27">
+<li><p>We moeten, om dit te kunnen doen, een tabel maken die deze regels specificeert. Omdat QGIS in staat is om werkbladen direct te lezen, is het de meest handige methode om deze tabel te maken. Ons werkblad zou 3 kolommen moeten hebben, <code class="docutils literal notranslate"><span class="pre">MIN</span></code>, <code class="docutils literal notranslate"><span class="pre">MAX</span></code>, en <code class="docutils literal notranslate"><span class="pre">OUTPUT</span></code>. Elke rij zou het bereik aan waarden voor het invoerraster moeten zijn dat moet worden toegewezen aan een uitvoerwaarde. Maak een werkblad zoals hieronder weergegeven en sla het op uw computer op als <code class="docutils literal notranslate"><span class="pre">reclass.xlsx</span></code>. U zou ook een direct te gebruiken kopie kunnen downloaden vanaf deze link - <a class="reference external" href="https://www.qgistutorials.com/downloads/reclass.xlsx">reclass.xlsx</a></p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/27.png" class="align-center" src="../../_images/27.png" />
+</div></blockquote>
+<ol class="arabic simple" start="28">
+<li><p>Zoek het bestand <code class="docutils literal notranslate"><span class="pre">reclass.xlsx</span></code> op in de Browser. Sleep het en zet het neer in het hoofdvenster.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/28.png" class="align-center" src="../../_images/28.png" />
+</div></blockquote>
+<ol class="arabic simple" start="29">
+<li><p>A new layer <code class="docutils literal notranslate"><span class="pre">Sheet1</span></code> will be added to the <span class="guilabel">Layers</span> panel. Right-click on it and select <span class="guilabel">Open Attribute Table</span>. Verify that the sheet was imported correctly and you have 3 columns named <code class="docutils literal notranslate"><span class="pre">MIN</span></code>, <code class="docutils literal notranslate"><span class="pre">MAX</span></code> and <code class="docutils literal notranslate"><span class="pre">OUTPUT</span></code>. Open the <span class="menuselection">Processing Toolbox ‣ Reclassify by layer</span> tool.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/29.png" class="align-center" src="../../_images/29.png" />
+</div></blockquote>
+<ol class="arabic simple" start="30">
+<li><p>In the <span class="guilabel">Reclassify by layer</span> dialog, select <code class="docutils literal notranslate"><span class="pre">SA_NLC_2014_2018_CHANGE_Clipped</span></code> as the <span class="guilabel">Raster layer</span>. Select <code class="docutils literal notranslate"><span class="pre">Sheet1</span></code> as the <span class="guilabel">Layer containing class breaks</span>. Select <code class="docutils literal notranslate"><span class="pre">MIN</span></code>, <code class="docutils literal notranslate"><span class="pre">MAX</span></code> and <code class="docutils literal notranslate"><span class="pre">OUTPUT</span></code> fields for their respective fields.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/30.png" class="align-center" src="../../_images/30.png" />
+</div></blockquote>
+<ol class="arabic simple" start="31">
+<li><p>Vergroot het gedeelte <span class="guilabel">Geavanceerde parameters</span>. Wijzig de <span class="guilabel">Grenzen bereik</span> naar <code class="docutils literal notranslate"><span class="pre">min</span> <span class="pre">&lt;=</span> <span class="pre">waarde</span> <span class="pre">&lt;=</span> <span class="pre">max</span></code>. Klik op de knop <span class="guilabel">…</span> voor <span class="guilabel">Opnieuw geclassificeerd raster</span> en voer de naam voor het uitvoerbestand in als <code class="docutils literal notranslate"><span class="pre">builtup_change.tif</span></code>. Klik op <span class="guilabel">Uitvoeren</span>.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/31.png" class="align-center" src="../../_images/31.png" />
+</div></blockquote>
+<ol class="arabic simple" start="32">
+<li><p>Als de verwerking is voltooid zal een nieuwe laag <code class="docutils literal notranslate"><span class="pre">builtup_change</span></code> met pixelwaarden <code class="docutils literal notranslate"><span class="pre">0-2</span></code> worden toegevoegd aan het kaartvenster. Kies, in het <span class="guilabel">Paneel Laag opmaken</span>, <code class="docutils literal notranslate"><span class="pre">Gepaletteerde/Unieke</span> <span class="pre">waarden</span></code>, klik dan op <code class="docutils literal notranslate"><span class="pre">Classificeren</span></code>.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/32.png" class="align-center" src="../../_images/32.png" />
+</div></blockquote>
+<ol class="arabic simple" start="33">
+<li><p>Kis de kleur van uw keuze voor elke categorie en label de pixelwaarden <code class="docutils literal notranslate"><span class="pre">0</span></code>, <code class="docutils literal notranslate"><span class="pre">1</span></code> en <code class="docutils literal notranslate"><span class="pre">2</span></code> als <code class="docutils literal notranslate"><span class="pre">Niet</span> <span class="pre">opgebouwd</span></code>, <code class="docutils literal notranslate"><span class="pre">Bestaande</span> <span class="pre">opgebouwde</span> <span class="pre">klasse</span></code> en <code class="docutils literal notranslate"><span class="pre">Nieuw</span> <span class="pre">opgebouwde</span> <span class="pre">klasse</span></code>.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/33.png" class="align-center" src="../../_images/33.png" />
+</div></blockquote>
+<ol class="arabic simple" start="34">
+<li><p>Verklein nu, op de tab <span class="guilabel">Transparantie</span>, de <span class="guilabel">Globale doorzichtbaarheid</span>, en schakel de laag <code class="docutils literal notranslate"><span class="pre">OSM</span> <span class="pre">Standard</span></code> in om zowel de pixels van builtup_change als de basiskaart samen te zien.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/34.png" class="align-center" src="../../_images/34.png" />
+</div></blockquote>
+</section>
+</section>
+
+
+
+
+
+  <div id="disqus_thread"></div>
+  <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+
+    </div>
+      
+  </div>
+</div>
+
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+    </p>
+    <p>
+        &copy; Copyright 2021, Ujaval Gandhi.<br/>
+      Laatste aanpassing op aug. 30, 2022.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 4.0.1.<br/>
+    </p>
+  </div>
+</footer>
+<div class="container">
+  <p>This work is licensed under a <a href="http://creativecommons.org/licenses/by/4.0/deed.en_US">Creative Commons Attribution 4.0 International License</a></p>
+</div>
+<!-- Twitter Button -->
+<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+
+<!-- Disqus comments widget -->
+<script type="text/javascript">
+  /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+  var disqus_shortname = 'qgistutorials'; // required: replace example with your forum shortname
+  /* * * DON'T EDIT BELOW THIS LINE * * */
+  (function () {
+    var s = document.createElement('script'); s.async = true;
+    s.type = 'text/javascript';
+    s.src = '//' + disqus_shortname + '.disqus.com/count.js';
+    (document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);
+  }());
+</script>
+
+<script type="text/javascript">
+  /* * * DON'T EDIT BELOW THIS LINE * * */
+  (function() {
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+
+<!-- Script fpr language switching. Largely adapted from https://github.com/pcav/faunalia-website -->
+<script>
+    var currentPage = 'docs/3/advanced_raster_analysis.html'; // coming from sphinx, always without starting '/'
+    var currentLang = 'en';
+    $(document).ready(function(){
+
+        var search = new RegExp('\/[a-zA-Z_]{2,8}\/'+ currentPage, 'gi');
+        var langPlusPage = window.location.href.match(search);
+        // it's possible this is a index.html page called without 'index.html', try without the currentPage
+        if (langPlusPage==undefined){
+            search = new RegExp('\/[a-zA-Z_]{2,8}\/$', 'gi');
+            langPlusPage = window.location.href.match(search);
+        }
+
+        // it's possible this is an index.html page called without 'index.html', try removing index.html
+        if (langPlusPage==undefined){
+            currentPage = currentPage.replace('index.html','')
+            search = new RegExp('\/[a-zA-Z_]{2,8}\/'+ currentPage, 'gi');
+            langPlusPage = window.location.href.match(search);
+        }
+        // still no langPlugPage: stop, because the language swicher will misbehave 
+
+        if (langPlusPage == undefined || langPlusPage.length != 1){
+            alert('You hit an error, please report back to us.');
+            return;
+        }
+        langPlusPage = langPlusPage[0];
+        currentLang = langPlusPage.replace(currentPage, '');
+
+        $("#languages").val(currentLang.replace(/\//g,'')); // currentLang is something like '/nl/'
+
+        $("#languages").change(function() {
+            gotoLang($(this).val());
+        });
+
+    });
+
+    // load current page in a different language
+    function gotoLang(lang){
+        var currentUrl = window.location.href;
+        var newUrl = currentUrl.replace(currentLang, '/'+lang+'/');
+        window.location.href = newUrl;
+    }
+</script>
+
+  </body>
+</html>

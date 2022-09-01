@@ -1,0 +1,643 @@
+<!DOCTYPE html>
+
+<html lang="nl">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>Dichtstbijzijnde faciliteit zoeken met Origin-Destination Matrix (QGIS3) &#8212; QGIS Tutorials and Tips</title>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-sphinx.css" />
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/translations.js"></script>
+    <link rel="search" title="Zoeken" href="../../search.html" />
+    <link rel="next" title="Analyse Servicegebied met Openrouteservice (QGIS3)" href="service_area_analysis.html" />
+    <link rel="prev" title="Basis netwerk visualisatie en routeren (QGIS3)" href="basic_network_analysis.html" />
+
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<script type="text/javascript" src="../../_static/js/jquery-1.11.0.min.js "></script>
+<script type="text/javascript" src="../../_static/js/jquery-fix.js "></script>
+<script type="text/javascript" src="../../_static/bootstrap-3.3.7/js/bootstrap.min.js "></script>
+<script type="text/javascript" src="../../_static/bootstrap-sphinx.js "></script>
+
+
+<!-- Cookie Notice -->
+<!-- Script from https://github.com/AOEpeople/cookie-notice -->
+<script type="text/javascript" src="../../_static/cookie.notice.min.js"></script>
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-B1WQ7B80XJ"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-B1WQ7B80XJ');
+</script>
+
+
+  </head><body>
+
+  <div id="navbar" class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="../../index.html"><span><img src="../../_static/logo.png"></span>
+          QGIS Tutorials and Tips</a>
+        <span class="navbar-text navbar-version pull-left"><b>v1</b></span>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="../../index.html">Tutorials List <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"><ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../introduction.html">Introductie</a></li>
+<li class="toctree-l1"><a class="reference internal" href="making_a_map.html">Een kaart maken (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="working_with_attributes.html">Werken met attributen (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="importing_spreadsheets_csv.html">Werkbladen of CSV-bestanden importeren (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="basic_vector_styling.html">Basis opmaken van vectoren (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="calculating_line_lengths.html">Lengten van lijnen en statistieken berekenen (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="raster_styling_and_analysis.html">Basis opmaken en analyses van rasters (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="raster_mosaicing_and_clipping.html">Rasters mozaïeken en clippen (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="working_with_terrain.html">Werken met gegevens over het terrein (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="working_with_wms.html">Werken met gegevens van WMS (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="working_with_projections.html">Werken met projecties (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="georeferencing_basics.html">Topobladen en gescande kaarten voorzien van geoverwijzingen (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="advanced_georeferencing.html">Geo-verwijzingen voor satellietbeelden (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="digitizing_basics.html">Kaartgegevens digitaliseren</a></li>
+<li class="toctree-l1"><a class="reference internal" href="performing_table_joins.html">Samenvoegen van tabellen uitvoeren (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="performing_spatial_joins.html">Ruimtelijke samenvoegingen uitvoeren (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="performing_spatial_queries.html">Ruimtelijke query’s uitvoeren (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="nearest_neighbor_analysis.html">Analyse Nearest Neighbor (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="sampling_raster_data.html">Monsters nemen van rastergegevens met behulp van punten of polygonen (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="calculating_raster_area.html">Rastergebied berekenen (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="creating_heatmaps.html">Heatmaps maken (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="animating_time_series.html">Geanimeerde gegevens tijdreeks (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="handling_invalid_geometries.html">Ongeldige geometrieën afhandelen (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="advanced_raster_analysis.html">Gevorderde rasteranalyses (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="interpolating_point_data.html">Interpoleren van puntgegevens</a></li>
+<li class="toctree-l1"><a class="reference internal" href="calculating_intersection_density.html">Dichtheid van straatkruisingen berekenen (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="batch_processing.html">Massa verwerken met behulp van Framework Processing (QGIS 3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="processing_graphical_modeler.html">Complexe werkstromen automatiseren met behulp van Grafische modellen bouwen (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="automating_map_creation.html">Maken van kaarten automatiseren met Atlas van afdruklay-out (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="multi_criteria_overlay.html">Multi Criteria Overlay Analyse (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="basic_network_analysis.html">Basis netwerk visualisatie en routeren (QGIS3)</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Dichtstbijzijnde faciliteit zoeken met Origin-Destination Matrix (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="service_area_analysis.html">Analyse Servicegebied met Openrouteservice (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="travel_time_analysis.html">Reistijd-analyse met Uber Movement (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="areal_mean_rainfall.html">Berekenen gemiddelde regenval voor gebied (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="getting_started_with_pyqgis.html">Beginnen met programmeren in Python (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="processing_algorithms_pyqgis.html">Algoritmes van Processing uitvoeren via Python (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="custom_python_functions.html">Aangepaste Python expressie-functies gebruiken (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="processing_python_scripts.html">Python-scripts schrijven voor framework Processing (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="building_a_python_plugin.html">Een plug-in in Python bouwen (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="processing_python_plugin.html">Een plug-in voor Processing bouwen (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../running_qgis_jobs.html">Taken voor QGIS uitvoeren en in schema zetten</a></li>
+<li class="toctree-l1"><a class="reference internal" href="web_mapping_with_qgis2web.html">In kaart brengen op het web met QGIS2Web (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../creating_basemaps_with_qtiles.html">Basiskaarten maken met QTiles</a></li>
+<li class="toctree-l1"><a class="reference internal" href="using_plugins.html">Plug-ins gebruiken (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../downloading_osm_data.html">Zoeken en downloaden van gegevens van OpenStreetMap</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../learning_resources.html">QGIS bronnen om te leren</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../credits.html">Gebruik van gegevens</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../batch_processing.html">Massa verwerken met behulp van Framework Processing (QGIS2)</a></li>
+</ul>
+</ul>
+</li>
+              
+            
+            
+              
+                
+  <li>
+    <a href="basic_network_analysis.html" title="Previous Chapter: Basis netwerk visualisatie en routeren (QGIS3)"><span class="glyphicon glyphicon-chevron-left visible-sm"></span><span class="hidden-sm hidden-tablet">&laquo; Basis netwerk...</span>
+    </a>
+  </li>
+  <li>
+    <a href="service_area_analysis.html" title="Next Chapter: Analyse Servicegebied met Openrouteservice (QGIS3)"><span class="glyphicon glyphicon-chevron-right visible-sm"></span><span class="hidden-sm hidden-tablet">Analyse Servi... &raquo;</span>
+    </a>
+  </li>
+              
+            
+            
+
+            
+
+            
+              <li class="hidden-sm"></li>
+            
+          </ul>
+
+          
+            
+<form class="navbar-form navbar-right" action="../../search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+      <div class="col-md-3">
+        <div id="sidebar" class="bs-sidenav" role="complementary"><h4>Author</h4>
+<p>Ujaval Gandhi</p>
+<a href="https://twitter.com/intent/follow?screen_name=spatialthoughts" class="twitter-follow-button" data-show-count="false">Follow @spatialthoughts</a>
+<hr>
+<p>Want to learn QGIS in a structured way? Check out <a href="https://spatialthoughts.com/" target="_blank">Spatial Thoughts</a> for more learning materials and instructor-led online programs with QGIS.org certification.</p>
+
+
+<h4>Change Language</h4>
+<form role="form" class="sidebar-form sidebar-left">
+<select id="languages" class="form-control select-mini">
+  <option value="en">English</option>
+  <option value="zh_TW">Chinese (Taiwan)</option>
+  <option value="nl">Dutch</option>
+  <option value="fi_FI">Finnish</option>
+  <option value="fr">French</option>
+  <option value="de">German</option>
+  <option value="el">Greek</option>
+  <option value="id">Indonesian</option>
+  <option value="it">Italian</option>
+  <option value="ko">Korean</option>
+  <option value="fa">Persian</option>
+  <option value="pt_BR">Portuguese</option>
+  <option value="ro">Romanian</option>
+  <option value="ru">Russian</option>
+  <option value="sl">Slovenian</option>
+  <option value="es">Spanish</option>
+  <option value="th">Thai</option>
+  <option value="tr">Turkish</option>
+  <option value="uk">Ukrainian</option>
+  <option value="vi">Vietnamese</option>
+</select>
+</form>
+        </div>
+      </div>
+    <div class="body col-md-9 content" role="main">
+      
+
+  <section id="locating-nearest-facility-with-origin-destination-matrix-qgis3">
+<h1>Dichtstbijzijnde faciliteit zoeken met Origin-Destination Matrix (QGIS3)<a class="headerlink" href="#locating-nearest-facility-with-origin-destination-matrix-qgis3" title="Permalink naar deze titel">¶</a></h1>
+<p>In de vorige handleiding, <a class="reference internal" href="basic_network_analysis.html"><span class="doc">Basis netwerk visualisatie en routeren (QGIS3)</span></a>, leerden we hoe een netwerk te bouwen en het kortste pad tussen 2 punten te berekenen. We kunnen die techniek ook toepassen voor verschillende typen op netwerken gebaseerde analyses. Een van die toepassingen is om de <strong>Origin-Destination Matrix</strong> of <strong>OD Matrix</strong> te berekenen. Gegeven een set van punten van origine en een andere set voor bestemmingspunten kunnen we het kortste pad berekenen tussen elke paar van origine-bestemming en de reisafstand/tijd daartussen berekenen. Een dergelijke analyse is nuttig om de dichtstbijzijnde faciliteit tot een bepaald punt te lokaliseren. Een logistiek bedrijf zou, bijvoorbeeld, deze analyse kunnen gebruiken om de dichtstbijzijnde opslagplaats voor hun klanten te zoeken om bestelroutes te optimaliseren. Hier gebruiken we het algoritme Distance Matrix uit de plug-in <strong>QGIS Network Analysis Toolbox (QNEAT3)</strong> om de dichtstbijzijnde gezondheidsfaciliteit voor elk adres in de stad te zoeken.</p>
+<div class="admonition note">
+<p class="admonition-title">Notitie</p>
+<p>Deze handleiding laat zien hoe uw eigen gegevens voor een netwerk te gebruiken om een origin-destination matrix te berekenen. Als u geen gegevens heeft voor een eigen netwerk kunt u de <strong>ORS Tools Plugin</strong> en het algoritme <span class="menuselection">ORS Tools ‣ Matrix ‣  Matrix from Layers</span> gebruiken om een soortgelijke analyse uit te voeren met behulp van gegevens van OpenStreetMap. Bekijk <a class="reference internal" href="service_area_analysis.html"><span class="doc">Analyse Servicegebied met Openrouteservice (QGIS3)</span></a> om te leren hoe de plug-in ORS Tools te gebruiken.</p>
+</div>
+<section id="overview-of-the-task">
+<h2>Overzicht van de taak<a class="headerlink" href="#overview-of-the-task" title="Permalink naar deze titel">¶</a></h2>
+<p>We zullen 2 lagen nemen voor Washington DC - een met punten die adressen weergeven en een andere met punten die faciliteiten voor geestelijke gezondheid weergeven - en de faciliteit zoeken met de minste reisafstand vanaf elk adres.</p>
+<section id="other-skills-you-will-learn">
+<h3>Andere vaardigheden die u zult leren<a class="headerlink" href="#other-skills-you-will-learn" title="Permalink naar deze titel">¶</a></h3>
+<ul class="simple">
+<li><p>Een willekeurig monster uit een puntenlaag uitnemen.</p></li>
+<li><p>Virtuele lagen gebruiken om een query van SQL uit te voeren op een laag van QGIS.</p></li>
+</ul>
+</section>
+</section>
+<section id="get-the-data">
+<h2>De gegevens ophalen<a class="headerlink" href="#get-the-data" title="Permalink naar deze titel">¶</a></h2>
+<p>De overheid van het district of Columbia deelt gratis honderden gegevenssets in de <a class="reference external" href="https://opendata.dc.gov/">Open Data Catalog</a>.</p>
+<p>Download de volgende gegevenslagen als Shapefiles.</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://opendata.dc.gov/datasets/roadway-block">Roadway Block</a></p></li>
+<li><p><a class="reference external" href="https://opendata.dc.gov/datasets/address-points">Address Points</a></p></li>
+<li><p><a class="reference external" href="https://opendata.dc.gov/datasets/adult-mental-health-providers">Adult Mental Health Providers</a></p></li>
+</ul>
+<p>Voor het gemak kunt u direct een kopie van de gegevensset downloaden vanaf de links hieronder:</p>
+<p><a class="reference external" href="https://www.qgistutorials.com/downloads/Roadway_Block-shp.zip">Roadway_Block-shp.zip</a></p>
+<p><a class="reference external" href="https://www.qgistutorials.com/downloads/Address_Points.zip">Address_Points.zip</a></p>
+<p><a class="reference external" href="https://www.qgistutorials.com/downloads/Adult_Mental_Health_Providers.zip">Adult_Mental_Health_Providers.zip</a></p>
+<p>Gegevensbron: <a class="reference internal" href="../credits.html#dcopendata" id="id1"><span>[DCOPENDATA]</span></a></p>
+</section>
+<section id="setup">
+<h2>Instellen<a class="headerlink" href="#setup" title="Permalink naar deze titel">¶</a></h2>
+<p>Ga naar <span class="menuselection">Plug-ins ‣ Plug-ins beheren en installeren</span>. Selecteer :guilabel:` Alles` om te zoeken naar de plug-in <strong>QNEAT3</strong> en installeer die. Klik op <span class="guilabel">Close</span>.</p>
+<img alt="../../_images/setup11.png" class="align-center" src="../../_images/setup11.png" />
+</section>
+<section id="procedure">
+<h2>Procedure<a class="headerlink" href="#procedure" title="Permalink naar deze titel">¶</a></h2>
+<ol class="arabic simple">
+<li><p>Zoek in  het paneel <span class="guilabel">Browser</span> naar het bestand <code class="docutils literal notranslate"><span class="pre">Roadway_Block-shp.zip</span></code>. Vergroot het en sleep het bestand <code class="docutils literal notranslate"><span class="pre">Roadway_Block.shp</span></code> naar het kaartvenster. Zoek op dezelfde manier naar het bestand <code class="docutils literal notranslate"><span class="pre">Adult_Mental_Health_Providers.zip</span></code>, vergroot het en voeg <code class="docutils literal notranslate"><span class="pre">Adult_Mental_Health_Providers.shp</span></code> toe aan het kaartvenster.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/1101.png" class="align-center" src="../../_images/1101.png" />
+</div></blockquote>
+<ol class="arabic simple" start="2">
+<li><p>Zoek vervolgens naar het bestand <code class="docutils literal notranslate"><span class="pre">Address_Points.zip</span></code>, vergroot het en voeg het bestand <code class="docutils literal notranslate"><span class="pre">Address_Points.shp</span></code> toe. U zult heel veel punten zien in de stad. Elke punt geeft een geldig adres weer. We zullen nu 1000 willekeurige punten selecteren. Deze techniek wordt random sampling (willekeurige monsterneming) genoemd. Ga naar <span class="menuselection">Processing ‣ Toolbox</span>.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/260.png" class="align-center" src="../../_images/260.png" />
+</div></blockquote>
+<ol class="arabic simple" start="3">
+<li><p>Zoek en lokaliseer het algoritme <span class="menuselection">Vector selectie ‣ Willekeurig uitnemen</span>.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/334.png" class="align-center" src="../../_images/334.png" />
+</div></blockquote>
+<ol class="arabic simple" start="4">
+<li><p>Selecteer <code class="docutils literal notranslate"><span class="pre">Address_Points</span></code> als de <span class="guilabel">Invoerlaag</span>, <code class="docutils literal notranslate"><span class="pre">Number</span> <span class="pre">of</span> <span class="pre">feature</span></code> als de <span class="guilabel">Methode</span> en voer  in <code class="docutils literal notranslate"><span class="pre">1000</span></code> in het <span class="guilabel">Aantal/percentage objecten</span>. In het veld <span class="guilabel">Uitgenomen (willekeurig)</span> kies de <code class="docutils literal notranslate"><span class="pre">…</span></code>  en klik <span class="guilabel">Opslaan als bestand</span>. Kies nu de map en voer als naam in <code class="docutils literal notranslate"><span class="pre">address_point_subset.shp</span></code> en klik op <span class="guilabel">Uitvoeren</span>.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/415.png" class="align-center" src="../../_images/415.png" />
+</div></blockquote>
+<div class="admonition note">
+<p class="admonition-title">Notitie</p>
+<p>Omdat het algoritme 1000 willekeurige punten uit zal nemen uit de verstrekte gegevensset, om de exacte punten te repliceren voor deze oefening, kunt u hier <a class="reference external" href="https://www.qgistutorials.com/downloads/address_point_subset.zip">address_point_subset.zip</a> het bestand met de subset downloaden die we bij het uitvoeren van het algoritme hebben verkregen. Laad, na het downloaden, de laag <code class="docutils literal notranslate"><span class="pre">address_point_subset.shp</span></code> in QGIS.</p>
+</div>
+<ol class="arabic simple" start="5">
+<li><p>Een nieuwe laag <code class="docutils literal notranslate"><span class="pre">address_point_subset</span></code> zal worden toegevoegd aan het paneel <span class="guilabel">Lagen</span>, u kunt de zichtbaarheid voor de laag met adrespunten <code class="docutils literal notranslate"><span class="pre">Address_Points</span></code> uitschakelen.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/515.png" class="align-center" src="../../_images/515.png" />
+</div></blockquote>
+<ol class="arabic simple" start="6">
+<li><p>Klik met rechts op de laag <code class="docutils literal notranslate"><span class="pre">address_point_subset</span></code> en selecteer <span class="guilabel">Laag hernoemen</span>.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/615.png" class="align-center" src="../../_images/615.png" />
+</div></blockquote>
+<ol class="arabic simple" start="7">
+<li><p>Laten we deze laag hernoemen naar <code class="docutils literal notranslate"><span class="pre">origin_points</span></code>. Hernoem op soortgelijke manier de laag <code class="docutils literal notranslate"><span class="pre">Adult_Mental_Health_Providers</span></code> die de faciliteiten voor geestelijke gezondheid weergeeft als <code class="docutils literal notranslate"><span class="pre">destination_points</span></code>. Het op deze manier hernoemen van de lagen maakt het eenvoudiger om ze te identificeren in de aansluitende verwerking.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/714.png" class="align-center" src="../../_images/714.png" />
+</div></blockquote>
+<ol class="arabic simple" start="8">
+<li><p>Zoek naar het algoritme <span class="menuselection">QNEAT3 ‣ Distance matrices ‣ OD Matrix from Layers as Line (m:n)</span>. Als u dit algoritme niet ziet in de Toolbox, overtuig u er dan van dat u de plug-in <strong>QNEAT3</strong> hebt geïnstalleerd.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/814.png" class="align-center" src="../../_images/814.png" />
+</div></blockquote>
+<ol class="arabic simple" start="9">
+<li><p>Dit algoritme helpt bij het zoeken naar de afstanden langs het netwerk tussen geselecteerde lagen voor origine en bestemming. Selecteer <code class="docutils literal notranslate"><span class="pre">Roadway_Block</span></code> als de <span class="guilabel">Network layer</span>. Selecteer <code class="docutils literal notranslate"><span class="pre">origin_points</span></code> als de <span class="guilabel">From-Points layer</span> en <code class="docutils literal notranslate"><span class="pre">OBJECTID</span></code> als de <span class="guilabel">Unique Point ID field</span>. Stel op dezelfde manier <code class="docutils literal notranslate"><span class="pre">destination_points</span></code> in als de <span class="guilabel">To-Points Layer</span> en <code class="docutils literal notranslate"><span class="pre">OBJECTID_1</span></code> als het <span class="guilabel">Unique Point ID field</span>. Stel <span class="guilabel">Optimization Criterion</span> in op <code class="docutils literal notranslate"><span class="pre">Shortest</span> <span class="pre">Path</span> <span class="pre">(distance</span> <span class="pre">optimization)</span></code>.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/914.png" class="align-center" src="../../_images/914.png" />
+</div></blockquote>
+<ol class="arabic simple" start="10">
+<li><p>Omdat veel straten in het netwerk een-richting zijn, moeten we de <span class="guilabel">Advanced parameters</span> instellen om de richting te specificeren. Bekijk <a class="reference internal" href="basic_network_analysis.html"><span class="doc">Basis netwerk visualisatie en routeren (QGIS3)</span></a> voor meer details over hoe deze attributen zijn gestructureerd. Kies <code class="docutils literal notranslate"><span class="pre">SUMMARYDIR</span></code> als het <span class="guilabel">Direction field</span>. Voer <code class="docutils literal notranslate"><span class="pre">OB</span></code> als de waarde voor <span class="guilabel">Value for forward direction</span> en <code class="docutils literal notranslate"><span class="pre">IB</span></code> als die voor <span class="guilabel">Value for backward direction</span>, en <code class="docutils literal notranslate"><span class="pre">BD</span></code> als de <span class="guilabel">Value for the both direction</span>. Stel de <span class="guilabel">Topology tolerance</span> in op <code class="docutils literal notranslate"><span class="pre">0.0000150</span></code>. Laat de andere waarden op hun standaardwaarden staan en klik op <span class="guilabel">Uitvoeren</span>.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/1021.png" class="align-center" src="../../_images/1021.png" />
+</div></blockquote>
+<ol class="arabic simple" start="11">
+<li><p>Een nieuwe tabellaag, genaamd <code class="docutils literal notranslate"><span class="pre">Output</span> <span class="pre">OD</span> <span class="pre">Matrix</span></code>, zal worden toegevoegd aan het paneel <span class="guilabel">Lagen</span>. Klik met rechts en selecteer <span class="guilabel">Attributentabel openen</span>. U zult zien dat de tabel <em>13000</em> rijen bevat. We hadden 13 punten van origine en 1000 bestemmingspunten - dus de uitvoer bevat <em>13x1000 = 13000</em> paren voor origine en bestemming. De kolom <code class="docutils literal notranslate"><span class="pre">total_cost</span></code> bevat de afstand in meters tussen elk punt van origine tot elke bestemmingspunt.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/1124.png" class="align-center" src="../../_images/1124.png" />
+</div></blockquote>
+<ol class="arabic simple" start="12">
+<li><p>Voor deze handleiding zijn we alleen geïnteresseerd in het bestemmingspunt met de kortste afstand. We kunnen een query voor SQL maken om de bestemming met de minste <code class="docutils literal notranslate"><span class="pre">total_cost</span></code> uit alle bestemmingen te kiezen. Ga naar <span class="menuselection">Processing ‣ Toolbox</span></p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/1222.png" class="align-center" src="../../_images/1222.png" />
+</div></blockquote>
+<ol class="arabic simple" start="13">
+<li><p>Zoek naar en selecteer het algoritme <span class="menuselection">Vector algemeen ‣ SQL uitvoeren</span>, selecteer <code class="docutils literal notranslate"><span class="pre">…</span></code> in <span class="guilabel">Aanvullende databronnen voor invoer</span>, selecteer de <span class="guilabel">Output OD Matrix</span> en klik op <span class="guilabel">OK</span>. Klik nu op <span class="guilabel">Expressie</span> onder <span class="guilabel">SQL query</span>.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/1320.png" class="align-center" src="../../_images/1320.png" />
+</div></blockquote>
+<ol class="arabic simple" start="14">
+<li><p>Voer de volgende query in het dialoogvenster <span class="guilabel">SQL-query</span> in. Voer <code class="docutils literal notranslate"><span class="pre">geometry</span></code> in als het <span class="guilabel">Geometrie-veld</span> en selecteer <code class="docutils literal notranslate"><span class="pre">LineString</span></code> als het <span class="guilabel">Geometry type</span>. Klik op <span class="guilabel">Uitvoeren</span>.</p></li>
+</ol>
+<blockquote>
+<div><div class="highlight-none notranslate"><div class="highlight"><pre><span></span>select origin_id, destination_id, min(total_cost) as shortest_distance, geometry
+from input1 group by origin_id
+</pre></div>
+</div>
+<img alt="../../_images/1418.png" class="align-center" src="../../_images/1418.png" />
+</div></blockquote>
+<ol class="arabic simple" start="15">
+<li><p>Een nieuwe virtuele laag <code class="docutils literal notranslate"><span class="pre">SQL-uitvoer</span></code> zal worden toegevoegd aan het paneel <span class="guilabel">Lagen</span>. Deze laag bevat de resultaten van onze analyse. Het dichtstbijzijnde centrum voor geestelijke gezondheid voor elk van de 1000 punten van origine. Laten we eens een paar verschillende manieren proberen om deze resultaten te visualiseren en te valideren.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/1516.png" class="align-center" src="../../_images/1516.png" />
+</div></blockquote>
+<ol class="arabic simple" start="16">
+<li><p>Laten we, om dit te valideren, het Kortste pad bouwen. Het punt <em>(OBJECTID_1 = 853046)</em> is visueel gelegen nabij het gezondheidscentrum <em>(OBJECTID = 3)</em>, maar vanuit de SQL-query is het verbonden met het gezondsheidscentrum <em>(OBJECTID = 9)</em>. Laten we dit valideren door de feitelijke afstand te zoeken tussen deze twee origines en bestemming. Laten we eerst het algoritme Korste pad uitoeren op 1 paar. Zoek naar het algoritme <span class="menuselection">QNEAT3 ‣ Routing ‣ Shortest path (point to point)</span> en start het.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/1615.png" class="align-center" src="../../_images/1615.png" />
+</div></blockquote>
+<ol class="arabic simple" start="17">
+<li><p>Selecteer <code class="docutils literal notranslate"><span class="pre">Roadway_Block</span></code> als de <span class="guilabel">Network layer</span>. We  dienen een begin- en eindpunt te kiezen. U kunt klikken op de knop <span class="guilabel">…</span> naast het <span class="guilabel">Start point</span> en klik op het punt van origine <em>(OBJECTID_1 = 853046)</em> in het kaartvenster. Selecteer op dezelfde manier het bestemmingspunt <em>(OBJECTID = 3)</em> als het <span class="guilabel">End point</span>.  Behoud het <span class="guilabel">Optimization Criterion</span> als <code class="docutils literal notranslate"><span class="pre">Shortest</span> <span class="pre">Path</span> <span class="pre">(distance</span> <span class="pre">optimization)</span></code>. Vergroot het gedeelte <span class="guilabel">Gevorderde parameters</span>. Kies <code class="docutils literal notranslate"><span class="pre">SUMMARYDIR</span></code> als het <span class="guilabel">Direction field</span>. Voer <code class="docutils literal notranslate"><span class="pre">OB</span></code> in als de <span class="guilabel">Value for forward direction</span> en <code class="docutils literal notranslate"><span class="pre">IB</span></code> als de <span class="guilabel">Value for backward direction</span>. Stel de <span class="guilabel">Topology tolerance</span> in als <code class="docutils literal notranslate"><span class="pre">0.000015</span></code>. Laat de andere waarden op hun standaardwaarden staan en klik op <span class="guilabel">Uitvoeren</span>. Wijzig nu het bestemmingspunt naar <em>(OBJECTID = 9)</em> in <span class="guilabel">End point</span> en klik op <span class="guilabel">Uitvoeren</span></p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/1716.png" class="align-center" src="../../_images/1716.png" />
+</div></blockquote>
+<ol class="arabic simple" start="18">
+<li><p>Twee nieuwe lagen <code class="docutils literal notranslate"><span class="pre">Shortest</span> <span class="pre">Path</span> <span class="pre">Layer</span></code> zullen worden toegevoegd aan het paneel <span class="guilabel">Lagen</span>. U zult zien dat hoewel het bestemmingspunt <em>(OBJECTID = 9)</em> visueel dichter bij het punt van origine is, de feitelijke afstand langer is dan vergeleken met het bestemmingspunt <em>(OBJECTID = 3)</em>.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/1814.png" class="align-center" src="../../_images/1814.png" />
+</div></blockquote>
+<ol class="arabic simple" start="19">
+<li><p>Onthoud dat hoewel de lijnen het punt van origine en de bestemming verbinden met een rechte lijn, de bestemming werd gevonden met de afstand langs het netwerk. Het zal veel nuttiger zijn als de visualisatie het feitelijke kortste pad weergeeft tussen elk punt van origine en bestemming. Vanaf hier is er geen eenvoudige manier om het kortste pad te maken tussen meerdere paren origine-bestemming op de manier waarop we de afstandsmatrix hebben gemaakt. Maar ik zal een manier demonstreren om wat scripten voor Python te gebruiken om deze visualisatie te maken. Laten we eerst het algoritme voor het kortste pad uitvoeren op 1 paar. Zoek naar het algoritme <span class="menuselection">QNEAT3 ‣ Routing ‣ Shortest path (point to point)</span> en start het.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/1912.png" class="align-center" src="../../_images/1912.png" />
+</div></blockquote>
+<ol class="arabic simple" start="20">
+<li><p>Selecteer, in het dialoogvenster <span class="guilabel">Shortest Path (Point to Point)</span>, <code class="docutils literal notranslate"><span class="pre">Roadway_Block</span></code> als de <span class="guilabel">Network layer</span>. Behoud het <span class="guilabel">Optimization criterion</span> als <code class="docutils literal notranslate"><span class="pre">Shortest</span> <span class="pre">Path</span> <span class="pre">(distance</span> <span class="pre">optimization)</span></code>. Vervolgens dienen we een begin- en eindpunt te kiezen. U kunt op de knop <span class="guilabel">…</span> klikken naast <span class="guilabel">Start point</span> en op het punt van origine in het kaartvenster klikken. Selecteer op dezelfde manier het bestemmingspunt als het <span class="guilabel">End point</span>. Vergroot het gedeelte <span class="guilabel">Gevorderde parameters</span>. Kies <code class="docutils literal notranslate"><span class="pre">SUMMARYDIR</span></code> als het <span class="guilabel">Direction field</span>. Voer <code class="docutils literal notranslate"><span class="pre">OB</span></code> in als de <span class="guilabel">Value for forward direction</span> en <code class="docutils literal notranslate"><span class="pre">IB</span></code> als de <span class="guilabel">Value for backward direction</span>.  Voer in <span class="guilabel">Topology tollerance</span> in <code class="docutils literal notranslate"><span class="pre">0.000015</span></code>. Laat de andere waarden op hun standaardwaarden staan en klik op <span class="guilabel">Uitvoeren</span>.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/2012.png" class="align-center" src="../../_images/2012.png" />
+</div></blockquote>
+<ol class="arabic simple" start="21">
+<li><p>Een nieuwe laag <code class="docutils literal notranslate"><span class="pre">Shortest</span> <span class="pre">Path</span> <span class="pre">Layer</span></code> zal worden toegevoegd aan het paneel <span class="guilabel">Lagen</span>. U zult zien dat dit pad het netwerk volgt in plaats van het punt van origine en bestemming te verbinden met een rechte lijn. De reden dat we het algoritme uitvoerden op 1 paar is om eenvoudig de waarden voor de parameters te identificeren die we in ons script kunnen gebruiken. Selecteer <code class="docutils literal notranslate"><span class="pre">Shortest</span> <span class="pre">Path</span> <span class="pre">Layer</span></code>, klik met rechts en selecteer <span class="guilabel">Laag verwijderen</span>. Klik op de knop <span class="guilabel">Geschiedenis</span> in de <span class="guilabel">Toolbox van Processing</span>.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/2115.png" class="align-center" src="../../_images/2115.png" />
+</div></blockquote>
+<ol class="arabic simple" start="22">
+<li><p>Selecteer, in het dialoogvenster <span class="guilabel">Geschiedenis</span>, de laatste opdracht (opdracht die is gebruikt voor Shortest path). Deze opdracht geeft alle parameters en hun waarden weer die we hebben gebruikt. We kunnen nu deze waarden gebruiken en ze in een script zetten dat ons in staat stelt deze opdracht uit te voeren op veel paren origine-bestemming. Klik op <span class="guilabel">Close</span>.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/2214.png" class="align-center" src="../../_images/2214.png" />
+</div></blockquote>
+<ol class="arabic simple" start="23">
+<li><p>Klik, in de <span class="guilabel">Toolbox van Processing</span>, op de knop <span class="guilabel">Scripts</span> en selecteer <span class="guilabel">Nieuw script maken</span>.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/2313.png" class="align-center" src="../../_images/2313.png" />
+</div></blockquote>
+<ol class="arabic simple" start="24">
+<li><p>In <span class="guilabel">Processing Script bewerken</span>, kopieer/plak de onderstaande code. Sla het bestand op als <code class="docutils literal notranslate"><span class="pre">get_routes_from_matrix.py</span></code>. Sluit nu <span class="guilabel">Processing Script bewerken</span>. Als u een andere gegevensset gebruikt dan die we gebruiken voor deze handleiding dient u het script bij te werken met de waarden van de parameters uit stap 22.</p></li>
+</ol>
+<blockquote>
+<div><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">requests</span>
+<span class="kn">import</span> <span class="nn">processing</span>
+<span class="kn">from</span> <span class="nn">PyQt5.QtCore</span> <span class="kn">import</span> <span class="n">QCoreApplication</span>
+<span class="kn">from</span> <span class="nn">qgis.core</span> <span class="kn">import</span> <span class="p">(</span><span class="n">QgsProcessing</span><span class="p">,</span> <span class="n">QgsProcessingAlgorithm</span><span class="p">,</span> 
+    <span class="n">QgsProcessingParameterFeatureSource</span><span class="p">,</span> <span class="n">QgsProcessingParameterFeatureSink</span><span class="p">,</span>
+    <span class="n">QgsFeatureSink</span><span class="p">)</span>
+
+
+<span class="k">class</span> <span class="nc">MatrixToRoutes</span><span class="p">(</span><span class="n">QgsProcessingAlgorithm</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Creats Routes from Distance Matrix&quot;&quot;&quot;</span>
+    <span class="n">NETWORK</span> <span class="o">=</span> <span class="s1">&#39;NETWORK&#39;</span>
+    <span class="n">MATRIX</span> <span class="o">=</span> <span class="s1">&#39;MATRIX&#39;</span>
+    <span class="n">OUTPUT</span> <span class="o">=</span> <span class="s1">&#39;OUTPUT&#39;</span>
+
+    
+    <span class="k">def</span> <span class="nf">initAlgorithm</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">config</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">addParameter</span><span class="p">(</span>
+            <span class="n">QgsProcessingParameterFeatureSource</span><span class="p">(</span>
+                <span class="s1">&#39;NETWORK&#39;</span><span class="p">,</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">tr</span><span class="p">(</span><span class="s1">&#39;Network Layer&#39;</span><span class="p">),</span>
+                <span class="n">types</span><span class="o">=</span><span class="p">[</span><span class="n">QgsProcessing</span><span class="o">.</span><span class="n">TypeVectorLine</span><span class="p">]</span>
+            <span class="p">)</span>
+        <span class="p">)</span>
+        
+        <span class="bp">self</span><span class="o">.</span><span class="n">addParameter</span><span class="p">(</span>
+            <span class="n">QgsProcessingParameterFeatureSource</span><span class="p">(</span>
+                <span class="s1">&#39;MATRIX&#39;</span><span class="p">,</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">tr</span><span class="p">(</span><span class="s1">&#39;Distance Matrix Layer&#39;</span><span class="p">),</span>
+                <span class="n">types</span><span class="o">=</span><span class="p">[</span><span class="n">QgsProcessing</span><span class="o">.</span><span class="n">TypeVectorLine</span><span class="p">]</span>
+            <span class="p">)</span>
+        <span class="p">)</span>
+        
+        
+        <span class="bp">self</span><span class="o">.</span><span class="n">addParameter</span><span class="p">(</span>
+            <span class="n">QgsProcessingParameterFeatureSink</span><span class="p">(</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">OUTPUT</span><span class="p">,</span>
+                <span class="s1">&#39;Network Routes&#39;</span><span class="p">,</span>
+                <span class="n">QgsProcessing</span><span class="o">.</span><span class="n">TypeVectorLine</span>
+            <span class="p">)</span>
+        <span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">processAlgorithm</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">parameters</span><span class="p">,</span> <span class="n">context</span><span class="p">,</span> <span class="n">feedback</span><span class="p">):</span>
+        <span class="n">network</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">parameterAsString</span><span class="p">(</span><span class="n">parameters</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">NETWORK</span><span class="p">,</span> <span class="n">context</span><span class="p">)</span>
+        <span class="n">matrix</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">parameterAsSource</span><span class="p">(</span><span class="n">parameters</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">MATRIX</span><span class="p">,</span> <span class="n">context</span><span class="p">)</span>
+        
+        <span class="n">sink</span><span class="p">,</span> <span class="n">dest_id</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">parameterAsSink</span><span class="p">(</span>
+            <span class="n">parameters</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">OUTPUT</span><span class="p">,</span>
+            <span class="n">context</span><span class="p">,</span>
+            <span class="n">matrix</span><span class="o">.</span><span class="n">fields</span><span class="p">(),</span>
+            <span class="n">matrix</span><span class="o">.</span><span class="n">wkbType</span><span class="p">(),</span>
+            <span class="n">matrix</span><span class="o">.</span><span class="n">sourceCrs</span><span class="p">()</span>
+            <span class="p">)</span>
+        
+        <span class="c1"># Compute the number of steps to display within the progress bar and</span>
+        <span class="c1"># get features from source</span>
+        <span class="n">total</span> <span class="o">=</span> <span class="mf">100.0</span> <span class="o">/</span> <span class="n">matrix</span><span class="o">.</span><span class="n">featureCount</span><span class="p">()</span> <span class="k">if</span> <span class="n">matrix</span><span class="o">.</span><span class="n">featureCount</span><span class="p">()</span> <span class="k">else</span> <span class="mi">0</span>
+        <span class="n">features</span> <span class="o">=</span> <span class="n">matrix</span><span class="o">.</span><span class="n">getFeatures</span><span class="p">()</span>
+        
+        <span class="n">coordinate_list</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">current</span><span class="p">,</span> <span class="n">f</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">features</span><span class="p">):</span>
+            <span class="c1"># Stop the algorithm if cancel button has been clicked</span>
+            <span class="k">if</span> <span class="n">feedback</span><span class="o">.</span><span class="n">isCanceled</span><span class="p">():</span>
+                <span class="k">break</span>
+            <span class="n">line</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">geometry</span><span class="p">()</span><span class="o">.</span><span class="n">asPolyline</span><span class="p">()</span>
+            <span class="n">origin_coords</span> <span class="o">=</span> <span class="n">line</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">x</span><span class="p">(),</span> <span class="n">line</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">y</span><span class="p">()</span>
+            <span class="n">destination_coords</span> <span class="o">=</span> <span class="n">line</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">x</span><span class="p">(),</span> <span class="n">line</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">y</span><span class="p">()</span>
+
+            <span class="n">feedback</span><span class="o">.</span><span class="n">setProgress</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">current</span> <span class="o">*</span> <span class="n">total</span><span class="p">))</span>
+
+            <span class="n">params</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s1">&#39;INPUT&#39;</span><span class="p">:</span><span class="n">network</span><span class="p">,</span>
+            <span class="s1">&#39;START_POINT&#39;</span><span class="p">:</span><span class="s1">&#39;</span><span class="si">{}</span><span class="s1">,</span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">origin_coords</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">origin_coords</span><span class="p">[</span><span class="mi">1</span><span class="p">]),</span>
+            <span class="s1">&#39;END_POINT&#39;</span><span class="p">:</span><span class="s1">&#39;</span><span class="si">{}</span><span class="s1">,</span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">destination_coords</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">destination_coords</span><span class="p">[</span><span class="mi">1</span><span class="p">]),</span>
+            <span class="s1">&#39;STRATEGY&#39;</span><span class="p">:</span><span class="mi">0</span><span class="p">,</span>
+            <span class="s1">&#39;ENTRY_COST_CALCULATION_METHOD&#39;</span><span class="p">:</span><span class="mi">0</span><span class="p">,</span>
+            <span class="s1">&#39;DIRECTION_FIELD&#39;</span><span class="p">:</span><span class="s1">&#39;SUMMARYDIR&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;VALUE_FORWARD&#39;</span><span class="p">:</span><span class="s1">&#39;OB&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;VALUE_BACKWARD&#39;</span><span class="p">:</span><span class="s1">&#39;IB&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;VALUE_BOTH&#39;</span><span class="p">:</span><span class="s1">&#39;&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;DEFAULT_DIRECTION&#39;</span><span class="p">:</span><span class="mi">2</span><span class="p">,</span>
+            <span class="s1">&#39;SPEED_FIELD&#39;</span><span class="p">:</span><span class="kc">None</span><span class="p">,</span>
+            <span class="s1">&#39;DEFAULT_SPEED&#39;</span><span class="p">:</span><span class="mi">5</span><span class="p">,</span>
+            <span class="s1">&#39;TOLERANCE&#39;</span><span class="p">:</span><span class="mi">0</span><span class="p">,</span>
+            <span class="s1">&#39;OUTPUT&#39;</span><span class="p">:</span><span class="s1">&#39;memory:&#39;</span><span class="p">}</span>
+            
+            <span class="n">route_layer</span> <span class="o">=</span> <span class="n">processing</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="s2">&quot;qneat3:shortestpathpointtopoint&quot;</span><span class="p">,</span> <span class="n">params</span><span class="p">)[</span><span class="s1">&#39;OUTPUT&#39;</span><span class="p">]</span>
+            
+            <span class="k">if</span> <span class="n">route_layer</span><span class="p">:</span>
+                <span class="c1"># We expect only 1 feature in the output, so use next() to get the first item</span>
+                <span class="n">route_f</span> <span class="o">=</span> <span class="nb">next</span><span class="p">(</span><span class="n">route_layer</span><span class="o">.</span><span class="n">getFeatures</span><span class="p">())</span>
+                <span class="n">output_geom</span> <span class="o">=</span> <span class="n">route_f</span><span class="o">.</span><span class="n">geometry</span><span class="p">()</span>
+                <span class="n">f</span><span class="o">.</span><span class="n">setGeometry</span><span class="p">(</span><span class="n">output_geom</span><span class="p">)</span>
+                <span class="n">sink</span><span class="o">.</span><span class="n">addFeature</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">QgsFeatureSink</span><span class="o">.</span><span class="n">FastInsert</span><span class="p">)</span>
+            <span class="n">feedback</span><span class="o">.</span><span class="n">setProgressText</span><span class="p">(</span><span class="s1">&#39;Processed feature </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">current</span><span class="p">))</span>
+
+  
+        <span class="k">return</span> <span class="p">{</span><span class="bp">self</span><span class="o">.</span><span class="n">OUTPUT</span><span class="p">:</span> <span class="n">sink</span><span class="p">}</span> 
+
+    <span class="k">def</span> <span class="nf">name</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="s1">&#39;routes_from_matrix&#39;</span>
+
+    <span class="k">def</span> <span class="nf">displayName</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">tr</span><span class="p">(</span><span class="s1">&#39;Get Routes from Matrix&#39;</span><span class="p">)</span>
+        
+    <span class="k">def</span> <span class="nf">shortHelpString</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">tr</span><span class="p">(</span><span class="s1">&#39;Creates Route Layer from the result of Distance Matrix algorithm&#39;</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">group</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">tr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">groupId</span><span class="p">())</span>
+
+    <span class="k">def</span> <span class="nf">groupId</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="s1">&#39;&#39;</span>
+
+    <span class="k">def</span> <span class="nf">tr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">string</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">QCoreApplication</span><span class="o">.</span><span class="n">translate</span><span class="p">(</span><span class="s1">&#39;Processing&#39;</span><span class="p">,</span> <span class="n">string</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">createInstance</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">MatrixToRoutes</span><span class="p">()</span>
+</pre></div>
+</div>
+<img alt="../../_images/2412.png" class="align-center" src="../../_images/2412.png" />
+</div></blockquote>
+<ol class="arabic simple" start="25">
+<li><p>Nu kunnen we het script testen. Selecteer een aantal verbindingen uit de laag <code class="docutils literal notranslate"><span class="pre">SQL-uitvoer</span></code> waarvoor u de feitelijke routes wilt hebben berekend. In de <span class="guilabel">Toolbox van Processing</span> zal een nieuwe keuzelijst <span class="guilabel">Scripts</span> worden toegevoegd. Klik er op en selecteer <code class="docutils literal notranslate"><span class="pre">Get</span> <span class="pre">Routes</span> <span class="pre">from</span> <span class="pre">Matrix</span></code>.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/2510.png" class="align-center" src="../../_images/2510.png" />
+</div></blockquote>
+<div class="admonition note">
+<p class="admonition-title">Notitie</p>
+<p>Dit script moet de netwerkgrafiek berekenen voor elke doorloop en is dus vrij traag. Wanneer u veel paren origine-bestemming hebt, kan het lang duren.</p>
+</div>
+<ol class="arabic simple" start="26">
+<li><p>In <span class="guilabel">Network Layer</span> selecteer <code class="docutils literal notranslate"><span class="pre">Roadway_Block</span></code> en in <span class="guilabel">Distance Matrix Layer</span> selecteer <code class="docutils literal notranslate"><span class="pre">SQL-uitvoer</span></code>, en selecteer dan <code class="docutils literal notranslate"><span class="pre">Alleen</span> <span class="pre">geselecteerde</span> <span class="pre">objecten</span></code>. Klik op <span class="guilabel">Uitvoeren</span>.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/269.png" class="align-center" src="../../_images/269.png" />
+</div></blockquote>
+<ol class="arabic simple" start="27">
+<li><p>Een nieuwe laag <code class="docutils literal notranslate"><span class="pre">Network</span> <span class="pre">Routes</span></code> zal worden toegevoegd aan het paneel <span class="guilabel">Lagen</span>. Die zal de feitelijke routes naar de bestemming bevatten.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/2710.png" class="align-center" src="../../_images/2710.png" />
+</div></blockquote>
+</section>
+</section>
+
+
+
+
+
+  <div id="disqus_thread"></div>
+  <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+
+    </div>
+      
+  </div>
+</div>
+
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+    </p>
+    <p>
+        &copy; Copyright 2021, Ujaval Gandhi.<br/>
+      Laatste aanpassing op aug. 30, 2022.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 4.0.1.<br/>
+    </p>
+  </div>
+</footer>
+<div class="container">
+  <p>This work is licensed under a <a href="http://creativecommons.org/licenses/by/4.0/deed.en_US">Creative Commons Attribution 4.0 International License</a></p>
+</div>
+<!-- Twitter Button -->
+<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+
+<!-- Disqus comments widget -->
+<script type="text/javascript">
+  /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+  var disqus_shortname = 'qgistutorials'; // required: replace example with your forum shortname
+  /* * * DON'T EDIT BELOW THIS LINE * * */
+  (function () {
+    var s = document.createElement('script'); s.async = true;
+    s.type = 'text/javascript';
+    s.src = '//' + disqus_shortname + '.disqus.com/count.js';
+    (document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);
+  }());
+</script>
+
+<script type="text/javascript">
+  /* * * DON'T EDIT BELOW THIS LINE * * */
+  (function() {
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+
+<!-- Script fpr language switching. Largely adapted from https://github.com/pcav/faunalia-website -->
+<script>
+    var currentPage = 'docs/3/origin_destination_matrix.html'; // coming from sphinx, always without starting '/'
+    var currentLang = 'en';
+    $(document).ready(function(){
+
+        var search = new RegExp('\/[a-zA-Z_]{2,8}\/'+ currentPage, 'gi');
+        var langPlusPage = window.location.href.match(search);
+        // it's possible this is a index.html page called without 'index.html', try without the currentPage
+        if (langPlusPage==undefined){
+            search = new RegExp('\/[a-zA-Z_]{2,8}\/$', 'gi');
+            langPlusPage = window.location.href.match(search);
+        }
+
+        // it's possible this is an index.html page called without 'index.html', try removing index.html
+        if (langPlusPage==undefined){
+            currentPage = currentPage.replace('index.html','')
+            search = new RegExp('\/[a-zA-Z_]{2,8}\/'+ currentPage, 'gi');
+            langPlusPage = window.location.href.match(search);
+        }
+        // still no langPlugPage: stop, because the language swicher will misbehave 
+
+        if (langPlusPage == undefined || langPlusPage.length != 1){
+            alert('You hit an error, please report back to us.');
+            return;
+        }
+        langPlusPage = langPlusPage[0];
+        currentLang = langPlusPage.replace(currentPage, '');
+
+        $("#languages").val(currentLang.replace(/\//g,'')); // currentLang is something like '/nl/'
+
+        $("#languages").change(function() {
+            gotoLang($(this).val());
+        });
+
+    });
+
+    // load current page in a different language
+    function gotoLang(lang){
+        var currentUrl = window.location.href;
+        var newUrl = currentUrl.replace(currentLang, '/'+lang+'/');
+        window.location.href = newUrl;
+    }
+</script>
+
+  </body>
+</html>

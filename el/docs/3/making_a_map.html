@@ -1,0 +1,561 @@
+<!DOCTYPE html>
+
+<html lang="el">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>Φτιάχνοντας ένα χάρτη (QGIS3) &#8212; QGIS Tutorials and Tips</title>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-sphinx.css" />
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/translations.js"></script>
+    <link rel="search" title="Αναζήτηση" href="../../search.html" />
+    <link rel="next" title="Working with Attributes (QGIS3)" href="working_with_attributes.html" />
+    <link rel="prev" title="Εισαγωγή" href="../introduction.html" />
+
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<script type="text/javascript" src="../../_static/js/jquery-1.11.0.min.js "></script>
+<script type="text/javascript" src="../../_static/js/jquery-fix.js "></script>
+<script type="text/javascript" src="../../_static/bootstrap-3.3.7/js/bootstrap.min.js "></script>
+<script type="text/javascript" src="../../_static/bootstrap-sphinx.js "></script>
+
+
+<!-- Cookie Notice -->
+<!-- Script from https://github.com/AOEpeople/cookie-notice -->
+<script type="text/javascript" src="../../_static/cookie.notice.min.js"></script>
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-B1WQ7B80XJ"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-B1WQ7B80XJ');
+</script>
+
+
+  </head><body>
+
+  <div id="navbar" class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="../../index.html"><span><img src="../../_static/logo.png"></span>
+          QGIS Tutorials and Tips</a>
+        <span class="navbar-text navbar-version pull-left"><b>v1</b></span>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="../../index.html">Tutorials List <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"><ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../introduction.html">Εισαγωγή</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Φτιάχνοντας ένα χάρτη (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="working_with_attributes.html">Working with Attributes (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="importing_spreadsheets_csv.html">Importing Spreadsheets or CSV files (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="basic_vector_styling.html">Basic Vector Styling (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="calculating_line_lengths.html">Calculating Line Lengths and Statistics (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="raster_styling_and_analysis.html">Basic Raster Styling and Analysis (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="raster_mosaicing_and_clipping.html">Raster Mosaicing and Clipping (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="working_with_terrain.html">Working with Terrain Data (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="working_with_wms.html">Working with WMS Data (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="working_with_projections.html">Working with Projections (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="georeferencing_basics.html">Georeferencing Topo Sheets and Scanned Maps (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="advanced_georeferencing.html">Georeferencing Aerial Imagery (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="digitizing_basics.html">Digitizing Map Data (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="performing_table_joins.html">Performing Table Joins (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="performing_spatial_joins.html">Performing Spatial Joins (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="performing_spatial_queries.html">Performing Spatial Queries (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="nearest_neighbor_analysis.html">Nearest Neighbor Analysis (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="sampling_raster_data.html">Sampling Raster Data using Points or Polygons (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="calculating_raster_area.html">Calculating Raster Area (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="creating_heatmaps.html">Creating Heatmaps (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="animating_time_series.html">Animating Time Series Data (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="handling_invalid_geometries.html">Handling Invalid Geometries (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="advanced_raster_analysis.html">Advanced Raster Analysis (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="interpolating_point_data.html">Interpolating Point Data (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="calculating_intersection_density.html">Calculating Street Intersection Density (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="batch_processing.html">Batch Processing using Processing Framework (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="processing_graphical_modeler.html">Automating Complex Workflows using Processing Modeler (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="automating_map_creation.html">Automating Map Creation with Print Layout Atlas (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="multi_criteria_overlay.html">Multi Criteria Overlay Analysis (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="basic_network_analysis.html">Basic Network Visualization and Routing (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="origin_destination_matrix.html">Locating Nearest Facility with Origin-Destination Matrix (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="service_area_analysis.html">Service Area Analysis using Openrouteservice (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="travel_time_analysis.html">Travel Time Analysis with Uber Movement (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="areal_mean_rainfall.html">Calculating Areal Mean Rainfall (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="getting_started_with_pyqgis.html">Getting Started With Python Programming (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="processing_algorithms_pyqgis.html">Running Processing Algorithms via Python (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="custom_python_functions.html">Using Custom Python Expression Functions (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="processing_python_scripts.html">Writing Python Scripts for Processing Framework (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="building_a_python_plugin.html">Building a Python Plugin (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="processing_python_plugin.html">Building a Processing Plugin (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../running_qgis_jobs.html">Running and Scheduling QGIS Processing Jobs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="web_mapping_with_qgis2web.html">Web Mapping with QGIS2Web (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../creating_basemaps_with_qtiles.html">Creating Basemaps with QTiles</a></li>
+<li class="toctree-l1"><a class="reference internal" href="using_plugins.html">Using Plugins (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../downloading_osm_data.html">Αναζήτηση και Λήψη OpenStreetMap Δεδομένων</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../learning_resources.html">QGIS Μαθησιακοί πόροι</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../credits.html">Συντελεστές δεδομένων</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../batch_processing.html">Batch Processing using Processing Framework (QGIS2)</a></li>
+</ul>
+</ul>
+</li>
+              
+            
+            
+              
+                
+  <li>
+    <a href="../introduction.html" title="Previous Chapter: Εισαγωγή"><span class="glyphicon glyphicon-chevron-left visible-sm"></span><span class="hidden-sm hidden-tablet">&laquo; Εισαγωγή</span>
+    </a>
+  </li>
+  <li>
+    <a href="working_with_attributes.html" title="Next Chapter: Working with Attributes (QGIS3)"><span class="glyphicon glyphicon-chevron-right visible-sm"></span><span class="hidden-sm hidden-tablet">Working with ... &raquo;</span>
+    </a>
+  </li>
+              
+            
+            
+
+            
+
+            
+              <li class="hidden-sm"></li>
+            
+          </ul>
+
+          
+            
+<form class="navbar-form navbar-right" action="../../search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+      <div class="col-md-3">
+        <div id="sidebar" class="bs-sidenav" role="complementary"><h4>Author</h4>
+<p>Ujaval Gandhi</p>
+<a href="https://twitter.com/intent/follow?screen_name=spatialthoughts" class="twitter-follow-button" data-show-count="false">Follow @spatialthoughts</a>
+<hr>
+<p>Want to learn QGIS in a structured way? Check out <a href="https://spatialthoughts.com/" target="_blank">Spatial Thoughts</a> for more learning materials and instructor-led online programs with QGIS.org certification.</p>
+
+
+<h4>Change Language</h4>
+<form role="form" class="sidebar-form sidebar-left">
+<select id="languages" class="form-control select-mini">
+  <option value="en">English</option>
+  <option value="zh_TW">Chinese (Taiwan)</option>
+  <option value="nl">Dutch</option>
+  <option value="fi_FI">Finnish</option>
+  <option value="fr">French</option>
+  <option value="de">German</option>
+  <option value="el">Greek</option>
+  <option value="id">Indonesian</option>
+  <option value="it">Italian</option>
+  <option value="ko">Korean</option>
+  <option value="fa">Persian</option>
+  <option value="pt_BR">Portuguese</option>
+  <option value="ro">Romanian</option>
+  <option value="ru">Russian</option>
+  <option value="sl">Slovenian</option>
+  <option value="es">Spanish</option>
+  <option value="th">Thai</option>
+  <option value="tr">Turkish</option>
+  <option value="uk">Ukrainian</option>
+  <option value="vi">Vietnamese</option>
+</select>
+</form>
+        </div>
+      </div>
+    <div class="body col-md-9 content" role="main">
+      
+
+  <section id="making-a-map-qgis3">
+<h1>Φτιάχνοντας ένα χάρτη (QGIS3)<a class="headerlink" href="#making-a-map-qgis3" title="Μόνιμος σύνδεσμος σε αυτήν την κεφαλίδα">¶</a></h1>
+<p>Συχνά χρειάζεται να δημιουργήσουμε ένα χάρτη που θα μπορεί να εκτυπωθεί ή να δημοσιευθεί. Το QGIS διαθέτει ένα ισχυρό εργαλείο που ονομάζεται <span class="guilabel">Διάταξη εκτύπωσης</span> που σας επιτρέπει να συγκεντρώσετε τα επίπεδα GIS και να τα ομαδοποιήσετε δημιουργώνταας χάρτες.</p>
+<section id="overview-of-the-task">
+<h2>Επισκόπηση της διαδικασίας<a class="headerlink" href="#overview-of-the-task" title="Μόνιμος σύνδεσμος σε αυτήν την κεφαλίδα">¶</a></h2>
+<p>Αυτός ο οδηγός θα σας δείξει πώς να δημιουργήσετε έναν χάρτη της Ιαπωνίας χρησιμοποιώντας πρότυπα στοιχεία χάρτου όπως ένθεση χάρτη, πλέγματα, βέλος βορά, γραμμή κλίμακας και ετικέτες.</p>
+<section id="other-skills-you-will-learn">
+<h3>Άλλες δεξιότητες που θα αποκτήσετε<a class="headerlink" href="#other-skills-you-will-learn" title="Μόνιμος σύνδεσμος σε αυτήν την κεφαλίδα">¶</a></h3>
+<ul class="simple">
+<li><p>Πώς να προβάλλετε και να αλλάξετε τις Μεταβλητές Έργου QGIS</p></li>
+<li><p>Πώς να χρησιμοποιήσετε τις εκφράσεις QGIS</p></li>
+</ul>
+</section>
+</section>
+<section id="get-the-data">
+<h2>Λάβετε τα δεδομένα<a class="headerlink" href="#get-the-data" title="Μόνιμος σύνδεσμος σε αυτήν την κεφαλίδα">¶</a></h2>
+<p>Θα χρησιμοποιήσουμε τα πακέτα δεδομένων της Natural Earth Data - ειδικότερα, το Natural Earth Quick Start Kit που συνοδεύεται από παγκόσμια επίπεδα με όμορφα στυλ που μπορούν να φορτωθούν απευθείας στο QGIS.</p>
+<p>Download the <a class="reference external" href="https://naciscdn.org/naturalearth/packages/Natural_Earth_quick_start.zip">Natural Earth Quickstart Kit</a>. If the download link doesn’t work, get it directly from <a class="reference external" href="https://www.naturalearthdata.com/downloads/">Natural Earth Downloads</a> page.</p>
+<p>Data Source <a class="reference internal" href="../credits.html#naturalearth" id="id1"><span>[NATURALEARTH]</span></a></p>
+</section>
+<section id="procedure">
+<h2>Διαδικασία<a class="headerlink" href="#procedure" title="Μόνιμος σύνδεσμος σε αυτήν την κεφαλίδα">¶</a></h2>
+<ol class="arabic simple">
+<li><p>Κατεβάστε και αποσυμπιέστε τα δεδομένα του πακέτου Natural Earth Quick Start Kit. Ανοίξτε το QGIS. Εντοπίστε τον κατάλογο <code class="docutils literal notranslate"><span class="pre">Natural</span> <span class="pre">Earth</span> <span class="pre">quick</span> <span class="pre">start</span></code> από τον πίνακα <span class="guilabel">Browser</span>. Ανοίξτε τον κατάλογο για να εντοπίσετε το έργο <code class="docutils literal notranslate"><span class="pre">Natural_Earth_quick_start_for_QGIS_v3</span></code>. Αυτό είναι το αρχείο έργου που περιέχει στυλιζαρισμένα επίπεδα σε μορφή QGIS Document. Διπλοπατήστε στο έργο για να το ανοίξετε.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/190.png" class="align-center" src="../../_images/190.png" />
+</div></blockquote>
+<ol class="arabic simple" start="2">
+<li><p>Θα παρατηρήσετε ότι ο χάρτης περιέχει ετικέτες στα Ελληνικά. Το έργο αυτό χρησιμοποιεί μεταβλητές για να ορίσει την γλώσα. Μπορούμε να αλλάξουμε τις μεταβλητές ανοίγοντας το μενού <span class="menuselection">Project ‣ Properties</span>.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/249.png" class="align-center" src="../../_images/249.png" />
+</div></blockquote>
+<div class="admonition note">
+<p class="admonition-title">Σημείωση</p>
+<p>Οι μεταβλητές έργου (ή εργασίας) είναι ένας σπουδαίος τρόπος να αποθηκεύετε τιμές που αφορούν σε ένα συγκεκριμένο έργο ώστε αυτές να χρησιμοποιηθούν οπουδήποτε χρησιμοποιούνται εκφράσεις QGIS. Το έργο <code class="docutils literal notranslate"><span class="pre">Natural_Earth_quick_start_for_QGIS_v3</span></code> συνοδεύεται από πολλές προρυθμισμένες μεταβλητές οι οποίες χρησιμοποιούνται για να παράγονται στυλ μέσα στο έργο αυτό.</p>
+</div>
+<ol class="arabic simple" start="3">
+<li><p>Ανοίξτε το φάκελο <span class="guilabel">Variables</span> του διαλόγου <span class="guilabel">Project Properties</span>. Εντοπίστε την μεταβλητή <code class="docutils literal notranslate"><span class="pre">project_language</span></code> και πατήστε στην στήλη <span class="guilabel">Value</span> για επεξεργαστείτε την τιμή της. Αλλάξτε την γλώσσα σε <code class="docutils literal notranslate"><span class="pre">name_en</span></code> και πατήστε <span class="guilabel">OK</span>.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/328.png" class="align-center" src="../../_images/328.png" />
+</div></blockquote>
+<ol class="arabic simple" start="4">
+<li><p>Στο αρχικό παράθυρο του QGIS πατήστε το κουμπί <span class="guilabel">Ανανέωση</span> της <span class="guilabel">Εργαλειοθήκη πλοήγησης χάρτη</span>. Θα δείτε ότι ο χάρτης παίρνει Αγγλικές επιγραφές.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/413.png" class="align-center" src="../../_images/413.png" />
+</div></blockquote>
+<ol class="arabic simple" start="5">
+<li><p>Use the pan and zoom controls in the <span class="guilabel">Map Navigation Toolbar</span> and zoom to Japan.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/513.png" class="align-center" src="../../_images/513.png" />
+</div></blockquote>
+<ol class="arabic simple" start="6">
+<li><p>Μπορείτε να απενεργοποιήσετε κάποια επίπεδα για δεδομένα τα οποία δεν χρειαζόμαστε για τον χάρτη αυτό. Επεκτείνετε τον κατάλογο <code class="docutils literal notranslate"><span class="pre">z5</span> <span class="pre">-</span> <span class="pre">1:18m</span></code> και αποεπιλέξτε το τετράγωνο δίπλα στα επίπεδα <code class="docutils literal notranslate"><span class="pre">ne_10m_geography_marine_polys</span></code> και <code class="docutils literal notranslate"><span class="pre">ne_10m_admin_0_disputed_areas</span></code>. Πριν κατασκευάσουμε ένα χάρτη κατάλληλο για εκτύπωση πρέπει να επιλέξουμε μια κατάλληλη προβολή. Το αρχικό CRS για το έργο μας είναι ρυθμισμένο σε <code class="docutils literal notranslate"><span class="pre">EPSG:3857</span> <span class="pre">Pseudo-Mercator</span></code>. Το CRS αυτό είναι δημοφιλές για χαρτογράφηση στον Παγκόσμιο Ιστό και αποτελεί καλή επιλογή για τους σκοπούς μας ώστε μπορούμε να το αφήσουμε στην αρχική του τιμή. Ανοίξτε το μενού <span class="menuselection">Εργασία ‣ Νέα διάταξη εκτύπωσης</span>.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/613.png" class="align-center" src="../../_images/613.png" />
+</div></blockquote>
+<div class="admonition note">
+<p class="admonition-title">Σημείωση</p>
+<p>Για την Ιαπωνία το Κοινό Ορθογώνιο Σύστημα Συντεταγμένων Ιαπωνίας είναι ένα σύστημα αναφοράς συντεταγμένων (CRS) σχεδιασμένο ώστε να ελαχιστοποιεί τις παραμορφώσεις. Διαιρείται σε 18 ζώνες και αν εργάζεστε για κάποια μικρότερη περιοχή της Ιαπωνίας η χρήση του CRS είναι καλύτερη.</p>
+</div>
+<ol class="arabic simple" start="7">
+<li><p>Θα σας ζητηθεί να εισάγετε έναν τίτλο για την διάταξη Μπορείτε να τον αφήσετε κενό και να πατήσετε <span class="guilabel">Ok</span>.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/712.png" class="align-center" src="../../_images/712.png" />
+</div></blockquote>
+<div class="admonition note">
+<p class="admonition-title">Σημείωση</p>
+<p>Αφήνοντας το όνομα της διάταξης κενό θα αποδοθεί αυτόματα ένα αρχικό όνομα, για παράδειγμα <code class="docutils literal notranslate"><span class="pre">Layout</span> <span class="pre">1</span></code>.</p>
+</div>
+<ol class="arabic simple" start="8">
+<li><p>Στο παράθυρο Διάταξη εκτύπωσης πατήστε στο κουμπί <span class="guilabel">Πλήρης Μεγέθυνση</span> για να προβάλλετε την Διάταξη σε πλήρη έκταση.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/812.png" class="align-center" src="../../_images/812.png" />
+</div></blockquote>
+<ol class="arabic simple" start="9">
+<li><p>Τώρα πρέπει να φέρουμε στην διάταξη εκτύπωσης τον χάρτη που βλέπουμε στον καμβά του QGIS. Πηγαίνετε στο μενού <span class="menuselection">Προσθήκη στοιχείου ‣ Προσθήκη χάρτη</span>.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/912.png" class="align-center" src="../../_images/912.png" />
+</div></blockquote>
+<ol class="arabic simple" start="10">
+<li><p>Μόλις η λειτουργία <span class="guilabel">Προσθήκη χάρτη</span> ενεργοποιηθεί, κρατήστε πατημένο το αριστερό πλήκτρο του ποντικιού και σύρετε ένα παραλληλόγραμμο μέσα στο οποίο θέλετε να εισάγετε τον χάρτη.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/1018.png" class="align-center" src="../../_images/1018.png" />
+</div></blockquote>
+<ol class="arabic simple" start="11">
+<li><p>Θα δείτε ότι το παραλληλόγραμμο παράθυρο θα γεμίσει με τον χάρτη από τον κύριο καμβά του QGIS. Ο παραγομενος χάρτης ίσως δεν καλύπτει πλήρως την επιφάνεια που μας ενδιαφέρει.. Χρησιμοποιείστε τις επιλογές <span class="menuselection">Επεξεργασία ‣ Επιλογή/Μετακίνηση στοιχείου</span> και  <span class="menuselection">Επεξεργασία ‣ Μετακίνηση περιεχομένου</span> για να μετακινηθείτε μέσα στον χάρτη και να το κεντράρετε μέσα στο πρόγραμμα επεξεργασίας.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/1121.png" class="align-center" src="../../_images/1121.png" />
+</div></blockquote>
+<ol class="arabic simple" start="12">
+<li><p>Ας ρυθμίσουμε επίσης το επίπεδο μεγέθυνσης για τον χάρτη. Πατήστε στον φάκελο <span class="guilabel">Ιδιότητες στοιχείου</span>, στα δεξιά και εισάγετε τον αριθμό <code class="docutils literal notranslate"><span class="pre">10000000</span></code> ως τιμή για την <span class="guilabel">Κλίμακα</span>.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/1219.png" class="align-center" src="../../_images/1219.png" />
+</div></blockquote>
+<ol class="arabic simple" start="13">
+<li><p>Τώρα θα προσθέσουμε ένα ένθετο στοιχείο χάρτη που δείχνει μια μεγεθυμένη άποψη της περιοχής του Τόκυο. Πριν κάνουμε οποιαδήποτε αλλαγή στο κύριο παράθυρο του QGIS ελέγξτε τα τετραγωνίδια <span class="guilabel">Κλείδωμα επιπέδων</span> και <span class="guilabel">Κλείδωμα των στυλ για τα επίπεδα</span>. Αυτό θα διασφαλίσει ότι αν απενεργοποιήσουμε κάποια επίπεδα ή μεταβάλουμε τα στυλ τους, η προβολή μας δεν θα αλλάξει.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/1317.png" class="align-center" src="../../_images/1317.png" />
+</div></blockquote>
+<ol class="arabic simple" start="14">
+<li><p>Switch to the main QGIS window. Turn off the layer group <code class="docutils literal notranslate"><span class="pre">z5</span> <span class="pre">-</span> <span class="pre">1:18m</span></code> and activate the <code class="docutils literal notranslate"><span class="pre">z7</span> <span class="pre">-</span> <span class="pre">1:</span> <span class="pre">4m</span></code> group. This layer group has styling that is more appropriate for a zoomed-in view. Use the pan and zoom controls in the <span class="guilabel">Map Navigation Toolbar</span> and zoom around Tokyo.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/1415.png" class="align-center" src="../../_images/1415.png" />
+</div></blockquote>
+<ol class="arabic simple" start="15">
+<li><p>Είμαστε τώρα έτοιμοι να προσθέσουμε το ένθετο χάρτη. Μεταβείτε στο παράθυρο <span class="guilabel">Διάταξη εκτύπωσης</span>. Πηγαίνετε στο μενού <span class="menuselection">Προσθήκη στοιχείου ‣ Προσθήκη χάρτη</span>.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/1514.png" class="align-center" src="../../_images/1514.png" />
+</div></blockquote>
+<ol class="arabic simple" start="16">
+<li><p>Σχεδιάστε ένα παραλληλόγραμμο εκεί όπου θέλετε να τοποθετηθεί ο ένθετος χάρτης. Θα παρατηρήσετε ότι τώρα υπάρχουν 2 χαρτογραφικά αντικείμενα στην Διάταξη εκτύπωσης. Κάθε φορά που προβαίνετε σε αλλαγές βεβαιωθείτε ότι έχετε επιλεγμένο τον σωστό χάρτη.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/1613.png" class="align-center" src="../../_images/1613.png" />
+</div></blockquote>
+<ol class="arabic simple" start="17">
+<li><p>Επιλέξτε το αντικείμενο <code class="docutils literal notranslate"><span class="pre">Χάρτης</span> <span class="pre">2</span></code> που μόλις προσθέσατε από τον πίνακα <span class="guilabel">Στοιχεία</span>. Επιλέξτε τον φάκελο ιδιοτήτων <span class="guilabel">Ιδιότητες στοιχείου</span>. Κυλίστε προς τα κάτω έως τον πίνακα <span class="guilabel">Πλαίσιο</span> και επιλέξτε το τετραγωνίδιο δίπλα απο αυτόν. Μπορείτε να αλλάξετε το χρώμα και το πάχος του περιγράμματος του πλαισίου ώστε αυτό να ξεχωρίζει εύκολα μέσα στο φόντο του χάρτη.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/1714.png" class="align-center" src="../../_images/1714.png" />
+</div></blockquote>
+<ol class="arabic simple" start="18">
+<li><p>Μια έξυπνη λειτουργία της Διάταξης εκτύπωσης είναι ότι μπορεί αυτόματα να επισημάνει την περιοχή του χάρτη που αναπαρίσταται στο ένθετο. Από τον πίνακα <span class="guilabel">Στοιχεία</span> επιλέξτε το αντικείμενο <code class="docutils literal notranslate"><span class="pre">Χάρτης</span> <span class="pre">1</span></code>. Στον φάκελο <span class="guilabel">Ιδιότητες στοιχείου</span> κυλείστε στην ενότητα <span class="guilabel">Επισκοπήσεις</span>. Πατήστε το κουμπί <span class="guilabel">Προσθήκη νέας επισκόπησης</span>.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/1812.png" class="align-center" src="../../_images/1812.png" />
+</div></blockquote>
+<ol class="arabic simple" start="19">
+<li><p>Επιλέξτε <code class="docutils literal notranslate"><span class="pre">Χάρτης</span> <span class="pre">2</span></code> ως <span class="guilabel">Πλαίσιο χάρτη</span>. Αυτό λέει στην Διάταξη εκτύπωσης να επισημάνει το τρέχων αντικείμενο <code class="docutils literal notranslate"><span class="pre">Χάρτης</span> <span class="pre">1</span></code> με την έκταση του χάρτη που φαίνεται στο αντικείμενο <code class="docutils literal notranslate"><span class="pre">Χάρτης</span> <span class="pre">2</span></code>.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/1910.png" class="align-center" src="../../_images/1910.png" />
+</div></blockquote>
+<ol class="arabic simple" start="20">
+<li><p>Τώρα που έχουμε τον ένθετο χάρτη έτοιμο θα προσθέσουμε στον κύριο χάρτη ένα πλέγμα. Επιλέξτε το αντικείμενο <code class="docutils literal notranslate"><span class="pre">Χάρτης</span> <span class="pre">1</span></code> από τον πίνακα :guilabel:<code class="docutils literal notranslate"><span class="pre">Στοιχεία</span></code>. Στον φάκελο <span class="guilabel">Ιδιότητες στοιχείου</span>  κυλήστε προς τα κάτω στην ενότητα <span class="guilabel">Πλέγματα</span>. Πατήστε το κουμπί <span class="guilabel">Προσθήκη νέου πλέγματος</span> και μετά το πλήκτρο <span class="guilabel">Τροποποίηση πλέγματος…</span>.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/2010.png" class="align-center" src="../../_images/2010.png" />
+</div></blockquote>
+<ol class="arabic simple" start="21">
+<li><p>Ως αρχική ρύθμιση οι γραμμές του πλέγματος χρησιμοποιούν τις ίδιες μονάδες και προβολές με τις προβολές του τρέχοντος επιλεγμένου χάρτη. Όμως συνηθίζεται και είναι χρήσιμο οι γραμμές του πλέγματος να εμφανίζονται σε μοίρες. Μπορούμε να επιλέξουμε ένα διαφορετικό CRS για το πλέγμα. Πατήστε το κουμπί <span class="guilabel">Αλλαγή…</span> δίπλα στο <span class="guilabel">CRS</span>.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/2113.png" class="align-center" src="../../_images/2113.png" />
+</div></blockquote>
+<ol class="arabic simple" start="22">
+<li><p>In the <span class="guilabel">Coordinate Reference System Selector</span> dialog, enter <code class="docutils literal notranslate"><span class="pre">4326</span></code> in the <span class="guilabel">Filter</span> box. From the results, select the <code class="docutils literal notranslate"><span class="pre">WGS84</span> <span class="pre">EPSG:4326</span></code> as the CRS. Click <span class="guilabel">OK</span>.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/2212.png" class="align-center" src="../../_images/2212.png" />
+</div></blockquote>
+<ol class="arabic simple" start="23">
+<li><p>Select the <span class="guilabel">Interval</span> values as <code class="docutils literal notranslate"><span class="pre">5</span></code> degrees in both <span class="guilabel">X</span> and <span class="guilabel">Y</span> direction. You can adjust the <span class="guilabel">Offset</span> to change where the grid lines appear.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/2311.png" class="align-center" src="../../_images/2311.png" />
+</div></blockquote>
+<ol class="arabic simple" start="24">
+<li><p>Scroll down to the <span class="guilabel">Grid frame</span> section and check the <span class="guilabel">Draw coordinates</span> box. The default format is <code class="docutils literal notranslate"><span class="pre">Degrees</span></code> but it appears as a number. We can customize is to append a ° symbol. Choose <code class="docutils literal notranslate"><span class="pre">Custom</span></code> and click the <span class="guilabel">Expression</span> button next to it.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/2410.png" class="align-center" src="../../_images/2410.png" />
+</div></blockquote>
+<ol class="arabic simple" start="25">
+<li><p>Enter the following expression to create a string that takes the grid number and appends ° symbol to it.</p></li>
+</ol>
+<blockquote>
+<div><div class="highlight-none notranslate"><div class="highlight"><pre><span></span>concat(to_string(@grid_number), &#39;°    &#39;)
+</pre></div>
+</div>
+<img alt="../../_images/258.png" class="align-center" src="../../_images/258.png" />
+</div></blockquote>
+<ol class="arabic simple" start="26">
+<li><p>Notice that the grids now have a custom label from the expression. Adjust the position settings for <span class="guilabel">Left</span>, <span class="guilabel">Right</span>, <span class="guilabel">Top</span> and <span class="guilabel">Bottom</span> as per your liking.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/267.png" class="align-center" src="../../_images/267.png" />
+</div></blockquote>
+<ol class="arabic simple" start="27">
+<li><p>Now we will add a Rectangluar frame to hold other map elements like north arrow, scale and label. Go to <span class="menuselection">Add Item ‣ Add Shape ‣ Add Rectangle</span>.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/278.png" class="align-center" src="../../_images/278.png" />
+</div></blockquote>
+<ol class="arabic simple" start="28">
+<li><p>You can change the <span class="guilabel">Style</span> of the rectangle to match the map background.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/288.png" class="align-center" src="../../_images/288.png" />
+</div></blockquote>
+<ol class="arabic simple" start="29">
+<li><p>Now we will add a North Arrow to the map. QGIS comes with a nice collection of map-related images - including many types of North Arrows. Click <span class="menuselection">Add Item ‣ Add Picture</span>.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/297.png" class="align-center" src="../../_images/297.png" />
+</div></blockquote>
+<ol class="arabic simple" start="30">
+<li><p>Holding your left mouse button, draw a rectangle. On the right-hand panel, click on the <span class="guilabel">Item Properties</span> tab and expand the <span class="guilabel">Search directories</span> section and select the image of your liking.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/307.png" class="align-center" src="../../_images/307.png" />
+</div></blockquote>
+<ol class="arabic simple" start="31">
+<li><p>Now we will add a scale bar. Click on <span class="menuselection">Add Item ‣ Add Scalebar</span>.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/3111.png" class="align-center" src="../../_images/3111.png" />
+</div></blockquote>
+<ol class="arabic simple" start="32">
+<li><p>Click on the layout where you want the scalebar to appear. In the <span class="guilabel">Item Properties</span> tab, make sure you have chosen the correct map element <code class="docutils literal notranslate"><span class="pre">Map</span> <span class="pre">1</span></code> for which to display the scalebar. Choose the Style that fit your requirement. In the <span class="guilabel">Segments</span> panel, change the <span class="guilabel">Fixed width</span> to <code class="docutils literal notranslate"><span class="pre">200</span></code> units and adjust the segments to your liking.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/329.png" class="align-center" src="../../_images/329.png" />
+</div></blockquote>
+<ol class="arabic simple" start="33">
+<li><p>It is time to label our map. Click on <span class="menuselection">Add Item ‣ Add Label</span>.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/333.png" class="align-center" src="../../_images/333.png" />
+</div></blockquote>
+<ol class="arabic simple" start="34">
+<li><p>Click on the map and draw a box where the label should be. In the <span class="guilabel">Item Properties</span> tab, expand the <span class="guilabel">Label</span> section and enter a label for the map. Similarly add another labels for data and software credits.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/343.png" class="align-center" src="../../_images/343.png" />
+</div></blockquote>
+<ol class="arabic simple" start="35">
+<li><p>Once you are satisfied with the map, you can export it as an Image, PDF or SVG. For this tutorial, let’s export it as an image. Click <span class="menuselection">Layout ‣ Export as Image</span>.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/353.png" class="align-center" src="../../_images/353.png" />
+</div></blockquote>
+<ol class="arabic simple" start="35">
+<li><p>Save the image in the format of your liking. Below is the exported PNG image.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/output.png" class="align-center" src="../../_images/output.png" />
+</div></blockquote>
+</section>
+</section>
+
+
+
+
+
+  <div id="disqus_thread"></div>
+  <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+
+    </div>
+      
+  </div>
+</div>
+
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+    </p>
+    <p>
+        &copy; Copyright 2021, Ujaval Gandhi.<br/>
+      Τελευταία ενημέρωση στις Αυγ 30, 2022.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 4.0.1.<br/>
+    </p>
+  </div>
+</footer>
+<div class="container">
+  <p>This work is licensed under a <a href="http://creativecommons.org/licenses/by/4.0/deed.en_US">Creative Commons Attribution 4.0 International License</a></p>
+</div>
+<!-- Twitter Button -->
+<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+
+<!-- Disqus comments widget -->
+<script type="text/javascript">
+  /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+  var disqus_shortname = 'qgistutorials'; // required: replace example with your forum shortname
+  /* * * DON'T EDIT BELOW THIS LINE * * */
+  (function () {
+    var s = document.createElement('script'); s.async = true;
+    s.type = 'text/javascript';
+    s.src = '//' + disqus_shortname + '.disqus.com/count.js';
+    (document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);
+  }());
+</script>
+
+<script type="text/javascript">
+  /* * * DON'T EDIT BELOW THIS LINE * * */
+  (function() {
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+
+<!-- Script fpr language switching. Largely adapted from https://github.com/pcav/faunalia-website -->
+<script>
+    var currentPage = 'docs/3/making_a_map.html'; // coming from sphinx, always without starting '/'
+    var currentLang = 'en';
+    $(document).ready(function(){
+
+        var search = new RegExp('\/[a-zA-Z_]{2,8}\/'+ currentPage, 'gi');
+        var langPlusPage = window.location.href.match(search);
+        // it's possible this is a index.html page called without 'index.html', try without the currentPage
+        if (langPlusPage==undefined){
+            search = new RegExp('\/[a-zA-Z_]{2,8}\/$', 'gi');
+            langPlusPage = window.location.href.match(search);
+        }
+
+        // it's possible this is an index.html page called without 'index.html', try removing index.html
+        if (langPlusPage==undefined){
+            currentPage = currentPage.replace('index.html','')
+            search = new RegExp('\/[a-zA-Z_]{2,8}\/'+ currentPage, 'gi');
+            langPlusPage = window.location.href.match(search);
+        }
+        // still no langPlugPage: stop, because the language swicher will misbehave 
+
+        if (langPlusPage == undefined || langPlusPage.length != 1){
+            alert('You hit an error, please report back to us.');
+            return;
+        }
+        langPlusPage = langPlusPage[0];
+        currentLang = langPlusPage.replace(currentPage, '');
+
+        $("#languages").val(currentLang.replace(/\//g,'')); // currentLang is something like '/nl/'
+
+        $("#languages").change(function() {
+            gotoLang($(this).val());
+        });
+
+    });
+
+    // load current page in a different language
+    function gotoLang(lang){
+        var currentUrl = window.location.href;
+        var newUrl = currentUrl.replace(currentLang, '/'+lang+'/');
+        window.location.href = newUrl;
+    }
+</script>
+
+  </body>
+</html>

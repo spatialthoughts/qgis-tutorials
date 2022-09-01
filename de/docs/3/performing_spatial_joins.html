@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+
+<html lang="de">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>Räumliche Verbindungen erstellen (QGIS3) &#8212; QGIS Tutorials and Tips</title>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-sphinx.css" />
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/translations.js"></script>
+    <link rel="search" title="Suche" href="../../search.html" />
+    <link rel="next" title="Räumliche Abfragen ausführen (QGIS3)" href="performing_spatial_queries.html" />
+    <link rel="prev" title="Tabellen verbinden (QGIS3)" href="performing_table_joins.html" />
+
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<script type="text/javascript" src="../../_static/js/jquery-1.11.0.min.js "></script>
+<script type="text/javascript" src="../../_static/js/jquery-fix.js "></script>
+<script type="text/javascript" src="../../_static/bootstrap-3.3.7/js/bootstrap.min.js "></script>
+<script type="text/javascript" src="../../_static/bootstrap-sphinx.js "></script>
+
+
+<!-- Cookie Notice -->
+<!-- Script from https://github.com/AOEpeople/cookie-notice -->
+<script type="text/javascript" src="../../_static/cookie.notice.min.js"></script>
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-B1WQ7B80XJ"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-B1WQ7B80XJ');
+</script>
+
+
+  </head><body>
+
+  <div id="navbar" class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="../../index.html"><span><img src="../../_static/logo.png"></span>
+          QGIS Tutorials and Tips</a>
+        <span class="navbar-text navbar-version pull-left"><b>v1</b></span>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="../../index.html">Tutorials List <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"><ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../introduction.html">Einleitung</a></li>
+<li class="toctree-l1"><a class="reference internal" href="making_a_map.html">Erstellung einer Karte (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="working_with_attributes.html">Arbeit mit Attributen (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="importing_spreadsheets_csv.html">Import von Tabellenblättern oder CSV-Dateien (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="basic_vector_styling.html">Einfache Vektor Gestaltung (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="calculating_line_lengths.html">Berechnung der Länge von Linien und Statistiken (QGSI3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="raster_styling_and_analysis.html">Einfache Visualisierung und Analyse von Rasterdaten (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="raster_mosaicing_and_clipping.html">Erstellen und Zuschneiden eines Raster-Mosaiks (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="working_with_terrain.html">Working with Terrain Data (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="working_with_wms.html">Working with WMS Data (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="working_with_projections.html">Working with Projections (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="georeferencing_basics.html">Georeferenzierung von Kartenblättern und eingescannten Karten (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="advanced_georeferencing.html">Georeferenzierung von Luftbildern (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="digitizing_basics.html">Digitizing Map Data (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="performing_table_joins.html">Tabellen verbinden (QGIS3)</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Räumliche Verbindungen erstellen (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="performing_spatial_queries.html">Räumliche Abfragen ausführen (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="nearest_neighbor_analysis.html">Nächster Nachbar Analyse (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="sampling_raster_data.html">Stichproben aus Rasterdaten mit Hilfe von Punkten und Polygonen (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="calculating_raster_area.html">Calculating Raster Area (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="creating_heatmaps.html">Heatmaps erstellen (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="animating_time_series.html">Animating Time Series Data (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="handling_invalid_geometries.html">Handling Invalid Geometries (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="advanced_raster_analysis.html">Advanced Raster Analysis (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="interpolating_point_data.html">Interpolating Point Data (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="calculating_intersection_density.html">Calculating Street Intersection Density (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="batch_processing.html">Stapelverarbeitung mit dem Processing Framework (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="processing_graphical_modeler.html">Komplexe Arbeitsabläufe mit Hilfe der Verarbeitungsmodellierung (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="automating_map_creation.html">Automatisierung der Kartenerstellung mit dem Drucklayout Atlas (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="multi_criteria_overlay.html">Multi Criteria Overlay Analysis (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="basic_network_analysis.html">Einfache Netzwerkvisualisierung und Routing (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="origin_destination_matrix.html">Lokalisierung der am nächsten gelegenen Einrichtung mit einer Quelle-Ziel-Matrix (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="service_area_analysis.html">Einzugsgebietsanalyse mit dem Openrouteservice (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="travel_time_analysis.html">Travel Time Analysis with Uber Movement (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="areal_mean_rainfall.html">Calculating Areal Mean Rainfall (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="getting_started_with_pyqgis.html">Mit der Pythonprogrammierung loslegen (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="processing_algorithms_pyqgis.html">Verarbeitungsroutinen mit Python ausführen (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="custom_python_functions.html">Angepasste Python Funktionsausdrücke verwenden (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="processing_python_scripts.html">Pythonscripts für die Verarbeitungswerkzeuge schreiben (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="building_a_python_plugin.html">Ein Python Plugin erstellen (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="processing_python_plugin.html">Ein Verarbeitungsplugin erstellen (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../running_qgis_jobs.html">Running and Scheduling QGIS Processing Jobs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="web_mapping_with_qgis2web.html">Web Mapping with QGIS2Web (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../creating_basemaps_with_qtiles.html">Creating Basemaps with QTiles</a></li>
+<li class="toctree-l1"><a class="reference internal" href="using_plugins.html">Using Plugins (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../downloading_osm_data.html">Suchen und Laden von OpenStreetMap Daten</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../learning_resources.html">QGIS Learning Resources</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../credits.html">Data Credits</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../batch_processing.html">Batch Processing using Processing Framework (QGIS2)</a></li>
+</ul>
+</ul>
+</li>
+              
+            
+            
+              
+                
+  <li>
+    <a href="performing_table_joins.html" title="Previous Chapter: Tabellen verbinden (QGIS3)"><span class="glyphicon glyphicon-chevron-left visible-sm"></span><span class="hidden-sm hidden-tablet">&laquo; Tabellen verb...</span>
+    </a>
+  </li>
+  <li>
+    <a href="performing_spatial_queries.html" title="Next Chapter: Räumliche Abfragen ausführen (QGIS3)"><span class="glyphicon glyphicon-chevron-right visible-sm"></span><span class="hidden-sm hidden-tablet">Räumliche Abf... &raquo;</span>
+    </a>
+  </li>
+              
+            
+            
+
+            
+
+            
+              <li class="hidden-sm"></li>
+            
+          </ul>
+
+          
+            
+<form class="navbar-form navbar-right" action="../../search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+      <div class="col-md-3">
+        <div id="sidebar" class="bs-sidenav" role="complementary"><h4>Author</h4>
+<p>Ujaval Gandhi</p>
+<a href="https://twitter.com/intent/follow?screen_name=spatialthoughts" class="twitter-follow-button" data-show-count="false">Follow @spatialthoughts</a>
+<hr>
+<p>Want to learn QGIS in a structured way? Check out <a href="https://spatialthoughts.com/" target="_blank">Spatial Thoughts</a> for more learning materials and instructor-led online programs with QGIS.org certification.</p>
+
+
+<h4>Change Language</h4>
+<form role="form" class="sidebar-form sidebar-left">
+<select id="languages" class="form-control select-mini">
+  <option value="en">English</option>
+  <option value="zh_TW">Chinese (Taiwan)</option>
+  <option value="nl">Dutch</option>
+  <option value="fi_FI">Finnish</option>
+  <option value="fr">French</option>
+  <option value="de">German</option>
+  <option value="el">Greek</option>
+  <option value="id">Indonesian</option>
+  <option value="it">Italian</option>
+  <option value="ko">Korean</option>
+  <option value="fa">Persian</option>
+  <option value="pt_BR">Portuguese</option>
+  <option value="ro">Romanian</option>
+  <option value="ru">Russian</option>
+  <option value="sl">Slovenian</option>
+  <option value="es">Spanish</option>
+  <option value="th">Thai</option>
+  <option value="tr">Turkish</option>
+  <option value="uk">Ukrainian</option>
+  <option value="vi">Vietnamese</option>
+</select>
+</form>
+        </div>
+      </div>
+    <div class="body col-md-9 content" role="main">
+      
+
+  <section id="performing-spatial-joins-qgis3">
+<h1>Räumliche Verbindungen erstellen (QGIS3)<a class="headerlink" href="#performing-spatial-joins-qgis3" title="Link zu dieser Überschrift">¶</a></h1>
+<p>Die räumliche Verbindung ist eine klassische GIS Problemstellung: der Transfer von Attributwerten eines Layers auf einen anderen basierend auf der räumlichen Beziehung der Layer zueinander. In QGIS steht diese Funktionalität durch den Algorithmus <code class="docutils literal notranslate"><span class="pre">Attribute</span> <span class="pre">nach</span> <span class="pre">Position</span> <span class="pre">verknüpfen</span></code> zur Verfügung.</p>
+<section id="overview-of-the-task">
+<h2>Aufgabenübersicht<a class="headerlink" href="#overview-of-the-task" title="Link zu dieser Überschrift">¶</a></h2>
+<p>Wir werden 2 Layer verwenden: eine Shapedatei der Stadtbezirksgrenzen von New York city und eine Shapedatei mit der Bewertung des Straßenbelages aller Straßen in New York city. Die erste Aufgabe besteht in der Bestimmung des mittleren Zustands der Straßen je Stadtbezirk. Dabei wird der Algorithmus räumliche Verbindung mit Aufsummierung verwendet. Die zweite Aufgabe besteht darin, zu jeder Straße den Namen des Stadtbezirkes hinzuzufügen. Dies wird mit Hilfe einer räumlichen eins-zu-vielen Verbindung erreicht.</p>
+<section id="other-skills-you-will-learn">
+<h3>Weitere Fähigkeiten, die wir erlernen<a class="headerlink" href="#other-skills-you-will-learn" title="Link zu dieser Überschrift">¶</a></h3>
+<ul class="simple">
+<li><p>Erstellung von Filtern, um bestimmte Features zeitweise von der Berechnung auszuschließen</p></li>
+</ul>
+</section>
+</section>
+<section id="get-the-data">
+<h2>Beschaffung der Daten<a class="headerlink" href="#get-the-data" title="Link zu dieser Überschrift">¶</a></h2>
+<p><a class="reference external" href="https://data.cityofnewyork.us/">NYC Open Data Portal</a> ist eine exzellente Datenquelle für freie Daten zu New York city.</p>
+<p>Mit Hilfe der Export Option des Portals laden wir folgende Daten herunter: <a class="reference external" href="https://data.cityofnewyork.us/City-Government/Borough-Boundaries/tqmj-j8zm">Borough Boundaries</a>.</p>
+<img alt="../../_images/data19.png" class="align-center" src="../../_images/data19.png" />
+<p>Mit Hilfe der Export Option des Portals laden wir folgende Daten herunter: <a class="reference external" href="https://data.cityofnewyork.us/Transportation/Street-Pavement-Rating/2cav-chmn">Street Pavement Rating</a>.</p>
+<img alt="../../_images/data22.png" class="align-center" src="../../_images/data22.png" />
+<p>Der Einfachheit halber können wir eine Kopie der Datensätze unter folgenden links herunterladen:</p>
+<p><a class="reference external" href="https://www.qgistutorials.com/downloads/nybb_19a.zip">nybb_19a.zip</a></p>
+<p><a class="reference external" href="https://www.qgistutorials.com/downloads/V_SSS_SEGMENTRATING_1.zip">V_SSS_SEGMENTRATING_1.zip</a></p>
+<p>Datenquelle <a class="reference internal" href="../credits.html#cityofny" id="id1"><span>[CITYOFNY]</span></a></p>
+</section>
+<section id="procedure">
+<h2>Arbeitsablauf<a class="headerlink" href="#procedure" title="Link zu dieser Überschrift">¶</a></h2>
+<ol class="arabic simple">
+<li><p>Gehe im QGIS Browser zur Datei <code class="docutils literal notranslate"><span class="pre">nybb_19a.zip</span></code> und erweitere sie. Wähle den Layer <code class="docutils literal notranslate"><span class="pre">nybb_19a/nybb.shp</span></code> und ziehe ihn in den Arbeitsbereich. Es handelt sich um einen Polygonlayer mit den Grenzen der Stadtbezirke New York city’s.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/1102.png" class="align-center" src="../../_images/1102.png" />
+</div></blockquote>
+<ol class="arabic simple" start="2">
+<li><p>Finde als nächstes im QGIS Browser die Datei  <code class="docutils literal notranslate"><span class="pre">V_SSS_SEGMENTRATING_1.zip</span></code> und erweitere sie. Wähle den Layer <code class="docutils literal notranslate"><span class="pre">dot_V_SSS_SEGMENTRATING_1_20190129.shp</span></code> und füge ihn zum Arbeitsbereich hinzu. Dieser Linienlayer enthält alle Straßen der Stadt.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/270.png" class="align-center" src="../../_images/270.png" />
+</div></blockquote>
+<ol class="arabic simple" start="3">
+<li><p>Wir untersuchen die verfügbaren Attribute der im Layer <code class="docutils literal notranslate"><span class="pre">dot_V_SSS_SEGMENTRATING_1_20190129</span></code> enthaltenen Features. Klicke mit der rechten Maustaste auf den Layer und wähle <span class="guilabel">Attributtabelle öffnen</span>.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/335.png" class="align-center" src="../../_images/335.png" />
+</div></blockquote>
+<ol class="arabic simple" start="4">
+<li><p>Wir sehen ein Attribut mit der Bezeichnung <code class="docutils literal notranslate"><span class="pre">Rating_B</span></code>. Dieses Attribut mit Werten zwischen 0-10 enthält die Bewertung des Zustandes dieses Straßenabschnittes. Das Attribut <code class="docutils literal notranslate"><span class="pre">RatingWord</span></code> enthält eine beschreibende Bewertung. Wir können das Feld <code class="docutils literal notranslate"><span class="pre">Rating_B</span></code> nutzen, um die mittlere Bewertung zu bestimmen.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/416.png" class="align-center" src="../../_images/416.png" />
+</div></blockquote>
+<ol class="arabic simple" start="5">
+<li><p>Wir merken, dass für einige Features die Bewertung von <code class="docutils literal notranslate"><span class="pre">NR</span></code> vergeben ist. Diese Abschnitte sind nicht bewertet. Sie in die Analyse mit einzubeziehen, wäre nicht korrekt. Bevor wir die räumliche Verbindung herstellen, erstellen wir einen <strong>Filter</strong>, um diese Datensätze auszuschließen. Klicke mit der rechten Maustaste auf den Layer <code class="docutils literal notranslate"><span class="pre">dot_V_SSS_SEGMENTRATING_1_20190129</span></code> und wähle <span class="guilabel">Filter…</span>.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/516.png" class="align-center" src="../../_images/516.png" />
+</div></blockquote>
+<ol class="arabic simple" start="6">
+<li><p>Im Fenster <span class="guilabel">Abfrageerstellung</span> geben wir folgenden Ausdruck ein, um alle Datensätze mit dem Wert <code class="docutils literal notranslate"><span class="pre">NR</span></code> zu selektieren. Man kann den Ausdruck auch interaktiv durch Drücken auf <span class="guilabel">Felder</span>, <span class="guilabel">Operatoren</span> und der Auswahl der passenden <span class="guilabel">Werte</span> erzeugen. Klicke auf <span class="guilabel">OK</span>.</p></li>
+</ol>
+<blockquote>
+<div><div class="highlight-none notranslate"><div class="highlight"><pre><span></span>&quot;RatingWord&quot; != &#39;NR&#39;
+</pre></div>
+</div>
+<img alt="../../_images/616.png" class="align-center" src="../../_images/616.png" />
+</div></blockquote>
+<ol class="arabic simple" start="7">
+<li><p>Wir merken, dass der Layer <code class="docutils literal notranslate"><span class="pre">dot_V_SSS_SEGMENTRATING_1_20190129</span></code> nun ein Filtersymbol hat, dass einen aktiven Filter für diesen Layer anzeigt. Jetzt können wir eine räumliche Verbindung zum Layer herstellen. Gehe zu <span class="menuselection">Verarbeitung ‣ Werkzeugkiste</span>.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/715.png" class="align-center" src="../../_images/715.png" />
+</div></blockquote>
+<ol class="arabic simple" start="8">
+<li><p>Suche den Algorithmus <span class="menuselection">Vektoren allgemein ‣ Attribute nach Position verknüpfen (Zusammenfassung)</span>. Klicke doppelt darauf, um ihn zu starten.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/815.png" class="align-center" src="../../_images/815.png" />
+</div></blockquote>
+<ol class="arabic simple" start="9">
+<li><p>Wir wählen Im Dialogfenster <span class="guilabel">Attribute nach Position verknüpfen (Zusammenfassung)</span> den Layer <code class="docutils literal notranslate"><span class="pre">nybb</span></code> als <span class="guilabel">Eingabelayer</span>. Den Layer mit den Straßen <code class="docutils literal notranslate"><span class="pre">dot_V_SSS_SEGMENTRATING_1_20190129</span></code> tragen wir unter <span class="guilabel">Layer verknüpfen</span> ein. Die Einstellungen unter  <span class="guilabel">Geometrisches Prädikat</span> können wir unverändert bei <code class="docutils literal notranslate"><span class="pre">schneidet</span> <span class="pre">sich</span> <span class="pre">mit</span></code> belassen. Klicke auf den Knopf <span class="guilabel">…</span> neben <span class="guilabel">Zusammenzufassende Felder</span>.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/915.png" class="align-center" src="../../_images/915.png" />
+</div></blockquote>
+<div class="admonition note">
+<p class="admonition-title">Bemerkung</p>
+<p>Ein Tip, um den korrekten Eingabelayer festzulegen: der Eingabelayer ist derjenige, der durch die räumliche Verbindung durch neue Attribute erweitert wird. Da wir die mittlere Bewertung zum Layer der Stadtbezirke hinzufügen wollen, ist dieser Layer der Eingabelayer.</p>
+</div>
+<ol class="arabic simple" start="10">
+<li><p>Wähle <code class="docutils literal notranslate"><span class="pre">Rating_B</span></code> und klicke auf <span class="guilabel">OK</span>.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/1022.png" class="align-center" src="../../_images/1022.png" />
+</div></blockquote>
+<ol class="arabic simple" start="11">
+<li><p>Klicke analog auf den Knopf <span class="guilabel">…</span> neben <span class="guilabel">Zu berechnende Zusammenfassungen</span>.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/1125.png" class="align-center" src="../../_images/1125.png" />
+</div></blockquote>
+<ol class="arabic simple" start="12">
+<li><p>Wähle <code class="docutils literal notranslate"><span class="pre">Durchschnitt</span></code> als Operation für die Zusammenfassung und klicke auf <span class="guilabel">OK</span>. Jetzt können wir die Berechnung starten. Klicke auf <span class="guilabel">Starte</span>.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/1223.png" class="align-center" src="../../_images/1223.png" />
+</div></blockquote>
+<ol class="arabic simple" start="13">
+<li><p>Der Algorithmus verarbeit die Features und erstellt die räumliche Verbindung. Wir vergewissern uns, dass die Verabeitung erfolgreich abgeschlossen wurde und klicken auf <span class="guilabel">Schließen</span>.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/1321.png" class="align-center" src="../../_images/1321.png" />
+</div></blockquote>
+<ol class="arabic simple" start="14">
+<li><p>Zurück im QGIS Fenster sehen wir einen neuen Layer <code class="docutils literal notranslate"><span class="pre">Zusammengefasster</span> <span class="pre">Layer</span></code> der dem Arbeitsbereich hinzugefügt wurde. Wir öffnen die Attributtabelle dieses Layers und bemerken eine neue Spalte <code class="docutils literal notranslate"><span class="pre">Rating_B_mean</span></code>, die die mittlere Bewertung aller Straßen enthält, die einen Stadtbezirk überschneiden.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/1419.png" class="align-center" src="../../_images/1419.png" />
+</div></blockquote>
+<ol class="arabic simple" start="15">
+<li><p>Jetzt wenden wir ein umgekehrtes Verfahren an. Manchmal benötigen wir Attribute eines anderen Layers basierend auf dessen räumlicher Beziehung ohne das eine Summenbildung erfolgen muss. Wir können in diesem Fall den Algorithmus <code class="docutils literal notranslate"><span class="pre">Attribute</span> <span class="pre">nach</span> <span class="pre">Position</span> <span class="pre">zusammenführen</span></code> verwenden. Die Aufgabe besteht darin, für alle Features im Straßenlayer den zugehörigen Stadtbezirk zu ermitteln. Bevor wir die Berechnung beginnen, entfernen wir den Filter vom Layer <code class="docutils literal notranslate"><span class="pre">dot_V_SSS_SEGMENTRATING_1_20190129</span></code>. Klicke auf das Filtersymbol und drücke im Fenster <span class="guilabel">Abfrageerstellung</span> auf <span class="guilabel">Löschen</span>. Klicke auf <span class="guilabel">OK</span>.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/1517.png" class="align-center" src="../../_images/1517.png" />
+</div></blockquote>
+<ol class="arabic simple" start="16">
+<li><p>Schalte den Layer <code class="docutils literal notranslate"><span class="pre">Zusammengefasster</span> <span class="pre">Layer</span></code> im <span class="guilabel">Layer</span> Bereich ab. Gehe zu <span class="menuselection">Vektoren allgemein ‣ Attribute nach Position zusammenführen</span> in den Verarbeitungswerkzeugen und klicke doppelt darauf, um die Berechnung zu starten.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/1616.png" class="align-center" src="../../_images/1616.png" />
+</div></blockquote>
+<ol class="arabic simple" start="17">
+<li><p>Wähle <code class="docutils literal notranslate"><span class="pre">dot_V_SSS_SEGMENTRATING_1_20190129</span></code> als <span class="guilabel">Eingabelayer</span> und <code class="docutils literal notranslate"><span class="pre">nybb</span></code> als <span class="guilabel">Layer verknüpfen</span>. Wir können die Einstellung <span class="guilabel">Geometrische Prädikat</span> auf der Voreinstellung <code class="docutils literal notranslate"><span class="pre">Schneidet</span> <span class="pre">sich</span> <span class="pre">mit</span></code> belassen. Klicke auf den Knopf <span class="guilabel">…</span> neben <span class="guilabel">Hinzuzufügende Felder</span>  und wähle <code class="docutils literal notranslate"><span class="pre">BoroName</span></code>. Klicke auf <span class="guilabel">OK</span>.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/1717.png" class="align-center" src="../../_images/1717.png" />
+</div></blockquote>
+<ol class="arabic simple" start="18">
+<li><p>Ein Linienabschnitt kann u.U. in mehreren Stadtbezirken liegen. Wir wählen daher für <span class="guilabel">Verknüpfungstyp</span> <code class="docutils literal notranslate"><span class="pre">Separates</span> <span class="pre">Objekt</span> <span class="pre">für</span> <span class="pre">jedes</span> <span class="pre">lokalisiertes</span> <span class="pre">Objekt</span> <span class="pre">erzeugen</span> <span class="pre">(eins-zu-vielen)</span></code>. Klicke auf <span class="guilabel">Starte</span>.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/1815.png" class="align-center" src="../../_images/1815.png" />
+</div></blockquote>
+<ol class="arabic simple" start="19">
+<li><p>Nachdem die Berechnung abgeschlossen wurde, öffenen wir die Attributtabelle des neu hinzugefügten Layers <code class="docutils literal notranslate"><span class="pre">Zusammengefasster</span> <span class="pre">Layer</span></code>. Wir sehen, dass das neue Attribut <code class="docutils literal notranslate"><span class="pre">BoroName</span></code> zu jedem Straßenfeature hinzugefügt wurde.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/1913.png" class="align-center" src="../../_images/1913.png" />
+</div></blockquote>
+</section>
+</section>
+
+
+
+
+
+  <div id="disqus_thread"></div>
+  <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+
+    </div>
+      
+  </div>
+</div>
+
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+    </p>
+    <p>
+        &copy; Copyright 2021, Ujaval Gandhi.<br/>
+      Zuletzt aktualisiert am Aug. 30, 2022.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 4.0.1.<br/>
+    </p>
+  </div>
+</footer>
+<div class="container">
+  <p>This work is licensed under a <a href="http://creativecommons.org/licenses/by/4.0/deed.en_US">Creative Commons Attribution 4.0 International License</a></p>
+</div>
+<!-- Twitter Button -->
+<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+
+<!-- Disqus comments widget -->
+<script type="text/javascript">
+  /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+  var disqus_shortname = 'qgistutorials'; // required: replace example with your forum shortname
+  /* * * DON'T EDIT BELOW THIS LINE * * */
+  (function () {
+    var s = document.createElement('script'); s.async = true;
+    s.type = 'text/javascript';
+    s.src = '//' + disqus_shortname + '.disqus.com/count.js';
+    (document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);
+  }());
+</script>
+
+<script type="text/javascript">
+  /* * * DON'T EDIT BELOW THIS LINE * * */
+  (function() {
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+
+<!-- Script fpr language switching. Largely adapted from https://github.com/pcav/faunalia-website -->
+<script>
+    var currentPage = 'docs/3/performing_spatial_joins.html'; // coming from sphinx, always without starting '/'
+    var currentLang = 'en';
+    $(document).ready(function(){
+
+        var search = new RegExp('\/[a-zA-Z_]{2,8}\/'+ currentPage, 'gi');
+        var langPlusPage = window.location.href.match(search);
+        // it's possible this is a index.html page called without 'index.html', try without the currentPage
+        if (langPlusPage==undefined){
+            search = new RegExp('\/[a-zA-Z_]{2,8}\/$', 'gi');
+            langPlusPage = window.location.href.match(search);
+        }
+
+        // it's possible this is an index.html page called without 'index.html', try removing index.html
+        if (langPlusPage==undefined){
+            currentPage = currentPage.replace('index.html','')
+            search = new RegExp('\/[a-zA-Z_]{2,8}\/'+ currentPage, 'gi');
+            langPlusPage = window.location.href.match(search);
+        }
+        // still no langPlugPage: stop, because the language swicher will misbehave 
+
+        if (langPlusPage == undefined || langPlusPage.length != 1){
+            alert('You hit an error, please report back to us.');
+            return;
+        }
+        langPlusPage = langPlusPage[0];
+        currentLang = langPlusPage.replace(currentPage, '');
+
+        $("#languages").val(currentLang.replace(/\//g,'')); // currentLang is something like '/nl/'
+
+        $("#languages").change(function() {
+            gotoLang($(this).val());
+        });
+
+    });
+
+    // load current page in a different language
+    function gotoLang(lang){
+        var currentUrl = window.location.href;
+        var newUrl = currentUrl.replace(currentLang, '/'+lang+'/');
+        window.location.href = newUrl;
+    }
+</script>
+
+  </body>
+</html>

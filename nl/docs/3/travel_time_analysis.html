@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+
+<html lang="nl">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>Reistijd-analyse met Uber Movement (QGIS3) &#8212; QGIS Tutorials and Tips</title>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-sphinx.css" />
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/translations.js"></script>
+    <link rel="search" title="Zoeken" href="../../search.html" />
+    <link rel="next" title="Berekenen gemiddelde regenval voor gebied (QGIS3)" href="areal_mean_rainfall.html" />
+    <link rel="prev" title="Analyse Servicegebied met Openrouteservice (QGIS3)" href="service_area_analysis.html" />
+
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<script type="text/javascript" src="../../_static/js/jquery-1.11.0.min.js "></script>
+<script type="text/javascript" src="../../_static/js/jquery-fix.js "></script>
+<script type="text/javascript" src="../../_static/bootstrap-3.3.7/js/bootstrap.min.js "></script>
+<script type="text/javascript" src="../../_static/bootstrap-sphinx.js "></script>
+
+
+<!-- Cookie Notice -->
+<!-- Script from https://github.com/AOEpeople/cookie-notice -->
+<script type="text/javascript" src="../../_static/cookie.notice.min.js"></script>
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-B1WQ7B80XJ"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-B1WQ7B80XJ');
+</script>
+
+
+  </head><body>
+
+  <div id="navbar" class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="../../index.html"><span><img src="../../_static/logo.png"></span>
+          QGIS Tutorials and Tips</a>
+        <span class="navbar-text navbar-version pull-left"><b>v1</b></span>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="../../index.html">Tutorials List <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"><ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../introduction.html">Introductie</a></li>
+<li class="toctree-l1"><a class="reference internal" href="making_a_map.html">Een kaart maken (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="working_with_attributes.html">Werken met attributen (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="importing_spreadsheets_csv.html">Werkbladen of CSV-bestanden importeren (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="basic_vector_styling.html">Basis opmaken van vectoren (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="calculating_line_lengths.html">Lengten van lijnen en statistieken berekenen (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="raster_styling_and_analysis.html">Basis opmaken en analyses van rasters (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="raster_mosaicing_and_clipping.html">Rasters mozaïeken en clippen (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="working_with_terrain.html">Werken met gegevens over het terrein (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="working_with_wms.html">Werken met gegevens van WMS (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="working_with_projections.html">Werken met projecties (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="georeferencing_basics.html">Topobladen en gescande kaarten voorzien van geoverwijzingen (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="advanced_georeferencing.html">Geo-verwijzingen voor satellietbeelden (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="digitizing_basics.html">Kaartgegevens digitaliseren</a></li>
+<li class="toctree-l1"><a class="reference internal" href="performing_table_joins.html">Samenvoegen van tabellen uitvoeren (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="performing_spatial_joins.html">Ruimtelijke samenvoegingen uitvoeren (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="performing_spatial_queries.html">Ruimtelijke query’s uitvoeren (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="nearest_neighbor_analysis.html">Analyse Nearest Neighbor (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="sampling_raster_data.html">Monsters nemen van rastergegevens met behulp van punten of polygonen (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="calculating_raster_area.html">Rastergebied berekenen (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="creating_heatmaps.html">Heatmaps maken (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="animating_time_series.html">Geanimeerde gegevens tijdreeks (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="handling_invalid_geometries.html">Ongeldige geometrieën afhandelen (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="advanced_raster_analysis.html">Gevorderde rasteranalyses (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="interpolating_point_data.html">Interpoleren van puntgegevens</a></li>
+<li class="toctree-l1"><a class="reference internal" href="calculating_intersection_density.html">Dichtheid van straatkruisingen berekenen (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="batch_processing.html">Massa verwerken met behulp van Framework Processing (QGIS 3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="processing_graphical_modeler.html">Complexe werkstromen automatiseren met behulp van Grafische modellen bouwen (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="automating_map_creation.html">Maken van kaarten automatiseren met Atlas van afdruklay-out (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="multi_criteria_overlay.html">Multi Criteria Overlay Analyse (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="basic_network_analysis.html">Basis netwerk visualisatie en routeren (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="origin_destination_matrix.html">Dichtstbijzijnde faciliteit zoeken met Origin-Destination Matrix (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="service_area_analysis.html">Analyse Servicegebied met Openrouteservice (QGIS3)</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Reistijd-analyse met Uber Movement (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="areal_mean_rainfall.html">Berekenen gemiddelde regenval voor gebied (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="getting_started_with_pyqgis.html">Beginnen met programmeren in Python (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="processing_algorithms_pyqgis.html">Algoritmes van Processing uitvoeren via Python (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="custom_python_functions.html">Aangepaste Python expressie-functies gebruiken (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="processing_python_scripts.html">Python-scripts schrijven voor framework Processing (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="building_a_python_plugin.html">Een plug-in in Python bouwen (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="processing_python_plugin.html">Een plug-in voor Processing bouwen (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../running_qgis_jobs.html">Taken voor QGIS uitvoeren en in schema zetten</a></li>
+<li class="toctree-l1"><a class="reference internal" href="web_mapping_with_qgis2web.html">In kaart brengen op het web met QGIS2Web (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../creating_basemaps_with_qtiles.html">Basiskaarten maken met QTiles</a></li>
+<li class="toctree-l1"><a class="reference internal" href="using_plugins.html">Plug-ins gebruiken (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../downloading_osm_data.html">Zoeken en downloaden van gegevens van OpenStreetMap</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../learning_resources.html">QGIS bronnen om te leren</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../credits.html">Gebruik van gegevens</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../batch_processing.html">Massa verwerken met behulp van Framework Processing (QGIS2)</a></li>
+</ul>
+</ul>
+</li>
+              
+            
+            
+              
+                
+  <li>
+    <a href="service_area_analysis.html" title="Previous Chapter: Analyse Servicegebied met Openrouteservice (QGIS3)"><span class="glyphicon glyphicon-chevron-left visible-sm"></span><span class="hidden-sm hidden-tablet">&laquo; Analyse Servi...</span>
+    </a>
+  </li>
+  <li>
+    <a href="areal_mean_rainfall.html" title="Next Chapter: Berekenen gemiddelde regenval voor gebied (QGIS3)"><span class="glyphicon glyphicon-chevron-right visible-sm"></span><span class="hidden-sm hidden-tablet">Berekenen gem... &raquo;</span>
+    </a>
+  </li>
+              
+            
+            
+
+            
+
+            
+              <li class="hidden-sm"></li>
+            
+          </ul>
+
+          
+            
+<form class="navbar-form navbar-right" action="../../search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+      <div class="col-md-3">
+        <div id="sidebar" class="bs-sidenav" role="complementary"><h4>Author</h4>
+<p>Ujaval Gandhi</p>
+<a href="https://twitter.com/intent/follow?screen_name=spatialthoughts" class="twitter-follow-button" data-show-count="false">Follow @spatialthoughts</a>
+<hr>
+<p>Want to learn QGIS in a structured way? Check out <a href="https://spatialthoughts.com/" target="_blank">Spatial Thoughts</a> for more learning materials and instructor-led online programs with QGIS.org certification.</p>
+
+
+<h4>Change Language</h4>
+<form role="form" class="sidebar-form sidebar-left">
+<select id="languages" class="form-control select-mini">
+  <option value="en">English</option>
+  <option value="zh_TW">Chinese (Taiwan)</option>
+  <option value="nl">Dutch</option>
+  <option value="fi_FI">Finnish</option>
+  <option value="fr">French</option>
+  <option value="de">German</option>
+  <option value="el">Greek</option>
+  <option value="id">Indonesian</option>
+  <option value="it">Italian</option>
+  <option value="ko">Korean</option>
+  <option value="fa">Persian</option>
+  <option value="pt_BR">Portuguese</option>
+  <option value="ro">Romanian</option>
+  <option value="ru">Russian</option>
+  <option value="sl">Slovenian</option>
+  <option value="es">Spanish</option>
+  <option value="th">Thai</option>
+  <option value="tr">Turkish</option>
+  <option value="uk">Ukrainian</option>
+  <option value="vi">Vietnamese</option>
+</select>
+</form>
+        </div>
+      </div>
+    <div class="body col-md-9 content" role="main">
+      
+
+  <section id="travel-time-analysis-with-uber-movement-qgis3">
+<h1>Reistijd-analyse met Uber Movement (QGIS3)<a class="headerlink" href="#travel-time-analysis-with-uber-movement-qgis3" title="Permalink naar deze titel">¶</a></h1>
+<p><a class="reference external" href="https://movement.uber.com/">Uber Movement</a> deelt geanonimiseerde en samengevoegde gegevens voor reistijd voor veel steden in de gehele wereld. Uber Movement’s product <em>Travel Times</em> is een publieke gegevensset die reizen van zone-naar-zone meet in een stad. Deze tijden zijn gebaseerd op feitelijke ritten van Uber en is een nauwkeurige weergave van opstoppingen en verkeerspatronen in de stad. Dit is een grote openlijk toegankelijke gegevensset, samengesteld uit miljoenen feitelijke taxiritten. Deze handleiding laat de technieken zien om met dergelijke samengestelde gegevenssets voor  verkeer te werken om analyses voor reistijd uit te voeren in QGIS.</p>
+<section id="overview-of-the-task">
+<h2>Overzicht van de taak<a class="headerlink" href="#overview-of-the-task" title="Permalink naar deze titel">¶</a></h2>
+<p>We zullen een samengestelde gegevensset voor verkeer voor de stad Bangalore, India gebruiken om reistijden te zoeken naar een opgegeven locatie in de stad. We zullen ook een <a class="reference external" href="https://en.wikipedia.org/wiki/Isochrone_map">Isochrone kaart</a> maken voor een drempel voor de reistijd van 30 minuten.</p>
+<section id="other-skills-you-will-learn">
+<h3>Andere vaardigheden die u zult leren<a class="headerlink" href="#other-skills-you-will-learn" title="Permalink naar deze titel">¶</a></h3>
+<ul class="simple">
+<li><p>Een bestand van GeoJSON laden in QGIS</p></li>
+</ul>
+</section>
+</section>
+<section id="get-the-data">
+<h2>De gegevens ophalen<a class="headerlink" href="#get-the-data" title="Permalink naar deze titel">¶</a></h2>
+<p>We zullen de gegevensset Travel Times downloaden voor de stad Bangalore, India.</p>
+<ol class="arabic simple">
+<li><p>Ga naar de website van <a class="reference external" href="https://movement.uber.com/">Uber Movement</a> en klik op de <span class="guilabel">Cities</span>.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/data013.png" class="align-center" src="../../_images/data013.png" />
+</div></blockquote>
+<ol class="arabic simple" start="2">
+<li><p>Zoek naar <code class="docutils literal notranslate"><span class="pre">Bangalore</span></code>.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/data023.png" class="align-center" src="../../_images/data023.png" />
+</div></blockquote>
+<ol class="arabic simple" start="3">
+<li><p>Klik op <span class="guilabel">Download data</span>.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/data032.png" class="align-center" src="../../_images/data032.png" />
+</div></blockquote>
+<ol class="arabic simple" start="4">
+<li><p>In de pop-up van <code class="docutils literal notranslate"><span class="pre">Download</span> <span class="pre">data</span></code>, schakel naar <span class="guilabel">GEO BOUNDARIES</span>. Het zal het GeoJSON-bestand voor de wijken van Banglore bevatten. Accepteer de licentie-informatie en klik op <code class="docutils literal notranslate"><span class="pre">BANGLORE_WARDS.JSON</span></code> om het te downloaden.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/data042.png" class="align-center" src="../../_images/data042.png" />
+</div></blockquote>
+<ol class="arabic simple" start="5">
+<li><p>Then switch to <code class="docutils literal notranslate"><span class="pre">ALL</span> <span class="pre">DATA</span></code>. This data is available from 2016 to 2020, and each year is divided into 4 quarters. We will download the data for <code class="docutils literal notranslate"><span class="pre">2019</span> <span class="pre">Quarter</span> <span class="pre">3</span></code>. Select it and click the <code class="docutils literal notranslate"><span class="pre">Travel</span> <span class="pre">Times</span> <span class="pre">by</span> <span class="pre">Hour</span> <span class="pre">of</span> <span class="pre">Day</span> <span class="pre">(Weekdays</span> <span class="pre">Only)</span></code>. This file will contain all anonymous information about the weekday uber travel in Bangalore from July to September 2019.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/data051.png" class="align-center" src="../../_images/data051.png" />
+</div></blockquote>
+<p>Voor het gemak kunt u direct de gegevensset downloaden vanaf de links hieronder:</p>
+<p><a class="reference external" href="https://www.qgistutorials.com/downloads/bangalore_wards.json">bangalore_wards.json</a></p>
+<p><a class="reference external" href="https://www.qgistutorials.com/downloads/bangalore-wards-2019-3-OnlyWeekdays-HourlyAggregate.csv">bangalore-wards-2019-3-OnlyWeekdays-HourlyAggregate.csv</a></p>
+<p>Gegevensbron: <a class="reference internal" href="../credits.html#uber" id="id2"><span>[UBER]</span></a></p>
+</section>
+<section id="procedure">
+<h2>Procedure<a class="headerlink" href="#procedure" title="Permalink naar deze titel">¶</a></h2>
+<ol class="arabic simple">
+<li><p>Zoek naar het bestand <code class="docutils literal notranslate"><span class="pre">bangalore_wards.json</span></code> in het paneel <span class="guilabel">Browser</span> en sleep het naar het kaartvenster. Vervolgens zullen we een laag met een basiskaart laden vanaf OpenStreetMap. We zullen de plug-in <cite>QuickMapServices</cite> gebruiken om toegang te krijgen tot de basiskaart. Ga, als de plug-in eenmaal is geïnstalleerd, naar <span class="menuselection">Web ‣ QuickMapServices ‣ OSM ‣ OSM Standard</span>. Een basiskaart tegellaag van OpenStreetMap zal worden toegevoegd aan het project. Klik vervolgens op de knop <span class="guilabel">Databronnen beheren openen</span>.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/019.png" class="align-center" src="../../_images/019.png" />
+</div></blockquote>
+<ol class="arabic simple" start="2">
+<li><p>Schakel naar de tab <span class="guilabel">Tekengescheiden tekst</span>. Blader naar het bestand <cite>bangalore-wards-2019-3-OnlyWeekdays-HourlyAggregate.csv`</cite> en selecteer dat. Selecteer de optie <span class="guilabel">Geen geometrieën (alleen attributentabel)</span>, omdat het CSV-bestand slechts tabulaire gegevens bevat, en klik op <span class="guilabel">Toevoegen</span>.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/029.png" class="align-center" src="../../_images/029.png" />
+</div></blockquote>
+<ol class="arabic simple" start="3">
+<li><p>De laag <code class="docutils literal notranslate"><span class="pre">bangalore-wards-2019-3-OnlyWeekdays-HourlyAggregate</span></code> zal worden toegevoegd aan het paneel <span class="guilabel">Lagen</span>. Deze laag bevat geanonimiseerde en samengestelde gegevens over reislocaties tussen verschillende zones van de stad. Elke rij van de tabel bevat kolommen voor de bronzone (<cite>sourceid</cite>), doelzone (<cite>dstid</cite>), uur van de dag (<cite>hod</cite>) en gemiddelde reistijd, samengesteld uit alle reizen met deze zone op dat uur (<cite>mean_travel_time</cite>). U kunt meer te weten komen over deze gegevensset in de <a class="reference external" href="https://d3i4yxtzktqr9n.cloudfront.net/web-movement/76002ded222a46a02ae89f207e91e335.pdf">Movement: Travel Times Calculation Methodology (pdf)</a>. Laten we, voordat we doorgaan, controleren hoeveel gegevensrecords aanwezig zijn in de laag. Klik met rechts op de laag <code class="docutils literal notranslate"><span class="pre">bangalore-wards-2019-3-OnlyWeekdays-HourlyAggregate</span></code> en selecteer <span class="guilabel">Aantal objecten tonen</span>. Het totale aantal rijen in de tabel zal ernaast worden weergegeven. Dit is een vrij grote tabel, maar we hebben niet alle rijen met gegevens nodig voor onze analyse. We zullen nu onze doellocatie identificeren en deze tabel filteren op de records daarvoor.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/039.png" class="align-center" src="../../_images/039.png" />
+</div></blockquote>
+<ol class="arabic simple" start="4">
+<li><p>We willen alle gebieden berekenen die bereikbaar zijn binnen 30 minuten vanaf een specifieke locatie. Met de basiskaart <cite>OSM Standard</cite> kunt u de locatie zoeken. Selecteer dan de laag <code class="docutils literal notranslate"><span class="pre">bangalore_wards</span></code>, gebruik het gereedschap <span class="guilabel">Objecten identificeren</span> en klik erop. De resultaten zullen de attributen van de zone weergeven die de locatie bevat. Voor deze handleiding nemen we aan dat onze doellocatie ligt in de zone <em>JP Nagar</em> met de <em>MOVEMENT_ID</em> <strong>193</strong>.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/049.png" class="align-center" src="../../_images/049.png" />
+</div></blockquote>
+<ol class="arabic simple" start="5">
+<li><p>We kunnen de records voor de reistijd filteren to slechts die welke deze zone als doel hebben. We kunnen ook onze analyse beperken tot het spitsuur in de morgen van 9am - 10am. Klik met rechts op de laag <code class="docutils literal notranslate"><span class="pre">bangalore-wards-2019-3-OnlyWeekdays-HourlyAggregate</span></code> en selecteer <span class="guilabel">Filteren</span>.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/059.png" class="align-center" src="../../_images/059.png" />
+</div></blockquote>
+<ol class="arabic simple" start="6">
+<li><p>Voer de volgende filterexpressie in en klik op <span class="guilabel">OK</span>.</p></li>
+</ol>
+<blockquote>
+<div><div class="highlight-none notranslate"><div class="highlight"><pre><span></span>&quot;dstid&quot; = 193 AND &quot;hod&quot; = 9
+</pre></div>
+</div>
+<img alt="../../_images/069.png" class="align-center" src="../../_images/069.png" />
+</div></blockquote>
+<ol class="arabic simple" start="7">
+<li><p>Back in the main QGIS window, you will see that the number of records in the filtered table are now down to just <em>197</em>. Since there are a total of 198 zones in the city, we have records of travel times between the 1 destination ward and 197 source zones. Open the attribute table of both the layers using the <span class="guilabel">Open Attribute Table</span> button in the <span class="guilabel">Attributes</span> toolbar.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/079.png" class="align-center" src="../../_images/079.png" />
+</div></blockquote>
+<ol class="arabic simple" start="8">
+<li><p>Nu hebben we de vorm van de wijk in de laag <code class="docutils literal notranslate"><span class="pre">bangalore_wards</span></code> en tabulaire informatie in de laag <code class="docutils literal notranslate"><span class="pre">bangalore-wards-2019-3-OnlyWeekdays-HourlyAggregate</span></code>. We kunnen de informatie voor de attributen samenvoegen met de vormen met een gezamenlijk attribuut. Hier zijn dat de kolom <code class="docutils literal notranslate"><span class="pre">MOVEMENT_ID</span></code> van de laag <code class="docutils literal notranslate"><span class="pre">bangalore_wards</span></code> en de kolom <code class="docutils literal notranslate"><span class="pre">sourceid</span></code> van de laag <code class="docutils literal notranslate"><span class="pre">bangalore-wards-2019-3-OnlyWeekdays-HourlyAggregate</span></code> die unieke identificatie zijn voor wijken, die kunnen worden samengevoegd. Deze bewerking wordt een <em>Table Join</em> genoemd.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/088.png" class="align-center" src="../../_images/088.png" />
+</div></blockquote>
+<ol class="arabic simple" start="9">
+<li><p>Before we can join these two layers, we must ensure that the values in both columns match exactly. Thought they appear the same, they are of different type. Since GeoJSON format has no way of specifying property types, all values are assumed to be of the type <em>String</em> - i.e. Text. But when we import a CSV to QGIS, by default, QGIS tries to determines the types of the columns based on the values and assign appropriate field type. For the CSV file, the data type for the column <code class="docutils literal notranslate"><span class="pre">sourceid</span></code> was assigned as <em>Integer</em>. So we need to convert the column from the GeoJSON to an <em>Integer</em> type as well. Go to <span class="menuselection">Processing ‣ Toolbox ‣ Vector Table ‣ Field Calculator algorithm</span>. Double-click to launch it.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/098.png" class="align-center" src="../../_images/098.png" />
+</div></blockquote>
+<ol class="arabic simple" start="10">
+<li><p>Choose <code class="docutils literal notranslate"><span class="pre">bangalore_wards</span></code> as the <span class="guilabel">Input Layer</span>. Name the Field Name as <code class="docutils literal notranslate"><span class="pre">joinfield</span></code> and select the <span class="guilabel">Result field type</span> as <code class="docutils literal notranslate"><span class="pre">Integer</span></code>. Enter <code class="docutils literal notranslate"><span class="pre">MOVEMENT_ID</span></code> as the Expression. Click the <span class="guilabel">…</span> button next to the <span class="guilabel">Calculated</span> and select <span class="guilabel">Save to File…</span> then enter the name of the output file as <code class="docutils literal notranslate"><span class="pre">bangalore_wards_fixed.gpkg</span></code>. Click <span class="guilabel">Run</span>. Close the field calculator.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/1031.png" class="align-center" src="../../_images/1031.png" />
+</div></blockquote>
+<ol class="arabic simple" start="11">
+<li><p>Een nieuwe laag <code class="docutils literal notranslate"><span class="pre">bangalore_wards_fixed</span></code> zal worden toegevoegd aan het paneel <span class="guilabel">Lagen</span>. Nu zijn we klaar om het samenvoegen uit te voeren. Ga naar <span class="menuselection">Processing ‣ Toolbox ‣ Vector algemeen‣ Attributen koppelen op veldwaarde</span>. Dubbelklik erop om het te starten.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/1137.png" class="align-center" src="../../_images/1137.png" />
+</div></blockquote>
+<ol class="arabic simple" start="12">
+<li><p>Selecteer <code class="docutils literal notranslate"><span class="pre">bangalore_wards_fixed</span></code> als de <span class="guilabel">Invoerlaag</span> en <code class="docutils literal notranslate"><span class="pre">joinfield</span></code> als het <span class="guilabel">Tabelveld</span>. Selecteer <code class="docutils literal notranslate"><span class="pre">bangalore-wards-2019-3-OnlyWeekdays-HourlyAggregate</span></code> als de <span class="guilabel">Invoerlaag 2</span> en <code class="docutils literal notranslate"><span class="pre">sourceid</span></code> als het <span class="guilabel">Tabelveld 2</span>. Noem de <span class="guilabel">Samengevoegde laag</span> als <code class="docutils literal notranslate"><span class="pre">uber_travel_times.gpkg</span></code> en klik op <span class="guilabel">Uitvoeren</span>.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/1234.png" class="align-center" src="../../_images/1234.png" />
+</div></blockquote>
+<ol class="arabic simple" start="13">
+<li><p>Een nieuwe laag <code class="docutils literal notranslate"><span class="pre">uber_travel_times</span></code> zal worden toegevoegd aan het paneel <span class="guilabel">Lagen</span>. Laten we die opmaken om het resultaat van het samenvoegen te visualiseren. Klik op <span class="guilabel">Paneel Laag opmaken openen</span>. Selecteer de renderer <code class="docutils literal notranslate"><span class="pre">Gradueel</span></code> en <code class="docutils literal notranslate"><span class="pre">mean_travel_time</span></code> als de <span class="guilabel">Waarde</span>. Selecteer een kleurverloop en klik op <span class="guilabel">Classificeren</span>. U zult zien dat de kaart oplopende reistijden weergeeft, hoe verder u van het doel afgaat.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/1332.png" class="align-center" src="../../_images/1332.png" />
+</div></blockquote>
+<ol class="arabic simple" start="14">
+<li><p>Maar we zoeken naar gebieden die binnen 30 minuten reistijd liggen om ze te analyseren en uit te nemen, dus we hebben nog wat werk te doen. Schakel voor de opmaak terug naar de renderer <span class="guilabel">Enkel symbool</span>. Klik met rechts op de laag <code class="docutils literal notranslate"><span class="pre">uber_travel_times</span></code> en selecteer <span class="guilabel">Filteren</span>.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/1429.png" class="align-center" src="../../_images/1429.png" />
+</div></blockquote>
+<ol class="arabic simple" start="15">
+<li><p>Voer de volgende expressie in om alle zones binnen 1800 seconden (30 minuten) van gemiddelde reistijd te selecteren. We dienen ook onze doelzone op te nemen die een reistijd heeft van  0.</p></li>
+</ol>
+<blockquote>
+<div><div class="highlight-none notranslate"><div class="highlight"><pre><span></span>&quot;mean_travel_time&quot; &lt;= 1800 OR &quot;MOVEMENT_ID&quot; = 193
+</pre></div>
+</div>
+<img alt="../../_images/1527.png" class="align-center" src="../../_images/1527.png" />
+</div></blockquote>
+<ol class="arabic simple" start="16">
+<li><p>De laag zal nu de cluster van polygonen weergeven die het door ons gewenste gebied omvat. We zullen ze nu allemaal samenvoegen tot één enkele polygoon. Ga naar <span class="menuselection">Processing ‣ Toolbox ‣ Vector geometrie ‣ Samensmelten</span>. Dubbelklik erop om het te starten.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/1625.png" class="align-center" src="../../_images/1625.png" />
+</div></blockquote>
+<ol class="arabic simple" start="17">
+<li><p>Selecteer <code class="docutils literal notranslate"><span class="pre">uber_travel_times</span></code> als de <span class="guilabel">Invoerlaag</span>. Geef de laag <span class="guilabel">Ontbonden</span> de naam <code class="docutils literal notranslate"><span class="pre">30min_isochrone.gpkg</span></code>. Klik op <span class="guilabel">Uitvoeren</span>.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/1725.png" class="align-center" src="../../_images/1725.png" />
+</div></blockquote>
+<ol class="arabic simple" start="18">
+<li><p>Een nieuwe laag <code class="docutils literal notranslate"><span class="pre">30min_isochrone</span></code> zal worden toegevoegd aan het paneel <span class="guilabel">Lagen</span> die het resultaat van onze analyse weergeeft.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/1822.png" class="align-center" src="../../_images/1822.png" />
+</div></blockquote>
+</section>
+</section>
+
+
+
+
+
+  <div id="disqus_thread"></div>
+  <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+
+    </div>
+      
+  </div>
+</div>
+
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+    </p>
+    <p>
+        &copy; Copyright 2021, Ujaval Gandhi.<br/>
+      Laatste aanpassing op aug. 30, 2022.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 4.0.1.<br/>
+    </p>
+  </div>
+</footer>
+<div class="container">
+  <p>This work is licensed under a <a href="http://creativecommons.org/licenses/by/4.0/deed.en_US">Creative Commons Attribution 4.0 International License</a></p>
+</div>
+<!-- Twitter Button -->
+<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+
+<!-- Disqus comments widget -->
+<script type="text/javascript">
+  /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+  var disqus_shortname = 'qgistutorials'; // required: replace example with your forum shortname
+  /* * * DON'T EDIT BELOW THIS LINE * * */
+  (function () {
+    var s = document.createElement('script'); s.async = true;
+    s.type = 'text/javascript';
+    s.src = '//' + disqus_shortname + '.disqus.com/count.js';
+    (document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);
+  }());
+</script>
+
+<script type="text/javascript">
+  /* * * DON'T EDIT BELOW THIS LINE * * */
+  (function() {
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+
+<!-- Script fpr language switching. Largely adapted from https://github.com/pcav/faunalia-website -->
+<script>
+    var currentPage = 'docs/3/travel_time_analysis.html'; // coming from sphinx, always without starting '/'
+    var currentLang = 'en';
+    $(document).ready(function(){
+
+        var search = new RegExp('\/[a-zA-Z_]{2,8}\/'+ currentPage, 'gi');
+        var langPlusPage = window.location.href.match(search);
+        // it's possible this is a index.html page called without 'index.html', try without the currentPage
+        if (langPlusPage==undefined){
+            search = new RegExp('\/[a-zA-Z_]{2,8}\/$', 'gi');
+            langPlusPage = window.location.href.match(search);
+        }
+
+        // it's possible this is an index.html page called without 'index.html', try removing index.html
+        if (langPlusPage==undefined){
+            currentPage = currentPage.replace('index.html','')
+            search = new RegExp('\/[a-zA-Z_]{2,8}\/'+ currentPage, 'gi');
+            langPlusPage = window.location.href.match(search);
+        }
+        // still no langPlugPage: stop, because the language swicher will misbehave 
+
+        if (langPlusPage == undefined || langPlusPage.length != 1){
+            alert('You hit an error, please report back to us.');
+            return;
+        }
+        langPlusPage = langPlusPage[0];
+        currentLang = langPlusPage.replace(currentPage, '');
+
+        $("#languages").val(currentLang.replace(/\//g,'')); // currentLang is something like '/nl/'
+
+        $("#languages").change(function() {
+            gotoLang($(this).val());
+        });
+
+    });
+
+    // load current page in a different language
+    function gotoLang(lang){
+        var currentUrl = window.location.href;
+        var newUrl = currentUrl.replace(currentLang, '/'+lang+'/');
+        window.location.href = newUrl;
+    }
+</script>
+
+  </body>
+</html>

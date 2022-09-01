@@ -1,0 +1,604 @@
+<!DOCTYPE html>
+
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>Análisis Avanzado de Ráster (QGIS3) &#8212; QGIS Tutorials and Tips</title>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-sphinx.css" />
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/translations.js"></script>
+    <link rel="search" title="Búsqueda" href="../../search.html" />
+    <link rel="next" title="Interpolar Datos Punto (QGIS3)" href="interpolating_point_data.html" />
+    <link rel="prev" title="Manejar Geometrías No Válidas (QGIS3)" href="handling_invalid_geometries.html" />
+
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<script type="text/javascript" src="../../_static/js/jquery-1.11.0.min.js "></script>
+<script type="text/javascript" src="../../_static/js/jquery-fix.js "></script>
+<script type="text/javascript" src="../../_static/bootstrap-3.3.7/js/bootstrap.min.js "></script>
+<script type="text/javascript" src="../../_static/bootstrap-sphinx.js "></script>
+
+
+<!-- Cookie Notice -->
+<!-- Script from https://github.com/AOEpeople/cookie-notice -->
+<script type="text/javascript" src="../../_static/cookie.notice.min.js"></script>
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-B1WQ7B80XJ"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-B1WQ7B80XJ');
+</script>
+
+
+  </head><body>
+
+  <div id="navbar" class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="../../index.html"><span><img src="../../_static/logo.png"></span>
+          QGIS Tutorials and Tips</a>
+        <span class="navbar-text navbar-version pull-left"><b>v1</b></span>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="../../index.html">Tutorials List <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"><ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../introduction.html">Introducción</a></li>
+<li class="toctree-l1"><a class="reference internal" href="making_a_map.html">Haciendo un Mapa (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="working_with_attributes.html">Trabajando con atributos (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="importing_spreadsheets_csv.html">Importar Hojas de Cálculo o archivos CSV (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="basic_vector_styling.html">Estilo Básico Vectorial (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="calculating_line_lengths.html">Calcular Longitudes y Estadísticas de Línea (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="raster_styling_and_analysis.html">Estilos y Análisis Básicos Ráster (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="raster_mosaicing_and_clipping.html">Mosaicar y Recortar Ráster (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="working_with_terrain.html">Trabajar con Datos de Terreno (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="working_with_wms.html">Trabajar con Datos WMS (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="working_with_projections.html">Trabajar con Proyecciones (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="georeferencing_basics.html">Georeferenciar Hojas Topográficas y Mapas Escaneados (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="advanced_georeferencing.html">Georeferenciar Imágenes Aéreas (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="digitizing_basics.html">Digitalizar Datos del Mapa (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="performing_table_joins.html">Realizar Uniones de Tablas (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="performing_spatial_joins.html">Realizar Uniones Espaciales (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="performing_spatial_queries.html">Realizar Consultas Espaciales (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="nearest_neighbor_analysis.html">Análisis del Vecino Más Cercano (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="sampling_raster_data.html">Muestrear Datos Ráster usando Puntos o Polígonos (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="calculating_raster_area.html">Calculating Raster Area (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="creating_heatmaps.html">Crear Mapas de Calor (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="animating_time_series.html">Animar Datos de Series de Tiempo (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="handling_invalid_geometries.html">Manejar Geometrías No Válidas (QGIS3)</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Análisis Avanzado de Ráster (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="interpolating_point_data.html">Interpolar Datos Punto (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="calculating_intersection_density.html">Calcular Densidad de Intersección de Calle (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="batch_processing.html">Procesamiento por Lotes usando el Marco de Procesamiento (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="processing_graphical_modeler.html">Automatizar Flujos de Trabajo Complejos usando el Modelador de Procesos (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="automating_map_creation.html">Automatización de la creación de mapas con el Atlas de diseñador de impresiones  (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="multi_criteria_overlay.html">Análisis de Sobreposición Multicriterio (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="basic_network_analysis.html">Visualización y Enrutamiento Básico de Red (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="origin_destination_matrix.html">Localizando la Instalación Más Cercana con Matriz Origen-Destino (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="service_area_analysis.html">Análisis de Área de Servicio usando Openrouteservice (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="travel_time_analysis.html">Análisis del tiempo de viaje con el movimiento de Uber (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="areal_mean_rainfall.html">Calcular la Precipitación Media de Área (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="getting_started_with_pyqgis.html">Iniciándote con la Programación Python (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="processing_algorithms_pyqgis.html">Ejecutar Algoritmos de Procesamiento vía Python (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="custom_python_functions.html">Usando Funciones de Expresión Python Personalizadas (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="processing_python_scripts.html">Escribir Scripts Python para el Marco de Procesamiento (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="building_a_python_plugin.html">Construyendo un Complemento Python (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="processing_python_plugin.html">Construyendo un Complemento de Procesamiento (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../running_qgis_jobs.html">Ejecutar y Programar Trabajos de Procesamiento QGIS</a></li>
+<li class="toctree-l1"><a class="reference internal" href="web_mapping_with_qgis2web.html">Mapeo Web con QGIS2Web (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../creating_basemaps_with_qtiles.html">Creando Mapas Base con QTiles</a></li>
+<li class="toctree-l1"><a class="reference internal" href="using_plugins.html">Usar Complementos (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../downloading_osm_data.html">Buscando y descargando datos de OpenStreetMap</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../learning_resources.html">Recursos de Aprendizaje QGIS</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../credits.html">Créditos de los Datos</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../batch_processing.html">Procesamiento por Lotes usando el Marco de Procesamiento (QGIS2)</a></li>
+</ul>
+</ul>
+</li>
+              
+            
+            
+              
+                
+  <li>
+    <a href="handling_invalid_geometries.html" title="Previous Chapter: Manejar Geometrías No Válidas (QGIS3)"><span class="glyphicon glyphicon-chevron-left visible-sm"></span><span class="hidden-sm hidden-tablet">&laquo; Manejar Geome...</span>
+    </a>
+  </li>
+  <li>
+    <a href="interpolating_point_data.html" title="Next Chapter: Interpolar Datos Punto (QGIS3)"><span class="glyphicon glyphicon-chevron-right visible-sm"></span><span class="hidden-sm hidden-tablet">Interpolar Da... &raquo;</span>
+    </a>
+  </li>
+              
+            
+            
+
+            
+
+            
+              <li class="hidden-sm"></li>
+            
+          </ul>
+
+          
+            
+<form class="navbar-form navbar-right" action="../../search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+      <div class="col-md-3">
+        <div id="sidebar" class="bs-sidenav" role="complementary"><h4>Author</h4>
+<p>Ujaval Gandhi</p>
+<a href="https://twitter.com/intent/follow?screen_name=spatialthoughts" class="twitter-follow-button" data-show-count="false">Follow @spatialthoughts</a>
+<hr>
+<p>Want to learn QGIS in a structured way? Check out <a href="https://spatialthoughts.com/" target="_blank">Spatial Thoughts</a> for more learning materials and instructor-led online programs with QGIS.org certification.</p>
+
+
+<h4>Change Language</h4>
+<form role="form" class="sidebar-form sidebar-left">
+<select id="languages" class="form-control select-mini">
+  <option value="en">English</option>
+  <option value="zh_TW">Chinese (Taiwan)</option>
+  <option value="nl">Dutch</option>
+  <option value="fi_FI">Finnish</option>
+  <option value="fr">French</option>
+  <option value="de">German</option>
+  <option value="el">Greek</option>
+  <option value="id">Indonesian</option>
+  <option value="it">Italian</option>
+  <option value="ko">Korean</option>
+  <option value="fa">Persian</option>
+  <option value="pt_BR">Portuguese</option>
+  <option value="ro">Romanian</option>
+  <option value="ru">Russian</option>
+  <option value="sl">Slovenian</option>
+  <option value="es">Spanish</option>
+  <option value="th">Thai</option>
+  <option value="tr">Turkish</option>
+  <option value="uk">Ukrainian</option>
+  <option value="vi">Vietnamese</option>
+</select>
+</form>
+        </div>
+      </div>
+    <div class="body col-md-9 content" role="main">
+      
+
+  <section id="advanced-raster-analysis-qgis3">
+<h1>Análisis Avanzado de Ráster (QGIS3)<a class="headerlink" href="#advanced-raster-analysis-qgis3" title="Enlazar permanentemente con este título">¶</a></h1>
+<p>En el tutorial anterior <a class="reference internal" href="raster_styling_and_analysis.html"><span class="doc">Estilos y Análisis Básicos Ráster (QGIS3)</span></a>, aprendió a realizar álgebra de ráster con la <em>Calculadora de raster</em>. Este tutorial se basa en estas técnicas y le muestra cómo utilizar otras herramientas de análisis ráster de la caja de herramientas de procesamiento. Aprenderá a procesar con los rásteres de Uso y Cobertura de la Tierra (UCT) en QGIS para extraer ciertos tipos de clases de cobertura del suelo y mapear los cambios.</p>
+<section id="overview-of-the-task">
+<h2>Vista general de la tarea<a class="headerlink" href="#overview-of-the-task" title="Enlazar permanentemente con este título">¶</a></h2>
+<p>Utilizaremos el conjunto de datos South African National Land Cover para identificar y extraer los asentamientos informales en la ciudad de Johannesburgo (Sudáfrica). También utilizaremos un conjunto de datos de evaluación de cambios para identificar los patrones de crecimiento urbano en la ciudad desde 2014 hasta 2018.</p>
+<section id="other-skills-you-will-learn">
+<h3>Otras habilidades que aprenderá<a class="headerlink" href="#other-skills-you-will-learn" title="Enlazar permanentemente con este título">¶</a></h3>
+<ul class="simple">
+<li><p>Cómo reproyectar datos ráster a otra proyección.</p></li>
+<li><p>Cómo cargar un archivo Excel en QGIS.</p></li>
+<li><p>Cómo ajustar la transparencia de una capa ráster en QGIS.</p></li>
+</ul>
+</section>
+</section>
+<section id="get-the-data">
+<h2>Obtener los datos<a class="headerlink" href="#get-the-data" title="Enlazar permanentemente con este título">¶</a></h2>
+<p>Para este tutorial descargaremos los siguientes conjuntos de datos</p>
+<ol class="arabic simple">
+<li><p><em>El conjunto de datos South African National Land Cover 2018</em>: El nuevo conjunto de datos South African National Land-Cover 2018 se ha generado a partir de imágenes satelitales Sentinel 2 multitemporales de 20 metros y contiene 73 clases de cobertura de la tierra.</p></li>
+<li><p><em>Evaluaciones de cambio de la cobertura de la tierra nacional de Sudáfrica 2018</em>: Este conjunto de datos compara el cambio en 20 clases de cobertura de la tierra desde 2014 hasta 2018.</p></li>
+<li><p><em>Límite de la ciudad de Johannesburgo</em>: Un archivo shape de los límites de la ciudad de Johannesburgo, Sudáfrica.</p></li>
+</ol>
+<p>El portal <a class="reference external" href="https://egis.environment.gov.za/">Environmental Geographical Information Systems (E-GIS)</a> proporciona acceso a datos geoespaciales medioambientales de Sudáfrica. De este portal descargaremos los rásteres de South African National Land-Cover (SANLC).</p>
+<ol class="arabic simple">
+<li><p>Visite la página de <a class="reference external" href="https://egis.environment.gov.za/gis_data_downloads">Descarga de datos GIS</a>. Haga clic en <span class="guilabel">Estoy de acuerdo</span> para aceptar las <em>Condiciones de uso</em> y continuar.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/data1.png" class="align-center" src="../../_images/data1.png" />
+</div></blockquote>
+<ol class="arabic simple" start="2">
+<li><p>Deberá crear una cuenta gratuita para descargar el conjunto de datos. Haga clic en <span class="guilabel">Deseo crear una cuenta</span> y siga las instrucciones para crear una cuenta.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/data2.png" class="align-center" src="../../_images/data2.png" />
+</div></blockquote>
+<ol class="arabic simple" start="3">
+<li><p>Una vez iniciada la sesión, busque <em>South African National Land Cover (SANLC) 2018 Computer Automated Land Cover (CALC)</em>. Este conjunto de datos se ofrece en dos proyecciones diferentes. Para este tutorial, descargaremos el conjunto de datos <cite>ALBERS</cite>. Haga clic en él para descargar el archivo <cite>SA_NLC_2018_Albers_CALC_data.zip</cite>.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/data3.png" class="align-center" src="../../_images/data3.png" />
+</div></blockquote>
+<ol class="arabic simple" start="4">
+<li><p>A continuación, busque <em>New South African National Land Cover (SANLC) 2014 and 2018 Change Assessment Datasets Computer Automated Land Cover (CALC)</em> y haga clic en <cite>SA_NLC_2014_2018_CLASS_CHANGE_CALC (DATASET AND REPORT)</cite> para descargar el archivo <cite>SA_NLC_2014_2018_CLASS_CHANGE_ALBERS_CALC.tif.vat.zip</cite>.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/data4.png" class="align-center" src="../../_images/data4.png" />
+</div></blockquote>
+<p>La <a class="reference external" href="https://www.joburg.org.za/">Ciudad de Johannesburgo</a> publica conjuntos de datos espaciales como parte del <a class="reference external" href="https://www.joburg.org.za/documents_/Pages/Key%20Documents/policies/Development%20Planning%20%EF%BC%86%20Urban%20Management/Citywide%20Spatial%20Policies/Spatial-Development-Framework-2040.aspx">Marco de Desarrollo Espacial 2040 (SDF) para Johannesburgo</a> data. De este sitio descargaremos el archivo shape de los límites.</p>
+<ol class="arabic simple">
+<li><p>Haga clic en el enlace de descarga <a class="reference external" href="http://bit.ly/joburg-sdf-16">http://bit.ly/joburg-sdf-16</a>.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/data5.png" class="align-center" src="../../_images/data5.png" />
+</div></blockquote>
+<ol class="arabic simple" start="2">
+<li><p>Haga clic en el directorio <code class="docutils literal notranslate"><span class="pre">SDF</span> <span class="pre">Shapefiles</span></code>.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/data6.png" class="align-center" src="../../_images/data6.png" />
+</div></blockquote>
+<ol class="arabic simple" start="3">
+<li><p>Descargue el archivo <code class="docutils literal notranslate"><span class="pre">SDF</span> <span class="pre">Shapefiles.zip</span></code> y descomprímalo en una carpeta.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/data7.png" class="align-center" src="../../_images/data7.png" />
+</div></blockquote>
+<p>Para su comodidad, en el siguiente enlace encontrará una versión recortada de las capas necesarias:</p>
+<p><a class="reference external" href="https://www.qgistutorials.com/downloads/SA_NLC_2018_ALBERS_CALC.tif">SA_NLC_2018_ALBERS_CALC.tif</a></p>
+<p><a class="reference external" href="https://www.qgistutorials.com/downloads/SA_NLC_2014_2018_CLASS_CHANGE_ALBERS_CALC.tif">SA_NLC_2014_2018_CLASS_CHANGE_ALBERS_CALC.tif</a></p>
+<p><a class="reference external" href="https://www.qgistutorials.com/downloads/COJ_Boundary.zip">COJ_Boundary.zip</a></p>
+<p>Fuente de Datos: <a class="reference internal" href="../credits.html#sanlc" id="id1"><span>[SANLC]</span></a> <a class="reference internal" href="../credits.html#coj" id="id2"><span>[COJ]</span></a></p>
+</section>
+<section id="procedure">
+<h2>Procedimiento<a class="headerlink" href="#procedure" title="Enlazar permanentemente con este título">¶</a></h2>
+<ol class="arabic simple">
+<li><p>Busque la carpeta descargada y descomprimida en el navegador. Expándala y arrastra y suelta el <code class="docutils literal notranslate"><span class="pre">SA_NLC_2018_ALBERS_CALC.tif</span></code> en el lienzo.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/011.png" class="align-center" src="../../_images/011.png" />
+</div></blockquote>
+<ol class="arabic simple" start="2">
+<li><p>Una vez cargada la capa, podrá observar que el SRC estará configurado como <span class="guilabel">SRC Desconocido</span> en la parte inferior derecha. Haga doble clic en él para abrir el cuadro de diálogo <span class="guilabel">Propiedades del proyecto - SRC</span>.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/021.png" class="align-center" src="../../_images/021.png" />
+</div></blockquote>
+<ol class="arabic simple" start="3">
+<li><p>En la parte inferior, verá una vista previa de la extensión de la proyección. Esta <em>SRC desconocida</em> es una <em>proyección de área equitativa de Lambert</em> personalizada definida para el país de Sudáfrica. Más adelante reproyectaremos esta capa a otra proyección. Haga clic en <span class="guilabel">Aceptar</span>.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/031.png" class="align-center" src="../../_images/031.png" />
+</div></blockquote>
+<ol class="arabic simple" start="4">
+<li><p>Cargue las otras dos capas <code class="docutils literal notranslate"><span class="pre">SA_NLC_2014_2018_CLASS_CHANGE_ALBERS_CALC.tif</span></code> y <code class="docutils literal notranslate"><span class="pre">COJ_Boundary</span></code>. Verá que la capa rasterizada cubre todo el país. Para nuestro análisis, sólo nos interesa el área cubierta por la capa <code class="docutils literal notranslate"><span class="pre">COJ_Boundary</span></code>. Ahora recortaremos la capa rasterizada a esta región. Vaya a <span class="menuselection">Procesamiento ‣ Caja de herramientas ‣ GDAL ‣ Extracción de rásteres ‣ Recortar ráster por capa de máscara</span>. Haga doble clic para abrirla.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/041.png" class="align-center" src="../../_images/041.png" />
+</div></blockquote>
+<ol class="arabic simple" start="5">
+<li><p>En la <span class="guilabel">Cortar ráster por capa de máscara</span>, seleccionamos <code class="docutils literal notranslate"><span class="pre">SA_NLC_2018_ALBERS_CALC</span></code> como <span class="guilabel">Capa de entrada</span>, y luego <code class="docutils literal notranslate"><span class="pre">COJ_Boundary</span></code> como <span class="guilabel">Capa de máscara</span>. También tenemos una opción para reproyectar los datos a otra proyección. Es una buena práctica mantener todas las capas de datos en la misma proyección. Reproyectaremos los rásteres para que el SRC coincida con el de la capa <code class="docutils literal notranslate"><span class="pre">COJ_Boundary</span></code>. Seleccione <code class="docutils literal notranslate"><span class="pre">EPSG:4326</span> <span class="pre">-</span> <span class="pre">WGS</span> <span class="pre">84</span></code> como <span class="guilabel">SRC objetivo`</span>.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/051.png" class="align-center" src="../../_images/051.png" />
+</div></blockquote>
+<ol class="arabic simple" start="6">
+<li><p>The default output data format is GeoTiff. GeoTiff files can get very large if they are not compressed. A good practice is to always apply a loss-less compression when creating new raster layers. Expand <span class="guilabel">Advanced Parameters</span> and choose <code class="docutils literal notranslate"><span class="pre">High</span> <span class="pre">Compression</span></code> as the <span class="guilabel">Profile</span>. Next, click the <code class="docutils literal notranslate"><span class="pre">...</span></code> button next to <span class="guilabel">Clipped (mask)</span> and select <span class="guilabel">Save to file…</span> to enter layer name as <code class="docutils literal notranslate"><span class="pre">SA_NLC_2018_Clipped</span></code>. Click <span class="guilabel">Run</span>.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/061.png" class="align-center" src="../../_images/061.png" />
+</div></blockquote>
+<ol class="arabic simple" start="7">
+<li><p>Una vez que el algoritmo termine, no cierre la ventana. Vamos a aplicar la misma operación a la otra capa rasterizada. Cambie a la pestaña <span class="guilabel">Parámetros</span> y cambie la <span class="guilabel">Capa de entrada</span> a <code class="docutils literal notranslate"><span class="pre">SA_NLC_2014_2018_CLASS_CHANGE_ALBERS_CALC</span></code>. Mantenga todas las demás opciones pero cambie el nombre de la capa de salida a <code class="docutils literal notranslate"><span class="pre">SA_NLC_2014_2018_CLASS_CHANGE_Clipped</span></code>. Haga clic en <span class="guilabel">Ejecutar</span>.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/071.png" class="align-center" src="../../_images/071.png" />
+</div></blockquote>
+<ol class="arabic simple" start="8">
+<li><p>Las dos capas recortadas se cargarán ahora en el lienzo. Seleccione la capa original y haga clic en <span class="guilabel">Quitar capa</span> para eliminarlas.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/081.png" class="align-center" src="../../_images/081.png" />
+</div></blockquote>
+<ol class="arabic simple" start="9">
+<li><p>Las tres capas restantes están ahora en el mismo SRC. Ahora podemos cambiar el SRC del proyecto al SRC de las capas. Haga clic con el botón derecho en cualquier capa recortada y elija <span class="menuselection">Capa SRC ‣ Establecer SRC del proyecto desde la capa</span>.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/091.png" class="align-center" src="../../_images/091.png" />
+</div></blockquote>
+<ol class="arabic simple" start="10">
+<li><p>Now the project CRS will be set to <code class="docutils literal notranslate"><span class="pre">EPSG:4326</span></code>. Bring the <span class="guilabel">SA_NLC_2018_Clipped</span> layer to top.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/101.png" class="align-center" src="../../_images/101.png" />
+</div></blockquote>
+<ol class="arabic simple" start="11">
+<li><p>Haga clic en <cite>SA_NLC_2018_Clipped</cite> y utilice la herramienta <span class="guilabel">identificar</span> de la barra de herramientas <span class="guilabel">Atributos</span> para hacer clic en la imagen e inspeccionar los valores de los píxeles. Verá que los valores de los píxeles van de 1 a 73. Estos valores representan una clase distinta de uso/cobertura del suelo.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/111.png" class="align-center" src="../../_images/111.png" />
+</div></blockquote>
+<ol class="arabic simple" start="12">
+<li><p>Las clases del conjunto de datos se describen en la <code class="docutils literal notranslate"><span class="pre">Presentación</span> <span class="pre">de</span> <span class="pre">SANLC</span> <span class="pre">2018</span></code>, que puede descargarse del <a href="#id1"><span class="problematic" id="id2">``</span></a>Portal de EGI &lt;<a class="reference external" href="https://egis.environment.gov.za/sa_national_land_cover_datasets">https://egis.environment.gov.za/sa_national_land_cover_datasets</a>&gt;`_. Para este ejercicio, nos interesan los <em>asentamientos informales</em> representados por los números de clase 51 a 54.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/121.png" class="align-center" src="../../_images/121.png" />
+</div></blockquote>
+<ol class="arabic simple" start="13">
+<li><p>Vamos a extraer los píxeles que pertenecen a estas clases. Vaya a la herramienta <span class="menuselection">Procesamiento ‣ Caja de herramientas ‣ Análisis rasterizado ‣ Calculadora rasterizada</span>. Haga doble clic para abrirla.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/13.png" class="align-center" src="../../_images/13.png" />
+</div></blockquote>
+<ol class="arabic simple" start="14">
+<li><p>La imagen de origen sólo tiene una banda. El sufijo <code class="docutils literal notranslate"><span class="pre">&#64;1</span></code> indica el número de banda. Introduzca la siguiente expresión para seleccionar los píxeles de la clase 51-54.</p></li>
+</ol>
+<blockquote>
+<div><div class="highlight-none notranslate"><div class="highlight"><pre><span></span>&quot;SA_NLC_2018_Clipped@1&quot; &gt;= 51 AND &quot;SA_NLC_2018_Clipped@1&quot; &lt;= 54
+</pre></div>
+</div>
+<img alt="../../_images/14.png" class="align-center" src="../../_images/14.png" />
+</div></blockquote>
+<ol class="arabic simple" start="15">
+<li><p>Desplácese hacia abajo y haga clic en el botón <code class="docutils literal notranslate"><span class="pre">...</span></code> junto a <span class="guilabel">Capa(s) de referencia`</span>. Seleccione la capa <code class="docutils literal notranslate"><span class="pre">SA_NLC_2018_Clipped</span></code> y haga clic en <span class="guilabel">Aceptar</span>.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/15.png" class="align-center" src="../../_images/15.png" />
+</div></blockquote>
+<ol class="arabic simple" start="16">
+<li><p>A continuación, haga clic en el botón <code class="docutils literal notranslate"><span class="pre">...</span></code> junto a <span class="guilabel">Salida</span> y seleccione <span class="guilabel">Guardar a archivo…</span>.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/16.png" class="align-center" src="../../_images/16.png" />
+</div></blockquote>
+<ol class="arabic simple" start="17">
+<li><p>Nombre el archivo de salida <code class="docutils literal notranslate"><span class="pre">residencial_informal.tif</span></code> y haga clic en <span class="guilabel">Ejecutar</span>.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/17.png" class="align-center" src="../../_images/17.png" />
+</div></blockquote>
+<ol class="arabic simple" start="18">
+<li><p>Una vez finalizado el proceso, se añadirá a QGIS una nueva capa, <code class="docutils literal notranslate"><span class="pre">residencial_informal</span></code>. Esta capa rasterizada sólo tiene valores de dos píxeles: <code class="docutils literal notranslate"><span class="pre">1</span></code> donde nuestra expresión evaluó <em>true</em> y <code class="docutils literal notranslate"><span class="pre">0</span></code> donde fue <em>false</em>. Los píxeles que aparecen en blanco son los que pertenecen a las clases de asentamientos informales. Estilizaremos mejor esta capa para poder ver claramente los asentamientos informales. Haga clic en el botón <span class="guilabel">Abrir el panel de estilo de la capa</span>.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/18.png" class="align-center" src="../../_images/18.png" />
+</div></blockquote>
+<ol class="arabic simple" start="19">
+<li><p>Select the <code class="docutils literal notranslate"><span class="pre">residential_informal</span></code> layer and change the renderer to be <span class="guilabel">Paletted/Unique values</span>. Click the <span class="guilabel">Add values manually</span> (+) button.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/19.png" class="align-center" src="../../_images/19.png" />
+</div></blockquote>
+<ol class="arabic simple" start="20">
+<li><p>Cambie el <span class="guilabel">Valor</span> a <code class="docutils literal notranslate"><span class="pre">1</span></code> y escriba <code class="docutils literal notranslate"><span class="pre">Residencial</span> <span class="pre">Informal</span></code> como <span class="guilabel">Etiqueta</span>. Seleccione un color de su elección.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/20.png" class="align-center" src="../../_images/20.png" />
+</div></blockquote>
+<ol class="arabic simple" start="21">
+<li><p>Ahora podemos ver todos los asentamientos informales de la ciudad de Johannesburgo. Sería útil verlos en contexto con un mapa base. Tenemos acceso a una variedad de mapas base desde el complemento <span class="guilabel">QuickMapServices</span>. Una vez instalado el complemento, ve a <span class="menuselection">Web ‣ QuickMapServices ‣ OSM ‣ OSM Standard</span> para añadir la capa de OpenStreetMap.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/21.png" class="align-center" src="../../_images/21.png" />
+</div></blockquote>
+<ol class="arabic simple" start="22">
+<li><p>Ahora puede identificar y verificar fácilmente si nuestro análisis ha identificado correctamente los asentamientos informales. Puede seleccionar la capa <code class="docutils literal notranslate"><span class="pre">residencial_informal</span></code> y cambiar a la pestaña <span class="guilabel">Transparencia</span> en el panel <span class="guilabel">Estilos de capa`</span>. Puede reducir la <span class="guilabel">Opacidad global</span> para ver juntos los píxeles extraídos y el mapa base.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/22.png" class="align-center" src="../../_images/22.png" />
+</div></blockquote>
+<ol class="arabic simple" start="23">
+<li><p>Ya ha completado la primera parte del tutorial. Ahora utilizaremos la capa ráster <code class="docutils literal notranslate"><span class="pre">SA_NLC_2014_2018_CHANGE_Clipped</span></code> para identificar las regiones que se urbanizaron entre 2014 y 2018. Desactive todas las capas excepto <code class="docutils literal notranslate"><span class="pre">SA_NLC_2014_2018_CHANGE_Clipped</span></code>, y haga clic en el botón <span class="guilabel">Abrir el panel de estilo de capas`</span>. Cambie a la pestaña <span class="guilabel">Transparencia</span> e introduzca <code class="docutils literal notranslate"><span class="pre">0</span></code> en <span class="guilabel">Valor adicional sin datos`</span>. Esto hará que los píxeles con valor 0 sean transparentes.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/23.png" class="align-center" src="../../_images/23.png" />
+</div></blockquote>
+<ol class="arabic simple" start="24">
+<li><p>Utilice la herramienta <span class="guilabel">Identificar</span> de la barra de herramientas <span class="guilabel">Atributos</span> para hacer clic en la imagen e inspeccionar los valores de los píxeles. Verá que los valores de los píxeles van de 21 a 420. Cada valor indica una transición de una de las 73 clases de origen a otra clase.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/24.png" class="align-center" src="../../_images/24.png" />
+</div></blockquote>
+<ol class="arabic simple" start="25">
+<li><p>Su descarga de datos viene con una hoja de cálculo llamada <code class="docutils literal notranslate"><span class="pre">lcccodes.xlsx</span></code>. Esta hoja tiene una hoja <strong>03 urban_change_codes</strong> que da más detalles sobre cada valor de píxel. Nos interesan todos los valores de los píxeles en los que cualquier clase de 2014 cambió a una clase edificada de 2018. En la imagen de abajo, estos están resaltados en azul.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/25.png" class="align-center" src="../../_images/25.png" />
+</div></blockquote>
+<ol class="arabic simple" start="26">
+<li><p>Nuestro objetivo es mapear los cambios en la clase construida. Aplicaremos una transformación en la capa <code class="docutils literal notranslate"><span class="pre">SA_NLC_2014_2018_CHANGE_Clipped</span></code> para que todos los valores de los píxeles sean mapeados desde sus valores originales a cualquiera de los siguientes valores.</p></li>
+</ol>
+<table class="colwidths-given docutils align-default">
+<colgroup>
+<col style="width: 17%" />
+<col style="width: 83%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">1</span></code></p></td>
+<td><p>Todos los píxeles que fueron una clase construida tanto en 2014 como en 2018</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">2</span></code></p></td>
+<td><p>Todos los píxeles que cambiaron de clase no construida en 2014 a clase construida en 2018.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">0</span></code></p></td>
+<td><p>Todos los píxeles que quedan</p></td>
+</tr>
+</tbody>
+</table>
+<ol class="arabic simple" start="27">
+<li><p>Para ello, necesitamos crear una tabla que especifique estas reglas. Como QGIS es capaz de leer hojas de cálculo directamente, es el método más conveniente para crear esta tabla. Nuestra hoja de cálculo debe tener 3 columnas, <code class="docutils literal notranslate"><span class="pre">MIN</span></code>, <code class="docutils literal notranslate"><span class="pre">MAX</span></code>, y <code class="docutils literal notranslate"><span class="pre">OUTPUT</span></code>. Cada fila debe ser el rango de valores ráster de entrada al que se le debe asignar un valor de salida. Cree una hoja de cálculo como la que se muestra a continuación y guárdela en su ordenador como <code class="docutils literal notranslate"><span class="pre">reclass.xlsx</span></code>. También puede descargar una copia lista para usar desde este enlace - <a class="reference external" href="https://www.qgistutorials.com/downloads/reclass.xlsx">reclass.xlsx</a></p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/27.png" class="align-center" src="../../_images/27.png" />
+</div></blockquote>
+<ol class="arabic simple" start="28">
+<li><p>Localice el archivo <code class="docutils literal notranslate"><span class="pre">reclass.xlsx</span></code> en el navegador. Arrástrelo y suéltelo en la ventana principal.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/28.png" class="align-center" src="../../_images/28.png" />
+</div></blockquote>
+<ol class="arabic simple" start="29">
+<li><p>A new layer <code class="docutils literal notranslate"><span class="pre">Sheet1</span></code> will be added to the <span class="guilabel">Layers</span> panel. Right-click on it and select <span class="guilabel">Open Attribute Table</span>. Verify that the sheet was imported correctly and you have 3 columns named <code class="docutils literal notranslate"><span class="pre">MIN</span></code>, <code class="docutils literal notranslate"><span class="pre">MAX</span></code> and <code class="docutils literal notranslate"><span class="pre">OUTPUT</span></code>. Open the <span class="menuselection">Processing Toolbox ‣ Reclassify by layer</span> tool.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/29.png" class="align-center" src="../../_images/29.png" />
+</div></blockquote>
+<ol class="arabic simple" start="30">
+<li><p>In the <span class="guilabel">Reclassify by layer</span> dialog, select <code class="docutils literal notranslate"><span class="pre">SA_NLC_2014_2018_CHANGE_Clipped</span></code> as the <span class="guilabel">Raster layer</span>. Select <code class="docutils literal notranslate"><span class="pre">Sheet1</span></code> as the <span class="guilabel">Layer containing class breaks</span>. Select <code class="docutils literal notranslate"><span class="pre">MIN</span></code>, <code class="docutils literal notranslate"><span class="pre">MAX</span></code> and <code class="docutils literal notranslate"><span class="pre">OUTPUT</span></code> fields for their respective fields.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/30.png" class="align-center" src="../../_images/30.png" />
+</div></blockquote>
+<ol class="arabic simple" start="31">
+<li><p>Amplíe la sección <span class="guilabel">Parámetros avanzados</span>. Cambie la etiqueta <span class="guilabel">Límites de rango</span> a <code class="docutils literal notranslate"><span class="pre">min</span> <span class="pre">&lt;=</span> <span class="pre">value</span> <span class="pre">&lt;=</span> <span class="pre">max</span></code>. Haga clic en el botón <span class="guilabel">…</span> de <span class="guilabel">Recalificación de la trama</span> e introduzca el nombre del archivo de salida como <code class="docutils literal notranslate"><span class="pre">builtup_change.tif</span></code>. Haga clic en <span class="guilabel">Ejecutar</span>.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/31.png" class="align-center" src="../../_images/31.png" />
+</div></blockquote>
+<ol class="arabic simple" start="32">
+<li><p>Una vez finalizado el procesamiento, se añadirá al lienzo una nueva capa <code class="docutils literal notranslate"><span class="pre">builtup_change</span></code> con valores de píxel <code class="docutils literal notranslate"><span class="pre">0-2</span></code>. En el panel de <span class="guilabel">Estilos de capa</span>, seleccione <code class="docutils literal notranslate"><span class="pre">Valores</span> <span class="pre">únicos</span></code> y haga clic en <code class="docutils literal notranslate"><span class="pre">Clasificar</span></code>.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/32.png" class="align-center" src="../../_images/32.png" />
+</div></blockquote>
+<ol class="arabic simple" start="33">
+<li><p>Elija el color de su elección para cada categoría y etiquete los valores de los píxeles «0», «1» y «2» como «no edificado», «edificado existente» y «edificado nuevo».</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/33.png" class="align-center" src="../../_images/33.png" />
+</div></blockquote>
+<ol class="arabic simple" start="34">
+<li><p>Ahora, en la pestaña <span class="guilabel">Transparencia</span>, reduzca la <span class="guilabel">Opacidad globa</span>, y active la capa <code class="docutils literal notranslate"><span class="pre">OSM</span> <span class="pre">Standard</span></code> para ver tanto los píxeles de buildup_change como el mapa base juntos.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/34.png" class="align-center" src="../../_images/34.png" />
+</div></blockquote>
+</section>
+</section>
+
+
+
+
+
+  <div id="disqus_thread"></div>
+  <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+
+    </div>
+      
+  </div>
+</div>
+
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+    </p>
+    <p>
+        &copy; Copyright 2021, Ujaval Gandhi.<br/>
+      Actualizado por última vez en ago. 30, 2022.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 4.0.1.<br/>
+    </p>
+  </div>
+</footer>
+<div class="container">
+  <p>This work is licensed under a <a href="http://creativecommons.org/licenses/by/4.0/deed.en_US">Creative Commons Attribution 4.0 International License</a></p>
+</div>
+<!-- Twitter Button -->
+<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+
+<!-- Disqus comments widget -->
+<script type="text/javascript">
+  /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+  var disqus_shortname = 'qgistutorials'; // required: replace example with your forum shortname
+  /* * * DON'T EDIT BELOW THIS LINE * * */
+  (function () {
+    var s = document.createElement('script'); s.async = true;
+    s.type = 'text/javascript';
+    s.src = '//' + disqus_shortname + '.disqus.com/count.js';
+    (document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);
+  }());
+</script>
+
+<script type="text/javascript">
+  /* * * DON'T EDIT BELOW THIS LINE * * */
+  (function() {
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+
+<!-- Script fpr language switching. Largely adapted from https://github.com/pcav/faunalia-website -->
+<script>
+    var currentPage = 'docs/3/advanced_raster_analysis.html'; // coming from sphinx, always without starting '/'
+    var currentLang = 'en';
+    $(document).ready(function(){
+
+        var search = new RegExp('\/[a-zA-Z_]{2,8}\/'+ currentPage, 'gi');
+        var langPlusPage = window.location.href.match(search);
+        // it's possible this is a index.html page called without 'index.html', try without the currentPage
+        if (langPlusPage==undefined){
+            search = new RegExp('\/[a-zA-Z_]{2,8}\/$', 'gi');
+            langPlusPage = window.location.href.match(search);
+        }
+
+        // it's possible this is an index.html page called without 'index.html', try removing index.html
+        if (langPlusPage==undefined){
+            currentPage = currentPage.replace('index.html','')
+            search = new RegExp('\/[a-zA-Z_]{2,8}\/'+ currentPage, 'gi');
+            langPlusPage = window.location.href.match(search);
+        }
+        // still no langPlugPage: stop, because the language swicher will misbehave 
+
+        if (langPlusPage == undefined || langPlusPage.length != 1){
+            alert('You hit an error, please report back to us.');
+            return;
+        }
+        langPlusPage = langPlusPage[0];
+        currentLang = langPlusPage.replace(currentPage, '');
+
+        $("#languages").val(currentLang.replace(/\//g,'')); // currentLang is something like '/nl/'
+
+        $("#languages").change(function() {
+            gotoLang($(this).val());
+        });
+
+    });
+
+    // load current page in a different language
+    function gotoLang(lang){
+        var currentUrl = window.location.href;
+        var newUrl = currentUrl.replace(currentLang, '/'+lang+'/');
+        window.location.href = newUrl;
+    }
+</script>
+
+  </body>
+</html>

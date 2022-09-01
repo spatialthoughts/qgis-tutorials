@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+
+<html lang="zh_TW">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>點資料內插法 &#8212; QGIS Tutorials and Tips</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/bootstrap-sphinx.css" />
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/translations.js"></script>
+    <link rel="search" title="搜尋" href="../search.html" />
+
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<script type="text/javascript" src="../_static/js/jquery-1.11.0.min.js "></script>
+<script type="text/javascript" src="../_static/js/jquery-fix.js "></script>
+<script type="text/javascript" src="../_static/bootstrap-3.3.7/js/bootstrap.min.js "></script>
+<script type="text/javascript" src="../_static/bootstrap-sphinx.js "></script>
+
+
+<!-- Cookie Notice -->
+<!-- Script from https://github.com/AOEpeople/cookie-notice -->
+<script type="text/javascript" src="../_static/cookie.notice.min.js"></script>
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-B1WQ7B80XJ"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-B1WQ7B80XJ');
+</script>
+
+
+  </head><body>
+
+  <div id="navbar" class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="../index.html"><span><img src="../_static/logo.png"></span>
+          QGIS Tutorials and Tips</a>
+        <span class="navbar-text navbar-version pull-left"><b>v1</b></span>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="../index.html">Tutorials List <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"><ul>
+<li class="toctree-l1"><a class="reference internal" href="introduction.html">簡介</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/making_a_map.html">製作地圖 (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/working_with_attributes.html">Working with Attributes (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/importing_spreadsheets_csv.html">匯入工作表或 CSV 檔 (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/basic_vector_styling.html">Basic Vector Styling (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/calculating_line_lengths.html">Calculating Line Lengths and Statistics (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/raster_styling_and_analysis.html">Basic Raster Styling and Analysis (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/raster_mosaicing_and_clipping.html">Raster Mosaicing and Clipping (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/working_with_terrain.html">Working with Terrain Data (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/working_with_wms.html">Working with WMS Data (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/working_with_projections.html">Working with Projections (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/georeferencing_basics.html">為紙本地圖進行空間對位 (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/advanced_georeferencing.html">為空照圖進行空間對位 (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/digitizing_basics.html">Digitizing Map Data (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/performing_table_joins.html">資料表連接 (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/performing_spatial_joins.html">空間連接 (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/performing_spatial_queries.html">Performing Spatial Queries (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/nearest_neighbor_analysis.html">Nearest Neighbor Analysis (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/sampling_raster_data.html">Sampling Raster Data using Points or Polygons (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/calculating_raster_area.html">Calculating Raster Area (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/creating_heatmaps.html">製作熱區圖 (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/animating_time_series.html">Animating Time Series Data (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/handling_invalid_geometries.html">Handling Invalid Geometries (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/advanced_raster_analysis.html">Advanced Raster Analysis (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/interpolating_point_data.html">Interpolating Point Data (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/calculating_intersection_density.html">Calculating Street Intersection Density (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/batch_processing.html">使用處理框架進行批次處理 (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/processing_graphical_modeler.html">利用處理建模自動執行複雜的工作流程 (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/automating_map_creation.html">Automating Map Creation with Print Layout Atlas (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/multi_criteria_overlay.html">Multi Criteria Overlay Analysis (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/basic_network_analysis.html">Basic Network Visualization and Routing (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/origin_destination_matrix.html">Locating Nearest Facility with Origin-Destination Matrix (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/service_area_analysis.html">Service Area Analysis using Openrouteservice (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/travel_time_analysis.html">Travel Time Analysis with Uber Movement (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/areal_mean_rainfall.html">Calculating Areal Mean Rainfall (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/getting_started_with_pyqgis.html">Python 程式設計的初步上手 (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/processing_algorithms_pyqgis.html">Running Processing Algorithms via Python (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/custom_python_functions.html">使用自訂的 Python 表達式函數 (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/processing_python_scripts.html">撰寫 Python 腳本並在處理框架下執行（QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/building_a_python_plugin.html">以 Python 製作附加元件 (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/processing_python_plugin.html">Building a Processing Plugin (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="running_qgis_jobs.html">執行 QGIS 工作排程</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/web_mapping_with_qgis2web.html">Web Mapping with QGIS2Web (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="creating_basemaps_with_qtiles.html">用 QTiles 製作底圖</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/using_plugins.html">Using Plugins (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="downloading_osm_data.html">搜尋和下載開放街圖資料</a></li>
+<li class="toctree-l1"><a class="reference internal" href="learning_resources.html">QGIS 學習資源</a></li>
+<li class="toctree-l1"><a class="reference internal" href="credits.html">資料來源</a></li>
+<li class="toctree-l1"><a class="reference internal" href="batch_processing.html">使用處理框架進行批次處理 (QGIS2)</a></li>
+</ul>
+</ul>
+</li>
+              
+            
+            
+              
+                
+              
+            
+            
+
+            
+
+            
+              <li class="hidden-sm"></li>
+            
+          </ul>
+
+          
+            
+<form class="navbar-form navbar-right" action="../search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+      <div class="col-md-3">
+        <div id="sidebar" class="bs-sidenav" role="complementary"><h4>Author</h4>
+<p>Ujaval Gandhi</p>
+<a href="https://twitter.com/intent/follow?screen_name=spatialthoughts" class="twitter-follow-button" data-show-count="false">Follow @spatialthoughts</a>
+<hr>
+<p>Want to learn QGIS in a structured way? Check out <a href="https://spatialthoughts.com/" target="_blank">Spatial Thoughts</a> for more learning materials and instructor-led online programs with QGIS.org certification.</p>
+
+
+<h4>Change Language</h4>
+<form role="form" class="sidebar-form sidebar-left">
+<select id="languages" class="form-control select-mini">
+  <option value="en">English</option>
+  <option value="zh_TW">Chinese (Taiwan)</option>
+  <option value="nl">Dutch</option>
+  <option value="fi_FI">Finnish</option>
+  <option value="fr">French</option>
+  <option value="de">German</option>
+  <option value="el">Greek</option>
+  <option value="id">Indonesian</option>
+  <option value="it">Italian</option>
+  <option value="ko">Korean</option>
+  <option value="fa">Persian</option>
+  <option value="pt_BR">Portuguese</option>
+  <option value="ro">Romanian</option>
+  <option value="ru">Russian</option>
+  <option value="sl">Slovenian</option>
+  <option value="es">Spanish</option>
+  <option value="th">Thai</option>
+  <option value="tr">Turkish</option>
+  <option value="uk">Ukrainian</option>
+  <option value="vi">Vietnamese</option>
+</select>
+</form>
+        </div>
+      </div>
+    <div class="body col-md-9 content" role="main">
+      
+
+  <section id="interpolating-point-data">
+<h1>點資料內插法<a class="headerlink" href="#interpolating-point-data" title="本標題的永久連結">¶</a></h1>
+<div class="admonition warning">
+<p class="admonition-title">警告</p>
+<p>This tutorial is now obsolete. A new and updated version is available at <a class="reference internal" href="3/interpolating_point_data.html"><span class="doc">Interpolating Point Data (QGIS3)</span></a></p>
+</div>
+<p>GIS 系統常常把離散的點資料以內插法創造連續的面資料。自然界中很多東西都是連續的，像是海拔、土壤、溫度等等，如果我們想要分析這種面資料，是不可能把整個表面全部測量一次的。實際上的做法會是我們˙在野外只取幾個測量點，然後測量點之外的其他地方就靠<cite>內插法</cite>求得其值。在 QGIS 之中，可以透過內建的 <code class="docutils literal notranslate"><span class="pre">內插工具</span></code> 附加元件來執行以上所述的事情。</p>
+<section id="overview-of-the-task">
+<h2>內容說明<a class="headerlink" href="#overview-of-the-task" title="本標題的永久連結">¶</a></h2>
+<p>我們要使用位於德州的 Arlington 湖的水深測量數據，再根據這些數據製作地形圖和等高線圖。</p>
+<section id="other-skills-you-will-learn">
+<h3>你還會學到這些<a class="headerlink" href="#other-skills-you-will-learn" title="本標題的永久連結">¶</a></h3>
+<ul class="simple">
+<li><p>從點資料計算等高線</p></li>
+<li><p>套用遮罩於影像圖層中的無資料值</p></li>
+<li><p>為向量圖層加上標籤</p></li>
+</ul>
+</section>
+</section>
+<section id="get-the-data">
+<h2>取得資料<a class="headerlink" href="#get-the-data" title="本標題的永久連結">¶</a></h2>
+<p>Texas Water Development Board 提供了<a class="reference external" href="http://www.twdb.texas.gov/surfacewater/surveys/completed/list/index.asp">此湖完整的野外調查的 shapefiles</a>。</p>
+<p>可以從這裡下載 <a class="reference external" href="http://www.twdb.texas.gov/hydro_survey/Arlington/2007-12/Shapefiles.zip">2007-12 survey shapefiles for Lake Arlington</a></p>
+<p>為了方便起見，你也可以直接從以下連結下載：</p>
+<p><a class="reference external" href="http://www.qgistutorials.com/downloads/Shapefiles.zip">Shapefiles.zip</a></p>
+<p>資料來源 <a class="reference internal" href="credits.html#twdb" id="id1"><span>[TWDB]</span></a></p>
+</section>
+<section id="procedure">
+<h2>操作流程<a class="headerlink" href="#procedure" title="本標題的永久連結">¶</a></h2>
+<ol class="arabic simple">
+<li><p>打開 QGIS，選擇 <span class="menuselection">圖層 ‣ 加入圖層 ‣ 加入向量圖層</span>。</p></li>
+</ol>
+<img alt="../_images/1176.png" class="align-center" src="../_images/1176.png" />
+<ol class="arabic simple" start="2">
+<li><p>選擇 <code class="docutils literal notranslate"><span class="pre">Shapefiles.zip</span></code> 並按下 <span class="guilabel">確定</span>。</p></li>
+</ol>
+<img alt="../_images/2143.png" class="align-center" src="../_images/2143.png" />
+<ol class="arabic simple" start="3">
+<li><p>在 <span class="guilabel">選擇要增加的向量圖層</span> 視窗中，按住 <kbd class="kbd docutils literal notranslate">Shift</kbd> 鍵然後選擇 <code class="docutils literal notranslate"><span class="pre">Arlington_Soundings_2007_stpl83.shp</span></code> 和 <code class="docutils literal notranslate"><span class="pre">Boundary2004_550_stpl83.shp</span></code> 兩圖層，按下 <span class="guilabel">確定</span>。</p></li>
+</ol>
+<img alt="../_images/376.png" class="align-center" src="../_images/376.png" />
+<ol class="arabic simple" start="4">
+<li><p>你會看到 QGIS 中載入了 2 個圖層，<code class="docutils literal notranslate"><span class="pre">Boundary2004_550_stpl83</span></code> 是湖泊的邊界，我們先在圖層選單列表中把這個圖層取消勾選。</p></li>
+</ol>
+<img alt="../_images/450.png" class="align-center" src="../_images/450.png" />
+<ol class="arabic simple" start="5">
+<li><p>如此一來第二個圖層 <code class="docutils literal notranslate"><span class="pre">Arlington_Soundings_2007_stpl83</span></code> 會顯現出來。雖然資料看起來像是線，但它其實是一連串很接近的點。</p></li>
+</ol>
+<img alt="../_images/547.png" class="align-center" src="../_images/547.png" />
+<ol class="arabic simple" start="6">
+<li><p>點選 <span class="guilabel">放大</span> 鈕，縮放到螢幕中的任一小區域後，就可以看到點了。每個點的座標是<em>差分 GPS</em> 的測量值，其值代表湖泊在特定位置由<em>測深儀</em>測得的深度。</p></li>
+</ol>
+<img alt="../_images/645.png" class="align-center" src="../_images/645.png" />
+<ol class="arabic simple" start="7">
+<li><p>選擇 <span class="guilabel">識別圖徵</span> 工具然後點選任一個點，<span class="guilabel">識別圖徵結果</span> 的面板會出現在左側，上面記載此點的屬性值。在本例中，<code class="docutils literal notranslate"><span class="pre">ELEVATION</span></code> 屬性就是湖泊在此點的深度，而我們的任務就是要利用這些數值進行內插，求得湖泊的深度譜面以及等高線。</p></li>
+</ol>
+<img alt="../_images/744.png" class="align-center" src="../_images/744.png" />
+<ol class="arabic simple" start="8">
+<li><p>請確認你的 <code class="docutils literal notranslate"><span class="pre">內插附加元件（Interpolation</span> <span class="pre">plugin）</span></code>已啟用，詳細步驟請參考 <a class="reference internal" href="using_plugins.html"><span class="doc">使用附加元件</span></a>。啟用後，選擇 <span class="menuselection">影像 ‣ 內插工具 ‣ 內插工具</span>。</p></li>
+</ol>
+<img alt="../_images/843.png" class="align-center" src="../_images/843.png" />
+<ol class="arabic simple" start="9">
+<li><p>在 <span class="guilabel">內插工具</span> 視窗中的 <span class="guilabel">輸入</span> 區塊，<span class="guilabel">向量圖層</span> 選擇 <code class="docutils literal notranslate"><span class="pre">Arlington_Soundings_2007_stpl83</span></code>，<span class="guilabel">內插屬性</span> 選擇 <code class="docutils literal notranslate"><span class="pre">ELEVATION</span></code>，然後按 <span class="guilabel">加入</span>。調整 <span class="guilabel">X座標格子大小</span> 與 <span class="guilabel">Y座標格子大小</span> 到 <code class="docutils literal notranslate"><span class="pre">5</span></code>，這個數值代表輸出網格的每個像素大小。由於本來源資料的投影座標系統是以<strong>呎</strong>來當單位，每個像素最終會是 <strong>5 呎</strong>的方形大小。點選在 <span class="guilabel">輸出檔案</span> 右側的 <span class="guilabel">…</span>，把輸出檔命名為 <code class="docutils literal notranslate"><span class="pre">elevation_tin.tif</span></code>，最後按下 <span class="guilabel">確定</span>。</p></li>
+</ol>
+<div class="admonition note">
+<p class="admonition-title">備註</p>
+<p>內插的結果會隨著你選擇的內插方法和參數而有很大的不同。QGIS 支援兩種內插方法，分別為<em>三角內插 (TIN)</em> 以及<em>反距離加權法 (IDW)</em>，TIN 法常被使用於高程資料上，而 IDW 法則在內插其他種類的資料時較為常見，例如礦物富集度、人口等等。更多資訊請參考 QGIS 官方文檔中的 <a class="reference external" href="http://docs.qgis.org/2.2/en/docs/gentle_gis_introduction/spatial_analysis_interpolation.html">Spatial Analysis</a> 模組。</p>
+</div>
+<img alt="../_images/943.png" class="align-center" src="../_images/943.png" />
+<ol class="arabic simple" start="10">
+<li><p>看到 <code class="docutils literal notranslate"><span class="pre">elevation_tin</span></code> 圖層載入到 QGIS 後，以右鍵點選，選擇 <span class="guilabel">縮放到圖層範圍</span>，</p></li>
+</ol>
+<img alt="../_images/1050.png" class="align-center" src="../_images/1050.png" />
+<ol class="arabic simple" start="11">
+<li><p>如此一來就可以看到剛剛產生的湖泊底面全貌。內插法對於資料收集區以外的地方並不準確，所以接下來我們要依照湖泊的邊緣才接我們的湖泊底面。選擇 <span class="menuselection">影像 ‣ 取出 ‣ 裁剪</span>。</p></li>
+</ol>
+<img alt="../_images/1177.png" class="align-center" src="../_images/1177.png" />
+<ol class="arabic simple" start="12">
+<li><p>把 <span class="guilabel">輸出檔案</span> 命名為 <code class="docutils literal notranslate"><span class="pre">elevation_tin_clipped.tif</span></code>，<span class="guilabel">裁剪模式</span> 選擇 <span class="guilabel">分析遮罩</span>，然後選擇 <code class="docutils literal notranslate"><span class="pre">Boundary2004_550_stpl83</span></code> 作為我們的 <span class="guilabel">分析遮罩</span>，最後按 <span class="guilabel">確定</span>。</p></li>
+</ol>
+<img alt="../_images/1252.png" class="align-center" src="../_images/1252.png" />
+<ol class="arabic simple" start="13">
+<li><p>新的影像 <code class="docutils literal notranslate"><span class="pre">elevation_tin_clipped</span></code> 完成後會被載入 QGIS 中。接著我們來調整一下圖層的樣式，顯示各處海拔的不同，注意在 <code class="docutils literal notranslate"><span class="pre">elevation_tin</span></code> 中的最大與最小高度值。以右鍵點選 <code class="docutils literal notranslate"><span class="pre">elevation_tin_clipped</span></code> 圖層，進入 <span class="guilabel">屬性</span>。</p></li>
+</ol>
+<img alt="../_images/1350.png" class="align-center" src="../_images/1350.png" />
+<ol class="arabic simple" start="14">
+<li><p>前往 <span class="guilabel">樣式</span> 分頁，<span class="guilabel">繪圖類型</span> 選擇 <span class="guilabel">單波段偽彩色</span>，在 <span class="guilabel">產生新的色彩對映表</span> 面板中，選擇 <span class="guilabel">Spectral</span> 色階，由於我們想看到的是湖泊深度圖而不是單純的高度圖，因此請把 <span class="guilabel">反轉</span> 框勾選起來。如此一來，藍色會被指派到較深的位置，而水淺的地方會以紅色表達。按下 <span class="guilabel">分類</span>。</p></li>
+</ol>
+<img alt="../_images/1446.png" class="align-center" src="../_images/1446.png" />
+<ol class="arabic simple" start="15">
+<li><p>切換至 <span class="guilabel">透明度</span> 分頁，我們要移除掉所有在外框區域、全黑色的像素，所以在 <span class="guilabel">附加無資料值</span> 一欄輸入 <code class="docutils literal notranslate"><span class="pre">0</span></code>，然後按下 <span class="guilabel">確定</span>。</p></li>
+</ol>
+<img alt="../_images/1544.png" class="align-center" src="../_images/1544.png" />
+<ol class="arabic simple" start="16">
+<li><p>現在我們已經從湖泊的水深數據點，內插出了湖泊的高程（深度）地圖，再讓我們試試看產生等深線吧。選擇 <span class="menuselection">影像 ‣ 取出 ‣ 等高線</span>。</p></li>
+</ol>
+<img alt="../_images/1641.png" class="align-center" src="../_images/1641.png" />
+<ol class="arabic simple" start="17">
+<li><p>在 <span class="guilabel">等高線</span> 視窗中的 <span class="guilabel">輸出等值線向量檔案</span>，輸入 <code class="docutils literal notranslate"><span class="pre">contours</span></code>。我們要產生 5 呎間隔的等高線，因此在 <span class="guilabel">等高線間隔</span> 欄位中輸入 <code class="docutils literal notranslate"><span class="pre">5.00</span></code>。勾選 <span class="guilabel">屬性名稱</span> 方框，然後按下 <span class="guilabel">確定</span>。</p></li>
+</ol>
+<img alt="../_images/1737.png" class="align-center" src="../_images/1737.png" />
+<ol class="arabic simple" start="18">
+<li><p>處理完成後，等高線會被載入為 <code class="docutils literal notranslate"><span class="pre">contours</span></code> 圖層。在圖層上按右鍵選擇 <span class="guilabel">屬性</span>，</p></li>
+</ol>
+<img alt="../_images/1835.png" class="align-center" src="../_images/1835.png" />
+<ol class="arabic simple" start="19">
+<li><p>前往到 <span class="guilabel">標記設計</span> 分頁，勾選 <span class="guilabel">Label with</span> 的方框（譯按：或是在下拉式選單中選擇 <code class="docutils literal notranslate"><span class="pre">Show</span> <span class="pre">labels</span> <span class="pre">for</span> <span class="pre">this</span> <span class="pre">layer</span></code>），旁邊欄位選擇 <code class="docutils literal notranslate"><span class="pre">ELEV</span></code>。在底下的 <span class="guilabel">位置</span> 屬性中，選擇 <span class="guilabel">曲線</span>。最後按下 <span class="guilabel">確定</span>。</p></li>
+</ol>
+<img alt="../_images/1927.png" class="align-center" src="../_images/1927.png" />
+<ol class="arabic simple" start="20">
+<li><p>最後，你就會看到標籤數值已沿著各等高線標記上去了。</p></li>
+</ol>
+<img alt="../_images/2022.png" class="align-center" src="../_images/2022.png" />
+</section>
+</section>
+
+
+
+
+
+  <div id="disqus_thread"></div>
+  <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+
+    </div>
+      
+  </div>
+</div>
+
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+    </p>
+    <p>
+        &copy; Copyright 2021, Ujaval Gandhi.<br/>
+      最後更新於 8月 30, 2022。<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 4.0.1.<br/>
+    </p>
+  </div>
+</footer>
+<div class="container">
+  <p>This work is licensed under a <a href="http://creativecommons.org/licenses/by/4.0/deed.en_US">Creative Commons Attribution 4.0 International License</a></p>
+</div>
+<!-- Twitter Button -->
+<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+
+<!-- Disqus comments widget -->
+<script type="text/javascript">
+  /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+  var disqus_shortname = 'qgistutorials'; // required: replace example with your forum shortname
+  /* * * DON'T EDIT BELOW THIS LINE * * */
+  (function () {
+    var s = document.createElement('script'); s.async = true;
+    s.type = 'text/javascript';
+    s.src = '//' + disqus_shortname + '.disqus.com/count.js';
+    (document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);
+  }());
+</script>
+
+<script type="text/javascript">
+  /* * * DON'T EDIT BELOW THIS LINE * * */
+  (function() {
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+
+<!-- Script fpr language switching. Largely adapted from https://github.com/pcav/faunalia-website -->
+<script>
+    var currentPage = 'docs/interpolating_point_data.html'; // coming from sphinx, always without starting '/'
+    var currentLang = 'en';
+    $(document).ready(function(){
+
+        var search = new RegExp('\/[a-zA-Z_]{2,8}\/'+ currentPage, 'gi');
+        var langPlusPage = window.location.href.match(search);
+        // it's possible this is a index.html page called without 'index.html', try without the currentPage
+        if (langPlusPage==undefined){
+            search = new RegExp('\/[a-zA-Z_]{2,8}\/$', 'gi');
+            langPlusPage = window.location.href.match(search);
+        }
+
+        // it's possible this is an index.html page called without 'index.html', try removing index.html
+        if (langPlusPage==undefined){
+            currentPage = currentPage.replace('index.html','')
+            search = new RegExp('\/[a-zA-Z_]{2,8}\/'+ currentPage, 'gi');
+            langPlusPage = window.location.href.match(search);
+        }
+        // still no langPlugPage: stop, because the language swicher will misbehave 
+
+        if (langPlusPage == undefined || langPlusPage.length != 1){
+            alert('You hit an error, please report back to us.');
+            return;
+        }
+        langPlusPage = langPlusPage[0];
+        currentLang = langPlusPage.replace(currentPage, '');
+
+        $("#languages").val(currentLang.replace(/\//g,'')); // currentLang is something like '/nl/'
+
+        $("#languages").change(function() {
+            gotoLang($(this).val());
+        });
+
+    });
+
+    // load current page in a different language
+    function gotoLang(lang){
+        var currentUrl = window.location.href;
+        var newUrl = currentUrl.replace(currentLang, '/'+lang+'/');
+        window.location.href = newUrl;
+    }
+</script>
+
+  </body>
+</html>

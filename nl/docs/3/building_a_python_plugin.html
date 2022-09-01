@@ -1,0 +1,890 @@
+<!DOCTYPE html>
+
+<html lang="nl">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>Een plug-in in Python bouwen (QGIS3) &#8212; QGIS Tutorials and Tips</title>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-sphinx.css" />
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/translations.js"></script>
+    <link rel="search" title="Zoeken" href="../../search.html" />
+    <link rel="next" title="Een plug-in voor Processing bouwen (QGIS3)" href="processing_python_plugin.html" />
+    <link rel="prev" title="Python-scripts schrijven voor framework Processing (QGIS3)" href="processing_python_scripts.html" />
+
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<script type="text/javascript" src="../../_static/js/jquery-1.11.0.min.js "></script>
+<script type="text/javascript" src="../../_static/js/jquery-fix.js "></script>
+<script type="text/javascript" src="../../_static/bootstrap-3.3.7/js/bootstrap.min.js "></script>
+<script type="text/javascript" src="../../_static/bootstrap-sphinx.js "></script>
+
+
+<!-- Cookie Notice -->
+<!-- Script from https://github.com/AOEpeople/cookie-notice -->
+<script type="text/javascript" src="../../_static/cookie.notice.min.js"></script>
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-B1WQ7B80XJ"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-B1WQ7B80XJ');
+</script>
+
+
+  </head><body>
+
+  <div id="navbar" class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="../../index.html"><span><img src="../../_static/logo.png"></span>
+          QGIS Tutorials and Tips</a>
+        <span class="navbar-text navbar-version pull-left"><b>v1</b></span>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="../../index.html">Tutorials List <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"><ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../introduction.html">Introductie</a></li>
+<li class="toctree-l1"><a class="reference internal" href="making_a_map.html">Een kaart maken (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="working_with_attributes.html">Werken met attributen (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="importing_spreadsheets_csv.html">Werkbladen of CSV-bestanden importeren (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="basic_vector_styling.html">Basis opmaken van vectoren (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="calculating_line_lengths.html">Lengten van lijnen en statistieken berekenen (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="raster_styling_and_analysis.html">Basis opmaken en analyses van rasters (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="raster_mosaicing_and_clipping.html">Rasters mozaïeken en clippen (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="working_with_terrain.html">Werken met gegevens over het terrein (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="working_with_wms.html">Werken met gegevens van WMS (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="working_with_projections.html">Werken met projecties (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="georeferencing_basics.html">Topobladen en gescande kaarten voorzien van geoverwijzingen (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="advanced_georeferencing.html">Geo-verwijzingen voor satellietbeelden (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="digitizing_basics.html">Kaartgegevens digitaliseren</a></li>
+<li class="toctree-l1"><a class="reference internal" href="performing_table_joins.html">Samenvoegen van tabellen uitvoeren (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="performing_spatial_joins.html">Ruimtelijke samenvoegingen uitvoeren (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="performing_spatial_queries.html">Ruimtelijke query’s uitvoeren (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="nearest_neighbor_analysis.html">Analyse Nearest Neighbor (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="sampling_raster_data.html">Monsters nemen van rastergegevens met behulp van punten of polygonen (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="calculating_raster_area.html">Rastergebied berekenen (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="creating_heatmaps.html">Heatmaps maken (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="animating_time_series.html">Geanimeerde gegevens tijdreeks (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="handling_invalid_geometries.html">Ongeldige geometrieën afhandelen (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="advanced_raster_analysis.html">Gevorderde rasteranalyses (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="interpolating_point_data.html">Interpoleren van puntgegevens</a></li>
+<li class="toctree-l1"><a class="reference internal" href="calculating_intersection_density.html">Dichtheid van straatkruisingen berekenen (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="batch_processing.html">Massa verwerken met behulp van Framework Processing (QGIS 3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="processing_graphical_modeler.html">Complexe werkstromen automatiseren met behulp van Grafische modellen bouwen (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="automating_map_creation.html">Maken van kaarten automatiseren met Atlas van afdruklay-out (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="multi_criteria_overlay.html">Multi Criteria Overlay Analyse (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="basic_network_analysis.html">Basis netwerk visualisatie en routeren (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="origin_destination_matrix.html">Dichtstbijzijnde faciliteit zoeken met Origin-Destination Matrix (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="service_area_analysis.html">Analyse Servicegebied met Openrouteservice (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="travel_time_analysis.html">Reistijd-analyse met Uber Movement (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="areal_mean_rainfall.html">Berekenen gemiddelde regenval voor gebied (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="getting_started_with_pyqgis.html">Beginnen met programmeren in Python (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="processing_algorithms_pyqgis.html">Algoritmes van Processing uitvoeren via Python (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="custom_python_functions.html">Aangepaste Python expressie-functies gebruiken (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="processing_python_scripts.html">Python-scripts schrijven voor framework Processing (QGIS3)</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Een plug-in in Python bouwen (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="processing_python_plugin.html">Een plug-in voor Processing bouwen (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../running_qgis_jobs.html">Taken voor QGIS uitvoeren en in schema zetten</a></li>
+<li class="toctree-l1"><a class="reference internal" href="web_mapping_with_qgis2web.html">In kaart brengen op het web met QGIS2Web (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../creating_basemaps_with_qtiles.html">Basiskaarten maken met QTiles</a></li>
+<li class="toctree-l1"><a class="reference internal" href="using_plugins.html">Plug-ins gebruiken (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../downloading_osm_data.html">Zoeken en downloaden van gegevens van OpenStreetMap</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../learning_resources.html">QGIS bronnen om te leren</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../credits.html">Gebruik van gegevens</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../batch_processing.html">Massa verwerken met behulp van Framework Processing (QGIS2)</a></li>
+</ul>
+</ul>
+</li>
+              
+            
+            
+              
+                
+  <li>
+    <a href="processing_python_scripts.html" title="Previous Chapter: Python-scripts schrijven voor framework Processing (QGIS3)"><span class="glyphicon glyphicon-chevron-left visible-sm"></span><span class="hidden-sm hidden-tablet">&laquo; Python-script...</span>
+    </a>
+  </li>
+  <li>
+    <a href="processing_python_plugin.html" title="Next Chapter: Een plug-in voor Processing bouwen (QGIS3)"><span class="glyphicon glyphicon-chevron-right visible-sm"></span><span class="hidden-sm hidden-tablet">Een plug-in v... &raquo;</span>
+    </a>
+  </li>
+              
+            
+            
+
+            
+
+            
+              <li class="hidden-sm"></li>
+            
+          </ul>
+
+          
+            
+<form class="navbar-form navbar-right" action="../../search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+      <div class="col-md-3">
+        <div id="sidebar" class="bs-sidenav" role="complementary"><h4>Author</h4>
+<p>Ujaval Gandhi</p>
+<a href="https://twitter.com/intent/follow?screen_name=spatialthoughts" class="twitter-follow-button" data-show-count="false">Follow @spatialthoughts</a>
+<hr>
+<p>Want to learn QGIS in a structured way? Check out <a href="https://spatialthoughts.com/" target="_blank">Spatial Thoughts</a> for more learning materials and instructor-led online programs with QGIS.org certification.</p>
+
+
+<h4>Change Language</h4>
+<form role="form" class="sidebar-form sidebar-left">
+<select id="languages" class="form-control select-mini">
+  <option value="en">English</option>
+  <option value="zh_TW">Chinese (Taiwan)</option>
+  <option value="nl">Dutch</option>
+  <option value="fi_FI">Finnish</option>
+  <option value="fr">French</option>
+  <option value="de">German</option>
+  <option value="el">Greek</option>
+  <option value="id">Indonesian</option>
+  <option value="it">Italian</option>
+  <option value="ko">Korean</option>
+  <option value="fa">Persian</option>
+  <option value="pt_BR">Portuguese</option>
+  <option value="ro">Romanian</option>
+  <option value="ru">Russian</option>
+  <option value="sl">Slovenian</option>
+  <option value="es">Spanish</option>
+  <option value="th">Thai</option>
+  <option value="tr">Turkish</option>
+  <option value="uk">Ukrainian</option>
+  <option value="vi">Vietnamese</option>
+</select>
+</form>
+        </div>
+      </div>
+    <div class="body col-md-9 content" role="main">
+      
+
+  <section id="building-a-python-plugin-qgis3">
+<h1>Een plug-in in Python bouwen (QGIS3)<a class="headerlink" href="#building-a-python-plugin-qgis3" title="Permalink naar deze titel">¶</a></h1>
+<p>Plug-ins zijn een fantastische manier om de functionaliteit van QGIS uit te breiden. U kunt plug-ins schrijven met behulp van Python die kunnen variëren van het toevoegen van een eenvoudige knop tot gesofisticeerde gereedschappen. Deze handleiding zal een overzicht van het proces geven voor het instellen van uw ontwikkelomgeving, de interface voor een plug-in ontwerpen en code schrijven voor interactie met QGIS. Bekijk de handleiding <a class="reference internal" href="getting_started_with_pyqgis.html"><span class="doc">Beginnen met programmeren in Python (QGIS3)</span></a> om bekend te raken met de basisbeginselen.</p>
+<div class="admonition note">
+<p class="admonition-title">Notitie</p>
+<p>Wanneer u een nieuwe plug-in bouwt, raad ik u sterk aan om een plug-in voor Processing te maken in plaats van de plug-in voor de GUI, die wordt beschreven in deze handleiding. Bekijk <a class="reference internal" href="processing_python_plugin.html"><span class="doc">Een plug-in voor Processing bouwen (QGIS3)</span></a> voor meer details.</p>
+</div>
+<section id="overview-of-the-task">
+<h2>Overzicht van de taak<a class="headerlink" href="#overview-of-the-task" title="Permalink naar deze titel">¶</a></h2>
+<p>We zullen een eenvoudige plug-in ontwikkelen, genaamd <code class="docutils literal notranslate"><span class="pre">Attributen</span> <span class="pre">opslaan</span></code> die gebruikers in staat zal stellen een vectorlaag uit te zoeken en de attributen daarvan weg te schrijven naar een CSV-bestand.</p>
+</section>
+<section id="get-the-tools">
+<h2>De gereedschappen ophalen<a class="headerlink" href="#get-the-tools" title="Permalink naar deze titel">¶</a></h2>
+<section id="qt-creator">
+<h3>Qt Creator<a class="headerlink" href="#qt-creator" title="Permalink naar deze titel">¶</a></h3>
+<p><a class="reference external" href="http://www.qt.io/">Qt</a> is een framewerk voor softwareontwikkeling dat wordt gebruikt om toepassingen te ontwikkelen die kunnen worden uitgevoerd op Windows, Mac, Linux als ook op verschillende mobiele besturingssystemen. QGIS zelf is geschreven met behulp van het framewerk Qt. Voor de ontwikkeling van plug-ins zullen we een toepassing gebruiken, genaamd <a class="reference external" href="https://doc.qt.io/qt-5/qtdesigner-manual.html">Qt Creator</a> om de interface voor onze plug-in te ontwerpen.</p>
+<p>Download en installeer het installatieprogramma voor Qt Creator vanaf <a class="reference external" href="https://www.qt.io/offline-installers">Qt Offline Installers</a>. Zorg er voor dat u <strong>Qt Creator</strong> selecteert op de pagina voor downloaden. Merk op dat u een gratis account voor Qt moet maken om het pakket te kunnen installeren.</p>
+<div class="admonition note">
+<p class="admonition-title">Notitie</p>
+<p>Het installatieprogramma OSGeo4w voor QGIS op Windows bevat een kopie van het programma <strong>Qt Designer</strong> dat een lichtgewicht versie is van <strong>Qt Creator</strong> en perfect geschikt voor het bouwen van plug-ins. U zou het downloaden van Qt Creator kunnen overslaan en het in plaats daarvan gebruiken vanuit <span class="menuselection">C:\OSGeo4W64\bin\qgis-designer</span>.</p>
+</div>
+<img alt="../../_images/setup1.png" class="align-center" src="../../_images/setup1.png" />
+</section>
+<section id="python-bindings-for-qt">
+<h3>Python Bindings voor Qt<a class="headerlink" href="#python-bindings-for-qt" title="Permalink naar deze titel">¶</a></h3>
+<p>Omdat we de plug-in ontwikkelen in Python, moeten we de Python bindings voor Qt installeren. De methode voor het installeren hiervan is afhankelijk van het platform dat u gebruikt. Voor het bouwen van plug-ins hebben we het gereedschap voor de opdrachtregel <code class="docutils literal notranslate"><span class="pre">pyrcc5</span></code> nodig.</p>
+<p><strong>Windows</strong></p>
+<p>Relevante bindings voor Python zijn opgenomen in de installatie van QGIS op Windows. We dienen het pad aan te geven in de installatie van QGIS om ze uit de map Plugin te kunnen gebruiken .</p>
+<p>Maak een Windows Batch-bestand (extensie .bat) met de volgende inhoud en sla dat op uw computer op als <code class="docutils literal notranslate"><span class="pre">compile.bat</span></code>. We zullen dit bestand later naar de map Plugin kopiëren. Als u QGIS hebt geïnstalleerd in een ander pad, vervang dan <code class="docutils literal notranslate"><span class="pre">C:\OSGeo4W64\bin\</span></code> door uw pad.</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>@echo off
+call &quot;C:\OSGeo4W64\bin\o4w_env.bat&quot;
+call &quot;C:\OSGeo4W64\bin\qt5_env.bat&quot;
+call &quot;C:\OSGeo4W64\bin\py3_env.bat&quot;
+
+@echo on
+pyrcc5 -o resources.py resources.qrc
+</pre></div>
+</div>
+<img alt="../../_images/setup2.png" class="align-center" src="../../_images/setup2.png" />
+<p><strong>Mac</strong></p>
+<p>Installeer de <a class="reference external" href="http://brew.sh">Homebrew</a> pakketbeheerder. Installeer het pakket <code class="docutils literal notranslate"><span class="pre">PyQt</span></code>  door de volgende opdracht uit te voeren:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>brew install pyqt
+</pre></div>
+</div>
+<dl class="simple">
+<dt><strong>Linux</strong></dt><dd><p>Afhankelijk van uw distributie, zoek en installeer het pakket <code class="docutils literal notranslate"><span class="pre">python-qt5</span></code>. Op Ubuntu en Debian-gebaseerde distributies kunt u de volgende opdracht uitvoeren:</p>
+</dd>
+</dl>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>sudo apt-get install python-qt5
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Notitie</p>
+<p>Het zou kunnen zijn dat QGIS dit pakket al heeft geïnstalleerd.</p>
+</div>
+</section>
+<section id="a-text-editor-or-a-python-ide">
+<h3>Een tekstbewerker of een Python IDE<a class="headerlink" href="#a-text-editor-or-a-python-ide" title="Permalink naar deze titel">¶</a></h3>
+<p>Elke soort softwareontwikkeling vereist een goede tekstbewerker. Als u al een favoriete tekstbewerker of een IDE (Integrated Development Environment) heeft, zou u die kunnen gebruiken voor deze handleiding. Anders biedt elk platform een grote variëteit van gratis of betaalde opties voor tekstbewerkers. Kies er een die aan uw wensen voldoet.</p>
+<p>Deze handleiding gebruikt de bewerker Notepad++ op Windows.</p>
+<p><strong>Windows</strong></p>
+<p><a class="reference external" href="http://notepad-plus-plus.org/">Notepad++</a> is een goede gratis tekstbewerker voor Windows. Download en installeer de <a class="reference external" href="https://notepad-plus-plus.org/download/">tekstbewerker Notepad++</a>.</p>
+<div class="admonition note">
+<p class="admonition-title">Notitie</p>
+<p>Indien u Notepad++ gebruikt, zorg er dan voor dat u gaat naar <a href="#id1"><span class="problematic" id="id2">:menuselection:`Instellingen --&gt; Voorkeuren --&gt; Tabs`:guilabel:</span></a> en <cite>Omzetten in spaties</cite> inschakelt. Python is bijzonder gevoelig voor witruimte en deze instelling zal er voor zorgen dat tabs en spaties op de juiste manier worden behandeld.</p>
+</div>
+</section>
+<section id="plugin-builder-plugin">
+<h3>plug-in Plugin Builder<a class="headerlink" href="#plugin-builder-plugin" title="Permalink naar deze titel">¶</a></h3>
+<p>Er is een nuttige plug-in voor QGIS, genaamd <code class="docutils literal notranslate"><span class="pre">Plugin</span> <span class="pre">Builder</span></code> die alle noodzakelijke bestanden en onderliggende code voor een plug-in maakt. Zoek en installeer de plug-in <code class="docutils literal notranslate"><span class="pre">Plugin</span> <span class="pre">Builder</span></code>. Bekijk <a class="reference internal" href="../using_plugins.html"><span class="doc">Plug-ins gebruiken</span></a> voor meer details over hoe plug-ins te installeren.</p>
+</section>
+<section id="plugins-reloader-plugin">
+<h3>plug-in Plugins Reloader<a class="headerlink" href="#plugins-reloader-plugin" title="Permalink naar deze titel">¶</a></h3>
+<p>Dit is een andere nuttige hulpplug-in die het iteratief ontwikkelen van plug-ins mogelijk maakt. Met behulp van deze plug-in kunt u de code voor uw plug-in wijzigen en die hebben gereflecteerd in QGIS zonder dat u QGIS elke keer opnieuw moet starten. Zoek en installeer de plug-in <code class="docutils literal notranslate"><span class="pre">Plugin</span> <span class="pre">Reloader</span></code>. Bekijk <a class="reference internal" href="../using_plugins.html"><span class="doc">Plug-ins gebruiken</span></a> voor meer details over hoe plug-ins te installeren.</p>
+<div class="admonition note">
+<p class="admonition-title">Notitie</p>
+<p>Plugin Reloader is een experimentele plug-in. Zorg er voor dat u ook <span class="guilabel">Ook de experimentele plugins tonen</span> in de instellingen van <span class="guilabel">Plug-ins installeren en beheren</span> te selecteren, als u hem niet kunt vinden.</p>
+</div>
+</section>
+</section>
+<section id="procedure">
+<h2>Procedure<a class="headerlink" href="#procedure" title="Permalink naar deze titel">¶</a></h2>
+<ol class="arabic simple">
+<li><p>Open QGIS. Ga naar <span class="menuselection">Plug-ins ‣ Plugin Builder ‣ Plugin Builder</span>.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/120.png" class="align-center" src="../../_images/120.png" />
+</div></blockquote>
+<ol class="arabic simple" start="2">
+<li><p>U zult het dialoogvenster zien van <span class="guilabel">QGIS Plugin Builder</span> met een formulier. U kunt het formulier vullen met details met betrekking tot onze plug-in. De <span class="guilabel">Class name</span> zal de naam zijn van de Python Class die de logica van de plug-in bevat. Dit zal ook de naam zijn van de map die alle bestanden van de plug-in bevat. Voer <code class="docutils literal notranslate"><span class="pre">SaveAttributes</span></code> in als de naam van de klasse. De <span class="guilabel">Plugin name</span> is de naam waarmee uw plug-in zal verschijnen in <span class="guilabel">Plug-ins beheren en installeren</span>. Voer de naam in als <code class="docutils literal notranslate"><span class="pre">Attributen</span> <span class="pre">opslaan</span></code>. Voeg een beschrijving toe in het veld <span class="guilabel">Description</span>. De <span class="guilabel">Module name</span> zal de naam zijn van het belangrijkste Python-bestand voor de plug-in. Voer die in als <code class="docutils literal notranslate"><span class="pre">save_attributes</span></code>. Laat de versienummers zoals zij zijn en voer uw naam en e-mailadres in in de toepasselijke velden. Klik op <span class="guilabel">Next</span>.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/218.png" class="align-center" src="../../_images/218.png" />
+</div></blockquote>
+<ol class="arabic simple" start="3">
+<li><p>Voer een korte beschrijving van de plug-in in voor het dialoogvenster <span class="guilabel">About</span> en klik op <span class="guilabel">Next</span>.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/316.png" class="align-center" src="../../_images/316.png" />
+</div></blockquote>
+<ol class="arabic simple" start="4">
+<li><p>Selecteer <code class="docutils literal notranslate"><span class="pre">Tool</span> <span class="pre">button</span> <span class="pre">with</span> <span class="pre">dialog</span></code> uit de <span class="guilabel">Template</span> selector`. De waarde <span class="guilabel">Text for menu item</span> is hoe gebruikers uw plug-in zullen zien in het menu van QGIS. Voer het in als <code class="docutils literal notranslate"><span class="pre">Attributen</span> <span class="pre">opslaan</span> <span class="pre">als</span> <span class="pre">CSV</span></code>. Het veld <span class="guilabel">Menu</span> zal bepalen waar uw plug-in zal worden toegevoegd in QGIS. Selecteer <code class="docutils literal notranslate"><span class="pre">Vector</span></code> omdat onze plug-in bestemd is voor vectorgegevens. Klik op <span class="guilabel">Next</span>.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/45.png" class="align-center" src="../../_images/45.png" />
+</div></blockquote>
+<ol class="arabic simple" start="5">
+<li><p>Plugin builder zal u vragen naar het type van de te genereren bestanden. Behoud de standaard selectie en klik op <span class="guilabel">Next</span>.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/55.png" class="align-center" src="../../_images/55.png" />
+</div></blockquote>
+<ol class="arabic simple" start="6">
+<li><p>U kunt, omdat we niet van plan zijn om onze plug-in te publiceren, de waarden van <span class="guilabel">Bug tracker</span>, <span class="guilabel">Repository</span> en <span class="guilabel">Home page</span> op de standaard laten staan. Selecteer het vak <span class="guilabel">Flag the plugin as experimental</span> aan de onderzijde en klik op <span class="guilabel">Next</span>.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/65.png" class="align-center" src="../../_images/65.png" />
+</div></blockquote>
+<ol class="arabic simple" start="7">
+<li><p>U zult worden gevraagd een map op te geven voor uw plug-in. Sla die, voor nu, op in een map die u gemakkelijk kunt vinden op uw computer en klik op <span class="guilabel">Generate</span>.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/75.png" class="align-center" src="../../_images/75.png" />
+</div></blockquote>
+<ol class="arabic simple" start="8">
+<li><p>Druk vervolgens op de knop <span class="guilabel">generate</span>. U zult een dialoogvenster ter bevestiging zien als de sjabloon voor uw plug-in eenmaal is gemaakt.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/85.png" class="align-center" src="../../_images/85.png" />
+</div></blockquote>
+<div class="admonition note">
+<p class="admonition-title">Notitie</p>
+<p>U zou een bericht kunnen krijgen dat zegt dat pyrcc5 niet in het pad is gevonden. U kunt dit bericht negeren.</p>
+</div>
+<ol class="arabic simple" start="9">
+<li><p>Voordat we de nieuw gemaakte plug-in kunnen gebruiken, dienen we het bestand <code class="docutils literal notranslate"><span class="pre">resources.qrc</span></code> te compileren dat werd gemaakt door Plugin Builder. Dit bestand is deel van het <a class="reference external" href="https://doc.qt.io/qt-5/resources.html">Qt Resource System</a> wat verwijst naar alle binaire bestanden die in de plug-in worden gebruikt. Voor deze plug-in, zal het alleen het p;ictogram voor de plug-in hebben. Compileren van dit bestand genereert code voor de toepassing die kan worden gebruikt in de plug-in, onafhankelijk van op welk platform de plug-in wordt uitgevoerd. Volg de platformspecifieke instructie voor deze stap.</p></li>
+</ol>
+<p><strong>Windows</strong></p>
+<p>U kunt nu het bestand <code class="docutils literal notranslate"><span class="pre">compile.bat</span></code> kopiëren (gemaakt in het gedeelte <em>Python Bindings voor Qt</em> in het begin) naar de map Plugin. Eenmaal gekopieerd, dubbelklik op het bestand om het uit te voeren. Als de uitvoering met succes werd voltooid zult u nu een nieuw bestand, genaamd <code class="docutils literal notranslate"><span class="pre">resources.py</span></code>, in de map zien staan.</p>
+<blockquote>
+<div><img alt="../../_images/95.png" class="align-center" src="../../_images/95.png" />
+</div></blockquote>
+<div class="admonition note">
+<p class="admonition-title">Notitie</p>
+<p>Als deze stap mislukt kunt u <code class="docutils literal notranslate"><span class="pre">cmd.exe</span></code> starten en bladeren naar de map Plugin met behulp van de opdracht <code class="docutils literal notranslate"><span class="pre">cd</span></code>. Voer het Batch-bestand uit door <code class="docutils literal notranslate"><span class="pre">compile.bat</span></code> uit te voeren om de fout te kunnen zien.</p>
+</div>
+<p><strong>Mac en Linux</strong></p>
+<p>U zult eerst het gereedschap <code class="docutils literal notranslate"><span class="pre">pb_tool</span></code> moeten installeren. Open een Terminal en installeer het via pip.</p>
+<blockquote>
+<div><div class="highlight-none notranslate"><div class="highlight"><pre><span></span>sudo pip3 install pb_tool
+</pre></div>
+</div>
+</div></blockquote>
+<p>Open een Terminal en  ga naar de plugin directory en typ <code class="docutils literal notranslate"><span class="pre">pb_tool</span> <span class="pre">compile</span></code>. Dit zal de opdracht <code class="docutils literal notranslate"><span class="pre">pyrcc5</span></code> uitvoeren die we hadden geïnstalleerd als deel van het gedeelte <em>Python Bindings voor Qt</em>.</p>
+<blockquote>
+<div><div class="highlight-none notranslate"><div class="highlight"><pre><span></span>pb_tool compile
+</pre></div>
+</div>
+</div></blockquote>
+<ol class="arabic simple" start="10">
+<li><p>Plugins worden in QGIS opgeslagen in een speciale map. We moeten onze plugin directory naar die map kopiëren voor we die kunnen gebruiken. Zoek, in QGIS, de map voor uw huidige profiel door te gaan naar <span class="menuselection">Extra ‣ Gebruikersprofielen ‣ Actieve profielmap openen</span>.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/108.png" class="align-center" src="../../_images/108.png" />
+</div></blockquote>
+<ol class="arabic simple" start="11">
+<li><p>Kopieer, in de profielmap, de map Plugin naar de submap <span class="menuselection">python ‣ plugins</span>.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/1111.png" class="align-center" src="../../_images/1111.png" />
+</div></blockquote>
+<ol class="arabic simple" start="12">
+<li><p>Nu zijn we klaar om een eerste blik te werpen op de brandnieuwe plug-in die we hebben gemaakt. Sluit QGIS en start het opnieuw. Ga naar <span class="menuselection">Plug-ins ‣ Plug-ins beheren en installeren</span> en schakel de plug-in <code class="docutils literal notranslate"><span class="pre">Attributen</span> <span class="pre">opslaan</span></code> in op de tab <span class="guilabel">Geïnstalleerd</span>.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/128.png" class="align-center" src="../../_images/128.png" />
+</div></blockquote>
+<ol class="arabic simple" start="13">
+<li><p>U zult zien dat er een nieuw pictogram op de werkbalk staat en een nieuw menuitem onder <span class="menuselection">Vector ‣ Attributen opslaan ‣ Attributen opslaan als CSV`</span>. Selecteer die om het dialoogvenster voor de plug-in te starten.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/137.png" class="align-center" src="../../_images/137.png" />
+</div></blockquote>
+<ol class="arabic simple" start="14">
+<li><p>U zult een nieuw blanco dialoogvenster zien, genaamd <span class="guilabel">Attributen opslaan</span>. Sluit dit dialoogvenster.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/147.png" class="align-center" src="../../_images/147.png" />
+</div></blockquote>
+<ol class="arabic simple" start="15">
+<li><p>We zullen nu ons nieuw dialoogvenster ontwerpen en enkele elementen voor de gebruikersinterface er aan toevoegen. Open het programma <code class="docutils literal notranslate"><span class="pre">Qt</span> <span class="pre">Creator</span></code> en ga naar :menuselection::<cite>File –&gt; Open File or Project</cite>.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/157.png" class="align-center" src="../../_images/157.png" />
+</div></blockquote>
+<ol class="arabic simple" start="16">
+<li><p>Blader naar de map met de plug-in en selecteer het bestand <code class="docutils literal notranslate"><span class="pre">save_attributes_dialog_base.ui</span></code> file. Klik op <span class="guilabel">Openen</span>.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/16.gif" class="align-center" src="../../_images/16.gif" />
+</div></blockquote>
+<div class="admonition note">
+<p class="admonition-title">Notitie</p>
+<p>Windows verbergt de map <code class="docutils literal notranslate"><span class="pre">AppData</span></code>, dus u zou die niet hoeven te zien in het dialoogvenster voor het selecteren van bestanden. U kunt <code class="docutils literal notranslate"><span class="pre">AppData</span></code> invoeren bij de prompt voor <span class="guilabel">File name</span> vanuit de map erboven om het te openen.</p>
+</div>
+<ol class="arabic simple" start="17">
+<li><p>U zult een blanco dialoogvenster uit de plug-in zien. U kunt met slepen en neerzetten elementen verplaatsen vanuit het paneel aan de linkerkant naar het dialoogvenster. We zullen een type <span class="guilabel">Combo Box</span> van <span class="guilabel">Input Widgets</span> toevoegen. Sleep het naar het dialoogvenster van de plug-in.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/177.png" class="align-center" src="../../_images/177.png" />
+</div></blockquote>
+<ol class="arabic simple" start="18">
+<li><p>Maak het combinatievak op maat en pas de grootte aan. Sleep nu een type <span class="guilabel">Label</span> van
+<span class="guilabel">Display Widget</span> in het dialoogvenster.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/185.png" class="align-center" src="../../_images/185.png" />
+</div></blockquote>
+<ol class="arabic simple" start="19">
+<li><p>Klik op de labeltekst en voer in <code class="docutils literal notranslate"><span class="pre">Selecteer</span> <span class="pre">een</span> <span class="pre">laag</span></code>.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/195.png" class="align-center" src="../../_images/195.png" />
+</div></blockquote>
+<ol class="arabic simple" start="20">
+<li><p>Sla dit bestand op door te gaan naar <span class="menuselection">File ‣ Save save_attributes_dialog_base.ui</span>. Onthoud dat de naam van het object combinatievak <code class="docutils literal notranslate"><span class="pre">comboBox</span></code> is. We zullen er met die naam naar moeten verwijzen om interacties uit te kunnen voeren met behulp van code voor Python.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/205.png" class="align-center" src="../../_images/205.png" />
+</div></blockquote>
+<ol class="arabic simple" start="21">
+<li><p>Laten we onze plug-in opnieuw laden zodat we de wijzigingen in het venster van het dialoogvenster kunnen zien. Ga naar <span class="menuselection">Plug-ins ‣ Plugin Reloader ‣ Choose a plugin to be reloaded</span>. Selecteer <code class="docutils literal notranslate"><span class="pre">SaveAttributes</span></code> in het dialoogvenster <span class="guilabel">Configure Plugin reloader</span>.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/219.png" class="align-center" src="../../_images/219.png" />
+</div></blockquote>
+<ol class="arabic simple" start="22">
+<li><p>Klik op de knop <span class="guilabel">Reload plugin</span> om de laatste versie van de plug-in te laden. Klik nu op de knop <span class="guilabel">Attributen opslaan als CSV</span>. U zult het nieuw ontworpen dialoogvenster zien.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/225.png" class="align-center" src="../../_images/225.png" />
+</div></blockquote>
+<ol class="arabic" start="23">
+<li><p>Laten we enige logica toevoegen aan de plug-in die het combinatievak zal vullen met de in  QGIS geladen lagen. Ga naar de map van de plug-in en laadt het bestand <code class="docutils literal notranslate"><span class="pre">save_attributes.py</span></code> in een tekstbewerker. Als eerste, voeg aan het begin van het bestand in met de andere imports:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">qgis.core</span> <span class="kn">import</span> <span class="n">QgsProject</span>
+</pre></div>
+</div>
+<p>Scroll dan naar beneden en zoek naar de methode <code class="docutils literal notranslate"><span class="pre">run(self)</span></code>. Deze methode zal worden aangeroepen wanneer u op de knop van de werkbalk klikt of het menuitem van de plug-in selecteert. Voeg de volgende code toe aan het begin van de methode. Deze code haalt de geladen lagen in QGIS op en voegt die toe aan het object <code class="docutils literal notranslate"><span class="pre">comboBox</span></code> van het dialoogvenster van de plug-in.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Fetch the currently loaded layers</span>
+<span class="n">layers</span> <span class="o">=</span> <span class="n">QgsProject</span><span class="o">.</span><span class="n">instance</span><span class="p">()</span><span class="o">.</span><span class="n">layerTreeRoot</span><span class="p">()</span><span class="o">.</span><span class="n">children</span><span class="p">()</span>
+<span class="c1"># Clear the contents of the comboBox from previous runs</span>
+<span class="bp">self</span><span class="o">.</span><span class="n">dlg</span><span class="o">.</span><span class="n">comboBox</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
+<span class="c1"># Populate the comboBox with names of all the loaded layers</span>
+<span class="bp">self</span><span class="o">.</span><span class="n">dlg</span><span class="o">.</span><span class="n">comboBox</span><span class="o">.</span><span class="n">addItems</span><span class="p">([</span><span class="n">layer</span><span class="o">.</span><span class="n">name</span><span class="p">()</span> <span class="k">for</span> <span class="n">layer</span> <span class="ow">in</span> <span class="n">layers</span><span class="p">])</span>
+</pre></div>
+</div>
+</li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/23a.png" class="align-center" src="../../_images/23a.png" />
+<img alt="../../_images/23b.png" class="align-center" src="../../_images/23b.png" />
+</div></blockquote>
+<ol class="arabic simple" start="24">
+<li><p>Laadt, terug in het hoofdvenster van QGIS, de plug-in opnieuw door te klikken op de knop  <span class="guilabel">Reload plugin</span>. We moeten enkele lagen in QGIS laden om deze functionaliteit te testen. Nadat u enkele lagen hebt geladen, start de plug-in door te gaan naar <span class="menuselection">Vector ‣ Attributen opslaan ‣ Attributen oposlaan als CSV</span>. U zult nu zien dat ons combinatievak is gevuld met de laagnamen die zijn geladen in QGIS.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/245.png" class="align-center" src="../../_images/245.png" />
+</div></blockquote>
+<ol class="arabic simple" start="25">
+<li><p>Laten we de resterende elementen van de gebruikersinterface toevoegen. Schakel terug naar Qt Creator en laadt het bestand <code class="docutils literal notranslate"><span class="pre">save_attributes_dialog_base.ui</span></code>. Voeg een <code class="docutils literal notranslate"><span class="pre">Label</span></code> <span class="guilabel">Display Widget</span> toe en wijzig de tekst naar <code class="docutils literal notranslate"><span class="pre">Uitvoerbestand</span> <span class="pre">selecteren</span></code>. Voeg een type <code class="docutils literal notranslate"><span class="pre">LineEdit</span></code> van <span class="guilabel">Input Widget</span> toe dat het pad naar het uitvoerbestand laat zien dat de gebruiker heeft gekozen. Voeg vervolgens een type <code class="docutils literal notranslate"><span class="pre">Push</span> <span class="pre">Button</span></code> van <span class="guilabel">Button</span> toe en wijzig het label van de knop naar <code class="docutils literal notranslate"><span class="pre">...</span></code>. Onthoud de objectnamen van de widgets die we moeten gebruiken om er interacties mee uit te kunnen voeren. Sla het bestand op.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/255.png" class="align-center" src="../../_images/255.png" />
+</div></blockquote>
+<ol class="arabic simple" start="26">
+<li><p>We zullen nu code voor Python toevoegen om een dialoogvenster voor bestandsselectie te openen als de gebruiker op de knop <code class="docutils literal notranslate"><span class="pre">...</span></code> drukt en het geselecteerde pad weergeven in het widget line edit. Open het bestand <code class="docutils literal notranslate"><span class="pre">save_attributes.py</span></code> in een tekstbewerker. Voeg <code class="docutils literal notranslate"><span class="pre">QFileDialog</span></code> toe aan de lijst  <code class="docutils literal notranslate"><span class="pre">QtWidgets</span></code> voor import aan het begin van het bestand.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/264.png" class="align-center" src="../../_images/264.png" />
+</div></blockquote>
+<ol class="arabic simple" start="27">
+<li><p>Voeg een nieuwe methode, genaamd <code class="docutils literal notranslate"><span class="pre">select_output_file</span></code> toe, met de volgende code. Deze code zal een dialoogvenster voor bestandsselectie openen en het widget line edit vullen met het pad van het bestand dat de gebruiker heeft gekozen. Merk op hoe <code class="docutils literal notranslate"><span class="pre">getSaveFileName</span></code> een tuple teruggeeft met de bestandsnaam en het gebruikte filter.</p></li>
+</ol>
+<blockquote>
+<div><div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">select_output_file</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+  <span class="n">filename</span><span class="p">,</span> <span class="n">_filter</span> <span class="o">=</span> <span class="n">QFileDialog</span><span class="o">.</span><span class="n">getSaveFileName</span><span class="p">(</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">dlg</span><span class="p">,</span> <span class="s2">&quot;Select   output file &quot;</span><span class="p">,</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="s1">&#39;*.csv&#39;</span><span class="p">)</span>
+  <span class="bp">self</span><span class="o">.</span><span class="n">dlg</span><span class="o">.</span><span class="n">lineEdit</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
+</pre></div>
+</div>
+<img alt="../../_images/275.png" class="align-center" src="../../_images/275.png" />
+</div></blockquote>
+<ol class="arabic simple" start="28">
+<li><p>Nu moeten we code toevoegen zodat, als op de knop <cite>…</cite> wordt geklikt, de methode <code class="docutils literal notranslate"><span class="pre">select_output_file</span></code> wordt aangeroepen. Scroll naar beneden naar de methode <code class="docutils literal notranslate"><span class="pre">run</span></code> en voeg de volgende regel toe in het blok waar het dialoogvenster wordt geïnitialiseerd. Deze code zal de methode <code class="docutils literal notranslate"><span class="pre">select_output_file</span></code> verbinden met het signal <code class="docutils literal notranslate"><span class="pre">clicked</span></code> van de knop van het widget.</p></li>
+</ol>
+<blockquote>
+<div><div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="bp">self</span><span class="o">.</span><span class="n">dlg</span><span class="o">.</span><span class="n">pushButton</span><span class="o">.</span><span class="n">clicked</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">select_output_file</span><span class="p">)</span>
+</pre></div>
+</div>
+<img alt="../../_images/285.png" class="align-center" src="../../_images/285.png" />
+</div></blockquote>
+<ol class="arabic simple" start="29">
+<li><p>Laadt, terug in QGIS, de plug-in opnieuw en voer die uit. Als alles goed ging kunt u nu op de knop <code class="docutils literal notranslate"><span class="pre">...</span></code> drukken en een uitvoer tekstbestand op uw schijf selecteren.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/294.png" class="align-center" src="../../_images/294.png" />
+</div></blockquote>
+<ol class="arabic" start="30">
+<li><p>Als u op <span class="guilabel">OK</span> klikt in het dialoogvenster van de plug-in, gebeurt er niets. Dat komt omdat we de logica om de informatie over de attributen uit de laag op te halen en weg te schrijven naar het tekstbestand nog niet hebben toegevoegd. We hebben nu alle stukken op hun plaats om nu precies dat te gaan doen. Zoek naar de plek in de methode <code class="docutils literal notranslate"><span class="pre">run</span></code> waar <code class="docutils literal notranslate"><span class="pre">pass</span></code> staat.  Vervang dat door de code die hieronder staat. De verklaring van deze code kan worden gevonden in <a class="reference internal" href="getting_started_with_pyqgis.html"><span class="doc">Beginnen met programmeren in Python (QGIS3)</span></a>.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">filename</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">dlg</span><span class="o">.</span><span class="n">lineEdit</span><span class="o">.</span><span class="n">text</span><span class="p">()</span>
+<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">output_file</span><span class="p">:</span>
+  <span class="n">selectedLayerIndex</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">dlg</span><span class="o">.</span><span class="n">comboBox</span><span class="o">.</span><span class="n">currentIndex</span><span class="p">()</span>
+  <span class="n">selectedLayer</span> <span class="o">=</span> <span class="n">layers</span><span class="p">[</span><span class="n">selectedLayerIndex</span><span class="p">]</span><span class="o">.</span><span class="n">layer</span><span class="p">()</span>
+  <span class="n">fieldnames</span> <span class="o">=</span> <span class="p">[</span><span class="n">field</span><span class="o">.</span><span class="n">name</span><span class="p">()</span> <span class="k">for</span> <span class="n">field</span> <span class="ow">in</span> <span class="n">selectedLayer</span><span class="o">.</span><span class="n">fields</span><span class="p">()]</span>
+  <span class="c1"># write header</span>
+  <span class="n">line</span> <span class="o">=</span> <span class="s1">&#39;,&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">name</span> <span class="k">for</span> <span class="n">name</span> <span class="ow">in</span> <span class="n">fieldnames</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span>
+  <span class="n">output_file</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">line</span><span class="p">)</span>
+  <span class="c1"># wirte feature attributes</span>
+  <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">selectedLayer</span><span class="o">.</span><span class="n">getFeatures</span><span class="p">():</span>
+    <span class="n">line</span> <span class="o">=</span> <span class="s1">&#39;,&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">f</span><span class="p">[</span><span class="n">name</span><span class="p">])</span> <span class="k">for</span> <span class="n">name</span> <span class="ow">in</span> <span class="n">fieldnames</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span>
+    <span class="n">output_file</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">line</span><span class="p">)</span>
+</pre></div>
+</div>
+<img alt="../../_images/304.png" class="align-center" src="../../_images/304.png" />
+</li>
+<li><p>We moeten nog één laatste ding toevoegen. Als de bewerking met succes wordt uitgevoerd, zouden we hetzelfde moeten aangeven aan de gebruiker. De voorkeur voor het geven van notificaties aan de gebruiker in QGIS is via de methode <code class="docutils literal notranslate"><span class="pre">self.iface.messageBar().pushMessage()</span></code>. Voeg <code class="docutils literal notranslate"><span class="pre">Qgis</span></code> toe aan de lijst van imports <code class="docutils literal notranslate"><span class="pre">qgis.core</span></code> aan het begin van het bestand en voeg de hieronder staande code toe aan het einde van de methode <code class="docutils literal notranslate"><span class="pre">run</span></code>.</p></li>
+</ol>
+<blockquote>
+<div><div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="bp">self</span><span class="o">.</span><span class="n">iface</span><span class="o">.</span><span class="n">messageBar</span><span class="p">()</span><span class="o">.</span><span class="n">pushMessage</span><span class="p">(</span>
+  <span class="s2">&quot;Success&quot;</span><span class="p">,</span> <span class="s2">&quot;Output file written at &quot;</span> <span class="o">+</span> <span class="n">filename</span><span class="p">,</span>
+  <span class="n">level</span><span class="o">=</span><span class="n">Qgis</span><span class="o">.</span><span class="n">Success</span><span class="p">,</span> <span class="n">duration</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+</pre></div>
+</div>
+<img alt="../../_images/31a.png" class="align-center" src="../../_images/31a.png" />
+<img alt="../../_images/31b.png" class="align-center" src="../../_images/31b.png" />
+</div></blockquote>
+<ol class="arabic simple" start="32">
+<li><p>Nu is onze plug-in klaar. Herlaad de plug-in en probeer hem uit. U zult zien dat het uitvoer tekstbestand dat u kiest de attributen uit de vectorlaag zal bevatten.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/323.png" class="align-center" src="../../_images/323.png" />
+</div></blockquote>
+<ol class="arabic simple" start="33">
+<li><p>U kunt de map voor de plug-in zippen en delen met uw gebruikers. Zij kunnen de inhoud uitpakken naar hun eigen map voor de plug-in en uw plug-in uitproberen. Als dit een echte plug-in zou zijn zou u die uploaden naar de <a class="reference external" href="https://plugins.qgis.org/">QGIS Plugin Repository</a> zodat alle gebruikers van QGIS hem kunnen vinden en uw plug-in kunnen downloaden.</p></li>
+</ol>
+<div class="admonition note">
+<p class="admonition-title">Notitie</p>
+<p>Deze plug-in is alleen ter demonstratie. Publiceer deze plug-in niet en upload hem ook niet naar de opslagplaats van plug-ins voor QGIS.</p>
+</div>
+<p>Hieronder staat, als referentie, het volledige bestand <code class="docutils literal notranslate"><span class="pre">save_attributes.py</span></code>.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># -*- coding: utf-8 -*-</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">/***************************************************************************</span>
+<span class="sd"> SaveAttributes</span>
+<span class="sd">                                 A QGIS plugin</span>
+<span class="sd"> This plugin saves the attributes of the selected vector layer as a CSV file.</span>
+<span class="sd"> Generated by Plugin Builder: http://g-sherman.github.io/Qgis-Plugin-Builder/</span>
+<span class="sd">                              -------------------</span>
+<span class="sd">        begin                : 2019-03-28</span>
+<span class="sd">        git sha              : $Format:%H$</span>
+<span class="sd">        copyright            : (C) 2019 by Ujaval Gandhi</span>
+<span class="sd">        email                : ujaval@spatialthoughts.com</span>
+<span class="sd"> ***************************************************************************/</span>
+
+<span class="sd">/***************************************************************************</span>
+<span class="sd"> *                                                                         *</span>
+<span class="sd"> *   This program is free software; you can redistribute it and/or modify  *</span>
+<span class="sd"> *   it under the terms of the GNU General Public License as published by  *</span>
+<span class="sd"> *   the Free Software Foundation; either version 2 of the License, or     *</span>
+<span class="sd"> *   (at your option) any later version.                                   *</span>
+<span class="sd"> *                                                                         *</span>
+<span class="sd"> ***************************************************************************/</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="kn">from</span> <span class="nn">PyQt5.QtCore</span> <span class="kn">import</span> <span class="n">QSettings</span><span class="p">,</span> <span class="n">QTranslator</span><span class="p">,</span> <span class="n">qVersion</span><span class="p">,</span> <span class="n">QCoreApplication</span>
+<span class="kn">from</span> <span class="nn">PyQt5.QtGui</span> <span class="kn">import</span> <span class="n">QIcon</span>
+<span class="kn">from</span> <span class="nn">PyQt5.QtWidgets</span> <span class="kn">import</span> <span class="n">QAction</span><span class="p">,</span> <span class="n">QFileDialog</span>
+<span class="kn">from</span> <span class="nn">qgis.core</span> <span class="kn">import</span> <span class="n">QgsProject</span><span class="p">,</span> <span class="n">Qgis</span>
+
+<span class="c1"># Initialize Qt resources from file resources.py</span>
+<span class="kn">from</span> <span class="nn">.resources</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="c1"># Import the code for the dialog</span>
+<span class="kn">from</span> <span class="nn">.save_attributes_dialog</span> <span class="kn">import</span> <span class="n">SaveAttributesDialog</span>
+<span class="kn">import</span> <span class="nn">os.path</span>
+
+
+<span class="k">class</span> <span class="nc">SaveAttributes</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;QGIS Plugin Implementation.&quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">iface</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Constructor.</span>
+
+<span class="sd">        :param iface: An interface instance that will be passed to this class</span>
+<span class="sd">            which provides the hook by which you can manipulate the QGIS</span>
+<span class="sd">            application at run time.</span>
+<span class="sd">        :type iface: QgsInterface</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># Save reference to the QGIS interface</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">iface</span> <span class="o">=</span> <span class="n">iface</span>
+        <span class="c1"># initialize plugin directory</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">plugin_dir</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="vm">__file__</span><span class="p">)</span>
+        <span class="c1"># initialize locale</span>
+        <span class="n">locale</span> <span class="o">=</span> <span class="n">QSettings</span><span class="p">()</span><span class="o">.</span><span class="n">value</span><span class="p">(</span><span class="s1">&#39;locale/userLocale&#39;</span><span class="p">)[</span><span class="mi">0</span><span class="p">:</span><span class="mi">2</span><span class="p">]</span>
+        <span class="n">locale_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">plugin_dir</span><span class="p">,</span>
+            <span class="s1">&#39;i18n&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;SaveAttributes_</span><span class="si">{}</span><span class="s1">.qm&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">locale</span><span class="p">))</span>
+
+        <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">locale_path</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">translator</span> <span class="o">=</span> <span class="n">QTranslator</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">translator</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">locale_path</span><span class="p">)</span>
+
+            <span class="k">if</span> <span class="n">qVersion</span><span class="p">()</span> <span class="o">&gt;</span> <span class="s1">&#39;4.3.3&#39;</span><span class="p">:</span>
+                <span class="n">QCoreApplication</span><span class="o">.</span><span class="n">installTranslator</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">translator</span><span class="p">)</span>
+
+        <span class="c1"># Declare instance attributes</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">actions</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">menu</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">tr</span><span class="p">(</span><span class="sa">u</span><span class="s1">&#39;&amp;Save Attributes&#39;</span><span class="p">)</span>
+
+        <span class="c1"># Check if plugin was started the first time in current QGIS session</span>
+        <span class="c1"># Must be set in initGui() to survive plugin reloads</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">first_start</span> <span class="o">=</span> <span class="kc">None</span>
+
+    <span class="c1"># noinspection PyMethodMayBeStatic</span>
+    <span class="k">def</span> <span class="nf">tr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">message</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Get the translation for a string using Qt translation API.</span>
+
+<span class="sd">        We implement this ourselves since we do not inherit QObject.</span>
+
+<span class="sd">        :param message: String for translation.</span>
+<span class="sd">        :type message: str, QString</span>
+
+<span class="sd">        :returns: Translated version of message.</span>
+<span class="sd">        :rtype: QString</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># noinspection PyTypeChecker,PyArgumentList,PyCallByClass</span>
+        <span class="k">return</span> <span class="n">QCoreApplication</span><span class="o">.</span><span class="n">translate</span><span class="p">(</span><span class="s1">&#39;SaveAttributes&#39;</span><span class="p">,</span> <span class="n">message</span><span class="p">)</span>
+
+
+    <span class="k">def</span> <span class="nf">add_action</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">icon_path</span><span class="p">,</span>
+        <span class="n">text</span><span class="p">,</span>
+        <span class="n">callback</span><span class="p">,</span>
+        <span class="n">enabled_flag</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">add_to_menu</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">add_to_toolbar</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">status_tip</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">whats_this</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">parent</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Add a toolbar icon to the toolbar.</span>
+
+<span class="sd">        :param icon_path: Path to the icon for this action. Can be a resource</span>
+<span class="sd">            path (e.g. &#39;:/plugins/foo/bar.png&#39;) or a normal file system path.</span>
+<span class="sd">        :type icon_path: str</span>
+
+<span class="sd">        :param text: Text that should be shown in menu items for this action.</span>
+<span class="sd">        :type text: str</span>
+
+<span class="sd">        :param callback: Function to be called when the action is triggered.</span>
+<span class="sd">        :type callback: function</span>
+
+<span class="sd">        :param enabled_flag: A flag indicating if the action should be enabled</span>
+<span class="sd">            by default. Defaults to True.</span>
+<span class="sd">        :type enabled_flag: bool</span>
+
+<span class="sd">        :param add_to_menu: Flag indicating whether the action should also</span>
+<span class="sd">            be added to the menu. Defaults to True.</span>
+<span class="sd">        :type add_to_menu: bool</span>
+
+<span class="sd">        :param add_to_toolbar: Flag indicating whether the action should also</span>
+<span class="sd">            be added to the toolbar. Defaults to True.</span>
+<span class="sd">        :type add_to_toolbar: bool</span>
+
+<span class="sd">        :param status_tip: Optional text to show in a popup when mouse pointer</span>
+<span class="sd">            hovers over the action.</span>
+<span class="sd">        :type status_tip: str</span>
+
+<span class="sd">        :param parent: Parent widget for the new action. Defaults None.</span>
+<span class="sd">        :type parent: QWidget</span>
+
+<span class="sd">        :param whats_this: Optional text to show in the status bar when the</span>
+<span class="sd">            mouse pointer hovers over the action.</span>
+
+<span class="sd">        :returns: The action that was created. Note that the action is also</span>
+<span class="sd">            added to self.actions list.</span>
+<span class="sd">        :rtype: QAction</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="n">icon</span> <span class="o">=</span> <span class="n">QIcon</span><span class="p">(</span><span class="n">icon_path</span><span class="p">)</span>
+        <span class="n">action</span> <span class="o">=</span> <span class="n">QAction</span><span class="p">(</span><span class="n">icon</span><span class="p">,</span> <span class="n">text</span><span class="p">,</span> <span class="n">parent</span><span class="p">)</span>
+        <span class="n">action</span><span class="o">.</span><span class="n">triggered</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">callback</span><span class="p">)</span>
+        <span class="n">action</span><span class="o">.</span><span class="n">setEnabled</span><span class="p">(</span><span class="n">enabled_flag</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">status_tip</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">action</span><span class="o">.</span><span class="n">setStatusTip</span><span class="p">(</span><span class="n">status_tip</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">whats_this</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">action</span><span class="o">.</span><span class="n">setWhatsThis</span><span class="p">(</span><span class="n">whats_this</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">add_to_toolbar</span><span class="p">:</span>
+            <span class="c1"># Adds plugin icon to Plugins toolbar</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">iface</span><span class="o">.</span><span class="n">addToolBarIcon</span><span class="p">(</span><span class="n">action</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">add_to_menu</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">iface</span><span class="o">.</span><span class="n">addPluginToVectorMenu</span><span class="p">(</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">menu</span><span class="p">,</span>
+                <span class="n">action</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">actions</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">action</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">action</span>
+
+    <span class="k">def</span> <span class="nf">initGui</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Create the menu entries and toolbar icons inside the QGIS GUI.&quot;&quot;&quot;</span>
+
+        <span class="n">icon_path</span> <span class="o">=</span> <span class="s1">&#39;:/plugins/save_attributes/icon.png&#39;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">add_action</span><span class="p">(</span>
+            <span class="n">icon_path</span><span class="p">,</span>
+            <span class="n">text</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">tr</span><span class="p">(</span><span class="sa">u</span><span class="s1">&#39;Save Attributes as CSV&#39;</span><span class="p">),</span>
+            <span class="n">callback</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">run</span><span class="p">,</span>
+            <span class="n">parent</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">iface</span><span class="o">.</span><span class="n">mainWindow</span><span class="p">())</span>
+
+        <span class="c1"># will be set False in run()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">first_start</span> <span class="o">=</span> <span class="kc">True</span>
+
+
+    <span class="k">def</span> <span class="nf">unload</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Removes the plugin menu item and icon from QGIS GUI.&quot;&quot;&quot;</span>
+        <span class="k">for</span> <span class="n">action</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">actions</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">iface</span><span class="o">.</span><span class="n">removePluginVectorMenu</span><span class="p">(</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">tr</span><span class="p">(</span><span class="sa">u</span><span class="s1">&#39;&amp;Save Attributes&#39;</span><span class="p">),</span>
+                <span class="n">action</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">iface</span><span class="o">.</span><span class="n">removeToolBarIcon</span><span class="p">(</span><span class="n">action</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">select_output_file</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+      <span class="n">filename</span><span class="p">,</span> <span class="n">_filter</span> <span class="o">=</span> <span class="n">QFileDialog</span><span class="o">.</span><span class="n">getSaveFileName</span><span class="p">(</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">dlg</span><span class="p">,</span> <span class="s2">&quot;Select   output file &quot;</span><span class="p">,</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="s1">&#39;*.csv&#39;</span><span class="p">)</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">dlg</span><span class="o">.</span><span class="n">lineEdit</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
+      
+    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Run method that performs all the real work&quot;&quot;&quot;</span>
+
+        <span class="c1"># Create the dialog with elements (after translation) and keep reference</span>
+        <span class="c1"># Only create GUI ONCE in callback, so that it will only load when the plugin is started</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">first_start</span> <span class="o">==</span> <span class="kc">True</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">first_start</span> <span class="o">=</span> <span class="kc">False</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">dlg</span> <span class="o">=</span> <span class="n">SaveAttributesDialog</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">dlg</span><span class="o">.</span><span class="n">pushButton</span><span class="o">.</span><span class="n">clicked</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">select_output_file</span><span class="p">)</span>
+
+        
+        <span class="c1"># Fetch the currently loaded layers</span>
+        <span class="n">layers</span> <span class="o">=</span> <span class="n">QgsProject</span><span class="o">.</span><span class="n">instance</span><span class="p">()</span><span class="o">.</span><span class="n">layerTreeRoot</span><span class="p">()</span><span class="o">.</span><span class="n">children</span><span class="p">()</span>
+        <span class="c1"># Clear the contents of the comboBox and lineEdit from previous runs</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">dlg</span><span class="o">.</span><span class="n">comboBox</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">dlg</span><span class="o">.</span><span class="n">lineEdit</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
+
+        <span class="c1"># Populate the comboBox with names of all the loaded layers</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">dlg</span><span class="o">.</span><span class="n">comboBox</span><span class="o">.</span><span class="n">addItems</span><span class="p">([</span><span class="n">layer</span><span class="o">.</span><span class="n">name</span><span class="p">()</span> <span class="k">for</span> <span class="n">layer</span> <span class="ow">in</span> <span class="n">layers</span><span class="p">])</span>
+        
+        <span class="c1"># show the dialog</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">dlg</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+        <span class="c1"># Run the dialog event loop</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">dlg</span><span class="o">.</span><span class="n">exec_</span><span class="p">()</span>
+        <span class="c1"># See if OK was pressed</span>
+        <span class="k">if</span> <span class="n">result</span><span class="p">:</span>
+          <span class="n">filename</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">dlg</span><span class="o">.</span><span class="n">lineEdit</span><span class="o">.</span><span class="n">text</span><span class="p">()</span>
+          <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">output_file</span><span class="p">:</span>
+            <span class="n">selectedLayerIndex</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">dlg</span><span class="o">.</span><span class="n">comboBox</span><span class="o">.</span><span class="n">currentIndex</span><span class="p">()</span>
+            <span class="n">selectedLayer</span> <span class="o">=</span> <span class="n">layers</span><span class="p">[</span><span class="n">selectedLayerIndex</span><span class="p">]</span><span class="o">.</span><span class="n">layer</span><span class="p">()</span>
+            <span class="n">fieldnames</span> <span class="o">=</span> <span class="p">[</span><span class="n">field</span><span class="o">.</span><span class="n">name</span><span class="p">()</span> <span class="k">for</span> <span class="n">field</span> <span class="ow">in</span> <span class="n">selectedLayer</span><span class="o">.</span><span class="n">fields</span><span class="p">()]</span>
+            <span class="c1"># write header</span>
+            <span class="n">line</span> <span class="o">=</span> <span class="s1">&#39;,&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">name</span> <span class="k">for</span> <span class="n">name</span> <span class="ow">in</span> <span class="n">fieldnames</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span>
+            <span class="n">output_file</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">line</span><span class="p">)</span>
+            <span class="c1"># wirte feature attributes</span>
+            <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">selectedLayer</span><span class="o">.</span><span class="n">getFeatures</span><span class="p">():</span>
+              <span class="n">line</span> <span class="o">=</span> <span class="s1">&#39;,&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">f</span><span class="p">[</span><span class="n">name</span><span class="p">])</span> <span class="k">for</span> <span class="n">name</span> <span class="ow">in</span> <span class="n">fieldnames</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span>
+              <span class="n">output_file</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">line</span><span class="p">)</span>
+          <span class="bp">self</span><span class="o">.</span><span class="n">iface</span><span class="o">.</span><span class="n">messageBar</span><span class="p">()</span><span class="o">.</span><span class="n">pushMessage</span><span class="p">(</span>
+            <span class="s2">&quot;Success&quot;</span><span class="p">,</span> <span class="s2">&quot;Output file written at &quot;</span> <span class="o">+</span> <span class="n">filename</span><span class="p">,</span>
+            <span class="n">level</span><span class="o">=</span><span class="n">Qgis</span><span class="o">.</span><span class="n">Success</span><span class="p">,</span> <span class="n">duration</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+</section>
+
+
+
+
+
+  <div id="disqus_thread"></div>
+  <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+
+    </div>
+      
+  </div>
+</div>
+
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+    </p>
+    <p>
+        &copy; Copyright 2021, Ujaval Gandhi.<br/>
+      Laatste aanpassing op aug. 30, 2022.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 4.0.1.<br/>
+    </p>
+  </div>
+</footer>
+<div class="container">
+  <p>This work is licensed under a <a href="http://creativecommons.org/licenses/by/4.0/deed.en_US">Creative Commons Attribution 4.0 International License</a></p>
+</div>
+<!-- Twitter Button -->
+<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+
+<!-- Disqus comments widget -->
+<script type="text/javascript">
+  /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+  var disqus_shortname = 'qgistutorials'; // required: replace example with your forum shortname
+  /* * * DON'T EDIT BELOW THIS LINE * * */
+  (function () {
+    var s = document.createElement('script'); s.async = true;
+    s.type = 'text/javascript';
+    s.src = '//' + disqus_shortname + '.disqus.com/count.js';
+    (document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);
+  }());
+</script>
+
+<script type="text/javascript">
+  /* * * DON'T EDIT BELOW THIS LINE * * */
+  (function() {
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+
+<!-- Script fpr language switching. Largely adapted from https://github.com/pcav/faunalia-website -->
+<script>
+    var currentPage = 'docs/3/building_a_python_plugin.html'; // coming from sphinx, always without starting '/'
+    var currentLang = 'en';
+    $(document).ready(function(){
+
+        var search = new RegExp('\/[a-zA-Z_]{2,8}\/'+ currentPage, 'gi');
+        var langPlusPage = window.location.href.match(search);
+        // it's possible this is a index.html page called without 'index.html', try without the currentPage
+        if (langPlusPage==undefined){
+            search = new RegExp('\/[a-zA-Z_]{2,8}\/$', 'gi');
+            langPlusPage = window.location.href.match(search);
+        }
+
+        // it's possible this is an index.html page called without 'index.html', try removing index.html
+        if (langPlusPage==undefined){
+            currentPage = currentPage.replace('index.html','')
+            search = new RegExp('\/[a-zA-Z_]{2,8}\/'+ currentPage, 'gi');
+            langPlusPage = window.location.href.match(search);
+        }
+        // still no langPlugPage: stop, because the language swicher will misbehave 
+
+        if (langPlusPage == undefined || langPlusPage.length != 1){
+            alert('You hit an error, please report back to us.');
+            return;
+        }
+        langPlusPage = langPlusPage[0];
+        currentLang = langPlusPage.replace(currentPage, '');
+
+        $("#languages").val(currentLang.replace(/\//g,'')); // currentLang is something like '/nl/'
+
+        $("#languages").change(function() {
+            gotoLang($(this).val());
+        });
+
+    });
+
+    // load current page in a different language
+    function gotoLang(lang){
+        var currentUrl = window.location.href;
+        var newUrl = currentUrl.replace(currentLang, '/'+lang+'/');
+        window.location.href = newUrl;
+    }
+</script>
+
+  </body>
+</html>

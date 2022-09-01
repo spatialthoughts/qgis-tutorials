@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+
+<html lang="fi_FI">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>Basic Raster Styling and Analysis (QGIS3) &#8212; QGIS Tutorials and Tips</title>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-sphinx.css" />
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <link rel="search" title="Etsi" href="../../search.html" />
+    <link rel="next" title="Raster Mosaicing and Clipping (QGIS3)" href="raster_mosaicing_and_clipping.html" />
+    <link rel="prev" title="Calculating Line Lengths and Statistics (QGIS3)" href="calculating_line_lengths.html" />
+
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<script type="text/javascript" src="../../_static/js/jquery-1.11.0.min.js "></script>
+<script type="text/javascript" src="../../_static/js/jquery-fix.js "></script>
+<script type="text/javascript" src="../../_static/bootstrap-3.3.7/js/bootstrap.min.js "></script>
+<script type="text/javascript" src="../../_static/bootstrap-sphinx.js "></script>
+
+
+<!-- Cookie Notice -->
+<!-- Script from https://github.com/AOEpeople/cookie-notice -->
+<script type="text/javascript" src="../../_static/cookie.notice.min.js"></script>
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-B1WQ7B80XJ"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-B1WQ7B80XJ');
+</script>
+
+
+  </head><body>
+
+  <div id="navbar" class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="../../index.html"><span><img src="../../_static/logo.png"></span>
+          QGIS Tutorials and Tips</a>
+        <span class="navbar-text navbar-version pull-left"><b>v1</b></span>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="../../index.html">Tutorials List <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"><ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../introduction.html">Johdanto</a></li>
+<li class="toctree-l1"><a class="reference internal" href="making_a_map.html">Making a Map (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="working_with_attributes.html">Working with Attributes (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="importing_spreadsheets_csv.html">Importing Spreadsheets or CSV files (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="basic_vector_styling.html">Basic Vector Styling (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="calculating_line_lengths.html">Calculating Line Lengths and Statistics (QGIS3)</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Basic Raster Styling and Analysis (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="raster_mosaicing_and_clipping.html">Raster Mosaicing and Clipping (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="working_with_terrain.html">Working with Terrain Data (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="working_with_wms.html">Working with WMS Data (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="working_with_projections.html">Working with Projections (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="georeferencing_basics.html">Georeferencing Topo Sheets and Scanned Maps (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="advanced_georeferencing.html">Georeferencing Aerial Imagery (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="digitizing_basics.html">Digitizing Map Data (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="performing_table_joins.html">Performing Table Joins (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="performing_spatial_joins.html">Performing Spatial Joins (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="performing_spatial_queries.html">Performing Spatial Queries (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="nearest_neighbor_analysis.html">Nearest Neighbor Analysis (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="sampling_raster_data.html">Sampling Raster Data using Points or Polygons (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="calculating_raster_area.html">Calculating Raster Area (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="creating_heatmaps.html">Creating Heatmaps (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="animating_time_series.html">Animating Time Series Data (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="handling_invalid_geometries.html">Handling Invalid Geometries (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="advanced_raster_analysis.html">Advanced Raster Analysis (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="interpolating_point_data.html">Interpolating Point Data (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="calculating_intersection_density.html">Calculating Street Intersection Density (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="batch_processing.html">Batch Processing using Processing Framework (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="processing_graphical_modeler.html">Automating Complex Workflows using Processing Modeler (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="automating_map_creation.html">Automating Map Creation with Print Layout Atlas (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="multi_criteria_overlay.html">Multi Criteria Overlay Analysis (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="basic_network_analysis.html">Basic Network Visualization and Routing (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="origin_destination_matrix.html">Locating Nearest Facility with Origin-Destination Matrix (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="service_area_analysis.html">Service Area Analysis using Openrouteservice (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="travel_time_analysis.html">Travel Time Analysis with Uber Movement (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="areal_mean_rainfall.html">Calculating Areal Mean Rainfall (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="getting_started_with_pyqgis.html">Getting Started With Python Programming (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="processing_algorithms_pyqgis.html">Running Processing Algorithms via Python (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="custom_python_functions.html">Using Custom Python Expression Functions (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="processing_python_scripts.html">Writing Python Scripts for Processing Framework (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="building_a_python_plugin.html">Building a Python Plugin (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="processing_python_plugin.html">Building a Processing Plugin (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../running_qgis_jobs.html">Running and Scheduling QGIS Processing Jobs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="web_mapping_with_qgis2web.html">Web Mapping with QGIS2Web (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../creating_basemaps_with_qtiles.html">Creating Basemaps with QTiles</a></li>
+<li class="toctree-l1"><a class="reference internal" href="using_plugins.html">Using Plugins (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../downloading_osm_data.html">Searching and Downloading OpenStreetMap Data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../learning_resources.html">QGIS oppimisen resurssit</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../credits.html">Tietojen käyttö</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../batch_processing.html">Batch Processing using Processing Framework (QGIS2)</a></li>
+</ul>
+</ul>
+</li>
+              
+            
+            
+              
+                
+  <li>
+    <a href="calculating_line_lengths.html" title="Previous Chapter: Calculating Line Lengths and Statistics (QGIS3)"><span class="glyphicon glyphicon-chevron-left visible-sm"></span><span class="hidden-sm hidden-tablet">&laquo; Calculating L...</span>
+    </a>
+  </li>
+  <li>
+    <a href="raster_mosaicing_and_clipping.html" title="Next Chapter: Raster Mosaicing and Clipping (QGIS3)"><span class="glyphicon glyphicon-chevron-right visible-sm"></span><span class="hidden-sm hidden-tablet">Raster Mosaic... &raquo;</span>
+    </a>
+  </li>
+              
+            
+            
+
+            
+
+            
+              <li class="hidden-sm"></li>
+            
+          </ul>
+
+          
+            
+<form class="navbar-form navbar-right" action="../../search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+      <div class="col-md-3">
+        <div id="sidebar" class="bs-sidenav" role="complementary"><h4>Author</h4>
+<p>Ujaval Gandhi</p>
+<a href="https://twitter.com/intent/follow?screen_name=spatialthoughts" class="twitter-follow-button" data-show-count="false">Follow @spatialthoughts</a>
+<hr>
+<p>Want to learn QGIS in a structured way? Check out <a href="https://spatialthoughts.com/" target="_blank">Spatial Thoughts</a> for more learning materials and instructor-led online programs with QGIS.org certification.</p>
+
+
+<h4>Change Language</h4>
+<form role="form" class="sidebar-form sidebar-left">
+<select id="languages" class="form-control select-mini">
+  <option value="en">English</option>
+  <option value="zh_TW">Chinese (Taiwan)</option>
+  <option value="nl">Dutch</option>
+  <option value="fi_FI">Finnish</option>
+  <option value="fr">French</option>
+  <option value="de">German</option>
+  <option value="el">Greek</option>
+  <option value="id">Indonesian</option>
+  <option value="it">Italian</option>
+  <option value="ko">Korean</option>
+  <option value="fa">Persian</option>
+  <option value="pt_BR">Portuguese</option>
+  <option value="ro">Romanian</option>
+  <option value="ru">Russian</option>
+  <option value="sl">Slovenian</option>
+  <option value="es">Spanish</option>
+  <option value="th">Thai</option>
+  <option value="tr">Turkish</option>
+  <option value="uk">Ukrainian</option>
+  <option value="vi">Vietnamese</option>
+</select>
+</form>
+        </div>
+      </div>
+    <div class="body col-md-9 content" role="main">
+      
+
+  <section id="basic-raster-styling-and-analysis-qgis3">
+<h1>Basic Raster Styling and Analysis (QGIS3)<a class="headerlink" href="#basic-raster-styling-and-analysis-qgis3" title="Permalink to this headline">¶</a></h1>
+<p>A lot of scientific observations and research produces raster datasets. Rasters are grids of pixels that have a specific value assigned to them. By doing mathematical operations on these values, one can do some interesting analysis. QGIS has some basic analysis capabilities built-in via <strong>Raster Calculator</strong>. In this tutorial, we will explore the options available for styling rasters and functionality provided by the raster calculator.</p>
+<section id="overview-of-the-task">
+<h2>Overview of the task<a class="headerlink" href="#overview-of-the-task" title="Permalink to this headline">¶</a></h2>
+<p>We will use population grid data to create a thematic map of the global population change between year 2000 and 2010.</p>
+<section id="other-skills-you-will-learn">
+<h3>Other skills you will learn<a class="headerlink" href="#other-skills-you-will-learn" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><p>How to copy/paste styles between layers</p></li>
+</ul>
+</section>
+</section>
+<section id="get-the-data">
+<h2>Get the data<a class="headerlink" href="#get-the-data" title="Permalink to this headline">¶</a></h2>
+<p>We will use the <a class="reference external" href="https://sedac.ciesin.columbia.edu/data/collection/gpw-v4">Gridded Population of the World (GPW) v4</a> dataset from Columbia University. Specifically, we need the <a class="reference external" href="https://sedac.ciesin.columbia.edu/data/set/gpw-v4-population-count-rev11/data-download">Population Count</a> for the entire globe at 2.5 Degree Minute resolution in GeoTiFF format and for the year 2000 and 2010. You will need a free <a class="reference external" href="https://urs.earthdata.nasa.gov/home">Earth Data account</a> to download the data.</p>
+<img alt="../../_images/data116.png" class="align-center" src="../../_images/data116.png" />
+<p>For convenience, you may directly download a copy of the datasets from the
+links below:</p>
+<p><a class="reference external" href="https://www.qgistutorials.com/downloads/gpw-v4-population-count-rev11_2000_2pt5_min_tif.zip">gpw-v4-population-count-rev11_2000_2pt5_min_tif.zip</a></p>
+<p><a class="reference external" href="https://www.qgistutorials.com/downloads/gpw-v4-population-count-rev11_2010_2pt5_min_tif.zip">gpw-v4-population-count-rev11_2010_2pt5_min_tif.zip</a></p>
+<p>Data Source <a class="reference internal" href="../credits.html#gpw4" id="id1"><span>[GPW4]</span></a></p>
+</section>
+<section id="procedure">
+<h2>Procedure<a class="headerlink" href="#procedure" title="Permalink to this headline">¶</a></h2>
+<ol class="arabic simple">
+<li><p>Open QGIS and locate the downloaded files in the <span class="guilabel">Browser</span> panel. Expand the <code class="docutils literal notranslate"><span class="pre">gpw-v4-population-count-rev11_2000_2pt5_min_tif.zip</span></code> file and drag the <code class="docutils literal notranslate"><span class="pre">gpw-v4-population-count-rev11_2000_2pt5_min.tif</span></code> file to the canvas.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/1109.png" class="align-center" src="../../_images/1109.png" />
+</div></blockquote>
+<ol class="arabic simple" start="2">
+<li><p>A new layer <code class="docutils literal notranslate"><span class="pre">gpw-v4-population-count-rev11_2000_2pt5_min</span></code> will be added to the <span class="guilabel">Layers</span> panel. Similarly, locate the <code class="docutils literal notranslate"><span class="pre">gpw-v4-population-count-rev11_2010_2pt5_min_tif.zip</span></code> file and drag the <code class="docutils literal notranslate"><span class="pre">gpw-v4-population-count-rev11_2010_2pt5_min.tif</span></code> file to the canvas.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/2104.png" class="align-center" src="../../_images/2104.png" />
+</div></blockquote>
+<ol class="arabic simple" start="3">
+<li><p>Let’s explore these layers. Click the <span class="guilabel">Identify</span> button on the <span class="guilabel">Attributes Toolbar</span>. Once the tool is selected, click on any point on the canvas.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/345.png" class="align-center" src="../../_images/345.png" />
+</div></blockquote>
+<ol class="arabic simple" start="4">
+<li><p>The value associated with that pixel will be displayed in a new <span class="guilabel">Identify Results</span> panel. In the <span class="guilabel">Identify Results</span> panel, change the <span class="guilabel">Mode</span> to <code class="docutils literal notranslate"><span class="pre">Top</span> <span class="pre">down</span></code>. This will display pixel values of all rasters instead of just the topmost layer. Compare the values from both the layers. As the resolution of the rasters is approximately 5km x 5km, the pixel values represent the total population in the area (25 sq. km) represented by the pixel.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/424.png" class="align-center" src="../../_images/424.png" />
+</div></blockquote>
+<ol class="arabic simple" start="5">
+<li><p>Close the <span class="guilabel">Identify Results</span> panel. Let’s create a better visualization of the layers. Click the <span class="guilabel">Open the layer Styling panel</span> button in the <span class="guilabel">Layers</span> panel.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/523.png" class="align-center" src="../../_images/523.png" />
+</div></blockquote>
+<ol class="arabic simple" start="6">
+<li><p>In the <span class="guilabel">Layer Styling</span> panel, click the <span class="guilabel">Render type</span> dropdown and select <code class="docutils literal notranslate"><span class="pre">Singleband</span> <span class="pre">pseudocolor</span></code> renderer.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/622.png" class="align-center" src="../../_images/622.png" />
+</div></blockquote>
+<ol class="arabic simple" start="7">
+<li><p>This renderer will style the layer using a color ramp. The default color ramp is white-red where the minimum value will be assigned the white color and the maximum value in the layer will be assigned the red color. The intermediate values will be assigned a shade of red linear interpolation. Expand the <span class="guilabel">Min / Max Value Settings</span> and choose <code class="docutils literal notranslate"><span class="pre">Cumulative</span> <span class="pre">count</span> <span class="pre">cut</span></code> option. You will see that the map visualization is much better now. The  The standard data range is set from 2% to 98% of the data values, meaning that the outliers will not be used to set the minimum and maximum values, resulting in a much more representative visualization.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/722.png" class="align-center" src="../../_images/722.png" />
+</div></blockquote>
+<ol class="arabic simple" start="8">
+<li><p>Close the <span class="guilabel">Layer Styling</span> panel. We can apply the similar styling to the other layer as well. But there is an easier way to transfer the styles from one layer to the other. Right-click the <code class="docutils literal notranslate"><span class="pre">gpw-v4-population-count-rev11_2010_2pt5_min</span></code> layer and select <span class="menuselection">Styles ‣ Copy Style</span>.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/821.png" class="align-center" src="../../_images/821.png" />
+</div></blockquote>
+<ol class="arabic simple" start="9">
+<li><p>Now right-click the un-styled <code class="docutils literal notranslate"><span class="pre">gpw-v4-population-count-rev11_2000_2pt5_min</span></code> layer and select <span class="menuselection">Styles ‣ Paste Style</span>.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/922.png" class="align-center" src="../../_images/922.png" />
+</div></blockquote>
+<ol class="arabic simple" start="10">
+<li><p>The same styling parameters will be applied to the other layer. This feature is particularly useful when you want to compare different layers using the same categorization. As you toggle the visibility of the top layer, you can see the changes in population visually.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/101.gif" class="align-center" src="../../_images/101.gif" />
+</div></blockquote>
+<ol class="arabic simple" start="11">
+<li><p>Our task is to create a thematic map of the changes in population. Let’s compute the difference between the 2 layers and create another raster where each pixel represents the change in the population. Go to <span class="menuselection">Raster ‣ Raster calculator</span>.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/101.gif" class="align-center" src="../../_images/101.gif" />
+</div></blockquote>
+<ol class="arabic simple" start="12">
+<li><p>In the <span class="guilabel">Raster bands</span> section, you can select the layer by double-clicking on them. The bands are named after the raster name followed by <code class="docutils literal notranslate"><span class="pre">&#64;</span></code> and band number. Since each of our rasters have only 1 band, you will the names with <code class="docutils literal notranslate"><span class="pre">&#64;1</span></code> appended to the layer name. The raster calculator can apply mathematical     operations on the raster pixels. In this case we want to enter a simple formula to subtract the 2010 population from 2000. Enter the following expression. Next, click the <span class="guilabel">…</span> button next to <span class="guilabel">Output layer</span>.</p></li>
+</ol>
+<blockquote>
+<div><div class="highlight-none notranslate"><div class="highlight"><pre><span></span>&quot;gpw-v4-population-count-rev11_2010_2pt5_min@1&quot; - &quot;gpw-v4-population-count-rev11_2000_2pt5_min@1&quot;
+</pre></div>
+</div>
+<img alt="../../_images/1231.png" class="align-center" src="../../_images/1231.png" />
+</div></blockquote>
+<ol class="arabic simple" start="13">
+<li><p>Enter <code class="docutils literal notranslate"><span class="pre">population_change_2010_2000.tif</span></code> as the <span class="guilabel">Output file</span>. Click <span class="guilabel">OK</span> to start the computation.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/1329.png" class="align-center" src="../../_images/1329.png" />
+</div></blockquote>
+<ol class="arabic simple" start="14">
+<li><p>Once completed a new layer <code class="docutils literal notranslate"><span class="pre">population_change_2010_2000</span></code> will be added to the <span class="guilabel">Layers</span> panel. Let’s change the styling so that the negative and positive population changes are better visualized.  Click the <span class="guilabel">Open the layer Styling panel</span> button in the <span class="guilabel">Layers</span> panel.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/1426.png" class="align-center" src="../../_images/1426.png" />
+</div></blockquote>
+<ol class="arabic simple" start="15">
+<li><p>One option is to use the similar styling technique as earlier and choose a diverging color ramp. Click the <span class="guilabel">Color ramp</span> drop-down and select <code class="docutils literal notranslate"><span class="pre">Spectral</span></code> ramp. Click the drop-down again and choose <code class="docutils literal notranslate"><span class="pre">Invert</span> <span class="pre">Color</span> <span class="pre">Ramp</span></code> to assign blues to low values and reds to high values.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/1525.png" class="align-center" src="../../_images/1525.png" />
+</div></blockquote>
+<ol class="arabic simple" start="16">
+<li><p>This is a good visualization, but not easy to interpret. Let’s create a better map with 4 discrete categories, <code class="docutils literal notranslate"><span class="pre">Decline</span></code>, <code class="docutils literal notranslate"><span class="pre">Neutral</span></code>, <code class="docutils literal notranslate"><span class="pre">Growth</span></code> and <code class="docutils literal notranslate"><span class="pre">High</span> <span class="pre">Growth</span></code>. Scroll down to the tables with classes. Hold the <kbd class="kbd docutils literal notranslate">Shift</kbd> key and select all the rows. Click the <span class="guilabel">Remove selected row(s)</span> button.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/1623.png" class="align-center" src="../../_images/1623.png" />
+</div></blockquote>
+<ol class="arabic simple" start="17">
+<li><p>Change the <span class="guilabel">Interpolation</span> mode to <code class="docutils literal notranslate"><span class="pre">Discrete</span></code>. We will now create a color map manually. Click the <span class="guilabel">Add values manually</span> button. Enter <code class="docutils literal notranslate"><span class="pre">-100</span></code> as the <span class="guilabel">Value</span> and <code class="docutils literal notranslate"><span class="pre">Decline</span></code> as the <span class="guilabel">Label</span>. Assign blue color to this category. The way color map works is that all values lower than the value entered will be given the color of that entry. You will notice the canvas will show only those areas with negative population change.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/1724.png" class="align-center" src="../../_images/1724.png" />
+</div></blockquote>
+<ol class="arabic simple" start="18">
+<li><p>Complete the color-map with suitable values. I chose <code class="docutils literal notranslate"><span class="pre">100</span></code>, <code class="docutils literal notranslate"><span class="pre">1000</span></code> and <code class="docutils literal notranslate"><span class="pre">100000</span></code> as the upper-bounds for the <code class="docutils literal notranslate"><span class="pre">Neutral</span></code>, <code class="docutils literal notranslate"><span class="pre">Growth</span></code> and <code class="docutils literal notranslate"><span class="pre">High</span> <span class="pre">Growth</span></code> categories respectively. Assign colors to each of created categories, for example beige, orange and red.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/1821.png" class="align-center" src="../../_images/1821.png" />
+</div></blockquote>
+<ol class="arabic simple" start="19">
+<li><p>Once you are satisfied with the visualization, close the <span class="guilabel">Layer Styling</span> panel. You now have a global thematic map of population change.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/1917.png" class="align-center" src="../../_images/1917.png" />
+</div></blockquote>
+</section>
+</section>
+
+
+
+
+
+  <div id="disqus_thread"></div>
+  <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+
+    </div>
+      
+  </div>
+</div>
+
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+    </p>
+    <p>
+        &copy; Copyright 2021, Ujaval Gandhi.<br/>
+      Last updated on elok. 30, 2022.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 4.0.1.<br/>
+    </p>
+  </div>
+</footer>
+<div class="container">
+  <p>This work is licensed under a <a href="http://creativecommons.org/licenses/by/4.0/deed.en_US">Creative Commons Attribution 4.0 International License</a></p>
+</div>
+<!-- Twitter Button -->
+<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+
+<!-- Disqus comments widget -->
+<script type="text/javascript">
+  /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+  var disqus_shortname = 'qgistutorials'; // required: replace example with your forum shortname
+  /* * * DON'T EDIT BELOW THIS LINE * * */
+  (function () {
+    var s = document.createElement('script'); s.async = true;
+    s.type = 'text/javascript';
+    s.src = '//' + disqus_shortname + '.disqus.com/count.js';
+    (document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);
+  }());
+</script>
+
+<script type="text/javascript">
+  /* * * DON'T EDIT BELOW THIS LINE * * */
+  (function() {
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+
+<!-- Script fpr language switching. Largely adapted from https://github.com/pcav/faunalia-website -->
+<script>
+    var currentPage = 'docs/3/raster_styling_and_analysis.html'; // coming from sphinx, always without starting '/'
+    var currentLang = 'en';
+    $(document).ready(function(){
+
+        var search = new RegExp('\/[a-zA-Z_]{2,8}\/'+ currentPage, 'gi');
+        var langPlusPage = window.location.href.match(search);
+        // it's possible this is a index.html page called without 'index.html', try without the currentPage
+        if (langPlusPage==undefined){
+            search = new RegExp('\/[a-zA-Z_]{2,8}\/$', 'gi');
+            langPlusPage = window.location.href.match(search);
+        }
+
+        // it's possible this is an index.html page called without 'index.html', try removing index.html
+        if (langPlusPage==undefined){
+            currentPage = currentPage.replace('index.html','')
+            search = new RegExp('\/[a-zA-Z_]{2,8}\/'+ currentPage, 'gi');
+            langPlusPage = window.location.href.match(search);
+        }
+        // still no langPlugPage: stop, because the language swicher will misbehave 
+
+        if (langPlusPage == undefined || langPlusPage.length != 1){
+            alert('You hit an error, please report back to us.');
+            return;
+        }
+        langPlusPage = langPlusPage[0];
+        currentLang = langPlusPage.replace(currentPage, '');
+
+        $("#languages").val(currentLang.replace(/\//g,'')); // currentLang is something like '/nl/'
+
+        $("#languages").change(function() {
+            gotoLang($(this).val());
+        });
+
+    });
+
+    // load current page in a different language
+    function gotoLang(lang){
+        var currentUrl = window.location.href;
+        var newUrl = currentUrl.replace(currentLang, '/'+lang+'/');
+        window.location.href = newUrl;
+    }
+</script>
+
+  </body>
+</html>

@@ -1,0 +1,563 @@
+<!DOCTYPE html>
+
+<html lang="nl">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>In kaart brengen op het web met QGIS2Web (QGIS3) &#8212; QGIS Tutorials and Tips</title>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-sphinx.css" />
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/translations.js"></script>
+    <link rel="search" title="Zoeken" href="../../search.html" />
+    <link rel="next" title="Basiskaarten maken met QTiles" href="../creating_basemaps_with_qtiles.html" />
+    <link rel="prev" title="Taken voor QGIS uitvoeren en in schema zetten" href="../running_qgis_jobs.html" />
+
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<script type="text/javascript" src="../../_static/js/jquery-1.11.0.min.js "></script>
+<script type="text/javascript" src="../../_static/js/jquery-fix.js "></script>
+<script type="text/javascript" src="../../_static/bootstrap-3.3.7/js/bootstrap.min.js "></script>
+<script type="text/javascript" src="../../_static/bootstrap-sphinx.js "></script>
+
+
+<!-- Cookie Notice -->
+<!-- Script from https://github.com/AOEpeople/cookie-notice -->
+<script type="text/javascript" src="../../_static/cookie.notice.min.js"></script>
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-B1WQ7B80XJ"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-B1WQ7B80XJ');
+</script>
+
+
+  </head><body>
+
+  <div id="navbar" class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="../../index.html"><span><img src="../../_static/logo.png"></span>
+          QGIS Tutorials and Tips</a>
+        <span class="navbar-text navbar-version pull-left"><b>v1</b></span>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="../../index.html">Tutorials List <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"><ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../introduction.html">Introductie</a></li>
+<li class="toctree-l1"><a class="reference internal" href="making_a_map.html">Een kaart maken (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="working_with_attributes.html">Werken met attributen (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="importing_spreadsheets_csv.html">Werkbladen of CSV-bestanden importeren (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="basic_vector_styling.html">Basis opmaken van vectoren (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="calculating_line_lengths.html">Lengten van lijnen en statistieken berekenen (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="raster_styling_and_analysis.html">Basis opmaken en analyses van rasters (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="raster_mosaicing_and_clipping.html">Rasters mozaïeken en clippen (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="working_with_terrain.html">Werken met gegevens over het terrein (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="working_with_wms.html">Werken met gegevens van WMS (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="working_with_projections.html">Werken met projecties (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="georeferencing_basics.html">Topobladen en gescande kaarten voorzien van geoverwijzingen (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="advanced_georeferencing.html">Geo-verwijzingen voor satellietbeelden (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="digitizing_basics.html">Kaartgegevens digitaliseren</a></li>
+<li class="toctree-l1"><a class="reference internal" href="performing_table_joins.html">Samenvoegen van tabellen uitvoeren (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="performing_spatial_joins.html">Ruimtelijke samenvoegingen uitvoeren (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="performing_spatial_queries.html">Ruimtelijke query’s uitvoeren (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="nearest_neighbor_analysis.html">Analyse Nearest Neighbor (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="sampling_raster_data.html">Monsters nemen van rastergegevens met behulp van punten of polygonen (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="calculating_raster_area.html">Rastergebied berekenen (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="creating_heatmaps.html">Heatmaps maken (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="animating_time_series.html">Geanimeerde gegevens tijdreeks (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="handling_invalid_geometries.html">Ongeldige geometrieën afhandelen (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="advanced_raster_analysis.html">Gevorderde rasteranalyses (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="interpolating_point_data.html">Interpoleren van puntgegevens</a></li>
+<li class="toctree-l1"><a class="reference internal" href="calculating_intersection_density.html">Dichtheid van straatkruisingen berekenen (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="batch_processing.html">Massa verwerken met behulp van Framework Processing (QGIS 3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="processing_graphical_modeler.html">Complexe werkstromen automatiseren met behulp van Grafische modellen bouwen (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="automating_map_creation.html">Maken van kaarten automatiseren met Atlas van afdruklay-out (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="multi_criteria_overlay.html">Multi Criteria Overlay Analyse (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="basic_network_analysis.html">Basis netwerk visualisatie en routeren (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="origin_destination_matrix.html">Dichtstbijzijnde faciliteit zoeken met Origin-Destination Matrix (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="service_area_analysis.html">Analyse Servicegebied met Openrouteservice (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="travel_time_analysis.html">Reistijd-analyse met Uber Movement (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="areal_mean_rainfall.html">Berekenen gemiddelde regenval voor gebied (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="getting_started_with_pyqgis.html">Beginnen met programmeren in Python (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="processing_algorithms_pyqgis.html">Algoritmes van Processing uitvoeren via Python (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="custom_python_functions.html">Aangepaste Python expressie-functies gebruiken (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="processing_python_scripts.html">Python-scripts schrijven voor framework Processing (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="building_a_python_plugin.html">Een plug-in in Python bouwen (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="processing_python_plugin.html">Een plug-in voor Processing bouwen (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../running_qgis_jobs.html">Taken voor QGIS uitvoeren en in schema zetten</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">In kaart brengen op het web met QGIS2Web (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../creating_basemaps_with_qtiles.html">Basiskaarten maken met QTiles</a></li>
+<li class="toctree-l1"><a class="reference internal" href="using_plugins.html">Plug-ins gebruiken (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../downloading_osm_data.html">Zoeken en downloaden van gegevens van OpenStreetMap</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../learning_resources.html">QGIS bronnen om te leren</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../credits.html">Gebruik van gegevens</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../batch_processing.html">Massa verwerken met behulp van Framework Processing (QGIS2)</a></li>
+</ul>
+</ul>
+</li>
+              
+            
+            
+              
+                
+  <li>
+    <a href="../running_qgis_jobs.html" title="Previous Chapter: Taken voor QGIS uitvoeren en in schema zetten"><span class="glyphicon glyphicon-chevron-left visible-sm"></span><span class="hidden-sm hidden-tablet">&laquo; Taken voor QG...</span>
+    </a>
+  </li>
+  <li>
+    <a href="../creating_basemaps_with_qtiles.html" title="Next Chapter: Basiskaarten maken met QTiles"><span class="glyphicon glyphicon-chevron-right visible-sm"></span><span class="hidden-sm hidden-tablet">Basiskaarten ... &raquo;</span>
+    </a>
+  </li>
+              
+            
+            
+
+            
+
+            
+              <li class="hidden-sm"></li>
+            
+          </ul>
+
+          
+            
+<form class="navbar-form navbar-right" action="../../search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+      <div class="col-md-3">
+        <div id="sidebar" class="bs-sidenav" role="complementary"><h4>Author</h4>
+<p>Ujaval Gandhi</p>
+<a href="https://twitter.com/intent/follow?screen_name=spatialthoughts" class="twitter-follow-button" data-show-count="false">Follow @spatialthoughts</a>
+<hr>
+<p>Want to learn QGIS in a structured way? Check out <a href="https://spatialthoughts.com/" target="_blank">Spatial Thoughts</a> for more learning materials and instructor-led online programs with QGIS.org certification.</p>
+
+
+<h4>Change Language</h4>
+<form role="form" class="sidebar-form sidebar-left">
+<select id="languages" class="form-control select-mini">
+  <option value="en">English</option>
+  <option value="zh_TW">Chinese (Taiwan)</option>
+  <option value="nl">Dutch</option>
+  <option value="fi_FI">Finnish</option>
+  <option value="fr">French</option>
+  <option value="de">German</option>
+  <option value="el">Greek</option>
+  <option value="id">Indonesian</option>
+  <option value="it">Italian</option>
+  <option value="ko">Korean</option>
+  <option value="fa">Persian</option>
+  <option value="pt_BR">Portuguese</option>
+  <option value="ro">Romanian</option>
+  <option value="ru">Russian</option>
+  <option value="sl">Slovenian</option>
+  <option value="es">Spanish</option>
+  <option value="th">Thai</option>
+  <option value="tr">Turkish</option>
+  <option value="uk">Ukrainian</option>
+  <option value="vi">Vietnamese</option>
+</select>
+</form>
+        </div>
+      </div>
+    <div class="body col-md-9 content" role="main">
+      
+
+  <section id="web-mapping-with-qgis2web-qgis3">
+<h1>In kaart brengen op het web met QGIS2Web (QGIS3)<a class="headerlink" href="#web-mapping-with-qgis2web-qgis3" title="Permalink naar deze titel">¶</a></h1>
+<p>Het in kaart brengen op het web is een fantastisch medium om uw gegevens van GIS te publiceren op het web en ze toegankelijk te maken voor andere gebruikers. Het maken van een kaart voor het web is een geheel ander proces dan er een maken in een GIS. Gebruikers van GIS zijn over het algemeen geen programmeurs voor het web en het is een uitdaging als men een kaart voor het web wil maken die voldoet aan dezelfde kwaliteit als voor het maken van een kaart in een GIS. Gelukkig zijn er gereedschappen aanwezig om uw werk vanuit QGIS te vertalen naar kaarten voor het web. In deze handleiding zult u leren de plug-in <strong>QGIS2Web</strong> te gebruiken om een kaart voor het web te maken met behulp  van bibliotheken van OpenLayers of Leaflet vanuit uw project van QGIS.</p>
+<section id="overview-of-the-task">
+<h2>Overzicht van de taak<a class="headerlink" href="#overview-of-the-task" title="Permalink naar deze titel">¶</a></h2>
+<p>We zullen een Leaflet webkaart van de vliegvelden in de wereld maken.</p>
+<section id="other-skills-you-will-learn">
+<h3>Andere vaardigheden die u zult leren<a class="headerlink" href="#other-skills-you-will-learn" title="Permalink naar deze titel">¶</a></h3>
+<ul class="simple">
+<li><p>Hoe de widgets Bewerken in QGIS te gebruiken om bepaalde velden te verbergen en aangepaste typen in te stellen.</p></li>
+<li><p>Hoe een virtueel veld te maken met behulp van Veldberekeningen.</p></li>
+</ul>
+</section>
+</section>
+<section id="get-the-data">
+<h2>De gegevens ophalen<a class="headerlink" href="#get-the-data" title="Permalink naar deze titel">¶</a></h2>
+<p>We zullen de gegevensset <a href="#id1"><span class="problematic" id="id2">`</span></a>Airports <a href="#id3"><span class="problematic" id="id4">`</span></a>_ van Natural Earth gebruiken.</p>
+<p>Download het <a href="#id1"><span class="problematic" id="id2">`</span></a>shapefile Airports <a href="#id3"><span class="problematic" id="id4">`</span></a>_.</p>
+<p>Voor het gemak kunt u direct een kopie van de gegevensset downloaden vanaf de link hieronder:</p>
+<p><a href="#id1"><span class="problematic" id="id2">`</span></a>ne_10m_airports.zip <a href="#id3"><span class="problematic" id="id4">`</span></a>_</p>
+<p>Gegevensbron <a class="reference internal" href="../credits.html#naturalearth" id="id1"><span>[NATURALEARTH]</span></a></p>
+</section>
+<section id="procedure">
+<h2>Procedure<a class="headerlink" href="#procedure" title="Permalink naar deze titel">¶</a></h2>
+<ol class="arabic simple">
+<li><p>Open QGIS. Navigeer met het paneel <span class="guilabel">Browser</span> naar de map die het gedownloade bestand bevat. Vergroot het bestand <code class="docutils literal notranslate"><span class="pre">ne_10m_airports.zip</span></code> en sleep <code class="docutils literal notranslate"><span class="pre">ne_10m_airports.shp</span></code> naar het kaartvenster.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/1138.png" class="align-center" src="../../_images/1138.png" />
+</div></blockquote>
+<ol class="arabic simple" start="2">
+<li><p>Nu zal een nieuwe laag worden geladen in het kaartvenster. We zullen nu een kaart maken in QGIS die er uitziet en zich gedraagt net zoals we zouden willen voor een kaart voor het web. De plug-in <code class="docutils literal notranslate"><span class="pre">qgis2web</span></code> zal de instellingen  van QGIS overnemen en automatisch de kaart voor het web maken zonder dat wij iets merken van de bibliotheken voor het maken van kaarten voor het web. Als een gebruiker op een markering voor een vliegveld klikt, willen we een informatie-venster weergeven dat nuttige informatie over het vliegveld weergeeft. Deze informatie is al aanwezig in de attributentabel van de lagen <code class="docutils literal notranslate"><span class="pre">ne_10m_airports</span></code>. Klik met rechts op de laag <code class="docutils literal notranslate"><span class="pre">ne_10m_airports</span></code> en selecteer <span class="guilabel">Eigenschappen</span>.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/2107.png" class="align-center" src="../../_images/2107.png" />
+</div></blockquote>
+<ol class="arabic simple" start="3">
+<li><p>Schakel, in het dialoogvenster <span class="guilabel">Laag-eigenschappen</span>, naar de tab <span class="guilabel">Formulier attributen</span>. U zult alle namen van velden in de laag zien.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/348.png" class="align-center" src="../../_images/348.png" />
+</div></blockquote>
+<ol class="arabic simple" start="4">
+<li><p>Niet alle velden zijn relevant voor de gebruiker, dus velden <strong>behalve</strong> <em>name</em>, <em>iata_code</em>, <em>type</em> en <em>Wikipedia</em> zijn uitgeschakeld door te klikken op het veld en het <span class="guilabel">Type widget ` te wijzigen naar ``Verborgen`</span>.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/427.png" class="align-center" src="../../_images/427.png" />
+</div></blockquote>
+<ol class="arabic simple" start="5">
+<li><p>In het veld <em>Wikipedia</em> selecteer <code class="docutils literal notranslate"><span class="pre">Multilijn</span></code> en <code class="docutils literal notranslate"><span class="pre">HTML</span></code>, zodat de in dit veld aanwezige link zal worden gerenderd als een hyperlink voor de gebruiker. Klik, na het instellen van het respectievelijke type widget voor elk veld, op <span class="guilabel">OK</span>.</p></li>
+</ol>
+<img alt="../../_images/526.png" class="align-center" src="../../_images/526.png" />
+<ol class="arabic simple" start="6">
+<li><p>Klik op de knop <span class="guilabel">Objecten identificeren</span> op de werkbalk.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/625.png" class="align-center" src="../../_images/625.png" />
+</div></blockquote>
+<ol class="arabic simple" start="7">
+<li><p>Klik op een punt, dit zal de details ophalen van het vliegveld op die locatie, alleen de velden <em>type</em>, <em>name</em>, <em>iata_code</em> en <em>wikipedia</em> worden weergegeven, omdat de andere velden zijn verborgen. Ook is het veld wikipedia geaccentueerd als hyperlink.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/725.png" class="align-center" src="../../_images/725.png" />
+</div></blockquote>
+<ol class="arabic simple" start="8">
+<li><p>De waarden in het veld <em>type</em> kunnen wat informatiever worden. Laten we een nieuw veld maken, genaamd <em>class</em>, en het woord airport toevoegen aan elk item in het veld type. D.i. een item als major zal worden <em>Major airport</em>.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/824.png" class="align-center" src="../../_images/824.png" />
+</div></blockquote>
+<ol class="arabic simple" start="9">
+<li><p>Voer het <span class="guilabel">Naam voor veld</span> in als <code class="docutils literal notranslate"><span class="pre">class</span></code>, kies <code class="docutils literal notranslate"><span class="pre">Tekst</span> <span class="pre">(string)</span></code> in <span class="guilabel">Veldtype</span>. Het veld <code class="docutils literal notranslate"><span class="pre">type</span></code> in de laag bevat waarden zoals <code class="docutils literal notranslate"><span class="pre">small</span></code>, <code class="docutils literal notranslate"><span class="pre">mid</span></code>, <code class="docutils literal notranslate"><span class="pre">large</span></code> etc. We kunnen een expressie toevoegen om het hoofdlettergebruik te wijzigen tot eerste letter hoofdletter en het woord <em>Airport</em> toevoegen voor betere leesbaarheid. Voer de volgende expressie in het vak <span class="guilabel">Expressie</span> in en klik op <span class="guilabel">OK</span>.</p></li>
+</ol>
+<blockquote>
+<div><div class="highlight-none notranslate"><div class="highlight"><pre><span></span>concat( title(&quot;type&quot;), &#39; Airport&#39;)
+</pre></div>
+</div>
+<img alt="../../_images/925.png" class="align-center" src="../../_images/925.png" />
+</div></blockquote>
+<div class="admonition note">
+<p class="admonition-title">Notitie</p>
+<p>U kunt ook de operator voor samenvoegen <code class="docutils literal notranslate"><span class="pre">||</span></code> gebruiken om tekenreeksen samen te voegen. De expressie mag ook worden herschreven als <code class="docutils literal notranslate"><span class="pre">(title(&quot;type&quot;)</span> <span class="pre">||</span> <span class="pre">'</span> <span class="pre">airport')</span></code></p>
+</div>
+<ol class="arabic simple" start="10">
+<li><p>Nu hebben we een veel beter uitziend veld voor het type airport en hebben we het veld <em>type</em> niet langer nodig. Klik met rechts op de laag en selecteer <span class="guilabel">Eigenschappen</span>, schakel naar  <span class="guilabel">Formulier attributen</span> en schakel het veld <em>type</em> uit door het <span class="guilabel">Type widget</span> om te schakelen naar <code class="docutils literal notranslate"><span class="pre">Verborgen</span></code>. Klik op <span class="guilabel">OK</span>.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/1032.png" class="align-center" src="../../_images/1032.png" />
+</div></blockquote>
+<ol class="arabic simple" start="11">
+<li><p>Gebruik nu het gereedschap <span class="guilabel">Objecten identificeren</span> en selecteer een vliegveld, u zult een nieuw veld <em>class</em> zien met de categorie van het vliegveld netjes opgemaakt, en het veld <em>type</em> is verwijderd.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/1139.png" class="align-center" src="../../_images/1139.png" />
+</div></blockquote>
+<ol class="arabic simple" start="12">
+<li><p>Laten we nu de laag opmaken, klik op het pictogram <span class="guilabel">Paneel Laag opmaken openen</span> en wijzige het <span class="guilabel">Type</span> naar <code class="docutils literal notranslate"><span class="pre">Categorieën</span></code>, selecteer <code class="docutils literal notranslate"><span class="pre">class</span></code> in <span class="guilabel">Waarde</span> en klik op <span class="guilabel">Classificeren</span>.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/1235.png" class="align-center" src="../../_images/1235.png" />
+</div></blockquote>
+<ol class="arabic simple" start="13">
+<li><p>U zult zien dat verschillend gekleurde cirkels worden toegewezen aan verschillende typen vliegvelden. Voor deze handleiding zullen we de kaart beperken tot burgervliegvelden. Houd de <kbd class="kbd docutils literal notranslate">Ctrl</kbd>-toets ingedrukt en selecteer alle categorieën voor militaire vliegvelden. Als alles is geselecteerd, klik op <span class="guilabel">Verwijderen</span>.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/1333.png" class="align-center" src="../../_images/1333.png" />
+</div></blockquote>
+<ol class="arabic simple" start="14">
+<li><p>Apart van het toewijzen van een verschillende kleur aan de categorie, kunnen we de grootte van het symbool vergroten om onze gebruikers visueel te helpen de verschillende type vliegvelden te onderscheiden. Dubbelklik op het symboolpictogram in <code class="docutils literal notranslate"><span class="pre">Major</span> <span class="pre">Airport</span></code> om de grootte te wijzigen.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/1430.png" class="align-center" src="../../_images/1430.png" />
+</div></blockquote>
+<ol class="arabic simple" start="15">
+<li><p>Stel de <span class="guilabel">Grootte</span> in op <code class="docutils literal notranslate"><span class="pre">4</span></code>, volg dan dezelfde stappen om de grootte van <code class="docutils literal notranslate"><span class="pre">Mid</span> <span class="pre">Airport</span></code> in te stellen als <code class="docutils literal notranslate"><span class="pre">3</span></code> en <code class="docutils literal notranslate"><span class="pre">Small</span> <span class="pre">Airport</span></code> als <code class="docutils literal notranslate"><span class="pre">2</span></code>.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/1528.png" class="align-center" src="../../_images/1528.png" />
+</div></blockquote>
+<ol class="arabic simple" start="16">
+<li><p>Laten we een basislaag toevoegen voor geoverwijzing, <code class="docutils literal notranslate"><span class="pre">Stamen</span> <span class="pre">Watercolor</span></code> zou een goede achtergrondkaart zijn voor dit project. Selecteer, om de laag toe te voegen, <span class="menuselection">Web ‣ QuickMapServices ‣ Stamen ‣ Stamen Watercolor</span>. Bekijk de handlleiding <a class="reference internal" href="using_plugins.html"><span class="doc">Plug-ins gebruiken (QGIS3)</span></a> om meer te weten te komen over deze plug-in.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/1626.png" class="align-center" src="../../_images/1626.png" />
+</div></blockquote>
+<ol class="arabic simple" start="17">
+<li><p>Onze kaart is nu klaar. Dit is een goed moment om uw werk op te slaan. Klik op het pictogram <span class="guilabel">Project opslaan</span>  op de werkbalk en voer <code class="docutils literal notranslate"><span class="pre">Airports</span></code> in als de naam van het project.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/1726.png" class="align-center" src="../../_images/1726.png" />
+</div></blockquote>
+<ol class="arabic simple" start="18">
+<li><p>Nu zijn we gereed om ons project als een webkaart te exporteren. Installeer de plug-in <strong>qgis2web</strong> door te gaan naar <span class="menuselection">Plug-ins ‣ Plug-ins beheren en installeren</span> (Zie <a class="reference internal" href="using_plugins.html"><span class="doc">Plug-ins gebruiken (QGIS3)</span></a> voor meer details over het installeren van plug-ins in QGIS). Ga, als de plug-in is geïnstalleerd, naar <span class="menuselection">Web ‣ qgis2web ‣ Create a web map</span>.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/1823.png" class="align-center" src="../../_images/1823.png" />
+</div></blockquote>
+<ol class="arabic simple" start="19">
+<li><p>Nu zal een dialoogvenster <span class="guilabel">Export to web map</span> verschijnen. Dit is de primaire plaats om de weblay-out van uw webkaart aan te passen. Het paneel aan de linkerkant bevat alle opties voor configuratie. U kunt elke instelling wijzigen en voorbeelden van de bewerkingen zien aan de rechterkant, door te klikken op de knop <span class="guilabel">Update preview</span>. De plug-in kan de kaart exporteren met veel verschillende bibliotheken voor webkaarten. Voor deze handleiding zullen we de bibliotheek <cite>Leaflet `_ gebruiken. Zorg er dus voor dat u de optie :guilabel:`Leaflet</cite> aan de onderzijde hebt geselecteerd.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/1918.png" class="align-center" src="../../_images/1918.png" />
+</div></blockquote>
+<ol class="arabic simple" start="20">
+<li><p>Laten we nu de <span class="guilabel">Popup fields</span> van de laag <span class="guilabel">ne_10m_airport</span> wijzigen. Wijzig alle velden naar <code class="docutils literal notranslate"><span class="pre">inline</span> <span class="pre">label</span></code>, dit zal een betere weergave geven bij het inspecteren van het object op de kaart.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/2016.png" class="align-center" src="../../_images/2016.png" />
+</div></blockquote>
+<ol class="arabic simple" start="21">
+<li><p>Schakel nu naar de tab <span class="guilabel">Appearance</span>. Selecteer de volgende vakken - <span class="guilabel">Add address search</span>, <span class="guilabel">Geolocate user</span>, <span class="guilabel">Highlight on hover</span>. In <span class="guilabel">Add layer list:</span> kies <code class="docutils literal notranslate"><span class="pre">Collapsed</span></code>. Kies voor <span class="guilabel">Layer search</span> het veld <code class="docutils literal notranslate"><span class="pre">ne_10m_airport:</span> <span class="pre">iata_code</span></code>. Deze optie voegt een zoekvak toe waar de gebruiker naar een vliegveld kan zoeken op de code ervan. Klik, als alle wijzigingen zijn gemaakt, op <span class="guilabel">Update preview</span>.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/2119.png" class="align-center" src="../../_images/2119.png" />
+</div></blockquote>
+<ol class="arabic simple" start="22">
+<li><p>Laten we nu de objecten eens controleren die zijn toegevoegd aan de kaart. Klik op het pictogram <span class="guilabel">Find</span> (verrekijker) en typ <code class="docutils literal notranslate"><span class="pre">DXB</span></code> en druk op enter, dit zal de kaart centreren op <em>Dubai international airport</em>.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/2218.png" class="align-center" src="../../_images/2218.png" />
+</div></blockquote>
+<ol class="arabic simple" start="23">
+<li><p>Klik op het pictogram van het vliegveld om de informatie over het vliegveld te bekijken.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/2316.png" class="align-center" src="../../_images/2316.png" />
+</div></blockquote>
+<ol class="arabic simple" start="24">
+<li><p>Klik op het pictogram <span class="guilabel">Search</span> (vergrootglas), en zoek naar <code class="docutils literal notranslate"><span class="pre">new</span> <span class="pre">york</span></code> en druk op enter.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/2416.png" class="align-center" src="../../_images/2416.png" />
+</div></blockquote>
+<ol class="arabic simple" start="25">
+<li><p>Nu zal de kaart worden gecentreerd op New York City. U kunt voor elke plaats/locatie proberen de locatie te verkrijgen. Deze locatie wordt bepaald met het <strong>geocoderen</strong> van het adres. We zullen ook een meting toevoegen om de lineaire afstand tussen opgegeven punten op de webkaart te verkrijgen. Kies, in <span class="guilabel">Measure tool</span>, <code class="docutils literal notranslate"><span class="pre">Metric</span></code>. Klik op <span class="guilabel">Update preview</span>.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/2514.png" class="align-center" src="../../_images/2514.png" />
+</div></blockquote>
+<ol class="arabic simple" start="26">
+<li><p>Laten we nu de lineaire afstand in SI-eenheden meten tussen de vliegvelden <em>EWR</em> en <em>JFK</em>. Klik op het pictogram <span class="guilabel">Measure</span> (liniaal) en selecteer <span class="guilabel">Create a new measurement</span>. Klik dan op de vliegvelden en als het punt is gekozen zullen de latitude en longitude van het punt worden vastgelegd en gebruikt om de afstand te berekenen. Nu wordt de afstand weergegeven in <em>meters</em>.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/2612.png" class="align-center" src="../../_images/2612.png" />
+</div></blockquote>
+<ol class="arabic simple" start="27">
+<li><p>Schakel naar de tab <span class="guilabel">Export</span> en selecteer het vak <span class="guilabel">Minify GeoJSON files</span>. Dit verkleint de grootte van het uiteindelijke bestand. Klik op <span class="guilabel">…</span> naast <span class="guilabel">Exporter</span>.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/2713.png" class="align-center" src="../../_images/2713.png" />
+</div></blockquote>
+<ol class="arabic simple" start="28">
+<li><p>Kies de gewenste locatie (map) voor het exporteren en klik op <span class="guilabel">Map selecteren</span>, klik dan op de knop <span class="guilabel">Export</span>.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/2813.png" class="align-center" src="../../_images/2813.png" />
+</div></blockquote>
+<ol class="arabic simple" start="29">
+<li><p>Nu worden alle <em>eigenschappen</em>, <em>opmaak</em>, en <em>aangepaste opties</em> geëxporteerd naar een map waarin alles is opgenomen. Nadat dat met succes is voltooid zal een link verschijnen in het pop-up dialoogvenster Progress, klik op de link om de locatie van het bestand te openen.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/2911.png" class="align-center" src="../../_images/2911.png" />
+</div></blockquote>
+<ol class="arabic simple" start="30">
+<li><p>Deze map zal alle vereiste bestanden bevatten om een webkaart te maken.  Klik op het bestand <code class="docutils literal notranslate"><span class="pre">index.html</span></code> om de webkaart te bekijken.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/309.png" class="align-center" src="../../_images/309.png" />
+</div></blockquote>
+<div class="admonition note">
+<p class="admonition-title">Notitie</p>
+<p>De plug-in <code class="docutils literal notranslate"><span class="pre">qgis2web</span></code> heeft veel beperkingen en kan niet alles wat de krachtige bibliotheken voor webkaarten <code class="docutils literal notranslate"><span class="pre">OpenLayers</span></code> en <code class="docutils literal notranslate"><span class="pre">Leaflet</span></code> kunnen. Dit proces kan dienen als het startpunt in het proces voor het maken van uw webkaarten en u kostbare tijd besparen bij het maken van een basissjabloon van waaruit u de webkaart verder kunt aanpassen. U kunt deze ebstanden bewerken in een code-bewerker om het aanpassen naar uw wensen.</p>
+</div>
+<ol class="arabic simple" start="31">
+<li><p>De webkaart zal worden gerenderd in uw standaard webbrowser. Laten we nu eens de laatste optie testen die is toegevoegd aan de kaart, (d.i.) <em>Geolocate user</em>. Klik op het pictogram <span class="guilabel">Marker</span>.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/3112.png" class="align-center" src="../../_images/3112.png" />
+</div></blockquote>
+<ol class="arabic simple" start="32">
+<li><p>Browser zal vragen naar toestemming voor <em>Toegang tot uw locatie</em>, klik op <code class="docutils literal notranslate"><span class="pre">Toestaan</span></code>. De kaart zal nu centreren op uw huidige locatie.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/3210.png" class="align-center" src="../../_images/3210.png" />
+</div></blockquote>
+<ol class="arabic simple" start="33">
+<li><p>De geëxporteerde kaart bevindt zich op uw computer. Hoewel u het in actie kunt zien, is het niet erg nuttig omdat u het met niemand kunt delen. U dient hem te uploaden naar een webserver om anderen in de gelegenheid te stellen hem te bekijken. Hoewel het proces voor uploaden zal variëren, afhankelijk van het type server waar u toegang toe heeft - een goedkope en gemakkelijke manier om uw kaart te publiceren op het web zou zijn om een van de publieke services voor opslaan in de cloud te gebruiken.  <a class="reference external" href="https://aws.amazon.com/s3/">Amazon S3</a>  is een populaire service, die kan worden gebruikt voor het serveren van statische webpagina’s zoals onze kaart. U dient een account aan te maken. Bezoek, als het account is aangemaakt, <a class="reference external" href="https://s3.console.aws.amazon.com/s3/home">AWS Console</a> en volg de instructies om een mandje te maken.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/aws1.png" class="align-center" src="../../_images/aws1.png" />
+</div></blockquote>
+<div class="admonition note">
+<p class="admonition-title">Notitie</p>
+<p>Hoewel AWS een genereuze <a class="reference external" href="https://aws.amazon.com/free/?all-free-tier">Free-Tier</a> bevat, zouden kosten in rekening kunnen worden gebracht voor het gebruik van deze service als u de limieten voor het gratis gebruik overschrijdt.</p>
+</div>
+<ol class="arabic simple" start="34">
+<li><p>Als eenmaal een mandje is aangemaakt, kunt u de inhoud van uw geëxporteerde map naar het mandje uploaden.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/aws2.png" class="align-center" src="../../_images/aws2.png" />
+</div></blockquote>
+<ol class="arabic simple" start="35">
+<li><p>Als u wilt dat de kaart voor iedereen te zien is, zorg er dan voor dat <span class="guilabel">Grant public-read access</span> is geselecteerd tijdens het uploaden.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/aws3.png" class="align-center" src="../../_images/aws3.png" />
+</div></blockquote>
+<ol class="arabic simple" start="36">
+<li><p>Als de gegevens eenmaal zijn geüpload, lokaliseer dan het bestand <cite>index.html</cite>. De <span class="guilabel">Object URL</span> is de URL die kan worden gebruikt voor toegang tot de kaart.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/aws4.png" class="align-center" src="../../_images/aws4.png" />
+</div></blockquote>
+<p>Ik heb de bestanden, die zijn gemaakt tijdens deze oefening, geüpload naar een mandje van AWS S3. De AWS-gehoste versie van de kaart is ingebed via een IFrame hieronder. U kunt ook direct naar de kaart bladeren op <a class="reference external" href="https://qgis-tutorials-data.s3.us-east-2.amazonaws.com/qgis2web/index.html">https://qgis-tutorials-data.s3.us-east-2.amazonaws.com/qgis2web/index.html</a></p>
+<iframe src="https://qgis-tutorials-data.s3.us-east-2.amazonaws.com/qgis2web/index.html"" width="808px" height="515px" style="border:1px solid black;">
+</iframe></section>
+</section>
+
+
+
+
+
+  <div id="disqus_thread"></div>
+  <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+
+    </div>
+      
+  </div>
+</div>
+
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+    </p>
+    <p>
+        &copy; Copyright 2021, Ujaval Gandhi.<br/>
+      Laatste aanpassing op aug. 30, 2022.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 4.0.1.<br/>
+    </p>
+  </div>
+</footer>
+<div class="container">
+  <p>This work is licensed under a <a href="http://creativecommons.org/licenses/by/4.0/deed.en_US">Creative Commons Attribution 4.0 International License</a></p>
+</div>
+<!-- Twitter Button -->
+<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+
+<!-- Disqus comments widget -->
+<script type="text/javascript">
+  /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+  var disqus_shortname = 'qgistutorials'; // required: replace example with your forum shortname
+  /* * * DON'T EDIT BELOW THIS LINE * * */
+  (function () {
+    var s = document.createElement('script'); s.async = true;
+    s.type = 'text/javascript';
+    s.src = '//' + disqus_shortname + '.disqus.com/count.js';
+    (document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);
+  }());
+</script>
+
+<script type="text/javascript">
+  /* * * DON'T EDIT BELOW THIS LINE * * */
+  (function() {
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+
+<!-- Script fpr language switching. Largely adapted from https://github.com/pcav/faunalia-website -->
+<script>
+    var currentPage = 'docs/3/web_mapping_with_qgis2web.html'; // coming from sphinx, always without starting '/'
+    var currentLang = 'en';
+    $(document).ready(function(){
+
+        var search = new RegExp('\/[a-zA-Z_]{2,8}\/'+ currentPage, 'gi');
+        var langPlusPage = window.location.href.match(search);
+        // it's possible this is a index.html page called without 'index.html', try without the currentPage
+        if (langPlusPage==undefined){
+            search = new RegExp('\/[a-zA-Z_]{2,8}\/$', 'gi');
+            langPlusPage = window.location.href.match(search);
+        }
+
+        // it's possible this is an index.html page called without 'index.html', try removing index.html
+        if (langPlusPage==undefined){
+            currentPage = currentPage.replace('index.html','')
+            search = new RegExp('\/[a-zA-Z_]{2,8}\/'+ currentPage, 'gi');
+            langPlusPage = window.location.href.match(search);
+        }
+        // still no langPlugPage: stop, because the language swicher will misbehave 
+
+        if (langPlusPage == undefined || langPlusPage.length != 1){
+            alert('You hit an error, please report back to us.');
+            return;
+        }
+        langPlusPage = langPlusPage[0];
+        currentLang = langPlusPage.replace(currentPage, '');
+
+        $("#languages").val(currentLang.replace(/\//g,'')); // currentLang is something like '/nl/'
+
+        $("#languages").change(function() {
+            gotoLang($(this).val());
+        });
+
+    });
+
+    // load current page in a different language
+    function gotoLang(lang){
+        var currentUrl = window.location.href;
+        var newUrl = currentUrl.replace(currentLang, '/'+lang+'/');
+        window.location.href = newUrl;
+    }
+</script>
+
+  </body>
+</html>

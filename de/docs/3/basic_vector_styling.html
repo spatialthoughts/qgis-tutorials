@@ -1,0 +1,522 @@
+<!DOCTYPE html>
+
+<html lang="de">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>Einfache Vektor Gestaltung (QGIS3) &#8212; QGIS Tutorials and Tips</title>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-sphinx.css" />
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/translations.js"></script>
+    <link rel="search" title="Suche" href="../../search.html" />
+    <link rel="next" title="Berechnung der Länge von Linien und Statistiken (QGSI3)" href="calculating_line_lengths.html" />
+    <link rel="prev" title="Import von Tabellenblättern oder CSV-Dateien (QGIS3)" href="importing_spreadsheets_csv.html" />
+
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<script type="text/javascript" src="../../_static/js/jquery-1.11.0.min.js "></script>
+<script type="text/javascript" src="../../_static/js/jquery-fix.js "></script>
+<script type="text/javascript" src="../../_static/bootstrap-3.3.7/js/bootstrap.min.js "></script>
+<script type="text/javascript" src="../../_static/bootstrap-sphinx.js "></script>
+
+
+<!-- Cookie Notice -->
+<!-- Script from https://github.com/AOEpeople/cookie-notice -->
+<script type="text/javascript" src="../../_static/cookie.notice.min.js"></script>
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-B1WQ7B80XJ"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-B1WQ7B80XJ');
+</script>
+
+
+  </head><body>
+
+  <div id="navbar" class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="../../index.html"><span><img src="../../_static/logo.png"></span>
+          QGIS Tutorials and Tips</a>
+        <span class="navbar-text navbar-version pull-left"><b>v1</b></span>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="../../index.html">Tutorials List <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"><ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../introduction.html">Einleitung</a></li>
+<li class="toctree-l1"><a class="reference internal" href="making_a_map.html">Erstellung einer Karte (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="working_with_attributes.html">Arbeit mit Attributen (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="importing_spreadsheets_csv.html">Import von Tabellenblättern oder CSV-Dateien (QGIS3)</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Einfache Vektor Gestaltung (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="calculating_line_lengths.html">Berechnung der Länge von Linien und Statistiken (QGSI3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="raster_styling_and_analysis.html">Einfache Visualisierung und Analyse von Rasterdaten (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="raster_mosaicing_and_clipping.html">Erstellen und Zuschneiden eines Raster-Mosaiks (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="working_with_terrain.html">Working with Terrain Data (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="working_with_wms.html">Working with WMS Data (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="working_with_projections.html">Working with Projections (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="georeferencing_basics.html">Georeferenzierung von Kartenblättern und eingescannten Karten (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="advanced_georeferencing.html">Georeferenzierung von Luftbildern (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="digitizing_basics.html">Digitizing Map Data (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="performing_table_joins.html">Tabellen verbinden (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="performing_spatial_joins.html">Räumliche Verbindungen erstellen (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="performing_spatial_queries.html">Räumliche Abfragen ausführen (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="nearest_neighbor_analysis.html">Nächster Nachbar Analyse (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="sampling_raster_data.html">Stichproben aus Rasterdaten mit Hilfe von Punkten und Polygonen (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="calculating_raster_area.html">Calculating Raster Area (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="creating_heatmaps.html">Heatmaps erstellen (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="animating_time_series.html">Animating Time Series Data (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="handling_invalid_geometries.html">Handling Invalid Geometries (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="advanced_raster_analysis.html">Advanced Raster Analysis (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="interpolating_point_data.html">Interpolating Point Data (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="calculating_intersection_density.html">Calculating Street Intersection Density (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="batch_processing.html">Stapelverarbeitung mit dem Processing Framework (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="processing_graphical_modeler.html">Komplexe Arbeitsabläufe mit Hilfe der Verarbeitungsmodellierung (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="automating_map_creation.html">Automatisierung der Kartenerstellung mit dem Drucklayout Atlas (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="multi_criteria_overlay.html">Multi Criteria Overlay Analysis (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="basic_network_analysis.html">Einfache Netzwerkvisualisierung und Routing (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="origin_destination_matrix.html">Lokalisierung der am nächsten gelegenen Einrichtung mit einer Quelle-Ziel-Matrix (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="service_area_analysis.html">Einzugsgebietsanalyse mit dem Openrouteservice (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="travel_time_analysis.html">Travel Time Analysis with Uber Movement (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="areal_mean_rainfall.html">Calculating Areal Mean Rainfall (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="getting_started_with_pyqgis.html">Mit der Pythonprogrammierung loslegen (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="processing_algorithms_pyqgis.html">Verarbeitungsroutinen mit Python ausführen (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="custom_python_functions.html">Angepasste Python Funktionsausdrücke verwenden (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="processing_python_scripts.html">Pythonscripts für die Verarbeitungswerkzeuge schreiben (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="building_a_python_plugin.html">Ein Python Plugin erstellen (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="processing_python_plugin.html">Ein Verarbeitungsplugin erstellen (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../running_qgis_jobs.html">Running and Scheduling QGIS Processing Jobs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="web_mapping_with_qgis2web.html">Web Mapping with QGIS2Web (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../creating_basemaps_with_qtiles.html">Creating Basemaps with QTiles</a></li>
+<li class="toctree-l1"><a class="reference internal" href="using_plugins.html">Using Plugins (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../downloading_osm_data.html">Suchen und Laden von OpenStreetMap Daten</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../learning_resources.html">QGIS Learning Resources</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../credits.html">Data Credits</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../batch_processing.html">Batch Processing using Processing Framework (QGIS2)</a></li>
+</ul>
+</ul>
+</li>
+              
+            
+            
+              
+                
+  <li>
+    <a href="importing_spreadsheets_csv.html" title="Previous Chapter: Import von Tabellenblättern oder CSV-Dateien (QGIS3)"><span class="glyphicon glyphicon-chevron-left visible-sm"></span><span class="hidden-sm hidden-tablet">&laquo; Import von Ta...</span>
+    </a>
+  </li>
+  <li>
+    <a href="calculating_line_lengths.html" title="Next Chapter: Berechnung der Länge von Linien und Statistiken (QGSI3)"><span class="glyphicon glyphicon-chevron-right visible-sm"></span><span class="hidden-sm hidden-tablet">Berechnung de... &raquo;</span>
+    </a>
+  </li>
+              
+            
+            
+
+            
+
+            
+              <li class="hidden-sm"></li>
+            
+          </ul>
+
+          
+            
+<form class="navbar-form navbar-right" action="../../search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+      <div class="col-md-3">
+        <div id="sidebar" class="bs-sidenav" role="complementary"><h4>Author</h4>
+<p>Ujaval Gandhi</p>
+<a href="https://twitter.com/intent/follow?screen_name=spatialthoughts" class="twitter-follow-button" data-show-count="false">Follow @spatialthoughts</a>
+<hr>
+<p>Want to learn QGIS in a structured way? Check out <a href="https://spatialthoughts.com/" target="_blank">Spatial Thoughts</a> for more learning materials and instructor-led online programs with QGIS.org certification.</p>
+
+
+<h4>Change Language</h4>
+<form role="form" class="sidebar-form sidebar-left">
+<select id="languages" class="form-control select-mini">
+  <option value="en">English</option>
+  <option value="zh_TW">Chinese (Taiwan)</option>
+  <option value="nl">Dutch</option>
+  <option value="fi_FI">Finnish</option>
+  <option value="fr">French</option>
+  <option value="de">German</option>
+  <option value="el">Greek</option>
+  <option value="id">Indonesian</option>
+  <option value="it">Italian</option>
+  <option value="ko">Korean</option>
+  <option value="fa">Persian</option>
+  <option value="pt_BR">Portuguese</option>
+  <option value="ro">Romanian</option>
+  <option value="ru">Russian</option>
+  <option value="sl">Slovenian</option>
+  <option value="es">Spanish</option>
+  <option value="th">Thai</option>
+  <option value="tr">Turkish</option>
+  <option value="uk">Ukrainian</option>
+  <option value="vi">Vietnamese</option>
+</select>
+</form>
+        </div>
+      </div>
+    <div class="body col-md-9 content" role="main">
+      
+
+  <section id="basic-vector-styling-qgis3">
+<h1>Einfache Vektor Gestaltung (QGIS3)<a class="headerlink" href="#basic-vector-styling-qgis3" title="Link zu dieser Überschrift">¶</a></h1>
+<p>Um eine Karte zu erstellen, muss man räumliche Daten so aufbereiten und präsentieren, dass die anschaulich und informativ sind. In QGIS gibt es viele Möglichkeiten, um verschiedene Typen von Symbologien für die zugrunde liegenden Daten zu verwenden. In dieser Anleitung verwenden wir eine Textdatei und zeigen daran verschiedene Techniken zur Datenvisualisierung der in der Datei enthaltenen räumlichen Daten.</p>
+<section id="overview-of-the-task">
+<h2>Überblick über die Aufgabe<a class="headerlink" href="#overview-of-the-task" title="Link zu dieser Überschrift">¶</a></h2>
+<p>We will take a CSV file containing the location of all power plants in the World and create a visualization showing distribution of renewable and non-renewable fuels used in these power plants.</p>
+<section id="other-skills-you-will-learn">
+<h3>Weitere Fähigkeiten die wir erlernen<a class="headerlink" href="#other-skills-you-will-learn" title="Link zu dieser Überschrift">¶</a></h3>
+<ul class="simple">
+<li><p>Verwendung von Ausdrücken, um verschiedene Attributwerte zu einer Kategorie zu gruppieren</p></li>
+</ul>
+</section>
+</section>
+<section id="get-the-data">
+<h2>Beschaffung der Daten<a class="headerlink" href="#get-the-data" title="Link zu dieser Überschrift">¶</a></h2>
+<p><a class="reference external" href="https://www.wri.org">World Resources Institute</a> has compiled a comprehensive, open source database of power plants around the World covering over 30000 plants. Download the <a class="reference external" href="http://datasets.wri.org/dataset/globalpowerplantdatabase">The Global Power Plant Database</a> from the WRI Open Data Portal.</p>
+<p>Bei <a class="reference external" href="http://naturalearthdata.com">Natural Earth</a> findet man verschiedene weltweite Vectorlayer. Lade den Layer <a class="reference external" href="https://www.naturalearthdata.com/http//www.naturalearthdata.com/download/10m/physical/ne_10m_land.zip">10m Physical Vectors - Land</a> herunter, der Polygone der Ländergrenzen enthält.</p>
+<p>Der Einfachheit halber kannst du auch eine Kopie des Datensatzes unter folgendem link herunterladen:</p>
+<p><a class="reference external" href="https://www.qgistutorials.com/downloads/globalpowerplantdatabasev120.zip">globalpowerplantdatabasev120.zip</a></p>
+<p><a class="reference external" href="https://www.qgistutorials.com/downloads/ne_10m_land.zip">ne_10m_land.zip</a></p>
+<p>Datenquelle <a class="reference internal" href="../credits.html#wri" id="id1"><span>[WRI]</span></a> <a class="reference internal" href="../credits.html#naturalearth" id="id2"><span>[NATURALEARTH]</span></a></p>
+</section>
+<section id="procedure">
+<h2>Arbeitsablauf<a class="headerlink" href="#procedure" title="Link zu dieser Überschrift">¶</a></h2>
+<ol class="arabic simple">
+<li><p>Entpacke beide Datensätze in einen lokalen Ordner. Gehe im QGIS Browser Bereich zu diesem Ordner. Öffne den <code class="docutils literal notranslate"><span class="pre">ne_10m_land</span></code> Ordner und wähle den <code class="docutils literal notranslate"><span class="pre">ne_10m_land.shp</span></code> Layer. Ziehe den Layer in der Arbeitsbereich.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/117.png" class="align-center" src="../../_images/117.png" />
+</div></blockquote>
+<ol class="arabic simple" start="2">
+<li><p>You will get a new layer <code class="docutils literal notranslate"><span class="pre">ne_10m_land</span></code> added to the <span class="guilabel">Layers</span> panel. The global power plant database comes as a CSV file, so we will need to import it. Click the <span class="guilabel">Open Data Source Manager</span> button on the <span class="guilabel">Data Source Toolbar</span>. You can also use <kbd class="kbd compound docutils literal notranslate"><kbd class="kbd docutils literal notranslate">Ctrl</kbd> <kbd class="kbd docutils literal notranslate"></kbd>+<kbd class="kbd docutils literal notranslate"></kbd> <kbd class="kbd docutils literal notranslate">L</kbd></kbd> keyboard shortcut.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/214.png" class="align-center" src="../../_images/214.png" />
+</div></blockquote>
+<ol class="arabic simple" start="3">
+<li><p>Gehe im Fenster <span class="guilabel">Data Source Manager</span> zur <span class="guilabel">Delimited Text</span> Auswahl. Klicke auf den <span class="guilabel">…</span> Knopf neben dem <span class="guilabel">File name</span> und gehe zu dem Ordner in dem du die Datei <code class="docutils literal notranslate"><span class="pre">globalpowerplantdatabasev120.zip</span></code> entpackt hast. Wähle die Datei <code class="docutils literal notranslate"><span class="pre">global_power_plant_database.csv</span></code>. QGIS wird automatisch die Trennzeichen und Geometriefelder erkennen. Behalte den vorgegebenen Wert unter <span class="guilabel">Geometry CRS</span> bei: <code class="docutils literal notranslate"><span class="pre">EPSG:4326</span> <span class="pre">-</span> <span class="pre">WGS84</span></code>. Klicke auf <span class="guilabel">Hinzufügen</span> und danach auf <span class="guilabel">Close</span>.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/313.png" class="align-center" src="../../_images/313.png" />
+</div></blockquote>
+<ol class="arabic simple" start="4">
+<li><p>Ein neuer Layer <code class="docutils literal notranslate"><span class="pre">global_power_plant_database</span></code> wird nun im <span class="guilabel">Layers</span> Bereich hinzugefügt. Man sieht die Punkte, die die Krakftwerke repräsentieren im Arbeitsbereich. Jetzt können wir die Darstellung beider Layer anpassen. Klicke auf den <span class="guilabel">Open the Layer Styling panel</span> Knopf button oben im <span class="guilabel">Layers</span> Bereich.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/43.png" class="align-center" src="../../_images/43.png" />
+</div></blockquote>
+<ol class="arabic simple" start="5">
+<li><p>Der <span class="guilabel">Layer Styling</span> Bereich öffnet sich jetzt auf der rechten Seite. Wähle zuerst den Layer <code class="docutils literal notranslate"><span class="pre">ne_10m_land</span></code>. Dies wird unser Basislayer, d.h. wir werden den Layerstil einfach halten, um nicht abzulenken. Klicke auf <code class="docutils literal notranslate"><span class="pre">Simple</span> <span class="pre">fill</span></code> und scrolle nach unten. Wähle eine <span class="guilabel">Fill color</span> die dir gefällt. Klicke das drop-down-Feld neben <span class="guilabel">Stroke color</span> und wähle <code class="docutils literal notranslate"><span class="pre">Transparent</span> <span class="pre">Stroke</span></code>. Damit wird der Umriss der Länderpolygone transparent. Das Ergebnis der Eingaben sieht man sofort an der veränderten Dartellung des Layers.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/53.png" class="align-center" src="../../_images/53.png" />
+</div></blockquote>
+<ol class="arabic simple" start="6">
+<li><p>Wähle als nächstes den <code class="docutils literal notranslate"><span class="pre">global_power_plant_database</span></code> Layer. Klicke auf <code class="docutils literal notranslate"><span class="pre">Simple</span> <span class="pre">marker</span></code> und scrolle nach unten. Wähle ein Dreieck als Symbol aus.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/63.png" class="align-center" src="../../_images/63.png" />
+</div></blockquote>
+<ol class="arabic simple" start="7">
+<li><p>Scrolle nach oben und wähle eine <span class="guilabel">Fill color</span> die du magst. Eine nützliche kartographische Technik ist, die <span class="guilabel">Stroke color</span> etwas dunkler zu halten als die Füllfarbe. Anstatt dies manuell einzugeben, kann QGIS die Farbe mit Hilfe eines Ausdrucks genauer steuern. Klicke auf den <span class="guilabel">Data defined override</span> Knopf und wähle <span class="guilabel">Edit</span>.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/73.png" class="align-center" src="../../_images/73.png" />
+</div></blockquote>
+<ol class="arabic simple" start="8">
+<li><p>Um die Strichfarbe 30% dunkler als die Füllfarbe zu setzen, gebe folgenden Ausdruck ein und drücke :<cite>OK</cite>.</p></li>
+</ol>
+<blockquote>
+<div><div class="highlight-none notranslate"><div class="highlight"><pre><span></span>darker(@symbol_color, 130)
+</pre></div>
+</div>
+<img alt="../../_images/83.png" class="align-center" src="../../_images/83.png" />
+</div></blockquote>
+<div class="admonition note">
+<p class="admonition-title">Bemerkung</p>
+<p>Der verwendete Ausdruck ist unabhängig von der Auswahl der Füllfarbe. Dies wird im folgenden sehr nützlich sein, wenn die Strichfarbe automatisch an die Füllfarbe angepasst werden soll.</p>
+</div>
+<ol class="arabic simple" start="9">
+<li><p>Wir bemerken, das der Knopf <span class="guilabel">Data defined override</span> neben dem Knopf <span class="guilabel">Stroke color</span> jetzt gelb hinterlegt ist - ein Hinweis, dass die Änderung dieser Eigenschaft überschrieben wird. Ein einheitliches Symbol für alle Kraftwerke ist nicht sehr sinnvoll. Es enthält nur die Lageinformation. Wir werden in der Folge verschiedene Symbole verwenden. Klicke auf das drop-down-Feld <span class="guilabel">Symbology</span> und wähle <code class="docutils literal notranslate"><span class="pre">Categorized</span></code> zur Darstellung.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/93.png" class="align-center" src="../../_images/93.png" />
+</div></blockquote>
+<ol class="arabic simple" start="10">
+<li><p>Der Layer <code class="docutils literal notranslate"><span class="pre">global_power_plant_database</span></code> enthält ein Attribut über die primär im Kraftwerk genutzte Energiequelle. Wir können einen Stil erstellen, mit dem jede Energiequelle in einer anderen Farbe dargestellt wird. Wähle <code class="docutils literal notranslate"><span class="pre">primary_fuel</span></code> als <span class="guilabel">Column</span>. Klicke auf <span class="guilabel">Classify</span>. Es werden jetzt verschiedene Kategorien angezeigt und die Kartendarstellung verändert sich.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/106.png" class="align-center" src="../../_images/106.png" />
+</div></blockquote>
+<ol class="arabic simple" start="11">
+<li><p>Obwohl die kategorisierte Darstellung an sich sinnvoll ist, enthält sie aktuell zu viele Kategorien um einfach interpretiert zu werden. Ein sinnvoller Ansatz ist, einige Kategorien zu Klassen zusammenzufassen. Wir versuchen es mit 3 Klassen - <strong>Erneuerbare Energiequellen</strong>, <strong>Nicht erneuerbare Energiequellen</strong> und <strong>Andere</strong>. Wähle für die Darstellung <code class="docutils literal notranslate"><span class="pre">Regelbasierend</span></code>. Wähle alle bis auf eine Regel aus indem du die <kbd class="kbd docutils literal notranslate">Ctrl</kbd> Taste gedrückt hältst und die Zeilen einzeln anklickst. Nachdem Selektieren klicke auf den <span class="guilabel">Gewählte Regeln löschen</span> Knopf um sie zu löschen.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/118.png" class="align-center" src="../../_images/118.png" />
+</div></blockquote>
+<ol class="arabic simple" start="12">
+<li><p>Wähle die verbleibende Regel aus und klicke auf <span class="guilabel">Aktuelle Regel bearbeiten</span>.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/126.png" class="align-center" src="../../_images/126.png" />
+</div></blockquote>
+<ol class="arabic simple" start="13">
+<li><p>Gebe <code class="docutils literal notranslate"><span class="pre">Erneuerbare</span> <span class="pre">Energiequellen</span></code> als <span class="guilabel">Beschriftung</span> ein. Klicke auf den <span class="guilabel">Expression</span> Knopf neben <span class="guilabel">Filter</span>.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/135.png" class="align-center" src="../../_images/135.png" />
+</div></blockquote>
+<ol class="arabic simple" start="14">
+<li><p>Gebe im Fenster <span class="guilabel">Ausdruckseditor</span> folgenden Ausdruck ein und klicke auf <span class="guilabel">OK</span>. Hiermit gruppieren wir mehrere Kategorien erneuerbarer Energien zu einer Klasse.</p></li>
+</ol>
+<blockquote>
+<div><div class="highlight-none notranslate"><div class="highlight"><pre><span></span>&quot;primary_fuel&quot; IN (&#39;Biomass&#39;, &#39;Geothermal&#39;, &#39;Hydro&#39;, &#39;Solar&#39;, &#39;Wind&#39;, &#39;Storage&#39;, &#39;Wave and Tidal&#39;)
+</pre></div>
+</div>
+<img alt="../../_images/145.png" class="align-center" src="../../_images/145.png" />
+</div></blockquote>
+<div class="admonition note">
+<p class="admonition-title">Bemerkung</p>
+<p>Die Klassifizierung nach erneuerbarer bzw. nicht erneuerbarer Energie basiert auf <a class="reference external" href="https://en.wikipedia.org/wiki/Renewable_energy">Wikipedia</a>. Es gibt andere ggf. hiervon abweichende Zuordnungen.</p>
+</div>
+<ol class="arabic simple" start="15">
+<li><p>Scrolle nach unten und klicke auf <span class="guilabel">Einfache Markierung</span>. Wähle ein passende <span class="guilabel">Fill color</span>. Danach klicke auf den <span class="guilabel">Back</span> Knopf.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/155.png" class="align-center" src="../../_images/155.png" />
+</div></blockquote>
+<ol class="arabic simple" start="16">
+<li><p>Wir sehen jetzt, dass die Regel auf den Layer der Kategorie <span class="guilabel">Erneuerbare Energiequellen</span> angewendet wird. Klicke mit rechts auf die Zeile und wähle <span class="guilabel">Copy</span>. Klicke noch einmal mit rechts und wähle <span class="guilabel">Paste</span>.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/165.png" class="align-center" src="../../_images/165.png" />
+</div></blockquote>
+<ol class="arabic simple" start="17">
+<li><p>Es wird eine Kopie der bestehenden Regel hinzugefügt. Wähle die neu hnizugefügte Zeile und klicke auf <span class="guilabel">Aktuelle Regel bearbeiten</span>.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/175.png" class="align-center" src="../../_images/175.png" />
+</div></blockquote>
+<ol class="arabic simple" start="18">
+<li><p>Gebe <code class="docutils literal notranslate"><span class="pre">Nicht</span> <span class="pre">erneuerbare</span> <span class="pre">Energiequellen</span></code> als <span class="guilabel">Beschriftung</span> ein. Klicke auf den <span class="guilabel">Expression</span> Knopf neben <span class="guilabel">Filter</span>.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/183.png" class="align-center" src="../../_images/183.png" />
+</div></blockquote>
+<ol class="arabic simple" start="19">
+<li><p>Gebe im Fenster <span class="guilabel">Ausdruckseditor</span> den folgenden Ausdruck ein und klicke auf <span class="guilabel">OK</span>.</p></li>
+</ol>
+<blockquote>
+<div><blockquote>
+<div><div class="highlight-none notranslate"><div class="highlight"><pre><span></span>&quot;primary_fuel&quot; IN (&#39;Coal&#39;, &#39;Gas&#39;, &#39;Nuclear&#39;, &#39;Oil&#39;, &#39;Petcoke&#39;)
+</pre></div>
+</div>
+</div></blockquote>
+<img alt="../../_images/193.png" class="align-center" src="../../_images/193.png" />
+</div></blockquote>
+<ol class="arabic simple" start="20">
+<li><p>Scrolle nach unten und klicke auf <span class="guilabel">Einfache Markierung</span>. Wähle ein passende <span class="guilabel">Fill color</span>. Danach klicke auf den <span class="guilabel">Back</span> Knopf.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/203.png" class="align-center" src="../../_images/203.png" />
+</div></blockquote>
+<ol class="arabic simple" start="21">
+<li><p>Wiederhole den Copy/Paste Vorgang, um eine dritte Regel hinzuzufügen. Wähle sie aus und klicke auf <span class="guilabel">Aktuelle Regel bearbeiten</span>.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/215.png" class="align-center" src="../../_images/215.png" />
+</div></blockquote>
+<ol class="arabic simple" start="22">
+<li><p>Gebe <code class="docutils literal notranslate"><span class="pre">Andere</span></code> als <span class="guilabel">Label</span> ein. Wähle <span class="guilabel">Else - Catch all for other features</span> anstelle von <span class="guilabel">Filter</span>. Das stellt sicher, dass alle anderen Kategorien, die nicht in die 2 vorher erstellten Klassen fallen, in dieser Klasse erfasst werden. Scrolle nach unten und klicke auf <span class="guilabel">Simple marker</span>. Wähle eine pasende <span class="guilabel">Fill color</span>. Klicek im Anschluss auf den <span class="guilabel">Back</span> Knopf.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/223.png" class="align-center" src="../../_images/223.png" />
+</div></blockquote>
+<ol class="arabic simple" start="23">
+<li><p>Die Neuklassifizierung ist nun abgeschlossen. Wir sehen jetzt eine viel übersichtlichere Darstellung der erneuerbaren vs. nicht erneuerbaren Energiequellen der Kraftwerke und deren Verteilung in den einzelnen Ländern. Damit haben wir aber noch kein vollständiges Bild. Wir können noch eine weitere Variable zur Darstellung hinzufügen. Anstatt alle Symbole mit der gleichen Größe darzustellen, können wir die Symbolgröße proportional zur Energieerzeugungskapazität ändern. Diese kartographische Technik wird auch als <em>Multivariate Abbildung</em> bezeichnet. Klicke mit rechts auf die <code class="docutils literal notranslate"><span class="pre">Erneuerbare</span> <span class="pre">Kraftstoffe</span></code> Regel und wähle <span class="guilabel">Change Size</span>.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/233.png" class="align-center" src="../../_images/233.png" />
+</div></blockquote>
+<ol class="arabic simple" start="24">
+<li><p>Klicke auf den <span class="guilabel">Data defined override</span> Knopf neben <span class="guilabel">Size</span>. Wähle <span class="guilabel">Edit</span>.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/243.png" class="align-center" src="../../_images/243.png" />
+</div></blockquote>
+<ol class="arabic simple" start="25">
+<li><p>Da die Energieerzeugungskapazität sehr stark variiert, ist es sinnvoll die <code class="docutils literal notranslate"><span class="pre">log10</span></code> Funktion zu verwenden, um eine kleinere Spannweite an Symbolgrößen zu erhalten. Man kann mit verschiedenen Ausdrücken experimentieren, um die gewünschte Darstellung zu erreichen. Gebe den folgenden Ausdruck ein und klicke auf <span class="guilabel">OK</span>.</p></li>
+</ol>
+<blockquote>
+<div><div class="highlight-none notranslate"><div class="highlight"><pre><span></span>log10(&quot;capacity_mw&quot;) + 1
+</pre></div>
+</div>
+<img alt="../../_images/253.png" class="align-center" src="../../_images/253.png" />
+</div></blockquote>
+<ol class="arabic simple" start="26">
+<li><p>Wiederhole dieses Vorgehen für die anderen Regeln.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/262.png" class="align-center" src="../../_images/262.png" />
+</div></blockquote>
+<ol class="arabic simple" start="27">
+<li><p>Wenn du zufrieden bist, schließe <span class="guilabel">Layer Styling panel</span>.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/273.png" class="align-center" src="../../_images/273.png" />
+</div></blockquote>
+<ol class="arabic simple" start="28">
+<li><p>Wenn wir auf die fertige Darstellung blicken, fällt sofort ein Verteilungsmuster auf. Zum Beispiel gibt es in Europa mehr Kraftwerke mit erneuerbaren Energiequellen, die aber eine geringere Kapazität als die Kraftwerke mit nicht erneuerbaren Energiequellen haben.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/283.png" class="align-center" src="../../_images/283.png" />
+</div></blockquote>
+</section>
+</section>
+
+
+
+
+
+  <div id="disqus_thread"></div>
+  <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+
+    </div>
+      
+  </div>
+</div>
+
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+    </p>
+    <p>
+        &copy; Copyright 2021, Ujaval Gandhi.<br/>
+      Zuletzt aktualisiert am Aug. 30, 2022.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 4.0.1.<br/>
+    </p>
+  </div>
+</footer>
+<div class="container">
+  <p>This work is licensed under a <a href="http://creativecommons.org/licenses/by/4.0/deed.en_US">Creative Commons Attribution 4.0 International License</a></p>
+</div>
+<!-- Twitter Button -->
+<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+
+<!-- Disqus comments widget -->
+<script type="text/javascript">
+  /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+  var disqus_shortname = 'qgistutorials'; // required: replace example with your forum shortname
+  /* * * DON'T EDIT BELOW THIS LINE * * */
+  (function () {
+    var s = document.createElement('script'); s.async = true;
+    s.type = 'text/javascript';
+    s.src = '//' + disqus_shortname + '.disqus.com/count.js';
+    (document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);
+  }());
+</script>
+
+<script type="text/javascript">
+  /* * * DON'T EDIT BELOW THIS LINE * * */
+  (function() {
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+
+<!-- Script fpr language switching. Largely adapted from https://github.com/pcav/faunalia-website -->
+<script>
+    var currentPage = 'docs/3/basic_vector_styling.html'; // coming from sphinx, always without starting '/'
+    var currentLang = 'en';
+    $(document).ready(function(){
+
+        var search = new RegExp('\/[a-zA-Z_]{2,8}\/'+ currentPage, 'gi');
+        var langPlusPage = window.location.href.match(search);
+        // it's possible this is a index.html page called without 'index.html', try without the currentPage
+        if (langPlusPage==undefined){
+            search = new RegExp('\/[a-zA-Z_]{2,8}\/$', 'gi');
+            langPlusPage = window.location.href.match(search);
+        }
+
+        // it's possible this is an index.html page called without 'index.html', try removing index.html
+        if (langPlusPage==undefined){
+            currentPage = currentPage.replace('index.html','')
+            search = new RegExp('\/[a-zA-Z_]{2,8}\/'+ currentPage, 'gi');
+            langPlusPage = window.location.href.match(search);
+        }
+        // still no langPlugPage: stop, because the language swicher will misbehave 
+
+        if (langPlusPage == undefined || langPlusPage.length != 1){
+            alert('You hit an error, please report back to us.');
+            return;
+        }
+        langPlusPage = langPlusPage[0];
+        currentLang = langPlusPage.replace(currentPage, '');
+
+        $("#languages").val(currentLang.replace(/\//g,'')); // currentLang is something like '/nl/'
+
+        $("#languages").change(function() {
+            gotoLang($(this).val());
+        });
+
+    });
+
+    // load current page in a different language
+    function gotoLang(lang){
+        var currentUrl = window.location.href;
+        var newUrl = currentUrl.replace(currentLang, '/'+lang+'/');
+        window.location.href = newUrl;
+    }
+</script>
+
+  </body>
+</html>

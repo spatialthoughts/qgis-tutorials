@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>Análisis de Vecino Más Cercano &#8212; QGIS Tutorials and Tips</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/bootstrap-sphinx.css" />
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/translations.js"></script>
+    <link rel="search" title="Búsqueda" href="../search.html" />
+
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<script type="text/javascript" src="../_static/js/jquery-1.11.0.min.js "></script>
+<script type="text/javascript" src="../_static/js/jquery-fix.js "></script>
+<script type="text/javascript" src="../_static/bootstrap-3.3.7/js/bootstrap.min.js "></script>
+<script type="text/javascript" src="../_static/bootstrap-sphinx.js "></script>
+
+
+<!-- Cookie Notice -->
+<!-- Script from https://github.com/AOEpeople/cookie-notice -->
+<script type="text/javascript" src="../_static/cookie.notice.min.js"></script>
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-B1WQ7B80XJ"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-B1WQ7B80XJ');
+</script>
+
+
+  </head><body>
+
+  <div id="navbar" class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="../index.html"><span><img src="../_static/logo.png"></span>
+          QGIS Tutorials and Tips</a>
+        <span class="navbar-text navbar-version pull-left"><b>v1</b></span>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="../index.html">Tutorials List <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"><ul>
+<li class="toctree-l1"><a class="reference internal" href="introduction.html">Introducción</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/making_a_map.html">Haciendo un Mapa (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/working_with_attributes.html">Trabajando con atributos (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/importing_spreadsheets_csv.html">Importar Hojas de Cálculo o archivos CSV (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/basic_vector_styling.html">Estilo Básico Vectorial (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/calculating_line_lengths.html">Calcular Longitudes y Estadísticas de Línea (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/raster_styling_and_analysis.html">Estilos y Análisis Básicos Ráster (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/raster_mosaicing_and_clipping.html">Mosaicar y Recortar Ráster (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/working_with_terrain.html">Trabajar con Datos de Terreno (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/working_with_wms.html">Trabajar con Datos WMS (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/working_with_projections.html">Trabajar con Proyecciones (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/georeferencing_basics.html">Georeferenciar Hojas Topográficas y Mapas Escaneados (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/advanced_georeferencing.html">Georeferenciar Imágenes Aéreas (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/digitizing_basics.html">Digitalizar Datos del Mapa (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/performing_table_joins.html">Realizar Uniones de Tablas (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/performing_spatial_joins.html">Realizar Uniones Espaciales (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/performing_spatial_queries.html">Realizar Consultas Espaciales (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/nearest_neighbor_analysis.html">Análisis del Vecino Más Cercano (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/sampling_raster_data.html">Muestrear Datos Ráster usando Puntos o Polígonos (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/calculating_raster_area.html">Calculating Raster Area (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/creating_heatmaps.html">Crear Mapas de Calor (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/animating_time_series.html">Animar Datos de Series de Tiempo (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/handling_invalid_geometries.html">Manejar Geometrías No Válidas (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/advanced_raster_analysis.html">Análisis Avanzado de Ráster (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/interpolating_point_data.html">Interpolar Datos Punto (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/calculating_intersection_density.html">Calcular Densidad de Intersección de Calle (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/batch_processing.html">Procesamiento por Lotes usando el Marco de Procesamiento (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/processing_graphical_modeler.html">Automatizar Flujos de Trabajo Complejos usando el Modelador de Procesos (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/automating_map_creation.html">Automatización de la creación de mapas con el Atlas de diseñador de impresiones  (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/multi_criteria_overlay.html">Análisis de Sobreposición Multicriterio (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/basic_network_analysis.html">Visualización y Enrutamiento Básico de Red (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/origin_destination_matrix.html">Localizando la Instalación Más Cercana con Matriz Origen-Destino (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/service_area_analysis.html">Análisis de Área de Servicio usando Openrouteservice (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/travel_time_analysis.html">Análisis del tiempo de viaje con el movimiento de Uber (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/areal_mean_rainfall.html">Calcular la Precipitación Media de Área (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/getting_started_with_pyqgis.html">Iniciándote con la Programación Python (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/processing_algorithms_pyqgis.html">Ejecutar Algoritmos de Procesamiento vía Python (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/custom_python_functions.html">Usando Funciones de Expresión Python Personalizadas (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/processing_python_scripts.html">Escribir Scripts Python para el Marco de Procesamiento (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/building_a_python_plugin.html">Construyendo un Complemento Python (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/processing_python_plugin.html">Construyendo un Complemento de Procesamiento (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="running_qgis_jobs.html">Ejecutar y Programar Trabajos de Procesamiento QGIS</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/web_mapping_with_qgis2web.html">Mapeo Web con QGIS2Web (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="creating_basemaps_with_qtiles.html">Creando Mapas Base con QTiles</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/using_plugins.html">Usar Complementos (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="downloading_osm_data.html">Buscando y descargando datos de OpenStreetMap</a></li>
+<li class="toctree-l1"><a class="reference internal" href="learning_resources.html">Recursos de Aprendizaje QGIS</a></li>
+<li class="toctree-l1"><a class="reference internal" href="credits.html">Créditos de los Datos</a></li>
+<li class="toctree-l1"><a class="reference internal" href="batch_processing.html">Procesamiento por Lotes usando el Marco de Procesamiento (QGIS2)</a></li>
+</ul>
+</ul>
+</li>
+              
+            
+            
+              
+                
+              
+            
+            
+
+            
+
+            
+              <li class="hidden-sm"></li>
+            
+          </ul>
+
+          
+            
+<form class="navbar-form navbar-right" action="../search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+      <div class="col-md-3">
+        <div id="sidebar" class="bs-sidenav" role="complementary"><h4>Author</h4>
+<p>Ujaval Gandhi</p>
+<a href="https://twitter.com/intent/follow?screen_name=spatialthoughts" class="twitter-follow-button" data-show-count="false">Follow @spatialthoughts</a>
+<hr>
+<p>Want to learn QGIS in a structured way? Check out <a href="https://spatialthoughts.com/" target="_blank">Spatial Thoughts</a> for more learning materials and instructor-led online programs with QGIS.org certification.</p>
+
+
+<h4>Change Language</h4>
+<form role="form" class="sidebar-form sidebar-left">
+<select id="languages" class="form-control select-mini">
+  <option value="en">English</option>
+  <option value="zh_TW">Chinese (Taiwan)</option>
+  <option value="nl">Dutch</option>
+  <option value="fi_FI">Finnish</option>
+  <option value="fr">French</option>
+  <option value="de">German</option>
+  <option value="el">Greek</option>
+  <option value="id">Indonesian</option>
+  <option value="it">Italian</option>
+  <option value="ko">Korean</option>
+  <option value="fa">Persian</option>
+  <option value="pt_BR">Portuguese</option>
+  <option value="ro">Romanian</option>
+  <option value="ru">Russian</option>
+  <option value="sl">Slovenian</option>
+  <option value="es">Spanish</option>
+  <option value="th">Thai</option>
+  <option value="tr">Turkish</option>
+  <option value="uk">Ukrainian</option>
+  <option value="vi">Vietnamese</option>
+</select>
+</form>
+        </div>
+      </div>
+    <div class="body col-md-9 content" role="main">
+      
+
+  <section id="nearest-neighbor-analysis">
+<h1>Análisis de Vecino Más Cercano<a class="headerlink" href="#nearest-neighbor-analysis" title="Enlazar permanentemente con este título">¶</a></h1>
+<div class="admonition warning">
+<p class="admonition-title">Advertencia</p>
+<p>Este tutorial está ahora obsoleto. Un versión nueva y actualizada está disponible en <a class="reference internal" href="3/nearest_neighbor_analysis.html"><span class="doc">Análisis del Vecino Más Cercano (QGIS3)</span></a></p>
+</div>
+<p>El SIG es muy útil para analizar la relación espacial entre entidades. Un tipo de análisis es descubrir qué objetos espaciales están más cerca de un objeto espacial dado. QGIS tiene una herramienta llamada <strong>Matriz de Distancia</strong> que ayuda en ese análisis. En este tutorial, usaremos 2 conjuntos de datos y descubriremos qué puntos de una capa están más cerca a qué puntos de la segunda capa.</p>
+<section id="overview-of-the-task">
+<h2>Vista general de la tarea<a class="headerlink" href="#overview-of-the-task" title="Enlazar permanentemente con este título">¶</a></h2>
+<p>Dadas las ubicaciones de todos los sismos significativos, descubrir el centro poblado más cercano para cada ubicación donde ocurrió el sismo.</p>
+<section id="other-skills-you-will-learn">
+<h3>Otras habilidades que aprenderá<a class="headerlink" href="#other-skills-you-will-learn" title="Enlazar permanentemente con este título">¶</a></h3>
+<ul class="simple">
+<li><p>Cómo hacer uniones de tabla en QGIS. (Ver <a class="reference internal" href="performing_table_joins.html"><span class="doc">Realización de uniones de tabla</span></a> para instrucciones detalladas.)</p></li>
+<li><p>Usar <span class="guilabel">Constructor de Consulta</span> para mostrar un subconjunto de entidades de una capa.</p></li>
+<li><p>Usar el complemento MMQGIS para crear líneas de eje para visualizar los vecinos más cercanos.</p></li>
+</ul>
+</section>
+</section>
+<section id="get-the-data">
+<h2>Obtener los datos<a class="headerlink" href="#get-the-data" title="Enlazar permanentemente con este título">¶</a></h2>
+<p>Usaremos la <a class="reference external" href="http://www.ngdc.noaa.gov/nndc/struts/form?t=101650&amp;s=1&amp;d=1">Base de Datos de Sismos Significativos</a> del National Geophysical Data Center de NOAA como nuestra capa que representa todos los sismos principales. Descargue los <a class="reference external" href="http://www.ngdc.noaa.gov/nndc/struts/results?type_0=Exact&amp;query_0=$ID&amp;t=101650&amp;s=13&amp;d=189&amp;dfn=signif.txt">datos delimitados por tabulación de sismo</a>.</p>
+<p>Natural Earth tiene un agradable conjunto de datos de <a class="reference external" href="http://www.naturalearthdata.com/downloads/10m-cultural-vectors/10m-populated-places/">Centros Poblados</a>. Descargue el <a class="reference external" href="http://www.naturalearthdata.com/http//www.naturalearthdata.com/download/10m/cultural/ne_10m_populated_places_simple.zip">conjunto de datos simple (menos columnas)</a>.</p>
+<p>Para su comodidad, puede descargar directamente una copia de ambos conjuntos de datos desde los enlaces abajo:</p>
+<p><a class="reference external" href="http://www.qgistutorials.com/downloads/signif.txt">signif.txt</a></p>
+<p><a class="reference external" href="http://www.qgistutorials.com/downloads/ne_10m_populated_places_simple.zip">ne_10m_populated_places_simple.zip</a></p>
+<p>Fuentes de Datos: <a class="reference internal" href="credits.html#ncei" id="id1"><span>[NCEI]</span></a> <a class="reference internal" href="credits.html#naturalearth" id="id2"><span>[NATURALEARTH]</span></a></p>
+</section>
+<section id="procedure">
+<h2>Procedimiento<a class="headerlink" href="#procedure" title="Enlazar permanentemente con este título">¶</a></h2>
+<ol class="arabic simple">
+<li><p>Abra <span class="menuselection">Capa ‣ Agregar Capa ‣ Agregar Capa de Texto Delimitado</span> y navegue hacia el archivo <code class="docutils literal notranslate"><span class="pre">signif.txt</span></code>.</p></li>
+</ol>
+<img alt="../_images/1182.png" class="align-center" src="../_images/1182.png" />
+<ol class="arabic simple" start="2">
+<li><p>Debido a que este es un <em>archivo delimitado por tabulación</em>, escoja <span class="guilabel">Tab</span> como el <span class="guilabel">Formato de archivo</span>. El <span class="guilabel">campo X</span> y <span class="guilabel">campo Y</span> se llenarían automáticamente. Clic en <span class="guilabel">Aceptar</span>.</p></li>
+</ol>
+<div class="admonition note">
+<p class="admonition-title">Nota</p>
+<p>Puede que vea algunos mensajes de error cuando QGIS intenta importar el archivo. Estos son errores válidos y algunas filas del archivo no serán importadas. Puedes ignorar los errores para los fines de este tutorial.</p>
+</div>
+<img alt="../_images/2148.png" class="align-center" src="../_images/2148.png" />
+<ol class="arabic simple" start="3">
+<li><p>Como el conjunto de datos de sismo tiene coordenadas Latitud/Longitud, será importado con el SRC predeterminado <code class="docutils literal notranslate"><span class="pre">EPSG:</span> <span class="pre">4326</span></code>. Verificar que este es el caso en la esquina inferior derecha. Abramos también la capa de Centros Poblados. Vaya a <span class="menuselection">Capa ‣ Agregar Capa ‣ Agregar Capa Vectorial</span>.</p></li>
+</ol>
+<img alt="../_images/379.png" class="align-center" src="../_images/379.png" />
+<ol class="arabic simple" start="4">
+<li><p>Navegue al archivo descargado <code class="docutils literal notranslate"><span class="pre">ne_10m_populated_places_simple.zip</span></code> y clic en <span class="guilabel">Abrir</span>.</p></li>
+</ol>
+<img alt="../_images/454.png" class="align-center" src="../_images/454.png" />
+<ol class="arabic simple" start="5">
+<li><p>Acérquese por ahí y explore a ambos conjuntos de datos. Capa punto púrpura representa la ubicación de un sismo significativo y cada punto azul representa la ubicación de un centro poblado. Necesitamos una manera de descubrir el punto más cercano de los centros poblados para cada uno de los puntos en la capa de sismo.</p></li>
+</ol>
+<img alt="../_images/550.png" class="align-center" src="../_images/550.png" />
+<ol class="arabic simple" start="6">
+<li><p>Vaya a <span class="menuselection">Vector ‣ Herramientas de Análisis ‣ Matriz de Distancia</span>.</p></li>
+</ol>
+<img alt="../_images/648.png" class="align-center" src="../_images/648.png" />
+<ol class="arabic simple" start="7">
+<li><p>Aquí seleccione la capa de sismo <code class="docutils literal notranslate"><span class="pre">signif</span></code> como la capa punto Entrada y los centros poblados <code class="docutils literal notranslate"><span class="pre">ne_10m_populated_places_simple</span></code> como la capa Destino. También necesita seleccionar un campo único desde cada una de estas capas que es como sus resultados serán mostrados. En este análisis, estamos buscando conseguir sólo <code class="docutils literal notranslate"><span class="pre">1</span></code> punto más cercano, así que revise <span class="guilabel">Usar sólo los (k) puntos más cercanos del destino</span>, e ingrese <span class="guilabel">1</span>. Dele nombre a su archivo de salida <code class="docutils literal notranslate"><span class="pre">matrix.csv</span></code>, y clic en Aceptar. Una vez finalice el procesamiento, clic en <span class="guilabel">Cerrar</span>.</p></li>
+</ol>
+<div class="admonition note">
+<p class="admonition-title">Nota</p>
+<p>Una cosa útil para notar es que incluso puede realizar el análisis con sólo 1 capa. Seleccione la misma capa tanto como la Entrada y Destino. El resultado sería el vecino más cercano de la misma capa en vez de una capa diferente como lo hicimos aquí.</p>
+</div>
+<img alt="../_images/747.png" class="align-center" src="../_images/747.png" />
+<ol class="arabic simple" start="8">
+<li><p>Una vez que termina el procesamiento, clic en el botón <span class="guilabel">Cerrar</span> en el diálogo <span class="guilabel">Matriz de Distancia</span>. Ahora puede ver el archivo <code class="docutils literal notranslate"><span class="pre">matrix.csv</span></code> en el Bloc de Notas o cualquier editor de texto. QGIS puede importar archivos CSV también, así que lo agregaremos a QGIS y lo veremos allí. Vaya a <span class="menuselection">Capa ‣ Añadir Capa ‣ Añadir Capa de Texto Delimitado…</span>.</p></li>
+</ol>
+<img alt="../_images/846.png" class="align-center" src="../_images/846.png" />
+<ol class="arabic simple" start="9">
+<li><p>Navegue al nuevo archivo creado <code class="docutils literal notranslate"><span class="pre">matrix.csv</span></code>. Debido a que este archivo es sólo columnas de texto, seleccione <span class="guilabel">Ninguna geometría (tabla solo de atributos)</span> como la <span class="guilabel">Definición de geometría</span>. Clic en <span class="guilabel">Aceptar</span>.</p></li>
+</ol>
+<img alt="../_images/945.png" class="align-center" src="../_images/945.png" />
+<ol class="arabic simple" start="10">
+<li><p>Verá el archivo CSV cargado como una tabla. Clic-derecho en la capa tabla y seleccione <span class="guilabel">Abrir tabla de atributos</span>.</p></li>
+</ol>
+<img alt="../_images/1053.png" class="align-center" src="../_images/1053.png" />
+<ol class="arabic simple" start="11">
+<li><p>Ahora será capaz de ver el contenido de nuestros resultados. El campo <span class="guilabel">InputID</span> contiene el nombre de campo de la capa Sismos. El campo <span class="guilabel">TargetID</span> contiene el nombre del objeto espacial de la capa Centros Poblados que era más cerca al punto sismo. El campo <span class="guilabel">Distance</span> es la distancia entre los 2 puntos.</p></li>
+</ol>
+<div class="admonition note">
+<p class="admonition-title">Nota</p>
+<p>Recuerde que el cálculo <em>distance</em> se hará usando el Sistema de Referencia de Coordenadas de la capa. Aquí la distancia será en unidades <em>grados decimales</em> debido a que las coordenadas de nuestra capa fuente están en grados. Si quiere distancia en metros, reproyecte las capas antes de ejecutar la herramienta.</p>
+</div>
+<img alt="../_images/1183.png" class="align-center" src="../_images/1183.png" />
+<ol class="arabic simple" start="12">
+<li><p>Esto es muy cercano al resultado que estamos buscando. Para algunos usuarios, esta tabla sería suficiente. Sin embargo, podemos también integrar estos resultado en nuestra capa original de Sismos usando una <strong>Unión de Tabla</strong>. Clic-derecho en la capa Sismos, y seleccione <span class="guilabel">Propiedades</span>.</p></li>
+</ol>
+<img alt="../_images/1255.png" class="align-center" src="../_images/1255.png" />
+<ol class="arabic simple" start="13">
+<li><p>Vaya a la pestaña <span class="guilabel">Uniones</span> y clic en el botón <span class="guilabel">+</span>.</p></li>
+</ol>
+<img alt="../_images/1449.png" class="align-center" src="../_images/1449.png" />
+<ol class="arabic simple" start="14">
+<li><p>Queremos unir los datos del resultado de nuestro análisis con esta capa. Necesitamos seleccionar un campo para cada una de las capas que tienen los mismos valores. Seleccion <code class="docutils literal notranslate"><span class="pre">matrix</span></code> como la <span class="guilabel">Capa de Unión</span> e <code class="docutils literal notranslate"><span class="pre">InputID</span></code> como el <span class="guilabel">Campo de Unión</span>. El <span class="guilabel">Campo Destino</span> sería <code class="docutils literal notranslate"><span class="pre">I_D</span></code>. Deje las otras opciones en sus valores predeterminados y clic en <span class="guilabel">Aceptar</span>.</p></li>
+</ol>
+<img alt="../_images/1449.png" class="align-center" src="../_images/1449.png" />
+<ol class="arabic simple" start="15">
+<li><p>Verá que la unión aparece en la pestaña <span class="guilabel">Uniones</span>. Clic en <span class="guilabel">Aceptar</span>.</p></li>
+</ol>
+<img alt="../_images/1547.png" class="align-center" src="../_images/1547.png" />
+<ol class="arabic simple" start="16">
+<li><p>Ahora abra la tabla de atributos de la capa <code class="docutils literal notranslate"><span class="pre">signif</span></code> haciendo clic-derecho y seleccione <span class="guilabel">Abrir tabla de atributos</span>.</p></li>
+</ol>
+<img alt="../_images/1644.png" class="align-center" src="../_images/1644.png" />
+<ol class="arabic simple" start="17">
+<li><p>Verá que para cada objeto espacial Sismo, ahora tenemos un atributo que es el vecino más cercano (centro poblado más cercano) y la distancia al vecino más cercano.</p></li>
+</ol>
+<img alt="../_images/1740.png" class="align-center" src="../_images/1740.png" />
+<ol class="arabic simple" start="18">
+<li><p>Ahora exploraremos una manera para visualizar estos resultados. Primero, necesitamos hacer permanente la unión de tabla guardándola como una nueva capa. Clic-derecho en la capa <code class="docutils literal notranslate"><span class="pre">signif</span></code> y seleccione <span class="guilabel">Guardar como…</span>.</p></li>
+</ol>
+<img alt="../_images/1838.png" class="align-center" src="../_images/1838.png" />
+<ol class="arabic simple" start="19">
+<li><p>Clic el botón <span class="guilabel">Navegar</span> junto a la etiqueta <span class="guilabel">Guardar como</span> y nombre la capa de salida como <code class="docutils literal notranslate"><span class="pre">earthquake_with_places.shp</span></code>. Asegúrese que la casilla <span class="guilabel">Añadir archivo guardado al mapa</span> esté marcada y clic en <span class="guilabel">Aceptar</span>.</p></li>
+</ol>
+<img alt="../_images/1930.png" class="align-center" src="../_images/1930.png" />
+<ol class="arabic simple" start="20">
+<li><p>Una vez que esté cargada la nueva capa, puede deshabilitar la visibilidad de la capa <code class="docutils literal notranslate"><span class="pre">signif</span></code>. Como nuestro conjunto de datos es bastante grande, podemos ejecutar nuestro análisis de visualización en un subconjunto de los datos. QGIS tiene una estupenda funcionalidad donde puedes cargar un subconjunto de objetos de una capa sin tener que exportarlos a una nueva capa. Clic-derecho a la capa <code class="docutils literal notranslate"><span class="pre">earthquake_with_places</span></code> y seleccione <span class="guilabel">Propiedades</span>.</p></li>
+</ol>
+<img alt="../_images/2025.png" class="align-center" src="../_images/2025.png" />
+<ol class="arabic simple" start="21">
+<li><p>En la pestaña <span class="guilabel">General</span>, delice hacia abajo  a la sección <span class="guilabel">Subconjunto de entidad</span>. Clic en <span class="guilabel">Constructor de Consulta</span>.</p></li>
+</ol>
+<img alt="../_images/2149.png" class="align-center" src="../_images/2149.png" />
+<ol class="arabic simple" start="22">
+<li><p>Para este tutorial, visualizaremos los sismos y los centros poblados más cercanos para México. Ingrese la siguiente expresión en el diálogo <span class="guilabel">Constructor de Consulta</span>.</p></li>
+</ol>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>&quot;COUNTRY&quot; = &#39;MEXICO&#39;
+</pre></div>
+</div>
+<img alt="../_images/2226.png" class="align-center" src="../_images/2226.png" />
+<ol class="arabic simple" start="23">
+<li><p>Verá que sólo los puntos que caen dentro de México serán visibles en la pantalla. Hagamos lo mismo para la capa de centros poblados. Clic-derecho en la capa <code class="docutils literal notranslate"><span class="pre">ne_10m_populated_places_simple</span></code> y seleccione <span class="guilabel">Propiedades</span>.</p></li>
+</ol>
+<img alt="../_images/2324.png" class="align-center" src="../_images/2324.png" />
+<ol class="arabic simple" start="24">
+<li><p>Abra el diálogo <span class="guilabel">Constructor de Consulta</span> de la pestaña <span class="guilabel">General</span>. Ingrese la siguiente expresión.</p></li>
+</ol>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>&quot;adm0name&quot; = &#39;Mexico&#39;
+</pre></div>
+</div>
+<img alt="../_images/2424.png" class="align-center" src="../_images/2424.png" />
+<ol class="arabic simple" start="25">
+<li><p>Ahora estamos listos para crear nuestra visualización. Usaremos un complemento llamado <code class="docutils literal notranslate"><span class="pre">MMQGIS</span></code>. Encuentre e instale el complemento. Vea <a class="reference internal" href="using_plugins.html"><span class="doc">Uso de Complementos</span></a> para más detalles de cómo trabajar con complementos. Una vez haya instala el complemento, vaya a <span class="menuselection">MMQGIS ‣ Crear ‣ Hub Lines</span>.</p></li>
+</ol>
+<img alt="../_images/2521.png" class="align-center" src="../_images/2521.png" />
+<ol class="arabic simple" start="26">
+<li><p>Seleccione <code class="docutils literal notranslate"><span class="pre">ne_10m_populated_places_simple</span></code> como la <span class="guilabel">Capa punto Eje</span> y <code class="docutils literal notranslate"><span class="pre">name</span></code> como el <span class="guilabel">Atributo ID Eje</span>. De forma similar, seleccione <code class="docutils literal notranslate"><span class="pre">earthquake_with_places</span></code> como la <span class="guilabel">Capa punto Radio</span> y <code class="docutils literal notranslate"><span class="pre">matrix_Tar</span></code> como el <span class="guilabel">Atributo ID Radio Eje</span>. El algoritmo líneas de radio pasará por cada punto de sismo y creará una línea que los unirá con el centro poblado que coincide con el atributo que especificamos. Clic en <span class="guilabel">Explorar</span> y nombre para el <span class="guilabel">Archivo shape de salida</span> <code class="docutils literal notranslate"><span class="pre">earthquake_hub_lines.shp</span></code>. Clic en <span class="guilabel">Aceptar</span> para iniciar el procesamiento.</p></li>
+</ol>
+<img alt="../_images/2619.png" class="align-center" src="../_images/2619.png" />
+<ol class="arabic simple" start="27">
+<li><p>El procesamiento puede tomar algunos minutos. Verá el progreso en la esquina inferior izquierda de la ventana QGIS.</p></li>
+</ol>
+<img alt="../_images/2719.png" class="align-center" src="../_images/2719.png" />
+<ol class="arabic simple" start="28">
+<li><p>Una vez finalice el procesamiento, verá la capa <code class="docutils literal notranslate"><span class="pre">earthquake_hub_lines</span></code> cargada en QGIS. Puede ver que cada punto de sismo ahora tiene una línea que lo conecta al centro poblado más cercano.</p></li>
+</ol>
+<img alt="../_images/2817.png" class="align-center" src="../_images/2817.png" />
+</section>
+</section>
+
+
+
+
+
+  <div id="disqus_thread"></div>
+  <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+
+    </div>
+      
+  </div>
+</div>
+
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+    </p>
+    <p>
+        &copy; Copyright 2021, Ujaval Gandhi.<br/>
+      Actualizado por última vez en ago. 30, 2022.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 4.0.1.<br/>
+    </p>
+  </div>
+</footer>
+<div class="container">
+  <p>This work is licensed under a <a href="http://creativecommons.org/licenses/by/4.0/deed.en_US">Creative Commons Attribution 4.0 International License</a></p>
+</div>
+<!-- Twitter Button -->
+<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+
+<!-- Disqus comments widget -->
+<script type="text/javascript">
+  /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+  var disqus_shortname = 'qgistutorials'; // required: replace example with your forum shortname
+  /* * * DON'T EDIT BELOW THIS LINE * * */
+  (function () {
+    var s = document.createElement('script'); s.async = true;
+    s.type = 'text/javascript';
+    s.src = '//' + disqus_shortname + '.disqus.com/count.js';
+    (document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);
+  }());
+</script>
+
+<script type="text/javascript">
+  /* * * DON'T EDIT BELOW THIS LINE * * */
+  (function() {
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+
+<!-- Script fpr language switching. Largely adapted from https://github.com/pcav/faunalia-website -->
+<script>
+    var currentPage = 'docs/nearest_neighbor_analysis.html'; // coming from sphinx, always without starting '/'
+    var currentLang = 'en';
+    $(document).ready(function(){
+
+        var search = new RegExp('\/[a-zA-Z_]{2,8}\/'+ currentPage, 'gi');
+        var langPlusPage = window.location.href.match(search);
+        // it's possible this is a index.html page called without 'index.html', try without the currentPage
+        if (langPlusPage==undefined){
+            search = new RegExp('\/[a-zA-Z_]{2,8}\/$', 'gi');
+            langPlusPage = window.location.href.match(search);
+        }
+
+        // it's possible this is an index.html page called without 'index.html', try removing index.html
+        if (langPlusPage==undefined){
+            currentPage = currentPage.replace('index.html','')
+            search = new RegExp('\/[a-zA-Z_]{2,8}\/'+ currentPage, 'gi');
+            langPlusPage = window.location.href.match(search);
+        }
+        // still no langPlugPage: stop, because the language swicher will misbehave 
+
+        if (langPlusPage == undefined || langPlusPage.length != 1){
+            alert('You hit an error, please report back to us.');
+            return;
+        }
+        langPlusPage = langPlusPage[0];
+        currentLang = langPlusPage.replace(currentPage, '');
+
+        $("#languages").val(currentLang.replace(/\//g,'')); // currentLang is something like '/nl/'
+
+        $("#languages").change(function() {
+            gotoLang($(this).val());
+        });
+
+    });
+
+    // load current page in a different language
+    function gotoLang(lang){
+        var currentUrl = window.location.href;
+        var newUrl = currentUrl.replace(currentLang, '/'+lang+'/');
+        window.location.href = newUrl;
+    }
+</script>
+
+  </body>
+</html>

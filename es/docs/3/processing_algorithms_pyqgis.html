@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>Ejecutar Algoritmos de Procesamiento vía Python (QGIS3) &#8212; QGIS Tutorials and Tips</title>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-sphinx.css" />
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/translations.js"></script>
+    <link rel="search" title="Búsqueda" href="../../search.html" />
+    <link rel="next" title="Usando Funciones de Expresión Python Personalizadas (QGIS3)" href="custom_python_functions.html" />
+    <link rel="prev" title="Iniciándote con la Programación Python (QGIS3)" href="getting_started_with_pyqgis.html" />
+
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<script type="text/javascript" src="../../_static/js/jquery-1.11.0.min.js "></script>
+<script type="text/javascript" src="../../_static/js/jquery-fix.js "></script>
+<script type="text/javascript" src="../../_static/bootstrap-3.3.7/js/bootstrap.min.js "></script>
+<script type="text/javascript" src="../../_static/bootstrap-sphinx.js "></script>
+
+
+<!-- Cookie Notice -->
+<!-- Script from https://github.com/AOEpeople/cookie-notice -->
+<script type="text/javascript" src="../../_static/cookie.notice.min.js"></script>
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-B1WQ7B80XJ"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-B1WQ7B80XJ');
+</script>
+
+
+  </head><body>
+
+  <div id="navbar" class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="../../index.html"><span><img src="../../_static/logo.png"></span>
+          QGIS Tutorials and Tips</a>
+        <span class="navbar-text navbar-version pull-left"><b>v1</b></span>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="../../index.html">Tutorials List <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"><ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../introduction.html">Introducción</a></li>
+<li class="toctree-l1"><a class="reference internal" href="making_a_map.html">Haciendo un Mapa (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="working_with_attributes.html">Trabajando con atributos (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="importing_spreadsheets_csv.html">Importar Hojas de Cálculo o archivos CSV (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="basic_vector_styling.html">Estilo Básico Vectorial (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="calculating_line_lengths.html">Calcular Longitudes y Estadísticas de Línea (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="raster_styling_and_analysis.html">Estilos y Análisis Básicos Ráster (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="raster_mosaicing_and_clipping.html">Mosaicar y Recortar Ráster (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="working_with_terrain.html">Trabajar con Datos de Terreno (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="working_with_wms.html">Trabajar con Datos WMS (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="working_with_projections.html">Trabajar con Proyecciones (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="georeferencing_basics.html">Georeferenciar Hojas Topográficas y Mapas Escaneados (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="advanced_georeferencing.html">Georeferenciar Imágenes Aéreas (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="digitizing_basics.html">Digitalizar Datos del Mapa (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="performing_table_joins.html">Realizar Uniones de Tablas (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="performing_spatial_joins.html">Realizar Uniones Espaciales (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="performing_spatial_queries.html">Realizar Consultas Espaciales (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="nearest_neighbor_analysis.html">Análisis del Vecino Más Cercano (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="sampling_raster_data.html">Muestrear Datos Ráster usando Puntos o Polígonos (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="calculating_raster_area.html">Calculating Raster Area (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="creating_heatmaps.html">Crear Mapas de Calor (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="animating_time_series.html">Animar Datos de Series de Tiempo (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="handling_invalid_geometries.html">Manejar Geometrías No Válidas (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="advanced_raster_analysis.html">Análisis Avanzado de Ráster (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="interpolating_point_data.html">Interpolar Datos Punto (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="calculating_intersection_density.html">Calcular Densidad de Intersección de Calle (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="batch_processing.html">Procesamiento por Lotes usando el Marco de Procesamiento (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="processing_graphical_modeler.html">Automatizar Flujos de Trabajo Complejos usando el Modelador de Procesos (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="automating_map_creation.html">Automatización de la creación de mapas con el Atlas de diseñador de impresiones  (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="multi_criteria_overlay.html">Análisis de Sobreposición Multicriterio (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="basic_network_analysis.html">Visualización y Enrutamiento Básico de Red (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="origin_destination_matrix.html">Localizando la Instalación Más Cercana con Matriz Origen-Destino (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="service_area_analysis.html">Análisis de Área de Servicio usando Openrouteservice (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="travel_time_analysis.html">Análisis del tiempo de viaje con el movimiento de Uber (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="areal_mean_rainfall.html">Calcular la Precipitación Media de Área (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="getting_started_with_pyqgis.html">Iniciándote con la Programación Python (QGIS3)</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Ejecutar Algoritmos de Procesamiento vía Python (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="custom_python_functions.html">Usando Funciones de Expresión Python Personalizadas (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="processing_python_scripts.html">Escribir Scripts Python para el Marco de Procesamiento (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="building_a_python_plugin.html">Construyendo un Complemento Python (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="processing_python_plugin.html">Construyendo un Complemento de Procesamiento (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../running_qgis_jobs.html">Ejecutar y Programar Trabajos de Procesamiento QGIS</a></li>
+<li class="toctree-l1"><a class="reference internal" href="web_mapping_with_qgis2web.html">Mapeo Web con QGIS2Web (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../creating_basemaps_with_qtiles.html">Creando Mapas Base con QTiles</a></li>
+<li class="toctree-l1"><a class="reference internal" href="using_plugins.html">Usar Complementos (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../downloading_osm_data.html">Buscando y descargando datos de OpenStreetMap</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../learning_resources.html">Recursos de Aprendizaje QGIS</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../credits.html">Créditos de los Datos</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../batch_processing.html">Procesamiento por Lotes usando el Marco de Procesamiento (QGIS2)</a></li>
+</ul>
+</ul>
+</li>
+              
+            
+            
+              
+                
+  <li>
+    <a href="getting_started_with_pyqgis.html" title="Previous Chapter: Iniciándote con la Programación Python (QGIS3)"><span class="glyphicon glyphicon-chevron-left visible-sm"></span><span class="hidden-sm hidden-tablet">&laquo; Iniciándote c...</span>
+    </a>
+  </li>
+  <li>
+    <a href="custom_python_functions.html" title="Next Chapter: Usando Funciones de Expresión Python Personalizadas (QGIS3)"><span class="glyphicon glyphicon-chevron-right visible-sm"></span><span class="hidden-sm hidden-tablet">Usando Funcio... &raquo;</span>
+    </a>
+  </li>
+              
+            
+            
+
+            
+
+            
+              <li class="hidden-sm"></li>
+            
+          </ul>
+
+          
+            
+<form class="navbar-form navbar-right" action="../../search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+      <div class="col-md-3">
+        <div id="sidebar" class="bs-sidenav" role="complementary"><h4>Author</h4>
+<p>Ujaval Gandhi</p>
+<a href="https://twitter.com/intent/follow?screen_name=spatialthoughts" class="twitter-follow-button" data-show-count="false">Follow @spatialthoughts</a>
+<hr>
+<p>Want to learn QGIS in a structured way? Check out <a href="https://spatialthoughts.com/" target="_blank">Spatial Thoughts</a> for more learning materials and instructor-led online programs with QGIS.org certification.</p>
+
+
+<h4>Change Language</h4>
+<form role="form" class="sidebar-form sidebar-left">
+<select id="languages" class="form-control select-mini">
+  <option value="en">English</option>
+  <option value="zh_TW">Chinese (Taiwan)</option>
+  <option value="nl">Dutch</option>
+  <option value="fi_FI">Finnish</option>
+  <option value="fr">French</option>
+  <option value="de">German</option>
+  <option value="el">Greek</option>
+  <option value="id">Indonesian</option>
+  <option value="it">Italian</option>
+  <option value="ko">Korean</option>
+  <option value="fa">Persian</option>
+  <option value="pt_BR">Portuguese</option>
+  <option value="ro">Romanian</option>
+  <option value="ru">Russian</option>
+  <option value="sl">Slovenian</option>
+  <option value="es">Spanish</option>
+  <option value="th">Thai</option>
+  <option value="tr">Turkish</option>
+  <option value="uk">Ukrainian</option>
+  <option value="vi">Vietnamese</option>
+</select>
+</form>
+        </div>
+      </div>
+    <div class="body col-md-9 content" role="main">
+      
+
+  <section id="running-processing-algorithms-via-python-qgis3">
+<h1>Ejecutar Algoritmos de Procesamiento vía Python (QGIS3)<a class="headerlink" href="#running-processing-algorithms-via-python-qgis3" title="Enlazar permanentemente con este título">¶</a></h1>
+<p>La Caja de Herramientas Procesos en QGIS contiene una colección siempre creciente de herramientas de geoprocesamiento. La caja de herramientas provee un interfaz sencillo de procesamiento por lotes que ejecuta cualquier algoritmo en un gran número de entradas. Vea <a class="reference internal" href="batch_processing.html"><span class="doc">Procesamiento por Lotes usando el Marco de Procesamiento (QGIS3)</span></a>. Pero hay casos donde necesita incorporar un poco más de lógica personalizada en su procesamiento por lotes. Como todos los algoritmos de procesamiento pueden ser ejecutados programáticamente vía la API Python, usted puede ejecutarlos vía la Consola de Python. Este tutorial muestra cómo ejecutar una algoritmo de procesamiento vía la Consola de Python para realizar una tarea de geoprocesamiento personalizada en solo una pocas líneas de código. Por favor revise el tutorial <a class="reference internal" href="getting_started_with_pyqgis.html"><span class="doc">Iniciándote con la Programación Python (QGIS3)</span></a> para familiarizarse con lo básico del ambiente de Script Python en QGIS.</p>
+<section id="overview-of-the-task">
+<h2>Vista general de la Tarea<a class="headerlink" href="#overview-of-the-task" title="Enlazar permanentemente con este título">¶</a></h2>
+<p>Usaremos 12 capas ráster grid que representan la precipitación para cada mes del año y calcularemos la precipitación mensual promedio para todos los códigos zip en el área de Seattle.</p>
+<section id="other-skills-you-will-learn">
+<h3>Otras habilidades que aprenderá<a class="headerlink" href="#other-skills-you-will-learn" title="Enlazar permanentemente con este título">¶</a></h3>
+<ul class="simple">
+<li><p>Acceder a todas las capas (ráster y vectorial) desde la consola de Python e imprimir sus nombres.</p></li>
+<li><p>Fusionar diferentes capas en una sola capa usando script Python.</p></li>
+</ul>
+</section>
+</section>
+<section id="get-the-data">
+<h2>Obtener los datos<a class="headerlink" href="#get-the-data" title="Enlazar permanentemente con este título">¶</a></h2>
+<p><a class="reference external" href="http://www.prism.oregonstate.edu/">El Grupo de Clima PRISM</a> reune observación del clima y provee datos históricos y actuales del clima para los estados contiguos de EE.UU. Diríjase a la página de datos <a class="reference external" href="http://www.prism.oregonstate.edu/recent/">Años Recientes</a> y descargue los datos mensuales de precipitación para el año 2017 en formato BIL.</p>
+<img alt="../../_images/data114.png" class="align-center" src="../../_images/data114.png" />
+<p>El <a class="reference external" href="https://data.seattle.gov/">portal de Datos Abiertos de la Ciudad de Seattle</a> provee datos libres y abiertos para la ciudad. Busque y descargue los datos de <a class="reference external" href="https://data.seattle.gov/Land-Base/Zip-Codes/n58k-cykw">Códigos Zip</a> en formato de archivo shape.</p>
+<p>Para su comodidad, puede descargar directamente una copia de ambos conjuntos de datos desde los enlaces abajo:</p>
+<p><a class="reference external" href="https://www.qgistutorials.com/downloads/PRISM_ppt_stable_4kmM3_2017_all_bil.zip">PRISM_ppt_stable_4kmM3_2017_all_bil.zip</a></p>
+<p><a class="reference external" href="https://www.qgistutorials.com/downloads/Zip_Codes.zip">Zip_Codes.zip</a></p>
+<p>Fuente de Datos <a class="reference internal" href="../credits.html#prism" id="id1"><span>[PRISM]</span></a> <a class="reference internal" href="../credits.html#cityofseattle" id="id2"><span>[CITYOFSEATTLE]</span></a></p>
+</section>
+<section id="procedure">
+<h2>Procedimiento<a class="headerlink" href="#procedure" title="Enlazar permanentemente con este título">¶</a></h2>
+<ol class="arabic simple">
+<li><p>Localice la carpeta <code class="docutils literal notranslate"><span class="pre">PRISM_ppt_stable_4kmM3_2017_all_bil.zip</span></code> en el Explorador QGIS y expándala. La carpeta contiene 12 capas individuales, para cada mes. Mantenga presionada la tecla <kbd class="kbd docutils literal notranslate">Ctrl</kbd> y seleccione los archivos <code class="docutils literal notranslate"><span class="pre">.bil</span></code> para todos los 12 meses. Una vez seleccionados, arrástrelos al lienzo.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/1104.png" class="align-center" src="../../_images/1104.png" />
+</div></blockquote>
+<div class="admonition note">
+<p class="admonition-title">Nota</p>
+<p>Los datos son provistos en el  <a class="reference external" href="http://desktop.arcgis.com/en/arcmap/10.3/manage-data/raster-and-images/bil-bip-and-bsq-raster-files.htm">formato BIL</a>. Cada capa es presentada con un conjunto de archivos <code class="docutils literal notranslate"><span class="pre">.bil</span></code> que contienen los datos efectivos, un archivo <code class="docutils literal notranslate"><span class="pre">.hdr</span></code> que describe la estructura de los datos y un archivo <code class="docutils literal notranslate"><span class="pre">.prj</span></code> que contiene la información de proyección. QGIS puede cargar el archivo <code class="docutils literal notranslate"><span class="pre">.bil</span></code> siempre que los otros archivos existan en el mismo directorio.</p>
+</div>
+<ol class="arabic simple" start="2">
+<li><p>Aparecerá una caja de diálogo <span class="guilabel">Seleccione la transformación de PRISM_ppt_stable_4kmM3_2017_all_bil</span>. Deje la selección predeterminada y clic en <span class="guilabel">Aceptar</span>.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/290.png" class="align-center" src="../../_images/290.png" />
+</div></blockquote>
+<ol class="arabic simple" start="3">
+<li><p>A continuación, localice la carpeta <code class="docutils literal notranslate"><span class="pre">Zip_Codes.zip</span></code> y expándala. Arrastre el archivo <code class="docutils literal notranslate"><span class="pre">Zip_Codes.zip</span></code> al lienzo.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/337.png" class="align-center" src="../../_images/337.png" />
+</div></blockquote>
+<ol class="arabic simple" start="4">
+<li><p>Clic-derecho en la capa <code class="docutils literal notranslate"><span class="pre">Zip_Codes</span></code> y seleccione <span class="guilabel">Zoom a la Capa</span>. Verá los polígonos de código zip para la ciudad de Seattle y áreas vecinas.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/418.png" class="align-center" src="../../_images/418.png" />
+</div></blockquote>
+<ol class="arabic simple" start="5">
+<li><p>Vaya a <span class="menuselection">Procesos ‣ Caja de herramientas</span>.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/518.png" class="align-center" src="../../_images/518.png" />
+</div></blockquote>
+<ol class="arabic simple" start="6">
+<li><p>El algoritmo para muestrear una capa ráster usando polígonos vector es conocida como <code class="docutils literal notranslate"><span class="pre">Estadísticas</span> <span class="pre">zonales</span></code>. Busque el algoritmo en la <span class="guilabel">Caja de herramientas Procesos</span>. Seleccione el algoritmo y pase el ratón por encima de él. Verá una pista de herramienta con el texto <em>Algorithm ID: “native:zonalstatisticsfb”</em>. Anote este id que será necesitado para llamar a este algoritmo mediante la API Python. Doble-clic al algoritmo <code class="docutils literal notranslate"><span class="pre">Estadísticas</span> <span class="pre">zonales</span></code> para iniciarlo.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/618.png" class="align-center" src="../../_images/618.png" />
+</div></blockquote>
+<ol class="arabic simple" start="7">
+<li><p>Haremos una ejecución de prueba manual del algoritmo para una sola capa. Esta es manera útil de revisar si el algoritmo se comporta como se espera y también una manera fácil para descubrir cómo pasar parámetros relevantes al algoritmo cuando se lo use mediante Python. En el diálogo <span class="guilabel">Estadísticas zonales</span>, seleccione <code class="docutils literal notranslate"><span class="pre">Zip_Codes</span></code> como la <span class="guilabel">Capa de entrada</span>, <code class="docutils literal notranslate"><span class="pre">PRISM_ppt_stable_4kmM3_201701_bil</span></code> como la <span class="guilabel">Capa ráster</span> y, deje los otros parámetros predeterminados. Clic el botón <span class="guilabel">…</span> junto a <span class="guilabel">Estadísticas a calcular</span> y seleccione solo <code class="docutils literal notranslate"><span class="pre">Media</span></code>. A continuación, clic el botón <span class="guilabel">…</span> junto a <span class="guilabel">Estadísticas zonales</span> y guarde la capa como <code class="docutils literal notranslate"><span class="pre">january_mean.gpkg</span></code>. Clic <span class="guilabel">Ejecutar</span>.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/717.png" class="align-center" src="../../_images/717.png" />
+</div></blockquote>
+<ol class="arabic simple" start="8">
+<li><p>Una vez que finalice el algoritmo, cámbiese a la pestaña <span class="guilabel">Registro</span>. Tome nota de los <span class="guilabel">Parámetros de Entrada</span> que fueron pasados al algoritmo. Clic en <span class="guilabel">Cerrar</span>.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/817.png" class="align-center" src="../../_images/817.png" />
+</div></blockquote>
+<ol class="arabic simple" start="9">
+<li><p>Ahora se agregará una nueva capa <code class="docutils literal notranslate"><span class="pre">january_mean</span></code> al lienzo. Revisemos los resultados. Clic-derecho en la capa y seleccione <span class="guilabel">Abrir tabla de atributos</span>. Este algoritmo particular modifica la capa zona de entrada en su lugar y agrega una nueva columna para cada estadística que fue seleccionada. Como solo seleccionamos el valor <code class="docutils literal notranslate"><span class="pre">Media</span></code>, se agregó una nueva columna llamada <code class="docutils literal notranslate"><span class="pre">_mean</span></code> a la tabla. El <code class="docutils literal notranslate"><span class="pre">_</span></code> era el prefijo predeterminado. Cuando ejecutamos el algoritmo para capas de cada mes, será útil especificar un prefijo personalizado con el número de mes de manera que podamos identificar fácilmente los valores medios para cada ms (i.e., 01_mean, 02_mean, etc.). No es posible especificar el prefijo personalizado en el interfaz de Proceso por Lotes y si ejecutáramos este comando usando un gran número de capas, esto puede ser muy incómodo. Por lo tanto, podemos añadir esta lógica personalizada usando la API Python y ejecutar el algoritmo en un ciclo for para cada capa.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/917.png" class="align-center" src="../../_images/917.png" />
+</div></blockquote>
+<ol class="arabic simple" start="10">
+<li><p>De vuelta en la ventana principal QGIS, vaya a <span class="menuselection">Complementos ‣ Consola de Python</span>.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/1025.png" class="align-center" src="../../_images/1025.png" />
+</div></blockquote>
+<ol class="arabic simple" start="11">
+<li><p>Clic en el botón <span class="guilabel">mostrar editor</span>. Esto abrirá el editor Python donde se puede escribir un montón de código Python y puede ejecutarse con un solo clic de un botón.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/1128.png" class="align-center" src="../../_images/1128.png" />
+</div></blockquote>
+<ol class="arabic simple" start="12">
+<li><p>Para ejecutar el algoritmo de procesamiento mediante Python, necesitamos acceder a los nombres de todas las capas. Ingrese el código siguiente en el editor clic en el botón <span class="guilabel">Reproducir</span>. Verá los nombres de todas capas impreso en la consola.</p></li>
+</ol>
+<blockquote>
+<div><div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">root</span> <span class="o">=</span> <span class="n">QgsProject</span><span class="o">.</span><span class="n">instance</span><span class="p">()</span><span class="o">.</span><span class="n">layerTreeRoot</span><span class="p">()</span>
+<span class="k">for</span> <span class="n">layer</span> <span class="ow">in</span> <span class="n">root</span><span class="o">.</span><span class="n">children</span><span class="p">():</span>
+  <span class="nb">print</span><span class="p">(</span><span class="n">layer</span><span class="o">.</span><span class="n">name</span><span class="p">())</span>
+</pre></div>
+</div>
+<img alt="../../_images/1226.png" class="align-center" src="../../_images/1226.png" />
+</div></blockquote>
+<ol class="arabic simple" start="13">
+<li><p>Ahora, calculemos la <code class="docutils literal notranslate"><span class="pre">Media</span></code> para un mes y creemos una capa de salida. En el código de abajo <span class="guilabel">break</span> es usado para salir del bucle después de la primera ejecución. Con esto podemos calcular la media para el mes de Enero.</p></li>
+</ol>
+<blockquote>
+<div><div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">root</span> <span class="o">=</span> <span class="n">QgsProject</span><span class="o">.</span><span class="n">instance</span><span class="p">()</span><span class="o">.</span><span class="n">layerTreeRoot</span><span class="p">()</span>
+
+<span class="n">input_layer</span> <span class="o">=</span> <span class="s1">&#39;Zip_Codes&#39;</span>
+<span class="n">result_layer</span> <span class="o">=</span> <span class="n">input_layer</span>
+<span class="n">unique_field</span> <span class="o">=</span> <span class="s1">&#39;OBJECTID&#39;</span>
+
+<span class="c1"># Iterate through all raster layers</span>
+<span class="k">for</span> <span class="n">layer</span> <span class="ow">in</span> <span class="n">root</span><span class="o">.</span><span class="n">children</span><span class="p">():</span>
+  <span class="k">if</span> <span class="n">layer</span><span class="o">.</span><span class="n">name</span><span class="p">()</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s1">&#39;PRISM&#39;</span><span class="p">):</span>
+    <span class="c1"># Run Zonal Stats algorithm</span>
+
+    <span class="n">prefix</span> <span class="o">=</span> <span class="n">layer</span><span class="o">.</span><span class="n">name</span><span class="p">()[</span><span class="o">-</span><span class="mi">6</span><span class="p">:</span><span class="o">-</span><span class="mi">4</span><span class="p">]</span>
+    <span class="n">params</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;INPUT_RASTER&#39;</span><span class="p">:</span> <span class="n">layer</span><span class="o">.</span><span class="n">name</span><span class="p">(),</span>
+        <span class="s1">&#39;RASTER_BAND&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;INPUT&#39;</span><span class="p">:</span> <span class="n">input_layer</span><span class="p">,</span>
+        <span class="s1">&#39;COLUMN_PREFIX&#39;</span><span class="p">:</span> <span class="n">prefix</span><span class="o">+</span><span class="s1">&#39;_&#39;</span><span class="p">,</span> <span class="s1">&#39;STATISTICS&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">2</span><span class="p">],</span>
+        <span class="s1">&#39;OUTPUT&#39;</span><span class="p">:</span> <span class="s1">&#39;memory:&#39;</span>
+        <span class="p">}</span>
+    <span class="n">result</span> <span class="o">=</span> <span class="n">processing</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="s2">&quot;native:zonalstatisticsfb&quot;</span><span class="p">,</span> <span class="n">params</span><span class="p">)</span>
+
+    <span class="n">result_layer</span> <span class="o">=</span> <span class="n">result</span><span class="p">[</span><span class="s1">&#39;OUTPUT&#39;</span><span class="p">]</span>
+    <span class="c1"># Breaking out of loop to demonstrate the zonalstatistics algorithm.</span>
+    <span class="k">break</span>
+
+<span class="n">QgsProject</span><span class="o">.</span><span class="n">instance</span><span class="p">()</span><span class="o">.</span><span class="n">addMapLayer</span><span class="p">(</span><span class="n">result_layer</span><span class="p">)</span>
+</pre></div>
+</div>
+<img alt="../../_images/1324.png" class="align-center" src="../../_images/1324.png" />
+</div></blockquote>
+<div class="admonition note">
+<p class="admonition-title">Nota</p>
+<p>También puede ejecutar un algoritmo de Procesamiento QGIS mediante Python usando la función <cite>processing.runAndLoadResults()</cite> en vez de <cite>processing.run()</cite> como se mostró arriba - lo que cargará el resultado directamente al lienzo QGIS.</p>
+</div>
+<ol class="arabic simple" start="14">
+<li><p>Se agregará una nueva capa <code class="docutils literal notranslate"><span class="pre">output</span></code> al lienzo. Clic-derecho en la capa y seleccione <span class="guilabel">Abrir tabla de atributos</span>. <span class="guilabel">01_mean</span> representa la media de un mes. Igualmente, el algoritmo de arriba producirá 12 nuevas capas si es ejecutado sin interrupción.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/1422.png" class="align-center" src="../../_images/1422.png" />
+</div></blockquote>
+<ol class="arabic simple" start="15">
+<li><p>Ahora agreguemos código para fusionar todas las medias de meses, y creemos una sola capa de salida a partir de ello. Ingrese el código siguiente para iterar sobre todas las capas rásters, extraer el prefijo predeterminado y ejecutar el algoritmo <code class="docutils literal notranslate"><span class="pre">native:joinattributestable</span></code> para crear una sola capa que contiene todas las medias de meses.</p></li>
+</ol>
+<blockquote>
+<div><div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">root</span> <span class="o">=</span> <span class="n">QgsProject</span><span class="o">.</span><span class="n">instance</span><span class="p">()</span><span class="o">.</span><span class="n">layerTreeRoot</span><span class="p">()</span>
+
+<span class="n">input_layer</span> <span class="o">=</span> <span class="s1">&#39;Zip_Codes&#39;</span>
+<span class="n">result_layer</span> <span class="o">=</span> <span class="n">input_layer</span>
+<span class="n">unique_field</span> <span class="o">=</span> <span class="s1">&#39;OBJECTID&#39;</span>
+
+<span class="c1"># Iterate through all raster layers</span>
+<span class="k">for</span> <span class="n">layer</span> <span class="ow">in</span> <span class="n">root</span><span class="o">.</span><span class="n">children</span><span class="p">():</span>
+  <span class="k">if</span> <span class="n">layer</span><span class="o">.</span><span class="n">name</span><span class="p">()</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s1">&#39;PRISM&#39;</span><span class="p">):</span>
+    <span class="c1"># Run Zonal Stats algorithm</span>
+
+    <span class="n">prefix</span> <span class="o">=</span> <span class="n">layer</span><span class="o">.</span><span class="n">name</span><span class="p">()[</span><span class="o">-</span><span class="mi">6</span><span class="p">:</span><span class="o">-</span><span class="mi">4</span><span class="p">]</span>
+    <span class="n">params</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;INPUT_RASTER&#39;</span><span class="p">:</span> <span class="n">layer</span><span class="o">.</span><span class="n">name</span><span class="p">(),</span>
+        <span class="s1">&#39;RASTER_BAND&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;INPUT&#39;</span><span class="p">:</span> <span class="n">input_layer</span><span class="p">,</span>
+        <span class="s1">&#39;COLUMN_PREFIX&#39;</span><span class="p">:</span> <span class="n">prefix</span><span class="o">+</span><span class="s1">&#39;_&#39;</span><span class="p">,</span> <span class="s1">&#39;STATISTICS&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">2</span><span class="p">],</span>
+        <span class="s1">&#39;OUTPUT&#39;</span><span class="p">:</span> <span class="s1">&#39;memory:&#39;</span>
+        <span class="p">}</span>
+    <span class="n">result</span> <span class="o">=</span> <span class="n">processing</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="s2">&quot;native:zonalstatisticsfb&quot;</span><span class="p">,</span> <span class="n">params</span><span class="p">)</span>
+    <span class="n">zonalstats</span> <span class="o">=</span> <span class="n">result</span><span class="p">[</span><span class="s1">&#39;OUTPUT&#39;</span><span class="p">]</span>
+
+    <span class="c1"># Run Join Attributes by Table to join the newly created</span>
+    <span class="c1"># column with original layer</span>
+    <span class="n">params</span> <span class="o">=</span> <span class="p">{</span> <span class="s1">&#39;INPUT&#39;</span><span class="p">:</span> <span class="n">result_layer</span><span class="p">,</span> <span class="s1">&#39;FIELD&#39;</span><span class="p">:</span><span class="n">unique_field</span><span class="p">,</span>
+        <span class="s1">&#39;INPUT_2&#39;</span><span class="p">:</span> <span class="n">zonalstats</span><span class="p">,</span> <span class="s1">&#39;FIELD_2&#39;</span><span class="p">:</span> <span class="n">unique_field</span><span class="p">,</span>
+        <span class="s1">&#39;FIELDS_TO_COPY&#39;</span><span class="p">:</span> <span class="n">prefix</span> <span class="o">+</span> <span class="s1">&#39;_&#39;</span> <span class="o">+</span> <span class="s1">&#39;mean&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;OUTPUT&#39;</span><span class="p">:</span> <span class="s1">&#39;memory:&#39;</span><span class="p">}</span>
+
+    <span class="n">result</span> <span class="o">=</span> <span class="n">processing</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="s2">&quot;native:joinattributestable&quot;</span><span class="p">,</span> <span class="n">params</span><span class="p">)</span>
+
+    <span class="c1"># At the end of each iteration, update the result layer to the</span>
+    <span class="c1"># newly processed layer, so we keep adding new fields to the same layer</span>
+    <span class="n">result_layer</span> <span class="o">=</span> <span class="n">result</span><span class="p">[</span><span class="s1">&#39;OUTPUT&#39;</span><span class="p">]</span>
+
+<span class="n">QgsProject</span><span class="o">.</span><span class="n">instance</span><span class="p">()</span><span class="o">.</span><span class="n">addMapLayer</span><span class="p">(</span><span class="n">result_layer</span><span class="p">)</span>
+</pre></div>
+</div>
+<img alt="../../_images/1520.png" class="align-center" src="../../_images/1520.png" />
+</div></blockquote>
+<ol class="arabic simple" start="16">
+<li><p>Una vez que termine el procesamiento, se agregará una nueva capa <code class="docutils literal notranslate"><span class="pre">output</span></code> al lienzo. Clic-derecho en la capa y seleccione <span class="guilabel">Abrir tabla de atributos</span>.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/1619.png" class="align-center" src="../../_images/1619.png" />
+</div></blockquote>
+<ol class="arabic simple" start="17">
+<li><p>Verá agregadas 12 nuevas columnas a la tabla con prefijos personalizados y valores medios de precipitación extraídos de las capas ráster.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/1720.png" class="align-center" src="../../_images/1720.png" />
+</div></blockquote>
+</section>
+</section>
+
+
+
+
+
+  <div id="disqus_thread"></div>
+  <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+
+    </div>
+      
+  </div>
+</div>
+
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+    </p>
+    <p>
+        &copy; Copyright 2021, Ujaval Gandhi.<br/>
+      Actualizado por última vez en ago. 30, 2022.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 4.0.1.<br/>
+    </p>
+  </div>
+</footer>
+<div class="container">
+  <p>This work is licensed under a <a href="http://creativecommons.org/licenses/by/4.0/deed.en_US">Creative Commons Attribution 4.0 International License</a></p>
+</div>
+<!-- Twitter Button -->
+<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+
+<!-- Disqus comments widget -->
+<script type="text/javascript">
+  /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+  var disqus_shortname = 'qgistutorials'; // required: replace example with your forum shortname
+  /* * * DON'T EDIT BELOW THIS LINE * * */
+  (function () {
+    var s = document.createElement('script'); s.async = true;
+    s.type = 'text/javascript';
+    s.src = '//' + disqus_shortname + '.disqus.com/count.js';
+    (document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);
+  }());
+</script>
+
+<script type="text/javascript">
+  /* * * DON'T EDIT BELOW THIS LINE * * */
+  (function() {
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+
+<!-- Script fpr language switching. Largely adapted from https://github.com/pcav/faunalia-website -->
+<script>
+    var currentPage = 'docs/3/processing_algorithms_pyqgis.html'; // coming from sphinx, always without starting '/'
+    var currentLang = 'en';
+    $(document).ready(function(){
+
+        var search = new RegExp('\/[a-zA-Z_]{2,8}\/'+ currentPage, 'gi');
+        var langPlusPage = window.location.href.match(search);
+        // it's possible this is a index.html page called without 'index.html', try without the currentPage
+        if (langPlusPage==undefined){
+            search = new RegExp('\/[a-zA-Z_]{2,8}\/$', 'gi');
+            langPlusPage = window.location.href.match(search);
+        }
+
+        // it's possible this is an index.html page called without 'index.html', try removing index.html
+        if (langPlusPage==undefined){
+            currentPage = currentPage.replace('index.html','')
+            search = new RegExp('\/[a-zA-Z_]{2,8}\/'+ currentPage, 'gi');
+            langPlusPage = window.location.href.match(search);
+        }
+        // still no langPlugPage: stop, because the language swicher will misbehave 
+
+        if (langPlusPage == undefined || langPlusPage.length != 1){
+            alert('You hit an error, please report back to us.');
+            return;
+        }
+        langPlusPage = langPlusPage[0];
+        currentLang = langPlusPage.replace(currentPage, '');
+
+        $("#languages").val(currentLang.replace(/\//g,'')); // currentLang is something like '/nl/'
+
+        $("#languages").change(function() {
+            gotoLang($(this).val());
+        });
+
+    });
+
+    // load current page in a different language
+    function gotoLang(lang){
+        var currentUrl = window.location.href;
+        var newUrl = currentUrl.replace(currentLang, '/'+lang+'/');
+        window.location.href = newUrl;
+    }
+</script>
+
+  </body>
+</html>

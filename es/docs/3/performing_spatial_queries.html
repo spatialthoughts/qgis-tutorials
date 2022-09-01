@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>Realizar Consultas Espaciales (QGIS3) &#8212; QGIS Tutorials and Tips</title>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-sphinx.css" />
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/translations.js"></script>
+    <link rel="search" title="Búsqueda" href="../../search.html" />
+    <link rel="next" title="Análisis del Vecino Más Cercano (QGIS3)" href="nearest_neighbor_analysis.html" />
+    <link rel="prev" title="Realizar Uniones Espaciales (QGIS3)" href="performing_spatial_joins.html" />
+
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<script type="text/javascript" src="../../_static/js/jquery-1.11.0.min.js "></script>
+<script type="text/javascript" src="../../_static/js/jquery-fix.js "></script>
+<script type="text/javascript" src="../../_static/bootstrap-3.3.7/js/bootstrap.min.js "></script>
+<script type="text/javascript" src="../../_static/bootstrap-sphinx.js "></script>
+
+
+<!-- Cookie Notice -->
+<!-- Script from https://github.com/AOEpeople/cookie-notice -->
+<script type="text/javascript" src="../../_static/cookie.notice.min.js"></script>
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-B1WQ7B80XJ"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-B1WQ7B80XJ');
+</script>
+
+
+  </head><body>
+
+  <div id="navbar" class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="../../index.html"><span><img src="../../_static/logo.png"></span>
+          QGIS Tutorials and Tips</a>
+        <span class="navbar-text navbar-version pull-left"><b>v1</b></span>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="../../index.html">Tutorials List <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"><ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../introduction.html">Introducción</a></li>
+<li class="toctree-l1"><a class="reference internal" href="making_a_map.html">Haciendo un Mapa (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="working_with_attributes.html">Trabajando con atributos (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="importing_spreadsheets_csv.html">Importar Hojas de Cálculo o archivos CSV (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="basic_vector_styling.html">Estilo Básico Vectorial (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="calculating_line_lengths.html">Calcular Longitudes y Estadísticas de Línea (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="raster_styling_and_analysis.html">Estilos y Análisis Básicos Ráster (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="raster_mosaicing_and_clipping.html">Mosaicar y Recortar Ráster (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="working_with_terrain.html">Trabajar con Datos de Terreno (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="working_with_wms.html">Trabajar con Datos WMS (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="working_with_projections.html">Trabajar con Proyecciones (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="georeferencing_basics.html">Georeferenciar Hojas Topográficas y Mapas Escaneados (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="advanced_georeferencing.html">Georeferenciar Imágenes Aéreas (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="digitizing_basics.html">Digitalizar Datos del Mapa (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="performing_table_joins.html">Realizar Uniones de Tablas (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="performing_spatial_joins.html">Realizar Uniones Espaciales (QGIS3)</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Realizar Consultas Espaciales (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="nearest_neighbor_analysis.html">Análisis del Vecino Más Cercano (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="sampling_raster_data.html">Muestrear Datos Ráster usando Puntos o Polígonos (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="calculating_raster_area.html">Calculating Raster Area (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="creating_heatmaps.html">Crear Mapas de Calor (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="animating_time_series.html">Animar Datos de Series de Tiempo (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="handling_invalid_geometries.html">Manejar Geometrías No Válidas (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="advanced_raster_analysis.html">Análisis Avanzado de Ráster (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="interpolating_point_data.html">Interpolar Datos Punto (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="calculating_intersection_density.html">Calcular Densidad de Intersección de Calle (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="batch_processing.html">Procesamiento por Lotes usando el Marco de Procesamiento (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="processing_graphical_modeler.html">Automatizar Flujos de Trabajo Complejos usando el Modelador de Procesos (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="automating_map_creation.html">Automatización de la creación de mapas con el Atlas de diseñador de impresiones  (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="multi_criteria_overlay.html">Análisis de Sobreposición Multicriterio (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="basic_network_analysis.html">Visualización y Enrutamiento Básico de Red (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="origin_destination_matrix.html">Localizando la Instalación Más Cercana con Matriz Origen-Destino (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="service_area_analysis.html">Análisis de Área de Servicio usando Openrouteservice (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="travel_time_analysis.html">Análisis del tiempo de viaje con el movimiento de Uber (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="areal_mean_rainfall.html">Calcular la Precipitación Media de Área (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="getting_started_with_pyqgis.html">Iniciándote con la Programación Python (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="processing_algorithms_pyqgis.html">Ejecutar Algoritmos de Procesamiento vía Python (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="custom_python_functions.html">Usando Funciones de Expresión Python Personalizadas (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="processing_python_scripts.html">Escribir Scripts Python para el Marco de Procesamiento (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="building_a_python_plugin.html">Construyendo un Complemento Python (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="processing_python_plugin.html">Construyendo un Complemento de Procesamiento (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../running_qgis_jobs.html">Ejecutar y Programar Trabajos de Procesamiento QGIS</a></li>
+<li class="toctree-l1"><a class="reference internal" href="web_mapping_with_qgis2web.html">Mapeo Web con QGIS2Web (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../creating_basemaps_with_qtiles.html">Creando Mapas Base con QTiles</a></li>
+<li class="toctree-l1"><a class="reference internal" href="using_plugins.html">Usar Complementos (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../downloading_osm_data.html">Buscando y descargando datos de OpenStreetMap</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../learning_resources.html">Recursos de Aprendizaje QGIS</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../credits.html">Créditos de los Datos</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../batch_processing.html">Procesamiento por Lotes usando el Marco de Procesamiento (QGIS2)</a></li>
+</ul>
+</ul>
+</li>
+              
+            
+            
+              
+                
+  <li>
+    <a href="performing_spatial_joins.html" title="Previous Chapter: Realizar Uniones Espaciales (QGIS3)"><span class="glyphicon glyphicon-chevron-left visible-sm"></span><span class="hidden-sm hidden-tablet">&laquo; Realizar Unio...</span>
+    </a>
+  </li>
+  <li>
+    <a href="nearest_neighbor_analysis.html" title="Next Chapter: Análisis del Vecino Más Cercano (QGIS3)"><span class="glyphicon glyphicon-chevron-right visible-sm"></span><span class="hidden-sm hidden-tablet">Análisis del ... &raquo;</span>
+    </a>
+  </li>
+              
+            
+            
+
+            
+
+            
+              <li class="hidden-sm"></li>
+            
+          </ul>
+
+          
+            
+<form class="navbar-form navbar-right" action="../../search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+      <div class="col-md-3">
+        <div id="sidebar" class="bs-sidenav" role="complementary"><h4>Author</h4>
+<p>Ujaval Gandhi</p>
+<a href="https://twitter.com/intent/follow?screen_name=spatialthoughts" class="twitter-follow-button" data-show-count="false">Follow @spatialthoughts</a>
+<hr>
+<p>Want to learn QGIS in a structured way? Check out <a href="https://spatialthoughts.com/" target="_blank">Spatial Thoughts</a> for more learning materials and instructor-led online programs with QGIS.org certification.</p>
+
+
+<h4>Change Language</h4>
+<form role="form" class="sidebar-form sidebar-left">
+<select id="languages" class="form-control select-mini">
+  <option value="en">English</option>
+  <option value="zh_TW">Chinese (Taiwan)</option>
+  <option value="nl">Dutch</option>
+  <option value="fi_FI">Finnish</option>
+  <option value="fr">French</option>
+  <option value="de">German</option>
+  <option value="el">Greek</option>
+  <option value="id">Indonesian</option>
+  <option value="it">Italian</option>
+  <option value="ko">Korean</option>
+  <option value="fa">Persian</option>
+  <option value="pt_BR">Portuguese</option>
+  <option value="ro">Romanian</option>
+  <option value="ru">Russian</option>
+  <option value="sl">Slovenian</option>
+  <option value="es">Spanish</option>
+  <option value="th">Thai</option>
+  <option value="tr">Turkish</option>
+  <option value="uk">Ukrainian</option>
+  <option value="vi">Vietnamese</option>
+</select>
+</form>
+        </div>
+      </div>
+    <div class="body col-md-9 content" role="main">
+      
+
+  <section id="performing-spatial-queries-qgis3">
+<h1>Realizar Consultas Espaciales (QGIS3)<a class="headerlink" href="#performing-spatial-queries-qgis3" title="Enlazar permanentemente con este título">¶</a></h1>
+<p>Las consultas espaciales son centrales a varios tipos de análisis SIG. Las consultas espaciales le permiten seleccionar objetos espaciales en una capa por su relación espacial (intersecta, contiene, toca, etc.) con objetos espaciales de otra capa. en QGIS, esta funcionalidad está disponible mediante las herramientas de Procesamiento <strong>Seleccionar por Ubicación</strong> y <strong>Extraer por Ubicación</strong>.</p>
+<section id="overview-of-the-task">
+<h2>Vista general de la tarea<a class="headerlink" href="#overview-of-the-task" title="Enlazar permanentemente con este título">¶</a></h2>
+<p>Estaremos trabajando con 2 capas de datos para la ciudad de Melbourne, Australia. Dadas las capas de datos para las tabernas y bares en la ciudad y las ubicaciones de todas las estaciones de metro, vamos a descubrir todos los bares y tabernas dentro de los 500 metros de una estación de metro.</p>
+<section id="other-skills-you-will-learn">
+<h3>Otras habilidades que aprenderá<a class="headerlink" href="#other-skills-you-will-learn" title="Enlazar permanentemente con este título">¶</a></h3>
+<ul class="simple">
+<li><p>Escoger una proyección apropiada y reproyectar datos vector.</p></li>
+<li><p>Crear zonas de influencia.</p></li>
+<li><p>Trabajar con el formato de datos geopackage (.gpkg).</p></li>
+</ul>
+</section>
+</section>
+<section id="get-the-data">
+<h2>Obtener los datos<a class="headerlink" href="#get-the-data" title="Enlazar permanentemente con este título">¶</a></h2>
+<p>La <a class="reference external" href="https://data.melbourne.vic.gov.au/">Plataforma de Datos Abiertos</a> de la Ciudad de Melbourne provee varios conjuntos de datos listos para el SIG para la ciudad.</p>
+<p>Descargar el conjunto de datos <a class="reference external" href="https://data.melbourne.vic.gov.au/Transport-Movement/Metro-Train-Stations-with-Accessibility-Informatio/mgkp-67ad">Estaciones de Tren Metro con Información de Accesibilidad</a> por Metro Trains Melbourne. Exporte los datos en el formato <em>Original</em>.</p>
+<img alt="../../_images/data110.png" class="align-center" src="../../_images/data110.png" />
+<p>Descargue el conjunto de datos <a class="reference external" href="https://data.melbourne.vic.gov.au/Economy/Bars-and-pubs-with-patron-capacity/mffi-m9yn">Bares y tabernas, con capacidad de clientes</a> por el Censo de Uso de la Tierra y Empleo (CLUE) de la Ciudad de Melbourne. Exporte los datos como <em>CSV</em>.</p>
+<img alt="../../_images/data23.png" class="align-center" src="../../_images/data23.png" />
+<p>Para su comodidad, puede descargar directamente una copia de los conjuntos de datos del enlace abajo:</p>
+<p><a class="reference external" href="https://www.qgistutorials.com/downloads/metro_stations_accessbility.zip">metro_stations_accessbility.zip</a></p>
+<p><a class="reference external" href="https://www.qgistutorials.com/downloads/Bars_and_pubs__with_patron_capacity.csv">Bars_and_pubs__with_patron_capacity</a></p>
+<p>Fuente de Datos: <a class="reference internal" href="../credits.html#cityofmelbourne" id="id2"><span>[CITYOFMELBOURNE]</span></a></p>
+</section>
+<section id="procedure">
+<h2>Procedimiento<a class="headerlink" href="#procedure" title="Enlazar permanentemente con este título">¶</a></h2>
+<ol class="arabic simple">
+<li><p>Localice el archivo <code class="docutils literal notranslate"><span class="pre">metro_stations_accessbility.zip</span></code> en el Explorador QGIS y expándalo. Seleccione el archivo <code class="docutils literal notranslate"><span class="pre">metro_stations_accessbility.shp</span></code> y arrástrelo a la pantalla. Una nueva capa <code class="docutils literal notranslate"><span class="pre">metro_stations_accessbility</span></code> será cargada en el panel <span class="guilabel">Layers</span>.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/1103.png" class="align-center" src="../../_images/1103.png" />
+</div></blockquote>
+<ol class="arabic simple" start="2">
+<li><p>La capa de datos para bares y tabernas está en el formato CSV. Para cargarla en QGIS, vaya a <span class="menuselection">Capa ‣ Agregar Capa ‣ Agregar Capa de Texto Deliminatdo…</span>. ( Ver <a class="reference internal" href="importing_spreadsheets_csv.html"><span class="doc">Importar Hojas de Cálculo o archivos CSV (QGIS3)</span></a> para más detalles en la importación de archivos CSV)</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/280.png" class="align-center" src="../../_images/280.png" />
+</div></blockquote>
+<ol class="arabic simple" start="3">
+<li><p>En el diálogo <span class="guilabel">Administrador de Fuentes de Datos | Texto Delimitado</span>, explore y seleccione el archivo descargado <code class="docutils literal notranslate"><span class="pre">Bars_and_pubs__with_patron_capacity.csv</span></code> para el <span class="guilabel">Nombre de archivo</span>. Las columnas <span class="guilabel">campo X</span> y <span class="guilabel">campo Y</span> debería seleccionarse automáticamente como <code class="docutils literal notranslate"><span class="pre">coordenada</span> <span class="pre">x</span></code> y <code class="docutils literal notranslate"><span class="pre">coordenada</span> <span class="pre">y</span></code> respectivamente. Clic en <span class="guilabel">Agregar</span>.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/336.png" class="align-center" src="../../_images/336.png" />
+</div></blockquote>
+<ol class="arabic simple" start="4">
+<li><p>You will see a new <code class="docutils literal notranslate"><span class="pre">Bars_and_pubs__with_patron_capacity</span></code> layer added to the <span class="guilabel">Layers</span> panel. Both of the input layers are in the Geograhpic Coordinate Reference System (CRS) <code class="docutils literal notranslate"><span class="pre">EPSG:4326</span> <span class="pre">WGS84</span></code>. For performing spatial analysis, it is recommended to use a Projected Coordinate Reference System (CRS). So we will now re-project both the layers to an appropriate regional CRS that minimizes distortions and allows us to work in units of distance such as meters instead of degrees. Go to <span class="menuselection">Processing ‣ Toolbox</span>.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/417.png" class="align-center" src="../../_images/417.png" />
+</div></blockquote>
+<ol class="arabic simple" start="5">
+<li><p>Busque y localice la herramienta <span class="menuselection">Vector general ‣ Reproyectar capa</span>. Haga doble-clic para iniciarla.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/517.png" class="align-center" src="../../_images/517.png" />
+</div></blockquote>
+<ol class="arabic simple" start="6">
+<li><p>Seleccione <code class="docutils literal notranslate"><span class="pre">Bars_and_pubs__with_patron_capacity</span></code> como la <span class="guilabel">Capa de entrada</span>. Clic el botón <span class="guilabel">Seleccionar SRC``junto al :guilabel:`SRC Destino</span>.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/617.png" class="align-center" src="../../_images/617.png" />
+</div></blockquote>
+<ol class="arabic simple" start="7">
+<li><p>Cuando seleccione un sistema de referencia de coordenadas para su análisis, el primer lugar para mirar es un SRC regional para el área de interés. Para Australia, la <a class="reference external" href="https://www.ga.gov.au/scientific-topics/positioning-navigation/geodesy/datums-projections/grid2020">Cuadrícula de Mapa de Australia (MGA) 2020</a> es un sistema de cuadrícula basado en UTM que es usado para mapeo local y regional. Melbourne cae en la Zona 55 UTM, por lo que podemos seleccionar el SRC <code class="docutils literal notranslate"><span class="pre">GDA</span> <span class="pre">2020</span> <span class="pre">/</span> <span class="pre">MGA</span> <span class="pre">zone</span> <span class="pre">55</span> <span class="pre">EPSG:7855</span></code>.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/716.png" class="align-center" src="../../_images/716.png" />
+</div></blockquote>
+<div class="admonition note">
+<p class="admonition-title">Nota</p>
+<p>Si no está seguro de un SRC local para la región en la que está trabajando, seleccione un SRC para la zona UTM basado en el datum WGS84 que es una elección segura. Puede descubrir el numero de zona UTM de su región usando las <a class="reference external" href="http://www.dmap.co.uk/utmworld.htm">Zonas de Cuadrícula UTM del Mundo</a>.</p>
+</div>
+<ol class="arabic simple" start="8">
+<li><p>A continuación, haga clic en el botón <span class="guilabel">…</span> junto a <span class="guilabel">Reprojected</span> y seleccione <code class="docutils literal notranslate"><span class="pre">Guardar</span> <span class="pre">en</span> <span class="pre">GeoPackage</span></code>. <a class="reference external" href="https://www.geopackage.org/">Geopackage</a> es el formato recomendado para datos espaciales abiertos y el formato de intercambio de datos predeterminado para QGIS3. Un solo archivo GeoPackage <code class="docutils literal notranslate"><span class="pre">.gpkg</span></code> puede contener múltiples capas vectoriales y ráster.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/816.png" class="align-center" src="../../_images/816.png" />
+</div></blockquote>
+<ol class="arabic simple" start="9">
+<li><p>Nombre el geopackage como <code class="docutils literal notranslate"><span class="pre">spatialquery</span></code> y clic <span class="guilabel">Guardar</span>.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/916.png" class="align-center" src="../../_images/916.png" />
+</div></blockquote>
+<ol class="arabic simple" start="10">
+<li><p>Cuando se le pida un nombre de capa, ingrese <code class="docutils literal notranslate"><span class="pre">bars_and_pubs</span></code> y clic <span class="guilabel">Aceptar</span>. Clic <span class="guilabel">Ejecutar</span> para reproyectar la capa.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/1023.png" class="align-center" src="../../_images/1023.png" />
+</div></blockquote>
+<ol class="arabic simple" start="11">
+<li><p>La ventana se cambiará a la pestaña <span class="guilabel">Bitácora</span> y verá que el algoritmo se ejecuta y crea la nueva capa de salida <code class="docutils literal notranslate"><span class="pre">bars_and_pubs</span></code>.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/1126.png" class="align-center" src="../../_images/1126.png" />
+</div></blockquote>
+<ol class="arabic simple" start="12">
+<li><p>Ahora vamos a reproyectar la capa <code class="docutils literal notranslate"><span class="pre">metro_stations_accessbility</span></code>. Cámbiese de vuelta a la pestaña <span class="guilabel">Parámetros</span> en la ventana <span class="guilabel">Reproyectar capa</span>. Seleccione <code class="docutils literal notranslate"><span class="pre">metro_stations_accessbility</span></code> como la <span class="guilabel">Capa de entrada</span>. Mantenga el mismo <span class="guilabel">SRC Destino</span>. A continuación, clic en el botón <span class="guilabel">…</span> junto a <span class="guilabel">Reprojected</span> y seleccione <cite>Guardar a Geopackage</cite>. Seleccione el mismo archivo de salida <code class="docutils literal notranslate"><span class="pre">spatialquery</span></code> (Recuerde que un solo archivo geopackage puede contener múltiples capas, por lo que guardaremos la nueva capa en el mismo archivo geopackage). Ingrese <code class="docutils literal notranslate"><span class="pre">metro_stations</span></code> como el <span class="guilabel">Nombre de capa</span>. Clic en <span class="guilabel">Ejecutar</span>.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/1224.png" class="align-center" src="../../_images/1224.png" />
+</div></blockquote>
+<ol class="arabic simple" start="13">
+<li><p>De vuelta en la ventana principal QGIS, veremos 2 nuevas capas agregadas en el panel <span class="guilabel">Capas</span>: <code class="docutils literal notranslate"><span class="pre">bars_and_pubs</span></code> y <code class="docutils literal notranslate"><span class="pre">metro_stations</span></code>. Puede desactivar la visibilidad de las capas originales. Ahora, estamos listos para hacer la consulta espacial. Como estamos interesados en seleccionar bares y tabernas a 500 m de las estaciones de metro, el primer paso es crear un área de influencia alrededor de las estaciones de metro que represente nuestra área de búsqueda. Busque y localice la herramienta <span class="menuselection">Geometría vectorial ‣ Buffer</span> en la <span class="guilabel">Caja de herramientas de Procesos</span> y haga doble-clic para iniciarla.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/1322.png" class="align-center" src="../../_images/1322.png" />
+</div></blockquote>
+<ol class="arabic simple" start="14">
+<li><p>In the <span class="guilabel">Buffer</span> dialog, select <code class="docutils literal notranslate"><span class="pre">metro_stations</span></code> as the <span class="guilabel">Input layer</span>. Set <code class="docutils literal notranslate"><span class="pre">500</span></code> meters as the <span class="guilabel">Distance</span>. Save the output to the same <code class="docutils literal notranslate"><span class="pre">spatialquery</span></code> geopackage and enter <code class="docutils literal notranslate"><span class="pre">metro_stations_buffers</span></code> as the <span class="guilabel">Layer name</span>. Click <span class="guilabel">Run</span>.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/1420.png" class="align-center" src="../../_images/1420.png" />
+</div></blockquote>
+<ol class="arabic simple" start="15">
+<li><p>Verá una nueva capa <code class="docutils literal notranslate"><span class="pre">metro_stations_buffers</span></code> cargada en el panel <span class="guilabel">Capas</span>. Ahora podemos averiguar qué puntos de la capa <code class="docutils literal notranslate"><span class="pre">bars_and_pubs</span></code> caen en los polígonos de la capa <code class="docutils literal notranslate"><span class="pre">metro_station_buffers</span></code>. Localice la herramienta <span class="menuselection">Selección vectorial ‣ Extraer por ubicación</span> desde la  <span class="guilabel">Caja de herramientas de Procesos</span> y haga doble-clic para iniciarla.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/1518.png" class="align-center" src="../../_images/1518.png" />
+</div></blockquote>
+<div class="admonition note">
+<p class="admonition-title">Nota</p>
+<p><em>Extraer por Ubicación</em> creará una nueva capa con los objetos espaciales que coincidan con la consulta espacial. Si sólo quiere seleccionar los objetos espaciales, use la herramienta <em>Seleccionar por Localización</em>.</p>
+</div>
+<ol class="arabic simple" start="16">
+<li><p>En el diálogo <span class="guilabel">Extraer por ubicación</span>, seleccione <code class="docutils literal notranslate"><span class="pre">bars_and_pubs</span></code> como <span class="guilabel">Extraer objetos de</span>. Marque <code class="docutils literal notranslate"><span class="pre">Intersectan</span></code> como el <span class="guilabel">Predicado geométrico</span>. Defina <code class="docutils literal notranslate"><span class="pre">metro_station_buffers</span></code> como <span class="guilabel">Comparando los objetos de</span>. Guarde la salida al geopackage <code class="docutils literal notranslate"><span class="pre">spatialquery</span></code> como la capa <code class="docutils literal notranslate"><span class="pre">selected</span></code>. Clic en <span class="guilabel">Ejecutar</span>.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/1617.png" class="align-center" src="../../_images/1617.png" />
+</div></blockquote>
+<ol class="arabic simple" start="17">
+<li><p>Una vez que termine el procesamiento, verá la capa <code class="docutils literal notranslate"><span class="pre">selected</span></code> agregada al panel <span class="guilabel">Capas</span>. Note que esta capa sólo contiene puntos de <code class="docutils literal notranslate"><span class="pre">bars_and_pubs</span></code> que caen dentro de los polígonos del área de influencia.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/1718.png" class="align-center" src="../../_images/1718.png" />
+</div></blockquote>
+<ol class="arabic simple" start="18">
+<li><p>Nuestro análisis está completo. Puede que note que los polígonos del área de influencia lucen una forma oval. Esto es debido a que nuestro SRC de Proyecto aún está definido como <strong>EPSG:4326 WGS84</strong>. Para visualizar mejor los resultados, puede ir a <span class="menuselection">Proyecto ‣ Propiedades ‣ SRC</span> y seleccionar <code class="docutils literal notranslate"><span class="pre">GDA</span> <span class="pre">2020</span> <span class="pre">/</span> <span class="pre">MGA</span> <span class="pre">zone</span> <span class="pre">55</span> <span class="pre">EPSG:7855</span></code> que usamos para el análisis. Una vez que se defina este SRC, el área de influencia aparecerá con la forma correcta.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/1816.png" class="align-center" src="../../_images/1816.png" />
+</div></blockquote>
+</section>
+</section>
+
+
+
+
+
+  <div id="disqus_thread"></div>
+  <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+
+    </div>
+      
+  </div>
+</div>
+
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+    </p>
+    <p>
+        &copy; Copyright 2021, Ujaval Gandhi.<br/>
+      Actualizado por última vez en ago. 30, 2022.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 4.0.1.<br/>
+    </p>
+  </div>
+</footer>
+<div class="container">
+  <p>This work is licensed under a <a href="http://creativecommons.org/licenses/by/4.0/deed.en_US">Creative Commons Attribution 4.0 International License</a></p>
+</div>
+<!-- Twitter Button -->
+<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+
+<!-- Disqus comments widget -->
+<script type="text/javascript">
+  /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+  var disqus_shortname = 'qgistutorials'; // required: replace example with your forum shortname
+  /* * * DON'T EDIT BELOW THIS LINE * * */
+  (function () {
+    var s = document.createElement('script'); s.async = true;
+    s.type = 'text/javascript';
+    s.src = '//' + disqus_shortname + '.disqus.com/count.js';
+    (document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);
+  }());
+</script>
+
+<script type="text/javascript">
+  /* * * DON'T EDIT BELOW THIS LINE * * */
+  (function() {
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+
+<!-- Script fpr language switching. Largely adapted from https://github.com/pcav/faunalia-website -->
+<script>
+    var currentPage = 'docs/3/performing_spatial_queries.html'; // coming from sphinx, always without starting '/'
+    var currentLang = 'en';
+    $(document).ready(function(){
+
+        var search = new RegExp('\/[a-zA-Z_]{2,8}\/'+ currentPage, 'gi');
+        var langPlusPage = window.location.href.match(search);
+        // it's possible this is a index.html page called without 'index.html', try without the currentPage
+        if (langPlusPage==undefined){
+            search = new RegExp('\/[a-zA-Z_]{2,8}\/$', 'gi');
+            langPlusPage = window.location.href.match(search);
+        }
+
+        // it's possible this is an index.html page called without 'index.html', try removing index.html
+        if (langPlusPage==undefined){
+            currentPage = currentPage.replace('index.html','')
+            search = new RegExp('\/[a-zA-Z_]{2,8}\/'+ currentPage, 'gi');
+            langPlusPage = window.location.href.match(search);
+        }
+        // still no langPlugPage: stop, because the language swicher will misbehave 
+
+        if (langPlusPage == undefined || langPlusPage.length != 1){
+            alert('You hit an error, please report back to us.');
+            return;
+        }
+        langPlusPage = langPlusPage[0];
+        currentLang = langPlusPage.replace(currentPage, '');
+
+        $("#languages").val(currentLang.replace(/\//g,'')); // currentLang is something like '/nl/'
+
+        $("#languages").change(function() {
+            gotoLang($(this).val());
+        });
+
+    });
+
+    // load current page in a different language
+    function gotoLang(lang){
+        var currentUrl = window.location.href;
+        var newUrl = currentUrl.replace(currentLang, '/'+lang+'/');
+        window.location.href = newUrl;
+    }
+</script>
+
+  </body>
+</html>

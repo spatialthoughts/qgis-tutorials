@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+
+<html lang="nl">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>Analyse Servicegebied met Openrouteservice (QGIS3) &#8212; QGIS Tutorials and Tips</title>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-sphinx.css" />
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/translations.js"></script>
+    <link rel="search" title="Zoeken" href="../../search.html" />
+    <link rel="next" title="Reistijd-analyse met Uber Movement (QGIS3)" href="travel_time_analysis.html" />
+    <link rel="prev" title="Dichtstbijzijnde faciliteit zoeken met Origin-Destination Matrix (QGIS3)" href="origin_destination_matrix.html" />
+
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<script type="text/javascript" src="../../_static/js/jquery-1.11.0.min.js "></script>
+<script type="text/javascript" src="../../_static/js/jquery-fix.js "></script>
+<script type="text/javascript" src="../../_static/bootstrap-3.3.7/js/bootstrap.min.js "></script>
+<script type="text/javascript" src="../../_static/bootstrap-sphinx.js "></script>
+
+
+<!-- Cookie Notice -->
+<!-- Script from https://github.com/AOEpeople/cookie-notice -->
+<script type="text/javascript" src="../../_static/cookie.notice.min.js"></script>
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-B1WQ7B80XJ"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-B1WQ7B80XJ');
+</script>
+
+
+  </head><body>
+
+  <div id="navbar" class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="../../index.html"><span><img src="../../_static/logo.png"></span>
+          QGIS Tutorials and Tips</a>
+        <span class="navbar-text navbar-version pull-left"><b>v1</b></span>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="../../index.html">Tutorials List <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"><ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../introduction.html">Introductie</a></li>
+<li class="toctree-l1"><a class="reference internal" href="making_a_map.html">Een kaart maken (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="working_with_attributes.html">Werken met attributen (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="importing_spreadsheets_csv.html">Werkbladen of CSV-bestanden importeren (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="basic_vector_styling.html">Basis opmaken van vectoren (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="calculating_line_lengths.html">Lengten van lijnen en statistieken berekenen (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="raster_styling_and_analysis.html">Basis opmaken en analyses van rasters (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="raster_mosaicing_and_clipping.html">Rasters mozaïeken en clippen (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="working_with_terrain.html">Werken met gegevens over het terrein (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="working_with_wms.html">Werken met gegevens van WMS (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="working_with_projections.html">Werken met projecties (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="georeferencing_basics.html">Topobladen en gescande kaarten voorzien van geoverwijzingen (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="advanced_georeferencing.html">Geo-verwijzingen voor satellietbeelden (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="digitizing_basics.html">Kaartgegevens digitaliseren</a></li>
+<li class="toctree-l1"><a class="reference internal" href="performing_table_joins.html">Samenvoegen van tabellen uitvoeren (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="performing_spatial_joins.html">Ruimtelijke samenvoegingen uitvoeren (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="performing_spatial_queries.html">Ruimtelijke query’s uitvoeren (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="nearest_neighbor_analysis.html">Analyse Nearest Neighbor (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="sampling_raster_data.html">Monsters nemen van rastergegevens met behulp van punten of polygonen (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="calculating_raster_area.html">Rastergebied berekenen (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="creating_heatmaps.html">Heatmaps maken (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="animating_time_series.html">Geanimeerde gegevens tijdreeks (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="handling_invalid_geometries.html">Ongeldige geometrieën afhandelen (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="advanced_raster_analysis.html">Gevorderde rasteranalyses (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="interpolating_point_data.html">Interpoleren van puntgegevens</a></li>
+<li class="toctree-l1"><a class="reference internal" href="calculating_intersection_density.html">Dichtheid van straatkruisingen berekenen (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="batch_processing.html">Massa verwerken met behulp van Framework Processing (QGIS 3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="processing_graphical_modeler.html">Complexe werkstromen automatiseren met behulp van Grafische modellen bouwen (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="automating_map_creation.html">Maken van kaarten automatiseren met Atlas van afdruklay-out (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="multi_criteria_overlay.html">Multi Criteria Overlay Analyse (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="basic_network_analysis.html">Basis netwerk visualisatie en routeren (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="origin_destination_matrix.html">Dichtstbijzijnde faciliteit zoeken met Origin-Destination Matrix (QGIS3)</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Analyse Servicegebied met Openrouteservice (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="travel_time_analysis.html">Reistijd-analyse met Uber Movement (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="areal_mean_rainfall.html">Berekenen gemiddelde regenval voor gebied (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="getting_started_with_pyqgis.html">Beginnen met programmeren in Python (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="processing_algorithms_pyqgis.html">Algoritmes van Processing uitvoeren via Python (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="custom_python_functions.html">Aangepaste Python expressie-functies gebruiken (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="processing_python_scripts.html">Python-scripts schrijven voor framework Processing (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="building_a_python_plugin.html">Een plug-in in Python bouwen (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="processing_python_plugin.html">Een plug-in voor Processing bouwen (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../running_qgis_jobs.html">Taken voor QGIS uitvoeren en in schema zetten</a></li>
+<li class="toctree-l1"><a class="reference internal" href="web_mapping_with_qgis2web.html">In kaart brengen op het web met QGIS2Web (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../creating_basemaps_with_qtiles.html">Basiskaarten maken met QTiles</a></li>
+<li class="toctree-l1"><a class="reference internal" href="using_plugins.html">Plug-ins gebruiken (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../downloading_osm_data.html">Zoeken en downloaden van gegevens van OpenStreetMap</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../learning_resources.html">QGIS bronnen om te leren</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../credits.html">Gebruik van gegevens</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../batch_processing.html">Massa verwerken met behulp van Framework Processing (QGIS2)</a></li>
+</ul>
+</ul>
+</li>
+              
+            
+            
+              
+                
+  <li>
+    <a href="origin_destination_matrix.html" title="Previous Chapter: Dichtstbijzijnde faciliteit zoeken met Origin-Destination Matrix (QGIS3)"><span class="glyphicon glyphicon-chevron-left visible-sm"></span><span class="hidden-sm hidden-tablet">&laquo; Dichtstbijzij...</span>
+    </a>
+  </li>
+  <li>
+    <a href="travel_time_analysis.html" title="Next Chapter: Reistijd-analyse met Uber Movement (QGIS3)"><span class="glyphicon glyphicon-chevron-right visible-sm"></span><span class="hidden-sm hidden-tablet">Reistijd-anal... &raquo;</span>
+    </a>
+  </li>
+              
+            
+            
+
+            
+
+            
+              <li class="hidden-sm"></li>
+            
+          </ul>
+
+          
+            
+<form class="navbar-form navbar-right" action="../../search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+      <div class="col-md-3">
+        <div id="sidebar" class="bs-sidenav" role="complementary"><h4>Author</h4>
+<p>Ujaval Gandhi</p>
+<a href="https://twitter.com/intent/follow?screen_name=spatialthoughts" class="twitter-follow-button" data-show-count="false">Follow @spatialthoughts</a>
+<hr>
+<p>Want to learn QGIS in a structured way? Check out <a href="https://spatialthoughts.com/" target="_blank">Spatial Thoughts</a> for more learning materials and instructor-led online programs with QGIS.org certification.</p>
+
+
+<h4>Change Language</h4>
+<form role="form" class="sidebar-form sidebar-left">
+<select id="languages" class="form-control select-mini">
+  <option value="en">English</option>
+  <option value="zh_TW">Chinese (Taiwan)</option>
+  <option value="nl">Dutch</option>
+  <option value="fi_FI">Finnish</option>
+  <option value="fr">French</option>
+  <option value="de">German</option>
+  <option value="el">Greek</option>
+  <option value="id">Indonesian</option>
+  <option value="it">Italian</option>
+  <option value="ko">Korean</option>
+  <option value="fa">Persian</option>
+  <option value="pt_BR">Portuguese</option>
+  <option value="ro">Romanian</option>
+  <option value="ru">Russian</option>
+  <option value="sl">Slovenian</option>
+  <option value="es">Spanish</option>
+  <option value="th">Thai</option>
+  <option value="tr">Turkish</option>
+  <option value="uk">Ukrainian</option>
+  <option value="vi">Vietnamese</option>
+</select>
+</form>
+        </div>
+      </div>
+    <div class="body col-md-9 content" role="main">
+      
+
+  <section id="service-area-analysis-using-openrouteservice-qgis3">
+<h1>Analyse Servicegebied met Openrouteservice (QGIS3)<a class="headerlink" href="#service-area-analysis-using-openrouteservice-qgis3" title="Permalink naar deze titel">¶</a></h1>
+<p>Analyse voor Servicegebied is nuttig voor het evalueren van de toegankelijkheid van locaties. Bekende locaties van brandweerkazernes, ziekenhuizen, stations voor openbaar vervoer etc. kunt u gebruiken voor dergelijke analyses om te identificeren welke gebieden vanuit die locaties kunnen worden bediend, ofwel op basis van een gereisde afstand, of op basis van verstreken tijd. Tot recent waren dergelijke analyses moeilijk met behulp van gereedschappen voor open-bron en gegevens. Maar nu hebben we toegang tot een een globaal netwerk van straten met OpenStreetMap (OSM) en gratis web-services, zoals Openrouteservice (ORS) die complexe taken voor routering kunnen uitvoeren met gegevens van OpenStreetMap (OSM). In deze handleiding zullen we de <strong>Plug-in ORS Tools</strong> gebruiken om een analyse voor een servicegebied uit te voeren in QGIS.</p>
+<section id="overview-of-the-task">
+<h2>Overzicht van de taak<a class="headerlink" href="#overview-of-the-task" title="Permalink naar deze titel">¶</a></h2>
+<p>We zullen gegevens gebruiken van de metrostations voor Kochi, India om gebieden te bepalen die binnen een loopafstand van 15 minuten liggen.</p>
+<section id="other-skills-you-will-learn">
+<h3>Andere vaardigheden die u zult leren<a class="headerlink" href="#other-skills-you-will-learn" title="Permalink naar deze titel">¶</a></h3>
+<ul class="simple">
+<li><p>Hoe General Transit Feed Specification (GTFS) gegevens voor transport te laden in QGIS.</p></li>
+<li><p>Hoe puntgegevens van reeksen voor lijnen te laden met het gereedschap <em>Punten naar pad</em>.</p></li>
+</ul>
+</section>
+</section>
+<section id="get-the-data">
+<h2>De gegevens ophalen<a class="headerlink" href="#get-the-data" title="Permalink naar deze titel">¶</a></h2>
+<p><a class="reference external" href="https://kochimetro.org">Kochi Metro Rail Limited (KMRL)</a> verschaft open gegevens voor de indeling Kochi Metro Rail Project in <a class="reference external" href="https://developers.google.com/transit/gtfs/reference/">Global Transit Feed Specification (GTFS-static)</a>.  Bezoek de pagina <a class="reference external" href="https://kochimetro.org/open-data/">Open Data</a> voor het verzoeken van gegevens.</p>
+<p>Voor het gemak kunt u direct een kopie van de gegevensset downloaden vanaf de link hieronder:</p>
+<p><a class="reference external" href="https://www.qgistutorials.com/downloads/KMRL-Open-Data.zip">KMRL-Open-Data.zip</a></p>
+<p>Gegevensbron <a class="reference internal" href="../credits.html#kmrl" id="id1"><span>[KMRL]</span></a></p>
+</section>
+<section id="setup">
+<h2>Instellen<a class="headerlink" href="#setup" title="Permalink naar deze titel">¶</a></h2>
+<p><a class="reference external" href="https://openrouteservice.org/">Openrouteservice API</a> verschaft algoritmes voor routeren die werken met vrije geografische gegevens van OpenStreetMap. Het is een gratis web-gebaseerde service waartoe toegang kan worden verkregen via een plug-in van QGIS. Hoewel de service gratis is, moet u zich wel registreren en een API-sleutel ophalen. De API-sleutel wordt gebruikt om misbruik tegen te gaan en beperkingen voor het gebruik af te dwingen.</p>
+<ol class="arabic simple">
+<li><p>Bezoek de pagina <a class="reference external" href="https://openrouteservice.org/dev/#/signup">Openrouteservice Sign Up</a> en maak een account aan. Als uw account eenmaal is geactiveerd, bezoek dan uw <a class="reference external" href="https://openrouteservice.org/dev/#/home">Dashboard</a> en vraag een token aan. Selecteer <code class="docutils literal notranslate"><span class="pre">Free</span></code> als het <span class="guilabel">Token type</span> en voer <code class="docutils literal notranslate"><span class="pre">ORS</span> <span class="pre">Tools</span> <span class="pre">QGIS</span></code> in als de <span class="guilabel">Token name</span>. Klik op <span class="guilabel">CREATE TOKEN</span>.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/setup12.png" class="align-center" src="../../_images/setup12.png" />
+</div></blockquote>
+<ol class="arabic simple" start="2">
+<li><p>Eenmaal gemaakt, kopieer dan de lange tekenreeks die wordt weergegeven onder <code class="docutils literal notranslate"><span class="pre">Key</span></code>. Dit is een unieke identificatie die is gekoppeld aan uw account die het gebruiken van deze service zal autoriseren.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/setup21.png" class="align-center" src="../../_images/setup21.png" />
+</div></blockquote>
+<ol class="arabic simple" start="3">
+<li><p>Open QGIS. Ga naar <span class="menuselection">Plug-ins ‣ Plug-ins beheren en installeren</span>. Zoek naar de plug-in <strong>ORS Tools</strong> en installeer die. Klik op <span class="guilabel">Close</span>.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/setup3.png" class="align-center" src="../../_images/setup3.png" />
+</div></blockquote>
+<ol class="arabic simple" start="4">
+<li><p>Ga, in het hoofdvenster van QGIS, naar <span class="menuselection">Web ‣ ORS Tools ‣ Provider Settings</span>.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/setup4.png" class="align-center" src="../../_images/setup4.png" />
+</div></blockquote>
+<ol class="arabic simple" start="5">
+<li><p>Vergroot het gedeelte <span class="guilabel">openrouteservice</span> en plak de <code class="docutils literal notranslate"><span class="pre">key</span></code> (gekopieerd in stap 2) in het tekstvak <span class="guilabel">API Key</span>. Klik op <span class="guilabel">OK</span>.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/setup5.png" class="align-center" src="../../_images/setup5.png" />
+</div></blockquote>
+</section>
+<section id="procedure">
+<h2>Procedure<a class="headerlink" href="#procedure" title="Permalink naar deze titel">¶</a></h2>
+<ol class="arabic simple">
+<li><p>Pak het gedownloade bestand <code class="docutils literal notranslate"><span class="pre">KMRL-Open-Data.zip</span></code> uit in een map op uw computer. U zult zien dat de uitgepakte map veel tekstbestanden zal bevatten. Elk bestand bevat gegevens voor een verschillend aspect van het transportsysteem. De indeling van de bestanden en hun gebruik worden beschreven in <a class="reference external" href="https://developers.google.com/transit/gtfs/reference/">GTFS Reference</a>. Van alle bestanden zijn 2 bestanden die georuimtelijke gegevens bevatten voor ons van belang. Het bestand <code class="docutils literal notranslate"><span class="pre">shapes.txt</span></code> bevat punten die een fysiek pad beschrijven die de voertuigen nemen, en het bestand <code class="docutils literal notranslate"><span class="pre">stops.txt</span></code> bevat de locatie van elke halte voor het transport. Beide zijn CSV-bestanden die in QGIS kunnen worden geïmporteerd. Klik op de knop <span class="guilabel">Gegevensbronnen beheren openen</span>.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/1135.png" class="align-center" src="../../_images/1135.png" />
+</div></blockquote>
+<ol class="arabic simple" start="2">
+<li><p>Schakel, in het dialoogvenster <span class="guilabel">Gegevensbronnen beheren</span>, naar de tab <span class="guilabel">Tekengescheiden tekst</span>. Klik op de knop <span class="guilabel">…</span> naast <span class="guilabel">Bestandsaam</span> en blader naar het bestand <code class="docutils literal notranslate"><span class="pre">shapes.txt</span></code>. Selecteer <code class="docutils literal notranslate"><span class="pre">CSV</span> <span class="pre">(komma</span> <span class="pre">gescheiden</span> <span class="pre">waarden)</span></code> als de <span class="guilabel">Bestandsindeling</span>. De velden <span class="guilabel">X-veld</span> en <span class="guilabel">Y-veld</span> zouden automatisch moeten worden gevuld. Klik op <span class="guilabel">Toevoegen</span>.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/2106.png" class="align-center" src="../../_images/2106.png" />
+</div></blockquote>
+<ol class="arabic simple" start="3">
+<li><p>Soortgelijk, klik opnieuw op de knop <span class="guilabel">…</span> en selecteer het bestand <code class="docutils literal notranslate"><span class="pre">stops.txt</span></code>. Klik op <span class="guilabel">Toevoegen `. Klik dan op :guilabel:`Close</span>.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/347.png" class="align-center" src="../../_images/347.png" />
+</div></blockquote>
+<ol class="arabic simple" start="4">
+<li><p>U zult 2 nieuwe lagen <code class="docutils literal notranslate"><span class="pre">stops</span></code> and <code class="docutils literal notranslate"><span class="pre">shapes</span></code> zien toegevoegd aan het paneel <span class="guilabel">Lagen</span>. Laten we de puntenlaag <code class="docutils literal notranslate"><span class="pre">shapes</span></code> converteren naar een lijnenlaag die het pad van de metrolijn weergeeft. Ga naar <span class="menuselection">Processing ‣ Toolbox</span>.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/426.png" class="align-center" src="../../_images/426.png" />
+</div></blockquote>
+<ol class="arabic simple" start="5">
+<li><p>Zoek en lokaliseer het algoritme <span class="menuselection">Vector maken ‣ Punten naar pad</span>. Dubbelklik om het te openen.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/525.png" class="align-center" src="../../_images/525.png" />
+</div></blockquote>
+<ol class="arabic simple" start="6">
+<li><p>Selecteer, in het dialoogvenster <span class="guilabel">Punten naar pad</span>, <code class="docutils literal notranslate"><span class="pre">shapes</span></code> als de <span class="guilabel">Invoer puntenlaag</span>. Zoals blijkt uit de specificaties van GTFS heeft elke individuele route een unieke <code class="docutils literal notranslate"><span class="pre">shape_id</span></code>, dus selecteer die uit het keuzemenu als het <span class="guilabel">Expressie groeperen pad</span>. We kunnen ook de volgorde van punten specificeren die de lijn zullen vormen door <code class="docutils literal notranslate"><span class="pre">shape_pt_sequence</span></code> te selecteren als het <span class="guilabel">Volgorde expressie</span>. Klik op <span class="guilabel">Uitvoeren</span>.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/624.png" class="align-center" src="../../_images/624.png" />
+</div></blockquote>
+<ol class="arabic simple" start="7">
+<li><p>Een nieuwe laag <code class="docutils literal notranslate"><span class="pre">Paden</span></code> zal worden toegevoegd aan het paneel <span class="guilabel">Lagen</span>. U kunt nu de zichtbaarheid van de laag <code class="docutils literal notranslate"><span class="pre">shapes</span></code> uitschakelen om de nieuw toegevoegde lijnenlaag te zien.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/724.png" class="align-center" src="../../_images/724.png" />
+</div></blockquote>
+<ol class="arabic simple" start="8">
+<li><p>Nu we de metrostations en gegevens voor de lijn hebben toegevoegd, zijn we bijna klaar om de netwerkanalyse te beginnen. Zoek, in de <span class="guilabel">Toolbox van Processing</span>, naar en lokaliseer het gereedschap <span class="menuselection">ORS Tools ‣ Isochrones ‣ Isochrones From Layer</span>. Dubbelklik om het te openen.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/823.png" class="align-center" src="../../_images/823.png" />
+</div></blockquote>
+<ol class="arabic simple" start="9">
+<li><p>Selecteer <code class="docutils literal notranslate"><span class="pre">openrouteservice</span></code> als de <span class="guilabel">Provider</span>. We zullen een polygoon vanuit elk metrostation berekenen voor een loopafstand van 15 minuten. Selecteer <code class="docutils literal notranslate"><span class="pre">stops</span></code> als <span class="guilabel">Invoer puntenlaag</span>. Selecteer <code class="docutils literal notranslate"><span class="pre">stop_id</span></code> als het <span class="guilabel">Input Layer ID Field</span>. Selecteer, in de keuzelijst <span class="guilabel">Travel mode</span>, <code class="docutils literal notranslate"><span class="pre">foot-walking</span></code>. Selecteer, omdat we zijn geïnteresseerd in een op tijd gebaseerd gebied, <code class="docutils literal notranslate"><span class="pre">time</span></code> als de <span class="guilabel">Dimension</span>. Voer tenslotte <code class="docutils literal notranslate"><span class="pre">15</span></code> minuten in als de <span class="guilabel">ranges</span>. Klik op <span class="guilabel">Uitvoeren</span>.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/924.png" class="align-center" src="../../_images/924.png" />
+</div></blockquote>
+<div class="admonition note">
+<p class="admonition-title">Notitie</p>
+<p>Onthoud dat de API van Openrouteservice een beperking heeft van 20 verzoeken per minuut voor Isochronen. Als uw laag dus meer dan 20 punten heeft zou u fouten kunnen zien die aangeven dat de grens van de beperking is overschreden. U kunt het gereedschap gewoon laten uitvoeren en het zal doorgaan met de verwerking van 20 punten / min.</p>
+</div>
+<ol class="arabic simple" start="10">
+<li><p>Als het gereedschap eenmaal is voltooid zult u een nieuwe laag <code class="docutils literal notranslate"><span class="pre">Isochrones</span></code> zien geladen in het paneel <span class="guilabel">Lagen</span>. Elk punt heeft een geassocieerd polygoon die het gebied weergeeft dat wandelend binnen 15 minuten toegankelijk is. We kunnen de OpenStreetMap basiskaart toevoegen om dit in de context te zien van de gegevens die werden gebruikt om het te maken. Scroll naar beneden in het paneel <span class="guilabel">Browser</span> en lokaliseer <span class="menuselection">XYZ Tiles ‣ OpenStreetMap</span>. Sleep dat naar het kaartvenster.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/1030.png" class="align-center" src="../../_images/1030.png" />
+</div></blockquote>
+<ol class="arabic simple" start="11">
+<li><p>Een nieuwe laag <code class="docutils literal notranslate"><span class="pre">OpenStreetMap</span></code> zal worden toegevoegd aan het paneel <span class="guilabel">Lagen</span>. Sleep het naar beneden om de volgorde van de lagen te wijzigen en plaats het op de onderste plaats in de stapel met lagen. Zoom en verschuif om te zien of de resultaten overeenkomen met het wegennetwerk. U zult zien dat de polygonen geen cirkels zijn omdat de reistijd wordt berekend langs de wegen, zodat de regio’s die geen wegen hebben minder gebied bedekt zullen hebben.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/1136.png" class="align-center" src="../../_images/1136.png" />
+</div></blockquote>
+<ol class="arabic simple" start="12">
+<li><p>We moeten nog een laatste taak voltooien om het servicegebied te berekenen. We kunnen individuele isochrone polygonen samenvoegen om één enkele polygoon te vormen die de gebieden weergeeft die toegankelijk zijn. Zoek en lokaliseer <span class="menuselection">Vector geometrie ‣ Samensmelten</span>.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/1233.png" class="align-center" src="../../_images/1233.png" />
+</div></blockquote>
+<ol class="arabic simple" start="13">
+<li><p>Selecteer <code class="docutils literal notranslate"><span class="pre">Isochrones</span></code> als de <span class="guilabel">Invoerlaag</span> en klik op <span class="guilabel">Uitvoeren</span>.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/1331.png" class="align-center" src="../../_images/1331.png" />
+</div></blockquote>
+<ol class="arabic simple" start="14">
+<li><p>Als de verwerking eenmaal is voltooid zult u een nieuwe laag <code class="docutils literal notranslate"><span class="pre">Samengevoegd</span></code> zien toegevoegd aan het paneel <span class="guilabel">Lagen</span>. Deze polygonen geven de volledige regio weer die in het metrosysteem bereikbaar is binnen een loopafstand van 15 minuten.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/1428.png" class="align-center" src="../../_images/1428.png" />
+</div></blockquote>
+<div class="admonition note">
+<p class="admonition-title">Notitie</p>
+<p>Dit is een eenvoudig voorbeeld van hoe een analyse voor servicegebieden voor een project van openbaar vervoer kan worden uitgevoerd in QGIS. Een meer uitgebreide analyse voor servicegebieden voor het metrosysteem zou andere modellen voor transport bevatten. We zouden bussen voor de aanvoer opnemen, nabijgelegen bushaltes en routes die die bushaltes bedienen om de analyse uit te breiden. We zouden ook het reizen op andere wijzen, zoals auto en taxi, kunnen opnemen.</p>
+</div>
+</section>
+</section>
+
+
+
+
+
+  <div id="disqus_thread"></div>
+  <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+
+    </div>
+      
+  </div>
+</div>
+
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+    </p>
+    <p>
+        &copy; Copyright 2021, Ujaval Gandhi.<br/>
+      Laatste aanpassing op aug. 30, 2022.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 4.0.1.<br/>
+    </p>
+  </div>
+</footer>
+<div class="container">
+  <p>This work is licensed under a <a href="http://creativecommons.org/licenses/by/4.0/deed.en_US">Creative Commons Attribution 4.0 International License</a></p>
+</div>
+<!-- Twitter Button -->
+<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+
+<!-- Disqus comments widget -->
+<script type="text/javascript">
+  /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+  var disqus_shortname = 'qgistutorials'; // required: replace example with your forum shortname
+  /* * * DON'T EDIT BELOW THIS LINE * * */
+  (function () {
+    var s = document.createElement('script'); s.async = true;
+    s.type = 'text/javascript';
+    s.src = '//' + disqus_shortname + '.disqus.com/count.js';
+    (document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);
+  }());
+</script>
+
+<script type="text/javascript">
+  /* * * DON'T EDIT BELOW THIS LINE * * */
+  (function() {
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+
+<!-- Script fpr language switching. Largely adapted from https://github.com/pcav/faunalia-website -->
+<script>
+    var currentPage = 'docs/3/service_area_analysis.html'; // coming from sphinx, always without starting '/'
+    var currentLang = 'en';
+    $(document).ready(function(){
+
+        var search = new RegExp('\/[a-zA-Z_]{2,8}\/'+ currentPage, 'gi');
+        var langPlusPage = window.location.href.match(search);
+        // it's possible this is a index.html page called without 'index.html', try without the currentPage
+        if (langPlusPage==undefined){
+            search = new RegExp('\/[a-zA-Z_]{2,8}\/$', 'gi');
+            langPlusPage = window.location.href.match(search);
+        }
+
+        // it's possible this is an index.html page called without 'index.html', try removing index.html
+        if (langPlusPage==undefined){
+            currentPage = currentPage.replace('index.html','')
+            search = new RegExp('\/[a-zA-Z_]{2,8}\/'+ currentPage, 'gi');
+            langPlusPage = window.location.href.match(search);
+        }
+        // still no langPlugPage: stop, because the language swicher will misbehave 
+
+        if (langPlusPage == undefined || langPlusPage.length != 1){
+            alert('You hit an error, please report back to us.');
+            return;
+        }
+        langPlusPage = langPlusPage[0];
+        currentLang = langPlusPage.replace(currentPage, '');
+
+        $("#languages").val(currentLang.replace(/\//g,'')); // currentLang is something like '/nl/'
+
+        $("#languages").change(function() {
+            gotoLang($(this).val());
+        });
+
+    });
+
+    // load current page in a different language
+    function gotoLang(lang){
+        var currentUrl = window.location.href;
+        var newUrl = currentUrl.replace(currentLang, '/'+lang+'/');
+        window.location.href = newUrl;
+    }
+</script>
+
+  </body>
+</html>

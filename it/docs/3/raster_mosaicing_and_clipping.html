@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+
+<html lang="it">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>Mosaici e operazioni di ritaglio con i layer raster (QGIS3) &#8212; QGIS Tutorials and Tips</title>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-sphinx.css" />
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/translations.js"></script>
+    <link rel="search" title="Cerca" href="../../search.html" />
+    <link rel="next" title="Working with Terrain Data (QGIS3)" href="working_with_terrain.html" />
+    <link rel="prev" title="Tematizzazione ed analisi di RASTER (QGIS3)" href="raster_styling_and_analysis.html" />
+
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<script type="text/javascript" src="../../_static/js/jquery-1.11.0.min.js "></script>
+<script type="text/javascript" src="../../_static/js/jquery-fix.js "></script>
+<script type="text/javascript" src="../../_static/bootstrap-3.3.7/js/bootstrap.min.js "></script>
+<script type="text/javascript" src="../../_static/bootstrap-sphinx.js "></script>
+
+
+<!-- Cookie Notice -->
+<!-- Script from https://github.com/AOEpeople/cookie-notice -->
+<script type="text/javascript" src="../../_static/cookie.notice.min.js"></script>
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-B1WQ7B80XJ"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-B1WQ7B80XJ');
+</script>
+
+
+  </head><body>
+
+  <div id="navbar" class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="../../index.html"><span><img src="../../_static/logo.png"></span>
+          QGIS Tutorials and Tips</a>
+        <span class="navbar-text navbar-version pull-left"><b>v1</b></span>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="../../index.html">Tutorials List <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"><ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../introduction.html">Introduzione</a></li>
+<li class="toctree-l1"><a class="reference internal" href="making_a_map.html">Creazione di una stampa (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="working_with_attributes.html">Lavorare con gli Attributi (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="importing_spreadsheets_csv.html">Importare fogli elettronici o file CSV (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="basic_vector_styling.html">Tematizzare i dati vettoriali (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="calculating_line_lengths.html">Calcolare la Lunghezza Lineare e le Statistiche (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="raster_styling_and_analysis.html">Tematizzazione ed analisi di RASTER (QGIS3)</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Mosaici e operazioni di ritaglio con i layer raster (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="working_with_terrain.html">Working with Terrain Data (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="working_with_wms.html">Working with WMS Data (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="working_with_projections.html">Working with Projections (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="georeferencing_basics.html">Georeferenziazione carte topografiche e mappe scannerizzate (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="advanced_georeferencing.html">Georeferencing Aerial Imagery (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="digitizing_basics.html">Digitizing Map Data (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="performing_table_joins.html">Realizzare unioni tabellari (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="performing_spatial_joins.html">Realizzare unioni spaziali (Spatial Joins)  (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="performing_spatial_queries.html">Utilizzare le interrogazioni spaziali (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="nearest_neighbor_analysis.html">Nearest Neighbor Analysis (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="sampling_raster_data.html">Campionare i dati di un raster usando punti o poligoni (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="calculating_raster_area.html">Calculating Raster Area (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="creating_heatmaps.html">Realizzare Heatmaps (mappe di concentrazione)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="animating_time_series.html">Animating Time Series Data (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="handling_invalid_geometries.html">Handling Invalid Geometries (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="advanced_raster_analysis.html">Advanced Raster Analysis (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="interpolating_point_data.html">Interpolating Point Data (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="calculating_intersection_density.html">Calculating Street Intersection Density (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="batch_processing.html">Batch Processing using Processing Framework (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="processing_graphical_modeler.html">Automating Complex Workflows using Processing Modeler (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="automating_map_creation.html">Automating Map Creation with Print Layout Atlas (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="multi_criteria_overlay.html">Multi Criteria Overlay Analysis (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="basic_network_analysis.html">Basic Network Visualization and Routing (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="origin_destination_matrix.html">Locating Nearest Facility with Origin-Destination Matrix (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="service_area_analysis.html">Service Area Analysis using Openrouteservice (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="travel_time_analysis.html">Travel Time Analysis with Uber Movement (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="areal_mean_rainfall.html">Calculating Areal Mean Rainfall (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="getting_started_with_pyqgis.html">Getting Started With Python Programming (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="processing_algorithms_pyqgis.html">Running Processing Algorithms via Python (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="custom_python_functions.html">Using Custom Python Expression Functions (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="processing_python_scripts.html">Writing Python Scripts for Processing Framework (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="building_a_python_plugin.html">Building a Python Plugin (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="processing_python_plugin.html">Building a Processing Plugin (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../running_qgis_jobs.html">Running and Scheduling QGIS Processing Jobs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="web_mapping_with_qgis2web.html">Web Mapping with QGIS2Web (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../creating_basemaps_with_qtiles.html">Creating Basemaps with QTiles</a></li>
+<li class="toctree-l1"><a class="reference internal" href="using_plugins.html">Using Plugins (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../downloading_osm_data.html">Cercare e scaricare i dati di OpenStreetMap</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../learning_resources.html">Risorse disponibili per l’apprendimento di QGIS</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../credits.html">Fonti dei dati</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../batch_processing.html">Batch Processing using Processing Framework (QGIS2)</a></li>
+</ul>
+</ul>
+</li>
+              
+            
+            
+              
+                
+  <li>
+    <a href="raster_styling_and_analysis.html" title="Previous Chapter: Tematizzazione ed analisi di RASTER (QGIS3)"><span class="glyphicon glyphicon-chevron-left visible-sm"></span><span class="hidden-sm hidden-tablet">&laquo; Tematizzazion...</span>
+    </a>
+  </li>
+  <li>
+    <a href="working_with_terrain.html" title="Next Chapter: Working with Terrain Data (QGIS3)"><span class="glyphicon glyphicon-chevron-right visible-sm"></span><span class="hidden-sm hidden-tablet">Working with ... &raquo;</span>
+    </a>
+  </li>
+              
+            
+            
+
+            
+
+            
+              <li class="hidden-sm"></li>
+            
+          </ul>
+
+          
+            
+<form class="navbar-form navbar-right" action="../../search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+      <div class="col-md-3">
+        <div id="sidebar" class="bs-sidenav" role="complementary"><h4>Author</h4>
+<p>Ujaval Gandhi</p>
+<a href="https://twitter.com/intent/follow?screen_name=spatialthoughts" class="twitter-follow-button" data-show-count="false">Follow @spatialthoughts</a>
+<hr>
+<p>Want to learn QGIS in a structured way? Check out <a href="https://spatialthoughts.com/" target="_blank">Spatial Thoughts</a> for more learning materials and instructor-led online programs with QGIS.org certification.</p>
+
+
+<h4>Change Language</h4>
+<form role="form" class="sidebar-form sidebar-left">
+<select id="languages" class="form-control select-mini">
+  <option value="en">English</option>
+  <option value="zh_TW">Chinese (Taiwan)</option>
+  <option value="nl">Dutch</option>
+  <option value="fi_FI">Finnish</option>
+  <option value="fr">French</option>
+  <option value="de">German</option>
+  <option value="el">Greek</option>
+  <option value="id">Indonesian</option>
+  <option value="it">Italian</option>
+  <option value="ko">Korean</option>
+  <option value="fa">Persian</option>
+  <option value="pt_BR">Portuguese</option>
+  <option value="ro">Romanian</option>
+  <option value="ru">Russian</option>
+  <option value="sl">Slovenian</option>
+  <option value="es">Spanish</option>
+  <option value="th">Thai</option>
+  <option value="tr">Turkish</option>
+  <option value="uk">Ukrainian</option>
+  <option value="vi">Vietnamese</option>
+</select>
+</form>
+        </div>
+      </div>
+    <div class="body col-md-9 content" role="main">
+      
+
+  <section id="raster-mosaicing-and-clipping-qgis3">
+<h1>Mosaici e operazioni di ritaglio con i layer raster (QGIS3)<a class="headerlink" href="#raster-mosaicing-and-clipping-qgis3" title="Link a questa intestazione">¶</a></h1>
+<p>Questa esercitazione esplora alcune operazioni di base in QGIS con i file raster, come la visualizzazione, la composizione di mosaici e la creazione di sottoinsiemi.</p>
+<section id="overview-of-the-task">
+<h2>Descrizione del compito<a class="headerlink" href="#overview-of-the-task" title="Link a questa intestazione">¶</a></h2>
+<p>Scaricheremo come dati diversi raster con il modello della superficie  dello Sri Lanka sotto forma di mattonelle SRTM che andremo ad unire insieme (mosaicare) e poi ritagliare lungo i confini naizonali del paese.</p>
+<section id="other-skills-you-will-learn">
+<h3>Altri aspetti che avremo modo di apprendere nel corso dell’esercizio<a class="headerlink" href="#other-skills-you-will-learn" title="Link a questa intestazione">¶</a></h3>
+<ul class="simple">
+<li><p>Utilizzo della tematizzazione a ombreggiatura (Hillshade) per visualizzare dati di elevazione (quota) in modo da simulare il 3D.</p></li>
+</ul>
+</section>
+</section>
+<section id="get-the-data">
+<h2>Ottenere i dati necessari.<a class="headerlink" href="#get-the-data" title="Link a questa intestazione">¶</a></h2>
+<p>Land Processes Distributed Active Archive Center (LP DAAC) fornisce il dato <a class="reference external" href="https://lpdaac.usgs.gov/products/srtmgl1v003/">NASA Shuttle Radar Topography Mission (SRTM) Global 1 arc second</a> come tagli rettangolari.</p>
+<p>Una interfaccia semplice da utilizzare per scaricare i dati è il  <a class="reference external" href="https://dwtkns.com/srtm30m/">30-Meter SRTM Tile Downloader</a> di Derek Watkins. Scarica i raster SRTM che coprono lo Sri Lanka. Attenzione che dovete registrarvi gratuitamente nel sito <a class="reference external" href="https://urs.earthdata.nasa.gov/home">Earth Data account</a> per scaricare i dati.</p>
+<img alt="../../_images/data115.png" class="align-center" src="../../_images/data115.png" />
+<p>Per ritagliare il nostro raster, ci occorrono i confini che trovate al link <a class="reference external" href="http://www.naturalearthdata.com/http//www.naturalearthdata.com/download/10m/cultural/ne_10m_admin_0_countries.zip">Admin 0 - Countries</a> come ESRI Shapefile nel sito Natural Earth.</p>
+<p>Per comodità, potete scaricare direttamente una copia del dataset dal seguente link:</p>
+<p><a class="reference external" href="https://www.qgistutorials.com/downloads/N05E080.SRTMGL1.hgt.zip">N05E080.SRTMGL1.hgt.zip</a></p>
+<p><a class="reference external" href="https://www.qgistutorials.com/downloads/N06E079.SRTMGL1.hgt.zip">N06E079.SRTMGL1.hgt.zip</a></p>
+<p><a class="reference external" href="https://www.qgistutorials.com/downloads/N06E080.SRTMGL1.hgt.zip">N06E080.SRTMGL1.hgt.zip</a></p>
+<p><a class="reference external" href="https://www.qgistutorials.com/downloads/N06E081.SRTMGL1.hgt.zip">N06E081.SRTMGL1.hgt.zip</a></p>
+<p><a class="reference external" href="https://www.qgistutorials.com/downloads/N07E079.SRTMGL1.hgt.zip">N07E079.SRTMGL1.hgt.zip</a></p>
+<p><a class="reference external" href="https://www.qgistutorials.com/downloads/N07E080.SRTMGL1.hgt.zip">N07E080.SRTMGL1.hgt.zip</a></p>
+<p><a class="reference external" href="https://www.qgistutorials.com/downloads/N07E081.SRTMGL1.hgt.zip">N07E081.SRTMGL1.hgt.zip</a></p>
+<p><a class="reference external" href="https://www.qgistutorials.com/downloads/N08E079.SRTMGL1.hgt.zip">N08E079.SRTMGL1.hgt.zip</a></p>
+<p><a class="reference external" href="https://www.qgistutorials.com/downloads/N08E080.SRTMGL1.hgt.zip">N08E080.SRTMGL1.hgt.zip</a></p>
+<p><a class="reference external" href="https://www.qgistutorials.com/downloads/N08E081.SRTMGL1.hgt.zip">N08E081.SRTMGL1.hgt.zip</a></p>
+<p><a class="reference external" href="https://www.qgistutorials.com/downloads/N09E080.SRTMGL1.hgt.zip">N09E080.SRTMGL1.hgt.zip</a></p>
+<p><a class="reference external" href="https://www.qgistutorials.com/downloads/ne_10m_admin_0_countries.zip">ne_10m_admin_0_countries.zip</a></p>
+<p>Fonte Dati <a class="reference internal" href="../credits.html#naturalearth" id="id2"><span>[NATURALEARTH]</span></a></p>
+</section>
+<section id="procedure">
+<h2>Procedimento<a class="headerlink" href="#procedure" title="Link a questa intestazione">¶</a></h2>
+<ol class="arabic simple">
+<li><p>Apri QGIS e trova i file scaricati usando il pannello <span class="guilabel">Browser</span>. Dentro le cartella ZIP trovate files con estensione <code class="docutils literal notranslate"><span class="pre">.hgt</span></code>. Tenete premuto il tasto <kbd class="kbd docutils literal notranslate">Ctrl</kbd> e selezionatele tutte. Una volta selezionate trascinatele nel progetto QGIS.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/1108.png" class="align-center" src="../../_images/1108.png" />
+</div></blockquote>
+<ol class="arabic simple" start="2">
+<li><p>Vedrete 11 livelli raster nel pannello <span class="guilabel">Layers</span> e visualizzati. Mosaicheremo (uniremo) tutti i raster in un singolo file. Andate nel pannello <span class="menuselection">Processing ‣ Toolbox</span> (Gestore dei Processi).</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/2103.png" class="align-center" src="../../_images/2103.png" />
+</div></blockquote>
+<ol class="arabic simple" start="3">
+<li><p>Cercare e trovare nel menu <span class="menuselection">GDAL ‣ Raster miscellaneous ‣ Merge</span> (Fondi merge)</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/344.png" class="align-center" src="../../_images/344.png" />
+</div></blockquote>
+<ol class="arabic simple" start="4">
+<li><p>Nella finestra <span class="guilabel">Merge</span> clicca il pulsante <span class="guilabel">…</span> vicino a <span class="guilabel">Input layers</span> (layer in entrata). Clicca <span class="guilabel">Select All</span> (seleziona tutto) per selezionare tutti i livelli.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/423.png" class="align-center" src="../../_images/423.png" />
+</div></blockquote>
+<ol class="arabic simple" start="5">
+<li><p>Come viene descritto nel <a class="reference external" href="https://lpdaac.usgs.gov/products/srtmgl1v003/">dataset layer details</a>, il raster è memorizzato come <em>16-bit signed integer</em> (intero a 16 bit). Teniamo questo formato per il livello unito. Selezioniamo dunque <code class="docutils literal notranslate"><span class="pre">Int16</span></code> nella parte <span class="guilabel">Output data type</span> (tipo di dati in uscita). Il formato del file prodotto è il GeoTiff. GeoTiff possono prendere molto spazio su disco se non vengono compresse. Scegliete <code class="docutils literal notranslate"><span class="pre">High</span> <span class="pre">Compression</span></code> come <span class="guilabel">Profile</span> (profilo). Clicca <span class="guilabel">Run</span> (esegui).</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/522.png" class="align-center" src="../../_images/522.png" />
+</div></blockquote>
+<ol class="arabic simple" start="6">
+<li><p>Il livello prodotto si chiama <code class="docutils literal notranslate"><span class="pre">OUTPUT</span></code> e viene aggiunto al pannello <span class="guilabel">Layers</span>. Se il nuovo livello non è in cima agli altri, trascinatelo in alto nel pannello <span class="guilabel">Layers</span>.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/621.png" class="align-center" src="../../_images/621.png" />
+</div></blockquote>
+<ol class="arabic simple" start="7">
+<li><p>Il livello <code class="docutils literal notranslate"><span class="pre">OUTPUT</span></code> ha unito tutte le singole aree raster con le quote. La visualizzazione predefinita fa vedere il dato raster con una scala di grigi che copre 0-255. Ma i nostri dati vanno da -14 a 2371. Miglioriamo la visualizzazione. Clicca il pulsante  <span class="guilabel">Open the layer Styling panel</span> (apri pannello stile layer) nel pannello <span class="guilabel">Layers</span>.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/721.png" class="align-center" src="../../_images/721.png" />
+</div></blockquote>
+<ol class="arabic simple" start="8">
+<li><p>Nel pannello  <span class="guilabel">Layer Styling</span> clicca il menù a tendina <span class="guilabel">Render type</span> e seleziona <code class="docutils literal notranslate"><span class="pre">Ombreggiatura</span></code>.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/820.png" class="align-center" src="../../_images/820.png" />
+</div></blockquote>
+<ol class="arabic simple" start="9">
+<li><p>Un’operazione molto comune quando si lavora con un raster è quella di ritagliarlo lungo il confine dell’area di studio. Taglieremo il raster lungo il confine dello Sri Lanka. Trova il file che avete scaricato <code class="docutils literal notranslate"><span class="pre">ne_10m_admin_0_countries.zip</span></code> apritelo. Trascina il file <code class="docutils literal notranslate"><span class="pre">ne_10m_admin_0_countries.shp</span></code> nel progetto.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/921.png" class="align-center" src="../../_images/921.png" />
+</div></blockquote>
+<ol class="arabic simple" start="10">
+<li><p>Select the newly added <code class="docutils literal notranslate"><span class="pre">ne_10m_admin_0_countries</span></code> layers in the <span class="guilabel">Layers</span> panel. Click the <span class="guilabel">Select Features by area or single click</span> button on the <span class="guilabel">Attributes Toolbar</span>. Once selected, click the polygon for Sri Lanka to select it.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/1028.png" class="align-center" src="../../_images/1028.png" />
+</div></blockquote>
+<ol class="arabic simple" start="11">
+<li><p>Con il poligono selezionato, aprite  nel pannello  <span class="guilabel">Processing Toolbox</span> (Gestore dei processi), il modulo  <span class="menuselection">GDAL ‣ Raster extraction ‣ Clip raster by mask layer</span> (ritaglia il raster con maschera) e fai doppio click per aprirlo.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/1132.png" class="align-center" src="../../_images/1132.png" />
+</div></blockquote>
+<ol class="arabic simple" start="12">
+<li><p>Nella finestra del modulo  <span class="guilabel">Clip Raster by Mask Layer</span> (ritaglia il raster con maschera) , seleziona  <code class="docutils literal notranslate"><span class="pre">OUTPUT</span></code> come  <span class="guilabel">Input Layer</span> (layer di entrata). Seleziona <code class="docutils literal notranslate"><span class="pre">ne_10m_admin_0_countries</span></code> come <span class="guilabel">Mask layer</span> (livello maschera), e seleziona il parametro <span class="guilabel">Selected features only</span> (vettore per la maschera). Inserisci <code class="docutils literal notranslate"><span class="pre">0.0000</span></code> come valore <span class="guilabel">Assign a specified nodata value to output bands</span> (attribuisci un determinato valore nullo alle bande d’uscita). Come prima seleziona <code class="docutils literal notranslate"><span class="pre">High</span> <span class="pre">compression</span></code> nella sezione <span class="guilabel">Profile</span> (profilo). Clicca <span class="guilabel">Run</span> (esegui).</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/1230.png" class="align-center" src="../../_images/1230.png" />
+</div></blockquote>
+<ol class="arabic simple" start="13">
+<li><p>Un nuovo layer <code class="docutils literal notranslate"><span class="pre">OUTPUT</span></code> sarà aggiunto al pannelloa <span class="guilabel">Layers</span>. A questo punto sarà difficile vedere l’output perchè abbiamo troppi livelli visibili. Clicca il pulsante guilabel:<cite>Manage Map Themes</cite> nel pannello <span class="guilabel">Layers</span> e scegli <code class="docutils literal notranslate"><span class="pre">Hide</span> <span class="pre">All</span> <span class="pre">Layers</span></code>.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/1328.png" class="align-center" src="../../_images/1328.png" />
+</div></blockquote>
+<ol class="arabic simple" start="14">
+<li><p>Visualizza solo il livello  <code class="docutils literal notranslate"><span class="pre">OUTPUT</span></code> e tematizza lo stile con <code class="docutils literal notranslate"><span class="pre">Hilshade</span></code> (ombreggiatura) come prima.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/1425.png" class="align-center" src="../../_images/1425.png" />
+</div></blockquote>
+<ol class="arabic simple" start="15">
+<li><p>Avete ora il modello digitale della superficie dello Sri Lanka.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/1524.png" class="align-center" src="../../_images/1524.png" />
+</div></blockquote>
+</section>
+</section>
+
+
+
+
+
+  <div id="disqus_thread"></div>
+  <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+
+    </div>
+      
+  </div>
+</div>
+
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+    </p>
+    <p>
+        &copy; Copyright 2021, Ujaval Gandhi.<br/>
+      Ultimo aggiornamento ago 30, 2022.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 4.0.1.<br/>
+    </p>
+  </div>
+</footer>
+<div class="container">
+  <p>This work is licensed under a <a href="http://creativecommons.org/licenses/by/4.0/deed.en_US">Creative Commons Attribution 4.0 International License</a></p>
+</div>
+<!-- Twitter Button -->
+<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+
+<!-- Disqus comments widget -->
+<script type="text/javascript">
+  /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+  var disqus_shortname = 'qgistutorials'; // required: replace example with your forum shortname
+  /* * * DON'T EDIT BELOW THIS LINE * * */
+  (function () {
+    var s = document.createElement('script'); s.async = true;
+    s.type = 'text/javascript';
+    s.src = '//' + disqus_shortname + '.disqus.com/count.js';
+    (document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);
+  }());
+</script>
+
+<script type="text/javascript">
+  /* * * DON'T EDIT BELOW THIS LINE * * */
+  (function() {
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+
+<!-- Script fpr language switching. Largely adapted from https://github.com/pcav/faunalia-website -->
+<script>
+    var currentPage = 'docs/3/raster_mosaicing_and_clipping.html'; // coming from sphinx, always without starting '/'
+    var currentLang = 'en';
+    $(document).ready(function(){
+
+        var search = new RegExp('\/[a-zA-Z_]{2,8}\/'+ currentPage, 'gi');
+        var langPlusPage = window.location.href.match(search);
+        // it's possible this is a index.html page called without 'index.html', try without the currentPage
+        if (langPlusPage==undefined){
+            search = new RegExp('\/[a-zA-Z_]{2,8}\/$', 'gi');
+            langPlusPage = window.location.href.match(search);
+        }
+
+        // it's possible this is an index.html page called without 'index.html', try removing index.html
+        if (langPlusPage==undefined){
+            currentPage = currentPage.replace('index.html','')
+            search = new RegExp('\/[a-zA-Z_]{2,8}\/'+ currentPage, 'gi');
+            langPlusPage = window.location.href.match(search);
+        }
+        // still no langPlugPage: stop, because the language swicher will misbehave 
+
+        if (langPlusPage == undefined || langPlusPage.length != 1){
+            alert('You hit an error, please report back to us.');
+            return;
+        }
+        langPlusPage = langPlusPage[0];
+        currentLang = langPlusPage.replace(currentPage, '');
+
+        $("#languages").val(currentLang.replace(/\//g,'')); // currentLang is something like '/nl/'
+
+        $("#languages").change(function() {
+            gotoLang($(this).val());
+        });
+
+    });
+
+    // load current page in a different language
+    function gotoLang(lang){
+        var currentUrl = window.location.href;
+        var newUrl = currentUrl.replace(currentLang, '/'+lang+'/');
+        window.location.href = newUrl;
+    }
+</script>
+
+  </body>
+</html>

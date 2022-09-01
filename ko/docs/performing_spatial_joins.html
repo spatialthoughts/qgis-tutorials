@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+
+<html lang="ko">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>공간 결합(Spatial Join) 실행 &#8212; QGIS Tutorials and Tips</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/bootstrap-sphinx.css" />
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/translations.js"></script>
+    <link rel="search" title="검색" href="../search.html" />
+
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<script type="text/javascript" src="../_static/js/jquery-1.11.0.min.js "></script>
+<script type="text/javascript" src="../_static/js/jquery-fix.js "></script>
+<script type="text/javascript" src="../_static/bootstrap-3.3.7/js/bootstrap.min.js "></script>
+<script type="text/javascript" src="../_static/bootstrap-sphinx.js "></script>
+
+
+<!-- Cookie Notice -->
+<!-- Script from https://github.com/AOEpeople/cookie-notice -->
+<script type="text/javascript" src="../_static/cookie.notice.min.js"></script>
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-B1WQ7B80XJ"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-B1WQ7B80XJ');
+</script>
+
+
+  </head><body>
+
+  <div id="navbar" class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="../index.html"><span><img src="../_static/logo.png"></span>
+          QGIS Tutorials and Tips</a>
+        <span class="navbar-text navbar-version pull-left"><b>v1</b></span>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="../index.html">Tutorials List <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"><ul>
+<li class="toctree-l1"><a class="reference internal" href="introduction.html">들어가는 말</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/making_a_map.html">지도 만들기 (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/working_with_attributes.html">속성 작업 (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/importing_spreadsheets_csv.html">스프레드시트 및 CSV 파일 불러오기 (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/basic_vector_styling.html">기본 벡터 스타일링 (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/calculating_line_lengths.html">선의 길이계산과 통계(QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/raster_styling_and_analysis.html">기본 래스터 스타일링 및 분석(QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/raster_mosaicing_and_clipping.html">래스터 붙이기 및 자르기 (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/working_with_terrain.html">Working with Terrain Data (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/working_with_wms.html">Working with WMS Data (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/working_with_projections.html">Working with Projections (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/georeferencing_basics.html">Georeferencing Topo Sheets and Scanned Maps (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/advanced_georeferencing.html">항공사진 지오레퍼런싱 (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/digitizing_basics.html">Digitizing Map Data (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/performing_table_joins.html">테이블 결합 작업(QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/performing_spatial_joins.html">공간 결합 수행 (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/performing_spatial_queries.html">공간 조회 실행(QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/nearest_neighbor_analysis.html">최근린 분석(QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/sampling_raster_data.html">점 또는 다각형을 이용한 래스터 데이터 표본 추출 작업(QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/calculating_raster_area.html">Calculating Raster Area (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/creating_heatmaps.html">열지도 만들기 (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/animating_time_series.html">Animating Time Series Data (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/handling_invalid_geometries.html">Handling Invalid Geometries (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/advanced_raster_analysis.html">Advanced Raster Analysis (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/interpolating_point_data.html">Interpolating Point Data (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/calculating_intersection_density.html">Calculating Street Intersection Density (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/batch_processing.html">프로세싱 프레임을 이용한 일괄처리과정</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/processing_graphical_modeler.html">프로세싱 모델러를 사용하여 복잡한 작업흐름 자동화하기(QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/automating_map_creation.html">Automating Map Creation with Print Layout Atlas (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/multi_criteria_overlay.html">Multi Criteria Overlay Analysis (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/basic_network_analysis.html">Basic Network Visualization and Routing (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/origin_destination_matrix.html">가장 가까운 기-종점 매트릭스 위치 (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/service_area_analysis.html">Openrouteservice를 이용한 서비스 영역 분석(QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/travel_time_analysis.html">Travel Time Analysis with Uber Movement (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/areal_mean_rainfall.html">Calculating Areal Mean Rainfall (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/getting_started_with_pyqgis.html">Getting Started With Python Programming (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/processing_algorithms_pyqgis.html">Running Processing Algorithms via Python (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/custom_python_functions.html">Using Custom Python Expression Functions (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/processing_python_scripts.html">Writing Python Scripts for Processing Framework (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/building_a_python_plugin.html">Building a Python Plugin (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/processing_python_plugin.html">Building a Processing Plugin (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="running_qgis_jobs.html">Running and Scheduling QGIS Processing Jobs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/web_mapping_with_qgis2web.html">Web Mapping with QGIS2Web (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="creating_basemaps_with_qtiles.html">QTiles로 베이스 맵 만들기</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/using_plugins.html">Using Plugins (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="downloading_osm_data.html">오픈스트리트맵 데이터의 검색과 다운로드</a></li>
+<li class="toctree-l1"><a class="reference internal" href="learning_resources.html">QGIS 수업 자원</a></li>
+<li class="toctree-l1"><a class="reference internal" href="credits.html">데이터 크레딧</a></li>
+<li class="toctree-l1"><a class="reference internal" href="batch_processing.html">프로세싱 프레임을 이용한 일괄처리과정</a></li>
+</ul>
+</ul>
+</li>
+              
+            
+            
+              
+                
+              
+            
+            
+
+            
+
+            
+              <li class="hidden-sm"></li>
+            
+          </ul>
+
+          
+            
+<form class="navbar-form navbar-right" action="../search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+      <div class="col-md-3">
+        <div id="sidebar" class="bs-sidenav" role="complementary"><h4>Author</h4>
+<p>Ujaval Gandhi</p>
+<a href="https://twitter.com/intent/follow?screen_name=spatialthoughts" class="twitter-follow-button" data-show-count="false">Follow @spatialthoughts</a>
+<hr>
+<p>Want to learn QGIS in a structured way? Check out <a href="https://spatialthoughts.com/" target="_blank">Spatial Thoughts</a> for more learning materials and instructor-led online programs with QGIS.org certification.</p>
+
+
+<h4>Change Language</h4>
+<form role="form" class="sidebar-form sidebar-left">
+<select id="languages" class="form-control select-mini">
+  <option value="en">English</option>
+  <option value="zh_TW">Chinese (Taiwan)</option>
+  <option value="nl">Dutch</option>
+  <option value="fi_FI">Finnish</option>
+  <option value="fr">French</option>
+  <option value="de">German</option>
+  <option value="el">Greek</option>
+  <option value="id">Indonesian</option>
+  <option value="it">Italian</option>
+  <option value="ko">Korean</option>
+  <option value="fa">Persian</option>
+  <option value="pt_BR">Portuguese</option>
+  <option value="ro">Romanian</option>
+  <option value="ru">Russian</option>
+  <option value="sl">Slovenian</option>
+  <option value="es">Spanish</option>
+  <option value="th">Thai</option>
+  <option value="tr">Turkish</option>
+  <option value="uk">Ukrainian</option>
+  <option value="vi">Vietnamese</option>
+</select>
+</form>
+        </div>
+      </div>
+    <div class="body col-md-9 content" role="main">
+      
+
+  <section id="performing-spatial-joins">
+<h1>공간 결합(Spatial Join) 실행<a class="headerlink" href="#performing-spatial-joins" title="이 표제에 대한 퍼머링크">¶</a></h1>
+<div class="admonition warning">
+<p class="admonition-title">경고</p>
+<p>This tutorial is now obsolete. A new and updated version is available at <a class="reference internal" href="3/performing_spatial_joins.html"><span class="doc">공간 결합 수행 (QGIS3)</span></a></p>
+</div>
+<p>공간 결합은 GIS의 고전적인 문제로써 공간 관계를 바탕으로 한 레이어에서 다른 레이어로 속성을 전달하는 것입니다. QGIS에서 이 기능은 <strong>위치에 따라 속성 결합</strong>, <strong>Join Attributes by Location</strong> 툴을 통해 가능합니다.</p>
+<section id="overview-of-the-task">
+<h2>과업 개요<a class="headerlink" href="#overview-of-the-task" title="이 표제에 대한 퍼머링크">¶</a></h2>
+<p>여기서는 2개의 레이어를 사용하는데, 뉴욕시의 자치구 경계 shapefile과 뉴욕시에서 요양원의 위치 shapefile입니다. 각 자치구의 전체 요양원 수용력을 찾는데 공간 결합 기법을 사용할 것입니다.</p>
+<section id="other-skills-you-will-learn">
+<h3>기타 스킬<a class="headerlink" href="#other-skills-you-will-learn" title="이 표제에 대한 퍼머링크">¶</a></h3>
+<ul class="simple">
+<li><p>레이어의 속성표에서 열을 삭제합니다.</p></li>
+</ul>
+</section>
+</section>
+<section id="get-the-data">
+<h2>데이터 획득<a class="headerlink" href="#get-the-data" title="이 표제에 대한 퍼머링크">¶</a></h2>
+<p>뉴욕시 오픈 데이터 포탈 <a href="#id1"><span class="problematic" id="id2">`</span></a>NYC Open Data Portal &lt;<a class="reference external" href="https://data.cityofnewyork.us/">https://data.cityofnewyork.us/</a>&gt;`_은 뉴욕시의 뉴욕시의 훌륭한 무료 데이터 소스입니다.</p>
+<ol class="arabic simple">
+<li><p>포털에서 내보내기 옵션을 이용하여 자치구 경계 <a class="reference external" href="https://data.cityofnewyork.us/City-Government/Borough-Boundaries/tqmj-j8zm">Borough Boundaries</a> 압축파일을 다운로드합니다.</p></li>
+</ol>
+<img alt="../_images/1185.png" class="align-center" src="../_images/1185.png" />
+<ol class="arabic simple" start="2">
+<li><p>포털에서 내보내기 옵션을 이용하여 요양원  <a class="reference external" href="https://data.cityofnewyork.us/Health/Nursing-Homes/9tqc-rnkr">Nursing Homes</a> 압축파일을 다운로드 합니다.</p></li>
+</ol>
+<img alt="../_images/2151.png" class="align-center" src="../_images/2151.png" />
+<p>편리하게도, 데이터셋을 아래 링크로에서 바로 다운로드하실 수 있습니다.</p>
+<p><a class="reference external" href="http://www.qgistutorials.com/downloads/nybb_12c.zip">nybb_12c.zip</a></p>
+<p><a class="reference external" href="http://www.qgistutorials.com/downloads/OEM_NursingHomes_001.zip">OEM_NursingHomes_001.zip</a></p>
+</section>
+<section id="procedure">
+<h2>과정<a class="headerlink" href="#procedure" title="이 표제에 대한 퍼머링크">¶</a></h2>
+<ol class="arabic simple" start="3">
+<li><p>메뉴 레이어 –&gt; 벡터 레이어 추가  :menuselection:<a href="#id1"><span class="problematic" id="id2">`</span></a>Layer –&gt; Add Vector Layer`로 갑니다. 다운로드한 <a href="#id3"><span class="problematic" id="id4">``</span></a>nybb_12c.zip``파일을 찾아서 열기 :guilabel:<a href="#id5"><span class="problematic" id="id6">`</span></a>Open`를 선택합니다.</p></li>
+</ol>
+<img alt="../_images/382.png" class="align-center" src="../_images/382.png" />
+<ol class="arabic simple" start="4">
+<li><p>Select the layer <code class="docutils literal notranslate"><span class="pre">nybb.shp</span></code> and click <span class="guilabel">OK</span>.</p></li>
+</ol>
+<img alt="../_images/455.png" class="align-center" src="../_images/455.png" />
+<ol class="arabic simple" start="5">
+<li><p>또다른 압축파일인  <a href="#id1"><span class="problematic" id="id2">``</span></a>OEM_NursingHomes_001.zip``에 대해 3번과 4번 단계를 되풀이하고 <a href="#id3"><span class="problematic" id="id4">``</span></a>OEM_NursingHomes_001.shp``레이어를 불러옵니다. 일단 두개의 레이어가 불러들여지면 <a href="#id5"><span class="problematic" id="id6">``</span></a>OEM_NursingHomes_001``레이어를 우측클릭하고 속성 테이블 열기  :guilabel:<a href="#id7"><span class="problematic" id="id8">`</span></a>Open Attribute Table`를 선택합니다.</p></li>
+</ol>
+<img alt="../_images/552.png" class="align-center" src="../_images/552.png" />
+<ol class="arabic simple" start="6">
+<li><p>각 객체에서 사용가능한 속성을 살펴봅니다. 각 자치구에서 전체 요양원의 수용력을 계산하는 것이 과업이므로  경계 레이어와 결합할 수 있는 <strong>Capacity</strong> 속성 을 사용할 수 있습니다.</p></li>
+</ol>
+<img alt="../_images/650.png" class="align-center" src="../_images/650.png" />
+<ol class="arabic simple" start="7">
+<li><p>메뉴 벡터 –&gt; 데이터 관리 도구 –&gt; 위치에 따라 속성 결합 :menuselection:<a href="#id1"><span class="problematic" id="id2">`</span></a>Vector –&gt; Data Mangement Tools –&gt; Join attributes by location`으로 갑니다.</p></li>
+</ol>
+<img alt="../_images/749.png" class="align-center" src="../_images/749.png" />
+<ol class="arabic simple" start="8">
+<li><p>대상벡터레이어  <span class="guilabel">Target vector layer`는 속성을 추가하고자 하는 것입니다. 이 예제에서 이것은 자치구 경계 ``nybb``레이어가 될 것 입니다. 벡터레이어조인 :guilabel:`Join vector layer</span> 은 요양원  <a href="#id1"><span class="problematic" id="id2">``</span></a>OEM_NursingHomes_001``레이어가 될 것입니다. 요양원 수용력의 합계가 필요하므로 교차하는 모든 객체 속성 요약 이용  <span class="guilabel">Take summary of intersecting features</span> 을 선책하고합계 <span class="guilabel">Sum</span> 을 선택합니다. 출력파일은 <a href="#id3"><span class="problematic" id="id4">``</span></a>nyc_borough_join.shp``로 입력합니다. 출력테이블 <span class="guilabel">Output table</span> 은 모든레코드남기기 :guilabel:<a href="#id5"><span class="problematic" id="id6">`</span></a>Keep all records``를 선택합니다.</p></li>
+</ol>
+<img alt="../_images/847.png" class="align-center" src="../_images/847.png" />
+<ol class="arabic simple" start="9">
+<li><p>일단 과정이 종료되면 레이어를 TOC에 추가하고자 묻는다면 <span class="guilabel">Yes</span> 를 선택합니다. 새로운 레이어 <a href="#id1"><span class="problematic" id="id2">``</span></a>nyc_borough_join``는 <a href="#id3"><span class="problematic" id="id4">``</span></a>OEM_NursingHomes_001``레이어로부터 공간적으로 결합된 속성을 따라  <a href="#id5"><span class="problematic" id="id6">``</span></a>nybb``레이어로 부터 객체를 갖게 됩니다. 레이어를 우측클릭하고 속성 테이블 열기  :guilabel:<a href="#id7"><span class="problematic" id="id8">`</span></a>Open Attribute Table`를 선택합니다.</p></li>
+</ol>
+<img alt="../_images/946.png" class="align-center" src="../_images/946.png" />
+<ol class="arabic simple" start="10">
+<li><p>속성 테이블에서  <strong>SUMCapacit</strong> 열을 보게될 것입니다. 이것은 각 자치구 객체내에 해당하는 요양원의 <a href="#id1"><span class="problematic" id="id2">**</span></a>Capacity**속성의 총합입니다.</p></li>
+</ol>
+<img alt="../_images/1054.png" class="align-center" src="../_images/1054.png" />
+<ol class="arabic simple" start="11">
+<li><p>이것이 찾고자하는 답입니다. 그러나 결과에서 원하지 않는 여분의 열이 있습니다. 결과를 깔끔하게 정리하십시오. 편집 전환  :guilabel:<a href="#id1"><span class="problematic" id="id2">`</span></a>Toggle editing`단추와 칼럼삭제 :guilabel:<a href="#id3"><span class="problematic" id="id4">`</span></a>Delete column`단추를 클릭합니다.</p></li>
+</ol>
+<img alt="../_images/1186.png" class="align-center" src="../_images/1186.png" />
+<ol class="arabic simple" start="12">
+<li><p>속성삭제  :guilabel:<a href="#id1"><span class="problematic" id="id2">`</span></a>Delete Attributes`다이알로그에서 모든 칼럼을 선택하기 위하여 :kbd:<a href="#id3"><span class="problematic" id="id4">`</span></a>Control-A`른 누릅니다. 다음 :kbd:<a href="#id5"><span class="problematic" id="id6">`</span></a>Control`키를 누른 채 유지하고자 하는 칼럼을 선택해제합니다.  :guilabel:<a href="#id7"><span class="problematic" id="id8">`</span></a>OK`를 클릭합니다.</p></li>
+</ol>
+<img alt="../_images/1256.png" class="align-center" src="../_images/1256.png" />
+<ol class="arabic simple" start="13">
+<li><p>속성 테이블에서 변경된 내용을 저장하기 위하여 다시 편집전환  :guilabel:<a href="#id1"><span class="problematic" id="id2">`</span></a>Toggle editing`을 클릭합니다.</p></li>
+</ol>
+<img alt="../_images/1353.png" class="align-center" src="../_images/1353.png" />
+<ol class="arabic simple" start="14">
+<li><p>QGIS 캔버스로 되돌아 가서, 결과 파일이 각 자치구 객체에서 원하던 속성을 갖고 있는지 객체확인 <span class="guilabel">Identify</span> 툴을 이용합니다.</p></li>
+</ol>
+<img alt="../_images/1450.png" class="align-center" src="../_images/1450.png" />
+</section>
+</section>
+
+
+
+
+
+  <div id="disqus_thread"></div>
+  <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+
+    </div>
+      
+  </div>
+</div>
+
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+    </p>
+    <p>
+        &copy; Copyright 2021, Ujaval Gandhi.<br/>
+      최종 업데이트: 8월 30, 2022<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 4.0.1.<br/>
+    </p>
+  </div>
+</footer>
+<div class="container">
+  <p>This work is licensed under a <a href="http://creativecommons.org/licenses/by/4.0/deed.en_US">Creative Commons Attribution 4.0 International License</a></p>
+</div>
+<!-- Twitter Button -->
+<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+
+<!-- Disqus comments widget -->
+<script type="text/javascript">
+  /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+  var disqus_shortname = 'qgistutorials'; // required: replace example with your forum shortname
+  /* * * DON'T EDIT BELOW THIS LINE * * */
+  (function () {
+    var s = document.createElement('script'); s.async = true;
+    s.type = 'text/javascript';
+    s.src = '//' + disqus_shortname + '.disqus.com/count.js';
+    (document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);
+  }());
+</script>
+
+<script type="text/javascript">
+  /* * * DON'T EDIT BELOW THIS LINE * * */
+  (function() {
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+
+<!-- Script fpr language switching. Largely adapted from https://github.com/pcav/faunalia-website -->
+<script>
+    var currentPage = 'docs/performing_spatial_joins.html'; // coming from sphinx, always without starting '/'
+    var currentLang = 'en';
+    $(document).ready(function(){
+
+        var search = new RegExp('\/[a-zA-Z_]{2,8}\/'+ currentPage, 'gi');
+        var langPlusPage = window.location.href.match(search);
+        // it's possible this is a index.html page called without 'index.html', try without the currentPage
+        if (langPlusPage==undefined){
+            search = new RegExp('\/[a-zA-Z_]{2,8}\/$', 'gi');
+            langPlusPage = window.location.href.match(search);
+        }
+
+        // it's possible this is an index.html page called without 'index.html', try removing index.html
+        if (langPlusPage==undefined){
+            currentPage = currentPage.replace('index.html','')
+            search = new RegExp('\/[a-zA-Z_]{2,8}\/'+ currentPage, 'gi');
+            langPlusPage = window.location.href.match(search);
+        }
+        // still no langPlugPage: stop, because the language swicher will misbehave 
+
+        if (langPlusPage == undefined || langPlusPage.length != 1){
+            alert('You hit an error, please report back to us.');
+            return;
+        }
+        langPlusPage = langPlusPage[0];
+        currentLang = langPlusPage.replace(currentPage, '');
+
+        $("#languages").val(currentLang.replace(/\//g,'')); // currentLang is something like '/nl/'
+
+        $("#languages").change(function() {
+            gotoLang($(this).val());
+        });
+
+    });
+
+    // load current page in a different language
+    function gotoLang(lang){
+        var currentUrl = window.location.href;
+        var newUrl = currentUrl.replace(currentLang, '/'+lang+'/');
+        window.location.href = newUrl;
+    }
+</script>
+
+  </body>
+</html>

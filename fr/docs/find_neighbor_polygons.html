@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+
+<html lang="fr">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>Find Neighbor Polygons in a Layer &#8212; QGIS Tutorials and Tips</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/bootstrap-sphinx.css" />
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/translations.js"></script>
+    <link rel="search" title="Recherche" href="../search.html" />
+
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<script type="text/javascript" src="../_static/js/jquery-1.11.0.min.js "></script>
+<script type="text/javascript" src="../_static/js/jquery-fix.js "></script>
+<script type="text/javascript" src="../_static/bootstrap-3.3.7/js/bootstrap.min.js "></script>
+<script type="text/javascript" src="../_static/bootstrap-sphinx.js "></script>
+
+
+<!-- Cookie Notice -->
+<!-- Script from https://github.com/AOEpeople/cookie-notice -->
+<script type="text/javascript" src="../_static/cookie.notice.min.js"></script>
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-B1WQ7B80XJ"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-B1WQ7B80XJ');
+</script>
+
+
+  </head><body>
+
+  <div id="navbar" class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="../index.html"><span><img src="../_static/logo.png"></span>
+          QGIS Tutorials and Tips</a>
+        <span class="navbar-text navbar-version pull-left"><b>v1</b></span>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="../index.html">Tutorials List <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"><ul>
+<li class="toctree-l1"><a class="reference internal" href="introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/making_a_map.html">Making a Map (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/working_with_attributes.html">Working with Attributes (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/importing_spreadsheets_csv.html">Importing Spreadsheets or CSV files (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/basic_vector_styling.html">Basic Vector Styling (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/calculating_line_lengths.html">Calculating Line Lengths and Statistics (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/raster_styling_and_analysis.html">Basic Raster Styling and Analysis (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/raster_mosaicing_and_clipping.html">Raster Mosaicing and Clipping (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/working_with_terrain.html">Working with Terrain Data (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/working_with_wms.html">Utilisation de données WMS(QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/working_with_projections.html">Working with Projections (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/georeferencing_basics.html">Georeferencing Topo Sheets and Scanned Maps (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/advanced_georeferencing.html">Géoréférencer des images aériennes (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/digitizing_basics.html">Digitizing Map Data (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/performing_table_joins.html">Performing Table Joins (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/performing_spatial_joins.html">Performing Spatial Joins (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/performing_spatial_queries.html">Performing Spatial Queries (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/nearest_neighbor_analysis.html">Nearest Neighbor Analysis (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/sampling_raster_data.html">Sampling Raster Data using Points or Polygons (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/calculating_raster_area.html">Calculating Raster Area (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/creating_heatmaps.html">Creating Heatmaps (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/animating_time_series.html">Animating Time Series Data (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/handling_invalid_geometries.html">Handling Invalid Geometries (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/advanced_raster_analysis.html">Advanced Raster Analysis (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/interpolating_point_data.html">Interpolating Point Data (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/calculating_intersection_density.html">Calcul de densité des intersection de rues (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/batch_processing.html">Traitement par lots en utilisant le framework de traitement (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/processing_graphical_modeler.html">Automating Complex Workflows using Processing Modeler (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/automating_map_creation.html">Création automatisée de cartes avec l’Atlas de l’outil de mise en page (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/multi_criteria_overlay.html">Multi Criteria Overlay Analysis (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/basic_network_analysis.html">Basic Network Visualization and Routing (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/origin_destination_matrix.html">Locating Nearest Facility with Origin-Destination Matrix (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/service_area_analysis.html">Service Area Analysis using Openrouteservice (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/travel_time_analysis.html">Travel Time Analysis with Uber Movement (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/areal_mean_rainfall.html">Calculating Areal Mean Rainfall (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/getting_started_with_pyqgis.html">Getting Started With Python Programming (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/processing_algorithms_pyqgis.html">Running Processing Algorithms via Python (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/custom_python_functions.html">Using Custom Python Expression Functions (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/processing_python_scripts.html">Écrire des scripts Python pour la structure de traitement (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/building_a_python_plugin.html">Building a Python Plugin (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/processing_python_plugin.html">Building a Processing Plugin (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="running_qgis_jobs.html">Running and Scheduling QGIS Processing Jobs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/web_mapping_with_qgis2web.html">cartographie web avec QGIS2WEB (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="creating_basemaps_with_qtiles.html">Créer des fonds de carte avec QTiles</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/using_plugins.html">Using Plugins (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="downloading_osm_data.html">Searching and Downloading OpenStreetMap Data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="learning_resources.html">Ressources pour l’apprentissage de QGIS</a></li>
+<li class="toctree-l1"><a class="reference internal" href="credits.html">Crédits</a></li>
+<li class="toctree-l1"><a class="reference internal" href="batch_processing.html">Batch Processing using Processing Framework (QGIS2)</a></li>
+</ul>
+</ul>
+</li>
+              
+            
+            
+              
+                
+              
+            
+            
+
+            
+
+            
+              <li class="hidden-sm"></li>
+            
+          </ul>
+
+          
+            
+<form class="navbar-form navbar-right" action="../search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+      <div class="col-md-3">
+        <div id="sidebar" class="bs-sidenav" role="complementary"><h4>Author</h4>
+<p>Ujaval Gandhi</p>
+<a href="https://twitter.com/intent/follow?screen_name=spatialthoughts" class="twitter-follow-button" data-show-count="false">Follow @spatialthoughts</a>
+<hr>
+<p>Want to learn QGIS in a structured way? Check out <a href="https://spatialthoughts.com/" target="_blank">Spatial Thoughts</a> for more learning materials and instructor-led online programs with QGIS.org certification.</p>
+
+
+<h4>Change Language</h4>
+<form role="form" class="sidebar-form sidebar-left">
+<select id="languages" class="form-control select-mini">
+  <option value="en">English</option>
+  <option value="zh_TW">Chinese (Taiwan)</option>
+  <option value="nl">Dutch</option>
+  <option value="fi_FI">Finnish</option>
+  <option value="fr">French</option>
+  <option value="de">German</option>
+  <option value="el">Greek</option>
+  <option value="id">Indonesian</option>
+  <option value="it">Italian</option>
+  <option value="ko">Korean</option>
+  <option value="fa">Persian</option>
+  <option value="pt_BR">Portuguese</option>
+  <option value="ro">Romanian</option>
+  <option value="ru">Russian</option>
+  <option value="sl">Slovenian</option>
+  <option value="es">Spanish</option>
+  <option value="th">Thai</option>
+  <option value="tr">Turkish</option>
+  <option value="uk">Ukrainian</option>
+  <option value="vi">Vietnamese</option>
+</select>
+</form>
+        </div>
+      </div>
+    <div class="body col-md-9 content" role="main">
+      
+
+  <section id="find-neighbor-polygons-in-a-layer">
+<h1>Find Neighbor Polygons in a Layer<a class="headerlink" href="#find-neighbor-polygons-in-a-layer" title="Lien permanent vers ce titre">¶</a></h1>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>If you are using QGIS3, there is a simpler and better way to do this analysis using the aggregate function. See my post <a class="reference external" href="https://spatialthoughts.com/2019/05/23/neighbor-polygons-aggregate-qgis/">Find Neighbor Polygons using Summary Aggregate Function in QGIS</a></p>
+</div>
+<p>There are some use cases where you want to find all neighboring polygons of
+each of the polygons in a layer. With a little python script, we can accomplish
+this and much more in QGIS. Here is an example script you can use to find all
+polygons that share boundary with each of the polygons in a layer and also add
+their names to the attribute table. As an added bonus, the script also sums up
+an attribute of your choice from all the neighboring polygons.</p>
+<section id="overview-of-the-task">
+<h2>Description de l’exercice<a class="headerlink" href="#overview-of-the-task" title="Lien permanent vers ce titre">¶</a></h2>
+<p>To demonstrate how the script works, we will use a layer of country polygons
+and find countries that share the border. We also want to compute the total
+population of the country’s neighbors.</p>
+</section>
+<section id="get-the-data">
+<h2>Récupérer les données<a class="headerlink" href="#get-the-data" title="Lien permanent vers ce titre">¶</a></h2>
+<p>We will use the <a class="reference external" href="http://www.naturalearthdata.com/downloads/10m-cultural-vectors/10m-admin-0-countries/">Admin 0 - Countries</a>
+dataset from Natural Earth.</p>
+<p>Download the <a class="reference external" href="http://www.naturalearthdata.com/http//www.naturalearthdata.com/download/10m/cultural/ne_10m_admin_0_countries.zip">Admin 0 - countries shapefile.</a>.</p>
+<p>Data Source <a class="reference internal" href="credits.html#naturalearth" id="id1"><span>[NATURALEARTH]</span></a></p>
+</section>
+<section id="get-the-script">
+<h2>Get the script<a class="headerlink" href="#get-the-script" title="Lien permanent vers ce titre">¶</a></h2>
+<p>Download the <a class="reference download internal" download="" href="../_downloads/4cea2e81c7cbba6c6a79b31dd0eb3c2a/neighbors.py"><code class="xref download docutils literal notranslate"><span class="pre">neighbors.py</span> <span class="pre">script</span></code></a>
+and save it to your disk.</p>
+</section>
+<section id="procedure">
+<h2>Procédure<a class="headerlink" href="#procedure" title="Lien permanent vers ce titre">¶</a></h2>
+<ol class="arabic simple">
+<li><p>Load the <code class="docutils literal notranslate"><span class="pre">ne_10m_admin_0_countries</span></code> layer by going to
+<span class="menuselection">Layer ‣ Add Vector Layer</span>.</p></li>
+</ol>
+<img alt="../_images/1170.png" class="align-center" src="../_images/1170.png" />
+<ol class="arabic simple" start="2">
+<li><p>The script uses 2 fields to perform the action. A name field and a field
+that you want to sum up. Use the <span class="guilabel">Identify</span> tool to click on any
+feature and examine the attributes. In this case the name field is <strong>NAME</strong> and we want
+to sum up the population estimates from <strong>POP_EST</strong> field.</p></li>
+</ol>
+<img alt="../_images/2139.png" class="align-center" src="../_images/2139.png" />
+<ol class="arabic simple" start="3">
+<li><p>Go to <span class="menuselection">Plugins ‣ Python Console</span>.</p></li>
+</ol>
+<img alt="../_images/370.png" class="align-center" src="../_images/370.png" />
+<ol class="arabic simple" start="4">
+<li><p>In the <span class="guilabel">Python Console</span> window, click the <span class="guilabel">Show Editor</span>
+button.</p></li>
+</ol>
+<img alt="../_images/446.png" class="align-center" src="../_images/446.png" />
+<ol class="arabic simple" start="5">
+<li><p>In the <span class="guilabel">Editor</span> panel, click the <span class="guilabel">Open file</span> button and
+browse to downloaded <code class="docutils literal notranslate"><span class="pre">neighbors.py</span></code> script and click <span class="guilabel">Open</span>.</p></li>
+</ol>
+<img alt="../_images/543.png" class="align-center" src="../_images/543.png" />
+<ol class="arabic simple" start="6">
+<li><p>Once the script is loaded, you may want to change the <code class="docutils literal notranslate"><span class="pre">_NAME_FIELD</span></code> and
+<code class="docutils literal notranslate"><span class="pre">_SUM_FIELD</span></code> values to match the attributes from your own layer. If you
+are working with the <code class="docutils literal notranslate"><span class="pre">ne_10m_admin_0_countries</span></code> layer, you can leave those
+as they are. Click the <span class="guilabel">Save</span> button in the <span class="guilabel">Editor</span>
+panel if you made any changes. Now click the <span class="guilabel">Run script</span> button
+to execute the script.</p></li>
+</ol>
+<img alt="../_images/641.png" class="align-center" src="../_images/641.png" />
+<ol class="arabic simple" start="7">
+<li><p>Once the script finishes, right-click the <code class="docutils literal notranslate"><span class="pre">ne_10m_admin_0_countries</span></code> layer
+and select <span class="guilabel">Open Attribute Table</span>.</p></li>
+</ol>
+<img alt="../_images/741.png" class="align-center" src="../_images/741.png" />
+<ol class="arabic simple" start="8">
+<li><p>You will notice 2 new attributes called <code class="docutils literal notranslate"><span class="pre">NEIGHBORS</span></code> and <code class="docutils literal notranslate"><span class="pre">SUM</span></code>. These
+were added by the script.</p></li>
+</ol>
+<img alt="../_images/840.png" class="align-center" src="../_images/840.png" />
+<p>Below is the complete script for reference. You may modify it to suit your
+needs.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1">################################################################################</span>
+<span class="c1"># Copyright 2014 Ujaval Gandhi</span>
+<span class="c1">#</span>
+<span class="c1">#This program is free software; you can redistribute it and/or</span>
+<span class="c1">#modify it under the terms of the GNU General Public License</span>
+<span class="c1">#as published by the Free Software Foundation; either version 2</span>
+<span class="c1">#of the License, or (at your option) any later version.</span>
+<span class="c1">#</span>
+<span class="c1">#This program is distributed in the hope that it will be useful,</span>
+<span class="c1">#but WITHOUT ANY WARRANTY; without even the implied warranty of</span>
+<span class="c1">#MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the</span>
+<span class="c1">#GNU General Public License for more details.</span>
+<span class="c1">#</span>
+<span class="c1">#You should have received a copy of the GNU General Public License</span>
+<span class="c1">#along with this program; if not, write to the Free Software</span>
+<span class="c1">#Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.</span>
+<span class="c1">#</span>
+<span class="c1">################################################################################</span>
+<span class="kn">from</span> <span class="nn">qgis.utils</span> <span class="kn">import</span> <span class="n">iface</span>
+<span class="kn">from</span> <span class="nn">PyQt4.QtCore</span> <span class="kn">import</span> <span class="n">QVariant</span>
+
+<span class="c1"># Replace the values below with values from your layer.</span>
+<span class="c1"># For example, if your identifier field is called &#39;XYZ&#39;, then change the line</span>
+<span class="c1"># below to _NAME_FIELD = &#39;XYZ&#39;</span>
+<span class="n">_NAME_FIELD</span> <span class="o">=</span> <span class="s1">&#39;NAME&#39;</span>
+<span class="c1"># Replace the value below with the field name that you want to sum up.</span>
+<span class="c1"># For example, if the # field that you want to sum up is called &#39;VALUES&#39;, then</span>
+<span class="c1"># change the line below to _SUM_FIELD = &#39;VALUES&#39;</span>
+<span class="n">_SUM_FIELD</span> <span class="o">=</span> <span class="s1">&#39;POP_EST&#39;</span>
+
+<span class="c1"># Names of the new fields to be added to the layer</span>
+<span class="n">_NEW_NEIGHBORS_FIELD</span> <span class="o">=</span> <span class="s1">&#39;NEIGHBORS&#39;</span>
+<span class="n">_NEW_SUM_FIELD</span> <span class="o">=</span> <span class="s1">&#39;SUM&#39;</span>
+
+<span class="n">layer</span> <span class="o">=</span> <span class="n">iface</span><span class="o">.</span><span class="n">activeLayer</span><span class="p">()</span>
+
+<span class="c1"># Create 2 new fields in the layer that will hold the list of neighbors and sum</span>
+<span class="c1"># of the chosen field.</span>
+<span class="n">layer</span><span class="o">.</span><span class="n">startEditing</span><span class="p">()</span>
+<span class="n">layer</span><span class="o">.</span><span class="n">dataProvider</span><span class="p">()</span><span class="o">.</span><span class="n">addAttributes</span><span class="p">(</span>
+        <span class="p">[</span><span class="n">QgsField</span><span class="p">(</span><span class="n">_NEW_NEIGHBORS_FIELD</span><span class="p">,</span> <span class="n">QVariant</span><span class="o">.</span><span class="n">String</span><span class="p">),</span>
+         <span class="n">QgsField</span><span class="p">(</span><span class="n">_NEW_SUM_FIELD</span><span class="p">,</span> <span class="n">QVariant</span><span class="o">.</span><span class="n">Int</span><span class="p">)])</span>
+<span class="n">layer</span><span class="o">.</span><span class="n">updateFields</span><span class="p">()</span>
+<span class="c1"># Create a dictionary of all features</span>
+<span class="n">feature_dict</span> <span class="o">=</span> <span class="p">{</span><span class="n">f</span><span class="o">.</span><span class="n">id</span><span class="p">():</span> <span class="n">f</span> <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">layer</span><span class="o">.</span><span class="n">getFeatures</span><span class="p">()}</span>
+
+<span class="c1"># Build a spatial index</span>
+<span class="n">index</span> <span class="o">=</span> <span class="n">QgsSpatialIndex</span><span class="p">()</span>
+<span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">feature_dict</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
+    <span class="n">index</span><span class="o">.</span><span class="n">insertFeature</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
+
+<span class="c1"># Loop through all features and find features that touch each feature</span>
+<span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">feature_dict</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
+    <span class="nb">print</span> <span class="s1">&#39;Working on </span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">f</span><span class="p">[</span><span class="n">_NAME_FIELD</span><span class="p">]</span>
+    <span class="n">geom</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">geometry</span><span class="p">()</span>
+    <span class="c1"># Find all features that intersect the bounding box of the current feature.</span>
+    <span class="c1"># We use spatial index to find the features intersecting the bounding box</span>
+    <span class="c1"># of the current feature. This will narrow down the features that we need</span>
+    <span class="c1"># to check neighboring features.</span>
+    <span class="n">intersecting_ids</span> <span class="o">=</span> <span class="n">index</span><span class="o">.</span><span class="n">intersects</span><span class="p">(</span><span class="n">geom</span><span class="o">.</span><span class="n">boundingBox</span><span class="p">())</span>
+    <span class="c1"># Initalize neighbors list and sum</span>
+    <span class="n">neighbors</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">neighbors_sum</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">for</span> <span class="n">intersecting_id</span> <span class="ow">in</span> <span class="n">intersecting_ids</span><span class="p">:</span>
+        <span class="c1"># Look up the feature from the dictionary</span>
+        <span class="n">intersecting_f</span> <span class="o">=</span> <span class="n">feature_dict</span><span class="p">[</span><span class="n">intersecting_id</span><span class="p">]</span>
+
+        <span class="c1"># For our purpose we consider a feature as &#39;neighbor&#39; if it touches or</span>
+        <span class="c1"># intersects a feature. We use the &#39;disjoint&#39; predicate to satisfy</span>
+        <span class="c1"># these conditions. So if a feature is not disjoint, it is a neighbor.</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">f</span> <span class="o">!=</span> <span class="n">intersecting_f</span> <span class="ow">and</span>
+            <span class="ow">not</span> <span class="n">intersecting_f</span><span class="o">.</span><span class="n">geometry</span><span class="p">()</span><span class="o">.</span><span class="n">disjoint</span><span class="p">(</span><span class="n">geom</span><span class="p">)):</span>
+            <span class="n">neighbors</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">intersecting_f</span><span class="p">[</span><span class="n">_NAME_FIELD</span><span class="p">])</span>
+            <span class="n">neighbors_sum</span> <span class="o">+=</span> <span class="n">intersecting_f</span><span class="p">[</span><span class="n">_SUM_FIELD</span><span class="p">]</span>
+    <span class="n">f</span><span class="p">[</span><span class="n">_NEW_NEIGHBORS_FIELD</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;,&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">neighbors</span><span class="p">)</span>
+    <span class="n">f</span><span class="p">[</span><span class="n">_NEW_SUM_FIELD</span><span class="p">]</span> <span class="o">=</span> <span class="n">neighbors_sum</span>
+    <span class="c1"># Update the layer with new attribute values.</span>
+    <span class="n">layer</span><span class="o">.</span><span class="n">updateFeature</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
+
+<span class="n">layer</span><span class="o">.</span><span class="n">commitChanges</span><span class="p">()</span>
+<span class="nb">print</span> <span class="s1">&#39;Processing complete.&#39;</span>
+</pre></div>
+</div>
+</section>
+</section>
+
+
+
+
+
+  <div id="disqus_thread"></div>
+  <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+
+    </div>
+      
+  </div>
+</div>
+
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+    </p>
+    <p>
+        &copy; Copyright 2021, Ujaval Gandhi.<br/>
+      Mis à jour le août 30, 2022.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 4.0.1.<br/>
+    </p>
+  </div>
+</footer>
+<div class="container">
+  <p>This work is licensed under a <a href="http://creativecommons.org/licenses/by/4.0/deed.en_US">Creative Commons Attribution 4.0 International License</a></p>
+</div>
+<!-- Twitter Button -->
+<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+
+<!-- Disqus comments widget -->
+<script type="text/javascript">
+  /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+  var disqus_shortname = 'qgistutorials'; // required: replace example with your forum shortname
+  /* * * DON'T EDIT BELOW THIS LINE * * */
+  (function () {
+    var s = document.createElement('script'); s.async = true;
+    s.type = 'text/javascript';
+    s.src = '//' + disqus_shortname + '.disqus.com/count.js';
+    (document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);
+  }());
+</script>
+
+<script type="text/javascript">
+  /* * * DON'T EDIT BELOW THIS LINE * * */
+  (function() {
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+
+<!-- Script fpr language switching. Largely adapted from https://github.com/pcav/faunalia-website -->
+<script>
+    var currentPage = 'docs/find_neighbor_polygons.html'; // coming from sphinx, always without starting '/'
+    var currentLang = 'en';
+    $(document).ready(function(){
+
+        var search = new RegExp('\/[a-zA-Z_]{2,8}\/'+ currentPage, 'gi');
+        var langPlusPage = window.location.href.match(search);
+        // it's possible this is a index.html page called without 'index.html', try without the currentPage
+        if (langPlusPage==undefined){
+            search = new RegExp('\/[a-zA-Z_]{2,8}\/$', 'gi');
+            langPlusPage = window.location.href.match(search);
+        }
+
+        // it's possible this is an index.html page called without 'index.html', try removing index.html
+        if (langPlusPage==undefined){
+            currentPage = currentPage.replace('index.html','')
+            search = new RegExp('\/[a-zA-Z_]{2,8}\/'+ currentPage, 'gi');
+            langPlusPage = window.location.href.match(search);
+        }
+        // still no langPlugPage: stop, because the language swicher will misbehave 
+
+        if (langPlusPage == undefined || langPlusPage.length != 1){
+            alert('You hit an error, please report back to us.');
+            return;
+        }
+        langPlusPage = langPlusPage[0];
+        currentLang = langPlusPage.replace(currentPage, '');
+
+        $("#languages").val(currentLang.replace(/\//g,'')); // currentLang is something like '/nl/'
+
+        $("#languages").change(function() {
+            gotoLang($(this).val());
+        });
+
+    });
+
+    // load current page in a different language
+    function gotoLang(lang){
+        var currentUrl = window.location.href;
+        var newUrl = currentUrl.replace(currentLang, '/'+lang+'/');
+        window.location.href = newUrl;
+    }
+</script>
+
+  </body>
+</html>

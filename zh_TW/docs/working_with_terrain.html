@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+
+<html lang="zh_TW">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>地形資料的操作 &#8212; QGIS Tutorials and Tips</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/bootstrap-sphinx.css" />
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/translations.js"></script>
+    <link rel="search" title="搜尋" href="../search.html" />
+
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<script type="text/javascript" src="../_static/js/jquery-1.11.0.min.js "></script>
+<script type="text/javascript" src="../_static/js/jquery-fix.js "></script>
+<script type="text/javascript" src="../_static/bootstrap-3.3.7/js/bootstrap.min.js "></script>
+<script type="text/javascript" src="../_static/bootstrap-sphinx.js "></script>
+
+
+<!-- Cookie Notice -->
+<!-- Script from https://github.com/AOEpeople/cookie-notice -->
+<script type="text/javascript" src="../_static/cookie.notice.min.js"></script>
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-B1WQ7B80XJ"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-B1WQ7B80XJ');
+</script>
+
+
+  </head><body>
+
+  <div id="navbar" class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="../index.html"><span><img src="../_static/logo.png"></span>
+          QGIS Tutorials and Tips</a>
+        <span class="navbar-text navbar-version pull-left"><b>v1</b></span>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="../index.html">Tutorials List <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"><ul>
+<li class="toctree-l1"><a class="reference internal" href="introduction.html">簡介</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/making_a_map.html">製作地圖 (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/working_with_attributes.html">Working with Attributes (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/importing_spreadsheets_csv.html">匯入工作表或 CSV 檔 (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/basic_vector_styling.html">Basic Vector Styling (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/calculating_line_lengths.html">Calculating Line Lengths and Statistics (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/raster_styling_and_analysis.html">Basic Raster Styling and Analysis (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/raster_mosaicing_and_clipping.html">Raster Mosaicing and Clipping (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/working_with_terrain.html">Working with Terrain Data (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/working_with_wms.html">Working with WMS Data (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/working_with_projections.html">Working with Projections (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/georeferencing_basics.html">為紙本地圖進行空間對位 (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/advanced_georeferencing.html">為空照圖進行空間對位 (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/digitizing_basics.html">Digitizing Map Data (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/performing_table_joins.html">資料表連接 (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/performing_spatial_joins.html">空間連接 (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/performing_spatial_queries.html">Performing Spatial Queries (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/nearest_neighbor_analysis.html">Nearest Neighbor Analysis (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/sampling_raster_data.html">Sampling Raster Data using Points or Polygons (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/calculating_raster_area.html">Calculating Raster Area (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/creating_heatmaps.html">製作熱區圖 (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/animating_time_series.html">Animating Time Series Data (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/handling_invalid_geometries.html">Handling Invalid Geometries (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/advanced_raster_analysis.html">Advanced Raster Analysis (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/interpolating_point_data.html">Interpolating Point Data (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/calculating_intersection_density.html">Calculating Street Intersection Density (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/batch_processing.html">使用處理框架進行批次處理 (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/processing_graphical_modeler.html">利用處理建模自動執行複雜的工作流程 (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/automating_map_creation.html">Automating Map Creation with Print Layout Atlas (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/multi_criteria_overlay.html">Multi Criteria Overlay Analysis (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/basic_network_analysis.html">Basic Network Visualization and Routing (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/origin_destination_matrix.html">Locating Nearest Facility with Origin-Destination Matrix (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/service_area_analysis.html">Service Area Analysis using Openrouteservice (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/travel_time_analysis.html">Travel Time Analysis with Uber Movement (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/areal_mean_rainfall.html">Calculating Areal Mean Rainfall (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/getting_started_with_pyqgis.html">Python 程式設計的初步上手 (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/processing_algorithms_pyqgis.html">Running Processing Algorithms via Python (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/custom_python_functions.html">使用自訂的 Python 表達式函數 (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/processing_python_scripts.html">撰寫 Python 腳本並在處理框架下執行（QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/building_a_python_plugin.html">以 Python 製作附加元件 (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/processing_python_plugin.html">Building a Processing Plugin (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="running_qgis_jobs.html">執行 QGIS 工作排程</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/web_mapping_with_qgis2web.html">Web Mapping with QGIS2Web (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="creating_basemaps_with_qtiles.html">用 QTiles 製作底圖</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/using_plugins.html">Using Plugins (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="downloading_osm_data.html">搜尋和下載開放街圖資料</a></li>
+<li class="toctree-l1"><a class="reference internal" href="learning_resources.html">QGIS 學習資源</a></li>
+<li class="toctree-l1"><a class="reference internal" href="credits.html">資料來源</a></li>
+<li class="toctree-l1"><a class="reference internal" href="batch_processing.html">使用處理框架進行批次處理 (QGIS2)</a></li>
+</ul>
+</ul>
+</li>
+              
+            
+            
+              
+                
+              
+            
+            
+
+            
+
+            
+              <li class="hidden-sm"></li>
+            
+          </ul>
+
+          
+            
+<form class="navbar-form navbar-right" action="../search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+      <div class="col-md-3">
+        <div id="sidebar" class="bs-sidenav" role="complementary"><h4>Author</h4>
+<p>Ujaval Gandhi</p>
+<a href="https://twitter.com/intent/follow?screen_name=spatialthoughts" class="twitter-follow-button" data-show-count="false">Follow @spatialthoughts</a>
+<hr>
+<p>Want to learn QGIS in a structured way? Check out <a href="https://spatialthoughts.com/" target="_blank">Spatial Thoughts</a> for more learning materials and instructor-led online programs with QGIS.org certification.</p>
+
+
+<h4>Change Language</h4>
+<form role="form" class="sidebar-form sidebar-left">
+<select id="languages" class="form-control select-mini">
+  <option value="en">English</option>
+  <option value="zh_TW">Chinese (Taiwan)</option>
+  <option value="nl">Dutch</option>
+  <option value="fi_FI">Finnish</option>
+  <option value="fr">French</option>
+  <option value="de">German</option>
+  <option value="el">Greek</option>
+  <option value="id">Indonesian</option>
+  <option value="it">Italian</option>
+  <option value="ko">Korean</option>
+  <option value="fa">Persian</option>
+  <option value="pt_BR">Portuguese</option>
+  <option value="ro">Romanian</option>
+  <option value="ru">Russian</option>
+  <option value="sl">Slovenian</option>
+  <option value="es">Spanish</option>
+  <option value="th">Thai</option>
+  <option value="tr">Turkish</option>
+  <option value="uk">Ukrainian</option>
+  <option value="vi">Vietnamese</option>
+</select>
+</form>
+        </div>
+      </div>
+    <div class="body col-md-9 content" role="main">
+      
+
+  <section id="working-with-terrain-data">
+<h1>地形資料的操作<a class="headerlink" href="#working-with-terrain-data" title="本標題的永久連結">¶</a></h1>
+<div class="admonition warning">
+<p class="admonition-title">警告</p>
+<p>This tutorial is now obsolete. A new and updated version is available at <a class="reference internal" href="3/working_with_terrain.html"><span class="doc">Working with Terrain Data (QGIS3)</span></a></p>
+</div>
+<p>地形，或稱之為高程資料，是在 GIS 分析中很有用，並且常於各種地圖上的一種資料。QGIS 本身即具有許多處理地形資料的功能，在本教學中，我們要實際運用地形資料來不同種類的地圖，像是等高線圖或是陰影圖（hillshade map）等等。</p>
+<section id="overview-of-the-task">
+<h2>內容說明<a class="headerlink" href="#overview-of-the-task" title="本標題的永久連結">¶</a></h2>
+<p>這次要來製作的是聖母峰周圍區域的等高線圖以及陰影圖。</p>
+<section id="other-skills-you-will-learn">
+<h3>你還會學到這些<a class="headerlink" href="#other-skills-you-will-learn" title="本標題的永久連結">¶</a></h3>
+<ul class="simple">
+<li><p>搜尋與下載免費的地形資料</p></li>
+<li><p>把向量圖層輸出成 KML 檔以便在 Google Earth 中觀看</p></li>
+</ul>
+</section>
+</section>
+<section id="get-the-data">
+<h2>取得資料<a class="headerlink" href="#get-the-data" title="本標題的永久連結">¶</a></h2>
+<p>我們要用的是美國地質調查局（USGS）所釋出的 <a class="reference external" href="http://eros.usgs.gov/#/Find_Data/Products_and_Data_Available/GMTED2010">GMTED (全球多解析度地形高度資料)</a> 資料集 2010 年版，它算是繼 GTOPO30 之後，更新版本的全球地形資料庫。GMTED 可以從美國地質調查局的 <a class="reference external" href="http://earthexplorer.usgs.gov/">Earthexplorer</a> 網站下載。</p>
+<p>以下說明如何從 USGS Earthexplorer 搜尋與下載相關資料。</p>
+<ol class="arabic simple">
+<li><p>前往 <a class="reference external" href="http://earthexplorer.usgs.gov/">USGS Earthexplorer</a>，然後在 <span class="guilabel">Search Criteria</span> 的分頁中，直接輸入 <cite>Mt. Everest</cite> 然後按 <span class="guilabel">Show</span> 搜尋，接著選擇底下的結果進行定位。</p></li>
+</ol>
+<img alt="../_images/1209.png" class="align-center" src="../_images/1209.png" />
+<ol class="arabic simple" start="2">
+<li><p>在 <span class="guilabel">Data Sets</span> 分頁中，打開 <span class="guilabel">Digital Elevation</span> 子集，勾選 <span class="guilabel">GMTED2010</span>。</p></li>
+</ol>
+<img alt="../_images/2177.png" class="align-center" src="../_images/2177.png" />
+<ol class="arabic simple" start="3">
+<li><p>現在可以直接到 <span class="guilabel">Results</span> 分頁去察看與搜尋條件相符的圖資了。按下那個 <span class="guilabel">Download Options</span> 鈕，網站會要你登入，如果你沒有帳號，那就直接申請一個吧，反正是免費的。</p></li>
+</ol>
+<img alt="../_images/3100.png" class="align-center" src="../_images/3100.png" />
+<ol class="arabic simple" start="4">
+<li><p>選擇 <span class="guilabel">30 ARC SEC</span> 的選項，然後按 <span class="guilabel">Select Download Option</span>。（譯註：目前 USGS 網站已有小改版，不過流程大致相同。）</p></li>
+</ol>
+<img alt="../_images/472.png" class="align-center" src="../_images/472.png" />
+<p>接著你應該會得到一個叫 <cite>GMTED2010N10E060_300.zip</cite> 的檔案。基本上地形資料會使用許多不同的影像格式發佈，像是 ASC、BIL、GeoTiff 格式等等。QGIS 目前透過 GDAL 函式庫，可以支援<a href="#id3"><span class="problematic" id="id4">`多種格式的資料&lt;http://www.gdal.org/formats_list.html&gt;`_</span></a>。這裡的 GMTED 資料是屬於 GeoTiff 格式，不過它目前是以被壓縮的 zip 檔儲存。</p>
+<p>為了方便起見，你也可以直接用下面的連結下載：</p>
+<p><a class="reference external" href="http://www.qgistutorials.com/downloads/GMTED2010N10E060_300.zip">GMTED2010N10E060_300.zip</a></p>
+<p>資料來源 <a class="reference internal" href="credits.html#gmted2010" id="id2"><span>[GMTED2010]</span></a></p>
+</section>
+<section id="procedure">
+<h2>操作流程<a class="headerlink" href="#procedure" title="本標題的永久連結">¶</a></h2>
+<ol class="arabic simple" start="5">
+<li><p>打開 QGIS，選擇 <span class="menuselection">圖層 ‣ 加入影像圖層</span>，然後選擇剛才下載的 zip 檔。</p></li>
+</ol>
+<img alt="../_images/569.png" class="align-center" src="../_images/569.png" />
+<ol class="arabic simple" start="6">
+<li><p>zip 檔中有許多經由不同的演算法建立的不同檔案。本教學使用的是這個 <cite>10n060e_20101117_gmted_mea300.tif</cite>。</p></li>
+</ol>
+<img alt="../_images/666.png" class="align-center" src="../_images/666.png" />
+<ol class="arabic simple" start="7">
+<li><p>接著 QGIS 畫布上就會出現地形的資料。在地形的網格式影像中，每個像素的值代表的是這個像素的位置的高度，單位是公尺。黑色的像素代表海拔比較低，而白色像素則是位在高海拔區。</p></li>
+</ol>
+<img alt="../_images/765.png" class="align-center" src="../_images/765.png" />
+<ol class="arabic simple" start="8">
+<li><p>來找一下要我們看的區域吧。從<a class="reference external" href="http://en.wikipedia.org/wiki/Mount_Everest">維基百科</a>中，可以知道聖母峰的經緯度座標是 27.9881° N 與 86.9253° E，記得 QGIS 的座標使用 (X, Y) 格式，所以經緯度座標要表示成 (緯度, 經度) 才行。因此，把 <cite>86.9253,27.9881</cite> 複製貼上到 QGIS 底部的 <span class="guilabel">坐標</span> 欄位後按下 Enter 鍵，就會看到上方的畫布中心移動到這個坐標了。在 <span class="guilabel">比例</span> 的地方輸入 <cite>1:1000000</cite> 後再次按下 Enter 鍵，就可以把畫布範圍縮到喜馬拉雅山脈周邊地區。</p></li>
+</ol>
+<img alt="../_images/863.png" class="align-center" src="../_images/863.png" />
+<ol class="arabic simple" start="9">
+<li><p>現在要來把我們的目標區域的影像給剪下來，選擇 <span class="menuselection">影像 ‣ 取出 ‣ 裁剪…</span>。</p></li>
+</ol>
+<div class="admonition note">
+<p class="admonition-title">備註</p>
+<p>QGIS 中的 <span class="guilabel">影像</span> 選單其實是一個叫做 <span class="guilabel">GdalTools</span> 的附加元件。如果你找不到 <span class="guilabel">影像</span> 選單的話，請去 <span class="menuselection">附加元件 ‣ 管理與安裝附加元件 ‣ 已安裝</span> 分頁下把 <span class="guilabel">GdalTools</span> 啟用。詳情請參閱 <a class="reference internal" href="using_plugins.html"><span class="doc">使用附加元件</span></a>。</p>
+</div>
+<img alt="../_images/962.png" class="align-center" src="../_images/962.png" />
+<ol class="arabic simple" start="10">
+<li><p>在 <span class="guilabel">裁剪</span> 視窗中，把輸出檔案命名為 <cite>everest_gmted30.tif</cite>，然後選擇 <span class="guilabel">裁剪模式</span> 為 <span class="guilabel">範圍</span>。</p></li>
+</ol>
+<img alt="../_images/1070.png" class="align-center" src="../_images/1070.png" />
+<ol class="arabic simple" start="11">
+<li><p>讓 <span class="guilabel">裁剪</span> 視窗保持開啟狀態，回到 QGIS 主畫面中，用滑鼠左鍵拖曳出一個可以覆蓋整張畫布的矩形。</p></li>
+</ol>
+<img alt="../_images/11108.png" class="align-center" src="../_images/11108.png" />
+<ol class="arabic simple" start="12">
+<li><p>回到 <span class="guilabel">裁剪</span> 視窗，就會發現坐標的範圍已經根據選取範圍自動填上了。把底下的 <span class="guilabel">處理完成後載入QGIS地圖中</span> 打勾，按下 <span class="guilabel">確定</span>。</p></li>
+</ol>
+<img alt="../_images/1270.png" class="align-center" src="../_images/1270.png" />
+<ol class="arabic simple" start="13">
+<li><p>操作完成後，QGIS 會出現新圖層，這個新圖層只覆蓋了聖母峰的周圍地區。馬上就來開始製作等高線圖：選擇 <span class="menuselection">影像 ‣ 取出 ‣ 等高線…</span>，</p></li>
+</ol>
+<img alt="../_images/1367.png" class="align-center" src="../_images/1367.png" />
+<ol class="arabic simple" start="14">
+<li><p>在 <span class="guilabel">等高線</span> 視窗中，選 <cite>everest_gmted30</cite> 作為<span class="guilabel">輸入檔</span>，<span class="guilabel">輸出檔`則命名為 `everest_countours.shp</span>。在 <span class="guilabel">等高線之間隔</span> 中輸入 100，就可以製作以 100 公尺為區間的等高線圖。順便把 <span class="guilabel">屬性名稱</span> 給打開，這樣的話每條等高線的高度就會記錄在 shapefile 中的每等高線屬性內。最後按下 <span class="guilabel">確定</span>。</p></li>
+</ol>
+<img alt="../_images/1464.png" class="align-center" src="../_images/1464.png" />
+<ol class="arabic simple" start="15">
+<li><p>操作完成後，等高線就會出現在畫布上，每條線都都代表著一個特定的高度，也就是說所有在同一條等高線上的像素，應該都具有相同的高度。等高線密度越大，就代表這個地方越陡峭。我們再稍微深入看一下：在等高線的圖層上按右鍵，進入 <span class="guilabel">開啟屬性表格</span>。</p></li>
+</ol>
+<img alt="../_images/1560.png" class="align-center" src="../_images/1560.png" />
+<ol class="arabic simple" start="16">
+<li><p>可以看到每個線圖徵都有叫做 <span class="guilabel">ELEV</span> 的屬性，這就是每條等高線的海拔高度，以公尺為單位。按幾下 ELEV 的標籤，把屬性表依照這個欄位由高至低排列，就可以看到有一條等高線表示資料中最高的地方，也就是聖母峰。</p></li>
+</ol>
+<img alt="../_images/1657.png" class="align-center" src="../_images/1657.png" />
+<ol class="arabic simple" start="17">
+<li><p>選擇這條等高線，然後按下 <span class="guilabel">依據選取的列縮放地圖</span> 按鈕。</p></li>
+</ol>
+<img alt="../_images/1752.png" class="align-center" src="../_images/1752.png" />
+<ol class="arabic simple" start="18">
+<li><p>回到 QGIS 主畫面，就可以看到有一條等高線被選取、標成黃色了，這裡就是本圖資的最高海拔區域。</p></li>
+</ol>
+<img alt="../_images/1850.png" class="align-center" src="../_images/1850.png" />
+<ol class="arabic simple" start="19">
+<li><p>接下來來弄個陰影圖。選擇 <span class="menuselection">影像 ‣ 分析 ‣ DEM (地形模型)…</span>，</p></li>
+</ol>
+<img alt="../_images/1942.png" class="align-center" src="../_images/1942.png" />
+<ol class="arabic simple" start="20">
+<li><p>在 <span class="guilabel">數值高程模型 (DEM)</span> 的視窗中，<span class="guilabel">輸入檔案</span> 選 <cite>everest_gmted30</cite>，<span class="guilabel">輸出檔案</span> 命名為 <cite>everest_hillshade.tif</cite>，然後 <span class="guilabel">模式</span> 選 <span class="guilabel">日照陰影</span>，其他選項使用預設參數即可。勾選 <span class="guilabel">處理完成後載入QGIS地圖中</span>，最後按 <span class="guilabel">確定</span>。</p></li>
+</ol>
+<img alt="../_images/2037.png" class="align-center" src="../_images/2037.png" />
+<ol class="arabic simple" start="21">
+<li><p>處理完成後，QGIS 會出現另一個影像檔。因為剛才我們把範圍縮到聖母峰附近，所以現在要在 <cite>everest_hillshade</cite> 圖層上按右鍵選擇 <span class="guilabel">縮放到圖層範圍</span>。</p></li>
+</ol>
+<img alt="../_images/2178.png" class="align-center" src="../_images/2178.png" />
+<ol class="arabic simple" start="22">
+<li><p>現在就可以一覽這幅陰影圖的全貌了。</p></li>
+</ol>
+<img alt="../_images/2236.png" class="align-center" src="../_images/2236.png" />
+<ol class="arabic simple" start="23">
+<li><p>等高線圖層也可以輸出成 KML 然後到 Google Earth 下顯示，順便檢查一下我們的操作有沒有問題。右鍵按下等高線圖層，進入 <span class="guilabel">存檔為…</span>，</p></li>
+</ol>
+<img alt="../_images/2333.png" class="align-center" src="../_images/2333.png" />
+<ol class="arabic simple" start="24">
+<li><p>在 <span class="guilabel">格式</span> 欄位中選 <span class="guilabel">Keyhole標記語言[KML]</span>，然後輸出檔命名為 <cite>contours.kml</cite>，按下 <span class="guilabel">確定</span>。</p></li>
+</ol>
+<img alt="../_images/2432.png" class="align-center" src="../_images/2432.png" />
+<ol class="arabic simple" start="25">
+<li><p>如果你電腦有裝 Google Earth 的話，在資料夾中點兩下這個新檔案就可以開啟了。</p></li>
+</ol>
+<img alt="../_images/2528.png" class="align-center" src="../_images/2528.png" />
+</section>
+</section>
+
+
+
+
+
+  <div id="disqus_thread"></div>
+  <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+
+    </div>
+      
+  </div>
+</div>
+
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+    </p>
+    <p>
+        &copy; Copyright 2021, Ujaval Gandhi.<br/>
+      最後更新於 8月 30, 2022。<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 4.0.1.<br/>
+    </p>
+  </div>
+</footer>
+<div class="container">
+  <p>This work is licensed under a <a href="http://creativecommons.org/licenses/by/4.0/deed.en_US">Creative Commons Attribution 4.0 International License</a></p>
+</div>
+<!-- Twitter Button -->
+<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+
+<!-- Disqus comments widget -->
+<script type="text/javascript">
+  /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+  var disqus_shortname = 'qgistutorials'; // required: replace example with your forum shortname
+  /* * * DON'T EDIT BELOW THIS LINE * * */
+  (function () {
+    var s = document.createElement('script'); s.async = true;
+    s.type = 'text/javascript';
+    s.src = '//' + disqus_shortname + '.disqus.com/count.js';
+    (document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);
+  }());
+</script>
+
+<script type="text/javascript">
+  /* * * DON'T EDIT BELOW THIS LINE * * */
+  (function() {
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+
+<!-- Script fpr language switching. Largely adapted from https://github.com/pcav/faunalia-website -->
+<script>
+    var currentPage = 'docs/working_with_terrain.html'; // coming from sphinx, always without starting '/'
+    var currentLang = 'en';
+    $(document).ready(function(){
+
+        var search = new RegExp('\/[a-zA-Z_]{2,8}\/'+ currentPage, 'gi');
+        var langPlusPage = window.location.href.match(search);
+        // it's possible this is a index.html page called without 'index.html', try without the currentPage
+        if (langPlusPage==undefined){
+            search = new RegExp('\/[a-zA-Z_]{2,8}\/$', 'gi');
+            langPlusPage = window.location.href.match(search);
+        }
+
+        // it's possible this is an index.html page called without 'index.html', try removing index.html
+        if (langPlusPage==undefined){
+            currentPage = currentPage.replace('index.html','')
+            search = new RegExp('\/[a-zA-Z_]{2,8}\/'+ currentPage, 'gi');
+            langPlusPage = window.location.href.match(search);
+        }
+        // still no langPlugPage: stop, because the language swicher will misbehave 
+
+        if (langPlusPage == undefined || langPlusPage.length != 1){
+            alert('You hit an error, please report back to us.');
+            return;
+        }
+        langPlusPage = langPlusPage[0];
+        currentLang = langPlusPage.replace(currentPage, '');
+
+        $("#languages").val(currentLang.replace(/\//g,'')); // currentLang is something like '/nl/'
+
+        $("#languages").change(function() {
+            gotoLang($(this).val());
+        });
+
+    });
+
+    // load current page in a different language
+    function gotoLang(lang){
+        var currentUrl = window.location.href;
+        var newUrl = currentUrl.replace(currentLang, '/'+lang+'/');
+        window.location.href = newUrl;
+    }
+</script>
+
+  </body>
+</html>

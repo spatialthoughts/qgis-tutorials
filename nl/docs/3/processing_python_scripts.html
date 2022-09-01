@@ -1,0 +1,687 @@
+<!DOCTYPE html>
+
+<html lang="nl">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>Python-scripts schrijven voor framework Processing (QGIS3) &#8212; QGIS Tutorials and Tips</title>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-sphinx.css" />
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/translations.js"></script>
+    <link rel="search" title="Zoeken" href="../../search.html" />
+    <link rel="next" title="Een plug-in in Python bouwen (QGIS3)" href="building_a_python_plugin.html" />
+    <link rel="prev" title="Aangepaste Python expressie-functies gebruiken (QGIS3)" href="custom_python_functions.html" />
+
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<script type="text/javascript" src="../../_static/js/jquery-1.11.0.min.js "></script>
+<script type="text/javascript" src="../../_static/js/jquery-fix.js "></script>
+<script type="text/javascript" src="../../_static/bootstrap-3.3.7/js/bootstrap.min.js "></script>
+<script type="text/javascript" src="../../_static/bootstrap-sphinx.js "></script>
+
+
+<!-- Cookie Notice -->
+<!-- Script from https://github.com/AOEpeople/cookie-notice -->
+<script type="text/javascript" src="../../_static/cookie.notice.min.js"></script>
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-B1WQ7B80XJ"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-B1WQ7B80XJ');
+</script>
+
+
+  </head><body>
+
+  <div id="navbar" class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="../../index.html"><span><img src="../../_static/logo.png"></span>
+          QGIS Tutorials and Tips</a>
+        <span class="navbar-text navbar-version pull-left"><b>v1</b></span>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="../../index.html">Tutorials List <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"><ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../introduction.html">Introductie</a></li>
+<li class="toctree-l1"><a class="reference internal" href="making_a_map.html">Een kaart maken (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="working_with_attributes.html">Werken met attributen (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="importing_spreadsheets_csv.html">Werkbladen of CSV-bestanden importeren (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="basic_vector_styling.html">Basis opmaken van vectoren (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="calculating_line_lengths.html">Lengten van lijnen en statistieken berekenen (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="raster_styling_and_analysis.html">Basis opmaken en analyses van rasters (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="raster_mosaicing_and_clipping.html">Rasters mozaïeken en clippen (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="working_with_terrain.html">Werken met gegevens over het terrein (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="working_with_wms.html">Werken met gegevens van WMS (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="working_with_projections.html">Werken met projecties (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="georeferencing_basics.html">Topobladen en gescande kaarten voorzien van geoverwijzingen (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="advanced_georeferencing.html">Geo-verwijzingen voor satellietbeelden (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="digitizing_basics.html">Kaartgegevens digitaliseren</a></li>
+<li class="toctree-l1"><a class="reference internal" href="performing_table_joins.html">Samenvoegen van tabellen uitvoeren (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="performing_spatial_joins.html">Ruimtelijke samenvoegingen uitvoeren (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="performing_spatial_queries.html">Ruimtelijke query’s uitvoeren (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="nearest_neighbor_analysis.html">Analyse Nearest Neighbor (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="sampling_raster_data.html">Monsters nemen van rastergegevens met behulp van punten of polygonen (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="calculating_raster_area.html">Rastergebied berekenen (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="creating_heatmaps.html">Heatmaps maken (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="animating_time_series.html">Geanimeerde gegevens tijdreeks (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="handling_invalid_geometries.html">Ongeldige geometrieën afhandelen (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="advanced_raster_analysis.html">Gevorderde rasteranalyses (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="interpolating_point_data.html">Interpoleren van puntgegevens</a></li>
+<li class="toctree-l1"><a class="reference internal" href="calculating_intersection_density.html">Dichtheid van straatkruisingen berekenen (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="batch_processing.html">Massa verwerken met behulp van Framework Processing (QGIS 3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="processing_graphical_modeler.html">Complexe werkstromen automatiseren met behulp van Grafische modellen bouwen (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="automating_map_creation.html">Maken van kaarten automatiseren met Atlas van afdruklay-out (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="multi_criteria_overlay.html">Multi Criteria Overlay Analyse (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="basic_network_analysis.html">Basis netwerk visualisatie en routeren (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="origin_destination_matrix.html">Dichtstbijzijnde faciliteit zoeken met Origin-Destination Matrix (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="service_area_analysis.html">Analyse Servicegebied met Openrouteservice (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="travel_time_analysis.html">Reistijd-analyse met Uber Movement (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="areal_mean_rainfall.html">Berekenen gemiddelde regenval voor gebied (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="getting_started_with_pyqgis.html">Beginnen met programmeren in Python (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="processing_algorithms_pyqgis.html">Algoritmes van Processing uitvoeren via Python (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="custom_python_functions.html">Aangepaste Python expressie-functies gebruiken (QGIS3)</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Python-scripts schrijven voor framework Processing (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="building_a_python_plugin.html">Een plug-in in Python bouwen (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="processing_python_plugin.html">Een plug-in voor Processing bouwen (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../running_qgis_jobs.html">Taken voor QGIS uitvoeren en in schema zetten</a></li>
+<li class="toctree-l1"><a class="reference internal" href="web_mapping_with_qgis2web.html">In kaart brengen op het web met QGIS2Web (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../creating_basemaps_with_qtiles.html">Basiskaarten maken met QTiles</a></li>
+<li class="toctree-l1"><a class="reference internal" href="using_plugins.html">Plug-ins gebruiken (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../downloading_osm_data.html">Zoeken en downloaden van gegevens van OpenStreetMap</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../learning_resources.html">QGIS bronnen om te leren</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../credits.html">Gebruik van gegevens</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../batch_processing.html">Massa verwerken met behulp van Framework Processing (QGIS2)</a></li>
+</ul>
+</ul>
+</li>
+              
+            
+            
+              
+                
+  <li>
+    <a href="custom_python_functions.html" title="Previous Chapter: Aangepaste Python expressie-functies gebruiken (QGIS3)"><span class="glyphicon glyphicon-chevron-left visible-sm"></span><span class="hidden-sm hidden-tablet">&laquo; Aangepaste Py...</span>
+    </a>
+  </li>
+  <li>
+    <a href="building_a_python_plugin.html" title="Next Chapter: Een plug-in in Python bouwen (QGIS3)"><span class="glyphicon glyphicon-chevron-right visible-sm"></span><span class="hidden-sm hidden-tablet">Een plug-in i... &raquo;</span>
+    </a>
+  </li>
+              
+            
+            
+
+            
+
+            
+              <li class="hidden-sm"></li>
+            
+          </ul>
+
+          
+            
+<form class="navbar-form navbar-right" action="../../search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+      <div class="col-md-3">
+        <div id="sidebar" class="bs-sidenav" role="complementary"><h4>Author</h4>
+<p>Ujaval Gandhi</p>
+<a href="https://twitter.com/intent/follow?screen_name=spatialthoughts" class="twitter-follow-button" data-show-count="false">Follow @spatialthoughts</a>
+<hr>
+<p>Want to learn QGIS in a structured way? Check out <a href="https://spatialthoughts.com/" target="_blank">Spatial Thoughts</a> for more learning materials and instructor-led online programs with QGIS.org certification.</p>
+
+
+<h4>Change Language</h4>
+<form role="form" class="sidebar-form sidebar-left">
+<select id="languages" class="form-control select-mini">
+  <option value="en">English</option>
+  <option value="zh_TW">Chinese (Taiwan)</option>
+  <option value="nl">Dutch</option>
+  <option value="fi_FI">Finnish</option>
+  <option value="fr">French</option>
+  <option value="de">German</option>
+  <option value="el">Greek</option>
+  <option value="id">Indonesian</option>
+  <option value="it">Italian</option>
+  <option value="ko">Korean</option>
+  <option value="fa">Persian</option>
+  <option value="pt_BR">Portuguese</option>
+  <option value="ro">Romanian</option>
+  <option value="ru">Russian</option>
+  <option value="sl">Slovenian</option>
+  <option value="es">Spanish</option>
+  <option value="th">Thai</option>
+  <option value="tr">Turkish</option>
+  <option value="uk">Ukrainian</option>
+  <option value="vi">Vietnamese</option>
+</select>
+</form>
+        </div>
+      </div>
+    <div class="body col-md-9 content" role="main">
+      
+
+  <section id="writing-python-scripts-for-processing-framework-qgis3">
+<h1>Python-scripts schrijven voor framework Processing (QGIS3)<a class="headerlink" href="#writing-python-scripts-for-processing-framework-qgis3" title="Permalink naar deze titel">¶</a></h1>
+<p>Men kan zelfstandige scripts in Pyqgis schrijven die kunnen worden uitgevoerd in de Python Console in QGIS. Met een aantal aanpassingen kunt u uw scripts voor Pyqgis ook uitvoeren via het framework Processing. Dat heeft een aantal voordelen. Ten eerste is het invoeren van invoer door de gebruiker en het schrijven van uitvoerbestanden veel eenvoudiger omdat het framework Processing hier een gestandaardiseerde gebruikersinterface voor biedt. Ten tweede, door uw script te hebben in de Processing Toolbox kan het ook deel uitmaken van elk Model voor Processing of worden uitgevoerd als een Batch-taak met meerdere invoer. Deze handleiding zal laten zien hoe een aangepast script voor Python te schrijven dat deel kan uitmaken van het framework Processing in QGIS.</p>
+<div class="admonition note">
+<p class="admonition-title">Notitie</p>
+<p>De API voor Processing werd compleet vernieuwd in QGIS3. Bekijk <a class="reference external" href="https://raw.githubusercontent.com/qgis/QGIS/master/doc/porting_processing.dox">deze gids</a> voor beste manieren en tips.</p>
+</div>
+<section id="overview-of-the-task">
+<h2>Overzicht van de taak<a class="headerlink" href="#overview-of-the-task" title="Permalink naar deze titel">¶</a></h2>
+<p>Ons script zal een bewerking voor ontbinden uitvoeren, gebaseerd op een door de gebruiker gekozen veld. Het zal ook de waarden van een ander veld bij elkaar optellen voor de ontbonden objecten. In het voorbeeld zullen we een world shapefile ontbinden, gebaseerd op een attribuut <code class="docutils literal notranslate"><span class="pre">CONTINENT</span></code> en het veld <code class="docutils literal notranslate"><span class="pre">POP_EST</span></code> optellen om de totale bevolking in de ontbonden regio te berekenen.</p>
+</section>
+<section id="get-the-data">
+<h2>De gegevens ophalen<a class="headerlink" href="#get-the-data" title="Permalink naar deze titel">¶</a></h2>
+<p>We zullen de gegevensset <a class="reference external" href="http://www.naturalearthdata.com/downloads/10m-cultural-vectors/10m-admin-0-countries/">Admin 0 - Countries</a> van Natural Earth gebruiken.</p>
+<p>Download het <a class="reference external" href="http://www.naturalearthdata.com/http//www.naturalearthdata.com/download/10m/cultural/ne_10m_admin_0_countries.zip">Admin 0 - countries shapefile.</a>.</p>
+<p>Gegevensbron <a class="reference internal" href="../credits.html#naturalearth" id="id1"><span>[NATURALEARTH]</span></a></p>
+<p>Voor het gemak kunt u direct een Geopackage downloaden dat bovenstaande laag bevat vanaf de link hieronder:</p>
+<p><a class="reference external" href="https://www.qgistutorials.com/downloads/ne_global.gpkg">ne_global.gpkg</a></p>
+</section>
+<section id="procedure">
+<h2>Procedure<a class="headerlink" href="#procedure" title="Permalink naar deze titel">¶</a></h2>
+<ol class="arabic simple">
+<li><p>Zoek, in het paneel QGIS Browser, de map waar u uw gegevens hebt gedownload. Vergroot het item <code class="docutils literal notranslate"><span class="pre">zip</span></code> of <code class="docutils literal notranslate"><span class="pre">gpkg</span></code> en selecteer de laag <code class="docutils literal notranslate"><span class="pre">ne_10m_admin_0_countries</span></code>. Sleep de laag naar het kaartvenster.</p></li>
+</ol>
+<img alt="../../_images/1107.png" class="align-center" src="../../_images/1107.png" />
+<ol class="arabic simple" start="2">
+<li><p>Ga naar <span class="menuselection">Processing ‣ Toolbox</span>. Klik op de knop <span class="guilabel">Scripts</span> in de werkbalk en selecteer <span class="guilabel">Nieuw script uit sjabloon maken</span>.</p></li>
+</ol>
+<img alt="../../_images/2102.png" class="align-center" src="../../_images/2102.png" />
+<ol class="arabic simple" start="3">
+<li><p>De sjabloon bevat alle benodigde code die vereist is voor het framewerk Processing om het te herkennen als een script voor Processing, en invoer/uitvoer te beheren. Laten we beginnen met het aanpassen van het voorbeeldsjabloon naar onze wensen. Wijzig eerst de naam van de klasse van <code class="docutils literal notranslate"><span class="pre">ExampleProcessingAlgorithm</span></code> naar <code class="docutils literal notranslate"><span class="pre">DissolveProcessingAlgorithm</span></code>. Deze naam dient ook te worden bijgewerkt in de methode <code class="docutils literal notranslate"><span class="pre">createInstance</span></code>. Voeg een docstring toe aan de klasse die uitlegt wat het algoritme doet.</p></li>
+</ol>
+<img alt="../../_images/340.png" class="align-center" src="../../_images/340.png" />
+<ol class="arabic simple" start="4">
+<li><p>Als u naar beneden scrollt, zult u methoden zien die een naam, groep, beschrijving etc. toewijzen aan het script. Wijzig de terugkeerwaarden voor de methode <em>name</em> naar <code class="docutils literal notranslate"><span class="pre">dissolve_with_sum</span></code>, methode <em>displayName</em> naar <code class="docutils literal notranslate"><span class="pre">Dissolve</span> <span class="pre">with</span> <span class="pre">Sum</span></code>, methode <em>group</em> en methode <em>groupId</em> naar <code class="docutils literal notranslate"><span class="pre">scripts</span></code>. Wijzig de terugkeerwaarde van de methode <em>shortHelpString</em> naar een beschrijving die voor de gebruiker zal verschijnen. Klik op de knop <span class="guilabel">Opslaan</span>.</p></li>
+</ol>
+<img alt="../../_images/422.png" class="align-center" src="../../_images/422.png" />
+<ol class="arabic simple" start="5">
+<li><p>Noem het script <code class="docutils literal notranslate"><span class="pre">dissolve_with_sum</span></code> en sla het op de standaard locatie op in de map <span class="menuselection">profiles ‣ default ‣ processing ‣ scripts</span> .</p></li>
+</ol>
+<img alt="../../_images/521.png" class="align-center" src="../../_images/521.png" />
+<ol class="arabic simple" start="6">
+<li><p>Nu zullen we de invoer voor het script definiëren. De sjabloon bevat al een definitie voor een vectorlaag <code class="docutils literal notranslate"><span class="pre">INPUT</span></code> en een laag <code class="docutils literal notranslate"><span class="pre">OUTPUT</span></code>. We zullen 2 nieuwe invoeren toevoegen die de gebruiker in staat stellen een <code class="docutils literal notranslate"><span class="pre">DISSOLVE_FIELD</span></code> en een <code class="docutils literal notranslate"><span class="pre">SUM_FIELD</span></code> te kiezen. Voeg een nieuwe import toe aan het begin en de volgende code in de methode <code class="docutils literal notranslate"><span class="pre">initAlgorithm</span></code>. Klik op de knop <span class="guilabel">Uitvoeren</span> om een voorbeeld van de wijzigingen te zien.</p></li>
+</ol>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">qgis.core</span> <span class="kn">import</span> <span class="n">QgsProcessingParameterField</span>
+
+<span class="bp">self</span><span class="o">.</span><span class="n">addParameter</span><span class="p">(</span>
+        <span class="n">QgsProcessingParameterField</span><span class="p">(</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">DISSOLVE_FIELD</span><span class="p">,</span>
+                <span class="s1">&#39;Choose Dissolve Field&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;&#39;</span><span class="p">,</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">INPUT</span><span class="p">))</span>
+
+<span class="bp">self</span><span class="o">.</span><span class="n">addParameter</span><span class="p">(</span>
+        <span class="n">QgsProcessingParameterField</span><span class="p">(</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">SUM_FIELD</span><span class="p">,</span>
+                <span class="s1">&#39;Choose Sum Field&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;&#39;</span><span class="p">,</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">INPUT</span><span class="p">))</span>
+</pre></div>
+</div>
+<img alt="../../_images/6a.png" class="align-center" src="../../_images/6a.png" />
+<img alt="../../_images/6b.png" class="align-center" src="../../_images/6b.png" />
+<ol class="arabic simple" start="7">
+<li><p>U zult een dialoogvenster <span class="guilabel">Dissolve with Sum</span> zien met onze nieuw gedefinieerde invoeren. Selecteer de laag <code class="docutils literal notranslate"><span class="pre">ne_10m_admin_0_countries</span></code> als <span class="guilabel">Input layer`</span>. Omdat zowel <span class="guilabel">Dissolve Field</span> als <span class="guilabel">Sum Fields</span> worden gefilterd op basis van de invoerlaag, zullen zij vooraf worden gevuld met bestaande velden uit de invoerlaag. Klik op de knop <span class="guilabel">Sluiten</span>.</p></li>
+</ol>
+<img alt="../../_images/720.png" class="align-center" src="../../_images/720.png" />
+<ol class="arabic simple" start="8">
+<li><p>Nu definiëren we onze aangepaste logica voor het verwerken van gegevens in de methode <code class="docutils literal notranslate"><span class="pre">processAlgorithm</span></code>. Deze methode wordt doorgegeven aan een woordenboek, genaamd <code class="docutils literal notranslate"><span class="pre">parameters</span></code>. Het bevat de invoer die de gebruiker heeft geselecteerd. Er zijn hulpmethoden die u in staat stellen deze invoeren te nemen en er toepasselijke objecten van te maken. We halen eerst onze invoer op met behulp van de methoden <code class="docutils literal notranslate"><span class="pre">parameterAsSource</span></code> en <code class="docutils literal notranslate"><span class="pre">parameterAsStrong</span></code>. Vervolgens willen we een afvoer voor het object maken waar we de uitvoer naartoe zullen schrijven. QGIS3 heeft een nieuwe klasse, genaamd <code class="docutils literal notranslate"><span class="pre">classQgsFeatureSink</span></code> wat de voorkeursmanier is om objecten te maken die nieuwe objecten kunnen accepteren. De uitvoer heeft slechts 2 velden - één voor de waarde van het opgeloste veld en een ander voor de som van het geselecteerde veld.</p></li>
+</ol>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">PyQt5.QtCore</span> <span class="kn">import</span> <span class="n">QVariant</span>
+<span class="kn">from</span> <span class="nn">qgis.core</span> <span class="kn">import</span> <span class="n">QgsField</span><span class="p">,</span> <span class="n">QgsFields</span>
+
+<span class="n">source</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">parameterAsSource</span><span class="p">(</span>
+        <span class="n">parameters</span><span class="p">,</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">INPUT</span><span class="p">,</span>
+        <span class="n">context</span><span class="p">)</span>
+<span class="n">dissolve_field</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">parameterAsString</span><span class="p">(</span>
+        <span class="n">parameters</span><span class="p">,</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">DISSOLVE_FIELD</span><span class="p">,</span>
+        <span class="n">context</span><span class="p">)</span>
+<span class="n">sum_field</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">parameterAsString</span><span class="p">(</span>
+        <span class="n">parameters</span><span class="p">,</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">SUM_FIELD</span><span class="p">,</span>
+        <span class="n">context</span><span class="p">)</span>
+
+<span class="n">fields</span> <span class="o">=</span> <span class="n">QgsFields</span><span class="p">()</span>
+<span class="n">fields</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">QgsField</span><span class="p">(</span><span class="n">dissolve_field</span><span class="p">,</span> <span class="n">QVariant</span><span class="o">.</span><span class="n">String</span><span class="p">))</span>
+<span class="n">fields</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">QgsField</span><span class="p">(</span><span class="s1">&#39;SUM_&#39;</span> <span class="o">+</span> <span class="n">sum_field</span><span class="p">,</span> <span class="n">QVariant</span><span class="o">.</span><span class="n">Double</span><span class="p">))</span>
+
+<span class="p">(</span><span class="n">sink</span><span class="p">,</span> <span class="n">dest_id</span><span class="p">)</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">parameterAsSink</span><span class="p">(</span>
+        <span class="n">parameters</span><span class="p">,</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">OUTPUT</span><span class="p">,</span>
+        <span class="n">context</span><span class="p">,</span> <span class="n">fields</span><span class="p">,</span> <span class="n">source</span><span class="o">.</span><span class="n">wkbType</span><span class="p">(),</span> <span class="n">source</span><span class="o">.</span><span class="n">sourceCrs</span><span class="p">())</span>
+</pre></div>
+</div>
+<img alt="../../_images/8a.png" class="align-center" src="../../_images/8a.png" />
+<img alt="../../_images/8b.png" class="align-center" src="../../_images/8b.png" />
+<ol class="arabic simple" start="9">
+<li><p>Nu zullen we de objecten van de invoer lezen en een woordenboek maken dat de unieke waarden van het veld dissolve_field en de som van de waarden uit het veld sum_field bevat. Merk het gebruiken van de methode <code class="docutils literal notranslate"><span class="pre">feedback.pushInfo()</span></code> op om de status te communiceren met de gebruiker.</p></li>
+</ol>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">feedback</span><span class="o">.</span><span class="n">pushInfo</span><span class="p">(</span><span class="s1">&#39;Extracting unique values from dissolve_field and computing sum&#39;</span><span class="p">)</span>
+
+<span class="n">features</span> <span class="o">=</span> <span class="n">source</span><span class="o">.</span><span class="n">getFeatures</span><span class="p">()</span>
+<span class="n">unique_values</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">f</span><span class="p">[</span><span class="n">dissolve_field</span><span class="p">]</span> <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">features</span><span class="p">)</span>
+
+<span class="c1"># Get Indices of dissolve field and sum field</span>
+<span class="n">dissolveIdx</span> <span class="o">=</span> <span class="n">source</span><span class="o">.</span><span class="n">fields</span><span class="p">()</span><span class="o">.</span><span class="n">indexFromName</span><span class="p">(</span><span class="n">dissolve_field</span><span class="p">)</span>
+<span class="n">sumIdx</span> <span class="o">=</span> <span class="n">source</span><span class="o">.</span><span class="n">fields</span><span class="p">()</span><span class="o">.</span><span class="n">indexFromName</span><span class="p">(</span><span class="n">sum_field</span><span class="p">)</span>
+
+<span class="c1"># Find all unique values for the given dissolve_field and</span>
+<span class="c1"># sum the corresponding values from the sum_field</span>
+<span class="n">sum_unique_values</span> <span class="o">=</span> <span class="p">{}</span>
+<span class="n">attrs</span> <span class="o">=</span> <span class="p">[{</span><span class="n">dissolve_field</span><span class="p">:</span> <span class="n">f</span><span class="p">[</span><span class="n">dissolveIdx</span><span class="p">],</span> <span class="n">sum_field</span><span class="p">:</span> <span class="n">f</span><span class="p">[</span><span class="n">sumIdx</span><span class="p">]}</span> <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">source</span><span class="o">.</span><span class="n">getFeatures</span><span class="p">()]</span>
+<span class="k">for</span> <span class="n">unique_value</span> <span class="ow">in</span> <span class="n">unique_values</span><span class="p">:</span>
+        <span class="n">val_list</span> <span class="o">=</span> <span class="p">[</span> <span class="n">f_attr</span><span class="p">[</span><span class="n">sum_field</span><span class="p">]</span> <span class="k">for</span> <span class="n">f_attr</span> <span class="ow">in</span> <span class="n">attrs</span> <span class="k">if</span> <span class="n">f_attr</span><span class="p">[</span><span class="n">dissolve_field</span><span class="p">]</span> <span class="o">==</span> <span class="n">unique_value</span><span class="p">]</span>
+        <span class="n">sum_unique_values</span><span class="p">[</span><span class="n">unique_value</span><span class="p">]</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">val_list</span><span class="p">)</span>
+</pre></div>
+</div>
+<img alt="../../_images/920.png" class="align-center" src="../../_images/920.png" />
+<ol class="arabic simple" start="10">
+<li><p>Vervolgens zullen we het ingebouwde algoritme van Processing <code class="docutils literal notranslate"><span class="pre">native:dissolve</span></code> aanroepen op de invoerlaag om de opgeloste geometrieën te genereren. Als we enemaal de opgeloste geometrieënn hebben lopen we door de uitvoer van het algoritme Dissolve en maken we nieuwe objecten die moeten worden toegevoegd aan de uitvoer. Aan het einde geven we de FeatureSink op als <code class="docutils literal notranslate"><span class="pre">dest_id</span></code> als de uitvoer. Nu is het script klaar. Klik op de knop <span class="guilabel">Uitvoeren</span>.</p></li>
+</ol>
+<div class="admonition note">
+<p class="admonition-title">Notitie</p>
+<p>Merk het gebruiken van <a href="#id1"><span class="problematic" id="id2">``</span></a>parameters[self.INPUT]``op om de invoerlaag direct uit het woordenboek met parameters op te halen zonder het als een bron op te geven. Het is niet noodzakelijk om het als een bron te definiëren, omdat we het invoerobject doorgeven aan het algoritme zonder er iets mee te doen.</p>
+</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">qgis.core</span> <span class="kn">import</span> <span class="n">QgsFeature</span>
+
+<span class="c1"># Running the processing dissolve algorithm</span>
+<span class="n">feedback</span><span class="o">.</span><span class="n">pushInfo</span><span class="p">(</span><span class="s1">&#39;Dissolving features&#39;</span><span class="p">)</span>
+<span class="n">dissolved_layer</span> <span class="o">=</span> <span class="n">processing</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="s2">&quot;native:dissolve&quot;</span><span class="p">,</span> <span class="p">{</span>
+        <span class="s1">&#39;INPUT&#39;</span><span class="p">:</span> <span class="n">parameters</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">INPUT</span><span class="p">],</span>
+        <span class="s1">&#39;FIELD&#39;</span><span class="p">:</span> <span class="n">dissolve_field</span><span class="p">,</span>
+        <span class="s1">&#39;OUTPUT&#39;</span><span class="p">:</span> <span class="s1">&#39;memory:&#39;</span>
+        <span class="p">},</span> <span class="n">context</span><span class="o">=</span><span class="n">context</span><span class="p">,</span> <span class="n">feedback</span><span class="o">=</span><span class="n">feedback</span><span class="p">)[</span><span class="s1">&#39;OUTPUT&#39;</span><span class="p">]</span>
+
+<span class="c1"># Read the dissolved layer and create output features</span>
+<span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">dissolved_layer</span><span class="o">.</span><span class="n">getFeatures</span><span class="p">():</span>
+        <span class="n">new_feature</span> <span class="o">=</span>  <span class="n">QgsFeature</span><span class="p">()</span>
+        <span class="c1"># Set geometry to dissolved geometry</span>
+        <span class="n">new_feature</span><span class="o">.</span><span class="n">setGeometry</span><span class="p">(</span><span class="n">f</span><span class="o">.</span><span class="n">geometry</span><span class="p">())</span>
+        <span class="c1"># Set attributes from sum_unique_values dictionary that we had computed</span>
+        <span class="n">new_feature</span><span class="o">.</span><span class="n">setAttributes</span><span class="p">([</span><span class="n">f</span><span class="p">[</span><span class="n">dissolve_field</span><span class="p">],</span> <span class="n">sum_unique_values</span><span class="p">[</span><span class="n">f</span><span class="p">[</span><span class="n">dissolve_field</span><span class="p">]]])</span>
+        <span class="n">sink</span><span class="o">.</span><span class="n">addFeature</span><span class="p">(</span><span class="n">new_feature</span><span class="p">,</span> <span class="n">QgsFeatureSink</span><span class="o">.</span><span class="n">FastInsert</span><span class="p">)</span>
+
+<span class="k">return</span> <span class="p">{</span><span class="bp">self</span><span class="o">.</span><span class="n">OUTPUT</span><span class="p">:</span> <span class="n">dest_id</span><span class="p">}</span>
+</pre></div>
+</div>
+<img alt="../../_images/10a.png" class="align-center" src="../../_images/10a.png" />
+<img alt="../../_images/10b.png" class="align-center" src="../../_images/10b.png" />
+<ol class="arabic simple" start="11">
+<li><p>Selecteer, in het dialoogvenster <span class="guilabel">Dissolve with Sum</span>, <code class="docutils literal notranslate"><span class="pre">ne_10m_admin_0_countries</span></code> als de <span class="guilabel">Input layer</span>, <code class="docutils literal notranslate"><span class="pre">CONTINENT</span></code> als het <span class="guilabel">Dissolve field</span> en <code class="docutils literal notranslate"><span class="pre">POP_EST</span></code> als het <span class="guilabel">Sum field</span>. Klik op <span class="guilabel">Uitvoeren</span>.</p></li>
+</ol>
+<img alt="../../_images/1131.png" class="align-center" src="../../_images/1131.png" />
+<ol class="arabic simple" start="12">
+<li><p>Klik, als de verwerking eenmaal is voltooid, op de knop <span class="guilabel">Sluiten</span> en schakel naar het hoofdvenster van QGIS.</p></li>
+</ol>
+<img alt="../../_images/1229.png" class="align-center" src="../../_images/1229.png" />
+<ol class="arabic simple" start="13">
+<li><p>U zult de uitvoerlaag met opgeloste objecten zien met één object voor elk continent en de totale bevolking opgeteld uit de individuele landen die tot dat continent behoren.</p></li>
+</ol>
+<img alt="../../_images/1327.png" class="align-center" src="../../_images/1327.png" />
+<ol class="arabic simple" start="14">
+<li><p>Een ander voordeel van het schrijvren van scripts voor Processing is dat de methoden binnen het Framewerk Processing zich bewust zijn van de keuze van lagen en automatisch uw invoer filteren om alleen de geselecteerde objecten te gebruiken. Dit gebeurt omdat we onze invoer definiëren als een <code class="docutils literal notranslate"><span class="pre">QgsProcessingParameterFeatureSource</span></code>. Een objectbron staat het gebruiken toe van ELK object dat vectorobjecten bevat, niet alleen een vectorlaag, als er dus geselecteerde objecten op uw laag staan en u vraagt Processing om de geselecteerde objecten te gebruiken, wordt de invoer doorgegeven aan uw script als een object <code class="docutils literal notranslate"><span class="pre">QgsProcessingFeatureSource</span></code> dat de geselecteerde objecten bevat en niet de volledige vectorlaag. Hier is een snelle demonstratie van deze functionaliteit. Laten we zeggen dat we alleen bepaalde continenten willen oplossen. Laten we een selectie maken met behulp van het gereedschap <span class="guilabel">Objecten selecteren met een expressie</span>.</p></li>
+</ol>
+<img alt="../../_images/1424.png" class="align-center" src="../../_images/1424.png" />
+<ol class="arabic simple" start="15">
+<li><p>Voer de volgende expressie in om objecten te selecteren uit Noord- en Zuid-Amerika en klik op <span class="guilabel">Selecteren</span>.</p></li>
+</ol>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>&quot;CONTINENT&quot; = &#39;North America&#39; OR &quot;CONTINENT&quot; = &#39;South America&#39;
+</pre></div>
+</div>
+<img alt="../../_images/1523.png" class="align-center" src="../../_images/1523.png" />
+<ol class="arabic simple" start="16">
+<li><p>U zult de geselecteerde objecten zien, geaccentueerd in geel. Zoek het script <code class="docutils literal notranslate"><span class="pre">dissolve_with_sum</span></code> op en dubbelklik er op om het uit te voeren.</p></li>
+</ol>
+<img alt="../../_images/1622.png" class="align-center" src="../../_images/1622.png" />
+<ol class="arabic simple" start="17">
+<li><p>Selecteer, in het dialoogvenster <span class="guilabel">Dissolve with Sum</span>, <code class="docutils literal notranslate"><span class="pre">ne_10m_admin_0_countries</span></code> als de <span class="guilabel">Input layer</span>. Zorg er deze keer voor dat het vak  <span class="guilabel">Alleen geselecteerde objecten</span> is geselecteerd. Kies <code class="docutils literal notranslate"><span class="pre">SUBREGION</span></code> als het <span class="guilabel">Dissolve field</span> en <code class="docutils literal notranslate"><span class="pre">POP_EST</span></code> als het <span class="guilabel">Sum field</span>. Klik op <span class="guilabel">Uitvoeren</span>.</p></li>
+</ol>
+<img alt="../../_images/1723.png" class="align-center" src="../../_images/1723.png" />
+<ol class="arabic simple" start="18">
+<li><p>Klik, als de verwerking eenmaal is voltooid op <span class="guilabel">Sluiten</span> en schakel terug naar het hoofdvenster van QGIS. U zult een nieuwe laag zien met alleen de opgeloste geselecteerde objecten. Klik op de knop <span class="guilabel">Identificeren</span> en klik op een object om te inspecteren en te verifiëren dat het script juist heeft gewerkt.</p></li>
+</ol>
+<img alt="../../_images/1820.png" class="align-center" src="../../_images/1820.png" />
+<p>Hieronder staat het volledige script als verwijzing. U kunt het aanpassen zodat het aan uw eigen wensen voldoet.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># -*- coding: utf-8 -*-</span>
+
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">***************************************************************************</span>
+<span class="sd">*                                                                         *</span>
+<span class="sd">*   This program is free software; you can redistribute it and/or modify  *</span>
+<span class="sd">*   it under the terms of the GNU General Public License as published by  *</span>
+<span class="sd">*   the Free Software Foundation; either version 2 of the License, or     *</span>
+<span class="sd">*   (at your option) any later version.                                   *</span>
+<span class="sd">*                                                                         *</span>
+<span class="sd">***************************************************************************</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">from</span> <span class="nn">PyQt5.QtCore</span> <span class="kn">import</span> <span class="n">QCoreApplication</span><span class="p">,</span> <span class="n">QVariant</span>
+<span class="kn">from</span> <span class="nn">qgis.core</span> <span class="kn">import</span> <span class="p">(</span><span class="n">QgsProcessing</span><span class="p">,</span>
+                       <span class="n">QgsFeatureSink</span><span class="p">,</span>
+                       <span class="n">QgsFeature</span><span class="p">,</span>
+                       <span class="n">QgsField</span><span class="p">,</span>
+                       <span class="n">QgsFields</span><span class="p">,</span>
+                       <span class="n">QgsProcessingException</span><span class="p">,</span>
+                       <span class="n">QgsProcessingAlgorithm</span><span class="p">,</span>
+                       <span class="n">QgsProcessingParameterFeatureSource</span><span class="p">,</span>
+                       <span class="n">QgsProcessingParameterFeatureSink</span><span class="p">,</span>
+                       <span class="n">QgsProcessingParameterField</span><span class="p">,</span>
+                       <span class="p">)</span>
+<span class="kn">import</span> <span class="nn">processing</span>
+
+
+<span class="k">class</span> <span class="nc">DissolveProcessingAlgorithm</span><span class="p">(</span><span class="n">QgsProcessingAlgorithm</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Dissolve algorithm that dissolves features based on selected</span>
+<span class="sd">    attribute and summarizes the selected field by cumputing the</span>
+<span class="sd">    sum of dissolved features.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">INPUT</span> <span class="o">=</span> <span class="s1">&#39;INPUT&#39;</span>
+    <span class="n">OUTPUT</span> <span class="o">=</span> <span class="s1">&#39;OUTPUT&#39;</span>
+    <span class="n">DISSOLVE_FIELD</span> <span class="o">=</span> <span class="s1">&#39;dissolve_field&#39;</span>
+    <span class="n">SUM_FIELD</span> <span class="o">=</span> <span class="s1">&#39;sum_field&#39;</span>
+
+    <span class="k">def</span> <span class="nf">tr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">string</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns a translatable string with the self.tr() function.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">QCoreApplication</span><span class="o">.</span><span class="n">translate</span><span class="p">(</span><span class="s1">&#39;Processing&#39;</span><span class="p">,</span> <span class="n">string</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">createInstance</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">DissolveProcessingAlgorithm</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="nf">name</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns the algorithm name, used for identifying the algorithm. This</span>
+<span class="sd">        string should be fixed for the algorithm, and must not be localised.</span>
+<span class="sd">        The name should be unique within each provider. Names should contain</span>
+<span class="sd">        lowercase alphanumeric characters only and no spaces or other</span>
+<span class="sd">        formatting characters.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="s1">&#39;dissolve_with_sum&#39;</span>
+
+    <span class="k">def</span> <span class="nf">displayName</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns the translated algorithm name, which should be used for any</span>
+<span class="sd">        user-visible display of the algorithm name.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">tr</span><span class="p">(</span><span class="s1">&#39;Dissolve with Sum&#39;</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">group</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns the name of the group this algorithm belongs to. This string</span>
+<span class="sd">        should be localised.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">tr</span><span class="p">(</span><span class="s1">&#39;scripts&#39;</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">groupId</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns the unique ID of the group this algorithm belongs to. This</span>
+<span class="sd">        string should be fixed for the algorithm, and must not be localised.</span>
+<span class="sd">        The group id should be unique within each provider. Group id should</span>
+<span class="sd">        contain lowercase alphanumeric characters only and no spaces or other</span>
+<span class="sd">        formatting characters.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="s1">&#39;scripts&#39;</span>
+
+    <span class="k">def</span> <span class="nf">shortHelpString</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns a localised short helper string for the algorithm. This string</span>
+<span class="sd">        should provide a basic description about what the algorithm does and the</span>
+<span class="sd">        parameters and outputs associated with it..</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">tr</span><span class="p">(</span><span class="s2">&quot;Dissolves selected features and creates and sums values of features that were dissolved&quot;</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">initAlgorithm</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">config</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Here we define the inputs and output of the algorithm, along</span>
+<span class="sd">        with some other properties.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># We add the input vector features source. It can have any kind of</span>
+        <span class="c1"># geometry.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">addParameter</span><span class="p">(</span>
+            <span class="n">QgsProcessingParameterFeatureSource</span><span class="p">(</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">INPUT</span><span class="p">,</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">tr</span><span class="p">(</span><span class="s1">&#39;Input layer&#39;</span><span class="p">),</span>
+                <span class="p">[</span><span class="n">QgsProcessing</span><span class="o">.</span><span class="n">TypeVectorAnyGeometry</span><span class="p">]</span>
+            <span class="p">)</span>
+        <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">addParameter</span><span class="p">(</span>
+            <span class="n">QgsProcessingParameterField</span><span class="p">(</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">DISSOLVE_FIELD</span><span class="p">,</span>
+                <span class="s1">&#39;Choose Dissolve Field&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;&#39;</span><span class="p">,</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">INPUT</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">addParameter</span><span class="p">(</span>
+            <span class="n">QgsProcessingParameterField</span><span class="p">(</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">SUM_FIELD</span><span class="p">,</span>
+                <span class="s1">&#39;Choose Sum Field&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;&#39;</span><span class="p">,</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">INPUT</span><span class="p">))</span>
+        <span class="c1"># We add a feature sink in which to store our processed features (this</span>
+        <span class="c1"># usually takes the form of a newly created vector layer when the</span>
+        <span class="c1"># algorithm is run in QGIS).</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">addParameter</span><span class="p">(</span>
+            <span class="n">QgsProcessingParameterFeatureSink</span><span class="p">(</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">OUTPUT</span><span class="p">,</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">tr</span><span class="p">(</span><span class="s1">&#39;Output layer&#39;</span><span class="p">)</span>
+            <span class="p">)</span>
+        <span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">processAlgorithm</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">parameters</span><span class="p">,</span> <span class="n">context</span><span class="p">,</span> <span class="n">feedback</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Here is where the processing itself takes place.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">source</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">parameterAsSource</span><span class="p">(</span>
+            <span class="n">parameters</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">INPUT</span><span class="p">,</span>
+            <span class="n">context</span>
+        <span class="p">)</span>
+        <span class="n">dissolve_field</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">parameterAsString</span><span class="p">(</span>
+            <span class="n">parameters</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">DISSOLVE_FIELD</span><span class="p">,</span>
+            <span class="n">context</span><span class="p">)</span>
+        <span class="n">sum_field</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">parameterAsString</span><span class="p">(</span>
+            <span class="n">parameters</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">SUM_FIELD</span><span class="p">,</span>
+            <span class="n">context</span><span class="p">)</span>
+        
+        <span class="n">fields</span> <span class="o">=</span> <span class="n">QgsFields</span><span class="p">()</span>
+        <span class="n">fields</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">QgsField</span><span class="p">(</span><span class="n">dissolve_field</span><span class="p">,</span> <span class="n">QVariant</span><span class="o">.</span><span class="n">String</span><span class="p">))</span>
+        <span class="n">fields</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">QgsField</span><span class="p">(</span><span class="s1">&#39;SUM_&#39;</span> <span class="o">+</span> <span class="n">sum_field</span><span class="p">,</span> <span class="n">QVariant</span><span class="o">.</span><span class="n">Double</span><span class="p">))</span>
+        
+        <span class="p">(</span><span class="n">sink</span><span class="p">,</span> <span class="n">dest_id</span><span class="p">)</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">parameterAsSink</span><span class="p">(</span>
+            <span class="n">parameters</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">OUTPUT</span><span class="p">,</span>
+            <span class="n">context</span><span class="p">,</span> <span class="n">fields</span><span class="p">,</span> <span class="n">source</span><span class="o">.</span><span class="n">wkbType</span><span class="p">(),</span> <span class="n">source</span><span class="o">.</span><span class="n">sourceCrs</span><span class="p">())</span>
+        
+        <span class="c1"># Create a dictionary to hold the unique values from the </span>
+        <span class="c1"># dissolve_field and the sum of the values from the sum_field</span>
+        <span class="n">feedback</span><span class="o">.</span><span class="n">pushInfo</span><span class="p">(</span><span class="s1">&#39;Extracting unique values from dissolve_field and computing sum&#39;</span><span class="p">)</span>
+        <span class="n">features</span> <span class="o">=</span> <span class="n">source</span><span class="o">.</span><span class="n">getFeatures</span><span class="p">()</span>
+        <span class="n">unique_values</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">f</span><span class="p">[</span><span class="n">dissolve_field</span><span class="p">]</span> <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">features</span><span class="p">)</span>
+        <span class="c1"># Get Indices of dissolve field and sum field</span>
+        <span class="n">dissolveIdx</span> <span class="o">=</span> <span class="n">source</span><span class="o">.</span><span class="n">fields</span><span class="p">()</span><span class="o">.</span><span class="n">indexFromName</span><span class="p">(</span><span class="n">dissolve_field</span><span class="p">)</span>
+        <span class="n">sumIdx</span> <span class="o">=</span> <span class="n">source</span><span class="o">.</span><span class="n">fields</span><span class="p">()</span><span class="o">.</span><span class="n">indexFromName</span><span class="p">(</span><span class="n">sum_field</span><span class="p">)</span>
+        
+        <span class="c1"># Find all unique values for the given dissolve_field and</span>
+        <span class="c1"># sum the corresponding values from the sum_field</span>
+        <span class="n">sum_unique_values</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="n">attrs</span> <span class="o">=</span> <span class="p">[{</span><span class="n">dissolve_field</span><span class="p">:</span> <span class="n">f</span><span class="p">[</span><span class="n">dissolveIdx</span><span class="p">],</span> <span class="n">sum_field</span><span class="p">:</span> <span class="n">f</span><span class="p">[</span><span class="n">sumIdx</span><span class="p">]}</span>
+                <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">source</span><span class="o">.</span><span class="n">getFeatures</span><span class="p">()]</span>
+        <span class="k">for</span> <span class="n">unique_value</span> <span class="ow">in</span> <span class="n">unique_values</span><span class="p">:</span>
+            <span class="n">val_list</span> <span class="o">=</span> <span class="p">[</span> <span class="n">f_attr</span><span class="p">[</span><span class="n">sum_field</span><span class="p">]</span> 
+                <span class="k">for</span> <span class="n">f_attr</span> <span class="ow">in</span> <span class="n">attrs</span> <span class="k">if</span> <span class="n">f_attr</span><span class="p">[</span><span class="n">dissolve_field</span><span class="p">]</span> <span class="o">==</span> <span class="n">unique_value</span><span class="p">]</span>
+            <span class="n">sum_unique_values</span><span class="p">[</span><span class="n">unique_value</span><span class="p">]</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">val_list</span><span class="p">)</span>
+        
+        <span class="c1"># Running the processing dissolve algorithm</span>
+        <span class="n">feedback</span><span class="o">.</span><span class="n">pushInfo</span><span class="p">(</span><span class="s1">&#39;Dissolving features&#39;</span><span class="p">)</span>
+        <span class="n">dissolved_layer</span> <span class="o">=</span> <span class="n">processing</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="s2">&quot;native:dissolve&quot;</span><span class="p">,</span> <span class="p">{</span>
+            <span class="s1">&#39;INPUT&#39;</span><span class="p">:</span> <span class="n">parameters</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">INPUT</span><span class="p">],</span>
+            <span class="s1">&#39;FIELD&#39;</span><span class="p">:</span> <span class="n">dissolve_field</span><span class="p">,</span>
+            <span class="s1">&#39;OUTPUT&#39;</span><span class="p">:</span> <span class="s1">&#39;memory:&#39;</span>
+        <span class="p">},</span> <span class="n">context</span><span class="o">=</span><span class="n">context</span><span class="p">,</span> <span class="n">feedback</span><span class="o">=</span><span class="n">feedback</span><span class="p">)[</span><span class="s1">&#39;OUTPUT&#39;</span><span class="p">]</span>
+        
+        <span class="c1"># Read the dissolved layer and create output features</span>
+        <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">dissolved_layer</span><span class="o">.</span><span class="n">getFeatures</span><span class="p">():</span>
+            <span class="n">new_feature</span> <span class="o">=</span>  <span class="n">QgsFeature</span><span class="p">()</span>
+            <span class="c1"># Set geometry to dissolved geometry</span>
+            <span class="n">new_feature</span><span class="o">.</span><span class="n">setGeometry</span><span class="p">(</span><span class="n">f</span><span class="o">.</span><span class="n">geometry</span><span class="p">())</span>
+            <span class="c1"># Set attributes from sum_unique_values dictionary that we had computed</span>
+            <span class="n">new_feature</span><span class="o">.</span><span class="n">setAttributes</span><span class="p">([</span><span class="n">f</span><span class="p">[</span><span class="n">dissolve_field</span><span class="p">],</span> <span class="n">sum_unique_values</span><span class="p">[</span><span class="n">f</span><span class="p">[</span><span class="n">dissolve_field</span><span class="p">]]])</span>
+            <span class="n">sink</span><span class="o">.</span><span class="n">addFeature</span><span class="p">(</span><span class="n">new_feature</span><span class="p">,</span> <span class="n">QgsFeatureSink</span><span class="o">.</span><span class="n">FastInsert</span><span class="p">)</span>
+        
+        <span class="k">return</span> <span class="p">{</span><span class="bp">self</span><span class="o">.</span><span class="n">OUTPUT</span><span class="p">:</span> <span class="n">dest_id</span><span class="p">}</span>
+</pre></div>
+</div>
+</section>
+</section>
+
+
+
+
+
+  <div id="disqus_thread"></div>
+  <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+
+    </div>
+      
+  </div>
+</div>
+
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+    </p>
+    <p>
+        &copy; Copyright 2021, Ujaval Gandhi.<br/>
+      Laatste aanpassing op aug. 30, 2022.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 4.0.1.<br/>
+    </p>
+  </div>
+</footer>
+<div class="container">
+  <p>This work is licensed under a <a href="http://creativecommons.org/licenses/by/4.0/deed.en_US">Creative Commons Attribution 4.0 International License</a></p>
+</div>
+<!-- Twitter Button -->
+<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+
+<!-- Disqus comments widget -->
+<script type="text/javascript">
+  /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+  var disqus_shortname = 'qgistutorials'; // required: replace example with your forum shortname
+  /* * * DON'T EDIT BELOW THIS LINE * * */
+  (function () {
+    var s = document.createElement('script'); s.async = true;
+    s.type = 'text/javascript';
+    s.src = '//' + disqus_shortname + '.disqus.com/count.js';
+    (document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);
+  }());
+</script>
+
+<script type="text/javascript">
+  /* * * DON'T EDIT BELOW THIS LINE * * */
+  (function() {
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+
+<!-- Script fpr language switching. Largely adapted from https://github.com/pcav/faunalia-website -->
+<script>
+    var currentPage = 'docs/3/processing_python_scripts.html'; // coming from sphinx, always without starting '/'
+    var currentLang = 'en';
+    $(document).ready(function(){
+
+        var search = new RegExp('\/[a-zA-Z_]{2,8}\/'+ currentPage, 'gi');
+        var langPlusPage = window.location.href.match(search);
+        // it's possible this is a index.html page called without 'index.html', try without the currentPage
+        if (langPlusPage==undefined){
+            search = new RegExp('\/[a-zA-Z_]{2,8}\/$', 'gi');
+            langPlusPage = window.location.href.match(search);
+        }
+
+        // it's possible this is an index.html page called without 'index.html', try removing index.html
+        if (langPlusPage==undefined){
+            currentPage = currentPage.replace('index.html','')
+            search = new RegExp('\/[a-zA-Z_]{2,8}\/'+ currentPage, 'gi');
+            langPlusPage = window.location.href.match(search);
+        }
+        // still no langPlugPage: stop, because the language swicher will misbehave 
+
+        if (langPlusPage == undefined || langPlusPage.length != 1){
+            alert('You hit an error, please report back to us.');
+            return;
+        }
+        langPlusPage = langPlusPage[0];
+        currentLang = langPlusPage.replace(currentPage, '');
+
+        $("#languages").val(currentLang.replace(/\//g,'')); // currentLang is something like '/nl/'
+
+        $("#languages").change(function() {
+            gotoLang($(this).val());
+        });
+
+    });
+
+    // load current page in a different language
+    function gotoLang(lang){
+        var currentUrl = window.location.href;
+        var newUrl = currentUrl.replace(currentLang, '/'+lang+'/');
+        window.location.href = newUrl;
+    }
+</script>
+
+  </body>
+</html>

@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+
+<html lang="ko">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>점 데이터 보간법 &#8212; QGIS Tutorials and Tips</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/bootstrap-sphinx.css" />
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/translations.js"></script>
+    <link rel="search" title="검색" href="../search.html" />
+
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<script type="text/javascript" src="../_static/js/jquery-1.11.0.min.js "></script>
+<script type="text/javascript" src="../_static/js/jquery-fix.js "></script>
+<script type="text/javascript" src="../_static/bootstrap-3.3.7/js/bootstrap.min.js "></script>
+<script type="text/javascript" src="../_static/bootstrap-sphinx.js "></script>
+
+
+<!-- Cookie Notice -->
+<!-- Script from https://github.com/AOEpeople/cookie-notice -->
+<script type="text/javascript" src="../_static/cookie.notice.min.js"></script>
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-B1WQ7B80XJ"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-B1WQ7B80XJ');
+</script>
+
+
+  </head><body>
+
+  <div id="navbar" class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="../index.html"><span><img src="../_static/logo.png"></span>
+          QGIS Tutorials and Tips</a>
+        <span class="navbar-text navbar-version pull-left"><b>v1</b></span>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="../index.html">Tutorials List <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"><ul>
+<li class="toctree-l1"><a class="reference internal" href="introduction.html">들어가는 말</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/making_a_map.html">지도 만들기 (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/working_with_attributes.html">속성 작업 (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/importing_spreadsheets_csv.html">스프레드시트 및 CSV 파일 불러오기 (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/basic_vector_styling.html">기본 벡터 스타일링 (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/calculating_line_lengths.html">선의 길이계산과 통계(QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/raster_styling_and_analysis.html">기본 래스터 스타일링 및 분석(QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/raster_mosaicing_and_clipping.html">래스터 붙이기 및 자르기 (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/working_with_terrain.html">Working with Terrain Data (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/working_with_wms.html">Working with WMS Data (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/working_with_projections.html">Working with Projections (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/georeferencing_basics.html">Georeferencing Topo Sheets and Scanned Maps (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/advanced_georeferencing.html">항공사진 지오레퍼런싱 (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/digitizing_basics.html">Digitizing Map Data (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/performing_table_joins.html">테이블 결합 작업(QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/performing_spatial_joins.html">공간 결합 수행 (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/performing_spatial_queries.html">공간 조회 실행(QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/nearest_neighbor_analysis.html">최근린 분석(QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/sampling_raster_data.html">점 또는 다각형을 이용한 래스터 데이터 표본 추출 작업(QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/calculating_raster_area.html">Calculating Raster Area (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/creating_heatmaps.html">열지도 만들기 (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/animating_time_series.html">Animating Time Series Data (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/handling_invalid_geometries.html">Handling Invalid Geometries (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/advanced_raster_analysis.html">Advanced Raster Analysis (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/interpolating_point_data.html">Interpolating Point Data (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/calculating_intersection_density.html">Calculating Street Intersection Density (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/batch_processing.html">프로세싱 프레임을 이용한 일괄처리과정</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/processing_graphical_modeler.html">프로세싱 모델러를 사용하여 복잡한 작업흐름 자동화하기(QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/automating_map_creation.html">Automating Map Creation with Print Layout Atlas (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/multi_criteria_overlay.html">Multi Criteria Overlay Analysis (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/basic_network_analysis.html">Basic Network Visualization and Routing (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/origin_destination_matrix.html">가장 가까운 기-종점 매트릭스 위치 (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/service_area_analysis.html">Openrouteservice를 이용한 서비스 영역 분석(QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/travel_time_analysis.html">Travel Time Analysis with Uber Movement (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/areal_mean_rainfall.html">Calculating Areal Mean Rainfall (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/getting_started_with_pyqgis.html">Getting Started With Python Programming (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/processing_algorithms_pyqgis.html">Running Processing Algorithms via Python (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/custom_python_functions.html">Using Custom Python Expression Functions (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/processing_python_scripts.html">Writing Python Scripts for Processing Framework (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/building_a_python_plugin.html">Building a Python Plugin (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/processing_python_plugin.html">Building a Processing Plugin (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="running_qgis_jobs.html">Running and Scheduling QGIS Processing Jobs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/web_mapping_with_qgis2web.html">Web Mapping with QGIS2Web (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="creating_basemaps_with_qtiles.html">QTiles로 베이스 맵 만들기</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/using_plugins.html">Using Plugins (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="downloading_osm_data.html">오픈스트리트맵 데이터의 검색과 다운로드</a></li>
+<li class="toctree-l1"><a class="reference internal" href="learning_resources.html">QGIS 수업 자원</a></li>
+<li class="toctree-l1"><a class="reference internal" href="credits.html">데이터 크레딧</a></li>
+<li class="toctree-l1"><a class="reference internal" href="batch_processing.html">프로세싱 프레임을 이용한 일괄처리과정</a></li>
+</ul>
+</ul>
+</li>
+              
+            
+            
+              
+                
+              
+            
+            
+
+            
+
+            
+              <li class="hidden-sm"></li>
+            
+          </ul>
+
+          
+            
+<form class="navbar-form navbar-right" action="../search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+      <div class="col-md-3">
+        <div id="sidebar" class="bs-sidenav" role="complementary"><h4>Author</h4>
+<p>Ujaval Gandhi</p>
+<a href="https://twitter.com/intent/follow?screen_name=spatialthoughts" class="twitter-follow-button" data-show-count="false">Follow @spatialthoughts</a>
+<hr>
+<p>Want to learn QGIS in a structured way? Check out <a href="https://spatialthoughts.com/" target="_blank">Spatial Thoughts</a> for more learning materials and instructor-led online programs with QGIS.org certification.</p>
+
+
+<h4>Change Language</h4>
+<form role="form" class="sidebar-form sidebar-left">
+<select id="languages" class="form-control select-mini">
+  <option value="en">English</option>
+  <option value="zh_TW">Chinese (Taiwan)</option>
+  <option value="nl">Dutch</option>
+  <option value="fi_FI">Finnish</option>
+  <option value="fr">French</option>
+  <option value="de">German</option>
+  <option value="el">Greek</option>
+  <option value="id">Indonesian</option>
+  <option value="it">Italian</option>
+  <option value="ko">Korean</option>
+  <option value="fa">Persian</option>
+  <option value="pt_BR">Portuguese</option>
+  <option value="ro">Romanian</option>
+  <option value="ru">Russian</option>
+  <option value="sl">Slovenian</option>
+  <option value="es">Spanish</option>
+  <option value="th">Thai</option>
+  <option value="tr">Turkish</option>
+  <option value="uk">Ukrainian</option>
+  <option value="vi">Vietnamese</option>
+</select>
+</form>
+        </div>
+      </div>
+    <div class="body col-md-9 content" role="main">
+      
+
+  <section id="interpolating-point-data">
+<h1>점 데이터 보간법<a class="headerlink" href="#interpolating-point-data" title="이 표제에 대한 퍼머링크">¶</a></h1>
+<div class="admonition warning">
+<p class="admonition-title">경고</p>
+<p>This tutorial is now obsolete. A new and updated version is available at <a class="reference internal" href="3/interpolating_point_data.html"><span class="doc">Interpolating Point Data (QGIS3)</span></a></p>
+</div>
+<p>보간법은 이산된 점들로부터 연속적인 표면을 만들기 위해 일반적으로 사용되는 GIS 기법입니다. 실세계의 많은 현상들은 연속적입니다. 즉, 해발고, 토양, 온도 등. 만약 분석을 하기 위해 이러한 표면을 모델로 만들고자 한다면, 표면 전체를 통해서 측정값을 얻어내는 것은 불가능합니다. 그래서 현장조사시 측정자료는 표면을 따라 다양한 점 데이터를 얻어내고 ‘보간법’이라고 하는 과정에 의해 중간값을 취합니다. QGIS에서는 이미 내장된 <a href="#id1"><span class="problematic" id="id2">``</span></a>Interpolation plugin``을 사용해서 보간을 할 수 있습니다.</p>
+<section id="overview-of-the-task">
+<h2>과업 개요<a class="headerlink" href="#overview-of-the-task" title="이 표제에 대한 퍼머링크">¶</a></h2>
+<p>예제에서는 텍사스 알링턴호수의 깊이값을 현장조사를 통해 확보하고 이러한 측정값으로부터 수직고도지형도와 등고선을 만들 것입니다.</p>
+<section id="other-skills-you-will-learn">
+<h3>기타 스킬<a class="headerlink" href="#other-skills-you-will-learn" title="이 표제에 대한 퍼머링크">¶</a></h3>
+<ul class="simple">
+<li><p>점 데이타로부터 등고선을 만듭니다.</p></li>
+<li><p>래스터 레이어로의 데이터값 없는 부분을 처리합니다.</p></li>
+<li><p>벡터레이어에 라벨을 추가합니다.</p></li>
+</ul>
+</section>
+</section>
+<section id="get-the-data">
+<h2>데이터 획득<a class="headerlink" href="#get-the-data" title="이 표제에 대한 퍼머링크">¶</a></h2>
+<p>Texas Water Development Board provides the <a class="reference external" href="http://www.twdb.texas.gov/surfacewater/surveys/completed/list/index.asp">shapefiles for completed lake
+surveys</a>.</p>
+<p>Download the <a class="reference external" href="http://www.twdb.texas.gov/hydro_survey/Arlington/2007-12/Shapefiles.zip">2007-12 survey shapefiles for Lake Arlington</a>.</p>
+<p>For convenience, you can directly download the sample data used in this
+tutorial from link below.</p>
+<p><a class="reference external" href="http://www.qgistutorials.com/downloads/Shapefiles.zip">Shapefiles.zip</a></p>
+<p>데이터 출처: <a class="reference internal" href="credits.html#twdb" id="id1"><span>[TWDB]</span></a></p>
+</section>
+<section id="procedure">
+<h2>과정<a class="headerlink" href="#procedure" title="이 표제에 대한 퍼머링크">¶</a></h2>
+<ol class="arabic simple">
+<li><p>GIS를 구동시키고 메뉴 레이어 –&gt; 레이어 추가 –&gt; 벡터 레이어 추가 :menuselection:<a href="#id1"><span class="problematic" id="id2">`</span></a>Layer –&gt; Add Layer –&gt; Add Vector Layer..`로 갑니다.</p></li>
+</ol>
+<img alt="../_images/1176.png" class="align-center" src="../_images/1176.png" />
+<ol class="arabic simple" start="2">
+<li><p>다운로드한 <a href="#id1"><span class="problematic" id="id2">``</span></a>Shapefiles.zip``파일을 찾고 선택합니다. 열기 :guilabel:<a href="#id3"><span class="problematic" id="id4">`</span></a>Open`를 클릭합니다.</p></li>
+</ol>
+<img alt="../_images/2143.png" class="align-center" src="../_images/2143.png" />
+<ol class="arabic simple" start="3">
+<li><p>추가할 레이어 선택 <span class="guilabel">Select layers to add…</span> 다이알로그에서 쉬프트키 :kbd:<a href="#id1"><span class="problematic" id="id2">`</span></a>Shift`를 누른 채 <a href="#id3"><span class="problematic" id="id4">``</span></a>Arlington_Soundings_2007_stpl83.shp``와 <a href="#id5"><span class="problematic" id="id6">``</span></a>Boundary2004_550_stpl83.shp``레이어 를 선택합니다. 확인 :guilabel:<a href="#id7"><span class="problematic" id="id8">`</span></a>OK`을 클릭합니다.</p></li>
+</ol>
+<img alt="../_images/376.png" class="align-center" src="../_images/376.png" />
+<ol class="arabic simple" start="4">
+<li><p>QGIS에서 추가된 2개의 레이어를 보게됩니다.  <a href="#id1"><span class="problematic" id="id2">``</span></a>Boundary2004_550_stpl83``레이어는 호수의 경계를 나타냅니다. TOC에서 이 레이어의 박스를 해체합니다.</p></li>
+</ol>
+<img alt="../_images/450.png" class="align-center" src="../_images/450.png" />
+<ol class="arabic simple" start="5">
+<li><p>두번째 레이어 <a href="#id1"><span class="problematic" id="id2">``</span></a>Arlington_Soundings_2007_stpl83``가 나타날 것입니다. 비록 데이터가 선처럼 생겼으나 이것은 점들이 매우 촘촘하게 연속된 것입니다.</p></li>
+</ol>
+<img alt="../_images/547.png" class="align-center" src="../_images/547.png" />
+<ol class="arabic simple" start="6">
+<li><p>확대 <span class="guilabel">Zoom</span> 아이콘을 클릭하여 화면의 작은 지역을 선택합니다. 확대할 수록 점들이 나타납니다. 각 점은  <em>DGPS</em> 장비로 특정 위치에서 <a href="#id1"><span class="problematic" id="id2">*</span></a>Depth Sounder*로 기록한 데이터값입니다.</p></li>
+</ol>
+<img alt="../_images/645.png" class="align-center" src="../_images/645.png" />
+<ol class="arabic simple" start="7">
+<li><p>객체 확인 <span class="guilabel">Identify</span> 툴을 선택하여 한 점을 클릭합니다. 피처 속성 <span class="guilabel">Identify Results</span> 판넬에서 점의 속성값을 볼 수 있습니다. 이 경우 <a href="#id1"><span class="problematic" id="id2">``</span></a>ELEVATION``속성은 그 위치에서의 호수의 길이값을 포함하고 있습니다. 예제에서 깊이 단면과 고도 등고선을 만드는 것이므로 보간법의 입력값으로 이 값을 사용할 것입니다.</p></li>
+</ol>
+<img alt="../_images/744.png" class="align-center" src="../_images/744.png" />
+<ol class="arabic simple" start="8">
+<li><p>보간 플러그인 <a href="#id1"><span class="problematic" id="id2">``</span></a>Interpolation plugin``이 활성화 되어 있는지 확인합니다. 어떻게 플러그인을 활성화 하는가는  :doc:<a href="#id3"><span class="problematic" id="id4">`</span></a>using_plugins`를 보시기 바랍니다. 일단 활성화되었다면, 메뉴 래스터 –&gt; 보간 –&gt; 보간 :menuselection:<a href="#id5"><span class="problematic" id="id6">`</span></a>Raster –&gt; Interpolation –&gt; Interpolation`으로 갑니다.</p></li>
+</ol>
+<img alt="../_images/843.png" class="align-center" src="../_images/843.png" />
+<ol class="arabic simple" start="9">
+<li><p>보간 플러그인  <span class="guilabel">Interpolation</span> 다이알로그중, 입력 <span class="guilabel">Input</span> 판넬에서 벡터 레이어 <span class="guilabel">Vector layers`로  ``Arlington_Soundings_2007_stpl83``를 선택합니다. 보간 속성값 :guilabel:`Interpolation attribute`으로 ``ELEVATION``를 선택합니다. 추가 :guilabel:`Add`를 클릭합니다.  셀 크기 X :guilabel:`Cellsize X`와 셀 크기 Y :guilabel:`Cellsize Y`의 값을 ``5``로 변경합니다. 이 값은 출력 그리드의 각 픽셀의 크기입니다. 원 자료가 **Feet-US** 단위로 좌표 투영되었으므로 선택을 기준으로 그리드의 크기는 **5 feet**가 될 것입니다. 출력 파일 :guilabel:`Output file</span> 옆  <span class="guilabel">…</span> 박스를 클릭하여 <a href="#id1"><span class="problematic" id="id2">``</span></a>elevation_tin.tif``라고 출력파일명을 입력합니다. 확인 :guilabel:<a href="#id3"><span class="problematic" id="id4">`</span></a>OK`을 클릭합니다.</p></li>
+</ol>
+<div class="admonition note">
+<p class="admonition-title">참고</p>
+<p>보간의 결과는 선택한 방법과 매개변수에 따라서 매우 달라질 수 있습니다. QGiS 보간법은 <a href="#id1"><span class="problematic" id="id2">*</span></a>Triagulated Irregular Network (TIN)*와 <a href="#id3"><span class="problematic" id="id4">*</span></a>Inverse Distance Weighting (IDW)*를 지원합니다. TIN 방법은 대체로 수직고도 데이터를 사용하고 반면 IDW방법은 광물농도, 인구밀도 등과 같은 다른 유형의 데이터의 보간에 사용됩니다. 보다 자세한 사항은 QGiS문서인  <a class="reference external" href="http://docs.qgis.org/2.2/en/docs/gentle_gis_introduction/spatial_analysis_interpolation.html">Spatial Analysis</a> 를 보시기 바랍니다.</p>
+</div>
+<img alt="../_images/943.png" class="align-center" src="../_images/943.png" />
+<ol class="arabic simple" start="10">
+<li><p>QGIS에 새로운 레이어로 <a href="#id1"><span class="problematic" id="id2">``</span></a>elevation_tin``가 추가될 것입니다. 레이어를 우측클릭하고 레이어 영역으로 확대 :guilabel:<a href="#id3"><span class="problematic" id="id4">`</span></a>Zoom to layer`를 선택합니다.</p></li>
+</ol>
+<img alt="../_images/1050.png" class="align-center" src="../_images/1050.png" />
+<ol class="arabic simple" start="11">
+<li><p>이제 만들어진 표면 전체를 볼 수 있을 것입니다. 보간은 수집된 데이터의 외곽에 대해서는 정확한 값을 제공하지 않습니다. 호수 경계를 가지고 분석된 표면 결과를 잘라내기 해봅시다. 메뉴 래스터 –&gt; 추출 –&gt; 잘라내기  :menuselection:<a href="#id1"><span class="problematic" id="id2">`</span></a>Raster –&gt; Extraction –&gt; Clipper`로 갑니다.</p></li>
+</ol>
+<img alt="../_images/1177.png" class="align-center" src="../_images/1177.png" />
+<ol class="arabic simple" start="12">
+<li><p>출력파일 :guilabel:<a href="#id1"><span class="problematic" id="id2">`</span></a>Output file`에 <a href="#id3"><span class="problematic" id="id4">``</span></a>elevation_tin_clipped.tif``라고 입력합니다. 클리핑 모드:guilabel:<a href="#id5"><span class="problematic" id="id6">`</span></a>Cliping mode`로  마스크 레이어 :guilabel:<a href="#id7"><span class="problematic" id="id8">`</span></a>Mask layer`를 선택합니다. 마스크 레이어로 :guilabel:<a href="#id9"><span class="problematic" id="id10">`</span></a>Mask layer``로 <a href="#id11"><span class="problematic" id="id12">``</span></a>Boundary2004_550_stpl83``를 선택합니다. 확인 :guilabel:<a href="#id13"><span class="problematic" id="id14">`</span></a>OK`을 클릭합니다.</p></li>
+</ol>
+<img alt="../_images/1252.png" class="align-center" src="../_images/1252.png" />
+<ol class="arabic simple" start="13">
+<li><p>새로운 래스터 레이어 <a href="#id1"><span class="problematic" id="id2">``</span></a>elevation_tin_clipped``가 QGIS에 추가 됩니다. 이제 이 레이어를 스타일링해서 고도차이를 보일 것입니다. <a href="#id3"><span class="problematic" id="id4">``</span></a>elevation_tin``레이어로부터 최소 및 최대 고도값을 알아봅니다. <a href="#id5"><span class="problematic" id="id6">``</span></a>elevation_tin_clipped``레이어를 우측클릭하고 속성 :guilabel:<a href="#id7"><span class="problematic" id="id8">`</span></a>Properties`을 선택합니다.</p></li>
+</ol>
+<img alt="../_images/1350.png" class="align-center" src="../_images/1350.png" />
+<ol class="arabic simple" start="14">
+<li><p>스타일 :guilabel:<a href="#id1"><span class="problematic" id="id2">`</span></a>Style`탭으로 갑니다. 랜더유형 :guilabel:<a href="#id3"><span class="problematic" id="id4">`</span></a>Render type`으로 단일밴드 의사색채 <a href="#id5"><span class="problematic" id="id6">``</span></a>Singleband pseudocolor``를 선택합니다. 새 색상표 작성 :guilabel:<a href="#id7"><span class="problematic" id="id8">`</span></a>Generate new color map`판넬에서 <a href="#id9"><span class="problematic" id="id10">``</span></a>Spectral``을 선택합니다. 고도지도에 맞서는 깊이지도를 만드는 것이므로 뒤집기 :guilabel:<a href="#id11"><span class="problematic" id="id12">`</span></a>Invert`박스를 체크합니다. 그러면 파란색은 깊은 곳, 빨간색은 얕은 곳으로 할당됩니다. 분류 :guilabel:<a href="#id13"><span class="problematic" id="id14">`</span></a>Classify`를 클릭합니다.</p></li>
+</ol>
+<img alt="../_images/1446.png" class="align-center" src="../_images/1446.png" />
+<ol class="arabic simple" start="15">
+<li><p>투명도 <span class="guilabel">Tranparency</span> 탭으로 전환합니다. 최종 출력에서 검은색 픽셀을 제거하고자 합니다.  <span class="guilabel">Additional no data value`에 ``0`</span> 을 입력합니다. 확인 :guilabel:<a href="#id1"><span class="problematic" id="id2">`</span></a>OK`을 클릭합니다.</p></li>
+</ol>
+<img alt="../_images/1544.png" class="align-center" src="../_images/1544.png" />
+<ol class="arabic simple" start="16">
+<li><p>이제 개별 깊이 데이터로 만든 호수의 깊이 지형도를 만들었습니다. 이제 등고선을 만들어 봅시다. 메뉴 래스터 –&gt; 추출 –&gt; 등고선 :menuselection:<a href="#id1"><span class="problematic" id="id2">`</span></a>Raster –&gt; Extraction –&gt; Contours`으로 갑니다.</p></li>
+</ol>
+<img alt="../_images/1641.png" class="align-center" src="../_images/1641.png" />
+<ol class="arabic simple" start="17">
+<li><p>등고선 <span class="guilabel">Contour</span> 다이알로그에서 등고선 출력파일 <span class="guilabel">Output file for contour lines`로  ``contours``를 입력합니다. 5ft간격의등고선을 만들 것이므로 등고선 간격 :guilabel:`Interval between contour lines`에 ``5.00``를 입력합니다. 속성 이름 :guilabel:`Attribute name</span> 박스에 체크합니다. 확인 :guilabel:<a href="#id1"><span class="problematic" id="id2">`</span></a>OK`을 클릭합니다.</p></li>
+</ol>
+<img alt="../_images/1737.png" class="align-center" src="../_images/1737.png" />
+<ol class="arabic simple" start="18">
+<li><p>일단 과정이 종료되면 등고선은 <code class="docutils literal notranslate"><span class="pre">contours</span></code> 레이어로 불러들여질 것입니다. 레이어를 우측클릭하고 속성 :guilabel:<a href="#id1"><span class="problematic" id="id2">`</span></a>Properties`을 선택합니다.</p></li>
+</ol>
+<img alt="../_images/1835.png" class="align-center" src="../_images/1835.png" />
+<ol class="arabic simple" start="19">
+<li><p>라벨 :guilabel:<a href="#id1"><span class="problematic" id="id2">`</span></a>Labels`탭으로 갑니다. 이 레이어의 라벨 :guilabel:<a href="#id3"><span class="problematic" id="id4">`</span></a>Label this layer with`을 체크하고 필드로 <a href="#id5"><span class="problematic" id="id6">``</span></a>ELEV``를 선택합니다. 배치 :guilabel:<a href="#id7"><span class="problematic" id="id8">`</span></a>Placement`는 곡선 <a href="#id9"><span class="problematic" id="id10">``</span></a>Curved``을 선택하고 확인 :guilabel:<a href="#id11"><span class="problematic" id="id12">`</span></a>OK`을 클릭합니다.</p></li>
+</ol>
+<img alt="../_images/1927.png" class="align-center" src="../_images/1927.png" />
+<ol class="arabic simple" start="20">
+<li><p>각 등고선에 대략적인 고도값 라벨이 선을 따라 부여될 것입니다.</p></li>
+</ol>
+<img alt="../_images/2022.png" class="align-center" src="../_images/2022.png" />
+</section>
+</section>
+
+
+
+
+
+  <div id="disqus_thread"></div>
+  <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+
+    </div>
+      
+  </div>
+</div>
+
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+    </p>
+    <p>
+        &copy; Copyright 2021, Ujaval Gandhi.<br/>
+      최종 업데이트: 8월 30, 2022<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 4.0.1.<br/>
+    </p>
+  </div>
+</footer>
+<div class="container">
+  <p>This work is licensed under a <a href="http://creativecommons.org/licenses/by/4.0/deed.en_US">Creative Commons Attribution 4.0 International License</a></p>
+</div>
+<!-- Twitter Button -->
+<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+
+<!-- Disqus comments widget -->
+<script type="text/javascript">
+  /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+  var disqus_shortname = 'qgistutorials'; // required: replace example with your forum shortname
+  /* * * DON'T EDIT BELOW THIS LINE * * */
+  (function () {
+    var s = document.createElement('script'); s.async = true;
+    s.type = 'text/javascript';
+    s.src = '//' + disqus_shortname + '.disqus.com/count.js';
+    (document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);
+  }());
+</script>
+
+<script type="text/javascript">
+  /* * * DON'T EDIT BELOW THIS LINE * * */
+  (function() {
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+
+<!-- Script fpr language switching. Largely adapted from https://github.com/pcav/faunalia-website -->
+<script>
+    var currentPage = 'docs/interpolating_point_data.html'; // coming from sphinx, always without starting '/'
+    var currentLang = 'en';
+    $(document).ready(function(){
+
+        var search = new RegExp('\/[a-zA-Z_]{2,8}\/'+ currentPage, 'gi');
+        var langPlusPage = window.location.href.match(search);
+        // it's possible this is a index.html page called without 'index.html', try without the currentPage
+        if (langPlusPage==undefined){
+            search = new RegExp('\/[a-zA-Z_]{2,8}\/$', 'gi');
+            langPlusPage = window.location.href.match(search);
+        }
+
+        // it's possible this is an index.html page called without 'index.html', try removing index.html
+        if (langPlusPage==undefined){
+            currentPage = currentPage.replace('index.html','')
+            search = new RegExp('\/[a-zA-Z_]{2,8}\/'+ currentPage, 'gi');
+            langPlusPage = window.location.href.match(search);
+        }
+        // still no langPlugPage: stop, because the language swicher will misbehave 
+
+        if (langPlusPage == undefined || langPlusPage.length != 1){
+            alert('You hit an error, please report back to us.');
+            return;
+        }
+        langPlusPage = langPlusPage[0];
+        currentLang = langPlusPage.replace(currentPage, '');
+
+        $("#languages").val(currentLang.replace(/\//g,'')); // currentLang is something like '/nl/'
+
+        $("#languages").change(function() {
+            gotoLang($(this).val());
+        });
+
+    });
+
+    // load current page in a different language
+    function gotoLang(lang){
+        var currentUrl = window.location.href;
+        var newUrl = currentUrl.replace(currentLang, '/'+lang+'/');
+        window.location.href = newUrl;
+    }
+</script>
+
+  </body>
+</html>

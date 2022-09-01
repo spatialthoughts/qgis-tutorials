@@ -1,0 +1,624 @@
+<!DOCTYPE html>
+
+<html lang="nl">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>Rastergebied berekenen (QGIS3) &#8212; QGIS Tutorials and Tips</title>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-sphinx.css" />
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/translations.js"></script>
+    <link rel="search" title="Zoeken" href="../../search.html" />
+    <link rel="next" title="Heatmaps maken (QGIS3)" href="creating_heatmaps.html" />
+    <link rel="prev" title="Monsters nemen van rastergegevens met behulp van punten of polygonen (QGIS3)" href="sampling_raster_data.html" />
+
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<script type="text/javascript" src="../../_static/js/jquery-1.11.0.min.js "></script>
+<script type="text/javascript" src="../../_static/js/jquery-fix.js "></script>
+<script type="text/javascript" src="../../_static/bootstrap-3.3.7/js/bootstrap.min.js "></script>
+<script type="text/javascript" src="../../_static/bootstrap-sphinx.js "></script>
+
+
+<!-- Cookie Notice -->
+<!-- Script from https://github.com/AOEpeople/cookie-notice -->
+<script type="text/javascript" src="../../_static/cookie.notice.min.js"></script>
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-B1WQ7B80XJ"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-B1WQ7B80XJ');
+</script>
+
+
+  </head><body>
+
+  <div id="navbar" class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="../../index.html"><span><img src="../../_static/logo.png"></span>
+          QGIS Tutorials and Tips</a>
+        <span class="navbar-text navbar-version pull-left"><b>v1</b></span>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="../../index.html">Tutorials List <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"><ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../introduction.html">Introductie</a></li>
+<li class="toctree-l1"><a class="reference internal" href="making_a_map.html">Een kaart maken (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="working_with_attributes.html">Werken met attributen (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="importing_spreadsheets_csv.html">Werkbladen of CSV-bestanden importeren (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="basic_vector_styling.html">Basis opmaken van vectoren (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="calculating_line_lengths.html">Lengten van lijnen en statistieken berekenen (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="raster_styling_and_analysis.html">Basis opmaken en analyses van rasters (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="raster_mosaicing_and_clipping.html">Rasters mozaïeken en clippen (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="working_with_terrain.html">Werken met gegevens over het terrein (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="working_with_wms.html">Werken met gegevens van WMS (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="working_with_projections.html">Werken met projecties (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="georeferencing_basics.html">Topobladen en gescande kaarten voorzien van geoverwijzingen (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="advanced_georeferencing.html">Geo-verwijzingen voor satellietbeelden (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="digitizing_basics.html">Kaartgegevens digitaliseren</a></li>
+<li class="toctree-l1"><a class="reference internal" href="performing_table_joins.html">Samenvoegen van tabellen uitvoeren (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="performing_spatial_joins.html">Ruimtelijke samenvoegingen uitvoeren (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="performing_spatial_queries.html">Ruimtelijke query’s uitvoeren (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="nearest_neighbor_analysis.html">Analyse Nearest Neighbor (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="sampling_raster_data.html">Monsters nemen van rastergegevens met behulp van punten of polygonen (QGIS3)</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Rastergebied berekenen (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="creating_heatmaps.html">Heatmaps maken (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="animating_time_series.html">Geanimeerde gegevens tijdreeks (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="handling_invalid_geometries.html">Ongeldige geometrieën afhandelen (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="advanced_raster_analysis.html">Gevorderde rasteranalyses (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="interpolating_point_data.html">Interpoleren van puntgegevens</a></li>
+<li class="toctree-l1"><a class="reference internal" href="calculating_intersection_density.html">Dichtheid van straatkruisingen berekenen (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="batch_processing.html">Massa verwerken met behulp van Framework Processing (QGIS 3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="processing_graphical_modeler.html">Complexe werkstromen automatiseren met behulp van Grafische modellen bouwen (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="automating_map_creation.html">Maken van kaarten automatiseren met Atlas van afdruklay-out (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="multi_criteria_overlay.html">Multi Criteria Overlay Analyse (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="basic_network_analysis.html">Basis netwerk visualisatie en routeren (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="origin_destination_matrix.html">Dichtstbijzijnde faciliteit zoeken met Origin-Destination Matrix (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="service_area_analysis.html">Analyse Servicegebied met Openrouteservice (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="travel_time_analysis.html">Reistijd-analyse met Uber Movement (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="areal_mean_rainfall.html">Berekenen gemiddelde regenval voor gebied (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="getting_started_with_pyqgis.html">Beginnen met programmeren in Python (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="processing_algorithms_pyqgis.html">Algoritmes van Processing uitvoeren via Python (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="custom_python_functions.html">Aangepaste Python expressie-functies gebruiken (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="processing_python_scripts.html">Python-scripts schrijven voor framework Processing (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="building_a_python_plugin.html">Een plug-in in Python bouwen (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="processing_python_plugin.html">Een plug-in voor Processing bouwen (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../running_qgis_jobs.html">Taken voor QGIS uitvoeren en in schema zetten</a></li>
+<li class="toctree-l1"><a class="reference internal" href="web_mapping_with_qgis2web.html">In kaart brengen op het web met QGIS2Web (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../creating_basemaps_with_qtiles.html">Basiskaarten maken met QTiles</a></li>
+<li class="toctree-l1"><a class="reference internal" href="using_plugins.html">Plug-ins gebruiken (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../downloading_osm_data.html">Zoeken en downloaden van gegevens van OpenStreetMap</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../learning_resources.html">QGIS bronnen om te leren</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../credits.html">Gebruik van gegevens</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../batch_processing.html">Massa verwerken met behulp van Framework Processing (QGIS2)</a></li>
+</ul>
+</ul>
+</li>
+              
+            
+            
+              
+                
+  <li>
+    <a href="sampling_raster_data.html" title="Previous Chapter: Monsters nemen van rastergegevens met behulp van punten of polygonen (QGIS3)"><span class="glyphicon glyphicon-chevron-left visible-sm"></span><span class="hidden-sm hidden-tablet">&laquo; Monsters neme...</span>
+    </a>
+  </li>
+  <li>
+    <a href="creating_heatmaps.html" title="Next Chapter: Heatmaps maken (QGIS3)"><span class="glyphicon glyphicon-chevron-right visible-sm"></span><span class="hidden-sm hidden-tablet">Heatmaps make... &raquo;</span>
+    </a>
+  </li>
+              
+            
+            
+
+            
+
+            
+              <li class="hidden-sm"></li>
+            
+          </ul>
+
+          
+            
+<form class="navbar-form navbar-right" action="../../search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+      <div class="col-md-3">
+        <div id="sidebar" class="bs-sidenav" role="complementary"><h4>Author</h4>
+<p>Ujaval Gandhi</p>
+<a href="https://twitter.com/intent/follow?screen_name=spatialthoughts" class="twitter-follow-button" data-show-count="false">Follow @spatialthoughts</a>
+<hr>
+<p>Want to learn QGIS in a structured way? Check out <a href="https://spatialthoughts.com/" target="_blank">Spatial Thoughts</a> for more learning materials and instructor-led online programs with QGIS.org certification.</p>
+
+
+<h4>Change Language</h4>
+<form role="form" class="sidebar-form sidebar-left">
+<select id="languages" class="form-control select-mini">
+  <option value="en">English</option>
+  <option value="zh_TW">Chinese (Taiwan)</option>
+  <option value="nl">Dutch</option>
+  <option value="fi_FI">Finnish</option>
+  <option value="fr">French</option>
+  <option value="de">German</option>
+  <option value="el">Greek</option>
+  <option value="id">Indonesian</option>
+  <option value="it">Italian</option>
+  <option value="ko">Korean</option>
+  <option value="fa">Persian</option>
+  <option value="pt_BR">Portuguese</option>
+  <option value="ro">Romanian</option>
+  <option value="ru">Russian</option>
+  <option value="sl">Slovenian</option>
+  <option value="es">Spanish</option>
+  <option value="th">Thai</option>
+  <option value="tr">Turkish</option>
+  <option value="uk">Ukrainian</option>
+  <option value="vi">Vietnamese</option>
+</select>
+</form>
+        </div>
+      </div>
+    <div class="body col-md-9 content" role="main">
+      
+
+  <section id="calculating-raster-area-qgis3">
+<h1>Rastergebied berekenen (QGIS3)<a class="headerlink" href="#calculating-raster-area-qgis3" title="Permalink naar deze titel">¶</a></h1>
+<p>Vel toepassingen vereisen het kwantificeren van patronen van landgebruik in een regio. Gegevenssets van Land Use Land Cover (LULC) zijn rasterbestanden, waarin aan elke pixel een klassewaarde is toegewezen. GIS-analisten moeten vaak rapporten maken die zijn gebaseerd op deze gegevens door het berekenen van het gebied per klasse in een bepaalde regio. QGIS heeft vele ingebouwde gereedschappen om rastergebieden te berekenen en samen te vatten.</p>
+<div class="admonition note">
+<p class="admonition-title">Notitie</p>
+<p>Historisch was de voorgestelde benadering voor het berekenen van gebieden voor rasters om het raster te converteren naar een vectorlaag en technieken voor het berekenen van het vectorgebied te gebruiken. Deze benadering vereist intensieve berekeningen van de computer en foutgevoelig. De aanbevolen benadering is om het gereedschap van Processing <strong>Rasterlaag rapport unieke waarden</strong> te gebruiken, dat direct de pixelgebieden kan berekenen. Als u een laag heft met veel polygonen en gebieden voor elk daarvan  nodig hebt, kunt u het gereedschap <strong>Zonehistogram</strong> gebruiken om tellingen van pixels te verkrijgen voor elke klasse en ze dan vermenigvuldigen met het gebied van elke pixel.</p>
+</div>
+<section id="overview-of-the-task">
+<h2>Overzicht van de taak<a class="headerlink" href="#overview-of-the-task" title="Permalink naar deze titel">¶</a></h2>
+<p>We zullen een rasterlaag gebruiken met 11 klassen voor landgebruik en het gebied van elke klasse berekenen binnen een nationaal park. We zullen ook achteraf de resultaten bewerken om een werkblad te maken met namen van klassen en hun gebieden.</p>
+<section id="other-skills-you-will-learn">
+<h3>Andere vaardigheden die u zult leren<a class="headerlink" href="#other-skills-you-will-learn" title="Permalink naar deze titel">¶</a></h3>
+<ul class="simple">
+<li><p>Hoe symbologie toe te passen op een laag vanuit een stijlbestand in de indeling <cite>.qml</cite>.</p></li>
+<li><p>Hoe expressies te schrijven met meerdere voorwaarden if/else met het argument <cite>CASE</cite>.</p></li>
+<li><p>Hoe een tabel van QGIS te exporteren als een werkblad voor Excel.</p></li>
+</ul>
+</section>
+</section>
+<section id="get-the-data">
+<h2>De gegevens ophalen<a class="headerlink" href="#get-the-data" title="Permalink naar deze titel">¶</a></h2>
+<p>We zullen de volgende gegevenssets downloaden</p>
+<ol class="arabic simple">
+<li><p>World Database on Protected Areas (WDPA): We zullen het shapefile voor de grenzen van het <em>Kaziranga National Park</em> in India downloaden.</p></li>
+<li><p>ESA WorldCover 2020: Het product WorldCover 10 m 2020 van het Europese Ruimte Agentschap (ESA)  verschaft een globale kaart met landgebruik over 2020 met 10 m resolutie. We zullen de tegel downloaden die ons gebied van interesse bedekt.</p></li>
+</ol>
+<section id="park-boundary">
+<h3>Park grenzen<a class="headerlink" href="#park-boundary" title="Permalink naar deze titel">¶</a></h3>
+<ol class="arabic simple">
+<li><p>Ga naar de website <a class="reference external" href="https://www.protectedplanet.net/">Protected Planet</a>  en klik op de zoekbalk. Zoek naar <code class="docutils literal notranslate"><span class="pre">Kaziranga</span> <span class="pre">National</span> <span class="pre">Park</span></code>.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/data01.png" class="align-center" src="../../_images/data01.png" />
+</div></blockquote>
+<ol class="arabic simple" start="2">
+<li><p>De beschermde vectorgrenzen zullen worden weergegeven als zoekresultaat. Klik er op om de pagina voor het <a class="reference external" href="https://www.protectedplanet.net/10744">Kaziranga National Park</a> te bekijken.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/data02.png" class="align-center" src="../../_images/data02.png" />
+</div></blockquote>
+<ol class="arabic simple" start="3">
+<li><p>Deze pagina zal aanvullende informatie bevatten, zoals totale gebied, gemaakte jaar, etc. Klik op de knop <span class="guilabel">Download</span> en klik op <span class="guilabel">SHP</span> om de gegevens in de indeling <em>Shapefile</em> te downloaden.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/data03.png" class="align-center" src="../../_images/data03.png" />
+</div></blockquote>
+<ol class="arabic simple" start="4">
+<li><p>Twee opties voor downloaden zullen worden aangeboden. Klik op <span class="guilabel">continue</span> onder <span class="guilabel">Non Commercial Use</span>. Nu zal een zip-bestand met de grenzen van het nationale park worden gedownload.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/data04.png" class="align-center" src="../../_images/data04.png" />
+</div></blockquote>
+</section>
+<section id="landcover-data">
+<h3>Gegevens over landgebruik<a class="headerlink" href="#landcover-data" title="Permalink naar deze titel">¶</a></h3>
+<ol class="arabic simple">
+<li><p>Ga naar de website <a class="reference external" href="https://esa-worldcover.org/en">ESA WorldCover</a> en klik op het menu <span class="guilabel">DATA ACCESS</span>.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/data112.png" class="align-center" src="../../_images/data112.png" />
+</div></blockquote>
+<ol class="arabic simple" start="2">
+<li><p>Scroll nar beneden naar het gedeelte <span class="guilabel">DATA DOWNLOAD</span> en klik op de link om de <a class="reference external" href="https://viewer.esa-worldcover.org/worldcover/">WorldCover viewer</a> te openen.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/data121.png" class="align-center" src="../../_images/data121.png" />
+</div></blockquote>
+<ol class="arabic simple" start="3">
+<li><p>U zult een gratis account moeten maken om de gegevensset te kunnen downloaden. Klik op de link <span class="guilabel">Register</span> in de rechterbovenhoek. Volg de instructies om een nieuw account te maken.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/data13.png" class="align-center" src="../../_images/data13.png" />
+</div></blockquote>
+<ol class="arabic simple" start="4">
+<li><p>Na het maken van het account, log in met uw gegevens. Ons gebied van interesse voor deze handleiding is het Kaziranga National Park. Zoom in op de regio in het noordoosten van India. Als u eenmaal voldoende bent ingezoomd zal het begrenzingsvak voor de tegels voor het landgebruik verschijnen.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/data14.png" class="align-center" src="../../_images/data14.png" />
+</div></blockquote>
+<ol class="arabic simple" start="5">
+<li><p>Zoek en lokaliseer de tegelregio <code class="docutils literal notranslate"><span class="pre">N24E093</span></code>.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/data15.png" class="align-center" src="../../_images/data15.png" />
+</div></blockquote>
+<ol class="arabic simple" start="6">
+<li><p>Selecteer de tegel en klik op <span class="guilabel">NEXT</span>.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/data16.png" class="align-center" src="../../_images/data16.png" />
+</div></blockquote>
+<ol class="arabic simple" start="7">
+<li><p>Klik op de knop <span class="guilabel">DOWNLOAD</span> om een zip-bestand te downloaden met de informatie over het landgebruik in rasterindeling.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/data17.png" class="align-center" src="../../_images/data17.png" />
+</div></blockquote>
+<ol class="arabic simple" start="8">
+<li><p>We zullen ook een bestand voor symbologie downloaden dat wordt verschaft door ESA. Bezoek de pagina <a class="reference external" href="https://esa-worldcover.org/en/data-access">ESA WorldCover Data Access</a>., Scroll naar beneden naar het gedeelte <span class="guilabel">Symbology</span>. Klik op <span class="guilabel">QGIS</span> om het bestand <a class="reference external" href="https://esa-worldcover.s3.amazonaws.com/v100/2020/docs/ESAWorldCover_ColorLegend.qml">ESAWorldCover_ColorLegend.qml</a> te downloaden, dat kan worden gebruikt om de rasterlaag op te maken met toepasselijke kleuren en labels voor klassen.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/data18.png" class="align-center" src="../../_images/data18.png" />
+</div></blockquote>
+<p>Voor het gemak kunt u direct een kopie van de gegevensset downloaden vanaf de links hieronder:</p>
+<ul class="simple">
+<li><p>Kaziranga National Park Boundary <a class="reference external" href="https://www.qgistutorials.com/downloads/WDPA_WDOECM_Apr2022_Public_10744_shp_0.zip">WDPA_WDOECM_Apr2022_Public_10744_shp_0.zip</a></p></li>
+<li><p>ESA WorldCover Tile N24E093 subset <a class="reference external" href="https://www.qgistutorials.com/downloads/terrascope_download_20220422_114733.zip">terrascope_download_20220422_114733.zip</a></p></li>
+<li><p>ESA WorldCover QML Style-bestand <a class="reference external" href="https://www.qgistutorials.com/downloads/ESAWorldCover_ColorLegend.qml">ESAWorldCover_ColorLegend.qml</a></p></li>
+</ul>
+<p>Gegevensbron <a class="reference internal" href="../credits.html#wdpa" id="id2"><span>[WDPA]</span></a> <a class="reference internal" href="../credits.html#worldcover" id="id3"><span>[WorldCover]</span></a></p>
+</section>
+</section>
+<section id="procedure">
+<h2>Procedure<a class="headerlink" href="#procedure" title="Permalink naar deze titel">¶</a></h2>
+<ol class="arabic simple">
+<li><p>Pak alle gedownloade bestanden uit. In de <span class="guilabel">Browser</span>, lokaliseer de map die het bestand met de grenzen  <code class="docutils literal notranslate"><span class="pre">WDPA_WDOECM_Apr2022_Publicc_10744_shp-polygons.shp</span></code> bevat en sleep het naar het kaartvenster van QGIS en zet het neer.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/013.png" class="align-center" src="../../_images/013.png" />
+</div></blockquote>
+<ol class="arabic simple" start="2">
+<li><p>Lokaliseer nu de rastertegel van Worldcover  <code class="docutils literal notranslate"><span class="pre">ESA_WorldCover_10m_2020_v100_N24_E093_Map.tif</span></code> en sleep die naar het kaartvenster van QGIS.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/023.png" class="align-center" src="../../_images/023.png" />
+</div></blockquote>
+<ol class="arabic simple" start="3">
+<li><p>U hebt nu zowel de vectorgrenzen als de rasterlaag met landgebruik geladen in het paneel <span class="guilabel">Lagen</span>. Laten we de rasterlaag clippen tot de grenzen van het nationale park. Ga naar <span class="menuselection">Processing ‣ Toolbox</span> om de Toolbox van Processing te openen. Zoek naar en lokaliseer het algoritme <span class="menuselection">GDAL ‣ Raster uitnemen ‣ Raster op maskerlaag clippen</span>. Dubbelklik om het te starten.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/033.png" class="align-center" src="../../_images/033.png" />
+</div></blockquote>
+<ol class="arabic simple" start="4">
+<li><p>Kies, in het dialoogvenster <span class="guilabel">Raster op maskerlaag clippen</span>, de laag <code class="docutils literal notranslate"><span class="pre">ESA_WorldCover_10m_2020_v100_N24_E093_Map</span></code> als de <span class="guilabel">Invoerlaag</span> en de laag <code class="docutils literal notranslate"><span class="pre">WDPA_WDOECM_Apr2022_Publicc_10744_shp-polygons</span></code> als <span class="guilabel">Maskeerlaag</span>. Voer <code class="docutils literal notranslate"><span class="pre">-9999</span></code> in het gedeelte <span class="guilabel">Wijs een specifieke waarde Geen data toe aan de uitvoerbanden</span> in.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/043.png" class="align-center" src="../../_images/043.png" />
+</div></blockquote>
+<ol class="arabic simple" start="5">
+<li><p>Open nu het gedeelte <span class="guilabel">Gevorderde parameters</span> en kies <code class="docutils literal notranslate"><span class="pre">Hoge</span> <span class="pre">compressie</span></code> in <span class="guilabel">Profiel</span>. Klik nu, onder  <span class="guilabel">Geclipt (masker)</span>, op de <code class="docutils literal notranslate"><span class="pre">…</span></code> en selecteer <span class="guilabel">Opslaan als bestand…</span>. Voer als bestandsnaam in <code class="docutils literal notranslate"><span class="pre">worldcover_clipped.tif</span></code>. Klik op <span class="guilabel">Uitvoeren</span>.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/053.png" class="align-center" src="../../_images/053.png" />
+</div></blockquote>
+<ol class="arabic simple" start="6">
+<li><p>Nu zal de laag <code class="docutils literal notranslate"><span class="pre">worldcover_clipped</span></code> worden geladen in het kaartvenster van QGIS. Klik met rechts op de laag <code class="docutils literal notranslate"><span class="pre">ESA_WorldCover_10m_2020_v100_N24_E093_Map</span></code> en selecteer <span class="guilabel">Laag verwijderen…</span></p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/063.png" class="align-center" src="../../_images/063.png" />
+</div></blockquote>
+<ol class="arabic simple" start="7">
+<li><p>Beide lagen zijn in het geografische CRS <code class="docutils literal notranslate"><span class="pre">EPSG:4326</span></code>. Dit CRS heeft graden als eenheden en is niet geschikt voor het berekenen van het gebied. We moeten eerst de lagen opnieuw projecteren naar een geprojecteerd CRS. Voor regionale analyses zoals deze is UTM een goede keuze voor een geprojecteerd CRS. We zullen de lagen opnieuw projecteren naar het CRS voor de lokale zone van UTM. Open de Toolbox van Processing en zoek naar het algoritme <span class="menuselection">Vector algemeen ‣ Laag opnieuw projecteren</span>. Dubbelklik om het te starten.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/073.png" class="align-center" src="../../_images/073.png" />
+</div></blockquote>
+<ol class="arabic simple" start="8">
+<li><p>Kies, in het dialoogvenster <span class="guilabel">Laag opnieuw projecteren</span>, de laag <code class="docutils literal notranslate"><span class="pre">WDPA_WDOECM_Apr2022_Publicc_10744_shp-polygons</span></code> als de <span class="guilabel">Invoerlaag</span>, klik op de  knop <span class="guilabel">CRS selecteren</span> onder <span class="guilabel">Doel-CRS</span>.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/083.png" class="align-center" src="../../_images/083.png" />
+</div></blockquote>
+<ol class="arabic simple" start="9">
+<li><p>Ons gebied van interesse valt in de UTM Zone 46N. Zoek naar <em>46 N</em> en selecteer het CRS <code class="docutils literal notranslate"><span class="pre">WGS</span> <span class="pre">84</span> <span class="pre">/</span> <span class="pre">UTM</span> <span class="pre">zone</span> <span class="pre">46N</span></code>.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/093.png" class="align-center" src="../../_images/093.png" />
+</div></blockquote>
+<div class="admonition note">
+<p class="admonition-title">Notitie</p>
+<p>Bekijk de website <a class="reference external" href="https://mangomap.com/robertyoung/maps/69585/what-utm-zone-am-i-in-#">What UTM Zone am I in</a> om uit te vinden welke UTM zone voor uw regio van toepassing is.</p>
+</div>
+<ol class="arabic simple" start="10">
+<li><p>Klik, in het gedeelte <span class="guilabel">Opnieuw geprojecteerd</span>, op <code class="docutils literal notranslate"><span class="pre">…</span></code> en selecteer <span class="guilabel">Opslaan als bestand…</span>. Voer als naam in <code class="docutils literal notranslate"><span class="pre">nationalpark_reprojected.gpkg</span></code>. Klik op <span class="guilabel">Uitvoeren</span>.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/1010.png" class="align-center" src="../../_images/1010.png" />
+</div></blockquote>
+<ol class="arabic simple" start="11">
+<li><p>Nu zal de laag <code class="docutils literal notranslate"><span class="pre">nationalpark_reprojected</span></code> worden geladen in het kaartvenster. Klik met rechts op de laag <code class="docutils literal notranslate"><span class="pre">WDPA_WDOECM_Apr2022_Publicc_10744_shp-polygons</span></code> en selecteer <span class="guilabel">Laag verwijderen…</span> om die te verwijderen. Nu zullen we de rasterlaag opnieuw projecteren. In de <span class="guilabel">Toolbox van Processing</span>, zoek n lokaliseer <span class="menuselection">GDAL ‣ Rasterprojecties ‣ Warp (opnieuw projecteren)</span></p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/1113.png" class="align-center" src="../../_images/1113.png" />
+</div></blockquote>
+<ol class="arabic simple" start="12">
+<li><p>Kies, in het dialoogvenster <span class="guilabel">Warp (opnieuw projecteren)</span>, <code class="docutils literal notranslate"><span class="pre">worldcover_clipped</span></code> als de <span class="guilabel">Invoerlaag</span>, selecteer CRS <code class="docutils literal notranslate"><span class="pre">WGS</span> <span class="pre">84</span> <span class="pre">/</span> <span class="pre">UTM</span> <span class="pre">zone</span> <span class="pre">46N</span></code> in <span class="guilabel">Doel-CRS</span>. Open de <span class="guilabel">Gevorderde parameters</span> en kies <code class="docutils literal notranslate"><span class="pre">Hoge</span> <span class="pre">compressie</span></code> in <span class="guilabel">Profiel</span>.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/1211.png" class="align-center" src="../../_images/1211.png" />
+</div></blockquote>
+<ol class="arabic simple" start="13">
+<li><p>Klik nu onder <span class="guilabel">Opnieuw geprojecteerd</span>, op <code class="docutils literal notranslate"><span class="pre">…</span></code> en selecteer <span class="guilabel">Opslaan als bestand…</span>. Voer als naam in <code class="docutils literal notranslate"><span class="pre">worldcover_reprojected.tif</span></code>. Klik op <span class="guilabel">Uitvoeren</span>.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/139.png" class="align-center" src="../../_images/139.png" />
+</div></blockquote>
+<ol class="arabic simple" start="14">
+<li><p>Nu zal de laag <code class="docutils literal notranslate"><span class="pre">worldcover_reprojected</span></code> worden geladen in het kaartvenster, verwijder de laag <code class="docutils literal notranslate"><span class="pre">worldcover_clipped</span></code>. Laten we de projectlaag instellen voor de UTM zone. Klik op een willekeurige layer en kies <span class="menuselection">Laag-CRS ‣ Project CRS van laag overnemen</span>.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/148.png" class="align-center" src="../../_images/148.png" />
+</div></blockquote>
+<ol class="arabic simple" start="15">
+<li><p>Nu zal het project-CRS worden bijgewerkt. Laten we de symbologie van de rasterlaag instellen als per klassenaam en de kleuren van de ESA WorldCover-gegevensset. Klik met rechts op de laag <code class="docutils literal notranslate"><span class="pre">worldcover_reprojected</span></code> en klik op <span class="guilabel">Eigenschappen…</span></p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/158.png" class="align-center" src="../../_images/158.png" />
+</div></blockquote>
+<ol class="arabic simple" start="16">
+<li><p>Kies, in het dialoogvenster <span class="guilabel">Laageigenschappen</span>, <span class="guilabel">Symbologie</span>. U kunt zien dat de kleuren van de laag zijn gevisualiseerd in een wit-zwart toon. Klik, om dit te repareren, op <span class="menuselection">Stijl ‣ Stijl laden…</span>. Blader naar en selecteer het bestand <code class="docutils literal notranslate"><span class="pre">ESAWorldCover_ColorLegend.qml</span></code>.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/167.png" class="align-center" src="../../_images/167.png" />
+</div></blockquote>
+<ol class="arabic simple" start="17">
+<li><p>Nu kunt u de bijgewerkte symboolkleuren en beschrijvingen van klassen zien. Klik op <span class="guilabel">OK</span>.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/178.png" class="align-center" src="../../_images/178.png" />
+</div></blockquote>
+<ol class="arabic simple" start="18">
+<li><p>Vergroot de laag <code class="docutils literal notranslate"><span class="pre">worldcover_reprojected</span></code> in het paneel <span class="guilabel">Lagen</span> om de legenda met de juiste beschrijvingen van klassen te bekijken.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/186.png" class="align-center" src="../../_images/186.png" />
+</div></blockquote>
+<ol class="arabic simple" start="19">
+<li><p>Laten we nu de gebieden voor elke klasse berekenen. In de Toolbox van Processing, zoek en lokaliseer het gereedschap <span class="guilabel">Rasterlaag rapport unieke waarden</span>. Dubbelklik om het te openen.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/196.png" class="align-center" src="../../_images/196.png" />
+</div></blockquote>
+<ol class="arabic simple" start="20">
+<li><p>Kies, in het dialoogvenster <span class="guilabel">Rasterlaag rapport unieke waarden</span>, de <span class="guilabel">Invoerlaag</span> als <code class="docutils literal notranslate"><span class="pre">worldcover_reprojected</span></code>. Klik, onder de <span class="guilabel">Tabel Unieke waarden</span> op <code class="docutils literal notranslate"><span class="pre">…</span></code> en kies <span class="guilabel">Opslaan als bestand…</span>. Voer als naam in <code class="docutils literal notranslate"><span class="pre">class_areas.gpkg</span></code>. Klik op <span class="guilabel">Uitvoeren</span>.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/206.png" class="align-center" src="../../_images/206.png" />
+</div></blockquote>
+<ol class="arabic simple" start="21">
+<li><p>Nu zal de laag <code class="docutils literal notranslate"><span class="pre">class_areas</span></code> worden toegevoegd aan het paneel <span class="guilabel">Lagen</span>. Klik met rechts op de laag en klik op <span class="guilabel">Attributentabel openen</span>. De kolom <code class="docutils literal notranslate"><span class="pre">m2</span></code> bevat het gebied voor elke klasse in vierkante meters.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/2110.png" class="align-center" src="../../_images/2110.png" />
+</div></blockquote>
+<ol class="arabic simple" start="22">
+<li><p>Laten we het gebied converteren naar vierkante kilometers. In de <span class="guilabel">Toolbox van Processing</span>, zoek en selecteer <span class="menuselection">Vector tabel ‣ Veld calculator</span>.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/226.png" class="align-center" src="../../_images/226.png" />
+</div></blockquote>
+<ol class="arabic simple" start="23">
+<li><p>Selecteer, in het dialoogvenster <span class="guilabel">Veld calculator</span>, de laag <code class="docutils literal notranslate"><span class="pre">class_areas</span></code> in <span class="guilabel">Invoerlaag</span>. Voer de <span class="guilabel">Veldnaam</span> in als <code class="docutils literal notranslate"><span class="pre">area_sqkm</span></code>. Kies <code class="docutils literal notranslate"><span class="pre">Float</span></code> als het <span class="guilabel">Type resultaatveld</span>. In het venster <span class="guilabel">Expressie</span>, voer onderstaande expressie in. Dit zal de vierkante meters converteren naar vierkante kilometers en het resultaat afronden op 2 decimale plaatsen. Klik,onder <span class="guilabel">Berekend</span> op <code class="docutils literal notranslate"><span class="pre">…</span></code> en kies <span class="guilabel">Opslaan als bestand…</span> . Voer als naam in <code class="docutils literal notranslate"><span class="pre">class_area_sqkm.gpkg</span></code>. Click <span class="guilabel">Run</span>.</p></li>
+</ol>
+<blockquote>
+<div><div class="highlight-none notranslate"><div class="highlight"><pre><span></span>round(&quot;m2&quot;/ 1e6, 2)
+</pre></div>
+</div>
+<img alt="../../_images/235.png" class="align-center" src="../../_images/235.png" />
+</div></blockquote>
+<ol class="arabic simple" start="24">
+<li><p>Nu zal de laag <code class="docutils literal notranslate"><span class="pre">class_area_sqkm</span></code> worden geladen in het kaartvenster. Open de attributentabel en bekijk de nieuw toegevoegde kolom <span class="guilabel">area_sqkm</span>. U zult zien dat de kolom <span class="guilabel">Value</span> getallen bevat voor elke klasse.  Laten we ook de beschrijving voor elk getal voor en klasse toevoegen om de resultaten eenvoudiger te interpreteren te maken. De beschrijvingen voor de klassen zijn beschikbaar in het <a class="reference external" href="https://esa-worldcover.s3.amazonaws.com/v100/2020/docs/WorldCover_PUM_V1.0.pdf">ESA Product User Manual</a>.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/246.png" class="align-center" src="../../_images/246.png" />
+</div></blockquote>
+<ol class="arabic simple" start="25">
+<li><p>Open Veld calculator en selecteer de laag <code class="docutils literal notranslate"><span class="pre">class_areas_sqkm</span></code> in <span class="guilabel">Invoerlaag</span>. Voer de <span class="guilabel">Veldnaam</span> in als <code class="docutils literal notranslate"><span class="pre">landcover</span></code>, kies <code class="docutils literal notranslate"><span class="pre">Tekst</span> <span class="pre">(string)</span></code> in het <span class="guilabel">Type resultaatveld</span>. Voer in het venster <span class="guilabel">Expressie</span> de onderstaande expressie in. Deze expressie gebruikt het argument <strong>CASE</strong> om een waarde toe te wijzen, gebaseerd op meerdere voorwaarden. Klik, onder <span class="guilabel">Berekend</span> op <cite>…`</cite> en kies <span class="guilabel">Opslaan als bestand…</span>. Voer als naam in <code class="docutils literal notranslate"><span class="pre">class_area_with_landcover.gpkg</span></code>. Klik op <span class="guilabel">Uitvoeren</span>.</p></li>
+</ol>
+<blockquote>
+<div><div class="highlight-none notranslate"><div class="highlight"><pre><span></span>CASE
+WHEN &quot;value&quot; = 10 THEN &#39;Tree cover&#39;
+WHEN &quot;value&quot; = 20 THEN &#39;Shrubland&#39;
+WHEN &quot;value&quot; = 30 THEN &#39;Grassland&#39;
+WHEN &quot;value&quot; = 40 THEN &#39;Cropland&#39;
+WHEN &quot;value&quot; = 50 THEN &#39;Built-up&#39;
+WHEN &quot;value&quot; = 60 THEN &#39;Bare / sparse vegetation&#39;
+WHEN &quot;value&quot; = 70 THEN &#39;Snow and Ice&#39;
+WHEN &quot;value&quot; = 80 THEN &#39;Permanent water bodies&#39;
+WHEN &quot;value&quot; = 90 THEN &#39;Herbaceous wetland&#39;
+WHEN &quot;value&quot; = 95 THEN &#39;Moss and lichen&#39;
+WHEN &quot;value&quot; = 100 THEN &#39;Mangroves&#39;
+END
+</pre></div>
+</div>
+<img alt="../../_images/256.png" class="align-center" src="../../_images/256.png" />
+</div></blockquote>
+<ol class="arabic simple" start="26">
+<li><p>Nu zal de laag <code class="docutils literal notranslate"><span class="pre">class_area_with_landcover</span></code> worden geladen in het kaartvenster. Open de attributentabel. De kolom <span class="guilabel">landcover</span> zal de naam voor het landgebruk bevatten voor elke waarde van landgebruik.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/265.png" class="align-center" src="../../_images/265.png" />
+</div></blockquote>
+<ol class="arabic simple" start="27">
+<li><p>Laten we dit resultaat exporteren als een Excel-bestand. Voordat we gaan exporteren zullen we ook de tabel reorganiseren en ongewenste velden verwijderen. In de <span class="guilabel">Toolbox van Processing `, zoek en selecteer :menuselection:`Vector tabel –&gt; Bijgewerkte velden</span>.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/276.png" class="align-center" src="../../_images/276.png" />
+</div></blockquote>
+<ol class="arabic simple" start="28">
+<li><p>Selecteer, in het dialoogvenster <span class="guilabel">Bijgewerkte velden</span>, de laag <code class="docutils literal notranslate"><span class="pre">class_area_with_landcover</span></code> in <span class="guilabel">Invoerlaag</span>. Selecteer alle kolommen, behalve <em>area_sqkm</em> en <em>landcover</em>, en klik dan op <span class="guilabel">Geselecteerd veld verwijderen</span>.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/286.png" class="align-center" src="../../_images/286.png" />
+</div></blockquote>
+<ol class="arabic simple" start="29">
+<li><p>U kunt ook de volgorde van d velden in de tabel wijzigen met de knop <span class="guilabel">Geselecteerd veld verplaatsen</span>. Als u gereed bent met de bewerkingen, klik op de knop <code class="docutils literal notranslate"><span class="pre">…</span></code> naast <span class="guilabel">Bijgewerkt</span> en kies <span class="guilabel">Opslaan als bestand…</span>. Selecteer <code class="docutils literal notranslate"><span class="pre">XLSX-bestanden</span> <span class="pre">(*.xlsx)</span></code> als de indeling. Vor als bestandsnaam in <code class="docutils literal notranslate"><span class="pre">park_area_by_landcover.xlsx</span></code> en klik op <span class="guilabel">Opslaan</span>. Klik, in het dialoogvenster van <span class="guilabel">Velden bijwerken</span>, op <span class="guilabel">Uitvoeren</span> om uw wijzigingen door te voeren.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/295.png" class="align-center" src="../../_images/295.png" />
+</div></blockquote>
+<ol class="arabic simple" start="30">
+<li><p>Het resultaat zal een werkblad zijn met de kolommen <em>landcover</em> en <em>area_sqkm</em>.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/305.png" class="align-center" src="../../_images/305.png" />
+</div></blockquote>
+</section>
+</section>
+
+
+
+
+
+  <div id="disqus_thread"></div>
+  <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+
+    </div>
+      
+  </div>
+</div>
+
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+    </p>
+    <p>
+        &copy; Copyright 2021, Ujaval Gandhi.<br/>
+      Laatste aanpassing op aug. 30, 2022.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 4.0.1.<br/>
+    </p>
+  </div>
+</footer>
+<div class="container">
+  <p>This work is licensed under a <a href="http://creativecommons.org/licenses/by/4.0/deed.en_US">Creative Commons Attribution 4.0 International License</a></p>
+</div>
+<!-- Twitter Button -->
+<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+
+<!-- Disqus comments widget -->
+<script type="text/javascript">
+  /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+  var disqus_shortname = 'qgistutorials'; // required: replace example with your forum shortname
+  /* * * DON'T EDIT BELOW THIS LINE * * */
+  (function () {
+    var s = document.createElement('script'); s.async = true;
+    s.type = 'text/javascript';
+    s.src = '//' + disqus_shortname + '.disqus.com/count.js';
+    (document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);
+  }());
+</script>
+
+<script type="text/javascript">
+  /* * * DON'T EDIT BELOW THIS LINE * * */
+  (function() {
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+
+<!-- Script fpr language switching. Largely adapted from https://github.com/pcav/faunalia-website -->
+<script>
+    var currentPage = 'docs/3/calculating_raster_area.html'; // coming from sphinx, always without starting '/'
+    var currentLang = 'en';
+    $(document).ready(function(){
+
+        var search = new RegExp('\/[a-zA-Z_]{2,8}\/'+ currentPage, 'gi');
+        var langPlusPage = window.location.href.match(search);
+        // it's possible this is a index.html page called without 'index.html', try without the currentPage
+        if (langPlusPage==undefined){
+            search = new RegExp('\/[a-zA-Z_]{2,8}\/$', 'gi');
+            langPlusPage = window.location.href.match(search);
+        }
+
+        // it's possible this is an index.html page called without 'index.html', try removing index.html
+        if (langPlusPage==undefined){
+            currentPage = currentPage.replace('index.html','')
+            search = new RegExp('\/[a-zA-Z_]{2,8}\/'+ currentPage, 'gi');
+            langPlusPage = window.location.href.match(search);
+        }
+        // still no langPlugPage: stop, because the language swicher will misbehave 
+
+        if (langPlusPage == undefined || langPlusPage.length != 1){
+            alert('You hit an error, please report back to us.');
+            return;
+        }
+        langPlusPage = langPlusPage[0];
+        currentLang = langPlusPage.replace(currentPage, '');
+
+        $("#languages").val(currentLang.replace(/\//g,'')); // currentLang is something like '/nl/'
+
+        $("#languages").change(function() {
+            gotoLang($(this).val());
+        });
+
+    });
+
+    // load current page in a different language
+    function gotoLang(lang){
+        var currentUrl = window.location.href;
+        var newUrl = currentUrl.replace(currentLang, '/'+lang+'/');
+        window.location.href = newUrl;
+    }
+</script>
+
+  </body>
+</html>

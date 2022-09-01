@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+
+<html lang="de">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>Sampling Raster Data using Points or Polygons &#8212; QGIS Tutorials and Tips</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/bootstrap-sphinx.css" />
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/translations.js"></script>
+    <link rel="search" title="Suche" href="../search.html" />
+
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<script type="text/javascript" src="../_static/js/jquery-1.11.0.min.js "></script>
+<script type="text/javascript" src="../_static/js/jquery-fix.js "></script>
+<script type="text/javascript" src="../_static/bootstrap-3.3.7/js/bootstrap.min.js "></script>
+<script type="text/javascript" src="../_static/bootstrap-sphinx.js "></script>
+
+
+<!-- Cookie Notice -->
+<!-- Script from https://github.com/AOEpeople/cookie-notice -->
+<script type="text/javascript" src="../_static/cookie.notice.min.js"></script>
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-B1WQ7B80XJ"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-B1WQ7B80XJ');
+</script>
+
+
+  </head><body>
+
+  <div id="navbar" class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="../index.html"><span><img src="../_static/logo.png"></span>
+          QGIS Tutorials and Tips</a>
+        <span class="navbar-text navbar-version pull-left"><b>v1</b></span>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="../index.html">Tutorials List <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"><ul>
+<li class="toctree-l1"><a class="reference internal" href="introduction.html">Einleitung</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/making_a_map.html">Erstellung einer Karte (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/working_with_attributes.html">Arbeit mit Attributen (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/importing_spreadsheets_csv.html">Import von Tabellenblättern oder CSV-Dateien (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/basic_vector_styling.html">Einfache Vektor Gestaltung (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/calculating_line_lengths.html">Berechnung der Länge von Linien und Statistiken (QGSI3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/raster_styling_and_analysis.html">Einfache Visualisierung und Analyse von Rasterdaten (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/raster_mosaicing_and_clipping.html">Erstellen und Zuschneiden eines Raster-Mosaiks (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/working_with_terrain.html">Working with Terrain Data (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/working_with_wms.html">Working with WMS Data (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/working_with_projections.html">Working with Projections (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/georeferencing_basics.html">Georeferenzierung von Kartenblättern und eingescannten Karten (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/advanced_georeferencing.html">Georeferenzierung von Luftbildern (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/digitizing_basics.html">Digitizing Map Data (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/performing_table_joins.html">Tabellen verbinden (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/performing_spatial_joins.html">Räumliche Verbindungen erstellen (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/performing_spatial_queries.html">Räumliche Abfragen ausführen (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/nearest_neighbor_analysis.html">Nächster Nachbar Analyse (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/sampling_raster_data.html">Stichproben aus Rasterdaten mit Hilfe von Punkten und Polygonen (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/calculating_raster_area.html">Calculating Raster Area (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/creating_heatmaps.html">Heatmaps erstellen (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/animating_time_series.html">Animating Time Series Data (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/handling_invalid_geometries.html">Handling Invalid Geometries (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/advanced_raster_analysis.html">Advanced Raster Analysis (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/interpolating_point_data.html">Interpolating Point Data (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/calculating_intersection_density.html">Calculating Street Intersection Density (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/batch_processing.html">Stapelverarbeitung mit dem Processing Framework (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/processing_graphical_modeler.html">Komplexe Arbeitsabläufe mit Hilfe der Verarbeitungsmodellierung (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/automating_map_creation.html">Automatisierung der Kartenerstellung mit dem Drucklayout Atlas (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/multi_criteria_overlay.html">Multi Criteria Overlay Analysis (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/basic_network_analysis.html">Einfache Netzwerkvisualisierung und Routing (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/origin_destination_matrix.html">Lokalisierung der am nächsten gelegenen Einrichtung mit einer Quelle-Ziel-Matrix (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/service_area_analysis.html">Einzugsgebietsanalyse mit dem Openrouteservice (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/travel_time_analysis.html">Travel Time Analysis with Uber Movement (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/areal_mean_rainfall.html">Calculating Areal Mean Rainfall (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/getting_started_with_pyqgis.html">Mit der Pythonprogrammierung loslegen (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/processing_algorithms_pyqgis.html">Verarbeitungsroutinen mit Python ausführen (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/custom_python_functions.html">Angepasste Python Funktionsausdrücke verwenden (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/processing_python_scripts.html">Pythonscripts für die Verarbeitungswerkzeuge schreiben (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/building_a_python_plugin.html">Ein Python Plugin erstellen (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/processing_python_plugin.html">Ein Verarbeitungsplugin erstellen (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="running_qgis_jobs.html">Running and Scheduling QGIS Processing Jobs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/web_mapping_with_qgis2web.html">Web Mapping with QGIS2Web (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="creating_basemaps_with_qtiles.html">Creating Basemaps with QTiles</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/using_plugins.html">Using Plugins (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="downloading_osm_data.html">Suchen und Laden von OpenStreetMap Daten</a></li>
+<li class="toctree-l1"><a class="reference internal" href="learning_resources.html">QGIS Learning Resources</a></li>
+<li class="toctree-l1"><a class="reference internal" href="credits.html">Data Credits</a></li>
+<li class="toctree-l1"><a class="reference internal" href="batch_processing.html">Batch Processing using Processing Framework (QGIS2)</a></li>
+</ul>
+</ul>
+</li>
+              
+            
+            
+              
+                
+              
+            
+            
+
+            
+
+            
+              <li class="hidden-sm"></li>
+            
+          </ul>
+
+          
+            
+<form class="navbar-form navbar-right" action="../search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+      <div class="col-md-3">
+        <div id="sidebar" class="bs-sidenav" role="complementary"><h4>Author</h4>
+<p>Ujaval Gandhi</p>
+<a href="https://twitter.com/intent/follow?screen_name=spatialthoughts" class="twitter-follow-button" data-show-count="false">Follow @spatialthoughts</a>
+<hr>
+<p>Want to learn QGIS in a structured way? Check out <a href="https://spatialthoughts.com/" target="_blank">Spatial Thoughts</a> for more learning materials and instructor-led online programs with QGIS.org certification.</p>
+
+
+<h4>Change Language</h4>
+<form role="form" class="sidebar-form sidebar-left">
+<select id="languages" class="form-control select-mini">
+  <option value="en">English</option>
+  <option value="zh_TW">Chinese (Taiwan)</option>
+  <option value="nl">Dutch</option>
+  <option value="fi_FI">Finnish</option>
+  <option value="fr">French</option>
+  <option value="de">German</option>
+  <option value="el">Greek</option>
+  <option value="id">Indonesian</option>
+  <option value="it">Italian</option>
+  <option value="ko">Korean</option>
+  <option value="fa">Persian</option>
+  <option value="pt_BR">Portuguese</option>
+  <option value="ro">Romanian</option>
+  <option value="ru">Russian</option>
+  <option value="sl">Slovenian</option>
+  <option value="es">Spanish</option>
+  <option value="th">Thai</option>
+  <option value="tr">Turkish</option>
+  <option value="uk">Ukrainian</option>
+  <option value="vi">Vietnamese</option>
+</select>
+</form>
+        </div>
+      </div>
+    <div class="body col-md-9 content" role="main">
+      
+
+  <section id="sampling-raster-data-using-points-or-polygons">
+<h1>Sampling Raster Data using Points or Polygons<a class="headerlink" href="#sampling-raster-data-using-points-or-polygons" title="Link zu dieser Überschrift">¶</a></h1>
+<div class="admonition warning">
+<p class="admonition-title">Warnung</p>
+<p>This tutorial is now obsolete. A new and updated version is available at <a class="reference internal" href="3/sampling_raster_data.html"><span class="doc">Stichproben aus Rasterdaten mit Hilfe von Punkten und Polygonen (QGIS3)</span></a></p>
+</div>
+<p>Many scientific and environmental datasets come as gridded rasters. Elevation
+data (DEM) is also distributed as raster files. In these raster files, the
+parameter that is being represented is encoded as the pixel values of the
+raster. Often, one needs to extract the pixel values at certain locations or
+aggregate them over some area. This functionality is available in QGIS via two
+plugins - <code class="docutils literal notranslate"><span class="pre">Point</span> <span class="pre">Sampling</span> <span class="pre">Tool</span></code> and <code class="docutils literal notranslate"><span class="pre">Zonal</span> <span class="pre">Statistics</span> <span class="pre">plugin</span></code>.</p>
+<section id="overview-of-the-task">
+<h2>Aufgabenübersicht<a class="headerlink" href="#overview-of-the-task" title="Link zu dieser Überschrift">¶</a></h2>
+<p>Given a raster grid of maximum temperature in the US, we need to extract the
+temperature at all urban areas and also calculate the average temperature for
+each county in the US.</p>
+<section id="other-skills-you-will-learn">
+<h3>Andere Fähigkeiten, die Sie erlernen<a class="headerlink" href="#other-skills-you-will-learn" title="Link zu dieser Überschrift">¶</a></h3>
+<ul class="simple">
+<li><p>Re-project a vector layer.</p></li>
+<li><p>Select and remove multiple layers from QGIS Table of Contents.</p></li>
+</ul>
+</section>
+</section>
+<section id="get-the-data">
+<h2>Daten besorgen<a class="headerlink" href="#get-the-data" title="Link zu dieser Überschrift">¶</a></h2>
+<p>NOAA’s <a class="reference external" href="http://www.cpc.ncep.noaa.gov/">Climate Prediction Center</a> provides
+<a class="reference external" href="http://www.cpc.ncep.noaa.gov/products/GIS/GIS_DATA/">GIS data</a> related to
+temperature and precipitation in the US. Download the <a class="reference external" href="ftp://ftp.cpc.ncep.noaa.gov/GIS/GRADS_GIS/GeoTIFF/TEMP/us_tmax/">latest grid filei for
+maximum temperatures</a>. The file
+will be named <code class="docutils literal notranslate"><span class="pre">us.tmax_nohads_ll_{YYYYMMDD}_float.tif</span></code></p>
+<p>We will use a CSV file from <a class="reference external" href="https://www.census.gov/geo/maps-data/data/gazetteer2013.html">2013 US Gazetteer</a> representing
+urban areas in the US.  Download the <a class="reference external" href="http://www2.census.gov/geo/gazetteer/2013_Gazetteer/2013_Gaz_ua_national.zip">Urban Areas Gazetteer File</a>.</p>
+<p>As we want to aggregate temperature over counties, we will use <a class="reference external" href="https://www.census.gov/cgi-bin/geo/shapefiles2013/main">2013 TIGER/Line
+Shapefiles</a>. Download
+the <a class="reference external" href="http://www2.census.gov/geo/tiger/TIGER2013/COUNTY/tl_2013_us_county.zip">Counties (and equivalents) shapefile</a>.</p>
+<p>Der einfachheitshalber können Sie auch eine Kopie der Datensätze direkt von den folgenden Links runterladen:</p>
+<p><a class="reference external" href="http://www.qgistutorials.com/downloads/us.tmax_nohads_ll_20140525_float.tif">us.tmax_nohads_ll_20140525_float.tif</a></p>
+<p><a class="reference external" href="http://www.qgistutorials.com/downloads/2013_Gaz_ua_national.zip">2013_Gaz_ua_national.zip</a></p>
+<p><a class="reference external" href="http://www.qgistutorials.com/downloads/tl_2013_us_county.zip">tl_2013_us_county.zip</a></p>
+<p>Data Sources: <a class="reference internal" href="credits.html#noaacpc" id="id1"><span>[NOAACPC]</span></a>, <a class="reference internal" href="credits.html#usgazetteer" id="id2"><span>[USGAZETTEER]</span></a> <a class="reference internal" href="credits.html#tiger" id="id3"><span>[TIGER]</span></a></p>
+</section>
+<section id="procedure">
+<h2>Arbeitsablauf<a class="headerlink" href="#procedure" title="Link zu dieser Überschrift">¶</a></h2>
+<ol class="arabic simple">
+<li><p>Go to <span class="menuselection">Layer ‣ Add Raster Layer</span> and browse to the
+downloaded <code class="docutils literal notranslate"><span class="pre">us.tmax_nohads_ll_{YYYYMMDD}_float.tif</span></code> file and click
+<span class="guilabel">Open</span>.</p></li>
+</ol>
+<img alt="../_images/1202.png" class="align-center" src="../_images/1202.png" />
+<ol class="arabic simple" start="2">
+<li><p>Once the layer is loaded, select the <span class="guilabel">Identify</span> tool and click
+anywhere on the layer. You will see the temperature value in celsius as the
+value or Band 1 at that location.</p></li>
+</ol>
+<img alt="../_images/2166.png" class="align-center" src="../_images/2166.png" />
+<ol class="arabic simple" start="3">
+<li><p>Now unzip the downloaded <code class="docutils literal notranslate"><span class="pre">2013_Gaz_ua_national.zip</span></code> file and extract the
+<code class="docutils literal notranslate"><span class="pre">2013_Gaz_ua_national.txt</span></code> file on your disk. Go to <span class="menuselection">Layer
+‣ Add Delimited Text Layer</span>.</p></li>
+</ol>
+<img alt="../_images/393.png" class="align-center" src="../_images/393.png" />
+<ol class="arabic simple" start="4">
+<li><p>In the <span class="guilabel">Create a Layer from Delimited Text File</span> dialog, click
+<span class="guilabel">Browse</span> and open <code class="docutils literal notranslate"><span class="pre">2013_Gaz_ua_national.txt</span></code>. Choose
+<span class="guilabel">Tab</span> under <span class="guilabel">Custom delimiters</span>. The point coordinates
+are in Latitude and Longitude, so select <span class="guilabel">INTPTLONG</span> as
+<span class="guilabel">X field</span> and <span class="guilabel">INTPTLAT</span> as <span class="guilabel">Y field</span>. Check
+the <span class="guilabel">Use spatial index</span> box and click <span class="guilabel">OK</span>.</p></li>
+</ol>
+<img alt="../_images/465.png" class="align-center" src="../_images/465.png" />
+<ol class="arabic simple" start="5">
+<li><p>Now we are ready to extract the temperature values from the raster layer.
+Install the <code class="docutils literal notranslate"><span class="pre">Point</span> <span class="pre">Sampling</span> <span class="pre">Tool</span></code> plugin. See <a class="reference internal" href="using_plugins.html"><span class="doc">Verwenden von Erweiterungen</span></a> for
+details on how to install plugins.</p></li>
+</ol>
+<img alt="../_images/562.png" class="align-center" src="../_images/562.png" />
+<ol class="arabic simple" start="6">
+<li><p>Open the plugin dialog from <span class="menuselection">Plugins ‣ Analyses ‣ Point
+sampling tool</span>.</p></li>
+</ol>
+<img alt="../_images/659.png" class="align-center" src="../_images/659.png" />
+<ol class="arabic simple" start="7">
+<li><p>In the <span class="guilabel">Point Sampling Tool</span> dialog, select
+<code class="docutils literal notranslate"><span class="pre">2013_Gaz_ua_national</span></code> as the <span class="guilabel">Layer containing sampling
+points</span>. We must explicitely pick the fields from the input layer that we
+want in the output layer.  Choose <code class="docutils literal notranslate"><span class="pre">GEOID</span></code> and <code class="docutils literal notranslate"><span class="pre">NAME</span></code> fields from the
+<code class="docutils literal notranslate"><span class="pre">2013_Gaz_ua_national</span></code> layer. We can sample values from multiple raster
+band at once, but since our raster has only 1 band, choose the
+<code class="docutils literal notranslate"><span class="pre">us.tmax_nohads_ll_{YYYYMMDD}_float:</span> <span class="pre">Band</span> <span class="pre">1</span></code>. Name the output vector layer
+as <code class="docutils literal notranslate"><span class="pre">max_temparature_at_urban_locations.shp</span></code>. Click the <span class="guilabel">OK</span> to
+start the sampling process. Click <span class="guilabel">Close</span> once the process
+finishes.</p></li>
+</ol>
+<img alt="../_images/758.png" class="align-center" src="../_images/758.png" />
+<ol class="arabic simple" start="8">
+<li><p>You will see a new layer <code class="docutils literal notranslate"><span class="pre">max_temparature_at_urban_locations</span></code> loaded in
+QGIS. Use the <span class="guilabel">Identify</span> tool to click on any point to see the
+attributes. You will see the <code class="docutils literal notranslate"><span class="pre">us.tmax_no</span></code> field - which contains the
+raster pixel value at the location of the point.</p></li>
+</ol>
+<img alt="../_images/856.png" class="align-center" src="../_images/856.png" />
+<ol class="arabic simple" start="9">
+<li><p>First part of our analysis is over. Let’s remove the unnecessary layers. Hold
+the <kbd class="kbd docutils literal notranslate">Shift</kbd> key and select <code class="docutils literal notranslate"><span class="pre">max_temparature_at_urban_locations</span></code> and
+<code class="docutils literal notranslate"><span class="pre">2013_Gaz_ua_national</span></code> layers. Right-click and select <span class="guilabel">Remove</span>
+to remove them from QGIS TOC.</p></li>
+</ol>
+<img alt="../_images/955.png" class="align-center" src="../_images/955.png" />
+<ol class="arabic simple" start="10">
+<li><p>Go to <span class="menuselection">Layer ‣ Add Vector Layer</span>. Browse to the downloaded
+<code class="docutils literal notranslate"><span class="pre">tl_2013_us_county.zip</span></code> file and click <span class="guilabel">Open</span>. Select the
+<code class="docutils literal notranslate"><span class="pre">tl_2013_us_county.shp</span></code> as the layer and click <span class="guilabel">OK</span>.</p></li>
+</ol>
+<img alt="../_images/1063.png" class="align-center" src="../_images/1063.png" />
+<ol class="arabic simple" start="11">
+<li><p>The <code class="docutils literal notranslate"><span class="pre">tl_2013_us_county</span></code> will be added to QGIS. This layer is in
+<code class="docutils literal notranslate"><span class="pre">EPSG:4269</span> <span class="pre">NAD83</span></code> projection. This doesn’t match the projection of the
+raster layer. We will re-project this layer to <code class="docutils literal notranslate"><span class="pre">EPSG:4326</span> <span class="pre">WGS84</span></code>
+projection.</p></li>
+</ol>
+<img alt="../_images/11102.png" class="align-center" src="../_images/11102.png" />
+<ol class="arabic simple" start="12">
+<li><p>Right-click the <code class="docutils literal notranslate"><span class="pre">tl_2013_us_county</span></code> layer and select <span class="guilabel">Save
+As..</span>.</p></li>
+</ol>
+<img alt="../_images/1264.png" class="align-center" src="../_images/1264.png" />
+<ol class="arabic simple" start="13">
+<li><p>In the <span class="guilabel">Save Vector layer as..</span> dialog, click <span class="guilabel">Browse</span>
+and name the output file as <code class="docutils literal notranslate"><span class="pre">counties.shp</span></code>. Choose <span class="guilabel">Selected
+CRS</span> from the <span class="guilabel">CRS</span> dropdown menu. Click <span class="guilabel">Browse</span> and
+select <code class="docutils literal notranslate"><span class="pre">WGS</span> <span class="pre">84</span></code> as the CRS. Check the <span class="guilabel">Add saved file to map</span>
+and click <span class="guilabel">OK</span>.</p></li>
+</ol>
+<img alt="../_images/1361.png" class="align-center" src="../_images/1361.png" />
+<ol class="arabic simple" start="14">
+<li><p>A new layer named <code class="docutils literal notranslate"><span class="pre">counties</span></code> will be add to QGIS.</p></li>
+</ol>
+<img alt="../_images/1458.png" class="align-center" src="../_images/1458.png" />
+<ol class="arabic simple" start="15">
+<li><p>Enable the <code class="docutils literal notranslate"><span class="pre">Zonal</span> <span class="pre">Statistics</span> <span class="pre">Plugins</span></code>. This is a core plugin so it is
+already installed. See <a class="reference internal" href="using_plugins.html"><span class="doc">Verwenden von Erweiterungen</span></a> to know to how enable core
+plugins.</p></li>
+</ol>
+<img alt="../_images/1555.png" class="align-center" src="../_images/1555.png" />
+<ol class="arabic simple" start="16">
+<li><p>Go to <span class="menuselection">Raster ‣ Zonal statistics ‣ Zonal statistics</span>.</p></li>
+</ol>
+<img alt="../_images/1652.png" class="align-center" src="../_images/1652.png" />
+<ol class="arabic simple" start="17">
+<li><p>Select <code class="docutils literal notranslate"><span class="pre">us.tmax_nohads_ll_{YYYYMMDD}_float</span></code> as the <span class="guilabel">Raster
+layer</span> and <code class="docutils literal notranslate"><span class="pre">counties</span></code> as the <span class="guilabel">Polygon layer containing the
+zones</span>. Enter <code class="docutils literal notranslate"><span class="pre">ZS_</span></code> as the <span class="guilabel">Output column prefix</span>. Click
+<span class="guilabel">OK</span>.</p></li>
+</ol>
+<img alt="../_images/1748.png" class="align-center" src="../_images/1748.png" />
+<ol class="arabic simple" start="18">
+<li><p>The analysis may take some time depending on the size of the dataset.</p></li>
+</ol>
+<img alt="../_images/1846.png" class="align-center" src="../_images/1846.png" />
+<ol class="arabic simple" start="19">
+<li><p>Once the processing finishes, select the <code class="docutils literal notranslate"><span class="pre">counties</span></code> layer. Use the
+<span class="guilabel">Identify</span> tool and click on any county polygon. You will see
+three new attributes added to the layer: <code class="docutils literal notranslate"><span class="pre">ZS_count</span></code>, <code class="docutils literal notranslate"><span class="pre">ZS_mean</span></code> and
+<code class="docutils literal notranslate"><span class="pre">ZS_sum</span></code>. These attributes contain the count of raster pixels, mean of
+raster pixel values and sum of raster pixel values respectively. Since we
+are interested in average temperature, the <code class="docutils literal notranslate"><span class="pre">ZS_mean</span></code> field will be the
+one to use.</p></li>
+</ol>
+<img alt="../_images/1938.png" class="align-center" src="../_images/1938.png" />
+<ol class="arabic simple" start="20">
+<li><p>Let’s style this layer to create a temperature map. Right-click the
+<code class="docutils literal notranslate"><span class="pre">counties</span></code> layer and select <span class="guilabel">Properties</span>.</p></li>
+</ol>
+<img alt="../_images/2033.png" class="align-center" src="../_images/2033.png" />
+<ol class="arabic simple" start="21">
+<li><p>Switch to the <span class="guilabel">Style</span> tab. Choose <span class="guilabel">Graduated</span> style and
+select <code class="docutils literal notranslate"><span class="pre">ZS_mean</span></code> as the <span class="guilabel">Column</span>. Choose a <span class="guilabel">Color
+Ramp</span> and <span class="guilabel">Mode</span> of your chose. Click <span class="guilabel">Classify</span> to
+create the classes. Click <span class="guilabel">OK</span>. (See <a class="reference internal" href="basic_vector_styling.html"><span class="doc">Einfache Vektor Gestaltung</span></a>
+for more details on styling.)</p></li>
+</ol>
+<img alt="../_images/2167.png" class="align-center" src="../_images/2167.png" />
+<ol class="arabic simple" start="22">
+<li><p>You will see the county polygons styled using average maximum temperature
+extracted from the raster grid.</p></li>
+</ol>
+<img alt="../_images/2232.png" class="align-center" src="../_images/2232.png" />
+</section>
+</section>
+
+
+
+
+
+  <div id="disqus_thread"></div>
+  <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+
+    </div>
+      
+  </div>
+</div>
+
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+    </p>
+    <p>
+        &copy; Copyright 2021, Ujaval Gandhi.<br/>
+      Zuletzt aktualisiert am Aug. 30, 2022.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 4.0.1.<br/>
+    </p>
+  </div>
+</footer>
+<div class="container">
+  <p>This work is licensed under a <a href="http://creativecommons.org/licenses/by/4.0/deed.en_US">Creative Commons Attribution 4.0 International License</a></p>
+</div>
+<!-- Twitter Button -->
+<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+
+<!-- Disqus comments widget -->
+<script type="text/javascript">
+  /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+  var disqus_shortname = 'qgistutorials'; // required: replace example with your forum shortname
+  /* * * DON'T EDIT BELOW THIS LINE * * */
+  (function () {
+    var s = document.createElement('script'); s.async = true;
+    s.type = 'text/javascript';
+    s.src = '//' + disqus_shortname + '.disqus.com/count.js';
+    (document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);
+  }());
+</script>
+
+<script type="text/javascript">
+  /* * * DON'T EDIT BELOW THIS LINE * * */
+  (function() {
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+
+<!-- Script fpr language switching. Largely adapted from https://github.com/pcav/faunalia-website -->
+<script>
+    var currentPage = 'docs/sampling_raster_data.html'; // coming from sphinx, always without starting '/'
+    var currentLang = 'en';
+    $(document).ready(function(){
+
+        var search = new RegExp('\/[a-zA-Z_]{2,8}\/'+ currentPage, 'gi');
+        var langPlusPage = window.location.href.match(search);
+        // it's possible this is a index.html page called without 'index.html', try without the currentPage
+        if (langPlusPage==undefined){
+            search = new RegExp('\/[a-zA-Z_]{2,8}\/$', 'gi');
+            langPlusPage = window.location.href.match(search);
+        }
+
+        // it's possible this is an index.html page called without 'index.html', try removing index.html
+        if (langPlusPage==undefined){
+            currentPage = currentPage.replace('index.html','')
+            search = new RegExp('\/[a-zA-Z_]{2,8}\/'+ currentPage, 'gi');
+            langPlusPage = window.location.href.match(search);
+        }
+        // still no langPlugPage: stop, because the language swicher will misbehave 
+
+        if (langPlusPage == undefined || langPlusPage.length != 1){
+            alert('You hit an error, please report back to us.');
+            return;
+        }
+        langPlusPage = langPlusPage[0];
+        currentLang = langPlusPage.replace(currentPage, '');
+
+        $("#languages").val(currentLang.replace(/\//g,'')); // currentLang is something like '/nl/'
+
+        $("#languages").change(function() {
+            gotoLang($(this).val());
+        });
+
+    });
+
+    // load current page in a different language
+    function gotoLang(lang){
+        var currentUrl = window.location.href;
+        var newUrl = currentUrl.replace(currentLang, '/'+lang+'/');
+        window.location.href = newUrl;
+    }
+</script>
+
+  </body>
+</html>

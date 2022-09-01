@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>Creating Heatmaps (QGIS3) &#8212; QGIS Tutorials and Tips</title>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-sphinx.css" />
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Animating Time Series Data (QGIS3)" href="animating_time_series.html" />
+    <link rel="prev" title="Calculating Raster Area (QGIS3)" href="calculating_raster_area.html" />
+
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<script type="text/javascript" src="../../_static/js/jquery-1.11.0.min.js "></script>
+<script type="text/javascript" src="../../_static/js/jquery-fix.js "></script>
+<script type="text/javascript" src="../../_static/bootstrap-3.3.7/js/bootstrap.min.js "></script>
+<script type="text/javascript" src="../../_static/bootstrap-sphinx.js "></script>
+
+
+<!-- Cookie Notice -->
+<!-- Script from https://github.com/AOEpeople/cookie-notice -->
+<script type="text/javascript" src="../../_static/cookie.notice.min.js"></script>
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-B1WQ7B80XJ"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-B1WQ7B80XJ');
+</script>
+
+
+  </head><body>
+
+  <div id="navbar" class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="../../index.html"><span><img src="../../_static/logo.png"></span>
+          QGIS Tutorials and Tips</a>
+        <span class="navbar-text navbar-version pull-left"><b>v1</b></span>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="../../index.html">Tutorials List <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"><ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="making_a_map.html">Making a Map (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="working_with_attributes.html">Working with Attributes (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="importing_spreadsheets_csv.html">Importing Spreadsheets or CSV files (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="basic_vector_styling.html">Basic Vector Styling (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="calculating_line_lengths.html">Calculating Line Lengths and Statistics (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="raster_styling_and_analysis.html">Basic Raster Styling and Analysis (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="raster_mosaicing_and_clipping.html">Raster Mosaicing and Clipping (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="working_with_terrain.html">Working with Terrain Data (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="working_with_wms.html">Working with WMS Data (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="working_with_projections.html">Working with Projections (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="georeferencing_basics.html">Georeferencing Topo Sheets and Scanned Maps (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="advanced_georeferencing.html">Georeferencing Aerial Imagery (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="digitizing_basics.html">Digitizing Map Data (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="performing_table_joins.html">Performing Table Joins (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="performing_spatial_joins.html">Performing Spatial Joins (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="performing_spatial_queries.html">Performing Spatial Queries (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="nearest_neighbor_analysis.html">Nearest Neighbor Analysis (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="sampling_raster_data.html">Sampling Raster Data using Points or Polygons (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="calculating_raster_area.html">Calculating Raster Area (QGIS3)</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Creating Heatmaps (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="animating_time_series.html">Animating Time Series Data (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="handling_invalid_geometries.html">Handling Invalid Geometries (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="advanced_raster_analysis.html">Advanced Raster Analysis (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="interpolating_point_data.html">Interpolating Point Data (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="calculating_intersection_density.html">Calculating Street Intersection Density (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="batch_processing.html">Batch Processing using Processing Framework (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="processing_graphical_modeler.html">Automating Complex Workflows using Processing Modeler (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="automating_map_creation.html">Automating Map Creation with Print Layout Atlas (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="multi_criteria_overlay.html">Multi Criteria Overlay Analysis (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="basic_network_analysis.html">Basic Network Visualization and Routing (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="origin_destination_matrix.html">Locating Nearest Facility with Origin-Destination Matrix (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="service_area_analysis.html">Service Area Analysis using Openrouteservice (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="travel_time_analysis.html">Travel Time Analysis with Uber Movement (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="areal_mean_rainfall.html">Calculating Areal Mean Rainfall (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="getting_started_with_pyqgis.html">Getting Started With Python Programming (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="processing_algorithms_pyqgis.html">Running Processing Algorithms via Python (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="custom_python_functions.html">Using Custom Python Expression Functions (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="processing_python_scripts.html">Writing Python Scripts for Processing Framework (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="building_a_python_plugin.html">Building a Python Plugin (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="processing_python_plugin.html">Building a Processing Plugin (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../running_qgis_jobs.html">Running and Scheduling QGIS Processing Jobs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="web_mapping_with_qgis2web.html">Web Mapping with QGIS2Web (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../creating_basemaps_with_qtiles.html">Creating Basemaps with QTiles</a></li>
+<li class="toctree-l1"><a class="reference internal" href="using_plugins.html">Using Plugins (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../downloading_osm_data.html">Searching and Downloading OpenStreetMap Data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../learning_resources.html">QGIS Learning Resources</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../credits.html">Data Credits</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../batch_processing.html">Batch Processing using Processing Framework (QGIS2)</a></li>
+</ul>
+</ul>
+</li>
+              
+            
+            
+              
+                
+  <li>
+    <a href="calculating_raster_area.html" title="Previous Chapter: Calculating Raster Area (QGIS3)"><span class="glyphicon glyphicon-chevron-left visible-sm"></span><span class="hidden-sm hidden-tablet">&laquo; Calculating R...</span>
+    </a>
+  </li>
+  <li>
+    <a href="animating_time_series.html" title="Next Chapter: Animating Time Series Data (QGIS3)"><span class="glyphicon glyphicon-chevron-right visible-sm"></span><span class="hidden-sm hidden-tablet">Animating Tim... &raquo;</span>
+    </a>
+  </li>
+              
+            
+            
+
+            
+
+            
+              <li class="hidden-sm"></li>
+            
+          </ul>
+
+          
+            
+<form class="navbar-form navbar-right" action="../../search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+      <div class="col-md-3">
+        <div id="sidebar" class="bs-sidenav" role="complementary"><h4>Author</h4>
+<p>Ujaval Gandhi</p>
+<a href="https://twitter.com/intent/follow?screen_name=spatialthoughts" class="twitter-follow-button" data-show-count="false">Follow @spatialthoughts</a>
+<hr>
+<p>Want to learn QGIS in a structured way? Check out <a href="https://spatialthoughts.com/" target="_blank">Spatial Thoughts</a> for more learning materials and instructor-led online programs with QGIS.org certification.</p>
+
+
+<h4>Change Language</h4>
+<form role="form" class="sidebar-form sidebar-left">
+<select id="languages" class="form-control select-mini">
+  <option value="en">English</option>
+  <option value="zh_TW">Chinese (Taiwan)</option>
+  <option value="nl">Dutch</option>
+  <option value="fi_FI">Finnish</option>
+  <option value="fr">French</option>
+  <option value="de">German</option>
+  <option value="el">Greek</option>
+  <option value="id">Indonesian</option>
+  <option value="it">Italian</option>
+  <option value="ko">Korean</option>
+  <option value="fa">Persian</option>
+  <option value="pt_BR">Portuguese</option>
+  <option value="ro">Romanian</option>
+  <option value="ru">Russian</option>
+  <option value="sl">Slovenian</option>
+  <option value="es">Spanish</option>
+  <option value="th">Thai</option>
+  <option value="tr">Turkish</option>
+  <option value="uk">Ukrainian</option>
+  <option value="vi">Vietnamese</option>
+</select>
+</form>
+        </div>
+      </div>
+    <div class="body col-md-9 content" role="main">
+      
+
+  <section id="creating-heatmaps-qgis3">
+<h1>Creating Heatmaps (QGIS3)<a class="headerlink" href="#creating-heatmaps-qgis3" title="Permalink to this headline">¶</a></h1>
+<p>Heatmaps are one of the best visualization tools for dense point data. Heatmap is an interpolation technique that useful in determining density of input features. Heatmaps are most commonly used to visualize crime data, traffic incidents, housing density etc. QGIS has a heatmap renderer that can be used to style a point layer and a Processing algorithm <strong>Heatmap (Kernel Density Estimation)</strong> that can be used to create an raster from a point layer.</p>
+<section id="overview-of-the-task">
+<h2>Overview of the task<a class="headerlink" href="#overview-of-the-task" title="Permalink to this headline">¶</a></h2>
+<p>We will work with a dataset of crime locations in Surrey, UK and create a heatmap to visualize regions with high density of crime.</p>
+<section id="other-skills-you-will-learn">
+<h3>Other skills you will learn<a class="headerlink" href="#other-skills-you-will-learn" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><p>Using virtual fields and conditional expressions</p></li>
+</ul>
+</section>
+</section>
+<section id="get-the-data">
+<h2>Get the data<a class="headerlink" href="#get-the-data" title="Permalink to this headline">¶</a></h2>
+<p><a class="reference external" href="https://data.police.uk">data.police.uk</a> provides street-level crime, outcome, and stop and search data in simple CSV format. Download the data for <a class="reference external" href="https://data.police.uk/data/">Surrey Police</a> and unzip the downloaded archive to extract the CSV file.</p>
+<p>For convenience, you may directly download a copy of the dataset from the link below:</p>
+<p><a class="reference external" href="https://www.qgistutorials.com/downloads/2019-02-surrey-street.csv">2019-02-surrey-street.csv</a></p>
+<p>Data Source <a class="reference internal" href="../credits.html#policeuk" id="id1"><span>[POLICEUK]</span></a></p>
+</section>
+<section id="procedure">
+<h2>Procedure<a class="headerlink" href="#procedure" title="Permalink to this headline">¶</a></h2>
+<ol class="arabic simple">
+<li><p>We will first load a basemap layer from <em>OpenStreetMap</em> and then import the CSV data. In the <span class="guilabel">Browser</span> tab, scroll down and locate the <span class="guilabel">XYZ Tiles</span> section.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/130.png" class="align-center" src="../../_images/130.png" />
+</div></blockquote>
+<ol class="arabic simple" start="2">
+<li><p>Expand it to see the <span class="guilabel">OpenStreetMap</span> tile layer. Drag and drop it to the main canvas. Next we will load the CSV file. Click the <span class="guilabel">Open Data Source Manager</span> button.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/227.png" class="align-center" src="../../_images/227.png" />
+</div></blockquote>
+<ol class="arabic simple" start="3">
+<li><p>Switch to the <span class="guilabel">Delimited Text</span> tab. Here we will import the crime data which comes in a CSV format text file. Click the <span class="guilabel">…</span> button next to <span class="guilabel">File name</span> and browse to the downloaded <code class="docutils literal notranslate"><span class="pre">2019-02-surrey-street.csv</span></code> file. The <span class="guilabel">X field</span> and <span class="guilabel">Y field</span> in the <span class="guilabel">Geometry Definition</span> section to be auto-populated with the <code class="docutils literal notranslate"><span class="pre">Longitude</span></code> and <code class="docutils literal notranslate"><span class="pre">Latitude</span></code> columns. The <span class="guilabel">Geometry CRS</span> should be left to default <code class="docutils literal notranslate"><span class="pre">EPSG:4326</span> <span class="pre">-</span> <span class="pre">WGS</span> <span class="pre">84</span></code> definition. Make sure the data looks correct in the <span class="guilabel">Sample data</span> panel and click <span class="guilabel">Add</span>, followed by <span class="guilabel">Close</span>.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/318.png" class="align-center" src="../../_images/318.png" />
+</div></blockquote>
+<ol class="arabic simple" start="4">
+<li><p>You will see 2 layers - <code class="docutils literal notranslate"><span class="pre">OpenStreetMap</span></code> and <code class="docutils literal notranslate"><span class="pre">2019-02-surrey-street</span></code> loaded in the QGIS <span class="guilabel">Layers</span> panel. Right-click the <code class="docutils literal notranslate"><span class="pre">2019-02-surrey-street</span></code> layer and select <span class="guilabel">Zoom to Layer</span>.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/47.png" class="align-center" src="../../_images/47.png" />
+</div></blockquote>
+<ol class="arabic simple" start="5">
+<li><p>You will see the crime incident points layer overlaid on the OpenStreetMap basemap. Zoom and Pan to explore the data. The data is quite dense and it is hard to get an idea of where there is a high concentration of crime. This is where a heatmap visualization will come in handy. Select the <code class="docutils literal notranslate"><span class="pre">2019-02-surrey-street</span></code> layer and  click the <span class="guilabel">Open the Layer Styling panel</span> button.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/57.png" class="align-center" src="../../_images/57.png" />
+</div></blockquote>
+<ol class="arabic simple" start="6">
+<li><p>Select <code class="docutils literal notranslate"><span class="pre">Heatmap</span></code> as the renderer in the dropbox menu. The <span class="guilabel">Layer Styling panel</span> is interactive and you can see the effect of your changes reflected in the canvas immediately. The layer will now be displayed in the default grayscale color-ramp.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/67.png" class="align-center" src="../../_images/67.png" />
+</div></blockquote>
+<ol class="arabic simple" start="7">
+<li><p>A heatmap is typically renderer using a yellow–to-red or white–to-red color ramp where higher concentration of points result in more <strong>heat</strong>. Click the <span class="guilabel">Color ramp</span> dropdown menu and select <code class="docutils literal notranslate"><span class="pre">Reds</span></code> color-ramp.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/77.png" class="align-center" src="../../_images/77.png" />
+</div></blockquote>
+<ol class="arabic simple" start="8">
+<li><p>Next you need to choose a <span class="guilabel">Radius</span>. This parameter determines the circular neighborhood around each point where that point will have an influence. This value will largely depend on the type of your input data. For our data, let’s assume a crime incident will have an influence upto 5 Kilometers from the location. Notice that the current project CRS is set to <code class="docutils literal notranslate"><span class="pre">EPSG:</span> <span class="pre">3857</span></code> in the bottom-right corner. This CRS has a unit of meter, so we should specify <code class="docutils literal notranslate"><span class="pre">5000</span></code> meters as the radius. Another parameter that is hidden from this menu is the <span class="guilabel">Kernel shape</span>. This is a function that determines how the influence of a point should be spread out over the given radius. The Heatmap renderer uses the <code class="docutils literal notranslate"><span class="pre">Quartic</span></code> function for this calculation. There are other types of kernels such as <code class="docutils literal notranslate"><span class="pre">Triangular</span></code>, <code class="docutils literal notranslate"><span class="pre">Uniform</span></code>, <code class="docutils literal notranslate"><span class="pre">Triweight</span></code> and <code class="docutils literal notranslate"><span class="pre">Epanechnikov</span></code> that can be specified in when using a different heatmap creation method described later in this tutorial. See <a class="reference external" href="https://www.geodose.com/2017/11/qgis-heatmap-using-kernel-density.html">this post</a> for a good explanation and guidance for select the right radius and kernel shape.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/87.png" class="align-center" src="../../_images/87.png" />
+</div></blockquote>
+<ol class="arabic simple" start="9">
+<li><p>The heatmap visualization is ready. We can adjust the <span class="guilabel">Opacity</span> of the heatmap in the <span class="guilabel">Layer Rendering</span> section at the bottom. Set the opacity to <code class="docutils literal notranslate"><span class="pre">60</span> <span class="pre">%</span></code> so you can see the basemap along with the heatmap.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/97.png" class="align-center" src="../../_images/97.png" />
+</div></blockquote>
+<ol class="arabic simple" start="10">
+<li><p>For many types of analysis, just considering density of points is good enough. But sometimes, you may want to give different importance to each point. A more violent crime should have more influence on the output heatmap than a robbery. Similarly, sometimes a point may represent multiple observations at a single location which needs to be accounted for in the analysis. To do this, you are able to supply an optional numeric <strong>weight</strong> field which specifies a value for each point. Let’s add a weight field and use it to improve the heatmap. Right-click the <code class="docutils literal notranslate"><span class="pre">2019-02-surrey-street</span></code> layer and select <span class="guilabel">Open Attribute Table</span>.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/1011.png" class="align-center" src="../../_images/1011.png" />
+</div></blockquote>
+<ol class="arabic simple" start="11">
+<li><p>You will see a text field called <code class="docutils literal notranslate"><span class="pre">Crime</span> <span class="pre">type</span></code> in the input data that describes the type of crime. We can use these to categorize the different types of crimes and assign a higher weight to more violent crimes.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/1114.png" class="align-center" src="../../_images/1114.png" />
+</div></blockquote>
+<ol class="arabic simple" start="12">
+<li><p>Click the <span class="guilabel">Open field calculator</span>.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/1212.png" class="align-center" src="../../_images/1212.png" />
+</div></blockquote>
+<ol class="arabic simple" start="13">
+<li><p>We will now input a formula that uses the <code class="docutils literal notranslate"><span class="pre">Crime</span> <span class="pre">type</span></code> and determines the weight value. QGIS has a handy way to add such computed fields using <em>Virtual Fields</em>. The virtual field is saved in the QGIS project and doesn’t modify the source data. It is also dynamically computed and can be used anywhere in QGIS just like any other attribute value. Enter <code class="docutils literal notranslate"><span class="pre">weight</span></code> as the <span class="guilabel">Output field name</span> and set the <span class="guilabel">Output field type</span> to <code class="docutils literal notranslate"><span class="pre">Whole</span> <span class="pre">number</span> <span class="pre">(integer)</span></code>. Enter the following expression in the <span class="guilabel">Expression editor</span>. Here we are using <strong>CASE</strong> statement to assign different values based on different conditions. Click <span class="guilabel">OK</span>.</p></li>
+</ol>
+<blockquote>
+<div><div class="highlight-none notranslate"><div class="highlight"><pre><span></span>CASE
+WHEN &quot;Crime type&quot; LIKE &#39;Violence%&#39; THEN 10
+WHEN &quot;Crime type&quot; LIKE &#39;Criminal%&#39; THEN 5
+ELSE 1
+END
+</pre></div>
+</div>
+<img alt="../../_images/1310.png" class="align-center" src="../../_images/1310.png" />
+</div></blockquote>
+<ol class="arabic simple" start="14">
+<li><p>A new attribute will be added for each feature with the appropriate weight value.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/149.png" class="align-center" src="../../_images/149.png" />
+</div></blockquote>
+<ol class="arabic simple" start="15">
+<li><p>Back in the <span class="guilabel">Layer Styling</span> panel, click the drop-down menu for <span class="guilabel">Weight points by</span> and select the newly added <code class="docutils literal notranslate"><span class="pre">weight</span></code> field.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/159.png" class="align-center" src="../../_images/159.png" />
+</div></blockquote>
+<ol class="arabic simple" start="16">
+<li><p>You will see the heatmap rendering change to account for the weight parameter. Close the <span class="guilabel">Layer Styling</span> panel.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/168.png" class="align-center" src="../../_images/168.png" />
+</div></blockquote>
+<ol class="arabic simple" start="17">
+<li><p>If you need the heatmap visualization to be saved as a permanent raster layer or want to customize the heatmap with advanced options such as different kernels or dynamic radius, you can use the <strong>Heatmap (Kernel Density Estimation)</strong> from the Processing Toolbox. We will now use this algorithm. Go to <span class="menuselection">Processing ‣ Toolbox</span>.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/179.png" class="align-center" src="../../_images/179.png" />
+</div></blockquote>
+<ol class="arabic simple" start="18">
+<li><p>Before we can create the heatmap, we need to re-project the source data to a projected CRS. As distance plays an important role in computation of heatmap, it is not correct to use a geographic CRS. Search and find the <span class="menuselection">Vector general ‣ Reproject layer</span> algorithm.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/187.png" class="align-center" src="../../_images/187.png" />
+</div></blockquote>
+<ol class="arabic simple" start="19">
+<li><p>In the <span class="guilabel">Reproject layer</span> dialog, click the <span class="guilabel">Select CRS</span> button for <span class="guilabel">Target CRS</span>. Search for and select the <code class="docutils literal notranslate"><span class="pre">EPSG:27700</span> <span class="pre">OSGB</span> <span class="pre">1936</span> <span class="pre">/</span> <span class="pre">British</span> <span class="pre">National</span> <span class="pre">Grid</span></code> CRS. This projected CRS is a good choice for data in the UK. Click <span class="guilabel">Run</span>.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/197.png" class="align-center" src="../../_images/197.png" />
+</div></blockquote>
+<ol class="arabic simple" start="20">
+<li><p>A new layer named <code class="docutils literal notranslate"><span class="pre">Reprojected</span></code> will be added to the <span class="guilabel">Layers</span> panel. Un-check the box next to the old <code class="docutils literal notranslate"><span class="pre">2019-02-surrey-street</span></code> layer to hide it.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/207.png" class="align-center" src="../../_images/207.png" />
+</div></blockquote>
+<ol class="arabic simple" start="21">
+<li><p>Search and find the <span class="menuselection">Interpolation ‣ Heatmap (Kernel Density Estimation)</span> algorithm.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/2111.png" class="align-center" src="../../_images/2111.png" />
+</div></blockquote>
+<ol class="arabic simple" start="22">
+<li><p>In the <span class="guilabel">Heatmap (Kernel Density Estimation)</span> dialog, we will use the same paramters as earlier. Select <span class="guilabel">Radius</span> as <code class="docutils literal notranslate"><span class="pre">5000</span></code> meters and <span class="guilabel">Weight from field</span> as <code class="docutils literal notranslate"><span class="pre">weight</span></code>. Set the <span class="guilabel">Pixel size X</span> and <span class="guilabel">Pixel size Y</span> to <code class="docutils literal notranslate"><span class="pre">50</span></code> meters. Let the <span class="guilabel">Kernel shape</span> to the default value of <code class="docutils literal notranslate"><span class="pre">Quartic</span></code>. Click <span class="guilabel">Run</span>.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/228.png" class="align-center" src="../../_images/228.png" />
+</div></blockquote>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The <span class="guilabel">Radius from field</span> parameter allows you to specify a dynamic search radius for each point. This can be used along with <span class="guilabel">Weight from field</span> to have fine grainer control on how each point’s influence is spread.</p>
+</div>
+<ol class="arabic simple" start="23">
+<li><p>Once the processing finishes, a new raster layer named <code class="docutils literal notranslate"><span class="pre">OUTPUT</span></code> will be loaded. The default visualization is ugly since it uses the <code class="docutils literal notranslate"><span class="pre">Singleband</span> <span class="pre">gray</span></code> renderer. Click the <span class="guilabel">Open the Layer Styling panel</span> button.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/236.png" class="align-center" src="../../_images/236.png" />
+</div></blockquote>
+<ol class="arabic simple" start="24">
+<li><p>Change the render to <code class="docutils literal notranslate"><span class="pre">Singleband</span> <span class="pre">Pseudocolor</span></code> and select the <code class="docutils literal notranslate"><span class="pre">Reds</span></code> color ramp. The layer now looks like the heatmap visualization that we had created earlier.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/247.png" class="align-center" src="../../_images/247.png" />
+</div></blockquote>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Notice that <code class="docutils literal notranslate"><span class="pre">OUTPUT</span></code> layer in the <span class="guilabel">Layers</span> panel has a legend but the <code class="docutils literal notranslate"><span class="pre">2019-02-surrey-street</span></code> layer does not. A common problem with using a heatmap layer created with the Heatmap renderer is the lack of a legend. Say you want use the heatmap in the <span class="guilabel">Print Layout</span> and add a legend. A raster heatmap created with the Heatmap processing algorithm method makes this possible.</p>
+</div>
+</section>
+</section>
+
+
+
+
+
+  <div id="disqus_thread"></div>
+  <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+
+    </div>
+      
+  </div>
+</div>
+
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+    </p>
+    <p>
+        &copy; Copyright 2021, Ujaval Gandhi.<br/>
+      Last updated on Aug 30, 2022.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 4.0.1.<br/>
+    </p>
+  </div>
+</footer>
+<div class="container">
+  <p>This work is licensed under a <a href="http://creativecommons.org/licenses/by/4.0/deed.en_US">Creative Commons Attribution 4.0 International License</a></p>
+</div>
+<!-- Twitter Button -->
+<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+
+<!-- Disqus comments widget -->
+<script type="text/javascript">
+  /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+  var disqus_shortname = 'qgistutorials'; // required: replace example with your forum shortname
+  /* * * DON'T EDIT BELOW THIS LINE * * */
+  (function () {
+    var s = document.createElement('script'); s.async = true;
+    s.type = 'text/javascript';
+    s.src = '//' + disqus_shortname + '.disqus.com/count.js';
+    (document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);
+  }());
+</script>
+
+<script type="text/javascript">
+  /* * * DON'T EDIT BELOW THIS LINE * * */
+  (function() {
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+
+<!-- Script fpr language switching. Largely adapted from https://github.com/pcav/faunalia-website -->
+<script>
+    var currentPage = 'docs/3/creating_heatmaps.html'; // coming from sphinx, always without starting '/'
+    var currentLang = 'en';
+    $(document).ready(function(){
+
+        var search = new RegExp('\/[a-zA-Z_]{2,8}\/'+ currentPage, 'gi');
+        var langPlusPage = window.location.href.match(search);
+        // it's possible this is a index.html page called without 'index.html', try without the currentPage
+        if (langPlusPage==undefined){
+            search = new RegExp('\/[a-zA-Z_]{2,8}\/$', 'gi');
+            langPlusPage = window.location.href.match(search);
+        }
+
+        // it's possible this is an index.html page called without 'index.html', try removing index.html
+        if (langPlusPage==undefined){
+            currentPage = currentPage.replace('index.html','')
+            search = new RegExp('\/[a-zA-Z_]{2,8}\/'+ currentPage, 'gi');
+            langPlusPage = window.location.href.match(search);
+        }
+        // still no langPlugPage: stop, because the language swicher will misbehave 
+
+        if (langPlusPage == undefined || langPlusPage.length != 1){
+            alert('You hit an error, please report back to us.');
+            return;
+        }
+        langPlusPage = langPlusPage[0];
+        currentLang = langPlusPage.replace(currentPage, '');
+
+        $("#languages").val(currentLang.replace(/\//g,'')); // currentLang is something like '/nl/'
+
+        $("#languages").change(function() {
+            gotoLang($(this).val());
+        });
+
+    });
+
+    // load current page in a different language
+    function gotoLang(lang){
+        var currentUrl = window.location.href;
+        var newUrl = currentUrl.replace(currentLang, '/'+lang+'/');
+        window.location.href = newUrl;
+    }
+</script>
+
+  </body>
+</html>

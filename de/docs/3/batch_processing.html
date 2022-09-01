@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+
+<html lang="de">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>Stapelverarbeitung mit dem Processing Framework (QGIS3) &#8212; QGIS Tutorials and Tips</title>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-sphinx.css" />
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/translations.js"></script>
+    <link rel="search" title="Suche" href="../../search.html" />
+    <link rel="next" title="Komplexe Arbeitsabläufe mit Hilfe der Verarbeitungsmodellierung (QGIS3)" href="processing_graphical_modeler.html" />
+    <link rel="prev" title="Calculating Street Intersection Density (QGIS3)" href="calculating_intersection_density.html" />
+
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<script type="text/javascript" src="../../_static/js/jquery-1.11.0.min.js "></script>
+<script type="text/javascript" src="../../_static/js/jquery-fix.js "></script>
+<script type="text/javascript" src="../../_static/bootstrap-3.3.7/js/bootstrap.min.js "></script>
+<script type="text/javascript" src="../../_static/bootstrap-sphinx.js "></script>
+
+
+<!-- Cookie Notice -->
+<!-- Script from https://github.com/AOEpeople/cookie-notice -->
+<script type="text/javascript" src="../../_static/cookie.notice.min.js"></script>
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-B1WQ7B80XJ"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-B1WQ7B80XJ');
+</script>
+
+
+  </head><body>
+
+  <div id="navbar" class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="../../index.html"><span><img src="../../_static/logo.png"></span>
+          QGIS Tutorials and Tips</a>
+        <span class="navbar-text navbar-version pull-left"><b>v1</b></span>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="../../index.html">Tutorials List <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"><ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../introduction.html">Einleitung</a></li>
+<li class="toctree-l1"><a class="reference internal" href="making_a_map.html">Erstellung einer Karte (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="working_with_attributes.html">Arbeit mit Attributen (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="importing_spreadsheets_csv.html">Import von Tabellenblättern oder CSV-Dateien (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="basic_vector_styling.html">Einfache Vektor Gestaltung (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="calculating_line_lengths.html">Berechnung der Länge von Linien und Statistiken (QGSI3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="raster_styling_and_analysis.html">Einfache Visualisierung und Analyse von Rasterdaten (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="raster_mosaicing_and_clipping.html">Erstellen und Zuschneiden eines Raster-Mosaiks (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="working_with_terrain.html">Working with Terrain Data (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="working_with_wms.html">Working with WMS Data (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="working_with_projections.html">Working with Projections (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="georeferencing_basics.html">Georeferenzierung von Kartenblättern und eingescannten Karten (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="advanced_georeferencing.html">Georeferenzierung von Luftbildern (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="digitizing_basics.html">Digitizing Map Data (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="performing_table_joins.html">Tabellen verbinden (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="performing_spatial_joins.html">Räumliche Verbindungen erstellen (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="performing_spatial_queries.html">Räumliche Abfragen ausführen (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="nearest_neighbor_analysis.html">Nächster Nachbar Analyse (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="sampling_raster_data.html">Stichproben aus Rasterdaten mit Hilfe von Punkten und Polygonen (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="calculating_raster_area.html">Calculating Raster Area (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="creating_heatmaps.html">Heatmaps erstellen (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="animating_time_series.html">Animating Time Series Data (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="handling_invalid_geometries.html">Handling Invalid Geometries (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="advanced_raster_analysis.html">Advanced Raster Analysis (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="interpolating_point_data.html">Interpolating Point Data (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="calculating_intersection_density.html">Calculating Street Intersection Density (QGIS3)</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Stapelverarbeitung mit dem Processing Framework (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="processing_graphical_modeler.html">Komplexe Arbeitsabläufe mit Hilfe der Verarbeitungsmodellierung (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="automating_map_creation.html">Automatisierung der Kartenerstellung mit dem Drucklayout Atlas (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="multi_criteria_overlay.html">Multi Criteria Overlay Analysis (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="basic_network_analysis.html">Einfache Netzwerkvisualisierung und Routing (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="origin_destination_matrix.html">Lokalisierung der am nächsten gelegenen Einrichtung mit einer Quelle-Ziel-Matrix (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="service_area_analysis.html">Einzugsgebietsanalyse mit dem Openrouteservice (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="travel_time_analysis.html">Travel Time Analysis with Uber Movement (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="areal_mean_rainfall.html">Calculating Areal Mean Rainfall (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="getting_started_with_pyqgis.html">Mit der Pythonprogrammierung loslegen (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="processing_algorithms_pyqgis.html">Verarbeitungsroutinen mit Python ausführen (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="custom_python_functions.html">Angepasste Python Funktionsausdrücke verwenden (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="processing_python_scripts.html">Pythonscripts für die Verarbeitungswerkzeuge schreiben (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="building_a_python_plugin.html">Ein Python Plugin erstellen (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="processing_python_plugin.html">Ein Verarbeitungsplugin erstellen (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../running_qgis_jobs.html">Running and Scheduling QGIS Processing Jobs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="web_mapping_with_qgis2web.html">Web Mapping with QGIS2Web (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../creating_basemaps_with_qtiles.html">Creating Basemaps with QTiles</a></li>
+<li class="toctree-l1"><a class="reference internal" href="using_plugins.html">Using Plugins (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../downloading_osm_data.html">Suchen und Laden von OpenStreetMap Daten</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../learning_resources.html">QGIS Learning Resources</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../credits.html">Data Credits</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../batch_processing.html">Batch Processing using Processing Framework (QGIS2)</a></li>
+</ul>
+</ul>
+</li>
+              
+            
+            
+              
+                
+  <li>
+    <a href="calculating_intersection_density.html" title="Previous Chapter: Calculating Street Intersection Density (QGIS3)"><span class="glyphicon glyphicon-chevron-left visible-sm"></span><span class="hidden-sm hidden-tablet">&laquo; Calculating S...</span>
+    </a>
+  </li>
+  <li>
+    <a href="processing_graphical_modeler.html" title="Next Chapter: Komplexe Arbeitsabläufe mit Hilfe der Verarbeitungsmodellierung (QGIS3)"><span class="glyphicon glyphicon-chevron-right visible-sm"></span><span class="hidden-sm hidden-tablet">Komplexe Arbe... &raquo;</span>
+    </a>
+  </li>
+              
+            
+            
+
+            
+
+            
+              <li class="hidden-sm"></li>
+            
+          </ul>
+
+          
+            
+<form class="navbar-form navbar-right" action="../../search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+      <div class="col-md-3">
+        <div id="sidebar" class="bs-sidenav" role="complementary"><h4>Author</h4>
+<p>Ujaval Gandhi</p>
+<a href="https://twitter.com/intent/follow?screen_name=spatialthoughts" class="twitter-follow-button" data-show-count="false">Follow @spatialthoughts</a>
+<hr>
+<p>Want to learn QGIS in a structured way? Check out <a href="https://spatialthoughts.com/" target="_blank">Spatial Thoughts</a> for more learning materials and instructor-led online programs with QGIS.org certification.</p>
+
+
+<h4>Change Language</h4>
+<form role="form" class="sidebar-form sidebar-left">
+<select id="languages" class="form-control select-mini">
+  <option value="en">English</option>
+  <option value="zh_TW">Chinese (Taiwan)</option>
+  <option value="nl">Dutch</option>
+  <option value="fi_FI">Finnish</option>
+  <option value="fr">French</option>
+  <option value="de">German</option>
+  <option value="el">Greek</option>
+  <option value="id">Indonesian</option>
+  <option value="it">Italian</option>
+  <option value="ko">Korean</option>
+  <option value="fa">Persian</option>
+  <option value="pt_BR">Portuguese</option>
+  <option value="ro">Romanian</option>
+  <option value="ru">Russian</option>
+  <option value="sl">Slovenian</option>
+  <option value="es">Spanish</option>
+  <option value="th">Thai</option>
+  <option value="tr">Turkish</option>
+  <option value="uk">Ukrainian</option>
+  <option value="vi">Vietnamese</option>
+</select>
+</form>
+        </div>
+      </div>
+    <div class="body col-md-9 content" role="main">
+      
+
+  <section id="batch-processing-using-processing-framework-qgis3">
+<h1>Stapelverarbeitung mit dem Processing Framework (QGIS3)<a class="headerlink" href="#batch-processing-using-processing-framework-qgis3" title="Link zu dieser Überschrift">¶</a></h1>
+<p>Das <em>Processing Framework</em> in QGIS ist eine Umgebung in QGIS, die es ermöglicht,  zu QGIS gehörende Algorithmen oder solche von Drittanbietern zu Prozessierung von Daten einzusetzen. Es enthält eine schöne Bedienungsschnittstelle zur Ausführung von Berechnungen auf mehreren Layern. Die Stapelverarbeitung ist ein nützliches Tool, das Handarbeit verringert und dabei hilft, sich wiederholende Abläufe zu automatisieren.</p>
+<section id="overview-of-the-task">
+<h2>Überblick über die Aufgabe<a class="headerlink" href="#overview-of-the-task" title="Link zu dieser Überschrift">¶</a></h2>
+<p>Wir werden mehrere globale Vektorlayer verwenden und sie mit Hilfe der Stapelverarbeitung auf die Ausdehnung Afrikas zuschneiden.</p>
+<section id="other-skills-you-will-learn">
+<h3>Weitere Fähigkeiten, die wir erlernen<a class="headerlink" href="#other-skills-you-will-learn" title="Link zu dieser Überschrift">¶</a></h3>
+<ul class="simple">
+<li><p>Erstellen eines <strong>Filters</strong> um ungewollte Features eines Layers zu entfernen ohne einen neuen Layer zu erstellen.</p></li>
+<li><p>Zusammenfügen mehrerer Layer zu einer Geopackage Datei.</p></li>
+</ul>
+</section>
+</section>
+<section id="get-the-data">
+<h2>Beschaffung der Daten<a class="headerlink" href="#get-the-data" title="Link zu dieser Überschrift">¶</a></h2>
+<p>Unter <a class="reference external" href="http://naturalearthdata.com">Natural Earth</a> findet man verschiedene globale Vektorlayer. Lade folgende Layer herunter.</p>
+<ul class="simple">
+<li><p><a class="reference external" href="http://www.naturalearthdata.com/http//www.naturalearthdata.com/download/10m/cultural/ne_10m_admin_0_countries.zip">Admin 0 - Countries</a></p></li>
+<li><p><a class="reference external" href="http://www.naturalearthdata.com/http//www.naturalearthdata.com/download/10m/cultural/ne_10m_railroads.zip">Railroads</a></p></li>
+<li><p><a class="reference external" href="http://www.naturalearthdata.com/http//www.naturalearthdata.com/download/10m/cultural/ne_10m_ports.zip">Ports</a></p></li>
+<li><p><a class="reference external" href="https://www.naturalearthdata.com/http//www.naturalearthdata.com/download/10m/cultural/ne_10m_urban_areas.zip">Urban Areas</a></p></li>
+</ul>
+<p>Der Einfachheit halber kannst du eine geopackage Datei der o.g. Layer von folgendem link herunterladen:</p>
+<p><a class="reference external" href="https://www.qgistutorials.com/downloads/ne_global.gpkg">ne_global.gpkg</a></p>
+<p>Datenquelle: <a class="reference internal" href="../credits.html#naturalearth" id="id1"><span>[NATURALEARTH]</span></a></p>
+</section>
+<section id="procedure">
+<h2>Arbeitsablauf<a class="headerlink" href="#procedure" title="Link zu dieser Überschrift">¶</a></h2>
+<ol class="arabic simple">
+<li><p>Gehe im QGIS Browser Bereich zum Verzeichnis in dem die heruntergeladenen Daten abgelegt sind. Erweitere die <code class="docutils literal notranslate"><span class="pre">zip</span></code> oder <code class="docutils literal notranslate"><span class="pre">gpkg</span></code> Dateien und wähle den <code class="docutils literal notranslate"><span class="pre">ne_10m_admin_0_countries</span></code> Layer. Ziehe den Layer in den Arbeitsbereich.</p></li>
+</ol>
+<img alt="../../_images/119.png" class="align-center" src="../../_images/119.png" />
+<ol class="arabic simple" start="2">
+<li><p>Der geladene Layer ist jetzt im Layerbereich sichtbar. Da unsere Aufgabe ist, die globalen Layer auf die Ausdehnung Afrikas zuzuschneiden, müssen wir zuerst einen Layer vorbereiten, der nur diesen Kontinent enthält. Wenn wir auf die Attributtabelle sehen, erkennen wir welche Attributspalte zur Selektion eines Kontinents genutzt werden kann. Klicke mit der rechten Maustaste auf den Layer <code class="docutils literal notranslate"><span class="pre">ne_10m_admin_0_countries</span></code> und wähle <span class="guilabel">Attributtabelle öffnen</span>.</p></li>
+</ol>
+<div class="admonition note">
+<p class="admonition-title">Bemerkung</p>
+<p>Tip: Man kann auch die Tastenkombination <kbd class="kbd docutils literal notranslate">F6</kbd> verwenden, um die Attributtabelle des gewählten Layers zu öffnen.</p>
+</div>
+<img alt="../../_images/216.png" class="align-center" src="../../_images/216.png" />
+<ol class="arabic simple" start="3">
+<li><p>Im Fenster <span class="guilabel">Attributtabelle</span> sieht man beim Scrollen nach rechts, dass der Datensatz das Attribut <strong>CONTINENT</strong> enthält. Wir können dieses Attribut nutzen, um Features zu filtern.</p></li>
+</ol>
+<img alt="../../_images/314.png" class="align-center" src="../../_images/314.png" />
+<ol class="arabic simple" start="4">
+<li><p>Schließe das Attributfenster und gehe zurück zum QGIS Hauptfenster. Klicke mit der rechten Maustaste auf den Layer <code class="docutils literal notranslate"><span class="pre">ne_10m_admin_0_countries</span></code> und wähle <span class="guilabel">Filter</span>.</p></li>
+</ol>
+<img alt="../../_images/44.png" class="align-center" src="../../_images/44.png" />
+<ol class="arabic simple" start="5">
+<li><p>Wähle im Fenster <span class="guilabel">Abfrageerstellung</span> das Feld <strong>CONTINENT</strong> und klicke auf <span class="guilabel">Stichprobe</span>. Dadurch wird der Bereich <span class="guilabel">Werte</span> mit einer Teilmenge der Werte des Featureattributes gefüllt. Dieser Schritt ist sinnvoll, um einen Eindruck von der Art der im Datensatz enthaltenen Werte zu bekommen. Wir sehen, dass unser Datensatz u.a. den Wert <strong>Africa</strong> enthält.</p></li>
+</ol>
+<img alt="../../_images/54.png" class="align-center" src="../../_images/54.png" />
+<ol class="arabic simple" start="6">
+<li><p>Wir geben jetzt einen Ausdruck in der Textbox <span class="guilabel">Datenanbieter spezifischer Filterausdruck</span> ein. Man klickt dazu doppelt auf das <strong>CONTINENT</strong> Feld danach auf den Operator <span class="guilabel">=</span> und dann auf den Wert <strong>Africa</strong>. Man kann den folgenden Ausdruck auch in der Textbox eingeben. Kilcke nach Eingabe des Ausdrucks auf <span class="guilabel">OK</span>.</p></li>
+</ol>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>&quot;CONTINENT&quot; = &#39;Africa&#39;
+</pre></div>
+</div>
+<img alt="../../_images/64.png" class="align-center" src="../../_images/64.png" />
+<ol class="arabic simple" start="7">
+<li><p>Wir sehen, dass das Kartenfenster jetzt nur noch die Länder Afrikas enthält. Achte auf das Filtersymbol neben neben dem Layernamen, das die Verwendung eines Filters anzeigt. Wenn man alle Features des Layers anzeigen möchte, klickt man auf das Filtericon und löscht den Ausdruck. Vorerst belassen wir den Filter, so dass wir aus den anderen Layern Afrika ausschneiden können.</p></li>
+</ol>
+<img alt="../../_images/74.png" class="align-center" src="../../_images/74.png" />
+<ol class="arabic simple" start="8">
+<li><p>Wir können nun die Stapelverarbeitung zum Ausschneiden der anderen Layer beginnen. Wir suchen folgende Layer im <span class="guilabel">QGIS Browser</span> Bereich: <code class="docutils literal notranslate"><span class="pre">ne_10m_railroads</span></code>, <code class="docutils literal notranslate"><span class="pre">ne_10m_ports</span></code> und <code class="docutils literal notranslate"><span class="pre">ne_10m_urban_areas</span></code>. Halte die Taste <kbd class="kbd docutils literal notranslate">Ctrl</kbd> gedrückt und klicke diese Layer an, um sie zu selektieren. Nachdem sie selektiert sind, schiebe sie in den Arbeitsbereich.</p></li>
+</ol>
+<img alt="../../_images/84.png" class="align-center" src="../../_images/84.png" />
+<ol class="arabic simple" start="9">
+<li><p>Nachdem die Layer geladen wurden, bemerken wir, dass die Layer Features in allen Ländern enthalten. Jetzt können wir die Stapelverarbeitung beginnen und diese Layer auf Afrika zuschneiden. Öffne <span class="menuselection">Verarbeitung ‣ Werkzeugkiste</span>.</p></li>
+</ol>
+<img alt="../../_images/94.png" class="align-center" src="../../_images/94.png" />
+<ol class="arabic simple" start="10">
+<li><p>Durchblättere die verfügbaren Algorithmen und gehe zum Tool <span class="guilabel">Zuschneiden</span> aus dem Bereich <span class="menuselection">Vektorüberlagerung ‣ Zuschneiden</span>. Wir können auch das <span class="guilabel">Suche</span> Feld, um den Algorithmus einfacher zu finden.</p></li>
+</ol>
+<img alt="../../_images/107.png" class="align-center" src="../../_images/107.png" />
+<ol class="arabic simple" start="11">
+<li><p>Klicke mit der rechten Maustaste auf den <span class="guilabel">Zuschneiden</span> Algorithmus und wähle <span class="guilabel">Als Stapelprozess ausführen</span>.</p></li>
+</ol>
+<img alt="../../_images/1110.png" class="align-center" src="../../_images/1110.png" />
+<ol class="arabic simple" start="12">
+<li><p>Im Fenster <span class="guilabel">Stapelverarbeitung</span> werden im ersten Reiter <span class="guilabel">Parameter</span> die Eingabedaten festgelegt. Jede Zeile repräsentiert 1 Datenverarbeitungsaufgabe. Klicke auf den <span class="guilabel">Zeile hinzufügen</span> Knopf um eine neue Zeile hinzuzufügen. Da unsere Aufgabe 3 Layer betrifft, fügen wir 3 Zeilen hinzu.</p></li>
+</ol>
+<img alt="../../_images/127.png" class="align-center" src="../../_images/127.png" />
+<ol class="arabic simple" start="13">
+<li><p>Klicke auf <span class="guilabel">…</span> neben der ersten Zeile in der Spalte <span class="guilabel">Eingabelayer</span>. Wähle :guilabel: <cite>Aus geöffneten Layern wählen…</cite>.</p></li>
+</ol>
+<img alt="../../_images/136.png" class="align-center" src="../../_images/136.png" />
+<ol class="arabic simple" start="14">
+<li><p>Wähle aus dem Fenster <span class="guilabel">Mehrfachauswahl</span> die 3 Layer aus, die wir zuschneiden wollen und klicke auf <span class="guilabel">OK</span>.</p></li>
+</ol>
+<img alt="../../_images/146.png" class="align-center" src="../../_images/146.png" />
+<ol class="arabic simple" start="15">
+<li><p>Wir bemerken, dss die <span class="guilabel">Eingabelayer</span> Spalte automatisch mit den ausgewählten Layern gefüllt wird. Als nächstes müssen wir den Layer selektieren mit dem unsere Eingabelayer zugeschnitten werden. Klicke auf den Knopf <span class="guilabel">…</span> in der ersten Zeile unter der Spalte <span class="guilabel">Layer überlagern</span> und wähle <span class="guilabel">Aus geöffneten Layern wählen…</span>.</p></li>
+</ol>
+<img alt="../../_images/156.png" class="align-center" src="../../_images/156.png" />
+<ol class="arabic simple" start="16">
+<li><p>Wähle im Fenster <span class="guilabel">Mehrfachauswahl</span> den Layer <code class="docutils literal notranslate"><span class="pre">ne_10m_admin_0_countries</span></code> und klicke auf <span class="guilabel">OK</span>.</p></li>
+</ol>
+<img alt="../../_images/166.png" class="align-center" src="../../_images/166.png" />
+<ol class="arabic simple" start="17">
+<li><p>Da der Zuschneidelayer für alle Eingabelayer derselbe ist, geht es schneller doppelt auf den Spaltenkopf <span class="guilabel">Layer überlagern</span> zu klicken, um den Layer automatisch für alle Zeilen einzutragen.</p></li>
+</ol>
+<img alt="../../_images/176.png" class="align-center" src="../../_images/176.png" />
+<ol class="arabic simple" start="18">
+<li><p>Als nächstes müssen wir unsere Ausgabe vorgeben. Klicke auf den Knopf <span class="guilabel">…</span> neben der ersten Zeile in der Spalte <span class="guilabel">Zugeschnitten</span>.</p></li>
+</ol>
+<img alt="../../_images/184.png" class="align-center" src="../../_images/184.png" />
+<ol class="arabic simple" start="19">
+<li><p>Wähle das Verzeichnis zur Ablage der Ausgabelayer aus. Gebe einen Dateinamen wie <code class="docutils literal notranslate"><span class="pre">zugeschnitten_</span></code> an und klicke auf <span class="guilabel">Speichern</span>.</p></li>
+</ol>
+<img alt="../../_images/194.png" class="align-center" src="../../_images/194.png" />
+<ol class="arabic simple" start="20">
+<li><p>Wir sehen ein neues Fenster <span class="guilabel">Autofüllmodus</span>. Wähle <code class="docutils literal notranslate"><span class="pre">Mit</span> <span class="pre">Parameterwerten</span> <span class="pre">füllen</span></code> als <span class="guilabel">Autofüllmodus</span> aus. Wähle <code class="docutils literal notranslate"><span class="pre">Eingabelayer</span></code> als <span class="guilabel">Zu benutzender Parameter</span>. Diese Einstellung fügt den Dateinamen der Eingabedatei zur Bezeichnung der Ausgabedatei an den vergebenen Präfix <code class="docutils literal notranslate"><span class="pre">zugeschnitten_</span></code> an. Das ist wichtig, weil damit jede Ausgabedatei einen eigenen Namen erhält und keine Datei überschrieben wird.</p></li>
+</ol>
+<img alt="../../_images/204.png" class="align-center" src="../../_images/204.png" />
+<ol class="arabic simple" start="21">
+<li><p>Jetzt können wir die Stapelverarbeitung beginnen. Achte darauf bei <span class="guilabel">Layer bei Abschluss laden</span> einen Haken zu setzen und klicke auf <span class="guilabel">Starte</span>.</p></li>
+</ol>
+<img alt="../../_images/217.png" class="align-center" src="../../_images/217.png" />
+<ol class="arabic simple" start="22">
+<li><p>Der Zuschneiden-Algorithmus läuft für jede Eingabedatei und erstellt die Ausgabedateien so wie vorher angegeben. Klicke nach Beenden der Stapelverarbeitung auf den Knopf <span class="guilabel">Schließen</span>, um zu QGIS zurück zu kehren.</p></li>
+</ol>
+<div class="admonition note">
+<p class="admonition-title">Bemerkung</p>
+<p>Tip: QGIS kann Berechnungen im Hintergrund ausführen ohne die Benutzeroberfläche zu blockieren. Bei langen Stapelverarbeitungsvorgängen kann man das Dialogfenster schließen und in QGIS weiterarbeiten, während die Berechnung im Hintergrund weiter läuft.</p>
+</div>
+<img alt="../../_images/224.png" class="align-center" src="../../_images/224.png" />
+<ol class="arabic simple" start="23">
+<li><p>Im QGIS Fenster werden nun die neu hinzugefügten Layer angezeigt. Man bemerkt, dass die globalen Layer nun genau auf die angegebene Grenze zugeschnitten sind.</p></li>
+</ol>
+<img alt="../../_images/234.png" class="align-center" src="../../_images/234.png" />
+<ol class="arabic simple" start="24">
+<li><p>Wir haben die Aufgabe mehrere Layer zuzuschneiden nun beendet. QGIS3 hat eine weitere praktische Funktion, die uns helfen wird, das Resultat noch effizienter zu erreichen. Wenn man die zugeschnitten Layer an jemanden anderes übergeben möchte, packt man sie normalerweise in zip-Dateien. Eine bessere Möglichkeit besteht in der Zusammenstellung eines Geopackages. Gehe im <span class="guilabel">QGIS Browser</span> zu den zugeschnittenen Ausgabelayern. Unter Umständen muss man den <span class="guilabel">Refresh</span> Knopf drücken, um die neu hinzugekommenden Dateien zu sehen.</p></li>
+</ol>
+<img alt="../../_images/244.png" class="align-center" src="../../_images/244.png" />
+<ol class="arabic simple" start="25">
+<li><p>Halte die Taste <kbd class="kbd docutils literal notranslate">Ctrl</kbd> grückt und wähle die Layer aus. Ziehe sie in Arbeitsbereich, um sie in QGIS zu laden.</p></li>
+</ol>
+<img alt="../../_images/254.png" class="align-center" src="../../_images/254.png" />
+<ol class="arabic simple" start="25">
+<li><p>Finde in den <span class="guilabel">Verarbeitungswerkzeugen</span> das Tool <span class="menuselection">Datenbank ‣ Paketlayer</span>.</p></li>
+</ol>
+<img alt="../../_images/263.png" class="align-center" src="../../_images/263.png" />
+<ol class="arabic simple" start="27">
+<li><p>Klicke im Fenster <span class="guilabel">Paketlayer</span> auf den <span class="guilabel">…</span> Knopf neben <span class="guilabel">Eingabelayer</span>.</p></li>
+</ol>
+<img alt="../../_images/274.png" class="align-center" src="../../_images/274.png" />
+<ol class="arabic simple" start="28">
+<li><p>Wähle im <span class="guilabel">Mehrfachauswahlfenster</span> folgende Layer: <code class="docutils literal notranslate"><span class="pre">clipped_ne_10m_ports</span></code>, <code class="docutils literal notranslate"><span class="pre">clipped_ne_10m_railroads</span></code> und <code class="docutils literal notranslate"><span class="pre">clipped_ne_10m_urban_areas</span></code>. Klicke auf <span class="guilabel">OK</span>.</p></li>
+</ol>
+<img alt="../../_images/284.png" class="align-center" src="../../_images/284.png" />
+<ol class="arabic simple" start="29">
+<li><p>Nachdem die Eingabelayer ausgewählt sind, klicke auf <span class="guilabel">…</span> neben <span class="guilabel">Ziel GeoPackage</span> und wähle <span class="guilabel">In Datei speichern</span>.</p></li>
+</ol>
+<img alt="../../_images/293.png" class="align-center" src="../../_images/293.png" />
+<ol class="arabic simple" start="30">
+<li><p>Gebe für den Ausgabedateinamen <code class="docutils literal notranslate"><span class="pre">clipped_layers</span></code> ein.</p></li>
+</ol>
+<img alt="../../_images/303.png" class="align-center" src="../../_images/303.png" />
+<ol class="arabic simple" start="31">
+<li><p>Kilcke auf <span class="guilabel">Starte</span> um den Packprozess zu starten.</p></li>
+</ol>
+<img alt="../../_images/315.png" class="align-center" src="../../_images/315.png" />
+<ol class="arabic simple" start="32">
+<li><p>Nachdem die Berechnung abgeschlossen ist, sehen wir eine neue geopackage Datei im <span class="guilabel">QGIS Browser</span>, die alle zugeschnittenen Ausgabelayer enthält. Es handelt sich um eine einzelne lokal abgelegte Datei, die alle Ausgabelayer enthält.</p></li>
+</ol>
+<img alt="../../_images/322.png" class="align-center" src="../../_images/322.png" />
+</section>
+</section>
+
+
+
+
+
+  <div id="disqus_thread"></div>
+  <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+
+    </div>
+      
+  </div>
+</div>
+
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+    </p>
+    <p>
+        &copy; Copyright 2021, Ujaval Gandhi.<br/>
+      Zuletzt aktualisiert am Aug. 30, 2022.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 4.0.1.<br/>
+    </p>
+  </div>
+</footer>
+<div class="container">
+  <p>This work is licensed under a <a href="http://creativecommons.org/licenses/by/4.0/deed.en_US">Creative Commons Attribution 4.0 International License</a></p>
+</div>
+<!-- Twitter Button -->
+<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+
+<!-- Disqus comments widget -->
+<script type="text/javascript">
+  /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+  var disqus_shortname = 'qgistutorials'; // required: replace example with your forum shortname
+  /* * * DON'T EDIT BELOW THIS LINE * * */
+  (function () {
+    var s = document.createElement('script'); s.async = true;
+    s.type = 'text/javascript';
+    s.src = '//' + disqus_shortname + '.disqus.com/count.js';
+    (document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);
+  }());
+</script>
+
+<script type="text/javascript">
+  /* * * DON'T EDIT BELOW THIS LINE * * */
+  (function() {
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+
+<!-- Script fpr language switching. Largely adapted from https://github.com/pcav/faunalia-website -->
+<script>
+    var currentPage = 'docs/3/batch_processing.html'; // coming from sphinx, always without starting '/'
+    var currentLang = 'en';
+    $(document).ready(function(){
+
+        var search = new RegExp('\/[a-zA-Z_]{2,8}\/'+ currentPage, 'gi');
+        var langPlusPage = window.location.href.match(search);
+        // it's possible this is a index.html page called without 'index.html', try without the currentPage
+        if (langPlusPage==undefined){
+            search = new RegExp('\/[a-zA-Z_]{2,8}\/$', 'gi');
+            langPlusPage = window.location.href.match(search);
+        }
+
+        // it's possible this is an index.html page called without 'index.html', try removing index.html
+        if (langPlusPage==undefined){
+            currentPage = currentPage.replace('index.html','')
+            search = new RegExp('\/[a-zA-Z_]{2,8}\/'+ currentPage, 'gi');
+            langPlusPage = window.location.href.match(search);
+        }
+        // still no langPlugPage: stop, because the language swicher will misbehave 
+
+        if (langPlusPage == undefined || langPlusPage.length != 1){
+            alert('You hit an error, please report back to us.');
+            return;
+        }
+        langPlusPage = langPlusPage[0];
+        currentLang = langPlusPage.replace(currentPage, '');
+
+        $("#languages").val(currentLang.replace(/\//g,'')); // currentLang is something like '/nl/'
+
+        $("#languages").change(function() {
+            gotoLang($(this).val());
+        });
+
+    });
+
+    // load current page in a different language
+    function gotoLang(lang){
+        var currentUrl = window.location.href;
+        var newUrl = currentUrl.replace(currentLang, '/'+lang+'/');
+        window.location.href = newUrl;
+    }
+</script>
+
+  </body>
+</html>

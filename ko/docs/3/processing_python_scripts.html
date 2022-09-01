@@ -1,0 +1,689 @@
+<!DOCTYPE html>
+
+<html lang="ko">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>Writing Python Scripts for Processing Framework (QGIS3) &#8212; QGIS Tutorials and Tips</title>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-sphinx.css" />
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/translations.js"></script>
+    <link rel="search" title="검색" href="../../search.html" />
+    <link rel="next" title="Building a Python Plugin (QGIS3)" href="building_a_python_plugin.html" />
+    <link rel="prev" title="Using Custom Python Expression Functions (QGIS3)" href="custom_python_functions.html" />
+
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<script type="text/javascript" src="../../_static/js/jquery-1.11.0.min.js "></script>
+<script type="text/javascript" src="../../_static/js/jquery-fix.js "></script>
+<script type="text/javascript" src="../../_static/bootstrap-3.3.7/js/bootstrap.min.js "></script>
+<script type="text/javascript" src="../../_static/bootstrap-sphinx.js "></script>
+
+
+<!-- Cookie Notice -->
+<!-- Script from https://github.com/AOEpeople/cookie-notice -->
+<script type="text/javascript" src="../../_static/cookie.notice.min.js"></script>
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-B1WQ7B80XJ"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-B1WQ7B80XJ');
+</script>
+
+
+  </head><body>
+
+  <div id="navbar" class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="../../index.html"><span><img src="../../_static/logo.png"></span>
+          QGIS Tutorials and Tips</a>
+        <span class="navbar-text navbar-version pull-left"><b>v1</b></span>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="../../index.html">Tutorials List <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"><ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../introduction.html">들어가는 말</a></li>
+<li class="toctree-l1"><a class="reference internal" href="making_a_map.html">지도 만들기 (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="working_with_attributes.html">속성 작업 (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="importing_spreadsheets_csv.html">스프레드시트 및 CSV 파일 불러오기 (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="basic_vector_styling.html">기본 벡터 스타일링 (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="calculating_line_lengths.html">선의 길이계산과 통계(QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="raster_styling_and_analysis.html">기본 래스터 스타일링 및 분석(QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="raster_mosaicing_and_clipping.html">래스터 붙이기 및 자르기 (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="working_with_terrain.html">Working with Terrain Data (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="working_with_wms.html">Working with WMS Data (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="working_with_projections.html">Working with Projections (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="georeferencing_basics.html">Georeferencing Topo Sheets and Scanned Maps (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="advanced_georeferencing.html">항공사진 지오레퍼런싱 (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="digitizing_basics.html">Digitizing Map Data (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="performing_table_joins.html">테이블 결합 작업(QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="performing_spatial_joins.html">공간 결합 수행 (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="performing_spatial_queries.html">공간 조회 실행(QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="nearest_neighbor_analysis.html">최근린 분석(QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="sampling_raster_data.html">점 또는 다각형을 이용한 래스터 데이터 표본 추출 작업(QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="calculating_raster_area.html">Calculating Raster Area (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="creating_heatmaps.html">열지도 만들기 (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="animating_time_series.html">Animating Time Series Data (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="handling_invalid_geometries.html">Handling Invalid Geometries (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="advanced_raster_analysis.html">Advanced Raster Analysis (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="interpolating_point_data.html">Interpolating Point Data (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="calculating_intersection_density.html">Calculating Street Intersection Density (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="batch_processing.html">프로세싱 프레임을 이용한 일괄처리과정</a></li>
+<li class="toctree-l1"><a class="reference internal" href="processing_graphical_modeler.html">프로세싱 모델러를 사용하여 복잡한 작업흐름 자동화하기(QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="automating_map_creation.html">Automating Map Creation with Print Layout Atlas (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="multi_criteria_overlay.html">Multi Criteria Overlay Analysis (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="basic_network_analysis.html">Basic Network Visualization and Routing (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="origin_destination_matrix.html">가장 가까운 기-종점 매트릭스 위치 (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="service_area_analysis.html">Openrouteservice를 이용한 서비스 영역 분석(QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="travel_time_analysis.html">Travel Time Analysis with Uber Movement (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="areal_mean_rainfall.html">Calculating Areal Mean Rainfall (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="getting_started_with_pyqgis.html">Getting Started With Python Programming (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="processing_algorithms_pyqgis.html">Running Processing Algorithms via Python (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="custom_python_functions.html">Using Custom Python Expression Functions (QGIS3)</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Writing Python Scripts for Processing Framework (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="building_a_python_plugin.html">Building a Python Plugin (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="processing_python_plugin.html">Building a Processing Plugin (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../running_qgis_jobs.html">Running and Scheduling QGIS Processing Jobs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="web_mapping_with_qgis2web.html">Web Mapping with QGIS2Web (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../creating_basemaps_with_qtiles.html">QTiles로 베이스 맵 만들기</a></li>
+<li class="toctree-l1"><a class="reference internal" href="using_plugins.html">Using Plugins (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../downloading_osm_data.html">오픈스트리트맵 데이터의 검색과 다운로드</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../learning_resources.html">QGIS 수업 자원</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../credits.html">데이터 크레딧</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../batch_processing.html">프로세싱 프레임을 이용한 일괄처리과정</a></li>
+</ul>
+</ul>
+</li>
+              
+            
+            
+              
+                
+  <li>
+    <a href="custom_python_functions.html" title="Previous Chapter: Using Custom Python Expression Functions (QGIS3)"><span class="glyphicon glyphicon-chevron-left visible-sm"></span><span class="hidden-sm hidden-tablet">&laquo; Using Custom ...</span>
+    </a>
+  </li>
+  <li>
+    <a href="building_a_python_plugin.html" title="Next Chapter: Building a Python Plugin (QGIS3)"><span class="glyphicon glyphicon-chevron-right visible-sm"></span><span class="hidden-sm hidden-tablet">Building a Py... &raquo;</span>
+    </a>
+  </li>
+              
+            
+            
+
+            
+
+            
+              <li class="hidden-sm"></li>
+            
+          </ul>
+
+          
+            
+<form class="navbar-form navbar-right" action="../../search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+      <div class="col-md-3">
+        <div id="sidebar" class="bs-sidenav" role="complementary"><h4>Author</h4>
+<p>Ujaval Gandhi</p>
+<a href="https://twitter.com/intent/follow?screen_name=spatialthoughts" class="twitter-follow-button" data-show-count="false">Follow @spatialthoughts</a>
+<hr>
+<p>Want to learn QGIS in a structured way? Check out <a href="https://spatialthoughts.com/" target="_blank">Spatial Thoughts</a> for more learning materials and instructor-led online programs with QGIS.org certification.</p>
+
+
+<h4>Change Language</h4>
+<form role="form" class="sidebar-form sidebar-left">
+<select id="languages" class="form-control select-mini">
+  <option value="en">English</option>
+  <option value="zh_TW">Chinese (Taiwan)</option>
+  <option value="nl">Dutch</option>
+  <option value="fi_FI">Finnish</option>
+  <option value="fr">French</option>
+  <option value="de">German</option>
+  <option value="el">Greek</option>
+  <option value="id">Indonesian</option>
+  <option value="it">Italian</option>
+  <option value="ko">Korean</option>
+  <option value="fa">Persian</option>
+  <option value="pt_BR">Portuguese</option>
+  <option value="ro">Romanian</option>
+  <option value="ru">Russian</option>
+  <option value="sl">Slovenian</option>
+  <option value="es">Spanish</option>
+  <option value="th">Thai</option>
+  <option value="tr">Turkish</option>
+  <option value="uk">Ukrainian</option>
+  <option value="vi">Vietnamese</option>
+</select>
+</form>
+        </div>
+      </div>
+    <div class="body col-md-9 content" role="main">
+      
+
+  <section id="writing-python-scripts-for-processing-framework-qgis3">
+<h1>Writing Python Scripts for Processing Framework (QGIS3)<a class="headerlink" href="#writing-python-scripts-for-processing-framework-qgis3" title="이 표제에 대한 퍼머링크">¶</a></h1>
+<p>One can write standalone pyqgis scripts that can be run via the Python Console in QGIS. With a few tweaks, you can make your standalone scripts run via the Processing Framework. This has several advantages. First, taking user input and writing output files is far easier because Processing Framework offers standardized user interface for these. Second, having your script in the Processing Toolbox also allows it to be part of any Processing Model or be run as a Batch job with multiple inputs. This tutorial will show how to write a custom python script that can be part of the Processing Framework in QGIS.</p>
+<div class="admonition note">
+<p class="admonition-title">참고</p>
+<p>The Processing API was completely overhauled in QGIS3. Please refer to <a class="reference external" href="https://raw.githubusercontent.com/qgis/QGIS/master/doc/porting_processing.dox">this guide</a> for best practices and tips.</p>
+</div>
+<section id="overview-of-the-task">
+<h2>과업 개요<a class="headerlink" href="#overview-of-the-task" title="이 표제에 대한 퍼머링크">¶</a></h2>
+<p>Our script will perform a dissolve operation based on a field chosen by the user. It will also sum up values of another field for the dissolved features. In the example, we will dissolve a world shapefile based on a <code class="docutils literal notranslate"><span class="pre">CONTINENT</span></code> attribute and sum up <code class="docutils literal notranslate"><span class="pre">POP_EST</span></code> field to calculate total population in the dissolved region.</p>
+</section>
+<section id="get-the-data">
+<h2>데이터 획득<a class="headerlink" href="#get-the-data" title="이 표제에 대한 퍼머링크">¶</a></h2>
+<p>We will use the <a class="reference external" href="http://www.naturalearthdata.com/downloads/10m-cultural-vectors/10m-admin-0-countries/">Admin 0 - Countries</a>
+dataset from Natural Earth.</p>
+<p>Download the <a class="reference external" href="http://www.naturalearthdata.com/http//www.naturalearthdata.com/download/10m/cultural/ne_10m_admin_0_countries.zip">Admin 0 - countries shapefile.</a>.</p>
+<p>Data Source <a class="reference internal" href="../credits.html#naturalearth" id="id1"><span>[NATURALEARTH]</span></a></p>
+<p>For convenience, you may directly download a geopackage containing the above layer from below:</p>
+<p><a class="reference external" href="https://www.qgistutorials.com/downloads/ne_global.gpkg">ne_global.gpkg</a></p>
+</section>
+<section id="procedure">
+<h2>Procedure<a class="headerlink" href="#procedure" title="이 표제에 대한 퍼머링크">¶</a></h2>
+<ol class="arabic simple">
+<li><p>In the QGIS Browser Panel, locate the directory where you saved your downloaded data. Expand the <code class="docutils literal notranslate"><span class="pre">zip</span></code> or the <code class="docutils literal notranslate"><span class="pre">gpkg</span></code>  entry and select the <code class="docutils literal notranslate"><span class="pre">ne_10m_admin_0_countries</span></code> layer. Drag the layer to the canvas.</p></li>
+</ol>
+<img alt="../../_images/1107.png" class="align-center" src="../../_images/1107.png" />
+<ol class="arabic simple" start="2">
+<li><p>Go to <span class="menuselection">Processing ‣ Toolbox</span>. Click the <span class="guilabel">Scripts</span> button in the toolbar and select <span class="guilabel">Create New Script from Template</span>.</p></li>
+</ol>
+<img alt="../../_images/2102.png" class="align-center" src="../../_images/2102.png" />
+<ol class="arabic simple" start="3">
+<li><p>The template contains all the boilerplate code that is required for the Processing Framework to recognize it as a Processing script, and manage inputs/outputs. Let’s start customizing the example template to our needs. First change the class name from <code class="docutils literal notranslate"><span class="pre">ExampleProcessingAlgorithm</span></code> to <code class="docutils literal notranslate"><span class="pre">DissolveProcessingAlgorithm</span></code>. This name also needs to be updated in the <code class="docutils literal notranslate"><span class="pre">createInstance</span></code> method. Add a docstring to the class that explains what the algorithm does.</p></li>
+</ol>
+<img alt="../../_images/340.png" class="align-center" src="../../_images/340.png" />
+<ol class="arabic simple" start="4">
+<li><p>As you scroll down, you will see methods that assign name, group, description etc. to the script. Change the return values for <em>name</em> method to be <code class="docutils literal notranslate"><span class="pre">dissolve_with_sum</span></code>, <em>displayName</em> method to <code class="docutils literal notranslate"><span class="pre">Dissolve</span> <span class="pre">with</span> <span class="pre">Sum</span></code>, <em>group</em> method and <em>groupId</em> method to  <code class="docutils literal notranslate"><span class="pre">scripts</span></code>. Change the return value of <em>shortHelpString</em> method to a description that will appear to the user. Click the <span class="guilabel">Save</span> button.</p></li>
+</ol>
+<img alt="../../_images/422.png" class="align-center" src="../../_images/422.png" />
+<ol class="arabic simple" start="5">
+<li><p>Name the script <code class="docutils literal notranslate"><span class="pre">dissolve_with_sum</span></code> and save it at the default location
+under <span class="menuselection">profiles ‣ default ‣ processing ‣ scripts</span> folder.</p></li>
+</ol>
+<img alt="../../_images/521.png" class="align-center" src="../../_images/521.png" />
+<ol class="arabic simple" start="6">
+<li><p>Now we will define the inputs for the script. The template already contains a definition of an <code class="docutils literal notranslate"><span class="pre">INPUT</span></code> Vector Layer and a <code class="docutils literal notranslate"><span class="pre">OUTPUT</span></code> layer. We will add 2 new inputs which allows the user to select a <code class="docutils literal notranslate"><span class="pre">DISSOLVE_FIELD</span></code> and a <code class="docutils literal notranslate"><span class="pre">SUM_FIELD</span></code>. Add a new import at the top and the following code in the <code class="docutils literal notranslate"><span class="pre">initAlgorithm</span></code> method. Click the <span class="guilabel">Run</span> button to preview the changes.</p></li>
+</ol>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">qgis.core</span> <span class="kn">import</span> <span class="n">QgsProcessingParameterField</span>
+
+<span class="bp">self</span><span class="o">.</span><span class="n">addParameter</span><span class="p">(</span>
+        <span class="n">QgsProcessingParameterField</span><span class="p">(</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">DISSOLVE_FIELD</span><span class="p">,</span>
+                <span class="s1">&#39;Choose Dissolve Field&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;&#39;</span><span class="p">,</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">INPUT</span><span class="p">))</span>
+
+<span class="bp">self</span><span class="o">.</span><span class="n">addParameter</span><span class="p">(</span>
+        <span class="n">QgsProcessingParameterField</span><span class="p">(</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">SUM_FIELD</span><span class="p">,</span>
+                <span class="s1">&#39;Choose Sum Field&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;&#39;</span><span class="p">,</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">INPUT</span><span class="p">))</span>
+</pre></div>
+</div>
+<img alt="../../_images/6a.png" class="align-center" src="../../_images/6a.png" />
+<img alt="../../_images/6b.png" class="align-center" src="../../_images/6b.png" />
+<ol class="arabic simple" start="7">
+<li><p>You will see a <span class="guilabel">Dissolve with Sum</span> dialog with our newly defined inputs. Select the <code class="docutils literal notranslate"><span class="pre">ne_10m_admin_0_countries</span></code> layer as <span class="guilabel">Input layer`</span>. As both <span class="guilabel">Dissolve Field</span> and <span class="guilabel">Sum Fields</span> are filtered based on the input layer, they will be pre-populated with existing fields from the input layer. Click the <span class="guilabel">Close</span> button.</p></li>
+</ol>
+<img alt="../../_images/720.png" class="align-center" src="../../_images/720.png" />
+<ol class="arabic simple" start="8">
+<li><p>Now we define our custom logic for processing data in the <code class="docutils literal notranslate"><span class="pre">processAlgorithm</span></code> method. This method gets passed a dictionary called <code class="docutils literal notranslate"><span class="pre">parameters</span></code>. It contains the inputs that the user has selected. There are helper methods that allow you to take these inputs and create appropriate objects. We first get our inputs using <code class="docutils literal notranslate"><span class="pre">parameterAsSource</span></code> and <code class="docutils literal notranslate"><span class="pre">parameterAsString</span></code> methods. Next we want to create a feature sink where we will write the output. QGIS3 has a new class called <code class="docutils literal notranslate"><span class="pre">QgsFeatureSink</span></code> which is the preferred way to create objects that can accept new features. The output needs only 2 fields - one for the value of dissolved field and another for the sum of the selected field.</p></li>
+</ol>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">PyQt5.QtCore</span> <span class="kn">import</span> <span class="n">QVariant</span>
+<span class="kn">from</span> <span class="nn">qgis.core</span> <span class="kn">import</span> <span class="n">QgsField</span><span class="p">,</span> <span class="n">QgsFields</span>
+
+<span class="n">source</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">parameterAsSource</span><span class="p">(</span>
+        <span class="n">parameters</span><span class="p">,</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">INPUT</span><span class="p">,</span>
+        <span class="n">context</span><span class="p">)</span>
+<span class="n">dissolve_field</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">parameterAsString</span><span class="p">(</span>
+        <span class="n">parameters</span><span class="p">,</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">DISSOLVE_FIELD</span><span class="p">,</span>
+        <span class="n">context</span><span class="p">)</span>
+<span class="n">sum_field</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">parameterAsString</span><span class="p">(</span>
+        <span class="n">parameters</span><span class="p">,</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">SUM_FIELD</span><span class="p">,</span>
+        <span class="n">context</span><span class="p">)</span>
+
+<span class="n">fields</span> <span class="o">=</span> <span class="n">QgsFields</span><span class="p">()</span>
+<span class="n">fields</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">QgsField</span><span class="p">(</span><span class="n">dissolve_field</span><span class="p">,</span> <span class="n">QVariant</span><span class="o">.</span><span class="n">String</span><span class="p">))</span>
+<span class="n">fields</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">QgsField</span><span class="p">(</span><span class="s1">&#39;SUM_&#39;</span> <span class="o">+</span> <span class="n">sum_field</span><span class="p">,</span> <span class="n">QVariant</span><span class="o">.</span><span class="n">Double</span><span class="p">))</span>
+
+<span class="p">(</span><span class="n">sink</span><span class="p">,</span> <span class="n">dest_id</span><span class="p">)</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">parameterAsSink</span><span class="p">(</span>
+        <span class="n">parameters</span><span class="p">,</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">OUTPUT</span><span class="p">,</span>
+        <span class="n">context</span><span class="p">,</span> <span class="n">fields</span><span class="p">,</span> <span class="n">source</span><span class="o">.</span><span class="n">wkbType</span><span class="p">(),</span> <span class="n">source</span><span class="o">.</span><span class="n">sourceCrs</span><span class="p">())</span>
+</pre></div>
+</div>
+<img alt="../../_images/8a.png" class="align-center" src="../../_images/8a.png" />
+<img alt="../../_images/8b.png" class="align-center" src="../../_images/8b.png" />
+<ol class="arabic simple" start="9">
+<li><p>Now we will ready the input features and create a dictionary to hold the unique values from the dissolve_field and the sum of the values from the sum_field. Note the use of <code class="docutils literal notranslate"><span class="pre">feedback.pushInfo()</span></code> method to communicate the status with the user.</p></li>
+</ol>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">feedback</span><span class="o">.</span><span class="n">pushInfo</span><span class="p">(</span><span class="s1">&#39;Extracting unique values from dissolve_field and computing sum&#39;</span><span class="p">)</span>
+
+<span class="n">features</span> <span class="o">=</span> <span class="n">source</span><span class="o">.</span><span class="n">getFeatures</span><span class="p">()</span>
+<span class="n">unique_values</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">f</span><span class="p">[</span><span class="n">dissolve_field</span><span class="p">]</span> <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">features</span><span class="p">)</span>
+
+<span class="c1"># Get Indices of dissolve field and sum field</span>
+<span class="n">dissolveIdx</span> <span class="o">=</span> <span class="n">source</span><span class="o">.</span><span class="n">fields</span><span class="p">()</span><span class="o">.</span><span class="n">indexFromName</span><span class="p">(</span><span class="n">dissolve_field</span><span class="p">)</span>
+<span class="n">sumIdx</span> <span class="o">=</span> <span class="n">source</span><span class="o">.</span><span class="n">fields</span><span class="p">()</span><span class="o">.</span><span class="n">indexFromName</span><span class="p">(</span><span class="n">sum_field</span><span class="p">)</span>
+
+<span class="c1"># Find all unique values for the given dissolve_field and</span>
+<span class="c1"># sum the corresponding values from the sum_field</span>
+<span class="n">sum_unique_values</span> <span class="o">=</span> <span class="p">{}</span>
+<span class="n">attrs</span> <span class="o">=</span> <span class="p">[{</span><span class="n">dissolve_field</span><span class="p">:</span> <span class="n">f</span><span class="p">[</span><span class="n">dissolveIdx</span><span class="p">],</span> <span class="n">sum_field</span><span class="p">:</span> <span class="n">f</span><span class="p">[</span><span class="n">sumIdx</span><span class="p">]}</span> <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">source</span><span class="o">.</span><span class="n">getFeatures</span><span class="p">()]</span>
+<span class="k">for</span> <span class="n">unique_value</span> <span class="ow">in</span> <span class="n">unique_values</span><span class="p">:</span>
+        <span class="n">val_list</span> <span class="o">=</span> <span class="p">[</span> <span class="n">f_attr</span><span class="p">[</span><span class="n">sum_field</span><span class="p">]</span> <span class="k">for</span> <span class="n">f_attr</span> <span class="ow">in</span> <span class="n">attrs</span> <span class="k">if</span> <span class="n">f_attr</span><span class="p">[</span><span class="n">dissolve_field</span><span class="p">]</span> <span class="o">==</span> <span class="n">unique_value</span><span class="p">]</span>
+        <span class="n">sum_unique_values</span><span class="p">[</span><span class="n">unique_value</span><span class="p">]</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">val_list</span><span class="p">)</span>
+</pre></div>
+</div>
+<img alt="../../_images/920.png" class="align-center" src="../../_images/920.png" />
+<ol class="arabic simple" start="10">
+<li><p>Next, we will call the built-in processing algorithm <code class="docutils literal notranslate"><span class="pre">native:dissolve</span></code> on the input layer to generate the dissolved geometries. Once we have the dissolved geometries, we iterate through the output of the dissolve algorithm and create new features to be added to the output. At the end we return the <code class="docutils literal notranslate"><span class="pre">dest_id</span></code> FeatureSink as the output. Now the script is ready. Click the <span class="guilabel">Run</span> button.</p></li>
+</ol>
+<div class="admonition note">
+<p class="admonition-title">참고</p>
+<p>Notice the use of <code class="docutils literal notranslate"><span class="pre">parameters[self.INPUT]</span></code> to fetch the input layer from the parameters dictionary directly without defining it as a source. As we are passing the input object to the algorithm without doing anything with it, it’s not necessary to define it as a source.</p>
+</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">qgis.core</span> <span class="kn">import</span> <span class="n">QgsFeature</span>
+
+<span class="c1"># Running the processing dissolve algorithm</span>
+<span class="n">feedback</span><span class="o">.</span><span class="n">pushInfo</span><span class="p">(</span><span class="s1">&#39;Dissolving features&#39;</span><span class="p">)</span>
+<span class="n">dissolved_layer</span> <span class="o">=</span> <span class="n">processing</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="s2">&quot;native:dissolve&quot;</span><span class="p">,</span> <span class="p">{</span>
+        <span class="s1">&#39;INPUT&#39;</span><span class="p">:</span> <span class="n">parameters</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">INPUT</span><span class="p">],</span>
+        <span class="s1">&#39;FIELD&#39;</span><span class="p">:</span> <span class="n">dissolve_field</span><span class="p">,</span>
+        <span class="s1">&#39;OUTPUT&#39;</span><span class="p">:</span> <span class="s1">&#39;memory:&#39;</span>
+        <span class="p">},</span> <span class="n">context</span><span class="o">=</span><span class="n">context</span><span class="p">,</span> <span class="n">feedback</span><span class="o">=</span><span class="n">feedback</span><span class="p">)[</span><span class="s1">&#39;OUTPUT&#39;</span><span class="p">]</span>
+
+<span class="c1"># Read the dissolved layer and create output features</span>
+<span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">dissolved_layer</span><span class="o">.</span><span class="n">getFeatures</span><span class="p">():</span>
+        <span class="n">new_feature</span> <span class="o">=</span>  <span class="n">QgsFeature</span><span class="p">()</span>
+        <span class="c1"># Set geometry to dissolved geometry</span>
+        <span class="n">new_feature</span><span class="o">.</span><span class="n">setGeometry</span><span class="p">(</span><span class="n">f</span><span class="o">.</span><span class="n">geometry</span><span class="p">())</span>
+        <span class="c1"># Set attributes from sum_unique_values dictionary that we had computed</span>
+        <span class="n">new_feature</span><span class="o">.</span><span class="n">setAttributes</span><span class="p">([</span><span class="n">f</span><span class="p">[</span><span class="n">dissolve_field</span><span class="p">],</span> <span class="n">sum_unique_values</span><span class="p">[</span><span class="n">f</span><span class="p">[</span><span class="n">dissolve_field</span><span class="p">]]])</span>
+        <span class="n">sink</span><span class="o">.</span><span class="n">addFeature</span><span class="p">(</span><span class="n">new_feature</span><span class="p">,</span> <span class="n">QgsFeatureSink</span><span class="o">.</span><span class="n">FastInsert</span><span class="p">)</span>
+
+<span class="k">return</span> <span class="p">{</span><span class="bp">self</span><span class="o">.</span><span class="n">OUTPUT</span><span class="p">:</span> <span class="n">dest_id</span><span class="p">}</span>
+</pre></div>
+</div>
+<img alt="../../_images/10a.png" class="align-center" src="../../_images/10a.png" />
+<img alt="../../_images/10b.png" class="align-center" src="../../_images/10b.png" />
+<ol class="arabic simple" start="11">
+<li><p>In the <span class="guilabel">Dissolve with Sum</span>, dialog, select <code class="docutils literal notranslate"><span class="pre">ne_10m_admin_0_countries</span></code> as the <span class="guilabel">Input layer</span>, <code class="docutils literal notranslate"><span class="pre">CONTINENT</span></code> as the <span class="guilabel">Dissolve field</span> and <code class="docutils literal notranslate"><span class="pre">POP_EST</span></code> as the <span class="guilabel">Sum field</span>. Click <span class="guilabel">Run</span>.</p></li>
+</ol>
+<img alt="../../_images/1131.png" class="align-center" src="../../_images/1131.png" />
+<ol class="arabic simple" start="12">
+<li><p>Once the processing is finished, click the <span class="guilabel">Close</span> button and switch to the main QGIS window.</p></li>
+</ol>
+<img alt="../../_images/1229.png" class="align-center" src="../../_images/1229.png" />
+<ol class="arabic simple" start="13">
+<li><p>You will see the dissolved output layer with one feature for every continent and the total population summed from the individual countries belonging to that continent.</p></li>
+</ol>
+<img alt="../../_images/1327.png" class="align-center" src="../../_images/1327.png" />
+<ol class="arabic simple" start="14">
+<li><p>One another advantage of writing processing script is that the methods within the Processing Framework are aware of layer selection and automatically filter your inputs to use only the selected features. This happens because we are defining our input as a <code class="docutils literal notranslate"><span class="pre">QgsProcessingParameterFeatureSource</span></code>. A feature source allows use of ANY object which contains vector features, not just a vector layer, so when there are selected features in your layer and ask Processing to use selected features, the input is passed on to your script as a <code class="docutils literal notranslate"><span class="pre">QgsProcessingFeatureSource</span></code> object containing selected features and not the full vector layer. Here’s a quick demonstration of this functionality. Let’s say we want to dissolve only certain continents. Let’s create a selection using <span class="guilabel">Select feature by Expression</span> tool.</p></li>
+</ol>
+<img alt="../../_images/1424.png" class="align-center" src="../../_images/1424.png" />
+<ol class="arabic simple" start="15">
+<li><p>Enter the following expression to select features from North and South America and click <span class="guilabel">Select</span>.</p></li>
+</ol>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>&quot;CONTINENT&quot; = &#39;North America&#39; OR &quot;CONTINENT&quot; = &#39;South America&#39;
+</pre></div>
+</div>
+<img alt="../../_images/1523.png" class="align-center" src="../../_images/1523.png" />
+<ol class="arabic simple" start="16">
+<li><p>You will see the selected features highlighted in yellow. Locate the <code class="docutils literal notranslate"><span class="pre">dissolve_with_sum</span></code> script and double-click it to run it.</p></li>
+</ol>
+<img alt="../../_images/1622.png" class="align-center" src="../../_images/1622.png" />
+<ol class="arabic simple" start="17">
+<li><p>In the <span class="guilabel">Dissolve with Sum</span> dialog, select the <code class="docutils literal notranslate"><span class="pre">ne_10m_admin_0_countries</span></code> as the <span class="guilabel">Input layer</span>. This time, make sure you check the <span class="guilabel">Selected features only</span> box. Choose <code class="docutils literal notranslate"><span class="pre">SUBREGION</span></code> as the <span class="guilabel">Dissolve field</span> and <code class="docutils literal notranslate"><span class="pre">POP_EST</span></code> as the <span class="guilabel">Sum field</span>.</p></li>
+</ol>
+<img alt="../../_images/1723.png" class="align-center" src="../../_images/1723.png" />
+<ol class="arabic simple" start="18">
+<li><p>Once the processing finishes, click <span class="guilabel">Close</span> and switch back to the main QGIS window. You will notice a new layer with only the selected features dissolved. Click <span class="guilabel">Identify</span> button and click on a feature to inspect and verify that the script worked correctly.</p></li>
+</ol>
+<img alt="../../_images/1820.png" class="align-center" src="../../_images/1820.png" />
+<p>Below is the complete script for reference. You may modify it to suit your needs.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># -*- coding: utf-8 -*-</span>
+
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">***************************************************************************</span>
+<span class="sd">*                                                                         *</span>
+<span class="sd">*   This program is free software; you can redistribute it and/or modify  *</span>
+<span class="sd">*   it under the terms of the GNU General Public License as published by  *</span>
+<span class="sd">*   the Free Software Foundation; either version 2 of the License, or     *</span>
+<span class="sd">*   (at your option) any later version.                                   *</span>
+<span class="sd">*                                                                         *</span>
+<span class="sd">***************************************************************************</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">from</span> <span class="nn">PyQt5.QtCore</span> <span class="kn">import</span> <span class="n">QCoreApplication</span><span class="p">,</span> <span class="n">QVariant</span>
+<span class="kn">from</span> <span class="nn">qgis.core</span> <span class="kn">import</span> <span class="p">(</span><span class="n">QgsProcessing</span><span class="p">,</span>
+                       <span class="n">QgsFeatureSink</span><span class="p">,</span>
+                       <span class="n">QgsFeature</span><span class="p">,</span>
+                       <span class="n">QgsField</span><span class="p">,</span>
+                       <span class="n">QgsFields</span><span class="p">,</span>
+                       <span class="n">QgsProcessingException</span><span class="p">,</span>
+                       <span class="n">QgsProcessingAlgorithm</span><span class="p">,</span>
+                       <span class="n">QgsProcessingParameterFeatureSource</span><span class="p">,</span>
+                       <span class="n">QgsProcessingParameterFeatureSink</span><span class="p">,</span>
+                       <span class="n">QgsProcessingParameterField</span><span class="p">,</span>
+                       <span class="p">)</span>
+<span class="kn">import</span> <span class="nn">processing</span>
+
+
+<span class="k">class</span> <span class="nc">DissolveProcessingAlgorithm</span><span class="p">(</span><span class="n">QgsProcessingAlgorithm</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Dissolve algorithm that dissolves features based on selected</span>
+<span class="sd">    attribute and summarizes the selected field by cumputing the</span>
+<span class="sd">    sum of dissolved features.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">INPUT</span> <span class="o">=</span> <span class="s1">&#39;INPUT&#39;</span>
+    <span class="n">OUTPUT</span> <span class="o">=</span> <span class="s1">&#39;OUTPUT&#39;</span>
+    <span class="n">DISSOLVE_FIELD</span> <span class="o">=</span> <span class="s1">&#39;dissolve_field&#39;</span>
+    <span class="n">SUM_FIELD</span> <span class="o">=</span> <span class="s1">&#39;sum_field&#39;</span>
+
+    <span class="k">def</span> <span class="nf">tr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">string</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns a translatable string with the self.tr() function.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">QCoreApplication</span><span class="o">.</span><span class="n">translate</span><span class="p">(</span><span class="s1">&#39;Processing&#39;</span><span class="p">,</span> <span class="n">string</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">createInstance</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">DissolveProcessingAlgorithm</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="nf">name</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns the algorithm name, used for identifying the algorithm. This</span>
+<span class="sd">        string should be fixed for the algorithm, and must not be localised.</span>
+<span class="sd">        The name should be unique within each provider. Names should contain</span>
+<span class="sd">        lowercase alphanumeric characters only and no spaces or other</span>
+<span class="sd">        formatting characters.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="s1">&#39;dissolve_with_sum&#39;</span>
+
+    <span class="k">def</span> <span class="nf">displayName</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns the translated algorithm name, which should be used for any</span>
+<span class="sd">        user-visible display of the algorithm name.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">tr</span><span class="p">(</span><span class="s1">&#39;Dissolve with Sum&#39;</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">group</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns the name of the group this algorithm belongs to. This string</span>
+<span class="sd">        should be localised.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">tr</span><span class="p">(</span><span class="s1">&#39;scripts&#39;</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">groupId</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns the unique ID of the group this algorithm belongs to. This</span>
+<span class="sd">        string should be fixed for the algorithm, and must not be localised.</span>
+<span class="sd">        The group id should be unique within each provider. Group id should</span>
+<span class="sd">        contain lowercase alphanumeric characters only and no spaces or other</span>
+<span class="sd">        formatting characters.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="s1">&#39;scripts&#39;</span>
+
+    <span class="k">def</span> <span class="nf">shortHelpString</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns a localised short helper string for the algorithm. This string</span>
+<span class="sd">        should provide a basic description about what the algorithm does and the</span>
+<span class="sd">        parameters and outputs associated with it..</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">tr</span><span class="p">(</span><span class="s2">&quot;Dissolves selected features and creates and sums values of features that were dissolved&quot;</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">initAlgorithm</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">config</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Here we define the inputs and output of the algorithm, along</span>
+<span class="sd">        with some other properties.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># We add the input vector features source. It can have any kind of</span>
+        <span class="c1"># geometry.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">addParameter</span><span class="p">(</span>
+            <span class="n">QgsProcessingParameterFeatureSource</span><span class="p">(</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">INPUT</span><span class="p">,</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">tr</span><span class="p">(</span><span class="s1">&#39;Input layer&#39;</span><span class="p">),</span>
+                <span class="p">[</span><span class="n">QgsProcessing</span><span class="o">.</span><span class="n">TypeVectorAnyGeometry</span><span class="p">]</span>
+            <span class="p">)</span>
+        <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">addParameter</span><span class="p">(</span>
+            <span class="n">QgsProcessingParameterField</span><span class="p">(</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">DISSOLVE_FIELD</span><span class="p">,</span>
+                <span class="s1">&#39;Choose Dissolve Field&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;&#39;</span><span class="p">,</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">INPUT</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">addParameter</span><span class="p">(</span>
+            <span class="n">QgsProcessingParameterField</span><span class="p">(</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">SUM_FIELD</span><span class="p">,</span>
+                <span class="s1">&#39;Choose Sum Field&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;&#39;</span><span class="p">,</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">INPUT</span><span class="p">))</span>
+        <span class="c1"># We add a feature sink in which to store our processed features (this</span>
+        <span class="c1"># usually takes the form of a newly created vector layer when the</span>
+        <span class="c1"># algorithm is run in QGIS).</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">addParameter</span><span class="p">(</span>
+            <span class="n">QgsProcessingParameterFeatureSink</span><span class="p">(</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">OUTPUT</span><span class="p">,</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">tr</span><span class="p">(</span><span class="s1">&#39;Output layer&#39;</span><span class="p">)</span>
+            <span class="p">)</span>
+        <span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">processAlgorithm</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">parameters</span><span class="p">,</span> <span class="n">context</span><span class="p">,</span> <span class="n">feedback</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Here is where the processing itself takes place.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">source</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">parameterAsSource</span><span class="p">(</span>
+            <span class="n">parameters</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">INPUT</span><span class="p">,</span>
+            <span class="n">context</span>
+        <span class="p">)</span>
+        <span class="n">dissolve_field</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">parameterAsString</span><span class="p">(</span>
+            <span class="n">parameters</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">DISSOLVE_FIELD</span><span class="p">,</span>
+            <span class="n">context</span><span class="p">)</span>
+        <span class="n">sum_field</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">parameterAsString</span><span class="p">(</span>
+            <span class="n">parameters</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">SUM_FIELD</span><span class="p">,</span>
+            <span class="n">context</span><span class="p">)</span>
+        
+        <span class="n">fields</span> <span class="o">=</span> <span class="n">QgsFields</span><span class="p">()</span>
+        <span class="n">fields</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">QgsField</span><span class="p">(</span><span class="n">dissolve_field</span><span class="p">,</span> <span class="n">QVariant</span><span class="o">.</span><span class="n">String</span><span class="p">))</span>
+        <span class="n">fields</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">QgsField</span><span class="p">(</span><span class="s1">&#39;SUM_&#39;</span> <span class="o">+</span> <span class="n">sum_field</span><span class="p">,</span> <span class="n">QVariant</span><span class="o">.</span><span class="n">Double</span><span class="p">))</span>
+        
+        <span class="p">(</span><span class="n">sink</span><span class="p">,</span> <span class="n">dest_id</span><span class="p">)</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">parameterAsSink</span><span class="p">(</span>
+            <span class="n">parameters</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">OUTPUT</span><span class="p">,</span>
+            <span class="n">context</span><span class="p">,</span> <span class="n">fields</span><span class="p">,</span> <span class="n">source</span><span class="o">.</span><span class="n">wkbType</span><span class="p">(),</span> <span class="n">source</span><span class="o">.</span><span class="n">sourceCrs</span><span class="p">())</span>
+        
+        <span class="c1"># Create a dictionary to hold the unique values from the </span>
+        <span class="c1"># dissolve_field and the sum of the values from the sum_field</span>
+        <span class="n">feedback</span><span class="o">.</span><span class="n">pushInfo</span><span class="p">(</span><span class="s1">&#39;Extracting unique values from dissolve_field and computing sum&#39;</span><span class="p">)</span>
+        <span class="n">features</span> <span class="o">=</span> <span class="n">source</span><span class="o">.</span><span class="n">getFeatures</span><span class="p">()</span>
+        <span class="n">unique_values</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">f</span><span class="p">[</span><span class="n">dissolve_field</span><span class="p">]</span> <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">features</span><span class="p">)</span>
+        <span class="c1"># Get Indices of dissolve field and sum field</span>
+        <span class="n">dissolveIdx</span> <span class="o">=</span> <span class="n">source</span><span class="o">.</span><span class="n">fields</span><span class="p">()</span><span class="o">.</span><span class="n">indexFromName</span><span class="p">(</span><span class="n">dissolve_field</span><span class="p">)</span>
+        <span class="n">sumIdx</span> <span class="o">=</span> <span class="n">source</span><span class="o">.</span><span class="n">fields</span><span class="p">()</span><span class="o">.</span><span class="n">indexFromName</span><span class="p">(</span><span class="n">sum_field</span><span class="p">)</span>
+        
+        <span class="c1"># Find all unique values for the given dissolve_field and</span>
+        <span class="c1"># sum the corresponding values from the sum_field</span>
+        <span class="n">sum_unique_values</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="n">attrs</span> <span class="o">=</span> <span class="p">[{</span><span class="n">dissolve_field</span><span class="p">:</span> <span class="n">f</span><span class="p">[</span><span class="n">dissolveIdx</span><span class="p">],</span> <span class="n">sum_field</span><span class="p">:</span> <span class="n">f</span><span class="p">[</span><span class="n">sumIdx</span><span class="p">]}</span>
+                <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">source</span><span class="o">.</span><span class="n">getFeatures</span><span class="p">()]</span>
+        <span class="k">for</span> <span class="n">unique_value</span> <span class="ow">in</span> <span class="n">unique_values</span><span class="p">:</span>
+            <span class="n">val_list</span> <span class="o">=</span> <span class="p">[</span> <span class="n">f_attr</span><span class="p">[</span><span class="n">sum_field</span><span class="p">]</span> 
+                <span class="k">for</span> <span class="n">f_attr</span> <span class="ow">in</span> <span class="n">attrs</span> <span class="k">if</span> <span class="n">f_attr</span><span class="p">[</span><span class="n">dissolve_field</span><span class="p">]</span> <span class="o">==</span> <span class="n">unique_value</span><span class="p">]</span>
+            <span class="n">sum_unique_values</span><span class="p">[</span><span class="n">unique_value</span><span class="p">]</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">val_list</span><span class="p">)</span>
+        
+        <span class="c1"># Running the processing dissolve algorithm</span>
+        <span class="n">feedback</span><span class="o">.</span><span class="n">pushInfo</span><span class="p">(</span><span class="s1">&#39;Dissolving features&#39;</span><span class="p">)</span>
+        <span class="n">dissolved_layer</span> <span class="o">=</span> <span class="n">processing</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="s2">&quot;native:dissolve&quot;</span><span class="p">,</span> <span class="p">{</span>
+            <span class="s1">&#39;INPUT&#39;</span><span class="p">:</span> <span class="n">parameters</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">INPUT</span><span class="p">],</span>
+            <span class="s1">&#39;FIELD&#39;</span><span class="p">:</span> <span class="n">dissolve_field</span><span class="p">,</span>
+            <span class="s1">&#39;OUTPUT&#39;</span><span class="p">:</span> <span class="s1">&#39;memory:&#39;</span>
+        <span class="p">},</span> <span class="n">context</span><span class="o">=</span><span class="n">context</span><span class="p">,</span> <span class="n">feedback</span><span class="o">=</span><span class="n">feedback</span><span class="p">)[</span><span class="s1">&#39;OUTPUT&#39;</span><span class="p">]</span>
+        
+        <span class="c1"># Read the dissolved layer and create output features</span>
+        <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">dissolved_layer</span><span class="o">.</span><span class="n">getFeatures</span><span class="p">():</span>
+            <span class="n">new_feature</span> <span class="o">=</span>  <span class="n">QgsFeature</span><span class="p">()</span>
+            <span class="c1"># Set geometry to dissolved geometry</span>
+            <span class="n">new_feature</span><span class="o">.</span><span class="n">setGeometry</span><span class="p">(</span><span class="n">f</span><span class="o">.</span><span class="n">geometry</span><span class="p">())</span>
+            <span class="c1"># Set attributes from sum_unique_values dictionary that we had computed</span>
+            <span class="n">new_feature</span><span class="o">.</span><span class="n">setAttributes</span><span class="p">([</span><span class="n">f</span><span class="p">[</span><span class="n">dissolve_field</span><span class="p">],</span> <span class="n">sum_unique_values</span><span class="p">[</span><span class="n">f</span><span class="p">[</span><span class="n">dissolve_field</span><span class="p">]]])</span>
+            <span class="n">sink</span><span class="o">.</span><span class="n">addFeature</span><span class="p">(</span><span class="n">new_feature</span><span class="p">,</span> <span class="n">QgsFeatureSink</span><span class="o">.</span><span class="n">FastInsert</span><span class="p">)</span>
+        
+        <span class="k">return</span> <span class="p">{</span><span class="bp">self</span><span class="o">.</span><span class="n">OUTPUT</span><span class="p">:</span> <span class="n">dest_id</span><span class="p">}</span>
+</pre></div>
+</div>
+</section>
+</section>
+
+
+
+
+
+  <div id="disqus_thread"></div>
+  <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+
+    </div>
+      
+  </div>
+</div>
+
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+    </p>
+    <p>
+        &copy; Copyright 2021, Ujaval Gandhi.<br/>
+      최종 업데이트: 8월 30, 2022<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 4.0.1.<br/>
+    </p>
+  </div>
+</footer>
+<div class="container">
+  <p>This work is licensed under a <a href="http://creativecommons.org/licenses/by/4.0/deed.en_US">Creative Commons Attribution 4.0 International License</a></p>
+</div>
+<!-- Twitter Button -->
+<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+
+<!-- Disqus comments widget -->
+<script type="text/javascript">
+  /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+  var disqus_shortname = 'qgistutorials'; // required: replace example with your forum shortname
+  /* * * DON'T EDIT BELOW THIS LINE * * */
+  (function () {
+    var s = document.createElement('script'); s.async = true;
+    s.type = 'text/javascript';
+    s.src = '//' + disqus_shortname + '.disqus.com/count.js';
+    (document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);
+  }());
+</script>
+
+<script type="text/javascript">
+  /* * * DON'T EDIT BELOW THIS LINE * * */
+  (function() {
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+
+<!-- Script fpr language switching. Largely adapted from https://github.com/pcav/faunalia-website -->
+<script>
+    var currentPage = 'docs/3/processing_python_scripts.html'; // coming from sphinx, always without starting '/'
+    var currentLang = 'en';
+    $(document).ready(function(){
+
+        var search = new RegExp('\/[a-zA-Z_]{2,8}\/'+ currentPage, 'gi');
+        var langPlusPage = window.location.href.match(search);
+        // it's possible this is a index.html page called without 'index.html', try without the currentPage
+        if (langPlusPage==undefined){
+            search = new RegExp('\/[a-zA-Z_]{2,8}\/$', 'gi');
+            langPlusPage = window.location.href.match(search);
+        }
+
+        // it's possible this is an index.html page called without 'index.html', try removing index.html
+        if (langPlusPage==undefined){
+            currentPage = currentPage.replace('index.html','')
+            search = new RegExp('\/[a-zA-Z_]{2,8}\/'+ currentPage, 'gi');
+            langPlusPage = window.location.href.match(search);
+        }
+        // still no langPlugPage: stop, because the language swicher will misbehave 
+
+        if (langPlusPage == undefined || langPlusPage.length != 1){
+            alert('You hit an error, please report back to us.');
+            return;
+        }
+        langPlusPage = langPlusPage[0];
+        currentLang = langPlusPage.replace(currentPage, '');
+
+        $("#languages").val(currentLang.replace(/\//g,'')); // currentLang is something like '/nl/'
+
+        $("#languages").change(function() {
+            gotoLang($(this).val());
+        });
+
+    });
+
+    // load current page in a different language
+    function gotoLang(lang){
+        var currentUrl = window.location.href;
+        var newUrl = currentUrl.replace(currentLang, '/'+lang+'/');
+        window.location.href = newUrl;
+    }
+</script>
+
+  </body>
+</html>

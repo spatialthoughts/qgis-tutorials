@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+
+<html lang="nl">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>Werken met projecties (QGIS3) &#8212; QGIS Tutorials and Tips</title>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-sphinx.css" />
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/translations.js"></script>
+    <link rel="search" title="Zoeken" href="../../search.html" />
+    <link rel="next" title="Topobladen en gescande kaarten voorzien van geoverwijzingen (QGIS3)" href="georeferencing_basics.html" />
+    <link rel="prev" title="Werken met gegevens van WMS (QGIS3)" href="working_with_wms.html" />
+
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<script type="text/javascript" src="../../_static/js/jquery-1.11.0.min.js "></script>
+<script type="text/javascript" src="../../_static/js/jquery-fix.js "></script>
+<script type="text/javascript" src="../../_static/bootstrap-3.3.7/js/bootstrap.min.js "></script>
+<script type="text/javascript" src="../../_static/bootstrap-sphinx.js "></script>
+
+
+<!-- Cookie Notice -->
+<!-- Script from https://github.com/AOEpeople/cookie-notice -->
+<script type="text/javascript" src="../../_static/cookie.notice.min.js"></script>
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-B1WQ7B80XJ"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-B1WQ7B80XJ');
+</script>
+
+
+  </head><body>
+
+  <div id="navbar" class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="../../index.html"><span><img src="../../_static/logo.png"></span>
+          QGIS Tutorials and Tips</a>
+        <span class="navbar-text navbar-version pull-left"><b>v1</b></span>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="../../index.html">Tutorials List <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"><ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../introduction.html">Introductie</a></li>
+<li class="toctree-l1"><a class="reference internal" href="making_a_map.html">Een kaart maken (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="working_with_attributes.html">Werken met attributen (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="importing_spreadsheets_csv.html">Werkbladen of CSV-bestanden importeren (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="basic_vector_styling.html">Basis opmaken van vectoren (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="calculating_line_lengths.html">Lengten van lijnen en statistieken berekenen (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="raster_styling_and_analysis.html">Basis opmaken en analyses van rasters (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="raster_mosaicing_and_clipping.html">Rasters mozaïeken en clippen (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="working_with_terrain.html">Werken met gegevens over het terrein (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="working_with_wms.html">Werken met gegevens van WMS (QGIS3)</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Werken met projecties (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="georeferencing_basics.html">Topobladen en gescande kaarten voorzien van geoverwijzingen (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="advanced_georeferencing.html">Geo-verwijzingen voor satellietbeelden (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="digitizing_basics.html">Kaartgegevens digitaliseren</a></li>
+<li class="toctree-l1"><a class="reference internal" href="performing_table_joins.html">Samenvoegen van tabellen uitvoeren (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="performing_spatial_joins.html">Ruimtelijke samenvoegingen uitvoeren (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="performing_spatial_queries.html">Ruimtelijke query’s uitvoeren (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="nearest_neighbor_analysis.html">Analyse Nearest Neighbor (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="sampling_raster_data.html">Monsters nemen van rastergegevens met behulp van punten of polygonen (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="calculating_raster_area.html">Rastergebied berekenen (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="creating_heatmaps.html">Heatmaps maken (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="animating_time_series.html">Geanimeerde gegevens tijdreeks (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="handling_invalid_geometries.html">Ongeldige geometrieën afhandelen (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="advanced_raster_analysis.html">Gevorderde rasteranalyses (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="interpolating_point_data.html">Interpoleren van puntgegevens</a></li>
+<li class="toctree-l1"><a class="reference internal" href="calculating_intersection_density.html">Dichtheid van straatkruisingen berekenen (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="batch_processing.html">Massa verwerken met behulp van Framework Processing (QGIS 3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="processing_graphical_modeler.html">Complexe werkstromen automatiseren met behulp van Grafische modellen bouwen (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="automating_map_creation.html">Maken van kaarten automatiseren met Atlas van afdruklay-out (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="multi_criteria_overlay.html">Multi Criteria Overlay Analyse (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="basic_network_analysis.html">Basis netwerk visualisatie en routeren (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="origin_destination_matrix.html">Dichtstbijzijnde faciliteit zoeken met Origin-Destination Matrix (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="service_area_analysis.html">Analyse Servicegebied met Openrouteservice (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="travel_time_analysis.html">Reistijd-analyse met Uber Movement (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="areal_mean_rainfall.html">Berekenen gemiddelde regenval voor gebied (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="getting_started_with_pyqgis.html">Beginnen met programmeren in Python (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="processing_algorithms_pyqgis.html">Algoritmes van Processing uitvoeren via Python (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="custom_python_functions.html">Aangepaste Python expressie-functies gebruiken (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="processing_python_scripts.html">Python-scripts schrijven voor framework Processing (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="building_a_python_plugin.html">Een plug-in in Python bouwen (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="processing_python_plugin.html">Een plug-in voor Processing bouwen (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../running_qgis_jobs.html">Taken voor QGIS uitvoeren en in schema zetten</a></li>
+<li class="toctree-l1"><a class="reference internal" href="web_mapping_with_qgis2web.html">In kaart brengen op het web met QGIS2Web (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../creating_basemaps_with_qtiles.html">Basiskaarten maken met QTiles</a></li>
+<li class="toctree-l1"><a class="reference internal" href="using_plugins.html">Plug-ins gebruiken (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../downloading_osm_data.html">Zoeken en downloaden van gegevens van OpenStreetMap</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../learning_resources.html">QGIS bronnen om te leren</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../credits.html">Gebruik van gegevens</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../batch_processing.html">Massa verwerken met behulp van Framework Processing (QGIS2)</a></li>
+</ul>
+</ul>
+</li>
+              
+            
+            
+              
+                
+  <li>
+    <a href="working_with_wms.html" title="Previous Chapter: Werken met gegevens van WMS (QGIS3)"><span class="glyphicon glyphicon-chevron-left visible-sm"></span><span class="hidden-sm hidden-tablet">&laquo; Werken met ge...</span>
+    </a>
+  </li>
+  <li>
+    <a href="georeferencing_basics.html" title="Next Chapter: Topobladen en gescande kaarten voorzien van geoverwijzingen (QGIS3)"><span class="glyphicon glyphicon-chevron-right visible-sm"></span><span class="hidden-sm hidden-tablet">Topobladen en... &raquo;</span>
+    </a>
+  </li>
+              
+            
+            
+
+            
+
+            
+              <li class="hidden-sm"></li>
+            
+          </ul>
+
+          
+            
+<form class="navbar-form navbar-right" action="../../search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+      <div class="col-md-3">
+        <div id="sidebar" class="bs-sidenav" role="complementary"><h4>Author</h4>
+<p>Ujaval Gandhi</p>
+<a href="https://twitter.com/intent/follow?screen_name=spatialthoughts" class="twitter-follow-button" data-show-count="false">Follow @spatialthoughts</a>
+<hr>
+<p>Want to learn QGIS in a structured way? Check out <a href="https://spatialthoughts.com/" target="_blank">Spatial Thoughts</a> for more learning materials and instructor-led online programs with QGIS.org certification.</p>
+
+
+<h4>Change Language</h4>
+<form role="form" class="sidebar-form sidebar-left">
+<select id="languages" class="form-control select-mini">
+  <option value="en">English</option>
+  <option value="zh_TW">Chinese (Taiwan)</option>
+  <option value="nl">Dutch</option>
+  <option value="fi_FI">Finnish</option>
+  <option value="fr">French</option>
+  <option value="de">German</option>
+  <option value="el">Greek</option>
+  <option value="id">Indonesian</option>
+  <option value="it">Italian</option>
+  <option value="ko">Korean</option>
+  <option value="fa">Persian</option>
+  <option value="pt_BR">Portuguese</option>
+  <option value="ro">Romanian</option>
+  <option value="ru">Russian</option>
+  <option value="sl">Slovenian</option>
+  <option value="es">Spanish</option>
+  <option value="th">Thai</option>
+  <option value="tr">Turkish</option>
+  <option value="uk">Ukrainian</option>
+  <option value="vi">Vietnamese</option>
+</select>
+</form>
+        </div>
+      </div>
+    <div class="body col-md-9 content" role="main">
+      
+
+  <section id="working-with-projections-qgis3">
+<h1>Werken met projecties (QGIS3)<a class="headerlink" href="#working-with-projections-qgis3" title="Permalink naar deze titel">¶</a></h1>
+<p>Kaartprojecties - of Coördinaten Referentie Systeem (CRS) - veroorzaken vaak veel frustratie bij het werken met gegevens voor GIS.  Maar het juiste begrip van de concepten en toegang tot de juiste gereedschappen zullen het veel makkelijker maken met projecties te werken. In deze handleiding zullen we verkennen hoe projecties werken in QGIS en leren over beschikbare gereedschappen voor vector- en rasterlagen.</p>
+<section id="overview-of-the-task">
+<h2>Overzicht van de taak<a class="headerlink" href="#overview-of-the-task" title="Permalink naar deze titel">¶</a></h2>
+<p>De taak is om gegevenslagen van verschillende projecties opnieuw te projecteren en over elkaar te leggen in QGIS.</p>
+</section>
+<section id="get-the-data">
+<h2>De gegevens ophalen<a class="headerlink" href="#get-the-data" title="Permalink naar deze titel">¶</a></h2>
+<p>Natural Earth heeft <a class="reference external" href="http://www.naturalearthdata.com/downloads/10m-cultural-vectors/">Admin 0 - Countries</a> gegevensset. Download de <a class="reference external" href="http://www.naturalearthdata.com/http//www.naturalearthdata.com/download/10m/cultural/ne_10m_admin_0_countries.zip">countries</a></p>
+<p><a class="reference external" href="https://www.ordnancesurvey.co.uk/">UK’s Ordnance Survey</a> verschaft open gegevens om te downloaden. Download het <a class="reference external" href="https://www.ordnancesurvey.co.uk/opendatadownload/products.html">MiniScale raster product</a> voor Groot-Brittannië en pak die uit in een map op uw computer.</p>
+<p>Voor het gemak kunt u direct een kopie van beide gegevenssets downloaden vanaf de link hieronder:</p>
+<p><a class="reference external" href="https://www.qgistutorials.com/downloads/ne_10m_admin_0_countries.zip">ne_10m_admin_0_countries.zip</a></p>
+<p><a class="reference external" href="https://www.qgistutorials.com/downloads/minisc_gb.zip">minisc_gb.zip</a> (Bevat alleen de bestanden die nodig zijn voor deze handleiding)</p>
+<p>Gegevensbronnen: <a class="reference internal" href="../credits.html#naturalearth" id="id1"><span>[NATURALEARTH]</span></a> <a class="reference internal" href="../credits.html#osopendata" id="id2"><span>[OSOPENDATA]</span></a></p>
+</section>
+<section id="procedure">
+<h2>Procedure<a class="headerlink" href="#procedure" title="Permalink naar deze titel">¶</a></h2>
+<ol class="arabic simple">
+<li><p>Open QGIS. Ga naar <span class="menuselection">Kaartlagen ‣ Laag toevoegen ‣ Vectorlaag toevoegen…</span>.</p></li>
+</ol>
+<img alt="../../_images/1142.png" class="align-center" src="../../_images/1142.png" />
+<ol class="arabic simple" start="2">
+<li><p>Klik op <span class="guilabel">…</span> naast <span class="guilabel">Bron</span>, blader naar het gedownloade bestand <code class="docutils literal notranslate"><span class="pre">ne_10m_admin_0_countries.zip</span></code> en klik op <span class="guilabel">Openen</span>.</p></li>
+</ol>
+<img alt="../../_images/2109.png" class="align-center" src="../../_images/2109.png" />
+<ol class="arabic simple" start="3">
+<li><p>Onder in het venster van QGIS zult u het label <span class="guilabel">Coördinaat</span> zien. Wanneer u uw cursor over de kaart beweegt, laat het u de X- en Y-coördinaten van die locatie zien. In de rechter benedenhoek zult u zien <span class="guilabel">EPSG:4326</span>. Dat is de code voor het huidige CRS (projectie) voor het project - ook bekend als het <strong>project-CRS</strong>.</p></li>
+</ol>
+<img alt="../../_images/350.png" class="align-center" src="../../_images/350.png" />
+<ol class="arabic simple" start="4">
+<li><p>We kunnen de metadata bekijken om de projectie van een laag te bepalen. Klik met rechts op de laag <code class="docutils literal notranslate"><span class="pre">ne_10m_admin_0_countries</span></code> en selecteer <span class="guilabel">Eigenschappen</span>.</p></li>
+</ol>
+<img alt="../../_images/429.png" class="align-center" src="../../_images/429.png" />
+<ol class="arabic simple" start="5">
+<li><p>Schakel naar de tab <span class="guilabel">Informatie</span> in het dialoogvenster <span class="guilabel">Laageigenschappen</span>. Vergroot het gedeelte <span class="guilabel">Informatie van provider</span>. Onderin ziet u de definitie voor de projectie onder <span class="guilabel">CRS</span>.</p></li>
+</ol>
+<img alt="../../_images/528.png" class="align-center" src="../../_images/528.png" />
+<ol class="arabic simple" start="6">
+<li><p>Laten we nu eens kijken hoe we de projectie van de laag kunnen veranderen. Deze bewerking wordt <strong>Opnieuw projecteren</strong> genoemd. In plaats van de gehele laag opnieuw te projecteren, kunnen we ook een subset van objecten van de laag selecteren en die opnieuw projecteren naar een nieuwe laag. Gebruik het gereedschap <span class="guilabel">Object(en) selecteren</span> en klik op het object van het Verenigd Koninkrijk om dat te selecteren.</p></li>
+</ol>
+<img alt="../../_images/627.png" class="align-center" src="../../_images/627.png" />
+<ol class="arabic simple" start="7">
+<li><p>Zoek en lokaliseer het algoritme <span class="menuselection">Vector algemeen ‣ Laag opnieuw projecteren</span> in de Toolbox van Processing.</p></li>
+</ol>
+<img alt="../../_images/727.png" class="align-center" src="../../_images/727.png" />
+<ol class="arabic simple" start="8">
+<li><p>Selecteer <code class="docutils literal notranslate"><span class="pre">ne_10m_admin_0_countries</span></code> als de <span class="guilabel">Invoerlaag</span>, selecteer <span class="guilabel">Alleen geselecteerde objecten</span> en klik op het pictogram van de globe naast <span class="guilabel">Doel-CRS</span>, zoek en selecteer <code class="docutils literal notranslate"><span class="pre">EPSG:27700</span> <span class="pre">-</span> <span class="pre">OSGB</span> <span class="pre">1936</span> <span class="pre">/</span> <span class="pre">British</span> <span class="pre">National</span> <span class="pre">Grid</span></code>. In <span class="guilabel">Opnieuw geprojecteerd</span>, kies de <code class="docutils literal notranslate"><span class="pre">…</span></code> en klik op <span class="guilabel">Save to a file</span>. Kies nu de map en voer als naam in <code class="docutils literal notranslate"><span class="pre">united_kingdom.gkpg</span></code> en klik op <span class="guilabel">Uitvoeren</span>.</p></li>
+</ol>
+<img alt="../../_images/826.png" class="align-center" src="../../_images/826.png" />
+<ol class="arabic simple" start="9">
+<li><p>Een nieuwe laag <code class="docutils literal notranslate"><span class="pre">united_kingdom</span></code> zal verschijnen in het <span class="guilabel">paneel Lagen</span>. Zoals u ziet lijnen de beide lagen nog steeds exact op elkaar uit - hoewel zij zelfs in verschillende CRS-en staan. Dit komt omdat QGIS <a class="reference external" href="https://docs.qgis.org/testing/nl/docs/user_manual/working_with_projections/working_with_projections.html?highlight=otf#project-coordinate-reference-systems">Directe (OTF) CRS transformatie gebruiken</a> ondersteunt. Wat betekent dat elke keer als een CRS van een laag niet overeenkomt met het project-CRS, het automatisch zal worden getransformeerd naar het project-CRS, zodat het correct kan worden weergegeven. Laten we nu het project-CRS instellen zodat het overeenkomt met het laag-CRS van de nieuw gemaakte laag <code class="docutils literal notranslate"><span class="pre">united_kingdom</span></code>. Verwijder de laag <code class="docutils literal notranslate"><span class="pre">ne_10m_admin_0_countries</span></code> en klik met rechts op de laag  <code class="docutils literal notranslate"><span class="pre">united_kingdom</span></code> en kies <span class="menuselection">Laag-CRS ‣ Project CRS van laag overnemen</span>.</p></li>
+</ol>
+<img alt="../../_images/927.png" class="align-center" src="../../_images/927.png" />
+<ol class="arabic simple" start="10">
+<li><p>U zult zien dat het project-CRS is bijgewerkt naar <code class="docutils literal notranslate"><span class="pre">EPSG:27700</span></code>.</p></li>
+</ol>
+<img alt="../../_images/1034.png" class="align-center" src="../../_images/1034.png" />
+<ol class="arabic simple" start="11">
+<li><p>Laten we nu een rasterlaag toevoegen. Ga naar <span class="menuselection">Kaartlagen ‣ Laag toevoegen ‣ Rasterlaag toevoegen…</span>.</p></li>
+</ol>
+<img alt="../../_images/1143.png" class="align-center" src="../../_images/1143.png" />
+<ol class="arabic simple" start="12">
+<li><p>Klik op de <code class="docutils literal notranslate"><span class="pre">…</span></code> naast <span class="guilabel">Bron</span>, selecteer de laag <code class="docutils literal notranslate"><span class="pre">MiniScale_(standard)_R23.tif</span></code>. Klik op <span class="guilabel">Toevoegen</span>.</p></li>
+</ol>
+<img alt="../../_images/1237.png" class="align-center" src="../../_images/1237.png" />
+<ol class="arabic simple" start="13">
+<li><p>Nu is een nieuwe laag <code class="docutils literal notranslate"><span class="pre">MiniScale_(standard)_R23</span></code> toegevoegd aan het kaartvenster.</p></li>
+</ol>
+<img alt="../../_images/1335.png" class="align-center" src="../../_images/1335.png" />
+<ol class="arabic simple" start="14">
+<li><p>Wijzig, om beide lagen zichtbaar te maken, de volgorde van de lagen door <code class="docutils literal notranslate"><span class="pre">MiniScale_(standard)_R23</span></code> tot onder in het paneel <span class="guilabel">Lagen</span> te slepen.</p></li>
+</ol>
+<img alt="../../_images/1432.png" class="align-center" src="../../_images/1432.png" />
+<ol class="arabic simple" start="15">
+<li><p>Klik met rechts op de laag <code class="docutils literal notranslate"><span class="pre">MiniScale_(standard)_R23</span></code> en klik op <span class="guilabel">Eigenschappen</span>.</p></li>
+</ol>
+<img alt="../../_images/1530.png" class="align-center" src="../../_images/1530.png" />
+<ol class="arabic simple" start="16">
+<li><p>In de <span class="guilabel">Laageigenschappen</span>, schakel naar <span class="guilabel">Informatie</span>, het <span class="guilabel">CRS</span> is <code class="docutils literal notranslate"><span class="pre">EPS:27700</span> <span class="pre">-</span> <span class="pre">OSBG</span> <span class="pre">1935</span> <span class="pre">/</span> <span class="pre">British</span> <span class="pre">National</span> <span class="pre">Grid</span> <span class="pre">-</span> <span class="pre">Geprojecteerd</span></code>. Dit bevestigt dat het CRS van de rasterlaag hetzelfde is als het project-CRS.</p></li>
+</ol>
+<div class="admonition note">
+<p class="admonition-title">Notitie</p>
+<p>Wanneer u een rasterlaag opnieuw wilt projecteren, kunt u het algoritme <span class="menuselection">GDAL ‣ Rasterprojecties ‣ Warp (opnieuw projecteren)</span> in de Toolbox van Processing gebruiken.</p>
+</div>
+<img alt="../../_images/1628.png" class="align-center" src="../../_images/1628.png" />
+</section>
+</section>
+
+
+
+
+
+  <div id="disqus_thread"></div>
+  <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+
+    </div>
+      
+  </div>
+</div>
+
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+    </p>
+    <p>
+        &copy; Copyright 2021, Ujaval Gandhi.<br/>
+      Laatste aanpassing op aug. 30, 2022.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 4.0.1.<br/>
+    </p>
+  </div>
+</footer>
+<div class="container">
+  <p>This work is licensed under a <a href="http://creativecommons.org/licenses/by/4.0/deed.en_US">Creative Commons Attribution 4.0 International License</a></p>
+</div>
+<!-- Twitter Button -->
+<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+
+<!-- Disqus comments widget -->
+<script type="text/javascript">
+  /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+  var disqus_shortname = 'qgistutorials'; // required: replace example with your forum shortname
+  /* * * DON'T EDIT BELOW THIS LINE * * */
+  (function () {
+    var s = document.createElement('script'); s.async = true;
+    s.type = 'text/javascript';
+    s.src = '//' + disqus_shortname + '.disqus.com/count.js';
+    (document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);
+  }());
+</script>
+
+<script type="text/javascript">
+  /* * * DON'T EDIT BELOW THIS LINE * * */
+  (function() {
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+
+<!-- Script fpr language switching. Largely adapted from https://github.com/pcav/faunalia-website -->
+<script>
+    var currentPage = 'docs/3/working_with_projections.html'; // coming from sphinx, always without starting '/'
+    var currentLang = 'en';
+    $(document).ready(function(){
+
+        var search = new RegExp('\/[a-zA-Z_]{2,8}\/'+ currentPage, 'gi');
+        var langPlusPage = window.location.href.match(search);
+        // it's possible this is a index.html page called without 'index.html', try without the currentPage
+        if (langPlusPage==undefined){
+            search = new RegExp('\/[a-zA-Z_]{2,8}\/$', 'gi');
+            langPlusPage = window.location.href.match(search);
+        }
+
+        // it's possible this is an index.html page called without 'index.html', try removing index.html
+        if (langPlusPage==undefined){
+            currentPage = currentPage.replace('index.html','')
+            search = new RegExp('\/[a-zA-Z_]{2,8}\/'+ currentPage, 'gi');
+            langPlusPage = window.location.href.match(search);
+        }
+        // still no langPlugPage: stop, because the language swicher will misbehave 
+
+        if (langPlusPage == undefined || langPlusPage.length != 1){
+            alert('You hit an error, please report back to us.');
+            return;
+        }
+        langPlusPage = langPlusPage[0];
+        currentLang = langPlusPage.replace(currentPage, '');
+
+        $("#languages").val(currentLang.replace(/\//g,'')); // currentLang is something like '/nl/'
+
+        $("#languages").change(function() {
+            gotoLang($(this).val());
+        });
+
+    });
+
+    // load current page in a different language
+    function gotoLang(lang){
+        var currentUrl = window.location.href;
+        var newUrl = currentUrl.replace(currentLang, '/'+lang+'/');
+        window.location.href = newUrl;
+    }
+</script>
+
+  </body>
+</html>

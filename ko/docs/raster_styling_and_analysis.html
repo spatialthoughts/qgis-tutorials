@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+
+<html lang="ko">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>래스터 스타일링과 분석 기초 &#8212; QGIS Tutorials and Tips</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/bootstrap-sphinx.css" />
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/translations.js"></script>
+    <link rel="search" title="검색" href="../search.html" />
+
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<script type="text/javascript" src="../_static/js/jquery-1.11.0.min.js "></script>
+<script type="text/javascript" src="../_static/js/jquery-fix.js "></script>
+<script type="text/javascript" src="../_static/bootstrap-3.3.7/js/bootstrap.min.js "></script>
+<script type="text/javascript" src="../_static/bootstrap-sphinx.js "></script>
+
+
+<!-- Cookie Notice -->
+<!-- Script from https://github.com/AOEpeople/cookie-notice -->
+<script type="text/javascript" src="../_static/cookie.notice.min.js"></script>
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-B1WQ7B80XJ"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-B1WQ7B80XJ');
+</script>
+
+
+  </head><body>
+
+  <div id="navbar" class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="../index.html"><span><img src="../_static/logo.png"></span>
+          QGIS Tutorials and Tips</a>
+        <span class="navbar-text navbar-version pull-left"><b>v1</b></span>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="../index.html">Tutorials List <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"><ul>
+<li class="toctree-l1"><a class="reference internal" href="introduction.html">들어가는 말</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/making_a_map.html">지도 만들기 (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/working_with_attributes.html">속성 작업 (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/importing_spreadsheets_csv.html">스프레드시트 및 CSV 파일 불러오기 (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/basic_vector_styling.html">기본 벡터 스타일링 (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/calculating_line_lengths.html">선의 길이계산과 통계(QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/raster_styling_and_analysis.html">기본 래스터 스타일링 및 분석(QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/raster_mosaicing_and_clipping.html">래스터 붙이기 및 자르기 (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/working_with_terrain.html">Working with Terrain Data (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/working_with_wms.html">Working with WMS Data (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/working_with_projections.html">Working with Projections (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/georeferencing_basics.html">Georeferencing Topo Sheets and Scanned Maps (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/advanced_georeferencing.html">항공사진 지오레퍼런싱 (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/digitizing_basics.html">Digitizing Map Data (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/performing_table_joins.html">테이블 결합 작업(QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/performing_spatial_joins.html">공간 결합 수행 (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/performing_spatial_queries.html">공간 조회 실행(QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/nearest_neighbor_analysis.html">최근린 분석(QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/sampling_raster_data.html">점 또는 다각형을 이용한 래스터 데이터 표본 추출 작업(QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/calculating_raster_area.html">Calculating Raster Area (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/creating_heatmaps.html">열지도 만들기 (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/animating_time_series.html">Animating Time Series Data (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/handling_invalid_geometries.html">Handling Invalid Geometries (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/advanced_raster_analysis.html">Advanced Raster Analysis (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/interpolating_point_data.html">Interpolating Point Data (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/calculating_intersection_density.html">Calculating Street Intersection Density (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/batch_processing.html">프로세싱 프레임을 이용한 일괄처리과정</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/processing_graphical_modeler.html">프로세싱 모델러를 사용하여 복잡한 작업흐름 자동화하기(QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/automating_map_creation.html">Automating Map Creation with Print Layout Atlas (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/multi_criteria_overlay.html">Multi Criteria Overlay Analysis (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/basic_network_analysis.html">Basic Network Visualization and Routing (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/origin_destination_matrix.html">가장 가까운 기-종점 매트릭스 위치 (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/service_area_analysis.html">Openrouteservice를 이용한 서비스 영역 분석(QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/travel_time_analysis.html">Travel Time Analysis with Uber Movement (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/areal_mean_rainfall.html">Calculating Areal Mean Rainfall (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/getting_started_with_pyqgis.html">Getting Started With Python Programming (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/processing_algorithms_pyqgis.html">Running Processing Algorithms via Python (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/custom_python_functions.html">Using Custom Python Expression Functions (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/processing_python_scripts.html">Writing Python Scripts for Processing Framework (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/building_a_python_plugin.html">Building a Python Plugin (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/processing_python_plugin.html">Building a Processing Plugin (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="running_qgis_jobs.html">Running and Scheduling QGIS Processing Jobs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/web_mapping_with_qgis2web.html">Web Mapping with QGIS2Web (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="creating_basemaps_with_qtiles.html">QTiles로 베이스 맵 만들기</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/using_plugins.html">Using Plugins (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="downloading_osm_data.html">오픈스트리트맵 데이터의 검색과 다운로드</a></li>
+<li class="toctree-l1"><a class="reference internal" href="learning_resources.html">QGIS 수업 자원</a></li>
+<li class="toctree-l1"><a class="reference internal" href="credits.html">데이터 크레딧</a></li>
+<li class="toctree-l1"><a class="reference internal" href="batch_processing.html">프로세싱 프레임을 이용한 일괄처리과정</a></li>
+</ul>
+</ul>
+</li>
+              
+            
+            
+              
+                
+              
+            
+            
+
+            
+
+            
+              <li class="hidden-sm"></li>
+            
+          </ul>
+
+          
+            
+<form class="navbar-form navbar-right" action="../search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+      <div class="col-md-3">
+        <div id="sidebar" class="bs-sidenav" role="complementary"><h4>Author</h4>
+<p>Ujaval Gandhi</p>
+<a href="https://twitter.com/intent/follow?screen_name=spatialthoughts" class="twitter-follow-button" data-show-count="false">Follow @spatialthoughts</a>
+<hr>
+<p>Want to learn QGIS in a structured way? Check out <a href="https://spatialthoughts.com/" target="_blank">Spatial Thoughts</a> for more learning materials and instructor-led online programs with QGIS.org certification.</p>
+
+
+<h4>Change Language</h4>
+<form role="form" class="sidebar-form sidebar-left">
+<select id="languages" class="form-control select-mini">
+  <option value="en">English</option>
+  <option value="zh_TW">Chinese (Taiwan)</option>
+  <option value="nl">Dutch</option>
+  <option value="fi_FI">Finnish</option>
+  <option value="fr">French</option>
+  <option value="de">German</option>
+  <option value="el">Greek</option>
+  <option value="id">Indonesian</option>
+  <option value="it">Italian</option>
+  <option value="ko">Korean</option>
+  <option value="fa">Persian</option>
+  <option value="pt_BR">Portuguese</option>
+  <option value="ro">Romanian</option>
+  <option value="ru">Russian</option>
+  <option value="sl">Slovenian</option>
+  <option value="es">Spanish</option>
+  <option value="th">Thai</option>
+  <option value="tr">Turkish</option>
+  <option value="uk">Ukrainian</option>
+  <option value="vi">Vietnamese</option>
+</select>
+</form>
+        </div>
+      </div>
+    <div class="body col-md-9 content" role="main">
+      
+
+  <section id="basic-raster-styling-and-analysis">
+<h1>래스터 스타일링과 분석 기초<a class="headerlink" href="#basic-raster-styling-and-analysis" title="이 표제에 대한 퍼머링크">¶</a></h1>
+<div class="admonition warning">
+<p class="admonition-title">경고</p>
+<p>This tutorial is now obsolete. A new and updated version is available at <a class="reference internal" href="3/raster_styling_and_analysis.html"><span class="doc">기본 래스터 스타일링 및 분석(QGIS3)</span></a></p>
+</div>
+<p>수많은 과학적 관찰과 연구가 래스터 데이터셋을 만들어 냅니다. 래스터는 픽셀의 그리드로 각 픽셀들에는 특별한 값이 할당되어 있습니다. 이 값에 대해 수학적인 작업을 통해서 흥미로운 분석을 해낼 수 있습니다. QGIS는 ‘래스터 계산기’가 장착되어 기본적인 분석 능력을 갖추고 있습니다. 이 예제에서는 ‘래스터 계산기’를 사용하여 기본적인 것을 알아볼 것이고 래스터를 스타일링하는 유용한 옵션을 살펴볼 것입니다.</p>
+<section id="overview-of-the-task">
+<h2>작업 개요<a class="headerlink" href="#overview-of-the-task" title="이 표제에 대한 퍼머링크">¶</a></h2>
+<p>이번 예제에서는 1990년과 2000년 사이에 극적인 세계인구밀도변화가 있는 지역을 볼 수 있도록 인구밀도 그리드 데이터를 사용하여 인구밀도 변화 지역을 찾고 이를 시각화 할 것입니다.</p>
+<section id="other-skills-you-will-learn">
+<h3>기타 스킬<a class="headerlink" href="#other-skills-you-will-learn" title="이 표제에 대한 퍼머링크">¶</a></h3>
+<ul class="simple">
+<li><p>QGIS에서 한 번에 복수의 데이터셋을 선택하고 불러옵니다.</p></li>
+</ul>
+</section>
+</section>
+<section id="get-the-data">
+<h2>데이터 획득<a class="headerlink" href="#get-the-data" title="이 표제에 대한 퍼머링크">¶</a></h2>
+<p>이 예제에서는  Columbia University의  <a class="reference external" href="http://sedac.ciesin.columbia.edu/data/collection/gpw-v3">Gridded Population of the World (GPW) v3</a> 데이터셋을 사용할 것입니다. 특히, 1990년과 2000년 동안의 ASCII 형식의 전 지구의 인구밀도 그리드 데이터가 필요합니다.</p>
+<p>여기서는 해당 데이터를 어떻게 찾고 다운로드하는지 보여줍니다.</p>
+<ol class="arabic simple">
+<li><p>Go to the <a class="reference external" href="http://sedac.ciesin.columbia.edu/data/set/gpw-v3-population-density/data-download">Population Density Grid, v3 download page.</a>
+Select the <span class="guilabel">Data Attributes</span> as <span class="guilabel">.ascii format</span>,
+<span class="guilabel">1° resolution</span> and <span class="guilabel">1990 year</span>. Click
+<span class="guilabel">Download</span>. At this point, you may create a free account and
+login, or use the <span class="guilabel">Guest Download</span> button at the bottom to
+immediately download the data. Repeat the process for <span class="guilabel">2000 year</span>
+data.</p></li>
+</ol>
+<img alt="../_images/1200.png" class="align-center" src="../_images/1200.png" />
+<p>2개의 압축파일이 다운로드될 것입니다.</p>
+<p>For convenience, you may directly download a copy of the datasets from the
+links below:</p>
+<p><a class="reference external" href="http://www.qgistutorials.com/downloads/gl_gpwv3_pdens_90_ascii_one.zip">gl_gpwv3_pdens_90_ascii_one.zip</a></p>
+<p><a class="reference external" href="http://www.qgistutorials.com/downloads/gl_gpwv3_pdens_00_ascii_one.zip">gl_gpwv3_pdens_00_ascii_one.zip</a></p>
+<p>데이터 출처 <a class="reference internal" href="credits.html#gpw3" id="id1"><span>[GPW3]</span></a></p>
+</section>
+<section id="procedure">
+<h2>과정<a class="headerlink" href="#procedure" title="이 표제에 대한 퍼머링크">¶</a></h2>
+<ol class="arabic simple" start="2">
+<li><p>QGIS를 구동시키고 메뉴 레이어 –&gt; 레이터 레이어 추가  :menuselection:<a href="#id1"><span class="problematic" id="id2">`</span></a>Layer –&gt; Add Raster Layer..`로 가십시오.</p></li>
+</ol>
+<img alt="../_images/2162.png" class="align-center" src="../_images/2162.png" />
+<ol class="arabic simple" start="3">
+<li><p>다운로드한 압축파일을 찾습니다. 컨트롤키 :kbd:<a href="#id1"><span class="problematic" id="id2">`</span></a>Ctrl`를 누른채로 두개의 압축파일을 클릭합니다. 이 방법으로 한 번에 두개의 파일을 불러올 수 있습니다. 상황에 따라 두 개의 파일이 선택되지 않을 경우 하나씩 실행하십시오.</p></li>
+</ol>
+<img alt="../_images/390.png" class="align-center" src="../_images/390.png" />
+<ol class="arabic simple" start="4">
+<li><p>각 압출파일에는 2개의 그리드파일이 들어있습니다. 파일명에 있는 <a href="#id1"><span class="problematic" id="id2">``</span></a>a``는 인구수가 UN 총합과 맞도록 수정된 것을 시사합니다. 이 예제에서는 수정된 그리드를 사용할 것입니다. <a href="#id3"><span class="problematic" id="id4">``</span></a>glds00ag60.asc``를 선택하여 레이어로 불러옵니다. :guilabel:<a href="#id5"><span class="problematic" id="id6">`</span></a>OK`를 클릭합니다.</p></li>
+</ol>
+<img alt="../_images/463.png" class="align-center" src="../_images/463.png" />
+<ol class="arabic simple" start="5">
+<li><p>레이어는 정의된 CRS를 갖고 있지 않습니다. 그래서 그리드가 위도/경도이므로 좌표체계로  <a href="#id1"><span class="problematic" id="id2">`</span></a>EPSG:4326`를 선택합니다.</p></li>
+</ol>
+<img alt="../_images/560.png" class="align-center" src="../_images/560.png" />
+<ol class="arabic simple" start="6">
+<li><p>두개의 압축파일을 선택했으므로 유사한 다이알로그를 다시 보게될 것입니다. 과정을 반복하고 <a href="#id1"><span class="problematic" id="id2">``</span></a>glds90ag60.asc``를 선택하여 레이어로 불러옵니다.</p></li>
+</ol>
+<img alt="../_images/657.png" class="align-center" src="../_images/657.png" />
+<ol class="arabic simple" start="7">
+<li><p>다시 한번 CRS로  <a href="#id1"><span class="problematic" id="id2">`</span></a>EPSG:4326`를 선택합니다.</p></li>
+</ol>
+<img alt="../_images/756.png" class="align-center" src="../_images/756.png" />
+<ol class="arabic simple" start="8">
+<li><p>이제 QGIS에 불러들여진 두개의 래스터파일을 보게됩니다. 래스터는 회색스케일로 표현되어 있습니다. 여기서 보다 어두운 픽셀은 낮은 값을, 반면 밝은 픽셀은 보다 높은 값을 나타냅니다.</p></li>
+</ol>
+<img alt="../_images/854.png" class="align-center" src="../_images/854.png" />
+<ol class="arabic simple" start="9">
+<li><p>래스터의 각 픽셀은 지정된 값을 가지고 있습니다. 이 값은 이 그리드의 인구밀도입니다.  도구를 선택하기 위해 객체확인:guilabel:<a href="#id1"><span class="problematic" id="id2">`</span></a>Identify Features`단추를 클릭하고 래스터의 아무곳이나 클릭하여 픽셀값을 알아봅니다.</p></li>
+</ol>
+<img alt="../_images/953.png" class="align-center" src="../_images/953.png" />
+<ol class="arabic simple" start="10">
+<li><p>인구밀도의 패턴을 보다 낫게 시각화 하기 위해서 이것을 스타일화 할 필요가 있습니다. 레이어에서 마우스의 오른쪽 단추를 클릭하여  속성 :guilabel:<a href="#id1"><span class="problematic" id="id2">`</span></a>Properties`을 선택합니다. TOC 즉, Table of Contents에서 레이어명을 더블클릭하여 레이어 속성 다이알로그를 열 수도 있습니다.</p></li>
+</ol>
+<img alt="../_images/1061.png" class="align-center" src="../_images/1061.png" />
+<ol class="arabic simple" start="11">
+<li><p>스타일 <span class="guilabel">Style</span> 탭에서 랜더 유형  <span class="guilabel">Render type</span> 을 단일밴드 의사색채 <span class="guilabel">Singleband pseudocolor`로 변경합니다. 다음 새 색상표 작성 :guilabel:`Generate a new color map`에서 분류 :guilabel:`Classify</span> 를 클릭합니다. 5개의 새로운 색값이 만들어진 것을 볼 수 있습니다.  :guilabel:<a href="#id1"><span class="problematic" id="id2">`</span></a>OK`를 클릭합니다.</p></li>
+</ol>
+<img alt="../_images/11100.png" class="align-center" src="../_images/11100.png" />
+<ol class="arabic simple" start="12">
+<li><p>QGIS 캔버스로 되돌아 갑니다. 래스터가 열지도 같이 표현된 것을 볼 수 있습니다. 같은 과정을 다른 래스터에 대해 반복합니다.</p></li>
+</ol>
+<img alt="../_images/1262.png" class="align-center" src="../_images/1262.png" />
+<ol class="arabic simple" start="13">
+<li><p>분석내용은 1990년과 2000년 사이에 가장 인구변화가 큰 곳을 찾는 것입니다. 이것을 수행하기 위한 방법은 두개의 레이어에서 각 그리드 픽셀값 간의 차이를 찾는 것입니다. 메뉴&gt;  래스터 –&gt; 래스터 계산기  :menuselection:<a href="#id1"><span class="problematic" id="id2">`</span></a>Raster –&gt; Raster calculator`를 선택합니다.</p></li>
+</ol>
+<img alt="../_images/1359.png" class="align-center" src="../_images/1359.png" />
+<ol class="arabic simple" start="14">
+<li><p>In the <span class="guilabel">Raster bands</span> section, you can select the layer by
+double-clicking on them. The bands are named after the raster name followed
+by &#64; and band number. Since each of our rasters have only 1 band, you will
+see only 1 entry per raster. The raster calculator can apply mathematical
+operations on the raster pixels. In this case we want to enter a simple
+formula to subtract the 1990 population density from 2000. Enter
+<code class="docutils literal notranslate"><span class="pre">glds00ag60&#64;1</span> <span class="pre">-</span> <span class="pre">glds90ag60&#64;1</span></code> as the formula. Name your output layer as
+<code class="docutils literal notranslate"><span class="pre">pop_density_change_2000_1990.tif</span></code> and check the box next to
+<span class="guilabel">Add result to project</span>. Click <span class="guilabel">OK</span>.</p></li>
+</ol>
+<img alt="../_images/1456.png" class="align-center" src="../_images/1456.png" />
+<ol class="arabic simple" start="15">
+<li><p>이 과정이 완료되면 QGIS에서 새로운 레이어가 추가된 것을 볼 수 있습니다.</p></li>
+</ol>
+<img alt="../_images/1553.png" class="align-center" src="../_images/1553.png" />
+<ol class="arabic simple" start="16">
+<li><p>여기서 회색스케일 시각화결과는 매우 유용합니다. 그러나 보다 정보전달력이 높은 결과물을 만들어 낼 수 있습니다. <a href="#id1"><span class="problematic" id="id2">``</span></a>pop_density_change_2000_1990``레이어에 대해 마우스 오른쪽 클릭을 하고 속성  :guilabel:<a href="#id3"><span class="problematic" id="id4">`</span></a>Properties`을 선택합니다.</p></li>
+</ol>
+<img alt="../_images/1650.png" class="align-center" src="../_images/1650.png" />
+<ol class="arabic simple" start="17">
+<li><p>레이어를 스타일링해야 하므로 어느 정도의 범위의 픽셀값에 대해서는 같은 색을 같도록 해야 합니다. 이 작업을 하기 전에 메타데이터 :guilabel:<a href="#id1"><span class="problematic" id="id2">`</span></a>Metadata`탭으로 갑니다. 그리고 래스터의 내용을 살펴봅니다. 이 레이어의 최소 및 최대값을 확인합니다.</p></li>
+</ol>
+<img alt="../_images/1746.png" class="align-center" src="../_images/1746.png" />
+<ol class="arabic simple" start="18">
+<li><p>이제 스타일  <span class="guilabel">Style</span> 탭으로 갑니다. 밴드 랜더링 :guilabel:<a href="#id1"><span class="problematic" id="id2">`</span></a>Band Rendering`에서 랜더 유형 :guilabel:<a href="#id3"><span class="problematic" id="id4">`</span></a>Render type`으로 단일밴드 의사색채  :guilabel:<a href="#id5"><span class="problematic" id="id6">`</span></a>Singleband pseudocolor`를 선택합니다. 색상 보간 :guilabel:<a href="#id7"><span class="problematic" id="id8">`</span></a>Color interpolation`으로 이산 :guilabel:<a href="#id9"><span class="problematic" id="id10">`</span></a>Discrete`을 설정합니다. 4개의 독자 계급구간을 만들어 내기 위해 수동으로 값추가 :guilabel:<a href="#id11"><span class="problematic" id="id12">`</span></a>Add entry`를 4번 클릭합니다. 값을 변경하기 위해 각 엔트리를 클릭합니다. 색상지도는 각 엔트리에 입력되는 값보다 작은 값이 그 엔트리의 색으로 주어집니다. 래스터에서 최소값이 -2000 이상이므로 첫번째 엔트리에 -2000을 입력합니다. 이것은 No Data 즉, 데이터값이 없는 픽셀에 적용됩니다. 다른 엔트리에 대해서도 값과 라벨을 아래와 같이 입력하고  :guilabel:<a href="#id13"><span class="problematic" id="id14">`</span></a>OK`를 클릭합니다.</p></li>
+</ol>
+<img alt="../_images/1844.png" class="align-center" src="../_images/1844.png" />
+<ol class="arabic simple" start="19">
+<li><p>이제 인구밀도가 늘어난 지역과 줄어든 지역을 볼 수 있는 강력한 시각화된 지도를 볼 수 있습니다. 확대:guilabel:<a href="#id1"><span class="problematic" id="id2">`</span></a>Zoom In`단추를 클릭하고 유럽지역에 대해 사각형을 그리면 보다 자세하게 지역을 살펴볼 수 있습니다.</p></li>
+</ol>
+<img alt="../_images/1936.png" class="align-center" src="../_images/1936.png" />
+<ol class="arabic simple" start="20">
+<li><p>객체 확인  :guilabel:<a href="#id1"><span class="problematic" id="id2">`</span></a>Identify`도구를 선택하고, 만든 지도가 의도했던대로 스타일이 잘 적용되었는지 확인하기 위해 빨간색 지역과 파란색 지역을 클릭합니다.</p></li>
+</ol>
+<img alt="../_images/2031.png" class="align-center" src="../_images/2031.png" />
+<ol class="arabic simple" start="21">
+<li><p>이제 한 발 더 나아가 인구밀도가 ‘감소’한 지역만을 찾아봅시다. 메뉴 래스터 –&gt; 래스터 계산기  :menuselection:<a href="#id1"><span class="problematic" id="id2">`</span></a>Raster –&gt; Raster calculator`를 엽니다.</p></li>
+</ol>
+<img alt="../_images/2163.png" class="align-center" src="../_images/2163.png" />
+<ol class="arabic simple" start="22">
+<li><p>Enter the expression as shown below What this expression will do is set the
+value of the pixel to 1 is if matches the expression and 0 if it doesn’t.
+So we will get a raster with pixel value of 1 where there was negative
+change and 0 where there wasn’t. Name the output layer as
+<code class="docutils literal notranslate"><span class="pre">negative_pop_change_2000_1990</span></code> and check the box next to <span class="guilabel">Add
+result to project</span>. Click OK.</p></li>
+</ol>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>pop_density_change_2000_1990@1 &lt; -10
+</pre></div>
+</div>
+<img alt="../_images/2230.png" class="align-center" src="../_images/2230.png" />
+<ol class="arabic simple" start="23">
+<li><p>일단 새로운 레이어가 불러들여집니다. 마우스 오른쪽 클릭을 한 후에 속성 :guilabel:<a href="#id1"><span class="problematic" id="id2">`</span></a>Properties`을 선택합니다. 투명도 :guilabel:<a href="#id3"><span class="problematic" id="id4">`</span></a>Transparency`탭에서 추가적인 no data value  :guilabel:<a href="#id5"><span class="problematic" id="id6">`</span></a>Additional no data value`에 0을 추가합니다. 이러한 세팅은 0의 값을 가진 픽셀 또한 투명하게 만듭니다.  :guilabel:<a href="#id7"><span class="problematic" id="id8">`</span></a>OK`를 클릭합니다.</p></li>
+</ol>
+<img alt="../_images/2328.png" class="align-center" src="../_images/2328.png" />
+<ol class="arabic simple" start="24">
+<li><p>이제 인구밀도가 감소한 지역을 회색 픽셀로 볼 수 있습니다.</p></li>
+</ol>
+<img alt="../_images/2427.png" class="align-center" src="../_images/2427.png" />
+</section>
+</section>
+
+
+
+
+
+  <div id="disqus_thread"></div>
+  <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+
+    </div>
+      
+  </div>
+</div>
+
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+    </p>
+    <p>
+        &copy; Copyright 2021, Ujaval Gandhi.<br/>
+      최종 업데이트: 8월 30, 2022<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 4.0.1.<br/>
+    </p>
+  </div>
+</footer>
+<div class="container">
+  <p>This work is licensed under a <a href="http://creativecommons.org/licenses/by/4.0/deed.en_US">Creative Commons Attribution 4.0 International License</a></p>
+</div>
+<!-- Twitter Button -->
+<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+
+<!-- Disqus comments widget -->
+<script type="text/javascript">
+  /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+  var disqus_shortname = 'qgistutorials'; // required: replace example with your forum shortname
+  /* * * DON'T EDIT BELOW THIS LINE * * */
+  (function () {
+    var s = document.createElement('script'); s.async = true;
+    s.type = 'text/javascript';
+    s.src = '//' + disqus_shortname + '.disqus.com/count.js';
+    (document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);
+  }());
+</script>
+
+<script type="text/javascript">
+  /* * * DON'T EDIT BELOW THIS LINE * * */
+  (function() {
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+
+<!-- Script fpr language switching. Largely adapted from https://github.com/pcav/faunalia-website -->
+<script>
+    var currentPage = 'docs/raster_styling_and_analysis.html'; // coming from sphinx, always without starting '/'
+    var currentLang = 'en';
+    $(document).ready(function(){
+
+        var search = new RegExp('\/[a-zA-Z_]{2,8}\/'+ currentPage, 'gi');
+        var langPlusPage = window.location.href.match(search);
+        // it's possible this is a index.html page called without 'index.html', try without the currentPage
+        if (langPlusPage==undefined){
+            search = new RegExp('\/[a-zA-Z_]{2,8}\/$', 'gi');
+            langPlusPage = window.location.href.match(search);
+        }
+
+        // it's possible this is an index.html page called without 'index.html', try removing index.html
+        if (langPlusPage==undefined){
+            currentPage = currentPage.replace('index.html','')
+            search = new RegExp('\/[a-zA-Z_]{2,8}\/'+ currentPage, 'gi');
+            langPlusPage = window.location.href.match(search);
+        }
+        // still no langPlugPage: stop, because the language swicher will misbehave 
+
+        if (langPlusPage == undefined || langPlusPage.length != 1){
+            alert('You hit an error, please report back to us.');
+            return;
+        }
+        langPlusPage = langPlusPage[0];
+        currentLang = langPlusPage.replace(currentPage, '');
+
+        $("#languages").val(currentLang.replace(/\//g,'')); // currentLang is something like '/nl/'
+
+        $("#languages").change(function() {
+            gotoLang($(this).val());
+        });
+
+    });
+
+    // load current page in a different language
+    function gotoLang(lang){
+        var currentUrl = window.location.href;
+        var newUrl = currentUrl.replace(currentLang, '/'+lang+'/');
+        window.location.href = newUrl;
+    }
+</script>
+
+  </body>
+</html>

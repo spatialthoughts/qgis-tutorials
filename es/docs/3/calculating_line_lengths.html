@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>Calcular Longitudes y Estadísticas de Línea (QGIS3) &#8212; QGIS Tutorials and Tips</title>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-sphinx.css" />
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/translations.js"></script>
+    <link rel="search" title="Búsqueda" href="../../search.html" />
+    <link rel="next" title="Estilos y Análisis Básicos Ráster (QGIS3)" href="raster_styling_and_analysis.html" />
+    <link rel="prev" title="Estilo Básico Vectorial (QGIS3)" href="basic_vector_styling.html" />
+
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<script type="text/javascript" src="../../_static/js/jquery-1.11.0.min.js "></script>
+<script type="text/javascript" src="../../_static/js/jquery-fix.js "></script>
+<script type="text/javascript" src="../../_static/bootstrap-3.3.7/js/bootstrap.min.js "></script>
+<script type="text/javascript" src="../../_static/bootstrap-sphinx.js "></script>
+
+
+<!-- Cookie Notice -->
+<!-- Script from https://github.com/AOEpeople/cookie-notice -->
+<script type="text/javascript" src="../../_static/cookie.notice.min.js"></script>
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-B1WQ7B80XJ"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-B1WQ7B80XJ');
+</script>
+
+
+  </head><body>
+
+  <div id="navbar" class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="../../index.html"><span><img src="../../_static/logo.png"></span>
+          QGIS Tutorials and Tips</a>
+        <span class="navbar-text navbar-version pull-left"><b>v1</b></span>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="../../index.html">Tutorials List <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"><ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../introduction.html">Introducción</a></li>
+<li class="toctree-l1"><a class="reference internal" href="making_a_map.html">Haciendo un Mapa (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="working_with_attributes.html">Trabajando con atributos (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="importing_spreadsheets_csv.html">Importar Hojas de Cálculo o archivos CSV (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="basic_vector_styling.html">Estilo Básico Vectorial (QGIS3)</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Calcular Longitudes y Estadísticas de Línea (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="raster_styling_and_analysis.html">Estilos y Análisis Básicos Ráster (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="raster_mosaicing_and_clipping.html">Mosaicar y Recortar Ráster (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="working_with_terrain.html">Trabajar con Datos de Terreno (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="working_with_wms.html">Trabajar con Datos WMS (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="working_with_projections.html">Trabajar con Proyecciones (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="georeferencing_basics.html">Georeferenciar Hojas Topográficas y Mapas Escaneados (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="advanced_georeferencing.html">Georeferenciar Imágenes Aéreas (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="digitizing_basics.html">Digitalizar Datos del Mapa (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="performing_table_joins.html">Realizar Uniones de Tablas (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="performing_spatial_joins.html">Realizar Uniones Espaciales (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="performing_spatial_queries.html">Realizar Consultas Espaciales (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="nearest_neighbor_analysis.html">Análisis del Vecino Más Cercano (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="sampling_raster_data.html">Muestrear Datos Ráster usando Puntos o Polígonos (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="calculating_raster_area.html">Calculating Raster Area (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="creating_heatmaps.html">Crear Mapas de Calor (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="animating_time_series.html">Animar Datos de Series de Tiempo (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="handling_invalid_geometries.html">Manejar Geometrías No Válidas (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="advanced_raster_analysis.html">Análisis Avanzado de Ráster (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="interpolating_point_data.html">Interpolar Datos Punto (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="calculating_intersection_density.html">Calcular Densidad de Intersección de Calle (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="batch_processing.html">Procesamiento por Lotes usando el Marco de Procesamiento (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="processing_graphical_modeler.html">Automatizar Flujos de Trabajo Complejos usando el Modelador de Procesos (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="automating_map_creation.html">Automatización de la creación de mapas con el Atlas de diseñador de impresiones  (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="multi_criteria_overlay.html">Análisis de Sobreposición Multicriterio (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="basic_network_analysis.html">Visualización y Enrutamiento Básico de Red (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="origin_destination_matrix.html">Localizando la Instalación Más Cercana con Matriz Origen-Destino (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="service_area_analysis.html">Análisis de Área de Servicio usando Openrouteservice (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="travel_time_analysis.html">Análisis del tiempo de viaje con el movimiento de Uber (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="areal_mean_rainfall.html">Calcular la Precipitación Media de Área (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="getting_started_with_pyqgis.html">Iniciándote con la Programación Python (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="processing_algorithms_pyqgis.html">Ejecutar Algoritmos de Procesamiento vía Python (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="custom_python_functions.html">Usando Funciones de Expresión Python Personalizadas (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="processing_python_scripts.html">Escribir Scripts Python para el Marco de Procesamiento (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="building_a_python_plugin.html">Construyendo un Complemento Python (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="processing_python_plugin.html">Construyendo un Complemento de Procesamiento (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../running_qgis_jobs.html">Ejecutar y Programar Trabajos de Procesamiento QGIS</a></li>
+<li class="toctree-l1"><a class="reference internal" href="web_mapping_with_qgis2web.html">Mapeo Web con QGIS2Web (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../creating_basemaps_with_qtiles.html">Creando Mapas Base con QTiles</a></li>
+<li class="toctree-l1"><a class="reference internal" href="using_plugins.html">Usar Complementos (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../downloading_osm_data.html">Buscando y descargando datos de OpenStreetMap</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../learning_resources.html">Recursos de Aprendizaje QGIS</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../credits.html">Créditos de los Datos</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../batch_processing.html">Procesamiento por Lotes usando el Marco de Procesamiento (QGIS2)</a></li>
+</ul>
+</ul>
+</li>
+              
+            
+            
+              
+                
+  <li>
+    <a href="basic_vector_styling.html" title="Previous Chapter: Estilo Básico Vectorial (QGIS3)"><span class="glyphicon glyphicon-chevron-left visible-sm"></span><span class="hidden-sm hidden-tablet">&laquo; Estilo Básico...</span>
+    </a>
+  </li>
+  <li>
+    <a href="raster_styling_and_analysis.html" title="Next Chapter: Estilos y Análisis Básicos Ráster (QGIS3)"><span class="glyphicon glyphicon-chevron-right visible-sm"></span><span class="hidden-sm hidden-tablet">Estilos y Aná... &raquo;</span>
+    </a>
+  </li>
+              
+            
+            
+
+            
+
+            
+              <li class="hidden-sm"></li>
+            
+          </ul>
+
+          
+            
+<form class="navbar-form navbar-right" action="../../search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+      <div class="col-md-3">
+        <div id="sidebar" class="bs-sidenav" role="complementary"><h4>Author</h4>
+<p>Ujaval Gandhi</p>
+<a href="https://twitter.com/intent/follow?screen_name=spatialthoughts" class="twitter-follow-button" data-show-count="false">Follow @spatialthoughts</a>
+<hr>
+<p>Want to learn QGIS in a structured way? Check out <a href="https://spatialthoughts.com/" target="_blank">Spatial Thoughts</a> for more learning materials and instructor-led online programs with QGIS.org certification.</p>
+
+
+<h4>Change Language</h4>
+<form role="form" class="sidebar-form sidebar-left">
+<select id="languages" class="form-control select-mini">
+  <option value="en">English</option>
+  <option value="zh_TW">Chinese (Taiwan)</option>
+  <option value="nl">Dutch</option>
+  <option value="fi_FI">Finnish</option>
+  <option value="fr">French</option>
+  <option value="de">German</option>
+  <option value="el">Greek</option>
+  <option value="id">Indonesian</option>
+  <option value="it">Italian</option>
+  <option value="ko">Korean</option>
+  <option value="fa">Persian</option>
+  <option value="pt_BR">Portuguese</option>
+  <option value="ro">Romanian</option>
+  <option value="ru">Russian</option>
+  <option value="sl">Slovenian</option>
+  <option value="es">Spanish</option>
+  <option value="th">Thai</option>
+  <option value="tr">Turkish</option>
+  <option value="uk">Ukrainian</option>
+  <option value="vi">Vietnamese</option>
+</select>
+</form>
+        </div>
+      </div>
+    <div class="body col-md-9 content" role="main">
+      
+
+  <section id="calculating-line-lengths-and-statistics-qgis3">
+<h1>Calcular Longitudes y Estadísticas de Línea (QGIS3)<a class="headerlink" href="#calculating-line-lengths-and-statistics-qgis3" title="Enlazar permanentemente con este título">¶</a></h1>
+<p>QGIS tiene funciones y algoritmos incorporados para calcular varias propiedades basadas en la geometría de la entidad - tales como longitud, área, perímetro, etc. Este tutorial mostrará como usar la herramienta <strong>Agregar atributos de geometría</strong> para agregar una columna con un valor que represente la longitud de cada objeto espacial.</p>
+<section id="overview-of-the-task">
+<h2>Vista general de la tarea<a class="headerlink" href="#overview-of-the-task" title="Enlazar permanentemente con este título">¶</a></h2>
+<p>Dada una capa polilínea de ferrocarriles en Norte América, determinaremos la longitud total de los ferrocarriles en los Estados Unidos.</p>
+<section id="other-skills-you-will-learn">
+<h3>Otras habilidades que aprenderá<a class="headerlink" href="#other-skills-you-will-learn" title="Enlazar permanentemente con este título">¶</a></h3>
+<ul class="simple">
+<li><p>Usar expresiones para filtrar entidades</p></li>
+<li><p>Usar el panel <span class="guilabel">Estadísticas</span> para calcular y ver las estadísticas de columnas.</p></li>
+</ul>
+</section>
+</section>
+<section id="get-the-data">
+<h2>Obtener los datos<a class="headerlink" href="#get-the-data" title="Enlazar permanentemente con este título">¶</a></h2>
+<p><a class="reference external" href="http://www.naturalearthdata.com/downloads/10m-cultural-vectors/railroads/">Natural Earth</a> tiene un conjunto de datos de ferrocarriles de dominio público.</p>
+<p>Descargue el archivo zip <a class="reference external" href="http://www.naturalearthdata.com/http//www.naturalearthdata.com/download/10m/cultural/ne_10m_railroads_north_america.zip">Norte America suplemento</a> del portal.</p>
+<p>Para su comodidad, puede descargar directamente una copia del conjunto de datos del enlace abajo:</p>
+<p><a class="reference external" href="https://www.qgistutorials.com/downloads/ne_10m_railroads_north_america.zip">ne_10m_railroads_north_america..zip</a></p>
+<p>Fuente de Datos <a class="reference internal" href="../credits.html#naturalearth" id="id1"><span>[NATURALEARTH]</span></a></p>
+</section>
+<section id="procedure">
+<h2>Procedimiento<a class="headerlink" href="#procedure" title="Enlazar permanentemente con este título">¶</a></h2>
+<ol class="arabic simple">
+<li><p>Ubique el archivo descargado <code class="docutils literal notranslate"><span class="pre">ne_10m_railroads_north_america.zip</span></code> en el panel <span class="guilabel">Explorador</span> y expándalo. Arrastre el archivo <code class="docutils literal notranslate"><span class="pre">ne_10m_railroads_north_america.shp</span></code> a la pantalla.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/129.png" class="align-center" src="../../_images/129.png" />
+</div></blockquote>
+<ol class="arabic simple" start="2">
+<li><p>Verá una nueva capa <code class="docutils literal notranslate"><span class="pre">ne_10m_railroads_north_america</span></code> cargada en el panel <span class="guilabel">Capas</span>. Verá que la capa tiene líneas que representan ferrocarriles para toda Norte América. Ahora, calculemos las longitudes de cada entidad línea. Vaya a <span class="menuselection">Procesamiento ‣ Caja de herramientas</span>.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/220.png" class="align-center" src="../../_images/220.png" />
+</div></blockquote>
+<ol class="arabic simple" start="3">
+<li><p>Busque y localice el algoritmo <span class="menuselection">Geometría vector ‣ Agregar atributos de geometría</span>. Doble clic para ejecutarlo.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/317.png" class="align-center" src="../../_images/317.png" />
+</div></blockquote>
+<ol class="arabic simple" start="4">
+<li><p>En el diálogo <span class="guilabel">Agregar Atributos de Geometría</span>, seleccione <code class="docutils literal notranslate"><span class="pre">ne_10m_railroads_north_america</span></code> como la <span class="guilabel">Capa de entrada</span>. El Sistema de Referencia de Coordenada (SRC) de la capa de entrada es <em>EPSG:4326 WGS84</em>. Este es un SRC <em>Geográfico</em> con Latitud y Longitud como coordenadas, WGS84 como elipsoide y grados como unidades. Debido a que latitud y longitud no tiene una longitud estándar, no podemos medir distancias o áreas de forma precisa usando funciones de geometría planar. Afortunadamente, QGIS provee una mejor forma para calcular distancias usando geometría elipsoidal, que el es método más exacto para capas que se extienden grandes áreas como ésta. Elija <code class="docutils literal notranslate"><span class="pre">Elipsoidal</span></code> como la opción   <span class="guilabel">Calcular usando</span>. Clic en <span class="guilabel">Ejecutar</span>. Una vez que termine el proceso, clic en <span class="guilabel">Cerrar</span>.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/46.png" class="align-center" src="../../_images/46.png" />
+</div></blockquote>
+<div class="admonition note">
+<p class="admonition-title">Nota</p>
+<p>Si su capa de entrada está en una <em>SRC Proyectada</em>, puede elegir la opción <code class="docutils literal notranslate"><span class="pre">SRC</span> <span class="pre">de</span> <span class="pre">Capa</span></code> para el cálculo. Sistemas de coordenadas proyectadas Local o Regional están diseñadas para minimizar las distorsiones sobre la región de interés, por lo que son más exactas para tal cálculo.</p>
+</div>
+<ol class="arabic simple" start="5">
+<li><p>Verá una nueva capa <code class="docutils literal notranslate"><span class="pre">Added</span> <span class="pre">geom</span> <span class="pre">info</span></code> cargada en el panel <span class="guilabel">Capas</span>. Esta es una copia de la capa de entrada con una nueva columna agregada para distancia. Clic-derecho en la capa <code class="docutils literal notranslate"><span class="pre">Added</span> <span class="pre">geom</span> <span class="pre">info</span></code> y seleccione <span class="guilabel">Abrir Tabla de Atributos</span>.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/56.png" class="align-center" src="../../_images/56.png" />
+</div></blockquote>
+<div class="admonition note">
+<p class="admonition-title">Nota</p>
+<p>La herramienta <em>Agregar Atributo de Geometría</em> agrega un conjunto diferente de atributos dependiendo si la capa de entrada es puntos, líneas o polígonos. Vea <a class="reference external" href="https://docs.qgis.org/testing/en/docs/user_manual/processing_algs/qgis/vectorgeometry.html#add-geometry-attributes">Documentación QGIS</a> para más detalles.</p>
+</div>
+<ol class="arabic simple" start="6">
+<li><p>En la <span class="guilabel">Tabla de Atributos</span>, verá una nueva columna llamada <strong>distance</strong>. Esta contiene la longitud de cada objeto espacial línea en <em>metros</em>. También note que el atributo <strong>sov_a3</strong> que contiene el código de país para cada objeto espacial. Cierre la ventana <span class="guilabel">Tabla de Atributos</span>.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/66.png" class="align-center" src="../../_images/66.png" />
+</div></blockquote>
+<ol class="arabic simple" start="7">
+<li><p>Ahora que tenemos longitudes de segmentos de línea individuales de ferrocarril, podemos sumarlos entre ellos para encontrar la longitud total de los ferrocarrilles. Pero como el enunciado del problema demanda necesitamos la longitud total de ferrocarril en los Estados Unidos, sólo debemos usar los segmentos contenidos dentro de EE.UU. Podemos usar el valor de código de país en la columna <strong>sov_a3</strong> para filtrar la capa. Clic-derecho en la capa <code class="docutils literal notranslate"><span class="pre">Added</span> <span class="pre">geom</span> <span class="pre">info</span></code> y seleccione <span class="guilabel">Filtro</span>.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/76.png" class="align-center" src="../../_images/76.png" />
+</div></blockquote>
+<ol class="arabic simple" start="8">
+<li><p>En el diálogo <span class="guilabel">Constructor de Consulta</span>, ingrese la siguiente expresión y clic <span class="guilabel">Aceptar</span>.</p></li>
+</ol>
+<blockquote>
+<div><div class="highlight-none notranslate"><div class="highlight"><pre><span></span>&quot;sov_a3&quot; = &#39;USA&#39;
+</pre></div>
+</div>
+<img alt="../../_images/86.png" class="align-center" src="../../_images/86.png" />
+</div></blockquote>
+<ol class="arabic simple" start="9">
+<li><p>Verá un ícono <span class="guilabel">Filtro</span> aparecer junto a la capa <code class="docutils literal notranslate"><span class="pre">Added</span> <span class="pre">geom</span> <span class="pre">info</span></code> en el panel <span class="guilabel">Capas</span> indicando que un filtro es aplicado a la capa. Puede también confirmar visualmente que la capa contiene ahora segmentos de línea sólo para los Estados Unidos. Ahora estamos listos para calcular la suma. Clic en el botón <span class="guilabel">Mostrar resumen estadístico</span> en la <span class="guilabel">Barra de Herramientas de Atributos</span>.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/96.png" class="align-center" src="../../_images/96.png" />
+</div></blockquote>
+<ol class="arabic simple" start="10">
+<li><p>Se abrirá un nuevo panel <span class="guilabel">Estadísticas</span>. Seleccione la capa <code class="docutils literal notranslate"><span class="pre">Added</span> <span class="pre">geom</span> <span class="pre">info</span></code> y la columna <code class="docutils literal notranslate"><span class="pre">length</span></code>.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/109.png" class="align-center" src="../../_images/109.png" />
+</div></blockquote>
+<ol class="arabic simple" start="11">
+<li><p>Verá varias estadísticas mostradas en el panel. La unidad de las estadísticas es la misma que las unidad de la columna <code class="docutils literal notranslate"><span class="pre">length</span></code> - <strong>metros</strong>. Cambiemos el cálculo para usar en vez <strong>kilómetros</strong>. Clic en el ícono <span class="guilabel">Expresión</span> junto a al menú desplegable en el panel <span class="guilabel">Estadísticas</span>.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/1112.png" class="align-center" src="../../_images/1112.png" />
+</div></blockquote>
+<ol class="arabic simple" start="12">
+<li><p>Ingrese la siguiente expresión en el <span class="guilabel">Diálogo de Expresión</span> que convierte la longitud a kilómetros.</p></li>
+</ol>
+<blockquote>
+<div><div class="highlight-none notranslate"><div class="highlight"><pre><span></span>length / 1000
+</pre></div>
+</div>
+<img alt="../../_images/1210.png" class="align-center" src="../../_images/1210.png" />
+</div></blockquote>
+<ol class="arabic simple" start="13">
+<li><p>El valor <span class="guilabel">Suma</span> mostrado es la longitud total de los ferrocarriles en EE.UU.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/138.png" class="align-center" src="../../_images/138.png" />
+</div></blockquote>
+</section>
+</section>
+
+
+
+
+
+  <div id="disqus_thread"></div>
+  <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+
+    </div>
+      
+  </div>
+</div>
+
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+    </p>
+    <p>
+        &copy; Copyright 2021, Ujaval Gandhi.<br/>
+      Actualizado por última vez en ago. 30, 2022.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 4.0.1.<br/>
+    </p>
+  </div>
+</footer>
+<div class="container">
+  <p>This work is licensed under a <a href="http://creativecommons.org/licenses/by/4.0/deed.en_US">Creative Commons Attribution 4.0 International License</a></p>
+</div>
+<!-- Twitter Button -->
+<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+
+<!-- Disqus comments widget -->
+<script type="text/javascript">
+  /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+  var disqus_shortname = 'qgistutorials'; // required: replace example with your forum shortname
+  /* * * DON'T EDIT BELOW THIS LINE * * */
+  (function () {
+    var s = document.createElement('script'); s.async = true;
+    s.type = 'text/javascript';
+    s.src = '//' + disqus_shortname + '.disqus.com/count.js';
+    (document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);
+  }());
+</script>
+
+<script type="text/javascript">
+  /* * * DON'T EDIT BELOW THIS LINE * * */
+  (function() {
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+
+<!-- Script fpr language switching. Largely adapted from https://github.com/pcav/faunalia-website -->
+<script>
+    var currentPage = 'docs/3/calculating_line_lengths.html'; // coming from sphinx, always without starting '/'
+    var currentLang = 'en';
+    $(document).ready(function(){
+
+        var search = new RegExp('\/[a-zA-Z_]{2,8}\/'+ currentPage, 'gi');
+        var langPlusPage = window.location.href.match(search);
+        // it's possible this is a index.html page called without 'index.html', try without the currentPage
+        if (langPlusPage==undefined){
+            search = new RegExp('\/[a-zA-Z_]{2,8}\/$', 'gi');
+            langPlusPage = window.location.href.match(search);
+        }
+
+        // it's possible this is an index.html page called without 'index.html', try removing index.html
+        if (langPlusPage==undefined){
+            currentPage = currentPage.replace('index.html','')
+            search = new RegExp('\/[a-zA-Z_]{2,8}\/'+ currentPage, 'gi');
+            langPlusPage = window.location.href.match(search);
+        }
+        // still no langPlugPage: stop, because the language swicher will misbehave 
+
+        if (langPlusPage == undefined || langPlusPage.length != 1){
+            alert('You hit an error, please report back to us.');
+            return;
+        }
+        langPlusPage = langPlusPage[0];
+        currentLang = langPlusPage.replace(currentPage, '');
+
+        $("#languages").val(currentLang.replace(/\//g,'')); // currentLang is something like '/nl/'
+
+        $("#languages").change(function() {
+            gotoLang($(this).val());
+        });
+
+    });
+
+    // load current page in a different language
+    function gotoLang(lang){
+        var currentUrl = window.location.href;
+        var newUrl = currentUrl.replace(currentLang, '/'+lang+'/');
+        window.location.href = newUrl;
+    }
+</script>
+
+  </body>
+</html>

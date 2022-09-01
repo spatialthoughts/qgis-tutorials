@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+
+<html lang="it">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>Realizzare mappe web leaflet con qgis2leaf &#8212; QGIS Tutorials and Tips</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/bootstrap-sphinx.css" />
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/translations.js"></script>
+    <link rel="search" title="Cerca" href="../search.html" />
+
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<script type="text/javascript" src="../_static/js/jquery-1.11.0.min.js "></script>
+<script type="text/javascript" src="../_static/js/jquery-fix.js "></script>
+<script type="text/javascript" src="../_static/bootstrap-3.3.7/js/bootstrap.min.js "></script>
+<script type="text/javascript" src="../_static/bootstrap-sphinx.js "></script>
+
+
+<!-- Cookie Notice -->
+<!-- Script from https://github.com/AOEpeople/cookie-notice -->
+<script type="text/javascript" src="../_static/cookie.notice.min.js"></script>
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-B1WQ7B80XJ"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-B1WQ7B80XJ');
+</script>
+
+
+  </head><body>
+
+  <div id="navbar" class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="../index.html"><span><img src="../_static/logo.png"></span>
+          QGIS Tutorials and Tips</a>
+        <span class="navbar-text navbar-version pull-left"><b>v1</b></span>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="../index.html">Tutorials List <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"><ul>
+<li class="toctree-l1"><a class="reference internal" href="introduction.html">Introduzione</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/making_a_map.html">Creazione di una stampa (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/working_with_attributes.html">Lavorare con gli Attributi (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/importing_spreadsheets_csv.html">Importare fogli elettronici o file CSV (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/basic_vector_styling.html">Tematizzare i dati vettoriali (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/calculating_line_lengths.html">Calcolare la Lunghezza Lineare e le Statistiche (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/raster_styling_and_analysis.html">Tematizzazione ed analisi di RASTER (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/raster_mosaicing_and_clipping.html">Mosaici e operazioni di ritaglio con i layer raster (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/working_with_terrain.html">Working with Terrain Data (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/working_with_wms.html">Working with WMS Data (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/working_with_projections.html">Working with Projections (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/georeferencing_basics.html">Georeferenziazione carte topografiche e mappe scannerizzate (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/advanced_georeferencing.html">Georeferencing Aerial Imagery (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/digitizing_basics.html">Digitizing Map Data (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/performing_table_joins.html">Realizzare unioni tabellari (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/performing_spatial_joins.html">Realizzare unioni spaziali (Spatial Joins)  (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/performing_spatial_queries.html">Utilizzare le interrogazioni spaziali (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/nearest_neighbor_analysis.html">Nearest Neighbor Analysis (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/sampling_raster_data.html">Campionare i dati di un raster usando punti o poligoni (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/calculating_raster_area.html">Calculating Raster Area (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/creating_heatmaps.html">Realizzare Heatmaps (mappe di concentrazione)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/animating_time_series.html">Animating Time Series Data (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/handling_invalid_geometries.html">Handling Invalid Geometries (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/advanced_raster_analysis.html">Advanced Raster Analysis (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/interpolating_point_data.html">Interpolating Point Data (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/calculating_intersection_density.html">Calculating Street Intersection Density (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/batch_processing.html">Batch Processing using Processing Framework (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/processing_graphical_modeler.html">Automating Complex Workflows using Processing Modeler (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/automating_map_creation.html">Automating Map Creation with Print Layout Atlas (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/multi_criteria_overlay.html">Multi Criteria Overlay Analysis (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/basic_network_analysis.html">Basic Network Visualization and Routing (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/origin_destination_matrix.html">Locating Nearest Facility with Origin-Destination Matrix (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/service_area_analysis.html">Service Area Analysis using Openrouteservice (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/travel_time_analysis.html">Travel Time Analysis with Uber Movement (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/areal_mean_rainfall.html">Calculating Areal Mean Rainfall (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/getting_started_with_pyqgis.html">Getting Started With Python Programming (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/processing_algorithms_pyqgis.html">Running Processing Algorithms via Python (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/custom_python_functions.html">Using Custom Python Expression Functions (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/processing_python_scripts.html">Writing Python Scripts for Processing Framework (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/building_a_python_plugin.html">Building a Python Plugin (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/processing_python_plugin.html">Building a Processing Plugin (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="running_qgis_jobs.html">Running and Scheduling QGIS Processing Jobs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/web_mapping_with_qgis2web.html">Web Mapping with QGIS2Web (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="creating_basemaps_with_qtiles.html">Creating Basemaps with QTiles</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/using_plugins.html">Using Plugins (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="downloading_osm_data.html">Cercare e scaricare i dati di OpenStreetMap</a></li>
+<li class="toctree-l1"><a class="reference internal" href="learning_resources.html">Risorse disponibili per l’apprendimento di QGIS</a></li>
+<li class="toctree-l1"><a class="reference internal" href="credits.html">Fonti dei dati</a></li>
+<li class="toctree-l1"><a class="reference internal" href="batch_processing.html">Batch Processing using Processing Framework (QGIS2)</a></li>
+</ul>
+</ul>
+</li>
+              
+            
+            
+              
+                
+              
+            
+            
+
+            
+
+            
+              <li class="hidden-sm"></li>
+            
+          </ul>
+
+          
+            
+<form class="navbar-form navbar-right" action="../search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+      <div class="col-md-3">
+        <div id="sidebar" class="bs-sidenav" role="complementary"><h4>Author</h4>
+<p>Ujaval Gandhi</p>
+<a href="https://twitter.com/intent/follow?screen_name=spatialthoughts" class="twitter-follow-button" data-show-count="false">Follow @spatialthoughts</a>
+<hr>
+<p>Want to learn QGIS in a structured way? Check out <a href="https://spatialthoughts.com/" target="_blank">Spatial Thoughts</a> for more learning materials and instructor-led online programs with QGIS.org certification.</p>
+
+
+<h4>Change Language</h4>
+<form role="form" class="sidebar-form sidebar-left">
+<select id="languages" class="form-control select-mini">
+  <option value="en">English</option>
+  <option value="zh_TW">Chinese (Taiwan)</option>
+  <option value="nl">Dutch</option>
+  <option value="fi_FI">Finnish</option>
+  <option value="fr">French</option>
+  <option value="de">German</option>
+  <option value="el">Greek</option>
+  <option value="id">Indonesian</option>
+  <option value="it">Italian</option>
+  <option value="ko">Korean</option>
+  <option value="fa">Persian</option>
+  <option value="pt_BR">Portuguese</option>
+  <option value="ro">Romanian</option>
+  <option value="ru">Russian</option>
+  <option value="sl">Slovenian</option>
+  <option value="es">Spanish</option>
+  <option value="th">Thai</option>
+  <option value="tr">Turkish</option>
+  <option value="uk">Ukrainian</option>
+  <option value="vi">Vietnamese</option>
+</select>
+</form>
+        </div>
+      </div>
+    <div class="body col-md-9 content" role="main">
+      
+
+  <section id="leaflet-web-maps-with-qgis2leaf">
+<h1>Realizzare mappe web leaflet con qgis2leaf<a class="headerlink" href="#leaflet-web-maps-with-qgis2leaf" title="Link a questa intestazione">¶</a></h1>
+<div class="admonition warning">
+<p class="admonition-title">Avvertimento</p>
+<p>Il plugin qgis2leaf non è più in sviluppo attivo. La funzionalità di questo plugin è trasferita su un nuovo plugin chiamato <strong>qgis2web</strong>.</p>
+<p>Vedete il tutorial <a class="reference internal" href="web_mapping_with_qgis2web.html"><span class="doc">Web Mapping with QGIS2Web</span></a> per una versione aggiornata di questo tutorial.</p>
+</div>
+<p>Leaflet è una celebre libreria di Javascript  open-source idati per realizzare applicazioni di mapping su web. Il plugin <strong>qgis2leaf</strong> ci offre un semplice strumento per esportare la vostra mappa QGIS e trasformarla in una mappa web basata su Leaflet. Questo plugin è uno strumento efficace sia per iniziare a lavorare con il web mapping sia per creare una mappa web interattiva a partire da Layer GIS di tipo statico.</p>
+<section id="overview-of-the-task">
+<h2>Descrizione dell’esercizio<a class="headerlink" href="#overview-of-the-task" title="Link a questa intestazione">¶</a></h2>
+<p>Creeremo una web map leaflet degli areoporti presenti sul pianeta.</p>
+<section id="other-skills-you-will-learn">
+<h3>Altri aspetti che avremo modo di apprendere nel corso dell’esercitazione.<a class="headerlink" href="#other-skills-you-will-learn" title="Link a questa intestazione">¶</a></h3>
+<ul class="simple">
+<li><p>Usare il comando <code class="docutils literal notranslate"><span class="pre">CASE</span></code>  SQL nel Calcolatore Campi per creare un nuovo campo di attributi basato su condizioni differenti.</p></li>
+<li><p>Trovare e usare le icone SVG in QGIS.</p></li>
+</ul>
+</section>
+</section>
+<section id="get-the-data">
+<h2>Ottenere i dati necessari<a class="headerlink" href="#get-the-data" title="Link a questa intestazione">¶</a></h2>
+<p>Useremo il dataset   <a class="reference external" href="http://www.naturalearthdata.com/downloads/10m-cultural-vectors/airports/">Airports</a> da Natural Earth.</p>
+<p>Scaricate lo shapefile <a class="reference external" href="http://www.naturalearthdata.com/http//www.naturalearthdata.com/download/10m/cultural/ne_10m_airports.zip">Airports</a>.</p>
+<p>Fonte Dati  <a class="reference internal" href="credits.html#naturalearth" id="id1"><span>[NATURALEARTH]</span></a></p>
+</section>
+<section id="procedure">
+<h2>Procedimento<a class="headerlink" href="#procedure" title="Link a questa intestazione">¶</a></h2>
+<ol class="arabic simple">
+<li><p>Installiamo il plugin <code class="docutils literal notranslate"><span class="pre">qgis2leaf</span></code> andando su <span class="menuselection">Plugins ‣ Istalla e gestisci Plugin</span>.  Tenete conto del fatto che questo plugin è attualmente classificato come <strong>sperimentale</strong>,  quindi la casella che corrisponde alla voce <span class="guilabel">Mostra anche plugin sperimentali</span>  dovrà essere spuntata. (Vedi <a class="reference internal" href="using_plugins.html"><span class="doc">Usare i Plugins</span></a>  per maggiori dettagli sull’installazione dei plugin in QGIS).</p></li>
+</ol>
+<img alt="../_images/1178.png" class="align-center" src="../_images/1178.png" />
+<ol class="arabic simple" start="2">
+<li><p>Estraete il file appena scaricato <code class="docutils literal notranslate"><span class="pre">ne_10m_airports.zip</span></code>. Aprite QGIS e andate su <span class="menuselection">Layer ‣ Aggiungi Vettore…</span> Individuate la cartella in cui i file sono stati decompressi e selezionate <code class="docutils literal notranslate"><span class="pre">ne_10m_airports.shp</span></code>. Fate click su <span class="guilabel">OK</span>.</p></li>
+</ol>
+<img alt="../_images/2144.png" class="align-center" src="../_images/2144.png" />
+<ol class="arabic simple" start="3">
+<li><p>Una volta che il file <code class="docutils literal notranslate"><span class="pre">ne_10m_airports</span></code> è stato caricato, utilizziamo lo strumento <span class="guilabel">Informazioni elemento</span> per fare qualche click sugli elementi puntuali e dare un primo sguardo agli attributi. Creeremo una mappa in cui suddivideremo gli aeroporti in tre categorie principali. L’attributo <code class="docutils literal notranslate"><span class="pre">type</span></code> ci sarà prezioso proprio quando andremo a suddividere gli aeroporti in diverse categorie.</p></li>
+</ol>
+<img alt="../_images/377.png" class="align-center" src="../_images/377.png" />
+<ol class="arabic simple" start="4">
+<li><p>Tasto destro sul layer <code class="docutils literal notranslate"><span class="pre">ne_10m_airports</span></code>  e selezionate <span class="guilabel">Opri Tabella Attributi</span>.</p></li>
+</ol>
+<img alt="../_images/452.png" class="align-center" src="../_images/452.png" />
+<ol class="arabic simple" start="5">
+<li><p>Nella finestra della tabella degli attributi fate click sul pulsante  <span class="guilabel">Modalità di Modifica</span>  e quindi sul pulsante <span class="guilabel">Apri il calcolatore dei campi</span> .</p></li>
+</ol>
+<img alt="../_images/548.png" class="align-center" src="../_images/548.png" />
+<ol class="arabic simple" start="6">
+<li><p>Ciò che intendiamo fare, adesso, è creare un nuovo attributo che chiameremo <code class="docutils literal notranslate"><span class="pre">type_code</span></code>. In tale attributo assegneremo valore 3 agli aeroporti più grandi, 2 a quelli di medie dimensioni e 1 a tutti gli altri. Utilizzeremo la clausola di selezione  <em>CASE</em> e scriveremo un’espressione che esaminerà i valori dell’attributo <code class="docutils literal notranslate"><span class="pre">type</span></code> e creerà un nuovo attributo <code class="docutils literal notranslate"><span class="pre">type_code</span></code> basato sulla condizione inserita nell’espressione. Spuntate la casella  <span class="guilabel">Crea un nuovo campo</span> e inserite  <a href="#id1"><span class="problematic" id="id2">``</span></a>type_code` come <span class="guilabel">Nome campo in output</span>. Selezionate <span class="guilabel">Numero Intero (integer)</span> alla corrispondente voce <span class="guilabel">Tipo campo in output</span>. Dentro la finestra chiamata <span class="guilabel">Espressione</span> inserite il codice seguente</p></li>
+</ol>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>CASE  WHEN &quot;type&quot; LIKE &#39;%major%&#39;  THEN 3
+ WHEN &quot;type&quot; LIKE &#39;%mid%&#39; THEN 2
+ ELSE 1
+END
+</pre></div>
+</div>
+<img alt="../_images/646.png" class="align-center" src="../_images/646.png" />
+<ol class="arabic simple" start="7">
+<li><p>Torniamo nella finestra della :guilabel:` Tabella Attributi` e vedrete la nuova colonna che si è aggiunta in fondo alla tabella.  Verificate che la nostra espressione abbia lavorato in modo corretto e quindi fate premete il pulsante  <span class="guilabel">Modalità Modifica</span> per salvare i cambiamenti appena realizzati.</p></li>
+</ol>
+<img alt="../_images/745.png" class="align-center" src="../_images/745.png" />
+<ol class="arabic simple" start="8">
+<li><p>Adesso possiamo finalmente tematizzare in modo significativo il layer degli areoporti usando il nuovo attributo chiamato  <code class="docutils literal notranslate"><span class="pre">type_code</span></code> . Fare click con il tasto destro sul layer <code class="docutils literal notranslate"><span class="pre">ne_10m_airports</span></code> e selezionate <span class="guilabel">Proprietà</span>.</p></li>
+</ol>
+<img alt="../_images/844.png" class="align-center" src="../_images/844.png" />
+<ol class="arabic simple" start="9">
+<li><p>Selezionate nel layer la scheda <span class="guilabel">Stile</span>  nella finestra di dialogo <span class="guilabel">Proprietà</span> . Selezionate lo stile <span class="guilabel">Categorizzato</span> dal menu a discesa e scegliete <code class="docutils literal notranslate"><span class="pre">type_code</span></code> come <span class="guilabel">Colonna</span>. Scegliete una scala di colore a vostra scelta e fate click su <span class="guilabel">Classifica</span>. Ora fate click su <span class="guilabel">OK</span>  per tornare alla finestra principale di QGIS.</p></li>
+</ol>
+<img alt="../_images/944.png" class="align-center" src="../_images/944.png" />
+<ol class="arabic simple" start="10">
+<li><p>A questo punto, vedrete una mappa degli aeroporti ben tematizzata. Ora esportiamo questa mappa in una finestra interattiva che potrebbe essere presente su web. Andiamo su <span class="menuselection">Web ‣ qgis2leaf ‣ Exports a QGIS Project to a working leaflet webmap</span>.</p></li>
+</ol>
+<img alt="../_images/1051.png" class="align-center" src="../_images/1051.png" />
+<ol class="arabic simple" start="11">
+<li><p>Nella finestra di dialogo di <span class="guilabel">QGIS 2 Leaflet</span>  fate click su <span class="guilabel">Get Layers</span>  per avere la lista dei layer. Selezionate l’opzione Full screen per avere una mappa web a schermo intero. Scegliete layer extent come Extent della mappa da esportare. Scegliete sul vostro sistema una cartella per la cartella di output su cui il plugin andrà a scrivere i file di output. Click su <span class="guilabel">OK</span>.</p></li>
+</ol>
+<img alt="../_images/1179.png" class="align-center" src="../_images/1179.png" />
+<ol class="arabic simple" start="12">
+<li><p>Terminato il processo di esportazione, andate sulla cartella in cui avete indirizzato il processo di output. Aprite il file <code class="docutils literal notranslate"><span class="pre">index.html</span></code> in un browser. Vedrete una mappa web interattiva che è una replica della mappa di QGIS. Potete effettuare operazioni di zoom e di pan intorno alla mappa e, facendo click sugli elementi, otterrete una finestra di popup con una serie di informazioni riguardanti l’aeroporto su cui avete fatti click. Per avere una vera web map sarà sufficiente copiare il contenuto di questa cartella su un web server.</p></li>
+</ol>
+<img alt="../_images/1253.png" class="align-center" src="../_images/1253.png" />
+<ol class="arabic simple" start="13">
+<li><p>Ora esamineremo alcune funzioni avanzate di questo plugin che vi permetteranno di personalizzare la mappa. Per esempio, alcuni attributi non sono molto utili e le finestre di popup nell’insieme sono piuttosto brutte. Possiamo modificare il popup di default con del nostro codice HTML per renderlo molto più attraente. Questo risultato si ottiene aggiungendo il nostro codice HTML in una colonna chiamata <code class="docutils literal notranslate"><span class="pre">html_exp</span></code>. . Fate click con il tasto destro sul layer <code class="docutils literal notranslate"><span class="pre">ne_10m_airports</span></code> e selezionate <span class="guilabel">Apri Tabella Attributi</span>.</p></li>
+</ol>
+<img alt="../_images/1351.png" class="align-center" src="../_images/1351.png" />
+<ol class="arabic simple" start="14">
+<li><p>Nella finestra della tabella degli attributi fate click sul pulsante  <span class="guilabel">Modalità di Modifica</span>  e quindi sul pulsante <span class="guilabel">Apri il calcolatore dei campi</span> .</p></li>
+</ol>
+<img alt="../_images/1447.png" class="align-center" src="../_images/1447.png" />
+<ol class="arabic simple" start="15">
+<li><p>Spuntate la casella <span class="guilabel">Crea un nuovo campo</span> e digitate <code class="docutils literal notranslate"><span class="pre">html_exp</span></code> come <span class="guilabel">Nome campo in output</span>. Scegliete <span class="guilabel">Testo (stringa)</span>  alla voce  <span class="guilabel">Tipo campo in output</span>. Dal momento che creeremo una stringa HTML piuttosto lunga, scegliete  <code class="docutils literal notranslate"><span class="pre">200</span></code> come  <span class="guilabel">larghezza campo in output</span>. Inserite l’espressione di seguito nello spazio <span class="guilabel">Espressione</span>. L’espressione è complessa solo in apparenza, in realtà definisce una tabella HTMLe sostituisce le intestazioni delle celle <code class="docutils literal notranslate"><span class="pre">iata_code</span></code>, <code class="docutils literal notranslate"><span class="pre">name</span></code> e <code class="docutils literal notranslate"><span class="pre">type</span></code>. Controllate l”<span class="guilabel">anteprima</span>  in basso per assicurarvi che l’espressione abbia svolto il suo compito come  previsto.</p></li>
+</ol>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>concat(&#39;&lt;h3&gt;&#39;, &quot;iata_code&quot;, &#39;&lt;/h3&gt;&lt;table&gt;&#39;, &#39;&lt;tr&gt;&lt;td&gt;Airport Name: &lt;b&gt; &#39;,
+&quot;name&quot;, &#39;&lt;/b&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;Category: &lt;b&gt; &#39;, &quot;type&quot;,
+&#39;&lt;/b&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&#39;)
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Nota</p>
+<p>Il formato shapefile può contenere un massimo di 254 caratteri in un campo. Se volete immagazzinare quantitativi di dati maggiori dovete scegliere un diverso formato.</p>
+</div>
+<img alt="../_images/1545.png" class="align-center" src="../_images/1545.png" />
+<ol class="arabic simple" start="16">
+<li><p>Torniamo nella finestra della :guilabel:` Tabella Attributi` e vedrete la nuova colonna che si è aggiunta in fondo alla tabella.  Verificate che la nostra espressione abbia lavorato in modo corretto e quindi fate premete il pulsante  <span class="guilabel">Modalità Modifica</span> per salvare i cambiamenti appena realizzati.</p></li>
+</ol>
+<img alt="../_images/1642.png" class="align-center" src="../_images/1642.png" />
+<ol class="arabic simple" start="17">
+<li><p>Adesso esportiamo la mappa di nuovo, usando <span class="menuselection">Web ‣ qgis2leaf ‣ Exports a QGIS Project to a working leaflet webmap</span>.</p></li>
+</ol>
+<img alt="../_images/1738.png" class="align-center" src="../_images/1738.png" />
+<ol class="arabic simple" start="18">
+<li><p>Impostate le opzioni esattamente come avete fatto sopra.</p></li>
+</ol>
+<img alt="../_images/1836.png" class="align-center" src="../_images/1836.png" />
+<ol class="arabic simple" start="19">
+<li><p>Quando il processo sarà concluso, andate nella cartella in cui avete indirizzato l’output. Troverete una sottocartella che ha come nome la data e l’ora in cui è stato lanciato il processo. Trovate al suo interno il file <code class="docutils literal notranslate"><span class="pre">index.html</span></code> e apritelo in un browser. Fate click su qualsiasi geometria e date un’occhiata alla nuova finestra di popup.</p></li>
+</ol>
+<img alt="../_images/1928.png" class="align-center" src="../_images/1928.png" />
+<ol class="arabic simple" start="20">
+<li><p>Un’altra caratteristica molto utile del plugin <code class="docutils literal notranslate"><span class="pre">qgis2leaf</span></code>  è la sua abilità nello specificare un’icona personalizzata da usare con la web map. Questo si ottiene specificando il path dell’icona in un campo chiamato <code class="docutils literal notranslate"><span class="pre">icon_exp</span></code>.. Creeremo un nuovo layer contenente solo gli areoporti classificati come principali e lo tematizzeremo usando un’icona SVG .scelta da noi. Individuate il pulsante <span class="guilabel">Select features using an expression</span> dalla barra degli strumenti.</p></li>
+</ol>
+<img alt="../_images/2023.png" class="align-center" src="../_images/2023.png" />
+<ol class="arabic simple" start="21">
+<li><p>Inserite l’espressione qui sotto e premete <span class="guilabel">Seleziona</span>  per selezionare tutti gli aereporti più grandi.</p></li>
+</ol>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>&quot;type_code&quot; = 3
+</pre></div>
+</div>
+<img alt="../_images/2145.png" class="align-center" src="../_images/2145.png" />
+<ol class="arabic simple" start="22">
+<li><p>Click con il tasto destro sul layer del file <code class="docutils literal notranslate"><span class="pre">ne_10m_airports</span></code> e selezionate <span class="guilabel">Salva Selezione con Nome…</span>.</p></li>
+</ol>
+<img alt="../_images/2224.png" class="align-center" src="../_images/2224.png" />
+<ol class="arabic simple" start="23">
+<li><p>Nella finestra di dialogo  <span class="guilabel">Salva vettore con nome…</span>  chiamiamo il file di output con il nome di <code class="docutils literal notranslate"><span class="pre">major_airports.shp</span></code>.  Spuntate la casella <span class="guilabel">Aggiungi il file salvato sulla mappa</span> e fate click su <span class="guilabel">OK</span>.</p></li>
+</ol>
+<img alt="../_images/2322.png" class="align-center" src="../_images/2322.png" />
+<ol class="arabic simple" start="24">
+<li><p>Una volta che il layer  <code class="docutils literal notranslate"><span class="pre">major_airports</span></code>  è stato caricato in QGIS, fate click con il tasto destro e selezionate <span class="guilabel">Apri Tabella degli Attributi</span>.</p></li>
+</ol>
+<img alt="../_images/2422.png" class="align-center" src="../_images/2422.png" />
+<ol class="arabic simple" start="25">
+<li><p>Nella finestra della tabella degli attributi fate click sul pulsante  <span class="guilabel">Modalità di Modifica</span>  e quindi sul pulsante <span class="guilabel">Apri il calcolatore dei campi</span> .</p></li>
+</ol>
+<img alt="../_images/2519.png" class="align-center" src="../_images/2519.png" />
+<ol class="arabic simple" start="26">
+<li><p>Nella finestra del calcolatore campi, inserite  <code class="docutils literal notranslate"><span class="pre">icon_exp</span></code>  come <span class="guilabel">Output field name</span>. e definitelo come <span class="guilabel">Testo (stringa)</span>. Nell’area <span class="guilabel">Expression</span> inserite la seguente espressione</p></li>
+</ol>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>&#39;airport.svg&#39;
+</pre></div>
+</div>
+<img alt="../_images/2617.png" class="align-center" src="../_images/2617.png" />
+<ol class="arabic simple" start="27">
+<li><p>Save your edits by clicking the <span class="guilabel">Toggle Editing</span> button in the
+<span class="guilabel">Attribute Table</span>.</p></li>
+</ol>
+<img alt="../_images/2717.png" class="align-center" src="../_images/2717.png" />
+<ol class="arabic simple" start="28">
+<li><p>Aprite il  <code class="docutils literal notranslate"><span class="pre">qgis2leaf</span></code>  plugin da <span class="menuselection">Web ‣ qgis2leaf ‣ Exports a QGIS Project to a working leaflet webmap</span>.
+Fate click su <span class="guilabel">Get Layers</span>  per portare entrambi i layer da QGIS. Ci sono molti e diversi layer a disposizione, pre-costruiti che si usano agevolmente per le mappe di base. In questa mappa però stiamo facendo qualcosa di diverso e carichiamo lo <span class="guilabel">Stamen Watercolor</span>  come <span class="guilabel">Basemap</span>.. Click su <span class="guilabel">OK</span>.</p></li>
+</ol>
+<img alt="../_images/2815.png" class="align-center" src="../_images/2815.png" />
+<ol class="arabic simple" start="29">
+<li><p>Come ricorderete, abbiamo specificato il nome <code class="docutils literal notranslate"><span class="pre">airport.svg</span></code> per l’icona degli areoporti. E” necessario trasportare manualmente quell’icona nella directory in cui abbiamo inviato il nostro output. QGIS fornisce un’ampia collezione di icone. In ambiente Windows queste icone sono collocate nella cartella <span class="menuselection">C: ‣ OSGEO4W64 ‣ apps ‣ qgis ‣ svg</span>.Ma il percorso può essere diverso a seconda della vostra piattaforma e del tipo di installazione. Individuate la cartella e scegliete l’icona che preferite. Per la nostra mappa, possiamo usare l’icona <code class="docutils literal notranslate"><span class="pre">amenity=airport.svg</span></code> che si trova sotto la categoria <code class="docutils literal notranslate"><span class="pre">transport</span></code>.</p></li>
+</ol>
+<img alt="../_images/2914.png" class="align-center" src="../_images/2914.png" />
+<ol class="arabic simple" start="30">
+<li><p>Copiate l’immagine e incollatela nella cartella di output che avete specificato quando avete esportato la mappa. Rinominate l’immagine con il nome di``airport.svg``.</p></li>
+</ol>
+<img alt="../_images/3012.png" class="align-center" src="../_images/3012.png" />
+<ol class="arabic simple" start="31">
+<li><p>Ora aprite il file <code class="docutils literal notranslate"><span class="pre">index.html</span></code> che si trova nella cartella. Vedrete una bella mappa di base con le nostre icone ad indicare gli areoporti principali. Noterete anche che il pannello in alto a destra ha la possibilità di visualizzare entrambi i layer.</p></li>
+</ol>
+<img alt="../_images/3115.png" class="align-center" src="../_images/3115.png" />
+<p>Hope this tutorial gives you a head start in creating web maps. Below is the
+live interactive map created for this tutorial.</p>
+<div>
+<iframe
+src="http://spatialthoughts.github.io/qgis2leaf-maps/airports_with_custom_popup/"
+width="100%" height="600px"></iframe>
+</div></section>
+</section>
+
+
+
+
+
+  <div id="disqus_thread"></div>
+  <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+
+    </div>
+      
+  </div>
+</div>
+
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+    </p>
+    <p>
+        &copy; Copyright 2021, Ujaval Gandhi.<br/>
+      Ultimo aggiornamento ago 30, 2022.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 4.0.1.<br/>
+    </p>
+  </div>
+</footer>
+<div class="container">
+  <p>This work is licensed under a <a href="http://creativecommons.org/licenses/by/4.0/deed.en_US">Creative Commons Attribution 4.0 International License</a></p>
+</div>
+<!-- Twitter Button -->
+<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+
+<!-- Disqus comments widget -->
+<script type="text/javascript">
+  /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+  var disqus_shortname = 'qgistutorials'; // required: replace example with your forum shortname
+  /* * * DON'T EDIT BELOW THIS LINE * * */
+  (function () {
+    var s = document.createElement('script'); s.async = true;
+    s.type = 'text/javascript';
+    s.src = '//' + disqus_shortname + '.disqus.com/count.js';
+    (document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);
+  }());
+</script>
+
+<script type="text/javascript">
+  /* * * DON'T EDIT BELOW THIS LINE * * */
+  (function() {
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+
+<!-- Script fpr language switching. Largely adapted from https://github.com/pcav/faunalia-website -->
+<script>
+    var currentPage = 'docs/leaflet_maps_with_qgis2leaf.html'; // coming from sphinx, always without starting '/'
+    var currentLang = 'en';
+    $(document).ready(function(){
+
+        var search = new RegExp('\/[a-zA-Z_]{2,8}\/'+ currentPage, 'gi');
+        var langPlusPage = window.location.href.match(search);
+        // it's possible this is a index.html page called without 'index.html', try without the currentPage
+        if (langPlusPage==undefined){
+            search = new RegExp('\/[a-zA-Z_]{2,8}\/$', 'gi');
+            langPlusPage = window.location.href.match(search);
+        }
+
+        // it's possible this is an index.html page called without 'index.html', try removing index.html
+        if (langPlusPage==undefined){
+            currentPage = currentPage.replace('index.html','')
+            search = new RegExp('\/[a-zA-Z_]{2,8}\/'+ currentPage, 'gi');
+            langPlusPage = window.location.href.match(search);
+        }
+        // still no langPlugPage: stop, because the language swicher will misbehave 
+
+        if (langPlusPage == undefined || langPlusPage.length != 1){
+            alert('You hit an error, please report back to us.');
+            return;
+        }
+        langPlusPage = langPlusPage[0];
+        currentLang = langPlusPage.replace(currentPage, '');
+
+        $("#languages").val(currentLang.replace(/\//g,'')); // currentLang is something like '/nl/'
+
+        $("#languages").change(function() {
+            gotoLang($(this).val());
+        });
+
+    });
+
+    // load current page in a different language
+    function gotoLang(lang){
+        var currentUrl = window.location.href;
+        var newUrl = currentUrl.replace(currentLang, '/'+lang+'/');
+        window.location.href = newUrl;
+    }
+</script>
+
+  </body>
+</html>
