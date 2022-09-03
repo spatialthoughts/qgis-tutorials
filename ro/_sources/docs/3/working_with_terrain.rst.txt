@@ -96,7 +96,7 @@ Procedure
    at the coordinates 27.9881° N, 86.9253° E. Note that QGIS
    uses the coordinates in (X, Y) format, so you must use the coordinates as
    (Longitude, Latitude). Paste `86.9253,27.9881` these at the bottom of the QGIS
-   window where it says :guilabel:`Coordinate` and press Enter. The viewport will be
+   window where it says :guilabel:`Coordinate` and press Enter`. The viewport will be
    centered at this coordinate. To zoom in, Enter `1:1000000` in the :guilabel:`Scale` field
    and press Enter. You will see the viewport zoom to the area around the
    Himalayas.
@@ -135,7 +135,7 @@ Procedure
 .. image:: /static/3/working_with_terrain/images/15.png
    :align: center
 
-16.  In the :guilabel:`Contour` window, select ``mt_everest`` as :guilabel:`Input Layer`,  enter ``250`` in :guilabel:`Interval between contour lines`. Click ``...`` in :guilabel:`Contours` and enter the name as ``mt_everest_contour.gkpg``. Click :guilabel:`Run`.  
+16.  In the :guilabel:`Contour` window, select ``mt_everest`` as :guilabel:`Input Layer`,  enter ``250`` in :guilabel:`Interval between contour lines`. Click ``...`` in :guilabel:`Contours` and enter the name as ``mt_everest_contour.gpkg``. Click :guilabel:`Run`.  
 
 .. image:: /static/3/working_with_terrain/images/16.png
    :align: center
