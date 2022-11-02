@@ -122,7 +122,7 @@ Procedure
   .. image:: /static/3/raster_styling_and_analysis/images/17.png
     :align: center
     
-18. Complete the color-map with suitable values. I choose ``100``, ``1000`` and ``100000`` as the upper-bounds for the ``Neutral``, ``Growth`` and ``High Growth`` categories respectively. Assign colors to each of created categories, for example beige, orange and red.
+18. Complete the color-map with suitable values. I chose ``100``, ``1000`` and ``100000`` as the upper-bounds for the ``Neutral``, ``Growth`` and ``High Growth`` categories respectively. Assign colors to each of created categories, for example beige, orange and red.
 
   .. image:: /static/3/raster_styling_and_analysis/images/18.png
     :align: center
