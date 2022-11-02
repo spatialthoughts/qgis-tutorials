@@ -5,7 +5,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
-    <title>Working with Terrain Data (QGIS3) &#8212; QGIS Tutorials and Tips</title>
+    <title>Delo s podatki o reliefu (QGIS3) &#8212; QGIS Tutorials and Tips</title>
     <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-sphinx.css" />
     <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
@@ -14,7 +14,7 @@
     <script src="../../_static/doctools.js"></script>
     <script src="../../_static/translations.js"></script>
     <link rel="search" title="Išči" href="../../search.html" />
-    <link rel="next" title="Working with WMS Data (QGIS3)" href="working_with_wms.html" />
+    <link rel="next" title="Delo s podatki prek vmesnika WMS (QGIS3)" href="working_with_wms.html" />
     <link rel="prev" title="Raster Mosaicing and Clipping (QGIS3)" href="raster_mosaicing_and_clipping.html" />
 
 <meta charset='utf-8'>
@@ -79,14 +79,14 @@
 <li class="toctree-l1"><a class="reference internal" href="calculating_line_lengths.html">Calculating Line Lengths and Statistics (QGIS3)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="raster_styling_and_analysis.html">Osnovne analize in prikazi rastrov (QGIS3)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="raster_mosaicing_and_clipping.html">Raster Mosaicing and Clipping (QGIS3)</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Working with Terrain Data (QGIS3)</a></li>
-<li class="toctree-l1"><a class="reference internal" href="working_with_wms.html">Working with WMS Data (QGIS3)</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Delo s podatki o reliefu (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="working_with_wms.html">Delo s podatki prek vmesnika WMS (QGIS3)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="working_with_projections.html">Working with Projections (QGIS3)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="georeferencing_basics.html">Georeferencing Topo Sheets and Scanned Maps (QGIS3)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="advanced_georeferencing.html">Georeferencing Aerial Imagery (QGIS3)</a></li>
-<li class="toctree-l1"><a class="reference internal" href="digitizing_basics.html">Digitizing Map Data (QGIS3)</a></li>
-<li class="toctree-l1"><a class="reference internal" href="performing_table_joins.html">Performing Table Joins (QGIS3)</a></li>
-<li class="toctree-l1"><a class="reference internal" href="performing_spatial_joins.html">Performing Spatial Joins (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="digitizing_basics.html">Digitalizacija podatkov (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="performing_table_joins.html">Združevanje tabel (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="performing_spatial_joins.html">Prostorsko združevanje podatkov (QGIS3)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="performing_spatial_queries.html">Performing Spatial Queries (QGIS3)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="nearest_neighbor_analysis.html">Nearest Neighbor Analysis (QGIS3)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="sampling_raster_data.html">Sampling Raster Data using Points or Polygons (QGIS3)</a></li>
@@ -133,7 +133,7 @@
     </a>
   </li>
   <li>
-    <a href="working_with_wms.html" title="Next Chapter: Working with WMS Data (QGIS3)"><span class="glyphicon glyphicon-chevron-right visible-sm"></span><span class="hidden-sm hidden-tablet">Working with ... &raquo;</span>
+    <a href="working_with_wms.html" title="Next Chapter: Delo s podatki prek vmesnika WMS (QGIS3)"><span class="glyphicon glyphicon-chevron-right visible-sm"></span><span class="hidden-sm hidden-tablet">Delo s podatk... &raquo;</span>
     </a>
   </li>
               
@@ -202,29 +202,26 @@
       
 
   <section id="working-with-terrain-data-qgis3">
-<h1>Working with Terrain Data (QGIS3)<a class="headerlink" href="#working-with-terrain-data-qgis3" title="Povezava na naslov">¶</a></h1>
-<p>Terrain or elevation data is useful for many GIS analyses, and it is often used
-in maps. QGIS3 has good terrain processing capabilities built-in. In this
-tutorial, we will work through the steps to generate various products from
-elevation data such as hillshade and contour.</p>
+<h1>Delo s podatki o reliefu (QGIS3)<a class="headerlink" href="#working-with-terrain-data-qgis3" title="Povezava na naslov">¶</a></h1>
+<p>Podatki o reliefu so pomembni pri velikem številu prostorskih analiz, pogosto pa jih uporabljamo tudi pri kartiranju. QGIS3 ima vgrajene številna zmogljiva orodja za obdelavo reliefnih podatkov. V tej vadnici bomo ustvarili različne izdelke iz podatkov o višinah, na primer plastnice, senčen relief in podobno.</p>
 <section id="overview-of-the-task">
-<h2>Overview of the task<a class="headerlink" href="#overview-of-the-task" title="Povezava na naslov">¶</a></h2>
-<p>The task is to create contours and a hillshade map for area around Mt. Everest.</p>
+<h2>Pregled naloge<a class="headerlink" href="#overview-of-the-task" title="Povezava na naslov">¶</a></h2>
+<p>Cilj naloge je ustvariti karto plastnic in senčen relief okolice Everesta.</p>
 <section id="other-skills-you-will-learn">
-<h3>Other skills you will learn<a class="headerlink" href="#other-skills-you-will-learn" title="Povezava na naslov">¶</a></h3>
+<h3>Česa se bomo še naučili<a class="headerlink" href="#other-skills-you-will-learn" title="Povezava na naslov">¶</a></h3>
 <ul class="simple">
-<li><p>Searching and downloading freely available terrain data.</p></li>
-<li><p>Exporting a vector layer as KML and viewing it in Google Earth.</p></li>
-<li><p>Smoothing of contour lines.</p></li>
+<li><p>Iskanja in prenašanja brezplačnih podatkov o površju.</p></li>
+<li><p>Izvažanja vektorskih podatkovnih slojev v zapis KML in prikaza s programom Google Zemlja (Google Earth).</p></li>
+<li><p>Glajenja plastnic</p></li>
 </ul>
 </section>
 </section>
 <section id="get-the-data">
-<h2>Get the data<a class="headerlink" href="#get-the-data" title="Povezava na naslov">¶</a></h2>
+<h2>Pridobivanje podatkov<a class="headerlink" href="#get-the-data" title="Povezava na naslov">¶</a></h2>
 <p>We will be working with GMTED2010 dataset from USGS. <a class="reference external" href="https://eros.usgs.gov/#/Find_Data/Products_and_Data_Available/GMTED2010">GMTED (Global Multi-resolution
 Terrain Elevation Data)</a> is a global terrain dataset that is the newer version
 of GTOPO30 dataset.</p>
-<p>Here is how to search and download the revelant data from USGS Earthexplorer.</p>
+<p>V naslednjih korakih je opisano iskanje in pobiranje podatkov s strani USGS EarthExplorer.</p>
 <ol class="arabic simple">
 <li><p>Go to the <a class="reference external" href="http://earthexplorer.usgs.gov/">USGS Earthexplorer</a> . In the
 <span class="guilabel">Search Criteria</span> tab, click on <span class="guilabel">World Features</span>. In <span class="guilabel">Feature Name</span> enter <code class="docutils literal notranslate"><span class="pre">Everest</span></code>, in <span class="guilabel">Country</span> enter <code class="docutils literal notranslate"><span class="pre">NEPAL</span></code>, click on <span class="guilabel">Show</span>. This will display a table with the location information. Select <cite>Everest</cite> under <span class="guilabel">Placename</span>.</p></li>
@@ -393,7 +390,7 @@ Right click on the smoothed layer, select <span class="menuselection">Export ‣
     </p>
     <p>
         &copy; Copyright 2021, Ujaval Gandhi.<br/>
-      Zadnjič posodobljeno sep. 03, 2022.<br/>
+      Zadnjič posodobljeno nov. 02, 2022.<br/>
       Created using <a href="http://sphinx-doc.org/">Sphinx</a> 4.0.1.<br/>
     </p>
   </div>

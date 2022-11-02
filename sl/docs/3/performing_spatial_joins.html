@@ -5,7 +5,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
-    <title>Performing Spatial Joins (QGIS3) &#8212; QGIS Tutorials and Tips</title>
+    <title>Prostorsko združevanje podatkov (QGIS3) &#8212; QGIS Tutorials and Tips</title>
     <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-sphinx.css" />
     <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
@@ -15,7 +15,7 @@
     <script src="../../_static/translations.js"></script>
     <link rel="search" title="Išči" href="../../search.html" />
     <link rel="next" title="Performing Spatial Queries (QGIS3)" href="performing_spatial_queries.html" />
-    <link rel="prev" title="Performing Table Joins (QGIS3)" href="performing_table_joins.html" />
+    <link rel="prev" title="Združevanje tabel (QGIS3)" href="performing_table_joins.html" />
 
 <meta charset='utf-8'>
 <meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
@@ -79,14 +79,14 @@
 <li class="toctree-l1"><a class="reference internal" href="calculating_line_lengths.html">Calculating Line Lengths and Statistics (QGIS3)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="raster_styling_and_analysis.html">Osnovne analize in prikazi rastrov (QGIS3)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="raster_mosaicing_and_clipping.html">Raster Mosaicing and Clipping (QGIS3)</a></li>
-<li class="toctree-l1"><a class="reference internal" href="working_with_terrain.html">Working with Terrain Data (QGIS3)</a></li>
-<li class="toctree-l1"><a class="reference internal" href="working_with_wms.html">Working with WMS Data (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="working_with_terrain.html">Delo s podatki o reliefu (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="working_with_wms.html">Delo s podatki prek vmesnika WMS (QGIS3)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="working_with_projections.html">Working with Projections (QGIS3)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="georeferencing_basics.html">Georeferencing Topo Sheets and Scanned Maps (QGIS3)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="advanced_georeferencing.html">Georeferencing Aerial Imagery (QGIS3)</a></li>
-<li class="toctree-l1"><a class="reference internal" href="digitizing_basics.html">Digitizing Map Data (QGIS3)</a></li>
-<li class="toctree-l1"><a class="reference internal" href="performing_table_joins.html">Performing Table Joins (QGIS3)</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Performing Spatial Joins (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="digitizing_basics.html">Digitalizacija podatkov (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="performing_table_joins.html">Združevanje tabel (QGIS3)</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Prostorsko združevanje podatkov (QGIS3)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="performing_spatial_queries.html">Performing Spatial Queries (QGIS3)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="nearest_neighbor_analysis.html">Nearest Neighbor Analysis (QGIS3)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="sampling_raster_data.html">Sampling Raster Data using Points or Polygons (QGIS3)</a></li>
@@ -129,7 +129,7 @@
               
                 
   <li>
-    <a href="performing_table_joins.html" title="Previous Chapter: Performing Table Joins (QGIS3)"><span class="glyphicon glyphicon-chevron-left visible-sm"></span><span class="hidden-sm hidden-tablet">&laquo; Performing Ta...</span>
+    <a href="performing_table_joins.html" title="Previous Chapter: Združevanje tabel (QGIS3)"><span class="glyphicon glyphicon-chevron-left visible-sm"></span><span class="hidden-sm hidden-tablet">&laquo; Združevanje t...</span>
     </a>
   </li>
   <li>
@@ -202,64 +202,64 @@
       
 
   <section id="performing-spatial-joins-qgis3">
-<h1>Performing Spatial Joins (QGIS3)<a class="headerlink" href="#performing-spatial-joins-qgis3" title="Povezava na naslov">¶</a></h1>
-<p>Spatial Join is a classic GIS problem - transferring attributes from one layer to another based on their spatial relationship. In QGIS, this functionality is available through the <code class="docutils literal notranslate"><span class="pre">Join</span> <span class="pre">attributes</span> <span class="pre">by</span> <span class="pre">location</span></code> Processing algorithm.</p>
+<h1>Prostorsko združevanje podatkov (QGIS3)<a class="headerlink" href="#performing-spatial-joins-qgis3" title="Povezava na naslov">¶</a></h1>
+<p>Združevanje podatkov je klasičen GIS problem. Gre za prenos atributov iz enega sloja v drug sloj na podlagi njihove prostorske povezave. V QGIS-u imamo za to na voljo orodje <code class="docutils literal notranslate"><span class="pre">Join</span> <span class="pre">attributes</span> <span class="pre">by</span> <span class="pre">location</span></code>.</p>
 <section id="overview-of-the-task">
-<h2>Overview of the task<a class="headerlink" href="#overview-of-the-task" title="Povezava na naslov">¶</a></h2>
-<p>We will use 2 layers - A shapefile of Borough boundaries of New York city and another shapefile of Street Pavement Rating for all streets in New York city. The first task will be to find the average rating of streets in each of the borough using a spatial join with summary algorithm. The second task will be to add the name of the borough to the street features through a one-to-many spatial join.</p>
+<h2>Pregled naloge<a class="headerlink" href="#overview-of-the-task" title="Povezava na naslov">¶</a></h2>
+<p>Uporabili bomo 2 sloja - vektorski sloj z mejami okrožij New Yorka in sloj z oceno cestišč za vse ulice v New Yorku. Prva naloga bo, da z uporabo metode prostorskega združevanja in summary algoritma poiščemo povprečno oceno ulic v posameznem okrožju. Druga naloga bo, da z metodo prostorskega združevanja ena proti več, one-to-many, pripišemo ulicam imena okrožij.</p>
 <section id="other-skills-you-will-learn">
-<h3>Other skills you will learn<a class="headerlink" href="#other-skills-you-will-learn" title="Povezava na naslov">¶</a></h3>
+<h3>Česa se bomo še naučili<a class="headerlink" href="#other-skills-you-will-learn" title="Povezava na naslov">¶</a></h3>
 <ul class="simple">
-<li><p>Creating filters to temporarily exclude certain features from computation.</p></li>
+<li><p>Ustvarjanje filtrov za začasno izključitev določenih funkcij iz izračuna.</p></li>
 </ul>
 </section>
 </section>
 <section id="get-the-data">
-<h2>Get the data<a class="headerlink" href="#get-the-data" title="Povezava na naslov">¶</a></h2>
-<p><a class="reference external" href="https://data.cityofnewyork.us/">NYC Open Data Portal</a> is an excellent source of free data for New York city.</p>
-<p>Download the <a class="reference external" href="https://data.cityofnewyork.us/City-Government/Borough-Boundaries/tqmj-j8zm">Borough Boundaries</a> zip file using the Export option on the portal.</p>
+<h2>Pridobivanje podatkov<a class="headerlink" href="#get-the-data" title="Povezava na naslov">¶</a></h2>
+<p><a class="reference external" href="https://data.cityofnewyork.us/">NICE Open Data Portal</a> je odličen vir brezplačnih podatkov za mesto New York.</p>
+<p>Z uporabo možnosti Export na portalu prenesite datoteko <a class="reference external" href="https://data.cityofnewyork.us/City-Government/Borough-Boundaries/tqmj-j8zm">Borough Boundaries</a> zip.</p>
 <img alt="../../_images/data19.png" class="align-center" src="../../_images/data19.png" />
-<p>Download the <a class="reference external" href="https://data.cityofnewyork.us/Transportation/Street-Pavement-Rating/2cav-chmn">Street Pavement Rating</a> zip file using the Export option on the portal.</p>
+<p>Z uporabo možnosti Export na portalu prenesite datoteko <a class="reference external" href="https://data.cityofnewyork.us/Transportation/Street-Pavement-Rating/2cav-chmn">Street Pavement Rating</a> zip.</p>
 <img alt="../../_images/data22.png" class="align-center" src="../../_images/data22.png" />
-<p>For convenience, you may directly download a copy of the datasets from the links below:</p>
+<p>Lahko jih prenesete tudi neposredno na spodnji povezavi:</p>
 <p><a class="reference external" href="https://www.qgistutorials.com/downloads/nybb_19a.zip">nybb_19a.zip</a></p>
 <p><a class="reference external" href="https://www.qgistutorials.com/downloads/V_SSS_SEGMENTRATING_1.zip">V_SSS_SEGMENTRATING_1.zip</a></p>
-<p>Data Source <a class="reference internal" href="../credits.html#cityofny" id="id1"><span>[CITYOFNY]</span></a></p>
+<p>Vir podatkov <a class="reference internal" href="../credits.html#cityofny" id="id1"><span>[CITYOFNY]</span></a></p>
 </section>
 <section id="procedure">
-<h2>Procedure<a class="headerlink" href="#procedure" title="Povezava na naslov">¶</a></h2>
+<h2>Postopek<a class="headerlink" href="#procedure" title="Povezava na naslov">¶</a></h2>
 <ol class="arabic simple">
-<li><p>Locate the <code class="docutils literal notranslate"><span class="pre">nybb_19a.zip</span></code> file in the QGIS Browser and expand it. Select the <code class="docutils literal notranslate"><span class="pre">nybb_19a/nybb.shp</span></code> layer and drag it to the canvas. This is a polygon layer representing the borough boundaries in New York city.</p></li>
+<li><p>V brskalniku QGIS poiščite datoteko <code class="docutils literal notranslate"><span class="pre">nybb_19a.zip</span></code> in jo razširite. Izberite sloj``nybb_19a/nybb.shp`` in ga dodajte v glavno okno. To je sloj poligonov, ki zajema meje okrožij v New Yorku.</p></li>
 </ol>
 <blockquote>
 <div><img alt="../../_images/1102.png" class="align-center" src="../../_images/1102.png" />
 </div></blockquote>
 <ol class="arabic simple" start="2">
-<li><p>Next, locate the <code class="docutils literal notranslate"><span class="pre">V_SSS_SEGMENTRATING_1.zip</span></code> file and expand it. Select the <code class="docutils literal notranslate"><span class="pre">dot_V_SSS_SEGMENTRATING_1_20190129.shp</span></code> layer and add it to the canvas. This is a line layer of all streets in the city.</p></li>
+<li><p>Nato poiščite datoteko <code class="docutils literal notranslate"><span class="pre">V_SSS_SEGMENTRATING_1.zip</span></code> in jo razširite. Izberite sloj <code class="docutils literal notranslate"><span class="pre">dot_V_SSS_SEGMENTRATING_1_20190129.shp</span></code> in ga dodajte med podatkovne sloje. To je linijski sloj vseh ulic v mestu.</p></li>
 </ol>
 <blockquote>
 <div><img alt="../../_images/270.png" class="align-center" src="../../_images/270.png" />
 </div></blockquote>
 <ol class="arabic simple" start="3">
-<li><p>Let’s examine the attributes available for each feature of the <code class="docutils literal notranslate"><span class="pre">dot_V_SSS_SEGMENTRATING_1_20190129</span></code> layer. Right-click and select <span class="guilabel">Open Attribute Table</span>.</p></li>
+<li><p>Proučite atribute, ki so na voljo za vsak grafični objekt v sloju <code class="docutils literal notranslate"><span class="pre">dot_V_SSS_SEGMENTRATING_1_20190129</span></code>. Kliknite z desno tipko na miški in izberite <span class="guilabel">Open Attribute Table</span>.</p></li>
 </ol>
 <blockquote>
 <div><img alt="../../_images/335.png" class="align-center" src="../../_images/335.png" />
 </div></blockquote>
 <ol class="arabic simple" start="4">
-<li><p>You will notice the attribute called <code class="docutils literal notranslate"><span class="pre">Rating_B</span></code> which has values in the range 0-10 representing the street segment’s rating. The attribute <code class="docutils literal notranslate"><span class="pre">RatingWord</span></code> has descriptive rating. We can use the <code class="docutils literal notranslate"><span class="pre">Rating_B</span></code> field to calculate the average rating.</p></li>
+<li><p>Opazili boste atribut <code class="docutils literal notranslate"><span class="pre">Rating_B</span></code>, ki zajema vrednosti v razponu od 0 do 10 in predstavlja oceno segmenta ulice. Atribut <code class="docutils literal notranslate"><span class="pre">RatingWord</span></code> predstavlja opisno oceno. Atribut <code class="docutils literal notranslate"><span class="pre">Rating_B</span></code> lahko uporabite za izračun povprečne ocene.</p></li>
 </ol>
 <blockquote>
 <div><img alt="../../_images/416.png" class="align-center" src="../../_images/416.png" />
 </div></blockquote>
 <ol class="arabic simple" start="5">
-<li><p>You may have notice some features have a rating of <code class="docutils literal notranslate"><span class="pre">NR</span></code>. These are the segments that were not rated. Including them in our analysis will not be correct. Before we do the spatial join, let’s set up a <strong>Filter</strong> to exclude these records. Right-click the <code class="docutils literal notranslate"><span class="pre">dot_V_SSS_SEGMENTRATING_1_20190129</span></code> layer and select <span class="guilabel">Filter</span>.</p></li>
+<li><p>Morda ste opazili, da imajo nekateri atributi oceno <code class="docutils literal notranslate"><span class="pre">NR</span></code>. To so segmenti, ki niso ocenjeni. Njihova vključitev v analizo ne bo pravilna. Preden izvedete prostorsko združevanje nastavite**Filter** za izključitev izbranih zapisov NR. Z desno tipko na miški kliknite na sloj <code class="docutils literal notranslate"><span class="pre">dot_V_SSS_SEGMENTRATING_1_20190129</span></code> in izberite <span class="guilabel">Filter`</span>.</p></li>
 </ol>
 <blockquote>
 <div><img alt="../../_images/516.png" class="align-center" src="../../_images/516.png" />
 </div></blockquote>
 <ol class="arabic simple" start="6">
-<li><p>In the <span class="guilabel">Query Builder</span>, type the following expression to select all records that are not rated <code class="docutils literal notranslate"><span class="pre">NR</span></code>. You can also build the expression interactively by clicking on <span class="guilabel">Field</span>, <span class="guilabel">Operator</span> and selecting the appropriate <span class="guilabel">Value</span>. Click <span class="guilabel">OK</span>.</p></li>
+<li><p>V <span class="guilabel">Query Builder</span> vnesite izraz, s katerim izberete vse zapise, ki niso ocenjeni z <code class="docutils literal notranslate"><span class="pre">NR</span></code>. Izraz lahko sestavite tudi interaktivno, tako da kliknete na <span class="guilabel">Field</span>, <span class="guilabel">Operator</span> in izberete ustrezno <span class="guilabel">Value</span>. Kliknite <span class="guilabel">OK</span>.</p></li>
 </ol>
 <blockquote>
 <div><div class="highlight-none notranslate"><div class="highlight"><pre><span></span>&quot;RatingWord&quot; != &#39;NR&#39;
@@ -268,83 +268,83 @@
 <img alt="../../_images/616.png" class="align-center" src="../../_images/616.png" />
 </div></blockquote>
 <ol class="arabic simple" start="7">
-<li><p>You will notice the <code class="docutils literal notranslate"><span class="pre">dot_V_SSS_SEGMENTRATING_1_20190129</span></code> layer now has a filter icon indicating that there is an active filter applied to this layer. Now we can do a spatial join using this layer. Go to <span class="menuselection">Processing ‣ Toolbox</span>.</p></li>
+<li><p>Opazili boste, da ima zdaj sloj``dot_V_SSS_SEGMENTRATING_1_20190129`` ikono filtra, ki označuje, da je zanj uporabljen aktiven filter. S tem slojem izvedite prostorsko združevanje. Pojdite na <span class="menuselection">Processing ‣ Toolbox</span>.</p></li>
 </ol>
 <blockquote>
 <div><img alt="../../_images/715.png" class="align-center" src="../../_images/715.png" />
 </div></blockquote>
 <ol class="arabic simple" start="8">
-<li><p>Search and locate the <span class="menuselection">Vector general ‣ Join attribute by location (summary)</span> algorithm. Double-click to launch it.</p></li>
+<li><p>Poiščite orodje <span class="menuselection">Vector general ‣ Join attribute by location (summary)</span>. Zaženete ga z dvojnim klikom.</p></li>
 </ol>
 <blockquote>
 <div><img alt="../../_images/815.png" class="align-center" src="../../_images/815.png" />
 </div></blockquote>
 <ol class="arabic simple" start="9">
-<li><p>In the <span class="guilabel">Join attribute by location (summary)</span> dialog, select <code class="docutils literal notranslate"><span class="pre">nybb</span></code> as the <span class="guilabel">Input layer</span>. The street layer <code class="docutils literal notranslate"><span class="pre">dot_V_SSS_SEGMENTRATING_1_20190129</span></code> will be the <span class="guilabel">Join layer</span>. You can leave the <span class="guilabel">Geometry predicate</span> to the default <code class="docutils literal notranslate"><span class="pre">Intersects</span></code>. Click the <span class="guilabel">…</span> button next to <span class="guilabel">Fields to sumarize</span>.</p></li>
+<li><p>V pogovornem oknu <span class="guilabel">Join attribute by location (summary)</span> z <span class="guilabel">Input layer</span> izberite vhodni sloj <code class="docutils literal notranslate"><span class="pre">nybb</span></code>. Sloj ulic <code class="docutils literal notranslate"><span class="pre">dot_V_SSS_SEGMENTRATING_1_20190129</span></code> bo dodan kot <span class="guilabel">Join layer</span>. Za <span class="guilabel">Geometry predicate</span> uporabite privzete nastavitve z vrednostjo <code class="docutils literal notranslate"><span class="pre">Intersects</span></code>. V:guilabel:<cite>Fields to sumarize</cite> kliknite gumb <span class="guilabel">…</span> .</p></li>
 </ol>
 <blockquote>
 <div><img alt="../../_images/915.png" class="align-center" src="../../_images/915.png" />
 </div></blockquote>
 <div class="admonition note">
 <p class="admonition-title">Opomba</p>
-<p>A tip to help you select the correct input and join layers: The input layer is the one that will be modified will new attributes in the spatial join. As we want the average rating field to be added to the borough layer, it will be the input layer.</p>
+<p>Nasvet za pomoč pri izbiri pravilnih vhodnih in združenih slojev: Vhodni sloj je tisti, ki bo z metodo prostorskega združevanja spremenjen tako, da bodo dodani novi atributi. Ker želimo, da se vrednost povprečne ocene doda sloju okrožij, bo ta sloj dan kot vhodni sloj.</p>
 </div>
 <ol class="arabic simple" start="10">
-<li><p>Select <code class="docutils literal notranslate"><span class="pre">Rating_B</span></code> and click <span class="guilabel">OK</span>.</p></li>
+<li><p>Izberite <code class="docutils literal notranslate"><span class="pre">Rating_B</span></code> in kliknite <span class="guilabel">OK</span>.</p></li>
 </ol>
 <blockquote>
 <div><img alt="../../_images/1022.png" class="align-center" src="../../_images/1022.png" />
 </div></blockquote>
 <ol class="arabic simple" start="11">
-<li><p>Similarly, click the <span class="guilabel">…</span> button next to <span class="guilabel">Summaries to calculate</span>.</p></li>
+<li><p>Podobno kliknite gumb <span class="guilabel">…</span> v <span class="guilabel">Summaries to calculate</span>.</p></li>
 </ol>
 <blockquote>
 <div><img alt="../../_images/1125.png" class="align-center" src="../../_images/1125.png" />
 </div></blockquote>
 <ol class="arabic simple" start="12">
-<li><p>Select <code class="docutils literal notranslate"><span class="pre">mean</span></code> as the summary operator and click <span class="guilabel">OK</span>. Now we are ready to start the processing. Click <span class="guilabel">Run</span>.</p></li>
+<li><p>Kot operator izberite <code class="docutils literal notranslate"><span class="pre">mean</span></code> in kliknite <span class="guilabel">OK</span>. Zdaj ste pripravljeni na začetek obdelave. Kliknite <span class="guilabel">Run</span>.</p></li>
 </ol>
 <blockquote>
 <div><img alt="../../_images/1223.png" class="align-center" src="../../_images/1223.png" />
 </div></blockquote>
 <ol class="arabic simple" start="13">
-<li><p>The processing algorithm will work through the features and apply the spatial join. Verify that the processing job was successful and click <span class="guilabel">Close</span>.</p></li>
+<li><p>Algoritem obdelave bo obdelal grafične objete in pri tem uporabil prostorsko združevanje. Preverite, ali je bila obdelava uspešna, in kliknite <span class="guilabel">Close</span>.</p></li>
 </ol>
 <blockquote>
 <div><img alt="../../_images/1321.png" class="align-center" src="../../_images/1321.png" />
 </div></blockquote>
 <ol class="arabic simple" start="14">
-<li><p>Back in the main QGIS window, you will see a new <code class="docutils literal notranslate"><span class="pre">Joined</span> <span class="pre">layer</span></code> layer added to canvas. Open the attribute table for this layer. You will see a new column <code class="docutils literal notranslate"><span class="pre">Rating_B_mean</span></code> is added to the input borough layer with the average rating of all streets that are interesecting with that feature.</p></li>
+<li><p>V glavnem oknu QGIS-a boste videli nov sloj <code class="docutils literal notranslate"><span class="pre">Joined</span> <span class="pre">layer</span></code>. Odprite atributno tabelo. Videli boste, da je vhodnemu sloju okrožij dodan nov atribut <code class="docutils literal notranslate"><span class="pre">Rating_B_mean</span></code> s povprečno oceno vseh ulic, ki se stikajo z izbranim pojavom.</p></li>
 </ol>
 <blockquote>
 <div><img alt="../../_images/1419.png" class="align-center" src="../../_images/1419.png" />
 </div></blockquote>
 <ol class="arabic simple" start="15">
-<li><p>Now we can perform a reverse operation. Sometimes your analysis requires getting attributes from another layer based on the spatial relationship but not compute any summary. We can use the <code class="docutils literal notranslate"><span class="pre">Join</span> <span class="pre">attribute</span> <span class="pre">by</span> <span class="pre">location</span></code> algorithm for such analysis. The task is to add the name of the borough to each feature in the streets layer based on which borough polygon it intersects with. Before we run this algorithm, let’s remove the filter from the <code class="docutils literal notranslate"><span class="pre">dot_V_SSS_SEGMENTRATING_1_20190129</span></code> layer. Click the filter icon and press the <span class="guilabel">Clear</span> in the <span class="guilabel">Query Builder</span>. Click <span class="guilabel">OK</span>.</p></li>
+<li><p>Zdaj lahko izvedete obratno operacijo. Včasih analiza zahteva pridobitev atributov iz drugega sloja na podlagi prostorskega razmerja, vendar pri tem ne sme uporabiti summary. Za takšno analizo lahko uporabite orodje``Join attribute by location``. Naloga je, da vsakemu elementu v sloju ulic dodate imena okrožij glede na to, s katerim poligonom okrožij je v preseku. Preden zaženete ta algoritem, odstranite filter v sloju <code class="docutils literal notranslate"><span class="pre">dot_V_SSS_SEGMENTRATING_1_20190129</span></code>. Kliknite ikono filtra in pritisnite gumb <span class="guilabel">Clear</span> v oknu <span class="guilabel">Query Builder</span>. Kliknite <span class="guilabel">OK</span>.</p></li>
 </ol>
 <blockquote>
 <div><img alt="../../_images/1517.png" class="align-center" src="../../_images/1517.png" />
 </div></blockquote>
 <ol class="arabic simple" start="16">
-<li><p>Turn of the <code class="docutils literal notranslate"><span class="pre">Joined</span> <span class="pre">layer</span></code> in the <span class="guilabel">Layers</span> panel. Find the <span class="menuselection">Vector general ‣ Join attribute by location</span> algorithm in the Processing Toolbox and double-click it to launch.</p></li>
+<li><p>Med podatkovnimi sloji <span class="guilabel">Layers</span> odznačite sloj <code class="docutils literal notranslate"><span class="pre">Joined</span> <span class="pre">layer</span></code>. Med orodji poiščite algoritem <span class="menuselection">Vector general ‣ Join attribute by location</span> in ga zaženite z dvakratnim klikom.</p></li>
 </ol>
 <blockquote>
 <div><img alt="../../_images/1616.png" class="align-center" src="../../_images/1616.png" />
 </div></blockquote>
 <ol class="arabic simple" start="17">
-<li><p>Select <code class="docutils literal notranslate"><span class="pre">dot_V_SSS_SEGMENTRATING_1_20190129</span></code> as the <span class="guilabel">Input layer</span> and <code class="docutils literal notranslate"><span class="pre">nybb</span></code> as the <span class="guilabel">Join layer</span>. You can leave the <span class="guilabel">Geometry predicate</span> to the default <code class="docutils literal notranslate"><span class="pre">Intersects</span></code>. Click the <span class="guilabel">…</span> button next to <span class="guilabel">Fields to add</span>  and select <code class="docutils literal notranslate"><span class="pre">BoroName</span></code>. Click <span class="guilabel">OK</span>.</p></li>
+<li><p>Izberite <code class="docutils literal notranslate"><span class="pre">dot_V_SSS_SEGMENTRATING_1_20190129</span></code> kot <span class="guilabel">Input layer</span> in <code class="docutils literal notranslate"><span class="pre">nybb</span></code> kot <span class="guilabel">Join layer</span>. <span class="guilabel">Geometry predicate</span> lahko pustite privzeto vrednost <code class="docutils literal notranslate"><span class="pre">Intersects</span></code>. Kliknite gumb <span class="guilabel">…</span> v <span class="guilabel">Fields to add</span> in izberite <code class="docutils literal notranslate"><span class="pre">BoroName</span></code>. Kliknite <span class="guilabel">OK</span>.</p></li>
 </ol>
 <blockquote>
 <div><img alt="../../_images/1717.png" class="align-center" src="../../_images/1717.png" />
 </div></blockquote>
 <ol class="arabic simple" start="18">
-<li><p>The line segment may cross a borough boundary, so we choose the <span class="guilabel">Join type</span> as <code class="docutils literal notranslate"><span class="pre">Crate</span> <span class="pre">separate</span> <span class="pre">feature</span> <span class="pre">for</span> <span class="pre">each</span> <span class="pre">located</span> <span class="pre">feature</span> <span class="pre">(one-to-many)</span></code>. Click <span class="guilabel">Run</span>.</p></li>
+<li><p>Ulica lahko prečka mejo okrožja, zato kot <span class="guilabel">Join type</span> izberite``Crate separate feature for each located feature (one-to-many)``. Kliknite <span class="guilabel">Run</span>.</p></li>
 </ol>
 <blockquote>
 <div><img alt="../../_images/1815.png" class="align-center" src="../../_images/1815.png" />
 </div></blockquote>
 <ol class="arabic simple" start="19">
-<li><p>Once the processing finishes, open the attribute table of the newly added <code class="docutils literal notranslate"><span class="pre">Joined</span> <span class="pre">layer</span></code>. You will see that there is a new <code class="docutils literal notranslate"><span class="pre">BoroName</span></code> attribute added to each street feature.</p></li>
+<li><p>Po končani obdelavi odprite atributno tabelo novega sloja dodanega kot <cite>Joined layer`</cite>. Videli boste, da je vsaki ulici pripisan nov atribut <code class="docutils literal notranslate"><span class="pre">BoroName</span></code>.</p></li>
 </ol>
 <blockquote>
 <div><img alt="../../_images/1913.png" class="align-center" src="../../_images/1913.png" />
@@ -374,7 +374,7 @@
     </p>
     <p>
         &copy; Copyright 2021, Ujaval Gandhi.<br/>
-      Zadnjič posodobljeno sep. 03, 2022.<br/>
+      Zadnjič posodobljeno nov. 02, 2022.<br/>
       Created using <a href="http://sphinx-doc.org/">Sphinx</a> 4.0.1.<br/>
     </p>
   </div>
