@@ -63,7 +63,7 @@ Procedure
   .. image:: /static/3/raster_styling_and_analysis/images/6.png
     :align: center
     
-7. This renderer will style the layer using a color ramp. The default color ramp is white-red where the minimum value will be assigned the white color and the maximum value in the layer will be assigned the red color. The intermediate values will be assigned a shade of red linear interpolation. Expand the :guilabel:`Min / Max Value Settings` and choose ``Cumulative count cut`` option. You will see that the map visualization is much better now. The  The standard data range is set from 2% to 98% of the data values, meaning that the outliers will not be used to set the minimum and maximum values, resulting in a much more representative visualization.
+7. This renderer will style the layer using a color ramp. The default color ramp is white-red where the minimum value will be assigned the white color and the maximum value in the layer will be assigned the red color. The intermediate values will be assigned a shade of red linear interpolation. Expand the :guilabel:`Min / Max Value Settings` and choose ``Cumulative count cut`` option. You will see that the map visualization is much better now. The standard data range is set from 2% to 98% of the data values, meaning that the outliers will not be used to set the minimum and maximum values, resulting in a much more representative visualization.
 
   .. image:: /static/3/raster_styling_and_analysis/images/7.png
     :align: center
