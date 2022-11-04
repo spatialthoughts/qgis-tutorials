@@ -49,7 +49,7 @@ below:
 Procedure
 ---------
 
-1.Georeferencing in QGIS is done via the ‘Georeferencer GDAL’ plugin. This is a
+1. Georeferencing in QGIS is done via the ‘Georeferencer GDAL’ plugin. This is a
 core plugin - meaning it is already part of your QGIS installation. You just
 need to enable it. Go to :menuselection:`Plugins --> Manage and Install
 Plugins` and enable the :guilabel:`Georeferencer GDAL` plugin in the
