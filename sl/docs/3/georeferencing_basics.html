@@ -5,7 +5,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
-    <title>Georeferencing Topo Sheets and Scanned Maps (QGIS3) &#8212; QGIS Tutorials and Tips</title>
+    <title>Georeferenciranje skeniranih topografskih kart (QGIS3) &#8212; QGIS Tutorials and Tips</title>
     <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-sphinx.css" />
     <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
@@ -15,7 +15,7 @@
     <script src="../../_static/translations.js"></script>
     <link rel="search" title="Išči" href="../../search.html" />
     <link rel="next" title="Georeferencing Aerial Imagery (QGIS3)" href="advanced_georeferencing.html" />
-    <link rel="prev" title="Working with Projections (QGIS3)" href="working_with_projections.html" />
+    <link rel="prev" title="Delo s projekcijami (QGIS3)" href="working_with_projections.html" />
 
 <meta charset='utf-8'>
 <meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
@@ -76,13 +76,13 @@
 <li class="toctree-l1"><a class="reference internal" href="working_with_attributes.html">Delo z atributi (QGIS3)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="importing_spreadsheets_csv.html">Uvoz podatkov preglednic ali datotek CSV (QGIS3)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="basic_vector_styling.html">Osnovno oblikovanje vektorskih slojev (QGIS3)</a></li>
-<li class="toctree-l1"><a class="reference internal" href="calculating_line_lengths.html">Calculating Line Lengths and Statistics (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="calculating_line_lengths.html">Izračunavanje dolžin in statistike linij (QGIS3)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="raster_styling_and_analysis.html">Osnovne analize in prikazi rastrov (QGIS3)</a></li>
-<li class="toctree-l1"><a class="reference internal" href="raster_mosaicing_and_clipping.html">Raster Mosaicing and Clipping (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="raster_mosaicing_and_clipping.html">Mozaičenje in obrezovanje rastrov (QGIS3)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="working_with_terrain.html">Delo s podatki o reliefu (QGIS3)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="working_with_wms.html">Delo s podatki prek vmesnika WMS (QGIS3)</a></li>
-<li class="toctree-l1"><a class="reference internal" href="working_with_projections.html">Working with Projections (QGIS3)</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Georeferencing Topo Sheets and Scanned Maps (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="working_with_projections.html">Delo s projekcijami (QGIS3)</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Georeferenciranje skeniranih topografskih kart (QGIS3)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="advanced_georeferencing.html">Georeferencing Aerial Imagery (QGIS3)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="digitizing_basics.html">Digitalizacija podatkov (QGIS3)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="performing_table_joins.html">Združevanje tabel (QGIS3)</a></li>
@@ -129,7 +129,7 @@
               
                 
   <li>
-    <a href="working_with_projections.html" title="Previous Chapter: Working with Projections (QGIS3)"><span class="glyphicon glyphicon-chevron-left visible-sm"></span><span class="hidden-sm hidden-tablet">&laquo; Working with ...</span>
+    <a href="working_with_projections.html" title="Previous Chapter: Delo s projekcijami (QGIS3)"><span class="glyphicon glyphicon-chevron-left visible-sm"></span><span class="hidden-sm hidden-tablet">&laquo; Delo s projek...</span>
     </a>
   </li>
   <li>
@@ -202,151 +202,153 @@
       
 
   <section id="georeferencing-topo-sheets-and-scanned-maps-qgis3">
-<h1>Georeferencing Topo Sheets and Scanned Maps (QGIS3)<a class="headerlink" href="#georeferencing-topo-sheets-and-scanned-maps-qgis3" title="Povezava na naslov">¶</a></h1>
-<p>Most GIS projects require georeferencing some raster data. <em>Georeferencing</em> is the process of assigning real-world coordinates to each pixel of the raster. Many times these coordinates are obtained by doing field surveys - collecting coordinates with a GPS device for few easily identifiable features in the image or map. In some cases, where you are looking to digitize scanned maps, you can obtain the coordinates from the markings on the map image itself. Using these sample coordinates or GCPs ( Ground Control Points ), the image is warped and made to fit within the chosen coordinate system. In this tutorial I will discuss the concepts, strategies and tools within QGIS to achieve a high accuracy georeferencing.</p>
-<p>This tutorial is to geo-reference an image which has coordinates information available on the map image itself (i.e. grids with labels). If your source image does not have such information, you can use the method outlined in <a class="reference internal" href="advanced_georeferencing.html"><span class="doc">Georeferencing Aerial Imagery (QGIS3)</span></a></p>
+<h1>Georeferenciranje skeniranih topografskih kart (QGIS3)<a class="headerlink" href="#georeferencing-topo-sheets-and-scanned-maps-qgis3" title="Povezava na naslov">¶</a></h1>
+<p>Večina projektov GIS zahteva georeferenciranje nekaterih rastrskih podatkov. <em>Georeferenciranje</em> je postopek dodeljevanja koordinat realnega sveta vsakemu pikslu rastra. Velikokrat se te koordinate pridobijo s terenskim raziskovanjem - z napravo GPS se zberejo koordinate za nekaj zlahka prepoznavnih elementov na sliki ali zemljevidu. V nekaterih primerih, ko želite digitalizirati skenirane karte, lahko koordinate pridobite iz oznak na sami sliki. S temi vzorčnimi koordinatami ali GCP (Ground Control Points) se slika popači in prilagodi izbranemu koordinatnemu sistemu. V tem učbeniku bomo obravnaval koncepte, strategije in orodja v QGIS za doseganje visoke natančnosti georeferenciranja.</p>
+<p>To navodilo je namenjeno georeferenciranju slike, ki ima informacije o koordinatah na voljo na sami sliki karte (tj. mreže z oznakami). Če vaša izvorna slika nima takšnih informacij, lahko uporabite metodo, opisano v <a class="reference internal" href="advanced_georeferencing.html"><span class="doc">Georeferencing Aerial Imagery (QGIS3)</span></a></p>
 <section id="overview-of-the-task">
-<h2>Overview of the task<a class="headerlink" href="#overview-of-the-task" title="Povezava na naslov">¶</a></h2>
-<p>We will use a scanned map of southern India from 1870 and geo-reference it using QGIS.</p>
+<h2>Pregled naloge<a class="headerlink" href="#overview-of-the-task" title="Povezava na naslov">¶</a></h2>
+<p>Uporabili bomo skenirano karto južne Indije iz leta 1870 in jo georeferencirali z uporabo QGIS.</p>
 <section id="other-skills-you-will-learn">
-<h3>Other skills you will learn<a class="headerlink" href="#other-skills-you-will-learn" title="Povezava na naslov">¶</a></h3>
+<h3>Česa se bomo še naučili<a class="headerlink" href="#other-skills-you-will-learn" title="Povezava na naslov">¶</a></h3>
 <ul class="simple">
-<li><p>How to determine datum and coordinate system for old maps.</p></li>
-<li><p>Save the GCP created.</p></li>
-<li><p>Edit the created GCP for fine tuning.</p></li>
+<li><p>Kako določiti datum in koordinatni sistem za stare zemljevide.</p></li>
+<li><p>Ustvarjeni GCP shranite.</p></li>
+<li><p>Uredite ustvarjeni GCP in ga natančno prilagodite.</p></li>
 </ul>
 </section>
 </section>
 <section id="get-the-data">
-<h2>Get the data<a class="headerlink" href="#get-the-data" title="Povezava na naslov">¶</a></h2>
-<p><a class="reference external" href="http://www.hipkiss.org/data/maps.html">Hipkiss’s Scanned Old Maps</a> website has an excellent collection out-of-copyright scanned maps that one can use for research.</p>
-<p>Download the <a class="reference external" href="http://www.hipkiss.org/data/maps/william-mackenzie_gallery-of-geography_1870_southern-india_3975_3071_600.jpg">1870 map of southern India</a> and save it as a JPG image on your hard drive.</p>
-<p>For convenience, you may directly download a copy of the dataset from the link below:</p>
+<h2>Pridobivanje podatkov<a class="headerlink" href="#get-the-data" title="Povezava na naslov">¶</a></h2>
+<p><a class="reference external" href="http://www.hipkiss.org/data/maps.html">Hipkissova spletna stran Scanned Old Maps</a> ima odlično zbirko skeniranih zemljevidov, ki niso avtorsko zaščiteni in jih lahko uporabite za raziskave.</p>
+<p>Prenesite karto <a class="reference external" href="http://www.hipkiss.org/data/maps/william-mackenzie_gallery-of-geography_1870_southern-india_3975_3071_600.jpg">1870 map of southern India</a> in jo shranite kot sliko JPG na svoj trdi disk.</p>
+<p>Lahko jih poberete tudi neposredno na spodnji povezavi:</p>
 <p><a class="reference external" href="https://www.qgistutorials.com/downloads/1870_southern-india.jpg">1870_southern_india.jpg</a></p>
 </section>
 <section id="procedure">
-<h2>Procedure<a class="headerlink" href="#procedure" title="Povezava na naslov">¶</a></h2>
+<h2>Postopek<a class="headerlink" href="#procedure" title="Povezava na naslov">¶</a></h2>
 <ol class="arabic simple">
-<li><p>Open QGIS and click on <span class="menuselection">Raster ‣ Georeferencer</span> to open the tool.</p></li>
+<li><p>Odprite QGIS in kliknite <span class="menuselection">Raster ‣ Georeferencer</span>, da odprete orodje.</p></li>
 </ol>
 <blockquote>
 <div><div class="admonition note">
 <p class="admonition-title">Opomba</p>
-<p>From QGIS versions 3.26 onwards, the <strong>Georeferencer</strong> can be launched from <span class="menuselection">Layer ‣ Georeferencer</span>.</p>
+<p>Od različice QGIS 3.26 naprej lahko <strong>Georeferencer</strong> zaženete iz <span class="menuselection">Layer ‣ Georeferencer</span>.</p>
 </div>
 <img alt="../../_images/015.png" class="align-center" src="../../_images/015.png" />
 </div></blockquote>
 <ol class="arabic simple" start="2">
-<li><p>The Georeferencer is divided into 2 sections. The top section where the image will be displayed and the bottom section where a table showing your GCPs will appear.</p></li>
+<li><p>Georeferencer je razdeljen na dva dela. V zgornjem razdelku je prikazana slika, v spodnjem razdelku pa je prikazana tabela z vašimi GCP-ji.</p></li>
 </ol>
 <blockquote>
 <div><img alt="../../_images/025.png" class="align-center" src="../../_images/025.png" />
 </div></blockquote>
 <ol class="arabic simple" start="3">
-<li><p>Now we will open our JPG image. Go to <span class="menuselection">File ‣ Open Raster</span>. Browse to the downloaded image of the scanned map and click <span class="guilabel">Open</span>.</p></li>
+<li><p>Zdaj bomo odprli našo sliko JPG. Pojdite na <span class="menuselection">File ‣ Open Raster</span>. Poiščite preneseno sliko skeniranega zemljevida in kliknite <span class="guilabel">Open</span>.</p></li>
 </ol>
 <blockquote>
 <div><img alt="../../_images/035.png" class="align-center" src="../../_images/035.png" />
 </div></blockquote>
 <ol class="arabic simple" start="4">
-<li><p>You will see the image will be loaded on the top section. You can use the zoom/pan controls in the toolbar to learn more about the map.</p></li>
+<li><p>Slika se bo naložila v zgornji del. Če želite izvedeti več o karti, lahko v orodni vrstici uporabite gumbe za povečavo/premikanje.</p></li>
 </ol>
 <blockquote>
 <div><img alt="../../_images/045.png" class="align-center" src="../../_images/045.png" />
 </div></blockquote>
 <ol class="arabic simple" start="5">
-<li><p>Now we need to assign coordinates to some points on this map. If you look closely, you will see coordinate grid with markings. These are Latitude and Longitude  grid lines.</p></li>
+<li><p>Zdaj moramo nekaterim točkam na karti dodeliti koordinate. Če pogledate pozorno, boste videli koordinatno mrežo z oznakami. To so črte mreže zemljepisnih širin in dolžin.</p></li>
 </ol>
 <blockquote>
 <div><img alt="../../_images/055.png" class="align-center" src="../../_images/055.png" />
 </div></blockquote>
 <ol class="arabic simple" start="6">
-<li><p>Before adding Ground Control Points (GCP), we need to define the Transformation Settings. Click on the gear icon in georeferencing window to open the Transformation settings dialog.</p></li>
+<li><p>Pred dodajanjem zemeljskih kontrolnih točk (GCP) moramo določiti nastavitve transformacije. V oknu za georeferenciranje kliknite ikono zobnika, da odprete pogovorno okno Nastavitve transformacije.</p></li>
 </ol>
 <blockquote>
 <div><img alt="../../_images/065.png" class="align-center" src="../../_images/065.png" />
 </div></blockquote>
 <ol class="arabic simple" start="7">
-<li><p>In the <span class="guilabel">Transformation settings</span> dialog, choose the <span class="guilabel">Transformation type</span> as <code class="docutils literal notranslate"><span class="pre">Polynomial</span> <span class="pre">2</span></code>. See <a class="reference external" href="https://docs.qgis.org/testing/en/docs/user_manual/working_with_raster/georeferencer.html?highlight=georeferencer#available-transformation-algorithms">QGIS Documentation</a> to learn about different transformation types and their uses. Then select the <span class="guilabel">Resampling method</span> as the <code class="docutils literal notranslate"><span class="pre">Nearest</span> <span class="pre">neighbor</span></code>. Click the <span class="guilabel">Select CRS</span> button next to <span class="guilabel">Target SRS</span>.</p></li>
+<li><p>V pogovornem oknu <span class="guilabel">Transformation settings</span> izberite <span class="guilabel">Transformation type</span> kot <code class="docutils literal notranslate"><span class="pre">Polynomial</span> <span class="pre">2</span></code>. Če želite izvedeti več o različnih vrstah transformacije in njihovi uporabi, glejte <a href="#id1"><span class="problematic" id="id2">`QGIS Documentation &lt;https://docs.qgis.org/testing/en/docs/user_manual/working_with_raster/georeferencer.html?highlight=georeferencer#available-transformation-algorithms&gt;``_</span></a>. Nato izberite <span class="guilabel">Resampling method</span> kot <code class="docutils literal notranslate"><span class="pre">Nearest</span> <span class="pre">neighbor</span></code>. Kliknite gumb <span class="guilabel">Select CRS</span> poleg <span class="guilabel">Target SRS</span>.</p></li>
 </ol>
 <blockquote>
 <div><img alt="../../_images/075.png" class="align-center" src="../../_images/075.png" />
 </div></blockquote>
 <ol class="arabic simple" start="8">
-<li><p>If you are geo-referencing a scanned map like this, you can obtain the CRS information from the map itself. Looking at our map image, the coordinates are in Latitude/Longitude. There is no datum information given, so we have to assume an appropriate one. Since it is India and the map is quite old, we can bet the Everest 1830 datum would give us good results. Search for <code class="docutils literal notranslate"><span class="pre">everest</span></code> and select the CRS with oldest definition of the Everest datum (EPSG:4042). Click <span class="guilabel">OK</span>.</p></li>
+<li><p>Če georeferencirate skeniran zemljevid, kot je ta, lahko informacije CRS pridobite iz samega zemljevida. Če pogledamo našo sliko zemljevida, so koordinate v obliki zemljepisne širine in dolžine. Podatkov o referenčni vrednosti ni, zato moramo predvideti ustrezno referenčno vrednost. Ker gre za Indijo in ker je zemljevid precej star, lahko stavimo, da nam bo datum Everest 1830 dal dobre rezultate. Poiščite <code class="docutils literal notranslate"><span class="pre">everest</span></code> in izberite CRS z najstarejšo opredelitvijo datuma Everest (EPSG:4042). Kliknite <span class="guilabel">OK</span>.</p></li>
 </ol>
 <blockquote>
 <div><img alt="../../_images/085.png" class="align-center" src="../../_images/085.png" />
 </div></blockquote>
 <div class="admonition note">
 <p class="admonition-title">Opomba</p>
-<p>Survey of India Topo Sheets created between the year 1960 and 2000 use the Everest 1956 spheroid and India_nepal datum. If you are georeferencing SOI Topo Sheets, , you can define a Custom CRS in QGIS with the following paramters and use it in this step. This definition includes a delta_x, delta_y and delta_z parameters for transforming this datum to WGS84. See this page for more information on the <a class="reference external" href="https://deeppradhan.heliohost.org/gis/indian-grid/">Indian Grid System</a>.</p>
+<p>Topografski listi indijske geodetske uprave, izdelani med letoma 1960 in 2000, uporabljajo sferoid Everest 1956 in datum India_nepal. Če georeferencirate te topografske liste, lahko v QGIS določite CRS po meri z naslednjimi parametri in ga uporabite v tem koraku. Ta opredelitev vključuje parametre delta_x, delta_y in delta_z za pretvorbo tega datuma v WGS84. Za več informacij o <a class="reference external" href="https://deeppradhan.heliohost.org/gis/indian-grid/">Indian Grid System</a> glejte to stran.</p>
 <div class="highlight-none notranslate"><div class="highlight"><pre><span></span>+proj=longlat +a=6377301.243 +b=6356100.2284 +towgs84=295,736,257,0,0,0,0 +no_defs
 </pre></div>
 </div>
 </div>
 <div class="admonition note">
 <p class="admonition-title">Opomba</p>
-<p>Most maps are created using a Projected CRS. If the map you are trying to georeference uses a projected CRS that you know of, but the graticules labels are in a Geographic CRS (latitude/longitude), you may use an alternate workflow to minimize distortion. Instead of using a Geographic CRS like we are using here, you can create a vector grid in QGIS and transform it to the projected CRS to be used as a reference for accurate coordinate capture. See <a class="reference external" href="https://raisedbeaches.net/2018/02/01/georeferencing-in-qgis/">this page</a> for more details.</p>
+<p>Večina zemljevidov je ustvarjena z uporabo predvidenega CRS. Če zemljevid, ki ga poskušate georeferencirati, uporablja projicirani CRS, ki ga poznate, vendar so oznake mreženja v geografskem CRS (zemljepisna širina/dolžina), lahko za zmanjšanje popačenja uporabite alternativni delovni postopek. Namesto uporabe geografskega CRS, kot ga uporabljamo tukaj, lahko v QGIS ustvarite vektorsko mrežo in jo pretvorite v projicirani CRS, ki se uporablja kot referenca za natančen zajem koordinat. Za več podrobnosti glejte <a class="reference external" href="https://raisedbeaches.net/2018/02/01/georeferencing-in-qgis/">to stran</a>.</p>
 </div>
 <ol class="arabic simple" start="9">
-<li><p>Name your output raster as  <code class="docutils literal notranslate"><span class="pre">1870_southern_india_modified.tif</span></code>. Choose <code class="docutils literal notranslate"><span class="pre">LZW</span></code> as the <span class="guilabel">Compression</span>. Check the <span class="guilabel">Save GCP points</span> to store the points as seperate file for future purpose. Make sure the <span class="guilabel">Load in QGIS when done</span> option is checked. Click <span class="guilabel">OK</span>.</p></li>
+<li><p>Name your output raster as <code class="docutils literal notranslate"><span class="pre">1870_southern_india_modified.tif</span></code>. Choose <code class="docutils literal notranslate"><span class="pre">LZW</span></code> as the <span class="guilabel">Compression</span>. Check the <span class="guilabel">Save GCP points</span> to store the points as seperate file for future purpose. Make sure the <span class="guilabel">Load in QGIS when done</span> option is checked. Click <span class="guilabel">OK</span>.</p></li>
 </ol>
 <blockquote>
 <div><img alt="../../_images/095.png" class="align-center" src="../../_images/095.png" />
 </div></blockquote>
 <div class="admonition note">
 <p class="admonition-title">Opomba</p>
-<p>Uncompressed GeoTIFF files can be very large in size. So compressing them is always a good idea. You can learn more about different TIFF compression options (LZW, PACKBITS or DEFLATE) in <a class="reference external" href="https://kokoalberti.com/articles/geotiff-compression-optimization-guide">this article</a>.</p>
+<p>Nestisnjene datoteke GeoTIFF so lahko zelo velike. Zato je stiskanje vedno dobra zamisel. Več o različnih možnostih stiskanja TIFF (LZW, PACKBITS ali DEFLATE) lahko izveste v tem članku &lt;<a class="reference external" href="https://kokoalberti.com/articles/geotiff-compression-optimization-guide">https://kokoalberti.com/articles/geotiff-compression-optimization-guide</a>&gt;`_.</p>
 </div>
 <ol class="arabic simple" start="10">
-<li><p>Now we can start adding the Ground Control Points (GCP).  Click on the <span class="guilabel">Add Point</span> button.</p></li>
+<li><p>Now we can start adding the Ground Control Points (GCP). Click on the <span class="guilabel">Add Point</span> button.</p></li>
 </ol>
 <blockquote>
 <div><img alt="../../_images/1015.png" class="align-center" src="../../_images/1015.png" />
 </div></blockquote>
 <ol class="arabic simple" start="11">
-<li><p>Now place the cross-hair at the intersections of the grid lines and left-click, this will serve as the <em>ground-truth</em> in our case. As the grid lines are labeled, we can determine the X and Y coordinates of the points using them. In the pop-up window, enter the coordinates. Remember that X=longitude and Y=latitude. Click <span class="guilabel">OK</span>.</p></li>
+<li><p>Sedaj postavite križec na presečišča mrežnih črt in kliknite z levim gumbom miške, kar bo v našem primeru služilo kot <em>ground-truth</em>. Ker so linije mreže označene, lahko z njimi določimo koordinati X in Y točk. V pojavnem oknu vnesite koordinate. Ne pozabite, da je X zemljepisna dolžina in Y zemljepisna širina. Kliknite <span class="guilabel">OK</span>.</p></li>
 </ol>
 <blockquote>
 <div><img alt="../../_images/1118.png" class="align-center" src="../../_images/1118.png" />
 </div></blockquote>
 <ol class="arabic simple" start="12">
-<li><p>You will notice the GCP table now has a row with details of your first GCP.</p></li>
+<li><p>Opazili boste, da je v preglednici GCP zdaj vrstica s podrobnostmi o vašem prvem GCP.</p></li>
 </ol>
 <blockquote>
 <div><img alt="../../_images/1216.png" class="align-center" src="../../_images/1216.png" />
 </div></blockquote>
-<p>13 . Similarly, add more GCPs covering the entire image. The more points you have, the more accurate your image is registered to the target coordinates. The <code class="docutils literal notranslate"><span class="pre">Polynomial</span> <span class="pre">2</span></code> transform requires at least 6 GCPs. Once you have added the minimum number of points required for the transform, you will notice that the GCPs now have a non-zero <code class="docutils literal notranslate"><span class="pre">dX</span></code>, <code class="docutils literal notranslate"><span class="pre">dY</span></code> and <code class="docutils literal notranslate"><span class="pre">Residual</span></code> error values. If a particular GCP has unusually high error values, that usually means a human-error in entering the coordinate values. So you can delete that GCP and capture it again. You can also edit the coordinate values in the <span class="guilabel">GCP Table</span> by clicking the cell in either <span class="guilabel">Dest. X</span> or <span class="guilabel">Dest. Y</span> columns.</p>
+<ol class="arabic simple" start="13">
+<li><p>Similarly, add more GCPs covering the entire image. The more points you have, the more accurate your image is registered to the target coordinates. The <code class="docutils literal notranslate"><span class="pre">Polynomial</span> <span class="pre">2</span></code> transform requires at least 6 GCPs. Once you have added the minimum number of points required for the transform, you will notice that the GCPs now have a non-zero <code class="docutils literal notranslate"><span class="pre">dX</span></code>, <code class="docutils literal notranslate"><span class="pre">dY</span></code> and <code class="docutils literal notranslate"><span class="pre">Residual</span></code> error values. If a particular GCP has unusually high error values, that usually means a human-error in entering the coordinate values. So you can delete that GCP and capture it again. You can also edit the coordinate values in the <span class="guilabel">GCP Table</span> by clicking the cell in either <span class="guilabel">Dest. X</span> or <span class="guilabel">Dest. Y</span> columns.</p></li>
+</ol>
 <blockquote>
 <div><img alt="../../_images/1314.png" class="align-center" src="../../_images/1314.png" />
 </div></blockquote>
 <ol class="arabic simple" start="14">
-<li><p>Once you are satisfied with the GCPs, click the <span class="guilabel">Start Georeferencing</span> button. This will start the process of warping the image using the GCPs and creating the target raster.</p></li>
+<li><p>Ko ste zadovoljni z GCP-ji, kliknite gumb <span class="guilabel">Start Georeferencing</span>. S tem se bo začel postopek deformacije slike z uporabo GCP-jev in ustvarjanja ciljnega rastra.</p></li>
 </ol>
 <blockquote>
 <div><img alt="../../_images/1412.png" class="align-center" src="../../_images/1412.png" />
 </div></blockquote>
 <ol class="arabic simple" start="15">
-<li><p>Once the process finishes, you will see the georeferenced layer loaded in QGIS. The georeferencing is now complete. Also, you will notice the Project CRS in the bottom right is set to <em>EPSG:4042</em> as described in Transformation Settings.</p></li>
+<li><p>Ko se postopek konča, se v QGIS-u naloži georeferencirani sloj. Georeferenciranje je končano. Opazili boste tudi, da je Project CRS v spodnjem desnem kotu nastavljen na <em>EPSG:4042</em>, kot je opisano v razdelku Nastavitve transformacije.</p></li>
 </ol>
 <blockquote>
 <div><img alt="../../_images/1511.png" class="align-center" src="../../_images/1511.png" />
 </div></blockquote>
 <ol class="arabic simple" start="16">
-<li><p>Drag and drop the <code class="docutils literal notranslate"><span class="pre">OpenStreetMap</span></code> as Base Map from the <span class="guilabel">XYZ Tiles</span> dropdown at the bottom of the Browser panel to verify the georeferenced layer. To set the transparency, click on the <span class="guilabel">Open layer styling panel</span> icon  and select <span class="guilabel">Transparency</span> tab. Set the transparency to <code class="docutils literal notranslate"><span class="pre">40</span> <span class="pre">%</span></code>. Now the georeferenced image must overlay with the basemap outline.</p></li>
+<li><p>Drag and drop the <code class="docutils literal notranslate"><span class="pre">OpenStreetMap</span></code> as Base Map from the <span class="guilabel">XYZ Tiles</span> dropdown at the bottom of the Browser panel to verify the georeferenced layer. To set the transparency, click on the <span class="guilabel">Open layer styling panel</span> icon and select <span class="guilabel">Transparency</span> tab. Set the transparency to <code class="docutils literal notranslate"><span class="pre">40</span> <span class="pre">%</span></code>. Now the georeferenced image must overlay with the basemap outline.</p></li>
 </ol>
 <blockquote>
 <div><img alt="../../_images/1610.png" class="align-center" src="../../_images/1610.png" />
 </div></blockquote>
 <ol class="arabic simple" start="17">
-<li><p>If the georeference needs more fine-tuning, we can start from the collected GCP points. Browse the <code class="docutils literal notranslate"><span class="pre">1870_southern_india_modified.tif</span></code> file location. You can find an additional file, <code class="docutils literal notranslate"><span class="pre">1870_southern_india_modified.tif.points</span></code>. This file will contain the GCP points information.</p></li>
+<li><p>Če je treba georeferenciranje natančneje prilagoditi, lahko začnemo z zbranimi točkami GCP. Prebrskajte po lokaciji datoteke <code class="docutils literal notranslate"><span class="pre">1870_southern_india_modified.tif</span></code>. Našli boste dodatno datoteko <code class="docutils literal notranslate"><span class="pre">1870_southern_india_modified.tif.points</span></code>. Ta datoteka vsebuje informacije o točkah GCP.</p></li>
 </ol>
 <blockquote>
 <div><img alt="../../_images/1711.png" class="align-center" src="../../_images/1711.png" />
 </div></blockquote>
 <ol class="arabic simple" start="18">
-<li><p>Open the georeferencing tool in QGIS, click <span class="menuselection">File ‣ Load GCP Points</span>, and select the <code class="docutils literal notranslate"><span class="pre">1870_southern_india_modified.tif.points</span></code>. This will load the GCP created previously. Then load the <code class="docutils literal notranslate"><span class="pre">1870_southern_india_modified.tif</span></code> to fine-tune your work.</p></li>
+<li><p>Odprite orodje za georeferenciranje v QGIS, kliknite <span class="menuselection">File ‣ Load GCP Points</span> in izberite <code class="docutils literal notranslate"><span class="pre">1870_southern_india_modified.tif.points</span></code>. S tem boste naložili predhodno ustvarjene točke GCP. Nato naložite <code class="docutils literal notranslate"><span class="pre">1870_južna_indija_spremenjen.tif</span></code> in natančno uskladite svoje delo.</p></li>
 </ol>
 <blockquote>
 <div><img alt="../../_images/189.png" class="align-center" src="../../_images/189.png" />
@@ -376,7 +378,7 @@
     </p>
     <p>
         &copy; Copyright 2021, Ujaval Gandhi.<br/>
-      Zadnjič posodobljeno nov. 02, 2022.<br/>
+      Zadnjič posodobljeno nov. 04, 2022.<br/>
       Created using <a href="http://sphinx-doc.org/">Sphinx</a> 4.0.1.<br/>
     </p>
   </div>

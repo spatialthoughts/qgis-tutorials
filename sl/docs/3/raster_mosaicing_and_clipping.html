@@ -5,7 +5,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
-    <title>Raster Mosaicing and Clipping (QGIS3) &#8212; QGIS Tutorials and Tips</title>
+    <title>Mozaičenje in obrezovanje rastrov (QGIS3) &#8212; QGIS Tutorials and Tips</title>
     <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-sphinx.css" />
     <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
@@ -76,13 +76,13 @@
 <li class="toctree-l1"><a class="reference internal" href="working_with_attributes.html">Delo z atributi (QGIS3)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="importing_spreadsheets_csv.html">Uvoz podatkov preglednic ali datotek CSV (QGIS3)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="basic_vector_styling.html">Osnovno oblikovanje vektorskih slojev (QGIS3)</a></li>
-<li class="toctree-l1"><a class="reference internal" href="calculating_line_lengths.html">Calculating Line Lengths and Statistics (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="calculating_line_lengths.html">Izračunavanje dolžin in statistike linij (QGIS3)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="raster_styling_and_analysis.html">Osnovne analize in prikazi rastrov (QGIS3)</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Raster Mosaicing and Clipping (QGIS3)</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Mozaičenje in obrezovanje rastrov (QGIS3)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="working_with_terrain.html">Delo s podatki o reliefu (QGIS3)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="working_with_wms.html">Delo s podatki prek vmesnika WMS (QGIS3)</a></li>
-<li class="toctree-l1"><a class="reference internal" href="working_with_projections.html">Working with Projections (QGIS3)</a></li>
-<li class="toctree-l1"><a class="reference internal" href="georeferencing_basics.html">Georeferencing Topo Sheets and Scanned Maps (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="working_with_projections.html">Delo s projekcijami (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="georeferencing_basics.html">Georeferenciranje skeniranih topografskih kart (QGIS3)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="advanced_georeferencing.html">Georeferencing Aerial Imagery (QGIS3)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="digitizing_basics.html">Digitalizacija podatkov (QGIS3)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="performing_table_joins.html">Združevanje tabel (QGIS3)</a></li>
@@ -202,25 +202,25 @@
       
 
   <section id="raster-mosaicing-and-clipping-qgis3">
-<h1>Raster Mosaicing and Clipping (QGIS3)<a class="headerlink" href="#raster-mosaicing-and-clipping-qgis3" title="Povezava na naslov">¶</a></h1>
-<p>This tutorial explores basic techniques for working with rasters in QGIS such as mosaicing and subsetting.</p>
+<h1>Mozaičenje in obrezovanje rastrov (QGIS3)<a class="headerlink" href="#raster-mosaicing-and-clipping-qgis3" title="Povezava na naslov">¶</a></h1>
+<p>V tem učbeniku so predstavljene osnovne tehnike dela z rastri v QGIS, kot sta mozaičenje in izrezovanje.</p>
 <section id="overview-of-the-task">
-<h2>Overview of the task<a class="headerlink" href="#overview-of-the-task" title="Povezava na naslov">¶</a></h2>
-<p>We will download elevation data for Sri Lanka in form of SRTM tiles, merge them and clip the resulting mosaic to the country boundary.</p>
+<h2>Pregled naloge<a class="headerlink" href="#overview-of-the-task" title="Povezava na naslov">¶</a></h2>
+<p>Za Šrilanko bomo prenesli višinske podatke v obliki ploščic SRTM, jih združili in nastali mozaik pripeli na državno mejo.</p>
 <section id="other-skills-you-will-learn">
-<h3>Other skills you will learn<a class="headerlink" href="#other-skills-you-will-learn" title="Povezava na naslov">¶</a></h3>
+<h3>Česa se bomo še naučili<a class="headerlink" href="#other-skills-you-will-learn" title="Povezava na naslov">¶</a></h3>
 <ul class="simple">
-<li><p>Using the Hillshade renderer to visualize elevation data.</p></li>
+<li><p>Uporabe upodobitvenega programa Hillshade za vizualizacijo podatkov o nadmorski višini.</p></li>
 </ul>
 </section>
 </section>
 <section id="get-the-data">
-<h2>Get the data<a class="headerlink" href="#get-the-data" title="Povezava na naslov">¶</a></h2>
-<p>Land Processes Distributed Active Archive Center (LP DAAC) provides <a class="reference external" href="https://lpdaac.usgs.gov/products/srtmgl1v003/">NASA Shuttle Radar Topography Mission (SRTM) Global 1 arc second</a> dataset as elevation tiles.</p>
-<p>An easy interface to download tiles for a given area is the <a class="reference external" href="https://dwtkns.com/srtm30m/">30-Meter SRTM Tile Downloader</a> by By Derek Watkins. Download the individual SRTM tiles covering Sri Lanka. Note that you will need a free <a class="reference external" href="https://urs.earthdata.nasa.gov/home">Earth Data account</a> to download the data.</p>
+<h2>Pridobivanje podatkov<a class="headerlink" href="#get-the-data" title="Povezava na naslov">¶</a></h2>
+<p>Land Processes Distributed Active Archive Center  (LP DAAC) zagotavlja <a class="reference external" href="https://lpdaac.usgs.gov/products/srtmgl1v003/">NASA Shuttle Radar Topography Mission (SRTM) Global 1 arc second</a> podatkovni niz v obliki višinskih delov (tile).</p>
+<p>Enostaven vmesnik za prenos delov za določeno območje je <a class="reference external" href="https://dwtkns.com/srtm30m/">30-Meter SRTM Tile Downloader</a> Dereka Watkinsa. Prenesite posamezne dele SRTM, ki pokrivajo Šrilanko. Upoštevajte, da boste za prenos podatkov potrebovali brezplačen račun <a class="reference external" href="https://urs.earthdata.nasa.gov/home">Earth Data</a>.</p>
 <img alt="../../_images/data115.png" class="align-center" src="../../_images/data115.png" />
-<p>We will also need the <a class="reference external" href="http://www.naturalearthdata.com/http//www.naturalearthdata.com/download/10m/cultural/ne_10m_admin_0_countries.zip">Admin 0 - Countries</a> shapefile from  Natural Earth.</p>
-<p>For convenience, you may directly download a copy of the datasets from the links below:</p>
+<p>Potrebovali bomo tudi datoteko <a class="reference external" href="http://www.naturalearthdata.com/http//www.naturalearthdata.com/download/10m/cultural/ne_10m_admin_0_countries.zip">Admin 0 - Countries</a> shapefile iz programa Natural Earth.</p>
+<p>Kopijo podatkovnih nizov lahko neposredno prenesete s spodnjih povezav:</p>
 <p><a class="reference external" href="https://www.qgistutorials.com/downloads/N05E080.SRTMGL1.hgt.zip">N05E080.SRTMGL1.hgt.zip</a></p>
 <p><a class="reference external" href="https://www.qgistutorials.com/downloads/N06E079.SRTMGL1.hgt.zip">N06E079.SRTMGL1.hgt.zip</a></p>
 <p><a class="reference external" href="https://www.qgistutorials.com/downloads/N06E080.SRTMGL1.hgt.zip">N06E080.SRTMGL1.hgt.zip</a></p>
@@ -233,96 +233,96 @@
 <p><a class="reference external" href="https://www.qgistutorials.com/downloads/N08E081.SRTMGL1.hgt.zip">N08E081.SRTMGL1.hgt.zip</a></p>
 <p><a class="reference external" href="https://www.qgistutorials.com/downloads/N09E080.SRTMGL1.hgt.zip">N09E080.SRTMGL1.hgt.zip</a></p>
 <p><a class="reference external" href="https://www.qgistutorials.com/downloads/ne_10m_admin_0_countries.zip">ne_10m_admin_0_countries.zip</a></p>
-<p>Data Source <a class="reference internal" href="../credits.html#srtm" id="id1"><span>[SRTM]</span></a> , <a class="reference internal" href="../credits.html#naturalearth" id="id2"><span>[NATURALEARTH]</span></a></p>
+<p>Vir podatkov <a class="reference internal" href="../credits.html#srtm" id="id1"><span>[SRTM]</span></a> , <a class="reference internal" href="../credits.html#naturalearth" id="id2"><span>[NATURALEARTH]</span></a></p>
 </section>
 <section id="procedure">
-<h2>Procedure<a class="headerlink" href="#procedure" title="Povezava na naslov">¶</a></h2>
+<h2>Postopek<a class="headerlink" href="#procedure" title="Povezava na naslov">¶</a></h2>
 <ol class="arabic simple">
-<li><p>Open QGIS and locate the downloaded files in the <span class="guilabel">Browser</span> panel. Expand individual zip files to show the <code class="docutils literal notranslate"><span class="pre">.hgt</span></code> files. Hold the <kbd class="kbd docutils literal notranslate">Ctrl</kbd> key and select all individual files. Once selected, drag them to the canvas.</p></li>
+<li><p>Odprite QGIS in poiščite prenesene datoteke na plošči <span class="guilabel">Browser</span>. Razširite posamezne datoteke zip, da se prikažejo datoteke <code class="docutils literal notranslate"><span class="pre">.hgt</span></code>. Držite tipko <kbd class="kbd docutils literal notranslate">Ctrl</kbd> in izberite vse posamezne datoteke. Ko so izbrane, jih povlecite na platno.</p></li>
 </ol>
 <blockquote>
 <div><img alt="../../_images/1108.png" class="align-center" src="../../_images/1108.png" />
 </div></blockquote>
 <ol class="arabic simple" start="2">
-<li><p>You will see 11 individual layers loaded in the <span class="guilabel">Layers</span> panel and displayed in the canvas. We will merge these individual tiles into a single mosaic. Go to <span class="menuselection">Processing ‣ Toolbox</span>.</p></li>
+<li><p>Na plošči <span class="guilabel">Layers</span> se naloži 11 slojev, ki so prikazani na platnu. Te posamezne plasti bomo združili v en sam mozaik. Pojdite na <span class="menuselection">Processing ‣ Toolbox</span>.</p></li>
 </ol>
 <blockquote>
 <div><img alt="../../_images/2103.png" class="align-center" src="../../_images/2103.png" />
 </div></blockquote>
 <ol class="arabic simple" start="3">
-<li><p>Search and locate the <span class="menuselection">GDAL ‣ Raster miscellaneous ‣ Merge</span> tool. Double-click to launch it.</p></li>
+<li><p>Poiščite in poiščite orodje <span class="menuselection">GDAL ‣ Raster miscellaneous ‣ Merge</span>. Z dvoklikom ga zaženite.</p></li>
 </ol>
 <blockquote>
 <div><img alt="../../_images/344.png" class="align-center" src="../../_images/344.png" />
 </div></blockquote>
 <ol class="arabic simple" start="4">
-<li><p>In the <span class="guilabel">Merge</span> dialog, click the <span class="guilabel">…</span> button next to <span class="guilabel">Input layers</span>. Click <span class="guilabel">Select All</span> to select all individual layers.</p></li>
+<li><p>V pogovornem oknu <span class="guilabel">Merge</span> kliknite gumb <span class="guilabel">…</span> poleg <span class="guilabel">Input layers</span>. Kliknite <span class="guilabel">Select All</span> (izberi vse), da izberete vse posamezne plasti.</p></li>
 </ol>
 <blockquote>
 <div><img alt="../../_images/423.png" class="align-center" src="../../_images/423.png" />
 </div></blockquote>
 <ol class="arabic simple" start="5">
-<li><p>As mentioned in the <a class="reference external" href="https://lpdaac.usgs.gov/products/srtmgl1v003/">dataset layer details</a>, the input data type is <em>16-bit signed integer</em>. To maintain data integrity, we should keep the same data type for the merged layer. Select <code class="docutils literal notranslate"><span class="pre">Int16</span></code> as the <span class="guilabel">Output data type</span>. Also the default output data format is GeoTiff. GeoTiff files can get very large if not compressed. Choose <code class="docutils literal notranslate"><span class="pre">High</span> <span class="pre">Compression</span></code> as the <span class="guilabel">Profile</span>. Click <span class="guilabel">Run</span>.</p></li>
+<li><p>Kot je navedeno v podrobnostih o podatkovni plasti &lt;<a class="reference external" href="https://lpdaac.usgs.gov/products/srtmgl1v003/">https://lpdaac.usgs.gov/products/srtmgl1v003/</a>&gt;`_, je tip vhodnih podatkov <em>16-bit signed integer</em>. Da bi ohranili celovitost podatkov, moramo za združeno plast ohraniti isti podatkovni tip. Izberite <code class="docutils literal notranslate"><span class="pre">Int16</span></code> kot <span class="guilabel">Output data type</span>. Tudi privzeti format izhodnih podatkov je GeoTiff. Datoteke GeoTiff so lahko zelo velike, če niso stisnjene. Kot <span class="guilabel">Profile</span> izberite <code class="docutils literal notranslate"><span class="pre">High</span> <span class="pre">Compression</span></code>. Kliknite <span class="guilabel">Run</span>.</p></li>
 </ol>
 <blockquote>
 <div><img alt="../../_images/522.png" class="align-center" src="../../_images/522.png" />
 </div></blockquote>
 <ol class="arabic simple" start="6">
-<li><p>Once the processing finishes, the a new layer <code class="docutils literal notranslate"><span class="pre">OUTPUT</span></code> will be added to the <span class="guilabel">Layers</span> panel. In case the layer is not at the top of the stack, select it and drag it to the top of the <span class="guilabel">Layers</span> panel.</p></li>
+<li><p>Ko se obdelava konča, se na ploščo <span class="guilabel">Layers</span> doda nova plast <code class="docutils literal notranslate"><span class="pre">OUTPUT</span></code>. Če plast ni na vrhu sklada, jo izberite in povlecite na vrh plošče <span class="guilabel">Layers</span>.</p></li>
 </ol>
 <blockquote>
 <div><img alt="../../_images/621.png" class="align-center" src="../../_images/621.png" />
 </div></blockquote>
 <ol class="arabic simple" start="7">
-<li><p>You will see that the <code class="docutils literal notranslate"><span class="pre">OUTPUT</span></code> layer contains the merged elevation data from the individual input tiles. The default visualization only shows the pixel values in the range from 0-255. But our data contains pixels with values -14 to 2371, resulting in a low contrast rendering. Let’s change it a better visualization. Click the <span class="guilabel">Open the layer Styling panel</span> button in the <span class="guilabel">Layers</span> panel.</p></li>
+<li><p>Videli boste, da sloj <code class="docutils literal notranslate"><span class="pre">OUTPUT</span></code> vsebuje združene višinske podatke iz posameznih vhodnih ploščic. Privzeta vizualizacija prikazuje samo vrednosti pikslov v razponu od 0-255. Naši podatki pa vsebujejo piksle z vrednostmi od -14 do 2371, zato je upodobitev nizkokontrastna. Spremenimo jo na boljšo vizualizacijo. Kliknite gumb <span class="guilabel">Open the layer Styling panel</span> (odpri ploščo za oblikovanje slojev) na plošči <span class="guilabel">Layers</span> (sloje).</p></li>
 </ol>
 <blockquote>
 <div><img alt="../../_images/721.png" class="align-center" src="../../_images/721.png" />
 </div></blockquote>
 <ol class="arabic simple" start="8">
-<li><p>In the <span class="guilabel">Layer Styling</span> panel, click the <span class="guilabel">Render type</span> dropdown and select <code class="docutils literal notranslate"><span class="pre">Hillshade</span></code> renderer. This rendering option is particularly well-suited for elevation data.</p></li>
+<li><p>Na plošči <span class="guilabel">Layer Styling</span> kliknite spustno okno <span class="guilabel">Render type</span> in izberite renderer <code class="docutils literal notranslate"><span class="pre">Hillshade</span></code>. Ta možnost upodabljanja je še posebej primerna za podatke o nadmorski višini.</p></li>
 </ol>
 <blockquote>
 <div><img alt="../../_images/820.png" class="align-center" src="../../_images/820.png" />
 </div></blockquote>
 <ol class="arabic simple" start="9">
-<li><p>Another common operation when working with rasters is to clip a raster to your area of interest. For this tutorial, we will clip the merged layer to the country boundary for Sri Lanka. Locate the downloaded <code class="docutils literal notranslate"><span class="pre">ne_10m_admin_0_countries.zip</span></code> file and expand it. Drag the <code class="docutils literal notranslate"><span class="pre">ne_10m_admin_0_countries.shp</span></code> file to the canvas.</p></li>
+<li><p>Druga pogosta operacija pri delu z rastri je pripenjanje rastra na območje, ki vas zanima. V tem učbeniku bomo združeni sloj pripeli na državno mejo Šrilanke. Poiščite preneseno datoteko <code class="docutils literal notranslate"><span class="pre">ne_10m_admin_0_countries.zip</span></code> in jo razširite. Datoteko <code class="docutils literal notranslate"><span class="pre">ne_10m_admin_0_countries.shp</span></code> povlecite na platno.</p></li>
 </ol>
 <blockquote>
 <div><img alt="../../_images/921.png" class="align-center" src="../../_images/921.png" />
 </div></blockquote>
 <ol class="arabic simple" start="10">
-<li><p>Select the newly added <code class="docutils literal notranslate"><span class="pre">ne_10m_admin_0_countries</span></code> layers in the <span class="guilabel">Layers</span> panel. Click the <span class="guilabel">Select Features by area or single click</span> button on the <span class="guilabel">Attributes Toolbar</span>. Once selected, click the polygon for Sri Lanka to select it.</p></li>
+<li><p>Izberite novo dodane plasti <code class="docutils literal notranslate"><span class="pre">ne_10m_admin_0_countries</span></code> na plošči <span class="guilabel">Layers</span>. Kliknite gumb <span class="guilabel">Select Features by area or single click</span> (Izberi elemente po območju ali z enim klikom) v orodni vrstici <span class="guilabel">Attributes Toolbar</span> (Orodna vrstica Atributi). Ko je izbran, kliknite poligon za Šrilanko, da ga izberete.</p></li>
 </ol>
 <blockquote>
 <div><img alt="../../_images/1028.png" class="align-center" src="../../_images/1028.png" />
 </div></blockquote>
 <ol class="arabic simple" start="11">
-<li><p>Keep the selection as it is and open <span class="menuselection">Processing ‣ Toolbox</span>. Search and locate the <span class="menuselection">GDAL ‣ Raster extraction ‣ Clip raster by mask layer</span> tool. Double-click to launch it.</p></li>
+<li><p>Ohranite izbor, kot je, in odprite <span class="menuselection">Processing ‣ Toolbox</span>. Poiščite orodje <span class="menuselection">GDAL ‣ Raster extraction ‣ Clip raster by mask layer</span>. Z dvojnim klikom ga zaženite.</p></li>
 </ol>
 <blockquote>
 <div><img alt="../../_images/1132.png" class="align-center" src="../../_images/1132.png" />
 </div></blockquote>
 <ol class="arabic simple" start="12">
-<li><p>In the <span class="guilabel">Clip Raster by Mask Layer</span> dialog, set <code class="docutils literal notranslate"><span class="pre">OUTPUT</span></code> as the <span class="guilabel">Input Layer</span>. Select <code class="docutils literal notranslate"><span class="pre">ne_10m_admin_0_countries</span></code> as the <span class="guilabel">Mask layer</span>, and check the <span class="guilabel">Selected features only</span> checkbox. Enter <code class="docutils literal notranslate"><span class="pre">0.0000</span></code> as the <span class="guilabel">Assign a specified nodata value to output bands</span>. As before, choose <code class="docutils literal notranslate"><span class="pre">High</span> <span class="pre">compression</span></code> as the <span class="guilabel">Profile</span>. Click <span class="guilabel">Run</span>.</p></li>
+<li><p>V pogovornem oknu <span class="guilabel">Clip Raster by Mask Layer</span> nastavite <code class="docutils literal notranslate"><span class="pre">OUTPUT</span></code> kot <span class="guilabel">Input Layer</span>. Izberite <code class="docutils literal notranslate"><span class="pre">ne_10m_admin_0_countries</span></code> kot <span class="guilabel">Mask layer`</span> in potrdite potrditveno polje <span class="guilabel">Selected features only`</span>. Vnesite <code class="docutils literal notranslate"><span class="pre">0,0000</span></code> kot <span class="guilabel">Assign a specified nodata value to output bands</span>. Kot prej izberite <code class="docutils literal notranslate"><span class="pre">High</span> <span class="pre">compression</span></code> kot <span class="guilabel">Profile</span>. Kliknite <span class="guilabel">Run</span>.</p></li>
 </ol>
 <blockquote>
 <div><img alt="../../_images/1230.png" class="align-center" src="../../_images/1230.png" />
 </div></blockquote>
 <ol class="arabic simple" start="13">
-<li><p>A new layer <code class="docutils literal notranslate"><span class="pre">OUTPUT</span></code> will be added to the <span class="guilabel">Layers</span> panel. At this point, it may be hard to see the output because we have too many overlapping layers visible. Click the <span class="guilabel">Manage Map Themes</span> button in the <span class="guilabel">Layers</span> panel and choose <code class="docutils literal notranslate"><span class="pre">Hide</span> <span class="pre">All</span> <span class="pre">Layers</span></code>.</p></li>
+<li><p>Na ploščo <span class="guilabel">Layers</span> bo dodana nova plast <code class="docutils literal notranslate"><span class="pre">OUTPUT</span></code>. Na tej točki bo morda težko videti izhod, ker imamo vidnih preveč prekrivajočih se slojev. Kliknite gumb <span class="guilabel">Manage Map Themes</span> na plošči <span class="guilabel">Layers</span> in izberite <code class="docutils literal notranslate"><span class="pre">Hide</span> <span class="pre">All</span> <span class="pre">Layers</span></code>.</p></li>
 </ol>
 <blockquote>
 <div><img alt="../../_images/1328.png" class="align-center" src="../../_images/1328.png" />
 </div></blockquote>
 <ol class="arabic simple" start="14">
-<li><p>Turn on only the latest <code class="docutils literal notranslate"><span class="pre">OUTPUT</span></code> layer and style it with the <code class="docutils literal notranslate"><span class="pre">Hilshade</span></code> renderer as done before.</p></li>
+<li><p>Vključite samo zadnjo plast <code class="docutils literal notranslate"><span class="pre">OUTPUT</span></code> in jo oblikujte z prikazom <code class="docutils literal notranslate"><span class="pre">Hilshade</span></code> kot prej.</p></li>
 </ol>
 <blockquote>
 <div><img alt="../../_images/1425.png" class="align-center" src="../../_images/1425.png" />
 </div></blockquote>
 <ol class="arabic simple" start="15">
-<li><p>The merged and subsetted output elevation layer for Sri Lanka is ready.</p></li>
+<li><p>Združeni in obrezani izhodni sloj višin za Šrilanko je pripravljen.</p></li>
 </ol>
 <blockquote>
 <div><img alt="../../_images/1524.png" class="align-center" src="../../_images/1524.png" />
@@ -352,7 +352,7 @@
     </p>
     <p>
         &copy; Copyright 2021, Ujaval Gandhi.<br/>
-      Zadnjič posodobljeno nov. 02, 2022.<br/>
+      Zadnjič posodobljeno nov. 04, 2022.<br/>
       Created using <a href="http://sphinx-doc.org/">Sphinx</a> 4.0.1.<br/>
     </p>
   </div>

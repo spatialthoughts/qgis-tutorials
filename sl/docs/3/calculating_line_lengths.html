@@ -5,7 +5,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
-    <title>Calculating Line Lengths and Statistics (QGIS3) &#8212; QGIS Tutorials and Tips</title>
+    <title>Izračunavanje dolžin in statistike linij (QGIS3) &#8212; QGIS Tutorials and Tips</title>
     <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-sphinx.css" />
     <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
@@ -76,13 +76,13 @@
 <li class="toctree-l1"><a class="reference internal" href="working_with_attributes.html">Delo z atributi (QGIS3)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="importing_spreadsheets_csv.html">Uvoz podatkov preglednic ali datotek CSV (QGIS3)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="basic_vector_styling.html">Osnovno oblikovanje vektorskih slojev (QGIS3)</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Calculating Line Lengths and Statistics (QGIS3)</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Izračunavanje dolžin in statistike linij (QGIS3)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="raster_styling_and_analysis.html">Osnovne analize in prikazi rastrov (QGIS3)</a></li>
-<li class="toctree-l1"><a class="reference internal" href="raster_mosaicing_and_clipping.html">Raster Mosaicing and Clipping (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="raster_mosaicing_and_clipping.html">Mozaičenje in obrezovanje rastrov (QGIS3)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="working_with_terrain.html">Delo s podatki o reliefu (QGIS3)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="working_with_wms.html">Delo s podatki prek vmesnika WMS (QGIS3)</a></li>
-<li class="toctree-l1"><a class="reference internal" href="working_with_projections.html">Working with Projections (QGIS3)</a></li>
-<li class="toctree-l1"><a class="reference internal" href="georeferencing_basics.html">Georeferencing Topo Sheets and Scanned Maps (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="working_with_projections.html">Delo s projekcijami (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="georeferencing_basics.html">Georeferenciranje skeniranih topografskih kart (QGIS3)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="advanced_georeferencing.html">Georeferencing Aerial Imagery (QGIS3)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="digitizing_basics.html">Digitalizacija podatkov (QGIS3)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="performing_table_joins.html">Združevanje tabel (QGIS3)</a></li>
@@ -202,81 +202,81 @@
       
 
   <section id="calculating-line-lengths-and-statistics-qgis3">
-<h1>Calculating Line Lengths and Statistics (QGIS3)<a class="headerlink" href="#calculating-line-lengths-and-statistics-qgis3" title="Povezava na naslov">¶</a></h1>
-<p>QGIS has built-in functions and algorithms to calculate various properties based on the geometry of the feature - such as length, area, perimeter etc. This tutorial will show how to use the <strong>Add geometry attributess</strong> tool to add a column with a value representing length of each feature.</p>
+<h1>Izračunavanje dolžin in statistike linij (QGIS3)<a class="headerlink" href="#calculating-line-lengths-and-statistics-qgis3" title="Povezava na naslov">¶</a></h1>
+<p>QGIS ima vgrajene funkcije in algoritme za izračun različnih lastnosti na podlagi geometrije elementa, kot so dolžina, površina, obod itd. V tem priročniku bo prikazano, kako z orodjem <strong>Add geometry attributess</strong> dodati stolpec z vrednostjo, ki predstavlja dolžino vsakega elementa.</p>
 <section id="overview-of-the-task">
-<h2>Overview of the task<a class="headerlink" href="#overview-of-the-task" title="Povezava na naslov">¶</a></h2>
-<p>Given a polyline layer of railroads in North America, we will determine the total length of railroads in the United States.</p>
+<h2>Pregled naloge<a class="headerlink" href="#overview-of-the-task" title="Povezava na naslov">¶</a></h2>
+<p>Če imamo na voljo poligonski sloj železnic v Severni Ameriki, določimo skupno dolžino železnic v Združenih državah Amerike.</p>
 <section id="other-skills-you-will-learn">
-<h3>Other skills you will learn<a class="headerlink" href="#other-skills-you-will-learn" title="Povezava na naslov">¶</a></h3>
+<h3>Česa se bomo še naučili<a class="headerlink" href="#other-skills-you-will-learn" title="Povezava na naslov">¶</a></h3>
 <ul class="simple">
-<li><p>Using expressions to filter features.</p></li>
-<li><p>Using the <span class="guilabel">Statistics</span> panel to compute and view statistics on columns.</p></li>
+<li><p>Uporabe izrazov za filtriranje funkcij.</p></li>
+<li><p>Uporabe plošče <span class="guilabel">Statistika</span> za izračunavanje in prikaz statistik stolpcev.</p></li>
 </ul>
 </section>
 </section>
 <section id="get-the-data">
-<h2>Get the data<a class="headerlink" href="#get-the-data" title="Povezava na naslov">¶</a></h2>
-<p><a class="reference external" href="http://www.naturalearthdata.com/downloads/10m-cultural-vectors/railroads/">Natural Earth</a> has a public domain railroads dataset.</p>
-<p>Download the <a class="reference external" href="http://www.naturalearthdata.com/http//www.naturalearthdata.com/download/10m/cultural/ne_10m_railroads_north_america.zip">North America supplement</a> zip file from the portal.</p>
-<p>For convenience, you may directly download a copy of the dataset from the link below:</p>
+<h2>Pridobivanje podatkov<a class="headerlink" href="#get-the-data" title="Povezava na naslov">¶</a></h2>
+<p><a class="reference external" href="http://www.naturalearthdata.com/downloads/10m-cultural-vectors/railroads/">Natural Earth</a> ima nabor podatkov o železnicah v javni domeni.</p>
+<p>S portala prenesite datoteko zip <a class="reference external" href="http://www.naturalearthdata.com/http//www.naturalearthdata.com/download/10m/cultural/ne_10m_railroads_north_america.zip">North America supplement</a>.</p>
+<p>Kopijo nabora podatkov lahko prenesete neposredno s spodnje povezave:</p>
 <p><a class="reference external" href="https://www.qgistutorials.com/downloads/ne_10m_railroads_north_america.zip">ne_10m_railroads_north_america..zip</a></p>
-<p>Data Source <a class="reference internal" href="../credits.html#naturalearth" id="id1"><span>[NATURALEARTH]</span></a></p>
+<p>Vir podatkov <a class="reference internal" href="../credits.html#naturalearth" id="id1"><span>[NATURALEARTH]</span></a></p>
 </section>
 <section id="procedure">
-<h2>Procedure<a class="headerlink" href="#procedure" title="Povezava na naslov">¶</a></h2>
+<h2>Postopek<a class="headerlink" href="#procedure" title="Povezava na naslov">¶</a></h2>
 <ol class="arabic simple">
-<li><p>Locate the downloaded <code class="docutils literal notranslate"><span class="pre">ne_10m_railroads_north_america.zip</span></code> file in the <span class="guilabel">Browser</span> panel and expand it. Drag the <code class="docutils literal notranslate"><span class="pre">ne_10m_railroads_north_america.shp</span></code> file to the canvas.</p></li>
+<li><p>Poiščite preneseno datoteko <code class="docutils literal notranslate"><span class="pre">ne_10m_railroads_north_america.zip</span></code> na plošči <span class="guilabel">Browser</span> in jo razširite. Datoteko <code class="docutils literal notranslate"><span class="pre">ne_10m_railroads_north_america.shp</span></code> povlecite na delovno površino.</p></li>
 </ol>
 <blockquote>
 <div><img alt="../../_images/129.png" class="align-center" src="../../_images/129.png" />
 </div></blockquote>
 <ol class="arabic simple" start="2">
-<li><p>You will see a new layer <code class="docutils literal notranslate"><span class="pre">ne_10m_railroads_north_america</span></code> loaded in the <span class="guilabel">Layers</span> panel. You will see that the layer has lines representing railroads for all of North America. Now, let’s calculate the lengths of each line feature. Go to <span class="menuselection">Processing ‣ Toolbox</span>.</p></li>
+<li><p>Na plošči <span class="guilabel">Layers</span> se bo naložil nov sloj <code class="docutils literal notranslate"><span class="pre">ne_10m_railroads_north_america</span></code>. Videli boste, da so v sloju črte, ki predstavljajo železnice za celotno Severno Ameriko. Zdaj izračunajmo dolžine posameznih elementov prog. Pojdite v <span class="menuselection">Processing ‣ Toolbox</span>.</p></li>
 </ol>
 <blockquote>
 <div><img alt="../../_images/220.png" class="align-center" src="../../_images/220.png" />
 </div></blockquote>
 <ol class="arabic simple" start="3">
-<li><p>Search for and locate the <span class="menuselection">Vector geometry ‣ Add geometry attributes</span> algorithm. Double-click to launch it.</p></li>
+<li><p>Poiščite in najdite algoritem <span class="menuselection">Vector geometry ‣ Add geometry attributes</span>. Z dvojnim klikom ga zaženite.</p></li>
 </ol>
 <blockquote>
 <div><img alt="../../_images/317.png" class="align-center" src="../../_images/317.png" />
 </div></blockquote>
 <ol class="arabic simple" start="4">
-<li><p>In the <span class="guilabel">Add Geometry Attributes</span> dialog, select <code class="docutils literal notranslate"><span class="pre">ne_10m_railroads_north_america</span></code> as the <span class="guilabel">Input layer</span>. The input layer’s Coordinate Reference System (CRS) is <em>EPSG:4326 WGS84</em>. This is a <em>Geographic</em> CRS with Latitude and Longitude as coordinates, WGS84 as ellipsoid and degrees as units.  Because latitude and longitude don’t have a standard length, you can’t measure distances or areas accurately using planar geometry functions. Fortunately, QGIS provides a better way to compute distances using ellipsoidal geometry, which is the most accurate method for layers spanning large areas such as this. Pick <code class="docutils literal notranslate"><span class="pre">Ellipsoidal</span></code> as the <span class="guilabel">Calculate using</span> option. Click <span class="guilabel">Run</span>. Once the process finishes, click <span class="guilabel">Close</span>.</p></li>
+<li><p>V pogovornem oknu <span class="guilabel">Add Geometry Attributes</span> (dodaj atribute geometrije) izberite <code class="docutils literal notranslate"><span class="pre">ne_10m_railroads_north_america</span></code> kot <span class="guilabel">Input layer</span> (vhodni sloj). Koordinatni referenčni sistem (CRS) vhodne plasti je <em>EPSG:4326 WGS84</em>. To je <em>geografski</em> CRS s koordinatama zemljepisne širine in dolžine, elipsoidom WGS84 in stopinjami kot enotami. Ker zemljepisna širina in dolžina nimata standardne dolžine, s funkcijami ravninske geometrije ne morete natančno izmeriti razdalj ali površin. Na srečo QGIS ponuja boljši način za izračun razdalj z uporabo elipsoidne geometrije, ki je najbolj natančna metoda za sloje, ki obsegajo velike površine, kot je ta. Kot možnost <span class="guilabel">Calculate using</span> izberite <code class="docutils literal notranslate"><span class="pre">Ellipsoidal</span></code>. Kliknite <span class="guilabel">Run</span>. Ko se postopek konča, kliknite <span class="guilabel">Close</span>.</p></li>
 </ol>
 <blockquote>
 <div><img alt="../../_images/46.png" class="align-center" src="../../_images/46.png" />
 </div></blockquote>
 <div class="admonition note">
 <p class="admonition-title">Opomba</p>
-<p>If your input layer is in a <em>Projected CRS</em>, you may choose <code class="docutils literal notranslate"><span class="pre">Layer</span> <span class="pre">CRS</span></code> option for calculation. Local or Regional projected coordinate systems are designed to minimize distortions over their region of interest, so are more accurate for such computation.</p>
+<p>Če je vaš vhodni sloj v <em>projiciranem CRS</em>, lahko za izračun izberete možnost <code class="docutils literal notranslate"><span class="pre">Layer</span> <span class="pre">CRS</span></code>. Lokalni ali regionalni projicirani koordinatni sistemi so zasnovani tako, da čim bolj zmanjšajo popačenja na območju, ki jih zanimajo, zato so za tak izračun natančnejši.</p>
 </div>
 <ol class="arabic simple" start="5">
-<li><p>You will see a new layer <code class="docutils literal notranslate"><span class="pre">Added</span> <span class="pre">geom</span> <span class="pre">info</span></code> loaded in the <span class="guilabel">Layers</span> panel. This is a copy of the input layer with a new column added for distance. Right-click the <code class="docutils literal notranslate"><span class="pre">Added</span> <span class="pre">geom</span> <span class="pre">info</span></code> layer and select <span class="guilabel">Open Attribute Table</span>.</p></li>
+<li><p>Na plošči <span class="guilabel">Layers</span> boste videli naloženo novo plast <code class="docutils literal notranslate"><span class="pre">Added</span> <span class="pre">geom</span> <span class="pre">info</span></code>. To je kopija vhodnega sloja z dodanim novim stolpcem za razdaljo. Z desno tipko miške kliknite sloj <code class="docutils literal notranslate"><span class="pre">Added</span> <span class="pre">geom</span> <span class="pre">info</span></code> in izberite <span class="guilabel">Open Attribute Table</span>.</p></li>
 </ol>
 <blockquote>
 <div><img alt="../../_images/56.png" class="align-center" src="../../_images/56.png" />
 </div></blockquote>
 <div class="admonition note">
 <p class="admonition-title">Opomba</p>
-<p>The <em>Add Geometry Attribute</em> tool adds different set of attributes depending on whether the input layer is points, lines or polygons. See <a class="reference external" href="https://docs.qgis.org/testing/en/docs/user_manual/processing_algs/qgis/vectorgeometry.html#add-geometry-attributes">QGIS documentation</a> for more details.</p>
+<p>Orodje <em>Add Geometry Attribute</em> doda različne atribute, odvisno od tega, ali so vhodni sloj točke, črte ali poligoni. Za več podrobnosti glejte dokumentacijo <a class="reference external" href="https://docs.qgis.org/testing/en/docs/user_manual/processing_algs/qgis/vectorgeometry.html#add-geometry-attributes">QGIS</a>.</p>
 </div>
 <ol class="arabic simple" start="6">
-<li><p>In the <span class="guilabel">Attribute Table</span>, you will see a new column called <strong>distance</strong>. This contains the length of each line feature in <em>meters</em>. Also note that the <strong>sov_a3</strong> attribute which contains the country code for each feature. Close the <span class="guilabel">Attribute Table</span> window.</p></li>
+<li><p>V <span class="guilabel">Attribute Table</span> boste videli nov stolpec z imenom <strong>distance</strong>. Ta vsebuje dolžino vsake funkcije linije v <em>metrih</em>. Opazite tudi atribut <strong>sov_a3</strong>, ki vsebuje kodo države za vsak element. Zaprite okno <span class="guilabel">Attribute Table</span>.</p></li>
 </ol>
 <blockquote>
 <div><img alt="../../_images/66.png" class="align-center" src="../../_images/66.png" />
 </div></blockquote>
 <ol class="arabic simple" start="7">
-<li><p>Now that we have lengths of individual railroad line segments, we can add them up to find the total length of railroads. But as the problem statement demands we need total railroad length in the United States, we must use only the segments contained within USA. We can use the country code value in the <strong>sov_a3</strong> column to filter the layer. Right-click the <code class="docutils literal notranslate"><span class="pre">Added</span> <span class="pre">geom</span> <span class="pre">info</span></code> layer and select <span class="guilabel">Filter</span>.</p></li>
+<li><p>Zdaj, ko imamo na voljo dolžine posameznih odsekov železniških prog, jih lahko seštejemo in ugotovimo skupno dolžino železnic. Ker pa v nalogi zahtevamo skupno dolžino železnic v Združenih državah Amerike, moramo uporabiti samo odseke, ki so znotraj ZDA. Za filtriranje sloja lahko uporabimo kodo države v stolpcu <strong>sov_a3</strong>. Z desno tipko miške kliknite sloj <code class="docutils literal notranslate"><span class="pre">Added</span> <span class="pre">geom</span> <span class="pre">info</span></code> in izberite <span class="guilabel">Filter</span>.</p></li>
 </ol>
 <blockquote>
 <div><img alt="../../_images/76.png" class="align-center" src="../../_images/76.png" />
 </div></blockquote>
 <ol class="arabic simple" start="8">
-<li><p>In the <span class="guilabel">Query Builder</span> dialog, enter the following expression and click <span class="guilabel">OK</span>.</p></li>
+<li><p>V pogovornem oknu <span class="guilabel">Query Builder</span> vnesite naslednji izraz in kliknite <span class="guilabel">OK</span>.</p></li>
 </ol>
 <blockquote>
 <div><div class="highlight-none notranslate"><div class="highlight"><pre><span></span>&quot;sov_a3&quot; = &#39;USA&#39;
@@ -285,25 +285,25 @@
 <img alt="../../_images/86.png" class="align-center" src="../../_images/86.png" />
 </div></blockquote>
 <ol class="arabic simple" start="9">
-<li><p>You will see a <span class="guilabel">Filter</span> icon appear next to the <code class="docutils literal notranslate"><span class="pre">Added</span> <span class="pre">geom</span> <span class="pre">info</span></code> layer in the <span class="guilabel">Layers</span> panel indicating that a filter is applied to the layer. You can also visually confirm that the layer now contains line segments only for United States. Now we are ready to calculate the sum. Click the <span class="guilabel">Show statistical summary</span> button on the <span class="guilabel">Attributes Toolbar</span>.</p></li>
+<li><p>Na plošči <span class="guilabel">Layers</span> se bo ob sloju <code class="docutils literal notranslate"><span class="pre">Added</span> <span class="pre">geom</span> <span class="pre">info</span></code> pojavila ikona <span class="guilabel">Filter`</span>, ki označuje, da je na sloju uporabljen filter. Prav tako lahko vizualno potrdite, da plast zdaj vsebuje linijske odseke samo za Združene države Amerike. Zdaj smo pripravljeni na izračun vsote. Kliknite gumb <span class="guilabel">Show statistical summary</span> (Pokaži statistični povzetek) v orodni vrstici <span class="guilabel">Attributes Toolbar</span> (Orodna vrstica Atributi).</p></li>
 </ol>
 <blockquote>
 <div><img alt="../../_images/96.png" class="align-center" src="../../_images/96.png" />
 </div></blockquote>
 <ol class="arabic simple" start="10">
-<li><p>A new <span class="guilabel">Statistics</span> panel will open. Select <code class="docutils literal notranslate"><span class="pre">Added</span> <span class="pre">geom</span> <span class="pre">info</span></code> layer and <code class="docutils literal notranslate"><span class="pre">length</span></code> column.</p></li>
+<li><p>Odpre se nova plošča <span class="guilabel">Statistics</span>. Izberite sloj <code class="docutils literal notranslate"><span class="pre">Added</span> <span class="pre">geom</span> <span class="pre">info</span></code> in stolpec <code class="docutils literal notranslate"><span class="pre">length</span></code>.</p></li>
 </ol>
 <blockquote>
 <div><img alt="../../_images/109.png" class="align-center" src="../../_images/109.png" />
 </div></blockquote>
 <ol class="arabic simple" start="11">
-<li><p>You will see various statistics displayed in the panel. The unit of the statistics is the same as the units of <code class="docutils literal notranslate"><span class="pre">length</span></code> column -  <strong>meters</strong>. Let’s change the computation to use <strong>kilometers</strong> instead. Click the <span class="guilabel">Expression</span> icon next to the fields drop-down menu in the <span class="guilabel">Statistics</span> panel.</p></li>
+<li><p>Na plošči se prikažejo različni statistični podatki. Enota statistike je enaka kot enota stolpca <code class="docutils literal notranslate"><span class="pre">length</span></code> - <strong>meters</strong>. Izračun spremenimo tako, da namesto tega uporabimo <strong>kilometers</strong>. Kliknite ikono <span class="guilabel">Expression</span> poleg spustnega menija Polja na plošči <span class="guilabel">Statistics</span>.</p></li>
 </ol>
 <blockquote>
 <div><img alt="../../_images/1112.png" class="align-center" src="../../_images/1112.png" />
 </div></blockquote>
 <ol class="arabic simple" start="12">
-<li><p>Enter the following expression in the <span class="guilabel">Expression Dialog</span> that converts the length to kilometers.</p></li>
+<li><p>V <span class="guilabel">Expression Dialog</span> vnesite naslednji izraz, ki dolžino pretvori v kilometre.</p></li>
 </ol>
 <blockquote>
 <div><div class="highlight-none notranslate"><div class="highlight"><pre><span></span>length / 1000
@@ -312,7 +312,7 @@
 <img alt="../../_images/1210.png" class="align-center" src="../../_images/1210.png" />
 </div></blockquote>
 <ol class="arabic simple" start="13">
-<li><p>The <span class="guilabel">Sum</span> value displayed is the total length of railroads in USA.</p></li>
+<li><p>Prikazana vrednost <span class="guilabel">Sum</span> je skupna dolžina železnic v ZDA.</p></li>
 </ol>
 <blockquote>
 <div><img alt="../../_images/138.png" class="align-center" src="../../_images/138.png" />
@@ -342,7 +342,7 @@
     </p>
     <p>
         &copy; Copyright 2021, Ujaval Gandhi.<br/>
-      Zadnjič posodobljeno nov. 02, 2022.<br/>
+      Zadnjič posodobljeno nov. 04, 2022.<br/>
       Created using <a href="http://sphinx-doc.org/">Sphinx</a> 4.0.1.<br/>
     </p>
   </div>

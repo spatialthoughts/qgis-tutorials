@@ -87,7 +87,7 @@ Procedure
 
   Most maps are created using a Projected CRS. If the map you are trying to georeference uses a projected CRS that you know of, but the graticules labels are in a Geographic CRS (latitude/longitude), you may use an alternate workflow to minimize distortion. Instead of using a Geographic CRS like we are using here, you can create a vector grid in QGIS and transform it to the projected CRS to be used as a reference for accurate coordinate capture. See `this page <https://raisedbeaches.net/2018/02/01/georeferencing-in-qgis/>`_ for more details.
 
-9. Name your output raster as  ``1870_southern_india_modified.tif``. Choose ``LZW`` as the :guilabel:`Compression`. Check the :guilabel:`Save GCP points` to store the points as seperate file for future purpose. Make sure the :guilabel:`Load in QGIS when done` option is checked. Click :guilabel:`OK`.
+9. Name your output raster as ``1870_southern_india_modified.tif``. Choose ``LZW`` as the :guilabel:`Compression`. Check the :guilabel:`Save GCP points` to store the points as seperate file for future purpose. Make sure the :guilabel:`Load in QGIS when done` option is checked. Click :guilabel:`OK`.
 
   .. image:: /static/3/georeferencing_basics/images/09.png
      :align: center
@@ -96,7 +96,7 @@ Procedure
 
   Uncompressed GeoTIFF files can be very large in size. So compressing them is always a good idea. You can learn more about different TIFF compression options (LZW, PACKBITS or DEFLATE) in `this article <https://kokoalberti.com/articles/geotiff-compression-optimization-guide>`_.
 
-10. Now we can start adding the Ground Control Points (GCP).  Click on the :guilabel:`Add Point` button. 
+10. Now we can start adding the Ground Control Points (GCP). Click on the :guilabel:`Add Point` button. 
 
   .. image:: /static/3/georeferencing_basics/images/10.png
      :align: center
@@ -112,7 +112,7 @@ Procedure
   .. image:: /static/3/georeferencing_basics/images/12.png
      :align: center
 
-13 . Similarly, add more GCPs covering the entire image. The more points you have, the more accurate your image is registered to the target coordinates. The ``Polynomial 2`` transform requires at least 6 GCPs. Once you have added the minimum number of points required for the transform, you will notice that the GCPs now have a non-zero ``dX``, ``dY`` and ``Residual`` error values. If a particular GCP has unusually high error values, that usually means a human-error in entering the coordinate values. So you can delete that GCP and capture it again. You can also edit the coordinate values in the :guilabel:`GCP Table` by clicking the cell in either :guilabel:`Dest. X` or :guilabel:`Dest. Y` columns. 
+13. Similarly, add more GCPs covering the entire image. The more points you have, the more accurate your image is registered to the target coordinates. The ``Polynomial 2`` transform requires at least 6 GCPs. Once you have added the minimum number of points required for the transform, you will notice that the GCPs now have a non-zero ``dX``, ``dY`` and ``Residual`` error values. If a particular GCP has unusually high error values, that usually means a human-error in entering the coordinate values. So you can delete that GCP and capture it again. You can also edit the coordinate values in the :guilabel:`GCP Table` by clicking the cell in either :guilabel:`Dest. X` or :guilabel:`Dest. Y` columns. 
 
   .. image:: /static/3/georeferencing_basics/images/13.png
      :align: center
@@ -127,7 +127,7 @@ Procedure
   .. image:: /static/3/georeferencing_basics/images/15.png
      :align: center
 	 
-16. Drag and drop the ``OpenStreetMap`` as Base Map from the :guilabel:`XYZ Tiles` dropdown at the bottom of the Browser panel to verify the georeferenced layer. To set the transparency, click on the :guilabel:`Open layer styling panel` icon  and select :guilabel:`Transparency` tab. Set the transparency to ``40 %``. Now the georeferenced image must overlay with the basemap outline. 
+16. Drag and drop the ``OpenStreetMap`` as Base Map from the :guilabel:`XYZ Tiles` dropdown at the bottom of the Browser panel to verify the georeferenced layer. To set the transparency, click on the :guilabel:`Open layer styling panel` icon and select :guilabel:`Transparency` tab. Set the transparency to ``40 %``. Now the georeferenced image must overlay with the basemap outline. 
 
   .. image:: /static/3/georeferencing_basics/images/16.png
      :align: center
