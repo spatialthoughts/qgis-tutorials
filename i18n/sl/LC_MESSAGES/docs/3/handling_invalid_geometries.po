@@ -1,15 +1,19 @@
 # SOME DESCRIPTIVE TITLE.
-# Copyright (C) 2019, Ujaval Gandhi
+# Copyright (C) 2021, Ujaval Gandhi
 # This file is distributed under the same license as the QGIS Tutorials and Tips package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# 
+# Translators:
+# Kristof Ostir, 2022
 # 
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: QGIS Tutorials and Tips v1.0\n"
+"Project-Id-Version: QGIS Tutorials and Tips v1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-01-28 07:24+0000\n"
+"POT-Creation-Date: 2022-08-26 07:13+0000\n"
 "PO-Revision-Date: 2020-01-28 07:26+0000\n"
+"Last-Translator: Kristof Ostir, 2022\n"
 "Language-Team: Slovenian (https://www.transifex.com/spatialthoughts/teams/7952/sl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -19,7 +23,7 @@ msgstr ""
 
 #: ../../source/docs/3/handling_invalid_geometries.rst:2
 msgid "Handling Invalid Geometries (QGIS3)"
-msgstr ""
+msgstr "Ravnanje z neveljavnimi geometrijami (QGIS3)"
 
 #: ../../source/docs/3/handling_invalid_geometries.rst:4
 msgid ""
@@ -29,6 +33,12 @@ msgid ""
 "algorithms to detect and fix invalid geometries. This tutorial will show you"
 " a typical workflow for handling invalid geometries in your data."
 msgstr ""
+"Pri delu s sloji vektorskih podatkov lahko naletite na geometrijske napake. "
+"Te napake pogosto postanejo del vaših podatkov po izvajanju geoprocesiranja,"
+" digitalizacije, urejanja ali pretvorbe podatkov. QGIS3 ima vgrajena orodja "
+"in algoritme za odkrivanje in popravljanje neveljavnih geometrij. V tem "
+"učbeniku boste spoznali tipičen potek dela za obravnavo neveljavnih "
+"geometrij v vaših podatkih."
 
 #: ../../source/docs/3/handling_invalid_geometries.rst:8
 msgid ""
@@ -41,86 +51,110 @@ msgid ""
 "examples.html>`_ gives a good overview of common geometry errors as defined "
 "by the OGC standard."
 msgstr ""
+"Različni programski sistemi uporabljajo različne pojme veljavnosti "
+"geometrije. Vodilni standard za geometrijski model za uporabo v GIS pa je "
+"OGC `Simple Features Specifications (SFS) "
+"<https://www.opengeospatial.org/standards/sfs>`_. V tem učbeniku bomo za "
+"preverjanje veljavnosti geometrije uporabili knjižnico GEOS, ki uporablja ta"
+" standard. `Ta objava <https://knowledge.safe.com/articles/21674/invalid-"
+"ogc-geometry-examples.html>`_ vsebuje dober pregled pogostih napak "
+"geometrije, kot jih opredeljuje standard OGC."
 
 #: ../../source/docs/3/handling_invalid_geometries.rst:11
 msgid "Overview of the task"
-msgstr ""
+msgstr "Pregled naloge"
 
 #: ../../source/docs/3/handling_invalid_geometries.rst:13
 msgid ""
 "We will work with an admin boundary layer for India and fix a geometry error"
 " for a state polygon."
 msgstr ""
+"Delali bomo z slojem mejna administrativnih enot za Indijo in odpravili "
+"geometrijsko napako za državni poligon."
 
 #: ../../source/docs/3/handling_invalid_geometries.rst:16
 msgid "Other skills you will learn"
-msgstr ""
+msgstr "Česa se bomo še naučili"
 
 #: ../../source/docs/3/handling_invalid_geometries.rst:18
 msgid ""
 "Using the *Topological Coloring* algorithm to apply a coloring scheme to a "
 "polygon layer."
 msgstr ""
+"Uporaba algoritma *Topological Coloring * (Topološko barvanj) za uporabo "
+"barvne sheme za poligonski sloj."
 
 #: ../../source/docs/3/handling_invalid_geometries.rst:22
 msgid "Get the data"
-msgstr ""
+msgstr "Pridobivanje podatkov"
 
 #: ../../source/docs/3/handling_invalid_geometries.rst:24
 msgid ""
-"`Datameet <https://github.com/datameet>`_ provides community-created "
-"administrative boundary shapefiles for India. Download the `India - State "
-"Boundaries <http://projects.datameet.org/maps/states/>`_ shapefile."
+"`Datameet <http://projects.datameet.org/maps/>`_ provides community-created "
+"administrative boundary shapefiles for India."
 msgstr ""
+"`Datameet <http://projects.datameet.org/maps/>`_ zagotavlja oblikovne "
+"datoteke z upravnimi mejami za Indijo, ki jih je ustvarila skupnost."
 
 #: ../../source/docs/3/handling_invalid_geometries.rst:26
 msgid ""
-"You may directly download the following version of the dataset that contains"
-" the geometry error shown in this tutorial."
+"Download the `Datameet Spatial Data Repository [~150 MB] "
+"<https://codeload.github.com/datameet/maps/zip/0fa9fd850eda3d2062e66f2caabc65872639c85a>`_"
+" zipfile. The downloaded archive contains multiple folders. Extract the "
+"archive and use the files in the ``States/`` folder."
 msgstr ""
+"Prenesite datoteko `Datameet Spatial Data Repository [~150 MB] "
+"<https://codeload.github.com/datameet/maps/zip/0fa9fd850eda3d2062e66f2caabc65872639c85a>`_"
+" zip. Preneseni arhiv vsebuje več map. Arhiv razširite in uporabite datoteke"
+" v mapi ``States/```."
 
 #: ../../source/docs/3/handling_invalid_geometries.rst:28
-msgid ""
-"`India-States.zip <http://www.qgistutorials.com/downloads/India-"
-"States.zip>`_"
-msgstr ""
-
-#: ../../source/docs/3/handling_invalid_geometries.rst:30
 msgid "Data Source: [DATAMEET]_"
-msgstr ""
+msgstr "Vir podatkov: [DATAMEET]_"
 
-#: ../../source/docs/3/handling_invalid_geometries.rst:33
+#: ../../source/docs/3/handling_invalid_geometries.rst:31
 msgid "Procedure"
-msgstr ""
+msgstr "Postopek"
 
-#: ../../source/docs/3/handling_invalid_geometries.rst:36
+#: ../../source/docs/3/handling_invalid_geometries.rst:34
 msgid ""
 "Browse to the downloaded ``India-States.zip`` file in QGIS Browser. Expand "
 "it and drag the ``India-States.shp`` file to the map canvas."
 msgstr ""
+"V brskalniku QGIS poiščite preneseno datoteko ``India-States.zip``. "
+"Razširite jo in povlecite datoteko ``India-States.shp`` na osnovno okno."
 
-#: ../../source/docs/3/handling_invalid_geometries.rst:41
+#: ../../source/docs/3/handling_invalid_geometries.rst:39
 msgid ""
 "You will see a new ``India-States`` layer loaded in the :guilabel:`Layers` "
 "panel. Go to :menuselection:`Processing --> Toolbox`."
 msgstr ""
+"Na plošči :guilabel:`Layers` boste videli naloženo novo plast ``India-"
+"States``. Pojdite na :menuselection:`Processing --> Toolbox`."
 
-#: ../../source/docs/3/handling_invalid_geometries.rst:46
+#: ../../source/docs/3/handling_invalid_geometries.rst:44
 msgid ""
 "We will attemp to run a processing algorithm on the input layer to "
 "demonstrate how invalid geometries can cause problems during geoprocessing "
 "operations. Search for and locate the :menuselection:`Cartography --> "
 "Topological coloring` algorithm. Double-click to launch it."
 msgstr ""
+"Poskusili bomo zagnati algoritem obdelave na vhodnem sloju, da bi pokazali, "
+"kako lahko neveljavne geometrije povzročijo težave med postopki "
+"geoprocesiranja. Poiščite in najdite algoritem :menuselection:`Cartography "
+"--> Topological coloring`. Z dvoklikom ga zaženite."
 
-#: ../../source/docs/3/handling_invalid_geometries.rst:51
+#: ../../source/docs/3/handling_invalid_geometries.rst:49
 msgid ""
 "In the :guilabel:`Topological coloring` dialog, select ``India-States`` as "
 "the :guilabel:`Input layer`. Keep all other parameters to default and click "
 ":guilabel:`Run`."
 msgstr ""
+"V pogovornem oknu :guilabel:`Topological coloring` izberite ``India-States``"
+" kot :guilabel:`Input layer`. Vse druge parametre pustite na privzetih "
+"vrednostih in kliknite :guilabel:`Run`."
 
-#: ../../source/docs/3/handling_invalid_geometries.rst:58
+#: ../../source/docs/3/handling_invalid_geometries.rst:56
 msgid ""
 "The *Topological coloring* algorithm implements an algorithm to color a map "
 "so that no adjacent polygons have the same color. This is a useful "
@@ -132,8 +166,17 @@ msgid ""
 "implementation is based on  graphs so in practive you will see that complex "
 "polygon layers such as this will require upto 5 colors."
 msgstr ""
+"Algoritem *Topological coloring* izvaja postopek za barvanje karte, tako da "
+"noben sosednji poligon nima enake barve. To je uporabna tehnika "
+"kartografije, pri čemer `Four Color Theorem "
+"<https://en.wikipedia.org/wiki/Four_color_theorem>`_ navaja, da za dosego "
+"tega rezultata zadostujejo štiri barve. Obstaja grafoteoretična različica "
+"tega teorema, imenovana `Five color "
+"theorem<https://en.wikipedia.org/wiki/Five_color_theorem>`_. Izvajanje "
+"algoritma QGIS temelji na grafih, zato boste v praksi videli, da bodo "
+"kompleksni poligonski sloji, kot je ta, potrebovali do 5 barv."
 
-#: ../../source/docs/3/handling_invalid_geometries.rst:60
+#: ../../source/docs/3/handling_invalid_geometries.rst:58
 msgid ""
 "As the algorithm runs, you will see a warning displayed in the "
 ":guilabel:`Log` tab. 1 feature in the input layer had invalid geometry and "
@@ -145,8 +188,18 @@ msgid ""
 "may not know that an input feature was skipped. You may want to change the "
 "value to ``Stop algorithm execution when a geometry is invalid``."
 msgstr ""
+"Med izvajanjem algoritma se v zavihku :guilabel:`Log` prikaže opozorilo. En "
+"element v vhodnem sloju je imel neveljavno geometrijo in je bil med obdelavo"
+" preskočen. Privzeta nastavitev za ravnanje z neveljavno geometrijo v "
+"orodjarni za obdelavo se nahaja v zavihku :menuselection:`Settings --> "
+"Options --> Processing --> General --> Invalid features filtering` in je "
+"nastavljena na ``Skip (ignore) features with invalid geometries``. To je "
+"dobra privzeta nastavitev, vendar če je vaš vhodni element velik, lahko to "
+"opozorilo spregledate in ne veste, da je bil vhodni element preskočen. Morda"
+" boste želeli spremeniti vrednost na ``Stop algoritem execution when a "
+"geometry is invalid``."
 
-#: ../../source/docs/3/handling_invalid_geometries.rst:65
+#: ../../source/docs/3/handling_invalid_geometries.rst:63
 msgid ""
 "Back in the main QGIS window, you will see a new layer ``Colored`` added to "
 "the :guilabel:`Layers` panel. Notice that the new layer is missing a state "
@@ -155,15 +208,24 @@ msgid ""
 "find that out. Search for and locate the :menuselection:`Vector geometry -->"
 " Check validity` algorithm."
 msgstr ""
+"V glavnem oknu QGIS boste videli, da je na plošči :guilabel:`Layers` dodan "
+"nov sloj ``Colored``. Opazite, da novi plasti manjka stanje, ki je imelo "
+"neveljavno geometrijo. Zdaj vemo, da je imel ta poseben poligon stanja "
+"neveljavno geometrijo, vendar ne vemo, kaj je bil vzrok. To lahko zlahka "
+"ugotovimo. Poiščite in najdite algoritem :menuselection:`Vector geometry -->"
+" Check validity`."
 
-#: ../../source/docs/3/handling_invalid_geometries.rst:70
+#: ../../source/docs/3/handling_invalid_geometries.rst:68
 msgid ""
 "In the :guilabel:`Check Validity` dialog, select ``India-States`` as the "
 ":guilabel:`Input layer`. Select ``GEOS`` as the :guilabel:`Method`. Click "
 ":guilabel:`Run`."
 msgstr ""
+"V pogovornem oknu :guilabel:`Check Validity` (Preveri veljavnost) izberite "
+"``India-States`` kot :guilabel:`Input layer` (Vhodni sloj). Izberite "
+"``GEOS`` kot :guilabel:`Method`. Kliknite :guilabel:`Run`."
 
-#: ../../source/docs/3/handling_invalid_geometries.rst:75
+#: ../../source/docs/3/handling_invalid_geometries.rst:73
 msgid ""
 "As the algorithm finishes processing, you will see 3 new layers in the "
 ":guilabel:`Layers` panel - ``Valid output``, ``Invalid output`` and ``Error "
@@ -171,28 +233,53 @@ msgid ""
 "of the geometry errors. Right-click it and select :guilabel:`Open Attribute "
 "Table`."
 msgstr ""
+"Ko algoritem konča obdelavo, se na plošči :guilabel:`Layers`` pojavijo trije"
+" novi sloji - ``Valid output``, ``Invalid output`` in ``Error output``. Sloj"
+" ``Error output`` vsebuje lokacije in opise geometrijskih napak. Kliknite ga"
+" z desno tipko miške in izberite :guilabel:`Open Attribute Table`."
 
 #: ../../source/docs/3/handling_invalid_geometries.rst:80
+msgid ""
+"The QGIS documentation has a detailed article on `Types of error messages "
+"and their meanings "
+"<https://docs.qgis.org/testing/en/docs/user_manual/processing_algs/qgis/vectorgeometry.html#types-"
+"of-error-messages-and-their-meanings>`_ that explains the causes of all the "
+"errors."
+msgstr ""
+"V dokumentaciji QGIS je podroben članek o `Types of error messages and their"
+" meanings "
+"<https://docs.qgis.org/testing/en/docs/user_manual/processing_algs/qgis/vectorgeometry.html#types-"
+"of-error-messages-and-their-meanings>`_, ki pojasnjuje vzroke za vse napake."
+
+#: ../../source/docs/3/handling_invalid_geometries.rst:82
 msgid ""
 "You will see that the error message is *Ring self-intersection*. Select the "
 "row and click :guilabel:`Zoom map to selected features` button. As you zoom "
 "in, you will see the root cause of the geometry error."
 msgstr ""
+"Videli boste, da je sporočilo o napaki *Ring self-intersection*. Izberite "
+"vrstico in kliknite gumb :guilabel:`Zoom map to selected features`. Ko boste"
+" zemljevid povečali, boste videli glavni vzrok za napako geometrije."
 
-#: ../../source/docs/3/handling_invalid_geometries.rst:85
+#: ../../source/docs/3/handling_invalid_geometries.rst:87
 msgid ""
 "QGIS comes with a built-in algorithm to fix geometry errors automatically. "
 "Search for and locate the :menuselection:`Vector geometry --> Fix "
 "geometries` algorithm. Double-click to run it."
 msgstr ""
+"QGIS ima vgrajen algoritem za samodejno odpravljanje geometrijskih napak. "
+"Poiščite in najdite algoritem :menuselection:`Vector geometry --> Fix "
+"geometries`. Z dvojnim klikom ga zaženite."
 
-#: ../../source/docs/3/handling_invalid_geometries.rst:90
+#: ../../source/docs/3/handling_invalid_geometries.rst:92
 msgid ""
 "In the :guilabel:`Fix Geometries` dialog, select ``India-States`` as the "
 ":guilabel:`Input layer` and click :guilabel:`Run`."
 msgstr ""
+"V pogovornem oknu :guilabel:`Fix Geometries` izberite ``India-States`` kot "
+":guilabel:`Input layer` in kliknite :guilabel:`Run`."
 
-#: ../../source/docs/3/handling_invalid_geometries.rst:95
+#: ../../source/docs/3/handling_invalid_geometries.rst:97
 msgid ""
 "A new layer ``Fixed Geometries`` will be added to the :guilabel:`Layers` "
 "panel. At this point, the geometry error is fixed and you can run any "
@@ -203,33 +290,52 @@ msgid ""
 ":guilabel:`Digitizing Toolbar`. Select the :guilabel:`Vertex Tool` and from "
 "the drop-down select ``Vertex Tool (Current Layer)``."
 msgstr ""
+"Na ploščo :guilabel:`Layers` bo dodan nov sloj ``Fixed Geometries``. Na tej "
+"točki je napaka geometrije odpravljena in na tem sloju lahko brez težav "
+"zaženete kateri koli algoritem obdelave. Vidimo pa lahko, da je med "
+"sosednjimi poligoni še vedno vrzel, ki je nepričakovana in lahko v "
+"nadaljevanju povzroči topološke napake. Tudi to lahko popravimo z urejanjem "
+"poligona. Kliknite gumb :guilabel:`Toggle Editing` v orodni vrstici "
+":guilabel:`Digitizing Toolbar`. Izberite orodje :guilabel:`Vertex Tool` in v"
+" spustni vrstici izberite ``Vertex Tool (Current Layer)``."
 
-#: ../../source/docs/3/handling_invalid_geometries.rst:100
+#: ../../source/docs/3/handling_invalid_geometries.rst:102
 msgid ""
 "When the vertex tool is active, click on a vertex to select it. You can "
 "press :kbd:`Delete` key to delete a vertex or drag it to move it. You can "
 "move the vertex so that the polygon edge now touches the adjacent polygon."
 msgstr ""
+"Ko je orodje za vrhove aktivno, kliknite na vrh, da ga izberete. S pritiskom"
+" na tipko :kbd:`Delete` lahko izbrišete vrh ali ga povlečete, da ga "
+"premaknete. Vozlišča lahko premaknete tako, da se rob poligona zdaj dotika "
+"sosednjega poligona."
 
-#: ../../source/docs/3/handling_invalid_geometries.rst:105
+#: ../../source/docs/3/handling_invalid_geometries.rst:107
 msgid ""
 "Once done, click the :guilabel:`Toggle Editing` button again and click "
 ":guilabel:`Save`."
 msgstr ""
+"Ko to storite, ponovno kliknite gumb :guilabel:`Toggle Editing` in kliknite "
+":guilabel:`Save`."
 
-#: ../../source/docs/3/handling_invalid_geometries.rst:110
+#: ../../source/docs/3/handling_invalid_geometries.rst:112
 msgid ""
 "Let's run the :menuselection:`Cartography --> Topological coloring` "
 "algorithm again."
 msgstr ""
+"Ponovno zaženimo algoritem :menuselection:`Cartography --> Topological "
+"coloring`."
 
-#: ../../source/docs/3/handling_invalid_geometries.rst:115
+#: ../../source/docs/3/handling_invalid_geometries.rst:117
 msgid ""
 "In the :guilabel:`Topological Coloring` dialog, make sure you select ``Fixed"
 " Geometries`` as the :guilabel:`Input layer`. Click :guilabel:`Run`."
 msgstr ""
+"V pogovornem oknu :guilabel:`Topological Coloring` (Topološko barvanje) se "
+"prepričajte, da ste kot :guilabel:`Input layer` (Vhodna plast) izbrali "
+"`Fixed Geometries` (Fiksne geometrije). Kliknite :guilabel:`Run`."
 
-#: ../../source/docs/3/handling_invalid_geometries.rst:120
+#: ../../source/docs/3/handling_invalid_geometries.rst:122
 msgid ""
 "You will see the algorithm run without any errors and a new layer "
 "``Colored`` will be added to the :guilabel:`Layers` panel. Note that the "
@@ -239,10 +345,20 @@ msgid ""
 "``Colored`` layer and click the :guilabel:`Open the Layer Styling Panel` "
 "button."
 msgstr ""
+"Videli boste, da se algoritem izvaja brez napak in da se na ploščo "
+":guilabel:`Layers` doda nova plast ``Colored``. Upoštevajte, da algoritem "
+"sam ne obarva plasti, temveč deluje tako, da vsakemu poligonu doda nov "
+"stolpec z imenom ``color_id``, ki ga lahko uporabite za dodelitev edinstvene"
+" barve, ki se razlikuje od sosednjih poligonov. Izberite sloj ``Colored`` in"
+" kliknite gumb :guilabel:`Open the Layer Styling Panel` (Odpri ploščo za "
+"oblikovanje sloja)."
 
-#: ../../source/docs/3/handling_invalid_geometries.rst:125
+#: ../../source/docs/3/handling_invalid_geometries.rst:127
 msgid ""
 "Select ``Categorized`` renderer and the column ``color_id`` as the "
 ":guilabel:`Value`. Click :guilabel:`Classify`. You will now see the map "
 "colored so that adjacent polygons have different colors."
 msgstr ""
+"Izberite renderer ``Categorized`` in stolpec ``color_id`` kot "
+":guilabel:`Value`. Kliknite :guilabel:`Classify`. Zdaj boste videli "
+"zemljevid, ki je obarvan tako, da imajo sosednji poligoni različne barve."
