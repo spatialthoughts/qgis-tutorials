@@ -5,7 +5,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
-    <title>Sampling Raster Data using Points or Polygons (QGIS3) &#8212; QGIS Tutorials and Tips</title>
+    <title>Vzorčenje rastrskih podatkov z uporabo točk ali poligonov (QGIS3) &#8212; QGIS Tutorials and Tips</title>
     <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-sphinx.css" />
     <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
@@ -15,7 +15,7 @@
     <script src="../../_static/translations.js"></script>
     <link rel="search" title="Išči" href="../../search.html" />
     <link rel="next" title="Izračun površine rastra (QGIS3)" href="calculating_raster_area.html" />
-    <link rel="prev" title="Nearest Neighbor Analysis (QGIS3)" href="nearest_neighbor_analysis.html" />
+    <link rel="prev" title="Analiza najbližjih sosedov (QGIS3)" href="nearest_neighbor_analysis.html" />
 
 <meta charset='utf-8'>
 <meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
@@ -87,13 +87,13 @@
 <li class="toctree-l1"><a class="reference internal" href="digitizing_basics.html">Digitalizacija podatkov (QGIS3)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="performing_table_joins.html">Združevanje tabel (QGIS3)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="performing_spatial_joins.html">Prostorsko združevanje podatkov (QGIS3)</a></li>
-<li class="toctree-l1"><a class="reference internal" href="performing_spatial_queries.html">Performing Spatial Queries (QGIS3)</a></li>
-<li class="toctree-l1"><a class="reference internal" href="nearest_neighbor_analysis.html">Nearest Neighbor Analysis (QGIS3)</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Sampling Raster Data using Points or Polygons (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="performing_spatial_queries.html">Izvajanje prostorskih poizvedb (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="nearest_neighbor_analysis.html">Analiza najbližjih sosedov (QGIS3)</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Vzorčenje rastrskih podatkov z uporabo točk ali poligonov (QGIS3)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="calculating_raster_area.html">Izračun površine rastra (QGIS3)</a></li>
-<li class="toctree-l1"><a class="reference internal" href="creating_heatmaps.html">Creating Heatmaps (QGIS3)</a></li>
-<li class="toctree-l1"><a class="reference internal" href="animating_time_series.html">Animating Time Series Data (QGIS3)</a></li>
-<li class="toctree-l1"><a class="reference internal" href="handling_invalid_geometries.html">Handling Invalid Geometries (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="creating_heatmaps.html">Ustvarjanje kart zgostitev (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="animating_time_series.html">Prikazovanje podatkov časovnih vrst (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="handling_invalid_geometries.html">Ravnanje z neveljavnimi geometrijami (QGIS3)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="advanced_raster_analysis.html">Advanced Raster Analysis (QGIS3)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="interpolating_point_data.html">Interpolating Point Data (QGIS3)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="calculating_intersection_density.html">Calculating Street Intersection Density (QGIS3)</a></li>
@@ -129,7 +129,7 @@
               
                 
   <li>
-    <a href="nearest_neighbor_analysis.html" title="Previous Chapter: Nearest Neighbor Analysis (QGIS3)"><span class="glyphicon glyphicon-chevron-left visible-sm"></span><span class="hidden-sm hidden-tablet">&laquo; Nearest Neigh...</span>
+    <a href="nearest_neighbor_analysis.html" title="Previous Chapter: Analiza najbližjih sosedov (QGIS3)"><span class="glyphicon glyphicon-chevron-left visible-sm"></span><span class="hidden-sm hidden-tablet">&laquo; Analiza najbl...</span>
     </a>
   </li>
   <li>
@@ -202,129 +202,127 @@
       
 
   <section id="sampling-raster-data-using-points-or-polygons-qgis3">
-<h1>Sampling Raster Data using Points or Polygons (QGIS3)<a class="headerlink" href="#sampling-raster-data-using-points-or-polygons-qgis3" title="Povezava na naslov">¶</a></h1>
-<p>Many scientific and environmental datasets come as gridded rasters. Elevation data (DEM) is also distributed as raster files. In these raster files, the parameter that is being represented is encoded as the pixel values of the raster. Often, one needs to extract the pixel values at certain locations or aggregate them over some area. This functionality is available in QGIS via processing algorithms. <code class="docutils literal notranslate"><span class="pre">Sample</span> <span class="pre">raster</span> <span class="pre">values</span></code> for point layers and <code class="docutils literal notranslate"><span class="pre">Zonal</span> <span class="pre">Statistics</span></code> for polygon layers.</p>
+<h1>Vzorčenje rastrskih podatkov z uporabo točk ali poligonov (QGIS3)<a class="headerlink" href="#sampling-raster-data-using-points-or-polygons-qgis3" title="Povezava na naslov">¶</a></h1>
+<p>Veliko znanstvenih in okoljskih podatkovnih nizov je na voljo v obliki rastrov z mrežo. Podatki o nadmorski višini (DEM) se prav tako razširjajo kot rastrske datoteke. V teh rastrskih datotekah je parameter, ki je predstavljen, kodiran kot vrednosti pikslov v rastru. Pogosto je treba izluščiti vrednosti pikslov na določenih lokacijah ali jih združiti na določenem območju. Ta funkcionalnost je na voljo v QGIS prek algoritmov za obdelavo. <code class="docutils literal notranslate"><span class="pre">Sample</span> <span class="pre">raster</span> <span class="pre">values</span></code> za točkovne sloje in <code class="docutils literal notranslate"><span class="pre">Zonal</span> <span class="pre">Statistics</span></code> za poligonske sloje.</p>
 <section id="overview-of-the-task">
-<h2>Overview of the task<a class="headerlink" href="#overview-of-the-task" title="Povezava na naslov">¶</a></h2>
-<p>Given a raster grid of daily maximum temperature in the continental US, we need to extract the temperature at a point layer of all urban areas and calculate the average temperature for a polygon layer of each county in the US.</p>
+<h2>Pregled naloge<a class="headerlink" href="#overview-of-the-task" title="Povezava na naslov">¶</a></h2>
+<p>Ob rastrski mreži najvišjih dnevnih temperatur v celinskih ZDA moramo izluščiti temperaturo v točkovnem sloju vseh mestnih območij in izračunati povprečno temperaturo za poligonski sloj vsakega okrožja v ZDA.</p>
 <section id="other-skills-you-will-learn">
-<h3>Other skills you will learn<a class="headerlink" href="#other-skills-you-will-learn" title="Povezava na naslov">¶</a></h3>
+<h3>Česa se bomo še naučili<a class="headerlink" href="#other-skills-you-will-learn" title="Povezava na naslov">¶</a></h3>
 <ul class="simple">
-<li><p>Select and remove multiple layers from QGIS Table of Contents.</p></li>
+<li><p>Izberite in odstranite več slojev iz kazala vsebine QGIS.</p></li>
 </ul>
 </section>
 </section>
 <section id="get-the-data">
-<h2>Get the data<a class="headerlink" href="#get-the-data" title="Povezava na naslov">¶</a></h2>
-<p>NOAA’s <a class="reference external" href="http://www.cpc.ncep.noaa.gov/">Climate Prediction Center</a> provides <a class="reference external" href="http://www.cpc.ncep.noaa.gov/products/GIS/GIS_DATA/">GIS data</a> related to temperature and precipitation in the US. Download the <a class="reference external" href="ftp://ftp.cpc.ncep.noaa.gov/GIS/GRADS_GIS/GeoTIFF/TEMP/us_tmax/">latest grid file for maximum temperatures</a>. The file will be named <code class="docutils literal notranslate"><span class="pre">us.tmax_nohads_ll_{YYYYMMDD}_float.tif</span></code></p>
-<p>We will use a CSV file from <a class="reference external" href="https://www.census.gov/geographies/reference-files/time-series/geo/gazetteer-files.2018.html">2018 US Gazetteer</a> representing
-urban areas in the US.  Download the <a class="reference external" href="https://www2.census.gov/geo/docs/maps-data/data/gazetteer/2018_Gazetteer/2018_Gaz_ua_national.zip">Urban Areas Gazetteer File</a>.</p>
-<p><a class="reference external" href="https://www.census.gov/en.html">US Census Bureau</a> provides <a class="reference external" href="https://www.census.gov/geographies/mapping-files/time-series/geo/tiger-line-file.html">TIGER/Line Shapefiles</a>. You can visit the <a class="reference external" href="https://www2.census.gov/geo/tiger/TIGER2018/">FTP site</a> and download census tracts shapefile for California. Download <a class="reference external" href="https://www2.census.gov/geo/tiger/TIGER2018/COUNTY/tl_2018_us_county.zip">Census Tracts for California</a> file.</p>
-<p>For convenience, you may directly download a copy of the datasets from the
-links below:</p>
+<h2>Pridobivanje podatkov<a class="headerlink" href="#get-the-data" title="Povezava na naslov">¶</a></h2>
+<p>NOAA’s <a class="reference external" href="http://www.cpc.ncep.noaa.gov/">Climate Prediction Center</a> zagotavlja podatke GIS &lt;<a class="reference external" href="http://www.cpc.ncep.noaa.gov/products/GIS/GIS_DATA/">http://www.cpc.ncep.noaa.gov/products/GIS/GIS_DATA/</a>&gt;`_, povezane s temperaturo in padavinami v ZDA. Prenesite <a class="reference external" href="ftp://ftp.cpc.ncep.noaa.gov/GIS/GRADS_GIS/GeoTIFF/TEMP/us_tmax/">latest grid file for maximum temperatures</a>. Datoteka se bo imenovala <code class="docutils literal notranslate"><span class="pre">us.tmax_nohads_ll_{YYYYMMDD}_float.tif</span></code></p>
+<p>Uporabili bomo datoteko CSV iz <a class="reference external" href="https://www.census.gov/geographies/reference-files/time-series/geo/gazetteer-files.2018.html">2018 US Gazetteer</a>, ki predstavlja mestna območja v ZDA. Prenesite datoteko <a class="reference external" href="https://www2.census.gov/geo/docs/maps-data/data/gazetteer/2018_Gazetteer/2018_Gaz_ua_national.zip">Urban Areas Gazetteer File</a>.</p>
+<p><a class="reference external" href="https://www.census.gov/en.html">US Census Bureau</a> zagotavlja <a class="reference external" href="https://www.census.gov/geographies/mapping-files/time-series/geo/tiger-line-file.html">TIGER/Line Shapefiles</a>. Obiščete lahko spletno mesto <a class="reference external" href="https://www2.census.gov/geo/tiger/TIGER2018/">FTP</a> in prenesete datoteko shapefile popisnih enot za Kalifornijo. Prenesite datoteko <a class="reference external" href="https://www2.census.gov/geo/tiger/TIGER2018/COUNTY/tl_2018_us_county.zip">Census Tracts for California</a>.</p>
+<p>Kopijo podatkovnih nizov lahko neposredno prenesete s spodnjih povezav:</p>
 <p><a class="reference external" href="https://www.qgistutorials.com/downloads/us.tmax_nohads_ll_20190501_float.tif">us.tmax_nohads_ll_20190501_float.tif</a></p>
 <p><a class="reference external" href="https://www.qgistutorials.com/downloads/2018_Gaz_ua_national.zip">2018_Gaz_ua_national.zip</a></p>
 <p><a class="reference external" href="https://www.qgistutorials.com/downloads/tl_2018_us_county.zip">tl_2018_us_county.zip</a></p>
-<p>Data Sources: <a class="reference internal" href="../credits.html#noaacpc" id="id1"><span>[NOAACPC]</span></a>, <a class="reference internal" href="../credits.html#usgazetteer" id="id2"><span>[USGAZETTEER]</span></a> <a class="reference internal" href="../credits.html#tiger" id="id3"><span>[TIGER]</span></a></p>
+<p>Viri podatkov: <a class="reference internal" href="../credits.html#noaacpc" id="id1"><span>[NOAACPC]</span></a>, <a class="reference internal" href="../credits.html#usgazetteer" id="id2"><span>[USGAZETTEER]</span></a> <a class="reference internal" href="../credits.html#tiger" id="id3"><span>[TIGER]</span></a></p>
 </section>
 <section id="procedure">
-<h2>Procedure<a class="headerlink" href="#procedure" title="Povezava na naslov">¶</a></h2>
+<h2>Postopek<a class="headerlink" href="#procedure" title="Povezava na naslov">¶</a></h2>
 <ol class="arabic simple">
-<li><p>Unzip and extract both <code class="docutils literal notranslate"><span class="pre">2018_Gaz_ua_national.zip</span></code> and <code class="docutils literal notranslate"><span class="pre">tl_2018_us_county.zip</span></code> to a folder on your computer. Open QGIS and locate the <code class="docutils literal notranslate"><span class="pre">us.tmax_nohads_ll_20190501_float.tif</span></code> file in the QGIS Browser drag it to the canvas.</p></li>
+<li><p>Razpakirajte in izločite <code class="docutils literal notranslate"><span class="pre">2018_Gaz_ua_national.zip</span></code> in <code class="docutils literal notranslate"><span class="pre">tl_2018_us_county.zip</span></code> v mapo na vašem računalniku. Odprite QGIS in v brskalniku QGIS poiščite datoteko <code class="docutils literal notranslate"><span class="pre">us.tmax_nohads_ll_20190501_float.tif</span></code> ter jo povlecite na delovno površino.</p></li>
 </ol>
 <blockquote>
 <div><img alt="../../_images/1133.png" class="align-center" src="../../_images/1133.png" />
 </div></blockquote>
 <ol class="arabic simple" start="2">
-<li><p>You will see a new raster layer <code class="docutils literal notranslate"><span class="pre">us.tmax_nohads_ll_20190501_float</span></code> loaded in the <span class="guilabel">Layers</span> panel. This raster layer contains the maximum temperature recorded at each pixel in degrees Celsius. Next we will load the urban areas point file. This file comes as a text file in the Tab Separated Values (TSV) format. Click the <span class="guilabel">Open Data Source Manager</span> button on the <span class="guilabel">Data Source Toolbar</span>.</p></li>
+<li><p>Na plošči <span class="guilabel">Layers</span> boste videli naloženo novo rastrsko plast <code class="docutils literal notranslate"><span class="pre">us.tmax_nohads_ll_20190501_float</span></code>. Ta rastrski sloj vsebuje najvišjo temperaturo, zabeleženo v vsakem pikslu, v stopinjah Celzija. Nato bomo naložili datoteko s točkami mestnih območij. Ta datoteka je na voljo kot besedilna datoteka v formatu TSV (Tab Separated Values). Kliknite gumb <span class="guilabel">Open Data Source Manager</span> v orodni vrstici <span class="guilabel">Data Source Toolbar</span>.</p></li>
 </ol>
 <blockquote>
 <div><img alt="../../_images/2105.png" class="align-center" src="../../_images/2105.png" />
 </div></blockquote>
 <ol class="arabic simple" start="3">
-<li><p>Switch to the <span class="guilabel">Delimited Text</span> tab. Click the <span class="guilabel">…</span> button next to <span class="guilabel">File name</span> and specify the path to the text file you downloaded. In the <span class="guilabel">File format</span> section, select <span class="guilabel">Custom delimiters</span> and check <span class="guilabel">Tab</span>. Select <code class="docutils literal notranslate"><span class="pre">INTPTLONG</span></code> as the <span class="guilabel">X field</span> and <code class="docutils literal notranslate"><span class="pre">INTPTLAT</span></code> as the <span class="guilabel">Y field</span>. Click <span class="guilabel">Add</span> and then <span class="guilabel">Close</span>.</p></li>
+<li><p>Preklopite na zavihek <span class="guilabel">Delimited Text</span>. Kliknite gumb <span class="guilabel">…</span> poleg <span class="guilabel">File name</span> in določite pot do prenesene besedilne datoteke. V razdelku <span class="guilabel">File format</span> izberite <span class="guilabel">Custom delimiters</span> in označite <span class="guilabel">Tab</span>. Izberite <code class="docutils literal notranslate"><span class="pre">INTPTLONG</span></code> kot <span class="guilabel">X polje</span> in <code class="docutils literal notranslate"><span class="pre">INTPTLAT</span></code> kot <span class="guilabel">Y polje</span>. Kliknite <span class="guilabel">Add</span> in nato <span class="guilabel">Close</span>.</p></li>
 </ol>
 <blockquote>
 <div><img alt="../../_images/346.png" class="align-center" src="../../_images/346.png" />
 </div></blockquote>
 <ol class="arabic simple" start="4">
-<li><p>A new point layer <code class="docutils literal notranslate"><span class="pre">2018_Gaz_ua_national</span></code> will be loaded in the <span class="guilabel">Layers</span> panel. Now we are ready to extract the values from the raster layer at these points. Go to <span class="menuselection">Processing ‣ Toolbox</span>.</p></li>
+<li><p>Na plošči <span class="guilabel">Layers</span> bo naložen nov sloj točk <code class="docutils literal notranslate"><span class="pre">2018_Gaz_ua_national</span></code>. Sedaj smo pripravljeni na pridobivanje vrednosti iz rastrskega sloja v teh točkah. Pojdite na <span class="menuselection">Processing ‣ Toolbox</span>.</p></li>
 </ol>
 <blockquote>
 <div><img alt="../../_images/425.png" class="align-center" src="../../_images/425.png" />
 </div></blockquote>
 <ol class="arabic simple" start="5">
-<li><p>Search and locate the <span class="menuselection">Raster analysis ‣ Sample raster values</span> algorithm. Double-click to launch it.</p></li>
+<li><p>Poiščite in najdite algoritem <span class="menuselection">Raster analysis ‣ Sample raster values</span>. Z dvoklikom ga zaženite.</p></li>
 </ol>
 <blockquote>
 <div><img alt="../../_images/524.png" class="align-center" src="../../_images/524.png" />
 </div></blockquote>
 <ol class="arabic simple" start="6">
-<li><p>Select <code class="docutils literal notranslate"><span class="pre">2018_Gaz_ua_national</span></code> as the <span class="guilabel">Input Point Layer</span>. Select <code class="docutils literal notranslate"><span class="pre">us.tmax_nohads_ll_20190501_float</span></code> as the <span class="guilabel">Raster Layer to sample</span>. Expand the <span class="guilabel">Advanced parameters</span> and enter <code class="docutils literal notranslate"><span class="pre">tmax</span></code> as the <span class="guilabel">Output column prefix</span>. Click <span class="guilabel">Run</span>. Once the processing finishes, click <span class="guilabel">Close</span>.</p></li>
+<li><p>Izberite <code class="docutils literal notranslate"><span class="pre">2018_Gaz_ua_national</span></code> kot <span class="guilabel">Input Point Layer</span>. Izberite <code class="docutils literal notranslate"><span class="pre">us.tmax_nohads_ll_20190501_float</span></code> kot <span class="guilabel">Raster Layer to sample</span>. Razširite polje <span class="guilabel">Advanced parameters</span> in vnesite <code class="docutils literal notranslate"><span class="pre">tmax</span></code> kot <span class="guilabel">Output column prefix</span>. Kliknite <span class="guilabel">Run</span>. Ko se obdelava konča, kliknite <span class="guilabel">Close</span>.</p></li>
 </ol>
 <blockquote>
 <div><img alt="../../_images/623.png" class="align-center" src="../../_images/623.png" />
 </div></blockquote>
 <ol class="arabic simple" start="7">
-<li><p>A new layer <code class="docutils literal notranslate"><span class="pre">Sampled</span> <span class="pre">Points</span></code> will be loaded in the <span class="guilabel">Layers</span> panel. Select the <span class="guilabel">Identify</span> tool in the <span class="guilabel">Attributes Toolbar</span> and click on any point. You will see the attributes displayed in the <span class="guilabel">Identify Results</span> panel. You will see a new attribute called <strong>tmax_1</strong> added to each feature. This is the pixel value of the raster layer extracted at the point’s location. The <em>1</em> represents the band number of the raster. If the raster layer had multiple bands, you would see multiple new columns in the output layer.</p></li>
+<li><p>Na plošči <span class="guilabel">Layers</span> se naloži nova plast <code class="docutils literal notranslate"><span class="pre">Sampled</span> <span class="pre">Points</span></code>. Izberite orodje <span class="guilabel">Identify</span> v orodni vrstici <span class="guilabel">Attributes Toolbar</span> in kliknite na katero koli točko. Atributi bodo prikazani na plošči <span class="guilabel">Identify Results</span>. Vsakemu elementu bo dodan nov atribut z imenom <strong>tmax_1</strong>. To je vrednost piksla rastrskega sloja, izluščenega na lokaciji točke. <em>1</em> predstavlja številko pasu rastra. Če je imel rastrski sloj več pasov, boste v izhodnem sloju videli več novih stolpcev.</p></li>
 </ol>
 <blockquote>
 <div><img alt="../../_images/723.png" class="align-center" src="../../_images/723.png" />
 </div></blockquote>
 <ol class="arabic simple" start="8">
-<li><p>First part of our analysis is over. Let’s remove the unnecessary layers. Hold the <kbd class="kbd docutils literal notranslate">Shift</kbd> key and select <code class="docutils literal notranslate"><span class="pre">Sampled</span> <span class="pre">Points</span></code> and <code class="docutils literal notranslate"><span class="pre">2018_Gaz_ua_national</span></code> layers. Right-click and select <span class="guilabel">Remove</span> to remove them from QGIS. When prompted for <span class="guilabel">Remove 2 legend entries?</span>, select <span class="guilabel">OK</span>.</p></li>
+<li><p>Prvi del naše analize je končan. Odstranimo nepotrebne plasti. Držite tipko <kbd class="kbd docutils literal notranslate">Shift</kbd> in izberite sloje <code class="docutils literal notranslate"><span class="pre">Samplled</span> <span class="pre">Points</span></code> in <code class="docutils literal notranslate"><span class="pre">2018_Gaz_ua_national</span></code>. Z desnim klikom in izbiro <span class="guilabel">Remove</span> ju odstranite iz sistema QGIS. Ko se pojavi poziv za <span class="guilabel">Remove 2 legend entries?</span>, izberite <span class="guilabel">OK</span>.</p></li>
 </ol>
 <blockquote>
 <div><img alt="../../_images/822.png" class="align-center" src="../../_images/822.png" />
 </div></blockquote>
 <ol class="arabic simple" start="9">
-<li><p>Now we will use the counties layer to sample the raster and calculate average temperature for each county. Locate the <code class="docutils literal notranslate"><span class="pre">tl_2018_us_county.shp</span></code> file in the QGIS Browser drag it to the canvas.</p></li>
+<li><p>Zdaj bomo s plastjo grofije vzorčili raster in izračunali povprečno temperaturo za vsako okrožje. V brskalniku QGIS poiščite datoteko <code class="docutils literal notranslate"><span class="pre">tl_2018_us_county.shp</span></code> in jo povlecite na delovno površino.</p></li>
 </ol>
 <blockquote>
 <div><img alt="../../_images/923.png" class="align-center" src="../../_images/923.png" />
 </div></blockquote>
 <div class="admonition note">
 <p class="admonition-title">Opomba</p>
-<p>Most processing algorithms will read the input layer and create a new layer. But the <strong>Zonal Statistics</strong> algorithm is different. It modifies the input layer and adds new attributes to it. That’s why it is important to unzip the input files first. QGIS can load a layer from a zip archive directly, but it cannot modify a zipped layer. The processing algorithm will fail if it cannot update the input layer.</p>
+<p>Večina algoritmov za obdelavo prebere vhodno plast in ustvari novo plast. Vendar je algoritem <strong>Zonal Statistics</strong> drugačen. Spremeni vhodni sloj in mu doda nove atribute. Zato je pomembno, da najprej razpakirate vhodne datoteke. QGIS lahko neposredno naloži sloj iz arhiva zip, ne more pa spreminjati sloja, ki je zapakiran v zip. Algoritem obdelave bo neuspešen, če ne bo mogel posodobiti vhodnega sloja.</p>
 </div>
 <ol class="arabic simple" start="10">
-<li><p>A new layer <code class="docutils literal notranslate"><span class="pre">tl_2018_us_county</span></code> will be loaded to the <span class="guilabel">Layers</span> panel. Go to <span class="menuselection">Processing ‣ Toolbox</span>.</p></li>
+<li><p>Na ploščo <span class="guilabel">Layers</span> bo naložen nov sloj <code class="docutils literal notranslate"><span class="pre">tl_2018_us_county</span></code>. Pojdite na <span class="menuselection">Processing ‣ Toolbox</span>.</p></li>
 </ol>
 <blockquote>
 <div><img alt="../../_images/1029.png" class="align-center" src="../../_images/1029.png" />
 </div></blockquote>
 <ol class="arabic simple" start="11">
-<li><p>Search and locate the <span class="menuselection">Raster analysis ‣ Zonal statistics</span> algorithm and double-click to launch it.</p></li>
+<li><p>Poiščite algoritem <span class="menuselection">Raster analysis ‣ Zonal statistics</span> in ga zaženite z dvojnim klikom.</p></li>
 </ol>
 <blockquote>
 <div><img alt="../../_images/1134.png" class="align-center" src="../../_images/1134.png" />
 </div></blockquote>
 <ol class="arabic simple" start="12">
-<li><p>Select <code class="docutils literal notranslate"><span class="pre">us.tmax_nohads_ll_20190501_float</span></code> as the <span class="guilabel">Raster layer</span> and <code class="docutils literal notranslate"><span class="pre">tl_2018_us_county</span></code> as the <span class="guilabel">Vector layer containing zones</span>. Enter <code class="docutils literal notranslate"><span class="pre">tmax_</span></code> as the <span class="guilabel">Output column prefix</span>. Click the <span class="guilabel">…</span> next to <span class="guilabel">Statistics to calculate</span>.</p></li>
+<li><p>Izberite <code class="docutils literal notranslate"><span class="pre">us.tmax_nohads_ll_20190501_float</span></code> kot <span class="guilabel">Raster layer</span> in <code class="docutils literal notranslate"><span class="pre">tl_2018_us_county</span></code> kot <span class="guilabel">Vector layer containing zones</span>. Vnesite <code class="docutils literal notranslate"><span class="pre">tmax_</span></code> kot <span class="guilabel">Output column prefix</span>. Kliknite <span class="guilabel">…</span> poleg :guilabel:<a href="#id1"><span class="problematic" id="id2">`</span></a>Statistics to calculate.</p></li>
 </ol>
 <blockquote>
 <div><img alt="../../_images/1232.png" class="align-center" src="../../_images/1232.png" />
 </div></blockquote>
 <ol class="arabic simple" start="13">
-<li><p>Select only the <code class="docutils literal notranslate"><span class="pre">Mean</span></code> value and click <span class="guilabel">OK</span>.</p></li>
+<li><p>Izberite samo vrednost <code class="docutils literal notranslate"><span class="pre">Mean</span></code> in kliknite <span class="guilabel">OK</span>.</p></li>
 </ol>
 <blockquote>
 <div><img alt="../../_images/1330.png" class="align-center" src="../../_images/1330.png" />
 </div></blockquote>
 <ol class="arabic simple" start="14">
-<li><p>Click <span class="guilabel">Run</span> to start the processing. The algorithm may take a few minutes to complete. Click <span class="guilabel">Close</span>.</p></li>
+<li><p>Kliknite <span class="guilabel">Run</span> za začetek obdelave. Algoritem lahko računa nekaj minut. Kliknite <span class="guilabel">Close</span>.</p></li>
 </ol>
 <blockquote>
 <div><img alt="../../_images/1427.png" class="align-center" src="../../_images/1427.png" />
 </div></blockquote>
 <ol class="arabic simple" start="15">
-<li><p>As noted earlier, the <strong>Zonal Statistics</strong> algorithm doesn’t create a new layer, but modifies the zone layer. Right-click the <code class="docutils literal notranslate"><span class="pre">tl_2018_us_county</span></code> layer, and select <span class="guilabel">Open Attribute Table</span>.</p></li>
+<li><p>Kot je bilo že omenjeno, algoritem <a href="#id1"><span class="problematic" id="id2">**</span></a>Zonal Statistics* ne ustvari novega sloja, temveč spremeni sloj območja. Z desno tipko miške kliknite sloj <code class="docutils literal notranslate"><span class="pre">tl_2018_us_county</span></code> in izberite <span class="guilabel">Open Attribute Table</span>.</p></li>
 </ol>
 <blockquote>
 <div><img alt="../../_images/1526.png" class="align-center" src="../../_images/1526.png" />
 </div></blockquote>
 <ol class="arabic simple" start="16">
-<li><p>You will see a new column called <code class="docutils literal notranslate"><span class="pre">tmax_mean</span></code> added to the attribute table. This contains the average temperature value extracted over the polygon for each feature. There are some null values because those counties (belonging to Alaska, Hawaii and Puerto Rico) are outside of the raster layer’s extent.</p></li>
+<li><p>V tabelo atributov bo dodan nov stolpec z imenom <code class="docutils literal notranslate"><span class="pre">tmax_mean</span></code>. Ta vsebuje povprečno vrednost temperature, pridobljeno na poligonu za vsak element. Nekaj vrednosti je ničelnih, ker so ta okrožja (Aljaska, Havaji in Portoriko) zunaj obsega rastrskega sloja.</p></li>
 </ol>
 <blockquote>
 <div><img alt="../../_images/1624.png" class="align-center" src="../../_images/1624.png" />
