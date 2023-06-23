@@ -41,7 +41,7 @@ Procedure
   .. image:: /static/3/multi_criteria_overlay/images/1.png
     :align: center
 
-2. First step in the overlay analysis, is to convert each data layer to raster. An important consideration is that all rasters must be of the same extent. We will use the ``boundary`` layer as the extent for all the rasters. Go to :menuselection:`Processing --> Toolbox`. Search for and locate the :menuselection:`GDAL --> Vector conversion --> Rasterize (vector to raster)`` algorithm. Double-click to launch it.
+2. First step in the overlay analysis, is to convert each data layer to raster. An important consideration is that all rasters must be of the same extent. We will use the ``boundary`` layer as the extent for all the rasters. Go to :menuselection:`Processing --> Toolbox`. Search for and locate the :menuselection:`GDAL --> Vector conversion --> Rasterize (vector to raster)` algorithm. Double-click to launch it.
 
   .. image:: /static/3/multi_criteria_overlay/images/2.png
     :align: center
@@ -56,12 +56,12 @@ Procedure
   .. image:: /static/3/multi_criteria_overlay/images/4.png
     :align: center
 
-5.That field should now be set to ``Not set``. This is important because when raster calculator (which we will use later) encounters a pixel with nodata value in any layer, it sets the output to nodata as well, resulting is wrong output. 
+5. That field should now be set to ``Not set``. This is important because when raster calculator (which we will use later) encounters a pixel with nodata value in any layer, it sets the output to nodata as well, resulting is wrong output. 
 
   .. image:: /static/3/multi_criteria_overlay/images/5.png
     :align: center
 
-6. Scroll down to find the :guilabel:`Advanced Parameters` and select the profile ``High Compression`` to apply the compression. This will generate the compressed raster file of smaller size after running the tool. 
+6. Scroll down to find the :guilabel:`Advanced Parameters` and select the profile ``High Compression`` to apply the compression. This will generate the compressed raster file of smaller size after running the tool. Applying lossless compression is highly recommended while working with raster data.
 
   .. image:: /static/3/multi_criteria_overlay/images/6.png
     :align: center
@@ -71,22 +71,21 @@ Procedure
   .. image:: /static/3/multi_criteria_overlay/images/7.png
     :align: center
 
-.. note:: 
-
-  Compression
-  
-  This  :guilabel:`Advanced Parameters` option is not available while executing the algorithm in batch mode. You will have to repeat the steps above for all the layer and skip steps 8 to 12 for applying compression on all the :guilabel:`Rasterized` outputs.
-  
 
 8. Once the processing finishes, you will see a new layer :guilabel:`raster_roads` loaded in the :guilabel:`Layers` panel. The default styling will show pixels with roads as white and others as black. We want to convert other 4 vector layers to rasters as well. Rather than running the rasterize algorithm one-by-one, we can use the built-in batch-processing functionality to convert them all at once. See :doc:`batch_processing` tutorial to learn more about batch processing. Right-click the ``Rasterize (vector to raster)`` algorithm and select :guilabel:`Execute as Batch Process`.
-
-  .. image:: /static/3/multi_criteria_overlay/images/81.png
+  
+  .. image:: /static/3/multi_criteria_overlay/images/8.png
     :align: center
 
 9. In the :guilabel:`Batch Processing` dialog, click the :guilabel:`...` button in the first row of the :guilabel:`Input layer` column. Select ``boundary``, ``protected_regions``, ``water_polygons`` and ``water_polylines`` layers and click :guilabel:`OK`.
 
   .. image:: /static/3/multi_criteria_overlay/images/9.png
     :align: center
+
+.. note:: 
+
+  This  :guilabel:`Advanced Parameters` option is not available while executing the algorithm in batch mode. You will have to repeat the steps above for all the layer and skip steps 8 to 12 for applying compression on all the :guilabel:`Rasterized` outputs.
+
 
 10. Fill in the parameters with the same values we used in the roads layer. After filling the first-row of the parameter, use the :menuselection:`Autofill --> Fill Down` button to add the same value for all layers.
 
