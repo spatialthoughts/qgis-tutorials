@@ -26,12 +26,16 @@ Data Source [NATURALEARTH]_
 Procedure
 ---------
 
-1. Download and extract the Natural Earth Quick Start Kit data. Open QGIS.  Locate the ``Natural Earth quick start`` folder in the :guilabel:`Browser` panel. Expand the folder to locate the ``Natural_Earth_quick_start_for_QGIS_v3`` project. This is the project file that contains styled layers in QGIS Document format. Double-click the project to open it.
+1. Download and extract the Natural Earth Quick Start Kit data. Open QGIS.  Locate the ``Natural Earth quick start`` folder in the :guilabel:`Browser` panel. Expand the folder to locate the ``Natural_Earth_quick_start_for_QGIS_v3`` project. This is the project file that contains styled layers in QGIS Document format. Double-click the project to open it. 
 
   .. image:: /static/3/making_a_map/images/1.png
      :align: center
 
-2. You may notice that the map has labels in Greek. This project uses variables to set the language. We can change the variables by going to :menuselection:`Project --> Properties`.
+.. note::
+
+	If you get a pop-up dialog named :guilabel:`Handle Unavailable Layers`, click the :guilabel:`Auto-Find` button followed by :guilabel:`Apply Changes` to fix the error.
+	
+2. If your map is in your preferred language, you can proceed to Step 4. If not, you can change the language of the labels. This project uses variables to set the language. We can change the variables by going to :menuselection:`Project --> Properties`.
 
   .. image:: /static/3/making_a_map/images/2.png
      :align: center

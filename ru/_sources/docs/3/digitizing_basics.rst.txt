@@ -10,7 +10,7 @@ Overview of the task
 We will use a raster topographic map and create several vector layers
 representing features around a park.
 
-Other skills you will learn.
+Other skills you will learn
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 - Building pyramids for large raster datasets to speed up zoom and pan
