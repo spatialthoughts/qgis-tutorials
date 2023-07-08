@@ -3,15 +3,14 @@
 <html lang="ru">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
     <title>Handling Invalid Geometries (QGIS3) &#8212; QGIS Tutorials and Tips</title>
     <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-sphinx.css" />
     <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
-    <script src="../../_static/jquery.js"></script>
-    <script src="../../_static/underscore.js"></script>
     <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/sphinx_highlight.js"></script>
     <script src="../../_static/translations.js"></script>
     <link rel="search" title="Поиск" href="../../search.html" />
     <link rel="next" title="Advanced Raster Analysis (QGIS3)" href="advanced_raster_analysis.html" />
@@ -21,10 +20,10 @@
 <meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
 <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
 <meta name="apple-mobile-web-app-capable" content="yes">
-<script type="text/javascript" src="../../_static/js/jquery-1.11.0.min.js "></script>
-<script type="text/javascript" src="../../_static/js/jquery-fix.js "></script>
-<script type="text/javascript" src="../../_static/bootstrap-3.3.7/js/bootstrap.min.js "></script>
-<script type="text/javascript" src="../../_static/bootstrap-sphinx.js "></script>
+<script type="text/javascript" src="../../_static/js/jquery-1.12.4.min.js"></script>
+<script type="text/javascript" src="../../_static/js/jquery-fix.js"></script>
+<script type="text/javascript" src="../../_static/bootstrap-3.4.1/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="../../_static/bootstrap-sphinx.js"></script>
 
 
 <!-- Cookie Notice -->
@@ -53,7 +52,7 @@
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
         </button>
-        <a class="navbar-brand" href="../../index.html"><span><img src="../../_static/logo.png"></span>
+        <a class="navbar-brand" href="../../index.html">
           QGIS Tutorials and Tips</a>
         <span class="navbar-text navbar-version pull-left"><b>v1</b></span>
       </div>
@@ -202,30 +201,30 @@
       
 
   <section id="handling-invalid-geometries-qgis3">
-<h1>Handling Invalid Geometries (QGIS3)<a class="headerlink" href="#handling-invalid-geometries-qgis3" title="Ссылка на этот заголовок">¶</a></h1>
+<h1>Handling Invalid Geometries (QGIS3)<a class="headerlink" href="#handling-invalid-geometries-qgis3" title="Permalink to this heading">¶</a></h1>
 <p>When working with vector data layers, you may encounter geometry errors. These errors often become part of your data after running geoprocessing, digitizing, editing or data conversion. QGIS3 comes with build-in tools and algorithms to detect and fix invalid geometries. This tutorial will show you a typical workflow for handling invalid geometries in your data.</p>
 <div class="admonition note">
 <p class="admonition-title">Примечание</p>
 <p>Different software systems implement different notions of geometry validity. But the leading standard for the geometry model for use in a GIS is the OGC <a class="reference external" href="https://www.opengeospatial.org/standards/sfs">Simple Features Specifications (SFS)</a>. In this tutorial, we will use GEOS library to check for geometry validity which uses this standard. <a class="reference external" href="https://knowledge.safe.com/articles/21674/invalid-ogc-geometry-examples.html">This post</a> gives a good overview of common geometry errors as defined by the OGC standard.</p>
 </div>
 <section id="overview-of-the-task">
-<h2>Overview of the task<a class="headerlink" href="#overview-of-the-task" title="Ссылка на этот заголовок">¶</a></h2>
+<h2>Overview of the task<a class="headerlink" href="#overview-of-the-task" title="Permalink to this heading">¶</a></h2>
 <p>We will work with an admin boundary layer for India and fix a geometry error for a state polygon.</p>
 <section id="other-skills-you-will-learn">
-<h3>Other skills you will learn<a class="headerlink" href="#other-skills-you-will-learn" title="Ссылка на этот заголовок">¶</a></h3>
+<h3>Other skills you will learn<a class="headerlink" href="#other-skills-you-will-learn" title="Permalink to this heading">¶</a></h3>
 <ul class="simple">
 <li><p>Using the <em>Topological Coloring</em> algorithm to apply a coloring scheme to a polygon layer.</p></li>
 </ul>
 </section>
 </section>
 <section id="get-the-data">
-<h2>Get the data<a class="headerlink" href="#get-the-data" title="Ссылка на этот заголовок">¶</a></h2>
+<h2>Get the data<a class="headerlink" href="#get-the-data" title="Permalink to this heading">¶</a></h2>
 <p><a class="reference external" href="http://projects.datameet.org/maps/">Datameet</a> provides community-created administrative boundary shapefiles for India.</p>
 <p>Download the <a class="reference external" href="https://codeload.github.com/datameet/maps/zip/0fa9fd850eda3d2062e66f2caabc65872639c85a">Datameet Spatial Data Repository [~150 MB]</a> zipfile. The downloaded archive contains multiple folders. Extract the archive and use the files in the <code class="docutils literal notranslate"><span class="pre">States/</span></code> folder.</p>
 <p>Data Source: <a class="reference internal" href="../credits.html#datameet" id="id1"><span>[DATAMEET]</span></a></p>
 </section>
 <section id="procedure">
-<h2>Procedure<a class="headerlink" href="#procedure" title="Ссылка на этот заголовок">¶</a></h2>
+<h2>Procedure<a class="headerlink" href="#procedure" title="Permalink to this heading">¶</a></h2>
 <ol class="arabic simple">
 <li><p>Browse to the downloaded <code class="docutils literal notranslate"><span class="pre">India-States.zip</span></code> file in QGIS Browser. Expand it and drag the <code class="docutils literal notranslate"><span class="pre">India-States.shp</span></code> file to the map canvas.</p></li>
 </ol>
@@ -367,8 +366,8 @@
     </p>
     <p>
         &copy; Copyright 2021, Ujaval Gandhi.<br/>
-      Обновлено: июн. 23, 2023.<br/>
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 4.0.1.<br/>
+      Обновлено: июл. 08, 2023.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 7.0.1.<br/>
     </p>
   </div>
 </footer>

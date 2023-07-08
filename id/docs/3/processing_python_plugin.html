@@ -3,15 +3,14 @@
 <html lang="id">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
     <title>Building a Processing Plugin (QGIS3) &#8212; QGIS Tutorials and Tips</title>
     <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-sphinx.css" />
     <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
-    <script src="../../_static/jquery.js"></script>
-    <script src="../../_static/underscore.js"></script>
     <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/sphinx_highlight.js"></script>
     <script src="../../_static/translations.js"></script>
     <link rel="search" title="Pencarian" href="../../search.html" />
     <link rel="next" title="Menjalankan dan Menjadwalkan Pekerjaan Pemrosesan QGIS" href="../running_qgis_jobs.html" />
@@ -21,10 +20,10 @@
 <meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
 <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
 <meta name="apple-mobile-web-app-capable" content="yes">
-<script type="text/javascript" src="../../_static/js/jquery-1.11.0.min.js "></script>
-<script type="text/javascript" src="../../_static/js/jquery-fix.js "></script>
-<script type="text/javascript" src="../../_static/bootstrap-3.3.7/js/bootstrap.min.js "></script>
-<script type="text/javascript" src="../../_static/bootstrap-sphinx.js "></script>
+<script type="text/javascript" src="../../_static/js/jquery-1.12.4.min.js"></script>
+<script type="text/javascript" src="../../_static/js/jquery-fix.js"></script>
+<script type="text/javascript" src="../../_static/bootstrap-3.4.1/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="../../_static/bootstrap-sphinx.js"></script>
 
 
 <!-- Cookie Notice -->
@@ -53,7 +52,7 @@
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
         </button>
-        <a class="navbar-brand" href="../../index.html"><span><img src="../../_static/logo.png"></span>
+        <a class="navbar-brand" href="../../index.html">
           QGIS Tutorials and Tips</a>
         <span class="navbar-text navbar-version pull-left"><b>v1</b></span>
       </div>
@@ -202,16 +201,16 @@
       
 
   <section id="building-a-processing-plugin-qgis3">
-<h1>Building a Processing Plugin (QGIS3)<a class="headerlink" href="#building-a-processing-plugin-qgis3" title="Link permanen untuk headline ini">¶</a></h1>
+<h1>Building a Processing Plugin (QGIS3)<a class="headerlink" href="#building-a-processing-plugin-qgis3" title="Permalink to this heading">¶</a></h1>
 <p>In the previous tutorial <a class="reference internal" href="building_a_python_plugin.html"><span class="doc">Building a Python Plugin (QGIS3)</span></a>, you learnt how to create a python plugin - including the user interface and custom logic for processing the data. While these type of plugins are useful, it puts the burden of designing the user interface on the plugin author. This results in each plugin having different ways to interact with it - which is confusing to the users. Also, regular plugins do not interact with another parts of QGIS. For example, you cannot use the plugin functionality from another algorithm. If the plugin that you want to write is primarily for analysis, and the user interaction that you want is limited to letting the user pick inputs and outputs, there is a much easier and preferred way to write plugins using the Processing Framework. It removes the need for you to design the user interface - simplifying the process. The built-in processing library creates a standard processing interface depending on your inputs that looks and behaves just like any other processing algorithm in QGIS. It also seamlessly integrates with rest of the Processing framework - so your plugin algorithms can be used in batch processing, graphical modeler, called from python console etc.</p>
 <section id="overview-of-the-task">
-<h2>Overview of the Task<a class="headerlink" href="#overview-of-the-task" title="Link permanen untuk headline ini">¶</a></h2>
+<h2>Overview of the Task<a class="headerlink" href="#overview-of-the-task" title="Permalink to this heading">¶</a></h2>
 <p>We will re-implement a simple plugin from the tutorial  <a class="reference internal" href="building_a_python_plugin.html"><span class="doc">Building a Python Plugin (QGIS3)</span></a> as a processing plugin. It will result in a new processing provider called <code class="docutils literal notranslate"><span class="pre">Save</span> <span class="pre">Attributes</span></code> and an algorithm <code class="docutils literal notranslate"><span class="pre">Save</span> <span class="pre">Attributes</span> <span class="pre">as</span> <span class="pre">CSV</span></code> that will allow users to pick a vector layer and write its attributes to a CSV file.</p>
 </section>
 <section id="get-the-tools">
-<h2>Get the Tools<a class="headerlink" href="#get-the-tools" title="Link permanen untuk headline ini">¶</a></h2>
+<h2>Get the Tools<a class="headerlink" href="#get-the-tools" title="Permalink to this heading">¶</a></h2>
 <section id="a-text-editor-or-a-python-ide">
-<h3>A Text Editor or a Python IDE<a class="headerlink" href="#a-text-editor-or-a-python-ide" title="Link permanen untuk headline ini">¶</a></h3>
+<h3>A Text Editor or a Python IDE<a class="headerlink" href="#a-text-editor-or-a-python-ide" title="Permalink to this heading">¶</a></h3>
 <p>Any kind of software development requires a good text editor. If you already have a favorite text editor or an IDE (Integrated Development Environment), you may use it for this tutorial. Otherwise, each platform offers a wide variety of free or paid options for text editors. Choose the one that fits your needs.</p>
 <p>This tutorial uses Notepad++ editor on Windows.</p>
 <p><strong>Windows</strong></p>
@@ -223,11 +222,11 @@ Download and install the <a class="reference external" href="https://notepad-plu
 </div>
 </section>
 <section id="plugin-builder-plugin">
-<h3>Plugin Builder plugin<a class="headerlink" href="#plugin-builder-plugin" title="Link permanen untuk headline ini">¶</a></h3>
+<h3>Plugin Builder plugin<a class="headerlink" href="#plugin-builder-plugin" title="Permalink to this heading">¶</a></h3>
 <p>There is a helpful QGIS plugin named <code class="docutils literal notranslate"><span class="pre">Plugin</span> <span class="pre">Builder</span></code> which creates all the necessary files and the boilerplate code for a plugin. Find and install the <code class="docutils literal notranslate"><span class="pre">Plugin</span> <span class="pre">Builder</span></code> plugin. See <a class="reference internal" href="../using_plugins.html"><span class="doc">Menggunakan Plugins</span></a> for more details on how to install plugins.</p>
 </section>
 <section id="plugins-reloader-plugin">
-<h3>Plugins Reloader plugin<a class="headerlink" href="#plugins-reloader-plugin" title="Link permanen untuk headline ini">¶</a></h3>
+<h3>Plugins Reloader plugin<a class="headerlink" href="#plugins-reloader-plugin" title="Permalink to this heading">¶</a></h3>
 <p>This is another helper plugin which allows iterative development of plugins. Using this plugin, you can change your plugin code and have it reflected in QGIS without having to restart QGIS every time. Find and install the <code class="docutils literal notranslate"><span class="pre">Plugin</span> <span class="pre">Reloader</span></code> plugin. See <a class="reference internal" href="../using_plugins.html"><span class="doc">Menggunakan Plugins</span></a> for more details on how to install plugins.</p>
 <div class="admonition note">
 <p class="admonition-title">Catatan</p>
@@ -236,7 +235,7 @@ Download and install the <a class="reference external" href="https://notepad-plu
 </section>
 </section>
 <section id="procedure">
-<h2>Procedure<a class="headerlink" href="#procedure" title="Link permanen untuk headline ini">¶</a></h2>
+<h2>Procedure<a class="headerlink" href="#procedure" title="Permalink to this heading">¶</a></h2>
 <ol class="arabic simple">
 <li><p>Open QGIS. Go to <span class="menuselection">Plugins ‣ Plugin Builder ‣ Plugin Builder</span>.</p></li>
 </ol>
@@ -359,7 +358,7 @@ Download and install the <a class="reference external" href="https://notepad-plu
 <ol class="arabic" start="17">
 <li><p>Let's add some logic to the algorithm that takes the selected vector layer and writes the attributes to a CSV file.  The explanation for this code can be found in <a class="reference internal" href="getting_started_with_pyqgis.html"><span class="doc">Getting Started With Python Programming (QGIS3)</span></a>. Notable difference here is the counter that helps show the progress of the processing. Add the following code to the <code class="docutils literal notranslate"><span class="pre">processAlgorithm</span></code> method and save the file.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">processAlgorithm</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">parameters</span><span class="p">,</span> <span class="n">context</span><span class="p">,</span> <span class="n">feedback</span><span class="p">):</span>
-  <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">  </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">  Here is where the processing itself takes place.</span>
 <span class="sd">  &quot;&quot;&quot;</span>
   <span class="n">source</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">parameterAsSource</span><span class="p">(</span><span class="n">parameters</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">INPUT</span><span class="p">,</span> <span class="n">context</span><span class="p">)</span>
@@ -570,7 +569,7 @@ upload it to the QGIS plugin repository.</p>
 
 <span class="c1"># noinspection PyPep8Naming</span>
 <span class="k">def</span> <span class="nf">classFactory</span><span class="p">(</span><span class="n">iface</span><span class="p">):</span>  <span class="c1"># pylint: disable=invalid-name</span>
-    <span class="sd">&quot;&quot;&quot;Load SaveAttributes class from file SaveAttributes.</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Load SaveAttributes class from file SaveAttributes.</span>
 
 <span class="sd">    :param iface: A QGIS interface instance.</span>
 <span class="sd">    :type iface: QgsInterface</span>
@@ -637,7 +636,7 @@ upload it to the QGIS plugin repository.</p>
         <span class="bp">self</span><span class="o">.</span><span class="n">iface</span> <span class="o">=</span> <span class="n">iface</span>
 
     <span class="k">def</span> <span class="nf">initProcessing</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Init Processing provider for QGIS &gt;= 3.8.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Init Processing provider for QGIS &gt;= 3.8.&quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">provider</span> <span class="o">=</span> <span class="n">SaveAttributesProvider</span><span class="p">()</span>
         <span class="n">QgsApplication</span><span class="o">.</span><span class="n">processingRegistry</span><span class="p">()</span><span class="o">.</span><span class="n">addProvider</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">provider</span><span class="p">)</span>
 
@@ -707,7 +706,7 @@ upload it to the QGIS plugin repository.</p>
 
 
 <span class="k">class</span> <span class="nc">SaveAttributesAlgorithm</span><span class="p">(</span><span class="n">QgsProcessingAlgorithm</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    This is an example algorithm that takes a vector layer and</span>
 <span class="sd">    creates a new identical one.</span>
 
@@ -728,7 +727,7 @@ upload it to the QGIS plugin repository.</p>
     <span class="n">INPUT</span> <span class="o">=</span> <span class="s1">&#39;INPUT&#39;</span>
 
     <span class="k">def</span> <span class="nf">initAlgorithm</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">config</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Here we define the inputs and output of the algorithm, along</span>
 <span class="sd">        with some other properties.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -753,7 +752,7 @@ upload it to the QGIS plugin repository.</p>
         <span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">processAlgorithm</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">parameters</span><span class="p">,</span> <span class="n">context</span><span class="p">,</span> <span class="n">feedback</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Here is where the processing itself takes place.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">source</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">parameterAsSource</span><span class="p">(</span><span class="n">parameters</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">INPUT</span><span class="p">,</span> <span class="n">context</span><span class="p">)</span>
@@ -785,7 +784,7 @@ upload it to the QGIS plugin repository.</p>
         <span class="k">return</span> <span class="p">{</span><span class="bp">self</span><span class="o">.</span><span class="n">OUTPUT</span><span class="p">:</span> <span class="n">csv</span><span class="p">}</span>
 
     <span class="k">def</span> <span class="nf">name</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Returns the algorithm name, used for identifying the algorithm. This</span>
 <span class="sd">        string should be fixed for the algorithm, and must not be localised.</span>
 <span class="sd">        The name should be unique within each provider. Names should contain</span>
@@ -795,21 +794,21 @@ upload it to the QGIS plugin repository.</p>
         <span class="k">return</span> <span class="s1">&#39;Save Attributes as CSV&#39;</span>
 
     <span class="k">def</span> <span class="nf">displayName</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Returns the translated algorithm name, which should be used for any</span>
 <span class="sd">        user-visible display of the algorithm name.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">tr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">())</span>
 
     <span class="k">def</span> <span class="nf">group</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Returns the name of the group this algorithm belongs to. This string</span>
 <span class="sd">        should be localised.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">tr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">groupId</span><span class="p">())</span>
 
     <span class="k">def</span> <span class="nf">groupId</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Returns the unique ID of the group this algorithm belongs to. This</span>
 <span class="sd">        string should be fixed for the algorithm, and must not be localised.</span>
 <span class="sd">        The group id should be unique within each provider. Group id should</span>
@@ -822,7 +821,7 @@ upload it to the QGIS plugin repository.</p>
         <span class="k">return</span> <span class="n">QCoreApplication</span><span class="o">.</span><span class="n">translate</span><span class="p">(</span><span class="s1">&#39;Processing&#39;</span><span class="p">,</span> <span class="n">string</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">icon</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Should return a QIcon which is used for your provider inside</span>
 <span class="sd">        the Processing toolbox.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -878,20 +877,20 @@ upload it to the QGIS plugin repository.</p>
 <span class="k">class</span> <span class="nc">SaveAttributesProvider</span><span class="p">(</span><span class="n">QgsProcessingProvider</span><span class="p">):</span>
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Default constructor.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">QgsProcessingProvider</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">unload</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Unloads the provider. Any tear-down steps required by the provider</span>
 <span class="sd">        should be implemented here.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">pass</span>
 
     <span class="k">def</span> <span class="nf">loadAlgorithms</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Loads all algorithms belonging to this provider.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">addAlgorithm</span><span class="p">(</span><span class="n">SaveAttributesAlgorithm</span><span class="p">())</span>
@@ -899,7 +898,7 @@ upload it to the QGIS plugin repository.</p>
         <span class="c1"># self.addAlgorithm(MyOtherAlgorithm())</span>
 
     <span class="k">def</span> <span class="nf">id</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Returns the unique provider id, used for identifying the provider. This</span>
 <span class="sd">        string should be a unique, short, character only string, eg &quot;qgis&quot; or</span>
 <span class="sd">        &quot;gdal&quot;. This string should not be localised.</span>
@@ -907,7 +906,7 @@ upload it to the QGIS plugin repository.</p>
         <span class="k">return</span> <span class="s1">&#39;Save Attributes&#39;</span>
 
     <span class="k">def</span> <span class="nf">name</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Returns the provider name, which is used to describe the provider</span>
 <span class="sd">        within the GUI.</span>
 
@@ -916,7 +915,7 @@ upload it to the QGIS plugin repository.</p>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">tr</span><span class="p">(</span><span class="s1">&#39;Save Attributes&#39;</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">icon</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Should return a QIcon which is used for your provider inside</span>
 <span class="sd">        the Processing toolbox.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -925,7 +924,7 @@ upload it to the QGIS plugin repository.</p>
         <span class="k">return</span> <span class="n">icon</span>
 
     <span class="k">def</span> <span class="nf">longName</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Returns the a longer version of the provider name, which can include</span>
 <span class="sd">        extra details such as version numbers. E.g. &quot;Lastools LIDAR tools</span>
 <span class="sd">        (version 2.2.1)&quot;. This string should be localised. The default</span>
@@ -959,8 +958,8 @@ upload it to the QGIS plugin repository.</p>
     </p>
     <p>
         &copy; Copyright 2021, Ujaval Gandhi.<br/>
-      Terakhir diperbarui pada Jun 23, 2023.<br/>
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 4.0.1.<br/>
+      Terakhir diperbarui pada Jul 08, 2023.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 7.0.1.<br/>
     </p>
   </div>
 </footer>

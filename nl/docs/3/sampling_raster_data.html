@@ -3,15 +3,14 @@
 <html lang="nl">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
     <title>Monsters nemen van rastergegevens met behulp van punten of polygonen (QGIS3) &#8212; QGIS Tutorials and Tips</title>
     <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-sphinx.css" />
     <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
-    <script src="../../_static/jquery.js"></script>
-    <script src="../../_static/underscore.js"></script>
     <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/sphinx_highlight.js"></script>
     <script src="../../_static/translations.js"></script>
     <link rel="search" title="Zoeken" href="../../search.html" />
     <link rel="next" title="Rastergebied berekenen (QGIS3)" href="calculating_raster_area.html" />
@@ -21,10 +20,10 @@
 <meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
 <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
 <meta name="apple-mobile-web-app-capable" content="yes">
-<script type="text/javascript" src="../../_static/js/jquery-1.11.0.min.js "></script>
-<script type="text/javascript" src="../../_static/js/jquery-fix.js "></script>
-<script type="text/javascript" src="../../_static/bootstrap-3.3.7/js/bootstrap.min.js "></script>
-<script type="text/javascript" src="../../_static/bootstrap-sphinx.js "></script>
+<script type="text/javascript" src="../../_static/js/jquery-1.12.4.min.js"></script>
+<script type="text/javascript" src="../../_static/js/jquery-fix.js"></script>
+<script type="text/javascript" src="../../_static/bootstrap-3.4.1/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="../../_static/bootstrap-sphinx.js"></script>
 
 
 <!-- Cookie Notice -->
@@ -53,7 +52,7 @@
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
         </button>
-        <a class="navbar-brand" href="../../index.html"><span><img src="../../_static/logo.png"></span>
+        <a class="navbar-brand" href="../../index.html">
           QGIS Tutorials and Tips</a>
         <span class="navbar-text navbar-version pull-left"><b>v1</b></span>
       </div>
@@ -202,20 +201,20 @@
       
 
   <section id="sampling-raster-data-using-points-or-polygons-qgis3">
-<h1>Monsters nemen van rastergegevens met behulp van punten of polygonen (QGIS3)<a class="headerlink" href="#sampling-raster-data-using-points-or-polygons-qgis3" title="Permalink naar deze titel">¶</a></h1>
+<h1>Monsters nemen van rastergegevens met behulp van punten of polygonen (QGIS3)<a class="headerlink" href="#sampling-raster-data-using-points-or-polygons-qgis3" title="Permalink to this heading">¶</a></h1>
 <p>Vele wetenschappelijke en milieu-gegevenssets zijn gerasterde rasterafbeeldingen. Hoogtegegevens (DEM) worden ook gedistribueerd als rasterbestanden. In deze rasterbestanden wordt de parameter die wordt weergegeven gecodeerd als de pixelwaarden van het raster. Vaak moet men de pixelwaarden van bepaalde locaties verzamelen of ze samenvoegen over enkele gebieden. Deze functionaliteit is beschikbaar in QGIS via algoritmes van Processing - <code class="docutils literal notranslate"><span class="pre">Monster</span> <span class="pre">rasterwaarden</span></code> voor puntlagen en <code class="docutils literal notranslate"><span class="pre">Gebiedsstatistieken</span></code> voor polygoonlagen.</p>
 <section id="overview-of-the-task">
-<h2>Overzicht van de taak<a class="headerlink" href="#overview-of-the-task" title="Permalink naar deze titel">¶</a></h2>
+<h2>Overzicht van de taak<a class="headerlink" href="#overview-of-the-task" title="Permalink to this heading">¶</a></h2>
 <p>Gegeven een raster van dagelijkse maximum temperaturen op het vasteland van de VS, moeten we de temperatuur uit een puntenlaag voor alle stedelijke gebieden uitnemen en de gemiddelde temperatuur voor een polygoonlaag berekenen voor elke county in de VS.</p>
 <section id="other-skills-you-will-learn">
-<h3>Andere vaardigheden die u zult leren<a class="headerlink" href="#other-skills-you-will-learn" title="Permalink naar deze titel">¶</a></h3>
+<h3>Andere vaardigheden die u zult leren<a class="headerlink" href="#other-skills-you-will-learn" title="Permalink to this heading">¶</a></h3>
 <ul class="simple">
 <li><p>Meerdere lagen uit de inhoudsopgave van QGIS selecteren en verwijderen.</p></li>
 </ul>
 </section>
 </section>
 <section id="get-the-data">
-<h2>De gegevens ophalen<a class="headerlink" href="#get-the-data" title="Permalink naar deze titel">¶</a></h2>
+<h2>De gegevens ophalen<a class="headerlink" href="#get-the-data" title="Permalink to this heading">¶</a></h2>
 <p>NOAA’s <a class="reference external" href="http://www.cpc.ncep.noaa.gov/">Climate Prediction Center</a> verschaft <a class="reference external" href="http://www.cpc.ncep.noaa.gov/products/GIS/GIS_DATA/">GIS-gegevens</a> gerelateerd aan temperatuur en neerslag in de VS. Download het <a class="reference external" href="ftp://ftp.cpc.ncep.noaa.gov/GIS/GRADS_GIS/GeoTIFF/TEMP/us_tmax/">laatste rasterbestand voor de maximum temperaturen</a>. Het bestand zal zijn genaamd <code class="docutils literal notranslate"><span class="pre">us.tmax_nohads_ll_{YYYYMMDD}_float.tif</span></code></p>
 <p>We zullen een CSV-bestand gebruiken vanaf <a class="reference external" href="https://www.census.gov/geographies/reference-files/time-series/geo/gazetteer-files.2018.html">2018 US Gazetteer</a> dat de stedelijke gebieden in de VS weergeeft.  Download het bestand <a class="reference external" href="https://www2.census.gov/geo/docs/maps-data/data/gazetteer/2018_Gazetteer/2018_Gaz_ua_national.zip">Urban Areas Gazetteer File</a>.</p>
 <p><a class="reference external" href="https://www.census.gov/en.html">US Census Bureau</a> verschaft <a class="reference external" href="https://www.census.gov/geographies/mapping-files/time-series/geo/tiger-line-file.html">TIGER/Line Shapefiles</a>. U kunt de <a class="reference external" href="https://www2.census.gov/geo/tiger/TIGER2018/">FTP site</a>  bezoeken en het census tracts shapefile voor Californië downloaden. Download het bestand <a href="#id4"><span class="problematic" id="id5">`https://www2.census.gov/geo/tiger/TIGER2018/COUNTY/tl_2018_us_county.zip&gt;`_</span></a>.</p>
@@ -226,7 +225,7 @@
 <p>Gegevensbronnen: <a class="reference internal" href="../credits.html#noaacpc" id="id1"><span>[NOAACPC]</span></a>, <a class="reference internal" href="../credits.html#usgazetteer" id="id2"><span>[USGAZETTEER]</span></a> <a class="reference internal" href="../credits.html#tiger" id="id3"><span>[TIGER]</span></a></p>
 </section>
 <section id="procedure">
-<h2>Procedure<a class="headerlink" href="#procedure" title="Permalink naar deze titel">¶</a></h2>
+<h2>Procedure<a class="headerlink" href="#procedure" title="Permalink to this heading">¶</a></h2>
 <ol class="arabic simple">
 <li><p>Pak zowel <code class="docutils literal notranslate"><span class="pre">2018_Gaz_ua_national.zip</span></code> als <code class="docutils literal notranslate"><span class="pre">tl_2018_us_county.zip</span></code> uit in een map op uw computer. Open QGIS en zoek naar het bestand <code class="docutils literal notranslate"><span class="pre">us.tmax_nohads_ll_20190501_float.tif</span></code> in de QGIS Browser en sleep het naar het kaartvenster.</p></li>
 </ol>
@@ -352,8 +351,8 @@
     </p>
     <p>
         &copy; Copyright 2021, Ujaval Gandhi.<br/>
-      Laatste aanpassing op jun. 23, 2023.<br/>
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 4.0.1.<br/>
+      Laatste aanpassing op jul 08, 2023.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 7.0.1.<br/>
     </p>
   </div>
 </footer>

@@ -3,15 +3,14 @@
 <html lang="ro">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
     <title>Fișierele Open BIL, BIP sau BSQ în QGIS &#8212; QGIS Tutorials and Tips</title>
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../_static/bootstrap-sphinx.css" />
     <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
-    <script src="../_static/jquery.js"></script>
-    <script src="../_static/underscore.js"></script>
     <script src="../_static/doctools.js"></script>
+    <script src="../_static/sphinx_highlight.js"></script>
     <script src="../_static/translations.js"></script>
     <link rel="search" title="Căutare" href="../search.html" />
 
@@ -19,10 +18,10 @@
 <meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
 <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
 <meta name="apple-mobile-web-app-capable" content="yes">
-<script type="text/javascript" src="../_static/js/jquery-1.11.0.min.js "></script>
-<script type="text/javascript" src="../_static/js/jquery-fix.js "></script>
-<script type="text/javascript" src="../_static/bootstrap-3.3.7/js/bootstrap.min.js "></script>
-<script type="text/javascript" src="../_static/bootstrap-sphinx.js "></script>
+<script type="text/javascript" src="../_static/js/jquery-1.12.4.min.js"></script>
+<script type="text/javascript" src="../_static/js/jquery-fix.js"></script>
+<script type="text/javascript" src="../_static/bootstrap-3.4.1/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="../_static/bootstrap-sphinx.js"></script>
 
 
 <!-- Cookie Notice -->
@@ -51,7 +50,7 @@
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
         </button>
-        <a class="navbar-brand" href="../index.html"><span><img src="../_static/logo.png"></span>
+        <a class="navbar-brand" href="../index.html">
           QGIS Tutorials and Tips</a>
         <span class="navbar-text navbar-version pull-left"><b>v1</b></span>
       </div>
@@ -192,13 +191,13 @@
       
 
   <section id="open-bil-bip-or-bsq-files-in-qgis">
-<h1>Fișierele Open BIL, BIP sau BSQ în QGIS<a class="headerlink" href="#open-bil-bip-or-bsq-files-in-qgis" title="Link permanent la acest titlu">¶</a></h1>
+<h1>Fișierele Open BIL, BIP sau BSQ în QGIS<a class="headerlink" href="#open-bil-bip-or-bsq-files-in-qgis" title="Permalink to this heading">¶</a></h1>
 <p>Atunci când vă ocupați cu teledetecția și cu seturile de date științifice, veniți de multe ori în contact cu date în formate ca <strong>BIL</strong>, <strong>BIP</strong> or <strong>BSQ</strong>. <a class="reference external" href="http://www.gdal.org">Biblioteca GDAL</a> - care este folosită de către QGIS pentru a citi fișierele raster - are suport pentru aceste formate, dar ea nu poate deschide singură aceste fișiere. Vom trece prin procesul de creare a fișierelor suport, astfel încât aceste formate să poată fi citite de către QGIS.</p>
 <p>Benzile intercalate după linii (BIL), benzile intercalate după pixeli (BIP), și benzile secvențiale (BSQ) reprezintă metode comune de organizare a imaginilor multibandă. (<a class="reference external" href="http://webhelp.esri.com/arcgisdesktop/9.2/index.cfm?TopicName=BIL,_BIP,_and_BSQ_raster_files">Citiți mai multe despre aceste formate</a>)</p>
 <p>De obicei, aceste fișiere sunt însoțite de un fișier <code class="docutils literal notranslate"><span class="pre">.hdr</span></code>. În cazul în care setul dvs. de date a venit cu un fișier <code class="docutils literal notranslate"><span class="pre">.hdr</span></code>, asigurați-vă că numele fișierelor cu extensiile .bil, .bsq, .bip sau .hdf se potrivesc și se află în același director. De exemplu, dacă fișierul se numește <code class="docutils literal notranslate"><span class="pre">image.bil</span></code>, fișierul asociat ar trebui să se numească <code class="docutils literal notranslate"><span class="pre">image.hdr</span></code> și să se afle în același director, alături de fișierul <code class="docutils literal notranslate"><span class="pre">image.bil</span></code>. În acest mod, atunci când veți merge la <span class="menuselection">Layer ‣ Add Raster Layer</span> și veți selecta fișierul <code class="docutils literal notranslate"><span class="pre">image.bil</span></code>, acesta se va deschide fără probleme.</p>
 <p>De multe ori, fișierele nu vin cu un <code class="docutils literal notranslate"><span class="pre">.hdr</span></code> asociat. În astfel de cazuri, trebuie să creați manual acest fișier, așa cum se arată în acest tutorial.</p>
 <section id="get-the-data">
-<h2>Obținerea datelor<a class="headerlink" href="#get-the-data" title="Link permanent la acest titlu">¶</a></h2>
+<h2>Obținerea datelor<a class="headerlink" href="#get-the-data" title="Permalink to this heading">¶</a></h2>
 <p>Vom folosi ca exemplu <a class="reference external" href="http://glcf.umd.edu/data/landcover/data.shtml">AVHRR Global Land Cover Classification data</a> de la <a class="reference external" href="http://glcf.umd.edu/">Global Land Cover Facility</a>.</p>
 <p>Seturile de date Global Coverage sunt distribuite ca fișiere <strong>BSQ</strong>. Descărcați setul de date <a class="reference external" href="ftp://ftp.glcf.umd.edu/glcf/Global_Land_Cover/Global/1deg/gl-latlong-1deg-landcover.bsq.gz">1 Degree pixel resolution</a>.</p>
 <p>Pentru comoditate, puteți descărca o copie a acestor date, făcând clic pe link-ul următor:</p>
@@ -206,7 +205,7 @@
 <p>Sursa de date <a class="reference internal" href="credits.html#glcf" id="id1"><span>[GLCF]</span></a></p>
 </section>
 <section id="procedure">
-<h2>Procedura<a class="headerlink" href="#procedure" title="Link permanent la acest titlu">¶</a></h2>
+<h2>Procedura<a class="headerlink" href="#procedure" title="Permalink to this heading">¶</a></h2>
 <ol class="arabic simple">
 <li><p>Dezarhivați și extrageți fișierul .bsq. În Windows, puteți utiliza excelentul <a class="reference external" href="http://www.7-zip.org/">utilitar 7-Zip</a> pentru a citi și a extrage fișierul .gz. Veți vedea că aveți numai un fișier .bsq numit <code class="docutils literal notranslate"><span class="pre">gl-latlong-1deg-landcover.bsq</span></code>. Nu există nici un fișier hdr.</p></li>
 </ol>
@@ -270,8 +269,8 @@ byteorder &lt;byte order in which image pixel values are stored, msb or lsb&gt;
     </p>
     <p>
         &copy; Copyright 2021, Ujaval Gandhi.<br/>
-      Ultima actualizare la iun. 23, 2023.<br/>
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 4.0.1.<br/>
+      Ultima actualizare la iul. 08, 2023.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 7.0.1.<br/>
     </p>
   </div>
 </footer>

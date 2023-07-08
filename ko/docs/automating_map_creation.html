@@ -3,15 +3,14 @@
 <html lang="ko">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
     <title>Print Composer Atlas를 활용한 지도 생성 자동화 &#8212; QGIS Tutorials and Tips</title>
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../_static/bootstrap-sphinx.css" />
     <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
-    <script src="../_static/jquery.js"></script>
-    <script src="../_static/underscore.js"></script>
     <script src="../_static/doctools.js"></script>
+    <script src="../_static/sphinx_highlight.js"></script>
     <script src="../_static/translations.js"></script>
     <link rel="search" title="검색" href="../search.html" />
 
@@ -19,10 +18,10 @@
 <meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
 <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
 <meta name="apple-mobile-web-app-capable" content="yes">
-<script type="text/javascript" src="../_static/js/jquery-1.11.0.min.js "></script>
-<script type="text/javascript" src="../_static/js/jquery-fix.js "></script>
-<script type="text/javascript" src="../_static/bootstrap-3.3.7/js/bootstrap.min.js "></script>
-<script type="text/javascript" src="../_static/bootstrap-sphinx.js "></script>
+<script type="text/javascript" src="../_static/js/jquery-1.12.4.min.js"></script>
+<script type="text/javascript" src="../_static/js/jquery-fix.js"></script>
+<script type="text/javascript" src="../_static/bootstrap-3.4.1/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="../_static/bootstrap-sphinx.js"></script>
 
 
 <!-- Cookie Notice -->
@@ -51,7 +50,7 @@
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
         </button>
-        <a class="navbar-brand" href="../index.html"><span><img src="../_static/logo.png"></span>
+        <a class="navbar-brand" href="../index.html">
           QGIS Tutorials and Tips</a>
         <span class="navbar-text navbar-version pull-left"><b>v1</b></span>
       </div>
@@ -192,17 +191,17 @@
       
 
   <section id="automating-map-creation-with-print-composer-atlas">
-<h1>Print Composer Atlas를 활용한 지도 생성 자동화<a class="headerlink" href="#automating-map-creation-with-print-composer-atlas" title="이 표제에 대한 퍼머링크">¶</a></h1>
+<h1>Print Composer Atlas를 활용한 지도 생성 자동화<a class="headerlink" href="#automating-map-creation-with-print-composer-atlas" title="이 제목에 대한 퍼머링크">¶</a></h1>
 <div class="admonition warning">
 <p class="admonition-title">경고</p>
 <p>이 튜토리얼은 새로운 버전에서 사용이 가능합니다.</p>
 </div>
 <p>당신이 어느 그룹에서 인쇄 또는 온라인지도를 게시하는 경우 대개 동일한 템플릿으로 여러지도를 만들어야합니다 (보통 각 관리 단위 또는 관심 지역마다 하나씩). 이 맵을 수동으로 작성하는 데 시간이 오래 걸릴 수 있으며 정기적으로 맵을 업데이트하려는 경우 집안일이 될 수 있습니다. QGIS에는``Atlas ‘’라는 도구가있어 맵 템플릿을 만들고 여러 지역에 대해 많은 수의 맵을 쉽게 게시 할 수 있습니다. Print Composer의 기본 사항에 익숙하지 않은 경우 : doc :<cite>making_a_map</cite> 자습서를 참조하십시오.</p>
 <section id="overview-of-the-task">
-<h2>작업 개요<a class="headerlink" href="#overview-of-the-task" title="이 표제에 대한 퍼머링크">¶</a></h2>
+<h2>작업 개요<a class="headerlink" href="#overview-of-the-task" title="이 제목에 대한 퍼머링크">¶</a></h2>
 <p>이 튜토리얼은 하와이 주에서 각 카운티에 대한 습지지도를 작성하는 방법을 보여줍니다.</p>
 <section id="other-skills-you-will-learn">
-<h3>배워야 할 다른 기술<a class="headerlink" href="#other-skills-you-will-learn" title="이 표제에 대한 퍼머링크">¶</a></h3>
+<h3>배워야 할 다른 기술<a class="headerlink" href="#other-skills-you-will-learn" title="이 제목에 대한 퍼머링크">¶</a></h3>
 <ul class="simple">
 <li><p><a href="#id1"><span class="problematic" id="id2">``</span></a>거꾸로 된 다각형 ‘’스타일 렌더러를 사용하여 다각형 외부의 영역을 채우는 방법</p></li>
 <li><p><a href="#id1"><span class="problematic" id="id2">``</span></a>규칙 기반 ‘’스타일 렌더러에서 표현식을 사용하여 Atlas의 현재 기능 만 표시하는 방법</p></li>
@@ -211,7 +210,7 @@
 </section>
 </section>
 <section id="get-the-data">
-<h2>데이터 획득<a class="headerlink" href="#get-the-data" title="이 표제에 대한 퍼머링크">¶</a></h2>
+<h2>데이터 획득<a class="headerlink" href="#get-the-data" title="이 제목에 대한 퍼머링크">¶</a></h2>
 <p><a href="#id2"><span class="problematic" id="id3">`하와이 주-계획 실 &lt;http://planning.hawaii.gov/의`GIS 데이터 레이어 &lt;http://planning.hawaii.gov/gis/download-gis-data/&gt;`_를 사용합니다. &gt;`_</span></a></p>
 <p>Biologic and Ecologic 범주에서`Wetlands &lt;<a class="reference external" href="http://files.hawaii.gov/dbedt/op/gis/data/HI_Wetlands.shp.zip">http://files.hawaii.gov/dbedt/op/gis/data/HI_Wetlands.shp.zip</a>&gt;`_ 레이어를 다운로드하십시오.</p>
 <p>Cultural and Demographic 카테고리에서`Census County Boundaries 2010 &lt;<a class="reference external" href="http://files.hawaii.gov/dbedt/op/gis/data/county10.shp.zip">http://files.hawaii.gov/dbedt/op/gis/data/county10.shp.zip</a>&gt;`_ 레이어를 다운로드하십시오.</p>
@@ -221,7 +220,7 @@
 <p>Data Source <a class="reference internal" href="credits.html#hawaii" id="id1"><span>[HAWAII]</span></a></p>
 </section>
 <section id="procedure">
-<h2>과정<a class="headerlink" href="#procedure" title="이 표제에 대한 퍼머링크">¶</a></h2>
+<h2>과정<a class="headerlink" href="#procedure" title="이 제목에 대한 퍼머링크">¶</a></h2>
 <ol class="arabic simple">
 <li><p>QGIS를 시작하고 : menuselection :<a href="#id1"><span class="problematic" id="id2">`</span></a>Layer-&gt; Add Layer-&gt; Add Vector Layer`로 이동합니다.</p></li>
 </ol>
@@ -399,8 +398,8 @@
     </p>
     <p>
         &copy; Copyright 2021, Ujaval Gandhi.<br/>
-      최종 업데이트: 6월 23, 2023<br/>
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 4.0.1.<br/>
+      최종 업데이트: 7월 08, 2023<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 7.0.1.<br/>
     </p>
   </div>
 </footer>

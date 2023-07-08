@@ -3,15 +3,14 @@
 <html lang="ko">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
     <title>기본 래스터 스타일링 및 분석(QGIS3) &#8212; QGIS Tutorials and Tips</title>
     <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-sphinx.css" />
     <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
-    <script src="../../_static/jquery.js"></script>
-    <script src="../../_static/underscore.js"></script>
     <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/sphinx_highlight.js"></script>
     <script src="../../_static/translations.js"></script>
     <link rel="search" title="검색" href="../../search.html" />
     <link rel="next" title="래스터 붙이기 및 자르기 (QGIS3)" href="raster_mosaicing_and_clipping.html" />
@@ -21,10 +20,10 @@
 <meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
 <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
 <meta name="apple-mobile-web-app-capable" content="yes">
-<script type="text/javascript" src="../../_static/js/jquery-1.11.0.min.js "></script>
-<script type="text/javascript" src="../../_static/js/jquery-fix.js "></script>
-<script type="text/javascript" src="../../_static/bootstrap-3.3.7/js/bootstrap.min.js "></script>
-<script type="text/javascript" src="../../_static/bootstrap-sphinx.js "></script>
+<script type="text/javascript" src="../../_static/js/jquery-1.12.4.min.js"></script>
+<script type="text/javascript" src="../../_static/js/jquery-fix.js"></script>
+<script type="text/javascript" src="../../_static/bootstrap-3.4.1/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="../../_static/bootstrap-sphinx.js"></script>
 
 
 <!-- Cookie Notice -->
@@ -53,7 +52,7 @@
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
         </button>
-        <a class="navbar-brand" href="../../index.html"><span><img src="../../_static/logo.png"></span>
+        <a class="navbar-brand" href="../../index.html">
           QGIS Tutorials and Tips</a>
         <span class="navbar-text navbar-version pull-left"><b>v1</b></span>
       </div>
@@ -202,20 +201,20 @@
       
 
   <section id="basic-raster-styling-and-analysis-qgis3">
-<h1>기본 래스터 스타일링 및 분석(QGIS3)<a class="headerlink" href="#basic-raster-styling-and-analysis-qgis3" title="이 표제에 대한 퍼머링크">¶</a></h1>
+<h1>기본 래스터 스타일링 및 분석(QGIS3)<a class="headerlink" href="#basic-raster-styling-and-analysis-qgis3" title="이 제목에 대한 퍼머링크">¶</a></h1>
 <p>많은 과학적 관찰과 연구는 래스터 데이터셋을 생산합니다. 래스터는 특정 값을 할당하는 픽셀 그리드입니다. 이러한 값에 대해 수학적인 연산을 함으로써 우리는 흥미로운 분석을 할 수 있습니다. QGIS에는 래스터 계산기를 통해 할 수 있는 몇 가지 기본적인 분석 기능이 내장되어 있습니다. 이 지침에서는 래스터 계산기가 제공하는 스타일링 래스터 및 기능성에 사용할 수 있는 옵션에 대해 살펴보겠습니다.</p>
 <section id="overview-of-the-task">
-<h2>작업 개요<a class="headerlink" href="#overview-of-the-task" title="이 표제에 대한 퍼머링크">¶</a></h2>
+<h2>작업 개요<a class="headerlink" href="#overview-of-the-task" title="이 제목에 대한 퍼머링크">¶</a></h2>
 <p>2000년과 2010년 사이 세계 인구 변화에 대한 지도를 만들기 위해 인구 그리드 데이터를 사용할 것입니다.</p>
 <section id="other-skills-you-will-learn">
-<h3>다른 스킬<a class="headerlink" href="#other-skills-you-will-learn" title="이 표제에 대한 퍼머링크">¶</a></h3>
+<h3>다른 스킬<a class="headerlink" href="#other-skills-you-will-learn" title="이 제목에 대한 퍼머링크">¶</a></h3>
 <ul class="simple">
 <li><p>레이어들 간에 스타일을 복사/붙여 넣는 방법</p></li>
 </ul>
 </section>
 </section>
 <section id="get-the-data">
-<h2>데이터 가져오기<a class="headerlink" href="#get-the-data" title="이 표제에 대한 퍼머링크">¶</a></h2>
+<h2>데이터 가져오기<a class="headerlink" href="#get-the-data" title="이 제목에 대한 퍼머링크">¶</a></h2>
 <p>컬럼비아 대학의 GPW(Grided Population of the World) v4 &lt;<a class="reference external" href="https://sedac.ciesin.columbia.edu/data/collection/gpw-v4">https://sedac.ciesin.columbia.edu/data/collection/gpw-v4</a>&gt; 데이터셋을 사용할 것입니다. 구체적으로 GeoTiFF 형식 2.5도 속성(Degree Minute resolution)의 2000년과 2010년 사이 지구 전체 인구수 &lt;<a class="reference external" href="https://sedac.ciesin.columbia.edu/data/set/gpw-v4-population-count-rev11/data-download">https://sedac.ciesin.columbia.edu/data/set/gpw-v4-population-count-rev11/data-download</a>&gt;가 필요합니다. 데이터를 다운로드하려면 무료 지구 데이터 계정&lt;<a class="reference external" href="https://urs.earthdata.nasa.gov/home">https://urs.earthdata.nasa.gov/home</a>&gt;이 필요합니다.</p>
 <img alt="../../_images/data116.png" class="align-center" src="../../_images/data116.png" />
 <p>아래 링크에서 이번예제에 사용되는 샘플파일을 쉽게 내려받을 수 있습니다:</p>
@@ -224,7 +223,7 @@
 <p>데이터 출처 <a class="reference internal" href="../credits.html#gpw4" id="id1"><span>[GPW4]</span></a></p>
 </section>
 <section id="procedure">
-<h2>과정<a class="headerlink" href="#procedure" title="이 표제에 대한 퍼머링크">¶</a></h2>
+<h2>과정<a class="headerlink" href="#procedure" title="이 제목에 대한 퍼머링크">¶</a></h2>
 <ol class="arabic simple">
 <li><p>QGIS를 열고 브라우저 패널에서 다운로드한 파일을 찾으십시오. gpw-v4-population-count-rev11_2000_2pt5_min_tif.zip 파일을 압축해제하십시오. gpw-v4-population-count-rev11_2000_2pt5_min.tif 파일을 캔버스로 끌어다 놓습니다.</p></li>
 </ol>
@@ -367,8 +366,8 @@
     </p>
     <p>
         &copy; Copyright 2021, Ujaval Gandhi.<br/>
-      최종 업데이트: 6월 23, 2023<br/>
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 4.0.1.<br/>
+      최종 업데이트: 7월 08, 2023<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 7.0.1.<br/>
     </p>
   </div>
 </footer>

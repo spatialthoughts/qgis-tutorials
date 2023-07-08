@@ -3,15 +3,14 @@
 <html lang="de">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
     <title>Einzugsgebietsanalyse mit dem Openrouteservice (QGIS3) &#8212; QGIS Tutorials and Tips</title>
     <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-sphinx.css" />
     <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
-    <script src="../../_static/jquery.js"></script>
-    <script src="../../_static/underscore.js"></script>
     <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/sphinx_highlight.js"></script>
     <script src="../../_static/translations.js"></script>
     <link rel="search" title="Suche" href="../../search.html" />
     <link rel="next" title="Travel Time Analysis with Uber Movement (QGIS3)" href="travel_time_analysis.html" />
@@ -21,10 +20,10 @@
 <meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
 <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
 <meta name="apple-mobile-web-app-capable" content="yes">
-<script type="text/javascript" src="../../_static/js/jquery-1.11.0.min.js "></script>
-<script type="text/javascript" src="../../_static/js/jquery-fix.js "></script>
-<script type="text/javascript" src="../../_static/bootstrap-3.3.7/js/bootstrap.min.js "></script>
-<script type="text/javascript" src="../../_static/bootstrap-sphinx.js "></script>
+<script type="text/javascript" src="../../_static/js/jquery-1.12.4.min.js"></script>
+<script type="text/javascript" src="../../_static/js/jquery-fix.js"></script>
+<script type="text/javascript" src="../../_static/bootstrap-3.4.1/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="../../_static/bootstrap-sphinx.js"></script>
 
 
 <!-- Cookie Notice -->
@@ -53,7 +52,7 @@
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
         </button>
-        <a class="navbar-brand" href="../../index.html"><span><img src="../../_static/logo.png"></span>
+        <a class="navbar-brand" href="../../index.html">
           QGIS Tutorials and Tips</a>
         <span class="navbar-text navbar-version pull-left"><b>v1</b></span>
       </div>
@@ -202,13 +201,13 @@
       
 
   <section id="service-area-analysis-using-openrouteservice-qgis3">
-<h1>Einzugsgebietsanalyse mit dem Openrouteservice (QGIS3)<a class="headerlink" href="#service-area-analysis-using-openrouteservice-qgis3" title="Link zu dieser Überschrift">¶</a></h1>
+<h1>Einzugsgebietsanalyse mit dem Openrouteservice (QGIS3)<a class="headerlink" href="#service-area-analysis-using-openrouteservice-qgis3" title="Permalink to this heading">¶</a></h1>
 <p>Die Einzugsgebietsanalyse ist hilfreich, um die Erreichbarkeit von Standorten auszuwerten. Mit einem gegeben Standort von Feuerwehren, Krankenhäusern, Stationen des öffentlichen Personenverkehrs usw. kann mit Hilfe der Analyse bestimmt werden, welche Gebiete in Abhängigkeit von der aufzuwendenden Zeit oder Strecke bedient werden können. Bis vor kurzem waren solche Analysen mit Hilfe von Open-Source-Tools und freien Daten schwierig. Doch jetzt haben wir durch OpenStreetMap (OSM) Zugriff auf ein globales Straßennetzwerk und freie Webdienste wie Openrouteservice (ORS), der komplexe Routingaufgaben unter Nutzung von OpenStreetMap (OSM) Daten ausführen kann. In diesem Tutorial nutzen wir das <strong>ORS Tools Plugin</strong>, um eine Einzugsgebietsanalyse mit QGIS durchzuführen.</p>
 <section id="overview-of-the-task">
-<h2>Überblick über die Aufgabe<a class="headerlink" href="#overview-of-the-task" title="Link zu dieser Überschrift">¶</a></h2>
+<h2>Überblick über die Aufgabe<a class="headerlink" href="#overview-of-the-task" title="Permalink to this heading">¶</a></h2>
 <p>Wir nutzen die U-Bahn Stationen der Stadt Kochi (Indien), um das Gebiet zu bestimmen, von dem aus eine Station in 15 Minuten zu Fuß erreicht werden kann.</p>
 <section id="other-skills-you-will-learn">
-<h3>Weitere Fähigkeiten die wir erlernen<a class="headerlink" href="#other-skills-you-will-learn" title="Link zu dieser Überschrift">¶</a></h3>
+<h3>Weitere Fähigkeiten die wir erlernen<a class="headerlink" href="#other-skills-you-will-learn" title="Permalink to this heading">¶</a></h3>
 <ul class="simple">
 <li><p>Wie man Daten im digitalen Austauschformat General Transit Feed Specification (GTFS) in QGIS lädt.</p></li>
 <li><p>Wie man eine Reihe von Punktdaten in Linien mit Hilfe des Tools <em>Points to Path</em> konvertiert.</p></li>
@@ -216,14 +215,14 @@
 </section>
 </section>
 <section id="get-the-data">
-<h2>Beschaffung der Daten<a class="headerlink" href="#get-the-data" title="Link zu dieser Überschrift">¶</a></h2>
+<h2>Beschaffung der Daten<a class="headerlink" href="#get-the-data" title="Permalink to this heading">¶</a></h2>
 <p><a class="reference external" href="https://kochimetro.org">Kochi Metro Rail Limited (KMRL)</a> stellt frei verfügbare Daten für die U-Bahn in Kochi im Format <a class="reference external" href="https://developers.google.com/transit/gtfs/reference/">Global Transit Feed Specification (GTFS-static)</a> bereit. Die Daten können zum download auf der Seite <a class="reference external" href="https://kochimetro.org/open-data/">Open Data</a> abgefragt werden.</p>
 <p>Der Einfachheit halber können wir eine Kopie des Datensatzes unter folgendem Link herunterladen:</p>
 <p><a class="reference external" href="https://www.qgistutorials.com/downloads/KMRL-Open-Data.zip">KMRL-Open-Data.zip</a></p>
 <p>Datenquelle <a class="reference internal" href="../credits.html#kmrl" id="id1"><span>[KMRL]</span></a></p>
 </section>
 <section id="setup">
-<h2>Einrichtung<a class="headerlink" href="#setup" title="Link zu dieser Überschrift">¶</a></h2>
+<h2>Einrichtung<a class="headerlink" href="#setup" title="Permalink to this heading">¶</a></h2>
 <p><a class="reference external" href="https://openrouteservice.org/">Openrouteservice API</a> stellt Routingalgorithmen bereit, die mit freien geographischen Daten wie z.B. OpenStreetMap arbeiten. Es handelt sich um einen freien webbasierten Service, auf den mit einem QGIS Plugin zugegriffen werden kann. Obwohl der Service frei ist, ist eine Registrierung zum Erhalt eines API-Schlüssels erforderlich. Der API-Schlüssel dient dazu, Missbrauch zu verhindern und beschränkt die Nutzung.</p>
 <ol class="arabic simple">
 <li><p>Gehe zur Seite <a class="reference external" href="https://openrouteservice.org/dev/#/signup">Openrouteservice Sign Up</a> und erstelle einen Account. Nachdem der Account aktiviert wurde, besuche die Seite <a class="reference external" href="https://openrouteservice.org/dev/#/home">Dashboard</a> und fordere ein Token an. Wähle <code class="docutils literal notranslate"><span class="pre">Free</span></code> als the <span class="guilabel">Token type</span> und gebe <code class="docutils literal notranslate"><span class="pre">ORS</span> <span class="pre">Tools</span> <span class="pre">QGIS</span></code> als <span class="guilabel">Token name</span> ein. Klicke auf <span class="guilabel">CREATE TOKEN</span>.</p></li>
@@ -257,7 +256,7 @@
 </div></blockquote>
 </section>
 <section id="procedure">
-<h2>Arbeitsablauf<a class="headerlink" href="#procedure" title="Link zu dieser Überschrift">¶</a></h2>
+<h2>Arbeitsablauf<a class="headerlink" href="#procedure" title="Permalink to this heading">¶</a></h2>
 <ol class="arabic simple">
 <li><p>Entpacke die heruntergeladenen Daten <code class="docutils literal notranslate"><span class="pre">KMRL-Open-Data.zip</span></code> in ein lokales Verzeichnis. Jede Datei enthält Daten für verschiedene Teile des Verkehrssystems. Das Dateiformat und die Verwendung der einzelnen Dateien ist unter <a class="reference external" href="https://developers.google.com/transit/gtfs/reference/">GTFS Reference</a> beschrieben. Die für uns interessanten 2 Dateien enthalten räumliche Daten. Die Datei <code class="docutils literal notranslate"><span class="pre">shapes.txt</span></code> enthält Punkte die den Pfad eines Fahrzeuges beschreiben und die Datei <code class="docutils literal notranslate"><span class="pre">stops.txt</span></code> enthält den Standpunkt der Haltestellen. Beide CSV-Dateien können nach QGIS importiert werden. Klicke auf den Knopf <span class="guilabel">Datenquellenverwaltung öffnen</span>.</p></li>
 </ol>
@@ -375,8 +374,8 @@
     </p>
     <p>
         &copy; Copyright 2021, Ujaval Gandhi.<br/>
-      Zuletzt aktualisiert am Juni 23, 2023.<br/>
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 4.0.1.<br/>
+      Zuletzt aktualisiert am Juli 08, 2023.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 7.0.1.<br/>
     </p>
   </div>
 </footer>

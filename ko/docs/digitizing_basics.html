@@ -3,15 +3,14 @@
 <html lang="ko">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
     <title>디지타이징 맵 데이터 &#8212; QGIS Tutorials and Tips</title>
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../_static/bootstrap-sphinx.css" />
     <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
-    <script src="../_static/jquery.js"></script>
-    <script src="../_static/underscore.js"></script>
     <script src="../_static/doctools.js"></script>
+    <script src="../_static/sphinx_highlight.js"></script>
     <script src="../_static/translations.js"></script>
     <link rel="search" title="검색" href="../search.html" />
 
@@ -19,10 +18,10 @@
 <meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
 <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
 <meta name="apple-mobile-web-app-capable" content="yes">
-<script type="text/javascript" src="../_static/js/jquery-1.11.0.min.js "></script>
-<script type="text/javascript" src="../_static/js/jquery-fix.js "></script>
-<script type="text/javascript" src="../_static/bootstrap-3.3.7/js/bootstrap.min.js "></script>
-<script type="text/javascript" src="../_static/bootstrap-sphinx.js "></script>
+<script type="text/javascript" src="../_static/js/jquery-1.12.4.min.js"></script>
+<script type="text/javascript" src="../_static/js/jquery-fix.js"></script>
+<script type="text/javascript" src="../_static/bootstrap-3.4.1/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="../_static/bootstrap-sphinx.js"></script>
 
 
 <!-- Cookie Notice -->
@@ -51,7 +50,7 @@
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
         </button>
-        <a class="navbar-brand" href="../index.html"><span><img src="../_static/logo.png"></span>
+        <a class="navbar-brand" href="../index.html">
           QGIS Tutorials and Tips</a>
         <span class="navbar-text navbar-version pull-left"><b>v1</b></span>
       </div>
@@ -192,17 +191,17 @@
       
 
   <section id="digitizing-map-data">
-<h1>디지타이징 맵 데이터<a class="headerlink" href="#digitizing-map-data" title="이 표제에 대한 퍼머링크">¶</a></h1>
+<h1>디지타이징 맵 데이터<a class="headerlink" href="#digitizing-map-data" title="이 제목에 대한 퍼머링크">¶</a></h1>
 <div class="admonition warning">
 <p class="admonition-title">경고</p>
 <p>A new version of this tutorial is available at <a class="reference internal" href="3/digitizing_basics.html"><span class="doc">Digitizing Map Data (QGIS3)</span></a></p>
 </div>
 <p>디지타이징은 GIS 전문가가 반드시 해야할 가장 일반적인 작업 중 하나입니다. 종종  <a href="#id1"><span class="problematic" id="id2">*</span></a>GIS time*의 많은 시간이 분석에 사용할 벡터 레이어를 만들기 위해 래스터 데이터에서 디지타이징하는데 소비합니다. 이 예제에서는 QGIS가 강력한 디지타이징 및 편집기능을 스크린 상에서 수행하는 기능을 알아보도록 하겠습니다.</p>
 <section id="overview-of-the-task">
-<h2>과업 개요<a class="headerlink" href="#overview-of-the-task" title="이 표제에 대한 퍼머링크">¶</a></h2>
+<h2>과업 개요<a class="headerlink" href="#overview-of-the-task" title="이 제목에 대한 퍼머링크">¶</a></h2>
 <p>래스터 지형도를 사용하여 공원 근처에 있는 객체를 표현하는 몇개의 벡터 레이어 만들어 보겠습니다.</p>
 <section id="other-skills-you-will-learn">
-<h3>기타 스킬<a class="headerlink" href="#other-skills-you-will-learn" title="이 표제에 대한 퍼머링크">¶</a></h3>
+<h3>기타 스킬<a class="headerlink" href="#other-skills-you-will-learn" title="이 제목에 대한 퍼머링크">¶</a></h3>
 <ul class="simple">
 <li><p>줌과 팬 기능의 속도를 높여주는 대용량 래스터 데이터셋을 위한 피라미드 구조를 만듭니다.</p></li>
 <li><p>Spatialite 데이터셋 작업</p></li>
@@ -210,7 +209,7 @@
 </section>
 </section>
 <section id="get-the-data">
-<h2>데이터 획득<a class="headerlink" href="#get-the-data" title="이 표제에 대한 퍼머링크">¶</a></h2>
+<h2>데이터 획득<a class="headerlink" href="#get-the-data" title="이 제목에 대한 퍼머링크">¶</a></h2>
 <p><a href="#id1"><span class="problematic" id="id2">`</span></a>Land Information New Zealand (LINZ) &lt;<a class="reference external" href="http://www.linz.govt.nz/">http://www.linz.govt.nz/</a>&gt;`_사이트는 1:50,000 축척의 뉴질랜드 본 섬과 차탐섬의 래스터 지형도를 제공합니다.</p>
 <p>Download the <a class="reference external" href="http://topo.linz.govt.nz/Topo50_raster_images/GeoTIFFTopo50/BX24_GeoTifv1-02.tif">GeoTIFF Image file</a>
 from the <a class="reference external" href="http://www.linz.govt.nz/topography/topo-maps/map-chooser/christchurch/christchurch#digitalfile">Christchurch Topo50 map download page</a>.</p>
@@ -219,7 +218,7 @@ from the <a class="reference external" href="http://www.linz.govt.nz/topography/
 <p>데이터 출처  <a class="reference internal" href="credits.html#linz" id="id1"><span>[LINZ]</span></a></p>
 </section>
 <section id="procedure">
-<h2>과정<a class="headerlink" href="#procedure" title="이 표제에 대한 퍼머링크">¶</a></h2>
+<h2>과정<a class="headerlink" href="#procedure" title="이 제목에 대한 퍼머링크">¶</a></h2>
 <ol class="arabic simple">
 <li><p>메뉴 레이어 –&gt; 래스터 레이어 추가  :menuselection:<a href="#id1"><span class="problematic" id="id2">`</span></a>Layer –&gt; Add Raster Layer`로 갑니다. 다운로드한 <a href="#id3"><span class="problematic" id="id4">``</span></a>BX24_GeoTifv1-02.tif``를 찾고 열기 :guilabel:<a href="#id5"><span class="problematic" id="id6">`</span></a>Open`를 클릭합니다.</p></li>
 </ol>
@@ -397,8 +396,8 @@ from the <a class="reference external" href="http://www.linz.govt.nz/topography/
     </p>
     <p>
         &copy; Copyright 2021, Ujaval Gandhi.<br/>
-      최종 업데이트: 6월 23, 2023<br/>
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 4.0.1.<br/>
+      최종 업데이트: 7월 08, 2023<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 7.0.1.<br/>
     </p>
   </div>
 </footer>

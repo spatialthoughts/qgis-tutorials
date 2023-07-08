@@ -3,15 +3,14 @@
 <html lang="nl">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
     <title>Rastergebied berekenen (QGIS3) &#8212; QGIS Tutorials and Tips</title>
     <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-sphinx.css" />
     <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
-    <script src="../../_static/jquery.js"></script>
-    <script src="../../_static/underscore.js"></script>
     <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/sphinx_highlight.js"></script>
     <script src="../../_static/translations.js"></script>
     <link rel="search" title="Zoeken" href="../../search.html" />
     <link rel="next" title="Heatmaps maken (QGIS3)" href="creating_heatmaps.html" />
@@ -21,10 +20,10 @@
 <meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
 <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
 <meta name="apple-mobile-web-app-capable" content="yes">
-<script type="text/javascript" src="../../_static/js/jquery-1.11.0.min.js "></script>
-<script type="text/javascript" src="../../_static/js/jquery-fix.js "></script>
-<script type="text/javascript" src="../../_static/bootstrap-3.3.7/js/bootstrap.min.js "></script>
-<script type="text/javascript" src="../../_static/bootstrap-sphinx.js "></script>
+<script type="text/javascript" src="../../_static/js/jquery-1.12.4.min.js"></script>
+<script type="text/javascript" src="../../_static/js/jquery-fix.js"></script>
+<script type="text/javascript" src="../../_static/bootstrap-3.4.1/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="../../_static/bootstrap-sphinx.js"></script>
 
 
 <!-- Cookie Notice -->
@@ -53,7 +52,7 @@
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
         </button>
-        <a class="navbar-brand" href="../../index.html"><span><img src="../../_static/logo.png"></span>
+        <a class="navbar-brand" href="../../index.html">
           QGIS Tutorials and Tips</a>
         <span class="navbar-text navbar-version pull-left"><b>v1</b></span>
       </div>
@@ -202,17 +201,17 @@
       
 
   <section id="calculating-raster-area-qgis3">
-<h1>Rastergebied berekenen (QGIS3)<a class="headerlink" href="#calculating-raster-area-qgis3" title="Permalink naar deze titel">¶</a></h1>
+<h1>Rastergebied berekenen (QGIS3)<a class="headerlink" href="#calculating-raster-area-qgis3" title="Permalink to this heading">¶</a></h1>
 <p>Vel toepassingen vereisen het kwantificeren van patronen van landgebruik in een regio. Gegevenssets van Land Use Land Cover (LULC) zijn rasterbestanden, waarin aan elke pixel een klassewaarde is toegewezen. GIS-analisten moeten vaak rapporten maken die zijn gebaseerd op deze gegevens door het berekenen van het gebied per klasse in een bepaalde regio. QGIS heeft vele ingebouwde gereedschappen om rastergebieden te berekenen en samen te vatten.</p>
 <div class="admonition note">
 <p class="admonition-title">Notitie</p>
 <p>Historisch was de voorgestelde benadering voor het berekenen van gebieden voor rasters om het raster te converteren naar een vectorlaag en technieken voor het berekenen van het vectorgebied te gebruiken. Deze benadering vereist intensieve berekeningen van de computer en foutgevoelig. De aanbevolen benadering is om het gereedschap van Processing <strong>Rasterlaag rapport unieke waarden</strong> te gebruiken, dat direct de pixelgebieden kan berekenen. Als u een laag heft met veel polygonen en gebieden voor elk daarvan  nodig hebt, kunt u het gereedschap <strong>Zonehistogram</strong> gebruiken om tellingen van pixels te verkrijgen voor elke klasse en ze dan vermenigvuldigen met het gebied van elke pixel.</p>
 </div>
 <section id="overview-of-the-task">
-<h2>Overzicht van de taak<a class="headerlink" href="#overview-of-the-task" title="Permalink naar deze titel">¶</a></h2>
+<h2>Overzicht van de taak<a class="headerlink" href="#overview-of-the-task" title="Permalink to this heading">¶</a></h2>
 <p>We zullen een rasterlaag gebruiken met 11 klassen voor landgebruik en het gebied van elke klasse berekenen binnen een nationaal park. We zullen ook achteraf de resultaten bewerken om een werkblad te maken met namen van klassen en hun gebieden.</p>
 <section id="other-skills-you-will-learn">
-<h3>Andere vaardigheden die u zult leren<a class="headerlink" href="#other-skills-you-will-learn" title="Permalink naar deze titel">¶</a></h3>
+<h3>Andere vaardigheden die u zult leren<a class="headerlink" href="#other-skills-you-will-learn" title="Permalink to this heading">¶</a></h3>
 <ul class="simple">
 <li><p>Hoe symbologie toe te passen op een laag vanuit een stijlbestand in de indeling <cite>.qml</cite>.</p></li>
 <li><p>Hoe expressies te schrijven met meerdere voorwaarden if/else met het argument <cite>CASE</cite>.</p></li>
@@ -221,14 +220,14 @@
 </section>
 </section>
 <section id="get-the-data">
-<h2>De gegevens ophalen<a class="headerlink" href="#get-the-data" title="Permalink naar deze titel">¶</a></h2>
+<h2>De gegevens ophalen<a class="headerlink" href="#get-the-data" title="Permalink to this heading">¶</a></h2>
 <p>We zullen de volgende gegevenssets downloaden</p>
 <ol class="arabic simple">
 <li><p>World Database on Protected Areas (WDPA): We zullen het shapefile voor de grenzen van het <em>Kaziranga National Park</em> in India downloaden.</p></li>
 <li><p>ESA WorldCover 2020: Het product WorldCover 10 m 2020 van het Europese Ruimte Agentschap (ESA)  verschaft een globale kaart met landgebruik over 2020 met 10 m resolutie. We zullen de tegel downloaden die ons gebied van interesse bedekt.</p></li>
 </ol>
 <section id="park-boundary">
-<h3>Park grenzen<a class="headerlink" href="#park-boundary" title="Permalink naar deze titel">¶</a></h3>
+<h3>Park grenzen<a class="headerlink" href="#park-boundary" title="Permalink to this heading">¶</a></h3>
 <ol class="arabic simple">
 <li><p>Ga naar de website <a class="reference external" href="https://www.protectedplanet.net/">Protected Planet</a>  en klik op de zoekbalk. Zoek naar <code class="docutils literal notranslate"><span class="pre">Kaziranga</span> <span class="pre">National</span> <span class="pre">Park</span></code>.</p></li>
 </ol>
@@ -255,7 +254,7 @@
 </div></blockquote>
 </section>
 <section id="landcover-data">
-<h3>Gegevens over landgebruik<a class="headerlink" href="#landcover-data" title="Permalink naar deze titel">¶</a></h3>
+<h3>Gegevens over landgebruik<a class="headerlink" href="#landcover-data" title="Permalink to this heading">¶</a></h3>
 <ol class="arabic simple">
 <li><p>Ga naar de website <a class="reference external" href="https://esa-worldcover.org/en">ESA WorldCover</a> en klik op het menu <span class="guilabel">DATA ACCESS</span>.</p></li>
 </ol>
@@ -314,7 +313,7 @@
 </section>
 </section>
 <section id="procedure">
-<h2>Procedure<a class="headerlink" href="#procedure" title="Permalink naar deze titel">¶</a></h2>
+<h2>Procedure<a class="headerlink" href="#procedure" title="Permalink to this heading">¶</a></h2>
 <ol class="arabic simple">
 <li><p>Pak alle gedownloade bestanden uit. In de <span class="guilabel">Browser</span>, lokaliseer de map die het bestand met de grenzen  <code class="docutils literal notranslate"><span class="pre">WDPA_WDOECM_Apr2022_Publicc_10744_shp-polygons.shp</span></code> bevat en sleep het naar het kaartvenster van QGIS en zet het neer.</p></li>
 </ol>
@@ -542,8 +541,8 @@ END
     </p>
     <p>
         &copy; Copyright 2021, Ujaval Gandhi.<br/>
-      Laatste aanpassing op jun. 23, 2023.<br/>
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 4.0.1.<br/>
+      Laatste aanpassing op jul 08, 2023.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 7.0.1.<br/>
     </p>
   </div>
 </footer>

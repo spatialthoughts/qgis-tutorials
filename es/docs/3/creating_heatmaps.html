@@ -3,15 +3,14 @@
 <html lang="es">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
     <title>Crear Mapas de Calor (QGIS3) &#8212; QGIS Tutorials and Tips</title>
     <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-sphinx.css" />
     <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
-    <script src="../../_static/jquery.js"></script>
-    <script src="../../_static/underscore.js"></script>
     <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/sphinx_highlight.js"></script>
     <script src="../../_static/translations.js"></script>
     <link rel="search" title="Búsqueda" href="../../search.html" />
     <link rel="next" title="Animar Datos de Series de Tiempo (QGIS3)" href="animating_time_series.html" />
@@ -21,10 +20,10 @@
 <meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
 <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
 <meta name="apple-mobile-web-app-capable" content="yes">
-<script type="text/javascript" src="../../_static/js/jquery-1.11.0.min.js "></script>
-<script type="text/javascript" src="../../_static/js/jquery-fix.js "></script>
-<script type="text/javascript" src="../../_static/bootstrap-3.3.7/js/bootstrap.min.js "></script>
-<script type="text/javascript" src="../../_static/bootstrap-sphinx.js "></script>
+<script type="text/javascript" src="../../_static/js/jquery-1.12.4.min.js"></script>
+<script type="text/javascript" src="../../_static/js/jquery-fix.js"></script>
+<script type="text/javascript" src="../../_static/bootstrap-3.4.1/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="../../_static/bootstrap-sphinx.js"></script>
 
 
 <!-- Cookie Notice -->
@@ -53,7 +52,7 @@
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
         </button>
-        <a class="navbar-brand" href="../../index.html"><span><img src="../../_static/logo.png"></span>
+        <a class="navbar-brand" href="../../index.html">
           QGIS Tutorials and Tips</a>
         <span class="navbar-text navbar-version pull-left"><b>v1</b></span>
       </div>
@@ -202,27 +201,27 @@
       
 
   <section id="creating-heatmaps-qgis3">
-<h1>Crear Mapas de Calor (QGIS3)<a class="headerlink" href="#creating-heatmaps-qgis3" title="Enlazar permanentemente con este título">¶</a></h1>
+<h1>Crear Mapas de Calor (QGIS3)<a class="headerlink" href="#creating-heatmaps-qgis3" title="Enlace permanente a este encabezado">¶</a></h1>
 <p>Los mapas de calor son una de las mejores herramientas de visualización para datos densos de puntos. El mapa de calor es una técnica de interpolación que es útil para determinar la densidad de los objetos de entrada. Los mapas de calor son usados más comúnmente para visualizar datos de crimen, incidentes de tráfico, densidad de viviendas, etc. QGIS tiene un representador de mapa de calor que puede ser usado para dar estilo a una capa punto y un algoritmo de procesamiento <strong>Mapa de calor (Estimación de Densidad de Núcleo)</strong> que puede ser usado para crear un ráster a partir de una capa punto.</p>
 <section id="overview-of-the-task">
-<h2>Vista general de la tarea<a class="headerlink" href="#overview-of-the-task" title="Enlazar permanentemente con este título">¶</a></h2>
+<h2>Vista general de la tarea<a class="headerlink" href="#overview-of-the-task" title="Enlace permanente a este encabezado">¶</a></h2>
 <p>Trabajaremos con un conjunto de datos de ubicaciones de crímenes en Surrey, Reino Unido y crearemos un mapa de calor para visualizar regiones con alta densidad de crimen.</p>
 <section id="other-skills-you-will-learn">
-<h3>Otras habilidades que aprenderá<a class="headerlink" href="#other-skills-you-will-learn" title="Enlazar permanentemente con este título">¶</a></h3>
+<h3>Otras habilidades que aprenderá<a class="headerlink" href="#other-skills-you-will-learn" title="Enlace permanente a este encabezado">¶</a></h3>
 <ul class="simple">
 <li><p>Usar campos virtuales y expresiones condicionales</p></li>
 </ul>
 </section>
 </section>
 <section id="get-the-data">
-<h2>Consigue la información<a class="headerlink" href="#get-the-data" title="Enlazar permanentemente con este título">¶</a></h2>
+<h2>Consigue la información<a class="headerlink" href="#get-the-data" title="Enlace permanente a este encabezado">¶</a></h2>
 <p><a class="reference external" href="https://data.police.uk">data.police.uk</a> provee datos de crimen a nivel de calle, consecuencia, y parada y búsqueda en un formato CSV simple. Descargue los datos de la <a class="reference external" href="https://data.police.uk/data/">Policiía de Surrey</a> y descomprima el archivo descargado para extraer el archivo CSV.</p>
 <p>Para su comodidad, puede descargar directamente una copia del conjunto de datos del siguiente enlace:</p>
 <p><a class="reference external" href="https://www.qgistutorials.com/downloads/2019-02-surrey-street.csv">2019-02-surrey-street.csv</a></p>
 <p>Fuente de Datos <a class="reference internal" href="../credits.html#policeuk" id="id1"><span>[POLICEUK]</span></a></p>
 </section>
 <section id="procedure">
-<h2>Procedimiento<a class="headerlink" href="#procedure" title="Enlazar permanentemente con este título">¶</a></h2>
+<h2>Procedimiento<a class="headerlink" href="#procedure" title="Enlace permanente a este encabezado">¶</a></h2>
 <ol class="arabic simple">
 <li><p>We will first load a basemap layer from <em>OpenStreetMap</em> and then import the CSV data. In the <span class="guilabel">Browser</span> tab, scroll down and locate the <span class="guilabel">XYZ Tiles</span> section.</p></li>
 </ol>
@@ -407,8 +406,8 @@ END
     </p>
     <p>
         &copy; Copyright 2021, Ujaval Gandhi.<br/>
-      Actualizado por última vez en jun. 23, 2023.<br/>
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 4.0.1.<br/>
+      Actualizado por última vez en jul 08, 2023.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 7.0.1.<br/>
     </p>
   </div>
 </footer>

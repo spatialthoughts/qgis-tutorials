@@ -3,15 +3,14 @@
 <html lang="nl">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
     <title>Algoritmes van Processing uitvoeren via Python (QGIS3) &#8212; QGIS Tutorials and Tips</title>
     <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-sphinx.css" />
     <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
-    <script src="../../_static/jquery.js"></script>
-    <script src="../../_static/underscore.js"></script>
     <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/sphinx_highlight.js"></script>
     <script src="../../_static/translations.js"></script>
     <link rel="search" title="Zoeken" href="../../search.html" />
     <link rel="next" title="Aangepaste Python expressie-functies gebruiken (QGIS3)" href="custom_python_functions.html" />
@@ -21,10 +20,10 @@
 <meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
 <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
 <meta name="apple-mobile-web-app-capable" content="yes">
-<script type="text/javascript" src="../../_static/js/jquery-1.11.0.min.js "></script>
-<script type="text/javascript" src="../../_static/js/jquery-fix.js "></script>
-<script type="text/javascript" src="../../_static/bootstrap-3.3.7/js/bootstrap.min.js "></script>
-<script type="text/javascript" src="../../_static/bootstrap-sphinx.js "></script>
+<script type="text/javascript" src="../../_static/js/jquery-1.12.4.min.js"></script>
+<script type="text/javascript" src="../../_static/js/jquery-fix.js"></script>
+<script type="text/javascript" src="../../_static/bootstrap-3.4.1/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="../../_static/bootstrap-sphinx.js"></script>
 
 
 <!-- Cookie Notice -->
@@ -53,7 +52,7 @@
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
         </button>
-        <a class="navbar-brand" href="../../index.html"><span><img src="../../_static/logo.png"></span>
+        <a class="navbar-brand" href="../../index.html">
           QGIS Tutorials and Tips</a>
         <span class="navbar-text navbar-version pull-left"><b>v1</b></span>
       </div>
@@ -202,13 +201,13 @@
       
 
   <section id="running-processing-algorithms-via-python-qgis3">
-<h1>Algoritmes van Processing uitvoeren via Python (QGIS3)<a class="headerlink" href="#running-processing-algorithms-via-python-qgis3" title="Permalink naar deze titel">¶</a></h1>
+<h1>Algoritmes van Processing uitvoeren via Python (QGIS3)<a class="headerlink" href="#running-processing-algorithms-via-python-qgis3" title="Permalink to this heading">¶</a></h1>
 <p>De Toolbox van Processing in QGIS bevat een nog steeds groeiende collectie van gereedschappen voor geoprocessing. De Toolbox verschaft een gemakkelijke interface voor het batch-verwerking om een algoritme uit te voeren op een groot aantal invoeren. Bekijk <a class="reference internal" href="batch_processing.html"><span class="doc">Massa verwerken met behulp van Framework Processing (QGIS 3)</span></a>. Maar er zijn gevallen waarin u een beetje aangepaste logica in uw batch-verwerking moet inbouwen. Omdat alle algoritmes van Processing programmatisch kunnen worden uitgevoerd via de Python API, kunt u ze ook uitvoeren via de Python Console. Deze handleiding laat u zien hoe een algoritme van Processing uit te voeren via de Python Console om een aangepaste taak voor geoprocessing uit te voeren met slechts enkele regels code. Bekijk de handleiding <a class="reference internal" href="getting_started_with_pyqgis.html"><span class="doc">Beginnen met programmeren in Python (QGIS3)</span></a> om bekend te geraken met de basisbeginselen van de omgeving voor Python Scripting in QGIS.</p>
 <section id="overview-of-the-task">
-<h2>Overzicht van de taak<a class="headerlink" href="#overview-of-the-task" title="Permalink naar deze titel">¶</a></h2>
+<h2>Overzicht van de taak<a class="headerlink" href="#overview-of-the-task" title="Permalink to this heading">¶</a></h2>
 <p>We zullen 12 gerasterde rasterlagen gebruiken die de neerslag voor elke maand van het jaar weergeven en de gemiddelde maandelijkse neerslag berekenen voor de postcodes in de omgeving van Seattle.</p>
 <section id="other-skills-you-will-learn">
-<h3>Andere vaardigheden die u zult leren<a class="headerlink" href="#other-skills-you-will-learn" title="Permalink naar deze titel">¶</a></h3>
+<h3>Andere vaardigheden die u zult leren<a class="headerlink" href="#other-skills-you-will-learn" title="Permalink to this heading">¶</a></h3>
 <ul class="simple">
 <li><p>Verkrijg toegang tot alle lagen (raster en vector) vanuit de console van Python en druk hun namen af.</p></li>
 <li><p>Verschillende lagen samenvoegen tot één bestand met script van Python.</p></li>
@@ -216,7 +215,7 @@
 </section>
 </section>
 <section id="get-the-data">
-<h2>De gegevens ophalen<a class="headerlink" href="#get-the-data" title="Permalink naar deze titel">¶</a></h2>
+<h2>De gegevens ophalen<a class="headerlink" href="#get-the-data" title="Permalink to this heading">¶</a></h2>
 <p><a class="reference external" href="http://www.prism.oregonstate.edu/">De PRISM Climate Group</a> verzamelt klimatologische gegevens en verschaft historische en recente klimaatgegevens voor de gehele VS. Ga naar de gegevenspagina <a class="reference external" href="http://www.prism.oregonstate.edu/recent/">Recent Years</a> en download de maandelijkse neerslaggegevens voor het jaar 2017 in de indeling BIL.</p>
 <img alt="../../_images/data114.png" class="align-center" src="../../_images/data114.png" />
 <p><a class="reference external" href="https://data.seattle.gov/">City of Seattle Open Data portal</a> verschaft gratis en open gegevens voor de stad. Zoek naar en download de gegevens <a class="reference external" href="https://data.seattle.gov/Land-Base/Zip-Codes/n58k-cykw">Zip Codes</a> in de indeling shapefile.</p>
@@ -226,7 +225,7 @@
 <p>Gegevensbron: <a class="reference internal" href="../credits.html#prism" id="id1"><span>[PRISM]</span></a> <a class="reference internal" href="../credits.html#cityofseattle" id="id2"><span>[CITYOFSEATTLE]</span></a></p>
 </section>
 <section id="procedure">
-<h2>Procedure<a class="headerlink" href="#procedure" title="Permalink naar deze titel">¶</a></h2>
+<h2>Procedure<a class="headerlink" href="#procedure" title="Permalink to this heading">¶</a></h2>
 <ol class="arabic simple">
 <li><p>Zoek naar de map <code class="docutils literal notranslate"><span class="pre">PRISM_ppt_stable_4kmM3_2017_all_bil</span></code> in de QGIS Browser en vergroot die. De map bevat 12 individuele lagen voor elke maand. Houd de <kbd class="kbd docutils literal notranslate">Ctrl</kbd>-toets ingedrukt en selecteer de bestanden <code class="docutils literal notranslate"><span class="pre">.bil</span></code> voor alle 12 maanden. Eenmaal geselecteerd, sleep ze naar het kaartvenster.</p></li>
 </ol>
@@ -429,8 +428,8 @@
     </p>
     <p>
         &copy; Copyright 2021, Ujaval Gandhi.<br/>
-      Laatste aanpassing op jun. 23, 2023.<br/>
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 4.0.1.<br/>
+      Laatste aanpassing op jul 08, 2023.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 7.0.1.<br/>
     </p>
   </div>
 </footer>

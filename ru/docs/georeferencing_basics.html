@@ -3,15 +3,14 @@
 <html lang="ru">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
     <title>Географическая привязка топографических листов и сканированных карт &#8212; QGIS Tutorials and Tips</title>
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../_static/bootstrap-sphinx.css" />
     <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
-    <script src="../_static/jquery.js"></script>
-    <script src="../_static/underscore.js"></script>
     <script src="../_static/doctools.js"></script>
+    <script src="../_static/sphinx_highlight.js"></script>
     <script src="../_static/translations.js"></script>
     <link rel="search" title="Поиск" href="../search.html" />
 
@@ -19,10 +18,10 @@
 <meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
 <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
 <meta name="apple-mobile-web-app-capable" content="yes">
-<script type="text/javascript" src="../_static/js/jquery-1.11.0.min.js "></script>
-<script type="text/javascript" src="../_static/js/jquery-fix.js "></script>
-<script type="text/javascript" src="../_static/bootstrap-3.3.7/js/bootstrap.min.js "></script>
-<script type="text/javascript" src="../_static/bootstrap-sphinx.js "></script>
+<script type="text/javascript" src="../_static/js/jquery-1.12.4.min.js"></script>
+<script type="text/javascript" src="../_static/js/jquery-fix.js"></script>
+<script type="text/javascript" src="../_static/bootstrap-3.4.1/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="../_static/bootstrap-sphinx.js"></script>
 
 
 <!-- Cookie Notice -->
@@ -51,7 +50,7 @@
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
         </button>
-        <a class="navbar-brand" href="../index.html"><span><img src="../_static/logo.png"></span>
+        <a class="navbar-brand" href="../index.html">
           QGIS Tutorials and Tips</a>
         <span class="navbar-text navbar-version pull-left"><b>v1</b></span>
       </div>
@@ -192,24 +191,24 @@
       
 
   <section id="georeferencing-topo-sheets-and-scanned-maps">
-<h1>Географическая привязка топографических листов и сканированных карт<a class="headerlink" href="#georeferencing-topo-sheets-and-scanned-maps" title="Ссылка на этот заголовок">¶</a></h1>
+<h1>Географическая привязка топографических листов и сканированных карт<a class="headerlink" href="#georeferencing-topo-sheets-and-scanned-maps" title="Permalink to this heading">¶</a></h1>
 <div class="admonition warning">
 <p class="admonition-title">Предупреждение</p>
 <p>This tutorial is now obsolete. A new and updated version is available at <a class="reference internal" href="3/georeferencing_basics.html"><span class="doc">Georeferencing Topo Sheets and Scanned Maps (QGIS3)</span></a></p>
 </div>
 <p>Большинство проектов ГИС требует геопривязки некоторых растровых данных. <em>Геопривязка</em> - это процесс присвоения координат из реального мира каждой точке растра. Часто эти координаты получают с помощью полевых измерений, собирая координаты с помощью GPS-приемника в нескольких легко опознаваемых точках снимка или карты. В некоторых случаях, когда вы хотите оцифровать отсканированные карты, вы можете получить координаты из маркировки на самом изображении карты. Используя эти выборочные координаты, или опорные точки (GCP), изображение деформируется и подгоняется под выбранную систему координат. В этом уроке я расскажу о концепциях, стратегиях и инструментах QGIS для достижения высокой точности привязки.</p>
 <section id="overview-of-the-task">
-<h2>Обзор задачи<a class="headerlink" href="#overview-of-the-task" title="Ссылка на этот заголовок">¶</a></h2>
+<h2>Обзор задачи<a class="headerlink" href="#overview-of-the-task" title="Permalink to this heading">¶</a></h2>
 <p>Мы будем использовать отсканированную карту юга Индии 1870 года и привяжем ее используя QGIS.</p>
 <section id="other-skills-you-will-learn">
-<h3>Вы научитесь также<a class="headerlink" href="#other-skills-you-will-learn" title="Ссылка на этот заголовок">¶</a></h3>
+<h3>Вы научитесь также<a class="headerlink" href="#other-skills-you-will-learn" title="Permalink to this heading">¶</a></h3>
 <ul class="simple">
 <li><p>Определять датум и систему координат для старых карт.</p></li>
 </ul>
 </section>
 </section>
 <section id="get-the-data">
-<h2>Получение данных<a class="headerlink" href="#get-the-data" title="Ссылка на этот заголовок">¶</a></h2>
+<h2>Получение данных<a class="headerlink" href="#get-the-data" title="Permalink to this heading">¶</a></h2>
 <p>Сайт <a class="reference external" href="http://www.hipkiss.org/data/maps.html">Hipkiss’s Scanned Old Maps</a> содержит замечательную коллекцию отсканированных карт без авторских прав, которые можно использовать для исследований.</p>
 <p>Загрузите <a class="reference external" href="http://www.hipkiss.org/data/maps/william-mackenzie_gallery-of-geography_1870_southern-india_3975_3071_600.jpg">карту южной Индии 1870 года</a> и сохраните ее как изображение JPG на жестком дискe.</p>
 <p>For convenience, you may directly download a copy of the dataset from the link
@@ -217,7 +216,7 @@ below:</p>
 <p><a class="reference external" href="http://www.qgistutorials.com/downloads/1870_southern-india.jpg">1870_southern_india.jpg</a></p>
 </section>
 <section id="procedure">
-<h2>Методика<a class="headerlink" href="#procedure" title="Ссылка на этот заголовок">¶</a></h2>
+<h2>Методика<a class="headerlink" href="#procedure" title="Permalink to this heading">¶</a></h2>
 <p>1. Georeferencing in QGIS is done via the ‘Georeferencer GDAL’ plugin. This is a
 core plugin - meaning it is already part of your QGIS installation. You just
 need to enable it. Go to <span class="menuselection">Plugins ‣ Manage and Install
@@ -328,8 +327,8 @@ different datum.</p></li>
     </p>
     <p>
         &copy; Copyright 2021, Ujaval Gandhi.<br/>
-      Обновлено: июн. 23, 2023.<br/>
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 4.0.1.<br/>
+      Обновлено: июл. 08, 2023.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 7.0.1.<br/>
     </p>
   </div>
 </footer>

@@ -3,15 +3,14 @@
 <html lang="it">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
     <title>Analisi dei Punti in un Poligono &#8212; QGIS Tutorials and Tips</title>
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../_static/bootstrap-sphinx.css" />
     <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
-    <script src="../_static/jquery.js"></script>
-    <script src="../_static/underscore.js"></script>
     <script src="../_static/doctools.js"></script>
+    <script src="../_static/sphinx_highlight.js"></script>
     <script src="../_static/translations.js"></script>
     <link rel="search" title="Cerca" href="../search.html" />
 
@@ -19,10 +18,10 @@
 <meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
 <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
 <meta name="apple-mobile-web-app-capable" content="yes">
-<script type="text/javascript" src="../_static/js/jquery-1.11.0.min.js "></script>
-<script type="text/javascript" src="../_static/js/jquery-fix.js "></script>
-<script type="text/javascript" src="../_static/bootstrap-3.3.7/js/bootstrap.min.js "></script>
-<script type="text/javascript" src="../_static/bootstrap-sphinx.js "></script>
+<script type="text/javascript" src="../_static/js/jquery-1.12.4.min.js"></script>
+<script type="text/javascript" src="../_static/js/jquery-fix.js"></script>
+<script type="text/javascript" src="../_static/bootstrap-3.4.1/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="../_static/bootstrap-sphinx.js"></script>
 
 
 <!-- Cookie Notice -->
@@ -51,7 +50,7 @@
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
         </button>
-        <a class="navbar-brand" href="../index.html"><span><img src="../_static/logo.png"></span>
+        <a class="navbar-brand" href="../index.html">
           QGIS Tutorials and Tips</a>
         <span class="navbar-text navbar-version pull-left"><b>v1</b></span>
       </div>
@@ -192,18 +191,18 @@
       
 
   <section id="points-in-polygon-analysis">
-<h1>Analisi dei Punti in un Poligono<a class="headerlink" href="#points-in-polygon-analysis" title="Link a questa intestazione">¶</a></h1>
+<h1>Analisi dei Punti in un Poligono<a class="headerlink" href="#points-in-polygon-analysis" title="Permalink to this heading">¶</a></h1>
 <div class="admonition note">
 <p class="admonition-title">Nota</p>
 <p>In QGIS3, you can perform this analysis using the <code class="docutils literal notranslate"><span class="pre">Join</span> <span class="pre">attributes</span> <span class="pre">by</span> <span class="pre">location</span> <span class="pre">(summary)</span></code> tool in the Processing Toolbox. Use the polygon layer as the <span class="guilabel">Input Layer</span>, the point layer as the <span class="guilabel">Join layer</span> and <code class="docutils literal notranslate"><span class="pre">count</span></code>  as the <span class="guilabel">Summaries to calculate</span>. See <a class="reference internal" href="3/performing_spatial_joins.html"><span class="doc">Realizzare unioni spaziali (Spatial Joins)  (QGIS3)</span></a> tutorial for step-by-step instructions.</p>
 </div>
 <p>La potenza del GIS risiede nella sua capacità di gestire insieme molteplici fonti di dati. Spesso, la risposta che state cercando è distribuita in numerosi layer diversi e avrai bisogno di effettuare alcune analisi per estrarre e compilare queste informazioni. Uno di questi tipi di analisi è quella che è definita  <a href="#id1"><span class="problematic" id="id2">**</span></a>Punti in un Poligono <a href="#id3"><span class="problematic" id="id4">**</span></a>. Quando avete un layer basato su dati poligonali e un layer basato su dati puntuali - e volete sapere quanti o quali dei punti cadono all’interno del territorio di ciascun poligono, potete usare questo metodo di analisi.</p>
 <section id="overview-of-the-task">
-<h2>Descrizione dell’esercizio<a class="headerlink" href="#overview-of-the-task" title="Link a questa intestazione">¶</a></h2>
+<h2>Descrizione dell’esercizio<a class="headerlink" href="#overview-of-the-task" title="Permalink to this heading">¶</a></h2>
 <p>Date le localizzazioni di tutti i terremoti significativi,  cercheremo di individuare quale paese ha subito il numero più elevato di eventi sismici gravi.</p>
 </section>
 <section id="get-the-data">
-<h2>Ottenere i dati necessari<a class="headerlink" href="#get-the-data" title="Link a questa intestazione">¶</a></h2>
+<h2>Ottenere i dati necessari<a class="headerlink" href="#get-the-data" title="Permalink to this heading">¶</a></h2>
 <p>Useremo il <a class="reference external" href="http://www.ngdc.noaa.gov/nndc/struts/form?t=101650&amp;s=1&amp;d=1">Significant Earthquake Database</a>  dell’Amministrazione Nazionale Oceanica ed Atmosferica (NOAA, USA) come nostro layer di riferimento per rappresentare i principali terremoti. Scaricate il t`tab-delimited earthquake data &lt;<a class="reference external" href="http://www.ngdc.noaa.gov/nndc/struts/results?type_0=Exact&amp;query_0=$ID&amp;t=101650&amp;s=13&amp;d=189&amp;dfn=signif.txt">http://www.ngdc.noaa.gov/nndc/struts/results?type_0=Exact&amp;query_0=$ID&amp;t=101650&amp;s=13&amp;d=189&amp;dfn=signif.txt</a>&gt;`_</p>
 <p>Natural Earth dispone del dataset <cite>Admin 0 - Countries &lt;http://www.naturalearthdata.com/downloads/10m-cultural-vectors/&gt;</cite> che contiene i dati vettoriali dei 247 i paesi del <a href="#id3"><span class="problematic" id="id4">mondo_</span></a> . Scaricate qui il file relativo alla voce Download the <a href="#id5"><span class="problematic" id="id6">`countries http://www.naturalearthdata.com/http//www.naturalearthdata.com/download/10m/cultural/ne_10m_admin_0_countries.zip&gt;`_</span></a></p>
 <p>Per comodità, potete scaricare direttamente una copia del dataset dal seguente link:</p>
@@ -212,7 +211,7 @@
 <p>Data Sources: <a class="reference internal" href="credits.html#ncei" id="id1"><span>[NCEI]</span></a>  <a class="reference internal" href="credits.html#naturalearth" id="id2"><span>[NATURALEARTH]</span></a></p>
 </section>
 <section id="procedure">
-<h2>Procedimento<a class="headerlink" href="#procedure" title="Link a questa intestazione">¶</a></h2>
+<h2>Procedimento<a class="headerlink" href="#procedure" title="Permalink to this heading">¶</a></h2>
 <ol class="arabic simple">
 <li><p>Aprite il menu <span class="menuselection">Layer ‣ Aggiungi Layer testo delimitato</span>  Nella finestra di dialogo che compare individuate il file appena scaricato <code class="docutils literal notranslate"><span class="pre">signif.txt</span></code> .</p></li>
 </ol>
@@ -290,8 +289,8 @@
     </p>
     <p>
         &copy; Copyright 2021, Ujaval Gandhi.<br/>
-      Ultimo aggiornamento giu 23, 2023.<br/>
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 4.0.1.<br/>
+      Ultimo aggiornamento lug 08, 2023.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 7.0.1.<br/>
     </p>
   </div>
 </footer>

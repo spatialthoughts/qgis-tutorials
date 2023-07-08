@@ -3,15 +3,14 @@
 <html lang="zh_TW">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
     <title>以 Python 製作附加元件 (QGIS3) &#8212; QGIS Tutorials and Tips</title>
     <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-sphinx.css" />
     <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
-    <script src="../../_static/jquery.js"></script>
-    <script src="../../_static/underscore.js"></script>
     <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/sphinx_highlight.js"></script>
     <script src="../../_static/translations.js"></script>
     <link rel="search" title="搜尋" href="../../search.html" />
     <link rel="next" title="Building a Processing Plugin (QGIS3)" href="processing_python_plugin.html" />
@@ -21,10 +20,10 @@
 <meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
 <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
 <meta name="apple-mobile-web-app-capable" content="yes">
-<script type="text/javascript" src="../../_static/js/jquery-1.11.0.min.js "></script>
-<script type="text/javascript" src="../../_static/js/jquery-fix.js "></script>
-<script type="text/javascript" src="../../_static/bootstrap-3.3.7/js/bootstrap.min.js "></script>
-<script type="text/javascript" src="../../_static/bootstrap-sphinx.js "></script>
+<script type="text/javascript" src="../../_static/js/jquery-1.12.4.min.js"></script>
+<script type="text/javascript" src="../../_static/js/jquery-fix.js"></script>
+<script type="text/javascript" src="../../_static/bootstrap-3.4.1/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="../../_static/bootstrap-sphinx.js"></script>
 
 
 <!-- Cookie Notice -->
@@ -53,7 +52,7 @@
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
         </button>
-        <a class="navbar-brand" href="../../index.html"><span><img src="../../_static/logo.png"></span>
+        <a class="navbar-brand" href="../../index.html">
           QGIS Tutorials and Tips</a>
         <span class="navbar-text navbar-version pull-left"><b>v1</b></span>
       </div>
@@ -202,20 +201,20 @@
       
 
   <section id="building-a-python-plugin-qgis3">
-<h1>以 Python 製作附加元件 (QGIS3)<a class="headerlink" href="#building-a-python-plugin-qgis3" title="本標題的永久連結">¶</a></h1>
+<h1>以 Python 製作附加元件 (QGIS3)<a class="headerlink" href="#building-a-python-plugin-qgis3" title="本標頭的永久連結">¶</a></h1>
 <p>增進 QGIS 功能的最佳方法，就是使用附加元件。你也可以使用 Python 來寫一個，從只有一個按鈕到複雜的功能面板，都可任君挑選。本教學會介紹設計附加元件的大致流程，包括設置開發環境、打造使用者介面，以及撰寫程式碼與 QGIS 互動。有關較為基礎的部分，請參閱 <a class="reference internal" href="getting_started_with_pyqgis.html"><span class="doc">Python 程式設計的初步上手 (QGIS3)</span></a>。</p>
 <div class="admonition note">
 <p class="admonition-title">備註</p>
 <p>If you are building a new plugin, I strongly recommend building a Processing Plugin instead of the GUI plugin described in this tutorial. See  <a class="reference internal" href="processing_python_plugin.html"><span class="doc">Building a Processing Plugin (QGIS3)</span></a> for details.</p>
 </div>
 <section id="overview-of-the-task">
-<h2>內容說明<a class="headerlink" href="#overview-of-the-task" title="本標題的永久連結">¶</a></h2>
+<h2>內容說明<a class="headerlink" href="#overview-of-the-task" title="本標頭的永久連結">¶</a></h2>
 <p>我們要開發一個簡單的附加元件，稱為 <code class="docutils literal notranslate"><span class="pre">Save</span> <span class="pre">Attributes</span></code>，它可以讓使用者任意挑選一個向量圖層，把它的屬性另存為 CSV 檔。</p>
 </section>
 <section id="get-the-tools">
-<h2>取得工具<a class="headerlink" href="#get-the-tools" title="本標題的永久連結">¶</a></h2>
+<h2>取得工具<a class="headerlink" href="#get-the-tools" title="本標頭的永久連結">¶</a></h2>
 <section id="qt-creator">
-<h3>Qt Creator<a class="headerlink" href="#qt-creator" title="本標題的永久連結">¶</a></h3>
+<h3>Qt Creator<a class="headerlink" href="#qt-creator" title="本標頭的永久連結">¶</a></h3>
 <p><a class="reference external" href="http://www.qt.io/">Qt</a> 是一套軟體開發框架，用於設計在 Windows、Mac、Linux 或是其他行動作業系統上執行的軟體。QGIS 本身就是用 Qt 框架打造的，所以我們在這裡要使用一個稱為 <a class="reference external" href="https://doc.qt.io/qt-5/qtdesigner-manual.html">Qt Creator</a> 的程式來設計我們附加元件的介面。</p>
 <p>Download and install the Qt Creator installer from <a class="reference external" href="https://www.qt.io/offline-installers">Qt Offline Installers</a>. Make sure you select <strong>Qt Creator</strong> on the download page. Note that you will have to create a free Qt account to install the package.</p>
 <div class="admonition note">
@@ -225,7 +224,7 @@
 <img alt="../../_images/setup1.png" class="align-center" src="../../_images/setup1.png" />
 </section>
 <section id="python-bindings-for-qt">
-<h3>Qt 的 Python Bindings<a class="headerlink" href="#python-bindings-for-qt" title="本標題的永久連結">¶</a></h3>
+<h3>Qt 的 Python Bindings<a class="headerlink" href="#python-bindings-for-qt" title="本標頭的永久連結">¶</a></h3>
 <p>由於我們要使用 Python 來設計附加元件，因此得安裝 Qt 的 Python binding ，以便在 Python 中可以輕鬆使用 Qt 的功能。此步驟會因作業系統的不同而不同，像是 Windows 命令列下，要裝的程式叫做 <code class="docutils literal notranslate"><span class="pre">pyrcc5</span></code>。</p>
 <p><strong>Windows</strong></p>
 <p>Relevant python bindings are included in the QGIS install on Windows. But to use them from the plugin folder, we need to indicate the path to the QGIS install.</p>
@@ -258,7 +257,7 @@ pyrcc5 -o resources.py resources.qrc
 </div>
 </section>
 <section id="a-text-editor-or-a-python-ide">
-<h3>編輯器或 Python IDE<a class="headerlink" href="#a-text-editor-or-a-python-ide" title="本標題的永久連結">¶</a></h3>
+<h3>編輯器或 Python IDE<a class="headerlink" href="#a-text-editor-or-a-python-ide" title="本標頭的永久連結">¶</a></h3>
 <p>要進行任何種類的軟體開發，優良的文字編輯器是必不可少的。在本教學中，你可以使用你喜歡的文字編輯器或 IDE (整合開發環境)；如果沒有的話，每個作業系統都有很多免費或付費的文字編輯軟體可使用，挑一個符合你需求的即可。</p>
 <p>本教學中使用的是 Windows 版本的 Notepad++ 編輯器。</p>
 <p><strong>Windows</strong></p>
@@ -269,11 +268,11 @@ pyrcc5 -o resources.py resources.qrc
 </div>
 </section>
 <section id="plugin-builder-plugin">
-<h3>附加元件「Plugin Builder」<a class="headerlink" href="#plugin-builder-plugin" title="本標題的永久連結">¶</a></h3>
+<h3>附加元件「Plugin Builder」<a class="headerlink" href="#plugin-builder-plugin" title="本標頭的永久連結">¶</a></h3>
 <p>QGIS 有個實用的 <code class="docutils literal notranslate"><span class="pre">Plugin</span> <span class="pre">Builder</span></code> 附加元件，它可以創造附加元件所需檔案和樣板設計的代碼。請尋找並安裝 <code class="docutils literal notranslate"><span class="pre">Point</span> <span class="pre">Sampling</span> <span class="pre">Tool</span></code> 附加元件，安裝細節請參考 <a class="reference internal" href="../using_plugins.html"><span class="doc">使用附加元件</span></a>。</p>
 </section>
 <section id="plugins-reloader-plugin">
-<h3>附加元件「Plugin Reloader」<a class="headerlink" href="#plugins-reloader-plugin" title="本標題的永久連結">¶</a></h3>
+<h3>附加元件「Plugin Reloader」<a class="headerlink" href="#plugins-reloader-plugin" title="本標頭的永久連結">¶</a></h3>
 <p>還有一個實用的附加元件，可以讓我們反覆測試不斷更新的附加元件。使用此元件，可以在改變附加元件的程式碼之後，不用重新啟動 QGIS 就能讀取程式碼修改的部分。請尋找並安裝 <code class="docutils literal notranslate"><span class="pre">Plugin</span> <span class="pre">Reloader</span></code> 附加元件，安裝細節請參考 <a class="reference internal" href="../using_plugins.html"><span class="doc">使用附加元件</span></a>。</p>
 <div class="admonition note">
 <p class="admonition-title">備註</p>
@@ -282,7 +281,7 @@ pyrcc5 -o resources.py resources.qrc
 </section>
 </section>
 <section id="procedure">
-<h2>操作流程<a class="headerlink" href="#procedure" title="本標題的永久連結">¶</a></h2>
+<h2>操作流程<a class="headerlink" href="#procedure" title="本標頭的永久連結">¶</a></h2>
 <ol class="arabic simple">
 <li><p>開啟 QGIS，選擇 <span class="menuselection">附加元件 ‣ Plugin Builder ‣ Plugin Builder</span>。</p></li>
 </ol>
@@ -586,10 +585,10 @@ pyrcc5 -o resources.py resources.qrc
 
 
 <span class="k">class</span> <span class="nc">SaveAttributes</span><span class="p">:</span>
-    <span class="sd">&quot;&quot;&quot;QGIS Plugin Implementation.&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;QGIS Plugin Implementation.&quot;&quot;&quot;</span>
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">iface</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Constructor.</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Constructor.</span>
 
 <span class="sd">        :param iface: An interface instance that will be passed to this class</span>
 <span class="sd">            which provides the hook by which you can manipulate the QGIS</span>
@@ -624,7 +623,7 @@ pyrcc5 -o resources.py resources.qrc
 
     <span class="c1"># noinspection PyMethodMayBeStatic</span>
     <span class="k">def</span> <span class="nf">tr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">message</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Get the translation for a string using Qt translation API.</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Get the translation for a string using Qt translation API.</span>
 
 <span class="sd">        We implement this ourselves since we do not inherit QObject.</span>
 
@@ -649,7 +648,7 @@ pyrcc5 -o resources.py resources.qrc
         <span class="n">status_tip</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
         <span class="n">whats_this</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
         <span class="n">parent</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Add a toolbar icon to the toolbar.</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Add a toolbar icon to the toolbar.</span>
 
 <span class="sd">        :param icon_path: Path to the icon for this action. Can be a resource</span>
 <span class="sd">            path (e.g. &#39;:/plugins/foo/bar.png&#39;) or a normal file system path.</span>
@@ -713,7 +712,7 @@ pyrcc5 -o resources.py resources.qrc
         <span class="k">return</span> <span class="n">action</span>
 
     <span class="k">def</span> <span class="nf">initGui</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Create the menu entries and toolbar icons inside the QGIS GUI.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Create the menu entries and toolbar icons inside the QGIS GUI.&quot;&quot;&quot;</span>
 
         <span class="n">icon_path</span> <span class="o">=</span> <span class="s1">&#39;:/plugins/save_attributes/icon.png&#39;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">add_action</span><span class="p">(</span>
@@ -727,7 +726,7 @@ pyrcc5 -o resources.py resources.qrc
 
 
     <span class="k">def</span> <span class="nf">unload</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Removes the plugin menu item and icon from QGIS GUI.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Removes the plugin menu item and icon from QGIS GUI.&quot;&quot;&quot;</span>
         <span class="k">for</span> <span class="n">action</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">actions</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">iface</span><span class="o">.</span><span class="n">removePluginVectorMenu</span><span class="p">(</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">tr</span><span class="p">(</span><span class="sa">u</span><span class="s1">&#39;&amp;Save Attributes&#39;</span><span class="p">),</span>
@@ -740,7 +739,7 @@ pyrcc5 -o resources.py resources.qrc
       <span class="bp">self</span><span class="o">.</span><span class="n">dlg</span><span class="o">.</span><span class="n">lineEdit</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
       
     <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Run method that performs all the real work&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Run method that performs all the real work&quot;&quot;&quot;</span>
 
         <span class="c1"># Create the dialog with elements (after translation) and keep reference</span>
         <span class="c1"># Only create GUI ONCE in callback, so that it will only load when the plugin is started</span>
@@ -807,8 +806,8 @@ pyrcc5 -o resources.py resources.qrc
     </p>
     <p>
         &copy; Copyright 2021, Ujaval Gandhi.<br/>
-      最後更新於 6月 23, 2023。<br/>
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 4.0.1.<br/>
+      最後更新於 7月 08, 2023。<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 7.0.1.<br/>
     </p>
   </div>
 </footer>

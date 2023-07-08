@@ -3,15 +3,14 @@
 <html lang="ko">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
     <title>선의 길이계산과 통계 &#8212; QGIS Tutorials and Tips</title>
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../_static/bootstrap-sphinx.css" />
     <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
-    <script src="../_static/jquery.js"></script>
-    <script src="../_static/underscore.js"></script>
     <script src="../_static/doctools.js"></script>
+    <script src="../_static/sphinx_highlight.js"></script>
     <script src="../_static/translations.js"></script>
     <link rel="search" title="검색" href="../search.html" />
 
@@ -19,10 +18,10 @@
 <meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
 <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
 <meta name="apple-mobile-web-app-capable" content="yes">
-<script type="text/javascript" src="../_static/js/jquery-1.11.0.min.js "></script>
-<script type="text/javascript" src="../_static/js/jquery-fix.js "></script>
-<script type="text/javascript" src="../_static/bootstrap-3.3.7/js/bootstrap.min.js "></script>
-<script type="text/javascript" src="../_static/bootstrap-sphinx.js "></script>
+<script type="text/javascript" src="../_static/js/jquery-1.12.4.min.js"></script>
+<script type="text/javascript" src="../_static/js/jquery-fix.js"></script>
+<script type="text/javascript" src="../_static/bootstrap-3.4.1/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="../_static/bootstrap-sphinx.js"></script>
 
 
 <!-- Cookie Notice -->
@@ -51,7 +50,7 @@
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
         </button>
-        <a class="navbar-brand" href="../index.html"><span><img src="../_static/logo.png"></span>
+        <a class="navbar-brand" href="../index.html">
           QGIS Tutorials and Tips</a>
         <span class="navbar-text navbar-version pull-left"><b>v1</b></span>
       </div>
@@ -192,17 +191,17 @@
       
 
   <section id="calculating-line-lengths-and-statistics">
-<h1>선의 길이계산과 통계<a class="headerlink" href="#calculating-line-lengths-and-statistics" title="이 표제에 대한 퍼머링크">¶</a></h1>
+<h1>선의 길이계산과 통계<a class="headerlink" href="#calculating-line-lengths-and-statistics" title="이 제목에 대한 퍼머링크">¶</a></h1>
 <div class="admonition warning">
 <p class="admonition-title">경고</p>
 <p>This tutorial is now obsolete. A new and updated version is available at <a class="reference internal" href="3/calculating_line_lengths.html"><span class="doc">선의 길이계산과 통계(QGIS3)</span></a></p>
 </div>
 <p>QGIS는 선, 면적, 둘레 등 피처의 지오메트리에 기반한 다양한 속성을 계산할 수 있는 기본 기능을 가지고 있습니다. 이 예제에서는 각 피처의 길이는 나타내는 값을 가진 컬럼을 추가하는  <a href="#id1"><span class="problematic" id="id2">**</span></a>Field Calculator**를 어떻게 사용하는지 보여줄 것입니다.</p>
 <section id="overview-of-the-task">
-<h2>작업 개요<a class="headerlink" href="#overview-of-the-task" title="이 표제에 대한 퍼머링크">¶</a></h2>
+<h2>작업 개요<a class="headerlink" href="#overview-of-the-task" title="이 제목에 대한 퍼머링크">¶</a></h2>
 <p>여기서는 북아메리카의 철도 폴리라인 쉐입파일을 사용할 것이고 미국내에서의 철도 전체 철도길이를 산출해 낼 것입니다.</p>
 <section id="other-skills-you-will-learn">
-<h3>배워야 할 다른 기술<a class="headerlink" href="#other-skills-you-will-learn" title="이 표제에 대한 퍼머링크">¶</a></h3>
+<h3>배워야 할 다른 기술<a class="headerlink" href="#other-skills-you-will-learn" title="이 제목에 대한 퍼머링크">¶</a></h3>
 <ul class="simple">
 <li><p>피처를 선택하는 표현식 사용</p></li>
 <li><p>지리체계에서 투영된 좌표계(Projected Coordinate Reference System, CRS)로 레이어 재 투영.</p></li>
@@ -211,7 +210,7 @@
 </section>
 </section>
 <section id="get-the-data">
-<h2>데이터 획득<a class="headerlink" href="#get-the-data" title="이 표제에 대한 퍼머링크">¶</a></h2>
+<h2>데이터 획득<a class="headerlink" href="#get-the-data" title="이 제목에 대한 퍼머링크">¶</a></h2>
 <p><a href="#id1"><span class="problematic" id="id2">`</span></a>Natural Earth &lt;<a class="reference external" href="http://www.naturalearthdata.com/downloads/10m-cultural-vectors/railroads/">http://www.naturalearthdata.com/downloads/10m-cultural-vectors/railroads/</a>&gt;`_에는 공공 도메인 철도 데이터셋이 있습니다.  포털에서 <a href="#id3"><span class="problematic" id="id4">`</span></a>North America supplement &lt;<a class="reference external" href="http://www.naturalearthdata.com/http//www.naturalearthdata.com/download/10m/cultural/ne_10m_railroads_north_america.zip">http://www.naturalearthdata.com/http//www.naturalearthdata.com/download/10m/cultural/ne_10m_railroads_north_america.zip</a>&gt;`_압축파일을 다운로드 하십시오.</p>
 <p>For convenience, you may directly download a copy of the dataset from the link
 below:</p>
@@ -219,7 +218,7 @@ below:</p>
 <p>데이터 출처  <a class="reference internal" href="credits.html#naturalearth" id="id1"><span>[NATURALEARTH]</span></a></p>
 </section>
 <section id="procedure">
-<h2>과정<a class="headerlink" href="#procedure" title="이 표제에 대한 퍼머링크">¶</a></h2>
+<h2>과정<a class="headerlink" href="#procedure" title="이 제목에 대한 퍼머링크">¶</a></h2>
 <ol class="arabic simple">
 <li><p>메뉴에서  :menuselection:<a href="#id1"><span class="problematic" id="id2">`</span></a>Layer –&gt; Add Vector Layer`로 가십시오.</p></li>
 </ol>
@@ -331,8 +330,8 @@ are selected and appear in yellow.</p></li>
     </p>
     <p>
         &copy; Copyright 2021, Ujaval Gandhi.<br/>
-      최종 업데이트: 6월 23, 2023<br/>
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 4.0.1.<br/>
+      최종 업데이트: 7월 08, 2023<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 7.0.1.<br/>
     </p>
   </div>
 </footer>

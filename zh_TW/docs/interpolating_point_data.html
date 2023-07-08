@@ -3,15 +3,14 @@
 <html lang="zh_TW">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
     <title>點資料內插法 &#8212; QGIS Tutorials and Tips</title>
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../_static/bootstrap-sphinx.css" />
     <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
-    <script src="../_static/jquery.js"></script>
-    <script src="../_static/underscore.js"></script>
     <script src="../_static/doctools.js"></script>
+    <script src="../_static/sphinx_highlight.js"></script>
     <script src="../_static/translations.js"></script>
     <link rel="search" title="搜尋" href="../search.html" />
 
@@ -19,10 +18,10 @@
 <meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
 <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
 <meta name="apple-mobile-web-app-capable" content="yes">
-<script type="text/javascript" src="../_static/js/jquery-1.11.0.min.js "></script>
-<script type="text/javascript" src="../_static/js/jquery-fix.js "></script>
-<script type="text/javascript" src="../_static/bootstrap-3.3.7/js/bootstrap.min.js "></script>
-<script type="text/javascript" src="../_static/bootstrap-sphinx.js "></script>
+<script type="text/javascript" src="../_static/js/jquery-1.12.4.min.js"></script>
+<script type="text/javascript" src="../_static/js/jquery-fix.js"></script>
+<script type="text/javascript" src="../_static/bootstrap-3.4.1/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="../_static/bootstrap-sphinx.js"></script>
 
 
 <!-- Cookie Notice -->
@@ -51,7 +50,7 @@
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
         </button>
-        <a class="navbar-brand" href="../index.html"><span><img src="../_static/logo.png"></span>
+        <a class="navbar-brand" href="../index.html">
           QGIS Tutorials and Tips</a>
         <span class="navbar-text navbar-version pull-left"><b>v1</b></span>
       </div>
@@ -192,17 +191,17 @@
       
 
   <section id="interpolating-point-data">
-<h1>點資料內插法<a class="headerlink" href="#interpolating-point-data" title="本標題的永久連結">¶</a></h1>
+<h1>點資料內插法<a class="headerlink" href="#interpolating-point-data" title="本標頭的永久連結">¶</a></h1>
 <div class="admonition warning">
 <p class="admonition-title">警告</p>
 <p>This tutorial is now obsolete. A new and updated version is available at <a class="reference internal" href="3/interpolating_point_data.html"><span class="doc">Interpolating Point Data (QGIS3)</span></a></p>
 </div>
 <p>GIS 系統常常把離散的點資料以內插法創造連續的面資料。自然界中很多東西都是連續的，像是海拔、土壤、溫度等等，如果我們想要分析這種面資料，是不可能把整個表面全部測量一次的。實際上的做法會是我們˙在野外只取幾個測量點，然後測量點之外的其他地方就靠<cite>內插法</cite>求得其值。在 QGIS 之中，可以透過內建的 <code class="docutils literal notranslate"><span class="pre">內插工具</span></code> 附加元件來執行以上所述的事情。</p>
 <section id="overview-of-the-task">
-<h2>內容說明<a class="headerlink" href="#overview-of-the-task" title="本標題的永久連結">¶</a></h2>
+<h2>內容說明<a class="headerlink" href="#overview-of-the-task" title="本標頭的永久連結">¶</a></h2>
 <p>我們要使用位於德州的 Arlington 湖的水深測量數據，再根據這些數據製作地形圖和等高線圖。</p>
 <section id="other-skills-you-will-learn">
-<h3>你還會學到這些<a class="headerlink" href="#other-skills-you-will-learn" title="本標題的永久連結">¶</a></h3>
+<h3>你還會學到這些<a class="headerlink" href="#other-skills-you-will-learn" title="本標頭的永久連結">¶</a></h3>
 <ul class="simple">
 <li><p>從點資料計算等高線</p></li>
 <li><p>套用遮罩於影像圖層中的無資料值</p></li>
@@ -211,7 +210,7 @@
 </section>
 </section>
 <section id="get-the-data">
-<h2>取得資料<a class="headerlink" href="#get-the-data" title="本標題的永久連結">¶</a></h2>
+<h2>取得資料<a class="headerlink" href="#get-the-data" title="本標頭的永久連結">¶</a></h2>
 <p>Texas Water Development Board 提供了<a class="reference external" href="http://www.twdb.texas.gov/surfacewater/surveys/completed/list/index.asp">此湖完整的野外調查的 shapefiles</a>。</p>
 <p>可以從這裡下載 <a class="reference external" href="http://www.twdb.texas.gov/hydro_survey/Arlington/2007-12/Shapefiles.zip">2007-12 survey shapefiles for Lake Arlington</a></p>
 <p>為了方便起見，你也可以直接從以下連結下載：</p>
@@ -219,7 +218,7 @@
 <p>資料來源 <a class="reference internal" href="credits.html#twdb" id="id1"><span>[TWDB]</span></a></p>
 </section>
 <section id="procedure">
-<h2>操作流程<a class="headerlink" href="#procedure" title="本標題的永久連結">¶</a></h2>
+<h2>操作流程<a class="headerlink" href="#procedure" title="本標頭的永久連結">¶</a></h2>
 <ol class="arabic simple">
 <li><p>打開 QGIS，選擇 <span class="menuselection">圖層 ‣ 加入圖層 ‣ 加入向量圖層</span>。</p></li>
 </ol>
@@ -329,8 +328,8 @@
     </p>
     <p>
         &copy; Copyright 2021, Ujaval Gandhi.<br/>
-      最後更新於 6月 23, 2023。<br/>
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 4.0.1.<br/>
+      最後更新於 7月 08, 2023。<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 7.0.1.<br/>
     </p>
   </div>
 </footer>

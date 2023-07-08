@@ -3,15 +3,14 @@
 <html lang="ro">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
     <title>Construirea unui Plugin Python (QGIS3) &#8212; QGIS Tutorials and Tips</title>
     <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-sphinx.css" />
     <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
-    <script src="../../_static/jquery.js"></script>
-    <script src="../../_static/underscore.js"></script>
     <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/sphinx_highlight.js"></script>
     <script src="../../_static/translations.js"></script>
     <link rel="search" title="Căutare" href="../../search.html" />
     <link rel="next" title="Construirea unui Plugin de Procesare (QGIS3)" href="processing_python_plugin.html" />
@@ -21,10 +20,10 @@
 <meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
 <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
 <meta name="apple-mobile-web-app-capable" content="yes">
-<script type="text/javascript" src="../../_static/js/jquery-1.11.0.min.js "></script>
-<script type="text/javascript" src="../../_static/js/jquery-fix.js "></script>
-<script type="text/javascript" src="../../_static/bootstrap-3.3.7/js/bootstrap.min.js "></script>
-<script type="text/javascript" src="../../_static/bootstrap-sphinx.js "></script>
+<script type="text/javascript" src="../../_static/js/jquery-1.12.4.min.js"></script>
+<script type="text/javascript" src="../../_static/js/jquery-fix.js"></script>
+<script type="text/javascript" src="../../_static/bootstrap-3.4.1/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="../../_static/bootstrap-sphinx.js"></script>
 
 
 <!-- Cookie Notice -->
@@ -53,7 +52,7 @@
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
         </button>
-        <a class="navbar-brand" href="../../index.html"><span><img src="../../_static/logo.png"></span>
+        <a class="navbar-brand" href="../../index.html">
           QGIS Tutorials and Tips</a>
         <span class="navbar-text navbar-version pull-left"><b>v1</b></span>
       </div>
@@ -202,20 +201,20 @@
       
 
   <section id="building-a-python-plugin-qgis3">
-<h1>Construirea unui Plugin Python (QGIS3)<a class="headerlink" href="#building-a-python-plugin-qgis3" title="Link permanent la acest titlu">¶</a></h1>
+<h1>Construirea unui Plugin Python (QGIS3)<a class="headerlink" href="#building-a-python-plugin-qgis3" title="Permalink to this heading">¶</a></h1>
 <p>Plugin-urile reprezintă o modalitate foarte bună de a extinde funcționalitatea QGIS. Puteți scrie plugin-uri care folosesc Python, care pot consta în adăugarea unui simplu buton până la construirea unor instrumente sofisticate. Acest tutorial va evidenția procesul implicat în crearea mediului de dezvoltare, proiectarea interfeței cu utilizatorul pentru un plugin și scrierea de cod pentru interacțiunea cu aplicația QGIS. Vă rugăm să revedeți <a class="reference internal" href="getting_started_with_pyqgis.html"><span class="doc">Noțiuni de Bază Despre Programarea în Python (QGIS3)</span></a> pentru a vă familiariza cu elementele de bază.</p>
 <div class="admonition note">
 <p class="admonition-title">Notă</p>
 <p>If you are building a new plugin, I strongly recommend building a Processing Plugin instead of the GUI plugin described in this tutorial. See  <a class="reference internal" href="processing_python_plugin.html"><span class="doc">Construirea unui Plugin de Procesare (QGIS3)</span></a> for details.</p>
 </div>
 <section id="overview-of-the-task">
-<h2>Privire de ansamblu asupra activității<a class="headerlink" href="#overview-of-the-task" title="Link permanent la acest titlu">¶</a></h2>
+<h2>Privire de ansamblu asupra activității<a class="headerlink" href="#overview-of-the-task" title="Permalink to this heading">¶</a></h2>
 <p>Vom dezvolta un plugin simplu numit <code class="docutils literal notranslate"><span class="pre">Salvare</span> <span class="pre">Atribute</span></code>, care va permite utilizatorilor alegerea unui strat vectorial, și scrierea atributelor sale într-un fișier CSV.</p>
 </section>
 <section id="get-the-tools">
-<h2>Obținerea instrumentelor<a class="headerlink" href="#get-the-tools" title="Link permanent la acest titlu">¶</a></h2>
+<h2>Obținerea instrumentelor<a class="headerlink" href="#get-the-tools" title="Permalink to this heading">¶</a></h2>
 <section id="qt-creator">
-<h3>Qt Creator<a class="headerlink" href="#qt-creator" title="Link permanent la acest titlu">¶</a></h3>
+<h3>Qt Creator<a class="headerlink" href="#qt-creator" title="Permalink to this heading">¶</a></h3>
 <p><a class="reference external" href="http://www.qt.io/">Qt</a> is a software development framework that is used to develop applications that run on Windows, Mac, Linux as well as various mobile operating systems. QGIS itself is written using the Qt framework. For plugin development, we will use an application called <a class="reference external" href="https://doc.qt.io/qt-5/qtdesigner-manual.html">Qt Creator</a> to design the interface for our plugin.</p>
 <p>Download and install the Qt Creator installer from <a class="reference external" href="https://www.qt.io/offline-installers">Qt Offline Installers</a>. Make sure you select <strong>Qt Creator</strong> on the download page. Note that you will have to create a free Qt account to install the package.</p>
 <div class="admonition note">
@@ -225,7 +224,7 @@
 <img alt="../../_images/setup1.png" class="align-center" src="../../_images/setup1.png" />
 </section>
 <section id="python-bindings-for-qt">
-<h3>Conectarea Python la Qt<a class="headerlink" href="#python-bindings-for-qt" title="Link permanent la acest titlu">¶</a></h3>
+<h3>Conectarea Python la Qt<a class="headerlink" href="#python-bindings-for-qt" title="Permalink to this heading">¶</a></h3>
 <p>Din moment ce dezvoltăm un plugin în Python, trebuie să instalăm legăturile Python pentru Qt. Metoda de instalare a acestora va depinde de platforma pe care o utilizați. Pentru construirea plugin-urilor avem nevoie de instrumentul în linie de comandă <code class="docutils literal notranslate"><span class="pre">pyrcc5</span></code>.</p>
 <p><strong>Windows</strong></p>
 <p>Relevant python bindings are included in the QGIS install on Windows. But to use them from the plugin folder, we need to indicate the path to the QGIS install.</p>
@@ -258,7 +257,7 @@ pyrcc5 -o resources.py resources.qrc
 </div>
 </section>
 <section id="a-text-editor-or-a-python-ide">
-<h3>A Text Editor or a Python IDE<a class="headerlink" href="#a-text-editor-or-a-python-ide" title="Link permanent la acest titlu">¶</a></h3>
+<h3>A Text Editor or a Python IDE<a class="headerlink" href="#a-text-editor-or-a-python-ide" title="Permalink to this heading">¶</a></h3>
 <p>Any kind of software development requires a good text editor. If you already have a favorite text editor or an IDE (Integrated Development Environment), you may use it for this tutorial. Otherwise, each platform offers a wide variety of free or paid options for text editors. Choose the one that fits your needs.</p>
 <p>This tutorial uses Notepad++ editor on Windows.</p>
 <p><strong>Windows</strong></p>
@@ -270,11 +269,11 @@ Download and install the <a class="reference external" href="https://notepad-plu
 </div>
 </section>
 <section id="plugin-builder-plugin">
-<h3>Plugin Builder plugin<a class="headerlink" href="#plugin-builder-plugin" title="Link permanent la acest titlu">¶</a></h3>
+<h3>Plugin Builder plugin<a class="headerlink" href="#plugin-builder-plugin" title="Permalink to this heading">¶</a></h3>
 <p>There is a helpful QGIS plugin named <code class="docutils literal notranslate"><span class="pre">Plugin</span> <span class="pre">Builder</span></code> which creates all the necessary files and the boilerplate code for a plugin. Find and install the <code class="docutils literal notranslate"><span class="pre">Plugin</span> <span class="pre">Builder</span></code> plugin. See <a class="reference internal" href="../using_plugins.html"><span class="doc">Utilizarea Plugin-urilor</span></a> for more details on how to install plugins.</p>
 </section>
 <section id="plugins-reloader-plugin">
-<h3>Plugins Reloader plugin<a class="headerlink" href="#plugins-reloader-plugin" title="Link permanent la acest titlu">¶</a></h3>
+<h3>Plugins Reloader plugin<a class="headerlink" href="#plugins-reloader-plugin" title="Permalink to this heading">¶</a></h3>
 <p>This is another helper plugin which allows iterative development of plugins. Using this plugin, you can change your plugin code and have it reflected in QGIS without having to restart QGIS every time. Find and install the <code class="docutils literal notranslate"><span class="pre">Plugin</span> <span class="pre">Reloader</span></code> plugin. See <a class="reference internal" href="../using_plugins.html"><span class="doc">Utilizarea Plugin-urilor</span></a> for more details on how to install plugins.</p>
 <div class="admonition note">
 <p class="admonition-title">Notă</p>
@@ -283,7 +282,7 @@ Download and install the <a class="reference external" href="https://notepad-plu
 </section>
 </section>
 <section id="procedure">
-<h2>Procedure<a class="headerlink" href="#procedure" title="Link permanent la acest titlu">¶</a></h2>
+<h2>Procedure<a class="headerlink" href="#procedure" title="Permalink to this heading">¶</a></h2>
 <ol class="arabic simple">
 <li><p>Open QGIS. Go to <span class="menuselection">Plugins ‣ Plugin Builder ‣ Plugin Builder</span>.</p></li>
 </ol>
@@ -588,10 +587,10 @@ upload it to the QGIS plugin repository.</p>
 
 
 <span class="k">class</span> <span class="nc">SaveAttributes</span><span class="p">:</span>
-    <span class="sd">&quot;&quot;&quot;QGIS Plugin Implementation.&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;QGIS Plugin Implementation.&quot;&quot;&quot;</span>
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">iface</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Constructor.</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Constructor.</span>
 
 <span class="sd">        :param iface: An interface instance that will be passed to this class</span>
 <span class="sd">            which provides the hook by which you can manipulate the QGIS</span>
@@ -626,7 +625,7 @@ upload it to the QGIS plugin repository.</p>
 
     <span class="c1"># noinspection PyMethodMayBeStatic</span>
     <span class="k">def</span> <span class="nf">tr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">message</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Get the translation for a string using Qt translation API.</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Get the translation for a string using Qt translation API.</span>
 
 <span class="sd">        We implement this ourselves since we do not inherit QObject.</span>
 
@@ -651,7 +650,7 @@ upload it to the QGIS plugin repository.</p>
         <span class="n">status_tip</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
         <span class="n">whats_this</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
         <span class="n">parent</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Add a toolbar icon to the toolbar.</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Add a toolbar icon to the toolbar.</span>
 
 <span class="sd">        :param icon_path: Path to the icon for this action. Can be a resource</span>
 <span class="sd">            path (e.g. &#39;:/plugins/foo/bar.png&#39;) or a normal file system path.</span>
@@ -715,7 +714,7 @@ upload it to the QGIS plugin repository.</p>
         <span class="k">return</span> <span class="n">action</span>
 
     <span class="k">def</span> <span class="nf">initGui</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Create the menu entries and toolbar icons inside the QGIS GUI.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Create the menu entries and toolbar icons inside the QGIS GUI.&quot;&quot;&quot;</span>
 
         <span class="n">icon_path</span> <span class="o">=</span> <span class="s1">&#39;:/plugins/save_attributes/icon.png&#39;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">add_action</span><span class="p">(</span>
@@ -729,7 +728,7 @@ upload it to the QGIS plugin repository.</p>
 
 
     <span class="k">def</span> <span class="nf">unload</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Removes the plugin menu item and icon from QGIS GUI.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Removes the plugin menu item and icon from QGIS GUI.&quot;&quot;&quot;</span>
         <span class="k">for</span> <span class="n">action</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">actions</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">iface</span><span class="o">.</span><span class="n">removePluginVectorMenu</span><span class="p">(</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">tr</span><span class="p">(</span><span class="sa">u</span><span class="s1">&#39;&amp;Save Attributes&#39;</span><span class="p">),</span>
@@ -742,7 +741,7 @@ upload it to the QGIS plugin repository.</p>
       <span class="bp">self</span><span class="o">.</span><span class="n">dlg</span><span class="o">.</span><span class="n">lineEdit</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
       
     <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Run method that performs all the real work&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Run method that performs all the real work&quot;&quot;&quot;</span>
 
         <span class="c1"># Create the dialog with elements (after translation) and keep reference</span>
         <span class="c1"># Only create GUI ONCE in callback, so that it will only load when the plugin is started</span>
@@ -809,8 +808,8 @@ upload it to the QGIS plugin repository.</p>
     </p>
     <p>
         &copy; Copyright 2021, Ujaval Gandhi.<br/>
-      Ultima actualizare la iun. 23, 2023.<br/>
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 4.0.1.<br/>
+      Ultima actualizare la iul. 08, 2023.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 7.0.1.<br/>
     </p>
   </div>
 </footer>

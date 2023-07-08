@@ -3,15 +3,14 @@
 <html lang="es">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
     <title>Construyendo un Complemento de Procesamiento (QGIS3) &#8212; QGIS Tutorials and Tips</title>
     <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-sphinx.css" />
     <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
-    <script src="../../_static/jquery.js"></script>
-    <script src="../../_static/underscore.js"></script>
     <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/sphinx_highlight.js"></script>
     <script src="../../_static/translations.js"></script>
     <link rel="search" title="Búsqueda" href="../../search.html" />
     <link rel="next" title="Ejecutar y Programar Trabajos de Procesamiento QGIS" href="../running_qgis_jobs.html" />
@@ -21,10 +20,10 @@
 <meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
 <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
 <meta name="apple-mobile-web-app-capable" content="yes">
-<script type="text/javascript" src="../../_static/js/jquery-1.11.0.min.js "></script>
-<script type="text/javascript" src="../../_static/js/jquery-fix.js "></script>
-<script type="text/javascript" src="../../_static/bootstrap-3.3.7/js/bootstrap.min.js "></script>
-<script type="text/javascript" src="../../_static/bootstrap-sphinx.js "></script>
+<script type="text/javascript" src="../../_static/js/jquery-1.12.4.min.js"></script>
+<script type="text/javascript" src="../../_static/js/jquery-fix.js"></script>
+<script type="text/javascript" src="../../_static/bootstrap-3.4.1/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="../../_static/bootstrap-sphinx.js"></script>
 
 
 <!-- Cookie Notice -->
@@ -53,7 +52,7 @@
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
         </button>
-        <a class="navbar-brand" href="../../index.html"><span><img src="../../_static/logo.png"></span>
+        <a class="navbar-brand" href="../../index.html">
           QGIS Tutorials and Tips</a>
         <span class="navbar-text navbar-version pull-left"><b>v1</b></span>
       </div>
@@ -202,16 +201,16 @@
       
 
   <section id="building-a-processing-plugin-qgis3">
-<h1>Construyendo un Complemento de Procesamiento (QGIS3)<a class="headerlink" href="#building-a-processing-plugin-qgis3" title="Enlazar permanentemente con este título">¶</a></h1>
+<h1>Construyendo un Complemento de Procesamiento (QGIS3)<a class="headerlink" href="#building-a-processing-plugin-qgis3" title="Enlace permanente a este encabezado">¶</a></h1>
 <p>En el tutorial previo <a class="reference internal" href="building_a_python_plugin.html"><span class="doc">Construyendo un Complemento Python (QGIS3)</span></a>, aprendió cómo crear un complemento python - incluyendo el interfaz de usuario y lógica personalizada para procesar los datos. Mientras este tipo de complemento es útil, dejan la carga de diseñar el interfaz de usuario en el autor del complemento. Esto resulta en que cada complemento tiene diferentes maneras para interactuar con él - lo que es confuso para los usuarios. También, los complementos regulares no interactúan con otras partes de QGIS. Por ejemplo, no puedes usar la funcionalidad del complemento para otro algoritmo. Si el complemento que quieres escribir es principalmente para análisis, y la interacción del usuario que quieres es limitada a permitir que el usuario elija entradas y salidas, hay una manera más fácil y preferida para escribir complementos usando el Marco de Procesamiento. Elimina la necesidad de que diseñes el interfaz de usuario - simplificando el proceso. La biblioteca incorporada de procesamiento crea una interfaz estándar de procesamiento que dependen de tus entradas que lucen y se comportan como cualquier otro algoritmo de procesamiento en QGIS. También se integra perfectamente con el resto del marco Procesamiento - con lo que tus algoritmos de complemento pueden ser usados en procesamiento por lotes, modelador gráfico, llamado desde la consola de python, etc.</p>
 <section id="overview-of-the-task">
-<h2>Vista general de la tarea<a class="headerlink" href="#overview-of-the-task" title="Enlazar permanentemente con este título">¶</a></h2>
+<h2>Vista general de la tarea<a class="headerlink" href="#overview-of-the-task" title="Enlace permanente a este encabezado">¶</a></h2>
 <p>Reimplementaremos un complemento simple del tutorial <a class="reference internal" href="building_a_python_plugin.html"><span class="doc">Construyendo un Complemento Python (QGIS3)</span></a> como un complemento de procesamiento. Resultará en un nuevo proveedor de procesamiento llamado <code class="docutils literal notranslate"><span class="pre">Guardar</span> <span class="pre">Atributos</span></code> y un algoritmo <code class="docutils literal notranslate"><span class="pre">Guardar</span> <span class="pre">Atributos</span> <span class="pre">como</span> <span class="pre">CSV</span></code> que permitirá a los usuarios elegir una capa vector y escribir sus atributos como un archivo CSV.</p>
 </section>
 <section id="get-the-tools">
-<h2>Obtener las Herramientas<a class="headerlink" href="#get-the-tools" title="Enlazar permanentemente con este título">¶</a></h2>
+<h2>Obtener las Herramientas<a class="headerlink" href="#get-the-tools" title="Enlace permanente a este encabezado">¶</a></h2>
 <section id="a-text-editor-or-a-python-ide">
-<h3>Un Editor de Texto o un IDE Python.<a class="headerlink" href="#a-text-editor-or-a-python-ide" title="Enlazar permanentemente con este título">¶</a></h3>
+<h3>Un Editor de Texto o un IDE Python.<a class="headerlink" href="#a-text-editor-or-a-python-ide" title="Enlace permanente a este encabezado">¶</a></h3>
 <p>Cualquier tipo de desarrollo de software requiere un buen editor de texto. Si ya tiene un editor de texto favorito o un IDE (Ambiente Integrado de Desarrollo, en inglés), puede usarlo para este tutorial. De otra forma, cada plataforma ofrece una amplia variedad de opciones gratuitas o pagadas para editores de texto. Elija aquel que se ajuste a sus necesidades.</p>
 <p>Este tutorial usa el editor Notepad++ en Windows.</p>
 <p><strong>Windows</strong></p>
@@ -222,11 +221,11 @@
 </div>
 </section>
 <section id="plugin-builder-plugin">
-<h3>Complemento Plugin Builder<a class="headerlink" href="#plugin-builder-plugin" title="Enlazar permanentemente con este título">¶</a></h3>
+<h3>Complemento Plugin Builder<a class="headerlink" href="#plugin-builder-plugin" title="Enlace permanente a este encabezado">¶</a></h3>
 <p>Hay un complemento útil QGIS llamado <code class="docutils literal notranslate"><span class="pre">Plugin</span> <span class="pre">Builder</span></code> que crea todos los archivos necesarios y el código repetitivo para un complemento. Encuentre e instale el complemento <code class="docutils literal notranslate"><span class="pre">Plugin</span> <span class="pre">Builder</span></code>. Vea <a class="reference internal" href="../using_plugins.html"><span class="doc">Uso de Complementos</span></a> para más detalles de cómo instalar complementos.</p>
 </section>
 <section id="plugins-reloader-plugin">
-<h3>Complemento Plugins Reloader<a class="headerlink" href="#plugins-reloader-plugin" title="Enlazar permanentemente con este título">¶</a></h3>
+<h3>Complemento Plugins Reloader<a class="headerlink" href="#plugins-reloader-plugin" title="Enlace permanente a este encabezado">¶</a></h3>
 <p>Este es otro complemento asistente que permite el desarrollo iterativo de complementos. Usando este complemento, puede cambiar el código del complemento y tenerlo reflejado en QGIS sin tener que reiniciar QGIS cada vez. Encuentre e instale el complemento <code class="docutils literal notranslate"><span class="pre">Plugin</span> <span class="pre">Reloader</span></code>. Vea <a class="reference internal" href="../using_plugins.html"><span class="doc">Uso de Complementos</span></a> para más detalles sobre como instalar complementos.</p>
 <div class="admonition note">
 <p class="admonition-title">Nota</p>
@@ -235,7 +234,7 @@
 </section>
 </section>
 <section id="procedure">
-<h2>Procedimiento<a class="headerlink" href="#procedure" title="Enlazar permanentemente con este título">¶</a></h2>
+<h2>Procedimiento<a class="headerlink" href="#procedure" title="Enlace permanente a este encabezado">¶</a></h2>
 <ol class="arabic simple">
 <li><p>Abra QGIS. Vaya a <span class="menuselection">Complementos ‣ Plugin Builder ‣ Plugin Builder</span>.</p></li>
 </ol>
@@ -358,7 +357,7 @@
 <ol class="arabic" start="17">
 <li><p>Agreguemos alguna lógica al algoritmo que toma la capa vectorial seleccionada y escribe los atributos a un archivo CSV. La explicación para este código puede encontrarse en <a class="reference internal" href="getting_started_with_pyqgis.html"><span class="doc">Iniciándote con la Programación Python (QGIS3)</span></a>. Una diferencia notable aquí es el contador que ayuda a mostrar el progreso del procesamiento. Agregue el código siguiente al método <code class="docutils literal notranslate"><span class="pre">processAlgorithm</span></code> y guarde el archivo.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">processAlgorithm</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">parameters</span><span class="p">,</span> <span class="n">context</span><span class="p">,</span> <span class="n">feedback</span><span class="p">):</span>
-  <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">  </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">  Here is where the processing itself takes place.</span>
 <span class="sd">  &quot;&quot;&quot;</span>
   <span class="n">source</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">parameterAsSource</span><span class="p">(</span><span class="n">parameters</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">INPUT</span><span class="p">,</span> <span class="n">context</span><span class="p">)</span>
@@ -568,7 +567,7 @@
 
 <span class="c1"># noinspection PyPep8Naming</span>
 <span class="k">def</span> <span class="nf">classFactory</span><span class="p">(</span><span class="n">iface</span><span class="p">):</span>  <span class="c1"># pylint: disable=invalid-name</span>
-    <span class="sd">&quot;&quot;&quot;Load SaveAttributes class from file SaveAttributes.</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Load SaveAttributes class from file SaveAttributes.</span>
 
 <span class="sd">    :param iface: A QGIS interface instance.</span>
 <span class="sd">    :type iface: QgsInterface</span>
@@ -635,7 +634,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">iface</span> <span class="o">=</span> <span class="n">iface</span>
 
     <span class="k">def</span> <span class="nf">initProcessing</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Init Processing provider for QGIS &gt;= 3.8.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Init Processing provider for QGIS &gt;= 3.8.&quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">provider</span> <span class="o">=</span> <span class="n">SaveAttributesProvider</span><span class="p">()</span>
         <span class="n">QgsApplication</span><span class="o">.</span><span class="n">processingRegistry</span><span class="p">()</span><span class="o">.</span><span class="n">addProvider</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">provider</span><span class="p">)</span>
 
@@ -705,7 +704,7 @@
 
 
 <span class="k">class</span> <span class="nc">SaveAttributesAlgorithm</span><span class="p">(</span><span class="n">QgsProcessingAlgorithm</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    This is an example algorithm that takes a vector layer and</span>
 <span class="sd">    creates a new identical one.</span>
 
@@ -726,7 +725,7 @@
     <span class="n">INPUT</span> <span class="o">=</span> <span class="s1">&#39;INPUT&#39;</span>
 
     <span class="k">def</span> <span class="nf">initAlgorithm</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">config</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Here we define the inputs and output of the algorithm, along</span>
 <span class="sd">        with some other properties.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -751,7 +750,7 @@
         <span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">processAlgorithm</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">parameters</span><span class="p">,</span> <span class="n">context</span><span class="p">,</span> <span class="n">feedback</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Here is where the processing itself takes place.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">source</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">parameterAsSource</span><span class="p">(</span><span class="n">parameters</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">INPUT</span><span class="p">,</span> <span class="n">context</span><span class="p">)</span>
@@ -783,7 +782,7 @@
         <span class="k">return</span> <span class="p">{</span><span class="bp">self</span><span class="o">.</span><span class="n">OUTPUT</span><span class="p">:</span> <span class="n">csv</span><span class="p">}</span>
 
     <span class="k">def</span> <span class="nf">name</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Returns the algorithm name, used for identifying the algorithm. This</span>
 <span class="sd">        string should be fixed for the algorithm, and must not be localised.</span>
 <span class="sd">        The name should be unique within each provider. Names should contain</span>
@@ -793,21 +792,21 @@
         <span class="k">return</span> <span class="s1">&#39;Save Attributes as CSV&#39;</span>
 
     <span class="k">def</span> <span class="nf">displayName</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Returns the translated algorithm name, which should be used for any</span>
 <span class="sd">        user-visible display of the algorithm name.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">tr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">())</span>
 
     <span class="k">def</span> <span class="nf">group</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Returns the name of the group this algorithm belongs to. This string</span>
 <span class="sd">        should be localised.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">tr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">groupId</span><span class="p">())</span>
 
     <span class="k">def</span> <span class="nf">groupId</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Returns the unique ID of the group this algorithm belongs to. This</span>
 <span class="sd">        string should be fixed for the algorithm, and must not be localised.</span>
 <span class="sd">        The group id should be unique within each provider. Group id should</span>
@@ -820,7 +819,7 @@
         <span class="k">return</span> <span class="n">QCoreApplication</span><span class="o">.</span><span class="n">translate</span><span class="p">(</span><span class="s1">&#39;Processing&#39;</span><span class="p">,</span> <span class="n">string</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">icon</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Should return a QIcon which is used for your provider inside</span>
 <span class="sd">        the Processing toolbox.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -876,20 +875,20 @@
 <span class="k">class</span> <span class="nc">SaveAttributesProvider</span><span class="p">(</span><span class="n">QgsProcessingProvider</span><span class="p">):</span>
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Default constructor.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">QgsProcessingProvider</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">unload</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Unloads the provider. Any tear-down steps required by the provider</span>
 <span class="sd">        should be implemented here.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">pass</span>
 
     <span class="k">def</span> <span class="nf">loadAlgorithms</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Loads all algorithms belonging to this provider.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">addAlgorithm</span><span class="p">(</span><span class="n">SaveAttributesAlgorithm</span><span class="p">())</span>
@@ -897,7 +896,7 @@
         <span class="c1"># self.addAlgorithm(MyOtherAlgorithm())</span>
 
     <span class="k">def</span> <span class="nf">id</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Returns the unique provider id, used for identifying the provider. This</span>
 <span class="sd">        string should be a unique, short, character only string, eg &quot;qgis&quot; or</span>
 <span class="sd">        &quot;gdal&quot;. This string should not be localised.</span>
@@ -905,7 +904,7 @@
         <span class="k">return</span> <span class="s1">&#39;Save Attributes&#39;</span>
 
     <span class="k">def</span> <span class="nf">name</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Returns the provider name, which is used to describe the provider</span>
 <span class="sd">        within the GUI.</span>
 
@@ -914,7 +913,7 @@
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">tr</span><span class="p">(</span><span class="s1">&#39;Save Attributes&#39;</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">icon</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Should return a QIcon which is used for your provider inside</span>
 <span class="sd">        the Processing toolbox.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -923,7 +922,7 @@
         <span class="k">return</span> <span class="n">icon</span>
 
     <span class="k">def</span> <span class="nf">longName</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Returns the a longer version of the provider name, which can include</span>
 <span class="sd">        extra details such as version numbers. E.g. &quot;Lastools LIDAR tools</span>
 <span class="sd">        (version 2.2.1)&quot;. This string should be localised. The default</span>
@@ -957,8 +956,8 @@
     </p>
     <p>
         &copy; Copyright 2021, Ujaval Gandhi.<br/>
-      Actualizado por última vez en jun. 23, 2023.<br/>
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 4.0.1.<br/>
+      Actualizado por última vez en jul 08, 2023.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 7.0.1.<br/>
     </p>
   </div>
 </footer>

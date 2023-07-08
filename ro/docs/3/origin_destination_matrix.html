@@ -3,15 +3,14 @@
 <html lang="ro">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
     <title>Locating Nearest Facility with Origin-Destination Matrix (QGIS3) &#8212; QGIS Tutorials and Tips</title>
     <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-sphinx.css" />
     <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
-    <script src="../../_static/jquery.js"></script>
-    <script src="../../_static/underscore.js"></script>
     <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/sphinx_highlight.js"></script>
     <script src="../../_static/translations.js"></script>
     <link rel="search" title="Căutare" href="../../search.html" />
     <link rel="next" title="Service Area Analysis using Openrouteservice (QGIS3)" href="service_area_analysis.html" />
@@ -21,10 +20,10 @@
 <meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
 <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
 <meta name="apple-mobile-web-app-capable" content="yes">
-<script type="text/javascript" src="../../_static/js/jquery-1.11.0.min.js "></script>
-<script type="text/javascript" src="../../_static/js/jquery-fix.js "></script>
-<script type="text/javascript" src="../../_static/bootstrap-3.3.7/js/bootstrap.min.js "></script>
-<script type="text/javascript" src="../../_static/bootstrap-sphinx.js "></script>
+<script type="text/javascript" src="../../_static/js/jquery-1.12.4.min.js"></script>
+<script type="text/javascript" src="../../_static/js/jquery-fix.js"></script>
+<script type="text/javascript" src="../../_static/bootstrap-3.4.1/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="../../_static/bootstrap-sphinx.js"></script>
 
 
 <!-- Cookie Notice -->
@@ -53,7 +52,7 @@
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
         </button>
-        <a class="navbar-brand" href="../../index.html"><span><img src="../../_static/logo.png"></span>
+        <a class="navbar-brand" href="../../index.html">
           QGIS Tutorials and Tips</a>
         <span class="navbar-text navbar-version pull-left"><b>v1</b></span>
       </div>
@@ -202,17 +201,17 @@
       
 
   <section id="locating-nearest-facility-with-origin-destination-matrix-qgis3">
-<h1>Locating Nearest Facility with Origin-Destination Matrix (QGIS3)<a class="headerlink" href="#locating-nearest-facility-with-origin-destination-matrix-qgis3" title="Link permanent la acest titlu">¶</a></h1>
+<h1>Locating Nearest Facility with Origin-Destination Matrix (QGIS3)<a class="headerlink" href="#locating-nearest-facility-with-origin-destination-matrix-qgis3" title="Permalink to this heading">¶</a></h1>
 <p>In the previous tutorial, <a class="reference internal" href="basic_network_analysis.html"><span class="doc">Basic Network Visualization and Routing (QGIS3)</span></a>, we learned how to build a network and calculate the shortest path between 2 points. We can apply that technique to many different types of network-based analysis. One such application is to compute <strong>Origin-Destination Matrix</strong> or <strong>OD Matrix</strong>. Given a set of origin points and another set of destination points, we can calculate the shortest path between each origin-destination pairs and find out the travel distance/time between them. Such analysis is useful to locate the closest facility to any given point. For example, a logistics company may use this analysis to find the closest warehouse to their customers to optimize delivery routes. Here we use the Distance Matrix algorithm from <strong>QGIS Network Analysis Toolbox (QNEAT3)</strong> plugin to find the nearest health facility to each address in the city.</p>
 <div class="admonition note">
 <p class="admonition-title">Notă</p>
 <p>This tutorial shows how to use your own network data to compute an origin-destination matrix. If you do not have your own network data, you can use <strong>ORS Tools Plugin</strong> and algorithm <span class="menuselection">ORS Tools ‣ Matrix ‣  Matrix from Layers</span> to do a similar analysis using OpenStreetMap data. See <a class="reference internal" href="service_area_analysis.html"><span class="doc">Service Area Analysis using Openrouteservice (QGIS3)</span></a> to learn how to use ORS Tools plugin.</p>
 </div>
 <section id="overview-of-the-task">
-<h2>Overview of the task<a class="headerlink" href="#overview-of-the-task" title="Link permanent la acest titlu">¶</a></h2>
+<h2>Overview of the task<a class="headerlink" href="#overview-of-the-task" title="Permalink to this heading">¶</a></h2>
 <p>We will take 2 layers for Washington DC - one with points representing addresses and another with points representing mental health facilities - and find out the facility with the least travel distance from each address.</p>
 <section id="other-skills-you-will-learn">
-<h3>Alte competențe pe care le veți dobândi<a class="headerlink" href="#other-skills-you-will-learn" title="Link permanent la acest titlu">¶</a></h3>
+<h3>Alte competențe pe care le veți dobândi<a class="headerlink" href="#other-skills-you-will-learn" title="Permalink to this heading">¶</a></h3>
 <ul class="simple">
 <li><p>Extract a random sample from a point layer.</p></li>
 <li><p>Use Virtual Layers to run SQL query on a QGIS layer.</p></li>
@@ -220,7 +219,7 @@
 </section>
 </section>
 <section id="get-the-data">
-<h2>Obținerea datelor<a class="headerlink" href="#get-the-data" title="Link permanent la acest titlu">¶</a></h2>
+<h2>Obținerea datelor<a class="headerlink" href="#get-the-data" title="Permalink to this heading">¶</a></h2>
 <p>District of Columbia government freely shares hundreds of datasets on the <a class="reference external" href="https://opendata.dc.gov/">Open Data Catalog</a>.</p>
 <p>Download the following data layers as shapefiles.</p>
 <ul class="simple">
@@ -235,12 +234,12 @@
 <p>Sursa datelor: <a class="reference internal" href="../credits.html#dcopendata" id="id1"><span>[DCOPENDATA]</span></a></p>
 </section>
 <section id="setup">
-<h2>Instalare<a class="headerlink" href="#setup" title="Link permanent la acest titlu">¶</a></h2>
+<h2>Instalare<a class="headerlink" href="#setup" title="Permalink to this heading">¶</a></h2>
 <p>Visit <span class="menuselection">Plugins ‣ Manage and Install plugins</span>. Select :guilabel:` All` Search for <strong>QNEAT3</strong> plugin and install it. Click <span class="guilabel">Close</span>.</p>
 <img alt="../../_images/setup11.png" class="align-center" src="../../_images/setup11.png" />
 </section>
 <section id="procedure">
-<h2>Procedure<a class="headerlink" href="#procedure" title="Link permanent la acest titlu">¶</a></h2>
+<h2>Procedure<a class="headerlink" href="#procedure" title="Permalink to this heading">¶</a></h2>
 <ol class="arabic simple">
 <li><p>Locate the downloaded <code class="docutils literal notranslate"><span class="pre">Roadway_Block-shp.zip</span></code> file in the <span class="guilabel">Browser</span> panel. Expand it and drag the <code class="docutils literal notranslate"><span class="pre">Roadway_Block.shp</span></code> file to the canvas. Similarly, locate the <code class="docutils literal notranslate"><span class="pre">Adult_Mental_Health_Providers.zip</span></code> file, expand it and add <code class="docutils literal notranslate"><span class="pre">Adult_Mental_Health_Providers.shp</span></code> to the canvas.</p></li>
 </ol>
@@ -400,7 +399,7 @@ from input1 group by origin_id
 
 
 <span class="k">class</span> <span class="nc">MatrixToRoutes</span><span class="p">(</span><span class="n">QgsProcessingAlgorithm</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Creats Routes from Distance Matrix&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Creats Routes from Distance Matrix&quot;&quot;&quot;</span>
     <span class="n">NETWORK</span> <span class="o">=</span> <span class="s1">&#39;NETWORK&#39;</span>
     <span class="n">MATRIX</span> <span class="o">=</span> <span class="s1">&#39;MATRIX&#39;</span>
     <span class="n">OUTPUT</span> <span class="o">=</span> <span class="s1">&#39;OUTPUT&#39;</span>
@@ -561,8 +560,8 @@ from input1 group by origin_id
     </p>
     <p>
         &copy; Copyright 2021, Ujaval Gandhi.<br/>
-      Ultima actualizare la iun. 23, 2023.<br/>
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 4.0.1.<br/>
+      Ultima actualizare la iul. 08, 2023.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 7.0.1.<br/>
     </p>
   </div>
 </footer>

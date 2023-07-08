@@ -3,15 +3,14 @@
 <html lang="ru">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
     <title>Привязка аэрофотоснимков &#8212; QGIS Tutorials and Tips</title>
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../_static/bootstrap-sphinx.css" />
     <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
-    <script src="../_static/jquery.js"></script>
-    <script src="../_static/underscore.js"></script>
     <script src="../_static/doctools.js"></script>
+    <script src="../_static/sphinx_highlight.js"></script>
     <script src="../_static/translations.js"></script>
     <link rel="search" title="Поиск" href="../search.html" />
 
@@ -19,10 +18,10 @@
 <meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
 <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
 <meta name="apple-mobile-web-app-capable" content="yes">
-<script type="text/javascript" src="../_static/js/jquery-1.11.0.min.js "></script>
-<script type="text/javascript" src="../_static/js/jquery-fix.js "></script>
-<script type="text/javascript" src="../_static/bootstrap-3.3.7/js/bootstrap.min.js "></script>
-<script type="text/javascript" src="../_static/bootstrap-sphinx.js "></script>
+<script type="text/javascript" src="../_static/js/jquery-1.12.4.min.js"></script>
+<script type="text/javascript" src="../_static/js/jquery-fix.js"></script>
+<script type="text/javascript" src="../_static/bootstrap-3.4.1/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="../_static/bootstrap-sphinx.js"></script>
 
 
 <!-- Cookie Notice -->
@@ -51,7 +50,7 @@
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
         </button>
-        <a class="navbar-brand" href="../index.html"><span><img src="../_static/logo.png"></span>
+        <a class="navbar-brand" href="../index.html">
           QGIS Tutorials and Tips</a>
         <span class="navbar-text navbar-version pull-left"><b>v1</b></span>
       </div>
@@ -192,17 +191,17 @@
       
 
   <section id="georeferencing-aerial-imagery">
-<h1>Привязка аэрофотоснимков<a class="headerlink" href="#georeferencing-aerial-imagery" title="Ссылка на этот заголовок">¶</a></h1>
+<h1>Привязка аэрофотоснимков<a class="headerlink" href="#georeferencing-aerial-imagery" title="Permalink to this heading">¶</a></h1>
 <div class="admonition warning">
 <p class="admonition-title">Предупреждение</p>
 <p>This tutorial is now obsolete. A new and updated version is available at <a class="reference internal" href="3/advanced_georeferencing.html"><span class="doc">Пространственная привязка космических снимков (QGIS3)</span></a></p>
 </div>
 <p>В учебнике <span class="xref std std-doc">Основы Привязки</span> мы рассмотрели основной процесс географической привязки в QGIS. Этот метод включает чтение координат с Вашей отсканированной карты и его ручной ввод. Но часто у Вас не будет координат на карте, либо Вы захотите привязать изображение. В этом случае Вы можете использовать другой источник привязки в качестве входных данных. В этом уроке Вы узнаете, как использовать существующие открытые источники данных в процессе привязки.</p>
 <section id="overview-of-the-task">
-<h2>Обзор задачи<a class="headerlink" href="#overview-of-the-task" title="Ссылка на этот заголовок">¶</a></h2>
+<h2>Обзор задачи<a class="headerlink" href="#overview-of-the-task" title="Permalink to this heading">¶</a></h2>
 <p>Мы привяжем воздушный снимок высокого разрешения к местоположению, используя опорные координаты из OpenStreetMap.</p>
 <section id="other-skills-you-will-learn">
-<h3>Вы научитесь также<a class="headerlink" href="#other-skills-you-will-learn" title="Ссылка на этот заголовок">¶</a></h3>
+<h3>Вы научитесь также<a class="headerlink" href="#other-skills-you-will-learn" title="Permalink to this heading">¶</a></h3>
 <ul class="simple">
 <li><p>загружать общедоступные снимки с очень высоким разрешением;</p></li>
 <li><p>использовать модуль OpenLayers в QGIS;</p></li>
@@ -213,14 +212,14 @@
 </section>
 </section>
 <section id="get-the-data">
-<h2>Получение данных<a class="headerlink" href="#get-the-data" title="Ссылка на этот заголовок">¶</a></h2>
+<h2>Получение данных<a class="headerlink" href="#get-the-data" title="Permalink to this heading">¶</a></h2>
 <p>В этом уроке мы будем использовать великолепные снимки с воздушных змеев и шаров, сделанных <a class="reference external" href="http://publiclaboratory.org/archive">Общественной лабораторией</a>. Они также делают привязанные версии изображений, но мы возьмём непривязанное JPG изображение и пройдём процесс привязки в QGIS. Если вам нравятся предоставленные снимки, вы можете <a class="reference external" href="http://google-latlong.blogspot.in/2012/04/balloon-and-kite-imagery-in-google.html">посмотреть больше снимков</a> в Google Планета Земля.</p>
 <p>Загрузите JPG изображение <a class="reference external" href="http://publiclaboratory.org/map/washington-square-park-new-york-new-york/2012-10-01">Вашингтон-Сквер-парка в Нью-Йорке</a>. Вы можете щелкнуть правой кнопкой мыши на кнопке JPG и выбрать <span class="guilabel">Сохранить ссылку как…</span>.</p>
 <p>Для удобства, вы можете скачать копию набора данных по этой ссылке:</p>
 <p><a class="reference external" href="http://www.qgistutorials.com/downloads/newyorkcity-washingtonsquarepark.jpg">newyorkcity-washingtonsquarepark.jpg</a></p>
 </section>
 <section id="procedure">
-<h2>Методика<a class="headerlink" href="#procedure" title="Ссылка на этот заголовок">¶</a></h2>
+<h2>Методика<a class="headerlink" href="#procedure" title="Permalink to this heading">¶</a></h2>
 <ol class="arabic simple">
 <li><p>Для этого урока мы будем использовать слой OpenStreetMap в качестве опорного слоя. Установите модуль OpenLayers из меню <span class="menuselection">Модули ‣ Управление модулями…</span>. См. <a class="reference internal" href="using_plugins.html"><span class="doc">Использование модулей расширения</span></a> для получения дополнительной информации об использовании модулей в QGIS.</p></li>
 </ol>
@@ -335,8 +334,8 @@
     </p>
     <p>
         &copy; Copyright 2021, Ujaval Gandhi.<br/>
-      Обновлено: июн. 23, 2023.<br/>
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 4.0.1.<br/>
+      Обновлено: июл. 08, 2023.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 7.0.1.<br/>
     </p>
   </div>
 </footer>

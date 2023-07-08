@@ -3,15 +3,14 @@
 <html lang="es">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
     <title>Análisis de Puntos en Polígonos &#8212; QGIS Tutorials and Tips</title>
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../_static/bootstrap-sphinx.css" />
     <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
-    <script src="../_static/jquery.js"></script>
-    <script src="../_static/underscore.js"></script>
     <script src="../_static/doctools.js"></script>
+    <script src="../_static/sphinx_highlight.js"></script>
     <script src="../_static/translations.js"></script>
     <link rel="search" title="Búsqueda" href="../search.html" />
 
@@ -19,10 +18,10 @@
 <meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
 <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
 <meta name="apple-mobile-web-app-capable" content="yes">
-<script type="text/javascript" src="../_static/js/jquery-1.11.0.min.js "></script>
-<script type="text/javascript" src="../_static/js/jquery-fix.js "></script>
-<script type="text/javascript" src="../_static/bootstrap-3.3.7/js/bootstrap.min.js "></script>
-<script type="text/javascript" src="../_static/bootstrap-sphinx.js "></script>
+<script type="text/javascript" src="../_static/js/jquery-1.12.4.min.js"></script>
+<script type="text/javascript" src="../_static/js/jquery-fix.js"></script>
+<script type="text/javascript" src="../_static/bootstrap-3.4.1/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="../_static/bootstrap-sphinx.js"></script>
 
 
 <!-- Cookie Notice -->
@@ -51,7 +50,7 @@
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
         </button>
-        <a class="navbar-brand" href="../index.html"><span><img src="../_static/logo.png"></span>
+        <a class="navbar-brand" href="../index.html">
           QGIS Tutorials and Tips</a>
         <span class="navbar-text navbar-version pull-left"><b>v1</b></span>
       </div>
@@ -192,18 +191,18 @@
       
 
   <section id="points-in-polygon-analysis">
-<h1>Análisis de Puntos en Polígonos<a class="headerlink" href="#points-in-polygon-analysis" title="Enlazar permanentemente con este título">¶</a></h1>
+<h1>Análisis de Puntos en Polígonos<a class="headerlink" href="#points-in-polygon-analysis" title="Enlace permanente a este encabezado">¶</a></h1>
 <div class="admonition note">
 <p class="admonition-title">Nota</p>
 <p>En QGIS3, puedes realizar este análisis usando la herramienta <cite>Unir atributos por su ubicación (resumen)`</cite> en la Caja de Herramientas Procesamiento. Usa la capa polígono como la  <span class="guilabel">Capa de Entrada</span>, la capa punto como la <span class="guilabel">Capa de unión</span> y <code class="docutils literal notranslate"><span class="pre">count</span></code> como el <span class="guilabel">Resúmenes a calcular</span>. Vea el tutorial <a class="reference internal" href="3/performing_spatial_joins.html"><span class="doc">Realizar Uniones Espaciales (QGIS3)</span></a> para instrucciones paso a paso.</p>
 </div>
 <p>El poder del SIG reside en analizar múltiples fuentes de datos juntas. A menudo la respuesta que estás buscando reside en muchas capas diferentes y tu necesitas hacer algún análisis para extraer y compilar la información. Uno de estos tipos de análisis es <strong>Puntos-en-Polígono</strong>. Cuando tienes una capa polígono y una capa punto - y quieres saber cuantos o cuales puntos caen dentro de los límites de cada polígono, puedes usar este método de análisis.</p>
 <section id="overview-of-the-task">
-<h2>Vista general de la tarea<a class="headerlink" href="#overview-of-the-task" title="Enlazar permanentemente con este título">¶</a></h2>
+<h2>Vista general de la tarea<a class="headerlink" href="#overview-of-the-task" title="Enlace permanente a este encabezado">¶</a></h2>
 <p>Dadas la ubicaciones de todos los sismos significativos conocidos intentaremos descubrir qué país ha tenido el número más alto de sismos.</p>
 </section>
 <section id="get-the-data">
-<h2>Obtener los datos<a class="headerlink" href="#get-the-data" title="Enlazar permanentemente con este título">¶</a></h2>
+<h2>Obtener los datos<a class="headerlink" href="#get-the-data" title="Enlace permanente a este encabezado">¶</a></h2>
 <p>Usaremos la <a class="reference external" href="http://www.ngdc.noaa.gov/nndc/struts/form?t=101650&amp;s=1&amp;d=1">Base de Datos de Sismos Significativos</a> del National Geophysical Data Center de NOAA como nuestra capa que representa todos los sismos principales. Descargue los <a class="reference external" href="http://www.ngdc.noaa.gov/nndc/struts/results?type_0=Exact&amp;query_0=$ID&amp;t=101650&amp;s=13&amp;d=189&amp;dfn=signif.txt">datos de sismos delimitados por tabulaciones</a>.</p>
 <p>Natural Earth tiene un conjunto de datos <a class="reference external" href="http://www.naturalearthdata.com/downloads/10m-cultural-vectors/">Admin 0 - Países</a>. Descargue los <a class="reference external" href="http://www.naturalearthdata.com/http//www.naturalearthdata.com/download/10m/cultural/ne_10m_admin_0_countries.zip">países</a></p>
 <p>Para su comodidad, puede descargar directamente una copia del conjunto de datos del siguiente enlace:</p>
@@ -212,7 +211,7 @@
 <p>Fuentes de Datos: <a class="reference internal" href="credits.html#ncei" id="id1"><span>[NCEI]</span></a>  <a class="reference internal" href="credits.html#naturalearth" id="id2"><span>[NATURALEARTH]</span></a></p>
 </section>
 <section id="procedure">
-<h2>Procedimiento<a class="headerlink" href="#procedure" title="Enlazar permanentemente con este título">¶</a></h2>
+<h2>Procedimiento<a class="headerlink" href="#procedure" title="Enlace permanente a este encabezado">¶</a></h2>
 <ol class="arabic simple">
 <li><p>Abra <span class="menuselection">Capa ‣ Agregar Capa de Texto Delimitado</span> y navegue al archivo descargado <code class="docutils literal notranslate"><span class="pre">signif.txt</span></code>.</p></li>
 </ol>
@@ -290,8 +289,8 @@
     </p>
     <p>
         &copy; Copyright 2021, Ujaval Gandhi.<br/>
-      Actualizado por última vez en jun. 23, 2023.<br/>
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 4.0.1.<br/>
+      Actualizado por última vez en jul 08, 2023.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 7.0.1.<br/>
     </p>
   </div>
 </footer>

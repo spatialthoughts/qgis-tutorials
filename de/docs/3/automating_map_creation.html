@@ -3,15 +3,14 @@
 <html lang="de">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
     <title>Automatisierung der Kartenerstellung mit dem Drucklayout Atlas (QGIS3) &#8212; QGIS Tutorials and Tips</title>
     <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-sphinx.css" />
     <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
-    <script src="../../_static/jquery.js"></script>
-    <script src="../../_static/underscore.js"></script>
     <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/sphinx_highlight.js"></script>
     <script src="../../_static/translations.js"></script>
     <link rel="search" title="Suche" href="../../search.html" />
     <link rel="next" title="Multi Criteria Overlay Analysis (QGIS3)" href="multi_criteria_overlay.html" />
@@ -21,10 +20,10 @@
 <meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
 <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
 <meta name="apple-mobile-web-app-capable" content="yes">
-<script type="text/javascript" src="../../_static/js/jquery-1.11.0.min.js "></script>
-<script type="text/javascript" src="../../_static/js/jquery-fix.js "></script>
-<script type="text/javascript" src="../../_static/bootstrap-3.3.7/js/bootstrap.min.js "></script>
-<script type="text/javascript" src="../../_static/bootstrap-sphinx.js "></script>
+<script type="text/javascript" src="../../_static/js/jquery-1.12.4.min.js"></script>
+<script type="text/javascript" src="../../_static/js/jquery-fix.js"></script>
+<script type="text/javascript" src="../../_static/bootstrap-3.4.1/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="../../_static/bootstrap-sphinx.js"></script>
 
 
 <!-- Cookie Notice -->
@@ -53,7 +52,7 @@
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
         </button>
-        <a class="navbar-brand" href="../../index.html"><span><img src="../../_static/logo.png"></span>
+        <a class="navbar-brand" href="../../index.html">
           QGIS Tutorials and Tips</a>
         <span class="navbar-text navbar-version pull-left"><b>v1</b></span>
       </div>
@@ -202,13 +201,13 @@
       
 
   <section id="automating-map-creation-with-print-layout-atlas-qgis3">
-<h1>Automatisierung der Kartenerstellung mit dem Drucklayout Atlas (QGIS3)<a class="headerlink" href="#automating-map-creation-with-print-layout-atlas-qgis3" title="Link zu dieser Überschrift">¶</a></h1>
+<h1>Automatisierung der Kartenerstellung mit dem Drucklayout Atlas (QGIS3)<a class="headerlink" href="#automating-map-creation-with-print-layout-atlas-qgis3" title="Permalink to this heading">¶</a></h1>
 <p>Wenn deine Einrichtung gedruckte Karten oder Online-Karten veröffentlicht, muss man oft viele Karten mit derselben Vorlage erstellen, oftmals bezogen auf eine Verwaltungseinheit oder ein Untersuchungsgebiet. Solche Karten manuell zu erstellen, kann viel Zeit in Anspruch nehmen. Wenn man die Karten zusätzlich häufig aktualisieren möchte, kann sich das zu einer lästigen Aufgabe auswachsen. In QGIS gibt es ein Tool <code class="docutils literal notranslate"><span class="pre">Atlas</span></code>, das bei der Erstellung und einfachen Veröffentlichung einer großen Anzahl an Karten verschiedener Regionen unterstützt. Wenn du mit dem grundlegenden Drucklayout noch nicht vertraut bist, sieh dir bitte folgende Anleitung an <a class="reference internal" href="../making_a_map.html"><span class="doc">Erstellen einer Karte</span></a>.</p>
 <section id="overview-of-the-task">
-<h2>Überbilck über die Aufgabe<a class="headerlink" href="#overview-of-the-task" title="Link zu dieser Überschrift">¶</a></h2>
+<h2>Überbilck über die Aufgabe<a class="headerlink" href="#overview-of-the-task" title="Permalink to this heading">¶</a></h2>
 <p>Diese Anleitung zeigt die Erstellung von Karten der Feuchtgebiete in allen Verwaltungseinheiten Hawaiis.</p>
 <section id="other-skills-you-will-learn">
-<h3>Weitere Fähigkeiten, die wir erlernen<a class="headerlink" href="#other-skills-you-will-learn" title="Link zu dieser Überschrift">¶</a></h3>
+<h3>Weitere Fähigkeiten, die wir erlernen<a class="headerlink" href="#other-skills-you-will-learn" title="Permalink to this heading">¶</a></h3>
 <ul class="simple">
 <li><p>Benutzung des Stils <code class="docutils literal notranslate"><span class="pre">Umgekehrte</span> <span class="pre">Polygone</span></code> um Flächen außerhalb von Polygonen zu füllen.</p></li>
 <li><p>Schreiben eines Ausdrucks in der <code class="docutils literal notranslate"><span class="pre">Regelbasierenden</span></code> Symbolisierung, um nur das aktuelle Feature im Atlas anzuzeigen.</p></li>
@@ -218,7 +217,7 @@
 </section>
 </section>
 <section id="get-the-data">
-<h2>Beschaffung der Daten<a class="headerlink" href="#get-the-data" title="Link zu dieser Überschrift">¶</a></h2>
+<h2>Beschaffung der Daten<a class="headerlink" href="#get-the-data" title="Permalink to this heading">¶</a></h2>
 <p>Wir werden folgende Daten verwenden: <a class="reference external" href="http://planning.hawaii.gov/gis/download-gis-data/">GIS Data Layers</a> from <a class="reference external" href="http://planning.hawaii.gov/">State of Hawaii - Office of Planning</a></p>
 <p>Lade den Layer <a class="reference external" href="http://files.hawaii.gov/dbedt/op/gis/data/HI_Wetlands.shp.zip">Wetlands</a> aus der Kategorie Biologic and Ecologic herunter.</p>
 <p>Lade den Layer <a class="reference external" href="http://files.hawaii.gov/dbedt/op/gis/data/county10.shp.zip">Census County Boundaries 2010</a> aus der Kategorie Cultural and Demographic herunter.</p>
@@ -228,7 +227,7 @@
 <p>Datenquelle <a class="reference internal" href="../credits.html#hawaii" id="id1"><span>[HAWAII]</span></a></p>
 </section>
 <section id="procedure">
-<h2>Arbeitsablauf<a class="headerlink" href="#procedure" title="Link zu dieser Überschrift">¶</a></h2>
+<h2>Arbeitsablauf<a class="headerlink" href="#procedure" title="Permalink to this heading">¶</a></h2>
 <ol class="arabic simple">
 <li><p>Gehe zum Datensatz <code class="docutils literal notranslate"><span class="pre">HI_Wetlands.shp.zip</span></code> im QGIS Browser und erweitere ihn. Wähle die Datei <code class="docutils literal notranslate"><span class="pre">HI_Wetlands_Poly.shp</span></code> und ziehe sie in den Arbeitsbereich. Dieser Layer enthält die Polygone der Feuchtgebiete des gesamten Bundesstaates Hawaii.</p></li>
 </ol>
@@ -435,8 +434,8 @@
     </p>
     <p>
         &copy; Copyright 2021, Ujaval Gandhi.<br/>
-      Zuletzt aktualisiert am Juni 23, 2023.<br/>
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 4.0.1.<br/>
+      Zuletzt aktualisiert am Juli 08, 2023.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 7.0.1.<br/>
     </p>
   </div>
 </footer>

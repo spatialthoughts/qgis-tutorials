@@ -3,15 +3,14 @@
 <html lang="es">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
     <title>Georeferenciar Hojas Topográficas y Mapas Escaneados (QGIS3) &#8212; QGIS Tutorials and Tips</title>
     <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-sphinx.css" />
     <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
-    <script src="../../_static/jquery.js"></script>
-    <script src="../../_static/underscore.js"></script>
     <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/sphinx_highlight.js"></script>
     <script src="../../_static/translations.js"></script>
     <link rel="search" title="Búsqueda" href="../../search.html" />
     <link rel="next" title="Georeferenciar Imágenes Aéreas (QGIS3)" href="advanced_georeferencing.html" />
@@ -21,10 +20,10 @@
 <meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
 <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
 <meta name="apple-mobile-web-app-capable" content="yes">
-<script type="text/javascript" src="../../_static/js/jquery-1.11.0.min.js "></script>
-<script type="text/javascript" src="../../_static/js/jquery-fix.js "></script>
-<script type="text/javascript" src="../../_static/bootstrap-3.3.7/js/bootstrap.min.js "></script>
-<script type="text/javascript" src="../../_static/bootstrap-sphinx.js "></script>
+<script type="text/javascript" src="../../_static/js/jquery-1.12.4.min.js"></script>
+<script type="text/javascript" src="../../_static/js/jquery-fix.js"></script>
+<script type="text/javascript" src="../../_static/bootstrap-3.4.1/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="../../_static/bootstrap-sphinx.js"></script>
 
 
 <!-- Cookie Notice -->
@@ -53,7 +52,7 @@
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
         </button>
-        <a class="navbar-brand" href="../../index.html"><span><img src="../../_static/logo.png"></span>
+        <a class="navbar-brand" href="../../index.html">
           QGIS Tutorials and Tips</a>
         <span class="navbar-text navbar-version pull-left"><b>v1</b></span>
       </div>
@@ -202,14 +201,14 @@
       
 
   <section id="georeferencing-topo-sheets-and-scanned-maps-qgis3">
-<h1>Georeferenciar Hojas Topográficas y Mapas Escaneados (QGIS3)<a class="headerlink" href="#georeferencing-topo-sheets-and-scanned-maps-qgis3" title="Enlazar permanentemente con este título">¶</a></h1>
+<h1>Georeferenciar Hojas Topográficas y Mapas Escaneados (QGIS3)<a class="headerlink" href="#georeferencing-topo-sheets-and-scanned-maps-qgis3" title="Enlace permanente a este encabezado">¶</a></h1>
 <p>La mayoría de los proyectos SIG requiere la georeferenciación de algunos datos raster. La <em>georeferenciación</em> es el proceso de asignar coordenadas del mundo real a cada píxel del raster. Muchas veces estas coordenadas son obtenidas haciendo estudios de campo - colectando coordenadas con un dispositivo GPS para unas pocas entidades fácilmente identificables en la imagen o mapa. En algunos casos, donde buscas digitalizar mapas escaneados, puedes obtener las coordenadas de las marcad en la misma imagen del mapa. Usando estas coordenadas de muestra o PCTs (Puntos de Control del Terreno), la imagen es ajustada y se la hace coincidir dentro del sistema de coordenada elegido. En este tutorial discutiré los conceptos, estrategias y herramientas dentro de QGIS para alcanzar una georeferenciación de alta exactitud.</p>
 <p>Este tutorial es para georeferenciar una imagen que tiene información de coordenadas disponible en la misma imagen del mapa (i.e., cuadrículas con etiquetas). Si su imagen fuente no tiene tal información, puede usar el método bosquejado en <a class="reference internal" href="advanced_georeferencing.html"><span class="doc">Georeferenciar Imágenes Aéreas (QGIS3)</span></a></p>
 <section id="overview-of-the-task">
-<h2>Vista general de la tarea<a class="headerlink" href="#overview-of-the-task" title="Enlazar permanentemente con este título">¶</a></h2>
+<h2>Vista general de la tarea<a class="headerlink" href="#overview-of-the-task" title="Enlace permanente a este encabezado">¶</a></h2>
 <p>Usaremos un mapa escaneado del sur de la India de 1870 y lo georeferenciaremos usando QGIS.</p>
 <section id="other-skills-you-will-learn">
-<h3>Otras habilidades que aprenderá<a class="headerlink" href="#other-skills-you-will-learn" title="Enlazar permanentemente con este título">¶</a></h3>
+<h3>Otras habilidades que aprenderá<a class="headerlink" href="#other-skills-you-will-learn" title="Enlace permanente a este encabezado">¶</a></h3>
 <ul class="simple">
 <li><p>Como determinar el datum y sistema de coordenada para mapas antiguos.</p></li>
 <li><p>Guarde el PCT creado.</p></li>
@@ -218,14 +217,14 @@
 </section>
 </section>
 <section id="get-the-data">
-<h2>Obtener los datos<a class="headerlink" href="#get-the-data" title="Enlazar permanentemente con este título">¶</a></h2>
+<h2>Obtener los datos<a class="headerlink" href="#get-the-data" title="Enlace permanente a este encabezado">¶</a></h2>
 <p>El sitio web <a class="reference external" href="http://www.hipkiss.org/data/maps.html">Hipkiss’s Scanned Old Maps</a> tiene una excelente colección de mapas escaneados sin derechos reservados que uno puede usar para investigación.</p>
 <p>Descargue el <a class="reference external" href="http://www.hipkiss.org/data/maps/william-mackenzie_gallery-of-geography_1870_southern-india_3975_3071_600.jpg">mapa 1870 del sur de la India</a> y guárdelo como una imagen JPG en su disco duro.</p>
 <p>Para su comodidad, puede descargar directamente una copia del conjunto de datos del siguiente enlace:</p>
 <p><a class="reference external" href="https://www.qgistutorials.com/downloads/1870_southern-india.jpg">1870_southern_india.jpg</a></p>
 </section>
 <section id="procedure">
-<h2>Procedimiento<a class="headerlink" href="#procedure" title="Enlazar permanentemente con este título">¶</a></h2>
+<h2>Procedimiento<a class="headerlink" href="#procedure" title="Enlace permanente a este encabezado">¶</a></h2>
 <ol class="arabic simple">
 <li><p>Abra QGIS y haga clic en <span class="menuselection">Raster ‣ Georeferenciador</span> para abrir la herramienta.</p></li>
 </ol>
@@ -378,8 +377,8 @@
     </p>
     <p>
         &copy; Copyright 2021, Ujaval Gandhi.<br/>
-      Actualizado por última vez en jun. 23, 2023.<br/>
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 4.0.1.<br/>
+      Actualizado por última vez en jul 08, 2023.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 7.0.1.<br/>
     </p>
   </div>
 </footer>

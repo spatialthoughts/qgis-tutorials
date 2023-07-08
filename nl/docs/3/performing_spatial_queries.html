@@ -3,15 +3,14 @@
 <html lang="nl">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
     <title>Ruimtelijke query’s uitvoeren (QGIS3) &#8212; QGIS Tutorials and Tips</title>
     <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-sphinx.css" />
     <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
-    <script src="../../_static/jquery.js"></script>
-    <script src="../../_static/underscore.js"></script>
     <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/sphinx_highlight.js"></script>
     <script src="../../_static/translations.js"></script>
     <link rel="search" title="Zoeken" href="../../search.html" />
     <link rel="next" title="Analyse Nearest Neighbor (QGIS3)" href="nearest_neighbor_analysis.html" />
@@ -21,10 +20,10 @@
 <meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
 <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
 <meta name="apple-mobile-web-app-capable" content="yes">
-<script type="text/javascript" src="../../_static/js/jquery-1.11.0.min.js "></script>
-<script type="text/javascript" src="../../_static/js/jquery-fix.js "></script>
-<script type="text/javascript" src="../../_static/bootstrap-3.3.7/js/bootstrap.min.js "></script>
-<script type="text/javascript" src="../../_static/bootstrap-sphinx.js "></script>
+<script type="text/javascript" src="../../_static/js/jquery-1.12.4.min.js"></script>
+<script type="text/javascript" src="../../_static/js/jquery-fix.js"></script>
+<script type="text/javascript" src="../../_static/bootstrap-3.4.1/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="../../_static/bootstrap-sphinx.js"></script>
 
 
 <!-- Cookie Notice -->
@@ -53,7 +52,7 @@
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
         </button>
-        <a class="navbar-brand" href="../../index.html"><span><img src="../../_static/logo.png"></span>
+        <a class="navbar-brand" href="../../index.html">
           QGIS Tutorials and Tips</a>
         <span class="navbar-text navbar-version pull-left"><b>v1</b></span>
       </div>
@@ -202,13 +201,13 @@
       
 
   <section id="performing-spatial-queries-qgis3">
-<h1>Ruimtelijke query’s uitvoeren (QGIS3)<a class="headerlink" href="#performing-spatial-queries-qgis3" title="Permalink naar deze titel">¶</a></h1>
+<h1>Ruimtelijke query’s uitvoeren (QGIS3)<a class="headerlink" href="#performing-spatial-queries-qgis3" title="Permalink to this heading">¶</a></h1>
 <p>Ruimtelijke query’s zijn belangrijk voor vele typen van GIS-analyses. Ruimtelijke query’s stellen u in staat objecten op een laag te selecteren op hun ruimtelijke relaties (kruisen met, bevatten, raken etc.) met objecten uit een andere laag. In QGIS is deze functionaliteit beschikbaar via de gereedschappen van Processing <strong>Selecteren op plaats</strong> en <strong>Extract by Location</strong>.</p>
 <section id="overview-of-the-task">
-<h2>Overzicht van de taak<a class="headerlink" href="#overview-of-the-task" title="Permalink naar deze titel">¶</a></h2>
+<h2>Overzicht van de taak<a class="headerlink" href="#overview-of-the-task" title="Permalink to this heading">¶</a></h2>
 <p>We zullen werken met 2 gegevenslagen voor de stad Melbourne, Australië. Gegeven de gegevenslagen voor de pubs en bars in de stad en de locaties van alle metrostations, willen we alle bars en pubs binnen 500 meter van een metrostation vinden.</p>
 <section id="other-skills-you-will-learn">
-<h3>Andere vaardigheden die u zult leren<a class="headerlink" href="#other-skills-you-will-learn" title="Permalink naar deze titel">¶</a></h3>
+<h3>Andere vaardigheden die u zult leren<a class="headerlink" href="#other-skills-you-will-learn" title="Permalink to this heading">¶</a></h3>
 <ul class="simple">
 <li><p>Een toepasselijke projectie kiezen en vectorgegevens opnieuw projecteren.</p></li>
 <li><p>Buffers maken.</p></li>
@@ -217,7 +216,7 @@
 </section>
 </section>
 <section id="get-the-data">
-<h2>De gegevens ophalen<a class="headerlink" href="#get-the-data" title="Permalink naar deze titel">¶</a></h2>
+<h2>De gegevens ophalen<a class="headerlink" href="#get-the-data" title="Permalink to this heading">¶</a></h2>
 <p>City of Melbourne’s <a class="reference external" href="https://data.melbourne.vic.gov.au/">Open Data Platform</a> verschaft veel gegevenssets die al klaar zijn voor GIS voor de stad.</p>
 <p>Download de <a class="reference external" href="https://data.melbourne.vic.gov.au/Transport-Movement/Metro-Train-Stations-with-Accessibility-Informatio/mgkp-67ad">Metro Train Stations with Accessibility Information</a> gegevensset van Metro Trains Melbourne. Exporteer de gegevens in de indeling <em>Original</em>.</p>
 <img alt="../../_images/data110.png" class="align-center" src="../../_images/data110.png" />
@@ -229,7 +228,7 @@
 <p>Gegevensbron: <a class="reference internal" href="../credits.html#cityofmelbourne" id="id2"><span>[CITYOFMELBOURNE]</span></a></p>
 </section>
 <section id="procedure">
-<h2>Procedure<a class="headerlink" href="#procedure" title="Permalink naar deze titel">¶</a></h2>
+<h2>Procedure<a class="headerlink" href="#procedure" title="Permalink to this heading">¶</a></h2>
 <ol class="arabic simple">
 <li><p>Zoek in de QGIS Browser naar het bestand <code class="docutils literal notranslate"><span class="pre">metro_stations_accessbility.zip</span></code>  en vergroot het. Selecteer het bestand <code class="docutils literal notranslate"><span class="pre">metro_stations_accessbility.shp</span></code> en sleep het naar het kaartvenster. Een nieuwe laag <code class="docutils literal notranslate"><span class="pre">metro_stations_accessbility</span></code> zal worden geladen in het paneel <span class="guilabel">Lagen</span>.</p></li>
 </ol>
@@ -371,8 +370,8 @@
     </p>
     <p>
         &copy; Copyright 2021, Ujaval Gandhi.<br/>
-      Laatste aanpassing op jun. 23, 2023.<br/>
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 4.0.1.<br/>
+      Laatste aanpassing op jul 08, 2023.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 7.0.1.<br/>
     </p>
   </div>
 </footer>

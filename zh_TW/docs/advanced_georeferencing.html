@@ -3,15 +3,14 @@
 <html lang="zh_TW">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
     <title>為空照圖進行空間對位 &#8212; QGIS Tutorials and Tips</title>
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../_static/bootstrap-sphinx.css" />
     <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
-    <script src="../_static/jquery.js"></script>
-    <script src="../_static/underscore.js"></script>
     <script src="../_static/doctools.js"></script>
+    <script src="../_static/sphinx_highlight.js"></script>
     <script src="../_static/translations.js"></script>
     <link rel="search" title="搜尋" href="../search.html" />
 
@@ -19,10 +18,10 @@
 <meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
 <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
 <meta name="apple-mobile-web-app-capable" content="yes">
-<script type="text/javascript" src="../_static/js/jquery-1.11.0.min.js "></script>
-<script type="text/javascript" src="../_static/js/jquery-fix.js "></script>
-<script type="text/javascript" src="../_static/bootstrap-3.3.7/js/bootstrap.min.js "></script>
-<script type="text/javascript" src="../_static/bootstrap-sphinx.js "></script>
+<script type="text/javascript" src="../_static/js/jquery-1.12.4.min.js"></script>
+<script type="text/javascript" src="../_static/js/jquery-fix.js"></script>
+<script type="text/javascript" src="../_static/bootstrap-3.4.1/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="../_static/bootstrap-sphinx.js"></script>
 
 
 <!-- Cookie Notice -->
@@ -51,7 +50,7 @@
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
         </button>
-        <a class="navbar-brand" href="../index.html"><span><img src="../_static/logo.png"></span>
+        <a class="navbar-brand" href="../index.html">
           QGIS Tutorials and Tips</a>
         <span class="navbar-text navbar-version pull-left"><b>v1</b></span>
       </div>
@@ -192,17 +191,17 @@
       
 
   <section id="georeferencing-aerial-imagery">
-<h1>為空照圖進行空間對位<a class="headerlink" href="#georeferencing-aerial-imagery" title="本標題的永久連結">¶</a></h1>
+<h1>為空照圖進行空間對位<a class="headerlink" href="#georeferencing-aerial-imagery" title="本標頭的永久連結">¶</a></h1>
 <div class="admonition warning">
 <p class="admonition-title">警告</p>
 <p>本教學已經過時，如需閱讀新的版本請前往 <a class="reference internal" href="3/advanced_georeferencing.html"><span class="doc">為空照圖進行空間對位 (QGIS3)</span></a>。</p>
 </div>
 <p>在<a class="reference internal" href="georeferencing_basics.html"><span class="doc">為紙本地圖進行空間對位</span></a>教學中，我們介紹了一種 QGIS 中進行空間對位的方法。這種方法可運用在掃描版地圖上，我們可以尋找地圖上的座標點當作控制點。但有的時候，地圖上會沒有這種網格點，又或是你要為影像進行空間對位，這方法也行不通。在這種情況下，我們可以使用其他的空間對位資料來源來當作輸入。本教學中，我們會學習如何在空間對位的操作中使用這些開放的資料來源。</p>
 <section id="overview-of-the-task">
-<h2>內容說明<a class="headerlink" href="#overview-of-the-task" title="本標題的永久連結">¶</a></h2>
+<h2>內容說明<a class="headerlink" href="#overview-of-the-task" title="本標頭的永久連結">¶</a></h2>
 <p>我們要使用高解析度的氣球影像（Balloon-imagery），以 OpenStreetMap 的參考座標進行空間對位。</p>
 <section id="other-skills-you-will-learn">
-<h3>你還會學到這些<a class="headerlink" href="#other-skills-you-will-learn" title="本標題的永久連結">¶</a></h3>
+<h3>你還會學到這些<a class="headerlink" href="#other-skills-you-will-learn" title="本標頭的永久連結">¶</a></h3>
 <ul class="simple">
 <li><p>下載超高解析度的公領域影像資料</p></li>
 <li><p>在 QGIS 中使用 OpenLayers 附加元件</p></li>
@@ -213,7 +212,7 @@
 </section>
 </section>
 <section id="get-the-data">
-<h2>取得資料<a class="headerlink" href="#get-the-data" title="本標題的永久連結">¶</a></h2>
+<h2>取得資料<a class="headerlink" href="#get-the-data" title="本標頭的永久連結">¶</a></h2>
 <p>本教學中，我們要使用 <a class="reference external" href="http://publiclaboratory.org/archive">The Public Laboratory</a> 收集的一系列絕美的氣球、風箏空拍影像。他們其實也有釋出空間對位過的版本，不過為了練習，我們在這裡要下載的是未經空間對位的 JPG 檔，然後再於 QGIS 中進行空間對位。如果你喜歡他們提供的影像，可以在 <a class="reference external" href="http://google-latlong.blogspot.in/2012/04/balloon-and-kite-imagery-in-google.html">Google Earth</a> 中進一步探索。</p>
 <p>下載<a class="reference external" href="http://publiclaboratory.org/map/washington-square-park-new-york-new-york/2012-10-01">紐約市 Washington Square Park</a> 的 JPG 影像。你可以直接在 JPG 的按鈕上按右鍵然後選 <span class="guilabel">Save link as…</span>。</p>
 <p>為了方便起見，你也可以直接用下面的連結下載：</p>
@@ -221,7 +220,7 @@
 <a class="reference external" href="http://www.qgistutorials.com/downloads/newyorkcity-washingtonsquarepark.jpg">newyorkcity-washingtonsquarepark.jpg</a></p>
 </section>
 <section id="procedure">
-<h2>操作流程<a class="headerlink" href="#procedure" title="本標題的永久連結">¶</a></h2>
+<h2>操作流程<a class="headerlink" href="#procedure" title="本標頭的永久連結">¶</a></h2>
 <ol class="arabic simple">
 <li><p>本教學會使用開放街圖來當作參考圖層。請到 <span class="menuselection">附加元件 ‣ 管理與安裝附加元件</span> 中安裝 OpenLayers Plugin。有關在 QGIS 中如何使用附加元件，可參考 <a class="reference internal" href="using_plugins.html"><span class="doc">使用附加元件</span></a>。</p></li>
 </ol>
@@ -336,8 +335,8 @@
     </p>
     <p>
         &copy; Copyright 2021, Ujaval Gandhi.<br/>
-      最後更新於 6月 23, 2023。<br/>
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 4.0.1.<br/>
+      最後更新於 7月 08, 2023。<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 7.0.1.<br/>
     </p>
   </div>
 </footer>

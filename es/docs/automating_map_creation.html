@@ -3,15 +3,14 @@
 <html lang="es">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
     <title>Automatizar la Creación de Mapa con el Atlas Compositor de Impresión &#8212; QGIS Tutorials and Tips</title>
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../_static/bootstrap-sphinx.css" />
     <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
-    <script src="../_static/jquery.js"></script>
-    <script src="../_static/underscore.js"></script>
     <script src="../_static/doctools.js"></script>
+    <script src="../_static/sphinx_highlight.js"></script>
     <script src="../_static/translations.js"></script>
     <link rel="search" title="Búsqueda" href="../search.html" />
 
@@ -19,10 +18,10 @@
 <meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
 <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
 <meta name="apple-mobile-web-app-capable" content="yes">
-<script type="text/javascript" src="../_static/js/jquery-1.11.0.min.js "></script>
-<script type="text/javascript" src="../_static/js/jquery-fix.js "></script>
-<script type="text/javascript" src="../_static/bootstrap-3.3.7/js/bootstrap.min.js "></script>
-<script type="text/javascript" src="../_static/bootstrap-sphinx.js "></script>
+<script type="text/javascript" src="../_static/js/jquery-1.12.4.min.js"></script>
+<script type="text/javascript" src="../_static/js/jquery-fix.js"></script>
+<script type="text/javascript" src="../_static/bootstrap-3.4.1/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="../_static/bootstrap-sphinx.js"></script>
 
 
 <!-- Cookie Notice -->
@@ -51,7 +50,7 @@
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
         </button>
-        <a class="navbar-brand" href="../index.html"><span><img src="../_static/logo.png"></span>
+        <a class="navbar-brand" href="../index.html">
           QGIS Tutorials and Tips</a>
         <span class="navbar-text navbar-version pull-left"><b>v1</b></span>
       </div>
@@ -192,17 +191,17 @@
       
 
   <section id="automating-map-creation-with-print-composer-atlas">
-<h1>Automatizar la Creación de Mapa con el Atlas Compositor de Impresión<a class="headerlink" href="#automating-map-creation-with-print-composer-atlas" title="Enlazar permanentemente con este título">¶</a></h1>
+<h1>Automatizar la Creación de Mapa con el Atlas Compositor de Impresión<a class="headerlink" href="#automating-map-creation-with-print-composer-atlas" title="Enlace permanente a este encabezado">¶</a></h1>
 <div class="admonition warning">
 <p class="admonition-title">Advertencia</p>
 <p>Una nueva versión de este tutorial está disponible en <a class="reference internal" href="3/automating_map_creation.html"><span class="doc">Automatización de la creación de mapas con el Atlas de diseñador de impresiones  (QGIS3)</span></a></p>
 </div>
 <p>Si su organización publica mapas impresos o en-línea, puede a menudo necesitar crear varios mapas con la misma plantilla - usualmente una por cada unidad administrativa o una región de interés. Crear estos mapas manualmente puede tomar largo tiempo y si quiere actualizarlos regularmente, puede convertirse en un tedio. QGIS tiene una herramienta llamada <code class="docutils literal notranslate"><span class="pre">Atlas</span></code> que puede ayudarle a crear una plantilla de mapa y publicar un gran número de mapas para diferentes regiones geográficas. Si no está familiarizado con lo básico del Diseñador de Impresión, por favor vaya al tutorial <a class="reference internal" href="making_a_map.html"><span class="doc">Creando un Mapa</span></a>.</p>
 <section id="overview-of-the-task">
-<h2>Vista general de la tarea<a class="headerlink" href="#overview-of-the-task" title="Enlazar permanentemente con este título">¶</a></h2>
+<h2>Vista general de la tarea<a class="headerlink" href="#overview-of-the-task" title="Enlace permanente a este encabezado">¶</a></h2>
 <p>Este tutorial muestra como crear un mapa de humedales para cada condado del estado de Hawaii.</p>
 <section id="other-skills-you-will-learn">
-<h3>Otras habilidades que aprenderá<a class="headerlink" href="#other-skills-you-will-learn" title="Enlazar permanentemente con este título">¶</a></h3>
+<h3>Otras habilidades que aprenderá<a class="headerlink" href="#other-skills-you-will-learn" title="Enlace permanente a este encabezado">¶</a></h3>
 <ul class="simple">
 <li><p>Como usar el representador de estilo <code class="docutils literal notranslate"><span class="pre">Polígonos</span> <span class="pre">Invertidos</span></code> para llenar áreas fuera de los polígonos.</p></li>
 <li><p>Como usar una expresión en el representador de estilo <code class="docutils literal notranslate"><span class="pre">Basado</span> <span class="pre">en</span> <span class="pre">regla</span></code> para mostrar sólo la entidad actual en el Atlas.</p></li>
@@ -211,7 +210,7 @@
 </section>
 </section>
 <section id="get-the-data">
-<h2>Conseguir los datos<a class="headerlink" href="#get-the-data" title="Enlazar permanentemente con este título">¶</a></h2>
+<h2>Conseguir los datos<a class="headerlink" href="#get-the-data" title="Enlace permanente a este encabezado">¶</a></h2>
 <p>Usaremos las <a class="reference external" href="http://planning.hawaii.gov/gis/download-gis-data/">Capas de Datos SIG</a> del <a class="reference external" href="http://planning.hawaii.gov/">Estado de Hawaii - Oficina de Planificación</a></p>
 <p>Descargue la capa <a class="reference external" href="http://files.hawaii.gov/dbedt/op/gis/data/HI_Wetlands.shp.zip">Humedales</a> de la categoría Biológica y Ecológica.</p>
 <p>Descargue la capa <a class="reference external" href="http://files.hawaii.gov/dbedt/op/gis/data/county10.shp.zip">Límites de Condado del Censo 2010</a> de la categoría Cultural y Demográfica.</p>
@@ -221,7 +220,7 @@
 <p>Fuente de Datos <a class="reference internal" href="credits.html#hawaii" id="id1"><span>[HAWAII]</span></a></p>
 </section>
 <section id="procedure">
-<h2>Procedimiento<a class="headerlink" href="#procedure" title="Enlazar permanentemente con este título">¶</a></h2>
+<h2>Procedimiento<a class="headerlink" href="#procedure" title="Enlace permanente a este encabezado">¶</a></h2>
 <ol class="arabic simple">
 <li><p>Inicie QGIS y vaya a <span class="menuselection">Capa ‣ Agregar Capa ‣ Agregar Capa Vectorial</span>.</p></li>
 </ol>
@@ -399,8 +398,8 @@
     </p>
     <p>
         &copy; Copyright 2021, Ujaval Gandhi.<br/>
-      Actualizado por última vez en jun. 23, 2023.<br/>
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 4.0.1.<br/>
+      Actualizado por última vez en jul 08, 2023.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 7.0.1.<br/>
     </p>
   </div>
 </footer>

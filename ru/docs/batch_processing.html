@@ -3,15 +3,14 @@
 <html lang="ru">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
     <title>Batch Processing using Processing Framework (QGIS2) &#8212; QGIS Tutorials and Tips</title>
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../_static/bootstrap-sphinx.css" />
     <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
-    <script src="../_static/jquery.js"></script>
-    <script src="../_static/underscore.js"></script>
     <script src="../_static/doctools.js"></script>
+    <script src="../_static/sphinx_highlight.js"></script>
     <script src="../_static/translations.js"></script>
     <link rel="search" title="Поиск" href="../search.html" />
     <link rel="prev" title="Источники данных" href="credits.html" />
@@ -20,10 +19,10 @@
 <meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
 <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
 <meta name="apple-mobile-web-app-capable" content="yes">
-<script type="text/javascript" src="../_static/js/jquery-1.11.0.min.js "></script>
-<script type="text/javascript" src="../_static/js/jquery-fix.js "></script>
-<script type="text/javascript" src="../_static/bootstrap-3.3.7/js/bootstrap.min.js "></script>
-<script type="text/javascript" src="../_static/bootstrap-sphinx.js "></script>
+<script type="text/javascript" src="../_static/js/jquery-1.12.4.min.js"></script>
+<script type="text/javascript" src="../_static/js/jquery-fix.js"></script>
+<script type="text/javascript" src="../_static/bootstrap-3.4.1/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="../_static/bootstrap-sphinx.js"></script>
 
 
 <!-- Cookie Notice -->
@@ -52,7 +51,7 @@
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
         </button>
-        <a class="navbar-brand" href="../index.html"><span><img src="../_static/logo.png"></span>
+        <a class="navbar-brand" href="../index.html">
           QGIS Tutorials and Tips</a>
         <span class="navbar-text navbar-version pull-left"><b>v1</b></span>
       </div>
@@ -197,24 +196,24 @@
       
 
   <section id="batch-processing-using-processing-framework-qgis2">
-<h1>Batch Processing using Processing Framework (QGIS2)<a class="headerlink" href="#batch-processing-using-processing-framework-qgis2" title="Ссылка на этот заголовок">¶</a></h1>
+<h1>Batch Processing using Processing Framework (QGIS2)<a class="headerlink" href="#batch-processing-using-processing-framework-qgis2" title="Permalink to this heading">¶</a></h1>
 <div class="admonition warning">
 <p class="admonition-title">Предупреждение</p>
 <p>A new version of this tutorial is available at <a class="reference internal" href="3/batch_processing.html"><span class="doc">Batch Processing using Processing Framework (QGIS3)</span></a></p>
 </div>
 <p>QGIS 2.0 представляет новую концепцию: <strong>Среда обработки</strong>. Ранее известная как <strong>Секстанта</strong>, Среда обработки предоставляет среду QGIS, которая может выполнять алгоритмы обработки данных. Она содержит удобный интерфес, исполняющий пакетные файлы и позволяющий легко использовать алгоритмы на несколько слоёв. Пакетные файлы полезны, если Вы хотите автоматизировать повторяющиеся задачи.</p>
 <section id="overview-of-the-task">
-<h2>Обзор задачи<a class="headerlink" href="#overview-of-the-task" title="Ссылка на этот заголовок">¶</a></h2>
+<h2>Обзор задачи<a class="headerlink" href="#overview-of-the-task" title="Permalink to this heading">¶</a></h2>
 <p>Мы возьмём несколько глобальных векторных слоёв и обрежем их до Африки одним пакетным файлом.</p>
 <section id="other-skills-you-will-learn">
-<h3>Вы научитесь также<a class="headerlink" href="#other-skills-you-will-learn" title="Ссылка на этот заголовок">¶</a></h3>
+<h3>Вы научитесь также<a class="headerlink" href="#other-skills-you-will-learn" title="Permalink to this heading">¶</a></h3>
 <ul class="simple">
 <li><p>Соединять полигоны одного слоя с одинаковым атрибутом.</p></li>
 </ul>
 </section>
 </section>
 <section id="get-the-data">
-<h2>Получение данных<a class="headerlink" href="#get-the-data" title="Ссылка на этот заголовок">¶</a></h2>
+<h2>Получение данных<a class="headerlink" href="#get-the-data" title="Permalink to this heading">¶</a></h2>
 <p><a class="reference external" href="http://naturalearthdata.com">Natural Earth</a> имеет несколько глобальных векторных слоёв. Скачайте следующие слои:</p>
 <ul class="simple">
 <li><p><a class="reference external" href="http://www.naturalearthdata.com/http//www.naturalearthdata.com/download/10m/cultural/ne_10m_admin_0_countries.zip">Admin 0 - Страны</a></p></li>
@@ -227,7 +226,7 @@
 <p>Источник данных: <a class="reference internal" href="credits.html#naturalearth" id="id1"><span>[NATURALEARTH]</span></a></p>
 </section>
 <section id="procedure">
-<h2>Методика<a class="headerlink" href="#procedure" title="Ссылка на этот заголовок">¶</a></h2>
+<h2>Методика<a class="headerlink" href="#procedure" title="Permalink to this heading">¶</a></h2>
 <ol class="arabic simple">
 <li><p>Перейдите в <span class="menuselection">Слой ‣ Добавить векторный слой</span>.</p></li>
 </ol>
@@ -330,8 +329,8 @@ filename as <code class="docutils literal notranslate"><span class="pre">clipped
     </p>
     <p>
         &copy; Copyright 2021, Ujaval Gandhi.<br/>
-      Обновлено: июн. 23, 2023.<br/>
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 4.0.1.<br/>
+      Обновлено: июл. 08, 2023.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 7.0.1.<br/>
     </p>
   </div>
 </footer>

@@ -3,15 +3,14 @@
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
     <title>Multi Criteria Overlay Analysis (QGIS3) &#8212; QGIS Tutorials and Tips</title>
     <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-sphinx.css" />
     <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
-    <script src="../../_static/jquery.js"></script>
-    <script src="../../_static/underscore.js"></script>
     <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/sphinx_highlight.js"></script>
     <link rel="search" title="Search" href="../../search.html" />
     <link rel="next" title="Basic Network Visualization and Routing (QGIS3)" href="basic_network_analysis.html" />
     <link rel="prev" title="Automating Map Creation with Print Layout Atlas (QGIS3)" href="automating_map_creation.html" />
@@ -20,10 +19,10 @@
 <meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
 <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
 <meta name="apple-mobile-web-app-capable" content="yes">
-<script type="text/javascript" src="../../_static/js/jquery-1.11.0.min.js "></script>
-<script type="text/javascript" src="../../_static/js/jquery-fix.js "></script>
-<script type="text/javascript" src="../../_static/bootstrap-3.3.7/js/bootstrap.min.js "></script>
-<script type="text/javascript" src="../../_static/bootstrap-sphinx.js "></script>
+<script type="text/javascript" src="../../_static/js/jquery-1.12.4.min.js"></script>
+<script type="text/javascript" src="../../_static/js/jquery-fix.js"></script>
+<script type="text/javascript" src="../../_static/bootstrap-3.4.1/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="../../_static/bootstrap-sphinx.js"></script>
 
 
 <!-- Cookie Notice -->
@@ -52,7 +51,7 @@
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
         </button>
-        <a class="navbar-brand" href="../../index.html"><span><img src="../../_static/logo.png"></span>
+        <a class="navbar-brand" href="../../index.html">
           QGIS Tutorials and Tips</a>
         <span class="navbar-text navbar-version pull-left"><b>v1</b></span>
       </div>
@@ -201,7 +200,7 @@
       
 
   <section id="multi-criteria-overlay-analysis-qgis3">
-<h1>Multi Criteria Overlay Analysis (QGIS3)<a class="headerlink" href="#multi-criteria-overlay-analysis-qgis3" title="Permalink to this headline">¶</a></h1>
+<h1>Multi Criteria Overlay Analysis (QGIS3)<a class="headerlink" href="#multi-criteria-overlay-analysis-qgis3" title="Permalink to this heading">¶</a></h1>
 <p>Multi-criteria weighted-overlay analysis is the process of the allocating areas on the basis of a variety of attributes that the selected areas should possess. Although this is a common GIS operation, it is best performed in the raster space using a grid-based approach.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
@@ -211,7 +210,7 @@
 </div>
 <p>This tutorial goes through the typical workflow for performing a site-suitability analysis - converting source vector data to appropriate rasters, re-classify them and perform mathematical operations.</p>
 <section id="overview-of-the-task">
-<h2>Overview of the task<a class="headerlink" href="#overview-of-the-task" title="Permalink to this headline">¶</a></h2>
+<h2>Overview of the task<a class="headerlink" href="#overview-of-the-task" title="Permalink to this heading">¶</a></h2>
 <p>In this tutorial, we will identify the suitable areas for development, that are</p>
 <ul class="simple">
 <li><p>Close to roads, and</p></li>
@@ -220,14 +219,14 @@
 </ul>
 </section>
 <section id="get-the-data">
-<h2>Get the data<a class="headerlink" href="#get-the-data" title="Permalink to this headline">¶</a></h2>
+<h2>Get the data<a class="headerlink" href="#get-the-data" title="Permalink to this heading">¶</a></h2>
 <p>We will use vector data layers from <a class="reference external" href="http://www.openstreetmap.org/">OpenStreetMap (OSM)</a>. OSM is a global database of freely available base map data. <a class="reference external" href="http://download.geofabrik.de/">Geofabrik</a> provides daily updated shapefiles of OpenStreetMap datasets.</p>
 <p>We will be using the OSM data layers for the state of Assam in India. Geofabrik <a class="reference external" href="http://download.geofabrik.de/asia/india.html">India shapefiles</a> were downloaded, clipped to the state boundary and packaged in a single GeoPackage file. You can download a copy of the geopackage from the link below:</p>
 <p><a class="reference external" href="https://www.qgistutorials.com/downloads/assam.gpkg">assam.gpkg</a></p>
 <p>Data Source: <a class="reference internal" href="../credits.html#geofabrik" id="id1"><span>[GEOFABRIK]</span></a></p>
 </section>
 <section id="procedure">
-<h2>Procedure<a class="headerlink" href="#procedure" title="Permalink to this headline">¶</a></h2>
+<h2>Procedure<a class="headerlink" href="#procedure" title="Permalink to this heading">¶</a></h2>
 <ol class="arabic simple">
 <li><p>Browse to the downloaded <code class="docutils literal notranslate"><span class="pre">assam.gpkg</span></code> file in QGIS Browser. Expand it and drag each of the 5 individual data layers to the map canvas. You will see <code class="docutils literal notranslate"><span class="pre">boundary</span></code>, <code class="docutils literal notranslate"><span class="pre">roads</span></code>, <code class="docutils literal notranslate"><span class="pre">protected_regions</span></code>, <code class="docutils literal notranslate"><span class="pre">water_polygons</span></code> and <code class="docutils literal notranslate"><span class="pre">water_polylines</span></code> layers loaded in the <span class="guilabel">Layers</span> panel.</p></li>
 </ol>
@@ -488,8 +487,8 @@
     </p>
     <p>
         &copy; Copyright 2021, Ujaval Gandhi.<br/>
-      Last updated on Jun 23, 2023.<br/>
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 4.0.1.<br/>
+      Last updated on Jul 08, 2023.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 7.0.1.<br/>
     </p>
   </div>
 </footer>

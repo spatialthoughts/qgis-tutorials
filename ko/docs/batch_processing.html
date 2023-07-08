@@ -3,15 +3,14 @@
 <html lang="ko">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
     <title>프로세싱 프레임을 이용한 일괄처리과정 &#8212; QGIS Tutorials and Tips</title>
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../_static/bootstrap-sphinx.css" />
     <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
-    <script src="../_static/jquery.js"></script>
-    <script src="../_static/underscore.js"></script>
     <script src="../_static/doctools.js"></script>
+    <script src="../_static/sphinx_highlight.js"></script>
     <script src="../_static/translations.js"></script>
     <link rel="search" title="검색" href="../search.html" />
     <link rel="prev" title="데이터 크레딧" href="credits.html" />
@@ -20,10 +19,10 @@
 <meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
 <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
 <meta name="apple-mobile-web-app-capable" content="yes">
-<script type="text/javascript" src="../_static/js/jquery-1.11.0.min.js "></script>
-<script type="text/javascript" src="../_static/js/jquery-fix.js "></script>
-<script type="text/javascript" src="../_static/bootstrap-3.3.7/js/bootstrap.min.js "></script>
-<script type="text/javascript" src="../_static/bootstrap-sphinx.js "></script>
+<script type="text/javascript" src="../_static/js/jquery-1.12.4.min.js"></script>
+<script type="text/javascript" src="../_static/js/jquery-fix.js"></script>
+<script type="text/javascript" src="../_static/bootstrap-3.4.1/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="../_static/bootstrap-sphinx.js"></script>
 
 
 <!-- Cookie Notice -->
@@ -52,7 +51,7 @@
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
         </button>
-        <a class="navbar-brand" href="../index.html"><span><img src="../_static/logo.png"></span>
+        <a class="navbar-brand" href="../index.html">
           QGIS Tutorials and Tips</a>
         <span class="navbar-text navbar-version pull-left"><b>v1</b></span>
       </div>
@@ -197,24 +196,24 @@
       
 
   <section id="batch-processing-using-processing-framework-qgis2">
-<h1>프로세싱 프레임을 이용한 일괄처리과정<a class="headerlink" href="#batch-processing-using-processing-framework-qgis2" title="이 표제에 대한 퍼머링크">¶</a></h1>
+<h1>프로세싱 프레임을 이용한 일괄처리과정<a class="headerlink" href="#batch-processing-using-processing-framework-qgis2" title="이 제목에 대한 퍼머링크">¶</a></h1>
 <div class="admonition warning">
 <p class="admonition-title">경고</p>
 <p>새로운 버전의 튜토리얼은 doc:<a href="#id1"><span class="problematic" id="id2">`</span></a>3/batch_processing`에 있습니다.</p>
 </div>
 <p>QGI 2.0은  <strong>Processing Framework**라는 새로운 개념을 도입했습니다. 전에는 **Sextante</strong>,로 알려져 있던 것인데, 프로세싱 프레임워크는 QGIS에서 데이터 처리를 위해 토착형 그리고 제 3 자형 알고리즘을 구동할 수 있는 환경을 제공합니다. 이것은 여러개의 레이어에 대해 쉽게 알고리즘을 실행할 수 있도록 괜찮은 일괄처리 과정 인터페이스를 포함하고 있습니다. 일괄처리 과정은 수동적인 노력을 절감하고 반복적인 작업을 자동적으로 수행할 수 있도록 해주는 유용한 툴입니다.</p>
 <section id="overview-of-the-task">
-<h2>과업 개요<a class="headerlink" href="#overview-of-the-task" title="이 표제에 대한 퍼머링크">¶</a></h2>
+<h2>과업 개요<a class="headerlink" href="#overview-of-the-task" title="이 제목에 대한 퍼머링크">¶</a></h2>
 <p>단일 일괄처리 명령하에서 몇몇 전지구적 벡터 레이어를 사용하여  아프리카의 범위로 잘라내기를 할 것입니다.</p>
 <section id="other-skills-you-will-learn">
-<h3>다른 스킬<a class="headerlink" href="#other-skills-you-will-learn" title="이 표제에 대한 퍼머링크">¶</a></h3>
+<h3>다른 스킬<a class="headerlink" href="#other-skills-you-will-learn" title="이 제목에 대한 퍼머링크">¶</a></h3>
 <ul class="simple">
 <li><p>같은 속성을 가진 레이어에서 폴리곤을 디졸브 (병합) 합니다.</p></li>
 </ul>
 </section>
 </section>
 <section id="get-the-data">
-<h2>데이터 획득<a class="headerlink" href="#get-the-data" title="이 표제에 대한 퍼머링크">¶</a></h2>
+<h2>데이터 획득<a class="headerlink" href="#get-the-data" title="이 제목에 대한 퍼머링크">¶</a></h2>
 <p><a href="#id1"><span class="problematic" id="id2">`</span></a>Natural Earth &lt;<a class="reference external" href="http://naturalearthdata.com">http://naturalearthdata.com</a>&gt;`_에는 전 지구적 벡터레이가 있습니다. 다음의 레이어를 다운로드하십시오.</p>
 <ul class="simple">
 <li><p><a class="reference external" href="http://www.naturalearthdata.com/http//www.naturalearthdata.com/download/10m/cultural/ne_10m_admin_0_countries.zip">Admin 0 - Countries</a></p></li>
@@ -226,7 +225,7 @@
 <p>데이터 소스: <a class="reference internal" href="credits.html#naturalearth" id="id1"><span>[NATURALEARTH]</span></a></p>
 </section>
 <section id="procedure">
-<h2>과정<a class="headerlink" href="#procedure" title="이 표제에 대한 퍼머링크">¶</a></h2>
+<h2>과정<a class="headerlink" href="#procedure" title="이 제목에 대한 퍼머링크">¶</a></h2>
 <ol class="arabic simple">
 <li><p>메뉴 레이어 –&gt; 레이어 추가 –&gt; 벡터 레이어 추가  :menuselection:<a href="#id1"><span class="problematic" id="id2">`</span></a>Layer –&gt; Add Vector Layer`로 갑니다.</p></li>
 </ol>
@@ -328,8 +327,8 @@
     </p>
     <p>
         &copy; Copyright 2021, Ujaval Gandhi.<br/>
-      최종 업데이트: 6월 23, 2023<br/>
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 4.0.1.<br/>
+      최종 업데이트: 7월 08, 2023<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 7.0.1.<br/>
     </p>
   </div>
 </footer>

@@ -3,15 +3,14 @@
 <html lang="ko">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
     <title>열지도 만들기 (QGIS3) &#8212; QGIS Tutorials and Tips</title>
     <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-sphinx.css" />
     <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
-    <script src="../../_static/jquery.js"></script>
-    <script src="../../_static/underscore.js"></script>
     <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/sphinx_highlight.js"></script>
     <script src="../../_static/translations.js"></script>
     <link rel="search" title="검색" href="../../search.html" />
     <link rel="next" title="Animating Time Series Data (QGIS3)" href="animating_time_series.html" />
@@ -21,10 +20,10 @@
 <meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
 <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
 <meta name="apple-mobile-web-app-capable" content="yes">
-<script type="text/javascript" src="../../_static/js/jquery-1.11.0.min.js "></script>
-<script type="text/javascript" src="../../_static/js/jquery-fix.js "></script>
-<script type="text/javascript" src="../../_static/bootstrap-3.3.7/js/bootstrap.min.js "></script>
-<script type="text/javascript" src="../../_static/bootstrap-sphinx.js "></script>
+<script type="text/javascript" src="../../_static/js/jquery-1.12.4.min.js"></script>
+<script type="text/javascript" src="../../_static/js/jquery-fix.js"></script>
+<script type="text/javascript" src="../../_static/bootstrap-3.4.1/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="../../_static/bootstrap-sphinx.js"></script>
 
 
 <!-- Cookie Notice -->
@@ -53,7 +52,7 @@
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
         </button>
-        <a class="navbar-brand" href="../../index.html"><span><img src="../../_static/logo.png"></span>
+        <a class="navbar-brand" href="../../index.html">
           QGIS Tutorials and Tips</a>
         <span class="navbar-text navbar-version pull-left"><b>v1</b></span>
       </div>
@@ -202,27 +201,27 @@
       
 
   <section id="creating-heatmaps-qgis3">
-<h1>열지도 만들기 (QGIS3)<a class="headerlink" href="#creating-heatmaps-qgis3" title="이 표제에 대한 퍼머링크">¶</a></h1>
+<h1>열지도 만들기 (QGIS3)<a class="headerlink" href="#creating-heatmaps-qgis3" title="이 제목에 대한 퍼머링크">¶</a></h1>
 <p>열지도는 밀도 포인트 정보에 대해서 시각화하는데 중요한 도구입니다. 열지도는 사용하는 데이터에 대한 정보의 밀도를 결정하는데 유용한 보간법입니다. 열지도는 보통 범죄정보, 교통 사고, 주택밀집도 등 시각화 하는데 사용됩니다. QGIS의 점 레이어 스타일도구에서 열지도를 표현할 수 있고 점 레이어를 통해 레스터를 만들 수 있는 <strong>열지도(케널 밀도 추정)</strong> 알고리즘도 있습니다.</p>
 <section id="overview-of-the-task">
-<h2>작업 개요<a class="headerlink" href="#overview-of-the-task" title="이 표제에 대한 퍼머링크">¶</a></h2>
+<h2>작업 개요<a class="headerlink" href="#overview-of-the-task" title="이 제목에 대한 퍼머링크">¶</a></h2>
 <p>UK Surrey의 범죄위치 데이터를 활용하여 범죄율이 높은 지역의 열지도를 만들것입니다.</p>
 <section id="other-skills-you-will-learn">
-<h3>이 예제에서 필요한 다른 기술<a class="headerlink" href="#other-skills-you-will-learn" title="이 표제에 대한 퍼머링크">¶</a></h3>
+<h3>이 예제에서 필요한 다른 기술<a class="headerlink" href="#other-skills-you-will-learn" title="이 제목에 대한 퍼머링크">¶</a></h3>
 <ul class="simple">
 <li><p>가상필드사용하기 및 적절하게 표현하기</p></li>
 </ul>
 </section>
 </section>
 <section id="get-the-data">
-<h2>데이터 획득<a class="headerlink" href="#get-the-data" title="이 표제에 대한 퍼머링크">¶</a></h2>
+<h2>데이터 획득<a class="headerlink" href="#get-the-data" title="이 제목에 대한 퍼머링크">¶</a></h2>
 <p><a class="reference external" href="https://data.police.uk">data.police.uk</a> 는 도로에 따른 범죄, 결과 등 관련 정보를 CSV 형태로 제공합니다. <a href="#id2"><span class="problematic" id="id3">`Surrey Police https://data.police.uk/data/&gt;`_</span></a> 정보를 내려받아서 묶여있는 파일을 풀어서 CSV파일을 얻습니다.</p>
 <p>아래 링크에서 다음 데이터를 손쉽게 내려받을 수 있습니다:</p>
 <p><a class="reference external" href="https://www.qgistutorials.com/downloads/2019-02-surrey-street.csv">2019-02-surrey-street.csv</a></p>
 <p>정보 출처 <a class="reference internal" href="../credits.html#policeuk" id="id1"><span>[POLICEUK]</span></a></p>
 </section>
 <section id="procedure">
-<h2>과정<a class="headerlink" href="#procedure" title="이 표제에 대한 퍼머링크">¶</a></h2>
+<h2>과정<a class="headerlink" href="#procedure" title="이 제목에 대한 퍼머링크">¶</a></h2>
 <ol class="arabic simple">
 <li><p>We will first load a basemap layer from <em>OpenStreetMap</em> and then import the CSV data. In the <span class="guilabel">Browser</span> tab, scroll down and locate the <span class="guilabel">XYZ Tiles</span> section.</p></li>
 </ol>
@@ -407,8 +406,8 @@ END
     </p>
     <p>
         &copy; Copyright 2021, Ujaval Gandhi.<br/>
-      최종 업데이트: 6월 23, 2023<br/>
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 4.0.1.<br/>
+      최종 업데이트: 7월 08, 2023<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 7.0.1.<br/>
     </p>
   </div>
 </footer>

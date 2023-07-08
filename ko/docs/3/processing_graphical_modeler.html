@@ -3,15 +3,14 @@
 <html lang="ko">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
     <title>프로세싱 모델러를 사용하여 복잡한 작업흐름 자동화하기(QGIS3) &#8212; QGIS Tutorials and Tips</title>
     <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-sphinx.css" />
     <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
-    <script src="../../_static/jquery.js"></script>
-    <script src="../../_static/underscore.js"></script>
     <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/sphinx_highlight.js"></script>
     <script src="../../_static/translations.js"></script>
     <link rel="search" title="검색" href="../../search.html" />
     <link rel="next" title="Automating Map Creation with Print Layout Atlas (QGIS3)" href="automating_map_creation.html" />
@@ -21,10 +20,10 @@
 <meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
 <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
 <meta name="apple-mobile-web-app-capable" content="yes">
-<script type="text/javascript" src="../../_static/js/jquery-1.11.0.min.js "></script>
-<script type="text/javascript" src="../../_static/js/jquery-fix.js "></script>
-<script type="text/javascript" src="../../_static/bootstrap-3.3.7/js/bootstrap.min.js "></script>
-<script type="text/javascript" src="../../_static/bootstrap-sphinx.js "></script>
+<script type="text/javascript" src="../../_static/js/jquery-1.12.4.min.js"></script>
+<script type="text/javascript" src="../../_static/js/jquery-fix.js"></script>
+<script type="text/javascript" src="../../_static/bootstrap-3.4.1/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="../../_static/bootstrap-sphinx.js"></script>
 
 
 <!-- Cookie Notice -->
@@ -53,7 +52,7 @@
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
         </button>
-        <a class="navbar-brand" href="../../index.html"><span><img src="../../_static/logo.png"></span>
+        <a class="navbar-brand" href="../../index.html">
           QGIS Tutorials and Tips</a>
         <span class="navbar-text navbar-version pull-left"><b>v1</b></span>
       </div>
@@ -202,13 +201,13 @@
       
 
   <section id="automating-complex-workflows-using-processing-modeler-qgis3">
-<h1>프로세싱 모델러를 사용하여 복잡한 작업흐름 자동화하기(QGIS3)<a class="headerlink" href="#automating-complex-workflows-using-processing-modeler-qgis3" title="이 표제에 대한 퍼머링크">¶</a></h1>
+<h1>프로세싱 모델러를 사용하여 복잡한 작업흐름 자동화하기(QGIS3)<a class="headerlink" href="#automating-complex-workflows-using-processing-modeler-qgis3" title="이 제목에 대한 퍼머링크">¶</a></h1>
 <p>GIS 작업흐름도는 전형적으로 많은 단계를 포함합니다. 각 단계는 중간 결과물을 만들어 내고 이것은 다음 단계에 사용됩니다. 만약 입력 데이터가 바뀌거나 매개변수를 바꾸고 싶다면 전체 처리 과정을 일일히 다시 분석해야 할 필요가 있습니다. 다행이도, QGIS는 시각적 모델러가 기본적으로 포함되어 있어 작업흐름도를 정의할 수 있고 한번에 구동시킬 수 있습니다. 대량의 입력 데이터도 일괄처리로써 작업흐름도를 구동시킬수도 있습니다.</p>
 <section id="overview-of-the-task">
-<h2>작업 개요<a class="headerlink" href="#overview-of-the-task" title="이 표제에 대한 퍼머링크">¶</a></h2>
+<h2>작업 개요<a class="headerlink" href="#overview-of-the-task" title="이 제목에 대한 퍼머링크">¶</a></h2>
 <p>해상 해적행위 사건의 포인트 레이어를 취해서 전세계 육각 그리드에 걸쳐 집계하여 밀도 지도를 제작하는 처리 모델을 만들겠습니다.</p>
 <section id="other-skills-you-will-learn">
-<h3>이 예제에서 필요한 다른 기술<a class="headerlink" href="#other-skills-you-will-learn" title="이 표제에 대한 퍼머링크">¶</a></h3>
+<h3>이 예제에서 필요한 다른 기술<a class="headerlink" href="#other-skills-you-will-learn" title="이 제목에 대한 퍼머링크">¶</a></h3>
 <ul class="simple">
 <li><p>전지구 동일 면적 투영 및 프로젝트 CRS 설정</p></li>
 <li><p>폴리곤 레이어에 점진적 심볼로지 적용</p></li>
@@ -216,7 +215,7 @@
 </section>
 </section>
 <section id="get-the-data">
-<h2>데이터 획득<a class="headerlink" href="#get-the-data" title="이 표제에 대한 퍼머링크">¶</a></h2>
+<h2>데이터 획득<a class="headerlink" href="#get-the-data" title="이 제목에 대한 퍼머링크">¶</a></h2>
 <p>국립지질정보국의 ‘해양안전정보 포털&lt;<a class="reference external" href="https://msi.nga.mil/NGAPortal/MSI.portal">https://msi.nga.mil/NGAPortal/MSI.portal</a>&gt;`_은 해적 행위 방지 메시지&lt;<a class="reference external" href="https://msi.nga.mil/Piracy">https://msi.nga.mil/Piracy</a>&gt;`_.에 있는 형태로 모든 해양 해적 행위를 형상화한 파일을 제공합니다. 데이터베이스의 ‘Arc Shape 파일&lt;<a class="reference external" href="https://msi.nga.mil/api/publications/download?key=16920958/SFH00000/ASAM_shp.zip&amp;type=download">https://msi.nga.mil/api/publications/download?key=16920958/SFH00000/ASAM_shp.zip&amp;type=download</a>&gt;`_ 버전을 다운로드하십시오.</p>
 <p><a href="#id1"><span class="problematic" id="id2">`</span></a>자연 지구 &lt;<a class="reference external" href="http://naturalearthdata.com">http://naturalearthdata.com</a>&gt;`_에는 여러 글로벌 벡터 레이어가 있습니다. 랜드 폴리곤이 포함 된`10m 물리 벡터-랜드 &lt;<a class="reference external" href="https://www.naturalearthdata.com/http//www.naturalearthdata.com/download/10m/physical/ne_10m_land.zip">https://www.naturalearthdata.com/http//www.naturalearthdata.com/download/10m/physical/ne_10m_land.zip</a>&gt;`__를 다운로드하십시오.</p>
 <p>편의상 위의 레이어 사본을 아래에서 직접 다운로드 할 수 있습니다.</p>
@@ -225,7 +224,7 @@
 <p>데이터 출처: <a class="reference internal" href="../credits.html#nga-msi" id="id1"><span>[NGA_MSI]</span></a> <a class="reference internal" href="../credits.html#naturalearth" id="id2"><span>[NATURALEARTH]</span></a></p>
 </section>
 <section id="procedure">
-<h2>과정<a class="headerlink" href="#procedure" title="이 표제에 대한 퍼머링크">¶</a></h2>
+<h2>과정<a class="headerlink" href="#procedure" title="이 제목에 대한 퍼머링크">¶</a></h2>
 <ol class="arabic simple">
 <li><p>QGIS 브라우저 패널에서 다운로드한 데이터를 저장한 디렉터리를 찾으십시오. <a href="#id1"><span class="problematic" id="id2">``</span></a>ne_10m_land.zip”을 확장하고 <a href="#id3"><span class="problematic" id="id4">``</span></a>ne_10m_land”를 선택하십시오.”shp” 층 레이어를 캔버스로 끌어다 놓으십시오. 그런 다음 “ASAM_shp.zip” 파일을 찾으십시오. 그것을 확장하고 “asam_data_download/ASAM_events.shp”레이어를 선택하고 캔버스로 드래그하십시오..”</p></li>
 </ol>
@@ -376,8 +375,8 @@
     </p>
     <p>
         &copy; Copyright 2021, Ujaval Gandhi.<br/>
-      최종 업데이트: 6월 23, 2023<br/>
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 4.0.1.<br/>
+      최종 업데이트: 7월 08, 2023<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 7.0.1.<br/>
     </p>
   </div>
 </footer>

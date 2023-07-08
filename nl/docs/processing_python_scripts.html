@@ -3,15 +3,14 @@
 <html lang="nl">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
     <title>Python-scripts schrijven voor framework Processing &#8212; QGIS Tutorials and Tips</title>
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../_static/bootstrap-sphinx.css" />
     <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
-    <script src="../_static/jquery.js"></script>
-    <script src="../_static/underscore.js"></script>
     <script src="../_static/doctools.js"></script>
+    <script src="../_static/sphinx_highlight.js"></script>
     <script src="../_static/translations.js"></script>
     <link rel="search" title="Zoeken" href="../search.html" />
 
@@ -19,10 +18,10 @@
 <meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
 <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
 <meta name="apple-mobile-web-app-capable" content="yes">
-<script type="text/javascript" src="../_static/js/jquery-1.11.0.min.js "></script>
-<script type="text/javascript" src="../_static/js/jquery-fix.js "></script>
-<script type="text/javascript" src="../_static/bootstrap-3.3.7/js/bootstrap.min.js "></script>
-<script type="text/javascript" src="../_static/bootstrap-sphinx.js "></script>
+<script type="text/javascript" src="../_static/js/jquery-1.12.4.min.js"></script>
+<script type="text/javascript" src="../_static/js/jquery-fix.js"></script>
+<script type="text/javascript" src="../_static/bootstrap-3.4.1/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="../_static/bootstrap-sphinx.js"></script>
 
 
 <!-- Cookie Notice -->
@@ -51,7 +50,7 @@
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
         </button>
-        <a class="navbar-brand" href="../index.html"><span><img src="../_static/logo.png"></span>
+        <a class="navbar-brand" href="../index.html">
           QGIS Tutorials and Tips</a>
         <span class="navbar-text navbar-version pull-left"><b>v1</b></span>
       </div>
@@ -192,14 +191,14 @@
       
 
   <section id="writing-python-scripts-for-processing-framework">
-<h1>Python-scripts schrijven voor framework Processing<a class="headerlink" href="#writing-python-scripts-for-processing-framework" title="Permalink naar deze titel">¶</a></h1>
+<h1>Python-scripts schrijven voor framework Processing<a class="headerlink" href="#writing-python-scripts-for-processing-framework" title="Permalink to this heading">¶</a></h1>
 <div class="admonition warning">
 <p class="admonition-title">Waarschuwing</p>
 <p>Een nieuwe versie van deze handleiding is beschikbaar op <a class="reference internal" href="3/processing_python_scripts.html"><span class="doc">Python-scripts schrijven voor framework Processing (QGIS3)</span></a></p>
 </div>
 <p>Men kan zelfstandige scripts in Pyqgis schrijven die kunnen worden uitgevoerd in de Python Console in QGIS. Met een aantal aanpassingen kunt u uw scripts voor Pyqgis ook uitvoeren via het framework Processing. Dat heeft een aantal voordelen. Ten eerste is het invoeren van invoer door de gebruiker en het schrijven van uitvoerbestanden veel eenvoudiger omdat het framework Processing hier een gestandaardiseerde gebruikersinterface voor biedt. Ten tweede, door uw script te hebben in de Processing Toolbox kan het ook deel uitmaken van elk Model voor Processing of worden uitgevoerd als een Batch-taak met meerdere invoer. Deze handleiding zal laten zien hoe een aangepast script voor Python te schrijven dat deel kan uitmaken van het framework Processing in QGIS.</p>
 <section id="overview-of-the-task">
-<h2>Overzicht van de taak<a class="headerlink" href="#overview-of-the-task" title="Permalink naar deze titel">¶</a></h2>
+<h2>Overzicht van de taak<a class="headerlink" href="#overview-of-the-task" title="Permalink to this heading">¶</a></h2>
 <p>Ons script zal een bewerking voor ontbinden uitvoeren, gebaseerd op een door de gebruiker gekozen veld. Het zal ook de waarden van een ander veld bij elkaar optellen voor de ontbonden objecten. In het voorbeeld zullen we een shapefile van de wereld ontbinden, gebaseerd op een attribuut <code class="docutils literal notranslate"><span class="pre">SUBREGION</span></code> en het veld <code class="docutils literal notranslate"><span class="pre">POP_EST</span></code> optellen om de totale bevolking in de ontbonden regio te berekenen.</p>
 <div class="admonition note">
 <p class="admonition-title">Notitie</p>
@@ -207,7 +206,7 @@
 </div>
 </section>
 <section id="get-the-data">
-<h2>De gegevens ophalen<a class="headerlink" href="#get-the-data" title="Permalink naar deze titel">¶</a></h2>
+<h2>De gegevens ophalen<a class="headerlink" href="#get-the-data" title="Permalink to this heading">¶</a></h2>
 <p>We zullen de gegevensset <a class="reference external" href="http://www.naturalearthdata.com/downloads/10m-cultural-vectors/10m-admin-0-countries/">Admin 0 - Countries</a> van Natural Earth gebruiken.</p>
 <p>Download het <a class="reference external" href="http://www.naturalearthdata.com/http//www.naturalearthdata.com/download/10m/cultural/ne_10m_admin_0_countries.zip">Admin 0 - countries shapefile.</a>.</p>
 <p>Gegevensbron <a class="reference internal" href="credits.html#naturalearth" id="id1"><span>[NATURALEARTH]</span></a></p>
@@ -215,7 +214,7 @@
 <p><a class="reference external" href="http://www.qgistutorials.com/downloads/ne_10m_admin_0_countries.zip">ne_10_admin_0_countries.zip</a></p>
 </section>
 <section id="procedure">
-<h2>Procedure<a class="headerlink" href="#procedure" title="Permalink naar deze titel">¶</a></h2>
+<h2>Procedure<a class="headerlink" href="#procedure" title="Permalink to this heading">¶</a></h2>
 <ol class="arabic simple">
 <li><p>Open QGIS en ga naar <span class="menuselection">Kaartlagen ‣ Laag toevoegen ‣ Vectorlaag toevoegen</span>. Blader naar het gedownloade bestand <code class="docutils literal notranslate"><span class="pre">ne_10_admin_0_countries.zip</span></code> en laadt de laag <code class="docutils literal notranslate"><span class="pre">ne_10_admin_0_countries</span></code>. Ga naar <span class="menuselection">Processing ‣ Toolbox</span>.</p></li>
 </ol>
@@ -449,8 +448,8 @@
     </p>
     <p>
         &copy; Copyright 2021, Ujaval Gandhi.<br/>
-      Laatste aanpassing op jun. 23, 2023.<br/>
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 4.0.1.<br/>
+      Laatste aanpassing op jul 08, 2023.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 7.0.1.<br/>
     </p>
   </div>
 </footer>

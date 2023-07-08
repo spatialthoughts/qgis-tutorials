@@ -3,15 +3,14 @@
 <html lang="zh_TW">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
     <title>資料表連接 &#8212; QGIS Tutorials and Tips</title>
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../_static/bootstrap-sphinx.css" />
     <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
-    <script src="../_static/jquery.js"></script>
-    <script src="../_static/underscore.js"></script>
     <script src="../_static/doctools.js"></script>
+    <script src="../_static/sphinx_highlight.js"></script>
     <script src="../_static/translations.js"></script>
     <link rel="search" title="搜尋" href="../search.html" />
 
@@ -19,10 +18,10 @@
 <meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
 <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
 <meta name="apple-mobile-web-app-capable" content="yes">
-<script type="text/javascript" src="../_static/js/jquery-1.11.0.min.js "></script>
-<script type="text/javascript" src="../_static/js/jquery-fix.js "></script>
-<script type="text/javascript" src="../_static/bootstrap-3.3.7/js/bootstrap.min.js "></script>
-<script type="text/javascript" src="../_static/bootstrap-sphinx.js "></script>
+<script type="text/javascript" src="../_static/js/jquery-1.12.4.min.js"></script>
+<script type="text/javascript" src="../_static/js/jquery-fix.js"></script>
+<script type="text/javascript" src="../_static/bootstrap-3.4.1/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="../_static/bootstrap-sphinx.js"></script>
 
 
 <!-- Cookie Notice -->
@@ -51,7 +50,7 @@
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
         </button>
-        <a class="navbar-brand" href="../index.html"><span><img src="../_static/logo.png"></span>
+        <a class="navbar-brand" href="../index.html">
           QGIS Tutorials and Tips</a>
         <span class="navbar-text navbar-version pull-left"><b>v1</b></span>
       </div>
@@ -192,17 +191,17 @@
       
 
   <section id="performing-table-joins">
-<h1>資料表連接<a class="headerlink" href="#performing-table-joins" title="本標題的永久連結">¶</a></h1>
+<h1>資料表連接<a class="headerlink" href="#performing-table-joins" title="本標頭的永久連結">¶</a></h1>
 <div class="admonition warning">
 <p class="admonition-title">警告</p>
 <p>本教學已經過時，如需閱讀新的版本請前往 <a class="reference internal" href="3/performing_table_joins.html"><span class="doc">資料表連接 (QGIS3)</span></a>。</p>
 </div>
 <p>你想要用的資料集可能不是 shapefile，或是任何一種空間資料格式。這些資料的格式往往是表格或試算表，要把它們加入你的資料分析中，必須讓它們和你手上的空間資料產生關聯。操作這件事情稱為<cite>資料表連接（Table Join）</cite>。這篇教學會說明在 QGIS 中要如何將資料表連接起來。</p>
 <section id="overview-of-the-task">
-<h2>內容說明<a class="headerlink" href="#overview-of-the-task" title="本標題的永久連結">¶</a></h2>
+<h2>內容說明<a class="headerlink" href="#overview-of-the-task" title="本標頭的永久連結">¶</a></h2>
 <p>我們會使用美國加州的人口統計分區 shapefile，與美國人口調查局提供的人口數資料表，做一份加州的人口分佈圖。</p>
 <section id="other-skills-you-will-learn">
-<h3>你還會學到這些<a class="headerlink" href="#other-skills-you-will-learn" title="本標題的永久連結">¶</a></h3>
+<h3>你還會學到這些<a class="headerlink" href="#other-skills-you-will-learn" title="本標頭的永久連結">¶</a></h3>
 <ul class="simple">
 <li><p>為 CSV 檔案製作一份 <cite>.csvt</cite> 檔案，以註明各欄位的資料型態</p></li>
 <li><p>在 QGIS 中載入不含任何地理資訊的 CSV 檔案</p></li>
@@ -210,7 +209,7 @@
 </section>
 </section>
 <section id="get-the-data">
-<h2>取得資料<a class="headerlink" href="#get-the-data" title="本標題的永久連結">¶</a></h2>
+<h2>取得資料<a class="headerlink" href="#get-the-data" title="本標頭的永久連結">¶</a></h2>
 <p><a class="reference external" href="http://www.census.gov/geo/maps-data/data/tiger.html">美國人口調查局</a>提供多種從 MAF/TIGER 資料庫匯出的空間資料。你可以查詢並下載加州的人口統計分區 shapefile。下載 <a class="reference external" href="http://www2.census.gov/geo/tiger/TIGER2013/TRACT/tl_2013_06_tract.zip">Census Tracts for California</a> 這個檔案。</p>
 <p><a class="reference external" href="http://factfinder2.census.gov/faces/nav/jsf/pages/searchresults.xhtml?refresh=t">Americal FactFinder</a> 提供所有美國的人口統計資料。你可以用「進階搜尋」（<cite>Advanced Search</cite>），查詢 <cite>Topic - Total Population</cite> 與 <cite>Geographies - All Census Tracts in California</cite>，以建立並下載我們需要的 CSV 檔案。以下教學使用 <cite>Total Population 2010 Census Summary File 1</cite> 這份資料。</p>
 <p>為了方便起見，你也可以直接用下面的連結下載這兩份資料集：</p>
@@ -219,7 +218,7 @@
 <p>資料來源 <a class="reference internal" href="credits.html#tiger" id="id1"><span>[TIGER]</span></a> <a class="reference internal" href="credits.html#uscensus" id="id2"><span>[USCENSUS]</span></a></p>
 </section>
 <section id="procedure">
-<h2>操作流程<a class="headerlink" href="#procedure" title="本標題的永久連結">¶</a></h2>
+<h2>操作流程<a class="headerlink" href="#procedure" title="本標頭的永久連結">¶</a></h2>
 <ol class="arabic simple">
 <li><p>我們先載入人口統計分區的 shapefile。選擇 <span class="menuselection">圖層 ‣ 加入向量圖層</span>。</p></li>
 </ol>
@@ -325,8 +324,8 @@
     </p>
     <p>
         &copy; Copyright 2021, Ujaval Gandhi.<br/>
-      最後更新於 6月 23, 2023。<br/>
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 4.0.1.<br/>
+      最後更新於 7月 08, 2023。<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 7.0.1.<br/>
     </p>
   </div>
 </footer>

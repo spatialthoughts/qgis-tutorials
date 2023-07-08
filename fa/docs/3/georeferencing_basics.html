@@ -3,15 +3,14 @@
 <html lang="fa">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
     <title>زمین مرجع کردن نقشه شیت توپوگرافی اسکن شده (QGIS3) &#8212; QGIS Tutorials and Tips</title>
     <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-sphinx.css" />
     <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
-    <script src="../../_static/jquery.js"></script>
-    <script src="../../_static/underscore.js"></script>
     <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/sphinx_highlight.js"></script>
     <script src="../../_static/translations.js"></script>
     <link rel="search" title="جستجو" href="../../search.html" />
     <link rel="next" title="زمین مرجع کردن عکس هوایی (QGIS)" href="advanced_georeferencing.html" />
@@ -21,10 +20,10 @@
 <meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
 <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
 <meta name="apple-mobile-web-app-capable" content="yes">
-<script type="text/javascript" src="../../_static/js/jquery-1.11.0.min.js "></script>
-<script type="text/javascript" src="../../_static/js/jquery-fix.js "></script>
-<script type="text/javascript" src="../../_static/bootstrap-3.3.7/js/bootstrap.min.js "></script>
-<script type="text/javascript" src="../../_static/bootstrap-sphinx.js "></script>
+<script type="text/javascript" src="../../_static/js/jquery-1.12.4.min.js"></script>
+<script type="text/javascript" src="../../_static/js/jquery-fix.js"></script>
+<script type="text/javascript" src="../../_static/bootstrap-3.4.1/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="../../_static/bootstrap-sphinx.js"></script>
 
 
 <!-- Cookie Notice -->
@@ -53,7 +52,7 @@
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
         </button>
-        <a class="navbar-brand" href="../../index.html"><span><img src="../../_static/logo.png"></span>
+        <a class="navbar-brand" href="../../index.html">
           QGIS Tutorials and Tips</a>
         <span class="navbar-text navbar-version pull-left"><b>v1</b></span>
       </div>
@@ -202,14 +201,14 @@
       
 
   <section id="georeferencing-topo-sheets-and-scanned-maps-qgis3">
-<h1>زمین مرجع کردن نقشه  شیت توپوگرافی اسکن شده (QGIS3)<a class="headerlink" href="#georeferencing-topo-sheets-and-scanned-maps-qgis3" title="پیوند ثابت به این سر مقاله">¶</a></h1>
+<h1>زمین مرجع کردن نقشه  شیت توپوگرافی اسکن شده (QGIS3)<a class="headerlink" href="#georeferencing-topo-sheets-and-scanned-maps-qgis3" title="Permalink to this heading">¶</a></h1>
 <p>اکثر پروژه های GIS نیاز به داده های رستری زمین مرجع شده دارند. زمین مرجع کردن * Georeferencing * فرآیند اختصاص مختصات زمین واقعی به هر پیکسل رستر است.  در خیلی مواقع این مختصات با برداشت میدانی بدست می آیند - جمع آوری مختصات با دستگاه GPS برای عارضه های قابل شناسایی در تصویر یا نقشه. در بعضی موارد ، که می خواهید نقشه های اسکن شده را رقومی کنید ، می توانید مختصات را از نشان های موجود در خود تصویر نقشه بدست آورید. با استفاده از این مختصات نمونه یا GCPs (Ground Control Points) ، تصویر زمین مرجع می شود و متناسب با سیستم مختصات انتخاب شده ایجادمی شود. در این آموزش در مورد مفاهیم ، استراتژی ها و ابزارهای QGIS برای دستیابی به یک زمین مرجع با دقت بالا بحث خواهم کرد.</p>
 <p>این آموزش برای زمین مرجع تصویری است که اطلاعات مختصات موجود در خود تصویر نقشه را موجود است(به عنوان مثال شبکه های مختصات با برچسب). اگر تصویر منبع شما چنین اطلاعاتی ندارد ، می توانید از روشی که در  <a class="reference internal" href="advanced_georeferencing.html"><span class="doc">زمین مرجع کردن عکس هوایی (QGIS)</span></a> توضیح داده شده است استفاده کنید.</p>
 <section id="overview-of-the-task">
-<h2>نمای کلی تمرین<a class="headerlink" href="#overview-of-the-task" title="پیوند ثابت به این سر مقاله">¶</a></h2>
+<h2>نمای کلی تمرین<a class="headerlink" href="#overview-of-the-task" title="Permalink to this heading">¶</a></h2>
 <p>ما  نقشه اسکن شده جنوب هند 1870 استفاده خواهیم کرد و با استفاده از QGIS زمین مرجع می شود.</p>
 <section id="other-skills-you-will-learn">
-<h3>آنجه شما خواهید آموخت<a class="headerlink" href="#other-skills-you-will-learn" title="پیوند ثابت به این سر مقاله">¶</a></h3>
+<h3>آنجه شما خواهید آموخت<a class="headerlink" href="#other-skills-you-will-learn" title="Permalink to this heading">¶</a></h3>
 <ul class="simple">
 <li><p>نحوه تعیین دیتوم و سیستم مختصات برای نقشه های قدیمی.</p></li>
 <li><p>Save the GCP created.</p></li>
@@ -218,14 +217,14 @@
 </section>
 </section>
 <section id="get-the-data">
-<h2>اخذ داده<a class="headerlink" href="#get-the-data" title="پیوند ثابت به این سر مقاله">¶</a></h2>
+<h2>اخذ داده<a class="headerlink" href="#get-the-data" title="Permalink to this heading">¶</a></h2>
 <p>وبگاه نقشه های قدیمی اسکن شده هیکیس <a class="reference external" href="http://www.hipkiss.org/data/maps.html">Hipkiss’s Scanned Old Maps</a>  مجموعه غنی نقشه های اسکن شده بدون کپی رایت را دارد و هرکسی می تواند برای تحقیق آنها را استفاده کند.</p>
 <p>نقشه 1870 جنوب هند <a class="reference external" href="http://www.hipkiss.org/data/maps/william-mackenzie_gallery-of-geography_1870_southern-india_3975_3071_600.jpg">1870 map of southern India</a>   را بارگیری کنید و آن را به عنوان تصویر JPG بر روی هارد دیسک خود ذخیره کنید.</p>
 <p>برای راحتی کار ، می توانید مستقیماً یک کپی از مجموعه داده را از لینک زیر بارگیری کنید:</p>
 <p><a class="reference external" href="https://www.qgistutorials.com/downloads/1870_southern-india.jpg">1870_southern_india.jpg</a></p>
 </section>
 <section id="procedure">
-<h2>مراحل<a class="headerlink" href="#procedure" title="پیوند ثابت به این سر مقاله">¶</a></h2>
+<h2>مراحل<a class="headerlink" href="#procedure" title="Permalink to this heading">¶</a></h2>
 <ol class="arabic simple">
 <li><p>Open QGIS and click on <span class="menuselection">Raster ‣ Georeferencer</span> to open the tool.</p></li>
 </ol>
@@ -378,8 +377,8 @@
     </p>
     <p>
         &copy; Copyright 2021, Ujaval Gandhi.<br/>
-      آخرین بروز رسانی در ژوئن 23, 2023 .<br/>
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 4.0.1.<br/>
+      آخرین بروز رسانی در ژوئیه 08, 2023 .<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 7.0.1.<br/>
     </p>
   </div>
 </footer>

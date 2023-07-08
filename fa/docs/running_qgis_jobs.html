@@ -3,15 +3,14 @@
 <html lang="fa">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
     <title>اجرا و برنامه ریزی پردازش وظیفه ای در QGIS &#8212; QGIS Tutorials and Tips</title>
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../_static/bootstrap-sphinx.css" />
     <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
-    <script src="../_static/jquery.js"></script>
-    <script src="../_static/underscore.js"></script>
     <script src="../_static/doctools.js"></script>
+    <script src="../_static/sphinx_highlight.js"></script>
     <script src="../_static/translations.js"></script>
     <link rel="search" title="جستجو" href="../search.html" />
     <link rel="next" title="Web Mapping with QGIS2Web (QGIS3)" href="3/web_mapping_with_qgis2web.html" />
@@ -21,10 +20,10 @@
 <meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
 <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
 <meta name="apple-mobile-web-app-capable" content="yes">
-<script type="text/javascript" src="../_static/js/jquery-1.11.0.min.js "></script>
-<script type="text/javascript" src="../_static/js/jquery-fix.js "></script>
-<script type="text/javascript" src="../_static/bootstrap-3.3.7/js/bootstrap.min.js "></script>
-<script type="text/javascript" src="../_static/bootstrap-sphinx.js "></script>
+<script type="text/javascript" src="../_static/js/jquery-1.12.4.min.js"></script>
+<script type="text/javascript" src="../_static/js/jquery-fix.js"></script>
+<script type="text/javascript" src="../_static/bootstrap-3.4.1/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="../_static/bootstrap-sphinx.js"></script>
 
 
 <!-- Cookie Notice -->
@@ -53,7 +52,7 @@
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
         </button>
-        <a class="navbar-brand" href="../index.html"><span><img src="../_static/logo.png"></span>
+        <a class="navbar-brand" href="../index.html">
           QGIS Tutorials and Tips</a>
         <span class="navbar-text navbar-version pull-left"><b>v1</b></span>
       </div>
@@ -202,7 +201,7 @@
       
 
   <section id="running-and-scheduling-qgis-processing-jobs">
-<h1>اجرا و برنامه ریزی پردازش وظیفه ای در QGIS<a class="headerlink" href="#running-and-scheduling-qgis-processing-jobs" title="پیوند ثابت به این سر مقاله">¶</a></h1>
+<h1>اجرا و برنامه ریزی پردازش وظیفه ای در QGIS<a class="headerlink" href="#running-and-scheduling-qgis-processing-jobs" title="Permalink to this heading">¶</a></h1>
 <p>You can automate a lot of tasks in QGIS using Python scripting (PyQGIS) and the
 Processing Framework. Most of the time, you would run these scripts manually
 while QGIS is open. While that is helpful, many times you need a way to run
@@ -211,10 +210,10 @@ you can write standalone python scripts that use QGIS libraries and can be run
 via the command-line. In this tutorial, we will learn how to write and
 schedule a job that uses the QGIS Processing framework.</p>
 <section id="overview-of-the-task">
-<h2>نمای کلی تمرین<a class="headerlink" href="#overview-of-the-task" title="پیوند ثابت به این سر مقاله">¶</a></h2>
+<h2>نمای کلی تمرین<a class="headerlink" href="#overview-of-the-task" title="Permalink to this heading">¶</a></h2>
 <p>بیایید بگوییم ما در حال اجرای عملیات بر روی برخی از تجزیه و تحلیل ها با استفاده ازلایه های برداری با فرمت shapefile یک منطقه هستیم. این لایه های برداری  به صورت روزانه به روز می شوند و ما همیشه به جدیدترین فایل نیاز داریم. اما قبل از اینکه بتوانیم از این فایلها استفاده کنیم ، باید داده ها را  ویرایش کنیم. ما می توانیم یک  وظیفه QGIS تعریف کنیم که این فرآیند را به طور خودکار انجام دهد و روزانه آن را اجرا کند. بنابراین شما می توانید جدیدترین فایلهای ویرایش شده را برای کار عملیات داشته باشید. ما یک اسکریپت مستقل پایتون خواهیم نوشت که یک لایه برداری را بارگیری می کند و عملیات ویرایش کردن توپولوژیک را به صورت روزانه انجام می دهد.</p>
 <section id="other-skills-you-will-learn">
-<h3>مهارت های دیگری که خواهید آموخت<a class="headerlink" href="#other-skills-you-will-learn" title="پیوند ثابت به این سر مقاله">¶</a></h3>
+<h3>مهارت های دیگری که خواهید آموخت<a class="headerlink" href="#other-skills-you-will-learn" title="Permalink to this heading">¶</a></h3>
 <ul class="simple">
 <li><p>بارگیری و باز کردن فایل ها با استفاده از پایتون.</p></li>
 <li><p>اجرا وپردازش برنامه با PyQGIS.</p></li>
@@ -223,13 +222,13 @@ schedule a job that uses the QGIS Processing framework.</p>
 </section>
 </section>
 <section id="get-the-data">
-<h2>اخذ داده<a class="headerlink" href="#get-the-data" title="پیوند ثابت به این سر مقاله">¶</a></h2>
+<h2>اخذ داده<a class="headerlink" href="#get-the-data" title="Permalink to this heading">¶</a></h2>
 <p>` پایگاه دادهژئوفابریک  Geofabrik &lt;<a class="reference external" href="http://www.geofabrik.de/">http://www.geofabrik.de/</a>&gt;`_ داده های برداری <a class="reference external" href="http://www.openstreetmap.org/">OpenStreetMap</a>  فراهم می کند.</p>
 <p>ما در اینجا  از لایه برداری فیجی &lt;<a class="reference external" href="http://download.geofabrik.de/australia-oceania.html">http://download.geofabrik.de/australia-oceania.html</a>&gt;`_  برای این تمرین استفاده خواهیم نمود.  فایل های زیپ شده   <a class="reference external" href="http://download.geofabrik.de/australia-oceania/fiji-latest.shp.zip">fiji-latest.shp.zip</a>  بارگیری نماییدو فایل زیپ شده را باز نمایید و آن در یک مسیر پوشه مناسب قرار دهید.</p>
 <p>منابع داده  <a class="reference internal" href="credits.html#geofabrik" id="id1"><span>[GEOFABRIK]</span></a></p>
 </section>
 <section id="procedure">
-<h2>مراحل کاری<a class="headerlink" href="#procedure" title="پیوند ثابت به این سر مقاله">¶</a></h2>
+<h2>مراحل کاری<a class="headerlink" href="#procedure" title="Permalink to this heading">¶</a></h2>
 <ol class="arabic simple">
 <li><p>ابتدا فرایند ویرایش لایه برداری را به صورت دستی اجرا خواهیم کرد تا دستوراتی را که در اسکریپت پایتون استفاده خواهیم کرد، یادکنیم. QGIS را راه اندازی کرده و به  منوی <span class="menuselection">Layer ‣ Add Layer ‣ Add Vector Layer</span>  بروید.</p></li>
 </ol>
@@ -565,8 +564,8 @@ copy of cleaned data everyday.</p></li>
     </p>
     <p>
         &copy; Copyright 2021, Ujaval Gandhi.<br/>
-      آخرین بروز رسانی در ژوئن 23, 2023 .<br/>
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 4.0.1.<br/>
+      آخرین بروز رسانی در ژوئیه 08, 2023 .<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 7.0.1.<br/>
     </p>
   </div>
 </footer>

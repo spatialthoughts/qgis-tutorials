@@ -3,15 +3,14 @@
 <html lang="es">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
     <title>Análisis de Sobreposición Multicriterio (QGIS3) &#8212; QGIS Tutorials and Tips</title>
     <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-sphinx.css" />
     <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
-    <script src="../../_static/jquery.js"></script>
-    <script src="../../_static/underscore.js"></script>
     <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/sphinx_highlight.js"></script>
     <script src="../../_static/translations.js"></script>
     <link rel="search" title="Búsqueda" href="../../search.html" />
     <link rel="next" title="Visualización y Enrutamiento Básico de Red (QGIS3)" href="basic_network_analysis.html" />
@@ -21,10 +20,10 @@
 <meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
 <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
 <meta name="apple-mobile-web-app-capable" content="yes">
-<script type="text/javascript" src="../../_static/js/jquery-1.11.0.min.js "></script>
-<script type="text/javascript" src="../../_static/js/jquery-fix.js "></script>
-<script type="text/javascript" src="../../_static/bootstrap-3.3.7/js/bootstrap.min.js "></script>
-<script type="text/javascript" src="../../_static/bootstrap-sphinx.js "></script>
+<script type="text/javascript" src="../../_static/js/jquery-1.12.4.min.js"></script>
+<script type="text/javascript" src="../../_static/js/jquery-fix.js"></script>
+<script type="text/javascript" src="../../_static/bootstrap-3.4.1/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="../../_static/bootstrap-sphinx.js"></script>
 
 
 <!-- Cookie Notice -->
@@ -53,7 +52,7 @@
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
         </button>
-        <a class="navbar-brand" href="../../index.html"><span><img src="../../_static/logo.png"></span>
+        <a class="navbar-brand" href="../../index.html">
           QGIS Tutorials and Tips</a>
         <span class="navbar-text navbar-version pull-left"><b>v1</b></span>
       </div>
@@ -202,7 +201,7 @@
       
 
   <section id="multi-criteria-overlay-analysis-qgis3">
-<h1>Análisis de Sobreposición Multicriterio (QGIS3)<a class="headerlink" href="#multi-criteria-overlay-analysis-qgis3" title="Enlazar permanentemente con este título">¶</a></h1>
+<h1>Análisis de Sobreposición Multicriterio (QGIS3)<a class="headerlink" href="#multi-criteria-overlay-analysis-qgis3" title="Enlace permanente a este encabezado">¶</a></h1>
 <p>El análisis de sobreposición ponderado multicriterio es el proceso de asignación de áreas en base a una variedad de atributos que las áreas seleccionadas deberían poseer. A pesar de que esta es una operación común en SIG, es mejor realizada en el espacio ráster usando un enfoque basado en cuadrícula (grid).</p>
 <div class="admonition note">
 <p class="admonition-title">Nota</p>
@@ -212,7 +211,7 @@
 </div>
 <p>Este tutorial recorre el flujo de trabajo típico para realizar un análisis de conveniencia de sitio - convirtiendo datos vector fuente a los rasters apropiados, re-clasificándolos y realizando las operaciones matemáticas.</p>
 <section id="overview-of-the-task">
-<h2>Vista general de la tarea<a class="headerlink" href="#overview-of-the-task" title="Enlazar permanentemente con este título">¶</a></h2>
+<h2>Vista general de la tarea<a class="headerlink" href="#overview-of-the-task" title="Enlace permanente a este encabezado">¶</a></h2>
 <p>En este tutorial, identificaremos las áreas convenientes para desarrollo, que son</p>
 <ul class="simple">
 <li><p>Cercanas a caminos, y</p></li>
@@ -221,14 +220,14 @@
 </ul>
 </section>
 <section id="get-the-data">
-<h2>Obtener los datos<a class="headerlink" href="#get-the-data" title="Enlazar permanentemente con este título">¶</a></h2>
+<h2>Obtener los datos<a class="headerlink" href="#get-the-data" title="Enlace permanente a este encabezado">¶</a></h2>
 <p>Usaremos capas de datos vector de  <a class="reference external" href="http://www.openstreetmap.org/">OpenStreetMap (OSM)</a>. OSM es una base de datos global de datos de mapa base libremente disponible. <a class="reference external" href="http://download.geofabrik.de/">Geofabrik</a> provee archivos shape actualizados diariamente de los conjuntos de datos OpenStreetMap.</p>
 <p>Estaremos usando las capas de datos OSM para el estado de Assam en India. Los <a class="reference external" href="http://download.geofabrik.de/asia/india.html">archivos shape de la India</a> de Geofabrik fueron descargados, recortados al límite de estado y empaquetados en un sólo archivo GeoPackage. Puede descargar una copia del geopackage del enlace abajo:</p>
 <p><a class="reference external" href="https://www.qgistutorials.com/downloads/assam.gpkg">assam.gpkg</a></p>
 <p>Fuente de Datos: <a class="reference internal" href="../credits.html#geofabrik" id="id1"><span>[GEOFABRIK]</span></a></p>
 </section>
 <section id="procedure">
-<h2>Procedimiento<a class="headerlink" href="#procedure" title="Enlazar permanentemente con este título">¶</a></h2>
+<h2>Procedimiento<a class="headerlink" href="#procedure" title="Enlace permanente a este encabezado">¶</a></h2>
 <ol class="arabic simple">
 <li><p>Navegue al archivo <code class="docutils literal notranslate"><span class="pre">assam.gpkg</span></code> descargado en el Navegador QGIS. Expándalo y arrastre cada una de las 5 cadas individuales de datos a la pantalla de mapa. Verá que carga las capas <code class="docutils literal notranslate"><span class="pre">boundary</span></code>, <code class="docutils literal notranslate"><span class="pre">roads</span></code>, <code class="docutils literal notranslate"><span class="pre">protected_regions</span></code>, <code class="docutils literal notranslate"><span class="pre">water_polygons</span></code> y <code class="docutils literal notranslate"><span class="pre">water_polylines</span></code> en el panel <span class="guilabel">Capas</span>.</p></li>
 </ol>
@@ -489,8 +488,8 @@
     </p>
     <p>
         &copy; Copyright 2021, Ujaval Gandhi.<br/>
-      Actualizado por última vez en jun. 23, 2023.<br/>
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 4.0.1.<br/>
+      Actualizado por última vez en jul 08, 2023.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 7.0.1.<br/>
     </p>
   </div>
 </footer>

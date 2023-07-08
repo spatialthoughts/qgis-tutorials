@@ -3,15 +3,14 @@
 <html lang="ro">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
     <title>Scriptare în Python pentru Cadrul de Procesare &#8212; QGIS Tutorials and Tips</title>
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../_static/bootstrap-sphinx.css" />
     <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
-    <script src="../_static/jquery.js"></script>
-    <script src="../_static/underscore.js"></script>
     <script src="../_static/doctools.js"></script>
+    <script src="../_static/sphinx_highlight.js"></script>
     <script src="../_static/translations.js"></script>
     <link rel="search" title="Căutare" href="../search.html" />
 
@@ -19,10 +18,10 @@
 <meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
 <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
 <meta name="apple-mobile-web-app-capable" content="yes">
-<script type="text/javascript" src="../_static/js/jquery-1.11.0.min.js "></script>
-<script type="text/javascript" src="../_static/js/jquery-fix.js "></script>
-<script type="text/javascript" src="../_static/bootstrap-3.3.7/js/bootstrap.min.js "></script>
-<script type="text/javascript" src="../_static/bootstrap-sphinx.js "></script>
+<script type="text/javascript" src="../_static/js/jquery-1.12.4.min.js"></script>
+<script type="text/javascript" src="../_static/js/jquery-fix.js"></script>
+<script type="text/javascript" src="../_static/bootstrap-3.4.1/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="../_static/bootstrap-sphinx.js"></script>
 
 
 <!-- Cookie Notice -->
@@ -51,7 +50,7 @@
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
         </button>
-        <a class="navbar-brand" href="../index.html"><span><img src="../_static/logo.png"></span>
+        <a class="navbar-brand" href="../index.html">
           QGIS Tutorials and Tips</a>
         <span class="navbar-text navbar-version pull-left"><b>v1</b></span>
       </div>
@@ -192,14 +191,14 @@
       
 
   <section id="writing-python-scripts-for-processing-framework">
-<h1>Scriptare în Python pentru Cadrul de Procesare<a class="headerlink" href="#writing-python-scripts-for-processing-framework" title="Link permanent la acest titlu">¶</a></h1>
+<h1>Scriptare în Python pentru Cadrul de Procesare<a class="headerlink" href="#writing-python-scripts-for-processing-framework" title="Permalink to this heading">¶</a></h1>
 <div class="admonition warning">
 <p class="admonition-title">Atenționare</p>
 <p>O nouă versiune a acestui tutorial este disponibilă la <a class="reference internal" href="3/processing_python_scripts.html"><span class="doc">Scriptare în Python pentru Cadrul de Procesare (QGIS3)</span></a></p>
 </div>
 <p>Se pot crea script-uri pyqgis independente, care pot fi executate prin intermediul Consolei Python din QGIS. Cu puține modificări, puteți rula script-urile prin intermediul Cadrului de Procesare. Acest lucru are mai multe avantaje. În primul rând, preluarea datelor de la utilizator și scrierea fișierelor de ieșire este mult mai ușoară, deoarece Cadrul de Procesare oferă o interfață de utilizator standardizată pentru acestea. În al doilea rând, având script-ul în Bara de Instrumente de Procesare, este posibil ca acesta să facă parte din orice Model de Procesare sau să ruleze în serie, pentru mai multe intrări. Acest tutorial vă arată cum să scrieți un script Python personalizat, care să facă parte din Cadrul de Procesare din QGIS.</p>
 <section id="overview-of-the-task">
-<h2>Privire de ansamblu asupra activității<a class="headerlink" href="#overview-of-the-task" title="Link permanent la acest titlu">¶</a></h2>
+<h2>Privire de ansamblu asupra activității<a class="headerlink" href="#overview-of-the-task" title="Permalink to this heading">¶</a></h2>
 <p>Script-ul nostru va efectua o operație de dizolvare bazată pe un câmp ales de utilizator. De asemenea, va însuma valorile altui câmp pentru entitățile dizolvate. În cadrul exemplului vom dizolva un fișier shape al lumii în funcție de atributul <code class="docutils literal notranslate"><span class="pre">SUBREGIUNE</span></code>, apoi vom însuma câmpul <code class="docutils literal notranslate"><span class="pre">POP_EST</span></code> pentru a calcula totalul populației din regiunea dizolvată.</p>
 <div class="admonition note">
 <p class="admonition-title">Notă</p>
@@ -207,7 +206,7 @@
 </div>
 </section>
 <section id="get-the-data">
-<h2>Obținerea datelor<a class="headerlink" href="#get-the-data" title="Link permanent la acest titlu">¶</a></h2>
+<h2>Obținerea datelor<a class="headerlink" href="#get-the-data" title="Permalink to this heading">¶</a></h2>
 <p>Vom folosi setul de date <a class="reference external" href="http://www.naturalearthdata.com/downloads/10m-cultural-vectors/10m-admin-0-countries/">Admin 0 - Țări</a> de la Natural Earth.</p>
 <p>Vom folosi setul de date <a class="reference external" href="http://www.naturalearthdata.com/http//www.naturalearthdata.com/download/10m/cultural/ne_10m_admin_0_countries.zip">Admin 0 - fișierul shape al țărilor.</a></p>
 <p>Sursa de date <a class="reference internal" href="credits.html#naturalearth" id="id1"><span>[NATURALEARTH]</span></a></p>
@@ -215,7 +214,7 @@
 <p><a class="reference external" href="http://www.qgistutorials.com/downloads/ne_10m_admin_0_countries.zip">ne_10_admin_0_countries.zip</a></p>
 </section>
 <section id="procedure">
-<h2>Procedura<a class="headerlink" href="#procedure" title="Link permanent la acest titlu">¶</a></h2>
+<h2>Procedura<a class="headerlink" href="#procedure" title="Permalink to this heading">¶</a></h2>
 <ol class="arabic simple">
 <li><p>În QGIS, mergeți la <span class="menuselection">Layers ‣ Add Vector ‣ Add Vector Layer</span>. Navigați la fișierul descărcat <code class="docutils literal notranslate"><span class="pre">ne_10_admin_0_countries.zip</span></code> și încărcați stratul <code class="docutils literal notranslate"><span class="pre">ne_10_admin_0_countries</span></code>. Mergeți la <span class="menuselection">Processing ‣ Toolbox</span>.</p></li>
 </ol>
@@ -449,8 +448,8 @@
     </p>
     <p>
         &copy; Copyright 2021, Ujaval Gandhi.<br/>
-      Ultima actualizare la iun. 23, 2023.<br/>
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 4.0.1.<br/>
+      Ultima actualizare la iul. 08, 2023.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 7.0.1.<br/>
     </p>
   </div>
 </footer>

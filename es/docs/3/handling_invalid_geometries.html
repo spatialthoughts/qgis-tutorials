@@ -3,15 +3,14 @@
 <html lang="es">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
     <title>Manejar Geometrías No Válidas (QGIS3) &#8212; QGIS Tutorials and Tips</title>
     <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-sphinx.css" />
     <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
-    <script src="../../_static/jquery.js"></script>
-    <script src="../../_static/underscore.js"></script>
     <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/sphinx_highlight.js"></script>
     <script src="../../_static/translations.js"></script>
     <link rel="search" title="Búsqueda" href="../../search.html" />
     <link rel="next" title="Análisis Avanzado de Ráster (QGIS3)" href="advanced_raster_analysis.html" />
@@ -21,10 +20,10 @@
 <meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
 <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
 <meta name="apple-mobile-web-app-capable" content="yes">
-<script type="text/javascript" src="../../_static/js/jquery-1.11.0.min.js "></script>
-<script type="text/javascript" src="../../_static/js/jquery-fix.js "></script>
-<script type="text/javascript" src="../../_static/bootstrap-3.3.7/js/bootstrap.min.js "></script>
-<script type="text/javascript" src="../../_static/bootstrap-sphinx.js "></script>
+<script type="text/javascript" src="../../_static/js/jquery-1.12.4.min.js"></script>
+<script type="text/javascript" src="../../_static/js/jquery-fix.js"></script>
+<script type="text/javascript" src="../../_static/bootstrap-3.4.1/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="../../_static/bootstrap-sphinx.js"></script>
 
 
 <!-- Cookie Notice -->
@@ -53,7 +52,7 @@
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
         </button>
-        <a class="navbar-brand" href="../../index.html"><span><img src="../../_static/logo.png"></span>
+        <a class="navbar-brand" href="../../index.html">
           QGIS Tutorials and Tips</a>
         <span class="navbar-text navbar-version pull-left"><b>v1</b></span>
       </div>
@@ -202,30 +201,30 @@
       
 
   <section id="handling-invalid-geometries-qgis3">
-<h1>Manejar Geometrías No Válidas (QGIS3)<a class="headerlink" href="#handling-invalid-geometries-qgis3" title="Enlazar permanentemente con este título">¶</a></h1>
+<h1>Manejar Geometrías No Válidas (QGIS3)<a class="headerlink" href="#handling-invalid-geometries-qgis3" title="Enlace permanente a este encabezado">¶</a></h1>
 <p>Cuando se trabaja con capas de datos vectoriales, puede encontrarse con errores de geometría. Estos errores a menudo se vuelven parte de tus datos después de ejecutar geoprocesamiento, digitalización, edición o conversión de datos. QGIS3 viene con herramientas incorporadas y algoritmos para detectar y corregir geometrías no válidas. Este tutorial le mostrará un flujo de trabajo típico para manejar geometrías no válidas en sus datos.</p>
 <div class="admonition note">
 <p class="admonition-title">Nota</p>
 <p>Diferentes sistemas de software implementan diferentes nociones de validez de geometría. Pero el estándar que lidera el modelo de geometría para uso en un SIG son las <a class="reference external" href="https://www.opengeospatial.org/standards/sfs">Especificaciones Simples de Entidades (SFS)</a> de OGC. En este tutorial, usaremos bibliotecas GEOS para revisar la validez de geometría que usa este estándar. <a class="reference external" href="https://knowledge.safe.com/articles/21674/invalid-ogc-geometry-examples.html">Esta publicación</a> da una vista general de los errores comunes de geometría según lo define el estándar OGC.</p>
 </div>
 <section id="overview-of-the-task">
-<h2>Vista general de la tarea<a class="headerlink" href="#overview-of-the-task" title="Enlazar permanentemente con este título">¶</a></h2>
+<h2>Vista general de la tarea<a class="headerlink" href="#overview-of-the-task" title="Enlace permanente a este encabezado">¶</a></h2>
 <p>Trabajaremos con una capa de límite administrativo para la India y corregiremos un error de geometría para un polígono de estado.</p>
 <section id="other-skills-you-will-learn">
-<h3>Otras habilidades que aprenderá<a class="headerlink" href="#other-skills-you-will-learn" title="Enlazar permanentemente con este título">¶</a></h3>
+<h3>Otras habilidades que aprenderá<a class="headerlink" href="#other-skills-you-will-learn" title="Enlace permanente a este encabezado">¶</a></h3>
 <ul class="simple">
 <li><p>Usar el algoritmo de <em>Coloración Topológica</em> para aplicar un esquema de coloración a una capa polígono.</p></li>
 </ul>
 </section>
 </section>
 <section id="get-the-data">
-<h2>Obtener los datos<a class="headerlink" href="#get-the-data" title="Enlazar permanentemente con este título">¶</a></h2>
+<h2>Obtener los datos<a class="headerlink" href="#get-the-data" title="Enlace permanente a este encabezado">¶</a></h2>
 <p><a class="reference external" href="http://projects.datameet.org/maps/">Datameet</a> provee archivos shape de límites administrativos creados por la comunidad para la India.</p>
 <p>Descargue el archivo zip <a class="reference external" href="https://codeload.github.com/datameet/maps/zip/0fa9fd850eda3d2062e66f2caabc65872639c85a">Datameet Spatial Data Repository [~150 MB]</a>. El archivo descargado contiene múltiples carpetas. Extraiga el archivo y use los archivos en la carpeta <code class="docutils literal notranslate"><span class="pre">States/</span></code>.</p>
 <p>Fuente de Datos: <a class="reference internal" href="../credits.html#datameet" id="id1"><span>[DATAMEET]</span></a></p>
 </section>
 <section id="procedure">
-<h2>Procedimiento<a class="headerlink" href="#procedure" title="Enlazar permanentemente con este título">¶</a></h2>
+<h2>Procedimiento<a class="headerlink" href="#procedure" title="Enlace permanente a este encabezado">¶</a></h2>
 <ol class="arabic simple">
 <li><p>Navegue al archivo descargado <code class="docutils literal notranslate"><span class="pre">India-States.zip</span></code> en el Explorador QGIS. Expándalo y arrastre el archivo <code class="docutils literal notranslate"><span class="pre">India-States.shp</span></code> al lienzo del mapa.</p></li>
 </ol>
@@ -367,8 +366,8 @@
     </p>
     <p>
         &copy; Copyright 2021, Ujaval Gandhi.<br/>
-      Actualizado por última vez en jun. 23, 2023.<br/>
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 4.0.1.<br/>
+      Actualizado por última vez en jul 08, 2023.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 7.0.1.<br/>
     </p>
   </div>
 </footer>

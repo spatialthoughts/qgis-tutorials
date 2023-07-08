@@ -3,15 +3,14 @@
 <html lang="tr">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
     <title>Writing Python Scripts for Processing Framework (QGIS3) &#8212; QGIS Tutorials and Tips</title>
     <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-sphinx.css" />
     <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
-    <script src="../../_static/jquery.js"></script>
-    <script src="../../_static/underscore.js"></script>
     <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/sphinx_highlight.js"></script>
     <script src="../../_static/translations.js"></script>
     <link rel="search" title="Ara" href="../../search.html" />
     <link rel="next" title="Building a Python Plugin (QGIS3)" href="building_a_python_plugin.html" />
@@ -21,10 +20,10 @@
 <meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
 <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
 <meta name="apple-mobile-web-app-capable" content="yes">
-<script type="text/javascript" src="../../_static/js/jquery-1.11.0.min.js "></script>
-<script type="text/javascript" src="../../_static/js/jquery-fix.js "></script>
-<script type="text/javascript" src="../../_static/bootstrap-3.3.7/js/bootstrap.min.js "></script>
-<script type="text/javascript" src="../../_static/bootstrap-sphinx.js "></script>
+<script type="text/javascript" src="../../_static/js/jquery-1.12.4.min.js"></script>
+<script type="text/javascript" src="../../_static/js/jquery-fix.js"></script>
+<script type="text/javascript" src="../../_static/bootstrap-3.4.1/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="../../_static/bootstrap-sphinx.js"></script>
 
 
 <!-- Cookie Notice -->
@@ -53,7 +52,7 @@
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
         </button>
-        <a class="navbar-brand" href="../../index.html"><span><img src="../../_static/logo.png"></span>
+        <a class="navbar-brand" href="../../index.html">
           QGIS Tutorials and Tips</a>
         <span class="navbar-text navbar-version pull-left"><b>v1</b></span>
       </div>
@@ -202,18 +201,18 @@
       
 
   <section id="writing-python-scripts-for-processing-framework-qgis3">
-<h1>Writing Python Scripts for Processing Framework (QGIS3)<a class="headerlink" href="#writing-python-scripts-for-processing-framework-qgis3" title="Bu başlık için kalıcı bağlantı">¶</a></h1>
+<h1>Writing Python Scripts for Processing Framework (QGIS3)<a class="headerlink" href="#writing-python-scripts-for-processing-framework-qgis3" title="Permalink to this heading">¶</a></h1>
 <p>One can write standalone pyqgis scripts that can be run via the Python Console in QGIS. With a few tweaks, you can make your standalone scripts run via the Processing Framework. This has several advantages. First, taking user input and writing output files is far easier because Processing Framework offers standardized user interface for these. Second, having your script in the Processing Toolbox also allows it to be part of any Processing Model or be run as a Batch job with multiple inputs. This tutorial will show how to write a custom python script that can be part of the Processing Framework in QGIS.</p>
 <div class="admonition note">
 <p class="admonition-title">Not</p>
 <p>The Processing API was completely overhauled in QGIS3. Please refer to <a class="reference external" href="https://raw.githubusercontent.com/qgis/QGIS/master/doc/porting_processing.dox">this guide</a> for best practices and tips.</p>
 </div>
 <section id="overview-of-the-task">
-<h2>Overview of the task<a class="headerlink" href="#overview-of-the-task" title="Bu başlık için kalıcı bağlantı">¶</a></h2>
+<h2>Overview of the task<a class="headerlink" href="#overview-of-the-task" title="Permalink to this heading">¶</a></h2>
 <p>Our script will perform a dissolve operation based on a field chosen by the user. It will also sum up values of another field for the dissolved features. In the example, we will dissolve a world shapefile based on a <code class="docutils literal notranslate"><span class="pre">CONTINENT</span></code> attribute and sum up <code class="docutils literal notranslate"><span class="pre">POP_EST</span></code> field to calculate total population in the dissolved region.</p>
 </section>
 <section id="get-the-data">
-<h2>Get the data<a class="headerlink" href="#get-the-data" title="Bu başlık için kalıcı bağlantı">¶</a></h2>
+<h2>Get the data<a class="headerlink" href="#get-the-data" title="Permalink to this heading">¶</a></h2>
 <p>We will use the <a class="reference external" href="http://www.naturalearthdata.com/downloads/10m-cultural-vectors/10m-admin-0-countries/">Admin 0 - Countries</a>
 dataset from Natural Earth.</p>
 <p>Download the <a class="reference external" href="http://www.naturalearthdata.com/http//www.naturalearthdata.com/download/10m/cultural/ne_10m_admin_0_countries.zip">Admin 0 - countries shapefile.</a>.</p>
@@ -222,7 +221,7 @@ dataset from Natural Earth.</p>
 <p><a class="reference external" href="https://www.qgistutorials.com/downloads/ne_global.gpkg">ne_global.gpkg</a></p>
 </section>
 <section id="procedure">
-<h2>Procedure<a class="headerlink" href="#procedure" title="Bu başlık için kalıcı bağlantı">¶</a></h2>
+<h2>Procedure<a class="headerlink" href="#procedure" title="Permalink to this heading">¶</a></h2>
 <ol class="arabic simple">
 <li><p>In the QGIS Browser Panel, locate the directory where you saved your downloaded data. Expand the <code class="docutils literal notranslate"><span class="pre">zip</span></code> or the <code class="docutils literal notranslate"><span class="pre">gpkg</span></code>  entry and select the <code class="docutils literal notranslate"><span class="pre">ne_10m_admin_0_countries</span></code> layer. Drag the layer to the canvas.</p></li>
 </ol>
@@ -419,7 +418,7 @@ under <span class="menuselection">profiles ‣ default ‣ processing ‣ script
 
 
 <span class="k">class</span> <span class="nc">DissolveProcessingAlgorithm</span><span class="p">(</span><span class="n">QgsProcessingAlgorithm</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Dissolve algorithm that dissolves features based on selected</span>
 <span class="sd">    attribute and summarizes the selected field by cumputing the</span>
 <span class="sd">    sum of dissolved features.</span>
@@ -430,7 +429,7 @@ under <span class="menuselection">profiles ‣ default ‣ processing ‣ script
     <span class="n">SUM_FIELD</span> <span class="o">=</span> <span class="s1">&#39;sum_field&#39;</span>
 
     <span class="k">def</span> <span class="nf">tr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">string</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Returns a translatable string with the self.tr() function.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="n">QCoreApplication</span><span class="o">.</span><span class="n">translate</span><span class="p">(</span><span class="s1">&#39;Processing&#39;</span><span class="p">,</span> <span class="n">string</span><span class="p">)</span>
@@ -439,7 +438,7 @@ under <span class="menuselection">profiles ‣ default ‣ processing ‣ script
         <span class="k">return</span> <span class="n">DissolveProcessingAlgorithm</span><span class="p">()</span>
 
     <span class="k">def</span> <span class="nf">name</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Returns the algorithm name, used for identifying the algorithm. This</span>
 <span class="sd">        string should be fixed for the algorithm, and must not be localised.</span>
 <span class="sd">        The name should be unique within each provider. Names should contain</span>
@@ -449,21 +448,21 @@ under <span class="menuselection">profiles ‣ default ‣ processing ‣ script
         <span class="k">return</span> <span class="s1">&#39;dissolve_with_sum&#39;</span>
 
     <span class="k">def</span> <span class="nf">displayName</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Returns the translated algorithm name, which should be used for any</span>
 <span class="sd">        user-visible display of the algorithm name.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">tr</span><span class="p">(</span><span class="s1">&#39;Dissolve with Sum&#39;</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">group</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Returns the name of the group this algorithm belongs to. This string</span>
 <span class="sd">        should be localised.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">tr</span><span class="p">(</span><span class="s1">&#39;scripts&#39;</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">groupId</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Returns the unique ID of the group this algorithm belongs to. This</span>
 <span class="sd">        string should be fixed for the algorithm, and must not be localised.</span>
 <span class="sd">        The group id should be unique within each provider. Group id should</span>
@@ -473,7 +472,7 @@ under <span class="menuselection">profiles ‣ default ‣ processing ‣ script
         <span class="k">return</span> <span class="s1">&#39;scripts&#39;</span>
 
     <span class="k">def</span> <span class="nf">shortHelpString</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Returns a localised short helper string for the algorithm. This string</span>
 <span class="sd">        should provide a basic description about what the algorithm does and the</span>
 <span class="sd">        parameters and outputs associated with it..</span>
@@ -481,7 +480,7 @@ under <span class="menuselection">profiles ‣ default ‣ processing ‣ script
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">tr</span><span class="p">(</span><span class="s2">&quot;Dissolves selected features and creates and sums values of features that were dissolved&quot;</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">initAlgorithm</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">config</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Here we define the inputs and output of the algorithm, along</span>
 <span class="sd">        with some other properties.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -517,7 +516,7 @@ under <span class="menuselection">profiles ‣ default ‣ processing ‣ script
         <span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">processAlgorithm</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">parameters</span><span class="p">,</span> <span class="n">context</span><span class="p">,</span> <span class="n">feedback</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Here is where the processing itself takes place.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">source</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">parameterAsSource</span><span class="p">(</span>
@@ -607,8 +606,8 @@ under <span class="menuselection">profiles ‣ default ‣ processing ‣ script
     </p>
     <p>
         &copy; Copyright 2021, Ujaval Gandhi.<br/>
-      Son güncelleme: Haz 23, 2023.<br/>
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 4.0.1.<br/>
+      Son güncelleme: Tem 08, 2023.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 7.0.1.<br/>
     </p>
   </div>
 </footer>

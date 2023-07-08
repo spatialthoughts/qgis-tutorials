@@ -3,15 +3,14 @@
 <html lang="fa">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
     <title>استفاده از بیان توابع عبارتی پایتون (QGIS3) &#8212; QGIS Tutorials and Tips</title>
     <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-sphinx.css" />
     <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
-    <script src="../../_static/jquery.js"></script>
-    <script src="../../_static/underscore.js"></script>
     <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/sphinx_highlight.js"></script>
     <script src="../../_static/translations.js"></script>
     <link rel="search" title="جستجو" href="../../search.html" />
     <link rel="next" title="Writing Python Scripts for Processing Framework (QGIS3)" href="processing_python_scripts.html" />
@@ -21,10 +20,10 @@
 <meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
 <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
 <meta name="apple-mobile-web-app-capable" content="yes">
-<script type="text/javascript" src="../../_static/js/jquery-1.11.0.min.js "></script>
-<script type="text/javascript" src="../../_static/js/jquery-fix.js "></script>
-<script type="text/javascript" src="../../_static/bootstrap-3.3.7/js/bootstrap.min.js "></script>
-<script type="text/javascript" src="../../_static/bootstrap-sphinx.js "></script>
+<script type="text/javascript" src="../../_static/js/jquery-1.12.4.min.js"></script>
+<script type="text/javascript" src="../../_static/js/jquery-fix.js"></script>
+<script type="text/javascript" src="../../_static/bootstrap-3.4.1/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="../../_static/bootstrap-sphinx.js"></script>
 
 
 <!-- Cookie Notice -->
@@ -53,7 +52,7 @@
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
         </button>
-        <a class="navbar-brand" href="../../index.html"><span><img src="../../_static/logo.png"></span>
+        <a class="navbar-brand" href="../../index.html">
           QGIS Tutorials and Tips</a>
         <span class="navbar-text navbar-version pull-left"><b>v1</b></span>
       </div>
@@ -202,24 +201,24 @@
       
 
   <section id="using-custom-python-expression-functions-qgis3">
-<h1>استفاده از بیان توابع عبارتی پایتون (QGIS3)<a class="headerlink" href="#using-custom-python-expression-functions-qgis3" title="پیوند ثابت به این سر مقاله">¶</a></h1>
+<h1>استفاده از بیان توابع عبارتی پایتون (QGIS3)<a class="headerlink" href="#using-custom-python-expression-functions-qgis3" title="Permalink to this heading">¶</a></h1>
 <p>عبارات در QGIS قدرت زیادی دارند و در بسیاری از عارضه های اصلی  ازقبیل : انتخاب ، محاسبه مقادیر فیلد ،نمایش قالب ، برچسب گذاری و غیره QGIS مورد استفاده قرار می گیرند همچنینQGIS  از عبارات تعریف شده توسط کاربر پشتیبانی می کند. با کمی برنامه نویسی پایتون ، می توانید توابع  خود  در موتور عبارت تعریف کنید.</p>
 <section id="overview-of-the-task">
-<h2>نمای کلی  تمرین<a class="headerlink" href="#overview-of-the-task" title="پیوند ثابت به این سر مقاله">¶</a></h2>
+<h2>نمای کلی  تمرین<a class="headerlink" href="#overview-of-the-task" title="Permalink to this heading">¶</a></h2>
 <p>ما یک تابع سفارشی را تعریف خواهیم کرد که عدد زون UTM  یک عارضه در نقشه  <a class="reference external" href="http://www.dmap.co.uk/utmworld.htm">UTM zone number</a> را پیدا کند و  با استفاده از این تابع عبارتی، وقتی روی نقطه قرار گرفتید عدد منطقه UTM نمایش داده  شود.</p>
 <section id="other-skills-you-will-learn">
-<h3>مهارت های دیگری که خواهید آموخت<a class="headerlink" href="#other-skills-you-will-learn" title="پیوند ثابت به این سر مقاله">¶</a></h3>
+<h3>مهارت های دیگری که خواهید آموخت<a class="headerlink" href="#other-skills-you-will-learn" title="Permalink to this heading">¶</a></h3>
 <ul class="simple">
 <li><p>نحوه استفاده از ابزار <code class="docutils literal notranslate"><span class="pre">Map</span> <span class="pre">Tips</span></code> برای نمایش متن سفارشی هنگام قرار دادن روی عارضه.</p></li>
 </ul>
 </section>
 </section>
 <section id="get-the-data">
-<h2>اخذ داده<a class="headerlink" href="#get-the-data" title="پیوند ثابت به این سر مقاله">¶</a></h2>
+<h2>اخذ داده<a class="headerlink" href="#get-the-data" title="Permalink to this heading">¶</a></h2>
 <p>ما از مجموعه  داده مکانی وبگاه  <a class="reference external" href="http://www.naturalearthdata.com/downloads/10m-cultural-vectors/10m-populated-places/">Populated Places</a>  استفاده خواهیم کرد. مجموعه داده های ساده شده  (با ستون کمتر) &lt;<a class="reference external" href="http://www.naturalearthdata.com/http//www.naturalearthdata.com/download/10m/cultural/ne_10m_populated_places_simple.zip">http://www.naturalearthdata.com/http//www.naturalearthdata.com/download/10m/cultural/ne_10m_populated_places_simple.zip</a>&gt;`__ را دونلود نمایید.</p>
 </section>
 <section id="procedure">
-<h2>مراحل<a class="headerlink" href="#procedure" title="پیوند ثابت به این سر مقاله">¶</a></h2>
+<h2>مراحل<a class="headerlink" href="#procedure" title="Permalink to this heading">¶</a></h2>
 <ol class="arabic simple">
 <li><p>فایل  <code class="docutils literal notranslate"><span class="pre">ne_10m_populated_places_simple.zip</span></code> را در QGIS Browser پیدا کرده و آن را باز دهید. فایل  <code class="docutils literal notranslate"><span class="pre">ne_10m_populated_places_simple.shp</span></code> را انتخاب کرده و به پنجره اصلی بکشید.</p></li>
 </ol>
@@ -253,7 +252,7 @@
 
 <span class="nd">@qgsfunction</span><span class="p">(</span><span class="n">args</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">group</span><span class="o">=</span><span class="s1">&#39;Custom&#39;</span><span class="p">,</span> <span class="n">usesgeometry</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 <span class="k">def</span> <span class="nf">GetUtmZone</span><span class="p">(</span><span class="n">value1</span><span class="p">,</span> <span class="n">feature</span><span class="p">,</span> <span class="n">parent</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Return the UTM Zone of the feature&#39;s geometry as a String&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Return the UTM Zone of the feature&#39;s geometry as a String&quot;&quot;&quot;</span>
     <span class="n">centroid</span> <span class="o">=</span> <span class="n">feature</span><span class="o">.</span><span class="n">geometry</span><span class="p">()</span>
     <span class="n">longitude</span> <span class="o">=</span> <span class="n">centroid</span><span class="o">.</span><span class="n">asPoint</span><span class="p">()</span><span class="o">.</span><span class="n">x</span><span class="p">()</span>
     <span class="n">latitude</span> <span class="o">=</span> <span class="n">centroid</span><span class="o">.</span><span class="n">asPoint</span><span class="p">()</span><span class="o">.</span><span class="n">y</span><span class="p">()</span>
@@ -345,8 +344,8 @@
     </p>
     <p>
         &copy; Copyright 2021, Ujaval Gandhi.<br/>
-      آخرین بروز رسانی در ژوئن 23, 2023 .<br/>
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 4.0.1.<br/>
+      آخرین بروز رسانی در ژوئیه 08, 2023 .<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 7.0.1.<br/>
     </p>
   </div>
 </footer>

@@ -3,15 +3,14 @@
 <html lang="zh_TW">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
     <title>近鄰分析 &#8212; QGIS Tutorials and Tips</title>
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../_static/bootstrap-sphinx.css" />
     <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
-    <script src="../_static/jquery.js"></script>
-    <script src="../_static/underscore.js"></script>
     <script src="../_static/doctools.js"></script>
+    <script src="../_static/sphinx_highlight.js"></script>
     <script src="../_static/translations.js"></script>
     <link rel="search" title="搜尋" href="../search.html" />
 
@@ -19,10 +18,10 @@
 <meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
 <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
 <meta name="apple-mobile-web-app-capable" content="yes">
-<script type="text/javascript" src="../_static/js/jquery-1.11.0.min.js "></script>
-<script type="text/javascript" src="../_static/js/jquery-fix.js "></script>
-<script type="text/javascript" src="../_static/bootstrap-3.3.7/js/bootstrap.min.js "></script>
-<script type="text/javascript" src="../_static/bootstrap-sphinx.js "></script>
+<script type="text/javascript" src="../_static/js/jquery-1.12.4.min.js"></script>
+<script type="text/javascript" src="../_static/js/jquery-fix.js"></script>
+<script type="text/javascript" src="../_static/bootstrap-3.4.1/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="../_static/bootstrap-sphinx.js"></script>
 
 
 <!-- Cookie Notice -->
@@ -51,7 +50,7 @@
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
         </button>
-        <a class="navbar-brand" href="../index.html"><span><img src="../_static/logo.png"></span>
+        <a class="navbar-brand" href="../index.html">
           QGIS Tutorials and Tips</a>
         <span class="navbar-text navbar-version pull-left"><b>v1</b></span>
       </div>
@@ -192,17 +191,17 @@
       
 
   <section id="nearest-neighbor-analysis">
-<h1>近鄰分析<a class="headerlink" href="#nearest-neighbor-analysis" title="本標題的永久連結">¶</a></h1>
+<h1>近鄰分析<a class="headerlink" href="#nearest-neighbor-analysis" title="本標頭的永久連結">¶</a></h1>
 <div class="admonition warning">
 <p class="admonition-title">警告</p>
 <p>This tutorial is now obsolete. A new and updated version is available at <a class="reference internal" href="3/nearest_neighbor_analysis.html"><span class="doc">Nearest Neighbor Analysis (QGIS3)</span></a></p>
 </div>
 <p>GIS 非常適合用於分析圖徵的空間關係。這些分析的其中之一是為特定的圖徵尋找最接近的另一個圖徵，這時 QGIS 的<strong>距離矩陣（Distance Matrix）</strong>工具就可以派上用場。在本教學中，我們會使用 2 個資料集，並且尋找這兩個圖層中，哪些點彼此最為靠近。</p>
 <section id="overview-of-the-task">
-<h2>內容說明<a class="headerlink" href="#overview-of-the-task" title="本標題的永久連結">¶</a></h2>
+<h2>內容說明<a class="headerlink" href="#overview-of-the-task" title="本標頭的永久連結">¶</a></h2>
 <p>我們已有許多重要地震的位置，現在要找出這些離地震最近的人口聚居地。</p>
 <section id="other-skills-you-will-learn">
-<h3>你還會學到這些<a class="headerlink" href="#other-skills-you-will-learn" title="本標題的永久連結">¶</a></h3>
+<h3>你還會學到這些<a class="headerlink" href="#other-skills-you-will-learn" title="本標頭的永久連結">¶</a></h3>
 <ul class="simple">
 <li><p>如何在 QGIS 中操作資料表連結 (如需更多介紹請看 <a class="reference internal" href="performing_table_joins.html"><span class="doc">資料表連接</span></a>)</p></li>
 <li><p>使用 <span class="guilabel">查詢建構器</span> 來顯示圖層中的次群組</p></li>
@@ -211,7 +210,7 @@
 </section>
 </section>
 <section id="get-the-data">
-<h2>取得資料<a class="headerlink" href="#get-the-data" title="本標題的永久連結">¶</a></h2>
+<h2>取得資料<a class="headerlink" href="#get-the-data" title="本標頭的永久連結">¶</a></h2>
 <p>這裡我們要使用 NOAA 的美國國立地球物理資料中心（NGDC）的 <a class="reference external" href="http://www.ngdc.noaa.gov/nndc/struts/form?t=101650&amp;s=1&amp;d=1">Significant Earthquake Database</a>，內含所有的全球重大地震。下載 <a class="reference external" href="http://www.ngdc.noaa.gov/nndc/struts/results?type_0=Exact&amp;query_0=$ID&amp;t=101650&amp;s=13&amp;d=189&amp;dfn=signif.txt">地震資料的 tab 分隔檔</a></p>
 <p>Natural Earth <a class="reference external" href="http://www.naturalearthdata.com/downloads/10m-cultural-vectors/10m-populated-places/">上有不錯的 `人口居住地</a> 資料庫，<a href="#id3"><span class="problematic" id="id4">`其中也有 `簡化版 (欄位較少) 的資料庫&lt;http://www.naturalearthdata.com/http//www.naturalearthdata.com/download/10m/cultural/ne_10m_populated_places_simple.zip&gt;`_</span></a></p>
 <p>為了方便起見，你也可以直接用下面的連結下載這兩份資料集：</p>
@@ -220,7 +219,7 @@
 <p>Data Sources: <a class="reference internal" href="credits.html#ncei" id="id1"><span>[NCEI]</span></a> <a class="reference internal" href="credits.html#naturalearth" id="id2"><span>[NATURALEARTH]</span></a></p>
 </section>
 <section id="procedure">
-<h2>操作流程<a class="headerlink" href="#procedure" title="本標題的永久連結">¶</a></h2>
+<h2>操作流程<a class="headerlink" href="#procedure" title="本標頭的永久連結">¶</a></h2>
 <ol class="arabic simple">
 <li><p>打開 QGIS，選擇 <span class="menuselection">圖層 ‣ 加入分隔文字圖層</span>，然後選擇剛下載的 <code class="docutils literal notranslate"><span class="pre">signif.txt</span></code>。</p></li>
 </ol>
@@ -376,8 +375,8 @@
     </p>
     <p>
         &copy; Copyright 2021, Ujaval Gandhi.<br/>
-      最後更新於 6月 23, 2023。<br/>
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 4.0.1.<br/>
+      最後更新於 7月 08, 2023。<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 7.0.1.<br/>
     </p>
   </div>
 </footer>
