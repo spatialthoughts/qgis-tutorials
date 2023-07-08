@@ -87,7 +87,7 @@ Landcover Data
      :align: center
 
 
-7. Click on the :guilabel:`DOWNLOAD` to download a zip file containing the landcover information in raster format. 
+7. Click on the :guilabel:`DOWNLOAD` to download a zip file containing the landcover information in raster format. Make sure to select :guilabel:`WorldCover Version 1` data for download.
 
   .. image:: /static/3/calculating_raster_area/images/data17.png
      :align: center
