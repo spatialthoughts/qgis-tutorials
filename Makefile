@@ -107,6 +107,8 @@ all:
 	mkdir -p live/html
 	@echo
 	@echo Building html for the following languages: $(LANGUAGES)
+	# The following is needed to overcome a locate error
+	export LC_ALL=C
 	@for LANG in $(LANGUAGES) ; do \
 		 make LANG=$$LANG html; \
 		 mv $(BUILDDIR)/html/$$LANG live/html/; \
