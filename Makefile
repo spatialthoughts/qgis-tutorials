@@ -4,7 +4,7 @@
 
 # You can set these variables from the command line.
 # LANGUAGES     = en nl es fa it sl tr zh_TW th uk ko vi id el fi_FI ro pt_BR ru fr de
-LANGUAGES     = en nl es fa it sl tr zh_TW ko id el ro ru de
+LANGUAGES     = en sl nl es fa it sl tr zh_TW ko id el ro ru de
 PDF_LANGUAGES = en
 LANG          = en
 SPHINXBUILD   = sphinx-build
@@ -94,9 +94,11 @@ transifex-push: pretranslate
 	rm -rf i18n/pot
 
 # Run this to pull latest translations from transifex service
+# There is a newer tx version that needs to be locally installed
+# Currently installed at /usr/local/bin/tx
 transifex-pull:
 	@for LANG in $(LANGUAGES) ; do \
-		tx pull -l $$LANG; \
+		/usr/local/bin/tx pull -l $$LANG; \
 	done
 
 all:
