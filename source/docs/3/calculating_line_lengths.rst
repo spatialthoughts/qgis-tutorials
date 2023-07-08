@@ -18,7 +18,7 @@ Get the data
 ------------
 `Natural Earth <http://www.naturalearthdata.com/downloads/10m-cultural-vectors/railroads/>`_ has a public domain railroads dataset. 
 
-Download the `North America supplement <http://www.naturalearthdata.com/http//www.naturalearthdata.com/download/10m/cultural/ne_10m_railroads_north_america.zip>`_ zip file from the portal. 
+Download the `North America supplement <https://www.naturalearthdata.com/http//www.naturalearthdata.com/download/10m/cultural/ne_10m_railroads_north_america.zip>`_ zip file from the portal. 
 
 For convenience, you may directly download a copy of the dataset from the link below:
 

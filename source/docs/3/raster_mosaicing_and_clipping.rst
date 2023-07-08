@@ -23,7 +23,7 @@ An easy interface to download tiles for a given area is the `30-Meter SRTM Tile 
    :align: center
 
 
-We will also need the `Admin 0 - Countries <http://www.naturalearthdata.com/http//www.naturalearthdata.com/download/10m/cultural/ne_10m_admin_0_countries.zip>`_ shapefile from  Natural Earth.
+We will also need the `Admin 0 - Countries <https://www.naturalearthdata.com/http//www.naturalearthdata.com/download/10m/cultural/ne_10m_admin_0_countries.zip>`_ shapefile from  Natural Earth.
 
 
 For convenience, you may directly download a copy of the datasets from the links below:

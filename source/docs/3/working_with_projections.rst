@@ -15,9 +15,9 @@ Get the data
 ------------
 
 Natural Earth has `Admin 0 - Countries
-<http://www.naturalearthdata.com/downloads/10m-cultural-vectors/>`_
+<https://www.naturalearthdata.com/downloads/10m-cultural-vectors/>`_
 dataset. Download the `countries
-<http://www.naturalearthdata.com/http//www.naturalearthdata.com/download/10m/cultural/ne_10m_admin_0_countries.zip>`_
+<https://www.naturalearthdata.com/http//www.naturalearthdata.com/download/10m/cultural/ne_10m_admin_0_countries.zip>`_
 
 `UK's Ordnance Survey <https://www.ordnancesurvey.co.uk/>`_ provides open data
 for download. Download the `MiniScale raster product
