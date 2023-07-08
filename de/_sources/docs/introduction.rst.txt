@@ -27,11 +27,6 @@ Contributors
 Translations
 ^^^^^^^^^^^^
 
-If you would like to help translate these tutorials in your langugage, please
-`Join the team on Transifex
-<https://www.transifex.com/projects/p/qgis-tutorials/>`_.
-
-
 The tutorials are also available in following langugages:
 
 - `Chinese (Taiwan) <https://www.qgistutorials.com/zh_TW/>`_ (Translation by: *Whyjay Zheng*)
@@ -53,6 +48,10 @@ The tutorials are also available in following langugages:
 - `Turkish <https://www.qgistutorials.com/tr/>`_ (Translation by: *Birkan*, *Tayfun Akçayır*, *Emrullah Karahasanoğlu*, *İnci Yalçın*)
 - `Ukrainian <https://www.qgistutorials.com/uk/>`_ (Translation by: *Igor Konovalov*)
 - `Vietnamese <https://www.qgistutorials.com/vi/>`_ (Translation by: *Hang Nguyen Thuy*)
+
+If you would like to help translate these tutorials in your langugage, please
+`Join the team on Transifex
+<https://www.transifex.com/projects/p/qgis-tutorials/>`_.
 
 License
 -------
