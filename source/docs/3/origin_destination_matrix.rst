@@ -129,22 +129,7 @@ Procedure
   .. image:: /static/3/origin_destination_matrix/images/14.png
     :align: center
   
-15. A new virtual layer ``SQL Output`` will be added to the :guilabel:`Layers` panel. This Layer has the result of our analysis. Nearest Adult mental health center for each of the 1000 origin points. Let's try a few different ways to visualize and validate these results. 
+15. A new virtual layer ``SQL Output`` will be added to the :guilabel:`Layers` panel. This Layer has the result of our analysis. Nearest Adult mental health center for each of the 1000 origin points. 
 
   .. image:: /static/3/origin_destination_matrix/images/15.png
-    :align: center
-
-16. To validate this let us build the Shortest path. We will build the shortest path from points *(OBJECTID_1 = 946044)* and  *(OBJECTID_1 = 845296)* to destination point *(OBJECTID = 8)*. Let's run the shortest path algorithm on 1 pair. Locate the :menuselection:`QNEAT3 --> Routing --> Shortest path (point to point)` algorithm and launch it.
-
-  .. image:: /static/3/origin_destination_matrix/images/16.png
-    :align: center
-  
-17. Select ``Roadway_Block`` as the :guilabel:`Network Layer`. To pick a start and endpoint. You can click the :guilabel:`...` button next to the :guilabel:`Start point` and click on the origin point *(OBJECTID_1 = 946044)* in the canvas. Similarly, select the destination point *(OBJECTID = 8)* as the :guilabel:`End point`. Keep the :guilabel:`Optimization Criterion` as ``Shortest Path (distance optimization)``. Expand the :guilabel:`Advanced parameter` section. Choose ``SUMMARYDIR`` as the :guilabel:`Direction field`. Enter ``OB`` as the :guilabel:`Value for forward direction` and ``IB`` as the :guilabel:`Value for backward direction`. Set the :guilabel:`Topology tolerance` as ``0.000015``. Keep other options to their default values and click :guilabel:`Run`. Now change the origin point *(OBJECTID_1 = 845296)* in the :guilabel:`Start point` and click :guilabel:`Run`
-
-  .. image:: /static/3/origin_destination_matrix/images/17.png
-    :align: center
-  
-18. Two new layers ``Shortest Path Layer`` will be added to the :guilabel:`Layers` panel. You will see the route suggested by building shortest path matches ``Output OD Matrix``. 
-
-  .. image:: /static/3/origin_destination_matrix/images/18.png
     :align: center
