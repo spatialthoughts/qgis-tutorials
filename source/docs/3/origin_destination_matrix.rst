@@ -99,7 +99,7 @@ Procedure
   .. image:: /static/3/origin_destination_matrix/images/9.png
     :align: center
   
-10. As many streets in the network are one-way, we need to set the :guilabel:`Advanced parameters` to specify the direction. See :doc:`basic_network_analysis` for more details on how these attributes are structured. Choose ``SUMMARYDIR`` as the :guilabel:`Direction field`. Enter ``OB`` as the :guilabel:`Value for the forward direction`, ``IB`` as the :guilabel:`Value for backward direction`, and ``BD`` as the :guilabel:`Value for the both direction`. Set the :guilabel:`Topology tolerance` as ``0.0000150``. Keep other options to their default values and click :guilabel:`Run`.
+10. As many streets in the network are one-way, we need to set the :guilabel:`Advanced parameters` to specify the direction. See :doc:`basic_network_analysis` for more details on how these attributes are structured. We also have an option to select geometry style of the generated matrix. We are having a road network with direction information so we can generate matrix by folling the route. Choose  ``Matrix geometry follows routes``.Choose ``SUMMARYDIR`` as the :guilabel:`Direction field`. Enter ``OB`` as the :guilabel:`Value for the forward direction`, ``IB`` as the :guilabel:`Value for backward direction`, and ``BD`` as the :guilabel:`Value for the both direction`. Set the :guilabel:`Topology tolerance` as ``0.0000150``. Keep other options to their default values and click :guilabel:`Run`.
 
   .. image:: /static/3/origin_destination_matrix/images/10.png
     :align: center
@@ -134,69 +134,17 @@ Procedure
   .. image:: /static/3/origin_destination_matrix/images/15.png
     :align: center
 
-16. To validate this let us build the Shortest path. The point *(OBJECTID_1 = 853046)* is visually near to Health center *(OBJECTID = 3)*, but from the SQL query it is connected to health center *(OBJECTID = 9)*. Let's validate this by finding the actual distance between these origins and destination. First, let's run the shortest path algorithm on 1 pair. Locate the :menuselection:`QNEAT3 --> Routing --> Shortest path (point to point)` algorithm and launch it.
+16. To validate this let us build the Shortest path. We will build the shortest path from points *(OBJECTID_1 = 946044)* and  *(OBJECTID_1 = 845296)* to destination point *(OBJECTID = 8)*. Let's run the shortest path algorithm on 1 pair. Locate the :menuselection:`QNEAT3 --> Routing --> Shortest path (point to point)` algorithm and launch it.
 
   .. image:: /static/3/origin_destination_matrix/images/16.png
     :align: center
   
-17. Select ``Roadway_Block`` as the :guilabel:`Network Layer`. To pick a start and endpoint. You can click the :guilabel:`...` button next to the :guilabel:`Start point` and click on the origin point *(OBJECTID_1 = 853046)* in the canvas. Similarly, select the destination point *(OBJECTID = 3)* as the :guilabel:`End point`. Keep the :guilabel:`Optimization Criterion` as ``Shortest Path (distance optimization)``. Expand the :guilabel:`Advanced parameter` section. Choose ``SUMMARYDIR`` as the :guilabel:`Direction field`. Enter ``OB`` as the :guilabel:`Value for forward direction` and ``IB`` as the :guilabel:`Value for backward direction`. Set the :guilabel:`Topology tolerance` as ``0.000015``. Keep other options to their default values and click :guilabel:`Run`. Now change the destination point *(OBJECTID = 9)* in the :guilabel:`End point` and click :guilabel:`Run`
+17. Select ``Roadway_Block`` as the :guilabel:`Network Layer`. To pick a start and endpoint. You can click the :guilabel:`...` button next to the :guilabel:`Start point` and click on the origin point *(OBJECTID_1 = 946044)* in the canvas. Similarly, select the destination point *(OBJECTID = 8)* as the :guilabel:`End point`. Keep the :guilabel:`Optimization Criterion` as ``Shortest Path (distance optimization)``. Expand the :guilabel:`Advanced parameter` section. Choose ``SUMMARYDIR`` as the :guilabel:`Direction field`. Enter ``OB`` as the :guilabel:`Value for forward direction` and ``IB`` as the :guilabel:`Value for backward direction`. Set the :guilabel:`Topology tolerance` as ``0.000015``. Keep other options to their default values and click :guilabel:`Run`. Now change the origin point *(OBJECTID_1 = 845296)* in the :guilabel:`Start point` and click :guilabel:`Run`
 
   .. image:: /static/3/origin_destination_matrix/images/17.png
     :align: center
   
-18. Two new layers ``Shortest Path Layer`` will be added to the :guilabel:`Layers` panel. You will see that although the destination point *(OBJECTID = 9)* visually is closed to the origin point, the actual distance is longer when compared to the destination point *(OBJECTID = 3)*. 
+18. Two new layers ``Shortest Path Layer`` will be added to the :guilabel:`Layers` panel. You will see the route suggested by building shortest path matches ``Output OD Matrix``. 
 
   .. image:: /static/3/origin_destination_matrix/images/18.png
-    :align: center
-
-19. Note that even though the lines connecting the origin and destination is a straight-line, the destination was found using the distance along with the network. It will be much useful visualization to show the actual shortest-path between each origin-destination. As of now, there is no easy way to generate the shortest-path between multiple origin-destination pairs the way we generated the distance matrix. But I will demonstrate a way to use some python scripting to generate this visualization. First, let's run the shortest path algorithm on 1 pair. Locate the :menuselection:`QNEAT3 --> Routing --> Shortest path (point to point)` algorithm and launch it.
-
-  .. image:: /static/3/origin_destination_matrix/images/19.png
-    :align: center
-
-20. In the :guilabel:`Shortest Path (Point to Point)` dialog, select ``Roadway_Block`` as the :guilabel:`Network Layer`. Keep the :guilabel:`Optimization criteria` as Shortest Path (distance optimization). Next we need to pick a start and end point. You can click the :guilabel:`...` button next to :guilabel:`Start point` and click on the origin point in the canvas. Similarly select the destination point as the :guilabel:`End point`. Expand the :guilabel:`Advanced parameter` section. Choose ``SUMMARYDIR`` as the :guilabel:`Direction field`. Enter ``OB`` as the :guilabel:`Value for forward direction` and ``IB`` as the :guilabel:`Value for backward direction`. In :guilabel:`Topology tolerance` enter ``0.000015``. Keep other options to their default values and click :guilabel:`Run`.
-
-  .. image:: /static/3/origin_destination_matrix/images/20.png
-    :align: center
-
-21. A new layer ``Shortest Path`` Layer will be added to the :guilabel:`Layers` panel. You will see that this path follows the network rather than connecting the origin and destination with a straight line. The reason we ran the algorithm on 1 pair is to easily identify the parameter values that we can use in our script. Select ``Shortest Path layer``, right-click and select :guilabel:`Remove Layer`. Click the :guilabel:`History` button in the :guilabel:`Processing Toolbox`.
-
-  .. image:: /static/3/origin_destination_matrix/images/21.png
-    :align: center
-
-22. In the :guilabel:`History` dialog, Select the latest command(command used for Shortest path). This command displays all the parameters and their values that we used. We can now take these values and put them in a script that can allow us to run this command on many origin-destination pairs. Click :guilabel:`Close`.
-
-  .. image:: /static/3/origin_destination_matrix/images/22.png
-    :align: center
-
-23. In the :guilabel:`Processing Toolbox`, click the :guilabel:`scripts` button and select :guilabel:`Create New script`.  
-
-  .. image:: /static/3/origin_destination_matrix/images/23.png
-    :align: center
-
-24. In the :guilabel:`Processing Script Editor`, copy/paste the below code. Save the file as ``get_routes_from_matrix.py``. Now close the :guilabel:`Processing Script Editor`. If you are using a different dataset than the one used in this tutorial, you will have to update the script with the parameter values from step 22.
-
-
-  .. literalinclude:: /static/3/origin_destination_matrix/scripts/matrix_to_routes.py
-
-  .. image:: /static/3/origin_destination_matrix/images/24.png
-    :align: center
-
-25. Now we can test the script. Select a few connections for the layer ``SQL Output`` for which you want the actual routes computed. In the :guilabel:`Processing Toolbox`, a new dropdown :guilabel:`Scripts` will be added. Click on it and select ``Get Routes from Matrix``.
-
-  .. image:: /static/3/origin_destination_matrix/images/25.png
-    :align: center
-
-.. note::
-
-	This script needs to compute the network graph for each iteration and thus quite slow. If you have a lot of origin-destination pairs, it can take time.
-	
-26. In the :guilabel:`Network Layer` select ``Roadway_Block`` and in the :guilabel:`Distance Matrix layer` select ``SQL Output`` then check selected features only. Click :guilabel:`Run`.
-
-  .. image:: /static/3/origin_destination_matrix/images/26.png
-    :align: center
-
-27. A new layer ``Network Routes`` will be added to the :guilabel:`Layers` panel. This will contain the actual route to the destination. 
-
-  .. image:: /static/3/origin_destination_matrix/images/27.png
     :align: center
