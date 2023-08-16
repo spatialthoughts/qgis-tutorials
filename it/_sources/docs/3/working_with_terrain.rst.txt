@@ -94,9 +94,9 @@ Procedure
 9. Let's find our area of interest. From `Wikipedia <https://en.wikipedia.org/wiki/Mount_Everest>`_,
    we find that the coordinates for our area of interest - Mt. Everest - is located
    at the coordinates 27.9881° N, 86.9253° E. Note that QGIS
-   uses the coordinates in (X, Y) format, so you must use the coordinates as
-   (Longitude, Latitude). Paste `86.9253,27.9881` these at the bottom of the QGIS
-   window where it says :guilabel:`Coordinate` and press Enter`. The viewport will be
+   uses the coordinates in (latitude, longitude) format when the CRS is set to EPSG:4326.
+   Therefore, paste the value `27.9881, 86.9253` these at the bottom of the QGIS
+   window where it says :guilabel:`Coordinate` and press guilabel:`Enter`. The viewport will be
    centered at this coordinate. To zoom in, Enter `1:1000000` in the :guilabel:`Scale` field
    and press Enter. You will see the viewport zoom to the area around the
    Himalayas.
