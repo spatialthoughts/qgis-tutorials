@@ -25,7 +25,7 @@ Download the following data layers as shapefiles.
 
 - `Roadway Block <https://opendata.dc.gov/datasets/roadway-block>`_ 
 - `Address Points <https://opendata.dc.gov/datasets/address-points>`_
-- `Adult Mental Health Providers <https://opendata.dc.gov/datasets/adult-mental-health-providers>`_
+- `Community Based Service Provider <https://opendata.dc.gov/datasets/DCGIS::community-based-service-providers>`_
 
     
 For convenience, you may directly download a copy of the datasets from the
@@ -35,7 +35,7 @@ links below:
 
 `Address_Points.zip <https://www.qgistutorials.com/downloads/Address_Points.zip>`_
 
-`Adult_Mental_Health_Providers.zip <https://www.qgistutorials.com/downloads/Adult_Mental_Health_Providers.zip>`_
+`Adult_Mental_Health_Providers.zip <https://www.qgistutorials.com/downloads/Community_Based_Service_Providers.zip>`_
 
 Data Source: [DCOPENDATA]_
 
@@ -49,42 +49,44 @@ Visit :menuselection:`Plugins --> Manage and Install plugins`. Select :guilabel:
 Procedure
 ---------
 
-1. Locate the downloaded ``Roadway_Block-shp.zip`` file in the :guilabel:`Browser` panel. Expand it and drag the ``Roadway_Block.shp`` file to the canvas. Similarly, locate the ``Adult_Mental_Health_Providers.zip`` file, expand it and add ``Adult_Mental_Health_Providers.shp`` to the canvas.
-
+1. Locate the ``Community_Based_Service_Providers.zip`` file, expand it and add ``Community_Based_Service_Providers.shp`` to the canvas. We will select only those centres providing facilities to adults. Right-click on the ``Community_Based_Service_Providers.shp`` layer and select :guilabel:`Filter`. 
   .. image:: /static/3/origin_destination_matrix/images/1.png
     :align: center
-  
-2. Next, locate the ``Address_Points.zip`` file, expand it and add the ``Address_Points.shp``. You will see a lot of points around the city. Each point represents a valid address. We will select 1000 points randomly. This technique is called random sampling. Go to :menuselection:`Processing --> Toolbox`.
+	
+2. It will open a :guilabel:`Query Builder` dialog box. Enter the following query in the :guilabel:` Filter Expression`  Click :guilabel:`Run`.
+
+  .. code-block:: none
+
+    "PROVIDER_T"  IN ('Adult','Adult & Child')
 
   .. image:: /static/3/origin_destination_matrix/images/2.png
     :align: center
   
-3. Search for and locate the :menuselection:`Vector Selection --> Random extract` algorithm.
+3. Next, locate the ``Roadway_Block.zip`` file, expand it and add the ``Roadway_Block.shp``. Similarly, locate the ``Address_Points.zip`` file, expand it and add the ``Address_Points.shp``. You will see a lot of points around the city. Each point represents a valid address. We will select 1000 points randomly. This technique is called random sampling. Go to :menuselection:`Processing --> Toolbox`.
 
   .. image:: /static/3/origin_destination_matrix/images/3.png
     :align: center
   
-4. Select ``Address_Points`` as the :guilabel:`Input layer`, ``Number of feature`` as the :guilabel:`Method` and, enter ``1000`` in the :guilabel:`Number/percentage of features`. In the :guilabel:`Extracted (random)` choose the ``...``  and click :guilabel:`Save to a file`. Now choose the directory and enter the name as ``address_point_subset.shp`` and click :guilabel:`Run`. 
+4. Search for and locate the :menuselection:`Vector Selection --> Random extract` algorithm.
 
-  .. image:: /static/3/origin_destination_matrix/images/4.png
+  .. image:: /static/3/origin_destination_matrix/images/3.png
+    :align: center
+  
+5. Select ``Address_Points`` as the :guilabel:`Input layer`, ``Number of feature`` as the :guilabel:`Method` and, enter ``1000`` in the :guilabel:`Number/percentage of features`. In the :guilabel:`Extracted (random)` choose the ``...``  and click :guilabel:`Save to a file`. Now choose the directory and enter the name as ``address_point_subset.shp`` and click :guilabel:`Run`. 
+
+  .. image:: /static/3/origin_destination_matrix/images/5.png
     :align: center
 
 .. note::
 
    As the algorithm will extract 1000 random points from the given data set, to replicate the exact points used in this exercise you can download the subset file which we got during the execution of the algorithm here `address_point_subset.zip <https://www.qgistutorials.com/downloads/address_point_subset.zip>`_ . After downloading load ``address_point_subset.shp`` layer into QGIS. 
-
-  
-5. A new layer ``address_point_subset`` will be added to the :guilabel:`Layers` panel, you can turn off the visibility of ``Address_Points`` address points layer.
-
-  .. image:: /static/3/origin_destination_matrix/images/5.png
-    :align: center
-  
-6. Right-click on the ``address_point_subset`` layer and select :guilabel:`Rename layer`.
+ 
+6. A new layer ``address_point_subset`` will be added to the :guilabel:`Layers` panel, you can turn off the visibility of ``Address_Points`` address points layer. Let's rename this layer as ``origin_points``. Right-click on the ``address_point_subset`` layer and select :guilabel:`Rename layer`.
 
   .. image:: /static/3/origin_destination_matrix/images/6.png
     :align: center
   
-7. Let's rename this layer as ``origin_points``. Similarly, rename the ``Adult_Mental_Health_Providers`` layers representing the health facilities as ``destination_points``. Naming the layers this way makes it easy to identify them in subsequent processing.
+7. Similarly, rename the ``Adult_Mental_Health_Providers`` layers representing the health facilities as ``destination_points``. Naming the layers this way makes it easy to identify them in subsequent processing. Further we will open processing toolbox to create the distance matrix using origin and destination layers. 
 
   .. image:: /static/3/origin_destination_matrix/images/7.png
     :align: center
@@ -109,27 +111,22 @@ Procedure
   .. image:: /static/3/origin_destination_matrix/images/11.png
     :align: center
   
-12. For this tutorial, we are interested in only the destination point with the shortest distance. We can create a SQL query to pick the destination with the least ``total_cost`` among all destinations. Go to :menuselection:`Processing --> Toolbox`.
+12. For this tutorial, we are interested in only the destination point with the shortest distance. We can create a SQL query to pick the destination with the least ``total_cost`` among all destinations. Go to :menuselection:`Processing --> Toolbox`.Search for and locate the :menuselection:`Vector general --> Execute SQL`.
 
   .. image:: /static/3/origin_destination_matrix/images/12.png
     :align: center
   
-13. Search for and locate the :menuselection:`Vector general --> Execute SQL`, select ``...`` in :guilabel:`Additional input data sources` check the :guilabel:`Output OD Matrix` and, click :guilabel:`OK`. Now click the :guilabel:`Summation` under :guilabel:`SQL query`.
-
-  .. image:: /static/3/origin_destination_matrix/images/13.png
-    :align: center
-  
-14. Enter the following query in :guilabel:`SQL query` dialog box. Enter ``geometry`` as the :guilabel:`Geometry field` and, select ``LineString`` as the :guilabel:`Geometry type`. Click :guilabel:`Run`.
+13. In :guilabel:`Additional input data sources` select ``...`` and check the :guilabel:`Output OD Matrix` and, click :guilabel:`OK`. Now click the :guilabel:`Summation` under :guilabel:`SQL query`. Enter the following query in :guilabel:`SQL query` dialog box. Enter ``geometry`` as the :guilabel:`Geometry field` and, select ``LineString`` as the :guilabel:`Geometry type`. Click :guilabel:`Run`.
 
   .. code-block:: none
 
     select origin_id, destination_id, min(total_cost) as shortest_distance, geometry 
     from input1 group by origin_id
 
-  .. image:: /static/3/origin_destination_matrix/images/14.png
+  .. image:: /static/3/origin_destination_matrix/images/13.png
     :align: center
   
-15. A new virtual layer ``SQL Output`` will be added to the :guilabel:`Layers` panel. This Layer has the result of our analysis. Nearest Adult mental health center for each of the 1000 origin points. 
+14. A new virtual layer ``SQL Output`` will be added to the :guilabel:`Layers` panel. This Layer has the result of our analysis. Nearest service provider for each of the 1000 origin points. 
 
-  .. image:: /static/3/origin_destination_matrix/images/15.png
+  .. image:: /static/3/origin_destination_matrix/images/14.png
     :align: center

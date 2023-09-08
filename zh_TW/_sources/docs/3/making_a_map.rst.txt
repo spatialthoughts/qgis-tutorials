@@ -200,7 +200,7 @@ Procedure
   .. image:: /static/3/making_a_map/images/29.png
      :align: center
 
-30. Holding your left mouse button, draw a rectangle. On the right-hand panel, click on the :guilabel:`Item Properties` tab and expand the :guilabel:`Search directories` section and select the image of your liking.
+30. Holding your left mouse button, draw a rectangle. On the right-hand panel, click on the :guilabel:`Item Properties` tab and select the :guilabel:`SVG image` section and scroll down to find :guilabel:`arrows` from the :guilabel:`SVG Groups`. Select the image of your liking.
 
   .. image:: /static/3/making_a_map/images/30.png
      :align: center
