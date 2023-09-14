@@ -35,7 +35,7 @@ links below:
 
 `Address_Points.zip <https://www.qgistutorials.com/downloads/Address_Points.zip>`_
 
-`Adult_Mental_Health_Providers.zip <https://www.qgistutorials.com/downloads/Community_Based_Service_Providers.zip>`_
+`Community Based Service Provider.zip <https://www.qgistutorials.com/downloads/Community_Based_Service_Providers.zip>`_
 
 Data Source: [DCOPENDATA]_
 

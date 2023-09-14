@@ -15,14 +15,14 @@ Get the data
   .. image:: /static/3/importing_spreadsheets_csv/images/data01.png
      :align: center
 
-2. As a result, we got *2585* earthquake incidents. Click on the :guilabel:`Download TSV` icon. 
+2. As a result, we got *2594* earthquake incidents. Click on the :guilabel:`Download TSV` icon. 
 
   .. image:: /static/3/importing_spreadsheets_csv/images/data02.png
      :align: center
 
 For convenience, you may directly download a copy of the above datasets from the link below:
 
-`earthquakes_2021_11_25_14_31_59_+0530.tsv <https://www.qgistutorials.com/downloads/earthquakes_2021_11_25_14_31_59_+0530.tsv>`_ 
+`earthquakes-2023-09-12_17-19-15_+0530.tsv <https://www.qgistutorials.com/downloads/earthquakes-2023-09-12_17-19-15_+0530.tsv>`_ 
 
 Data Source [NCEI]_
 
