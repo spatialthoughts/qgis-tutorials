@@ -93,7 +93,6 @@
 <li class="toctree-l1"><a class="reference internal" href="3/handling_invalid_geometries.html">Gestionarea Geometriilor Nevalide (QGIS3)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="3/advanced_raster_analysis.html">Advanced Raster Analysis (QGIS3)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="3/interpolating_point_data.html">Interpolating Point Data (QGIS3)</a></li>
-<li class="toctree-l1"><a class="reference internal" href="3/calculating_intersection_density.html">Calculating Street Intersection Density (QGIS3)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="3/batch_processing.html">Procesarea În Serie, folosind Cadrul de Procesare (QGIS3)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="3/processing_graphical_modeler.html">Automatizarea Fluxurilor de Lucru Complexe utilizând Modelatorul de Procese (QGIS3)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="3/automating_map_creation.html">Automatizarea Creării Hărților cu ajutorul Atlasului (QGIS3)</a></li>
@@ -103,6 +102,8 @@
 <li class="toctree-l1"><a class="reference internal" href="3/service_area_analysis.html">Service Area Analysis using Openrouteservice (QGIS3)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="3/travel_time_analysis.html">Travel Time Analysis with Uber Movement (QGIS3)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="3/areal_mean_rainfall.html">Calculating Areal Mean Rainfall (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/creating_landuse_map.html">Creating a Landuse Map (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/calculating_intersection_density.html">Calculating Street Intersection Density (QGIS3)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="3/getting_started_with_pyqgis.html">Noțiuni de Bază Despre Programarea în Python (QGIS3)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="3/processing_algorithms_pyqgis.html">Running Processing Algorithms via Python (QGIS3)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="3/custom_python_functions.html">Utilizarea Funcțiilor în Expresiile Python Personalizate (QGIS3)</a></li>
@@ -186,15 +187,15 @@
 <ol class="arabic simple">
 <li><p>Dezarhivați și extrageți fișierul .bsq. În Windows, puteți utiliza excelentul <a class="reference external" href="http://www.7-zip.org/">utilitar 7-Zip</a> pentru a citi și a extrage fișierul .gz. Veți vedea că aveți numai un fișier .bsq numit <code class="docutils literal notranslate"><span class="pre">gl-latlong-1deg-landcover.bsq</span></code>. Nu există nici un fișier hdr.</p></li>
 </ol>
-<img alt="../_images/1184.png" class="align-center" src="../_images/1184.png" />
+<img alt="../_images/1186.png" class="align-center" src="../_images/1186.png" />
 <ol class="arabic simple" start="2">
 <li><p>Rețineți că, dacă încercați să deschideți în QGIS fișierul <code class="docutils literal notranslate"><span class="pre">gl-Lat</span> <span class="pre">Long-1deg-landcover.bsq</span></code>, așa cum vine, veți primi un mesaj de eroare.</p></li>
 </ol>
-<img alt="../_images/2148.png" class="align-center" src="../_images/2148.png" />
+<img alt="../_images/2151.png" class="align-center" src="../_images/2151.png" />
 <ol class="arabic simple" start="3">
 <li><p>Pentru a depăși această eroare, vom crea un fișier antet cu extensia <code class="docutils literal notranslate"><span class="pre">.hdr</span></code>. Fișierul antet conține informații cu privire la setul de date și la modul în care este organizat. De obicei, această informație este furnizată ca parte a metadatelor setului de date. Dacă nu aveți metadatele, uitați-vă prin site sau prin documentația pentru indicii. Unele dintre informații pot fi ghicite, dacă nu le știți. În cazul acestui set de date, pagina de descărcare a datelor face trimitere către <a class="reference external" href="ftp://ftp.glcf.umd.edu/glcf/Global_Land_Cover/Global/1deg/gl-latlong-1deg-landcover.glcf">metadate</a>. Descărcați metadatele și deschideți-le.</p></li>
 </ol>
-<img alt="../_images/382.png" class="align-center" src="../_images/382.png" />
+<img alt="../_images/387.png" class="align-center" src="../_images/387.png" />
 <ol class="arabic simple" start="4">
 <li><p>Fișierul .hdr trebuie să fie un fișier text simplu, în următorul format. Unii din acești parametri ne sunt dați, iar alții trebuie să fie elaborați. <a class="reference external" href="http://www.gdal.org/frmt_various.html">Aflați mai multe despre format</a>.</p></li>
 </ol>
@@ -212,15 +213,15 @@ byteorder &lt;byte order in which image pixel values are stored, msb or lsb&gt;
 <ol class="arabic simple" start="5">
 <li><p>Deschideți un editor de text și creați un fișier în formatul specificat la pasul anterior. Salvați fișierul ca``gl-latlong-1deg-landcover.hdr``. Asigurați-vă că fișierul nu are <code class="docutils literal notranslate"><span class="pre">.txt</span></code> la sfârșit. Unele dintre valorile din fișierele text sunt ușor de înțeles. <strong>ncols</strong> și <strong>nrows</strong> provin din metadate ca Numărul de Linii și Numărul de Pixeli per Linie. <strong>cellsize</strong> este 1, la fel ca și Rezoluția pixelului din metadate. Coordonatele X,Y ale colțului din stânga-jos trebuie să fie indicate de către noi. Deoarece fișierul acoperă întregul glob iar unitățile sunt lat/long, <strong>xllcorner</strong> și <strong>yllcorner</strong> sunt -180 și respectiv -90. Nu avem nici o informație cu privire la nodata_value, deci -9999 este o valoare sigură. Din metadate iarăși, Pixel Format este Byte, deci <strong>nbits</strong> va fi egal cu 8. iar pixeltype va fi <strong>byte_unsigned</strong>. Nu avem informații despre byteorder, așa că lăsați-l ca msbfirst. Puteți descărca fișierul HDR formatat corect de <a class="reference external" href="../../downloads/gl-latlong-1deg-landcover.hdr">aici</a>.</p></li>
 </ol>
-<img alt="../_images/551.png" class="align-center" src="../_images/551.png" />
+<img alt="../_images/552.png" class="align-center" src="../_images/552.png" />
 <ol class="arabic simple" start="6">
 <li><p>Acum, că aveți fișierul antet, puneți-l în același director cu <code class="docutils literal notranslate"><span class="pre">gl-latlong-1deg-landcover.bsq</span></code>. Apoi, în QGIS, mergeți la <span class="menuselection">Layer ‣ Add Raster Layer</span>. Selectați <code class="docutils literal notranslate"><span class="pre">gl-latlong-1deg-landcover.bsq</span></code> ca intrare și faceți clic pe <span class="guilabel">Open</span>.</p></li>
 </ol>
-<img alt="../_images/649.png" class="align-center" src="../_images/649.png" />
+<img alt="../_images/650.png" class="align-center" src="../_images/650.png" />
 <ol class="arabic simple" start="7">
 <li><p>În următorul ecran, vi se poate solicita să alegeți un CRS. Având în vedere că datele sunt în Lat/Long, alegeți <strong>WGS84 EPSG:4326</strong> ca CRS. Acum, veți vedea setul de date încărcat în QGIS.</p></li>
 </ol>
-<img alt="../_images/748.png" class="align-center" src="../_images/748.png" />
+<img alt="../_images/749.png" class="align-center" src="../_images/749.png" />
 </section>
 </section>
 
@@ -246,7 +247,7 @@ byteorder &lt;byte order in which image pixel values are stored, msb or lsb&gt;
     </p>
     <p>
         &copy; Copyright 2021, Ujaval Gandhi.<br/>
-      Ultima actualizare la sept. 14, 2023.<br/>
+      Ultima actualizare la nov. 06, 2023.<br/>
       Created using <a href="http://sphinx-doc.org/">Sphinx</a> 7.0.1.<br/>
     </p>
   </div>

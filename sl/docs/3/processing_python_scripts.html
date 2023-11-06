@@ -95,7 +95,6 @@
 <li class="toctree-l1"><a class="reference internal" href="handling_invalid_geometries.html">Ravnanje z neveljavnimi geometrijami (QGIS3)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="advanced_raster_analysis.html">Advanced Raster Analysis (QGIS3)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="interpolating_point_data.html">Interpolating Point Data (QGIS3)</a></li>
-<li class="toctree-l1"><a class="reference internal" href="calculating_intersection_density.html">Calculating Street Intersection Density (QGIS3)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="batch_processing.html">Batch Processing using Processing Framework (QGIS3)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="processing_graphical_modeler.html">Avtomatizacija zapletenih delovnih postopkov z orodjem Processing Modeler (QGIS3)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="automating_map_creation.html">Avtomatizacija ustvarjanja zemljevidov s programom Print Layout Atlas (QGIS3)</a></li>
@@ -105,6 +104,8 @@
 <li class="toctree-l1"><a class="reference internal" href="service_area_analysis.html">Analiza storitvenih območij z uporabo storitve Openrouteservice (QGIS3)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="travel_time_analysis.html">Analiza potovalnega časa z gibanjem Uberja (QGIS3)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="areal_mean_rainfall.html">Calculating Areal Mean Rainfall (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="creating_landuse_map.html">Creating a Landuse Map (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="calculating_intersection_density.html">Calculating Street Intersection Density (QGIS3)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="getting_started_with_pyqgis.html">Getting Started With Python Programming (QGIS3)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="processing_algorithms_pyqgis.html">Running Processing Algorithms via Python (QGIS3)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="custom_python_functions.html">Using Custom Python Expression Functions (QGIS3)</a></li>
@@ -202,24 +203,24 @@ dataset from Natural Earth.</p>
 <ol class="arabic simple">
 <li><p>In the QGIS Browser Panel, locate the directory where you saved your downloaded data. Expand the <code class="docutils literal notranslate"><span class="pre">zip</span></code> or the <code class="docutils literal notranslate"><span class="pre">gpkg</span></code>  entry and select the <code class="docutils literal notranslate"><span class="pre">ne_10m_admin_0_countries</span></code> layer. Drag the layer to the canvas.</p></li>
 </ol>
-<img alt="../../_images/1107.png" class="align-center" src="../../_images/1107.png" />
+<img alt="../../_images/1108.png" class="align-center" src="../../_images/1108.png" />
 <ol class="arabic simple" start="2">
 <li><p>Go to <span class="menuselection">Processing ‣ Toolbox</span>. Click the <span class="guilabel">Scripts</span> button in the toolbar and select <span class="guilabel">Create New Script from Template</span>.</p></li>
 </ol>
-<img alt="../../_images/2101.png" class="align-center" src="../../_images/2101.png" />
+<img alt="../../_images/2103.png" class="align-center" src="../../_images/2103.png" />
 <ol class="arabic simple" start="3">
 <li><p>The template contains all the boilerplate code that is required for the Processing Framework to recognize it as a Processing script, and manage inputs/outputs. Let’s start customizing the example template to our needs. First change the class name from <code class="docutils literal notranslate"><span class="pre">ExampleProcessingAlgorithm</span></code> to <code class="docutils literal notranslate"><span class="pre">DissolveProcessingAlgorithm</span></code>. This name also needs to be updated in the <code class="docutils literal notranslate"><span class="pre">createInstance</span></code> method. Add a docstring to the class that explains what the algorithm does.</p></li>
 </ol>
-<img alt="../../_images/344.png" class="align-center" src="../../_images/344.png" />
+<img alt="../../_images/347.png" class="align-center" src="../../_images/347.png" />
 <ol class="arabic simple" start="4">
 <li><p>As you scroll down, you will see methods that assign name, group, description etc. to the script. Change the return values for <em>name</em> method to be <code class="docutils literal notranslate"><span class="pre">dissolve_with_sum</span></code>, <em>displayName</em> method to <code class="docutils literal notranslate"><span class="pre">Dissolve</span> <span class="pre">with</span> <span class="pre">Sum</span></code>, <em>group</em> method and <em>groupId</em> method to  <code class="docutils literal notranslate"><span class="pre">scripts</span></code>. Change the return value of <em>shortHelpString</em> method to a description that will appear to the user. Click the <span class="guilabel">Save</span> button.</p></li>
 </ol>
-<img alt="../../_images/420.png" class="align-center" src="../../_images/420.png" />
+<img alt="../../_images/422.png" class="align-center" src="../../_images/422.png" />
 <ol class="arabic simple" start="5">
 <li><p>Name the script <code class="docutils literal notranslate"><span class="pre">dissolve_with_sum</span></code> and save it at the default location
 under <span class="menuselection">profiles ‣ default ‣ processing ‣ scripts</span> folder.</p></li>
 </ol>
-<img alt="../../_images/521.png" class="align-center" src="../../_images/521.png" />
+<img alt="../../_images/522.png" class="align-center" src="../../_images/522.png" />
 <ol class="arabic simple" start="6">
 <li><p>Now we will define the inputs for the script. The template already contains a definition of an <code class="docutils literal notranslate"><span class="pre">INPUT</span></code> Vector Layer and a <code class="docutils literal notranslate"><span class="pre">OUTPUT</span></code> layer. We will add 2 new inputs which allows the user to select a <code class="docutils literal notranslate"><span class="pre">DISSOLVE_FIELD</span></code> and a <code class="docutils literal notranslate"><span class="pre">SUM_FIELD</span></code>. Add a new import at the top and the following code in the <code class="docutils literal notranslate"><span class="pre">initAlgorithm</span></code> method. Click the <span class="guilabel">Run</span> button to preview the changes.</p></li>
 </ol>
@@ -245,7 +246,7 @@ under <span class="menuselection">profiles ‣ default ‣ processing ‣ script
 <ol class="arabic simple" start="7">
 <li><p>You will see a <span class="guilabel">Dissolve with Sum</span> dialog with our newly defined inputs. Select the <code class="docutils literal notranslate"><span class="pre">ne_10m_admin_0_countries</span></code> layer as <span class="guilabel">Input layer`</span>. As both <span class="guilabel">Dissolve Field</span> and <span class="guilabel">Sum Fields</span> are filtered based on the input layer, they will be pre-populated with existing fields from the input layer. Click the <span class="guilabel">Close</span> button.</p></li>
 </ol>
-<img alt="../../_images/720.png" class="align-center" src="../../_images/720.png" />
+<img alt="../../_images/721.png" class="align-center" src="../../_images/721.png" />
 <ol class="arabic simple" start="8">
 <li><p>Now we define our custom logic for processing data in the <code class="docutils literal notranslate"><span class="pre">processAlgorithm</span></code> method. This method gets passed a dictionary called <code class="docutils literal notranslate"><span class="pre">parameters</span></code>. It contains the inputs that the user has selected. There are helper methods that allow you to take these inputs and create appropriate objects. We first get our inputs using <code class="docutils literal notranslate"><span class="pre">parameterAsSource</span></code> and <code class="docutils literal notranslate"><span class="pre">parameterAsString</span></code> methods. Next we want to create a feature sink where we will write the output. QGIS3 has a new class called <code class="docutils literal notranslate"><span class="pre">QgsFeatureSink</span></code> which is the preferred way to create objects that can accept new features. The output needs only 2 fields - one for the value of dissolved field and another for the sum of the selected field.</p></li>
 </ol>
@@ -298,7 +299,7 @@ under <span class="menuselection">profiles ‣ default ‣ processing ‣ script
         <span class="n">sum_unique_values</span><span class="p">[</span><span class="n">unique_value</span><span class="p">]</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">val_list</span><span class="p">)</span>
 </pre></div>
 </div>
-<img alt="../../_images/920.png" class="align-center" src="../../_images/920.png" />
+<img alt="../../_images/921.png" class="align-center" src="../../_images/921.png" />
 <ol class="arabic simple" start="10">
 <li><p>Next, we will call the built-in processing algorithm <code class="docutils literal notranslate"><span class="pre">native:dissolve</span></code> on the input layer to generate the dissolved geometries. Once we have the dissolved geometries, we iterate through the output of the dissolve algorithm and create new features to be added to the output. At the end we return the <code class="docutils literal notranslate"><span class="pre">dest_id</span></code> FeatureSink as the output. Now the script is ready. Click the <span class="guilabel">Run</span> button.</p></li>
 </ol>
@@ -333,38 +334,38 @@ under <span class="menuselection">profiles ‣ default ‣ processing ‣ script
 <ol class="arabic simple" start="11">
 <li><p>In the <span class="guilabel">Dissolve with Sum</span>, dialog, select <code class="docutils literal notranslate"><span class="pre">ne_10m_admin_0_countries</span></code> as the <span class="guilabel">Input layer</span>, <code class="docutils literal notranslate"><span class="pre">CONTINENT</span></code> as the <span class="guilabel">Dissolve field</span> and <code class="docutils literal notranslate"><span class="pre">POP_EST</span></code> as the <span class="guilabel">Sum field</span>. Click <span class="guilabel">Run</span>.</p></li>
 </ol>
-<img alt="../../_images/1131.png" class="align-center" src="../../_images/1131.png" />
+<img alt="../../_images/1132.png" class="align-center" src="../../_images/1132.png" />
 <ol class="arabic simple" start="12">
 <li><p>Once the processing is finished, click the <span class="guilabel">Close</span> button and switch to the main QGIS window.</p></li>
 </ol>
-<img alt="../../_images/1229.png" class="align-center" src="../../_images/1229.png" />
+<img alt="../../_images/1230.png" class="align-center" src="../../_images/1230.png" />
 <ol class="arabic simple" start="13">
 <li><p>You will see the dissolved output layer with one feature for every continent and the total population summed from the individual countries belonging to that continent.</p></li>
 </ol>
-<img alt="../../_images/1327.png" class="align-center" src="../../_images/1327.png" />
+<img alt="../../_images/1328.png" class="align-center" src="../../_images/1328.png" />
 <ol class="arabic simple" start="14">
 <li><p>One another advantage of writing processing script is that the methods within the Processing Framework are aware of layer selection and automatically filter your inputs to use only the selected features. This happens because we are defining our input as a <code class="docutils literal notranslate"><span class="pre">QgsProcessingParameterFeatureSource</span></code>. A feature source allows use of ANY object which contains vector features, not just a vector layer, so when there are selected features in your layer and ask Processing to use selected features, the input is passed on to your script as a <code class="docutils literal notranslate"><span class="pre">QgsProcessingFeatureSource</span></code> object containing selected features and not the full vector layer. Here’s a quick demonstration of this functionality. Let’s say we want to dissolve only certain continents. Let’s create a selection using <span class="guilabel">Select feature by Expression</span> tool.</p></li>
 </ol>
-<img alt="../../_images/1424.png" class="align-center" src="../../_images/1424.png" />
+<img alt="../../_images/1425.png" class="align-center" src="../../_images/1425.png" />
 <ol class="arabic simple" start="15">
 <li><p>Enter the following expression to select features from North and South America and click <span class="guilabel">Select</span>.</p></li>
 </ol>
 <div class="highlight-none notranslate"><div class="highlight"><pre><span></span>&quot;CONTINENT&quot; = &#39;North America&#39; OR &quot;CONTINENT&quot; = &#39;South America&#39;
 </pre></div>
 </div>
-<img alt="../../_images/1522.png" class="align-center" src="../../_images/1522.png" />
+<img alt="../../_images/1523.png" class="align-center" src="../../_images/1523.png" />
 <ol class="arabic simple" start="16">
 <li><p>You will see the selected features highlighted in yellow. Locate the <code class="docutils literal notranslate"><span class="pre">dissolve_with_sum</span></code> script and double-click it to run it.</p></li>
 </ol>
-<img alt="../../_images/1621.png" class="align-center" src="../../_images/1621.png" />
+<img alt="../../_images/1622.png" class="align-center" src="../../_images/1622.png" />
 <ol class="arabic simple" start="17">
 <li><p>In the <span class="guilabel">Dissolve with Sum</span> dialog, select the <code class="docutils literal notranslate"><span class="pre">ne_10m_admin_0_countries</span></code> as the <span class="guilabel">Input layer</span>. This time, make sure you check the <span class="guilabel">Selected features only</span> box. Choose <code class="docutils literal notranslate"><span class="pre">SUBREGION</span></code> as the <span class="guilabel">Dissolve field</span> and <code class="docutils literal notranslate"><span class="pre">POP_EST</span></code> as the <span class="guilabel">Sum field</span>.</p></li>
 </ol>
-<img alt="../../_images/1722.png" class="align-center" src="../../_images/1722.png" />
+<img alt="../../_images/1723.png" class="align-center" src="../../_images/1723.png" />
 <ol class="arabic simple" start="18">
 <li><p>Once the processing finishes, click <span class="guilabel">Close</span> and switch back to the main QGIS window. You will notice a new layer with only the selected features dissolved. Click <span class="guilabel">Identify</span> button and click on a feature to inspect and verify that the script worked correctly.</p></li>
 </ol>
-<img alt="../../_images/1819.png" class="align-center" src="../../_images/1819.png" />
+<img alt="../../_images/1820.png" class="align-center" src="../../_images/1820.png" />
 <p>Below is the complete script for reference. You may modify it to suit your needs.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># -*- coding: utf-8 -*-</span>
 
@@ -583,7 +584,7 @@ under <span class="menuselection">profiles ‣ default ‣ processing ‣ script
     </p>
     <p>
         &copy; Copyright 2021, Ujaval Gandhi.<br/>
-      Zadnjič posodobljeno sep. 14, 2023.<br/>
+      Zadnjič posodobljeno nov. 06, 2023.<br/>
       Created using <a href="http://sphinx-doc.org/">Sphinx</a> 7.0.1.<br/>
     </p>
   </div>
