@@ -1,7 +1,7 @@
 Creating a Landuse Map (QGIS3)
 =====================================
 
-Zoning designations define and regulate what kinds of uses are allowed on specific parcels and outline design and development requirements and guidelines. In this tutorial you will learn the vector layer styling using its attributes and creating map. 
+Zoning designations define and regulate what kinds of uses are allowed on specific parcels and outline design and development requirements and guidelines. In this tutorial you will learn how to access parcel datasets, style them according to zoning attributes and create a map.
 
 Overview of the task
 --------------------
@@ -10,15 +10,15 @@ You will work with a land parcels dataset with zoning information and create a m
 
 Other skills you will learn
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^
-- Importing ArcGIS server data in QGIS using REST URL.
-- Extracting features from a layer that intersects the boundary layer.
-- Vector layer styling
+- How to access and download data from ArcGIS REST in QGIS.
+- How to extract features from a layer that intersect a boundary layer.
+- How to merge different sub-categories from Categorized renderer.
 
 Get the data
 ------------
 
 You can find the data for the tutorial from Cape Town Open Data Portal - https://odp-cctegis.opendata.arcgis.com. 
-We will be importing data from the portal using ArcGIS Online REST service and will be preparing three layers mentioned below . 
+We will be importing data from the portal using ArcGIS REST server URL and will be preparing three layers mentioned below . 
 
 1) Zoning layer: A polygon shapefile with zoning code and description for land parcels having a single zoning - clipped to the Cape Town CBD area. 
 2) Split-zoning layer: A polygon shapefile with zoning code and description for land parcels having multiple zoning - with each polygon split into single zones polygons. 
@@ -26,7 +26,7 @@ We will be importing data from the portal using ArcGIS Online REST service and w
 
 Let's see the step wise to prepare the dataset for this tutorial.
 
-1. Go to the Data Portal - https://odp-cctegis.opendata.arcgis.com/search?tags=. We will search for the Cape Town CBD data in the search bar and click to browse further. 
+1. Go to the Data Portal - https://odp-cctegis.opendata.arcgis.com/. We will search for the Cape Town CBD data in the search bar and click to browse further. 
 	
    .. image:: /static/3/creating_landuse_map/images/db1.png
       :align: center
@@ -41,7 +41,7 @@ Let's see the step wise to prepare the dataset for this tutorial.
      .. image:: /static/3/creating_landuse_map/images/db3.png
         :align: center
 	 
-4. On the ArcGIS REST Services Directory , Go to :guilabel:`Home` and copy the URL of that page. The copied looks like - https://citymaps.capetown.gov.za/agsext1/rest/services.
+4. On the ArcGIS REST Services Directory , Go to :guilabel:`Home` and copy the URL of that page. The copied URL looks like - https://citymaps.capetown.gov.za/agsext1/rest/services.
 	
     .. image:: /static/3/creating_landuse_map/images/db4.png
        :align: center
@@ -66,7 +66,7 @@ Let's see the step wise to prepare the dataset for this tutorial.
     .. image:: /static/3/creating_landuse_map/images/db8.png 
        :align: center
 
-9. Now we will search for all three layers required for the tutorial from the database. Firstly, we will open ``Cape Town CBD`` layer in the QGIS. Expand folders to browse to the layers. Full path to the layer is - :menuselection:`Theme_Based --> Open_Data_Service --> Cape Town CBD`. Select the layer and click :guilabel:`Add`.
+9. Now we will search for all three layers required for the tutorial from the database. Firstly, we will open ``Cape Town CBD`` layer in the QGIS. Expand folders to browse to the layers. Full path to the layer is :menuselection:`Theme_Based --> Open_Data_Service --> Cape Town CBD`. Select the layer and click :guilabel:`Add`.
 	
     .. image:: /static/3/creating_landuse_map/images/db9.png 
        :align: center
@@ -76,7 +76,7 @@ Let's see the step wise to prepare the dataset for this tutorial.
     .. image:: /static/3/creating_landuse_map/images/db10.png 
        :align: center
 	   
-11. Now, will add the ``Zoning`` layer using :guilabel:`Data Source Manager`.Connect to ``Cape Town Open Data Portal`` and browse to  ``Zoning`` layer. The full path is - :menuselection:`Theme_Based --> Open_Data_Service_Zoning --> Zoning. Check the box given beside :guilabel:`Only request features overlapping the current view extent` to avoid loading all the features available in the layer. Click  :guilabel:`Add` to open in the QGIS.
+11. Now, will add the ``Zoning`` layer using :guilabel:`Data Source Manager`.Connect to ``Cape Town Open Data Portal`` and browse to  ``Zoning`` layer. The full path is :menuselection:`Theme_Based --> Open_Data_Service_Zoning --> Zoning`. This is a very large layer, so make sure to check the box :guilabel:`Only request features overlapping the current view extent` to avoid loading all the features available in the layer. If you forget this, loading of the layer may take a long time. Click  :guilabel:`Add` to open in the QGIS.
 
     .. image:: /static/3/creating_landuse_map/images/db11.png 
        :align: center
@@ -86,7 +86,7 @@ Let's see the step wise to prepare the dataset for this tutorial.
     .. image:: /static/3/creating_landuse_map/images/db12.png 
        :align: center
 
-13. We can see all three source layers are open in QGIS. We want to find features from ``Zoning`` and ``Split Zoning`` layers intersecting with ``Cape Town CBD`` boundary layer. Firstly, Let's save all three layers locally as shapefiles. Right click on the ``Cape Town CBD`` layer. Look for :guilabel:`Export` and click on :guilabel:`Save Features As`.
+13. We can see all three source layers are open in QGIS. We want to clip the ``Zoning`` and ``Split Zoning`` layers to the ``Cape Town CBD`` boundary layer. Firstly, let's save all three layers locally as shapefiles. Right click on the ``Cape Town CBD`` layer. Look for :guilabel:`Export` and click on :guilabel:`Save Features As`.
 
     .. image:: /static/3/creating_landuse_map/images/db13.png 
        :align: center
@@ -112,7 +112,7 @@ Let's see the step wise to prepare the dataset for this tutorial.
     .. image:: /static/3/creating_landuse_map/images/db17.png 
        :align: center
 	   
-18. Select ``Zoning_fixed`` as :guilabel:`Input layer` and ``cbd`` as :guilabel:`Overlay layer`. Keep other options default and proceed to save output to file.
+18. Select ``Zoning`` as :guilabel:`Input layer` and ``cbd`` as :guilabel:`Overlay layer`. Keep other options default and proceed to save output to file.
 
     .. image:: /static/3/creating_landuse_map/images/db18.png 
        :align: center
@@ -122,7 +122,7 @@ Let's see the step wise to prepare the dataset for this tutorial.
     .. image:: /static/3/creating_landuse_map/images/db19.png 
        :align: center
 	   
-20. You will see some warning displayed in :guilabel:`Log` tab. The input layer has some invalid geometries and it is being skipped while running intersection. We will fix geometries of ``Zoning`` and ``Split Zoning`` layers before taking the intersection to extract all geometries.
+20. Depending on your Processing settings, you will see some errors or warnings displayed in :guilabel:`Log` tab. The input layer has some invalid geometries and it is being skipped while running intersection. We will fix geometries of ``Zoning`` and ``Split Zoning`` layers before taking the intersection to extract all geometries.
 
     .. image:: /static/3/creating_landuse_map/images/db20.png 
        :align: center
@@ -142,13 +142,13 @@ Let's see the step wise to prepare the dataset for this tutorial.
     .. image:: /static/3/creating_landuse_map/images/db23.png 
        :align: center
 	   
-24.Select ``Zoning_fixed`` as :guilabel:`Input layer` and ``cbd`` as :guilabel:`Overlay layer` to perform intersection as described in steps 18 and 19. Save the output as ``zoning_cbd`` and repeat the same for ``split_zoning_fixed`` layer and save the output layer as ``split_zoning_cbd`` in the data folder. We have the data folder ready to go ahead with the tutorial.
+24.Select ``Zoning_fixed`` as :guilabel:`Input layer` and ``cbd`` as :guilabel:`Overlay layer` to perform intersection as described in steps 18 and 19. Save the output as ``zoning_cbd`` and repeat the same for ``split_zoning_fixed`` layer and save the output layer as ``split_zoning_cbd``.
     
     .. image:: /static/3/creating_landuse_map/images/db24.png 
        :align: center
 	
 	   
-For convenience, you may directly download a copy of all three layers from the links below:
+For convenience, you may directly download a copy of all three pre-processed layers from the links below:
  
 `cbd.shp <https://www.qgistutorials.com/downloads/cbd.zip>`_
 
@@ -171,7 +171,7 @@ Procedure
   .. image:: /static/3/creating_landuse_map/images/2.png
      :align: center
 	 
-3. Select ``cbd.shp``,``zoning_cbd.shp`` and ``split_zoning_cbd.shp``files and click :guilabel:`Open`.
+3. Select ``cbd.shp``, ``zoning_cbd.shp`` and ``split_zoning_cbd.shp`` files and click :guilabel:`Open`.
 
   .. image:: /static/3/creating_landuse_map/images/3.png
      :align: center
@@ -351,7 +351,7 @@ Procedure
     .. image:: /static/3/creating_landuse_map/images/37.png
        :align: center
 	   
-39. Once you are satisfied with your composition, you can export the result. Go to :menuselection:`Layout --> Export as PDF`. Save the PDF in your data folder as capetown_zoning_map.pdf.
+39. Once you are satisfied with your composition, you can export the result. Go to :menuselection:`Layout --> Export as PDF`. Save the PDF in your data folder as ``capetown_zoning_map.pdf``.
 
     .. image:: /static/3/creating_landuse_map/images/39.png
        :align: center

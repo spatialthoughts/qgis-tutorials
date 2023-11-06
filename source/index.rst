@@ -34,7 +34,6 @@ QGIS Tutorials and Tips
 * Advanced GIS operations
    - :doc:`docs/3/advanced_raster_analysis`
    - :doc:`docs/3/interpolating_point_data`
-   - :doc:`docs/3/calculating_intersection_density`
    - :doc:`docs/3/batch_processing`
    - :doc:`docs/3/processing_graphical_modeler`
    - :doc:`docs/3/automating_map_creation`
@@ -51,6 +50,7 @@ QGIS Tutorials and Tips
    
 * Urban Planning
    - :doc:`docs/3/creating_landuse_map`
+   - :doc:`docs/3/calculating_intersection_density`
 
 * Python Scripting (PyQGIS)
    - :doc:`docs/3/getting_started_with_pyqgis`
@@ -107,7 +107,6 @@ What next? Hungry for more QGIS materials? Work through my full length QGIS cour
    docs/3/handling_invalid_geometries
    docs/3/advanced_raster_analysis
    docs/3/interpolating_point_data
-   docs/3/calculating_intersection_density
    docs/3/batch_processing
    docs/3/processing_graphical_modeler
    docs/3/automating_map_creation
@@ -117,6 +116,8 @@ What next? Hungry for more QGIS materials? Work through my full length QGIS cour
    docs/3/service_area_analysis
    docs/3/travel_time_analysis
    docs/3/areal_mean_rainfall
+   docs/3/creating_landuse_map
+   docs/3/calculating_intersection_density
    docs/3/getting_started_with_pyqgis
    docs/3/processing_algorithms_pyqgis
    docs/3/custom_python_functions
