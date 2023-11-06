@@ -48,6 +48,9 @@ QGIS Tutorials and Tips
 
 * Hydrology
    - :doc:`docs/3/areal_mean_rainfall`
+   
+* Urban Planning
+   - :doc:`docs/3/creating_landuse_map`
 
 * Python Scripting (PyQGIS)
    - :doc:`docs/3/getting_started_with_pyqgis`
