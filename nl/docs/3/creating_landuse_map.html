@@ -5,7 +5,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Creating a Landuse Map (QGIS3) &#8212; QGIS Tutorials and Tips</title>
+    <title>Een kaart voor gebruik van land maken (QGIS3) &#8212; QGIS Tutorials and Tips</title>
     <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-sphinx.css" />
     <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
@@ -104,7 +104,7 @@
 <li class="toctree-l1"><a class="reference internal" href="service_area_analysis.html">Analyse Servicegebied met Openrouteservice (QGIS3)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="travel_time_analysis.html">Reistijd-analyse met Uber Movement (QGIS3)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="areal_mean_rainfall.html">Berekenen gemiddelde regenval voor gebied (QGIS3)</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Creating a Landuse Map (QGIS3)</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Een kaart voor gebruik van land maken (QGIS3)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="calculating_intersection_density.html">Dichtheid van straatkruisingen berekenen (QGIS3)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="getting_started_with_pyqgis.html">Beginnen met programmeren in Python (QGIS3)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="processing_algorithms_pyqgis.html">Algoritmes van Processing uitvoeren via Python (QGIS3)</a></li>
@@ -179,114 +179,113 @@
       
 
   <section id="creating-a-landuse-map-qgis3">
-<h1>Creating a Landuse Map (QGIS3)<a class="headerlink" href="#creating-a-landuse-map-qgis3" title="Permalink to this heading">¶</a></h1>
-<p>Zoning designations define and regulate what kinds of uses are allowed on specific parcels and outline design and development requirements and guidelines. In this tutorial you will learn how to access parcel datasets, style them according to zoning attributes and create a map.</p>
+<h1>Een kaart voor gebruik van land maken (QGIS3)<a class="headerlink" href="#creating-a-landuse-map-qgis3" title="Permalink to this heading">¶</a></h1>
+<p>Zoneren van bestemmingen definiëren en reguleren welk soort gebruikers op bepaalde percelen zijn toegelaten en ontwerp van omtrek en vereisten voor ontwikkeling en richtlijnen. In deze handleiding zult u leren hoe toegang te krijgen tot gegevenssets van percelen, ze opmaken conform hun attributen voor de zonering en een kaart maken.</p>
 <section id="overview-of-the-task">
-<h2>Overview of the task<a class="headerlink" href="#overview-of-the-task" title="Permalink to this heading">¶</a></h2>
-<p>You will work with a land parcels dataset with zoning information and create a map showing zoning pattern across the CBD region of Cape Town.</p>
+<h2>Overzicht van de taak<a class="headerlink" href="#overview-of-the-task" title="Permalink to this heading">¶</a></h2>
+<p>U zult werken met een gegevensset voor percelen land met informatie over de zonering en een kaart maken die het patroon voor de zonering weergeeft in de regio CBD van Kaapstad.</p>
 <section id="other-skills-you-will-learn">
-<h3>Other skills you will learn<a class="headerlink" href="#other-skills-you-will-learn" title="Permalink to this heading">¶</a></h3>
+<h3>Andere vaardigheden die u zult leren<a class="headerlink" href="#other-skills-you-will-learn" title="Permalink to this heading">¶</a></h3>
 <ul class="simple">
-<li><p>How to access and download data from ArcGIS REST in QGIS.</p></li>
-<li><p>How to extract features from a layer that intersect a boundary layer.</p></li>
-<li><p>How to merge different sub-categories from Categorized renderer.</p></li>
+<li><p>Hoe toegang te krijgen tot en downloaden van de gegevens van ArcGIS REST in QGIS.</p></li>
+<li><p>Hoe objecten uit te nemen uit ene laag die kruist met een laag met grenzen.</p></li>
+<li><p>Hoe de verschillende sub-categorieën samen te voegen uit de renderer Categoriën.</p></li>
 </ul>
 </section>
 </section>
 <section id="get-the-data">
-<h2>Get the data<a class="headerlink" href="#get-the-data" title="Permalink to this heading">¶</a></h2>
-<p>You can find the data for the tutorial from Cape Town Open Data Portal - <a class="reference external" href="https://odp-cctegis.opendata.arcgis.com">https://odp-cctegis.opendata.arcgis.com</a>.
-We will be importing data from the portal using ArcGIS REST server URL and will be preparing three layers mentioned below .</p>
+<h2>De gegevens ophalen<a class="headerlink" href="#get-the-data" title="Permalink to this heading">¶</a></h2>
+<p>U vindt de gegevens voor de handleiding op het Cape Town Open Data Portal - <a class="reference external" href="https://odp-cctegis.opendata.arcgis.com">https://odp-cctegis.opendata.arcgis.com</a>. We zullen de gegevens vanaf het portaal importeren met de ArcGIS REST server-URL en zullen de drie lagen voorbereiden die hieronder vermeld zijn.</p>
 <ol class="arabic simple">
-<li><p>Zoning layer: A polygon shapefile with zoning code and description for land parcels having a single zoning - clipped to the Cape Town CBD area.</p></li>
-<li><p>Split-zoning layer: A polygon shapefile with zoning code and description for land parcels having multiple zoning - with each polygon split into single zones polygons.</p></li>
-<li><p>Cape Town CDB Area: A polygon demarcating the Cape Town CBD area.</p></li>
+<li><p>Laag Zonering: Een polygoon shapefile met code voor de zonering en beschrijvingen voor percelen land die één enkele zone hebben - geclipt tot het gebied Kaapstad CBD.</p></li>
+<li><p>Gesplitste laag zonering: Een polygoon shapefile met code voor de zonering en beschrijvingen voor percelen land die meerdere zones hebben multiple - met elke polygoon gesplitst in polygonen voor één enkele zone.</p></li>
+<li><p>Gebied Kaapstad CDB: Een polygoon die het gebied Kaapstad CBD markeert.</p></li>
 </ol>
-<p>Let’s see the step wise to prepare the dataset for this tutorial.</p>
+<p>Laten we stapsgewijze kijken om de gegevensset voor te bereiden voor deze handleiding.</p>
 <ol class="arabic">
-<li><p>Go to the Data Portal - <a class="reference external" href="https://odp-cctegis.opendata.arcgis.com/">https://odp-cctegis.opendata.arcgis.com/</a>. We will search for the Cape Town CBD data in the search bar and click to browse further.</p>
+<li><p>Ga naar het Data Portal - <a class="reference external" href="https://odp-cctegis.opendata.arcgis.com/">https://odp-cctegis.opendata.arcgis.com/</a>. We zullen zoeken naar de gegevens voor Cape Town CBD in de zoekbalk en klikken om verder te bladeren.</p>
 <img alt="../../_images/db1.png" class="align-center" src="../../_images/db1.png" />
 </li>
-<li><p>Click on <span class="guilabel">View Full Details</span> to explore services available to get the data.</p>
+<li><p>Klik op <span class="guilabel">Volledige details bekijken</span> om beschikbare services te verkennen om de gegevens op te halen.</p>
 <blockquote>
 <div><img alt="../../_images/db2.png" class="align-center" src="../../_images/db2.png" />
 </div></blockquote>
 </li>
-<li><p>Scroll down to find <span class="guilabel">View Data Source</span> open and click on the it.</p>
+<li><p>Scroll naar beneden om te zoeken naar <span class="guilabel">Gegevensbron bekijken</span> open dat en klik erop.</p>
 <blockquote>
 <div><img alt="../../_images/db3.png" class="align-center" src="../../_images/db3.png" />
 </div></blockquote>
 </li>
-<li><p>On the ArcGIS REST Services Directory , Go to <span class="guilabel">Home</span> and copy the URL of that page. The copied URL looks like - <a class="reference external" href="https://citymaps.capetown.gov.za/agsext1/rest/services">https://citymaps.capetown.gov.za/agsext1/rest/services</a>.</p>
+<li><p>Ga, in de ArcGIS REST Services Directory , naar <span class="guilabel">Home</span> en kopieer de URL van die pagina. De gekopieerde URL ziet er ongeveer zo uit - <a class="reference external" href="https://citymaps.capetown.gov.za/agsext1/rest/services">https://citymaps.capetown.gov.za/agsext1/rest/services</a>.</p>
 <blockquote>
 <div><img alt="../../_images/db4.png" class="align-center" src="../../_images/db4.png" />
 </div></blockquote>
 </li>
-<li><p>Now, Open QGIS and go to <span class="menuselection">Open Data Source Manager</span>.</p>
+<li><p>Open nu QGIS en klik op <span class="menuselection">Databronnen beheren openen</span>.</p>
 <blockquote>
 <div><img alt="../../_images/db5.png" class="align-center" src="../../_images/db5.png" />
 </div></blockquote>
 </li>
-<li><p>The list of data sources is seen in the left panel. Scroll down to find <span class="menuselection">ArcGIS REST Server</span>. Click on <span class="guilabel">new</span> to create new server connection.</p>
+<li><p>De lijst met databronnen staat in het linkerpaneel. Scroll naar beneden naar <span class="menuselection">ArcGIS REST Server</span>. Klik op <span class="guilabel">Nieuw</span> om een nieuwe verbinding naar de server te maken.</p>
 <blockquote>
 <div><img alt="../../_images/db6.png" class="align-center" src="../../_images/db6.png" />
 </div></blockquote>
 </li>
-<li><p>In the <span class="guilabel">Connection Details</span>, give the <span class="guilabel">Name</span> <code class="docutils literal notranslate"><span class="pre">Cape</span> <span class="pre">Town</span> <span class="pre">Open</span> <span class="pre">Data</span> <span class="pre">Portal</span></code> and paste the copied url as an input for  for <span class="guilabel">URL</span>.</p>
+<li><p>In de <span class="guilabel">Verbindingsdetails</span>, geef de <span class="guilabel">Naam</span> <code class="docutils literal notranslate"><span class="pre">Kaapstad</span> <span class="pre">Open</span> <span class="pre">Data</span> <span class="pre">Portal</span></code> en plak de gekopieerde URL als invoer voor <span class="guilabel">URL</span>.</p>
 <blockquote>
 <div><img alt="../../_images/db7.png" class="align-center" src="../../_images/db7.png" />
 </div></blockquote>
 </li>
-<li><p>Click <span class="guilabel">Ok</span> and then <span class="guilabel">Connect</span> to see the data folders available in the server.</p>
+<li><p>Klik op <span class="guilabel">OK</span> en dan op <span class="guilabel">Verbinden</span> om de mappen met gegevens te zien die beschikbaar zijn op de server.</p>
 <blockquote>
 <div><img alt="../../_images/db8.png" class="align-center" src="../../_images/db8.png" />
 </div></blockquote>
 </li>
-<li><p>Now we will search for all three layers required for the tutorial from the database. Firstly, we will open <code class="docutils literal notranslate"><span class="pre">Cape</span> <span class="pre">Town</span> <span class="pre">CBD</span></code> layer in the QGIS. Expand folders to browse to the layers. Full path to the layer is <span class="menuselection">Theme_Based ‣ Open_Data_Service ‣ Cape Town CBD</span>. Select the layer and click <span class="guilabel">Add</span>.</p>
+<li><p>Nu zullen we zoeken naar alle drie vereiste lagen voor de handleiding uit de database. Eerst zullen we openen de laag <code class="docutils literal notranslate"><span class="pre">Cape</span> <span class="pre">Town</span> <span class="pre">CBD</span></code> in QGIS. Vergroot mappen om naar de lagen te bladeren. Het volledige pad naar de laag is <span class="menuselection">Theme_Based ‣ Open_Data_Service ‣ Cape Town CBD</span>. Selecteer de laag en klik op <span class="guilabel">Toevoegen</span>.</p>
 <blockquote>
 <div><img alt="../../_images/db9.png" class="align-center" src="../../_images/db9.png" />
 </div></blockquote>
 </li>
-<li><p>Close the <span class="menuselection">Data Source Manager</span> to see the layer added to the QGIS. Click on <span class="menuselection">Zoom to Layer</span> to centre and display the layer on the canvas.</p>
+<li><p>Sluit <span class="menuselection">Databronnen beheren</span> om te zien dat de laag is toegevoegd in QGIS. Klik op <span class="menuselection">Zoomen naar la(a)g(en)</span> om de laag in het kaartvenster te centreren en weer te geven.</p>
 <img alt="../../_images/db10.png" class="align-center" src="../../_images/db10.png" />
 </li>
-<li><p>Now, will add the <code class="docutils literal notranslate"><span class="pre">Zoning</span></code> layer using <span class="guilabel">Data Source Manager</span>.Connect to <code class="docutils literal notranslate"><span class="pre">Cape</span> <span class="pre">Town</span> <span class="pre">Open</span> <span class="pre">Data</span> <span class="pre">Portal</span></code> and browse to  <code class="docutils literal notranslate"><span class="pre">Zoning</span></code> layer. The full path is <span class="menuselection">Theme_Based ‣ Open_Data_Service_Zoning ‣ Zoning</span>. This is a very large layer, so make sure to check the box <span class="guilabel">Only request features overlapping the current view extent</span> to avoid loading all the features available in the layer. If you forget this, loading of the layer may take a long time. Click  <span class="guilabel">Add</span> to open in the QGIS.</p>
+<li><p>Nu zullen we met <span class="guilabel">Databronnen beheren</span>  de laag <code class="docutils literal notranslate"><span class="pre">Zoning</span></code> toevoegen.  Verbindmet het <code class="docutils literal notranslate"><span class="pre">Cape</span> <span class="pre">Town</span> <span class="pre">Open</span> <span class="pre">Data</span> <span class="pre">Portal</span></code> en blader naar de laag  <code class="docutils literal notranslate"><span class="pre">Zoning</span></code>. Het volledige pad is <span class="menuselection">Theme_Based ‣ Open_Data_Service_Zoning ‣ Zoning</span>. Dit is een hele grote laag, zorg er dus voor het keuzevak <span class="guilabel">Alleen objecten bevragen die het huidige zichtbare bereik overlappen</span> te selecteren om te vermijden dat alle objecten op de laag geladen worden. Als u dit vergeet, zou het laden van de laag heel lang kunnen duren. Klik op  <span class="guilabel">Toevoegen</span> om hem te openen in QGIS.</p>
 <img alt="../../_images/db11.png" class="align-center" src="../../_images/db11.png" />
 </li>
-<li><p>Similarly add <code class="docutils literal notranslate"><span class="pre">Split_Zoning</span></code> layer. The full path is - <span class="menuselection">Theme_Based ‣ Land_Parcel_Zoning ‣ Split Zoning</span>.</p>
+<li><p>Voeg op soortgelijke wijze de laag <code class="docutils literal notranslate"><span class="pre">Split_Zoning</span></code> toe. Het volledige pad is - <span class="menuselection">Theme_Based ‣ Land_Parcel_Zoning ‣ Split Zoning</span>.</p>
 <img alt="../../_images/db12.png" class="align-center" src="../../_images/db12.png" />
 </li>
-<li><p>We can see all three source layers are open in QGIS. We want to clip the <code class="docutils literal notranslate"><span class="pre">Zoning</span></code> and <code class="docutils literal notranslate"><span class="pre">Split</span> <span class="pre">Zoning</span></code> layers to the <code class="docutils literal notranslate"><span class="pre">Cape</span> <span class="pre">Town</span> <span class="pre">CBD</span></code> boundary layer. Firstly, let’s save all three layers locally as shapefiles. Right click on the <code class="docutils literal notranslate"><span class="pre">Cape</span> <span class="pre">Town</span> <span class="pre">CBD</span></code> layer. Look for <span class="guilabel">Export</span> and click on <span class="guilabel">Save Features As</span>.</p>
+<li><p>We kunnen nu zien dat alle drie lagen zijn geopend in QGIS. We willen de lagen <code class="docutils literal notranslate"><span class="pre">Zoning</span></code> en <code class="docutils literal notranslate"><span class="pre">Split</span> <span class="pre">Zoning</span></code> clippen naar de laag met de grenzen van <code class="docutils literal notranslate"><span class="pre">Cape</span> <span class="pre">Town</span> <span class="pre">CBD</span></code>. Laten we eerst alle drie lagen lokaal opslaan als shapefiles. Klik met rechts op de laag <code class="docutils literal notranslate"><span class="pre">Cape</span> <span class="pre">Town</span> <span class="pre">CBD</span></code>. Zoek naar <span class="guilabel">Exporteren</span> en klik op <span class="guilabel">Objecten opslaan als</span>.</p>
 <img alt="../../_images/db13.png" class="align-center" src="../../_images/db13.png" />
 </li>
-<li><p>Set the format <span class="guilabel">ESRI Shapefile</span> and browse to the local folder where you want to save the shapefiles. We will save all the layers related to this tutorial in a single data folder. Save the layer as <code class="docutils literal notranslate"><span class="pre">cbd</span></code>.  Keep all other options default and click <span class="guilabel">OK</span>. Similarly export other two layers as <code class="docutils literal notranslate"><span class="pre">Zoning.shp</span></code> and <code class="docutils literal notranslate"><span class="pre">Split</span> <span class="pre">Zoning</span></code> to the same folder.</p>
+<li><p>Stel de indeling in op <span class="guilabel">ESRI Shapefile</span> en blader naar de lokale map waar u de shapefiles wilt opslaan. We zullen alle aan deze handleiding gerelateerde lagen opslaan in één enkele map. Sla de laag op als <code class="docutils literal notranslate"><span class="pre">cbd</span></code>.  Behoud alle andere opties op hun standaard en klik op <span class="guilabel">OK</span>. Exporteer op soortgelijke wijze ook de twee andere lagen als <code class="docutils literal notranslate"><span class="pre">Zoning.shp</span></code> en <code class="docutils literal notranslate"><span class="pre">Split</span> <span class="pre">Zoning</span></code> naar dezelfde map.</p>
 <img alt="../../_images/db14.png" class="align-center" src="../../_images/db14.png" />
 </li>
-<li><p>Remove the layers loaded from server. Select all three layers, and click on <span class="guilabel">Remove Layer/Group</span> icon. We want to extract features from <code class="docutils literal notranslate"><span class="pre">Zoning</span></code> and <code class="docutils literal notranslate"><span class="pre">Split</span> <span class="pre">Zoning</span></code> layers intersecting with <code class="docutils literal notranslate"><span class="pre">cbd</span></code> boundary.</p>
+<li><p>Verwijder de lagen die zijn lagen vanaf de server. Selecteer alle drie lagen en klik op het pictogram <span class="guilabel">Laag/Groep verwijderen</span>. We zullen de objecten uitnemen uit de lagen <code class="docutils literal notranslate"><span class="pre">Zoning</span></code> en <code class="docutils literal notranslate"><span class="pre">Split</span> <span class="pre">Zoning</span></code>, die kruisen met de grens van <code class="docutils literal notranslate"><span class="pre">cbd</span></code>.</p>
 <img alt="../../_images/db15.png" class="align-center" src="../../_images/db15.png" />
 </li>
-<li><p>Go to <span class="menuselection">Processing ‣ Toolbox</span> from the menubar.</p>
+<li><p>Ga naar <span class="menuselection">Processing ‣ Toolbox</span> op de menubalk.</p>
 <img alt="../../_images/db16.png" class="align-center" src="../../_images/db16.png" />
 </li>
-<li><p>In the toolbax, search for <span class="guilabel">Intersection</span> algorithm and double-click to open.</p>
+<li><p>In de Toolbox, zoek naar het algoritme <span class="guilabel">Kruising</span> en dubbelklik erop om het te openen.</p>
 <img alt="../../_images/db17.png" class="align-center" src="../../_images/db17.png" />
 </li>
-<li><p>Select <code class="docutils literal notranslate"><span class="pre">Zoning</span></code> as <span class="guilabel">Input layer</span> and <code class="docutils literal notranslate"><span class="pre">cbd</span></code> as <span class="guilabel">Overlay layer</span>. Keep other options default and proceed to save output to file.</p>
+<li><p>Selecteer <code class="docutils literal notranslate"><span class="pre">Zoning</span></code> als <span class="guilabel">Invoerlaag</span> en <code class="docutils literal notranslate"><span class="pre">cbd</span></code> als <span class="guilabel">Overlay-laag</span>. Laat de andere opties op hun standaard staan en sla de uitvoer op naar een bestand.</p>
 <img alt="../../_images/db18.png" class="align-center" src="../../_images/db18.png" />
 </li>
-<li><p>Save the output layer as <code class="docutils literal notranslate"><span class="pre">zoning_cbd</span></code> in the data folder and click <span class="guilabel">Run</span>.</p>
+<li><p>Sla de uitvoerlaag op als <code class="docutils literal notranslate"><span class="pre">zoning_cbd</span></code> in de map met de gegevens en klik op <span class="guilabel">Uitvoeren</span>.</p>
 <img alt="../../_images/db19.png" class="align-center" src="../../_images/db19.png" />
 </li>
-<li><p>Depending on your Processing settings, you will see some errors or warnings displayed in <span class="guilabel">Log</span> tab. The input layer has some invalid geometries and it is being skipped while running intersection. We will fix geometries of <code class="docutils literal notranslate"><span class="pre">Zoning</span></code> and <code class="docutils literal notranslate"><span class="pre">Split</span> <span class="pre">Zoning</span></code> layers before taking the intersection to extract all geometries.</p>
+<li><p>Afhankelijk van de instelling van uw Processing, zult u enkele fouten of waarschuwingen zien weergegeven op de tab <span class="guilabel">Log</span>. De invoerlaag heeft enkele ongeldige geometrieën en die worden overgeslagen bij het uitvoeren van Kruising. We zullen geometrieën van de lagen <code class="docutils literal notranslate"><span class="pre">Zoning</span></code> en <code class="docutils literal notranslate"><span class="pre">Split</span> <span class="pre">Zoning</span></code> repareren, voordat we Kruising alle geometrieën laten uitnemen.</p>
 <img alt="../../_images/db20.png" class="align-center" src="../../_images/db20.png" />
 </li>
-<li><p>Remove the intersection output from QGIS and data folder. Search for <span class="menuselection">Fix geometries</span> tool in the processing toolbox. Double-click to open.</p>
+<li><p>Verwijder de uitvoer van Kruising uit QGIS en de map met gegevens. Zoek naar het gereedschap <span class="menuselection">Geometrieën repareren</span> tool in de Toolbox van Processing. Dubbelklik erop om het te openen.</p>
 <img alt="../../_images/db21.png" class="align-center" src="../../_images/db21.png" />
 </li>
-<li><p>Select <code class="docutils literal notranslate"><span class="pre">Zoning</span></code> as <span class="guilabel">Input layer</span>. Keep all the other inputs as default and save the output layer as <code class="docutils literal notranslate"><span class="pre">zoning_fixed.shp</span></code> in the data folder by clicking  <span class="guilabel">Save to File</span>. Click <span class="guilabel">Run</span>. Repeat the process for fixing geometries on <code class="docutils literal notranslate"><span class="pre">Split</span> <span class="pre">Zoning</span></code> layer and save the layer with fixed geometries as <code class="docutils literal notranslate"><span class="pre">split_zoning_fixed.shp</span></code>.</p>
+<li><p>Selecteer <code class="docutils literal notranslate"><span class="pre">Zoning</span></code> als <span class="guilabel">Invoerlaag</span>. Laat alle andere invoer op hun standaard en sla de uitvoerlaag op als <code class="docutils literal notranslate"><span class="pre">zoning_fixed.shp</span></code> in de map met gegevens door te klikken op <span class="guilabel">Save to File</span>. Klik op <span class="guilabel">Uitvoeren</span>. Herhaal het proces voor het repareren van de geometrieën voor de laag <code class="docutils literal notranslate"><span class="pre">Split</span> <span class="pre">Zoning</span></code> en sla de laag met gerepareerde geometrieën op als <code class="docutils literal notranslate"><span class="pre">split_zoning_fixed.shp</span></code>.</p>
 <img alt="../../_images/db22.png" class="align-center" src="../../_images/db22.png" />
 </li>
-<li><p>Remove <code class="docutils literal notranslate"><span class="pre">Zoning</span></code> and <code class="docutils literal notranslate"><span class="pre">Split</span> <span class="pre">Zoning</span></code> layers. We will move ahead with extracting features from <code class="docutils literal notranslate"><span class="pre">zoning_fixed</span></code> and <code class="docutils literal notranslate"><span class="pre">split_zoning_fixed</span></code> layers which intersect <code class="docutils literal notranslate"><span class="pre">cbd</span></code>. Search for <span class="menuselection">Intersection</span> from the processing toolbox and double-click to open.</p>
+<li><p>Verwijder de lagen <code class="docutils literal notranslate"><span class="pre">Zoning</span></code> en <code class="docutils literal notranslate"><span class="pre">Split</span> <span class="pre">Zoning</span></code>. We zullen doorgaan met de uitgenomen objecten in de lagen <code class="docutils literal notranslate"><span class="pre">zoning_fixed</span></code> en <code class="docutils literal notranslate"><span class="pre">split_zoning_fixed</span></code> die kruisen met <code class="docutils literal notranslate"><span class="pre">cbd</span></code>. Zoek naarr <span class="menuselection">Kruising</span> in de Toolbox van Processing en dubbelklik om het te openen.</p>
 <img alt="../../_images/db23.png" class="align-center" src="../../_images/db23.png" />
 </li>
 </ol>
@@ -294,7 +293,7 @@ We will be importing data from the portal using ArcGIS REST server URL and will 
 <blockquote>
 <div><img alt="../../_images/db24.png" class="align-center" src="../../_images/db24.png" />
 </div></blockquote>
-<p>For convenience, you may directly download a copy of all three pre-processed layers from the links below:</p>
+<p>Voor het gemak kunt u direct een kopie van alle drie vooraf verwerkte lagen downloaden vanaf de links hieronder:</p>
 <p><a class="reference external" href="https://www.qgistutorials.com/downloads/cbd.zip">cbd.shp</a></p>
 <p><a class="reference external" href="https://www.qgistutorials.com/downloads/zoning_cbd.zip">zoning_cbd.shp</a></p>
 <p><a class="reference external" href="https://www.qgistutorials.com/downloads/split_zoning_cbd.zip">split_zoning_cbd.shp</a></p>
@@ -302,147 +301,147 @@ We will be importing data from the portal using ArcGIS REST server URL and will 
 <section id="procedure">
 <h2>Procedure<a class="headerlink" href="#procedure" title="Permalink to this heading">¶</a></h2>
 <ol class="arabic simple">
-<li><p>Open QGIS. Click <span class="menuselection">Open Data Source Manager</span> icon to add layers to work on for the tutorial.</p></li>
+<li><p>Open QGIS. Klik op het pictogram <span class="menuselection">Databronnen beheren openen</span> om de lagen toe te voegen om in de handleiding mee te werken.</p></li>
 </ol>
 <blockquote>
 <div><img alt="../../_images/140.png" class="align-center" src="../../_images/140.png" />
 </div></blockquote>
 <ol class="arabic simple" start="2">
-<li><p>Switch to the <span class="guilabel">Vector</span> tab and use the browsing button to navigate to the folder where you have kept the processed shapefiles.</p></li>
+<li><p>Schakel naar de tab <span class="guilabel">Vector</span> en gebruik de knop Bladeren om naar de map te navigeren waar u de verwerkte shapefiles hebt opgeslagen.</p></li>
 </ol>
 <blockquote>
 <div><img alt="../../_images/229.png" class="align-center" src="../../_images/229.png" />
 </div></blockquote>
 <ol class="arabic simple" start="3">
-<li><p>Select <code class="docutils literal notranslate"><span class="pre">cbd.shp</span></code>, <code class="docutils literal notranslate"><span class="pre">zoning_cbd.shp</span></code> and <code class="docutils literal notranslate"><span class="pre">split_zoning_cbd.shp</span></code> files and click <span class="guilabel">Open</span>.</p></li>
+<li><p>Selecteer de bestanden <code class="docutils literal notranslate"><span class="pre">cbd.shp</span></code>, <code class="docutils literal notranslate"><span class="pre">zoning_cbd.shp</span></code> en <code class="docutils literal notranslate"><span class="pre">split_zoning_cbd.shp</span></code> en klik op <span class="guilabel">Openen</span>.</p></li>
 </ol>
 <blockquote>
 <div><img alt="../../_images/319.png" class="align-center" src="../../_images/319.png" />
 </div></blockquote>
 <ol class="arabic simple" start="4">
-<li><p>You will see all three file paths in the text box beside <span class="guilabel">Vector Dataset</span>. Click <span class="guilabel">Add</span> followed by <span class="guilabel">Close</span>.</p></li>
+<li><p>U zult alle drie bestandspaden zien in het tekstvak naast <span class="guilabel">Vectordatabron(nen)</span>. Klik op <span class="guilabel">Toevoegen</span>, gevolgd door <span class="guilabel">Sluiten</span>.</p></li>
 </ol>
 <blockquote>
 <div><img alt="../../_images/48.png" class="align-center" src="../../_images/48.png" />
 </div></blockquote>
 <ol class="arabic simple" start="5">
-<li><p>As we work on the exercise, it is important to save our work. Go to <span class="menuselection">Project ‣ Save</span>.</p></li>
+<li><p>Het is belangrijk om uw werk op te slaan gedurende het werken aan de oefening. Ga naar <span class="menuselection">Project ‣ Opslaan</span>.</p></li>
 </ol>
 <blockquote>
 <div><img alt="../../_images/58.png" class="align-center" src="../../_images/58.png" />
 </div></blockquote>
 <ol class="arabic simple" start="6">
-<li><p>Save the project to the data directory as landuse_map.qgz file. The QGIS Project file contains references to the data layers and saves styles, map templates etc.</p></li>
+<li><p>Sla het project op in de map met gegevens als het bestand landuse_map.qgz. Het projectbestand van QGIS bevat verwijzingen naar de gegevenslagen en slaat stijlen, kaartsjablonen, etc. op.</p></li>
 </ol>
 <blockquote>
 <div><img alt="../../_images/68.png" class="align-center" src="../../_images/68.png" />
 </div></blockquote>
 <ol class="arabic simple" start="7">
-<li><p>Select the <code class="docutils literal notranslate"><span class="pre">zoning_cbd</span></code> layer and click the <span class="guilabel">Open Attribute Table</span> button in the <span class="menuselection">Attributes</span> Toolbar. Note that the attribute <code class="docutils literal notranslate"><span class="pre">INT_ZONE_C</span></code> has the zoning codes and <code class="docutils literal notranslate"><span class="pre">INT_ZONE_D</span></code> has the zoning description. Close the attribute table.</p></li>
+<li><p>Selecteer de laag <code class="docutils literal notranslate"><span class="pre">zoning_cbd</span></code> en klik op de knop <span class="guilabel">Attributentabel openen</span> op de werkbalk <span class="menuselection">Attributen</span>. Merk op dat het attribuut <code class="docutils literal notranslate"><span class="pre">INT_ZONE_C</span></code> de code voor de zonering bevat en <code class="docutils literal notranslate"><span class="pre">INT_ZONE_D</span></code> bevat de beschrijving van de zonering. Sluit de attributentabel.</p></li>
 </ol>
 <blockquote>
 <div><img alt="../../_images/78.png" class="align-center" src="../../_images/78.png" />
 </div></blockquote>
 <ol class="arabic simple" start="8">
-<li><p>Now let’s style the layer based on these attributes, so the parcels with the same zoning codes are styles in the same color. Click the <span class="guilabel">Open the Layer Styling panel</span> button in the Layers panel. Click the dropdown button next to <span class="guilabel">Single Symbol</span>.</p></li>
+<li><p>Laten we nu stijl op de laag toepassen, gebaseerd op deze attributen, zodat de percelen met dezelfde code voor de zonering stijlen in dezelfde kleur hebben. Klik op de knop <span class="guilabel">Paneel Laag opmaken openen</span> in het paneel Lagen. Klik op de keuzeknop naast <span class="guilabel">Enkel symbool</span>.</p></li>
 </ol>
 <blockquote>
 <div><img alt="../../_images/88.png" class="align-center" src="../../_images/88.png" />
 </div></blockquote>
 <ol class="arabic" start="9">
-<li><p>Select <span class="guilabel">Categorized</span> as the renderer. Select <code class="docutils literal notranslate"><span class="pre">INT_ZONE_C</span></code> as the Value. Click Classify.</p>
+<li><p>Selecteer <span class="guilabel">Categorieën</span> als de renderer. Selecteer <code class="docutils literal notranslate"><span class="pre">INT_ZONE_C</span></code> als de Waarde. Klik op Classificeren.</p>
 <blockquote>
 <div><img alt="../../_images/98.png" class="align-center" src="../../_images/98.png" />
 </div></blockquote>
 </li>
-<li><p>You will see a series of symbols appear. There is a different color symbol assigned for every unique code in the layer.</p>
+<li><p>U zult een serie symbolen zien verschijnen. Er is een verschillende kleur symbool toegewezen aan elk unieke code in de laag.</p>
 <img alt="../../_images/1012.png" class="align-center" src="../../_images/1012.png" />
 </li>
-<li><p>Notice that each zoning category has sub-categories. The <code class="docutils literal notranslate"><span class="pre">General</span> <span class="pre">Business</span> <span class="pre">(GB)</span></code> category has further sub-divisions like <code class="docutils literal notranslate"><span class="pre">GB1</span></code>, <code class="docutils literal notranslate"><span class="pre">GB2</span></code>, and so on. For the purpose of this map, we can merge all the sub-categories to a single top-level category. Hold the Shift key and select all sub-categories. Right-click and select <span class="guilabel">Merge Categories</span>.</p>
+<li><p>Merk op dat elke categorie zonering sub-categorieën heeft. De categorie <code class="docutils literal notranslate"><span class="pre">General</span> <span class="pre">Business</span> <span class="pre">(GB)</span></code> heeft meer onderverdelingen, zoals <code class="docutils literal notranslate"><span class="pre">GB1</span></code>, <code class="docutils literal notranslate"><span class="pre">GB2</span></code>, enzovoort. Voor het doel van deze kaart, kunnen we alle sub-categorieën samenvoegen tot één enkele categorie op het hoogste niveau. Houd de Shift-toets ingedrukt en selecteer alle sub-categorieën. Klik met rechts en selecteer <span class="guilabel">Categorieën samenvoegen</span>.</p>
 <img alt="../../_images/1115.png" class="align-center" src="../../_images/1115.png" />
 </li>
-<li><p>Repeat the process for <code class="docutils literal notranslate"><span class="pre">MU</span></code> and <code class="docutils literal notranslate"><span class="pre">TR</span></code> categories. Once merged, we can now change the Legend label to be more descriptive. Click on the <span class="guilabel">Legend</span> label to rename a class.</p>
+<li><p>Herhaal het proces voor de categorieën <code class="docutils literal notranslate"><span class="pre">MU</span></code> en <code class="docutils literal notranslate"><span class="pre">TR</span></code>. Eenmaal samengevoegd, kunnen we nu het label van de Legenda wijzigen, zodat het meer beschrijvend is. Klik op het label <span class="guilabel">Legenda</span> om een klasse te hernoemen.</p>
 <img alt="../../_images/1213.png" class="align-center" src="../../_images/1213.png" />
 </li>
-<li><p>Enter descriptions of each zoning category based on the values given in the <code class="docutils literal notranslate"><span class="pre">INR_ZONE_D</span></code> column. As you enter those description, you will see the legend of the layer in the Layers panel also updates.</p>
+<li><p>Voer beschrijvingen in voor elke categorie van de zonering , gebaseerd op de waarden uit de kolom <code class="docutils literal notranslate"><span class="pre">INR_ZONE_D</span></code>. Als u deze beschrijving invoert zult u zien dat de legenda van de laag in het paneel Lagen ook wordt bijgewerkt.</p>
 <img alt="../../_images/1311.png" class="align-center" src="../../_images/1311.png" />
 </li>
-<li><p>Now we can update the colors and symbology of each category. Click on the <span class="guilabel">Symbol</span> for a category.</p>
+<li><p>Nu kunnen we de kleuren en symbologie van elke categorie bijwerken. Klik op het <span class="guilabel">Symbool</span> voor een categorie.</p>
 <img alt="../../_images/1410.png" class="align-center" src="../../_images/1410.png" />
 </li>
-<li><p>Change the <span class="guilabel">Fill color</span> and <span class="guilabel">Stroke color</span> of the symbol to a color of your choice.</p>
+<li><p>Wijzig de <span class="guilabel">Vulkleur</span> en <span class="guilabel">Lijnkleur</span> van het symbool naar een kleur van uw keuze.</p>
 <img alt="../../_images/1510.png" class="align-center" src="../../_images/1510.png" />
 </li>
-<li><p>Repeat the process for each category. The last category is all other values. This category contains all parcels which have NULL values. This is because those parcels have multiple zoning categories attached to them and are represented in the split_zoning_cbd.shp layer. We do not need them in this layer. Select it and click the <span class="guilabel">-</span> icon to remove that category.</p>
+<li><p>Herhaal het proces voor elke categorie. De laatste categorie is alle andere waarden. Deze categorie bevat alle percelen die waarden NULL hebben. Dat komt omdat deze percelen meerdere categorieën voor zonering aan zich hebben verbonden en die worden weergegeven in de laag split_zoning_cbd.shp. We  hebben ze niet nodig in deze laag. Selecteer het en klik op het pictogram <span class="guilabel">-</span> om die categorie te verwijderen.</p>
 <img alt="../../_images/169.png" class="align-center" src="../../_images/169.png" />
 </li>
-<li><p>Next, select the <code class="docutils literal notranslate"><span class="pre">cbd</span></code> layer. Change the symbol to <span class="guilabel">Simple Line</span> and increase the <span class="guilabel">Stroke width</span>.</p>
+<li><p>Selecteer vervolgens de laag <code class="docutils literal notranslate"><span class="pre">cbd</span></code>. Wijzig het symbool naar <span class="guilabel">Rand: Doorgetrokken lijn</span> en verhoog de <span class="guilabel">Lijndikte</span>.</p>
 <img alt="../../_images/1710.png" class="align-center" src="../../_images/1710.png" />
 </li>
-<li><p>The <code class="docutils literal notranslate"><span class="pre">split_zoning_cbd.shp</span></code> layer contains all parcels that were missing zoning codes in the zoning_cbd layer. The attribute table and values for the zones in the <code class="docutils literal notranslate"><span class="pre">split_zoning_cbd</span></code> are the same as the <code class="docutils literal notranslate"><span class="pre">zoning_cbd</span></code> layer. Instead of configuring the symbology for this layer manually, we can copy/paste the styles. Select the zoning_cbd layer, right-click and select <span class="menuselection">Styles ‣ Copy Style ‣ Symbology</span>.</p>
+<li><p>De laag <code class="docutils literal notranslate"><span class="pre">split_zoning_cbd.shp</span></code> bevat alle percelen waarvan de code voor de zonering ontbreekt in de laag zoning_cbd. De attributentabel en waarden voor de zones in <code class="docutils literal notranslate"><span class="pre">split_zoning_cbd</span></code> zijn hetzelfde als in de laag <code class="docutils literal notranslate"><span class="pre">zoning_cbd</span></code>. In plaats van deze symbologie voor deze laag handmatig te configureren, kunnen we de stijlen kopiëren/plakken. Selecteer de laag zoning_cbd, klik met rechts en selecteer <span class="menuselection">Stijlen ‣ Kopieer stijl ‣ Symbologie</span>.</p>
 <img alt="../../_images/188.png" class="align-center" src="../../_images/188.png" />
 </li>
-<li><p>Now select the newly added <code class="docutils literal notranslate"><span class="pre">split_zoning_cbd</span></code> layer, right-click and select <span class="menuselection">Styles ‣ Paste Style ‣ Symbology</span>.</p>
+<li><p>Selecteer nu de nieuw toegevoegde laag <code class="docutils literal notranslate"><span class="pre">split_zoning_cbd</span></code>, klik met rechts en selecteer <span class="menuselection">Stijlen ‣ Plak stijl ‣ Symbologie</span>.</p>
 <img alt="../../_images/198.png" class="align-center" src="../../_images/198.png" />
 </li>
-<li><p>You will see the same symbology being applied to the polygons in the <code class="docutils literal notranslate"><span class="pre">split_zoning_cbd</span></code> layer. The styling and legend are complete now.</p>
+<li><p>U zult zien dat dezelfde symbologie is toegepast op de polygonen van de laag <code class="docutils literal notranslate"><span class="pre">split_zoning_cbd</span></code>. De opmaak en legenda zijn nu compleet.</p>
 <img alt="../../_images/208.png" class="align-center" src="../../_images/208.png" />
 </li>
-<li><p>We have our layers styled and legend labels created. Now let’s create a map using these styled layers along with map elements like, scale bar, north arrow, labels etc. QGIS comes with a <span class="guilabel">Print Layout</span> that allows composing maps. Go to <span class="menuselection">Project ‣ New Print Layout</span>. When prompted for a name, you can leave it blank and click <span class="guilabel">OK</span>.</p>
+<li><p>We hebben onze lagen opgemaakt en labels voor de legenda gemaakt. Laten we nu een kaart maken met deze opgemaakte lagen naast kaartelementen, zoals, schaalbalk, Noordpijl, labels etc. QGIS heeft <span class="guilabel">Afdruklay-out</span> dat het mogelijk maakt kaarten samen te stellen. Ga naar <span class="menuselection">Project ‣ Nieuwe afdruklay-out</span>. Indien geprompt voor een naam, kunt u die leeg laten en klikken op <span class="guilabel">OK</span>.</p>
 <img alt="../../_images/2112.png" class="align-center" src="../../_images/2112.png" />
 </li>
-<li><p>In the Print Layout window, you will see a canvas. Right-click and select <span class="guilabel">Page Properties</span>.</p>
+<li><p>In het venster Afdruklay-out zult u een kaartvenster zien. Klik met rechts en selecteer <span class="guilabel">Pagina-eigenschappen</span>.</p>
 <img alt="../../_images/2210.png" class="align-center" src="../../_images/2210.png" />
 </li>
-<li><p>Set the <span class="guilabel">Orientation</span> to <code class="docutils literal notranslate"><span class="pre">Portrait</span></code>. Next, go to <span class="menuselection">Add Item ‣ Add Map</span>.</p>
+<li><p>Stel de <span class="guilabel">Oriëntatie</span> in op <code class="docutils literal notranslate"><span class="pre">Staand</span></code>. Ga vervolgens naar <span class="menuselection">Item toevoegen ‣ Kaart toevoegen</span>.</p>
 <img alt="../../_images/237.png" class="align-center" src="../../_images/237.png" />
 </li>
-<li><p>Hold the left mouse button and draw a rectangle on the canvas. This is the map frame which will contain the map from the main QGIS window. In the <span class="guilabel">Item Properties</span> tab, use the <span class="guilabel">Interactively Edit Map Extent</span> icon to pan/zoom the content of the map frame.</p>
+<li><p>Houd de linkermuisknop ingedrukt en teken een rechthoek in het kaartvenster. Dat is het kaartframe dat de kaart uit het hoofdvenster van QGIS zal bevatten. Op de tab <span class="guilabel">Item-eigenschappen</span>, gebruik het pictogram <span class="guilabel">Kaartbereik interactief bewerken</span> om de inhoud van het kaartframe te verschuiven/te zoomen .</p>
 <img alt="../../_images/248.png" class="align-center" src="../../_images/248.png" />
 </li>
-<li><p>Scroll down in the Item Properties tab and check the <span class="guilabel">Frame</span> option. Expand it and select a <span class="guilabel">Color</span> for the frame border. You can also increase the <span class="guilabel">Thickness</span>.</p>
+<li><p>Scroll naar beneden op de tab Item-eigenschappen en selecteer de optie <span class="guilabel">Frame</span>. Vergroot dat en selecteer een <span class="guilabel">Kleur</span> voor de rand van het frame. U kunt ook de <span class="guilabel">Dikte</span> verhogen.</p>
 <img alt="../../_images/257.png" class="align-center" src="../../_images/257.png" />
 </li>
-<li><p>The map frame is now ready. Let’s add other elements. Go to <span class="menuselection">Add Item ‣ Add Legend</span>.</p>
+<li><p>Het kaartframe is nu klaar. Laten we andere elementen toevoegen. Ga naar <span class="menuselection">Item toevoegen ‣ Legenda toevoegen</span>.</p>
 <img alt="../../_images/266.png" class="align-center" src="../../_images/266.png" />
 </li>
-<li><p>Drag a rectangle where you want to place the legend. Once added, scroll down in the <span class="guilabel">Item Properties</span> tab and un-check the <span class="guilabel">Auto update</span> button so we can manually edit the legend items.</p>
+<li><p>Sleep een rechthoek waar u de legenda wilt plaatsen. Eenmaal toegevoegd, scroll naar beneden op de tab <span class="guilabel">Item-eigenschappen</span> en deselecteer de knop <span class="guilabel">Automatisch bijwerken</span> zodat de items van de legenda handmatig kunnen bewerken.</p>
 <img alt="../../_images/277.png" class="align-center" src="../../_images/277.png" />
 </li>
-<li><p>We have 2 layers with identical legends, so we can remove one of them. Select the <code class="docutils literal notranslate"><span class="pre">split_zoning_cbd</span></code> layer and click the <span class="guilabel">Remove selected item(s) from legend</span> icon. Similarly remove <code class="docutils literal notranslate"><span class="pre">cbd</span></code> layer from the legend.</p>
+<li><p>We hebben 2 lagen met identieke legenda’s, duskunnen we een ervan verwijderen. Selecteer de laag <code class="docutils literal notranslate"><span class="pre">split_zoning_cbd</span></code> en klik op het pictogram <span class="guilabel">Geselecteerde item(s) uit legenda verwijderen</span> icon. Verwijder op soortgelijke wijze de laag <code class="docutils literal notranslate"><span class="pre">cbd</span></code> uit de legenda.</p>
 <img alt="../../_images/287.png" class="align-center" src="../../_images/287.png" />
 </li>
-<li><p>Right-click the <code class="docutils literal notranslate"><span class="pre">zoning_cbd</span></code> layer and check the Hidden option.</p>
+<li><p>Klik met rechts op de laag <code class="docutils literal notranslate"><span class="pre">zoning_cbd</span></code> en selecteer de optie Verborgen.</p>
 <img alt="../../_images/296.png" class="align-center" src="../../_images/296.png" />
 </li>
-<li><p>Scroll down and expand the <span class="guilabel">Columns</span> section. Check the <span class="guilabel">Split layers</span> option and increase the Count to 2.</p>
+<li><p>Scroll naar beneden en vergroot het gedeelte <span class="guilabel">Kolommen</span>. Selecteer de optie <span class="guilabel">Kaartlagen splitsen</span> en verhoog Aantal naar 2.</p>
 <img alt="../../_images/306.png" class="align-center" src="../../_images/306.png" />
 </li>
-<li><p>Scroll down further to the <span class="guilabel">Spacing</span> section. Adjust the spacing between different elements till the legend is clearly legible.</p>
+<li><p>Scroll nog meer naar beneden naar het gedeelte <span class="guilabel">Tussenruimte</span>. Pas de afstand tussen de verschillende elementen aan totdat de legenda duidelijk leesbaar is.</p>
 <img alt="../../_images/3110.png" class="align-center" src="../../_images/3110.png" />
 </li>
-<li><p>You can change style and size of the fonts in legend from <span class="guilabel">Fonts and Text Formatting</span> properties. When done, go to <span class="menuselection">Add Item ‣ Add North Arrow</span>. Drag a rectangle where you want to place the element on the map.</p>
+<li><p>U kunt stijl en grootte van de lettertypen in de legenda wijzigen in de eigenschappen <span class="guilabel">Lettertypen en tekst opmaken</span>. Indien gereed, ga naar <span class="menuselection">Item toevoegen ‣ Noordpijl toevoegen</span>. Sleep een rechthoek waar u het element op de kaart wilt plaatsen.</p>
 <img alt="../../_images/324.png" class="align-center" src="../../_images/324.png" />
 </li>
-<li><p>Pick a symbol of your choice. Scroll down and expand the <span class="guilabel">SVG Parameters</span>. Change the <span class="guilabel">Fill color</span> and <span class="guilabel">Stroke color</span> as per your choice.</p>
+<li><p>Kies een symbool van uw eigen keuze. Scroll naar beneden en vergroot de <span class="guilabel">Parameters SVG</span>. Wijzig de <span class="guilabel">Vulkleur</span> en <span class="guilabel">Lijnkleur</span> naar uw keuze.</p>
 <img alt="../../_images/332.png" class="align-center" src="../../_images/332.png" />
 </li>
-<li><p>Now we will add a <span class="guilabel">Scale Bar</span>. Go to <span class="menuselection">Add Item ‣ Add Scale Bar</span>. Drag a rectangle where you want to place the element on the map. Adjust the <span class="guilabel">Style</span> and <span class="guilabel">Segments</span> parameters for the scale bar.</p>
+<li><p>Nu zullen we een <span class="guilabel">Schaalbalk</span> toevoegen. Ga naar <span class="menuselection">Item toevoegen ‣ Schaalbalk toevoegen</span>. Sleep een rechthoek waar u het element op de kaart wilt plaatsen. Pas de parameters <span class="guilabel">Stijl</span> en <span class="guilabel">Segmenten</span> voor de schaalbalk aan.</p>
 <img alt="../../_images/342.png" class="align-center" src="../../_images/342.png" />
 </li>
-<li><p>Our map needs a title and other information labels. Go to <span class="menuselection">Add Item ‣ Add Label</span>.</p>
+<li><p>Onze kaart heeft een titel nodig en andere labels met informatie. Ga naar <span class="menuselection">Item toevoegen ‣ Label toevoegen</span>.</p>
 <img alt="../../_images/352.png" class="align-center" src="../../_images/352.png" />
 </li>
-<li><p>Enter a map title in the Main Properties section. Click the Font button under Appearance section to adjust the font size and style.</p>
+<li><p>Voer een titel voor de kaart in het gedeelte Algemene eigenschappen in. Klik op de knop Lettertype in het gedeelte Uiterlijk om de grootte en stijl van het lettertype aan te passen.</p>
 <img alt="../../_images/361.png" class="align-center" src="../../_images/361.png" />
 </li>
-<li><p>Add other labels indicating the data source and your name. Lastly we will finish our map by adding a frame around the label block. Go to <span class="menuselection">Add Item ‣ Add Shape ‣ Add Rectangle</span>.</p>
+<li><p>Voeg andere labels toe die de gegevensbron en uw naam aangeven. Tenslotte zullen we onze kaart voltooien door een frame toe te voegen rondom het blok met labels. Ga naar <span class="menuselection">Item toevoegen ‣ Vorm toevoegen ‣ Rechthoek toevoegen</span>.</p>
 <img alt="../../_images/371.png" class="align-center" src="../../_images/371.png" />
 </li>
-<li><p>Draw a rectangle. Click the symbol for <span class="guilabel">Style</span> and set the <span class="guilabel">Fill Color</span> to transparent and <span class="guilabel">Stroke color</span> to match other frames.</p>
+<li><p>Teken een rechthoek. Klik op het symbool voor <span class="guilabel">Stijl</span> en stel de <span class="guilabel">Vulkleur</span> in op transparant en <span class="guilabel">Lijnkleur</span> op dezelfde als andere frames.</p>
 <img alt="../../_images/371.png" class="align-center" src="../../_images/371.png" />
 </li>
-<li><p>Once you are satisfied with your composition, you can export the result. Go to <span class="menuselection">Layout ‣ Export as PDF</span>. Save the PDF in your data folder as <code class="docutils literal notranslate"><span class="pre">capetown_zoning_map.pdf</span></code>.</p>
+<li><p>Als u tevreden bent met uw compositie, kunt u het resultaat exporteren. Ga naar <span class="menuselection">Lay-out ‣ Exporteren als PDF</span>. Sla de PDF op in de map met uw gegevens als <code class="docutils literal notranslate"><span class="pre">capetown_zoning_map.pdf</span></code>.</p>
 <img alt="../../_images/391.png" class="align-center" src="../../_images/391.png" />
 </li>
 </ol>
@@ -471,7 +470,7 @@ We will be importing data from the portal using ArcGIS REST server URL and will 
     </p>
     <p>
         &copy; Copyright 2021, Ujaval Gandhi.<br/>
-      Laatste aanpassing op nov 06, 2023.<br/>
+      Laatste aanpassing op nov 08, 2023.<br/>
       Created using <a href="http://sphinx-doc.org/">Sphinx</a> 7.0.1.<br/>
     </p>
   </div>
