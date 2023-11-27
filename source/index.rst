@@ -51,6 +51,7 @@ QGIS Tutorials and Tips
 * Urban Planning
    - :doc:`docs/3/creating_landuse_map`
    - :doc:`docs/3/calculating_intersection_density`
+   - :doc:`docs/3/landuse_buffer`
 
 * Python Scripting (PyQGIS)
    - :doc:`docs/3/getting_started_with_pyqgis`
