@@ -1,17 +1,17 @@
-Determining Landuse Buffer Zones(QGIS3)
-=====================================
+Determining Landuse Buffer Zones (QGIS3)
+========================================
 
-In this tutorial you will work with landuse data for a city and determine buffer zones around a particular land use. Such analysis is required to establish a corridor of restrictions around noise pollution or heavy traffic.
+In this tutorial you will work with landuse data for a city and determine buffer zones around a particular land parcel. Such analysis is required to establish a corridor of restrictions around noise pollution or heavy traffic.
 
 Overview of the task
 --------------------
 
-In this tutorial you will use geoprocessing and spatial analysis techniques to determine a buffer of restricted area around all properties with institutional land use. 
+We will start with a shapefile of land parcels for the City of San Francisco and use geoprocessing and spatial analysis techniques to determine a buffer of restricted area around all properties with institutional land use.
 
 Other skills you will learn
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^
-- Reprojection of a vector layer
-- Using Spatial Index
+- Creating rectangular buffers in QGIS
+- Using a Spatial Index to speed up analysis
 
 Get the data
 ------------
@@ -86,7 +86,7 @@ Procedure
    .. image:: /static/3/landuse_buffer/images/6.png
       :align: center
 	  
-7. Search for ``EPSG:2227`` in the bar and select the ``NAD83 / California zone 3 (ftUS)`` CRS. click :guilabel:`Go back`to continue. 
+7. Search for ``EPSG:2227`` in the bar and select the ``NAD83 / California zone 3 (ftUS)`` CRS. click :guilabel:`Go back` to continue. 
 
     .. image:: /static/3/landuse_buffer/images/7.png
        :align: center
@@ -108,20 +108,20 @@ Procedure
 
 11. We will continue the process with the reprojected layer. As we saw in the :guilabel:`About` section of the downloaded shapefile in the data portal, The classification is as follows.
 
-	•	``CIE`` = Cultural, Institutional, Educational
-	•	``MED`` = Medical
-	•	``MIPS`` = Office (Management, Information, Professional Services)
-	•	``MIXED`` = Mixed Uses (Without Residential)
-	•	``MIXRES`` = Mixed Uses (With Residential)
-	•	``PDR`` = Industrial (Production, Distribution, Repair)
-	•	``RETAIL/ENT`` = Retail, Entertainment
-	•	``RESIDENT`` = Residential
-	•	``VISITOR`` = Hotels, Visitor Services
-	•	``VACANT`` = Vacant
-	•	``ROW`` = Right-of-Way
-	•	``OPENSPACE = Open Space
+	•	**CIE** = Cultural, Institutional, Educational
+	•	**MED** = Medical
+	•	**MIPS** = Office (Management, Information, Professional Services)
+	•	**MIXED** = Mixed Uses (Without Residential)
+	•	**MIXRES** = Mixed Uses (With Residential)
+	•	**PDR** = Industrial (Production, Distribution, Repair)
+	•	**RETAIL/ENT** = Retail, Entertainment
+	•	**RESIDENT** = Residential
+	•	**VISITOR** = Hotels, Visitor Services
+	•	**VACANT** = Vacant
+	•	**ROW** = Right-of-Way
+	•	**OPENSPACE** = Open Space
 	
-For this tutorial, we are interested in the Institutional land use. So we can query for the value CIE in the attribute table. Go to :menuselection:`Processing --> Toolbox`.
+For this tutorial, we are interested only in the Institutional land use. So we can query for the value **CIE** in the attribute table. Go to :menuselection:`Processing --> Toolbox`.
 	
    .. image:: /static/3/landuse_buffer/images/11.png
       :align: center	
@@ -177,9 +177,9 @@ For this tutorial, we are interested in the Institutional land use. So we can qu
    .. image:: /static/3/landuse_buffer/images/21.png
       :align: center
 	  
-22. Next step is to do a Spatial Join to add this attribute to the original parcels layer based on which parcels intersect with the buffer zone. The ``LandUse2020`` layer has more than 100000 elements. We will add spatial indexing to the features to improve the performance and speedup the spatial join operation. 
+22. Next step is to do a Spatial Join to add this attribute to the original parcels layer based on which parcels intersect with the buffer zone. The ``LandUse2020`` layer has more than 100,000 elements. We will add spatial indexing to the features to improve the performance and speedup the spatial join operation. 
 Check out the course `Spatial Indexing <https://courses.spatialthoughts.com/advanced-qgis.html#concept-spatial-indexing>`_ section to understand more about this. 
-Now, search and has  Search and locate the :menuselection:`Create Spatial Index` tool and double-click to open. 
+Now, search and locate the :menuselection:`Create Spatial Index` tool from the Processing Toolbox and double-click to open. 
 
     .. image:: /static/3/landuse_buffer/images/22.png
        :align: center
@@ -220,7 +220,7 @@ Now, search and has  Search and locate the :menuselection:`Create Spatial Index`
    .. image:: /static/3/landuse_buffer/images/29.png
       :align: center
 	
-30. Enter the :guilabel:Joined layer` name as ``LandUseWithRestrictions.shp`` and click :guilabel:`OK`. Click :guilabel:`Run`.
+30. Enter the :guilabel:`Joined layer` name as ``LandUseWithRestrictions.shp`` and click :guilabel:`OK`. Click :guilabel:`Run`.
 
    .. image:: /static/3/landuse_buffer/images/30.png
       :align: center
