@@ -1,0 +1,582 @@
+<!DOCTYPE html>
+
+<html lang="tr">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Advanced Raster Analysis (QGIS3) &#8212; QGIS Tutorials and Tips</title>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-sphinx.css" />
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/sphinx_highlight.js"></script>
+    <script src="../../_static/translations.js"></script>
+    <link rel="search" title="Ara" href="../../search.html" />
+    <link rel="next" title="Nokta Verılerın Enterpolastonu (QGIS3)" href="interpolating_point_data.html" />
+    <link rel="prev" title="Handling Invalid Geometries (QGIS3)" href="handling_invalid_geometries.html" />
+
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<script type="text/javascript" src="../../_static/js/jquery-1.12.4.min.js"></script>
+<script type="text/javascript" src="../../_static/js/jquery-fix.js"></script>
+<script type="text/javascript" src="../../_static/bootstrap-3.4.1/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="../../_static/bootstrap-sphinx.js"></script>
+
+
+<!-- Cookie Notice -->
+<!-- Script from https://github.com/AOEpeople/cookie-notice -->
+<script type="text/javascript" src="../../_static/cookie.notice.min.js"></script>
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-B1WQ7B80XJ"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-B1WQ7B80XJ');
+</script>
+
+
+  </head><body>
+
+  <div id="navbar" class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="../../index.html">
+          QGIS Tutorials and Tips</a>
+        <span class="navbar-text navbar-version pull-left"><b>v1</b></span>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="../../index.html">Tutorials List <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"><ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../introduction.html">Giriş</a></li>
+<li class="toctree-l1"><a class="reference internal" href="making_a_map.html">Bir harita oluşturma  (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="working_with_attributes.html">Working with Attributes (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="importing_spreadsheets_csv.html">Importing Spreadsheets or CSV files (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="basic_vector_styling.html">Basic Vector Styling (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="calculating_line_lengths.html">Çizgi Uzunluklarının ve İstatistiklerinin Hesaplanması (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="raster_styling_and_analysis.html">Basic Raster Styling and Analysis (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="raster_mosaicing_and_clipping.html">Raster Mosaicing and Clipping (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="working_with_terrain.html">Working with Terrain Data (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="working_with_wms.html">Working with WMS Data (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="working_with_projections.html">Working with Projections (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="georeferencing_basics.html">Georeferencing Topo Sheets and Scanned Maps (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="advanced_georeferencing.html">Georeferencing Aerial Imagery (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="digitizing_basics.html">Digitizing Map Data (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="performing_table_joins.html">Performing Table Joins (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="performing_spatial_joins.html">Performing Spatial Joins (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="performing_spatial_queries.html">Performing Spatial Queries (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="nearest_neighbor_analysis.html">Nearest Neighbor Analysis (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="sampling_raster_data.html">Sampling Raster Data using Points or Polygons (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="calculating_raster_area.html">Calculating Raster Area (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="creating_heatmaps.html">Creating Heatmaps (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="animating_time_series.html">Animating Time Series Data (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="handling_invalid_geometries.html">Handling Invalid Geometries (QGIS3)</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Advanced Raster Analysis (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="interpolating_point_data.html">Nokta Verılerın Enterpolastonu (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="batch_processing.html">Batch Processing using Processing Framework (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="processing_graphical_modeler.html">Automating Complex Workflows using Processing Modeler (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="automating_map_creation.html">Automating Map Creation with Print Layout Atlas (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="multi_criteria_overlay.html">Multi Criteria Overlay Analysis (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="basic_network_analysis.html">Basic Network Visualization and Routing (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="origin_destination_matrix.html">Locating Nearest Facility with Origin-Destination Matrix (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="service_area_analysis.html">Service Area Analysis using Openrouteservice (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="travel_time_analysis.html">Travel Time Analysis with Uber Movement (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="areal_mean_rainfall.html">Calculating Areal Mean Rainfall (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="creating_landuse_map.html">Creating a Landuse Map (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="calculating_intersection_density.html">Calculating Street Intersection Density (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="landuse_buffer.html">Determining Landuse Buffer Zones (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="getting_started_with_pyqgis.html">Getting Started With Python Programming (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="processing_algorithms_pyqgis.html">Running Processing Algorithms via Python (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="custom_python_functions.html">Using Custom Python Expression Functions (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="processing_python_scripts.html">Writing Python Scripts for Processing Framework (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="building_a_python_plugin.html">Building a Python Plugin (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="processing_python_plugin.html">Building a Processing Plugin (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../running_qgis_jobs.html">Running and Scheduling QGIS Processing Jobs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="web_mapping_with_qgis2web.html">Web Mapping with QGIS2Web (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../creating_basemaps_with_qtiles.html">Creating Basemaps with QTiles</a></li>
+<li class="toctree-l1"><a class="reference internal" href="using_plugins.html">Using Plugins (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../downloading_osm_data.html">OpenStreetMap Verisinde Arama Yapma ve Veriyi İndirme</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../learning_resources.html">QGIS Eğitim Kaynakları</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../credits.html">Veri Kaynakları</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../batch_processing.html">Batch Processing using Processing Framework (QGIS2)</a></li>
+</ul>
+</ul>
+</li>
+              
+            
+            
+              
+                
+  <li>
+    <a href="handling_invalid_geometries.html" title="Previous Chapter: Handling Invalid Geometries (QGIS3)"><span class="glyphicon glyphicon-chevron-left visible-sm"></span><span class="hidden-sm hidden-tablet">&laquo; Handling Inva...</span>
+    </a>
+  </li>
+  <li>
+    <a href="interpolating_point_data.html" title="Next Chapter: Nokta Verılerın Enterpolastonu (QGIS3)"><span class="glyphicon glyphicon-chevron-right visible-sm"></span><span class="hidden-sm hidden-tablet">Nokta Verıler... &raquo;</span>
+    </a>
+  </li>
+              
+            
+            
+
+            
+
+            
+              <li class="hidden-sm"></li>
+            
+          </ul>
+
+          
+            
+<form class="navbar-form navbar-right" action="../../search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+      <div class="col-md-3">
+        <div id="sidebar" class="bs-sidenav" role="complementary"><h4>Author</h4>
+<p>Ujaval Gandhi</p>
+<a href="https://twitter.com/intent/follow?screen_name=spatialthoughts" class="twitter-follow-button" data-show-count="false">Follow @spatialthoughts</a>
+<hr>
+<p>Want to learn QGIS in a structured way? Check out <a href="https://spatialthoughts.com/" target="_blank">Spatial Thoughts</a> for more learning materials and instructor-led online programs with QGIS.org certification.</p>
+
+<hr>
+<p>These tutorials are also available in many other languages. Please see <a href="https://www.qgistutorials.com/en/docs/introduction.html#translations" target="_blank">translations</a> page.
+</p>
+        </div>
+      </div>
+    <div class="body col-md-9 content" role="main">
+      
+
+  <section id="advanced-raster-analysis-qgis3">
+<h1>Advanced Raster Analysis (QGIS3)<a class="headerlink" href="#advanced-raster-analysis-qgis3" title="Permalink to this heading">¶</a></h1>
+<p>In the previous tutorial <a class="reference internal" href="raster_styling_and_analysis.html"><span class="doc">Basic Raster Styling and Analysis (QGIS3)</span></a>, you learnt about performing raster algebra with <em>Raster Calculator</em>. This tutorial builds on these techniques and shows you how to use other raster analysis tools from the Processing Toolbox. You will learn how to process with Land Use Land Cover (LULC) rasters in QGIS to extract certain types of landcover classes and map changes.</p>
+<section id="overview-of-the-task">
+<h2>Overview of the task<a class="headerlink" href="#overview-of-the-task" title="Permalink to this heading">¶</a></h2>
+<p>We will use the South African National Land Cover dataset to identify and extract informal settlements in the City of Johannesburg, South Africa. We will also use a change assessment dataset to identify urban growth patterns in the city from 2014 to 2018.</p>
+<section id="other-skills-you-will-learn">
+<h3>Other skills you will learn<a class="headerlink" href="#other-skills-you-will-learn" title="Permalink to this heading">¶</a></h3>
+<ul class="simple">
+<li><p>How to reproject raster data to another projection.</p></li>
+<li><p>How to load an excel file in QGIS.</p></li>
+<li><p>How to adjust the transperancy of a raster layer in QGIS.</p></li>
+</ul>
+</section>
+</section>
+<section id="get-the-data">
+<h2>Get the data<a class="headerlink" href="#get-the-data" title="Permalink to this heading">¶</a></h2>
+<p>We will download the following datasets for this tutorial</p>
+<ol class="arabic simple">
+<li><p><em>The South African National Land Cover 2018 dataset</em>: The new South African National Land-Cover 2018 dataset has been generated from 20 meter multi-seasonal Sentinel 2 satellite imagery and contains 73 landcover classes.</p></li>
+<li><p><em>The South African National Land Cover 2018 Change Assessments</em>: This dataset compares the change in 20 landcover classes from 2014 to 2018.</p></li>
+<li><p><em>COJ Boundary</em>: A boundary shapefile for the City of Johannesburg, South Africa.</p></li>
+</ol>
+<p>The <a class="reference external" href="https://egis.environment.gov.za/">Environmental Geographical Information Systems (E-GIS)</a> provides access to environmental geospatial data for South Africa. We will download the South African National Land-Cover (SANLC) rasters from this portal.</p>
+<ol class="arabic simple">
+<li><p>Visit the <a class="reference external" href="https://egis.environment.gov.za/gis_data_downloads">GIS Data Download</a>  page. Click <span class="guilabel">I agree</span> to accept the <em>Conditions of Use</em> and proceed.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/data1.png" class="align-center" src="../../_images/data1.png" />
+</div></blockquote>
+<ol class="arabic simple" start="2">
+<li><p>You will need to create a free account to download the dataset. Click <span class="guilabel">I want to create an account</span> and follow the instructions to create an account.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/data2.png" class="align-center" src="../../_images/data2.png" />
+</div></blockquote>
+<ol class="arabic simple" start="3">
+<li><p>Once logged in, search for <em>South African National Land Cover (SANLC) 2018 Computer Automated Land Cover (CALC)</em>. This dataset is provided in 2 different projections. For this tutorial, we will downnload the <cite>ALBERS</cite> dataset. Click to it to download the <cite>SA_NLC_2018_Albers_CALC_data.zip</cite> file.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/data3.png" class="align-center" src="../../_images/data3.png" />
+</div></blockquote>
+<ol class="arabic simple" start="4">
+<li><p>Next, search for <em>New South African National Land Cover (SANLC) 2014 and 2018 Change Assessment Datasets Computer Automated Land Cover (CALC)</em> and click on the <cite>SA_NLC_2014_2018_CLASS_CHANGE_CALC (DATASET AND REPORT)</cite> to download the <cite>SA_NLC_2014_2018_CLASS_CHANGE_ALBERS_CALC.tif.vat.zip</cite> file.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/data4.png" class="align-center" src="../../_images/data4.png" />
+</div></blockquote>
+<p>The <a class="reference external" href="https://www.joburg.org.za/">City of Johannesburg</a> publishes spatial datasets as part of the  <a class="reference external" href="https://www.joburg.org.za/documents_/Pages/Key%20Documents/policies/Development%20Planning%20%EF%BC%86%20Urban%20Management/Citywide%20Spatial%20Policies/Spatial-Development-Framework-2040.aspx">Spatial Development Framework 2040 (SDF) for Johannesburg</a> data. We will download the boundary shapefile from this site.</p>
+<ol class="arabic simple">
+<li><p>Click the download link <a class="reference external" href="http://bit.ly/joburg-sdf-16">http://bit.ly/joburg-sdf-16</a>.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/data5.png" class="align-center" src="../../_images/data5.png" />
+</div></blockquote>
+<ol class="arabic simple" start="2">
+<li><p>Click on the <code class="docutils literal notranslate"><span class="pre">SDF</span> <span class="pre">Shapefiles</span></code> directory.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/data6.png" class="align-center" src="../../_images/data6.png" />
+</div></blockquote>
+<ol class="arabic simple" start="3">
+<li><p>Download the <code class="docutils literal notranslate"><span class="pre">SDF</span> <span class="pre">Shapefiles.zip</span></code> file, and unzip it to a folder.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/data7.png" class="align-center" src="../../_images/data7.png" />
+</div></blockquote>
+<p>For your convenience, a clipped version of the required layers is available from the link below:</p>
+<p><a class="reference external" href="https://www.qgistutorials.com/downloads/SA_NLC_2018_ALBERS_CALC.tif">SA_NLC_2018_ALBERS_CALC.tif</a></p>
+<p><a class="reference external" href="https://www.qgistutorials.com/downloads/SA_NLC_2014_2018_CLASS_CHANGE_ALBERS_CALC.tif">SA_NLC_2014_2018_CLASS_CHANGE_ALBERS_CALC.tif</a></p>
+<p><a class="reference external" href="https://www.qgistutorials.com/downloads/COJ_Boundary.zip">COJ_Boundary.zip</a></p>
+<p>Data Source: <a class="reference internal" href="../credits.html#sanlc" id="id1"><span>[SANLC]</span></a> <a class="reference internal" href="../credits.html#coj" id="id2"><span>[COJ]</span></a></p>
+</section>
+<section id="procedure">
+<h2>Procedure<a class="headerlink" href="#procedure" title="Permalink to this heading">¶</a></h2>
+<ol class="arabic simple">
+<li><p>Browse to the downloaded and unzipped  folder in the browser. Expand it and drag and drop the <code class="docutils literal notranslate"><span class="pre">SA_NLC_2018_ALBERS_CALC.tif</span></code> in canvas.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/011.png" class="align-center" src="../../_images/011.png" />
+</div></blockquote>
+<ol class="arabic simple" start="2">
+<li><p>Once the layer is loaded, you can notice the CRS will be set as <span class="guilabel">Unknown CRS</span> on the bottom right. Double-click on it to open the <span class="guilabel">Project Properties - CRS</span> dialog box.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/021.png" class="align-center" src="../../_images/021.png" />
+</div></blockquote>
+<ol class="arabic simple" start="3">
+<li><p>At the bottom, you will see a preview of the projection extent. This <em>Unknown CRS</em> is a custom <em>Lambert Equal-Area Projection</em> defined for the country of South Africa. We will later reproject this layer to another projection. Click <span class="guilabel">OK</span>.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/031.png" class="align-center" src="../../_images/031.png" />
+</div></blockquote>
+<ol class="arabic simple" start="4">
+<li><p>Load other two layers <code class="docutils literal notranslate"><span class="pre">SA_NLC_2014_2018_CLASS_CHANGE_ALBERS_CALC.tif</span></code> and <code class="docutils literal notranslate"><span class="pre">COJ_Boundary</span></code>. You will see that the raster layer cover the entire country. For our analysis, we are only interested in the area covered by the <code class="docutils literal notranslate"><span class="pre">COJ_Boundary</span></code> layer. We will now clip the raster layer to this region. Go to <span class="menuselection">Processing ‣ Toolbox ‣ GDAL ‣ Raster extraction ‣ Clip raster by mask layer</span> tool. Double-click to open it.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/041.png" class="align-center" src="../../_images/041.png" />
+</div></blockquote>
+<ol class="arabic simple" start="5">
+<li><p>In the <span class="guilabel">Clip Raster by Mask Layer</span>, select <code class="docutils literal notranslate"><span class="pre">SA_NLC_2018_ALBERS_CALC</span></code>  as the <span class="guilabel">Input layer</span>, then <code class="docutils literal notranslate"><span class="pre">COJ_Boundary</span></code> as <span class="guilabel">Mask layer</span>. We also have an option to reproject the data to another projection. It is a good practice to keep all your data layers in the same projection. We will reproject the rasters to match the CRS to that of the <code class="docutils literal notranslate"><span class="pre">COJ_Boundary</span></code> layer. Select <code class="docutils literal notranslate"><span class="pre">EPSG:4326</span> <span class="pre">-</span> <span class="pre">WGS</span> <span class="pre">84</span></code> as the <span class="guilabel">Target CRS</span>.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/051.png" class="align-center" src="../../_images/051.png" />
+</div></blockquote>
+<ol class="arabic simple" start="6">
+<li><p>The default output data format is GeoTiff. GeoTiff files can get very large if they are not compressed. A good practice is to always apply a loss-less compression when creating new raster layers. Expand <span class="guilabel">Advanced Parameters</span> and choose <code class="docutils literal notranslate"><span class="pre">High</span> <span class="pre">Compression</span></code> as the <span class="guilabel">Profile</span>. Next, click the <code class="docutils literal notranslate"><span class="pre">...</span></code> button next to <span class="guilabel">Clipped (mask)</span> and select <span class="guilabel">Save to file…</span> to enter layer name as <code class="docutils literal notranslate"><span class="pre">SA_NLC_2018_Clipped</span></code>. Click <span class="guilabel">Run</span>.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/061.png" class="align-center" src="../../_images/061.png" />
+</div></blockquote>
+<ol class="arabic simple" start="7">
+<li><p>Once the algorithm finishes, do not close the window. We will apply the same operation to the other raster layer. Switch to the <span class="guilabel">Parameters</span> tab and change the <span class="guilabel">Input layer</span> to <code class="docutils literal notranslate"><span class="pre">SA_NLC_2014_2018_CLASS_CHANGE_ALBERS_CALC</span></code>. Keep all other options but change the output layer name to <code class="docutils literal notranslate"><span class="pre">SA_NLC_2014_2018_CLASS_CHANGE_Clipped</span></code>. Click <span class="guilabel">Run</span>.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/071.png" class="align-center" src="../../_images/071.png" />
+</div></blockquote>
+<ol class="arabic simple" start="8">
+<li><p>Both clipped layers will now be loaded in canvas. Select the original layer and click <span class="guilabel">Remove Layer</span> to remove them.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/081.png" class="align-center" src="../../_images/081.png" />
+</div></blockquote>
+<ol class="arabic simple" start="9">
+<li><p>All the three remaining layers are now in the same CRS. We can switch the project CRS to the CRS of the layers now. Right click on any clipped layer and choose <span class="menuselection">Layer CRS ‣ Set Project CRS from Layer</span>.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/091.png" class="align-center" src="../../_images/091.png" />
+</div></blockquote>
+<ol class="arabic simple" start="10">
+<li><p>Now the project CRS will be set to <code class="docutils literal notranslate"><span class="pre">EPSG:4326</span></code>. Bring the <span class="guilabel">SA_NLC_2018_Clipped</span> layer to top.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/101.png" class="align-center" src="../../_images/101.png" />
+</div></blockquote>
+<ol class="arabic simple" start="11">
+<li><p>Click on <cite>SA_NLC_2018_Clipped</cite> and use the <span class="guilabel">identify</span> tool in the <span class="guilabel">Attributes Toolbar</span> to click on the image and inspect the pixel values. You will see that the pixel values range from 1 to 73. These values represent a distinct land use/land cover class.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/111.png" class="align-center" src="../../_images/111.png" />
+</div></blockquote>
+<ol class="arabic simple" start="12">
+<li><p>The dataset classes are described in the <code class="docutils literal notranslate"><span class="pre">SANLC</span> <span class="pre">2018</span> <span class="pre">Presentation</span></code>, which can be downloaded from the <a class="reference external" href="https://egis.environment.gov.za/sa_national_land_cover_datasets">EGIS Portal</a>. For this exercise, we are interested in the <em>informal settlements</em> represented by class numbers 51 through 54.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/121.png" class="align-center" src="../../_images/121.png" />
+</div></blockquote>
+<ol class="arabic simple" start="13">
+<li><p>Let’s extract pixels belonging to these classes. Go to <span class="menuselection">Processing ‣ Toolbox ‣ Raster analysis ‣ Raster calculator</span> tool. Double-click to open it.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/13.png" class="align-center" src="../../_images/13.png" />
+</div></blockquote>
+<ol class="arabic simple" start="14">
+<li><p>The source image has only 1 band. The <code class="docutils literal notranslate"><span class="pre">&#64;1</span></code> suffix indicates the band number. Enter the following expression to select pixels from class 51-54.</p></li>
+</ol>
+<blockquote>
+<div><div class="highlight-none notranslate"><div class="highlight"><pre><span></span>&quot;SA_NLC_2018_Clipped@1&quot; &gt;= 51 AND &quot;SA_NLC_2018_Clipped@1&quot; &lt;= 54
+</pre></div>
+</div>
+<img alt="../../_images/14.png" class="align-center" src="../../_images/14.png" />
+</div></blockquote>
+<ol class="arabic simple" start="15">
+<li><p>Scroll down and click the <code class="docutils literal notranslate"><span class="pre">...</span></code> button next to <span class="guilabel">Reference layer(s)</span>. Select the <code class="docutils literal notranslate"><span class="pre">SA_NLC_2018_Clipped</span></code> layer and click <span class="guilabel">OK</span>.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/15.png" class="align-center" src="../../_images/15.png" />
+</div></blockquote>
+<ol class="arabic simple" start="16">
+<li><p>Next, click the <code class="docutils literal notranslate"><span class="pre">...</span></code> button next to <span class="guilabel">Output</span> and select <span class="guilabel">Save to File…</span>.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/16.png" class="align-center" src="../../_images/16.png" />
+</div></blockquote>
+<ol class="arabic simple" start="17">
+<li><p>Name the output file <code class="docutils literal notranslate"><span class="pre">residential_informal.tif</span></code> and click <span class="guilabel">Run</span>.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/17.png" class="align-center" src="../../_images/17.png" />
+</div></blockquote>
+<ol class="arabic simple" start="18">
+<li><p>Once the process finishes, a new layer, <code class="docutils literal notranslate"><span class="pre">residential_informal</span></code> will be added to QGIS. This raster layer has only two-pixel values - <code class="docutils literal notranslate"><span class="pre">1</span></code> where our expression evaluated <em>true</em> and <code class="docutils literal notranslate"><span class="pre">0</span></code> where it was <em>false</em>. The pixels that appear white are the ones belonging to the informal settlement classes. We will style this layer better so we can see the informal settlements clearly. Click the <span class="guilabel">Open the layer styling panel</span> button.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/18.png" class="align-center" src="../../_images/18.png" />
+</div></blockquote>
+<ol class="arabic simple" start="19">
+<li><p>Select the <code class="docutils literal notranslate"><span class="pre">residential_informal</span></code> layer and change the renderer to be <span class="guilabel">Paletted/Unique values</span>. Click the <span class="guilabel">Add values manually</span> (+) button.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/19.png" class="align-center" src="../../_images/19.png" />
+</div></blockquote>
+<ol class="arabic simple" start="20">
+<li><p>Change the <span class="guilabel">Value</span> to <code class="docutils literal notranslate"><span class="pre">1</span></code> and enter <code class="docutils literal notranslate"><span class="pre">Residential</span> <span class="pre">Informal</span></code> as <span class="guilabel">Label</span>. Select a color of your choice.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/20.png" class="align-center" src="../../_images/20.png" />
+</div></blockquote>
+<ol class="arabic simple" start="21">
+<li><p>We can now see all the informal settlements in the city of Johannesburg. It would be helpful to see them in context with a base map. We have access to a variety of base maps from the <span class="guilabel">QuickMapServices</span> plugin. Once you install the plugin, go to <span class="menuselection">Web ‣ QuickMapServices ‣ OSM ‣ OSM Standard</span> to add the OpenStreetMap layer.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/21.png" class="align-center" src="../../_images/21.png" />
+</div></blockquote>
+<ol class="arabic simple" start="22">
+<li><p>Now you can easily identify and verify whether our analysis correctly identified the informal settlements. You can select the <code class="docutils literal notranslate"><span class="pre">residential_informal</span></code> layer and switch to the <span class="guilabel">Transparency</span> tab in the <span class="guilabel">Layer styling panel</span>. You can reduce the <span class="guilabel">Global Opacity</span> to see both the extracted pixels and the base-map together.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/22.png" class="align-center" src="../../_images/22.png" />
+</div></blockquote>
+<ol class="arabic simple" start="23">
+<li><p>You have now completed the first part of the tutorial. Now we will use the <code class="docutils literal notranslate"><span class="pre">SA_NLC_2014_2018_CHANGE_Clipped</span></code> raster layer to identify regions that were urbanized between 2014 and 2018. Turn off all layers except <code class="docutils literal notranslate"><span class="pre">SA_NLC_2014_2018_CHANGE_Clipped</span></code>, then click the <span class="guilabel">Open the layer styling panel</span> button. Switch to the <span class="guilabel">Transparency</span> tab and enter <code class="docutils literal notranslate"><span class="pre">0</span></code> in <span class="guilabel">Additional no data value</span>. This will set the pixels with value 0 to transparent.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/23.png" class="align-center" src="../../_images/23.png" />
+</div></blockquote>
+<ol class="arabic simple" start="24">
+<li><p>Use the <span class="guilabel">Identify</span> tool in the <span class="guilabel">Attributes Toolbar</span> to click on the image and inspect the pixel values. You will see that the pixel values range from 21-420. Each value indicates a transition from one of the 73 source classes to another class.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/24.png" class="align-center" src="../../_images/24.png" />
+</div></blockquote>
+<ol class="arabic simple" start="25">
+<li><p>Your data download comes with a spreadsheet named <code class="docutils literal notranslate"><span class="pre">lcccodes.xlsx</span></code>. This sheet has a sheet <strong>03 urban_change_codes</strong> that gives more details about each pixel value. We are interested in all pixel values where any 2014 class changed into a 2018 built-up class. In the image below, these are highlighted in blue.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/25.png" class="align-center" src="../../_images/25.png" />
+</div></blockquote>
+<ol class="arabic simple" start="26">
+<li><p>Our goal is to map changes in the built-up class. We will apply a transformation on the <code class="docutils literal notranslate"><span class="pre">SA_NLC_2014_2018_CHANGE_Clipped</span></code> layer so all the pixel values are mapped from their original values to either of the following values.</p></li>
+</ol>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 16.7%" />
+<col style="width: 83.3%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">1</span></code></p></td>
+<td><p>All pixels which were a built-up class in both 2014 and 2018</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">2</span></code></p></td>
+<td><p>All pixels which changed from a non built-up class in 2014 to a built-up class in 2018.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">0</span></code></p></td>
+<td><p>All remaining pixels</p></td>
+</tr>
+</tbody>
+</table>
+<ol class="arabic simple" start="27">
+<li><p>To do this, we need to create a table specifying these rules. As QGIS is able to read spreadsheets directly, it is the most convenient method to create this table. Our spreadsheet should have 3 columns, <code class="docutils literal notranslate"><span class="pre">MIN</span></code>, <code class="docutils literal notranslate"><span class="pre">MAX</span></code>, and <code class="docutils literal notranslate"><span class="pre">OUTPUT</span></code>. Each row should be the range of input raster values that should be assigned an output value. Create a spreadsheet as shown below and save it to your computer as <code class="docutils literal notranslate"><span class="pre">reclass.xlsx</span></code>. You may also download a ready-to-use copy from this link - <a class="reference external" href="https://www.qgistutorials.com/downloads/reclass.xlsx">reclass.xlsx</a></p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/27.png" class="align-center" src="../../_images/27.png" />
+</div></blockquote>
+<ol class="arabic simple" start="28">
+<li><p>Locate the <code class="docutils literal notranslate"><span class="pre">reclass.xlsx</span></code> file in the browser. Drag-and-drop it to the main window.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/28.png" class="align-center" src="../../_images/28.png" />
+</div></blockquote>
+<ol class="arabic simple" start="29">
+<li><p>A new layer <code class="docutils literal notranslate"><span class="pre">Sheet1</span></code> will be added to the <span class="guilabel">Layers</span> panel. Right-click on it and select <span class="guilabel">Open Attribute Table</span>. Verify that the sheet was imported correctly and you have 3 columns named <code class="docutils literal notranslate"><span class="pre">MIN</span></code>, <code class="docutils literal notranslate"><span class="pre">MAX</span></code> and <code class="docutils literal notranslate"><span class="pre">OUTPUT</span></code>. Open the <span class="menuselection">Processing Toolbox ‣ Reclassify by layer</span> tool.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/29.png" class="align-center" src="../../_images/29.png" />
+</div></blockquote>
+<ol class="arabic simple" start="30">
+<li><p>In the <span class="guilabel">Reclassify by layer</span> dialog, select <code class="docutils literal notranslate"><span class="pre">SA_NLC_2014_2018_CHANGE_Clipped</span></code> as the <span class="guilabel">Raster layer</span>. Select <code class="docutils literal notranslate"><span class="pre">Sheet1</span></code> as the <span class="guilabel">Layer containing class breaks</span>. Select <code class="docutils literal notranslate"><span class="pre">MIN</span></code>, <code class="docutils literal notranslate"><span class="pre">MAX</span></code> and <code class="docutils literal notranslate"><span class="pre">OUTPUT</span></code> fields for their respective fields.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/30.png" class="align-center" src="../../_images/30.png" />
+</div></blockquote>
+<ol class="arabic simple" start="31">
+<li><p>Expand the <span class="guilabel">Advanced Parameters</span> section. Change the <span class="guilabel">Range boundaries</span> to <code class="docutils literal notranslate"><span class="pre">min</span> <span class="pre">&lt;=</span> <span class="pre">value</span> <span class="pre">&lt;=</span> <span class="pre">max</span></code>. Click the <span class="guilabel">…</span> button for <span class="guilabel">Reclassified raster</span> and enter the output file name as <code class="docutils literal notranslate"><span class="pre">builtup_change.tif</span></code>. Click <span class="guilabel">Run</span>.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/31.png" class="align-center" src="../../_images/31.png" />
+</div></blockquote>
+<ol class="arabic simple" start="32">
+<li><p>Once the processing finishes, a new layer <code class="docutils literal notranslate"><span class="pre">builtup_change</span></code> with pixel values <code class="docutils literal notranslate"><span class="pre">0-2</span></code> will be added to the canvas. In the <span class="guilabel">Layer styling panel</span>, choose <code class="docutils literal notranslate"><span class="pre">Paletted/Unique</span> <span class="pre">values</span></code>, then click <code class="docutils literal notranslate"><span class="pre">Classify</span></code>.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/32.png" class="align-center" src="../../_images/32.png" />
+</div></blockquote>
+<ol class="arabic simple" start="33">
+<li><p>Choose the color of your choice for each category and label the <code class="docutils literal notranslate"><span class="pre">0</span></code>, <code class="docutils literal notranslate"><span class="pre">1</span></code> , and <code class="docutils literal notranslate"><span class="pre">2</span></code> pixel values as <code class="docutils literal notranslate"><span class="pre">Non</span> <span class="pre">Built-up</span></code>, <code class="docutils literal notranslate"><span class="pre">Existing</span> <span class="pre">Built-up</span></code> and <code class="docutils literal notranslate"><span class="pre">New</span> <span class="pre">Built-up</span></code>.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/33.png" class="align-center" src="../../_images/33.png" />
+</div></blockquote>
+<ol class="arabic simple" start="34">
+<li><p>Now in the <span class="guilabel">Transparency</span> tab, reduce the <span class="guilabel">Global Opacity</span>, and turn on the <code class="docutils literal notranslate"><span class="pre">OSM</span> <span class="pre">Standard</span></code> layer to see both the builtup_change pixels and the base-map together.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/34.png" class="align-center" src="../../_images/34.png" />
+</div></blockquote>
+</section>
+</section>
+
+
+
+
+
+  <div id="disqus_thread"></div>
+  <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+
+    </div>
+      
+  </div>
+</div>
+
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+    </p>
+    <p>
+        &copy; Copyright 2021, Ujaval Gandhi.<br/>
+      Son güncelleme: Kas 28, 2023.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 7.0.1.<br/>
+    </p>
+  </div>
+</footer>
+<div class="container">
+  <p>This work is licensed under a <a href="http://creativecommons.org/licenses/by/4.0/deed.en_US">Creative Commons Attribution 4.0 International License</a></p>
+</div>
+<!-- Twitter Button -->
+<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+
+<!-- Disqus comments widget -->
+<script type="text/javascript">
+  /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+  var disqus_shortname = 'qgistutorials'; // required: replace example with your forum shortname
+  /* * * DON'T EDIT BELOW THIS LINE * * */
+  (function () {
+    var s = document.createElement('script'); s.async = true;
+    s.type = 'text/javascript';
+    s.src = '//' + disqus_shortname + '.disqus.com/count.js';
+    (document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);
+  }());
+</script>
+
+<script type="text/javascript">
+  /* * * DON'T EDIT BELOW THIS LINE * * */
+  (function() {
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+
+<!-- Script fpr language switching. Largely adapted from https://github.com/pcav/faunalia-website -->
+<script>
+    var currentPage = 'docs/3/advanced_raster_analysis.html'; // coming from sphinx, always without starting '/'
+    var currentLang = 'en';
+    $(document).ready(function(){
+
+        var search = new RegExp('\/[a-zA-Z_]{2,8}\/'+ currentPage, 'gi');
+        var langPlusPage = window.location.href.match(search);
+        // it's possible this is a index.html page called without 'index.html', try without the currentPage
+        if (langPlusPage==undefined){
+            search = new RegExp('\/[a-zA-Z_]{2,8}\/$', 'gi');
+            langPlusPage = window.location.href.match(search);
+        }
+
+        // it's possible this is an index.html page called without 'index.html', try removing index.html
+        if (langPlusPage==undefined){
+            currentPage = currentPage.replace('index.html','')
+            search = new RegExp('\/[a-zA-Z_]{2,8}\/'+ currentPage, 'gi');
+            langPlusPage = window.location.href.match(search);
+        }
+        // still no langPlugPage: stop, because the language swicher will misbehave 
+
+        if (langPlusPage == undefined || langPlusPage.length != 1){
+            alert('You hit an error, please report back to us.');
+            return;
+        }
+        langPlusPage = langPlusPage[0];
+        currentLang = langPlusPage.replace(currentPage, '');
+
+        $("#languages").val(currentLang.replace(/\//g,'')); // currentLang is something like '/nl/'
+
+        $("#languages").change(function() {
+            gotoLang($(this).val());
+        });
+
+    });
+
+    // load current page in a different language
+    function gotoLang(lang){
+        var currentUrl = window.location.href;
+        var newUrl = currentUrl.replace(currentLang, '/'+lang+'/');
+        window.location.href = newUrl;
+    }
+</script>
+
+  </body>
+</html>

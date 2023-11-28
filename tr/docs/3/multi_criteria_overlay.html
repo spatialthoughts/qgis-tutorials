@@ -1,0 +1,549 @@
+<!DOCTYPE html>
+
+<html lang="tr">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Multi Criteria Overlay Analysis (QGIS3) &#8212; QGIS Tutorials and Tips</title>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-sphinx.css" />
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/sphinx_highlight.js"></script>
+    <script src="../../_static/translations.js"></script>
+    <link rel="search" title="Ara" href="../../search.html" />
+    <link rel="next" title="Basic Network Visualization and Routing (QGIS3)" href="basic_network_analysis.html" />
+    <link rel="prev" title="Automating Map Creation with Print Layout Atlas (QGIS3)" href="automating_map_creation.html" />
+
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<script type="text/javascript" src="../../_static/js/jquery-1.12.4.min.js"></script>
+<script type="text/javascript" src="../../_static/js/jquery-fix.js"></script>
+<script type="text/javascript" src="../../_static/bootstrap-3.4.1/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="../../_static/bootstrap-sphinx.js"></script>
+
+
+<!-- Cookie Notice -->
+<!-- Script from https://github.com/AOEpeople/cookie-notice -->
+<script type="text/javascript" src="../../_static/cookie.notice.min.js"></script>
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-B1WQ7B80XJ"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-B1WQ7B80XJ');
+</script>
+
+
+  </head><body>
+
+  <div id="navbar" class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="../../index.html">
+          QGIS Tutorials and Tips</a>
+        <span class="navbar-text navbar-version pull-left"><b>v1</b></span>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="../../index.html">Tutorials List <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"><ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../introduction.html">Giriş</a></li>
+<li class="toctree-l1"><a class="reference internal" href="making_a_map.html">Bir harita oluşturma  (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="working_with_attributes.html">Working with Attributes (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="importing_spreadsheets_csv.html">Importing Spreadsheets or CSV files (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="basic_vector_styling.html">Basic Vector Styling (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="calculating_line_lengths.html">Çizgi Uzunluklarının ve İstatistiklerinin Hesaplanması (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="raster_styling_and_analysis.html">Basic Raster Styling and Analysis (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="raster_mosaicing_and_clipping.html">Raster Mosaicing and Clipping (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="working_with_terrain.html">Working with Terrain Data (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="working_with_wms.html">Working with WMS Data (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="working_with_projections.html">Working with Projections (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="georeferencing_basics.html">Georeferencing Topo Sheets and Scanned Maps (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="advanced_georeferencing.html">Georeferencing Aerial Imagery (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="digitizing_basics.html">Digitizing Map Data (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="performing_table_joins.html">Performing Table Joins (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="performing_spatial_joins.html">Performing Spatial Joins (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="performing_spatial_queries.html">Performing Spatial Queries (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="nearest_neighbor_analysis.html">Nearest Neighbor Analysis (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="sampling_raster_data.html">Sampling Raster Data using Points or Polygons (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="calculating_raster_area.html">Calculating Raster Area (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="creating_heatmaps.html">Creating Heatmaps (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="animating_time_series.html">Animating Time Series Data (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="handling_invalid_geometries.html">Handling Invalid Geometries (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="advanced_raster_analysis.html">Advanced Raster Analysis (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="interpolating_point_data.html">Nokta Verılerın Enterpolastonu (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="batch_processing.html">Batch Processing using Processing Framework (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="processing_graphical_modeler.html">Automating Complex Workflows using Processing Modeler (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="automating_map_creation.html">Automating Map Creation with Print Layout Atlas (QGIS3)</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Multi Criteria Overlay Analysis (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="basic_network_analysis.html">Basic Network Visualization and Routing (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="origin_destination_matrix.html">Locating Nearest Facility with Origin-Destination Matrix (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="service_area_analysis.html">Service Area Analysis using Openrouteservice (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="travel_time_analysis.html">Travel Time Analysis with Uber Movement (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="areal_mean_rainfall.html">Calculating Areal Mean Rainfall (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="creating_landuse_map.html">Creating a Landuse Map (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="calculating_intersection_density.html">Calculating Street Intersection Density (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="landuse_buffer.html">Determining Landuse Buffer Zones (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="getting_started_with_pyqgis.html">Getting Started With Python Programming (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="processing_algorithms_pyqgis.html">Running Processing Algorithms via Python (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="custom_python_functions.html">Using Custom Python Expression Functions (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="processing_python_scripts.html">Writing Python Scripts for Processing Framework (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="building_a_python_plugin.html">Building a Python Plugin (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="processing_python_plugin.html">Building a Processing Plugin (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../running_qgis_jobs.html">Running and Scheduling QGIS Processing Jobs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="web_mapping_with_qgis2web.html">Web Mapping with QGIS2Web (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../creating_basemaps_with_qtiles.html">Creating Basemaps with QTiles</a></li>
+<li class="toctree-l1"><a class="reference internal" href="using_plugins.html">Using Plugins (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../downloading_osm_data.html">OpenStreetMap Verisinde Arama Yapma ve Veriyi İndirme</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../learning_resources.html">QGIS Eğitim Kaynakları</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../credits.html">Veri Kaynakları</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../batch_processing.html">Batch Processing using Processing Framework (QGIS2)</a></li>
+</ul>
+</ul>
+</li>
+              
+            
+            
+              
+                
+  <li>
+    <a href="automating_map_creation.html" title="Previous Chapter: Automating Map Creation with Print Layout Atlas (QGIS3)"><span class="glyphicon glyphicon-chevron-left visible-sm"></span><span class="hidden-sm hidden-tablet">&laquo; Automating Ma...</span>
+    </a>
+  </li>
+  <li>
+    <a href="basic_network_analysis.html" title="Next Chapter: Basic Network Visualization and Routing (QGIS3)"><span class="glyphicon glyphicon-chevron-right visible-sm"></span><span class="hidden-sm hidden-tablet">Basic Network... &raquo;</span>
+    </a>
+  </li>
+              
+            
+            
+
+            
+
+            
+              <li class="hidden-sm"></li>
+            
+          </ul>
+
+          
+            
+<form class="navbar-form navbar-right" action="../../search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+      <div class="col-md-3">
+        <div id="sidebar" class="bs-sidenav" role="complementary"><h4>Author</h4>
+<p>Ujaval Gandhi</p>
+<a href="https://twitter.com/intent/follow?screen_name=spatialthoughts" class="twitter-follow-button" data-show-count="false">Follow @spatialthoughts</a>
+<hr>
+<p>Want to learn QGIS in a structured way? Check out <a href="https://spatialthoughts.com/" target="_blank">Spatial Thoughts</a> for more learning materials and instructor-led online programs with QGIS.org certification.</p>
+
+<hr>
+<p>These tutorials are also available in many other languages. Please see <a href="https://www.qgistutorials.com/en/docs/introduction.html#translations" target="_blank">translations</a> page.
+</p>
+        </div>
+      </div>
+    <div class="body col-md-9 content" role="main">
+      
+
+  <section id="multi-criteria-overlay-analysis-qgis3">
+<h1>Multi Criteria Overlay Analysis (QGIS3)<a class="headerlink" href="#multi-criteria-overlay-analysis-qgis3" title="Permalink to this heading">¶</a></h1>
+<p>Multi-criteria weighted-overlay analysis is the process of the allocating areas on the basis of a variety of attributes that the selected areas should possess. Although this is a common GIS operation, it is best performed in the raster space using a grid-based approach.</p>
+<div class="admonition note">
+<p class="admonition-title">Not</p>
+<p>Vector vs Raster Overlays</p>
+<p>You can do the overlay analysis on vector layers using geoprocessing tools such as buffer, dissolve, difference and intersection. This method is ideal if you wanted to find a binary <strong>suitable/non-suitable</strong> answer and you are working with a handful of layers.</p>
+<p>Working in the raster space gives you a <strong>ranking</strong> of the suitability - not just the best suited site. It also allows you to combine any number of input layers easily and assign different weights to each criteria. In general, this is the preferred approach for site suitability.</p>
+</div>
+<p>This tutorial goes through the typical workflow for performing a site-suitability analysis - converting source vector data to appropriate rasters, re-classify them and perform mathematical operations.</p>
+<section id="overview-of-the-task">
+<h2>Overview of the task<a class="headerlink" href="#overview-of-the-task" title="Permalink to this heading">¶</a></h2>
+<p>In this tutorial, we will identify the suitable areas for development, that are</p>
+<ul class="simple">
+<li><p>Close to roads, and</p></li>
+<li><p>Away from water bodies, and</p></li>
+<li><p>Not in a protected region.</p></li>
+</ul>
+</section>
+<section id="get-the-data">
+<h2>Get the data<a class="headerlink" href="#get-the-data" title="Permalink to this heading">¶</a></h2>
+<p>We will use vector data layers from <a class="reference external" href="http://www.openstreetmap.org/">OpenStreetMap (OSM)</a>. OSM is a global database of freely available base map data. <a class="reference external" href="http://download.geofabrik.de/">Geofabrik</a> provides daily updated shapefiles of OpenStreetMap datasets.</p>
+<p>We will be using the OSM data layers for the state of Assam in India. Geofabrik <a class="reference external" href="http://download.geofabrik.de/asia/india.html">India shapefiles</a> were downloaded, clipped to the state boundary and packaged in a single GeoPackage file. You can download a copy of the geopackage from the link below:</p>
+<p><a class="reference external" href="https://www.qgistutorials.com/downloads/assam.gpkg">assam.gpkg</a></p>
+<p>Data Source: <a class="reference internal" href="../credits.html#geofabrik" id="id1"><span>[GEOFABRIK]</span></a></p>
+</section>
+<section id="procedure">
+<h2>Procedure<a class="headerlink" href="#procedure" title="Permalink to this heading">¶</a></h2>
+<ol class="arabic simple">
+<li><p>Browse to the downloaded <code class="docutils literal notranslate"><span class="pre">assam.gpkg</span></code> file in QGIS Browser. Expand it and drag each of the 5 individual data layers to the map canvas. You will see <code class="docutils literal notranslate"><span class="pre">boundary</span></code>, <code class="docutils literal notranslate"><span class="pre">roads</span></code>, <code class="docutils literal notranslate"><span class="pre">protected_regions</span></code>, <code class="docutils literal notranslate"><span class="pre">water_polygons</span></code> and <code class="docutils literal notranslate"><span class="pre">water_polylines</span></code> layers loaded in the <span class="guilabel">Layers</span> panel.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/1102.png" class="align-center" src="../../_images/1102.png" />
+</div></blockquote>
+<ol class="arabic simple" start="2">
+<li><p>First step in the overlay analysis, is to convert each data layer to raster. An important consideration is that all rasters must be of the same extent. We will use the <code class="docutils literal notranslate"><span class="pre">boundary</span></code> layer as the extent for all the rasters. Go to <span class="menuselection">Processing ‣ Toolbox</span>. Search for and locate the <span class="menuselection">GDAL ‣ Vector conversion ‣ Rasterize (vector to raster)</span> algorithm. Double-click to launch it.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/270.png" class="align-center" src="../../_images/270.png" />
+</div></blockquote>
+<ol class="arabic simple" start="3">
+<li><p>In the <span class="guilabel">Rasterize (vector to raster)</span> dialog, select <code class="docutils literal notranslate"><span class="pre">roads</span></code> as the <span class="guilabel">Input layer</span>. We want to create an output raster where pixel values are 1 where there is a road and 0 where there are no roads. Enter <code class="docutils literal notranslate"><span class="pre">1</span></code> as the <span class="guilabel">A fixed value to burn</span>. The input layers are in a projected CRS with meters are the unit. Select <code class="docutils literal notranslate"><span class="pre">Geoferenced</span> <span class="pre">units</span></code> as the <span class="guilabel">Output raster size units</span>. We will set the resolution of the output raster to be 15 meters. Select <code class="docutils literal notranslate"><span class="pre">15</span></code> as both <span class="guilabel">Width/Horizontal resolution</span> and <span class="guilabel">Height/Vertical resolution</span>. Next, click the <span class="guilabel">…</span> button next to <span class="guilabel">Output extent</span> and select <code class="docutils literal notranslate"><span class="pre">boundary</span></code> for <span class="guilabel">Use extent for</span>.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/336.png" class="align-center" src="../../_images/336.png" />
+</div></blockquote>
+<ol class="arabic simple" start="4">
+<li><p>Scroll down further and click the arrow button in the <span class="guilabel">Assign a specific nodata value to output bands</span>.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/416.png" class="align-center" src="../../_images/416.png" />
+</div></blockquote>
+<ol class="arabic simple" start="5">
+<li><p>That field should now be set to <code class="docutils literal notranslate"><span class="pre">Not</span> <span class="pre">set</span></code>. This is important because when raster calculator (which we will use later) encounters a pixel with nodata value in any layer, it sets the output to nodata as well, resulting is wrong output.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/516.png" class="align-center" src="../../_images/516.png" />
+</div></blockquote>
+<ol class="arabic simple" start="6">
+<li><p>Scroll down to find the <span class="guilabel">Advanced Parameters</span> and select the profile <code class="docutils literal notranslate"><span class="pre">High</span> <span class="pre">Compression</span></code> to apply the compression. This will generate the compressed raster file of smaller size after running the tool. Applying lossless compression is highly recommended while working with raster data.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/616.png" class="align-center" src="../../_images/616.png" />
+</div></blockquote>
+<ol class="arabic simple" start="7">
+<li><p>Set the <span class="guilabel">Rasterized</span> output raster as <code class="docutils literal notranslate"><span class="pre">raster_roads.tif</span></code> and click <span class="guilabel">Run</span>.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/715.png" class="align-center" src="../../_images/715.png" />
+</div></blockquote>
+<ol class="arabic simple" start="8">
+<li><p>Once the processing finishes, you will see a new layer <span class="guilabel">raster_roads</span> loaded in the <span class="guilabel">Layers</span> panel. The default styling will show pixels with roads as white and others as black. We want to convert other 4 vector layers to rasters as well. Rather than running the rasterize algorithm one-by-one, we can use the built-in batch-processing functionality to convert them all at once. See <a class="reference internal" href="batch_processing.html"><span class="doc">Batch Processing using Processing Framework (QGIS3)</span></a> tutorial to learn more about batch processing. Right-click the <code class="docutils literal notranslate"><span class="pre">Rasterize</span> <span class="pre">(vector</span> <span class="pre">to</span> <span class="pre">raster)</span></code> algorithm and select <span class="guilabel">Execute as Batch Process</span>.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/815.png" class="align-center" src="../../_images/815.png" />
+</div></blockquote>
+<ol class="arabic simple" start="9">
+<li><p>In the <span class="guilabel">Batch Processing</span> dialog, click the <span class="guilabel">…</span> button in the first row of the <span class="guilabel">Input layer</span> column. Select <code class="docutils literal notranslate"><span class="pre">boundary</span></code>, <code class="docutils literal notranslate"><span class="pre">protected_regions</span></code>, <code class="docutils literal notranslate"><span class="pre">water_polygons</span></code> and <code class="docutils literal notranslate"><span class="pre">water_polylines</span></code> layers and click <span class="guilabel">OK</span>.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/915.png" class="align-center" src="../../_images/915.png" />
+</div></blockquote>
+<div class="admonition note">
+<p class="admonition-title">Not</p>
+<p>This  <span class="guilabel">Advanced Parameters</span> option is not available while executing the algorithm in batch mode. You will have to repeat the steps above for all the layer and skip steps 8 to 12 for applying compression on all the <span class="guilabel">Rasterized</span> outputs.</p>
+</div>
+<ol class="arabic simple" start="10">
+<li><p>Fill in the parameters with the same values we used in the roads layer. After filling the first-row of the parameter, use the <span class="menuselection">Autofill ‣ Fill Down</span> button to add the same value for all layers.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/1021.png" class="align-center" src="../../_images/1021.png" />
+</div></blockquote>
+<ol class="arabic simple" start="11">
+<li><p>In the last column <span class="guilabel">Rasterized</span>, click the <span class="guilabel">…</span> button in the first row. Select <code class="docutils literal notranslate"><span class="pre">Fill</span> <span class="pre">with</span> <span class="pre">parameter</span> <span class="pre">values</span></code> as the <span class="guilabel">Autofill mode</span> and <code class="docutils literal notranslate"><span class="pre">Input</span> <span class="pre">layer</span></code> as the <span class="guilabel">Parameter to use</span>. Click <span class="guilabel">OK</span>.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/1124.png" class="align-center" src="../../_images/1124.png" />
+</div></blockquote>
+<ol class="arabic simple" start="12">
+<li><p>Browse to a directory on your computer and name the layer as <code class="docutils literal notranslate"><span class="pre">raster_</span></code>. The batch processing interface will autocomplete the name with the layer name and fill in all rows. Make sure the <span class="guilabel">Load layers on completion</span> box is checked and click <span class="guilabel">OK</span>.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/1222.png" class="align-center" src="../../_images/1222.png" />
+</div></blockquote>
+<ol class="arabic simple" start="13">
+<li><p>Once the processing finishes, you will have 4 new raster layers loaded in the <span class="guilabel">Layers</span> panel. You will notice that we have 2 water related layers - both representing water. We can merge them to have a single layer representing water areas in the region. Search for and locate <span class="menuselection">Raster analysis ‣ Raster calculator</span> algorithm in the Processing Toolbox. Double-click to launch it.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/1320.png" class="align-center" src="../../_images/1320.png" />
+</div></blockquote>
+<ol class="arabic simple" start="14">
+<li><p>Enter the following expression in the <span class="guilabel">Expression</span> box. You can click on the appropriate layer in the <span class="guilabel">Layers</span> box to auto insert the layer names. This expression means that we want to sum the pixel values in the first band of both the water rasters. Click the <span class="guilabel">…</span> button next to <span class="guilabel">Reference layer(s) and select ``raster_water_polygons`</span> as the reference layer. Name the output <code class="docutils literal notranslate"><span class="pre">raster_water_merged.tif</span></code> and click <span class="guilabel">Run</span>.</p></li>
+</ol>
+<blockquote>
+<div><div class="highlight-none notranslate"><div class="highlight"><pre><span></span>&quot;raster_water_polygons@1&quot; + &quot;raster_water_polylines@1&quot;
+</pre></div>
+</div>
+<img alt="../../_images/1418.png" class="align-center" src="../../_images/1418.png" />
+</div></blockquote>
+<ol class="arabic simple" start="15">
+<li><p>The resulting merged raster will have pixels with value 1 for all areas with water. But you will notice that there are some regions where there was both a water polygon and a water polyline. Those areas will have pixels with value 2 - which is not correct. We can fix it with a simple expression. Open <span class="menuselection">Raster analysis ‣ Raster calculator</span> algorithm again.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/1517.png" class="align-center" src="../../_images/1517.png" />
+</div></blockquote>
+<ol class="arabic simple" start="16">
+<li><p>Enter the following expression which will assign the value 1 that match the expression and 0 where it doesn’t. Click the <span class="guilabel">…</span> button next to <span class="guilabel">Reference layer(s) and select ``raster_water_merged`</span> layer. Name the output <code class="docutils literal notranslate"><span class="pre">raster_water.tif</span></code> and click <span class="guilabel">Run</span>.</p></li>
+</ol>
+<blockquote>
+<div><div class="highlight-none notranslate"><div class="highlight"><pre><span></span>&quot;raster_water_merged@1&quot; &gt; 0
+</pre></div>
+</div>
+<img alt="../../_images/1616.png" class="align-center" src="../../_images/1616.png" />
+</div></blockquote>
+<ol class="arabic simple" start="17">
+<li><p>The resulting layer <code class="docutils literal notranslate"><span class="pre">raster_water</span></code> now has pixels with only 0 and 1 values.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/1717.png" class="align-center" src="../../_images/1717.png" />
+</div></blockquote>
+<ol class="arabic simple" start="18">
+<li><p>Now that we have layers representing road and water pixels, we can generate proximity rasters. These are also known as Euclidean distances - where each pixel in the output raster represents the distance to the nearest pixel in the input raster. This resulting raster can be then used to determine suitable areas which are within certain distance from the input. Search for and locate the <span class="menuselection">GDAL ‣ Raster analysis ‣ Proximity (raster distance)</span> algorithm. Double-click to launch it.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/1815.png" class="align-center" src="../../_images/1815.png" />
+</div></blockquote>
+<ol class="arabic simple" start="19">
+<li><p>In the <span class="guilabel">Proximity (Raster Distance)</span> dialog, select <code class="docutils literal notranslate"><span class="pre">raster_roads</span></code> as the <span class="guilabel">Input layer</span>. Choose <code class="docutils literal notranslate"><span class="pre">Georeferenced</span> <span class="pre">coordinates</span></code> as the <span class="guilabel">Distance units</span>. As the input layers are in a projected CRS with meters as the units, enter <code class="docutils literal notranslate"><span class="pre">5000</span></code> (5 kilometers) as the <span class="guilabel">Maximum distance to be generated</span>. Make sure the <span class="guilabel">Nodata value to use for the destination proximity raster</span> value is <code class="docutils literal notranslate"><span class="pre">Not</span> <span class="pre">set</span></code>.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/1913.png" class="align-center" src="../../_images/1913.png" />
+</div></blockquote>
+<ol class="arabic simple" start="20">
+<li><p>You can expand the <span class="guilabel">Advanced Parameters</span> and select the profile <code class="docutils literal notranslate"><span class="pre">High</span> <span class="pre">Compression</span></code> to apply the compression. Name the output file as <code class="docutils literal notranslate"><span class="pre">roads_proximity.tif</span></code> and click <span class="guilabel">Run</span>.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/2013.png" class="align-center" src="../../_images/2013.png" />
+</div></blockquote>
+<div class="admonition note">
+<p class="admonition-title">Not</p>
+<p>It may take upto 15 minutes for this process to run. It is a computationaly intensive algorithm that needs to compute distance for each pixel of the input raster and our input contains over 1 billion pixels.</p>
+</div>
+<ol class="arabic simple" start="21">
+<li><p>Once the processing is over, a new layer <code class="docutils literal notranslate"><span class="pre">roads_proximity</span></code> will be added to the <span class="guilabel">Layers</span> panel. To visualize it better, let’s change the default styling. Click the <span class="guilabel">Open the Layer Styling panel</span> button in the <span class="guilabel">Layers</span> panel. Change the <span class="guilabel">Max</span> value to <code class="docutils literal notranslate"><span class="pre">5000</span></code> under <span class="guilabel">Color gradient</span>.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/2116.png" class="align-center" src="../../_images/2116.png" />
+</div></blockquote>
+<ol class="arabic simple" start="22">
+<li><p>Repeat the <span class="guilabel">Proximity (Raster Distance)</span> algorithm for the <code class="docutils literal notranslate"><span class="pre">raster_water</span></code> layer with same parameters and name the output <code class="docutils literal notranslate"><span class="pre">water_proximity.tif</span></code>.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/2215.png" class="align-center" src="../../_images/2215.png" />
+</div></blockquote>
+<ol class="arabic simple" start="23">
+<li><p>Once the processing finishes, you can apply the similar styling as before to visualize the results better. If you click around the resulting raster, you will see that it is a continuum of values from 0 to 5000. To use this raster in overlay analysis ,we must first re-classify it to create discrete values. Open <span class="menuselection">Raster analysis ‣ Raster calculator</span> algorithm again.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/2313.png" class="align-center" src="../../_images/2313.png" />
+</div></blockquote>
+<ol class="arabic simple" start="24">
+<li><p>We want to give higher score to pixels that are near to roads. So let’s use the following scheme.</p></li>
+</ol>
+<ul>
+<li><p>0-1000m –&gt; 100</p></li>
+<li><p>1000-5000m –&gt; 50</p></li>
+<li><p>&gt;5000m –&gt; 10</p>
+<p>Enter the following expression that applies the above criteria on the input. Click the <span class="guilabel">…</span> button next to <span class="guilabel">Reference layer(s) and select ``roads_proximity`</span> layer. Name the output <code class="docutils literal notranslate"><span class="pre">roads_reclass.tif</span></code> and click <span class="guilabel">Run</span>.</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>100*(&quot;roads_proximity@1&quot;&lt;=1000) + 50*(&quot;roads_proximity@1&quot;&gt;1000)*(&quot;roads_proximity@1&quot;&lt;=5000) + 10*(&quot;roads_proximity@1&quot;&gt;5000)
+</pre></div>
+</div>
+<img alt="../../_images/2412.png" class="align-center" src="../../_images/2412.png" />
+</li>
+</ul>
+<ol class="arabic simple" start="25">
+<li><p>Once the re-classification process finishes, a new layer <code class="docutils literal notranslate"><span class="pre">roads_reclass</span></code> will be added to the <span class="guilabel">Layers</span> panel. This layer has only 3 different values, 10, 50 and 100 indicating relative suitability of the pixels with regards to distance from roads. Open <span class="menuselection">Raster analysis ‣ Raster calculator</span> algorithm again.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/2512.png" class="align-center" src="../../_images/2512.png" />
+</div></blockquote>
+<ol class="arabic simple" start="26">
+<li><p>Repeat the re-classification process for the <code class="docutils literal notranslate"><span class="pre">water_proximity</span></code> layer. Here the scheme will be reverse, where pixels that are further away from water shall have higher score.</p></li>
+</ol>
+<ul>
+<li><p>0-1000m –&gt; 10</p></li>
+<li><p>1000 -5000m —&gt; 50</p></li>
+<li><p>&gt;5000m –&gt; 100</p>
+<p>Enter the following expression that applies the above criteria on the input. Click the <span class="guilabel">…</span> button next to <span class="guilabel">Reference layer(s) and select ``water_proximity`</span> layer. Name the output <code class="docutils literal notranslate"><span class="pre">water_reclass.tif</span></code> and click <span class="guilabel">Run</span>.</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>100*(&quot;water_proximity@1&quot;&gt;5000) + 50*(&quot;water_proximity@1&quot;&gt;1000)*(&quot;water_proximity@1&quot;&lt;=5000) + 10*(&quot;water_proximity@1&quot;&lt;1000)
+</pre></div>
+</div>
+<img alt="../../_images/2611.png" class="align-center" src="../../_images/2611.png" />
+</li>
+</ul>
+<ol class="arabic simple" start="27">
+<li><p>Now we are ready to do the final overlay analysis. Recall that our criteria for determining suitability is as follows - close to roads, away from water and not in a protected region. Open <span class="menuselection">Raster analysis ‣ Raster calculator</span>. Enter the following expression that applies these criteria. Note that we are multiplying the result with <code class="docutils literal notranslate"><span class="pre">raster_boundary&#64;1</span></code> at the end to discard pixel values outside of the state boundary. Click the <span class="guilabel">…</span> button next to <span class="guilabel">Reference layer(s)</span> and select <code class="docutils literal notranslate"><span class="pre">raster_boundary</span></code> layer. Name the output <code class="docutils literal notranslate"><span class="pre">overlay.tif</span></code> and click <span class="guilabel">Run</span>.</p></li>
+</ol>
+<blockquote>
+<div><div class="highlight-none notranslate"><div class="highlight"><pre><span></span>(&quot;roads_reclass@1&quot; + &quot;water_reclass@1&quot;)*(&quot;raster_protected_regions@1&quot;  !=  1 )*&quot;raster_boundary@1&quot;
+</pre></div>
+</div>
+<img alt="../../_images/2711.png" class="align-center" src="../../_images/2711.png" />
+</div></blockquote>
+<div class="admonition note">
+<p class="admonition-title">Not</p>
+<p>In this example, we are giving equal <em>weight</em> to both road and water proximity. In real-life scenario, you may have multiple criteria with different importance. You can simulate that by multiplying the rasters with appropriate <em>weights</em> in the above expression. For example, if proximity to roads is twice as importance as proximity away from water, you can multiply the <code class="docutils literal notranslate"><span class="pre">roads_reclass</span></code> raster with <code class="docutils literal notranslate"><span class="pre">2</span></code> in the expression above.</p>
+</div>
+<ol class="arabic simple" start="28">
+<li><p>Once the processing finishes, the resulting raster <code class="docutils literal notranslate"><span class="pre">overlay</span></code> will be added to the <span class="guilabel">Layers</span> panel. The pixel values in this raster range from 0 to 200 - where 0 is the least suitable and 200 is the most suitable area for development. Click the <span class="guilabel">Open the Layer Styling panel</span> button in the <span class="guilabel">Layers</span> panel.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/2811.png" class="align-center" src="../../_images/2811.png" />
+</div></blockquote>
+<ol class="arabic simple" start="29">
+<li><p>Select <code class="docutils literal notranslate"><span class="pre">singleband_pseudocolor</span></code> renderer and the <code class="docutils literal notranslate"><span class="pre">Spectral</span></code> color ramp. Click <span class="guilabel">Classify</span> to apply the color ramp to the raster.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/2910.png" class="align-center" src="../../_images/2910.png" />
+</div></blockquote>
+<ol class="arabic simple" start="30">
+<li><p>Click on the default label values next to each color and enter appropriate labels. The labels will also appear as the legend under the <code class="docutils literal notranslate"><span class="pre">overlay</span></code> layer.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/3010.png" class="align-center" src="../../_images/3010.png" />
+</div></blockquote>
+<ol class="arabic simple" start="31">
+<li><p>Raster layers are rectangular grids. We want to hide pixels outside the state boundary. An easy way to achieve this is applying an <code class="docutils literal notranslate"><span class="pre">Inverted</span> <span class="pre">Polygons</span></code> rendered to the vector boundary layer. Scroll down in the <span class="guilabel">Layers</span> panel and locate the <code class="docutils literal notranslate"><span class="pre">boundary</span></code> layer. Select <code class="docutils literal notranslate"><span class="pre">Inverted</span> <span class="pre">Polygons</span></code> as the renderer and leave other options to default.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/3114.png" class="align-center" src="../../_images/3114.png" />
+</div></blockquote>
+<ol class="arabic simple" start="32">
+<li><p>For the effect of the renderer to show, it needs to be at the top of the Table of Contents. Right-click the <code class="docutils literal notranslate"><span class="pre">boundary</span></code> layer and select <span class="guilabel">Move to Top</span>.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/3211.png" class="align-center" src="../../_images/3211.png" />
+</div></blockquote>
+<ol class="arabic simple" start="33">
+<li><p>Check the layer and the map canvas would update to show the <code class="docutils literal notranslate"><span class="pre">overlay</span></code> raster clipped to the <code class="docutils literal notranslate"><span class="pre">boundary</span></code> layer. This is the final output that shows areas within the state that are suitable for development.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/337.png" class="align-center" src="../../_images/337.png" />
+</div></blockquote>
+</section>
+</section>
+
+
+
+
+
+  <div id="disqus_thread"></div>
+  <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+
+    </div>
+      
+  </div>
+</div>
+
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+    </p>
+    <p>
+        &copy; Copyright 2021, Ujaval Gandhi.<br/>
+      Son güncelleme: Kas 28, 2023.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 7.0.1.<br/>
+    </p>
+  </div>
+</footer>
+<div class="container">
+  <p>This work is licensed under a <a href="http://creativecommons.org/licenses/by/4.0/deed.en_US">Creative Commons Attribution 4.0 International License</a></p>
+</div>
+<!-- Twitter Button -->
+<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+
+<!-- Disqus comments widget -->
+<script type="text/javascript">
+  /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+  var disqus_shortname = 'qgistutorials'; // required: replace example with your forum shortname
+  /* * * DON'T EDIT BELOW THIS LINE * * */
+  (function () {
+    var s = document.createElement('script'); s.async = true;
+    s.type = 'text/javascript';
+    s.src = '//' + disqus_shortname + '.disqus.com/count.js';
+    (document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);
+  }());
+</script>
+
+<script type="text/javascript">
+  /* * * DON'T EDIT BELOW THIS LINE * * */
+  (function() {
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+
+<!-- Script fpr language switching. Largely adapted from https://github.com/pcav/faunalia-website -->
+<script>
+    var currentPage = 'docs/3/multi_criteria_overlay.html'; // coming from sphinx, always without starting '/'
+    var currentLang = 'en';
+    $(document).ready(function(){
+
+        var search = new RegExp('\/[a-zA-Z_]{2,8}\/'+ currentPage, 'gi');
+        var langPlusPage = window.location.href.match(search);
+        // it's possible this is a index.html page called without 'index.html', try without the currentPage
+        if (langPlusPage==undefined){
+            search = new RegExp('\/[a-zA-Z_]{2,8}\/$', 'gi');
+            langPlusPage = window.location.href.match(search);
+        }
+
+        // it's possible this is an index.html page called without 'index.html', try removing index.html
+        if (langPlusPage==undefined){
+            currentPage = currentPage.replace('index.html','')
+            search = new RegExp('\/[a-zA-Z_]{2,8}\/'+ currentPage, 'gi');
+            langPlusPage = window.location.href.match(search);
+        }
+        // still no langPlugPage: stop, because the language swicher will misbehave 
+
+        if (langPlusPage == undefined || langPlusPage.length != 1){
+            alert('You hit an error, please report back to us.');
+            return;
+        }
+        langPlusPage = langPlusPage[0];
+        currentLang = langPlusPage.replace(currentPage, '');
+
+        $("#languages").val(currentLang.replace(/\//g,'')); // currentLang is something like '/nl/'
+
+        $("#languages").change(function() {
+            gotoLang($(this).val());
+        });
+
+    });
+
+    // load current page in a different language
+    function gotoLang(lang){
+        var currentUrl = window.location.href;
+        var newUrl = currentUrl.replace(currentLang, '/'+lang+'/');
+        window.location.href = newUrl;
+    }
+</script>
+
+  </body>
+</html>
