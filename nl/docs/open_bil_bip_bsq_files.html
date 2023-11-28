@@ -104,6 +104,7 @@
 <li class="toctree-l1"><a class="reference internal" href="3/areal_mean_rainfall.html">Berekenen gemiddelde regenval voor gebied (QGIS3)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="3/creating_landuse_map.html">Een kaart voor gebruik van land maken (QGIS3)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="3/calculating_intersection_density.html">Dichtheid van straatkruisingen berekenen (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/landuse_buffer.html">Determining Landuse Buffer Zones (QGIS3)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="3/getting_started_with_pyqgis.html">Beginnen met programmeren in Python (QGIS3)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="3/processing_algorithms_pyqgis.html">Algoritmes van Processing uitvoeren via Python (QGIS3)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="3/custom_python_functions.html">Aangepaste Python expressie-functies gebruiken (QGIS3)</a></li>
@@ -187,15 +188,15 @@
 <ol class="arabic simple">
 <li><p>Unzip en neem het bsq-bestand uit. Op Windows kunt u het uitstekende <a class="reference external" href="http://www.7-zip.org/">7-Zip programma</a>  gebruiken om het .gz-bestand te lezen en uit te pakken. U zult zien dat u slechts één .bsq-betand heeft, genaamd <code class="docutils literal notranslate"><span class="pre">gl-latlong-1deg-landcover.bsq</span></code>. Er is geen hdr-bestand.</p></li>
 </ol>
-<img alt="../_images/1186.png" class="align-center" src="../_images/1186.png" />
+<img alt="../_images/1188.png" class="align-center" src="../_images/1188.png" />
 <ol class="arabic simple" start="2">
 <li><p>Merk op dat als u het bestand <code class="docutils literal notranslate"><span class="pre">gl-latlong-1deg-landcover.bsq</span></code> probeert te openen in QGIS zoals het is, zult u een foutbericht krijgen.</p></li>
 </ol>
-<img alt="../_images/2151.png" class="align-center" src="../_images/2151.png" />
+<img alt="../_images/2153.png" class="align-center" src="../_images/2153.png" />
 <ol class="arabic simple" start="3">
 <li><p>Om dit probleem te verhelpen zullen we een header-bestand maken met de extensie <code class="docutils literal notranslate"><span class="pre">.hdr</span></code>. Het header-bestand bevat informatie over de gegevensset en hoe het is georganiseerd. Gewoonlijk wordt deze informatie verschaft als deel van de Metadata voor de gegevensset. Als u de metadata niet heeft, bekijk dan de website of documentatie voor tips. Sommige informatie kan worden geraden als u het niet weet. In het geval van deze gegevensset, koppelt de downloadpagina voor de gegevens naar de <a class="reference external" href="ftp://ftp.glcf.umd.edu/glcf/Global_Land_Cover/Global/1deg/gl-latlong-1deg-landcover.glcf">metadata</a>. Download de metadata en open die.</p></li>
 </ol>
-<img alt="../_images/387.png" class="align-center" src="../_images/387.png" />
+<img alt="../_images/388.png" class="align-center" src="../_images/388.png" />
 <ol class="arabic simple" start="4">
 <li><p>Het .hdr-bestand moet een plain text-bestand zijn in de volgende indeling. Enkele van deze parameters worden ons gegeven en andere moeten worden uitgewerkt. <a class="reference external" href="http://www.gdal.org/frmt_various.html">Leer meer over de indeling</a>.</p></li>
 </ol>
@@ -213,15 +214,15 @@ byteorder &lt;byte order in which image pixel values are stored, msb or lsb&gt;
 <ol class="arabic simple" start="5">
 <li><p>Open een tekstbewerker en maak een bestand in de indeling zoals is gespecificeerd in de vorige stap. Sla het bestand op als <code class="docutils literal notranslate"><span class="pre">gl-latlong-1deg-landcover.hdr</span></code>. Zorg er voor dat het bestand geen <code class="docutils literal notranslate"><span class="pre">.txt</span></code> aan het einde heeft staan. Enkele van de waarden in de tekstbestanden zijn eenvoudig te begrijpen. De <strong>ncols</strong> en <strong>nrows</strong> komen uit de metadata als Number of Lines en Number of Pixels per Line. De <strong>cellsize</strong> is 1 zoals de Pixel resolution uit de metadata. De coördinaten X,Y uit de linkerbenedenhoek moeten door ons worden uitgewerkt. Omdat het bestand de gehele wereld bedekt en de eenheden lat/long zijn, zijn <strong>xllcorner</strong> en <strong>yllcorner</strong> respectievelijk -180 en -90. We hebben geen enkele informatie over de waarde voor Geen gegevens, dus -9999 is een veilige keuze. Opnieuw vanuit de metadata, is Byte het Pixel Format, dus <strong>nbits</strong> moet gelijk zijn aan 8 en pixeltype moet zijn <strong>byte_unsigned</strong>. We hebben geen informatie over de byte volgorde, dus laat die als msbfirst. U kunt het correct opgemaakte HDR-bestand dowloaden vanaf <a class="reference external" href="../../downloads/gl-latlong-1deg-landcover.hdr">hier</a>.</p></li>
 </ol>
-<img alt="../_images/552.png" class="align-center" src="../_images/552.png" />
+<img alt="../_images/553.png" class="align-center" src="../_images/553.png" />
 <ol class="arabic simple" start="6">
 <li><p>Plaats, nu u het header-bestand heeft, het in dezelfde map als <code class="docutils literal notranslate"><span class="pre">gl-latlong-1deg-landcover.bsq</span></code>. Ga dan in QGIS naar <span class="menuselection">Kaartlagen ‣ Laag toevoegen ‣ Rasterlaag toevoegen</span>. Selecteer <code class="docutils literal notranslate"><span class="pre">gl-latlong-1deg-landcover.bsq</span></code> als uw invoer en klik op <span class="guilabel">Openen</span>.</p></li>
 </ol>
-<img alt="../_images/650.png" class="align-center" src="../_images/650.png" />
+<img alt="../_images/651.png" class="align-center" src="../_images/651.png" />
 <ol class="arabic simple" start="7">
 <li><p>In het volgende scherm zou u gevraagd kunnen worden een CRS te kiezen. Kies, omdat de gegevens in Lat/Long zijn, <strong>WGS84 EPSG:4326</strong> als uw CRS. Nu zult u de gegevensset zien geladen in QGIS.</p></li>
 </ol>
-<img alt="../_images/749.png" class="align-center" src="../_images/749.png" />
+<img alt="../_images/750.png" class="align-center" src="../_images/750.png" />
 </section>
 </section>
 
@@ -247,7 +248,7 @@ byteorder &lt;byte order in which image pixel values are stored, msb or lsb&gt;
     </p>
     <p>
         &copy; Copyright 2021, Ujaval Gandhi.<br/>
-      Laatste aanpassing op nov 08, 2023.<br/>
+      Laatste aanpassing op nov 28, 2023.<br/>
       Created using <a href="http://sphinx-doc.org/">Sphinx</a> 7.0.1.<br/>
     </p>
   </div>

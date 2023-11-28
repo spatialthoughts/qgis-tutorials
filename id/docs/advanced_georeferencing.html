@@ -104,6 +104,7 @@
 <li class="toctree-l1"><a class="reference internal" href="3/areal_mean_rainfall.html">Calculating Areal Mean Rainfall (QGIS3)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="3/creating_landuse_map.html">Creating a Landuse Map (QGIS3)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="3/calculating_intersection_density.html">Calculating Street Intersection Density (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/landuse_buffer.html">Determining Landuse Buffer Zones (QGIS3)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="3/getting_started_with_pyqgis.html">Getting Started With Python Programming (QGIS3)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="3/processing_algorithms_pyqgis.html">Running Processing Algorithms via Python (QGIS3)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="3/custom_python_functions.html">Using Custom Python Expression Functions (QGIS3)</a></li>
@@ -201,19 +202,19 @@
 <ol class="arabic simple">
 <li><p>Untuk tutorial ini, kita akan menggunakan layer OpenStreetMap sebagai referensi layer kita. Install plugin OpenLayer dari <span class="menuselection">Plugins ‣ Manage dan install plugins ‣ Get more</span> . Lihat <span class="xref std std-doc">docs/menggunakan_plugin</span> untuk informasi lebih untuk menggunakan plugins di QGIS.</p></li>
 </ol>
-<img alt="../_images/1150.png" class="align-center" src="../_images/1150.png" />
+<img alt="../_images/1152.png" class="align-center" src="../_images/1152.png" />
 <ol class="arabic simple" start="2">
 <li><p>Ketika sudah diinstall, akses <span class="menuselection">Plugins ‣ OpenLayers plugin ‣ Add OpenStreetMap layer</span> . Ini akan menambah sebuah layer dari ubin pixel yang belum terender dari <a class="reference external" href="http://www.openstreetmap.org/">OpenStreetMap data</a>.</p></li>
 </ol>
-<img alt="../_images/2124.png" class="align-center" src="../_images/2124.png" />
+<img alt="../_images/2126.png" class="align-center" src="../_images/2126.png" />
 <ol class="arabic simple" start="3">
 <li><p>Sekarang anda memiliki layer OpenStreetMap terbuka di QGIS. Perhatikan CRS untuk layer ini. (CRS) ter-set pada EPSG 3857 Pseudo Mercator. Ini penting untuk diperhatikan, karena koordinat yang kita ambil dari layer ini akan berada di CRS ini.</p></li>
 </ol>
-<img alt="../_images/363.png" class="align-center" src="../_images/363.png" />
+<img alt="../_images/364.png" class="align-center" src="../_images/364.png" />
 <ol class="arabic simple" start="4">
 <li><p>Sekarang tugas anda untuk mencari daerah sekeliling area yang akan kita coba untuk kita lakukan georeferensi. Anda dapat menggunakan Pan dan zoom untuk mencari lokasi area tersebut pada layer OpenStreetMap. Tapi kita dapat mengambil kesempatan ini untuk mendemonstrasikan tool lain mungkin akan membantu anda di masa yang akan datang. Kita tahu bahwa citra yang kita unduh adalah Washington Square Park di New York. Jika anda mencari tempat tersebut, anda akan bisa mencari lokasi halaman wikipedia pada tempat tersebut. Koordinat untuk taman terdaftar di sana,</p></li>
 </ol>
-<img alt="../_images/433.png" class="align-center" src="../_images/433.png" />
+<img alt="../_images/434.png" class="align-center" src="../_images/434.png" />
 <ol class="arabic simple" start="5">
 <li><p>Anda akan melihat bahwa koordinat dalam DMS atau Degrees/Minute/Second dan Garis Lintang dan Garis Bujur. Tetapi karena layer kita dalam proyeksi Mercator, kita akan membutuhkan koordinat Mercator untuk mencari lokasi taman. Di sini dimana sebuah tool command-line yang bernama <strong>cs2cs</strong> menjadi berguna. Jika anda menginsstall QGIS dari installer OSGEO4W, anda sudah memiliki tool ini pada sistem anda. Pada Linux dan Mac, tool ini sudah masuk dalam kelengkapan QGIS. Luncurkan sebuah jendela terminak dan ketik <code class="docutils literal notranslate"><span class="pre">cs2cs</span></code> untuk memeriksa apakah ini tersedia. Pengguna Window dapat menemukan sebuah terminal pada <span class="menuselection">Start ‣ OSGeo4W ‣ MSYS</span>.</p></li>
 </ol>
@@ -221,7 +222,7 @@
 <p class="admonition-title">Catatan</p>
 <p>Pengguna MacOS dapat temukan cs2cs di /Library/Frameworks/PROJ.Framework/Programs/cs2cs</p>
 </div>
-<img alt="../_images/532.png" class="align-center" src="../_images/532.png" />
+<img alt="../_images/533.png" class="align-center" src="../_images/533.png" />
 <ol class="arabic simple" start="6">
 <li><p>Ketika anda sudah memverifikasi bahwa tool cs2cs ada pada sistem anda, saatnya untuk mengkonversi garis lintang dan bujur menjadi koordinat Mercator. Cara tool ini bekerja adalah anda harus menentukan sebuah CRS <span class="guilabel">source</span> dan <span class="guilabel">destination</span> . Definisi CRS bisa PROJ4 string &lt;<a class="reference external" href="http://trac.osgeo.org/proj/wiki/GenParms">http://trac.osgeo.org/proj/wiki/GenParms</a>&gt;`_ atau sebuah <a class="reference external" href="http://www.epsg-registry.org/">EPSG code</a>. Karena kita sudah tahu kode EPSG untuk input dan output keluar dari CRS, kita akan menggunakan ini. Cara paling sederhana untuk menggunakan tool ini adalah dengan mengsuplai koordinat input pada command line. Perhatikan bahwa tool menerima koordinat dengan urutan <cite>X Y , jadi kita ingin memasukkan `Longitude Latitude</cite> . Masukkan command berikut di terminal dan tekan enter. Lihat bahwa kita perlu untuk keluar dari quotes (&quot;) dengan sebuah backslash (\). Ketika anda tekan enter, anda akan melihat tool untuk memroses koordinat output dan mencetak output koordinat X Y pada EPSG 3857 CRS.</p></li>
 </ol>
@@ -234,59 +235,59 @@
 <div class="highlight-none notranslate"><div class="highlight"><pre><span></span>echo -73d59&#39;51 40d43&#39;51 | cs2cs +init=EPSG:4326 +to +init=EPSG:3857
 </pre></div>
 </div>
-<img alt="../_images/631.png" class="align-center" src="../_images/631.png" />
+<img alt="../_images/632.png" class="align-center" src="../_images/632.png" />
 <ol class="arabic simple" start="7">
 <li><p>Kopi koordinat ini dan pindah ke QGIS. Pada bagian bawah jendela QGIS, anda akan melihat sebuah kotakteks berlabel koordinat. Masukkan koordinat di sana dengan bentuk X, Y. Tekan Enter, anda akan melihat Peta bergeser sedikit, tapi bukan zoom. Untuk menzoom area, pilih skala 1:2500 dari dropdown skala disebelah kotak koordinat dan tekan enter.</p></li>
 </ol>
-<img alt="../_images/731.png" class="align-center" src="../_images/731.png" />
+<img alt="../_images/732.png" class="align-center" src="../_images/732.png" />
 <ol class="arabic simple" start="8">
 <li><p>Voila! anda sekarang lihat area Washington Square Poark pada kanvas anda. Sekarang waktunya untuk memulai georeferensi. Luncurkan <strong>Georeferencer</strong> dari menuselection:<cite>Raster --&gt; Georeferencer --&gt; Georeferencer</cite> . Jika anda tidak melihat dari menu item, anda akan perlu mengaktifkan plugin <span class="guilabel">Georeferencer GDAL</span> dari <span class="menuselection">Plugins ‣ Manage and install Plugins ‣ Installed</span>.</p></li>
 </ol>
-<img alt="../_images/830.png" class="align-center" src="../_images/830.png" />
+<img alt="../_images/831.png" class="align-center" src="../_images/831.png" />
 <ol class="arabic simple" start="9">
 <li><p>Pada jendela <span class="guilabel">Georeferencer</span> , akses <span class="menuselection">File ‣ Open raster</span> . Navigasi ke file JPG yang diunduh dan klik <span class="guilabel">Open</span>.</p></li>
 </ol>
-<img alt="../_images/931.png" class="align-center" src="../_images/931.png" />
+<img alt="../_images/932.png" class="align-center" src="../_images/932.png" />
 <ol class="arabic simple" start="10">
 <li><p>Pada <span class="guilabel">Coordinate Reference System Selector</span> , pilih <span class="guilabel">EPSG:3857 Pseudo Mercator</span></p></li>
 </ol>
-<img alt="../_images/1038.png" class="align-center" src="../_images/1038.png" />
+<img alt="../_images/1039.png" class="align-center" src="../_images/1039.png" />
 <ol class="arabic simple" start="11">
 <li><p>Sekarang klik pada tombol <span class="guilabel">Add Point</span> pada toolbar dan pilih sebuah lokasi yang dapat teridentifikasi dengan mudah dari gambar. Sudut-sudut, persimpangan, kutub dan lain-lain. Buatlah control points yang baik.</p></li>
 </ol>
-<img alt="../_images/1151.png" class="align-center" src="../_images/1151.png" />
+<img alt="../_images/1153.png" class="align-center" src="../_images/1153.png" />
 <ol class="arabic simple" start="12">
 <li><p>Ketika anda mengklik gambar pada sebuah lokasi poin kontrol, anda akan melihat jendela pop-up bertanya pada anda untuk memasukkan koordinat peta. Klik tombol <span class="guilabel">From map canvas</span>.</p></li>
 </ol>
-<img alt="../_images/1241.png" class="align-center" src="../_images/1241.png" />
+<img alt="../_images/1242.png" class="align-center" src="../_images/1242.png" />
 <ol class="arabic simple" start="13">
 <li><p>Temukan lokasi yang sama pada layer referensi anda, seperti OpenStreetMap dan klik di sana. Kordinat terkumpul dengan klik pada kanvas peta. Klik OK. Dengan cara yang sama, pilih sedikitnya 4 poin pada gambar dan tambahkan koordinatnya dari layer referensi.</p></li>
 </ol>
-<img alt="../_images/1339.png" class="align-center" src="../_images/1339.png" />
+<img alt="../_images/1340.png" class="align-center" src="../_images/1340.png" />
 <ol class="arabic simple" start="14">
 <li><p>Sekarang akses <span class="menuselection">Settings ‣ Transformation settings.</span></p></li>
 </ol>
-<img alt="../_images/1436.png" class="align-center" src="../_images/1436.png" />
+<img alt="../_images/1437.png" class="align-center" src="../_images/1437.png" />
 <ol class="arabic simple" start="15">
 <li><p>Pilih pengaturan seperti di bawah. Pastikan tombol <span class="guilabel">Load in QGIS when done</span>  diberi tanda cek. Kembali ke jendela <span class="guilabel">Georeferencer</span> , akses <span class="menuselection">File ‣ Start georeferencing</span> . Ini akan memulai proses pembengkokan gambar menggunakan GCP dan membuat raster target.</p></li>
 </ol>
-<img alt="../_images/1533.png" class="align-center" src="../_images/1533.png" />
+<img alt="../_images/1534.png" class="align-center" src="../_images/1534.png" />
 <ol class="arabic simple" start="16">
 <li><p>Ketika proses selesai, anda akan melihat layer tergeoreferensi terbuka di QGIS. Jika semua berjalan baik, anda akan melihatnya  tersusun dengan baik pada layer OpenStreetMap.</p></li>
 </ol>
-<img alt="../_images/1631.png" class="align-center" src="../_images/1631.png" />
+<img alt="../_images/1632.png" class="align-center" src="../_images/1632.png" />
 <ol class="arabic simple" start="17">
 <li><p>Untuk membuat output kita terlihat baik, mari hapus nilai tanpa-data yang bewarna hitam dan putih. Klik kanan pada layer gambar dan pilih <span class="guilabel">Properties</span>.</p></li>
 </ol>
-<img alt="../_images/1729.png" class="align-center" src="../_images/1729.png" />
+<img alt="../_images/1730.png" class="align-center" src="../_images/1730.png" />
 <ol class="arabic simple" start="18">
 <li><p>Pindah ke tab <span class="guilabel">Transparency</span> . Kita ingin mengindikasikan pixel hitam dan putih mana saja pada gambar yang mana nilai  <cite>no-data</cite> dan harus dibuat transparan. Masukkan 0 sebagai <span class="guilabel">No data value</span> . Juga,pada guilabel:<cite>Custom transparency options</cite> , klik tombol <span class="guilabel">+</span> dan tambahkan 255 dengan pixel transparan untuk setiap band dan masukkan 100 pada :<span class="guilabel">Percent transparent</span> . Klik <span class="guilabel">OK</span>.</p></li>
 </ol>
-<img alt="../_images/1826.png" class="align-center" src="../_images/1826.png" />
+<img alt="../_images/1827.png" class="align-center" src="../_images/1827.png" />
 <ol class="arabic simple" start="19">
 <li><p>Sekarang anda akan melihat gambar tergeoreferensi melapisi layer dasar dengan baik.</p></li>
 </ol>
-<img alt="../_images/1920.png" class="align-center" src="../_images/1920.png" />
+<img alt="../_images/1921.png" class="align-center" src="../_images/1921.png" />
 </section>
 </section>
 
@@ -312,7 +313,7 @@
     </p>
     <p>
         &copy; Copyright 2021, Ujaval Gandhi.<br/>
-      Terakhir diperbarui pada Nov 08, 2023.<br/>
+      Terakhir diperbarui pada Nov 28, 2023.<br/>
       Created using <a href="http://sphinx-doc.org/">Sphinx</a> 7.0.1.<br/>
     </p>
   </div>

@@ -104,6 +104,7 @@
 <li class="toctree-l1"><a class="reference internal" href="3/areal_mean_rainfall.html">Calculating Areal Mean Rainfall (QGIS3)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="3/creating_landuse_map.html">Creating a Landuse Map (QGIS3)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="3/calculating_intersection_density.html">Calculating Street Intersection Density (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/landuse_buffer.html">Determining Landuse Buffer Zones (QGIS3)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="3/getting_started_with_pyqgis.html">Noțiuni de Bază Despre Programarea în Python (QGIS3)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="3/processing_algorithms_pyqgis.html">Running Processing Algorithms via Python (QGIS3)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="3/custom_python_functions.html">Utilizarea Funcțiilor în Expresiile Python Personalizate (QGIS3)</a></li>
@@ -201,19 +202,19 @@
 <ol class="arabic simple">
 <li><p>Pentru acest tutorial, vom folosi stratul OpenStreetMap ca strat de referință. Instalați plugin-ul OpenLayers din <span class="menuselection">Plugins ‣ Manage and install plugins ‣ Get more</span>. Pentru mai multe informații despre utilizarea plugin-urilor în QGIS, puteți parcurge <a class="reference internal" href="using_plugins.html"><span class="doc">Utilizarea Plugin-urilor</span></a> .</p></li>
 </ol>
-<img alt="../_images/1150.png" class="align-center" src="../_images/1150.png" />
+<img alt="../_images/1152.png" class="align-center" src="../_images/1152.png" />
 <ol class="arabic simple" start="2">
 <li><p>O dată instalat, mergeți la <span class="menuselection">Plugins ‣ OpenLayers plugin ‣ Add OpenStreetMap layer</span>. Ca rezultat al acestei operațiune se va adăuga un strat cu dale pre-randate, create din <a class="reference external" href="http://www.openstreetmap.org/">Datele OpenStreetMap</a>.</p></li>
 </ol>
-<img alt="../_images/2124.png" class="align-center" src="../_images/2124.png" />
+<img alt="../_images/2126.png" class="align-center" src="../_images/2126.png" />
 <ol class="arabic simple" start="3">
 <li><p>Acum aveți stratul OpenStreetMap încărcat în QGIS. Notați Sistemul de Coordonate de Referință (CRS) al acestui strat. Acesta este stabilit ca EPSG 3857 Pseudo Mercator. Acest lucru este important de reținut, deoarece coordonatele pe care le vom deduce din acest strat vor fi în acest CRS.</p></li>
 </ol>
-<img alt="../_images/363.png" class="align-center" src="../_images/363.png" />
+<img alt="../_images/364.png" class="align-center" src="../_images/364.png" />
 <ol class="arabic simple" start="4">
 <li><p>Sarcina curentă este de a localiza vecinătatea generală a zonei pe care încercăm să o georeferențiem. Se pot folosi doar instrumentele Mărire și Deplasare pentru a localiza zona în stratul OpenStreetMap. Dar profităm de această ocazie, pentru a prezenta un alt instrument care vă poate ajuta pe viitor. Știm că imaginea descărcată este pentru Washington Square Park din New York. Dacă veți căuta acel loc, localizați pagina lui de pe Wikipedia. Coordonatele parcului sunt indicate acolo.</p></li>
 </ol>
-<img alt="../_images/433.png" class="align-center" src="../_images/433.png" />
+<img alt="../_images/434.png" class="align-center" src="../_images/434.png" />
 <ol class="arabic simple" start="5">
 <li><p>În acest moment, coordonatele sunt exprimate în Grade/Minute/Secunde, reprezentând Latitudinea și Longitudinea. Dar, din moment ce stratul nostru este în proiecție Mercator, vom avea nevoie de coordonatele Mercator pentru a localiza parcul. Iată de ce un instrument din linia de comandă, denumit <strong>cs2cs</strong>, ne vine la îndemână. Dacă ați instalat QGIS cu ajutorul programului OSGeo4W, el se află deja pe sistemul dumneavoastră. Pe Linux și Mac, de asemenea, el vine pre-instalat, o dată cu aplicația QGIS. Lansați o fereastră terminal și tastați <code class="docutils literal notranslate"><span class="pre">cs2cs</span></code>  pentru a verifica dacă acesta este disponibil. Utilizatorii de Windows pot găsi o fereastră terminal la <span class="menuselection">Start ‣ OSGeo4W ‣ MSYS</span>.</p></li>
 </ol>
@@ -221,7 +222,7 @@
 <p class="admonition-title">Notă</p>
 <p>Utilizatorii MacOS pot găsi instrumentul cs2cs în /Library/Frameworks/PROJ.Framework/Programs/cs2cs</p>
 </div>
-<img alt="../_images/532.png" class="align-center" src="../_images/532.png" />
+<img alt="../_images/533.png" class="align-center" src="../_images/533.png" />
 <ol class="arabic simple" start="6">
 <li><p>După ce v-ați asigurat că instrumentul cs2cs există pe sistemul dvs., este timpul să convertim Latitudinea și Longitudinea în coordonate Mercator. Modul în care funcționează acest instrument presupune specificarea unor CRS-uri <span class="guilabel">sursă</span> și <span class="guilabel">destinație</span>. Definiția CRS constă într-un <a class="reference external" href="http://trac.osgeo.org/proj/wiki/GenParms">Șir PROJ4</a> sau un <a class="reference external" href="http://www.epsg-registry.org/">Cod EPSG</a>. Din moment ce știm deja codul EPSG al CRS-urilor de intrare și de ieșire, vom folosi acest lucru. Cel mai simplu mod de utilizare a instrumentului, este de a furniza coordonatele de intrare chiar în linia de comandă. Rețineți că instrumentul acceptă coordonatele în ordinea <cite>X Y</cite>, așa că vom introduce <cite>Longitudine Latitudine</cite>. Introduceți următoarea comandă în terminal și apăsați Enter. Rețineți că e nevoie să prefixăm ghilimelele («), cu un backslash (\). După ce apăsați ENTER, instrumentul va procesa coordonatele și va afișa coordonatele X Y în CRS-ul EPSG:3857.</p></li>
 </ol>
@@ -234,59 +235,59 @@
 <div class="highlight-none notranslate"><div class="highlight"><pre><span></span>echo -73d59&#39;51 40d43&#39;51 | cs2cs +init=EPSG:4326 +to +init=EPSG:3857
 </pre></div>
 </div>
-<img alt="../_images/631.png" class="align-center" src="../_images/631.png" />
+<img alt="../_images/632.png" class="align-center" src="../_images/632.png" />
 <ol class="arabic simple" start="7">
 <li><p>Copiați aceste coordonate și mergeți la QGIS. În partea de jos a ferestrei QGIS, veți vedea o căsuță etichetată Coordonate. Introduceți coordonatele acolo, sub forma X, Y. Apăsați Enter. Veți vedea harta deplasată un pic, dar nu încercați să măriți. Pentru a vizualiza zona respectivă, selectați scara 1:2500 în caseta alăturată coordonatelor, apoi apăsați Enter.</p></li>
 </ol>
-<img alt="../_images/731.png" class="align-center" src="../_images/731.png" />
+<img alt="../_images/732.png" class="align-center" src="../_images/732.png" />
 <ol class="arabic simple" start="8">
 <li><p>Et Voilà! Se vede acum zona Washington Square Park pe suportul hărții dumneavoastră. Este timpul să începeți georeferențierea. Lansați <strong>Georeferențiator</strong> din <span class="menuselection">Raster ‣ Georeferencer ‣ Georeferencer</span>. Dacă acel element de meniu nu există, atunci va trebui să activați plugin-ul <span class="guilabel">Georeferencer GDAL</span> din <span class="menuselection">Plugins ‣ Manage and install Plugins ‣ Installed</span>.</p></li>
 </ol>
-<img alt="../_images/830.png" class="align-center" src="../_images/830.png" />
+<img alt="../_images/831.png" class="align-center" src="../_images/831.png" />
 <ol class="arabic simple" start="9">
 <li><p>În fereastra <span class="guilabel">Georeferencer</span>, mergeți la <span class="menuselection">File ‣ Open raster</span>. Navigați la fișierul JPG, anterior descărcat, și faceți clic pe <span class="guilabel">Open</span>.</p></li>
 </ol>
-<img alt="../_images/931.png" class="align-center" src="../_images/931.png" />
+<img alt="../_images/932.png" class="align-center" src="../_images/932.png" />
 <ol class="arabic simple" start="10">
 <li><p>În <span class="guilabel">Coordinate Reference System Selector</span>, alegeți <span class="guilabel">EPSG:3857 Pseudo Mercator</span></p></li>
 </ol>
-<img alt="../_images/1038.png" class="align-center" src="../_images/1038.png" />
+<img alt="../_images/1039.png" class="align-center" src="../_images/1039.png" />
 <ol class="arabic simple" start="11">
 <li><p>Acum, faceți clic pe butonul <span class="guilabel">Add Point</span> din bara de instrumente și selectați o locație ușor identificabilă în imagine. Colțurile, intersecțiile, stâlpii etc. reprezintă bune puncte de control.</p></li>
 </ol>
-<img alt="../_images/1151.png" class="align-center" src="../_images/1151.png" />
+<img alt="../_images/1153.png" class="align-center" src="../_images/1153.png" />
 <ol class="arabic simple" start="12">
 <li><p>După ce faceți clic pe imagine, într-o locație a unui punct de control, va apărea un pop-up în care vor trebui introduse coordonatele hărții. Faceți clic pe butonul <span class="guilabel">From map canvas</span>.</p></li>
 </ol>
-<img alt="../_images/1241.png" class="align-center" src="../_images/1241.png" />
+<img alt="../_images/1242.png" class="align-center" src="../_images/1242.png" />
 <ol class="arabic simple" start="13">
 <li><p>Găsiți aceeași locație în stratul de referință, adică în stratul OpenStreetMap, și faceți clic pe suportul hărții. În acest mod, coordonatele se vor auto-popula. Faceți clic pe OK. În mod similar, alegeți cel puțin 4 puncte pe imagine, apoi adăugați coordonatele lor în stratul de referință.</p></li>
 </ol>
-<img alt="../_images/1339.png" class="align-center" src="../_images/1339.png" />
+<img alt="../_images/1340.png" class="align-center" src="../_images/1340.png" />
 <ol class="arabic simple" start="14">
 <li><p>Acum, mergeți la <span class="menuselection">Settings ‣ Transformation settings.</span></p></li>
 </ol>
-<img alt="../_images/1436.png" class="align-center" src="../_images/1436.png" />
+<img alt="../_images/1437.png" class="align-center" src="../_images/1437.png" />
 <ol class="arabic simple" start="15">
 <li><p>Alegeți setările de mai jos. Asigurați-vă că ați bifat caseta <span class="guilabel">Load in QGIS when done</span>. Apăsați OK. Înapoi, în fereastra <span class="guilabel">Georeferencer</span>, mergeți la <span class="menuselection">File ‣ Start georeferencing</span>. Acest lucru va începe procesul de modificare a imaginii folosind GCP-urile, care se va încheia prin crearea rasterului țintă.</p></li>
 </ol>
-<img alt="../_images/1533.png" class="align-center" src="../_images/1533.png" />
+<img alt="../_images/1534.png" class="align-center" src="../_images/1534.png" />
 <ol class="arabic simple" start="16">
 <li><p>La încheierea procesului, stratul georeferențiat se va încărca în QGIS. Dacă totul a mers bine, îl veți vedea suprapus frumos peste stratul OpenStreetMap.</p></li>
 </ol>
-<img alt="../_images/1631.png" class="align-center" src="../_images/1631.png" />
+<img alt="../_images/1632.png" class="align-center" src="../_images/1632.png" />
 <ol class="arabic simple" start="17">
 <li><p>Pentru ca rezultatul să arate mai frumos, scoateți valorile no-data, albe și negre. Faceți clic dreapta pe stratul imagine și alegeți <span class="guilabel">Properties</span>.</p></li>
 </ol>
-<img alt="../_images/1729.png" class="align-center" src="../_images/1729.png" />
+<img alt="../_images/1730.png" class="align-center" src="../_images/1730.png" />
 <ol class="arabic simple" start="18">
 <li><p>Selectați fila <span class="guilabel">Transparency</span>. Vrem să indicăm faptul că pixelii negri sau albi din imagine reprezintă valori <cite>no-data</cite> și ar trebui să fie transparenți. Introduceți 0 pentru <span class="guilabel">No data value</span>. De asemenea, în <span class="guilabel">Custom transparency options</span>, apăsați butonul <span class="guilabel">+</span> și adăugați 255 pentru pixelii transparenți din fiecare bandă, apoi alegeți 100 pentru <span class="guilabel">Percent transparent</span>. Apăsați pe <span class="guilabel">OK</span>.</p></li>
 </ol>
-<img alt="../_images/1826.png" class="align-center" src="../_images/1826.png" />
+<img alt="../_images/1827.png" class="align-center" src="../_images/1827.png" />
 <ol class="arabic simple" start="19">
 <li><p>În acest moment, imaginea georeferențiată este suprapusă frumos peste stratul de bază.</p></li>
 </ol>
-<img alt="../_images/1920.png" class="align-center" src="../_images/1920.png" />
+<img alt="../_images/1921.png" class="align-center" src="../_images/1921.png" />
 </section>
 </section>
 
@@ -312,7 +313,7 @@
     </p>
     <p>
         &copy; Copyright 2021, Ujaval Gandhi.<br/>
-      Ultima actualizare la nov. 08, 2023.<br/>
+      Ultima actualizare la nov. 28, 2023.<br/>
       Created using <a href="http://sphinx-doc.org/">Sphinx</a> 7.0.1.<br/>
     </p>
   </div>

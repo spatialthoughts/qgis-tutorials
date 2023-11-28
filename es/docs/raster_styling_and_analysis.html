@@ -104,6 +104,7 @@
 <li class="toctree-l1"><a class="reference internal" href="3/areal_mean_rainfall.html">Calcular la Precipitación Media de Área (QGIS3)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="3/creating_landuse_map.html">Creating a Landuse Map (QGIS3)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="3/calculating_intersection_density.html">Calcular Densidad de Intersección de Calle (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/landuse_buffer.html">Determining Landuse Buffer Zones (QGIS3)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="3/getting_started_with_pyqgis.html">Iniciándote con la Programación Python (QGIS3)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="3/processing_algorithms_pyqgis.html">Ejecutar Algoritmos de Procesamiento vía Python (QGIS3)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="3/custom_python_functions.html">Usando Funciones de Expresión Python Personalizadas (QGIS3)</a></li>
@@ -192,7 +193,7 @@
 <ol class="arabic simple">
 <li><p>Vaya a la <a class="reference external" href="http://sedac.ciesin.columbia.edu/data/set/gpw-v3-population-density/data-download">página de descarga Population Density Grid, v3.</a> Seleccione para <span class="guilabel">Atributos de Datos</span>  <span class="guilabel">.ascii format</span>, <span class="guilabel">1° resolution</span> y <span class="guilabel">1990 year</span>. Clic en <span class="guilabel">Descargar</span>. Para este punto, puede crear una cuenta gratuita e ingresar, o usar el botón <span class="guilabel">Descarga Invitado</span> abajo para descargar inmediátamente los datos. Repita el proceso para el <span class="guilabel">2000 year</span></p></li>
 </ol>
-<img alt="../_images/1201.png" class="align-center" src="../_images/1201.png" />
+<img alt="../_images/1202.png" class="align-center" src="../_images/1202.png" />
 <p>Ahora tendrá 2 archivos zip descargados.</p>
 <p>Para su comodidad, puede descargar directamente una copia de los conjuntos de datos de los enlaces abajo:</p>
 <p><a class="reference external" href="http://www.qgistutorials.com/downloads/gl_gpwv3_pdens_90_ascii_one.zip">gl_gpwv3_pdens_90_ascii_one.zip</a></p>
@@ -204,98 +205,98 @@
 <ol class="arabic simple" start="2">
 <li><p>Abra QGIS y vaya a <span class="menuselection">Capas ‣ Añadir capa Ráster..</span>.</p></li>
 </ol>
-<img alt="../_images/2163.png" class="align-center" src="../_images/2163.png" />
+<img alt="../_images/2165.png" class="align-center" src="../_images/2165.png" />
 <ol class="arabic simple" start="3">
 <li><p>Localice los archivos zip descargados. Mantenga presionada la tecla <kbd class="kbd docutils literal notranslate">Ctrl</kbd> y clic en ambos archivos zip para seleccionarlos. De esta manera es capa de cargar ambos archivos en un solo paso.</p></li>
 </ol>
-<img alt="../_images/398.png" class="align-center" src="../_images/398.png" />
+<img alt="../_images/399.png" class="align-center" src="../_images/399.png" />
 <ol class="arabic simple" start="4">
 <li><p>Cada archivo zip contiene  2 archivos grid. la <code class="docutils literal notranslate"><span class="pre">a</span></code> en el nombre de archivo sugiere que los conteos de población fueron ajustados para coincidir con los totales de las NN.UU. Usaremos las cuadrículas ajustadas para este tutorial. Seleccione <code class="docutils literal notranslate"><span class="pre">glds00ag60.asc</span></code> como la capa a añadir. Clic en <span class="guilabel">Aceptar</span>.</p></li>
 </ol>
-<img alt="../_images/463.png" class="align-center" src="../_images/463.png" />
+<img alt="../_images/464.png" class="align-center" src="../_images/464.png" />
 <ol class="arabic simple" start="5">
 <li><p>La capa no tiene un SRC definido, y debido a que las cuadrículas están en lat/lon, escoja <cite>EPSG:4326</cite> como el sistema de referencia de coordenadas.</p></li>
 </ol>
-<img alt="../_images/561.png" class="align-center" src="../_images/561.png" />
+<img alt="../_images/562.png" class="align-center" src="../_images/562.png" />
 <ol class="arabic simple" start="6">
 <li><p>Debido a que seleccionamos ambos archivos zip, veremos diálogos similares una vez más. Repita el proceso y seleccione la cuadrícula <code class="docutils literal notranslate"><span class="pre">glds90ag60.asc</span></code> como la capa a añadir.</p></li>
 </ol>
-<img alt="../_images/658.png" class="align-center" src="../_images/658.png" />
+<img alt="../_images/659.png" class="align-center" src="../_images/659.png" />
 <ol class="arabic simple" start="7">
 <li><p>Una vez más, escoja <cite>EPSG:4326</cite> como el SRC.</p></li>
 </ol>
-<img alt="../_images/757.png" class="align-center" src="../_images/757.png" />
+<img alt="../_images/758.png" class="align-center" src="../_images/758.png" />
 <ol class="arabic simple" start="8">
 <li><p>Ahora verá ambos ráster cargados en QGIS. El ráster es representado como una escala de grises, donde los píxeles más oscuros indican valores más bajos y los píxeles más claros indican valores más altos.</p></li>
 </ol>
-<img alt="../_images/855.png" class="align-center" src="../_images/855.png" />
+<img alt="../_images/856.png" class="align-center" src="../_images/856.png" />
 <ol class="arabic simple" start="9">
 <li><p>Cada píxel en el ráster tiene un valor asignado. Este valor es la densidad de población para esa cuadrícula. Clic en el botón <span class="guilabel">Identificar Entidades</span> para seleccionar la herramienta y clic en cualquier parte del ráster para ver el valor de ese píxel.</p></li>
 </ol>
-<img alt="../_images/954.png" class="align-center" src="../_images/954.png" />
+<img alt="../_images/955.png" class="align-center" src="../_images/955.png" />
 <ol class="arabic simple" start="10">
 <li><p>Para visualizar mejor el patrón de densidad de población, necesitaríamos darle estilo. Clic-derecho en el nombre de la capa y seleccione <span class="guilabel">Propiedades</span>. También puede hacer doble-clic en el nombre de la capa en la TDC para traer el diálogo Propiedades de Capa.</p></li>
 </ol>
-<img alt="../_images/1062.png" class="align-center" src="../_images/1062.png" />
+<img alt="../_images/1063.png" class="align-center" src="../_images/1063.png" />
 <ol class="arabic simple" start="11">
 <li><p>Bajo la pestaña <span class="guilabel">Estilo</span>, cambie el <span class="guilabel">Tipo de representador</span> a <span class="guilabel">Pseudocolor banda única</span>. A continuación, clic en <span class="guilabel">Clasificar</span> bajo <span class="guilabel">Generar un nuevo mapa de color</span>. Verá 5 nuevos valores de color creados. Clic en <span class="guilabel">Aceptar</span>.</p></li>
 </ol>
-<img alt="../_images/11101.png" class="align-center" src="../_images/11101.png" />
+<img alt="../_images/11102.png" class="align-center" src="../_images/11102.png" />
 <ol class="arabic simple" start="12">
 <li><p>De vuelta en el lienzo QGIS, verá una representación como mapa de calor del ráster. Repita también el mismo proceso para el otro ráster.</p></li>
 </ol>
-<img alt="../_images/1263.png" class="align-center" src="../_images/1263.png" />
+<img alt="../_images/1264.png" class="align-center" src="../_images/1264.png" />
 <ol class="arabic simple" start="13">
 <li><p>Para nuestro análisis, nos gustaría encontrar áreas con los mayores cambios de población entre 1990 y 2000. La manera de lograr esto es encontrando la diferencia entre los valores de píxeles grid en ambas capas. Seleccione <span class="menuselection">Ráster ‣ Calculadora ráster</span>.</p></li>
 </ol>
-<img alt="../_images/1360.png" class="align-center" src="../_images/1360.png" />
+<img alt="../_images/1361.png" class="align-center" src="../_images/1361.png" />
 <ol class="arabic simple" start="14">
 <li><p>En la sección <span class="guilabel">Bandas ráster</span>, puede seleccionar la capa haciendo doble-clic en ellas. Las bandas toman el nombre del ráster seguido por &#64; y un número de banda. Debido a que nuestros rásters sólo tiene 1 banda, verá sólo 1 entrada por ráster. La calculadora ráster puede aplicar operaciones matemáticas sobre los píxeles rásters. En este caso queremos ingresar una fórmula simple para restar la densidad de población 1990 del 2000. Ingrese <code class="docutils literal notranslate"><span class="pre">glds00ag60&#64;1</span> <span class="pre">-</span> <span class="pre">glds90ag60&#64;1</span></code> como fórmula. Nombre su capa de salida como <code class="docutils literal notranslate"><span class="pre">pop_density_change_2000_1990.tif</span></code> y marque la casilla junto a <span class="guilabel">Añadir resultado al proyecto</span>. Clic en <span class="guilabel">Aceptar</span>.</p></li>
 </ol>
-<img alt="../_images/1457.png" class="align-center" src="../_images/1457.png" />
+<img alt="../_images/1458.png" class="align-center" src="../_images/1458.png" />
 <ol class="arabic simple" start="15">
 <li><p>Una vez esté completa la operación, verá que se carga la nueva capa en QGIS.</p></li>
 </ol>
-<img alt="../_images/1553.png" class="align-center" src="../_images/1553.png" />
+<img alt="../_images/1554.png" class="align-center" src="../_images/1554.png" />
 <ol class="arabic simple" start="16">
 <li><p>La visualización de escala de grises es útil, pero podemos crear una salida mucho más informativa. Clic-derecho en la capa <code class="docutils literal notranslate"><span class="pre">pop_density_change_2000_1990</span></code> y seleccione <span class="guilabel">Propiedades</span>.</p></li>
 </ol>
-<img alt="../_images/1650.png" class="align-center" src="../_images/1650.png" />
+<img alt="../_images/1651.png" class="align-center" src="../_images/1651.png" />
 <ol class="arabic simple" start="17">
 <li><p>Queremos dar estilo a la capa de manera que píxeles en ciertos rangos tengan el mismo color. Antes que nos dediquemos a ello, vaya a la pestaña <span class="guilabel">Metadatos</span> y mire las propiedades del ráster. Anote los valores mínimo y máximo de esta capa.</p></li>
 </ol>
-<img alt="../_images/1746.png" class="align-center" src="../_images/1746.png" />
+<img alt="../_images/1747.png" class="align-center" src="../_images/1747.png" />
 <ol class="arabic simple" start="18">
 <li><p>Ahora vaya a la pestaña <span class="guilabel">Estilo</span>. Seleccione <span class="guilabel">Pseudocolor banda única</span> como el <span class="guilabel">Tipo de representador</span> bajo <span class="guilabel">Representación de banda</span>. Defina la <span class="guilabel">Interpolación color</span> como <span class="guilabel">Discreta</span>. Clic el botón <span class="guilabel">Añadir entrada</span> 4 veces para crear 4 clases únicas. Clic en una entrada para cambiar los valores. La manera como funciona el mapa de colo es que a todos los valores bajo el valor ingresado se les dará el color dado en la entrada. Debido a que el valor mínimo de nuestro ráster es justo encima de -2000, escogemos -2000 como la primera entrada. Esto será para los valores Sin Datos. Ingrese los valores y Etiquetas para las otras entradas y haga clic en <span class="guilabel">Aceptar</span>.</p></li>
 </ol>
-<img alt="../_images/1844.png" class="align-center" src="../_images/1844.png" />
+<img alt="../_images/1845.png" class="align-center" src="../_images/1845.png" />
 <ol class="arabic simple" start="19">
 <li><p>Ahora verá una visualización mucho más poderosa donde puede ver áreas que han visto cambios positivos y negativos en su densidad de población. Clic en el botón <span class="guilabel">Acercar zoom</span> y dibuje un rectángulo alrededor de Europa para explorar la región en más detalle.</p></li>
 </ol>
-<img alt="../_images/1936.png" class="align-center" src="../_images/1936.png" />
+<img alt="../_images/1937.png" class="align-center" src="../_images/1937.png" />
 <ol class="arabic simple" start="20">
 <li><p>Seleccione la herramienta <span class="guilabel">Identificar</span> y clic en las regiones Rojo y Azul para verificar que sus reglas de estilo funcionaron como se esperaba.</p></li>
 </ol>
-<img alt="../_images/2031.png" class="align-center" src="../_images/2031.png" />
+<img alt="../_images/2032.png" class="align-center" src="../_images/2032.png" />
 <ol class="arabic simple" start="21">
 <li><p>Ahora llevemos este análisis un paso más allá y encontremos el área sólo con cambio <cite>negativo</cite> de densidad de población. Abra <span class="menuselection">Ráster ‣ Calculadora ráster</span>.</p></li>
 </ol>
-<img alt="../_images/2164.png" class="align-center" src="../_images/2164.png" />
+<img alt="../_images/2166.png" class="align-center" src="../_images/2166.png" />
 <ol class="arabic simple" start="22">
 <li><p>Ingrese la expresión como se muestra abajo. Lo que hará esta expresión es definir el valor del píxel a 1 si coincide con la expresión y 0 si no. Así obtendremos un ráster con valor de píxel 1 donde había cambio negativo y 0 donde no había. Nombre la capa de salida como <code class="docutils literal notranslate"><span class="pre">negative_pop_change_2000_1990</span></code> y marque la casilla junto a <span class="guilabel">Añadir resultado al proyecto</span>. Clic Aceptar.</p></li>
 </ol>
 <div class="highlight-none notranslate"><div class="highlight"><pre><span></span>pop_density_change_2000_1990@1 &lt; -10
 </pre></div>
 </div>
-<img alt="../_images/2230.png" class="align-center" src="../_images/2230.png" />
+<img alt="../_images/2231.png" class="align-center" src="../_images/2231.png" />
 <ol class="arabic simple" start="23">
 <li><p>Una vez se cargue la nueva capa, clic-derecho en ella y seleccione <span class="guilabel">Propiedades</span>. En la pestaña <span class="guilabel">Transparencia</span>, agregue 0 como el <span class="guilabel">Valor sin datos adicional</span>. Esta configuración hará que los píxeles con valor 0 sean transparentes. Clic en <span class="guilabel">Aceptar</span>.</p></li>
 </ol>
-<img alt="../_images/2327.png" class="align-center" src="../_images/2327.png" />
+<img alt="../_images/2328.png" class="align-center" src="../_images/2328.png" />
 <ol class="arabic simple" start="24">
 <li><p>Ahora verá las áreas de cambio negativo de densidad de población como píxeles grises.</p></li>
 </ol>
-<img alt="../_images/2426.png" class="align-center" src="../_images/2426.png" />
+<img alt="../_images/2427.png" class="align-center" src="../_images/2427.png" />
 </section>
 </section>
 
@@ -321,7 +322,7 @@
     </p>
     <p>
         &copy; Copyright 2021, Ujaval Gandhi.<br/>
-      Actualizado por última vez en nov 08, 2023.<br/>
+      Actualizado por última vez en nov 28, 2023.<br/>
       Created using <a href="http://sphinx-doc.org/">Sphinx</a> 7.0.1.<br/>
     </p>
   </div>

@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+
+<html lang="ko">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Determining Landuse Buffer Zones (QGIS3) &#8212; QGIS Tutorials and Tips</title>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-sphinx.css" />
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/sphinx_highlight.js"></script>
+    <script src="../../_static/translations.js"></script>
+    <link rel="search" title="검색" href="../../search.html" />
+    <link rel="next" title="Getting Started With Python Programming (QGIS3)" href="getting_started_with_pyqgis.html" />
+    <link rel="prev" title="Calculating Street Intersection Density (QGIS3)" href="calculating_intersection_density.html" />
+
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<script type="text/javascript" src="../../_static/js/jquery-1.12.4.min.js"></script>
+<script type="text/javascript" src="../../_static/js/jquery-fix.js"></script>
+<script type="text/javascript" src="../../_static/bootstrap-3.4.1/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="../../_static/bootstrap-sphinx.js"></script>
+
+
+<!-- Cookie Notice -->
+<!-- Script from https://github.com/AOEpeople/cookie-notice -->
+<script type="text/javascript" src="../../_static/cookie.notice.min.js"></script>
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-B1WQ7B80XJ"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-B1WQ7B80XJ');
+</script>
+
+
+  </head><body>
+
+  <div id="navbar" class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="../../index.html">
+          QGIS Tutorials and Tips</a>
+        <span class="navbar-text navbar-version pull-left"><b>v1</b></span>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="../../index.html">Tutorials List <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"><ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../introduction.html">들어가는 말</a></li>
+<li class="toctree-l1"><a class="reference internal" href="making_a_map.html">지도 만들기 (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="working_with_attributes.html">속성 작업 (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="importing_spreadsheets_csv.html">스프레드시트 및 CSV 파일 불러오기 (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="basic_vector_styling.html">기본 벡터 스타일링 (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="calculating_line_lengths.html">선의 길이계산과 통계(QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="raster_styling_and_analysis.html">기본 래스터 스타일링 및 분석(QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="raster_mosaicing_and_clipping.html">래스터 붙이기 및 자르기 (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="working_with_terrain.html">Working with Terrain Data (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="working_with_wms.html">Working with WMS Data (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="working_with_projections.html">Working with Projections (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="georeferencing_basics.html">Georeferencing Topo Sheets and Scanned Maps (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="advanced_georeferencing.html">항공사진 지오레퍼런싱 (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="digitizing_basics.html">Digitizing Map Data (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="performing_table_joins.html">테이블 결합 작업(QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="performing_spatial_joins.html">공간 결합 수행 (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="performing_spatial_queries.html">공간 조회 실행(QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="nearest_neighbor_analysis.html">최근린 분석(QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="sampling_raster_data.html">점 또는 다각형을 이용한 래스터 데이터 표본 추출 작업(QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="calculating_raster_area.html">Calculating Raster Area (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="creating_heatmaps.html">열지도 만들기 (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="animating_time_series.html">Animating Time Series Data (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="handling_invalid_geometries.html">Handling Invalid Geometries (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="advanced_raster_analysis.html">Advanced Raster Analysis (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="interpolating_point_data.html">Interpolating Point Data (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="batch_processing.html">프로세싱 프레임을 이용한 일괄처리과정</a></li>
+<li class="toctree-l1"><a class="reference internal" href="processing_graphical_modeler.html">프로세싱 모델러를 사용하여 복잡한 작업흐름 자동화하기(QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="automating_map_creation.html">Automating Map Creation with Print Layout Atlas (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="multi_criteria_overlay.html">Multi Criteria Overlay Analysis (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="basic_network_analysis.html">Basic Network Visualization and Routing (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="origin_destination_matrix.html">가장 가까운 기-종점 매트릭스 위치 (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="service_area_analysis.html">Openrouteservice를 이용한 서비스 영역 분석(QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="travel_time_analysis.html">Travel Time Analysis with Uber Movement (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="areal_mean_rainfall.html">Calculating Areal Mean Rainfall (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="creating_landuse_map.html">Creating a Landuse Map (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="calculating_intersection_density.html">Calculating Street Intersection Density (QGIS3)</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Determining Landuse Buffer Zones (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="getting_started_with_pyqgis.html">Getting Started With Python Programming (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="processing_algorithms_pyqgis.html">Running Processing Algorithms via Python (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="custom_python_functions.html">Using Custom Python Expression Functions (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="processing_python_scripts.html">Writing Python Scripts for Processing Framework (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="building_a_python_plugin.html">Building a Python Plugin (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="processing_python_plugin.html">Building a Processing Plugin (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../running_qgis_jobs.html">Running and Scheduling QGIS Processing Jobs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="web_mapping_with_qgis2web.html">Web Mapping with QGIS2Web (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../creating_basemaps_with_qtiles.html">QTiles로 베이스 맵 만들기</a></li>
+<li class="toctree-l1"><a class="reference internal" href="using_plugins.html">Using Plugins (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../downloading_osm_data.html">오픈스트리트맵 데이터의 검색과 다운로드</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../learning_resources.html">QGIS 수업 자원</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../credits.html">데이터 크레딧</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../batch_processing.html">프로세싱 프레임을 이용한 일괄처리과정</a></li>
+</ul>
+</ul>
+</li>
+              
+            
+            
+              
+                
+  <li>
+    <a href="calculating_intersection_density.html" title="Previous Chapter: Calculating Street Intersection Density (QGIS3)"><span class="glyphicon glyphicon-chevron-left visible-sm"></span><span class="hidden-sm hidden-tablet">&laquo; Calculating S...</span>
+    </a>
+  </li>
+  <li>
+    <a href="getting_started_with_pyqgis.html" title="Next Chapter: Getting Started With Python Programming (QGIS3)"><span class="glyphicon glyphicon-chevron-right visible-sm"></span><span class="hidden-sm hidden-tablet">Getting Start... &raquo;</span>
+    </a>
+  </li>
+              
+            
+            
+
+            
+
+            
+              <li class="hidden-sm"></li>
+            
+          </ul>
+
+          
+            
+<form class="navbar-form navbar-right" action="../../search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+      <div class="col-md-3">
+        <div id="sidebar" class="bs-sidenav" role="complementary"><h4>Author</h4>
+<p>Ujaval Gandhi</p>
+<a href="https://twitter.com/intent/follow?screen_name=spatialthoughts" class="twitter-follow-button" data-show-count="false">Follow @spatialthoughts</a>
+<hr>
+<p>Want to learn QGIS in a structured way? Check out <a href="https://spatialthoughts.com/" target="_blank">Spatial Thoughts</a> for more learning materials and instructor-led online programs with QGIS.org certification.</p>
+
+<hr>
+<p>These tutorials are also available in many other languages. Please see <a href="https://www.qgistutorials.com/en/docs/introduction.html#translations" target="_blank">translations</a> page.
+</p>
+        </div>
+      </div>
+    <div class="body col-md-9 content" role="main">
+      
+
+  <section id="determining-landuse-buffer-zones-qgis3">
+<h1>Determining Landuse Buffer Zones (QGIS3)<a class="headerlink" href="#determining-landuse-buffer-zones-qgis3" title="이 제목에 대한 퍼머링크">¶</a></h1>
+<p>In this tutorial you will work with landuse data for a city and determine buffer zones around a particular land parcel. Such analysis is required to establish a corridor of restrictions around noise pollution or heavy traffic.</p>
+<section id="overview-of-the-task">
+<h2>Overview of the task<a class="headerlink" href="#overview-of-the-task" title="이 제목에 대한 퍼머링크">¶</a></h2>
+<p>We will start with a shapefile of land parcels for the City of San Francisco and use geoprocessing and spatial analysis techniques to determine a buffer of restricted area around all properties with institutional land use.</p>
+<section id="other-skills-you-will-learn">
+<h3>Other skills you will learn<a class="headerlink" href="#other-skills-you-will-learn" title="이 제목에 대한 퍼머링크">¶</a></h3>
+<ul class="simple">
+<li><p>Creating rectangular buffers in QGIS</p></li>
+<li><p>Using a Spatial Index to speed up analysis</p></li>
+</ul>
+</section>
+</section>
+<section id="get-the-data">
+<h2>Get the data<a class="headerlink" href="#get-the-data" title="이 제목에 대한 퍼머링크">¶</a></h2>
+<p>The data comes from City of San Francisco in form of parcels polygons with attribute indicating the Land use categories.
+You can find the data for the tutorial from DataSF Open Data Portal.</p>
+<p>Let’s see the steps to download a polygon shapefile with land use categories for every parcel in San Francisco.</p>
+<ol class="arabic">
+<li><p>Go to the data portal - <a class="reference external" href="https://datasf.org/opendata/">https://datasf.org/opendata/</a>. Search for the keyword <code class="docutils literal notranslate"><span class="pre">Land</span> <span class="pre">use</span></code> in the search bar.</p>
+<img alt="../../_images/db110.png" class="align-center" src="../../_images/db110.png" />
+</li>
+<li><p>Click on the first search result to visualise and export the data.</p>
+<img alt="../../_images/db25.png" class="align-center" src="../../_images/db25.png" />
+</li>
+<li><p>You will see the data and attributes. Click <span class="guilabel">Export</span> to download the <code class="docutils literal notranslate"><span class="pre">Land</span> <span class="pre">Use</span> <span class="pre">2020</span></code> data.</p>
+<img alt="../../_images/db31.png" class="align-center" src="../../_images/db31.png" />
+</li>
+<li><p>In the export options, click on <span class="guilabel">Shapefile</span> to download the polygon shapefile of the data.</p>
+<img alt="../../_images/db41.png" class="align-center" src="../../_images/db41.png" />
+</li>
+<li><p>A zip-file of the landuse will be downloaded. Switch to the <span class="guilabel">About</span> tab to read information about landuse categories and units which will be useful further in this tutorial.</p>
+<img alt="../../_images/db51.png" class="align-center" src="../../_images/db51.png" />
+</li>
+</ol>
+<p>For convenience, you may directly download a copy of the shapefile below:</p>
+<p><a class="reference external" href="https://www.qgistutorials.com/downloads/land_use.zip">land_use.shp</a></p>
+</section>
+<section id="procedure">
+<h2>Procedure<a class="headerlink" href="#procedure" title="이 제목에 대한 퍼머링크">¶</a></h2>
+<ol class="arabic">
+<li><p>Open QGIS. Click <span class="menuselection">Open Data Source Manager</span> icon to add  the layer.</p>
+<img alt="../../_images/1100.png" class="align-center" src="../../_images/1100.png" />
+</li>
+<li><p>Switch to <span class="guilabel">Vector</span> tab and navigate to the landuse shapefile. Click <span class="guilabel">Add</span>.</p>
+<img alt="../../_images/260.png" class="align-center" src="../../_images/260.png" />
+</li>
+<li><p>Notice the CRS name at the bottom-right corner of QGIS. It indicates that the data is in geographic coordinate system <code class="docutils literal notranslate"><span class="pre">OGC:CRS84</span></code>. Click on it.</p>
+<img alt="../../_images/330.png" class="align-center" src="../../_images/330.png" />
+</li>
+<li><p>The Project Coordinate Reference System (CRS) dialog will show the selected CRS is <code class="docutils literal notranslate"><span class="pre">WGS</span> <span class="pre">84</span> <span class="pre">(CRS</span> <span class="pre">84)</span></code>. Unit of measurement for this CRS is <code class="docutils literal notranslate"><span class="pre">Degree</span></code>. All geoprocessing on this layer will be done in the native units of the CRS. The unit degree is inappropriate for this analysis.</p>
+<img alt="../../_images/414.png" class="align-center" src="../../_images/414.png" />
+</li>
+<li><p>We will reproject the layer to the projected CRS suitable for the region - <code class="docutils literal notranslate"><span class="pre">NAD83</span> <span class="pre">/</span> <span class="pre">California</span> <span class="pre">zone</span> <span class="pre">3</span> <span class="pre">(ftUS)</span></code>. This is <code class="docutils literal notranslate"><span class="pre">EPSG:2227</span></code> which uses NAD83 datum with measurement units in feet.Go to <span class="menuselection">Vector ‣ Data Management Tools ‣ Reproject Layer</span>.</p>
+<img alt="../../_images/514.png" class="align-center" src="../../_images/514.png" />
+</li>
+<li><p>In the Reproject Layer dialog, select the loaded layer as <span class="guilabel">Input Layer</span>. Click on the icon beside the selector to choose the <span class="guilabel">Target CRS</span>.</p>
+<img alt="../../_images/614.png" class="align-center" src="../../_images/614.png" />
+</li>
+<li><p>Search for <code class="docutils literal notranslate"><span class="pre">EPSG:2227</span></code> in the bar and select the <code class="docutils literal notranslate"><span class="pre">NAD83</span> <span class="pre">/</span> <span class="pre">California</span> <span class="pre">zone</span> <span class="pre">3</span> <span class="pre">(ftUS)</span></code> CRS. click <span class="guilabel">Go back</span> to continue.</p>
+<blockquote>
+<div><img alt="../../_images/713.png" class="align-center" src="../../_images/713.png" />
+</div></blockquote>
+</li>
+<li><p>Save the <span class="guilabel">Reprojected</span> output. Expand the browsing options and select <span class="guilabel">Save to File</span>.</p>
+<blockquote>
+<div><img alt="../../_images/813.png" class="align-center" src="../../_images/813.png" />
+</div></blockquote>
+</li>
+<li><p>Save the output shapefile in your chosen folder as <code class="docutils literal notranslate"><span class="pre">LandUse2020.shp</span></code>. Check the <span class="guilabel">Open output file after running algorithm</span> option to add the reprojected layer to QGIS.</p>
+<blockquote>
+<div><img alt="../../_images/913.png" class="align-center" src="../../_images/913.png" />
+</div></blockquote>
+</li>
+<li><p>Remove the original layer with CRS WGS 84 from the QGIS. Select the layer and click on <span class="guilabel">Remove Layer</span> symbol.</p>
+<img alt="../../_images/1019.png" class="align-center" src="../../_images/1019.png" />
+</li>
+<li><p>We will continue the process with the reprojected layer. As we saw in the <span class="guilabel">About</span> section of the downloaded shapefile in the data portal, The classification is as follows.</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><strong>CIE</strong> = Cultural, Institutional, Educational</p></li>
+<li><p><strong>MED</strong> = Medical</p></li>
+<li><p><strong>MIPS</strong> = Office (Management, Information, Professional Services)</p></li>
+<li><p><strong>MIXED</strong> = Mixed Uses (Without Residential)</p></li>
+<li><p><strong>MIXRES</strong> = Mixed Uses (With Residential)</p></li>
+<li><p><strong>PDR</strong> = Industrial (Production, Distribution, Repair)</p></li>
+<li><p><strong>RETAIL/ENT</strong> = Retail, Entertainment</p></li>
+<li><p><strong>RESIDENT</strong> = Residential</p></li>
+<li><p><strong>VISITOR</strong> = Hotels, Visitor Services</p></li>
+<li><p><strong>VACANT</strong> = Vacant</p></li>
+<li><p><strong>ROW</strong> = Right-of-Way</p></li>
+<li><p><strong>OPENSPACE</strong> = Open Space</p></li>
+</ul>
+</div></blockquote>
+</li>
+</ol>
+<p>For this tutorial, we are interested only in the Institutional land use. So we can query for the value <strong>CIE</strong> in the attribute table. Go to <span class="menuselection">Processing ‣ Toolbox</span>.</p>
+<blockquote>
+<div><img alt="../../_images/1122.png" class="align-center" src="../../_images/1122.png" />
+</div></blockquote>
+<ol class="arabic simple" start="12">
+<li><p>Search the <span class="guilabel">Select by Attribute</span> tool from the processing toolbox. Double-click to open it.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/1220.png" class="align-center" src="../../_images/1220.png" />
+</div></blockquote>
+<ol class="arabic simple" start="13">
+<li><p>In the Select by Attribute dialog, set <code class="docutils literal notranslate"><span class="pre">LandUse2020</span></code> as the <span class="guilabel">Input layer</span>. Select <code class="docutils literal notranslate"><span class="pre">landuse</span></code> as the <span class="guilabel">Selection attribute</span> and enter <code class="docutils literal notranslate"><span class="pre">CIE</span></code> as the <span class="guilabel">Value</span>. Click Run.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/1318.png" class="align-center" src="../../_images/1318.png" />
+</div></blockquote>
+<ol class="arabic simple" start="14">
+<li><p>You will see the parcels matching our query will be highlighted in yellow. These are all parcels belonging to the institutional land use in the city.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/1416.png" class="align-center" src="../../_images/1416.png" />
+</div></blockquote>
+<ol class="arabic simple" start="15">
+<li><p>Now we can create a buffer around the selected parcels. Back in the main QGIS window, open Processing Toolbox. Search and locate the <span class="guilabel">Buffer</span> tool. Double-click to open it.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/1515.png" class="align-center" src="../../_images/1515.png" />
+</div></blockquote>
+<ol class="arabic simple" start="16">
+<li><p>In the Buffer dialog, select LandUse2020 as the <span class="guilabel">Input layer</span>. Check the <span class="guilabel">Selected features only</span> box so the buffer will apply only to the selected institutional land use parcels. We will create a buffer zone of 100ft around each parcel. Enter 100 feet as the <span class="guilabel">Distance</span>. The default buffers are of circular shape. Since we are dealing with parcel data, a rectangular buffer area is more appropriate where each edge of the parcel will be offset by the buffer distance. Select <code class="docutils literal notranslate"><span class="pre">Square</span></code> as the <span class="guilabel">End cap style</span> and <code class="docutils literal notranslate"><span class="pre">Miter</span></code> as the <span class="guilabel">Join style</span>. Click the browse button next to Buffered and select <span class="guilabel">Save to File</span>.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/1614.png" class="align-center" src="../../_images/1614.png" />
+</div></blockquote>
+<ol class="arabic simple" start="17">
+<li><p>Enter the output file name as <code class="docutils literal notranslate"><span class="pre">buffer.shp</span></code> and click OK. Click <span class="guilabel">Run</span>.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/1715.png" class="align-center" src="../../_images/1715.png" />
+</div></blockquote>
+<ol class="arabic simple" start="18">
+<li><p>Once the processing finishes, a new layer buffer will be added to QGIS. These polygons represent the buffer zone of restrictions around the institutional land use.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/1813.png" class="align-center" src="../../_images/1813.png" />
+</div></blockquote>
+<ol class="arabic simple" start="19">
+<li><p>We now know which areas of the city fall under the restricted zone. It would be useful to identify all parcels which fall in this zone and add an attribute indicating that a restriction applies to that parcel. Let’s first add a column to the buffer polygons. Search for <span class="menuselection">Field Calculator</span> in the processing toolbox. Double-click to open.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/1911.png" class="align-center" src="../../_images/1911.png" />
+</div></blockquote>
+<ol class="arabic simple" start="20">
+<li><p>In the Field Calculator dialog, ensure buffer is selected as the <span class="guilabel">Input layer</span>. We don’t need to save this layer, so leave the Output file field empty. Enter <code class="docutils literal notranslate"><span class="pre">RESTRICTED</span></code> as the result <span class="guilabel">Field Name</span>. Set the <span class="guilabel">Result field type</span> to <code class="docutils literal notranslate"><span class="pre">String</span></code>. Type <code class="docutils literal notranslate"><span class="pre">Yes</span></code> as the <span class="guilabel">Expression</span>. Click OK.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/2011.png" class="align-center" src="../../_images/2011.png" />
+</div></blockquote>
+<ol class="arabic simple" start="21">
+<li><p>A new layer called Calculated will be added to QGIS. Open the Attribute Table and verify that a new column called RESTRICTED with value Yes exists in this layer.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/2114.png" class="align-center" src="../../_images/2114.png" />
+</div></blockquote>
+<p>22. Next step is to do a Spatial Join to add this attribute to the original parcels layer based on which parcels intersect with the buffer zone. The <code class="docutils literal notranslate"><span class="pre">LandUse2020</span></code> layer has more than 100,000 elements. We will add spatial indexing to the features to improve the performance and speedup the spatial join operation.
+Check out the course <a class="reference external" href="https://courses.spatialthoughts.com/advanced-qgis.html#concept-spatial-indexing">Spatial Indexing</a> section to understand more about this.
+Now, search and locate the <span class="menuselection">Create Spatial Index</span> tool from the Processing Toolbox and double-click to open.</p>
+<blockquote>
+<div><img alt="../../_images/2213.png" class="align-center" src="../../_images/2213.png" />
+</div></blockquote>
+<p>23.Select <code class="docutils literal notranslate"><span class="pre">LandUse2020</span></code> as <span class="guilabel">Input layer</span> and click <span class="guilabel">Run</span>.</p>
+<blockquote>
+<div><img alt="../../_images/2311.png" class="align-center" src="../../_images/2311.png" />
+</div></blockquote>
+<ol class="arabic" start="24">
+<li><p>The spatial index is created for the layer. You can verify this by checking the property of the layer. Tight-click on the layer and click <span class="guilabel">Properties</span>.</p>
+<img alt="../../_images/2410.png" class="align-center" src="../../_images/2410.png" />
+</li>
+<li><p>Switch to the <span class="guilabel">Source</span> tab and and look under the <span class="guilabel">Geometry</span> section. It indicates that the spatial index exists.</p>
+<img alt="../../_images/2510.png" class="align-center" src="../../_images/2510.png" />
+</li>
+<li><p>Now we can do the spatial join. Look for <span class="menuselection">Join attributes by location</span> tool in the processing toolbox. Double-click to open it.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/268.png" class="align-center" src="../../_images/268.png" />
+</div></blockquote>
+<ol class="arabic simple" start="27">
+<li><p>We want to <span class="guilabel">Join to features in</span> the <code class="docutils literal notranslate"><span class="pre">LandUse2020</span></code> layer <span class="guilabel">By comparing to</span> the <code class="docutils literal notranslate"><span class="pre">Calculated</span></code> layer. We want to join attributes features that intersect. Check the box for <code class="docutils literal notranslate"><span class="pre">intersect</span></code>.  Click the browse button next to <span class="guilabel">Fields to add</span>.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/279.png" class="align-center" src="../../_images/279.png" />
+</div></blockquote>
+<ol class="arabic simple" start="28">
+<li><p>Select only the <code class="docutils literal notranslate"><span class="pre">RESTRICTED</span></code> field and click <span class="guilabel">OK</span>.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/289.png" class="align-center" src="../../_images/289.png" />
+</div></blockquote>
+<ol class="arabic simple" start="29">
+<li><p>For Join Type, select <code class="docutils literal notranslate"><span class="pre">Take</span> <span class="pre">attribute</span> <span class="pre">of</span> <span class="pre">the</span> <span class="pre">first</span> <span class="pre">matching</span> <span class="pre">feature</span> <span class="pre">only</span></code>. Next, click … next to Joined layer and select Save to File.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/298.png" class="align-center" src="../../_images/298.png" />
+</div></blockquote>
+<ol class="arabic simple" start="30">
+<li><p>Enter the <span class="guilabel">Joined layer</span> name as <code class="docutils literal notranslate"><span class="pre">LandUseWithRestrictions.shp</span></code> and click <span class="guilabel">OK</span>. Click <span class="guilabel">Run</span>.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/308.png" class="align-center" src="../../_images/308.png" />
+</div></blockquote>
+<ol class="arabic" start="31">
+<li><p>Once the processing finishes, you will get a new layer <code class="docutils literal notranslate"><span class="pre">LandUseWithRestrictions</span></code>. Open the attribute table and examine the <code class="docutils literal notranslate"><span class="pre">RESTRICTED</span></code> column. The parcels that fall within 100ft of an institutional parcel now have the value <code class="docutils literal notranslate"><span class="pre">Yes</span></code> indicating a restriction applies to that parcel. Other parcels have a <code class="docutils literal notranslate"><span class="pre">NULL</span></code> value indicating no restriction.</p>
+<img alt="../../_images/3112.png" class="align-center" src="../../_images/3112.png" />
+</li>
+</ol>
+</section>
+</section>
+
+
+
+
+
+  <div id="disqus_thread"></div>
+  <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+
+    </div>
+      
+  </div>
+</div>
+
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+    </p>
+    <p>
+        &copy; Copyright 2021, Ujaval Gandhi.<br/>
+      최종 업데이트: 11월 28, 2023<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 7.0.1.<br/>
+    </p>
+  </div>
+</footer>
+<div class="container">
+  <p>This work is licensed under a <a href="http://creativecommons.org/licenses/by/4.0/deed.en_US">Creative Commons Attribution 4.0 International License</a></p>
+</div>
+<!-- Twitter Button -->
+<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+
+<!-- Disqus comments widget -->
+<script type="text/javascript">
+  /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+  var disqus_shortname = 'qgistutorials'; // required: replace example with your forum shortname
+  /* * * DON'T EDIT BELOW THIS LINE * * */
+  (function () {
+    var s = document.createElement('script'); s.async = true;
+    s.type = 'text/javascript';
+    s.src = '//' + disqus_shortname + '.disqus.com/count.js';
+    (document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);
+  }());
+</script>
+
+<script type="text/javascript">
+  /* * * DON'T EDIT BELOW THIS LINE * * */
+  (function() {
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+
+<!-- Script fpr language switching. Largely adapted from https://github.com/pcav/faunalia-website -->
+<script>
+    var currentPage = 'docs/3/landuse_buffer.html'; // coming from sphinx, always without starting '/'
+    var currentLang = 'en';
+    $(document).ready(function(){
+
+        var search = new RegExp('\/[a-zA-Z_]{2,8}\/'+ currentPage, 'gi');
+        var langPlusPage = window.location.href.match(search);
+        // it's possible this is a index.html page called without 'index.html', try without the currentPage
+        if (langPlusPage==undefined){
+            search = new RegExp('\/[a-zA-Z_]{2,8}\/$', 'gi');
+            langPlusPage = window.location.href.match(search);
+        }
+
+        // it's possible this is an index.html page called without 'index.html', try removing index.html
+        if (langPlusPage==undefined){
+            currentPage = currentPage.replace('index.html','')
+            search = new RegExp('\/[a-zA-Z_]{2,8}\/'+ currentPage, 'gi');
+            langPlusPage = window.location.href.match(search);
+        }
+        // still no langPlugPage: stop, because the language swicher will misbehave 
+
+        if (langPlusPage == undefined || langPlusPage.length != 1){
+            alert('You hit an error, please report back to us.');
+            return;
+        }
+        langPlusPage = langPlusPage[0];
+        currentLang = langPlusPage.replace(currentPage, '');
+
+        $("#languages").val(currentLang.replace(/\//g,'')); // currentLang is something like '/nl/'
+
+        $("#languages").change(function() {
+            gotoLang($(this).val());
+        });
+
+    });
+
+    // load current page in a different language
+    function gotoLang(lang){
+        var currentUrl = window.location.href;
+        var newUrl = currentUrl.replace(currentLang, '/'+lang+'/');
+        window.location.href = newUrl;
+    }
+</script>
+
+  </body>
+</html>
