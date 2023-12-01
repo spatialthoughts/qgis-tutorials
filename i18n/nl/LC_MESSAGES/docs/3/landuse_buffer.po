@@ -1,0 +1,539 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2021, Ujaval Gandhi
+# This file is distributed under the same license as the QGIS Tutorials and Tips package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# 
+# Translators:
+# DiGro, 2023
+# 
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: QGIS Tutorials and Tips v1\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2023-11-29 13:29+0530\n"
+"PO-Revision-Date: 2023-11-29 08:00+0000\n"
+"Last-Translator: DiGro, 2023\n"
+"Language-Team: Dutch (https://app.transifex.com/spatialthoughts/teams/7952/nl/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: nl\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: ../../source/docs/3/landuse_buffer.rst:2
+msgid "Determining Landuse Buffer Zones (QGIS3)"
+msgstr "Bufferzones voor landgebruik bepalen  (QGIS3)"
+
+#: ../../source/docs/3/landuse_buffer.rst:4
+msgid ""
+"In this tutorial you will work with landuse data for a city and determine "
+"buffer zones around a particular land parcel. Such analysis is required to "
+"establish a corridor of restrictions around noise pollution or heavy "
+"traffic."
+msgstr ""
+"In deze handleiding zult u werken met gegevens voor landgebruik van een stad"
+" en bufferzones bepalen rondom een bepaald perceel land. Dergelijke analyses"
+" zijn vereist om een corridor met beperkingen vast te leggen voor zware "
+"vervuiling of verkeerslawaai."
+
+#: ../../source/docs/3/landuse_buffer.rst:7
+msgid "Overview of the task"
+msgstr "Overzicht van de taak"
+
+#: ../../source/docs/3/landuse_buffer.rst:9
+msgid ""
+"We will start with a shapefile of land parcels for the City of San Francisco"
+" and use geoprocessing and spatial analysis techniques to determine a buffer"
+" of restricted area around all properties with institutional land use."
+msgstr ""
+"We zullen beginnen met een shapefile van percelen land voor de stad San "
+"Francisco en geoprocessing en technieken voor ruimtelijke analyses gebruiken"
+" om een buffer voor een gebied met voorwaarden te bepalen rondom alle "
+"eigendommen met institutioneel landgebruik."
+
+#: ../../source/docs/3/landuse_buffer.rst:12
+msgid "Other skills you will learn"
+msgstr "Andere vaardigheden die u zult leren"
+
+#: ../../source/docs/3/landuse_buffer.rst:13
+msgid "Creating rectangular buffers in QGIS"
+msgstr "Rechthoekige buffers maken in QGIS"
+
+#: ../../source/docs/3/landuse_buffer.rst:14
+msgid "Using a Spatial Index to speed up analysis"
+msgstr "Een ruimtelijke index gebruiken om analyse te versnellen"
+
+#: ../../source/docs/3/landuse_buffer.rst:17
+msgid "Get the data"
+msgstr "De gegevens ophalen"
+
+#: ../../source/docs/3/landuse_buffer.rst:19
+msgid ""
+"The data comes from City of San Francisco in form of parcels polygons with "
+"attribute indicating the Land use categories. You can find the data for the "
+"tutorial from DataSF Open Data Portal."
+msgstr ""
+"De gegevens komen van de stad San Francisco in de vorm van polygonen van "
+"percelen met een attribuut dat de categorieën voor landgebruik aangeeft. U "
+"vindt de gegevens voor deze handleiding in het DataSF Open Data Portal."
+
+#: ../../source/docs/3/landuse_buffer.rst:22
+msgid ""
+"Let's see the steps to download a polygon shapefile with land use categories"
+" for every parcel in San Francisco."
+msgstr ""
+"Laten we eens naar de stappen kijken om een polygoon shapefile, met  "
+"categorieën voor landgebruik voor elk perceel in San Francisco, te "
+"downloaden."
+
+#: ../../source/docs/3/landuse_buffer.rst:24
+msgid ""
+"Go to the data portal - https://datasf.org/opendata/. Search for the keyword"
+" ``Land use`` in the search bar."
+msgstr ""
+"Ga naar het portaal met de gegevens - https://datasf.org/opendata/. Zoek "
+"naar het sleutelwoord ``Land use`` in de zoekbalk."
+
+#: ../../source/docs/3/landuse_buffer.rst:30
+msgid "Click on the first search result to visualise and export the data."
+msgstr ""
+"Klik op het eerste zoekresultaat om de gegevens te visualiseren en te "
+"exporteren."
+
+#: ../../source/docs/3/landuse_buffer.rst:35
+msgid ""
+"You will see the data and attributes. Click :guilabel:`Export` to download "
+"the ``Land Use 2020`` data."
+msgstr ""
+"U zult de gegevens en de attributen zien. Klik op :guilabel:`Export` om de "
+"gegevens van ``Land Use 2020`` te downloaden."
+
+#: ../../source/docs/3/landuse_buffer.rst:40
+msgid ""
+"In the export options, click on :guilabel:`Shapefile` to download the "
+"polygon shapefile of the data."
+msgstr ""
+"Klik, in de opties voor exporteren, op :guilabel:`Shapefile` om de polygoon "
+"shapefile met de gegevens te downloaden."
+
+#: ../../source/docs/3/landuse_buffer.rst:45
+msgid ""
+"A zip-file of the landuse will be downloaded. Switch to the "
+":guilabel:`About` tab to read information about landuse categories and units"
+" which will be useful further in this tutorial."
+msgstr ""
+"Een zip-bestand van het landgebruik zal worden gedownload. Schakel naar de "
+"tab :guilabel:`About` om informatie te lezen over categorieën voor "
+"landgebruik en eenheden, wat nuttig zal zijn in het vervolg van deze "
+"handleiding."
+
+#: ../../source/docs/3/landuse_buffer.rst:50
+msgid ""
+"For convenience, you may directly download a copy of the shapefile below:"
+msgstr ""
+"Voor het gemak kunt u hieronder direct een kopie downloaden van de "
+"shapefile:"
+
+#: ../../source/docs/3/landuse_buffer.rst:52
+msgid "`land_use.shp <https://www.qgistutorials.com/downloads/land_use.zip>`_"
+msgstr ""
+"`land_use.shp <https://www.qgistutorials.com/downloads/land_use.zip>`_"
+
+#: ../../source/docs/3/landuse_buffer.rst:57
+msgid "Procedure"
+msgstr "Procedure"
+
+#: ../../source/docs/3/landuse_buffer.rst:59
+msgid ""
+"Open QGIS. Click :menuselection:`Open Data Source Manager` icon to add  the "
+"layer."
+msgstr ""
+"Open QGIS. Klik op het pictogram :menuselection:`Databronnen beheren openen`"
+" om de laag toe te voegen."
+
+#: ../../source/docs/3/landuse_buffer.rst:64
+msgid ""
+"Switch to :guilabel:`Vector` tab and navigate to the landuse shapefile. "
+"Click :guilabel:`Add`."
+msgstr ""
+"Schakel naar de tab :guilabel:`Vector` en navigeer naar de shapefile met het"
+" landgebruik. Klik op :guilabel:`Toevoegen`."
+
+#: ../../source/docs/3/landuse_buffer.rst:69
+msgid ""
+"Notice the CRS name at the bottom-right corner of QGIS. It indicates that "
+"the data is in geographic coordinate system ``OGC:CRS84``. Click on it."
+msgstr ""
+"Merk de naam voor het CRS op aan de rechteronderkant van QGIS. Het geeft aan"
+" dat de gegevens in het geografische coördinatensysteem ``OGC:CRS84`` zijn. "
+"Klik erop."
+
+#: ../../source/docs/3/landuse_buffer.rst:74
+msgid ""
+"The Project Coordinate Reference System (CRS) dialog will show the selected "
+"CRS is ``WGS 84 (CRS 84)``. Unit of measurement for this CRS is ``Degree``. "
+"All geoprocessing on this layer will be done in the native units of the CRS."
+" The unit degree is inappropriate for this analysis."
+msgstr ""
+"Het  dialoogvenster Project Coördinaten ReferentieSysteem (CRS) zal het "
+"geselecteerde CRS weergeven als ``WGS 84 (CRS 84)``. De maateenheid voor dat"
+" CRS is ``Degree``. Alle geoverwerking op deze laag zal worden gedaan in de "
+"eigen eenheden van het CRS. De eenheid degree is niet de juiste voor deze "
+"analyse."
+
+#: ../../source/docs/3/landuse_buffer.rst:79
+msgid ""
+"We will reproject the layer to the projected CRS suitable for the region - "
+"``NAD83 / California zone 3 (ftUS)``. This is ``EPSG:2227`` which uses NAD83"
+" datum with measurement units in feet.Go to :menuselection:`Vector --> Data "
+"Management Tools --> Reproject Layer`."
+msgstr ""
+"We zullen de laag opnieuw projecteren in het voor de regio geschikte "
+"geprojecteerde CRS - ``NAD83 / California zone 3 (ftUS)``. Dat is "
+"``EPSG:2227`` wat datum NAD83 gebruikt met maateenheden in feet. Ga naar "
+":menuselection:`Vector --> Datamanagement-gereedschap --> Laag opnieuw "
+"projecteren`."
+
+#: ../../source/docs/3/landuse_buffer.rst:84
+msgid ""
+"In the Reproject Layer dialog, select the loaded layer as :guilabel:`Input "
+"Layer`. Click on the icon beside the selector to choose the "
+":guilabel:`Target CRS`."
+msgstr ""
+"Selecteer, in het dialoogvenster Laag opnieuw projecteren, de geladen laag "
+"als :guilabel:`Invoerlaag`. Klik op het pictogram naast het selectievak om "
+"het :guilabel:`Doel-CRS` te selecteren."
+
+#: ../../source/docs/3/landuse_buffer.rst:89
+msgid ""
+"Search for ``EPSG:2227`` in the bar and select the ``NAD83 / California zone"
+" 3 (ftUS)`` CRS. click :guilabel:`Go back` to continue."
+msgstr ""
+"Zoek naar ``EPSG:2227`` in de balk en selecteer het CRS ``NAD83 / California"
+" zone 3 (ftUS)``. Klik op :guilabel:`Ga terug` om door te gaan."
+
+#: ../../source/docs/3/landuse_buffer.rst:94
+msgid ""
+"Save the :guilabel:`Reprojected` output. Expand the browsing options and "
+"select :guilabel:`Save to File`."
+msgstr ""
+"Sla de uitvoer :guilabel:`Opnieuw geprojecteerd` op. Vergroot de opties voor"
+" bladeren en selecteer :guilabel:`Opslaan als bestand`."
+
+#: ../../source/docs/3/landuse_buffer.rst:99
+msgid ""
+"Save the output shapefile in your chosen folder as ``LandUse2020.shp``. "
+"Check the :guilabel:`Open output file after running algorithm` option to add"
+" the reprojected layer to QGIS."
+msgstr ""
+"Sla de Shapefile met de uitvoer op in uw gekozen map als "
+"``LandUse2020.shp``. Selecteer de optie :guilabel:`Uitvoerbestand openen na "
+"uitvoeren van algoritme` om de opnieuw geprojecteerde laag toe te voegen aan"
+" QGIS."
+
+#: ../../source/docs/3/landuse_buffer.rst:104
+msgid ""
+"Remove the original layer with CRS WGS 84 from the QGIS. Select the layer "
+"and click on :guilabel:`Remove Layer` symbol."
+msgstr ""
+"Verwijder de originele laag met CRS WGS 84 uit QGIS. Selecteer de laag en "
+"klik op het symbool :guilabel:`Laag verwijderen`."
+
+#: ../../source/docs/3/landuse_buffer.rst:109
+msgid ""
+"We will continue the process with the reprojected layer. As we saw in the "
+":guilabel:`About` section of the downloaded shapefile in the data portal, "
+"The classification is as follows."
+msgstr ""
+"We zullen het proces voortzetten met de opnieuw geprojecteerde laag. Zoals "
+"we zagen, in het gedeelte :guilabel:`About` van het gedownloade Shapefile in"
+" het portaal met de gegevens, is de classificatie als volgt."
+
+#: ../../source/docs/3/landuse_buffer.rst:111
+msgid "**CIE** = Cultural, Institutional, Educational"
+msgstr "**CIE** = Cultureel, Institutioneel, Onderwijs"
+
+#: ../../source/docs/3/landuse_buffer.rst:112
+msgid "**MED** = Medical"
+msgstr "**MED** = Medisch"
+
+#: ../../source/docs/3/landuse_buffer.rst:113
+msgid "**MIPS** = Office (Management, Information, Professional Services)"
+msgstr "**MIPS** = Kantoren (Management, Informatie, Professionele services)"
+
+#: ../../source/docs/3/landuse_buffer.rst:114
+msgid "**MIXED** = Mixed Uses (Without Residential)"
+msgstr "**MIXED** = Gemixt gebruik (zonder bewoning)"
+
+#: ../../source/docs/3/landuse_buffer.rst:115
+msgid "**MIXRES** = Mixed Uses (With Residential)"
+msgstr "**MIXRES** = Gemixt gebruik (met bewoning)"
+
+#: ../../source/docs/3/landuse_buffer.rst:116
+msgid "**PDR** = Industrial (Production, Distribution, Repair)"
+msgstr "**PDR** = Industrieel (Productie, Distributie, Reparatie)"
+
+#: ../../source/docs/3/landuse_buffer.rst:117
+msgid "**RETAIL/ENT** = Retail, Entertainment"
+msgstr "**RETAIL/ENT** = Retail, Entertainment"
+
+#: ../../source/docs/3/landuse_buffer.rst:118
+msgid "**RESIDENT** = Residential"
+msgstr "**RESIDENT** = Bewoning"
+
+#: ../../source/docs/3/landuse_buffer.rst:119
+msgid "**VISITOR** = Hotels, Visitor Services"
+msgstr "**VISITOR** = Hotels, Services voor bezoekers"
+
+#: ../../source/docs/3/landuse_buffer.rst:120
+msgid "**VACANT** = Vacant"
+msgstr "**VACANT** = Vacant"
+
+#: ../../source/docs/3/landuse_buffer.rst:121
+msgid "**ROW** = Right-of-Way"
+msgstr "**ROW** = Voorrang"
+
+#: ../../source/docs/3/landuse_buffer.rst:122
+msgid "**OPENSPACE** = Open Space"
+msgstr "**OPENSPACE** = Open ruimte"
+
+#: ../../source/docs/3/landuse_buffer.rst:124
+msgid ""
+"For this tutorial, we are interested only in the Institutional land use. So "
+"we can query for the value **CIE** in the attribute table. Go to "
+":menuselection:`Processing --> Toolbox`."
+msgstr ""
+"Voor deze handleiding zijn we alleen geïnteresseerd in het landgebruik "
+"Institutioneel. We kunnen dus bevragen op de waarde **CIE** in de "
+"attributentabel. Ga naar :menuselection:`Processing --> Toolbox`."
+
+#: ../../source/docs/3/landuse_buffer.rst:129
+msgid ""
+"Search the :guilabel:`Select by Attribute` tool from the processing toolbox."
+" Double-click to open it."
+msgstr ""
+"Zoek naar het gereedschap :guilabel:`Op attribuut selecteren` in de Toolbox "
+"van Processing. Dubbelklik erop om het te openen."
+
+#: ../../source/docs/3/landuse_buffer.rst:134
+msgid ""
+"In the Select by Attribute dialog, set ``LandUse2020`` as the "
+":guilabel:`Input layer`. Select ``landuse`` as the :guilabel:`Selection "
+"attribute` and enter ``CIE`` as the :guilabel:`Value`. Click Run."
+msgstr ""
+"Stel, in het dialoogvenster Op attribuut selecteren, ``LandUse2020`` in als "
+"de :guilabel:`Invoerlaag`. Selecteer ``landuse`` als het "
+":guilabel:`Attribuut selecteren` en voer ``CIE`` in als de "
+":guilabel:`Waarde`. Klik op Uitvoeren."
+
+#: ../../source/docs/3/landuse_buffer.rst:139
+msgid ""
+"You will see the parcels matching our query will be highlighted in yellow. "
+"These are all parcels belonging to the institutional land use in the city."
+msgstr ""
+"U zult zien dat de percelen die voldoen aan aan onze query zijn "
+"geaccentueerd in geel. Dit zijn alle percelen die behoren bij institutioneel"
+" landgebruik in de stad."
+
+#: ../../source/docs/3/landuse_buffer.rst:144
+msgid ""
+"Now we can create a buffer around the selected parcels. Back in the main "
+"QGIS window, open Processing Toolbox. Search and locate the "
+":guilabel:`Buffer` tool. Double-click to open it."
+msgstr ""
+"Nu kunnen we een buffer maken rondom de geselecteerde percelen. Terug in het"
+" hoofdvenster van QGIS, open de Toolbox van Processing. Zoek en lokaliseer "
+"het gereedschap :guilabel:`Buffer`. Dubbelklik erop om het te openen."
+
+#: ../../source/docs/3/landuse_buffer.rst:149
+msgid ""
+"In the Buffer dialog, select LandUse2020 as the :guilabel:`Input layer`. "
+"Check the :guilabel:`Selected features only` box so the buffer will apply "
+"only to the selected institutional land use parcels. We will create a buffer"
+" zone of 100ft around each parcel. Enter 100 feet as the "
+":guilabel:`Distance`. The default buffers are of circular shape. Since we "
+"are dealing with parcel data, a rectangular buffer area is more appropriate "
+"where each edge of the parcel will be offset by the buffer distance. Select "
+"``Square`` as the :guilabel:`End cap style` and ``Miter`` as the "
+":guilabel:`Join style`. Click the browse button next to Buffered and select "
+":guilabel:`Save to File`."
+msgstr ""
+"Selecteer, in het dialoogvenster Buffer, LandUse2020 als de "
+":guilabel:`Invoerlaag`. Selecteer het vak :guilabel:`Alleen geselecteerde "
+"objecten` zodat de buffer alleen van toepassing zal zijn op de objecten van "
+"het geselecteerde institutionele landgebruik. We zullen een bufferzone maken"
+" van 100ft rondom elk perceel. Voer 100 voet in als de :guilabel:`Afstand`. "
+"De standaard buffers zijn rond van vorm. Omdat we bezig zijn met gegevens "
+"van percelen, is een rechthoekig buffergebied beter van toepassing, waarbij "
+"elke rand van het perceel zal worden verschoven met de bufferafstand. "
+"Selecteer ``Vierkant`` als de :guilabel:`Stijl eindkap` en ``Hoekig`` als de"
+" :guilabel:`Verbindingsstijl`. Klik op de knop Bladeren naast Gebufferd en "
+"selecteer :guilabel:`Opslaan als bestand`."
+
+#: ../../source/docs/3/landuse_buffer.rst:154
+msgid ""
+"Enter the output file name as ``buffer.shp`` and click OK. Click "
+":guilabel:`Run`."
+msgstr ""
+"Voer als naam voor de uitvoer ``buffer.shp`` in en klik op OK. Klik op "
+":guilabel:`Uitvoeren`."
+
+#: ../../source/docs/3/landuse_buffer.rst:159
+msgid ""
+"Once the processing finishes, a new layer buffer will be added to QGIS. "
+"These polygons represent the buffer zone of restrictions around the "
+"institutional land use."
+msgstr ""
+"Als de verwerking is voltooid zal een nieuwe laag zijn toegevoegd aan QGIS. "
+"Deze polygonen geven de bufferzone met beperkingen weer rondom het "
+"institutionele landgebruik."
+
+#: ../../source/docs/3/landuse_buffer.rst:165
+msgid ""
+"We now know which areas of the city fall under the restricted zone. It would"
+" be useful to identify all parcels which fall in this zone and add an "
+"attribute indicating that a restriction applies to that parcel. Let’s first "
+"add a column to the buffer polygons. Search for :menuselection:`Field "
+"Calculator` in the processing toolbox. Double-click to open."
+msgstr ""
+"We weten nu welke gebieden van de stad vallen in de zone met beperkingen. "
+"Het zou nuttig kunnen zijn om alle percelen te identificeren die in deze "
+"zone vallen en een attribuut toe te voegen dat een beperking toepast op dat "
+"perceel. Laten we eerst een kolom toevoegen aan de polygonen van de buffers."
+" Zoek naar :menuselection:`Veld calculator` in de Toolbox van Processing. "
+"Dubbelklik erop om het te openen."
+
+#: ../../source/docs/3/landuse_buffer.rst:170
+msgid ""
+"In the Field Calculator dialog, ensure buffer is selected as the "
+":guilabel:`Input layer`. We don’t need to save this layer, so leave the "
+"Output file field empty. Enter ``RESTRICTED`` as the result :guilabel:`Field"
+" Name`. Set the :guilabel:`Result field type` to ``String``. Type ``Yes`` as"
+" the :guilabel:`Expression`. Click OK."
+msgstr ""
+"Zorg er voor dat, in het dialoogvenster van Veld calculator, buffer is "
+"geselecteerd als de :guilabel:`Invoerlaag`. We hoeven deze laag niet op te "
+"slaan dus laten we het veld voor de uitvoer leeg. Voer ``RESTRICTED`` in als"
+" het resultaat :guilabel:`Veldnaam`. Stel het :guilabel:`Type resultaatveld`"
+" in op ``Tekst (string)``. Typ `` 'Ja' `` in als de :guilabel:`Expressie`. "
+"Klik op Uitvoeren."
+
+#: ../../source/docs/3/landuse_buffer.rst:175
+msgid ""
+"A new layer called Calculated will be added to QGIS. Open the Attribute "
+"Table and verify that a new column called RESTRICTED with value Yes exists "
+"in this layer."
+msgstr ""
+"Een nieuwe laag Berekend zal worden toegevoegd aan QGIS. Open de "
+"Attributentabel en verifieer dat er een nieuwe kolom, genaamd RESTRICTED, "
+"met de waarde Ja bestaat in deze laag."
+
+#: ../../source/docs/3/landuse_buffer.rst:180
+msgid ""
+"22. Next step is to do a Spatial Join to add this attribute to the original "
+"parcels layer based on which parcels intersect with the buffer zone. The "
+"``LandUse2020`` layer has more than 100,000 elements. We will add spatial "
+"indexing to the features to improve the performance and speedup the spatial "
+"join operation. Check out the course `Spatial Indexing "
+"<https://courses.spatialthoughts.com/advanced-qgis.html#concept-spatial-"
+"indexing>`_ section to understand more about this. Now, search and locate "
+"the :menuselection:`Create Spatial Index` tool from the Processing Toolbox "
+"and double-click to open."
+msgstr ""
+"22. De volgende stap is een ruimtelijke samenvoeging om dit attribuut toe te"
+" voegen aan de originele laag met percelen, gebaseerd op welke percelen "
+"kruisen met de bufferzone. De laag ``LandUse2020`` heeft meer dan 100.000 "
+"elementen. We zullen ene ruimtelijk index toevoegen aan de objecten om de "
+"uitvoering te verbeteren en de bewerking voor het ruimtelijk samenvoegen te "
+"versnellen. Bekijk het gedeelte van de cursus `Spatial Indexing "
+"<https://courses.spatialthoughts.com/advanced-qgis.html#concept-spatial-"
+"indexing>`_ om hier meer over te leren. Zoek en lokaliseer nu het "
+"gereedschap :menuselection:`Ruimtelijke index maken` uit de Toolbox van "
+"Processing en dubbelklik erop om het te openen."
+
+#: ../../source/docs/3/landuse_buffer.rst:187
+msgid ""
+"23.Select ``LandUse2020`` as :guilabel:`Input layer` and click "
+":guilabel:`Run`."
+msgstr ""
+"23. Selecteer ``LandUse2020`` als :guilabel:`Invoerlaag` en klik op "
+":guilabel:`Uitvoeren`."
+
+#: ../../source/docs/3/landuse_buffer.rst:192
+msgid ""
+"The spatial index is created for the layer. You can verify this by checking "
+"the property of the layer. Tight-click on the layer and click "
+":guilabel:`Properties`."
+msgstr ""
+"De ruimtelijke index is voor de laag gemaakt. U kunt dat verifiëren door de "
+"eigenschappen van de laag te controleren. Klik met rechts op de laag en klik"
+" op :guilabel:`Eigenschappen`."
+
+#: ../../source/docs/3/landuse_buffer.rst:197
+msgid ""
+"Switch to the :guilabel:`Source` tab and and look under the "
+":guilabel:`Geometry` section. It indicates that the spatial index exists."
+msgstr ""
+"Schakel naar de tab :guilabel:`Bron` en kijk in het gedeelte "
+":guilabel:`Geometrie`. Het geeft aan dat de ruimtelijke index bestaat."
+
+#: ../../source/docs/3/landuse_buffer.rst:202
+msgid ""
+"Now we can do the spatial join. Look for :menuselection:`Join attributes by "
+"location` tool in the processing toolbox. Double-click to open it."
+msgstr ""
+"Nu kunnen we ruimtelijk samenvoegen. Zoek naar het gereedschap "
+":menuselection:`Koppel attributen op basis van plaats` in de Toolbox van "
+"Processing. Dubbelklik erop om het te openen."
+
+#: ../../source/docs/3/landuse_buffer.rst:207
+msgid ""
+"We want to :guilabel:`Join to features in` the ``LandUse2020`` layer "
+":guilabel:`By comparing to` the ``Calculated`` layer. We want to join "
+"attributes features that intersect. Check the box for ``intersect``.  Click "
+"the browse button next to :guilabel:`Fields to add`."
+msgstr ""
+"We willen :guilabel:`Samenvoegen met objecten in` de laag ``LandUse2020`` "
+":guilabel:`In vergelijking met` de laag ``Berekend``. We willen attributen "
+"samenvoegen van objecten die elkaar kruisen. Selecteer het vak voor "
+"``kruisen met``. Klik op de knop Bladeren naast :guilabel:`Velden die moeten"
+" worden toegevoegd`."
+
+#: ../../source/docs/3/landuse_buffer.rst:212
+msgid "Select only the ``RESTRICTED`` field and click :guilabel:`OK`."
+msgstr "Selecteer alleen het veld ``RESTRICTED`` en klik op :guilabel:`OK`."
+
+#: ../../source/docs/3/landuse_buffer.rst:218
+msgid ""
+"For Join Type, select ``Take attribute of the first matching feature only``."
+" Next, click . . . next to Joined layer and select Save to File."
+msgstr ""
+"Selecteer, voor Verbindingsstijl, ``Alleen attributen gebruiken van eerste "
+"overeenkomende object``. Klik vervolgens op … naast Samengevoegde laag en "
+"selecteer Opslaan naar bestand."
+
+#: ../../source/docs/3/landuse_buffer.rst:223
+msgid ""
+"Enter the :guilabel:`Joined layer` name as ``LandUseWithRestrictions.shp`` "
+"and click :guilabel:`OK`. Click :guilabel:`Run`."
+msgstr ""
+"Voer in :guilabel:`Samengevoegde laag` als naam in "
+"``LandUseWithRestrictions.shp`` en klik op :guilabel:`OK`. Klik op "
+":guilabel:`Uitvoeren`."
+
+#: ../../source/docs/3/landuse_buffer.rst:228
+msgid ""
+"Once the processing finishes, you will get a new layer "
+"``LandUseWithRestrictions``. Open the attribute table and examine the "
+"``RESTRICTED`` column. The parcels that fall within 100ft of an "
+"institutional parcel now have the value ``Yes`` indicating a restriction "
+"applies to that parcel. Other parcels have a ``NULL`` value indicating no "
+"restriction."
+msgstr ""
+"Als de verwerking is voltooid zult u een nieuwe laag "
+"``LandUseWithRestrictions`` krijgen. Open de attributentabel en bekijk de "
+"kolom ``RESTRICTED``. De percelen die vallen binnen 100 voet van een "
+"institutioneel perceel hebben nu de waarde ``Ja``, wat aangeeft dat er een "
+"beperking geldt voor dat perceel. Andere percelen hebben een waarde "
+"``NULL``, die aangeeft dat er geen beperkingen zijn."

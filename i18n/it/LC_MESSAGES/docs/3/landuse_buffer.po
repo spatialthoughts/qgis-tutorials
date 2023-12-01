@@ -1,0 +1,390 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2021, Ujaval Gandhi
+# This file is distributed under the same license as the QGIS Tutorials and Tips package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# 
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: QGIS Tutorials and Tips v1\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2023-11-29 13:29+0530\n"
+"PO-Revision-Date: 2023-11-29 08:00+0000\n"
+"Language-Team: Italian (https://app.transifex.com/spatialthoughts/teams/7952/it/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: it\n"
+"Plural-Forms: nplurals=3; plural=n == 1 ? 0 : n != 0 && n % 1000000 == 0 ? 1 : 2;\n"
+
+#: ../../source/docs/3/landuse_buffer.rst:2
+msgid "Determining Landuse Buffer Zones (QGIS3)"
+msgstr ""
+
+#: ../../source/docs/3/landuse_buffer.rst:4
+msgid ""
+"In this tutorial you will work with landuse data for a city and determine "
+"buffer zones around a particular land parcel. Such analysis is required to "
+"establish a corridor of restrictions around noise pollution or heavy "
+"traffic."
+msgstr ""
+
+#: ../../source/docs/3/landuse_buffer.rst:7
+msgid "Overview of the task"
+msgstr ""
+
+#: ../../source/docs/3/landuse_buffer.rst:9
+msgid ""
+"We will start with a shapefile of land parcels for the City of San Francisco"
+" and use geoprocessing and spatial analysis techniques to determine a buffer"
+" of restricted area around all properties with institutional land use."
+msgstr ""
+
+#: ../../source/docs/3/landuse_buffer.rst:12
+msgid "Other skills you will learn"
+msgstr ""
+
+#: ../../source/docs/3/landuse_buffer.rst:13
+msgid "Creating rectangular buffers in QGIS"
+msgstr ""
+
+#: ../../source/docs/3/landuse_buffer.rst:14
+msgid "Using a Spatial Index to speed up analysis"
+msgstr ""
+
+#: ../../source/docs/3/landuse_buffer.rst:17
+msgid "Get the data"
+msgstr ""
+
+#: ../../source/docs/3/landuse_buffer.rst:19
+msgid ""
+"The data comes from City of San Francisco in form of parcels polygons with "
+"attribute indicating the Land use categories. You can find the data for the "
+"tutorial from DataSF Open Data Portal."
+msgstr ""
+
+#: ../../source/docs/3/landuse_buffer.rst:22
+msgid ""
+"Let's see the steps to download a polygon shapefile with land use categories"
+" for every parcel in San Francisco."
+msgstr ""
+
+#: ../../source/docs/3/landuse_buffer.rst:24
+msgid ""
+"Go to the data portal - https://datasf.org/opendata/. Search for the keyword"
+" ``Land use`` in the search bar."
+msgstr ""
+
+#: ../../source/docs/3/landuse_buffer.rst:30
+msgid "Click on the first search result to visualise and export the data."
+msgstr ""
+
+#: ../../source/docs/3/landuse_buffer.rst:35
+msgid ""
+"You will see the data and attributes. Click :guilabel:`Export` to download "
+"the ``Land Use 2020`` data."
+msgstr ""
+
+#: ../../source/docs/3/landuse_buffer.rst:40
+msgid ""
+"In the export options, click on :guilabel:`Shapefile` to download the "
+"polygon shapefile of the data."
+msgstr ""
+
+#: ../../source/docs/3/landuse_buffer.rst:45
+msgid ""
+"A zip-file of the landuse will be downloaded. Switch to the "
+":guilabel:`About` tab to read information about landuse categories and units"
+" which will be useful further in this tutorial."
+msgstr ""
+
+#: ../../source/docs/3/landuse_buffer.rst:50
+msgid ""
+"For convenience, you may directly download a copy of the shapefile below:"
+msgstr ""
+
+#: ../../source/docs/3/landuse_buffer.rst:52
+msgid "`land_use.shp <https://www.qgistutorials.com/downloads/land_use.zip>`_"
+msgstr ""
+
+#: ../../source/docs/3/landuse_buffer.rst:57
+msgid "Procedure"
+msgstr ""
+
+#: ../../source/docs/3/landuse_buffer.rst:59
+msgid ""
+"Open QGIS. Click :menuselection:`Open Data Source Manager` icon to add  the "
+"layer."
+msgstr ""
+
+#: ../../source/docs/3/landuse_buffer.rst:64
+msgid ""
+"Switch to :guilabel:`Vector` tab and navigate to the landuse shapefile. "
+"Click :guilabel:`Add`."
+msgstr ""
+
+#: ../../source/docs/3/landuse_buffer.rst:69
+msgid ""
+"Notice the CRS name at the bottom-right corner of QGIS. It indicates that "
+"the data is in geographic coordinate system ``OGC:CRS84``. Click on it."
+msgstr ""
+
+#: ../../source/docs/3/landuse_buffer.rst:74
+msgid ""
+"The Project Coordinate Reference System (CRS) dialog will show the selected "
+"CRS is ``WGS 84 (CRS 84)``. Unit of measurement for this CRS is ``Degree``. "
+"All geoprocessing on this layer will be done in the native units of the CRS."
+" The unit degree is inappropriate for this analysis."
+msgstr ""
+
+#: ../../source/docs/3/landuse_buffer.rst:79
+msgid ""
+"We will reproject the layer to the projected CRS suitable for the region - "
+"``NAD83 / California zone 3 (ftUS)``. This is ``EPSG:2227`` which uses NAD83"
+" datum with measurement units in feet.Go to :menuselection:`Vector --> Data "
+"Management Tools --> Reproject Layer`."
+msgstr ""
+
+#: ../../source/docs/3/landuse_buffer.rst:84
+msgid ""
+"In the Reproject Layer dialog, select the loaded layer as :guilabel:`Input "
+"Layer`. Click on the icon beside the selector to choose the "
+":guilabel:`Target CRS`."
+msgstr ""
+
+#: ../../source/docs/3/landuse_buffer.rst:89
+msgid ""
+"Search for ``EPSG:2227`` in the bar and select the ``NAD83 / California zone"
+" 3 (ftUS)`` CRS. click :guilabel:`Go back` to continue."
+msgstr ""
+
+#: ../../source/docs/3/landuse_buffer.rst:94
+msgid ""
+"Save the :guilabel:`Reprojected` output. Expand the browsing options and "
+"select :guilabel:`Save to File`."
+msgstr ""
+
+#: ../../source/docs/3/landuse_buffer.rst:99
+msgid ""
+"Save the output shapefile in your chosen folder as ``LandUse2020.shp``. "
+"Check the :guilabel:`Open output file after running algorithm` option to add"
+" the reprojected layer to QGIS."
+msgstr ""
+
+#: ../../source/docs/3/landuse_buffer.rst:104
+msgid ""
+"Remove the original layer with CRS WGS 84 from the QGIS. Select the layer "
+"and click on :guilabel:`Remove Layer` symbol."
+msgstr ""
+
+#: ../../source/docs/3/landuse_buffer.rst:109
+msgid ""
+"We will continue the process with the reprojected layer. As we saw in the "
+":guilabel:`About` section of the downloaded shapefile in the data portal, "
+"The classification is as follows."
+msgstr ""
+
+#: ../../source/docs/3/landuse_buffer.rst:111
+msgid "**CIE** = Cultural, Institutional, Educational"
+msgstr ""
+
+#: ../../source/docs/3/landuse_buffer.rst:112
+msgid "**MED** = Medical"
+msgstr ""
+
+#: ../../source/docs/3/landuse_buffer.rst:113
+msgid "**MIPS** = Office (Management, Information, Professional Services)"
+msgstr ""
+
+#: ../../source/docs/3/landuse_buffer.rst:114
+msgid "**MIXED** = Mixed Uses (Without Residential)"
+msgstr ""
+
+#: ../../source/docs/3/landuse_buffer.rst:115
+msgid "**MIXRES** = Mixed Uses (With Residential)"
+msgstr ""
+
+#: ../../source/docs/3/landuse_buffer.rst:116
+msgid "**PDR** = Industrial (Production, Distribution, Repair)"
+msgstr ""
+
+#: ../../source/docs/3/landuse_buffer.rst:117
+msgid "**RETAIL/ENT** = Retail, Entertainment"
+msgstr ""
+
+#: ../../source/docs/3/landuse_buffer.rst:118
+msgid "**RESIDENT** = Residential"
+msgstr ""
+
+#: ../../source/docs/3/landuse_buffer.rst:119
+msgid "**VISITOR** = Hotels, Visitor Services"
+msgstr ""
+
+#: ../../source/docs/3/landuse_buffer.rst:120
+msgid "**VACANT** = Vacant"
+msgstr ""
+
+#: ../../source/docs/3/landuse_buffer.rst:121
+msgid "**ROW** = Right-of-Way"
+msgstr ""
+
+#: ../../source/docs/3/landuse_buffer.rst:122
+msgid "**OPENSPACE** = Open Space"
+msgstr ""
+
+#: ../../source/docs/3/landuse_buffer.rst:124
+msgid ""
+"For this tutorial, we are interested only in the Institutional land use. So "
+"we can query for the value **CIE** in the attribute table. Go to "
+":menuselection:`Processing --> Toolbox`."
+msgstr ""
+
+#: ../../source/docs/3/landuse_buffer.rst:129
+msgid ""
+"Search the :guilabel:`Select by Attribute` tool from the processing toolbox."
+" Double-click to open it."
+msgstr ""
+
+#: ../../source/docs/3/landuse_buffer.rst:134
+msgid ""
+"In the Select by Attribute dialog, set ``LandUse2020`` as the "
+":guilabel:`Input layer`. Select ``landuse`` as the :guilabel:`Selection "
+"attribute` and enter ``CIE`` as the :guilabel:`Value`. Click Run."
+msgstr ""
+
+#: ../../source/docs/3/landuse_buffer.rst:139
+msgid ""
+"You will see the parcels matching our query will be highlighted in yellow. "
+"These are all parcels belonging to the institutional land use in the city."
+msgstr ""
+
+#: ../../source/docs/3/landuse_buffer.rst:144
+msgid ""
+"Now we can create a buffer around the selected parcels. Back in the main "
+"QGIS window, open Processing Toolbox. Search and locate the "
+":guilabel:`Buffer` tool. Double-click to open it."
+msgstr ""
+
+#: ../../source/docs/3/landuse_buffer.rst:149
+msgid ""
+"In the Buffer dialog, select LandUse2020 as the :guilabel:`Input layer`. "
+"Check the :guilabel:`Selected features only` box so the buffer will apply "
+"only to the selected institutional land use parcels. We will create a buffer"
+" zone of 100ft around each parcel. Enter 100 feet as the "
+":guilabel:`Distance`. The default buffers are of circular shape. Since we "
+"are dealing with parcel data, a rectangular buffer area is more appropriate "
+"where each edge of the parcel will be offset by the buffer distance. Select "
+"``Square`` as the :guilabel:`End cap style` and ``Miter`` as the "
+":guilabel:`Join style`. Click the browse button next to Buffered and select "
+":guilabel:`Save to File`."
+msgstr ""
+
+#: ../../source/docs/3/landuse_buffer.rst:154
+msgid ""
+"Enter the output file name as ``buffer.shp`` and click OK. Click "
+":guilabel:`Run`."
+msgstr ""
+
+#: ../../source/docs/3/landuse_buffer.rst:159
+msgid ""
+"Once the processing finishes, a new layer buffer will be added to QGIS. "
+"These polygons represent the buffer zone of restrictions around the "
+"institutional land use."
+msgstr ""
+
+#: ../../source/docs/3/landuse_buffer.rst:165
+msgid ""
+"We now know which areas of the city fall under the restricted zone. It would"
+" be useful to identify all parcels which fall in this zone and add an "
+"attribute indicating that a restriction applies to that parcel. Let’s first "
+"add a column to the buffer polygons. Search for :menuselection:`Field "
+"Calculator` in the processing toolbox. Double-click to open."
+msgstr ""
+
+#: ../../source/docs/3/landuse_buffer.rst:170
+msgid ""
+"In the Field Calculator dialog, ensure buffer is selected as the "
+":guilabel:`Input layer`. We don’t need to save this layer, so leave the "
+"Output file field empty. Enter ``RESTRICTED`` as the result :guilabel:`Field"
+" Name`. Set the :guilabel:`Result field type` to ``String``. Type ``Yes`` as"
+" the :guilabel:`Expression`. Click OK."
+msgstr ""
+
+#: ../../source/docs/3/landuse_buffer.rst:175
+msgid ""
+"A new layer called Calculated will be added to QGIS. Open the Attribute "
+"Table and verify that a new column called RESTRICTED with value Yes exists "
+"in this layer."
+msgstr ""
+
+#: ../../source/docs/3/landuse_buffer.rst:180
+msgid ""
+"22. Next step is to do a Spatial Join to add this attribute to the original "
+"parcels layer based on which parcels intersect with the buffer zone. The "
+"``LandUse2020`` layer has more than 100,000 elements. We will add spatial "
+"indexing to the features to improve the performance and speedup the spatial "
+"join operation. Check out the course `Spatial Indexing "
+"<https://courses.spatialthoughts.com/advanced-qgis.html#concept-spatial-"
+"indexing>`_ section to understand more about this. Now, search and locate "
+"the :menuselection:`Create Spatial Index` tool from the Processing Toolbox "
+"and double-click to open."
+msgstr ""
+
+#: ../../source/docs/3/landuse_buffer.rst:187
+msgid ""
+"23.Select ``LandUse2020`` as :guilabel:`Input layer` and click "
+":guilabel:`Run`."
+msgstr ""
+
+#: ../../source/docs/3/landuse_buffer.rst:192
+msgid ""
+"The spatial index is created for the layer. You can verify this by checking "
+"the property of the layer. Tight-click on the layer and click "
+":guilabel:`Properties`."
+msgstr ""
+
+#: ../../source/docs/3/landuse_buffer.rst:197
+msgid ""
+"Switch to the :guilabel:`Source` tab and and look under the "
+":guilabel:`Geometry` section. It indicates that the spatial index exists."
+msgstr ""
+
+#: ../../source/docs/3/landuse_buffer.rst:202
+msgid ""
+"Now we can do the spatial join. Look for :menuselection:`Join attributes by "
+"location` tool in the processing toolbox. Double-click to open it."
+msgstr ""
+
+#: ../../source/docs/3/landuse_buffer.rst:207
+msgid ""
+"We want to :guilabel:`Join to features in` the ``LandUse2020`` layer "
+":guilabel:`By comparing to` the ``Calculated`` layer. We want to join "
+"attributes features that intersect. Check the box for ``intersect``.  Click "
+"the browse button next to :guilabel:`Fields to add`."
+msgstr ""
+
+#: ../../source/docs/3/landuse_buffer.rst:212
+msgid "Select only the ``RESTRICTED`` field and click :guilabel:`OK`."
+msgstr ""
+
+#: ../../source/docs/3/landuse_buffer.rst:218
+msgid ""
+"For Join Type, select ``Take attribute of the first matching feature only``."
+" Next, click . . . next to Joined layer and select Save to File."
+msgstr ""
+
+#: ../../source/docs/3/landuse_buffer.rst:223
+msgid ""
+"Enter the :guilabel:`Joined layer` name as ``LandUseWithRestrictions.shp`` "
+"and click :guilabel:`OK`. Click :guilabel:`Run`."
+msgstr ""
+
+#: ../../source/docs/3/landuse_buffer.rst:228
+msgid ""
+"Once the processing finishes, you will get a new layer "
+"``LandUseWithRestrictions``. Open the attribute table and examine the "
+"``RESTRICTED`` column. The parcels that fall within 100ft of an "
+"institutional parcel now have the value ``Yes`` indicating a restriction "
+"applies to that parcel. Other parcels have a ``NULL`` value indicating no "
+"restriction."
+msgstr ""
