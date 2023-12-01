@@ -86,7 +86,7 @@ Procedure
    .. image:: /static/3/landuse_buffer/images/6.png
       :align: center
 	  
-7. Search for ``EPSG:2227`` in the bar and select the ``NAD83 / California zone 3 (ftUS)`` CRS. click :guilabel:`Go back` to continue. 
+7. Search for ``EPSG:2227`` in the bar and select the ``NAD83 / California zone 3 (ftUS)`` CRS. Click :guilabel:`Go back` to continue. 
 
     .. image:: /static/3/landuse_buffer/images/7.png
        :align: center
@@ -106,7 +106,7 @@ Procedure
     .. image:: /static/3/landuse_buffer/images/10.png
        :align: center
 
-11. We will continue the process with the reprojected layer. As we saw in the :guilabel:`About` section of the downloaded shapefile in the data portal, The classification is as follows.
+11. We will continue the process with the reprojected layer. As we saw in the :guilabel:`About` section of the downloaded shapefile in the data portal, the classification is as follows.
 
 	•	**CIE** = Cultural, Institutional, Educational
 	•	**MED** = Medical
@@ -167,7 +167,7 @@ For this tutorial, we are interested only in the Institutional land use. So we c
    .. image:: /static/3/landuse_buffer/images/19.png
       :align: center
 	  
-20. In the Field Calculator dialog, ensure buffer is selected as the :guilabel:`Input layer`. We don’t need to save this layer, so leave the Output file field empty. Enter ``RESTRICTED`` as the result :guilabel:`Field Name`. Set the :guilabel:`Result field type` to ``String``. Type ``Yes`` as the :guilabel:`Expression`. Click OK.
+20. In the Field Calculator dialog, ensure buffer is selected as the :guilabel:`Input layer`. We don’t need to save this layer, so leave the Output file field empty. Enter ``RESTRICTED`` as the result :guilabel:`Field Name`. Set the :guilabel:`Result field type` to ``String``. Type ``Yes`` as the :guilabel:`Expression`. Click Run.
 
    .. image:: /static/3/landuse_buffer/images/20.png
       :align: center
@@ -184,12 +184,12 @@ Now, search and locate the :menuselection:`Create Spatial Index` tool from the P
     .. image:: /static/3/landuse_buffer/images/22.png
        :align: center
 	   
-23.Select ``LandUse2020`` as :guilabel:`Input layer` and click :guilabel:`Run`.
+23. Select ``LandUse2020`` as :guilabel:`Input layer` and click :guilabel:`Run`.
 	
     .. image:: /static/3/landuse_buffer/images/23.png
        :align: center
 
-24. The spatial index is created for the layer. You can verify this by checking the property of the layer. Tight-click on the layer and click :guilabel:`Properties`.
+24. The spatial index is created for the layer. You can verify this by checking the property of the layer. Right-click on the layer and click :guilabel:`Properties`.
 
     .. image:: /static/3/landuse_buffer/images/24.png
        :align: center
@@ -215,7 +215,7 @@ Now, search and locate the :menuselection:`Create Spatial Index` tool from the P
       :align: center
 	  
 
-29. For Join Type, select ``Take attribute of the first matching feature only``. Next, click . . . next to Joined layer and select Save to File.
+29. For Join Type, select ``Take attribute of the first matching feature only``. Next, click … next to Joined layer and select Save to File.
 	
    .. image:: /static/3/landuse_buffer/images/29.png
       :align: center
