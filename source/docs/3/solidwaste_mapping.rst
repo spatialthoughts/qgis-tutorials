@@ -247,5 +247,5 @@ Check the :guilabel:`Discard records which could not be joined` box. Save the :g
 	  
 25. Close the :guilabel:`Layer styling` panel. The visualization is ready. You learnt how to turn a data in a table to a visually informative and attractive map.
 
-   .. image:: /static/3/solidwaste_mapping/images/24.png
+   .. image:: /static/3/solidwaste_mapping/images/25.png
       :align: center
