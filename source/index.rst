@@ -52,6 +52,7 @@ QGIS Tutorials and Tips
    - :doc:`docs/3/creating_landuse_map`
    - :doc:`docs/3/calculating_intersection_density`
    - :doc:`docs/3/landuse_buffer`
+   - :doc:`docs/3/solidwaste_mapping`
 
 * Python Scripting (PyQGIS)
    - :doc:`docs/3/getting_started_with_pyqgis`
@@ -120,6 +121,7 @@ What next? Hungry for more QGIS materials? Work through my full length QGIS cour
    docs/3/creating_landuse_map
    docs/3/calculating_intersection_density
    docs/3/landuse_buffer
+   docs/3/solidwaste_mapping
    docs/3/getting_started_with_pyqgis
    docs/3/processing_algorithms_pyqgis
    docs/3/custom_python_functions
