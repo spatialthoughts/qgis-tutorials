@@ -105,6 +105,7 @@
 <li class="toctree-l1"><a class="reference internal" href="3/creating_landuse_map.html">Creating a Landuse Map (QGIS3)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="3/calculating_intersection_density.html">Calculating Street Intersection Density (QGIS3)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="3/landuse_buffer.html">Determining Landuse Buffer Zones (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/solidwaste_mapping.html">Mapping Waste Disposal Volumes (QGIS3)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="3/getting_started_with_pyqgis.html">Getting Started With Python Programming (QGIS3)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="3/processing_algorithms_pyqgis.html">Running Processing Algorithms via Python (QGIS3)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="3/custom_python_functions.html">Using Custom Python Expression Functions (QGIS3)</a></li>
@@ -203,19 +204,19 @@ below:</p>
 <ol class="arabic simple">
 <li><p>Για αυτό το tutorial, θα χρησιμοποιήσουμε το επίπεδο OpenStreetMap ως το επίπεδο αναφοράς μας. Εγκαταστήστε το πρόσθετο OpenLayers από το <span class="menuselection">Plugins ‣ Manage and install plugins ‣ Get more</span>. Δείτε <a class="reference internal" href="using_plugins.html"><span class="doc">Χρησιμοποιώντας Πρόσθετες Λειτουργίες</span></a> για περισσότερες πληροφορίες σχετικά με τη χρήση των πρόσθετων στο QGIS.</p></li>
 </ol>
-<img alt="../_images/1152.png" class="align-center" src="../_images/1152.png" />
+<img alt="../_images/1154.png" class="align-center" src="../_images/1154.png" />
 <ol class="arabic simple" start="2">
 <li><p>Μόλις γίνει η εγκατάσταση, πηγαίνετε στο <span class="menuselection">Plugins ‣ OpenLayers plugin ‣ Add OpenStreetMap layer</span>. Αυτό θα προσθέσει ένα επίπεδο με προ-εγκατεστημένα πλακίδια από το <a class="reference external" href="http://www.openstreetmap.org/">OpenStreetMap data</a>.</p></li>
 </ol>
-<img alt="../_images/2126.png" class="align-center" src="../_images/2126.png" />
+<img alt="../_images/2128.png" class="align-center" src="../_images/2128.png" />
 <ol class="arabic simple" start="3">
 <li><p>Τώρα έχετε φορτωμένο στο QGIS το επίπεδο OpenStreetMap. Σημειώστε το Coordinate Reference System (CRS) για αυτό το επίπεδο. Είναι ρυθμισμένο ως EPSG 3857 Pseudo Mercator. Αυτό είναι σημαντικό να το σημειώσετε, μιας και οι συντεταγμένες που θα αντλήσουμε από αυτό το επίπεδο, θα είναι σε αυτό το CRS.</p></li>
 </ol>
-<img alt="../_images/364.png" class="align-center" src="../_images/364.png" />
+<img alt="../_images/365.png" class="align-center" src="../_images/365.png" />
 <ol class="arabic simple" start="4">
 <li><p>Τώρα, η εργασία είναι να εντοπίσουμε τη γενικότερη εγγύτητα της περιοχής, στην οποία προσπαθούμε να κάνουμε τη γεω-αναφορά. Μπορείτε απλά να χρησιμοποιήσετε τα εργαλεία Μετακίνηση και Μεγέθυνση, για να εντοπίσετε αυτήν την περιοχή στο OpenStreetMap επίπεδο. Αλλά, μπορούμε να εκμεταλλευτούμε αυτήν την ευκαιρία για να κάνουμε επίδειξη ενός άλλου εργαλείου, το οποίο μπορεί να σας χρησιμεύσει στο μέλλον. Γνωρίζουμε ότι η εικόνα που κατεβάσαμε είναι το Washington Square Park στην Νέα Υόρκη. Εάν αναζητήσετε αυτό το μέρος, θα μπορέσετε να εντοπίσετε την wikipedia ιστοσελίδα του. Οι συντεταγμένες για το πάρκο βρίσκονται εκεί πέρα.</p></li>
 </ol>
-<img alt="../_images/434.png" class="align-center" src="../_images/434.png" />
+<img alt="../_images/435.png" class="align-center" src="../_images/435.png" />
 <ol class="arabic simple" start="5">
 <li><p>Θα παρατηρήσετε ότι οι συντεταγμένες είναι σε Βαθμούς/Λεπτά/Δευτερόλεπτα και είναι σε Γεωγραφικό Πλάτος και Μήκος. Αλλά εφόσον το επίπεδο μας είναι σε Mercator προβολή, θα χρειαστούμε Mercator συντεταγμένες για να εντοπίσουμε το πάρκο. Εδώ είναι που το εργαλείο γραμμής εντολών <strong>cs2cs</strong> θα μας φανεί χρήσιμο. Εάν έχετε εγκαταστήσει το QGIS από το OSGeo4W installer, θα το έχετε ήδη εγκατεστημένο στο σύστημα σας. Σε Linux και Mac, έρχεται επίσης εγκατεστημένο με το QGIS. Ανοίξτε ένα τερματικό και πληκτρολογήστε <code class="docutils literal notranslate"><span class="pre">cs2cs</span></code> για να ελέγξετε αν είναι διαθέσιμο. Οι χρήστες των Windows μπορούν να βρουν τερματικό παράθυρο στο <span class="menuselection">Start ‣ OSGeo4W ‣ MSYS</span>.</p></li>
 </ol>
@@ -223,7 +224,7 @@ below:</p>
 <p class="admonition-title">Σημείωση</p>
 <p>MacOS users can locate the cs2cs tool at /Library/Frameworks/PROJ.Framework/Programs/cs2cs</p>
 </div>
-<img alt="../_images/533.png" class="align-center" src="../_images/533.png" />
+<img alt="../_images/534.png" class="align-center" src="../_images/534.png" />
 <ol class="arabic simple" start="6">
 <li><p>Μόλις βεβαιωθείτε ότι το εργαλείο cs2cs υπάρχει στο σύστημα σας, ήρθε η ώρα να μετατρέψουμε το Γεωγραφικό Πλάτος και Μήκος σε Mercator συντεταγμένες. Ο τρόπος με τον οποίο δουλεύει αυτό το εργαλείο, είναι ότι πρέπει να διευκρινίσετε ένα <span class="guilabel">source</span> και <span class="guilabel">destination</span> CRS. Ο CRS ορισμός μπορεί να είναι ένα <a class="reference external" href="http://trac.osgeo.org/proj/wiki/GenParms">PROJ4 string</a> ή ένα <a class="reference external" href="http://www.epsg-registry.org/">EPSG code</a>. Εφόσον ήδη γνωρίζουμε τον EPSG κωδικό για το εισαγόμενο και εξαγόμενο CRS, θα χρησιμοποιήσουμε αυτό. Ο πιο απλός τρόπος για να χρησιμοποιήσετε το εργαλείο, είναι να εισάγετε τις συντεταγμένες στην ίδια τη γραμμή εντολών. Σημειώστε ότι το εργαλείο δέχεται συντεταγμένες  με τη σειρά <cite>X Y</cite>, οπότε πρέπει να εισάγουμε <cite>Longitude Latitude</cite>. Εισάγετε την εντολή που ακολουθεί στο τερματικό και πατήστε Enter. Σημειώστε ότι πρέπει να αλλάξουμε τα εισαγωγικά (») με καθέτους (\). Μόλις πατήσετε enter, θα δείτε το εργαλείο να επεξεργάζεται τις συντεταγμένες και να εκτυπώνει τις X Y συντεταγμένες σε EPSG 3857 CRS.</p></li>
 </ol>
@@ -236,59 +237,59 @@ below:</p>
 <div class="highlight-none notranslate"><div class="highlight"><pre><span></span>echo -73d59&#39;51 40d43&#39;51 | cs2cs +init=EPSG:4326 +to +init=EPSG:3857
 </pre></div>
 </div>
-<img alt="../_images/632.png" class="align-center" src="../_images/632.png" />
+<img alt="../_images/633.png" class="align-center" src="../_images/633.png" />
 <ol class="arabic simple" start="7">
 <li><p>Αντιγράψτε τις συντεταγμένες και μεταφερθείτε στο QGIS. Κάτω στο παράθυρο στου QGIS, θα δείτε ένα πλαίσιο κειμένου που λέγεται Coordinates. Εισάγετε εκεί τις συντεταγμένες σε μορφή X,Y. Πατήστε Enter. Θα δείτε τον χάρτη να μετακινείτε λίγο, αλλά όχι να μεγεθύνετε. Για να μεγεθύνετε στην περιοχή, επιλέξτε κλίμακα 1:2500 από το πλαίσιο κειμένου Scale, βρίσκεται δίπλα στο Coordinates και πατήστε Enter.</p></li>
 </ol>
-<img alt="../_images/732.png" class="align-center" src="../_images/732.png" />
+<img alt="../_images/733.png" class="align-center" src="../_images/733.png" />
 <ol class="arabic simple" start="8">
 <li><p>Ορίστε! Τώρα βλέπετε το Washington Square Park στον καμβά σας. Τώρα ήρθε η ώρα να ξεκινήσετε τη γεω-αναφορά σας. Ανοίξτε το <strong>Georeferencer</strong> από το <span class="menuselection">Raster ‣ Georeferencer ‣ Georeferencer</span>. Εάν δε βλέπετε αυτό το αντικείμενο στο μενού, θα πρέπει να ενεργοποιήσετε το πρόσθετο <span class="guilabel">Georeferencer GDAL</span> από το <span class="menuselection">Plugins ‣ Manage and install Plugins ‣ Installed</span>.</p></li>
 </ol>
-<img alt="../_images/831.png" class="align-center" src="../_images/831.png" />
+<img alt="../_images/832.png" class="align-center" src="../_images/832.png" />
 <ol class="arabic simple" start="9">
 <li><p>Στο παράθυρο διαλόγου <span class="guilabel">Georeferencer</span>, πηγαίνετε στο <span class="menuselection">File ‣ Open raster</span>. Πλοηγηθείτε στο JPG αρχείο που κατεβάσατε και πατήστε <span class="guilabel">Open</span>.</p></li>
 </ol>
-<img alt="../_images/932.png" class="align-center" src="../_images/932.png" />
+<img alt="../_images/933.png" class="align-center" src="../_images/933.png" />
 <ol class="arabic simple" start="10">
 <li><p>Στο <span class="guilabel">Coordinate Reference System Selector</span>, επιλέξτε <span class="guilabel">EPSG:3857 Pseudo Mercator</span>.</p></li>
 </ol>
-<img alt="../_images/1039.png" class="align-center" src="../_images/1039.png" />
+<img alt="../_images/1040.png" class="align-center" src="../_images/1040.png" />
 <ol class="arabic simple" start="11">
 <li><p>Τώρα πατήστε το κουμπί <span class="guilabel">Add Point</span> στη γραμμή εργαλείων και επιλέξτε μια εύκολα αναγνωρίσιμη περιοχή στην εικόνα. Γωνίες, διασταυρώσεις, πόλοι κλπ. είναι καλά σημεία ελέγχου.</p></li>
 </ol>
-<img alt="../_images/1153.png" class="align-center" src="../_images/1153.png" />
+<img alt="../_images/1155.png" class="align-center" src="../_images/1155.png" />
 <ol class="arabic simple" start="12">
 <li><p>Μόλις κάνετε κλικ στην εικόνα, σε ένα σημείο ελέγχου, θα δείτε ένα αναδυόμενο παράθυρο που θα σας ζητά να εισάγετε συντεταγμένες ενός χάρτη. Πατήστε το κουμπί <span class="guilabel">From map canvas</span>.</p></li>
 </ol>
-<img alt="../_images/1242.png" class="align-center" src="../_images/1242.png" />
+<img alt="../_images/1243.png" class="align-center" src="../_images/1243.png" />
 <ol class="arabic simple" start="13">
 <li><p>Βρείτε την ίδια τοποθεσία στο επίπεδο αναφοράς σας π.χ. στο OpenStreetMap επίπεδο και πατήστε εκεί. Οι συντεταγμένες διανέμονται αυτόματα από το κλικ που κάνατε πάνω στον καμβά του χάρτη. Πατήστε Ok. Παρομοίως, επιλέξτε τουλάχιστον 4 σημεία στην εικόνα και προσθέστε τις συντεταγμένες τους από το επίπεδο αναφοράς.</p></li>
 </ol>
-<img alt="../_images/1340.png" class="align-center" src="../_images/1340.png" />
+<img alt="../_images/1341.png" class="align-center" src="../_images/1341.png" />
 <ol class="arabic simple" start="14">
 <li><p>Τώρα πηγαίνετε στο <span class="menuselection">Settings ‣ Transformation settings.</span></p></li>
 </ol>
-<img alt="../_images/1437.png" class="align-center" src="../_images/1437.png" />
+<img alt="../_images/1438.png" class="align-center" src="../_images/1438.png" />
 <ol class="arabic simple" start="15">
 <li><p>Επιλέξτε τις ρυθμίσεις όπως φαίνονται παρακάτω. Βεβαιωθείτε ότι είναι τσεκαρισμένο το κουτάκι guilabel:<cite>Load in QGIS when done</cite>. Πατήστε OK. Πίσω στο παράθυρο <span class="guilabel">Georeferencer</span>, πηγαίνετε στο <span class="menuselection">File ‣ Start georeferencing</span>. Αυτό θα ξεκινήσει τη διαδικασία της αναδίπλωσης της εικόνας με τη χρήση των GCPs και θα δημιουργήσει το πλέγμα στόχου.</p></li>
 </ol>
-<img alt="../_images/1534.png" class="align-center" src="../_images/1534.png" />
+<img alt="../_images/1535.png" class="align-center" src="../_images/1535.png" />
 <ol class="arabic simple" start="16">
 <li><p>Μόλις τελειώσει η διαδικασία, θα δείτε το επίπεδο στο οποίο έχει γίνει η γεω-αναφορά, να έχει φορτώσει στο QGIS. Αν όλα πήγαν καλά, θα το δείτε να βρίσκεται ωραία πάνω από το OpenStreetMap επίπεδο.</p></li>
 </ol>
-<img alt="../_images/1632.png" class="align-center" src="../_images/1632.png" />
+<img alt="../_images/1633.png" class="align-center" src="../_images/1633.png" />
 <ol class="arabic simple" start="17">
 <li><p>Για να κάνουμε το αποτέλεσμα μας να φαίνεται πιο ωραίο, ας αφαιρέσουμε τις ασπρόμαυρες, χωρίς δεδομένα, τιμές. Κάντε δεξί κλικ στο επίπεδο εικόνας και επιλέξτε <span class="guilabel">Properties</span>.</p></li>
 </ol>
-<img alt="../_images/1730.png" class="align-center" src="../_images/1730.png" />
+<img alt="../_images/1731.png" class="align-center" src="../_images/1731.png" />
 <ol class="arabic simple" start="18">
 <li><p>Αλλάξτε στην καρτέλα <span class="guilabel">Transparency</span>. Θέλουμε να υποδηλώσουμε ότι, οποιαδήποτε μαύρα ή άσπρα pixels στην εικόνα, είναι τιμές “χωρίς δεδομένα” και θα πρέπει να γίνουν διάφανα. Εισάγετε 0 ως <span class="guilabel">No data value</span>. Επίσης, στο <span class="guilabel">Custom transparency options</span>, πατήστε το <span class="guilabel">+</span> button and add 255 as the transparent pixels for each band and enter 100 as the :<span class="guilabel">Percent transparent</span>. Πατήστε <span class="guilabel">OK</span>.</p></li>
 </ol>
-<img alt="../_images/1827.png" class="align-center" src="../_images/1827.png" />
+<img alt="../_images/1828.png" class="align-center" src="../_images/1828.png" />
 <ol class="arabic simple" start="19">
 <li><p>Τώρα θα δείτε τη εικόνα στην οποία κάνατε γεω-αναφορά, να εμφανίζεται όμορφα πάνω στο επίπεδο βάσης.</p></li>
 </ol>
-<img alt="../_images/1921.png" class="align-center" src="../_images/1921.png" />
+<img alt="../_images/1922.png" class="align-center" src="../_images/1922.png" />
 </section>
 </section>
 
@@ -314,7 +315,7 @@ below:</p>
     </p>
     <p>
         &copy; Copyright 2021, Ujaval Gandhi.<br/>
-      Τελευταία ενημέρωση στις Δεκ 01, 2023.<br/>
+      Τελευταία ενημέρωση στις Δεκ 04, 2023.<br/>
       Created using <a href="http://sphinx-doc.org/">Sphinx</a> 7.0.1.<br/>
     </p>
   </div>

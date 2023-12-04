@@ -105,6 +105,7 @@
 <li class="toctree-l1"><a class="reference internal" href="3/creating_landuse_map.html">Creating a Landuse Map (QGIS3)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="3/calculating_intersection_density.html">Calculating Street Intersection Density (QGIS3)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="3/landuse_buffer.html">Determining Landuse Buffer Zones (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/solidwaste_mapping.html">Mapping Waste Disposal Volumes (QGIS3)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="3/getting_started_with_pyqgis.html">Python 程式設計的初步上手 (QGIS3)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="3/processing_algorithms_pyqgis.html">Running Processing Algorithms via Python (QGIS3)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="3/custom_python_functions.html">使用自訂的 Python 表達式函數 (QGIS3)</a></li>
@@ -203,19 +204,19 @@
 <ol class="arabic simple">
 <li><p>本教學會使用開放街圖來當作參考圖層。請到 <span class="menuselection">附加元件 ‣ 管理與安裝附加元件</span> 中安裝 OpenLayers Plugin。有關在 QGIS 中如何使用附加元件，可參考 <a class="reference internal" href="using_plugins.html"><span class="doc">使用附加元件</span></a>。</p></li>
 </ol>
-<img alt="../_images/1152.png" class="align-center" src="../_images/1152.png" />
+<img alt="../_images/1154.png" class="align-center" src="../_images/1154.png" />
 <ol class="arabic simple" start="2">
 <li><p>安裝後，就可選擇 <a href="#id1"><span class="problematic" id="id2">:menuselection:`附加元件（或網路） --&gt; OpenLayers plugin --&gt; Add OpenStreetMap layer`_</span></a>，如此一來 QGIS 會載入 <a class="reference external" href="http://www.openstreetmap.org/">OpenStreetMap</a>預先處理好的資料塊。</p></li>
 </ol>
-<img alt="../_images/2126.png" class="align-center" src="../_images/2126.png" />
+<img alt="../_images/2128.png" class="align-center" src="../_images/2128.png" />
 <ol class="arabic simple" start="3">
 <li><p>現在開放街圖的資料已經讀到 QGIS 中了。注意此圖層的座標參考系統 (CRS) 是 EPSG 3857 - 偽麥卡托投影（Pseudo Mercator），我們接下來在此圖層中使用的座標都會是這個 CRS，所以值得在此一提。</p></li>
 </ol>
-<img alt="../_images/364.png" class="align-center" src="../_images/364.png" />
+<img alt="../_images/365.png" class="align-center" src="../_images/365.png" />
 <ol class="arabic simple" start="4">
 <li><p>下一件事是尋找我們要進行空間對位的地區。開放街圖的圖層可以自由縮放尋找地點，不過這裏我們來用另外一種未來可能會有用的工具進行搜尋。我們知道剛剛下載的圖片是位在紐約的 Washington Square Park，如果你把這個地點丟到網路上搜尋，就可以在維基百科的頁面中找到此條目，內容還包括公園的座標。</p></li>
 </ol>
-<img alt="../_images/434.png" class="align-center" src="../_images/434.png" />
+<img alt="../_images/435.png" class="align-center" src="../_images/435.png" />
 <ol class="arabic simple" start="5">
 <li><p>你會發現這裡的座標是經緯度，以度/分/秒的方式顯現，但我們的圖層是麥卡托投影，需要把它轉換成麥卡托直角坐標才能定位。因此，我們要使用一個方便的指令叫做 <strong>cs2cs</strong> 來幫我們這個忙。一般來說，在 Windows 安裝 QGIS 時，應該會把一個稱為 OSGEO4W 的套件也一併安裝，而在 Linux 和 Mac 上亦然。在後兩個作業系統上，可以進入終端機，輸入 <code class="docutils literal notranslate"><span class="pre">cs2cs</span></code> 查看此程式是否存在，而 Windows 使用者可以去 <span class="menuselection">開始（所有程式） ‣ OSGeo4W ‣ MSYS</span> 啟動終端機（譯按：或是 <span class="menuselection">開始（所有程式） ‣ QGIS ‣ OSGeo4W Shell</span>。）</p></li>
 </ol>
@@ -223,7 +224,7 @@
 <p class="admonition-title">備註</p>
 <p>Mac 的使用者可以在此找到 cs2cs 工具:  /Library/Frameworks/PROJ.Framework/Programs/cs2cs</p>
 </div>
-<img alt="../_images/533.png" class="align-center" src="../_images/533.png" />
+<img alt="../_images/534.png" class="align-center" src="../_images/534.png" />
 <ol class="arabic simple" start="6">
 <li><p>確定 cs2cs 指令有安裝在系統中後，就可以著手來把經緯度座標轉換成麥卡托座標。使用這個工具時，必須要指定<span class="guilabel">初始</span>和<span class="guilabel">目標</span>的 CRS，指定的方法可以為 <a class="reference external" href="http://trac.osgeo.org/proj/wiki/GenParms">PROJ4 字串</a>或是 <a class="reference external" href="http://www.epsg-registry.org/">EPSG 代碼</a>。因為我們已經知道目標圖層的 CRS，所以直接使用後者即可。此指令最簡單的使用方法是直接在命令列中輸入座標，這個指令讀入座標的順序是 <cite>X Y</cite>，所以我們要輸入的是「<cite>經度 緯度</cite>」。輸入如下所示的指令並按下 Enter 鍵（指令中的反斜線 () 是雙引號 (」) 的逃脫字符。在某些終端機版本中，不用加上逃脫字符和字串前後的雙引號）。完成之後，可以看到螢幕上會顯示 EPSG 3857 座標系統的 X Y 座標。</p></li>
 </ol>
@@ -236,59 +237,59 @@
 <div class="highlight-none notranslate"><div class="highlight"><pre><span></span>echo -73d59&#39;51 40d43&#39;51 | cs2cs +init=EPSG:4326 +to +init=EPSG:3857
 </pre></div>
 </div>
-<img alt="../_images/632.png" class="align-center" src="../_images/632.png" />
+<img alt="../_images/633.png" class="align-center" src="../_images/633.png" />
 <ol class="arabic simple" start="7">
 <li><p>複製輸出的座標，然後在 QGIS 視窗最下端的坐標欄位中，把剛才複製的坐標貼上，記得格是要符合 X,Y 的樣子。按下 Enter 鍵之後，可以看到地圖有稍微平移但沒有放大，我們必須要自己調整右側的比例選單，例如調到 1:2500 後再按下 Enter（譯按：如果地圖空白一片，請試試 1:5000。）</p></li>
 </ol>
-<img alt="../_images/732.png" class="align-center" src="../_images/732.png" />
+<img alt="../_images/733.png" class="align-center" src="../_images/733.png" />
 <ol class="arabic simple" start="8">
 <li><p>太棒了，Washington Square Park 出現在畫面中了！總算可以開始來進行空間對位，請選擇 <span class="menuselection">影像 ‣ 空間對位 ‣ 空間對位</span>，如果你找不到此選項的話，要到 <span class="menuselection">附加元件 ‣ 管理與安裝附加元件 ‣ 已安裝</span> 的分頁中啟用 <span class="guilabel">空間對位 GDAL</span> 這個附加元件。</p></li>
 </ol>
-<img alt="../_images/831.png" class="align-center" src="../_images/831.png" />
+<img alt="../_images/832.png" class="align-center" src="../_images/832.png" />
 <ol class="arabic simple" start="9">
 <li><p>在 <span class="guilabel">空間對位</span> 視窗中選擇 <span class="menuselection">檔案 ‣ Open raster</span>，選擇剛下載的 JPG 檔，然後按 <span class="guilabel">開啟</span>。</p></li>
 </ol>
-<img alt="../_images/932.png" class="align-center" src="../_images/932.png" />
+<img alt="../_images/933.png" class="align-center" src="../_images/933.png" />
 <ol class="arabic simple" start="10">
 <li><p>在 <span class="guilabel">選擇座標參考系統</span> 視窗中，選擇 <span class="guilabel">EPSG:3857 Pseudo Mercator</span>。</p></li>
 </ol>
-<img alt="../_images/1039.png" class="align-center" src="../_images/1039.png" />
+<img alt="../_images/1040.png" class="align-center" src="../_images/1040.png" />
 <ol class="arabic simple" start="11">
 <li><p>接下來按下在工具列上的 <span class="guilabel">Add Point</span> 鈕，然後選擇幾個比較容易定位的特徵點，例如轉角、十字路口、雕像等等，這些點稍後要拿來當作控制點。</p></li>
 </ol>
-<img alt="../_images/1153.png" class="align-center" src="../_images/1153.png" />
+<img alt="../_images/1155.png" class="align-center" src="../_images/1155.png" />
 <ol class="arabic simple" start="12">
 <li><p>當你在圖上按下點位時，會有個視窗跳出來要求輸入地圖坐標。選擇 <span class="guilabel">從地圖畫面取得坐標</span>。</p></li>
 </ol>
-<img alt="../_images/1242.png" class="align-center" src="../_images/1242.png" />
+<img alt="../_images/1243.png" class="align-center" src="../_images/1243.png" />
 <ol class="arabic simple" start="13">
 <li><p>在我們用來當作參考圖層的開放街圖上找到相同的位置點一下，地圖上的坐標就會自動被使用為控制點坐標。使用同樣的方法選擇並記錄至少 4 個點位的坐標。</p></li>
 </ol>
-<img alt="../_images/1340.png" class="align-center" src="../_images/1340.png" />
+<img alt="../_images/1341.png" class="align-center" src="../_images/1341.png" />
 <ol class="arabic simple" start="14">
 <li><p>接下來選擇 <span class="menuselection">設定 ‣ Transformation settings</span>。</p></li>
 </ol>
-<img alt="../_images/1437.png" class="align-center" src="../_images/1437.png" />
+<img alt="../_images/1438.png" class="align-center" src="../_images/1438.png" />
 <ol class="arabic simple" start="15">
 <li><p>輸入如圖所示的參數設定，記得勾選回到 <span class="guilabel">處理完畢後載入 QGIS 中</span>。按下確定鈕回到 <span class="guilabel">空間對位</span> 的視窗中，點選 <span class="menuselection">檔案 ‣ Start georeferencing</span>，程式就會開始使用控制點轉換產生新影像。</p></li>
 </ol>
-<img alt="../_images/1534.png" class="align-center" src="../_images/1534.png" />
+<img alt="../_images/1535.png" class="align-center" src="../_images/1535.png" />
 <ol class="arabic simple" start="16">
 <li><p>處理程式結束後，已經過空間對位修正的圖層會被載入到 QGIS 中。沒意外的話，你會看到新影像與開放街圖的圖層疊合得相當不錯。</p></li>
 </ol>
-<img alt="../_images/1632.png" class="align-center" src="../_images/1632.png" />
+<img alt="../_images/1633.png" class="align-center" src="../_images/1633.png" />
 <ol class="arabic simple" start="17">
 <li><p>如要讓它看起來更順眼，得要移除掉影像周圍的黑色和白色無資料值。在這個圖層上按右鍵，選擇 <span class="guilabel">屬性</span>。</p></li>
 </ol>
-<img alt="../_images/1730.png" class="align-center" src="../_images/1730.png" />
+<img alt="../_images/1731.png" class="align-center" src="../_images/1731.png" />
 <ol class="arabic simple" start="18">
 <li><p>切到 <span class="guilabel">透明度</span> 分頁，我們要把黑色和白色的像素通通指定為<cite>無資料值</cite>，就可以讓他們都變透明。在 <span class="guilabel">附加無資料值</span> 中輸入 0，接著在下方的 <span class="guilabel">自訂透明度選項</span>中，按下 <span class="guilabel">+</span> 按鈕然後在每個波段中都輸入 255，<span class="guilabel">透明百分比</span>則輸入 100，最後按下 <span class="guilabel">確定</span>。</p></li>
 </ol>
-<img alt="../_images/1827.png" class="align-center" src="../_images/1827.png" />
+<img alt="../_images/1828.png" class="align-center" src="../_images/1828.png" />
 <ol class="arabic simple" start="19">
 <li><p>現在，影像看起來就很漂亮的疊在地圖上了。</p></li>
 </ol>
-<img alt="../_images/1921.png" class="align-center" src="../_images/1921.png" />
+<img alt="../_images/1922.png" class="align-center" src="../_images/1922.png" />
 </section>
 </section>
 
@@ -314,7 +315,7 @@
     </p>
     <p>
         &copy; Copyright 2021, Ujaval Gandhi.<br/>
-      最後更新於 12月 01, 2023。<br/>
+      最後更新於 12月 04, 2023。<br/>
       Created using <a href="http://sphinx-doc.org/">Sphinx</a> 7.0.1.<br/>
     </p>
   </div>

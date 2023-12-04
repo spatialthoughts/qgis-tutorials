@@ -105,6 +105,7 @@
 <li class="toctree-l1"><a class="reference internal" href="3/creating_landuse_map.html">Creating a Landuse Map (QGIS3)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="3/calculating_intersection_density.html">Calcular Densidad de Intersección de Calle (QGIS3)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="3/landuse_buffer.html">Determining Landuse Buffer Zones (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/solidwaste_mapping.html">Mapping Waste Disposal Volumes (QGIS3)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="3/getting_started_with_pyqgis.html">Iniciándote con la Programación Python (QGIS3)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="3/processing_algorithms_pyqgis.html">Ejecutar Algoritmos de Procesamiento vía Python (QGIS3)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="3/custom_python_functions.html">Usando Funciones de Expresión Python Personalizadas (QGIS3)</a></li>
@@ -197,19 +198,19 @@
 <ol class="arabic simple">
 <li><p>Abra QGIS y vaya a <span class="menuselection">Capas ‣ Agregar Vector ‣ Agregar Capa Vectorial</span>.</p></li>
 </ol>
-<img alt="../_images/1168.png" class="align-center" src="../_images/1168.png" />
+<img alt="../_images/1170.png" class="align-center" src="../_images/1170.png" />
 <ol class="arabic simple" start="2">
 <li><p>Navegue al archivo descargado <code class="docutils literal notranslate"><span class="pre">ne_10m_populated_places_simple.zip</span></code> y clic en <span class="guilabel">Abrir</span>.</p></li>
 </ol>
-<img alt="../_images/2138.png" class="align-center" src="../_images/2138.png" />
+<img alt="../_images/2140.png" class="align-center" src="../_images/2140.png" />
 <ol class="arabic simple" start="3">
 <li><p>Vaya a <span class="menuselection">Vista ‣ Seleccionar ‣ Seleccionar Por Expresiones…</span>.</p></li>
 </ol>
-<img alt="../_images/375.png" class="align-center" src="../_images/375.png" />
+<img alt="../_images/376.png" class="align-center" src="../_images/376.png" />
 <ol class="arabic simple" start="4">
 <li><p>Cambie a la pestaña <span class="guilabel">Editor de Funcción</span>. Aquí puede escribir cualquier código PyQGIS que será ejecutado por el motor de expresión.</p></li>
 </ol>
-<img alt="../_images/444.png" class="align-center" src="../_images/444.png" />
+<img alt="../_images/445.png" class="align-center" src="../_images/445.png" />
 <ol class="arabic simple" start="5">
 <li><p>Definiremos una función personalizada llamada <code class="docutils literal notranslate"><span class="pre">GetUtmZone</span></code> que calculará el número de zona UTM para cada entidad. Debido a que las funciones personalizadas en QGIS trabajan a nivel de entidad, usaremos el centroide de la geometría de la entidad y calcularemos la Zona UTM de la latitud y longitud de la geometría del centroide. También agregaremos la designación “N” o “S” a la zona para indicar si la zona está en el hemisferio  norte o sur. Escriba el código siguiente en el editor, ingrese el nombre del archivo como <code class="docutils literal notranslate"><span class="pre">utm_zones.py</span></code> y clic  <span class="guilabel">Guardar archivo</span>.</p></li>
 </ol>
@@ -236,53 +237,53 @@
     <span class="k">return</span> <span class="s1">&#39;</span><span class="si">%d%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">zone_number</span><span class="p">),</span> <span class="n">zone_letter</span><span class="p">)</span>
 </pre></div>
 </div>
-<img alt="../_images/542.png" class="align-center" src="../_images/542.png" />
+<img alt="../_images/543.png" class="align-center" src="../_images/543.png" />
 <ol class="arabic simple" start="6">
 <li><p>Clic <span class="guilabel">Ejecutar Script</span>. Esto ejecutará el código python y registrará la función <code class="docutils literal notranslate"><span class="pre">GetUtmZone</span></code> con el motor de expresión. Note que esto necesita hacerse sólo una vez. Una vez que la función está registrada, siempre estará disponible al motor de expresión.</p></li>
 </ol>
-<img alt="../_images/640.png" class="align-center" src="../_images/640.png" />
+<img alt="../_images/641.png" class="align-center" src="../_images/641.png" />
 <ol class="arabic simple" start="7">
 <li><p>Cambie a la pestaña <span class="guilabel">Expresión</span> en el diálogo <span class="guilabel">Seleccionar por expresión</span>. Encuentre y expanda el grupo <span class="guilabel">Personalizado</span> en la sección <span class="guilabel">Funcciones</span>. Notará una nueva función personalizada <code class="docutils literal notranslate"><span class="pre">$GetUtmZone</span></code> en la lista. Ahora podemos usar esta función en las expresiones justo como cualquier otra función. Escriba la siguiente expresión en el editor. Esta expresión seleccionará todos los puntos que caen en la Zona UTM <code class="docutils literal notranslate"><span class="pre">40N</span></code>. Clic <span class="guilabel">Seleccionar</span>.</p></li>
 </ol>
 <div class="highlight-none notranslate"><div class="highlight"><pre><span></span>$GetUtmZone = &#39;40N&#39;
 </pre></div>
 </div>
-<img alt="../_images/740.png" class="align-center" src="../_images/740.png" />
+<img alt="../_images/741.png" class="align-center" src="../_images/741.png" />
 <ol class="arabic simple" start="8">
 <li><p>De vuelta en la ventana principal QGIS, verá algunos puntos resaltados en amarillo. Estos son puntos que caen en la Zona UTM que especificamos en la expresión.</p></li>
 </ol>
-<img alt="../_images/839.png" class="align-center" src="../_images/839.png" />
+<img alt="../_images/840.png" class="align-center" src="../_images/840.png" />
 <ol class="arabic simple" start="9">
 <li><p>Usted vio como definimos y usamos una función para seleccionar entidades por expresión. Ahora usaremos la misma función en otro contexto. Una de las gemas escondidas en QGIS es la herramienta <code class="docutils literal notranslate"><span class="pre">Aviso</span> <span class="pre">de</span> <span class="pre">Mapa</span></code>. Esta herramienta muestra texto definido por el usuario cuando pasas por encima de una entidad. Clic-derecho en la capa <code class="docutils literal notranslate"><span class="pre">ne_10m_populated_places_simple</span></code> y seleccione <span class="guilabel">Propiedades</span>.</p></li>
 </ol>
-<img alt="../_images/940.png" class="align-center" src="../_images/940.png" />
+<img alt="../_images/941.png" class="align-center" src="../_images/941.png" />
 <ol class="arabic simple" start="10">
 <li><p>Cambie a la pestaña <span class="guilabel">Mostrar</span> y seleccione <span class="guilabel">HTML</span>. Aquí puede ingresar cualquier texto que será mostrado cuando pase por encima de las entidades de la capa. Aún mejor, puede usar los valores y expresiones de un campo de la capa para definir un mensaje mucho más útil. Clic sobre el botón <span class="guilabel">Insertar expresión…</span>.</p></li>
 </ol>
-<img alt="../_images/1047.png" class="align-center" src="../_images/1047.png" />
+<img alt="../_images/1048.png" class="align-center" src="../_images/1048.png" />
 <ol class="arabic simple" start="11">
 <li><p>Verá de nuevo el familiar editor de expresión. Usaremos la función <code class="docutils literal notranslate"><span class="pre">concat</span></code> para unir el valor del campo <code class="docutils literal notranslate"><span class="pre">name</span></code> y el resultado de nuestra función personalizada <code class="docutils literal notranslate"><span class="pre">$GetUtmZone</span></code>. Ingrese la siguiente expresión y clic <span class="guilabel">Aceptar</span>.</p></li>
 </ol>
 <div class="highlight-none notranslate"><div class="highlight"><pre><span></span>concat(&quot;name&quot;, &#39; | UTM Zone: &#39;, $GetUtmZone)
 </pre></div>
 </div>
-<img alt="../_images/1169.png" class="align-center" src="../_images/1169.png" />
+<img alt="../_images/1171.png" class="align-center" src="../_images/1171.png" />
 <ol class="arabic simple" start="12">
 <li><p>Verá la expresión entrada como el valor del texto <span class="guilabel">Mostrar</span>. Clic en <span class="guilabel">Aceptar</span>.</p></li>
 </ol>
-<img alt="../_images/1249.png" class="align-center" src="../_images/1249.png" />
+<img alt="../_images/1250.png" class="align-center" src="../_images/1250.png" />
 <ol class="arabic simple" start="13">
 <li><p>Antes de proceder, deseleccionemos las entidades que fueron seleccionadas en el paso previo. Vaya a <span class="menuselection">Vista ‣ Seleccionar ‣ Deseleccionar Entidades de Todas las Capas</span>.</p></li>
 </ol>
-<img alt="../_images/1347.png" class="align-center" src="../_images/1347.png" />
+<img alt="../_images/1348.png" class="align-center" src="../_images/1348.png" />
 <ol class="arabic simple" start="14">
 <li><p>Active la herramienta <code class="docutils literal notranslate"><span class="pre">Avisos</span> <span class="pre">de</span> <span class="pre">Mapa</span></code> yendo a <span class="menuselection">Vista ‣ Avisos de Mapa</span>.</p></li>
 </ol>
-<img alt="../_images/1444.png" class="align-center" src="../_images/1444.png" />
+<img alt="../_images/1445.png" class="align-center" src="../_images/1445.png" />
 <ol class="arabic simple" start="15">
 <li><p>Acérquese a cualquier área del mapa y ponga el cursor del ratón sobre cualquier entidad. Verá el nombre de la ciudad y la zona UTM correspondiente mostradas como el aviso del mapa.</p></li>
 </ol>
-<img alt="../_images/1541.png" class="align-center" src="../_images/1541.png" />
+<img alt="../_images/1542.png" class="align-center" src="../_images/1542.png" />
 </section>
 </section>
 
@@ -308,7 +309,7 @@
     </p>
     <p>
         &copy; Copyright 2021, Ujaval Gandhi.<br/>
-      Actualizado por última vez en dic 01, 2023.<br/>
+      Actualizado por última vez en dic 04, 2023.<br/>
       Created using <a href="http://sphinx-doc.org/">Sphinx</a> 7.0.1.<br/>
     </p>
   </div>

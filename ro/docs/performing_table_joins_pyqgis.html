@@ -105,6 +105,7 @@
 <li class="toctree-l1"><a class="reference internal" href="3/creating_landuse_map.html">Creating a Landuse Map (QGIS3)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="3/calculating_intersection_density.html">Calculating Street Intersection Density (QGIS3)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="3/landuse_buffer.html">Determining Landuse Buffer Zones (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/solidwaste_mapping.html">Mapping Waste Disposal Volumes (QGIS3)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="3/getting_started_with_pyqgis.html">Noțiuni de Bază Despre Programarea în Python (QGIS3)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="3/processing_algorithms_pyqgis.html">Running Processing Algorithms via Python (QGIS3)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="3/custom_python_functions.html">Utilizarea Funcțiilor în Expresiile Python Personalizate (QGIS3)</a></li>
@@ -210,7 +211,7 @@
 <span class="n">QgsMapLayerRegistry</span><span class="o">.</span><span class="n">instance</span><span class="p">()</span><span class="o">.</span><span class="n">addMapLayer</span><span class="p">(</span><span class="n">shp</span><span class="p">)</span>
 </pre></div>
 </div>
-<img alt="../_images/1195.png" class="align-center" src="../_images/1195.png" />
+<img alt="../_images/1197.png" class="align-center" src="../_images/1197.png" />
 <ol class="arabic simple" start="2">
 <li><p>Încărcați fișierul CSV. Atât timp cât fișierul CSV nu conține date spațiale, îl vom încărca sub forma unui tabel folosind furnizorul <code class="docutils literal notranslate"><span class="pre">delimitedtext</span></code>.</p></li>
 </ol>
@@ -219,7 +220,7 @@
 <span class="n">QgsMapLayerRegistry</span><span class="o">.</span><span class="n">instance</span><span class="p">()</span><span class="o">.</span><span class="n">addMapLayer</span><span class="p">(</span><span class="n">csv</span><span class="p">)</span>
 </pre></div>
 </div>
-<img alt="../_images/2158.png" class="align-center" src="../_images/2158.png" />
+<img alt="../_images/2160.png" class="align-center" src="../_images/2160.png" />
 <ol class="arabic simple" start="3">
 <li><p>Realizați uniunea tabelelor. Îmbinările tabelelor sunt efectuate folosindu-se obiectul <code class="docutils literal notranslate"><span class="pre">QgsVectorJoinInfo</span></code>. Avem nevoie de câmpul <code class="docutils literal notranslate"><span class="pre">GEO.id2</span></code> din stratul CSV ca și <span class="guilabel">câmp de îmbinare</span> și de câmpul <code class="docutils literal notranslate"><span class="pre">GEOID</span></code> din stratul fișierului shape ca și <span class="guilabel">Câmp Destinație</span>. O dată ce executați următorul cod, stratul fișierului shape va avea atributele suplimentare aduse din stratul csv.</p></li>
 </ol>
@@ -237,7 +238,7 @@
 <span class="n">shp</span><span class="o">.</span><span class="n">addJoin</span><span class="p">(</span><span class="n">joinObject</span><span class="p">)</span>
 </pre></div>
 </div>
-<img alt="../_images/394.png" class="align-center" src="../_images/394.png" />
+<img alt="../_images/395.png" class="align-center" src="../_images/395.png" />
 <ol class="arabic simple" start="4">
 <li><p>O modalitate mai ușoară - și preferată, de realizare a acestui lucru este prin intermediul Cadrului de Procesare. Puteți apela algoritmul <code class="docutils literal notranslate"><span class="pre">qgis:joinattributestable</span></code>, apoi să creați un strat îmbinat.</p></li>
 </ol>
@@ -251,7 +252,7 @@
 <span class="n">result</span> <span class="o">=</span> <span class="n">processing</span><span class="o">.</span><span class="n">runandload</span><span class="p">(</span><span class="s1">&#39;qgis:joinattributestable&#39;</span><span class="p">,</span> <span class="n">shp</span><span class="p">,</span> <span class="n">csv</span><span class="p">,</span> <span class="n">shpField</span><span class="p">,</span> <span class="n">csvField</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
 </pre></div>
 </div>
-<img alt="../_images/459.png" class="align-center" src="../_images/459.png" />
+<img alt="../_images/460.png" class="align-center" src="../_images/460.png" />
 <ol class="arabic simple" start="5">
 <li><p>Vom rămâne cu îmbinarea originală, folosind <code class="docutils literal notranslate"><span class="pre">QgsVectorJoinInfo</span></code> pentru restul tutorialului. Acum este timpul să aplicăm stratului îmbinat un stil gradat. Denumirea câmpului pentru populație, din stratul îmbinat, este <code class="docutils literal notranslate"><span class="pre">ca_tracts_pop_D001</span></code>. Vom aplica un render gradat folosind clasa <code class="docutils literal notranslate"><span class="pre">QgsGraduatedSymbolRendererV2</span></code> în modul <code class="docutils literal notranslate"><span class="pre">Quantile</span></code>. Parcurgeți <a class="reference internal" href="performing_table_joins.html"><span class="doc">Unificarea tabelelor</span></a> pentru culorile și intervalele de care avem nevoie în utilizare.</p></li>
 </ol>
@@ -307,11 +308,11 @@
 <span class="n">shp</span><span class="o">.</span><span class="n">setRendererV2</span><span class="p">(</span><span class="n">myRenderer</span><span class="p">)</span>
 </pre></div>
 </div>
-<img alt="../_images/557.png" class="align-center" src="../_images/557.png" />
+<img alt="../_images/558.png" class="align-center" src="../_images/558.png" />
 <ol class="arabic simple" start="6">
 <li><p>Tastarea codului în Consola Python este utilă pentru mici activități, dar este mult mai ușor de utilizat <span class="guilabel">Editorul</span> încorporat. Puteți copia întregul script în <span class="guilabel">Editor</span>, apoi să faceți clic pe <span class="guilabel">Run</span>. O dață ce script-ul se încheie, vom crea o îmbinare de tabel și vom stiliza stratul  rezultat fără pași manuali.</p></li>
 </ol>
-<img alt="../_images/655.png" class="align-center" src="../_images/655.png" />
+<img alt="../_images/656.png" class="align-center" src="../_images/656.png" />
 <p>Mai jos este fișierul <code class="docutils literal notranslate"><span class="pre">join_attributes.py</span></code> complet, pentru referință.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">PyQt4</span> <span class="kn">import</span> <span class="n">QtGui</span>
 <span class="n">zip_uri</span> <span class="o">=</span> <span class="s1">&#39;/vsizip/C:/Users/Ujaval/Downloads/tl_2013_06_tract.zip/tl_2013_06_tract.shp&#39;</span>
@@ -406,7 +407,7 @@
     </p>
     <p>
         &copy; Copyright 2021, Ujaval Gandhi.<br/>
-      Ultima actualizare la dec. 01, 2023.<br/>
+      Ultima actualizare la dec. 04, 2023.<br/>
       Created using <a href="http://sphinx-doc.org/">Sphinx</a> 7.0.1.<br/>
     </p>
   </div>
