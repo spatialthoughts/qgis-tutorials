@@ -11,7 +11,7 @@ You will learn how to take point data of landfills and create a proportional-sym
 Other skills you will learn
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^
 - Importing ArcGIS server data in QGIS using REST URL.
-- Vector layer styling
+- Importing tabular data from spreadsheets in QGIS.
 
 Get the data
 ------------
@@ -205,18 +205,17 @@ Check the :guilabel:`Discard records which could not be joined` box. Save the :g
    .. image:: /static/3/solidwaste_mapping/images/16.png
       :align: center
 	  
-17. Select ``Filled Marker`` as the :guilabel:`Symbol layer type`. We will now change the size of the symbol proportional to the amount of waste collected at the site. To do this, we must apply a Data-defined Override - which can apply a field value or expression to calculate the size for each feature. Click the :guilabel:`Date-defined Override` button next to :guilabel:`Size` and select :guilabel:`Edit`.
+17. Select ``Filled Marker`` as the :guilabel:`Symbol layer type`. We will now change the size of the symbol proportional to the amount of waste collected at the site. To do this, we must apply a Data-defined Override - which can apply a field value or expression to calculate the size for each feature. Click the :guilabel:`Date-defined Override` button next to :guilabel:`Size` and select :guilabel:`Assistant`.
 
    .. image:: /static/3/solidwaste_mapping/images/17.png
       :align: center
-	  
-18. Enter the follow expression. We are trying to scale the waste amount to a number will be the diameter of the circle on the map. Click :guilabel:`OK`.
-``"Sept2023" / 3``
+
+18. We want to size the filled symbols based on values of collected waste. Select ``Sept2023`` field as :guilabel:`Source`. Set values from ``5000`` to ``50000``. Now set the size of circle from ``1`` to ``25``. Click on the :guilabel:`Back` icon.   
 
    .. image:: /static/3/solidwaste_mapping/images/18.png
       :align: center
 	  
-19. Select the units as :guilabel:`Map Units` (which are in meters) from the drop-down. You will see the circles of different size for each point. The data-defined override button will turn yellow indicating that an override is applied for that value.
+19. You will see the circles of different size for each point. The sizes are in Milimeters unit. The data-defined override button will turn yellow indicating that an override is applied for that value. 
 
    .. image:: /static/3/solidwaste_mapping/images/19.png
       :align: center
