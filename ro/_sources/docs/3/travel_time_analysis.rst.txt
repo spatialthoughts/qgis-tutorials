@@ -1,6 +1,12 @@
 Travel Time Analysis with Uber Movement (QGIS3)
 ===============================================
 
+
+.. warning:: 
+
+  Uber Movement data has been discontinued [`view announcement <https://www.uber.com/in/en/business/movement-decommissioning/>`_]. You can still follow the tutorial using the archive data provided in the tutorial and learn the technique of travel time analysis using QGIS.
+   
+   
 `Uber Movement <https://movement.uber.com/>`_ shares anonymized and aggregated travel time data for many cities across the world. Uber Movement's *Travel Times* product is a public dataset measuring zone-to-zone travel across a city. These times are based on actual Uber rides and is an accurate representation of congestion and traffic patterns in the city. This is a large openly accessible dataset aggregated from millions of actual cab rides. This tutorial shows the techniques to work use such aggregated traffic datasets for doing travel time analysis in QGIS.
 
 Overview of the task

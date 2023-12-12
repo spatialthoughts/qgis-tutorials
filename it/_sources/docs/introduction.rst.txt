@@ -20,6 +20,7 @@ source code is open-source and avaiable on `GitHub <https://github.com/spatialth
 
 Contributors
 ^^^^^^^^^^^^
+- `Vigna Purohit <https://www.linkedin.com/in/vigna-purohit-666838150/>`_
 - `Santhosh M <https://www.linkedin.com/in/santhoshm31>`_ 
 - `Ian Turton <https://www.ianturton.com/>`_ 
 - `Rohit Sharma <https://www.linkedin.com/in/rohit-sharma-8b499ba6/>`_
@@ -31,23 +32,26 @@ The tutorials are also available in following langugages:
 
 - `Chinese (Taiwan) <https://www.qgistutorials.com/zh_TW/>`_ (Translation by: *Whyjay Zheng*)
 - `Dutch <https://www.qgistutorials.com/nl/>`_ (Translation by: *Dick Groskamp*)
-- `Finnish <https://www.qgistutorials.com/fi_FI/>`_ (Translation by: *Kari Salovaara*)
-- `French <https://www.qgistutorials.com/fr/>`_ (Translation by: *Sylvain Dorey*, *Allan Stockman*, *Delphine Petit*, *Alexis Athlani*, *Florian Texier*, *Quentin Paternoster*)
 - `German <https://www.qgistutorials.com/de/>`_ (Translation by: *Michael Gieding*)
-- `Greek <https://www.qgistutorials.com/el/>`_ (Translation by: *Christina Dimitriadou*, *Paliogiannis Konstantinos*, *Tom Karagkounis*, *Despoina Karfi*)
-- `Indonesian <https://www.qgistutorials.com/id/>`_ (Translation by: *Maruli Tua Manullang*, *Bakhtiar Arif*)
 - `Italian <https://www.qgistutorials.com/it/>`_ (Translation by: *Pino Nicolosi a.k.a Rattus*, *Francesco Pirotti*)
-- `Korean <https://www.qgistutorials.com/ko/>`_ (Translation by: *SongHyun Choi*, *Jung Eun Jang*, *Rosa Ahn*, *Haeseon Shin*)
 - `Persian <https://www.qgistutorials.com/fa/>`_ (Translation by: *Chooghi Bairam Komaki*)
-- `Portuguese (Brazil) <https://www.qgistutorials.com/pt_BR/>`_ (Translation by: *Narcélio de Sá*, *Wesley Kevin Souto do Vale*)
-- `Romanian <https://www.qgistutorials.com/ro/>`_ (Translation by: *Sorin Călinică*)
-- `Russian <https://www.qgistutorials.com/ru/>`_ (Translation by: *Marina Pavlova*, *Ilya Trofimov*, *Fayçal Fatihi*, *Константин Сергеевич*)
 - `Slovenian <https://www.qgistutorials.com/sl/>`_ (Translation by: *Krištof Oštir*, *Ana Potočnik Buhvald*)
 - `Spanish <https://www.qgistutorials.com/es/>`_ (Translation by: *Eric Armijo*, *Juan Carlos Méndez*, *Felipe Raimann*, *Antonio Mireles*)
-- `Thai <https://www.qgistutorials.com/th/>`_ (Translation by: *Phondanai Khanti*)
 - `Turkish <https://www.qgistutorials.com/tr/>`_ (Translation by: *Birkan*, *Tayfun Akçayır*, *Emrullah Karahasanoğlu*, *İnci Yalçın*)
-- `Ukrainian <https://www.qgistutorials.com/uk/>`_ (Translation by: *Igor Konovalov*)
-- `Vietnamese <https://www.qgistutorials.com/vi/>`_ (Translation by: *Hang Nguyen Thuy*)
+- `Korean <https://www.qgistutorials.com/ko/>`_ (Translation by: *SongHyun Choi*, *Jung Eun Jang*, *Rosa Ahn*, *Haeseon Shin*)
+- `Romanian <https://www.qgistutorials.com/ro/>`_ (Translation by: *Sorin Călinică*)
+
+Many other languages are partially translated and were previously available. Recently we had to remove certain language pages to make the site stay under the 5GB limit imposed by GitHub pages where this site is hosted. I am in the process of making the following languages also available through an alternative host soon.
+
+- Finnish (Translation by: *Kari Salovaara*)
+- French (Translation by: *Sylvain Dorey*, *Allan Stockman*, *Delphine Petit*, *Alexis Athlani*, *Florian Texier*, *Quentin Paternoster*)
+- Greek (Translation by: *Christina Dimitriadou*, *Paliogiannis Konstantinos*, *Tom Karagkounis*, *Despoina Karfi*)
+- Indonesian (Translation by: *Maruli Tua Manullang*, *Bakhtiar Arif*)
+- Portuguese (Brazil) (Translation by: *Narcélio de Sá*, *Wesley Kevin Souto do Vale*)
+- Russian (Translation by: *Marina Pavlova*, *Ilya Trofimov*, *Fayçal Fatihi*, *Константин Сергеевич*)
+- Thai (Translation by: *Phondanai Khanti*)
+- Ukrainian (Translation by: *Igor Konovalov*)
+- Vietnamese (Translation by: *Hang Nguyen Thuy*)
 
 If you would like to help translate these tutorials in your langugage, please
 `Join the team on Transifex
