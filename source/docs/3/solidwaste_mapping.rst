@@ -17,7 +17,7 @@ Get the data
 ------------
 
 You can find the data for the tutorial from Cape Town Open Data Portal - https://odp-cctegis.opendata.arcgis.com. 
-We will be importing data from the portal using ArcGIS Online REST service and will be preparing three layers mentioned below . 
+We will be importing data from the portal using ArcGIS Online REST service and will be preparing three layers mentioned below. 
 
 1) Wards: A polygon shapefile with ward boundaries of Cape Town. 
 2) Landfill Sites: A point shapefile with current, closed and proposed waste processing facilities in Cape Town. 
@@ -40,12 +40,12 @@ Let's see the step wise to prepare the dataset for this tutorial.
      .. image:: /static/3/solidwaste_mapping/images/db3.png
         :align: center
 	 
-4. On the ArcGIS REST Services Directory , Go to :guilabel:`Home` and copy the URL of that page. The copied looks like - https://citymaps.capetown.gov.za/agsext1/rest/services.
+4. On the ArcGIS REST Services Directory, go to :guilabel:`Home` and copy the URL of that page. The copied looks like - https://citymaps.capetown.gov.za/agsext1/rest/services.
 	
     .. image:: /static/3/solidwaste_mapping/images/db4.png
        :align: center
 	   
-5. Now, Open QGIS and go to :menuselection:`Open Data Source Manager`.
+5. Now, open QGIS and go to :menuselection:`Open Data Source Manager`.
 
     .. image:: /static/3/solidwaste_mapping/images/db5.png
        :align: center
@@ -55,12 +55,12 @@ Let's see the step wise to prepare the dataset for this tutorial.
     .. image:: /static/3/solidwaste_mapping/images/db6.png
        :align: center
 	   
-7. In the :guilabel:`Connection Details`, give the :guilabel:`Name` ``Cape Town Open Data Portal`` and paste the copied url as an input for  for :guilabel:`URL`.
+7. In the :guilabel:`Connection Details`, give the :guilabel:`Name` ``Cape Town Open Data Portal`` and paste the copied url as an input for :guilabel:`URL`.
 
     .. image:: /static/3/solidwaste_mapping/images/db7.png 
        :align: center
 	   
-8. Click :guilabel:`Ok` and then :guilabel:`Connect` to see the data folders available in the server. 
+8. Click :guilabel:`OK` and then :guilabel:`Connect` to see the data folders available in the server. 
 
     .. image:: /static/3/solidwaste_mapping/images/db8.png 
        :align: center
@@ -80,7 +80,7 @@ Let's see the step wise to prepare the dataset for this tutorial.
     .. image:: /static/3/solidwaste_mapping/images/db11.png 
        :align: center
 	   
-12. The file named ``Waste Disposal September 2023.ods`` will be downloaded after clicking on the link. Open the file. The file contains 4 sheets out of which we will be using ``Disposal_per_Site`` data for the tutorial.
+12. The file named ``Waste Disposal September 2023.ods`` will be downloaded after clicking on the link. Open the file. The file contains 3 sheets out of which we will be using ``Disposal_per_Site`` data for the tutorial.
 
     .. image:: /static/3/solidwaste_mapping/images/db12.png 
        :align: center
@@ -205,7 +205,7 @@ Check the :guilabel:`Discard records which could not be joined` box. Save the :g
    .. image:: /static/3/solidwaste_mapping/images/16.png
       :align: center
 	  
-17. Select ``Filled Marker`` as the :guilabel:`Symbol layer type`. We will now change the size of the symbol proportional to the amount of waste collected at the site. To do this, we must apply a Data-defined Override - which can apply a field value or expression to calculate the size for each feature. Click the :guilabel:`Date-defined Override` button next to :guilabel:`Size` and select :guilabel:`Assistant`.
+17. Select ``Filled Marker`` as the :guilabel:`Symbol layer type`. We will now change the size of the symbol proportional to the amount of waste collected at the site. To do this, we must apply a Data-defined Override - which can apply a field value or expression to calculate the size for each feature. Click the :guilabel:`Data-defined Override` button next to :guilabel:`Size` and select :guilabel:`Assistant`.
 
    .. image:: /static/3/solidwaste_mapping/images/17.png
       :align: center
@@ -215,7 +215,7 @@ Check the :guilabel:`Discard records which could not be joined` box. Save the :g
    .. image:: /static/3/solidwaste_mapping/images/18.png
       :align: center
 	  
-19. You will see the circles of different size for each point. The sizes are in Milimeters unit. The data-defined override button will turn yellow indicating that an override is applied for that value. 
+19. You will see the circles of different size for each point. The sizes are in Millimeters unit. The data-defined override button will turn yellow indicating that an override is applied for that value. 
 
    .. image:: /static/3/solidwaste_mapping/images/19.png
       :align: center
@@ -235,7 +235,7 @@ Check the :guilabel:`Discard records which could not be joined` box. Save the :g
    .. image:: /static/3/solidwaste_mapping/images/22.png
       :align: center
 	  
-23. The map looks pretty good now, but the reader needs to know what values these symbols represent. It will be good to have an interpretable legend. Click :guilabel:`Back` button till you are back in the main Layer Styling dialog. Select :guilabel:`Marker` and click on the :guilabel:`Advanced` button at the bottom. Select :guilabel:`Date-defined Size Legend`.
+23. The map looks pretty good now, but the reader needs to know what values these symbols represent. It will be good to have an interpretable legend. Click :guilabel:`Back` button till you are back in the main Layer Styling dialog. Select :guilabel:`Marker` and click on the :guilabel:`Advanced` button at the bottom. Select :guilabel:`Data-defined Size Legend`.
 
    .. image:: /static/3/solidwaste_mapping/images/23.png
       :align: center
