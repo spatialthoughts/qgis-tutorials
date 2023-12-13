@@ -50,6 +50,7 @@ Procedure
 ---------
 
 1. Locate the ``Community_Based_Service_Providers.zip`` file, expand it and add ``Community_Based_Service_Providers.shp`` to the canvas. We will select only those centres providing facilities to adults. Right-click on the ``Community_Based_Service_Providers.shp`` layer and select :guilabel:`Filter`. 
+
   .. image:: /static/3/origin_destination_matrix/images/1.png
     :align: center
 	

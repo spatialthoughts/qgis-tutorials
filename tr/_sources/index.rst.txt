@@ -1,10 +1,12 @@
 QGIS Tutorials and Tips
 =======================
 
-* Overview
+Overview
+""""""""
    - :doc:`docs/introduction`
 
-* Basic GIS operations
+Basic GIS operations
+""""""""""""""""""""
    - :doc:`docs/3/making_a_map`
    - :doc:`docs/3/working_with_attributes`
    - :doc:`docs/3/importing_spreadsheets_csv`
@@ -20,7 +22,8 @@ QGIS Tutorials and Tips
    - :doc:`docs/3/digitizing_basics`
    - :doc:`docs/3/downloading_osm_data`
 
-* Intermediate GIS operations
+Intermediate GIS operations
+"""""""""""""""""""""""""""
    - :doc:`docs/3/performing_table_joins`
    - :doc:`docs/3/performing_spatial_joins`
    - :doc:`docs/3/performing_spatial_queries`
@@ -31,7 +34,8 @@ QGIS Tutorials and Tips
    - :doc:`docs/3/animating_time_series`
    - :doc:`docs/3/handling_invalid_geometries`
 
-* Advanced GIS operations
+Advanced GIS operations
+"""""""""""""""""""""""
    - :doc:`docs/3/advanced_raster_analysis`
    - :doc:`docs/3/interpolating_point_data`
    - :doc:`docs/3/batch_processing`
@@ -39,22 +43,26 @@ QGIS Tutorials and Tips
    - :doc:`docs/3/automating_map_creation`
    - :doc:`docs/3/multi_criteria_overlay`
 
-* Network Analysis
+Network Analysis
+""""""""""""""""
    - :doc:`docs/3/basic_network_analysis`
    - :doc:`docs/3/origin_destination_matrix`
    - :doc:`docs/3/service_area_analysis`
    - :doc:`docs/3/travel_time_analysis`
 
-* Hydrology
+Hydrology
+"""""""""
    - :doc:`docs/3/areal_mean_rainfall`
    
-* Urban Planning
+Urban Planning
+""""""""""""""
    - :doc:`docs/3/creating_landuse_map`
    - :doc:`docs/3/calculating_intersection_density`
    - :doc:`docs/3/landuse_buffer`
    - :doc:`docs/3/solidwaste_mapping`
 
-* Python Scripting (PyQGIS)
+Python Scripting (PyQGIS)
+"""""""""""""""""""""""""
    - :doc:`docs/3/getting_started_with_pyqgis`
    - :doc:`docs/3/processing_algorithms_pyqgis`
    - :doc:`docs/3/custom_python_functions`
@@ -62,24 +70,14 @@ QGIS Tutorials and Tips
    - :doc:`docs/3/building_a_python_plugin`
    - :doc:`docs/3/processing_python_plugin`
    - :doc:`docs/running_qgis_jobs`
-
-* Web Mapping
-   - :doc:`docs/3/web_mapping_with_qgis2web`
-   - :doc:`docs/creating_basemaps_with_qtiles`
    
-* Appendix
+Appendix
+""""""""
    - :doc:`docs/3/using_plugins`
    - :doc:`docs/learning_resources`
    - :doc:`docs/credits`
 
-What next? Hungry for more QGIS materials? Work through my full length QGIS courses completely free. See |courses| |nearrow|.
 
-.. |courses| raw:: html
-
-   <a href="https://courses.spatialthoughts.com/index.html" target="_blank">Spatial Thoughts OpenCourseWare</a>
-
-.. |nearrow| unicode:: U+2197 .. North East Arrow
-   
 .. toctree::
    :titlesonly:
    :hidden:

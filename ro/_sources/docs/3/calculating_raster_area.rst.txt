@@ -92,7 +92,7 @@ Landcover Data
   .. image:: /static/3/calculating_raster_area/images/data17.png
      :align: center
 	 
-8. We will also download a symbology file provided by ESA. Visit the `ESA WorldCover Data Access <https://esa-worldcover.org/en/data-access>`_ page., Scroll-down to the :guilabel:`Symbology` section. Click on the :guilabel:`QGIS` to download the `ESAWorldCover_ColorLegend.qml <https://esa-worldcover.s3.amazonaws.com/v100/2020/docs/ESAWorldCover_ColorLegend.qml>`_ file which can be used to style the raster layer with approproate colors and class labels.
+8. We will also download a symbology file provided by ESA. Visit the `ESA WorldCover Data Access <https://esa-worldcover.org/en/data-access>`_ page., Scroll-down to the :guilabel:`Symbology` section. Click on the :guilabel:`QGIS` to download the `ESAWorldCover_ColorLegend.qml` file which can be used to style the raster layer with approproate colors and class labels.
 
   .. image:: /static/3/calculating_raster_area/images/data18.png
      :align: center

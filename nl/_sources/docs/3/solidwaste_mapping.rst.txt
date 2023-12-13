@@ -1,5 +1,5 @@
 Mapping Waste Disposal Volumes (QGIS3)
-=====================================
+======================================
 
 This tutorial is designed to help you discover new mapping techniques and cartographic tools available in QGIS. 
 
@@ -154,7 +154,7 @@ Procedure
    .. image:: /static/3/solidwaste_mapping/images/6.png
       :align: center
 
-7. In the :guilabel:`Select Items to Add` dialog, select ``Disposal_per_Site_edited`` item and click :guilabel:`Add Layers``.
+7. In the :guilabel:`Select Items to Add` dialog, select ``Disposal_per_Site_edited`` item and click :guilabel:`Add Layers`.
 
    .. image:: /static/3/solidwaste_mapping/images/7.png
       :align: center

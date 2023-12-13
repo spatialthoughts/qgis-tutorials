@@ -1,8 +1,9 @@
 QGIS Learning Resources
 =======================
 
-The QGIS project has a vibrant community that has created a lot of good
-documentation and resources that one can use to learn the software as well as
+Spatial Thoughts has a comprehensive `Learning Plan for QGIS <https://spatialthoughts.com/learning-paths/#qgis>`_ covering all levels of users.
+
+The QGIS community that has created a lot of good documentation and resources that one can use to learn the software as well as
 GIS techniques. Here are a few selected external resources.
 
 Official Documentation
@@ -28,7 +29,6 @@ Blogs and Online Resources
 - `North Road Blog <https://north-road.com/blog/>`_ by Nyall Dawson
 - `QGIS Introduction Tutorials <https://kevelyn1.github.io/QGIS-Intro/>`_ by Evelyn Uuemaa 
 - `Xenocartography, neogeography & colorful pixels <https://tjukanov.org/blog>`_ by Topi Tjukanov
-- 
 
 Free Video Tutorials
 --------------------
