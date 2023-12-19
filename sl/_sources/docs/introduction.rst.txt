@@ -37,7 +37,6 @@ The tutorials are also available in following langugages:
 - `Persian <https://www.qgistutorials.com/fa/>`_ (Translation by: *Chooghi Bairam Komaki*)
 - `Slovenian <https://www.qgistutorials.com/sl/>`_ (Translation by: *Krištof Oštir*, *Ana Potočnik Buhvald*)
 - `Spanish <https://www.qgistutorials.com/es/>`_ (Translation by: *Eric Armijo*, *Juan Carlos Méndez*, *Felipe Raimann*, *Antonio Mireles*)
-- `Turkish <https://www.qgistutorials.com/tr/>`_ (Translation by: *Birkan*, *Tayfun Akçayır*, *Emrullah Karahasanoğlu*, *İnci Yalçın*)
 - `Korean <https://www.qgistutorials.com/ko/>`_ (Translation by: *SongHyun Choi*, *Jung Eun Jang*, *Rosa Ahn*, *Haeseon Shin*)
 - `Romanian <https://www.qgistutorials.com/ro/>`_ (Translation by: *Sorin Călinică*)
 
@@ -50,6 +49,7 @@ Many other languages are partially translated and were previously available. Rec
 - Portuguese (Brazil) (Translation by: *Narcélio de Sá*, *Wesley Kevin Souto do Vale*)
 - Russian (Translation by: *Marina Pavlova*, *Ilya Trofimov*, *Fayçal Fatihi*, *Константин Сергеевич*)
 - Thai (Translation by: *Phondanai Khanti*)
+- Turkish (Translation by: *Birkan*, *Tayfun Akçayır*, *Emrullah Karahasanoğlu*, *İnci Yalçın*)
 - Ukrainian (Translation by: *Igor Konovalov*)
 - Vietnamese (Translation by: *Hang Nguyen Thuy*)
 
