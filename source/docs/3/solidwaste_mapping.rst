@@ -70,7 +70,7 @@ Let's see the step wise to prepare the dataset for this tutorial.
     .. image:: /static/3/solidwaste_mapping/images/db9.png 
        :align: center
 	   
-10. Let's open ``Landfill sites`` in qgis. Full path to the layer is :menuselection:`Theme_Based --> Open_Data_Service --> Landfill Sites And Refuse Transfer Stations`. Select the layer and click :guilabel:`Add`.
+10. Let's open ``Landfill sites`` in QGIS. Full path to the layer is :menuselection:`Theme_Based --> Open_Data_Service --> Landfill Sites And Refuse Transfer Stations`. Select the layer and click :guilabel:`Add`.
 
     .. image:: /static/3/solidwaste_mapping/images/db10.png 
        :align: center
