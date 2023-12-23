@@ -28,7 +28,9 @@ Contributors
 Translations
 ^^^^^^^^^^^^
 
-The tutorials are also available in following langugages:
+Many volunteers across the QGIS community have helped translate these tutorials in local languages. 
+
+The tutorials for the following languages have active translation teams and are available on this same website.
 
 - `Chinese (Taiwan) <https://www.qgistutorials.com/zh_TW/>`_ (Translation by: *Whyjay Zheng*)
 - `Dutch <https://www.qgistutorials.com/nl/>`_ (Translation by: *Dick Groskamp*)
@@ -40,22 +42,22 @@ The tutorials are also available in following langugages:
 - `Korean <https://www.qgistutorials.com/ko/>`_ (Translation by: *SongHyun Choi*, *Jung Eun Jang*, *Rosa Ahn*, *Haeseon Shin*)
 - `Romanian <https://www.qgistutorials.com/ro/>`_ (Translation by: *Sorin Călinică*)
 
-Many other languages are partially translated and were previously available. Recently we had to remove certain language pages to make the site stay under the 5GB limit imposed by GitHub pages where this site is hosted. I am in the process of making the following languages also available through an alternative host soon.
+Many other languages are partially translated and are hosted externaly.
 
-- Finnish (Translation by: *Kari Salovaara*)
-- French (Translation by: *Sylvain Dorey*, *Allan Stockman*, *Delphine Petit*, *Alexis Athlani*, *Florian Texier*, *Quentin Paternoster*)
-- Greek (Translation by: *Christina Dimitriadou*, *Paliogiannis Konstantinos*, *Tom Karagkounis*, *Despoina Karfi*)
-- Indonesian (Translation by: *Maruli Tua Manullang*, *Bakhtiar Arif*)
-- Portuguese (Brazil) (Translation by: *Narcélio de Sá*, *Wesley Kevin Souto do Vale*)
-- Russian (Translation by: *Marina Pavlova*, *Ilya Trofimov*, *Fayçal Fatihi*, *Константин Сергеевич*)
-- Thai (Translation by: *Phondanai Khanti*)
-- Turkish (Translation by: *Birkan*, *Tayfun Akçayır*, *Emrullah Karahasanoğlu*, *İnci Yalçın*)
-- Ukrainian (Translation by: *Igor Konovalov*)
-- Vietnamese (Translation by: *Hang Nguyen Thuy*)
+- `Finnish <https://storage.googleapis.com/qgis-tutorials/fi_FI/index.html>`_ (Translation by: *Kari Salovaara*)
+- `French <https://storage.googleapis.com/qgis-tutorials/fr/index.html>`_ (Translation by: *Sylvain Dorey*, *Allan Stockman*, *Delphine Petit*, *Alexis Athlani*, *Florian Texier*, *Quentin Paternoster*)
+- `Greek <https://storage.googleapis.com/qgis-tutorials/el/index.html>`_ (Translation by: *Christina Dimitriadou*, *Paliogiannis Konstantinos*, *Tom Karagkounis*, *Despoina Karfi*)
+- `Indonesian <https://storage.googleapis.com/qgis-tutorials/id/index.html>`_ (Translation by: *Maruli Tua Manullang*, *Bakhtiar Arif*)
+- `Portuguese (Brazil) <https://storage.googleapis.com/qgis-tutorials/pr_BR/index.html>`_ (Translation by: *Narcélio de Sá*, *Wesley Kevin Souto do Vale*)
+- `Russian <https://storage.googleapis.com/qgis-tutorials/ru/index.html>`_ (Translation by: *Marina Pavlova*, *Ilya Trofimov*, *Fayçal Fatihi*, *Константин Сергеевич*)
+- `Thai <https://storage.googleapis.com/qgis-tutorials/th/index.html>`_ (Translation by: *Phondanai Khanti*)
+- `Turkish <https://storage.googleapis.com/qgis-tutorials/tr/index.html>`_ (Translation by: *Birkan*, *Tayfun Akçayır*, *Emrullah Karahasanoğlu*, *İnci Yalçın*)
+- `Ukrainian <https://storage.googleapis.com/qgis-tutorials/uk/index.html>`_ (Translation by: *Igor Konovalov*)
+- `Vietnamese <https://storage.googleapis.com/qgis-tutorials/vi/index.html>`_ (Translation by: *Hang Nguyen Thuy*)
 
 If you would like to help translate these tutorials in your langugage, please
 `Join the team on Transifex
-<https://www.transifex.com/projects/p/qgis-tutorials/>`_.
+<https://www.transifex.com/projects/p/qgis-tutorials/>`_. Please contact me at ujaval@spatialthoughts.com for any questions or help related to translations.
 
 License
 -------
