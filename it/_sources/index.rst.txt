@@ -3,79 +3,79 @@ QGIS Tutorials and Tips
 
 Overview
 """"""""
-   - :doc:`docs/introduction`
+* :doc:`docs/introduction`
 
 Basic GIS operations
 """"""""""""""""""""
-   - :doc:`docs/3/making_a_map`
-   - :doc:`docs/3/working_with_attributes`
-   - :doc:`docs/3/importing_spreadsheets_csv`
-   - :doc:`docs/3/basic_vector_styling`
-   - :doc:`docs/3/calculating_line_lengths`
-   - :doc:`docs/3/raster_styling_and_analysis`
-   - :doc:`docs/3/raster_mosaicing_and_clipping`
-   - :doc:`docs/3/working_with_terrain`
-   - :doc:`docs/3/working_with_wms`
-   - :doc:`docs/3/working_with_projections`
-   - :doc:`docs/3/georeferencing_basics`
-   - :doc:`docs/3/advanced_georeferencing`
-   - :doc:`docs/3/digitizing_basics`
-   - :doc:`docs/3/downloading_osm_data`
+* :doc:`docs/3/making_a_map`
+* :doc:`docs/3/working_with_attributes`
+* :doc:`docs/3/importing_spreadsheets_csv`
+* :doc:`docs/3/basic_vector_styling`
+* :doc:`docs/3/calculating_line_lengths`
+* :doc:`docs/3/raster_styling_and_analysis`
+* :doc:`docs/3/raster_mosaicing_and_clipping`
+* :doc:`docs/3/working_with_terrain`
+* :doc:`docs/3/working_with_wms`
+* :doc:`docs/3/working_with_projections`
+* :doc:`docs/3/georeferencing_basics`
+* :doc:`docs/3/advanced_georeferencing`
+* :doc:`docs/3/digitizing_basics`
+* :doc:`docs/3/downloading_osm_data`
 
 Intermediate GIS operations
 """""""""""""""""""""""""""
-   - :doc:`docs/3/performing_table_joins`
-   - :doc:`docs/3/performing_spatial_joins`
-   - :doc:`docs/3/performing_spatial_queries`
-   - :doc:`docs/3/nearest_neighbor_analysis`
-   - :doc:`docs/3/sampling_raster_data`
-   - :doc:`docs/3/calculating_raster_area`
-   - :doc:`docs/3/creating_heatmaps`
-   - :doc:`docs/3/animating_time_series`
-   - :doc:`docs/3/handling_invalid_geometries`
+* :doc:`docs/3/performing_table_joins`
+* :doc:`docs/3/performing_spatial_joins`
+* :doc:`docs/3/performing_spatial_queries`
+* :doc:`docs/3/nearest_neighbor_analysis`
+* :doc:`docs/3/sampling_raster_data`
+* :doc:`docs/3/calculating_raster_area`
+* :doc:`docs/3/creating_heatmaps`
+* :doc:`docs/3/animating_time_series`
+* :doc:`docs/3/handling_invalid_geometries`
 
 Advanced GIS operations
 """""""""""""""""""""""
-   - :doc:`docs/3/advanced_raster_analysis`
-   - :doc:`docs/3/interpolating_point_data`
-   - :doc:`docs/3/batch_processing`
-   - :doc:`docs/3/processing_graphical_modeler`
-   - :doc:`docs/3/automating_map_creation`
-   - :doc:`docs/3/multi_criteria_overlay`
+* :doc:`docs/3/advanced_raster_analysis`
+* :doc:`docs/3/interpolating_point_data`
+* :doc:`docs/3/batch_processing`
+* :doc:`docs/3/processing_graphical_modeler`
+* :doc:`docs/3/automating_map_creation`
+* :doc:`docs/3/multi_criteria_overlay`
 
 Network Analysis
 """"""""""""""""
-   - :doc:`docs/3/basic_network_analysis`
-   - :doc:`docs/3/origin_destination_matrix`
-   - :doc:`docs/3/service_area_analysis`
-   - :doc:`docs/3/travel_time_analysis`
+* :doc:`docs/3/basic_network_analysis`
+* :doc:`docs/3/origin_destination_matrix`
+* :doc:`docs/3/service_area_analysis`
+* :doc:`docs/3/travel_time_analysis`
 
 Hydrology
 """""""""
-   - :doc:`docs/3/areal_mean_rainfall`
+* :doc:`docs/3/areal_mean_rainfall`
    
 Urban Planning
 """"""""""""""
-   - :doc:`docs/3/creating_landuse_map`
-   - :doc:`docs/3/calculating_intersection_density`
-   - :doc:`docs/3/landuse_buffer`
-   - :doc:`docs/3/solidwaste_mapping`
+* :doc:`docs/3/creating_landuse_map`
+* :doc:`docs/3/calculating_intersection_density`
+* :doc:`docs/3/landuse_buffer`
+* :doc:`docs/3/solidwaste_mapping`
 
 Python Scripting (PyQGIS)
 """""""""""""""""""""""""
-   - :doc:`docs/3/getting_started_with_pyqgis`
-   - :doc:`docs/3/processing_algorithms_pyqgis`
-   - :doc:`docs/3/custom_python_functions`
-   - :doc:`docs/3/processing_python_scripts`
-   - :doc:`docs/3/building_a_python_plugin`
-   - :doc:`docs/3/processing_python_plugin`
-   - :doc:`docs/running_qgis_jobs`
+* :doc:`docs/3/getting_started_with_pyqgis`
+* :doc:`docs/3/processing_algorithms_pyqgis`
+* :doc:`docs/3/custom_python_functions`
+* :doc:`docs/3/processing_python_scripts`
+* :doc:`docs/3/building_a_python_plugin`
+* :doc:`docs/3/processing_python_plugin`
+* :doc:`docs/running_qgis_jobs`
    
 Appendix
 """"""""
-   - :doc:`docs/3/using_plugins`
-   - :doc:`docs/learning_resources`
-   - :doc:`docs/credits`
+* :doc:`docs/3/using_plugins`
+* :doc:`docs/learning_resources`
+* :doc:`docs/credits`
 
 
 .. toctree::
