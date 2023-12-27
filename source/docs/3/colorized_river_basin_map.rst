@@ -21,6 +21,7 @@ Other skills you will learn
 
 - How to assign projection to a vector layer with incorrect or missing projection.
 - How to add multiple layers in a single GeoPackage.
+- How to add a 'Made with QGIS' badge to your map.
 
 Get the data
 ------------
@@ -173,4 +174,126 @@ Procedure
 
   .. image:: /static/3/colorized_river_basin_map/images/21.png
     :align: center
+    
+22. Here we want to select ``rivers_clipped`` as the layer to :guilabel:`Join to features in` and ``basins_with_color`` as the layer for :guilabel:`By comparing to`. In the :guilabel:`Fields to add` section, click the :guilabel:`...` button and select the ``color_id`` field. Save the output to the ``data.gpkg`` geopackage as the layer ``rivers_with_color``. Click :guilabel:`Run`.
 
+  .. image:: /static/3/colorized_river_basin_map/images/22.png
+    :align: center
+    
+23. Once the processing finishes, a new layer ``rivers_with_color`` will be loaded to the :guilabel:`Layers` panel. Now it is time to apply the symbology. Select the ``admin_boundary_fixed`` layer and click the :guilabel:`Open Layer Styling Panel` button in the :guilabel:`Layers` panel. Change the color to black.
+
+  .. image:: /static/3/colorized_river_basin_map/images/23.png
+    :align: center
+    
+24. Next, select the ``rivers_with_color`` layer and select the ``Categorized`` renderer. 
+
+  .. image:: /static/3/colorized_river_basin_map/images/24.png
+    :align: center
+    
+25. Select ``color_id`` as the :guilabel:`Value` and click :guilabel:`Classify`. You will see the rivers in different basins will be assigned a different color.
+
+  .. image:: /static/3/colorized_river_basin_map/images/25.png
+    :align: center
+
+.. note::
+
+    If you are not happy with the randomly chosen colors, you can click the :guilabel:`Symbol` for individual values in the list below and choose your own color.
+    
+26. The default lines are too thick for our map. Let's change it. Hold the :kbd:`Shift` key and select all the symbols in the list. Click the :guilabel:`Symbol` to open the :guilabel:`Symbol Settings`.
+
+  .. image:: /static/3/colorized_river_basin_map/images/26.png
+    :align: center
+    
+27. Click on :guilabel:`Simple Line` and change the stroke width to ``0.1``. The map will look much better now.
+
+  .. image:: /static/3/colorized_river_basin_map/images/27.png
+    :align: center
+    
+28. We can improve the by assigning differnt widths to the rivers based on their size. The ``rivers_with_color`` layer has a field ``ORD_STRA`` containign the value of the `Strahler Order <https://en.wikipedia.org/wiki/Strahler_number>`_ of the river. The larger the number, the bigger the river. We will use the Assistant to help us use the value of the strahler order to an appropriate stroke width. Click the :guilabel:`Data defined override` button next to :guilabel:`Stroke width` and select :guilabel:`Assistant...`.
+
+  .. image:: /static/3/colorized_river_basin_map/images/28.png
+    :align: center
+    
+29. In the :guilabel:`Input` section, select the ``ORD_STRA`` field as the :guilabel:`Source` with :guilabel:`Values from` ``1`` to :guilabel:`to` ``6``. In the :guilabel:`Output` section, choose :guilabel:`Size from` as ``0.05`` and :guilabel:`to` as ``0.2``. The map will update dynamically as you enter the values. You may have to adjust these values depending on your region. Once you are happy with the map, click the :guilabel:`Back` button.
+
+  .. image:: /static/3/colorized_river_basin_map/images/29.png
+    :align: center
+    
+30. You will notice that the :guilabel:`Data defined override` button for :guilabel:`Stroke width` is now yellow, indicating an active override has been applied to this setting.
+
+  .. image:: /static/3/colorized_river_basin_map/images/30.png
+    :align: center
+    
+31. Our colorized river basin map is now ready. Let's put this map in a layout so we can export a high-resolution version with other map elements. Go to :menuselection:`Project --> New Print Layout...`. When prompted to enter a name, leave it blank and click :guilabel:`OK`.
+
+  .. image:: /static/3/colorized_river_basin_map/images/31.png
+    :align: center
+ 
+32. In the :guilabel:`Layout 1` window, right-click on the blank canvas and choose :guilabel:`Page Properties...`.
+
+  .. image:: /static/3/colorized_river_basin_map/images/32.png
+    :align: center
+ 
+33. Choose ``A4`` as the :guilabel:`Size`. Change the :guilabel:`Background` color to black.
+
+  .. image:: /static/3/colorized_river_basin_map/images/33.png
+    :align: center
+ 
+34. Go to :menuselection:`Add Item --> Add Map`.
+
+  .. image:: /static/3/colorized_river_basin_map/images/34.png
+    :align: center
+ 
+35. Hold the left mouse button and select a region on the canvas where you want the map to be placed.
+
+  .. image:: /static/3/colorized_river_basin_map/images/35.png
+    :align: center
+ 
+36. Once the map appears, scroll down in the :guilabel:`Item Properties` tab and turn off the :guilabel:`Background`. 
+
+  .. image:: /static/3/colorized_river_basin_map/images/36.png
+    :align: center
+ 
+.. note::
+
+    If you do not see the :guilabel:`Item Properties` tab or close it by accident, you can get it back by going to :menuselection:`View --> Panels --> Item Properties` in the Layout menu. 
+    
+37. Let's adjust the map extents. Click on the :guilabel:`Interactively Edit Map Extent` button and then use the mouse to pan the map. You can also use your scroll wheel to adjust the zoom. If you want more finer control on the Zoom, adjust the :guilabel:`Scale` value manually. Repeat till you are happy with the map placement.
+
+  .. image:: /static/3/colorized_river_basin_map/images/37.png
+    :align: center
+ 
+38. Next we will add a QGIS logo to the map. Go to :menuselection:`Add Item --> Add Picture`.
+
+  .. image:: /static/3/colorized_river_basin_map/images/38.png
+    :align: center
+ 
+39. Draw a rectangle where you want to place the logo. In the :guilabel:`Item Properties` dialog, locate the :guilabel:`logos` icon group. Select the ``Made with QGIS`` logo.
+
+  .. image:: /static/3/colorized_river_basin_map/images/39.png
+    :align: center
+ 
+40. Next, we will add a label with data credits. Go to :menuselection:`Add Item --> Add Label`. Enter the text for data credits and adjust the font and label alignment.
+
+  .. image:: /static/3/colorized_river_basin_map/images/40.png
+    :align: center
+ 
+41. Once you are ready to export the results, go to :menuselection:`Layout --> Export as Image...`. Browse to a folder on your computer where you want to save the PNG image and enter the name ``river_basins.png``
+
+  .. image:: /static/3/colorized_river_basin_map/images/41.png
+    :align: center
+ 
+42. Choose ``300 dpi`` as the :guilabel:`Export resolution` and click :guilabel:`Save`.
+
+  .. image:: /static/3/colorized_river_basin_map/images/42.png
+    :align: center
+ 
+43. Once the export finishes, you will have your final map image at the chosen location.
+
+  .. image:: /static/3/colorized_river_basin_map/images/43.png
+    :align: center
+ 
+44. Here's the final PNG image that we created using QGIS and open datasets.
+
+  .. image:: /static/3/colorized_river_basin_map/images/44.png
+    :align: center
