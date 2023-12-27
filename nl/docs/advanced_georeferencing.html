@@ -102,6 +102,7 @@
 <li class="toctree-l1"><a class="reference internal" href="3/service_area_analysis.html">Analyse Servicegebied met Openrouteservice (QGIS3)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="3/travel_time_analysis.html">Reistijd-analyse met Uber Movement (QGIS3)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="3/areal_mean_rainfall.html">Berekenen gemiddelde regenval voor gebied (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/colorized_river_basin_map.html">Creating a Colorized River Basin Map (QGIS3)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="3/creating_landuse_map.html">Een kaart voor gebruik van land maken (QGIS3)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="3/calculating_intersection_density.html">Dichtheid van straatkruisingen berekenen (QGIS3)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="3/landuse_buffer.html">Bufferzones voor landgebruik bepalen  (QGIS3)</a></li>
@@ -203,19 +204,19 @@
 <ol class="arabic simple">
 <li><p>Voor deze handleiding zullen we de laag OpenStreetMap gebruiken als onze laag voor de verwijzingen. Installeer de plug-in OpenLayers via <span class="menuselection">Plugins ‣ Beheer en installeer plugins ‣ Alles</span>. Bekijk <a class="reference internal" href="using_plugins.html"><span class="doc">Plug-ins gebruiken</span></a> voor meer informatie over het gebruiken van plug-ins in QGIS.</p></li>
 </ol>
-<img alt="../_images/1154.png" class="align-center" src="../_images/1154.png" />
+<img alt="../_images/1156.png" class="align-center" src="../_images/1156.png" />
 <ol class="arabic simple" start="2">
 <li><p>Eenmaal geïnstalleerd, ga naar <span class="menuselection">Plugins ‣ OpenLayers plugin ‣ Add OpenStreetMap layer</span>. Dit zal een laag toevoegen van vooraf gerenderde tegels die zijn gemaakt uit gegevens van <a class="reference external" href="http://www.openstreetmap.org/">OpenStreetMap</a>.</p></li>
 </ol>
-<img alt="../_images/2128.png" class="align-center" src="../_images/2128.png" />
+<img alt="../_images/2131.png" class="align-center" src="../_images/2131.png" />
 <ol class="arabic simple" start="3">
 <li><p>Nu heeft u de laag OpenStreetMap geladen in QGIS. Let op het Coordinate Reference System (CRS) voor deze laag. Die is ingesteld als EPSG 3857 Pseudo Mercator. Het is belangrijk om dit te onthouden, omdat de coördinaten die we uit deze laag gebruiken in dit CRS zijn.</p></li>
 </ol>
-<img alt="../_images/365.png" class="align-center" src="../_images/365.png" />
+<img alt="../_images/374.png" class="align-center" src="../_images/374.png" />
 <ol class="arabic simple" start="4">
 <li><p>Nu is het zaak om de algemene omgeving van het gebied dat we proberen te voorzien van geo-verwijzingen te lokaliseren. U kunt eenvoudigweg de gereedschappen Pannen en Zoomen gebruiken om dat gebied op de laag OpenStreetMap te lokaliseren. Maar we kunnen deze gelegenheid te baat nemen om een ander gereedschap te demonstreren dat u in de toekomst kan helpen. We weten dat de afbeelding die we hebben gedownload is voor het Washington Square Park in New York. Als u zoekt naar die plaats, zult u in staat zijn om de pagina op Wikipedia daar voor te lokaliseren. De coördinaten voor het park zijn daarop vermeld.</p></li>
 </ol>
-<img alt="../_images/435.png" class="align-center" src="../_images/435.png" />
+<img alt="../_images/439.png" class="align-center" src="../_images/439.png" />
 <ol class="arabic simple" start="5">
 <li><p>U zult opmerken dat de coördinaten in graden/minuten/seconden zijn en breedtegraad en lengtegraad zijn. Maar omdat uw laag in de Mercator-projectie is, hebben we Mercator-coördinaten nodig om het park te lokaliseren. Hier komt het programma voor de opdrachtregel, genaamd <strong>cs2cs</strong> van pas. Als u QGIS installeerde vanuit het installatieprogramma OSGeo4W, zult u het al hebben geïnstalleerd op uw systeem. Ook op Linux en Mac wordt het tegelijkertijd geïnstalleerd met QGIS. Start een terminal-venster en typ <code class="docutils literal notranslate"><span class="pre">cs2cs</span></code> om te controleren of het beschikbaar is. gebruikers van Windows vinden het terminal-scherm onder <span class="menuselection">Start ‣ OSGeo4W ‣ MSYS</span>.</p></li>
 </ol>
@@ -223,7 +224,7 @@
 <p class="admonition-title">Notitie</p>
 <p>Gebruikers van MacOS kunnen het programma cs2cs vinden opt /Library/Frameworks/PROJ.Framework/Programs/cs2cs</p>
 </div>
-<img alt="../_images/534.png" class="align-center" src="../_images/534.png" />
+<img alt="../_images/535.png" class="align-center" src="../_images/535.png" />
 <ol class="arabic simple" start="6">
 <li><p>Als u eenmaal heeft geverifieerd dat het programma cs2cs  op uw systeem bestaat, is tijd om onze Breedte- en Lengtegraad te converteren naar Mercator-coördinaten. De manier waarop dit programma werkt is dat u een CRS voor de <span class="guilabel">source</span> en de <span class="guilabel">destination</span> moet specificeren. De definitie voor het CRS zou een <a class="reference external" href="http://trac.osgeo.org/proj/wiki/GenParms">tekenreeks voor PROJ4</a> of een <a class="reference external" href="http://www.epsg-registry.org/">EPSG-code</a> kunnen zijn. Omdat we de EPSG-code voor ons CRS voor  invoer en uitvoer al kennen, zullen we die gebruiken. De eenvoudigste manier om het programma te gebruiken is om de coördinaten voor de invoer op de opdrachtregel zelf in te geven. Onthoud dathet programma de coördinaten accepteert in de volgorde <cite>X Y</cite>, dus moeten invoeren <cite>Lengtegraad Breedtegraad</cite>. Voer de volgende opdracht in in het scherm en druk op Enter. Onthoud dat we de aanhalingstekens (”) moeten laten voorafgaan door een backslash (\). Nadat u op Enter heeft gedrukt, zult u zien dat het programma de coördinaten verwerkt en de uitvcoer-coördinaten X Y afdrukt in CRS EPSG 3857 .</p></li>
 </ol>
@@ -236,59 +237,59 @@
 <div class="highlight-none notranslate"><div class="highlight"><pre><span></span>echo -73d59&#39;51 40d43&#39;51 | cs2cs +init=EPSG:4326 +to +init=EPSG:3857
 </pre></div>
 </div>
-<img alt="../_images/633.png" class="align-center" src="../_images/633.png" />
+<img alt="../_images/634.png" class="align-center" src="../_images/634.png" />
 <ol class="arabic simple" start="7">
 <li><p>Kopieer deze coördinaten en schakel over naar QGIS. Onder in het venster van QGIS zult u een tekstvak zien staan dat Coördinaat heet. Voer de coördinaten daar in in de vorm X,Y. Druk op Enter.  U zult zien dat de kaart een stukje verschuift, maar niet inzoomt., Selecteer de schaal 1:2500 uit het keuzemenu Schaal naast het vak Coördinaat en druk op Enter om naar het gebied te zoomen.</p></li>
 </ol>
-<img alt="../_images/733.png" class="align-center" src="../_images/733.png" />
+<img alt="../_images/734.png" class="align-center" src="../_images/734.png" />
 <ol class="arabic simple" start="8">
 <li><p>Voila! U ziet nu het gebied Washington Square Park in uw werkgebied. Nu is het tijd om te beginnen met de geo-verwijzingen. Start de <strong>Georeferencer</strong> via <span class="menuselection">Raster ‣ Georeferencer ‣ Georeferencer</span>. Als u dat menu-item niet ziet, dient u de plug-in <span class="guilabel">Georeferencer GDAL</span> via <span class="menuselection">Plugins ‣ Beheer en installeer Plugins ‣ Geïnstalleerd</span> in te schakelen.</p></li>
 </ol>
-<img alt="../_images/832.png" class="align-center" src="../_images/832.png" />
+<img alt="../_images/833.png" class="align-center" src="../_images/833.png" />
 <ol class="arabic simple" start="9">
 <li><p>Ga, in het venster <span class="guilabel">Georeferencer</span>, naar <span class="menuselection">Bestand ‣ Open raster</span>. Navigeer naar het gedownloade JPG-bestand en klik op <span class="guilabel">Openen</span>.</p></li>
 </ol>
-<img alt="../_images/933.png" class="align-center" src="../_images/933.png" />
+<img alt="../_images/934.png" class="align-center" src="../_images/934.png" />
 <ol class="arabic simple" start="10">
 <li><p>In <span class="guilabel">Coordinate Reference System Selector</span>, kies <span class="guilabel">EPSG:3857 Pseudo Mercator</span></p></li>
 </ol>
-<img alt="../_images/1040.png" class="align-center" src="../_images/1040.png" />
+<img alt="../_images/1041.png" class="align-center" src="../_images/1041.png" />
 <ol class="arabic simple" start="11">
 <li><p>Klik nu op de knop <span class="guilabel">Punt toevoegen</span> op de werkbalk en selecteer een eenvoudig te identificeren locatie in de afbeelding. Hoeken, kruispunten, palen etc. zijn goede controlepunten.</p></li>
 </ol>
-<img alt="../_images/1155.png" class="align-center" src="../_images/1155.png" />
+<img alt="../_images/1157.png" class="align-center" src="../_images/1157.png" />
 <ol class="arabic simple" start="12">
 <li><p>Als u eenmaal op een locatie van een controlepunt in de fabeelding heeft geklikt, zult u een pop-up zien die u vraagt kaartcoördinaten in te vullen. Klik op de knop <span class="guilabel">Van kaartvenster</span>.</p></li>
 </ol>
-<img alt="../_images/1243.png" class="align-center" src="../_images/1243.png" />
+<img alt="../_images/1244.png" class="align-center" src="../_images/1244.png" />
 <ol class="arabic simple" start="13">
 <li><p>Zoek dezelfde locatie op in de laag voor verwijzingen, d.i. de laag OpenStreetMap en klik daar. De coördinaten worden automatisch ingevuld vanuit de klik in het kaartvenster Klik op OK. Kies op dezelfde wijze nog tenminste 4 punten in de afbeelding en voeg hun coördinaten toe vanuit de laag voor verwijzingen.</p></li>
 </ol>
-<img alt="../_images/1341.png" class="align-center" src="../_images/1341.png" />
+<img alt="../_images/1342.png" class="align-center" src="../_images/1342.png" />
 <ol class="arabic simple" start="14">
 <li><p>Ga nu naar <span class="menuselection">Extra ‣ Transformatie instellingen.</span></p></li>
 </ol>
-<img alt="../_images/1438.png" class="align-center" src="../_images/1438.png" />
+<img alt="../_images/1439.png" class="align-center" src="../_images/1439.png" />
 <ol class="arabic simple" start="15">
 <li><p>Kies de instelling zoals hieronder weergegeven. Zorg er voor dat u het vak <span class="guilabel">Na afloop laden in QGIS</span> heeft geselecteerd. Klik op OK. Terug in het venster <span class="guilabel">Georeferencer</span>, ga naar <span class="menuselection">Bestand ‣ Georeferencer starten</span>. Dit zal het proces starten van het kromtrekken van de fabeelding met behulp van de GCP’s en het doelraster maken.</p></li>
 </ol>
-<img alt="../_images/1535.png" class="align-center" src="../_images/1535.png" />
+<img alt="../_images/1536.png" class="align-center" src="../_images/1536.png" />
 <ol class="arabic simple" start="16">
 <li><p>Als het proces is voltooid, zult u de laag met geo-verwijzingen geladen zien in QGIS. Als alles goed is gegaan zult u het netjes over de laag OpenStreetMap zien liggen.</p></li>
 </ol>
-<img alt="../_images/1633.png" class="align-center" src="../_images/1633.png" />
+<img alt="../_images/1634.png" class="align-center" src="../_images/1634.png" />
 <ol class="arabic simple" start="17">
 <li><p>Laten we, om de uitvoer er netter uit te laten zien, de zwart-witte waarden met geen gegevens verwijderen. Klik met rechts op de afbeeldingslaag en kies <span class="guilabel">Eigenschappen</span>.</p></li>
 </ol>
-<img alt="../_images/1731.png" class="align-center" src="../_images/1731.png" />
+<img alt="../_images/1732.png" class="align-center" src="../_images/1732.png" />
 <ol class="arabic simple" start="18">
 <li><p>Schakel naar de tab <span class="guilabel">Transparantie</span>. We willen aangeven dat zwarte of witte pixels in de afbeelding waarden zijn met No data en transparant zouden moeten worden gemaakt. Voer 0 in als de <span class="guilabel">waarde voor No data</span>. Klik ook, in de <span class="guilabel">Aangepaste transparantie opties</span>, op de knop <span class="guilabel">+</span> en voer 255 in als de transparante pixels voor elke band en voer 100 in als :<span class="guilabel">Percentage transparant</span>. Klik op <span class="guilabel">OK</span>.</p></li>
 </ol>
-<img alt="../_images/1828.png" class="align-center" src="../_images/1828.png" />
+<img alt="../_images/1829.png" class="align-center" src="../_images/1829.png" />
 <ol class="arabic simple" start="19">
 <li><p>Nu zult u uw afbeelding met geo-verwijzingen netjes over de basislaag zien liggen.</p></li>
 </ol>
-<img alt="../_images/1922.png" class="align-center" src="../_images/1922.png" />
+<img alt="../_images/1923.png" class="align-center" src="../_images/1923.png" />
 </section>
 </section>
 
@@ -299,7 +300,7 @@
   <!-- Comment Section Powered by utterances -->
 <div id="comments">
   <hr />
-  <p>If you want to report any issues with this tutorial, please comment below. (requires GitHub account)</p>
+  <p>If you want to give feedback or share your experience with this tutorial, please comment below. (requires GitHub account)</p>
 <script src="https://utteranc.es/client.js"
         repo="spatialthoughts/qgis-tutorials"
         issue-term="title"
@@ -323,8 +324,8 @@
       
     </p>
     <p>
-        &copy; Copyright 2021, Ujaval Gandhi.<br/>
-      Laatste aanpassing op dec 23, 2023.<br/>
+        &copy; Copyright 2023, Ujaval Gandhi.<br/>
+      Laatste aanpassing op dec 27, 2023.<br/>
       Created using <a href="http://sphinx-doc.org/">Sphinx</a> 7.0.1.<br/>
     </p>
   </div>

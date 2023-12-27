@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+
+<html lang="el">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Travel Time Analysis with Uber Movement (QGIS3) &#8212; QGIS Tutorials and Tips</title>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-sphinx.css" />
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/sphinx_highlight.js"></script>
+    <script src="../../_static/translations.js"></script>
+    <link rel="search" title="Αναζήτηση" href="../../search.html" />
+    <link rel="next" title="Calculating Areal Mean Rainfall (QGIS3)" href="areal_mean_rainfall.html" />
+    <link rel="prev" title="Service Area Analysis using Openrouteservice (QGIS3)" href="service_area_analysis.html" />
+
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<script type="text/javascript" src="../../_static/js/jquery-1.12.4.min.js"></script>
+<script type="text/javascript" src="../../_static/js/jquery-fix.js"></script>
+<script type="text/javascript" src="../../_static/bootstrap-3.4.1/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="../../_static/bootstrap-sphinx.js"></script>
+
+
+<!-- Cookie Notice -->
+<!-- Script from https://github.com/AOEpeople/cookie-notice -->
+<script type="text/javascript" src="../../_static/cookie.notice.min.js"></script>
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-B1WQ7B80XJ"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-B1WQ7B80XJ');
+</script>
+
+
+  </head><body>
+
+  <div id="navbar" class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="../../index.html">
+          QGIS Tutorials and Tips</a>
+        <span class="navbar-text navbar-version pull-left"><b>v1</b></span>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="../../index.html">Tutorials List <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"><ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../introduction.html">Εισαγωγή</a></li>
+<li class="toctree-l1"><a class="reference internal" href="making_a_map.html">Φτιάχνοντας ένα χάρτη (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="working_with_attributes.html">Working with Attributes (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="importing_spreadsheets_csv.html">Importing Spreadsheets or CSV files (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="basic_vector_styling.html">Basic Vector Styling (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="calculating_line_lengths.html">Calculating Line Lengths and Statistics (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="raster_styling_and_analysis.html">Basic Raster Styling and Analysis (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="raster_mosaicing_and_clipping.html">Raster Mosaicing and Clipping (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="working_with_terrain.html">Working with Terrain Data (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="working_with_wms.html">Working with WMS Data (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="working_with_projections.html">Working with Projections (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="georeferencing_basics.html">Georeferencing Topo Sheets and Scanned Maps (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="advanced_georeferencing.html">Georeferencing Aerial Imagery (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="digitizing_basics.html">Digitizing Map Data (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="performing_table_joins.html">Performing Table Joins (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="performing_spatial_joins.html">Performing Spatial Joins (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="performing_spatial_queries.html">Performing Spatial Queries (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="nearest_neighbor_analysis.html">Nearest Neighbor Analysis (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="sampling_raster_data.html">Sampling Raster Data using Points or Polygons (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="calculating_raster_area.html">Calculating Raster Area (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="creating_heatmaps.html">Creating Heatmaps (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="animating_time_series.html">Animating Time Series Data (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="handling_invalid_geometries.html">Handling Invalid Geometries (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="advanced_raster_analysis.html">Advanced Raster Analysis (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="interpolating_point_data.html">Interpolating Point Data (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="batch_processing.html">Batch Processing using Processing Framework (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="processing_graphical_modeler.html">Automating Complex Workflows using Processing Modeler (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="automating_map_creation.html">Automating Map Creation with Print Layout Atlas (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="multi_criteria_overlay.html">Multi Criteria Overlay Analysis (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="basic_network_analysis.html">Basic Network Visualization and Routing (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="origin_destination_matrix.html">Locating Nearest Facility with Origin-Destination Matrix (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="service_area_analysis.html">Service Area Analysis using Openrouteservice (QGIS3)</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Travel Time Analysis with Uber Movement (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="areal_mean_rainfall.html">Calculating Areal Mean Rainfall (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="colorized_river_basin_map.html">Creating a Colorized River Basin Map (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="creating_landuse_map.html">Creating a Landuse Map (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="calculating_intersection_density.html">Calculating Street Intersection Density (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="landuse_buffer.html">Determining Landuse Buffer Zones (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="solidwaste_mapping.html">Mapping Waste Disposal Volumes (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="getting_started_with_pyqgis.html">Getting Started With Python Programming (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="processing_algorithms_pyqgis.html">Running Processing Algorithms via Python (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="custom_python_functions.html">Using Custom Python Expression Functions (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="processing_python_scripts.html">Writing Python Scripts for Processing Framework (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="building_a_python_plugin.html">Building a Python Plugin (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="processing_python_plugin.html">Building a Processing Plugin (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../running_qgis_jobs.html">Running and Scheduling QGIS Processing Jobs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="web_mapping_with_qgis2web.html">Web Mapping with QGIS2Web (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../creating_basemaps_with_qtiles.html">Creating Basemaps with QTiles</a></li>
+<li class="toctree-l1"><a class="reference internal" href="using_plugins.html">Using Plugins (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../downloading_osm_data.html">Αναζήτηση και Λήψη OpenStreetMap Δεδομένων</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../learning_resources.html">QGIS Μαθησιακοί πόροι</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../credits.html">Συντελεστές δεδομένων</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../batch_processing.html">Batch Processing using Processing Framework (QGIS2)</a></li>
+</ul>
+</ul>
+</li>
+              
+            
+            
+              
+                
+  <li>
+    <a href="service_area_analysis.html" title="Previous Chapter: Service Area Analysis using Openrouteservice (QGIS3)"><span class="glyphicon glyphicon-chevron-left visible-sm"></span><span class="hidden-sm hidden-tablet">&laquo; Service Area ...</span>
+    </a>
+  </li>
+  <li>
+    <a href="areal_mean_rainfall.html" title="Next Chapter: Calculating Areal Mean Rainfall (QGIS3)"><span class="glyphicon glyphicon-chevron-right visible-sm"></span><span class="hidden-sm hidden-tablet">Calculating A... &raquo;</span>
+    </a>
+  </li>
+              
+            
+            
+
+            
+
+            
+              <li class="hidden-sm"></li>
+            
+          </ul>
+
+          
+            
+<form class="navbar-form navbar-right" action="../../search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+      <div class="col-md-3">
+        <div id="sidebar" class="bs-sidenav" role="complementary"><h4>Author</h4>
+<p>Ujaval Gandhi</p>
+<a href="https://twitter.com/intent/follow?screen_name=spatialthoughts" class="twitter-follow-button" data-show-count="false">Follow @spatialthoughts</a>
+<hr>
+<p>Want to learn QGIS in a structured way? Check out <a href="https://spatialthoughts.com/" target="_blank">Spatial Thoughts</a> for more learning materials and instructor-led online programs with QGIS.org certification.</p>
+
+<hr>
+<p>These tutorials are also available in many other languages. Please see <a href="https://www.qgistutorials.com/en/docs/introduction.html#translations" target="_blank">translations</a> page.
+</p>
+        </div>
+      </div>
+    <div class="body col-md-9 content" role="main">
+      
+
+  <section id="travel-time-analysis-with-uber-movement-qgis3">
+<h1>Travel Time Analysis with Uber Movement (QGIS3)<a class="headerlink" href="#travel-time-analysis-with-uber-movement-qgis3" title="Permalink to this heading">¶</a></h1>
+<div class="admonition warning">
+<p class="admonition-title">Προειδοποίηση</p>
+<p>Uber Movement data has been discontinued [<a class="reference external" href="https://www.uber.com/in/en/business/movement-decommissioning/">view announcement</a>]. You can still follow the tutorial using the archive data provided in the tutorial and learn the technique of travel time analysis using QGIS.</p>
+</div>
+<p><a class="reference external" href="https://movement.uber.com/">Uber Movement</a> shares anonymized and aggregated travel time data for many cities across the world. Uber Movement’s <em>Travel Times</em> product is a public dataset measuring zone-to-zone travel across a city. These times are based on actual Uber rides and is an accurate representation of congestion and traffic patterns in the city. This is a large openly accessible dataset aggregated from millions of actual cab rides. This tutorial shows the techniques to work use such aggregated traffic datasets for doing travel time analysis in QGIS.</p>
+<section id="overview-of-the-task">
+<h2>Overview of the task<a class="headerlink" href="#overview-of-the-task" title="Permalink to this heading">¶</a></h2>
+<p>We will use an aggregated traffic dataset for the city of Bangalore, India to find travel times to a chosen location in the city. We will also create an <a class="reference external" href="https://en.wikipedia.org/wiki/Isochrone_map">Isochrone Map</a> for a 30-min travel time threshold.</p>
+<section id="other-skills-you-will-learn">
+<h3>Other skills you will learn<a class="headerlink" href="#other-skills-you-will-learn" title="Permalink to this heading">¶</a></h3>
+<ul class="simple">
+<li><p>Load a GeoJSON file in QGIS</p></li>
+</ul>
+</section>
+</section>
+<section id="get-the-data">
+<h2>Get the data<a class="headerlink" href="#get-the-data" title="Permalink to this heading">¶</a></h2>
+<p>We will download the Travel Times dataset for the city of Bangalore, India.</p>
+<ol class="arabic simple">
+<li><p>Go to the <a class="reference external" href="https://movement.uber.com/">Uber Movement</a> site and click on the <span class="guilabel">Cities</span>.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/data013.png" class="align-center" src="../../_images/data013.png" />
+</div></blockquote>
+<ol class="arabic simple" start="2">
+<li><p>Search for <code class="docutils literal notranslate"><span class="pre">Banglore</span></code>.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/data023.png" class="align-center" src="../../_images/data023.png" />
+</div></blockquote>
+<ol class="arabic simple" start="3">
+<li><p>Click on <span class="guilabel">Download data</span>.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/data032.png" class="align-center" src="../../_images/data032.png" />
+</div></blockquote>
+<ol class="arabic simple" start="4">
+<li><p>In the <code class="docutils literal notranslate"><span class="pre">Download</span> <span class="pre">data</span></code> popup, switch to <span class="guilabel">GEO BOUNDARIES</span>. It will contain the Banglore wards GeoJSON file. Accept the license information and click on <code class="docutils literal notranslate"><span class="pre">BANGLORE_WARDS.JSON</span></code> to download.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/data042.png" class="align-center" src="../../_images/data042.png" />
+</div></blockquote>
+<ol class="arabic simple" start="5">
+<li><p>Then switch to <code class="docutils literal notranslate"><span class="pre">ALL</span> <span class="pre">DATA</span></code>. This data is available from 2016 to 2020, and each year is divided into 4 quarters. We will download the data for <code class="docutils literal notranslate"><span class="pre">2019</span> <span class="pre">Quarter</span> <span class="pre">3</span></code>. Select it and click the <code class="docutils literal notranslate"><span class="pre">Travel</span> <span class="pre">Times</span> <span class="pre">by</span> <span class="pre">Hour</span> <span class="pre">of</span> <span class="pre">Day</span> <span class="pre">(Weekdays</span> <span class="pre">Only)</span></code>. This file will contain all anonymous information about the weekday uber travel in Bangalore from July to September 2019.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/data051.png" class="align-center" src="../../_images/data051.png" />
+</div></blockquote>
+<p>For your convenience, you can download the data from the links below.</p>
+<p><a class="reference external" href="https://www.qgistutorials.com/downloads/bangalore_wards.json">bangalore_wards.json</a></p>
+<p><a class="reference external" href="https://www.qgistutorials.com/downloads/bangalore-wards-2019-3-OnlyWeekdays-HourlyAggregate.csv">bangalore-wards-2019-3-OnlyWeekdays-HourlyAggregate.csv</a></p>
+<p>Data Source: <a class="reference internal" href="../credits.html#uber" id="id2"><span>[UBER]</span></a></p>
+</section>
+<section id="procedure">
+<h2>Procedure<a class="headerlink" href="#procedure" title="Permalink to this heading">¶</a></h2>
+<ol class="arabic simple">
+<li><p>Locate the <code class="docutils literal notranslate"><span class="pre">bangalore_wards.json</span></code> file in the <span class="guilabel">Browser</span> panel and drag it to the canvas. Next, we will load a basemap layer from OpenStreetMap. We will use the <cite>QuickMapServices</cite> plugin to access the basemap. Once installed, go to <span class="menuselection">Web ‣ QuickMapServices ‣ OSM ‣ OSM Standard</span>. A basemap tile layer from OpenStreetMap will be added to the project. Next, click the <span class="guilabel">Open Data Source Manager</span> button.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/019.png" class="align-center" src="../../_images/019.png" />
+</div></blockquote>
+<ol class="arabic simple" start="2">
+<li><p>Switch to the <span class="guilabel">Delimited Text</span> tab. Browse to the <code class="docutils literal notranslate"><span class="pre">bangalore-wards-2019-3-OnlyWeekdays-HourlyAggregate.csv</span></code> file and select it. Since this CSV file is just tabular data, select <span class="guilabel">No geometry (attribute only table)</span> option and click <span class="guilabel">Add</span>.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/029.png" class="align-center" src="../../_images/029.png" />
+</div></blockquote>
+<ol class="arabic simple" start="3">
+<li><p>The <code class="docutils literal notranslate"><span class="pre">bangalore-wards-2019-3-OnlyWeekdays-HourlyAggregate</span></code> layer will be added to the <span class="guilabel">Layers</span> panel. This layer contains anonymized and aggregated trip location data between different zones of the city. Each row of the table contains columns for source zone (<cite>sourceid</cite>), destination zone (<cite>dstid</cite>), hour of the day (<cite>hod</cite>) and average travel time aggregated from all trips between these zone at that hour (<cite>mean_travel_time</cite>). You can learn more about this dataset in the <a class="reference external" href="https://d3i4yxtzktqr9n.cloudfront.net/web-movement/76002ded222a46a02ae89f207e91e335.pdf">Movement: Travel Times Calculation Methodology (pdf)</a>. Before moving forward, let’s check how many data records are present in the layer. Right-click the <code class="docutils literal notranslate"><span class="pre">bangalore-wards-2019-3-OnlyWeekdays-HourlyAggregate</span></code> layer and select <span class="guilabel">Show Feature Count</span>. The total rows from the table will be displayed next to it. This is a fairly large table but we don’t need all the data rows for our analysis. We will now identify our target location and filter this table to data records for it.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/039.png" class="align-center" src="../../_images/039.png" />
+</div></blockquote>
+<ol class="arabic simple" start="4">
+<li><p>We want to calculate all areas that are accessible within 30 minutes from a specific location. Using the <cite>OSM Standard</cite> basemap, you can find the location of interest. Then select the <code class="docutils literal notranslate"><span class="pre">bangalore_wards</span></code> layer, use the <span class="guilabel">Identify</span> tool and click on it. The results will show the attributes of the zone containing the location. For the purpose of this tutorial, let’s assume our target location is within the <em>JP Nagar</em> zone with the <em>MOVEMENT_ID</em> <strong>193</strong>.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/049.png" class="align-center" src="../../_images/049.png" />
+</div></blockquote>
+<ol class="arabic simple" start="5">
+<li><p>We can filter the travel time records to just those which have this zone as the destination. We can also restrict our analysis to the peak morning commute hour of 9am - 10am. Right-click the <code class="docutils literal notranslate"><span class="pre">bangalore-wards-2019-3-OnlyWeekdays-HourlyAggregate</span></code> layer and select <span class="guilabel">Filter</span>.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/059.png" class="align-center" src="../../_images/059.png" />
+</div></blockquote>
+<ol class="arabic simple" start="6">
+<li><p>Enter the following filter expression and click <span class="guilabel">OK</span>.</p></li>
+</ol>
+<blockquote>
+<div><div class="highlight-none notranslate"><div class="highlight"><pre><span></span>&quot;dstid&quot; = 193 AND &quot;hod&quot; = 9
+</pre></div>
+</div>
+<img alt="../../_images/069.png" class="align-center" src="../../_images/069.png" />
+</div></blockquote>
+<ol class="arabic simple" start="7">
+<li><p>Back in the main QGIS window, you will see that the number of records in the filtered table are now down to just <em>197</em>. Since there are a total of 198 zones in the city, we have records of travel times between the 1 destination ward and 197 source zones. Open the attribute table of both the layers using the <span class="guilabel">Open Attribute Table</span> button in the <span class="guilabel">Attributes</span> toolbar.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/079.png" class="align-center" src="../../_images/079.png" />
+</div></blockquote>
+<ol class="arabic simple" start="8">
+<li><p>Now we have the shapes of the ward in the layer <code class="docutils literal notranslate"><span class="pre">bangalore_wards</span></code> and tabular information in the layer <code class="docutils literal notranslate"><span class="pre">bangalore-wards-2019-3-OnlyWeekdays-HourlyAggregate</span></code>. We can join the attribute information to the shapes using a common attribute. Here the <code class="docutils literal notranslate"><span class="pre">MOVEMENT_ID</span></code> column from the <code class="docutils literal notranslate"><span class="pre">bangalore_wards</span></code> layer and <code class="docutils literal notranslate"><span class="pre">sourceid</span></code> column from the <code class="docutils literal notranslate"><span class="pre">bangalore-wards-2019-3-OnlyWeekdays-HourlyAggregate</span></code> are unique ward identifiers that can be joined. This operation is called a <em>Table Join</em>.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/088.png" class="align-center" src="../../_images/088.png" />
+</div></blockquote>
+<ol class="arabic simple" start="9">
+<li><p>Before we can join these two layers, we must ensure that the values in both columns match exactly. Thought they appear the same, they are of different type. Since GeoJSON format has no way of specifying property types, all values are assumed to be of the type <em>String</em> - i.e. Text. But when we import a CSV to QGIS, by default, QGIS tries to determines the types of the columns based on the values and assign appropriate field type. For the CSV file, the data type for the column <code class="docutils literal notranslate"><span class="pre">sourceid</span></code> was assigned as <em>Integer</em>. So we need to convert the column from the GeoJSON to an <em>Integer</em> type as well. Go to <span class="menuselection">Processing ‣ Toolbox ‣ Vector Table ‣ Field Calculator algorithm</span>. Double-click to launch it.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/098.png" class="align-center" src="../../_images/098.png" />
+</div></blockquote>
+<ol class="arabic simple" start="10">
+<li><p>Choose <code class="docutils literal notranslate"><span class="pre">bangalore_wards</span></code> as the <span class="guilabel">Input Layer</span>. Name the Field Name as <code class="docutils literal notranslate"><span class="pre">joinfield</span></code> and select the <span class="guilabel">Result field type</span> as <code class="docutils literal notranslate"><span class="pre">Integer</span></code>. Enter <code class="docutils literal notranslate"><span class="pre">MOVEMENT_ID</span></code> as the Expression. Click the <span class="guilabel">…</span> button next to the <span class="guilabel">Calculated</span> and select <span class="guilabel">Save to File…</span> then enter the name of the output file as <code class="docutils literal notranslate"><span class="pre">bangalore_wards_fixed.gpkg</span></code>. Click <span class="guilabel">Run</span>. Close the field calculator.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/1035.png" class="align-center" src="../../_images/1035.png" />
+</div></blockquote>
+<ol class="arabic simple" start="11">
+<li><p>A new layer <code class="docutils literal notranslate"><span class="pre">bangalore_wards_fixed</span></code> will be added to the <span class="guilabel">Layers</span> panel. Now we are ready to perform the join. Go to <span class="menuselection">Processing ‣ Toolbox ‣ Vector General ‣ Join attributes by field value</span>. Double-click to launch it.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/1145.png" class="align-center" src="../../_images/1145.png" />
+</div></blockquote>
+<ol class="arabic simple" start="12">
+<li><p>Select <code class="docutils literal notranslate"><span class="pre">bangalore_wards_fixed</span></code> as the <span class="guilabel">Input layer</span> and <code class="docutils literal notranslate"><span class="pre">joinfield</span></code> as the <span class="guilabel">Table field</span>. Select <code class="docutils literal notranslate"><span class="pre">bangalore-wards-2019-3-OnlyWeekdays-HourlyAggregate</span></code> as the <span class="guilabel">Input layer 2</span> and <code class="docutils literal notranslate"><span class="pre">sourceid</span></code> as the <span class="guilabel">Table field 2</span>. Name the <span class="guilabel">Joined layer</span> as <code class="docutils literal notranslate"><span class="pre">uber_travel_times.gpkg</span></code> and click <span class="guilabel">Run</span>.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/1238.png" class="align-center" src="../../_images/1238.png" />
+</div></blockquote>
+<ol class="arabic simple" start="13">
+<li><p>A new layer <code class="docutils literal notranslate"><span class="pre">uber_travel_times</span></code> will be added to the <span class="guilabel">Layers</span> panel. Let’s style it to visualize the result of the join. Click <span class="guilabel">Open the Layer Styling Panel</span>. Select the <code class="docutils literal notranslate"><span class="pre">Graduated</span></code> renderer and <code class="docutils literal notranslate"><span class="pre">mean_travel_time</span></code> as the <span class="guilabel">Value</span>. Select a color ramp and click <span class="guilabel">Classify</span>. You will see the map showing increasing travel times further you go from the destination.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/1336.png" class="align-center" src="../../_images/1336.png" />
+</div></blockquote>
+<ol class="arabic simple" start="14">
+<li><p>But we are looking to analyze and extract areas that are within 30 minutes of travel time, so we need to do some more processing. Switch the styling back to the <span class="guilabel">Single symbol</span> renderer. Right-click the <code class="docutils literal notranslate"><span class="pre">uber_travel_times</span></code> layer and select <span class="guilabel">Filter</span>.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/1433.png" class="align-center" src="../../_images/1433.png" />
+</div></blockquote>
+<ol class="arabic simple" start="15">
+<li><p>Enter the following expression to select all zones within 1800 seconds (30 minutes) of mean travel time. We also need to include our destination zone which will have 0 travel time.</p></li>
+</ol>
+<blockquote>
+<div><div class="highlight-none notranslate"><div class="highlight"><pre><span></span>&quot;mean_travel_time&quot; &lt;= 1800 OR &quot;MOVEMENT_ID&quot; = 193
+</pre></div>
+</div>
+<img alt="../../_images/1530.png" class="align-center" src="../../_images/1530.png" />
+</div></blockquote>
+<ol class="arabic simple" start="16">
+<li><p>The layer will now show the cluster of polygons that constitute the area of interest. We will merge all of them to a single polygon now. Go to <span class="menuselection">Processing ‣ Toolbox ‣ Vector Geometry ‣ Dissolve</span>. Double-click to launch it.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/1628.png" class="align-center" src="../../_images/1628.png" />
+</div></blockquote>
+<ol class="arabic simple" start="17">
+<li><p>Select <code class="docutils literal notranslate"><span class="pre">uber_travel_times</span></code> as the <span class="guilabel">Input layer</span>. Name the <span class="guilabel">Dissolved</span> layer as <code class="docutils literal notranslate"><span class="pre">30min_isochrone.gpkg</span></code>. Click <span class="guilabel">Run</span>.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/1728.png" class="align-center" src="../../_images/1728.png" />
+</div></blockquote>
+<ol class="arabic simple" start="18">
+<li><p>A new layer <code class="docutils literal notranslate"><span class="pre">30min_isochrone</span></code> will be added to the <span class="guilabel">Layers</span> panel showing the result of our analysis.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/1825.png" class="align-center" src="../../_images/1825.png" />
+</div></blockquote>
+</section>
+</section>
+
+
+
+
+
+  <!-- Comment Section Powered by utterances -->
+<div id="comments">
+  <hr />
+  <p>If you want to give feedback or share your experience with this tutorial, please comment below. (requires GitHub account)</p>
+<script src="https://utteranc.es/client.js"
+        repo="spatialthoughts/qgis-tutorials"
+        issue-term="title"
+        label="comment"
+        theme="github-light"
+        crossorigin="anonymous"
+        async>
+</script>
+</div>
+
+
+    </div>
+      
+  </div>
+</div>
+
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+    </p>
+    <p>
+        &copy; Copyright 2023, Ujaval Gandhi.<br/>
+      Τελευταία ενημέρωση στις Δεκ 27, 2023.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 7.0.1.<br/>
+    </p>
+  </div>
+</footer>
+<div class="container">
+  <p>This work is licensed under a <a href="http://creativecommons.org/licenses/by/4.0/deed.en_US">Creative Commons Attribution 4.0 International License</a></p>
+</div>
+<!-- Twitter Button -->
+<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+
+<!-- Disqus comments widget -->
+<script type="text/javascript">
+  /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+  var disqus_shortname = 'qgistutorials'; // required: replace example with your forum shortname
+  /* * * DON'T EDIT BELOW THIS LINE * * */
+  (function () {
+    var s = document.createElement('script'); s.async = true;
+    s.type = 'text/javascript';
+    s.src = '//' + disqus_shortname + '.disqus.com/count.js';
+    (document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);
+  }());
+</script>
+
+<script type="text/javascript">
+  /* * * DON'T EDIT BELOW THIS LINE * * */
+  (function() {
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+
+<!-- Script fpr language switching. Largely adapted from https://github.com/pcav/faunalia-website -->
+<script>
+    var currentPage = 'docs/3/travel_time_analysis.html'; // coming from sphinx, always without starting '/'
+    var currentLang = 'en';
+    $(document).ready(function(){
+
+        var search = new RegExp('\/[a-zA-Z_]{2,8}\/'+ currentPage, 'gi');
+        var langPlusPage = window.location.href.match(search);
+        // it's possible this is a index.html page called without 'index.html', try without the currentPage
+        if (langPlusPage==undefined){
+            search = new RegExp('\/[a-zA-Z_]{2,8}\/$', 'gi');
+            langPlusPage = window.location.href.match(search);
+        }
+
+        // it's possible this is an index.html page called without 'index.html', try removing index.html
+        if (langPlusPage==undefined){
+            currentPage = currentPage.replace('index.html','')
+            search = new RegExp('\/[a-zA-Z_]{2,8}\/'+ currentPage, 'gi');
+            langPlusPage = window.location.href.match(search);
+        }
+        // still no langPlugPage: stop, because the language swicher will misbehave 
+
+        if (langPlusPage == undefined || langPlusPage.length != 1){
+            alert('You hit an error, please report back to us.');
+            return;
+        }
+        langPlusPage = langPlusPage[0];
+        currentLang = langPlusPage.replace(currentPage, '');
+
+        $("#languages").val(currentLang.replace(/\//g,'')); // currentLang is something like '/nl/'
+
+        $("#languages").change(function() {
+            gotoLang($(this).val());
+        });
+
+    });
+
+    // load current page in a different language
+    function gotoLang(lang){
+        var currentUrl = window.location.href;
+        var newUrl = currentUrl.replace(currentLang, '/'+lang+'/');
+        window.location.href = newUrl;
+    }
+</script>
+
+  </body>
+</html>

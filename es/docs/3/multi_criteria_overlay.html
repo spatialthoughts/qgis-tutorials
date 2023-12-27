@@ -104,6 +104,7 @@
 <li class="toctree-l1"><a class="reference internal" href="service_area_analysis.html">Análisis de Área de Servicio usando Openrouteservice (QGIS3)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="travel_time_analysis.html">Análisis del tiempo de viaje con el movimiento de Uber (QGIS3)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="areal_mean_rainfall.html">Calcular la Precipitación Media de Área (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="colorized_river_basin_map.html">Creating a Colorized River Basin Map (QGIS3)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="creating_landuse_map.html">Creating a Landuse Map (QGIS3)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="calculating_intersection_density.html">Calcular Densidad de Intersección de Calle (QGIS3)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="landuse_buffer.html">Determining Landuse Buffer Zones (QGIS3)</a></li>
@@ -212,55 +213,55 @@
 <li><p>Navegue al archivo <code class="docutils literal notranslate"><span class="pre">assam.gpkg</span></code> descargado en el Navegador QGIS. Expándalo y arrastre cada una de las 5 cadas individuales de datos a la pantalla de mapa. Verá que carga las capas <code class="docutils literal notranslate"><span class="pre">boundary</span></code>, <code class="docutils literal notranslate"><span class="pre">roads</span></code>, <code class="docutils literal notranslate"><span class="pre">protected_regions</span></code>, <code class="docutils literal notranslate"><span class="pre">water_polygons</span></code> y <code class="docutils literal notranslate"><span class="pre">water_polylines</span></code> en el panel <span class="guilabel">Capas</span>.</p></li>
 </ol>
 <blockquote>
-<div><img alt="../../_images/1102.png" class="align-center" src="../../_images/1102.png" />
+<div><img alt="../../_images/1103.png" class="align-center" src="../../_images/1103.png" />
 </div></blockquote>
 <ol class="arabic simple" start="2">
 <li><p>First step in the overlay analysis, is to convert each data layer to raster. An important consideration is that all rasters must be of the same extent. We will use the <code class="docutils literal notranslate"><span class="pre">boundary</span></code> layer as the extent for all the rasters. Go to <span class="menuselection">Processing ‣ Toolbox</span>. Search for and locate the <span class="menuselection">GDAL ‣ Vector conversion ‣ Rasterize (vector to raster)</span> algorithm. Double-click to launch it.</p></li>
 </ol>
 <blockquote>
-<div><img alt="../../_images/270.png" class="align-center" src="../../_images/270.png" />
+<div><img alt="../../_images/290.png" class="align-center" src="../../_images/290.png" />
 </div></blockquote>
 <ol class="arabic simple" start="3">
 <li><p>En el diálogo <span class="guilabel">Rasterizar (vectorial a ráster)</span>, seleccionar <code class="docutils literal notranslate"><span class="pre">roads</span></code> como la <span class="guilabel">Capa de entrada</span>. Crearemos un ráster de salida donde los valores de píxel son 1 donde haya un camino y 0 donde no haya caminos. Ingrese <code class="docutils literal notranslate"><span class="pre">1</span></code> como el <span class="guilabel">Un valor fijo para quemar</span>. Las capas de entrada están en un SRC proyectado con metros como unidad. Seleccione <code class="docutils literal notranslate"><span class="pre">Unidades</span> <span class="pre">georeferencias</span></code> como las <span class="guilabel">Unidades de tamaño del ráster de salida</span>. Estableceremos la resolución del ráster de salida en 15 metros. Seleccione <code class="docutils literal notranslate"><span class="pre">15</span></code> tanto para la <span class="guilabel">Width/Resolución horizontal</span> como la <span class="guilabel">Height/Resolución vertical</span>. A continuación, clic en el botón <span class="guilabel">…</span> junto a <span class="guilabel">Extensión de salida</span> y seleccione <code class="docutils literal notranslate"><span class="pre">boundary</span></code> para <span class="guilabel">Usar extensión para</span>.</p></li>
 </ol>
 <blockquote>
-<div><img alt="../../_images/336.png" class="align-center" src="../../_images/336.png" />
+<div><img alt="../../_images/340.png" class="align-center" src="../../_images/340.png" />
 </div></blockquote>
 <ol class="arabic simple" start="4">
 <li><p>Scroll down further and click the arrow button in the <span class="guilabel">Assign a specific nodata value to output bands</span>.</p></li>
 </ol>
 <blockquote>
-<div><img alt="../../_images/416.png" class="align-center" src="../../_images/416.png" />
+<div><img alt="../../_images/418.png" class="align-center" src="../../_images/418.png" />
 </div></blockquote>
 <ol class="arabic simple" start="5">
 <li><p>That field should now be set to <code class="docutils literal notranslate"><span class="pre">Not</span> <span class="pre">set</span></code>. This is important because when raster calculator (which we will use later) encounters a pixel with nodata value in any layer, it sets the output to nodata as well, resulting is wrong output.</p></li>
 </ol>
 <blockquote>
-<div><img alt="../../_images/516.png" class="align-center" src="../../_images/516.png" />
+<div><img alt="../../_images/517.png" class="align-center" src="../../_images/517.png" />
 </div></blockquote>
 <ol class="arabic simple" start="6">
 <li><p>Scroll down to find the <span class="guilabel">Advanced Parameters</span> and select the profile <code class="docutils literal notranslate"><span class="pre">High</span> <span class="pre">Compression</span></code> to apply the compression. This will generate the compressed raster file of smaller size after running the tool. Applying lossless compression is highly recommended while working with raster data.</p></li>
 </ol>
 <blockquote>
-<div><img alt="../../_images/616.png" class="align-center" src="../../_images/616.png" />
+<div><img alt="../../_images/617.png" class="align-center" src="../../_images/617.png" />
 </div></blockquote>
 <ol class="arabic simple" start="7">
 <li><p>Set the <span class="guilabel">Rasterized</span> output raster as <code class="docutils literal notranslate"><span class="pre">raster_roads.tif</span></code> and click <span class="guilabel">Run</span>.</p></li>
 </ol>
 <blockquote>
-<div><img alt="../../_images/715.png" class="align-center" src="../../_images/715.png" />
+<div><img alt="../../_images/716.png" class="align-center" src="../../_images/716.png" />
 </div></blockquote>
 <ol class="arabic simple" start="8">
 <li><p>Una vez que termine el procesamiento, verá una nueva capa <span class="guilabel">raster_roads</span> cargada en el panel <span class="guilabel">Capas</span>. El estilo predeterminado mostrará píxeles con caminos en blanco y otros en negro. También queremos convertir otras 4 capas vectoriales a ráster. En vez de ejecutar el algoritmo rasterizar uno por uno, podemos usar la funcionalidad incorporada de procesamiento por lotes para convertirlos a todos a la vez. Vea el tutorial <span class="xref std std-doc">batch-processing</span> para aprender más acerca del procesamiento por lotes. Clic-derecho al algoritmo <code class="docutils literal notranslate"><span class="pre">Rasterizar</span> <span class="pre">(vectorial</span> <span class="pre">a</span> <span class="pre">ráster)</span></code> y seleccione <span class="guilabel">Ejecutar como Proceso por Lote</span>.</p></li>
 </ol>
 <blockquote>
-<div><img alt="../../_images/815.png" class="align-center" src="../../_images/815.png" />
+<div><img alt="../../_images/816.png" class="align-center" src="../../_images/816.png" />
 </div></blockquote>
 <ol class="arabic simple" start="9">
 <li><p>En el diálogo <span class="guilabel">Proceso por Lote</span>, clic el botón <span class="guilabel">…</span> en la primera fila de la columna <span class="guilabel">Capa de entrada</span>. Seleccione las capas <code class="docutils literal notranslate"><span class="pre">boundary</span></code>, <code class="docutils literal notranslate"><span class="pre">protected_regions</span></code>, <code class="docutils literal notranslate"><span class="pre">water_polygons</span></code> y <code class="docutils literal notranslate"><span class="pre">water_polylines</span></code> y clic en <span class="guilabel">Aceptar</span>.</p></li>
 </ol>
 <blockquote>
-<div><img alt="../../_images/915.png" class="align-center" src="../../_images/915.png" />
+<div><img alt="../../_images/916.png" class="align-center" src="../../_images/916.png" />
 </div></blockquote>
 <div class="admonition note">
 <p class="admonition-title">Nota</p>
@@ -270,25 +271,25 @@
 <li><p>Llene los parámetros con los mismos valores que usamos en la capa de caminos. Después de llenar la primera fila del parámetro, use el botón <span class="menuselection">Autollenar ‣ Rellenar</span> para agregar los mismos valores para todas las capas.</p></li>
 </ol>
 <blockquote>
-<div><img alt="../../_images/1021.png" class="align-center" src="../../_images/1021.png" />
+<div><img alt="../../_images/1022.png" class="align-center" src="../../_images/1022.png" />
 </div></blockquote>
 <ol class="arabic simple" start="11">
 <li><p>En la última columna <span class="guilabel">Rasterized</span>, clic el botón <span class="guilabel">…</span> en la primera fila. Seleccione <code class="docutils literal notranslate"><span class="pre">Llenar</span> <span class="pre">con</span> <span class="pre">valores</span> <span class="pre">de</span> <span class="pre">parámetros</span></code> para el <span class="guilabel">Modo autorellenar</span> y <code class="docutils literal notranslate"><span class="pre">Capa</span> <span class="pre">de</span> <span class="pre">entrada</span></code> para <span class="guilabel">Parámetro a usar</span>. Clic en <span class="guilabel">Aceptar</span>.</p></li>
 </ol>
 <blockquote>
-<div><img alt="../../_images/1124.png" class="align-center" src="../../_images/1124.png" />
+<div><img alt="../../_images/1125.png" class="align-center" src="../../_images/1125.png" />
 </div></blockquote>
 <ol class="arabic simple" start="12">
 <li><p>Navegue a un directorio en su computador y nombre la capa como <code class="docutils literal notranslate"><span class="pre">raster_</span></code>. El interfaz de procesamiento por lote autocompletará el nombre con el nombre de la capa y llenará todas las filas. Asegúrese que la caja <span class="guilabel">Cargar las capas al completarse</span> esté marcada y clic en <span class="guilabel">Aceptar</span>.</p></li>
 </ol>
 <blockquote>
-<div><img alt="../../_images/1222.png" class="align-center" src="../../_images/1222.png" />
+<div><img alt="../../_images/1223.png" class="align-center" src="../../_images/1223.png" />
 </div></blockquote>
 <ol class="arabic simple" start="13">
 <li><p>Una vez que termine el procesamiento, tendrá 4 nuevas capas ráster cargadas en el panel <span class="guilabel">Capas</span>. Notará que tenemos 2 capas relacionadas con agua - ambas representan agua. Podemos fusionarlas para tener una sola capa que representa áreas de agua en la región. Busque y localice el algoritmo menuselection:<cite>Análisis ráster –&gt; Calculadora ráster</cite> en la Caja de herramientas de Proceso. Doble-clic para iniciarlo.</p></li>
 </ol>
 <blockquote>
-<div><img alt="../../_images/1320.png" class="align-center" src="../../_images/1320.png" />
+<div><img alt="../../_images/1321.png" class="align-center" src="../../_images/1321.png" />
 </div></blockquote>
 <ol class="arabic simple" start="14">
 <li><p>Ingrese la siguiente expresión en la caja <span class="guilabel">Expresión</span>. Puede hacer clic en la capa apropiada en la caja <span class="guilabel">Capas</span> para auto insertar los nombres de capas. Esta expresión significa que queremos sumar los valores de píxeles en la primera banda de ambos ráster de agua. Clic en el botón <span class="guilabel">…</span> junto a <span class="guilabel">Capa(s) de referencia</span> y seleccion <code class="docutils literal notranslate"><span class="pre">raster_water_polygons</span></code> como la capa de referencia. Nombre a la salida como <code class="docutils literal notranslate"><span class="pre">raster_water_merged.tif</span></code> y clic en <span class="guilabel">Ejecutar</span>.</p></li>
@@ -297,13 +298,13 @@
 <div><div class="highlight-none notranslate"><div class="highlight"><pre><span></span>&quot;raster_water_polygons@1&quot; + &quot;raster_water_polylines@1&quot;
 </pre></div>
 </div>
-<img alt="../../_images/1418.png" class="align-center" src="../../_images/1418.png" />
+<img alt="../../_images/1419.png" class="align-center" src="../../_images/1419.png" />
 </div></blockquote>
 <ol class="arabic simple" start="15">
 <li><p>El ráster resultante fusionado tendrá píxeles con valor 1 para todas las áreas con agua. Pero notará que hay algunas regiones donde había tanto un polígono de agua como una polilínea agua. Esas áreas tendrán píxeles con valor 2 - lo que no es correcto. Podemos corregir esto con una expresión simple. Abra de nuevo el algoritmo <span class="menuselection">Análisis ráster ‣ Calculadora ráster</span>.</p></li>
 </ol>
 <blockquote>
-<div><img alt="../../_images/1517.png" class="align-center" src="../../_images/1517.png" />
+<div><img alt="../../_images/1518.png" class="align-center" src="../../_images/1518.png" />
 </div></blockquote>
 <ol class="arabic simple" start="16">
 <li><p>Ingrese la siguiente expresión que asignará el valor 1 que coincide la expresión y 0 donde no coincide. Clic el botón guilabel:<cite>…</cite> junto a <span class="guilabel">Capa(s) de referencia</span> y seleccione la capa <code class="docutils literal notranslate"><span class="pre">raster_water_merged</span></code>. Nombre la salida como <code class="docutils literal notranslate"><span class="pre">raster_water.tif</span></code> y clic en <span class="guilabel">Ejecutar</span>.</p></li>
@@ -312,31 +313,31 @@
 <div><div class="highlight-none notranslate"><div class="highlight"><pre><span></span>&quot;raster_water_merged@1&quot; &gt; 0
 </pre></div>
 </div>
-<img alt="../../_images/1616.png" class="align-center" src="../../_images/1616.png" />
+<img alt="../../_images/1617.png" class="align-center" src="../../_images/1617.png" />
 </div></blockquote>
 <ol class="arabic simple" start="17">
 <li><p>La capa resultante <code class="docutils literal notranslate"><span class="pre">raster_water</span></code> ahora tiene píxeles con sólo valores 0 y 1.</p></li>
 </ol>
 <blockquote>
-<div><img alt="../../_images/1717.png" class="align-center" src="../../_images/1717.png" />
+<div><img alt="../../_images/1718.png" class="align-center" src="../../_images/1718.png" />
 </div></blockquote>
 <ol class="arabic simple" start="18">
 <li><p>Ahora tenermos capas que representan píxeles camino y agua, podemos generar rásters de proximidad. Estos son también conocidos como distancias Euclideanas - donde cada píxel en el ráster de salida representa la distancia al píxel más cercano en el ráster de entrada. Este ráster resultante luego puede ser usado para determinar áreas apropiadas que están dentro de cierta distancia de la entrada. Busque y localice el algoritmo <span class="menuselection">GDAL ‣ Análisis ráster ‣ Proximidad (distancia ráster)</span>. Doble-clic para iniciarlo.</p></li>
 </ol>
 <blockquote>
-<div><img alt="../../_images/1815.png" class="align-center" src="../../_images/1815.png" />
+<div><img alt="../../_images/1816.png" class="align-center" src="../../_images/1816.png" />
 </div></blockquote>
 <ol class="arabic simple" start="19">
 <li><p>In the <span class="guilabel">Proximity (Raster Distance)</span> dialog, select <code class="docutils literal notranslate"><span class="pre">raster_roads</span></code> as the <span class="guilabel">Input layer</span>. Choose <code class="docutils literal notranslate"><span class="pre">Georeferenced</span> <span class="pre">coordinates</span></code> as the <span class="guilabel">Distance units</span>. As the input layers are in a projected CRS with meters as the units, enter <code class="docutils literal notranslate"><span class="pre">5000</span></code> (5 kilometers) as the <span class="guilabel">Maximum distance to be generated</span>. Make sure the <span class="guilabel">Nodata value to use for the destination proximity raster</span> value is <code class="docutils literal notranslate"><span class="pre">Not</span> <span class="pre">set</span></code>.</p></li>
 </ol>
 <blockquote>
-<div><img alt="../../_images/1913.png" class="align-center" src="../../_images/1913.png" />
+<div><img alt="../../_images/1914.png" class="align-center" src="../../_images/1914.png" />
 </div></blockquote>
 <ol class="arabic simple" start="20">
 <li><p>You can expand the <span class="guilabel">Advanced Parameters</span> and select the profile <code class="docutils literal notranslate"><span class="pre">High</span> <span class="pre">Compression</span></code> to apply the compression. Name the output file as <code class="docutils literal notranslate"><span class="pre">roads_proximity.tif</span></code> and click <span class="guilabel">Run</span>.</p></li>
 </ol>
 <blockquote>
-<div><img alt="../../_images/2013.png" class="align-center" src="../../_images/2013.png" />
+<div><img alt="../../_images/2014.png" class="align-center" src="../../_images/2014.png" />
 </div></blockquote>
 <div class="admonition note">
 <p class="admonition-title">Nota</p>
@@ -346,19 +347,19 @@
 <li><p>Una vez que se complete el procesamiento, se agregará una nueva capa <code class="docutils literal notranslate"><span class="pre">roads_proximity</span></code> al panel <span class="guilabel">Capas</span>. Para visualizarla mejor, cambiemos el estilo predeterminado. Clic en el botón <span class="guilabel">Abrir el panel de Estilo de Capa</span> en el panel <span class="guilabel">Capas</span>. Cambie el valor <span class="guilabel">Max</span> a <code class="docutils literal notranslate"><span class="pre">5000</span></code> bajo <span class="guilabel">Gradiente de color</span>.</p></li>
 </ol>
 <blockquote>
-<div><img alt="../../_images/2116.png" class="align-center" src="../../_images/2116.png" />
+<div><img alt="../../_images/2117.png" class="align-center" src="../../_images/2117.png" />
 </div></blockquote>
 <ol class="arabic simple" start="22">
 <li><p>Repita el algoritmo <span class="guilabel">Proximidad (Distancia de Ráster)</span> para la capa <code class="docutils literal notranslate"><span class="pre">raster_water</span></code> con los mismos parámetros y nombre la salida como <code class="docutils literal notranslate"><span class="pre">water_proximity.tif</span></code>.</p></li>
 </ol>
 <blockquote>
-<div><img alt="../../_images/2215.png" class="align-center" src="../../_images/2215.png" />
+<div><img alt="../../_images/2216.png" class="align-center" src="../../_images/2216.png" />
 </div></blockquote>
 <ol class="arabic simple" start="23">
 <li><p>Una vez que finalice el procesamiento, puede aplicar el estilo similar como antes para visualizar mejor los resultados. Si hace clic por ahí en la capa resultante, verá que es un continuo de valores de 0 a 5000. Para usar este ráster en un análisis de sobreposición, debemos primero reclasificarlo para crear valores discretos. Abra de nuevo el algoritmo <span class="menuselection">Análisis ráster ‣ Calculadora ráster</span>.</p></li>
 </ol>
 <blockquote>
-<div><img alt="../../_images/2313.png" class="align-center" src="../../_images/2313.png" />
+<div><img alt="../../_images/2314.png" class="align-center" src="../../_images/2314.png" />
 </div></blockquote>
 <ol class="arabic simple" start="24">
 <li><p>Queremos dar un puntaje mayor a píxeles que están cerca de caminos. Así que usemos el siguiente esquema.</p></li>
@@ -371,7 +372,7 @@
 <div class="highlight-none notranslate"><div class="highlight"><pre><span></span>100*(&quot;roads_proximity@1&quot;&lt;=1000) + 50*(&quot;roads_proximity@1&quot;&gt;1000)*(&quot;roads_proximity@1&quot;&lt;=5000) + 10*(&quot;roads_proximity@1&quot;&gt;5000)
 </pre></div>
 </div>
-<img alt="../../_images/2412.png" class="align-center" src="../../_images/2412.png" />
+<img alt="../../_images/2413.png" class="align-center" src="../../_images/2413.png" />
 </li>
 </ul>
 <ol class="arabic simple" start="25">
@@ -391,7 +392,7 @@
 <div class="highlight-none notranslate"><div class="highlight"><pre><span></span>100*(&quot;water_proximity@1&quot;&gt;5000) + 50*(&quot;water_proximity@1&quot;&gt;1000)*(&quot;water_proximity@1&quot;&lt;=5000) + 10*(&quot;water_proximity@1&quot;&lt;1000)
 </pre></div>
 </div>
-<img alt="../../_images/2611.png" class="align-center" src="../../_images/2611.png" />
+<img alt="../../_images/2612.png" class="align-center" src="../../_images/2612.png" />
 </li>
 </ul>
 <ol class="arabic simple" start="27">
@@ -401,7 +402,7 @@
 <div><div class="highlight-none notranslate"><div class="highlight"><pre><span></span>(&quot;roads_reclass@1&quot; + &quot;water_reclass@1&quot;)*(&quot;raster_protected_regions@1&quot;  !=  1 )*&quot;raster_boundary@1&quot;
 </pre></div>
 </div>
-<img alt="../../_images/2711.png" class="align-center" src="../../_images/2711.png" />
+<img alt="../../_images/2712.png" class="align-center" src="../../_images/2712.png" />
 </div></blockquote>
 <div class="admonition note">
 <p class="admonition-title">Nota</p>
@@ -411,19 +412,19 @@
 <li><p>Una vez que termine el proceso, el ráster resultante <code class="docutils literal notranslate"><span class="pre">overlay</span></code> se agregará al panel <span class="guilabel">Capas</span>. Los valores de píxel en este ráster van del 0 a 200 - donde 0 es el área menos apropiada y 200 es la más apropiada para desarrollo. Clic en el botón <span class="guilabel">Abrir el panel de Estilo de Capa</span> en el panel <span class="guilabel">Capas</span>.</p></li>
 </ol>
 <blockquote>
-<div><img alt="../../_images/2811.png" class="align-center" src="../../_images/2811.png" />
+<div><img alt="../../_images/2812.png" class="align-center" src="../../_images/2812.png" />
 </div></blockquote>
 <ol class="arabic simple" start="29">
 <li><p>Seleccione el representador <code class="docutils literal notranslate"><span class="pre">pseudocolor_banda_única</span></code> y la rampa de color <code class="docutils literal notranslate"><span class="pre">Espectral</span></code>. Clic <span class="guilabel">Clasificar</span> para aplicar la rampa de color al ráster.</p></li>
 </ol>
 <blockquote>
-<div><img alt="../../_images/2910.png" class="align-center" src="../../_images/2910.png" />
+<div><img alt="../../_images/2911.png" class="align-center" src="../../_images/2911.png" />
 </div></blockquote>
 <ol class="arabic simple" start="30">
 <li><p>Clic en los valores predeterminados de etiqueta junto a cada color e ingrese las etiquetas apropiadas. Las etiquetas también aparecerán como la leyenda bajo la capa <code class="docutils literal notranslate"><span class="pre">overlay</span></code>.</p></li>
 </ol>
 <blockquote>
-<div><img alt="../../_images/3010.png" class="align-center" src="../../_images/3010.png" />
+<div><img alt="../../_images/3011.png" class="align-center" src="../../_images/3011.png" />
 </div></blockquote>
 <ol class="arabic simple" start="31">
 <li><p>Las capas ráster son cuadrículas rectangulares. Queremos esconder los píxeles fuera de los límites del estado. Una manera fácil de alcanzar esto es aplicando unos <code class="docutils literal notranslate"><span class="pre">Polígonos</span> <span class="pre">Invertidos</span></code> representados en la capa vector de límite. Deslice hacia abajo en el panel <span class="guilabel">Capas</span> y ubique la capa <code class="docutils literal notranslate"><span class="pre">boundary</span></code>. Seleccione <code class="docutils literal notranslate"><span class="pre">Polígonos</span> <span class="pre">Invertidos</span></code> como el representador y deje las otras opciones predeterminadas.</p></li>
@@ -441,7 +442,7 @@
 <li><p>Marque la capa y la pantalla de mapa se actualizará para mostrar el ráster <code class="docutils literal notranslate"><span class="pre">overlay</span></code> recortado a la capa <code class="docutils literal notranslate"><span class="pre">boundary</span></code>. Esta es la salida final que muestra áreas dentro del estado que son apropiadas para desarrollo.</p></li>
 </ol>
 <blockquote>
-<div><img alt="../../_images/337.png" class="align-center" src="../../_images/337.png" />
+<div><img alt="../../_images/3310.png" class="align-center" src="../../_images/3310.png" />
 </div></blockquote>
 </section>
 </section>
@@ -453,7 +454,7 @@
   <!-- Comment Section Powered by utterances -->
 <div id="comments">
   <hr />
-  <p>If you want to report any issues with this tutorial, please comment below. (requires GitHub account)</p>
+  <p>If you want to give feedback or share your experience with this tutorial, please comment below. (requires GitHub account)</p>
 <script src="https://utteranc.es/client.js"
         repo="spatialthoughts/qgis-tutorials"
         issue-term="title"
@@ -477,8 +478,8 @@
       
     </p>
     <p>
-        &copy; Copyright 2021, Ujaval Gandhi.<br/>
-      Actualizado por última vez en dic 23, 2023.<br/>
+        &copy; Copyright 2023, Ujaval Gandhi.<br/>
+      Actualizado por última vez en dic 27, 2023.<br/>
       Created using <a href="http://sphinx-doc.org/">Sphinx</a> 7.0.1.<br/>
     </p>
   </div>

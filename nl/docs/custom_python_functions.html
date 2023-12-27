@@ -102,6 +102,7 @@
 <li class="toctree-l1"><a class="reference internal" href="3/service_area_analysis.html">Analyse Servicegebied met Openrouteservice (QGIS3)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="3/travel_time_analysis.html">Reistijd-analyse met Uber Movement (QGIS3)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="3/areal_mean_rainfall.html">Berekenen gemiddelde regenval voor gebied (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/colorized_river_basin_map.html">Creating a Colorized River Basin Map (QGIS3)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="3/creating_landuse_map.html">Een kaart voor gebruik van land maken (QGIS3)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="3/calculating_intersection_density.html">Dichtheid van straatkruisingen berekenen (QGIS3)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="3/landuse_buffer.html">Bufferzones voor landgebruik bepalen  (QGIS3)</a></li>
@@ -198,19 +199,19 @@
 <ol class="arabic simple">
 <li><p>Open QGIS en ga naar <span class="menuselection">Kaartlagen ‣ Laag toevoegen ‣ Vectorlaag toevoegen</span>.</p></li>
 </ol>
-<img alt="../_images/1170.png" class="align-center" src="../_images/1170.png" />
+<img alt="../_images/1172.png" class="align-center" src="../_images/1172.png" />
 <ol class="arabic simple" start="2">
 <li><p>Blader naar het gedownloade bestand <code class="docutils literal notranslate"><span class="pre">ne_10m_populated_places_simple.zip</span></code> en klik op <span class="guilabel">Open</span>.</p></li>
 </ol>
-<img alt="../_images/2140.png" class="align-center" src="../_images/2140.png" />
+<img alt="../_images/2143.png" class="align-center" src="../_images/2143.png" />
 <ol class="arabic simple" start="3">
 <li><p>Ga naar <span class="menuselection">Beeld ‣ Selecteren ‣ Selecteren met expressie…</span>.</p></li>
 </ol>
-<img alt="../_images/376.png" class="align-center" src="../_images/376.png" />
+<img alt="../_images/385.png" class="align-center" src="../_images/385.png" />
 <ol class="arabic simple" start="4">
 <li><p>Schakel naar de tab <span class="guilabel">Functiebewerker</span>. Hier kunt u alle code voor PyQGIS schrijven die zal worden uitgevoerd doort het programma voor expressies.</p></li>
 </ol>
-<img alt="../_images/445.png" class="align-center" src="../_images/445.png" />
+<img alt="../_images/450.png" class="align-center" src="../_images/450.png" />
 <ol class="arabic simple" start="5">
 <li><p>We zullen een aangepaste functie maken, genaamd <code class="docutils literal notranslate"><span class="pre">GetUtmZone</span></code> dat het getal van de UTM-zone zal berekenen voor elk object. Omdat aangepaste functies in QGIS werken op het niveau van objecten. We zullen het zwaartepunt van de geometrie van het object gebruiken en de UTM-zone berekenen uit de latitude en longitude van de geometrie van het zwaartepunt. We zullen ook een bestemmings ‘N’ of ‘S’ toevoegen aan de zone om aan te geven of de zone zich bevindt in de noordelijke of zuidelijke hemisfeer. Typ de volgende code in de bewerker, voer als naam voor het bestand <code class="docutils literal notranslate"><span class="pre">utm_zones.py</span></code> in en klik op <span class="guilabel">Bestand opslaan</span>.</p></li>
 </ol>
@@ -237,53 +238,53 @@
     <span class="k">return</span> <span class="s1">&#39;</span><span class="si">%d%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">zone_number</span><span class="p">),</span> <span class="n">zone_letter</span><span class="p">)</span>
 </pre></div>
 </div>
-<img alt="../_images/543.png" class="align-center" src="../_images/543.png" />
+<img alt="../_images/544.png" class="align-center" src="../_images/544.png" />
 <ol class="arabic simple" start="6">
 <li><p>Klik op <span class="guilabel">Script uitvoeren</span>. Dit zal de code voor Python uitvoeren en de functie``GetUtmZone`` registreren in het programma voor de expressies. Onthoud dat dit slechts één keer behoeft te worden uitgevoerd. Als de functie eenmaal is geregistreerd, zal hij altijd beschikbaar zijn voor het programma voor de expressies.</p></li>
 </ol>
-<img alt="../_images/641.png" class="align-center" src="../_images/641.png" />
+<img alt="../_images/642.png" class="align-center" src="../_images/642.png" />
 <ol class="arabic simple" start="7">
 <li><p>Schakel naar de tab <span class="guilabel">Expressie</span> in het dialoogvenster <span class="guilabel">Selecteren met expressie</span>. Zoek en vergroot de groep <span class="guilabel">Custom</span> in het gedeelte <span class="guilabel">Functies</span>. U zult een nieuwe aangepaste functie <code class="docutils literal notranslate"><span class="pre">$GetUtmZone</span></code> in de lijst zien. We kunnen nu deze functie nu gebruiken in expressies, net als alle andere functies. Typ de volgende expressie in de bewerker. Deze expressie zal alle punten selecteren die in de UTM Zone <code class="docutils literal notranslate"><span class="pre">40N</span></code> vallen. Klik op <span class="guilabel">Selecteren</span>.</p></li>
 </ol>
 <div class="highlight-none notranslate"><div class="highlight"><pre><span></span>$GetUtmZone = &#39;40N&#39;
 </pre></div>
 </div>
-<img alt="../_images/741.png" class="align-center" src="../_images/741.png" />
+<img alt="../_images/742.png" class="align-center" src="../_images/742.png" />
 <ol class="arabic simple" start="8">
 <li><p>Terug in het hoofdvenster van QGIS zult u vele punten zien die geel zijn geaccentueerd. Dit zijn de punten die vallen in de UTM Zone die we hebben gespecificeerd in de expressie.</p></li>
 </ol>
-<img alt="../_images/840.png" class="align-center" src="../_images/840.png" />
+<img alt="../_images/841.png" class="align-center" src="../_images/841.png" />
 <ol class="arabic simple" start="9">
 <li><p>U zag hoe we een aangepaste functie om objecten met een expressie te selecteren hebben gedefinieerd en gebruikt. We zullen du dezelfde functie in een andere context gebruiken. Eén van de verborgen juwelen in QGIS is het gereedschap <code class="docutils literal notranslate"><span class="pre">Kaarttips</span></code>. Dit gereedschap geeft gebruiker-gedefinieerde tekst weer indien u over een object gaat. Klik met rechts op de laag <code class="docutils literal notranslate"><span class="pre">ne_10m_populated_places_simple</span></code> en selecteer <span class="guilabel">Eigenschappen</span>.</p></li>
 </ol>
-<img alt="../_images/941.png" class="align-center" src="../_images/941.png" />
+<img alt="../_images/942.png" class="align-center" src="../_images/942.png" />
 <ol class="arabic simple" start="10">
 <li><p>Schakel over naar de tab <span class="guilabel">Tonen</span> en selecteer <span class="guilabel">HTML</span>. Hier kunt u elke tekst invullen die zal worden weergegeven als u over de objecten van de laag gaat. Beter nog, u kunt veldwaarden van de laag gebruiken en ook expressies om veel betere nuttige berichten weer te geven. Klik op de knop <span class="guilabel">Voorwaarde toevoegen…</span>.</p></li>
 </ol>
-<img alt="../_images/1048.png" class="align-center" src="../_images/1048.png" />
+<img alt="../_images/1049.png" class="align-center" src="../_images/1049.png" />
 <ol class="arabic simple" start="11">
 <li><p>U zult opnieuw de bekende expressiebewerker zien. We zullen de functie <code class="docutils literal notranslate"><span class="pre">concat</span></code> gebruiken om de waarde van het veld <code class="docutils literal notranslate"><span class="pre">name</span></code> samen te voegen met het resultaat van onze aangepaste functie $GetUtmZone. Voer de volgende expressie in en klik op <span class="guilabel">OK</span>.</p></li>
 </ol>
 <div class="highlight-none notranslate"><div class="highlight"><pre><span></span>concat(&quot;name&quot;, &#39; | UTM Zone: &#39;, $GetUtmZone)
 </pre></div>
 </div>
-<img alt="../_images/1171.png" class="align-center" src="../_images/1171.png" />
+<img alt="../_images/1173.png" class="align-center" src="../_images/1173.png" />
 <ol class="arabic simple" start="12">
 <li><p>U zult de expressie zien ingevoerd als de waarde van de tekst in <span class="guilabel">Tonen</span>. Klik op <span class="guilabel">OK</span>.</p></li>
 </ol>
-<img alt="../_images/1250.png" class="align-center" src="../_images/1250.png" />
+<img alt="../_images/1251.png" class="align-center" src="../_images/1251.png" />
 <ol class="arabic simple" start="13">
 <li><p>laten we, vóórdat we doorgaan, de objecten die werden geselecteerd in de vorige stap deselecteren. Ga naar <span class="menuselection">Beeld ‣ Selecteren ‣ Objecten uit alle lagen deselecteren</span>.</p></li>
 </ol>
-<img alt="../_images/1348.png" class="align-center" src="../_images/1348.png" />
+<img alt="../_images/1349.png" class="align-center" src="../_images/1349.png" />
 <ol class="arabic simple" start="14">
 <li><p>Activeer het gereedschap <code class="docutils literal notranslate"><span class="pre">Kaarttips</span></code> door te gaan naar <span class="menuselection">Beeld ‣ Kaarttips</span>.</p></li>
 </ol>
-<img alt="../_images/1445.png" class="align-center" src="../_images/1445.png" />
+<img alt="../_images/1446.png" class="align-center" src="../_images/1446.png" />
 <ol class="arabic simple" start="15">
 <li><p>Zoom in op een willekeurig gebied van de kaart en plaats uw muiscursor boven een object. U zult de naam van de stad en de corresponderende UTM-zone weergegeven zien worden als een kaarttip.</p></li>
 </ol>
-<img alt="../_images/1542.png" class="align-center" src="../_images/1542.png" />
+<img alt="../_images/1543.png" class="align-center" src="../_images/1543.png" />
 </section>
 </section>
 
@@ -294,7 +295,7 @@
   <!-- Comment Section Powered by utterances -->
 <div id="comments">
   <hr />
-  <p>If you want to report any issues with this tutorial, please comment below. (requires GitHub account)</p>
+  <p>If you want to give feedback or share your experience with this tutorial, please comment below. (requires GitHub account)</p>
 <script src="https://utteranc.es/client.js"
         repo="spatialthoughts/qgis-tutorials"
         issue-term="title"
@@ -318,8 +319,8 @@
       
     </p>
     <p>
-        &copy; Copyright 2021, Ujaval Gandhi.<br/>
-      Laatste aanpassing op dec 23, 2023.<br/>
+        &copy; Copyright 2023, Ujaval Gandhi.<br/>
+      Laatste aanpassing op dec 27, 2023.<br/>
       Created using <a href="http://sphinx-doc.org/">Sphinx</a> 7.0.1.<br/>
     </p>
   </div>

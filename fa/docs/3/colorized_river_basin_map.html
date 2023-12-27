@@ -1,0 +1,632 @@
+<!DOCTYPE html>
+
+<html lang="fa">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Creating a Colorized River Basin Map (QGIS3) &#8212; QGIS Tutorials and Tips</title>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-sphinx.css" />
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/sphinx_highlight.js"></script>
+    <script src="../../_static/translations.js"></script>
+    <link rel="search" title="جستجو" href="../../search.html" />
+    <link rel="next" title="ایجاد نقشه کاربری اراضی(QGIS3)" href="creating_landuse_map.html" />
+    <link rel="prev" title="محاسبه منطقه ای میانگین بارش(QGIS3)" href="areal_mean_rainfall.html" />
+
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<script type="text/javascript" src="../../_static/js/jquery-1.12.4.min.js"></script>
+<script type="text/javascript" src="../../_static/js/jquery-fix.js"></script>
+<script type="text/javascript" src="../../_static/bootstrap-3.4.1/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="../../_static/bootstrap-sphinx.js"></script>
+
+
+<!-- Cookie Notice -->
+<!-- Script from https://github.com/AOEpeople/cookie-notice -->
+<script type="text/javascript" src="../../_static/cookie.notice.min.js"></script>
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-B1WQ7B80XJ"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-B1WQ7B80XJ');
+</script>
+
+
+  </head><body>
+
+  <div id="navbar" class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="../../index.html">
+          QGIS Tutorials and Tips</a>
+        <span class="navbar-text navbar-version pull-left"><b>v1</b></span>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="../../index.html">Tutorials List <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"><ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../introduction.html">مقدمه</a></li>
+<li class="toctree-l1"><a class="reference internal" href="making_a_map.html">Making a Map (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="working_with_attributes.html">Working with Attributes (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="importing_spreadsheets_csv.html">Importing Spreadsheets or CSV files (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="basic_vector_styling.html">Basic Vector Styling (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="calculating_line_lengths.html">محاسبه طول خط و آمار (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="raster_styling_and_analysis.html">Basic Raster Styling and Analysis (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="raster_mosaicing_and_clipping.html">Raster Mosaicing and Clipping (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="working_with_terrain.html">Working with Terrain Data (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="working_with_wms.html">Working with WMS Data (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="working_with_projections.html">کار با پروژکشن</a></li>
+<li class="toctree-l1"><a class="reference internal" href="georeferencing_basics.html">زمین مرجع کردن نقشه  شیت توپوگرافی اسکن شده (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="advanced_georeferencing.html">زمین مرجع کردن عکس هوایی (QGIS)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="digitizing_basics.html">رقومی کردن داده های نقشه (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="performing_table_joins.html">اجرای اتصال جدول (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="performing_spatial_joins.html">اجرای اتصال مکانی (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="performing_spatial_queries.html">Performing Spatial Queries (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="nearest_neighbor_analysis.html">Nearest Neighbor Analysis (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="sampling_raster_data.html">Sampling Raster Data using Points or Polygons (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="calculating_raster_area.html">Calculating Raster Area (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="creating_heatmaps.html">Creating Heatmaps (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="animating_time_series.html">Animating Time Series Data (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="handling_invalid_geometries.html">Handling Invalid Geometries (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="advanced_raster_analysis.html">Advanced Raster Analysis (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="interpolating_point_data.html">Interpolating Point Data (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="batch_processing.html">Batch Processing using Processing Framework (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="processing_graphical_modeler.html">گردش کار خودکار با استفاده از مدل پردازش (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="automating_map_creation.html">Automating Map Creation with Print Layout Atlas (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="multi_criteria_overlay.html">تحلیل همپوشانی چندمعیار­ه (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="basic_network_analysis.html">Basic Network Visualization and Routing (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="origin_destination_matrix.html">Locating Nearest Facility with Origin-Destination Matrix (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="service_area_analysis.html">Service Area Analysis using Openrouteservice (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="travel_time_analysis.html">Travel Time Analysis with Uber Movement (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="areal_mean_rainfall.html">محاسبه منطقه ای میانگین بارش(QGIS3)</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Creating a Colorized River Basin Map (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="creating_landuse_map.html">ایجاد نقشه کاربری اراضی(QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="calculating_intersection_density.html">محاسبه تراکم تقاطع خیابان(QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="landuse_buffer.html">Determining Landuse Buffer Zones (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="solidwaste_mapping.html">Mapping Waste Disposal Volumes (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="getting_started_with_pyqgis.html">شروع برنامه نویسی پایتون (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="processing_algorithms_pyqgis.html">Running Processing Algorithms via Python (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="custom_python_functions.html">استفاده از بیان توابع عبارتی پایتون (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="processing_python_scripts.html">Writing Python Scripts for Processing Framework (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="building_a_python_plugin.html">ساخت پلاگین پایتون (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="processing_python_plugin.html">Building a Processing Plugin (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../running_qgis_jobs.html">اجرا و برنامه ریزی پردازش وظیفه ای در QGIS</a></li>
+<li class="toctree-l1"><a class="reference internal" href="web_mapping_with_qgis2web.html">Web Mapping with QGIS2Web (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../creating_basemaps_with_qtiles.html">Creating Basemaps with QTiles</a></li>
+<li class="toctree-l1"><a class="reference internal" href="using_plugins.html">Using Plugins (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../downloading_osm_data.html">Searching and Downloading OpenStreetMap Data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../learning_resources.html">منابع آموزشی QGIS</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../credits.html">Data Credits</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../batch_processing.html">Batch Processing using Processing Framework (QGIS2)</a></li>
+</ul>
+</ul>
+</li>
+              
+            
+            
+              
+                
+  <li>
+    <a href="areal_mean_rainfall.html" title="Previous Chapter: محاسبه منطقه ای میانگین بارش(QGIS3)"><span class="glyphicon glyphicon-chevron-left visible-sm"></span><span class="hidden-sm hidden-tablet">&laquo; محاسبه منطقه ...</span>
+    </a>
+  </li>
+  <li>
+    <a href="creating_landuse_map.html" title="Next Chapter: ایجاد نقشه کاربری اراضی(QGIS3)"><span class="glyphicon glyphicon-chevron-right visible-sm"></span><span class="hidden-sm hidden-tablet">ایجاد نقشه کا... &raquo;</span>
+    </a>
+  </li>
+              
+            
+            
+
+            
+
+            
+              <li class="hidden-sm"></li>
+            
+          </ul>
+
+          
+            
+<form class="navbar-form navbar-right" action="../../search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+      <div class="col-md-3">
+        <div id="sidebar" class="bs-sidenav" role="complementary"><h4>Author</h4>
+<p>Ujaval Gandhi</p>
+<a href="https://twitter.com/intent/follow?screen_name=spatialthoughts" class="twitter-follow-button" data-show-count="false">Follow @spatialthoughts</a>
+<hr>
+<p>Want to learn QGIS in a structured way? Check out <a href="https://spatialthoughts.com/" target="_blank">Spatial Thoughts</a> for more learning materials and instructor-led online programs with QGIS.org certification.</p>
+
+<hr>
+<p>These tutorials are also available in many other languages. Please see <a href="https://www.qgistutorials.com/en/docs/introduction.html#translations" target="_blank">translations</a> page.
+</p>
+        </div>
+      </div>
+    <div class="body col-md-9 content" role="main">
+      
+
+  <section id="creating-a-colorized-river-basin-map-qgis3">
+<h1>Creating a Colorized River Basin Map (QGIS3)<a class="headerlink" href="#creating-a-colorized-river-basin-map-qgis3" title="Permalink to this heading">¶</a></h1>
+<p>In this tutorial, we will learn the QGIS workflow to create artistic river maps for your own country or region using openly available hydrological data.</p>
+<div class="admonition note">
+<p class="admonition-title">توجه</p>
+<p>This tutorial is inspired by the beautiful maps produced by <a class="reference external" href="https://www.grasshoppergeography.com/">Grasshopper Geography</a>. I own one of their prints and you too can support their work by purchasing one of their maps from their <a class="reference external" href="https://www.etsy.com/shop/GrasshopperGeography">online store</a>.</p>
+</div>
+<section id="overview-of-the-task">
+<h2>Overview of the task<a class="headerlink" href="#overview-of-the-task" title="Permalink to this heading">¶</a></h2>
+<p>In this tutorial, we will take data layers of basins and rivers from HydroSHEDS and create a basin map for rivers of India.</p>
+<blockquote>
+<div><img alt="../../_images/rivers_of_india.png" class="align-center" src="../../_images/rivers_of_india.png" />
+</div></blockquote>
+</section>
+<section id="other-skills-you-will-learn">
+<h2>Other skills you will learn<a class="headerlink" href="#other-skills-you-will-learn" title="Permalink to this heading">¶</a></h2>
+<ul class="simple">
+<li><p>How to assign projection to a vector layer with incorrect or missing projection.</p></li>
+<li><p>How to add multiple layers in a single GeoPackage.</p></li>
+<li><p>How to add a 'Made with QGIS' badge to your map.</p></li>
+</ul>
+</section>
+<section id="get-the-data">
+<h2>Get the data<a class="headerlink" href="#get-the-data" title="Permalink to this heading">¶</a></h2>
+<p><a class="reference external" href="https://www.hydrosheds.org/">HydroSHEDS</a> provides global hydrological datasets suitable for regional and global applications. The data layers are derived from hydrologically conditioned DEM form SRTM.</p>
+<section id="basin-boundaries">
+<h3>Basin Boundaries<a class="headerlink" href="#basin-boundaries" title="Permalink to this heading">¶</a></h3>
+<p>HydroBasins provides polygon boundaries of basins for different continents. The boundaries are hierarchical – each basin at Level N is further subdivided into smaller basins at Level N+1. For this tutorial, we will use the Level 6 basin boundaries. You can use different level depending on your region and type of map you want to create. Visit the <a class="reference external" href="https://www.hydrosheds.org/products/hydrobasins">HydroBASINS</a>  page and download the zip file for your region.</p>
+<blockquote>
+<div><img alt="../../_images/download1.png" class="align-center" src="../../_images/download1.png" />
+</div></blockquote>
+</section>
+<section id="river-network">
+<h3>River Network<a class="headerlink" href="#river-network" title="Permalink to this heading">¶</a></h3>
+<p>HydroRIVERS provides a line shapefile representing the river network. Visit the <a class="reference external" href="https://www.hydrosheds.org/products/hydrorivers">HydroRIVERS</a> page and download the zip file for your region of interest.</p>
+<blockquote>
+<div><img alt="../../_images/download2.png" class="align-center" src="../../_images/download2.png" />
+</div></blockquote>
+</section>
+<section id="administrative-boundary">
+<h3>Administrative Boundary<a class="headerlink" href="#administrative-boundary" title="Permalink to this heading">¶</a></h3>
+<p>We will clip the HydroSHEDS data to the boundary of your chosen region. In this tutorial, we want to create a river basin map of India, so we will get the boundary shapefile from Survey of India. Visit the <a class="reference external" href="https://surveyofindia.gov.in/pages/outline-maps-of-india">Outline Maps of India</a> page and download the India International Boundary Vector Format. If you need admin boundaries for other countries or states, you can get them from <a class="reference external" href="https://gadm.org/">GADM</a> or <a class="reference external" href="https://www.geoboundaries.org/">geoBoundaries</a>.</p>
+<blockquote>
+<div><img alt="../../_images/download3.png" class="align-center" src="../../_images/download3.png" />
+</div></blockquote>
+<p>Once all the files are downloaded, unzip them and copy them to a folder. You should now have 3 shapefiles: <code class="docutils literal notranslate"><span class="pre">hybas_as_lev06_v1c.shp</span></code>, <code class="docutils literal notranslate"><span class="pre">HydroRIVERS_v10_as.shp</span></code> and admin boundaries <code class="docutils literal notranslate"><span class="pre">`polymap15m_area.shp`</span></code>.</p>
+<blockquote>
+<div><img alt="../../_images/download4.png" class="align-center" src="../../_images/download4.png" />
+</div></blockquote>
+<p>Data Sources: <a class="reference internal" href="../credits.html#hydrosheds" id="id1"><span>[HYDROSHEDS]</span></a>, <a class="reference internal" href="../credits.html#soi" id="id2"><span>[SOI]</span></a></p>
+</section>
+</section>
+<section id="procedure">
+<h2>Procedure<a class="headerlink" href="#procedure" title="Permalink to this heading">¶</a></h2>
+<ol class="arabic simple">
+<li><p>Open QGIS and locate the downloaded files in the QGIS <span class="guilabel">Browser</span>. Drag and drop <code class="docutils literal notranslate"><span class="pre">hybas_as_lev06_v1c.shp</span></code> and <code class="docutils literal notranslate"><span class="pre">HydroRIVERS_v10_as.shp</span></code> to the canvas.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/130.png" class="align-center" src="../../_images/130.png" />
+</div></blockquote>
+<ol class="arabic simple" start="2">
+<li><p>Locate the administrative boundaries shapefile <code class="docutils literal notranslate"><span class="pre">polymap15m_area.shp</span></code> and drag-and-drop it to the canvas.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/227.png" class="align-center" src="../../_images/227.png" />
+</div></blockquote>
+<ol class="arabic simple" start="3">
+<li><p>The HydroSHEDS data layers have some features with invalid geometries Let's fix them proceeding further. Open the Processing Toolbox from <span class="menuselection">Processing ‣ Toolbox</span>. Search and locate the <span class="menuselection">Vector geometry ‣ Fix geometries</span> tool. Double-click to launch it.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/318.png" class="align-center" src="../../_images/318.png" />
+</div></blockquote>
+<div class="admonition note">
+<p class="admonition-title">توجه</p>
+<p>You can review the tutorial <a class="reference internal" href="handling_invalid_geometries.html"><span class="doc">Handling Invalid Geometries (QGIS3)</span></a> to learn more about the causes and fixes for invalid geometries.</p>
+</div>
+<ol class="arabic simple" start="4">
+<li><p>Select <code class="docutils literal notranslate"><span class="pre">hybas_as_lev06_v1c</span></code> as the <span class="guilabel">Input layer</span>. Click the <span class="guilabel">...</span> button next to <span class="guilabel">Fixed geometries</span> and select <span class="guilabel">Save to GeoPackage...</span>.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/47.png" class="align-center" src="../../_images/47.png" />
+</div></blockquote>
+<ol class="arabic simple" start="5">
+<li><p>Browse to the location where you want to save the output data and enter the name <code class="docutils literal notranslate"><span class="pre">data.gpkg</span></code>. Click <span class="guilabel">Save</span>. You will be prompted to enter a <span class="guilabel">Layer name</span>. Enter <code class="docutils literal notranslate"><span class="pre">basin_fixed</span></code>. Click <span class="guilabel">OK</span>. Next click <span class="guilabel">Run</span> to run the algorithm and generate the output layer.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/57.png" class="align-center" src="../../_images/57.png" />
+</div></blockquote>
+<ol class="arabic simple" start="6">
+<li><p>Repeat the step for the <code class="docutils literal notranslate"><span class="pre">HydroRIVERS_v10_as</span></code> layer. Select the same geopackage <code class="docutils literal notranslate"><span class="pre">data.gpkg</span></code> that was created in the previous step. Do not worry if you get a message indicating that the file will be overwritten. QGIS will not overwrite the file, but append a new layer to the same GeoPackage. This time use <code class="docutils literal notranslate"><span class="pre">rivers_fixed</span></code> as the <span class="guilabel">Layer name</span>.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/67.png" class="align-center" src="../../_images/67.png" />
+</div></blockquote>
+<ol class="arabic simple" start="7">
+<li><p>The <code class="docutils literal notranslate"><span class="pre">polymap15m_area</span></code> layer comes with a projection that is not recognized by QGIS. We will assign a known projection to this layer. Search and locate the <span class="menuselection">Vector general ‣ Assign projection</span> tool and double-click to open it.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/77.png" class="align-center" src="../../_images/77.png" />
+</div></blockquote>
+<div class="admonition note">
+<p class="admonition-title">توجه</p>
+<p>Remember that <em>Assign projection</em> tool does not reproject the layer but simply adds the correct projection information to an existing georeferenced layer with missing or incorrect projection. Use the <em>Reproject layer</em> tool if you want to change the CRS of a layer.</p>
+</div>
+<ol class="arabic simple" start="8">
+<li><p>Select <code class="docutils literal notranslate"><span class="pre">polymap15m_area</span></code> as the <span class="guilabel">Input layer</span>. Click the <span class="guilabel">Select CRS</span> button and search for the <code class="docutils literal notranslate"><span class="pre">EPSG:7755</span> <span class="pre">-</span> <span class="pre">WGS</span> <span class="pre">84</span> <span class="pre">/</span> <span class="pre">India</span> <span class="pre">NSF</span> <span class="pre">LCC</span></code> projection and select it. Click the <span class="guilabel">...</span> button next to <span class="guilabel">Assigned CRS</span> and select <span class="guilabel">Save to GeoPackage...</span>.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/87.png" class="align-center" src="../../_images/87.png" />
+</div></blockquote>
+<ol class="arabic simple" start="9">
+<li><p>Select the same geopackage <code class="docutils literal notranslate"><span class="pre">data.gpkg</span></code> and enter the layer name <code class="docutils literal notranslate"><span class="pre">admin_boundary_fixed</span></code>. Click <span class="guilabel">Run</span>.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/97.png" class="align-center" src="../../_images/97.png" />
+</div></blockquote>
+<ol class="arabic simple" start="10">
+<li><p>You will now have 3 new layers <code class="docutils literal notranslate"><span class="pre">basins_fixed</span></code>, <code class="docutils literal notranslate"><span class="pre">rivers_fixed</span></code> and <code class="docutils literal notranslate"><span class="pre">admin_boundary_fixed</span></code> loaded to the <span class="guilabel">Layers</span> panel in QGIS. Hold the <kbd class="kbd docutils literal notranslate">Shift</kbd> key and select all remaining layers. Right-click and choose <span class="guilabel">Remove Layer...</span>.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/1011.png" class="align-center" src="../../_images/1011.png" />
+</div></blockquote>
+<ol class="arabic simple" start="11">
+<li><p>We will now clip the basins and rivers layers to the administrative boundary. Search and locate the <span class="menuselection">Vector overlay ‣ Clip</span> tool from the Processing Toolbox. Double-click to open it.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/1114.png" class="align-center" src="../../_images/1114.png" />
+</div></blockquote>
+<ol class="arabic simple" start="12">
+<li><p>Select <code class="docutils literal notranslate"><span class="pre">basins_fixed</span></code> as the <span class="guilabel">Input layer</span> and <code class="docutils literal notranslate"><span class="pre">admin_boundary_fixed</span></code> as the <span class="guilabel">Overlay layer</span>. Save the output to the same geopackage <code class="docutils literal notranslate"><span class="pre">data.gpkg</span></code> as the layer <code class="docutils literal notranslate"><span class="pre">basin_clipped</span></code>. Click <span class="guilabel">Run</span>.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/1212.png" class="align-center" src="../../_images/1212.png" />
+</div></blockquote>
+<ol class="arabic simple" start="13">
+<li><p>Once the processing finishes, repeat the process with the <code class="docutils literal notranslate"><span class="pre">rivers_fixed</span></code> layer as the <span class="guilabel">Input layer</span>.  Save the output to the same geopackage <code class="docutils literal notranslate"><span class="pre">data.gpkg</span></code> as the layer <code class="docutils literal notranslate"><span class="pre">rivers_clipped</span></code>. Click <span class="guilabel">Run</span>.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/1310.png" class="align-center" src="../../_images/1310.png" />
+</div></blockquote>
+<ol class="arabic simple" start="14">
+<li><p>You will now have 2 new layers <code class="docutils literal notranslate"><span class="pre">basins_clipped</span></code> and <code class="docutils literal notranslate"><span class="pre">rivers_clipped</span></code> loaded to the <span class="guilabel">Layers</span> panel in QGIS. Hold the <kbd class="kbd docutils literal notranslate">Shift</kbd> key and select all remaining layers. Right-click and choose <span class="guilabel">Remove Layer...</span>.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/149.png" class="align-center" src="../../_images/149.png" />
+</div></blockquote>
+<ol class="arabic simple" start="15">
+<li><p>Before we proceed further, let's save the project. QGIS allows you to save a project inside of a GeoPackage - making it very convenient to avoid managing additional files. Go to <span class="menuselection">Project ‣ Save To ‣ GeoPackage...</span>.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/159.png" class="align-center" src="../../_images/159.png" />
+</div></blockquote>
+<ol class="arabic simple" start="16">
+<li><p>In the <span class="guilabel">Save project to GeoPackage</span> dialog, click the <span class="guilabel">...</span> button next to <span class="guilabel">Connection</span> and browse to the existing <code class="docutils literal notranslate"><span class="pre">data.gpkg</span></code> file. Enter the name <code class="docutils literal notranslate"><span class="pre">river_basin_map</span></code> as the <span class="guilabel">Project</span> name. Click <span class="guilabel">OK</span>.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/168.png" class="align-center" src="../../_images/168.png" />
+</div></blockquote>
+<ol class="arabic simple" start="17">
+<li><p>Once saved, you can expand the <code class="docutils literal notranslate"><span class="pre">data.gpkg</span></code> in the <span class="guilabel">Browser</span> panel and see that the QGIS project is now saved inside the GeoPackage. Users of this geopackage can now open the project directly from the GeoPackage.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/179.png" class="align-center" src="../../_images/179.png" />
+</div></blockquote>
+<ol class="arabic simple" start="18">
+<li><p>To create our colorized map, we need to color all the basins such that no adjacent basins have the same color. QGIS has a tool to do just that. Open the <span class="menuselection">Cartography ‣ Topological coloring</span> tool from the Processing Toolbox.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/187.png" class="align-center" src="../../_images/187.png" />
+</div></blockquote>
+<ol class="arabic simple" start="19">
+<li><p>Select <code class="docutils literal notranslate"><span class="pre">basins_clipped</span></code> as the <span class="guilabel">Input layer</span>. Leave other options to their default values. Save the output to the same geopackage <code class="docutils literal notranslate"><span class="pre">data.gpkg</span></code> as the layer <code class="docutils literal notranslate"><span class="pre">basins_with_color</span></code>. Click <span class="guilabel">Run</span>.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/197.png" class="align-center" src="../../_images/197.png" />
+</div></blockquote>
+<ol class="arabic simple" start="20">
+<li><p>Once the processing finishes, a new layer <code class="docutils literal notranslate"><span class="pre">basins_with_color</span></code> will be loaded to the <span class="guilabel">Layers</span> panel. Right-click the layer and select <span class="guilabel">Open Attribute Table</span>. You will notice that the layer has a new attribute named <code class="docutils literal notranslate"><span class="pre">color_id</span></code> with an integer value. Assigning a unique color to each integer value will result in topolocal coloring of the layer.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/207.png" class="align-center" src="../../_images/207.png" />
+</div></blockquote>
+<ol class="arabic simple" start="21">
+<li><p>We want to transfer the color id for the basin to all the rivers contained within it. Open the <span class="menuselection">Vector general ‣ Join attributes by location</span> tool from the Processing Toolbox.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/2111.png" class="align-center" src="../../_images/2111.png" />
+</div></blockquote>
+<ol class="arabic simple" start="22">
+<li><p>Here we want to select <code class="docutils literal notranslate"><span class="pre">rivers_clipped</span></code> as the layer to <span class="guilabel">Join to features in</span> and <code class="docutils literal notranslate"><span class="pre">basins_with_color</span></code> as the layer for <span class="guilabel">By comparing to</span>. In the <span class="guilabel">Fields to add</span> section, click the <span class="guilabel">...</span> button and select the <code class="docutils literal notranslate"><span class="pre">color_id</span></code> field. Save the output to the <code class="docutils literal notranslate"><span class="pre">data.gpkg</span></code> geopackage as the layer <code class="docutils literal notranslate"><span class="pre">rivers_with_color</span></code>. Click <span class="guilabel">Run</span>.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/228.png" class="align-center" src="../../_images/228.png" />
+</div></blockquote>
+<ol class="arabic simple" start="23">
+<li><p>Once the processing finishes, a new layer <code class="docutils literal notranslate"><span class="pre">rivers_with_color</span></code> will be loaded to the <span class="guilabel">Layers</span> panel. Now it is time to apply the symbology. Select the <code class="docutils literal notranslate"><span class="pre">admin_boundary_fixed</span></code> layer and click the <span class="guilabel">Open Layer Styling Panel</span> button in the <span class="guilabel">Layers</span> panel. Change the color to black.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/236.png" class="align-center" src="../../_images/236.png" />
+</div></blockquote>
+<ol class="arabic simple" start="24">
+<li><p>Next, select the <code class="docutils literal notranslate"><span class="pre">rivers_with_color</span></code> layer and select the <code class="docutils literal notranslate"><span class="pre">Categorized</span></code> renderer.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/247.png" class="align-center" src="../../_images/247.png" />
+</div></blockquote>
+<ol class="arabic simple" start="25">
+<li><p>Select <code class="docutils literal notranslate"><span class="pre">color_id</span></code> as the <span class="guilabel">Value</span> and click <span class="guilabel">Classify</span>. You will see the rivers in different basins will be assigned a different color.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/257.png" class="align-center" src="../../_images/257.png" />
+</div></blockquote>
+<div class="admonition note">
+<p class="admonition-title">توجه</p>
+<p>If you are not happy with the randomly chosen colors, you can click the <span class="guilabel">Symbol</span> for individual values in the list below and choose your own color.</p>
+</div>
+<ol class="arabic simple" start="26">
+<li><p>The default lines are too thick for our map. Let's change it. Hold the <kbd class="kbd docutils literal notranslate">Shift</kbd> key and select all the symbols in the list. Click the <span class="guilabel">Symbol</span> to open the <span class="guilabel">Symbol Settings</span>.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/266.png" class="align-center" src="../../_images/266.png" />
+</div></blockquote>
+<ol class="arabic simple" start="27">
+<li><p>Click on <span class="guilabel">Simple Line</span> and change the stroke width to <code class="docutils literal notranslate"><span class="pre">0.1</span></code>. The map will look much better now.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/277.png" class="align-center" src="../../_images/277.png" />
+</div></blockquote>
+<ol class="arabic simple" start="28">
+<li><p>We can improve the by assigning differnt widths to the rivers based on their size. The <code class="docutils literal notranslate"><span class="pre">rivers_with_color</span></code> layer has a field <code class="docutils literal notranslate"><span class="pre">ORD_STRA</span></code> containign the value of the <a class="reference external" href="https://en.wikipedia.org/wiki/Strahler_number">Strahler Order</a> of the river. The larger the number, the bigger the river. We will use the Assistant to help us use the value of the strahler order to an appropriate stroke width. Click the <span class="guilabel">Data defined override</span> button next to <span class="guilabel">Stroke width</span> and select <span class="guilabel">Assistant...</span>.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/287.png" class="align-center" src="../../_images/287.png" />
+</div></blockquote>
+<ol class="arabic simple" start="29">
+<li><p>In the <span class="guilabel">Input</span> section, select the <code class="docutils literal notranslate"><span class="pre">ORD_STRA</span></code> field as the <span class="guilabel">Source</span> with <span class="guilabel">Values from</span> <code class="docutils literal notranslate"><span class="pre">1</span></code> to <span class="guilabel">to</span> <code class="docutils literal notranslate"><span class="pre">6</span></code>. In the <span class="guilabel">Output</span> section, choose <span class="guilabel">Size from</span> as <code class="docutils literal notranslate"><span class="pre">0.05</span></code> and <span class="guilabel">to</span> as <code class="docutils literal notranslate"><span class="pre">0.2</span></code>. The map will update dynamically as you enter the values. You may have to adjust these values depending on your region. Once you are happy with the map, click the <span class="guilabel">Back</span> button.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/296.png" class="align-center" src="../../_images/296.png" />
+</div></blockquote>
+<ol class="arabic simple" start="30">
+<li><p>You will notice that the <span class="guilabel">Data defined override</span> button for <span class="guilabel">Stroke width</span> is now yellow, indicating an active override has been applied to this setting.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/306.png" class="align-center" src="../../_images/306.png" />
+</div></blockquote>
+<ol class="arabic simple" start="31">
+<li><p>Our colorized river basin map is now ready. Let's put this map in a layout so we can export a high-resolution version with other map elements. Go to <span class="menuselection">Project ‣ New Print Layout...</span>. When prompted to enter a name, leave it blank and click <span class="guilabel">OK</span>.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/319.png" class="align-center" src="../../_images/319.png" />
+</div></blockquote>
+<ol class="arabic simple" start="32">
+<li><p>In the <span class="guilabel">Layout 1</span> window, right-click on the blank canvas and choose <span class="guilabel">Page Properties...</span>.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/324.png" class="align-center" src="../../_images/324.png" />
+</div></blockquote>
+<ol class="arabic simple" start="33">
+<li><p>Choose <code class="docutils literal notranslate"><span class="pre">A4</span></code> as the <span class="guilabel">Size</span>. Change the <span class="guilabel">Background</span> color to black.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/332.png" class="align-center" src="../../_images/332.png" />
+</div></blockquote>
+<ol class="arabic simple" start="34">
+<li><p>Go to <span class="menuselection">Add Item ‣ Add Map</span>.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/342.png" class="align-center" src="../../_images/342.png" />
+</div></blockquote>
+<ol class="arabic simple" start="35">
+<li><p>Hold the left mouse button and select a region on the canvas where you want the map to be placed.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/352.png" class="align-center" src="../../_images/352.png" />
+</div></blockquote>
+<ol class="arabic simple" start="36">
+<li><p>Once the map appears, scroll down in the <span class="guilabel">Item Properties</span> tab and turn off the <span class="guilabel">Background</span>.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/361.png" class="align-center" src="../../_images/361.png" />
+</div></blockquote>
+<div class="admonition note">
+<p class="admonition-title">توجه</p>
+<p>If you do not see the <span class="guilabel">Item Properties</span> tab or close it by accident, you can get it back by going to <span class="menuselection">View ‣ Panels ‣ Item Properties</span> in the Layout menu.</p>
+</div>
+<ol class="arabic simple" start="37">
+<li><p>Let's adjust the map extents. Click on the <span class="guilabel">Interactively Edit Map Extent</span> button and then use the mouse to pan the map. You can also use your scroll wheel to adjust the zoom. If you want more finer control on the Zoom, adjust the <span class="guilabel">Scale</span> value manually. Repeat till you are happy with the map placement.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/371.png" class="align-center" src="../../_images/371.png" />
+</div></blockquote>
+<ol class="arabic simple" start="38">
+<li><p>Next we will add a QGIS logo to the map. Go to <span class="menuselection">Add Item ‣ Add Picture</span>.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/381.png" class="align-center" src="../../_images/381.png" />
+</div></blockquote>
+<ol class="arabic simple" start="39">
+<li><p>Draw a rectangle where you want to place the logo. In the <span class="guilabel">Item Properties</span> dialog, locate the <span class="guilabel">logos</span> icon group. Select the <code class="docutils literal notranslate"><span class="pre">Made</span> <span class="pre">with</span> <span class="pre">QGIS</span></code> logo.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/391.png" class="align-center" src="../../_images/391.png" />
+</div></blockquote>
+<ol class="arabic simple" start="40">
+<li><p>Next, we will add a label with data credits. Go to <span class="menuselection">Add Item ‣ Add Label</span>. Enter the text for data credits and adjust the font and label alignment.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/40.png" class="align-center" src="../../_images/40.png" />
+</div></blockquote>
+<ol class="arabic simple" start="41">
+<li><p>Once you are ready to export the results, go to <span class="menuselection">Layout ‣ Export as Image...</span>. Browse to a folder on your computer where you want to save the PNG image and enter the name <code class="docutils literal notranslate"><span class="pre">river_basins.png</span></code></p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/411.png" class="align-center" src="../../_images/411.png" />
+</div></blockquote>
+<ol class="arabic simple" start="42">
+<li><p>Choose <code class="docutils literal notranslate"><span class="pre">300</span> <span class="pre">dpi</span></code> as the <span class="guilabel">Export resolution</span> and click <span class="guilabel">Save</span>.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/421.png" class="align-center" src="../../_images/421.png" />
+</div></blockquote>
+<ol class="arabic simple" start="43">
+<li><p>Once the export finishes, you will have your final map image at the chosen location.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/431.png" class="align-center" src="../../_images/431.png" />
+</div></blockquote>
+<ol class="arabic simple" start="44">
+<li><p>Here's the final PNG image that we created using QGIS and open datasets.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/441.png" class="align-center" src="../../_images/441.png" />
+</div></blockquote>
+</section>
+</section>
+
+
+
+
+
+  <!-- Comment Section Powered by utterances -->
+<div id="comments">
+  <hr />
+  <p>If you want to give feedback or share your experience with this tutorial, please comment below. (requires GitHub account)</p>
+<script src="https://utteranc.es/client.js"
+        repo="spatialthoughts/qgis-tutorials"
+        issue-term="title"
+        label="comment"
+        theme="github-light"
+        crossorigin="anonymous"
+        async>
+</script>
+</div>
+
+
+    </div>
+      
+  </div>
+</div>
+
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+    </p>
+    <p>
+        &copy; Copyright 2023, Ujaval Gandhi.<br/>
+      آخرین بروز رسانی در دسامبر 27, 2023 .<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 7.0.1.<br/>
+    </p>
+  </div>
+</footer>
+<div class="container">
+  <p>This work is licensed under a <a href="http://creativecommons.org/licenses/by/4.0/deed.en_US">Creative Commons Attribution 4.0 International License</a></p>
+</div>
+<!-- Twitter Button -->
+<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+
+<!-- Disqus comments widget -->
+<script type="text/javascript">
+  /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+  var disqus_shortname = 'qgistutorials'; // required: replace example with your forum shortname
+  /* * * DON'T EDIT BELOW THIS LINE * * */
+  (function () {
+    var s = document.createElement('script'); s.async = true;
+    s.type = 'text/javascript';
+    s.src = '//' + disqus_shortname + '.disqus.com/count.js';
+    (document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);
+  }());
+</script>
+
+<script type="text/javascript">
+  /* * * DON'T EDIT BELOW THIS LINE * * */
+  (function() {
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+
+<!-- Script fpr language switching. Largely adapted from https://github.com/pcav/faunalia-website -->
+<script>
+    var currentPage = 'docs/3/colorized_river_basin_map.html'; // coming from sphinx, always without starting '/'
+    var currentLang = 'en';
+    $(document).ready(function(){
+
+        var search = new RegExp('\/[a-zA-Z_]{2,8}\/'+ currentPage, 'gi');
+        var langPlusPage = window.location.href.match(search);
+        // it's possible this is a index.html page called without 'index.html', try without the currentPage
+        if (langPlusPage==undefined){
+            search = new RegExp('\/[a-zA-Z_]{2,8}\/$', 'gi');
+            langPlusPage = window.location.href.match(search);
+        }
+
+        // it's possible this is an index.html page called without 'index.html', try removing index.html
+        if (langPlusPage==undefined){
+            currentPage = currentPage.replace('index.html','')
+            search = new RegExp('\/[a-zA-Z_]{2,8}\/'+ currentPage, 'gi');
+            langPlusPage = window.location.href.match(search);
+        }
+        // still no langPlugPage: stop, because the language swicher will misbehave 
+
+        if (langPlusPage == undefined || langPlusPage.length != 1){
+            alert('You hit an error, please report back to us.');
+            return;
+        }
+        langPlusPage = langPlusPage[0];
+        currentLang = langPlusPage.replace(currentPage, '');
+
+        $("#languages").val(currentLang.replace(/\//g,'')); // currentLang is something like '/nl/'
+
+        $("#languages").change(function() {
+            gotoLang($(this).val());
+        });
+
+    });
+
+    // load current page in a different language
+    function gotoLang(lang){
+        var currentUrl = window.location.href;
+        var newUrl = currentUrl.replace(currentLang, '/'+lang+'/');
+        window.location.href = newUrl;
+    }
+</script>
+
+  </body>
+</html>

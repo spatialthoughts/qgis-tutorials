@@ -102,6 +102,7 @@
 <li class="toctree-l1"><a class="reference internal" href="3/service_area_analysis.html">Análisis de Área de Servicio usando Openrouteservice (QGIS3)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="3/travel_time_analysis.html">Análisis del tiempo de viaje con el movimiento de Uber (QGIS3)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="3/areal_mean_rainfall.html">Calcular la Precipitación Media de Área (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/colorized_river_basin_map.html">Creating a Colorized River Basin Map (QGIS3)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="3/creating_landuse_map.html">Creating a Landuse Map (QGIS3)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="3/calculating_intersection_density.html">Calcular Densidad de Intersección de Calle (QGIS3)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="3/landuse_buffer.html">Determining Landuse Buffer Zones (QGIS3)</a></li>
@@ -208,19 +209,19 @@ georeferencing it in QGIS.  If you like the imagery they provide, you can
 <ol class="arabic simple">
 <li><p>Para este tutorial, estaremos usando la capa OpenStreetMap como nuestra capa de referencia. Instalaremos el complemento OpenLayers desde <span class="menuselection">Complementos ‣ Administrar e Instalar Complementos ‣ Obtener más</span>. Vea <a class="reference internal" href="using_plugins.html"><span class="doc">Uso de Complementos</span></a> para más información sobre el uso de complementos en QGIS.</p></li>
 </ol>
-<img alt="../_images/1154.png" class="align-center" src="../_images/1154.png" />
+<img alt="../_images/1156.png" class="align-center" src="../_images/1156.png" />
 <ol class="arabic simple" start="2">
 <li><p>Una vez instalado, vaya a <span class="menuselection">Complementos ‣ complemento OpenLayers ‣ Agregar capa OpenStreetMap</span>. Esto agregará una capa de teselas pre-representadas creado a partir de <a class="reference external" href="http://www.openstreetmap.org/">datos OpenStreetMap</a>.</p></li>
 </ol>
-<img alt="../_images/2128.png" class="align-center" src="../_images/2128.png" />
+<img alt="../_images/2131.png" class="align-center" src="../_images/2131.png" />
 <ol class="arabic simple" start="3">
 <li><p>Ahora tiene la capa OpenStreetMap cargada en QGIS. Note el Sistema de Referencia de Coordenada (SRC) para esta capa. Está definido como EPSG 3857 Pseudo Mercator. Es importante notar esto, ya que las coordenadas que captemos de esta capa estarán en este SRC.</p></li>
 </ol>
-<img alt="../_images/365.png" class="align-center" src="../_images/365.png" />
+<img alt="../_images/374.png" class="align-center" src="../_images/374.png" />
 <ol class="arabic simple" start="4">
 <li><p>Ahora la tarea es localizar la vecindad general del área que intentamos georeferenciar. Puedes usar herramientas de Desplazar mapa y Acercar zoom para ubicar esa área en la capa OpenStreetMap. Pero podemos aprovechar esta oportunidad para demonstrar otra herramienta que podría ayudarte en el futuro. Sabemos que la imagen que descargamos es para el parque Washington Square en Nueva York. Si buscar ese lugar, podrás ubicar la página wikipedia del mismo. Las coordenadas para el parque están listadas allí.</p></li>
 </ol>
-<img alt="../_images/435.png" class="align-center" src="../_images/435.png" />
+<img alt="../_images/439.png" class="align-center" src="../_images/439.png" />
 <ol class="arabic simple" start="5">
 <li><p>Notarás que las coordenadas están en Grados/Minutos/Secundos y son Latitud y Longitud. Pero debido a que nuestra capa está en proyección Mercator, necesitaremos coordenadas Mercator para ubicar el parque. Aquí es donde la herramienta de línea de comando llamada <strong>cs2cs</strong> viene bien. Si has instalado QGIS desde el instalador OSGeo4W, ya la tendrás instalada en tu sistema. En Linux y Mac también, viene preinstaladas con QGIS. Abre una ventana de termina y escribe <code class="docutils literal notranslate"><span class="pre">cs2cs</span></code> para verificar si está disponible. Los usuarios de Windows pueden encontrar una terminar en <span class="menuselection">Start ‣ OSGeo4W ‣ MSYS</span>.</p></li>
 </ol>
@@ -228,7 +229,7 @@ georeferencing it in QGIS.  If you like the imagery they provide, you can
 <p class="admonition-title">Nota</p>
 <p>los usuarios MacOS pueden ubicar la herramienta cs2cs en /Library/Frameworks/PROJ.Framework/Programs/cs2cs</p>
 </div>
-<img alt="../_images/534.png" class="align-center" src="../_images/534.png" />
+<img alt="../_images/535.png" class="align-center" src="../_images/535.png" />
 <ol class="arabic simple" start="6">
 <li><p>Una vez que has verificado que la herramienta cs2cs existe en tu sistema, es tiempo de convertir las coordenadas Latitud y Longitud a Mercator. La manera que esta herramienta funciona es que necesitas especificar un SRC  <span class="guilabel">fuente</span> y <span class="guilabel">destino</span>. La definición de SRC podría ser una <a class="reference external" href="http://trac.osgeo.org/proj/wiki/GenParms">cadena PROJ4</a> o un <a class="reference external" href="http://www.epsg-registry.org/">código EPSG</a>. Debido a que ya sabemos el código EPSG para nuestro SRC de entrada y salida, los usaremos. La manera más simple de usar la herramienta es proveer las coordenadas de entrada en la misma línea de comando. Note que la herramienta acepta coordenadas en el orden <cite>X Y</cite>, por lo que tenemos que ingresar <cite>Longitud Latitud</cite>. Ingrese el siguiente comando en la terminar y presione Intro (Enter). Note que necesitamos asociar las comillas dobles (») con una barra hacia atrás (\). Una vez presione intro, verá la herramienta procesar las coordenadas e imprimirá la salida de coordenadas X Y en SRC EPSG 3857.</p></li>
 </ol>
@@ -241,59 +242,59 @@ georeferencing it in QGIS.  If you like the imagery they provide, you can
 <div class="highlight-none notranslate"><div class="highlight"><pre><span></span>echo -73d59&#39;51 40d43&#39;51 | cs2cs +init=EPSG:4326 +to +init=EPSG:3857
 </pre></div>
 </div>
-<img alt="../_images/633.png" class="align-center" src="../_images/633.png" />
+<img alt="../_images/634.png" class="align-center" src="../_images/634.png" />
 <ol class="arabic simple" start="7">
 <li><p>Copie estas coordenadas y pase a QGIS. Abajo en la ventana QGIS, verá una caja de texto llamada Coordenadas. Ingrese las coordenadas allí en forma X,Y. Presione Intro. Verá el mapa desplazarse un poco, pero no acercarse. Para acercarse al área, seleccione la escala 1:2500 de la lista desplegable Escala junto a la caja Coordenadas y presione Intro.</p></li>
 </ol>
-<img alt="../_images/733.png" class="align-center" src="../_images/733.png" />
+<img alt="../_images/734.png" class="align-center" src="../_images/734.png" />
 <ol class="arabic simple" start="8">
 <li><p>Aquí está! ahora puedes ver el área del Parque Washington Square en tu pantalla. Ahora es tiempo para comenzar la georeferenciación. Abre el <strong>Georeferenciador</strong> de <span class="menuselection">Raster ‣ Georeferenciador ‣ Georeferenciador</span>. Si no los ves el elemento del menú, necesitará habilitarlo el complemento <span class="guilabel">Georeferenciador GDAL</span> de <span class="menuselection">Complementos ‣ Administrar e Instalar Complementos ‣ Instalado</span>.</p></li>
 </ol>
-<img alt="../_images/832.png" class="align-center" src="../_images/832.png" />
+<img alt="../_images/833.png" class="align-center" src="../_images/833.png" />
 <ol class="arabic simple" start="9">
 <li><p>En la ventana <span class="guilabel">Georeferenciador</span>, vaya a <span class="menuselection">Archivo ‣ Abrir raster</span>. Navegue al archivo JPG descargado y clic <span class="guilabel">Abrir</span>.</p></li>
 </ol>
-<img alt="../_images/933.png" class="align-center" src="../_images/933.png" />
+<img alt="../_images/934.png" class="align-center" src="../_images/934.png" />
 <ol class="arabic simple" start="10">
 <li><p>En el <span class="guilabel">Selector de Sistema de Referencia de Coordenada</span>, elige <span class="guilabel">EPSG:3857 Pseudo Mercator</span></p></li>
 </ol>
-<img alt="../_images/1040.png" class="align-center" src="../_images/1040.png" />
+<img alt="../_images/1041.png" class="align-center" src="../_images/1041.png" />
 <ol class="arabic simple" start="11">
 <li><p>Ahora clic sobre el botón <span class="guilabel">Agregar Punto</span> en la barra de herramientas y selecciona una ubicación fácil de identificar en la imagen. Esquinas, intersecciones, postes, ect. resultan en buenos puntos de control.</p></li>
 </ol>
-<img alt="../_images/1155.png" class="align-center" src="../_images/1155.png" />
+<img alt="../_images/1157.png" class="align-center" src="../_images/1157.png" />
 <ol class="arabic simple" start="12">
 <li><p>Una vez que haces clic sobre la imagen en una ubicación de punto de control, verás una ventana emergente que pedirá ingresar coordenadas de mapa. Clic el botón <span class="guilabel">Desde la pantalla del mapa</span>.</p></li>
 </ol>
-<img alt="../_images/1243.png" class="align-center" src="../_images/1243.png" />
+<img alt="../_images/1244.png" class="align-center" src="../_images/1244.png" />
 <ol class="arabic simple" start="13">
 <li><p>Encuentre la misma ubicación en su capa de referencia, i.e. la capa OpenStreetMap y clic allí. Las coordenadas son auto-pobladas de su clic en la pantalla del mapa. Clic aceptar. De forma similar, escoja por lo menos 4 puntos en la imagen y agregue coordenadas de  la capa de referencia.</p></li>
 </ol>
-<img alt="../_images/1341.png" class="align-center" src="../_images/1341.png" />
+<img alt="../_images/1342.png" class="align-center" src="../_images/1342.png" />
 <ol class="arabic simple" start="14">
 <li><p>Ahora ve a <span class="menuselection">Configuración ‣ Configuración de Transformación.</span></p></li>
 </ol>
-<img alt="../_images/1438.png" class="align-center" src="../_images/1438.png" />
+<img alt="../_images/1439.png" class="align-center" src="../_images/1439.png" />
 <ol class="arabic simple" start="15">
 <li><p>Elija las configuraciones como se muestra abajo. Asegúrese que el botón <span class="guilabel">Cargar en QGIS cuando esté listo</span> esté marcado. Clic Aceptar. De vuelta en la venttana <span class="guilabel">Georeferenciador</span>, vaya a <span class="menuselection">Archivo ‣ Iniciar georeferenciación</span>. Esto iniciará el proceso de ajustado de la imagen usando los PCTs y creando el raster destino.</p></li>
 </ol>
-<img alt="../_images/1535.png" class="align-center" src="../_images/1535.png" />
+<img alt="../_images/1536.png" class="align-center" src="../_images/1536.png" />
 <ol class="arabic simple" start="16">
 <li><p>Una vez que termina el proceso, verás la capa georeferenciada cargada en QGIS. Si todo fue bien, la verás sobrepuesta sobre la capa OpenStreetMap.</p></li>
 </ol>
-<img alt="../_images/1633.png" class="align-center" src="../_images/1633.png" />
+<img alt="../_images/1634.png" class="align-center" src="../_images/1634.png" />
 <ol class="arabic simple" start="17">
 <li><p>Para hacer que nuestra salida se vea mejor, eliminemos los valores sin datos negro y blanco. Clic-derecho sobre la capa imagen y elige <span class="guilabel">Propiedades</span>.</p></li>
 </ol>
-<img alt="../_images/1731.png" class="align-center" src="../_images/1731.png" />
+<img alt="../_images/1732.png" class="align-center" src="../_images/1732.png" />
 <ol class="arabic simple" start="18">
 <li><p>Pase a la pestaña <span class="guilabel">Transparencia</span>. Queremos indicar que cualquier píxel negro o blanco en la imagen es un valor <cite>sin datos</cite> y debería hacerse transparente. Ingrese 0 como el <span class="guilabel">Valor sin datos</span>. También, en las <span class="guilabel">Opciones personalizadas de transparencia</span>, clic el botón <span class="guilabel">+</span> y agregue 255 como los  píxeles transparentes para cada banda e ingrese 100 como el :<span class="guilabel">Por ciento transparente</span>. Clic <span class="guilabel">Aceptar</span>.</p></li>
 </ol>
-<img alt="../_images/1828.png" class="align-center" src="../_images/1828.png" />
+<img alt="../_images/1829.png" class="align-center" src="../_images/1829.png" />
 <ol class="arabic simple" start="19">
 <li><p>Ahora verás tu imagen georeferenciada sobrepuesta sobre la capa base.</p></li>
 </ol>
-<img alt="../_images/1922.png" class="align-center" src="../_images/1922.png" />
+<img alt="../_images/1923.png" class="align-center" src="../_images/1923.png" />
 </section>
 </section>
 
@@ -304,7 +305,7 @@ georeferencing it in QGIS.  If you like the imagery they provide, you can
   <!-- Comment Section Powered by utterances -->
 <div id="comments">
   <hr />
-  <p>If you want to report any issues with this tutorial, please comment below. (requires GitHub account)</p>
+  <p>If you want to give feedback or share your experience with this tutorial, please comment below. (requires GitHub account)</p>
 <script src="https://utteranc.es/client.js"
         repo="spatialthoughts/qgis-tutorials"
         issue-term="title"
@@ -328,8 +329,8 @@ georeferencing it in QGIS.  If you like the imagery they provide, you can
       
     </p>
     <p>
-        &copy; Copyright 2021, Ujaval Gandhi.<br/>
-      Actualizado por última vez en dic 23, 2023.<br/>
+        &copy; Copyright 2023, Ujaval Gandhi.<br/>
+      Actualizado por última vez en dic 27, 2023.<br/>
       Created using <a href="http://sphinx-doc.org/">Sphinx</a> 7.0.1.<br/>
     </p>
   </div>

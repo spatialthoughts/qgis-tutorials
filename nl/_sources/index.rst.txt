@@ -53,6 +53,7 @@ Network Analysis
 Hydrology
 """""""""
 * :doc:`docs/3/areal_mean_rainfall`
+* :doc:`docs/3/colorized_river_basin_map`
    
 Urban Planning
 """"""""""""""
@@ -116,6 +117,7 @@ Appendix
    docs/3/service_area_analysis
    docs/3/travel_time_analysis
    docs/3/areal_mean_rainfall
+   docs/3/colorized_river_basin_map
    docs/3/creating_landuse_map
    docs/3/calculating_intersection_density
    docs/3/landuse_buffer
