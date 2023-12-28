@@ -26,7 +26,7 @@ Other skills you will learn
 Get the data
 ------------
 
-`HydroSHEDS <https://www.hydrosheds.org/>`_ provides global hydrological datasets suitable for regional and global applications. The data layers are derived from hydrologically conditioned DEM form SRTM.
+`HydroSHEDS <https://www.hydrosheds.org/>`_ provides global hydrological datasets suitable for regional and global applications. The data layers are derived from hydrologically conditioned DEM from SRTM.
 
 Basin Boundaries
 ^^^^^^^^^^^^^^^^
@@ -86,12 +86,12 @@ Procedure
   .. image:: /static/3/colorized_river_basin_map/images/4.png
     :align: center
 
-5. Browse to the location where you want to save the output data and enter the name ``data.gpkg``. Click :guilabel:`Save`. You will be prompted to enter a :guilabel:`Layer name`. Enter ``basin_fixed``. Click :guilabel:`OK`. Next click :guilabel:`Run` to run the algorithm and generate the output layer.
+5. Browse to the location where you want to save the output data and enter the name ``data.gpkg``. Click :guilabel:`Save`. You will be prompted to enter a :guilabel:`Layer name`. Enter ``basins_fixed``. Click :guilabel:`OK`. Next click :guilabel:`Run` to run the algorithm and generate the output layer.
 
   .. image:: /static/3/colorized_river_basin_map/images/5.png
     :align: center
 
-6. Repeat the step for the ``HydroRIVERS_v10_as`` layer. Select the same geopackage ``data.gpkg`` that was created in the previous step. Do not worry if you get a message indicating that the file will be overwritten. QGIS will not overwrite the file, but append a new layer to the same GeoPackage. This time use ``rivers_fixed`` as the :guilabel:`Layer name`.
+6. Repeat the step for the ``HydroRIVERS_v10_as`` layer. Select the same GeoPackage ``data.gpkg`` that was created in the previous step. Do not worry if you get a message indicating that the file will be overwritten. QGIS will not overwrite the file, but append a new layer to the same GeoPackage. This time use ``rivers_fixed`` as the :guilabel:`Layer name`.
 
   .. image:: /static/3/colorized_river_basin_map/images/6.png
     :align: center
@@ -110,7 +110,7 @@ Procedure
   .. image:: /static/3/colorized_river_basin_map/images/8.png
     :align: center
 
-9. Select the same geopackage ``data.gpkg`` and enter the layer name ``admin_boundary_fixed``. Click :guilabel:`Run`.
+9. Select the same GeoPackage ``data.gpkg`` and enter the layer name ``admin_boundary_fixed``. Click :guilabel:`Run`.
 
   .. image:: /static/3/colorized_river_basin_map/images/9.png
     :align: center
@@ -125,7 +125,7 @@ Procedure
   .. image:: /static/3/colorized_river_basin_map/images/11.png
     :align: center
 
-12. Select ``basins_fixed`` as the :guilabel:`Input layer` and ``admin_boundary_fixed`` as the :guilabel:`Overlay layer`. Save the output to the same geopackage ``data.gpkg`` as the layer ``basin_clipped``. Click :guilabel:`Run`.
+12. Select ``basins_fixed`` as the :guilabel:`Input layer` and ``admin_boundary_fixed`` as the :guilabel:`Overlay layer`. Save the output to the same GeoPackage ``data.gpkg`` as the layer ``basins_clipped``. Click :guilabel:`Run`.
 
   .. image:: /static/3/colorized_river_basin_map/images/12.png
     :align: center
@@ -135,7 +135,7 @@ Procedure
   .. image:: /static/3/colorized_river_basin_map/images/13.png
     :align: center
 
-14. You will now have 2 new layers ``basins_clipped`` and ``rivers_clipped`` loaded to the :guilabel:`Layers` panel in QGIS. Hold the :kbd:`Shift` key and select all remaining layers. Right-click and choose :guilabel:`Remove Layer...`.
+14. You will now have 2 new layers ``basins_clipped`` and ``rivers_clipped``, as well as ``admin_boundary_fixed`` layer loaded to the :guilabel:`Layers` panel in QGIS. Hold the :kbd:`Shift` key and select all remaining layers. Right-click and choose :guilabel:`Remove Layer...`.
 
   .. image:: /static/3/colorized_river_basin_map/images/14.png
     :align: center
@@ -145,12 +145,12 @@ Procedure
   .. image:: /static/3/colorized_river_basin_map/images/15.png
     :align: center
 
-16. In the :guilabel:`Save project to GeoPackage` dialog, click the :guilabel:`...` button next to :guilabel:`Connection` and browse to the existing ``data.gpkg`` file. Enter the name ``river_basin_map`` as the :guilabel:`Project` name. Click :guilabel:`OK`.
+16. In the :guilabel:`Save project to GeoPackage` dialog, click the :guilabel:`...` button next to :guilabel:`Connection` and browse to the existing ``data.gpkg`` file. Enter the name ``rivers_basin_map`` as the :guilabel:`Project` name. Click :guilabel:`OK`.
 
   .. image:: /static/3/colorized_river_basin_map/images/16.png
     :align: center
 
-17. Once saved, you can expand the ``data.gpkg`` in the :guilabel:`Browser` panel and see that the QGIS project is now saved inside the GeoPackage. Users of this geopackage can now open the project directly from the GeoPackage.
+17. Once saved, you can expand the ``data.gpkg`` in the :guilabel:`Browser` panel and see that the QGIS project is now saved inside the GeoPackage. Users of this GeoPackage can now open the project directly from the GeoPackage.
 
   .. image:: /static/3/colorized_river_basin_map/images/17.png
     :align: center
@@ -160,7 +160,7 @@ Procedure
   .. image:: /static/3/colorized_river_basin_map/images/18.png
     :align: center
 
-19. Select ``basins_clipped`` as the :guilabel:`Input layer`. Leave other options to their default values. Save the output to the same geopackage ``data.gpkg`` as the layer ``basins_with_color``. Click :guilabel:`Run`.
+19. Select ``basins_clipped`` as the :guilabel:`Input layer`. Leave other options to their default values. Save the output to the same GeoPackage ``data.gpkg`` as the layer ``basins_with_color``. Click :guilabel:`Run`.
 
   .. image:: /static/3/colorized_river_basin_map/images/19.png
     :align: center
@@ -209,7 +209,7 @@ Procedure
   .. image:: /static/3/colorized_river_basin_map/images/27.png
     :align: center
     
-28. We can improve the by assigning differnt widths to the rivers based on their size. The ``rivers_with_color`` layer has a field ``ORD_STRA`` containign the value of the `Strahler Order <https://en.wikipedia.org/wiki/Strahler_number>`_ of the river. The larger the number, the bigger the river. We will use the Assistant to help us use the value of the strahler order to an appropriate stroke width. Click the :guilabel:`Data defined override` button next to :guilabel:`Stroke width` and select :guilabel:`Assistant...`.
+28. We can improve the map by assigning different widths to the rivers based on their size. The ``rivers_with_color`` layer has a field ``ORD_STRA`` containing the value of the `Strahler Order <https://en.wikipedia.org/wiki/Strahler_number>`_ of the river. The larger the number, the bigger the river. We will use the Assistant to help us use the value of the strahler order to an appropriate stroke width. Click the :guilabel:`Data defined override` button next to :guilabel:`Stroke width` and select :guilabel:`Assistant...`.
 
   .. image:: /static/3/colorized_river_basin_map/images/28.png
     :align: center
@@ -278,7 +278,7 @@ Procedure
   .. image:: /static/3/colorized_river_basin_map/images/40.png
     :align: center
  
-41. Once you are ready to export the results, go to :menuselection:`Layout --> Export as Image...`. Browse to a folder on your computer where you want to save the PNG image and enter the name ``river_basins.png``
+41. Once you are ready to export the results, go to :menuselection:`Layout --> Export as Image...`. Browse to a folder on your computer where you want to save the PNG image and enter the name ``river_basins.png``.
 
   .. image:: /static/3/colorized_river_basin_map/images/41.png
     :align: center
