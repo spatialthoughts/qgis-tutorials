@@ -1,7 +1,12 @@
 QGIS Learning Resources
 =======================
 
-Spatial Thoughts has a comprehensive `Learning Plan for QGIS <https://spatialthoughts.com/learning-paths/#qgis>`_ covering all levels of users.
+Spatial Thoughts has a comprehensive |qgis_learning_plan| covering all levels of users that includes free courses, videos and additional tutorials.
+
+.. |qgis_learning_plan| raw:: html
+
+   <a href='https://spatialthoughts.com/learning-paths/' target='_blank'>Learning Plan for QGIS &#x2197;</a>
+
 
 The QGIS community that has created a lot of good documentation and resources that one can use to learn the software as well as
 GIS techniques. Here are a few selected external resources.
@@ -28,6 +33,7 @@ Blogs and Online Resources
 - `Free and Open Source GIS Ramblings <http://anitagraser.com/>`_ by Anita Graser
 - `North Road Blog <https://north-road.com/blog/>`_ by Nyall Dawson
 - `QGIS Introduction Tutorials <https://kevelyn1.github.io/QGIS-Intro/>`_ by Evelyn Uuemaa 
+- `QGIS in Mineral Exploration <https://qgis-in-mineral-exploration.readthedocs.io/en/latest/>`_ by Grant Boxer
 - `Xenocartography, neogeography & colorful pixels <https://tjukanov.org/blog>`_ by Topi Tjukanov
 
 Free Video Tutorials
