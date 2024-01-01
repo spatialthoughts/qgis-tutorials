@@ -4,13 +4,18 @@ Introduction
 `QGIS <http://qgis.org>`_ is a popular open-source GIS with advanced
 capabilities. This website contains a series of tutorials and tips that show you how to use it to tackle common GIS problems. You may use these tutorials as a self-paced course to learn the software thoroughly. However, each section is fairly independent, so those familiar with QGIS can jump into any section.
 
-You can also check out :doc:`learning_resources` for other materials to help you
-learn QGIS.
+You can also check out :doc:`learning_resources` for other materials to help you learn QGIS.
 
 This tutorials are written and maintained by `Ujaval Gandhi <https://twitter.com/spatialthoughts>`_, with translations and contributions from the global QGIS community.
 
-If you or your organization benefit from using QGIS, please consider supporting the QGIS project by `making a small donation <https://donate.qgis.org/>`_ or `becoming a sustaining member <https://www.qgis.org/en/site/getinvolved/governance/sustaining_members/sustaining_members.html>`_ of the QGIS open-source project.
+Installing QGIS
+---------------
 
+All the tutorials are developed and tested using QGIS-LTR version. Follow our |install_qgis_guide| with step-by-step instructions on how to install QGIS for Windows, Mac and Linux.
+
+.. |install_qgis_guide| raw:: html
+
+   <a href='https://courses.spatialthoughts.com/install-qgis-ltr.html' target='_blank'>QGIS-LTR Installation Guide &#x2197;</a>
 
 Extending and Contributing
 --------------------------
@@ -58,6 +63,13 @@ Many other languages are partially translated and are hosted externaly.
 If you would like to help translate these tutorials in your langugage, please
 `Join the team on Transifex
 <https://www.transifex.com/projects/p/qgis-tutorials/>`_. Please contact me at ujaval@spatialthoughts.com for any questions or help related to translations.
+
+
+Support QGIS
+------------
+
+If you or your organization benefit from using QGIS, please consider supporting the QGIS project by `making a small donation <https://donate.qgis.org/>`_ or `becoming a sustaining member <https://www.qgis.org/en/site/getinvolved/governance/sustaining_members/sustaining_members.html>`_ of the QGIS open-source project.
+
 
 License
 -------
