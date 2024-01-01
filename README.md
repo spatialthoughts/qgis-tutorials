@@ -32,6 +32,12 @@ conda install make
 pip install -r requirements.txt
 ```
 
+You also need to add the following line in your `.bashrc` or `.zshrc` to overcome a locate error
+
+```
+export LC_ALL=C
+```
+ 
 ### Windows
 
 The preferred way to install sphinx and its dependencies on Windows is using [Cygwin](https://cygwin.com/). Run the Cygwin installer and install the following packages from the installer
@@ -47,7 +53,7 @@ zlib
 zlib-devel
 ```
 
-Once the packages are installed, open a Cygwin Terminal. Install the dependencies using following commands. `Pillow` install via `pip` somehow fails. So use `easy_install` instead.
+Once the packages are installed, open a Cygwin Terminal. Install the dependencies using the following commands. `Pillow` install via `pip` somehow fails. So use `easy_install` instead.
 
 ```
 easy_install-3.8 pillow
