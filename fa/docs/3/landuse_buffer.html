@@ -5,7 +5,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Determining Landuse Buffer Zones (QGIS3) &#8212; QGIS Tutorials and Tips</title>
+    <title>تعیین مناطق بافر کاربری اراضی (QGIS3) &#8212; QGIS Tutorials and Tips</title>
     <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-sphinx.css" />
     <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
@@ -13,7 +13,7 @@
     <script src="../../_static/sphinx_highlight.js"></script>
     <script src="../../_static/translations.js"></script>
     <link rel="search" title="جستجو" href="../../search.html" />
-    <link rel="next" title="Mapping Waste Disposal Volumes (QGIS3)" href="solidwaste_mapping.html" />
+    <link rel="next" title="نقشه برداری حجم دفع زباله (QGIS3)" href="solidwaste_mapping.html" />
     <link rel="prev" title="محاسبه تراکم تقاطع خیابان(QGIS3)" href="calculating_intersection_density.html" />
 
 <meta charset='utf-8'>
@@ -107,8 +107,8 @@
 <li class="toctree-l1"><a class="reference internal" href="colorized_river_basin_map.html">ایجاد یک نقشه حوضه رودخانه رنگی (QGIS3)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="creating_landuse_map.html">ایجاد نقشه کاربری اراضی(QGIS3)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="calculating_intersection_density.html">محاسبه تراکم تقاطع خیابان(QGIS3)</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Determining Landuse Buffer Zones (QGIS3)</a></li>
-<li class="toctree-l1"><a class="reference internal" href="solidwaste_mapping.html">Mapping Waste Disposal Volumes (QGIS3)</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">تعیین مناطق بافر کاربری اراضی (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="solidwaste_mapping.html">نقشه برداری حجم دفع زباله (QGIS3)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="getting_started_with_pyqgis.html">شروع برنامه نویسی پایتون (QGIS3)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="processing_algorithms_pyqgis.html">Running Processing Algorithms via Python (QGIS3)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="custom_python_functions.html">استفاده از بیان توابع عبارتی پایتون (QGIS3)</a></li>
@@ -136,7 +136,7 @@
     </a>
   </li>
   <li>
-    <a href="solidwaste_mapping.html" title="Next Chapter: Mapping Waste Disposal Volumes (QGIS3)"><span class="glyphicon glyphicon-chevron-right visible-sm"></span><span class="hidden-sm hidden-tablet">Mapping Waste... &raquo;</span>
+    <a href="solidwaste_mapping.html" title="Next Chapter: نقشه برداری حجم دفع زباله (QGIS3)"><span class="glyphicon glyphicon-chevron-right visible-sm"></span><span class="hidden-sm hidden-tablet">نقشه برداری ح... &raquo;</span>
     </a>
   </li>
               
@@ -182,162 +182,161 @@
       
 
   <section id="determining-landuse-buffer-zones-qgis3">
-<h1>Determining Landuse Buffer Zones (QGIS3)<a class="headerlink" href="#determining-landuse-buffer-zones-qgis3" title="Permalink to this heading">¶</a></h1>
-<p>In this tutorial you will work with landuse data for a city and determine buffer zones around a particular land parcel. Such analysis is required to establish a corridor of restrictions around noise pollution or heavy traffic.</p>
+<h1>تعیین مناطق بافر کاربری اراضی (QGIS3)<a class="headerlink" href="#determining-landuse-buffer-zones-qgis3" title="Permalink to this heading">¶</a></h1>
+<p>در این آموزش شما با داده های کاربری زمین برای یک شهر کار می کنید و مناطق حائل اطراف یک قطعه زمین خاص را تعیین می کنید. چنین تحلیلی برای ایجاد راهرویی از محدودیت ها در اطراف آلودگی صوتی یا ترافیک سنگین مورد نیاز است.</p>
 <section id="overview-of-the-task">
-<h2>Overview of the task<a class="headerlink" href="#overview-of-the-task" title="Permalink to this heading">¶</a></h2>
-<p>We will start with a shapefile of land parcels for the City of San Francisco and use geoprocessing and spatial analysis techniques to determine a buffer of restricted area around all properties with institutional land use.</p>
+<h2>بررسی اجمالی کار<a class="headerlink" href="#overview-of-the-task" title="Permalink to this heading">¶</a></h2>
+<p>ما با یک شکل فایل از قطعات زمین برای شهر سانفرانسیسکو شروع می کنیم و از تکنیک های پردازش جغرافیایی و تجزیه و تحلیل فضایی برای تعیین یک حائل از منطقه محدود در اطراف همه املاک با کاربری اراضی سازمانی استفاده می کنیم.</p>
 <section id="other-skills-you-will-learn">
-<h3>Other skills you will learn<a class="headerlink" href="#other-skills-you-will-learn" title="Permalink to this heading">¶</a></h3>
+<h3>مهارت های دیگری که یاد خواهید گرفت<a class="headerlink" href="#other-skills-you-will-learn" title="Permalink to this heading">¶</a></h3>
 <ul class="simple">
-<li><p>Creating rectangular buffers in QGIS</p></li>
-<li><p>Using a Spatial Index to speed up analysis</p></li>
+<li><p>ایجاد بافرهای مستطیلی در QGIS</p></li>
+<li><p>استفاده از یک شاخص فضایی برای تسریع در تجزیه و تحلیل</p></li>
 </ul>
 </section>
 </section>
 <section id="get-the-data">
-<h2>Get the data<a class="headerlink" href="#get-the-data" title="Permalink to this heading">¶</a></h2>
-<p>The data comes from City of San Francisco in form of parcels polygons with attribute indicating the Land use categories.
-You can find the data for the tutorial from DataSF Open Data Portal.</p>
-<p>Let's see the steps to download a polygon shapefile with land use categories for every parcel in San Francisco.</p>
+<h2>داده ها را دریافت کنید<a class="headerlink" href="#get-the-data" title="Permalink to this heading">¶</a></h2>
+<p>داده ها از شهر سانفرانسیسکو به شکل چند ضلعی های بسته با ویژگی نشان دهنده دسته های کاربری زمین است. می توانید داده های آموزش را از DataSF Open Data Portal بیابید.</p>
+<p>بیایید مراحل دانلود شکل فایل چند ضلعی با دسته‌بندی کاربری زمین برای هر بسته در سانفرانسیسکو را ببینیم.</p>
 <ol class="arabic">
-<li><p>Go to the data portal - <a class="reference external" href="https://datasf.org/opendata/">https://datasf.org/opendata/</a>. Search for the keyword <code class="docutils literal notranslate"><span class="pre">Land</span> <span class="pre">use</span></code> in the search bar.</p>
+<li><p>به پورتال داده بروید - <a class="reference external" href="https://datasf.org/opendata/">https://datasf.org/opendata/</a>. کلمه کلیدی &quot;کاربری زمین&quot; را در نوار جستجو جستجو کنید.</p>
 <img alt="../../_images/db110.png" class="align-center" src="../../_images/db110.png" />
 </li>
-<li><p>Click on the first search result to visualise and export the data.</p>
+<li><p>روی اولین نتیجه جستجو کلیک کنید تا داده ها را تجسم و صادر کنید.</p>
 <img alt="../../_images/db25.png" class="align-center" src="../../_images/db25.png" />
 </li>
-<li><p>You will see the data and attributes. Click <span class="guilabel">Export</span> to download the <code class="docutils literal notranslate"><span class="pre">Land</span> <span class="pre">Use</span> <span class="pre">2020</span></code> data.</p>
+<li><p>داده ها و ویژگی ها را خواهید دید. برای دانلود داده های «استفاده از زمین 2020» روی :guilabel:'Export' کلیک کنید.</p>
 <img alt="../../_images/db31.png" class="align-center" src="../../_images/db31.png" />
 </li>
-<li><p>In the export options, click on <span class="guilabel">Shapefile</span> to download the polygon shapefile of the data.</p>
+<li><p>در گزینه های صادرات، روی :guilabel:<a href="#id1"><span class="problematic" id="id2">`</span></a>Shapfile کلیک کنید تا شکل فایل چند ضلعی داده ها را دانلود کنید.</p>
 <img alt="../../_images/db41.png" class="align-center" src="../../_images/db41.png" />
 </li>
-<li><p>A zip-file of the landuse will be downloaded. Switch to the <span class="guilabel">About</span> tab to read information about landuse categories and units which will be useful further in this tutorial.</p>
+<li><p>یک فایل فشرده از کاربری زمین دانلود خواهد شد. به برگه <span class="guilabel">درباره</span> بروید تا اطلاعات مربوط به دسته ها و واحدهای کاربری زمین را بخوانید که بیشتر در این آموزش مفید خواهد بود.</p>
 <img alt="../../_images/db51.png" class="align-center" src="../../_images/db51.png" />
 </li>
 </ol>
-<p>For convenience, you may directly download a copy of the shapefile below:</p>
+<p>برای راحتی، می توانید مستقیماً یک کپی از شکل فایل زیر را دانلود کنید:</p>
 <p><a class="reference external" href="https://www.qgistutorials.com/downloads/land_use.zip">land_use.shp</a></p>
 </section>
 <section id="procedure">
-<h2>Procedure<a class="headerlink" href="#procedure" title="Permalink to this heading">¶</a></h2>
+<h2>روش<a class="headerlink" href="#procedure" title="Permalink to this heading">¶</a></h2>
 <ol class="arabic">
-<li><p>Open QGIS. Click <span class="menuselection">Open Data Source Manager</span> icon to add  the layer.</p>
+<li><p>QGIS را باز کنید. برای افزودن لایه، روی نماد :menuselection: «Open Data Source Manager» کلیک کنید.</p>
 <img alt="../../_images/1101.png" class="align-center" src="../../_images/1101.png" />
 </li>
-<li><p>Switch to <span class="guilabel">Vector</span> tab and navigate to the landuse shapefile. Click <span class="guilabel">Add</span>.</p>
+<li><p>به برگه :gui label:'Vector' بروید و به shapefile استفاده از زمین بروید. روی :gui label:'Add' کلیک کنید.</p>
 <img alt="../../_images/270.png" class="align-center" src="../../_images/270.png" />
 </li>
-<li><p>Notice the CRS name at the bottom-right corner of QGIS. It indicates that the data is in geographic coordinate system <code class="docutils literal notranslate"><span class="pre">OGC:CRS84</span></code>. Click on it.</p>
+<li><p>به نام CRS در گوشه سمت راست پایین QGIS توجه کنید. این نشان می دهد که داده ها در سیستم مختصات جغرافیایی &quot;OGC:CRS84&quot; است. روی آن کلیک کنید.</p>
 <img alt="../../_images/337.png" class="align-center" src="../../_images/337.png" />
 </li>
-<li><p>The Project Coordinate Reference System (CRS) dialog will show the selected CRS is <code class="docutils literal notranslate"><span class="pre">WGS</span> <span class="pre">84</span> <span class="pre">(CRS</span> <span class="pre">84)</span></code>. Unit of measurement for this CRS is <code class="docutils literal notranslate"><span class="pre">Degree</span></code>. All geoprocessing on this layer will be done in the native units of the CRS. The unit degree is inappropriate for this analysis.</p>
+<li><p>گفتگوی سیستم مرجع مختصات پروژه (CRS) نشان می دهد که CRS انتخاب شده &quot;WGS 84 (CRS 84)&quot; است. واحد اندازه گیری برای این CRS &quot;درجه&quot; است. تمامی پردازش های جغرافیایی در این لایه در واحدهای بومی CRS انجام خواهد شد. درجه واحد برای این تحلیل نامناسب است.</p>
 <img alt="../../_images/416.png" class="align-center" src="../../_images/416.png" />
 </li>
-<li><p>We will reproject the layer to the projected CRS suitable for the region - <code class="docutils literal notranslate"><span class="pre">NAD83</span> <span class="pre">/</span> <span class="pre">California</span> <span class="pre">zone</span> <span class="pre">3</span> <span class="pre">(ftUS)</span></code>. This is <code class="docutils literal notranslate"><span class="pre">EPSG:2227</span></code> which uses NAD83 datum with measurement units in feet.Go to <span class="menuselection">Vector ‣ Data Management Tools ‣ Reproject Layer</span>.</p>
+<li><p>ما لایه را به CRS پیش بینی شده مناسب برای منطقه - <code class="docutils literal notranslate"><span class="pre">NAD83</span> <span class="pre">/</span> <span class="pre">منطقه</span> <span class="pre">3</span> <span class="pre">کالیفرنیا</span> <span class="pre">(ftUS)</span></code> دوباره اجرا می کنیم. این &quot;EPSG:2227&quot; است که از داده NAD83 با واحدهای اندازه گیری در فوت استفاده می کند. به :menuselection:<a href="#id1"><span class="problematic" id="id2">`</span></a>Vector --&gt; Data Management Tools --&gt; Reproject Layer بروید.</p>
 <img alt="../../_images/515.png" class="align-center" src="../../_images/515.png" />
 </li>
-<li><p>In the Reproject Layer dialog, select the loaded layer as <span class="guilabel">Input Layer</span>. Click on the icon beside the selector to choose the <span class="guilabel">Target CRS</span>.</p>
+<li><p>در گفتگوی Reproject Layer، لایه بارگذاری شده را به صورت <span class="guilabel">Input Layer</span> انتخاب کنید. روی نماد کنار انتخابگر کلیک کنید تا :guilabel:'Target CRS' را انتخاب کنید.</p>
 <img alt="../../_images/615.png" class="align-center" src="../../_images/615.png" />
 </li>
-<li><p>Search for <code class="docutils literal notranslate"><span class="pre">EPSG:2227</span></code> in the bar and select the <code class="docutils literal notranslate"><span class="pre">NAD83</span> <span class="pre">/</span> <span class="pre">California</span> <span class="pre">zone</span> <span class="pre">3</span> <span class="pre">(ftUS)</span></code> CRS. Click <span class="guilabel">Go back</span> to continue.</p>
+<li><p>«EPSG:2227» را در نوار جستجو کنید و «NAD83 / California zone 3 (ftUS)» را انتخاب کنید. برای ادامه روی :guilabel:'Go back' کلیک کنید.</p>
 <blockquote>
 <div><img alt="../../_images/714.png" class="align-center" src="../../_images/714.png" />
 </div></blockquote>
 </li>
-<li><p>Save the <span class="guilabel">Reprojected</span> output. Expand the browsing options and select <span class="guilabel">Save to File</span>.</p>
+<li><p>خروجی <span class="guilabel">Reprojected</span> را ذخیره کنید. گزینه های مرور را باز کنید و <span class="guilabel">Save to File</span> را انتخاب کنید.</p>
 <blockquote>
 <div><img alt="../../_images/814.png" class="align-center" src="../../_images/814.png" />
 </div></blockquote>
 </li>
-<li><p>Save the output shapefile in your chosen folder as <code class="docutils literal notranslate"><span class="pre">LandUse2020.shp</span></code>. Check the <span class="guilabel">Open output file after running algorithm</span> option to add the reprojected layer to QGIS.</p>
+<li><p>شکل فایل خروجی را در پوشه انتخابی خود به عنوان &quot;LandUse2020.shp&quot; ذخیره کنید. گزینه <span class="guilabel">باز کردن فایل خروجی پس از اجرای الگوریتم</span> را بررسی کنید تا لایه بازپروژه شده را به QGIS اضافه کنید.</p>
 <blockquote>
 <div><img alt="../../_images/914.png" class="align-center" src="../../_images/914.png" />
 </div></blockquote>
 </li>
-<li><p>Remove the original layer with CRS WGS 84 from the QGIS. Select the layer and click on <span class="guilabel">Remove Layer</span> symbol.</p>
+<li><p>لایه اصلی را با CRS WGS 84 از QGIS حذف کنید. لایه را انتخاب کنید و روی نماد :guilabel:<a href="#id1"><span class="problematic" id="id2">`</span></a>Remove Layer کلیک کنید.</p>
 <img alt="../../_images/1020.png" class="align-center" src="../../_images/1020.png" />
 </li>
-<li><p>We will continue the process with the reprojected layer. As we saw in the <span class="guilabel">About</span> section of the downloaded shapefile in the data portal, the classification is as follows.</p>
+<li><p>ما روند را با لایه reprojected ادامه خواهیم داد. همانطور که در قسمت <span class="guilabel">About</span> شکل فایل دانلود شده در پورتال داده دیدیم، طبقه بندی به شرح زیر است.</p>
 <blockquote>
 <div><ul class="simple">
-<li><p><strong>CIE</strong> = Cultural, Institutional, Educational</p></li>
-<li><p><strong>MED</strong> = Medical</p></li>
-<li><p><strong>MIPS</strong> = Office (Management, Information, Professional Services)</p></li>
-<li><p><strong>MIXED</strong> = Mixed Uses (Without Residential)</p></li>
-<li><p><strong>MIXRES</strong> = Mixed Uses (With Residential)</p></li>
-<li><p><strong>PDR</strong> = Industrial (Production, Distribution, Repair)</p></li>
-<li><p><strong>RETAIL/ENT</strong> = Retail, Entertainment</p></li>
-<li><p><strong>RESIDENT</strong> = Residential</p></li>
-<li><p><strong>VISITOR</strong> = Hotels, Visitor Services</p></li>
-<li><p><strong>VACANT</strong> = Vacant</p></li>
-<li><p><strong>ROW</strong> = Right-of-Way</p></li>
-<li><p><strong>OPENSPACE</strong> = Open Space</p></li>
+<li><p><strong>CIE</strong> = فرهنگی، نهادی، آموزشی</p></li>
+<li><p><strong>MED</strong> = پزشکی</p></li>
+<li><p><strong>MIPS</strong> = دفتر (مدیریت، اطلاعات، خدمات حرفه ای)</p></li>
+<li><p><strong>مختلط</strong> = کاربردهای مختلط (بدون مسکونی)</p></li>
+<li><p><strong>MIXRES</strong> = کاربردهای مختلط (با مسکونی)</p></li>
+<li><p><strong>PDR</strong> = صنعتی (تولید، توزیع، تعمیر)</p></li>
+<li><p>** خرده فروشی/ENT ** = خرده فروشی، سرگرمی</p></li>
+<li><p><strong>رزیدنت</strong> = مسکونی</p></li>
+<li><p><strong>VISITOR</strong> = هتل ها، خدمات بازدیدکنندگان</p></li>
+<li><p>** خالی ** = خالی</p></li>
+<li><p><strong>ROW</strong> = حق راه</p></li>
+<li><p><strong>OPENSPACE</strong> = فضای باز</p></li>
 </ul>
 </div></blockquote>
 </li>
 </ol>
-<p>For this tutorial, we are interested only in the Institutional land use. So we can query for the value <strong>CIE</strong> in the attribute table. Go to <span class="menuselection">Processing ‣ Toolbox</span>.</p>
+<p>برای این آموزش، ما فقط به کاربری اراضی سازمانی علاقه مند هستیم. بنابراین می‌توانیم مقدار <strong>CIE</strong> را در جدول ویژگی جستجو کنیم. به <span class="menuselection">Processing ‣ Toolbox</span> بروید.</p>
 <blockquote>
 <div><img alt="../../_images/1123.png" class="align-center" src="../../_images/1123.png" />
 </div></blockquote>
 <ol class="arabic simple" start="12">
-<li><p>Search the <span class="guilabel">Select by Attribute</span> tool from the processing toolbox. Double-click to open it.</p></li>
+<li><p>ابزار :guilabel:'Select by Attribute' را از جعبه ابزار پردازش جستجو کنید. برای باز کردن آن دوبار کلیک کنید.</p></li>
 </ol>
 <blockquote>
 <div><img alt="../../_images/1221.png" class="align-center" src="../../_images/1221.png" />
 </div></blockquote>
 <ol class="arabic simple" start="13">
-<li><p>In the Select by Attribute dialog, set <code class="docutils literal notranslate"><span class="pre">LandUse2020</span></code> as the <span class="guilabel">Input layer</span>. Select <code class="docutils literal notranslate"><span class="pre">landuse</span></code> as the <span class="guilabel">Selection attribute</span> and enter <code class="docutils literal notranslate"><span class="pre">CIE</span></code> as the <span class="guilabel">Value</span>. Click Run.</p></li>
+<li><p>در گفتگوی Select by Attribute، &quot;LandUse2020&quot; را به عنوان :guilabel:&quot;لایه ورودی&quot; تنظیم کنید. &quot;مورد استفاده&quot; را به عنوان :guilabel:&quot;ویژگی انتخاب&quot; انتخاب کنید و &quot;CIE&quot; را به عنوان :guilabel:&quot;Value&quot; وارد کنید. روی Run کلیک کنید.</p></li>
 </ol>
 <blockquote>
 <div><img alt="../../_images/1319.png" class="align-center" src="../../_images/1319.png" />
 </div></blockquote>
 <ol class="arabic simple" start="14">
-<li><p>You will see the parcels matching our query will be highlighted in yellow. These are all parcels belonging to the institutional land use in the city.</p></li>
+<li><p>در گفتگوی Select by Attribute، &quot;LandUse2020&quot; را به عنوان :guilabel:&quot;لایه ورودی&quot; تنظیم کنید. &quot;مورد استفاده&quot; را به عنوان :guilabel:&quot;ویژگی انتخاب&quot; انتخاب کنید و &quot;CIE&quot; را به عنوان :guilabel:&quot;Value&quot; وارد کنید. روی اجرا کلیک کنید.</p></li>
 </ol>
 <blockquote>
 <div><img alt="../../_images/1417.png" class="align-center" src="../../_images/1417.png" />
 </div></blockquote>
 <ol class="arabic simple" start="15">
-<li><p>Now we can create a buffer around the selected parcels. Back in the main QGIS window, open Processing Toolbox. Search and locate the <span class="guilabel">Buffer</span> tool. Double-click to open it.</p></li>
+<li><p>اکنون می توانیم یک بافر در اطراف بسته های انتخاب شده ایجاد کنیم. در پنجره اصلی QGIS، جعبه ابزار پردازش را باز کنید. ابزار <span class="guilabel">Buffer</span> را جستجو و پیدا کنید. برای باز کردن آن دوبار کلیک کنید.</p></li>
 </ol>
 <blockquote>
 <div><img alt="../../_images/1516.png" class="align-center" src="../../_images/1516.png" />
 </div></blockquote>
 <ol class="arabic simple" start="16">
-<li><p>In the Buffer dialog, select LandUse2020 as the <span class="guilabel">Input layer</span>. Check the <span class="guilabel">Selected features only</span> box so the buffer will apply only to the selected institutional land use parcels. We will create a buffer zone of 100ft around each parcel. Enter 100 feet as the <span class="guilabel">Distance</span>. The default buffers are of circular shape. Since we are dealing with parcel data, a rectangular buffer area is more appropriate where each edge of the parcel will be offset by the buffer distance. Select <code class="docutils literal notranslate"><span class="pre">Square</span></code> as the <span class="guilabel">End cap style</span> and <code class="docutils literal notranslate"><span class="pre">Miter</span></code> as the <span class="guilabel">Join style</span>. Click the browse button next to Buffered and select <span class="guilabel">Save to File</span>.</p></li>
+<li><p>در گفتگوی بافر، LandUse2020 را به عنوان :guilabel:` لایه ورودی` انتخاب کنید. کادر :guilabel:«فقط ویژگی‌های انتخاب‌شده» را علامت بزنید تا بافر فقط برای قطعه‌های کاربری سازمانی انتخاب‌شده اعمال شود. ما یک منطقه بافر 100 فوتی در اطراف هر بسته ایجاد خواهیم کرد. 100 فوت را به عنوان :guilabel:'Distance' وارد کنید. بافرهای پیش فرض دایره ای شکل هستند. از آنجایی که ما با داده های بسته سروکار داریم، یک ناحیه بافر مستطیلی مناسب تر است که در آن هر لبه بسته با فاصله بافر جبران شود. &quot;Square&quot; را به عنوان :guilabel:&quot;End cap style&quot; و &quot;Miter&quot; را به عنوان :guilabel:&quot;Join style&quot; انتخاب کنید. روی دکمه browse در کنار Buffered کلیک کنید و :guilabel:<a href="#id1"><span class="problematic" id="id2">`</span></a>Save to File را انتخاب کنید.</p></li>
 </ol>
 <blockquote>
 <div><img alt="../../_images/1615.png" class="align-center" src="../../_images/1615.png" />
 </div></blockquote>
 <ol class="arabic simple" start="17">
-<li><p>Enter the output file name as <code class="docutils literal notranslate"><span class="pre">buffer.shp</span></code> and click OK. Click <span class="guilabel">Run</span>.</p></li>
+<li><p>نام فایل خروجی را به صورت <code class="docutils literal notranslate"><span class="pre">buffer.shp</span></code> وارد کنید و روی OK کلیک کنید. روی <span class="guilabel">Run</span> کلیک کنید.</p></li>
 </ol>
 <blockquote>
 <div><img alt="../../_images/1716.png" class="align-center" src="../../_images/1716.png" />
 </div></blockquote>
 <ol class="arabic simple" start="18">
-<li><p>Once the processing finishes, a new layer buffer will be added to QGIS. These polygons represent the buffer zone of restrictions around the institutional land use.</p></li>
+<li><p>پس از اتمام پردازش، یک لایه بافر جدید به QGIS اضافه می شود. این چند ضلعی ها منطقه حایل محدودیت ها در اطراف کاربری اراضی سازمانی را نشان می دهند</p></li>
 </ol>
 <blockquote>
 <div><img alt="../../_images/1814.png" class="align-center" src="../../_images/1814.png" />
 </div></blockquote>
 <ol class="arabic simple" start="19">
-<li><p>We now know which areas of the city fall under the restricted zone. It would be useful to identify all parcels which fall in this zone and add an attribute indicating that a restriction applies to that parcel. Let’s first add a column to the buffer polygons. Search for <span class="menuselection">Field Calculator</span> in the processing toolbox. Double-click to open.</p></li>
+<li><p>اکنون می دانیم که کدام مناطق شهر تحت منطقه ممنوعه قرار می گیرند. شناسایی تمام بسته هایی که در این منطقه قرار می گیرند و یک ویژگی که نشان می دهد محدودیتی برای آن بسته اعمال می شود اضافه کنید مفید خواهد بود. ابتدا یک ستون به چند ضلعی های بافر اضافه می کنیم. عبارت :menuselection:'Field Calculator' را در جعبه ابزار پردازش جستجو کنید. برای باز کردن دوبار کلیک کنید.</p></li>
 </ol>
 <blockquote>
 <div><img alt="../../_images/1912.png" class="align-center" src="../../_images/1912.png" />
 </div></blockquote>
 <ol class="arabic simple" start="20">
-<li><p>In the Field Calculator dialog, ensure buffer is selected as the <span class="guilabel">Input layer</span>. We don’t need to save this layer, so leave the Output file field empty. Enter <code class="docutils literal notranslate"><span class="pre">RESTRICTED</span></code> as the result <span class="guilabel">Field Name</span>. Set the <span class="guilabel">Result field type</span> to <code class="docutils literal notranslate"><span class="pre">String</span></code>. Type <code class="docutils literal notranslate"><span class="pre">Yes</span></code> as the <span class="guilabel">Expression</span>. Click Run.</p></li>
+<li><p>در گفتگوی Field Calculator، مطمئن شوید که بافر به عنوان :guilabel:` لایه ورودی` انتخاب شده است. ما نیازی به ذخیره این لایه نداریم، بنابراین قسمت فایل Output را خالی بگذارید. &quot;RESTRICTED&quot; را در نتیجه وارد کنید:guilabel:&quot;Field Name&quot;. :guilabel: <cite>نوع فیلد نتیجه</cite> را روی <code class="docutils literal notranslate"><span class="pre">String</span></code> تنظیم کنید. &quot;Yes&quot; را به عنوان :guilabel:&quot;Expression&quot; تایپ کنید. روی Run کلیک کنید.</p></li>
 </ol>
 <blockquote>
 <div><img alt="../../_images/2012.png" class="align-center" src="../../_images/2012.png" />
 </div></blockquote>
 <ol class="arabic simple" start="21">
-<li><p>A new layer called Calculated will be added to QGIS. Open the Attribute Table and verify that a new column called RESTRICTED with value Yes exists in this layer.</p></li>
+<li><p>یک لایه جدید به نام Calculated به QGIS اضافه خواهد شد. جدول ویژگی ها را باز کنید و بررسی کنید که ستون جدیدی به نام RESTRICTED با مقدار Yes در این لایه وجود دارد.</p></li>
 </ol>
 <blockquote>
 <div><img alt="../../_images/2115.png" class="align-center" src="../../_images/2115.png" />
@@ -349,46 +348,46 @@ Now, search and locate the <span class="menuselection">Create Spatial Index</spa
 <div><img alt="../../_images/2214.png" class="align-center" src="../../_images/2214.png" />
 </div></blockquote>
 <ol class="arabic" start="23">
-<li><p>Select <code class="docutils literal notranslate"><span class="pre">LandUse2020</span></code> as <span class="guilabel">Input layer</span> and click <span class="guilabel">Run</span>.</p>
+<li><p>&quot;LandUse2020&quot; را به عنوان :guilabel:&quot;لایه ورودی&quot; انتخاب کنید و روی :guilabel:&quot;Run&quot; کلیک کنید.</p>
 <img alt="../../_images/2312.png" class="align-center" src="../../_images/2312.png" />
 </li>
-<li><p>The spatial index is created for the layer. You can verify this by checking the property of the layer. Right-click on the layer and click <span class="guilabel">Properties</span>.</p>
+<li><p>شاخص فضایی برای لایه ایجاد می شود. با بررسی ویژگی لایه می توانید این موضوع را تأیید کنید. روی لایه کلیک راست کرده و روی <span class="guilabel">Properties</span> کلیک کنید.</p>
 <img alt="../../_images/2411.png" class="align-center" src="../../_images/2411.png" />
 </li>
-<li><p>Switch to the <span class="guilabel">Source</span> tab and and look under the <span class="guilabel">Geometry</span> section. It indicates that the spatial index exists.</p>
+<li><p>به تب <span class="guilabel">Source</span> بروید و زیر بخش :guilabel:<a href="#id1"><span class="problematic" id="id2">`</span></a>Geometry را نگاه کنید. این نشان می دهد که شاخص فضایی وجود دارد.</p>
 <img alt="../../_images/2510.png" class="align-center" src="../../_images/2510.png" />
 </li>
-<li><p>Now we can do the spatial join. Look for <span class="menuselection">Join attributes by location</span> tool in the processing toolbox. Double-click to open it.</p></li>
+<li><p>اکنون می توانیم اتصال فضایی را انجام دهیم. در جعبه ابزار پردازش به دنبال ابزار :menuselection:<a href="#id1"><span class="problematic" id="id2">`</span></a>پیوستن ویژگی‌ها بر اساس مکان باشید. برای باز کردن آن دوبار کلیک کنید.</p></li>
 </ol>
 <blockquote>
 <div><img alt="../../_images/2610.png" class="align-center" src="../../_images/2610.png" />
 </div></blockquote>
 <ol class="arabic simple" start="27">
-<li><p>We want to <span class="guilabel">Join to features in</span> the <code class="docutils literal notranslate"><span class="pre">LandUse2020</span></code> layer <span class="guilabel">By comparing to</span> the <code class="docutils literal notranslate"><span class="pre">Calculated</span></code> layer. We want to join attributes features that intersect. Check the box for <code class="docutils literal notranslate"><span class="pre">intersect</span></code>.  Click the browse button next to <span class="guilabel">Fields to add</span>.</p></li>
+<li><p>ما می خواهیم <span class="guilabel">به ویژگی های لایه``LandUse2020`</span> بپیوندیم <span class="guilabel">با مقایسه با````محاسبه شده`</span>. ما می‌خواهیم ویژگی‌هایی را که همدیگر را قطع می‌کنند بپیوندیم. کادر «تقاطع» را علامت بزنید. روی دکمه مرور در کنار <span class="guilabel">Fields to add</span> کلیک کنید.</p></li>
 </ol>
 <blockquote>
 <div><img alt="../../_images/2710.png" class="align-center" src="../../_images/2710.png" />
 </div></blockquote>
 <ol class="arabic simple" start="28">
-<li><p>Select only the <code class="docutils literal notranslate"><span class="pre">RESTRICTED</span></code> field and click <span class="guilabel">OK</span>.</p></li>
+<li><p>فقط قسمت &quot;RESTRICTED&quot; را انتخاب کنید و روی :guilabel:&quot;OK&quot; کلیک کنید.</p></li>
 </ol>
 <blockquote>
 <div><img alt="../../_images/2810.png" class="align-center" src="../../_images/2810.png" />
 </div></blockquote>
 <ol class="arabic simple" start="29">
-<li><p>For Join Type, select <code class="docutils literal notranslate"><span class="pre">Take</span> <span class="pre">attribute</span> <span class="pre">of</span> <span class="pre">the</span> <span class="pre">first</span> <span class="pre">matching</span> <span class="pre">feature</span> <span class="pre">only</span></code>. Next, click … next to Joined layer and select Save to File.</p></li>
+<li><p>برای Join Type، &quot;Take feature of the first match only&quot; را انتخاب کنید. در مرحله بعد روی … در کنار لایه Joined کلیک کنید و Save to File را انتخاب کنید.</p></li>
 </ol>
 <blockquote>
 <div><img alt="../../_images/299.png" class="align-center" src="../../_images/299.png" />
 </div></blockquote>
 <ol class="arabic simple" start="30">
-<li><p>Enter the <span class="guilabel">Joined layer</span> name as <code class="docutils literal notranslate"><span class="pre">LandUseWithRestrictions.shp</span></code> and click <span class="guilabel">OK</span>. Click <span class="guilabel">Run</span>.</p></li>
+<li><p>نام <span class="guilabel">Joined layer</span> را به عنوان &quot;LandUseWithRestrictions.shp&quot; وارد کنید و روی :guilabel:&quot;OK&quot; کلیک کنید. روی <span class="guilabel">Run</span> کلیک کنید.</p></li>
 </ol>
 <blockquote>
 <div><img alt="../../_images/309.png" class="align-center" src="../../_images/309.png" />
 </div></blockquote>
 <ol class="arabic" start="31">
-<li><p>Once the processing finishes, you will get a new layer <code class="docutils literal notranslate"><span class="pre">LandUseWithRestrictions</span></code>. Open the attribute table and examine the <code class="docutils literal notranslate"><span class="pre">RESTRICTED</span></code> column. The parcels that fall within 100ft of an institutional parcel now have the value <code class="docutils literal notranslate"><span class="pre">Yes</span></code> indicating a restriction applies to that parcel. Other parcels have a <code class="docutils literal notranslate"><span class="pre">NULL</span></code> value indicating no restriction.</p>
+<li><p>پس از اتمام پردازش، یک لایه جدید &quot;LandUseWithRestrictions&quot; دریافت خواهید کرد. جدول ویژگی را باز کنید و ستون &quot;محدود&quot; را بررسی کنید. بسته‌هایی که در فاصله ۱۰۰ فوتی یک بسته سازمانی قرار دارند، اکنون دارای مقدار «بله» هستند که نشان‌دهنده اعمال محدودیت برای آن بسته است. بسته های دیگر دارای مقدار «NULL» هستند که نشان دهنده عدم محدودیت است.</p>
 <img alt="../../_images/3112.png" class="align-center" src="../../_images/3112.png" />
 </li>
 </ol>
@@ -427,7 +426,7 @@ Now, search and locate the <span class="menuselection">Create Spatial Index</spa
     </p>
     <p>
         &copy; Copyright 2023, Ujaval Gandhi.<br/>
-      آخرین بروز رسانی در ژانویه 01, 2024 .<br/>
+      آخرین بروز رسانی در ژانویه 02, 2024 .<br/>
       Created using <a href="http://sphinx-doc.org/">Sphinx</a> 7.0.1.<br/>
     </p>
   </div>

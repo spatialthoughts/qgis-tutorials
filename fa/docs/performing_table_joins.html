@@ -105,8 +105,8 @@
 <li class="toctree-l1"><a class="reference internal" href="3/colorized_river_basin_map.html">ایجاد یک نقشه حوضه رودخانه رنگی (QGIS3)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="3/creating_landuse_map.html">ایجاد نقشه کاربری اراضی(QGIS3)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="3/calculating_intersection_density.html">محاسبه تراکم تقاطع خیابان(QGIS3)</a></li>
-<li class="toctree-l1"><a class="reference internal" href="3/landuse_buffer.html">Determining Landuse Buffer Zones (QGIS3)</a></li>
-<li class="toctree-l1"><a class="reference internal" href="3/solidwaste_mapping.html">Mapping Waste Disposal Volumes (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/landuse_buffer.html">تعیین مناطق بافر کاربری اراضی (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/solidwaste_mapping.html">نقشه برداری حجم دفع زباله (QGIS3)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="3/getting_started_with_pyqgis.html">شروع برنامه نویسی پایتون (QGIS3)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="3/processing_algorithms_pyqgis.html">Running Processing Algorithms via Python (QGIS3)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="3/custom_python_functions.html">استفاده از بیان توابع عبارتی پایتون (QGIS3)</a></li>
@@ -175,35 +175,26 @@
 <h1>اجرای اتصال جدول<a class="headerlink" href="#performing-table-joins" title="Permalink to this heading">¶</a></h1>
 <div class="admonition warning">
 <p class="admonition-title">هشدار</p>
-<p>This tutorial is now obsolete. A new and updated version is available at <a class="reference internal" href="3/performing_table_joins.html"><span class="doc">اجرای اتصال جدول (QGIS3)</span></a></p>
+<p>این آموزش در حال حاضر منسوخ شده است. نسخه جدید و به روز شده در <a class="reference internal" href="3/performing_table_joins.html"><span class="doc">اجرای اتصال جدول (QGIS3)</span></a> موجود است</p>
 </div>
-<p>Not every dataset you want to use comes as a shapefile, or in a spatial format. Often the data would come as a table or a spreadsheet and you would need to link it with your existing spatial data for use in your analysis. This operation is known as a <cite>Table Join</cite> and this tutorial will cover how to carry out table joins in QGIS.</p>
+<p>هر مجموعه داده ای که می خواهید استفاده کنید به صورت فایل شیپ یا در قالب فضایی ارائه نمی شود. اغلب داده‌ها به‌عنوان یک جدول یا صفحه‌گسترده ارائه می‌شوند و شما باید آن‌ها را با داده‌های فضایی موجود خود برای استفاده در تجزیه و تحلیل خود پیوند دهید. این عملیات به عنوان &quot;پیوستن به جدول&quot; شناخته می شود و این آموزش نحوه انجام اتصال به جدول در QGIS را پوشش می دهد.</p>
 <section id="overview-of-the-task">
-<h2>Overview of the task<a class="headerlink" href="#overview-of-the-task" title="Permalink to this heading">¶</a></h2>
-<p>We will use a shapefile of census tracts for California and population data table from US Census Bureau to create a population map for california.</p>
+<h2>بررسی اجمالی کار<a class="headerlink" href="#overview-of-the-task" title="Permalink to this heading">¶</a></h2>
+<p>برای ایجاد نقشه جمعیتی برای کالیفرنیا از یک فایل شکلی از تراکت‌های سرشماری برای کالیفرنیا و جدول داده‌های جمعیت از اداره سرشماری ایالات متحده استفاده خواهیم کرد.</p>
 <section id="other-skills-you-will-learn">
-<h3>Other skills you will learn<a class="headerlink" href="#other-skills-you-will-learn" title="Permalink to this heading">¶</a></h3>
+<h3>مهارت های دیگری که یاد خواهید گرفت<a class="headerlink" href="#other-skills-you-will-learn" title="Permalink to this heading">¶</a></h3>
 <ul class="simple">
-<li><p>Creating <cite>.csvt</cite> files to indicate column data types in a CSV file.</p></li>
-<li><p>Loading CSV files that do not contain any geometry in QGIS.</p></li>
+<li><p>ایجاد فایل‌های «.csvt» برای نشان دادن انواع داده‌های ستون در یک فایل CSV.</p></li>
+<li><p>بارگیری فایل‌های CSV که هیچ هندسه‌ای در QGIS ندارند.</p></li>
 </ul>
 </section>
 </section>
 <section id="get-the-data">
-<h2>Get the data<a class="headerlink" href="#get-the-data" title="Permalink to this heading">¶</a></h2>
-<p><a class="reference external" href="http://www.census.gov/geo/maps-data/data/tiger.html">US Census Bureau</a> has
-various spatial extracts from the MAF/TIGER database. You can query and
-download census tracts shapefile for California. Download <a class="reference external" href="http://www2.census.gov/geo/tiger/TIGER2013/TRACT/tl_2013_06_tract.zip">Census Tracts for
-California</a> file.</p>
-<p><a class="reference external" href="http://factfinder2.census.gov/faces/nav/jsf/pages/searchresults.xhtml?refresh=t">Americal FactFinder</a>
-is a repository of all census data for the US. You can use <cite>Advanced Search</cite> and
-query for the <cite>Topic - Total Population</cite> and
-<cite>Geographies - All Census Tracts in California</cite> to create a custom CSV and
-download it. This tutorial uses <cite>Total Population 2010 Census Summary File 1</cite>
-data.</p>
-<p>For convenience, you may directly download a copy of both the datasets from the
-links below:</p>
-<p><a class="reference external" href="http://www.qgistutorials.com/downloads/tl_2013_06_tract.zip">tl_2013_06_tract.zip</a></p>
+<h2>داده ها را دریافت کنید<a class="headerlink" href="#get-the-data" title="Permalink to this heading">¶</a></h2>
+<p>&quot;اداره سرشماری ایالات متحده &lt;<a class="reference external" href="http://www.census.gov/geo/maps-data/data/tiger.html">http://www.census.gov/geo/maps-data/data/tiger.html</a>&gt;&quot;_ دارای عصاره های فضایی مختلفی از پایگاه داده MAF/TIGER است. می توانید شکل فایل تراکت های سرشماری را برای کالیفرنیا جستجو و دانلود کنید. فایل «تراکت‌های سرشماری برای کالیفرنیا» &lt;<a class="reference external" href="http://www2.census.gov/geo/tiger/TIGER2013/TRACT/tl_2013_06_tract.zip">http://www2.census.gov/geo/tiger/TIGER2013/TRACT/tl_2013_06_tract.zip</a>&gt;`_ را دانلود کنید.</p>
+<p>American FactFinder &lt;<a class="reference external" href="http://factfinder2.census.gov/faces/nav/jsf/pages/searchresults.xhtml?refresh=t">http://factfinder2.census.gov/faces/nav/jsf/pages/searchresults.xhtml?refresh=t</a>&gt;`_ مخزن تمام داده های سرشماری برای ایالات متحده است. می‌توانید از «جستجوی پیشرفته» و پرس و جو برای «موضوع - کل جمعیت» و «جغرافیا - همه رساله‌های سرشماری در کالیفرنیا» برای ایجاد یک CSV سفارشی و دانلود آن استفاده کنید. این آموزش از داده های «فایل خلاصه سرشماری 2010 کل جمعیت 1» استفاده می کند.</p>
+<p>برای راحتی کار، می‌توانید مستقیماً یک کپی از هر دو مجموعه داده را از لینک‌های زیر دانلود کنید:</p>
+<p>tl_2013_06_tract.zip &lt;<a class="reference external" href="http://www.qgistutorials.com/downloads/tl_2013_06_tract.zip">http://www.qgistutorials.com/downloads/tl_2013_06_tract.zip</a>&gt;`_</p>
 <p><a class="reference external" href="http://www.qgistutorials.com/downloads/ca_tracts_pop.csv">ca_tracts_pop.csv</a></p>
 <p>Data Source <a class="reference internal" href="credits.html#tiger" id="id1"><span>[TIGER]</span></a> <a class="reference internal" href="credits.html#uscensus" id="id2"><span>[USCENSUS]</span></a></p>
 </section>
@@ -361,7 +352,7 @@ the same technique to create maps based on variety of census data.</p></li>
     </p>
     <p>
         &copy; Copyright 2023, Ujaval Gandhi.<br/>
-      آخرین بروز رسانی در ژانویه 01, 2024 .<br/>
+      آخرین بروز رسانی در ژانویه 02, 2024 .<br/>
       Created using <a href="http://sphinx-doc.org/">Sphinx</a> 7.0.1.<br/>
     </p>
   </div>

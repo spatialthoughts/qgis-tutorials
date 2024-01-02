@@ -5,7 +5,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Nearest Neighbor Analysis &#8212; QGIS Tutorials and Tips</title>
+    <title>تحلیل نزدیکترین همسایه &#8212; QGIS Tutorials and Tips</title>
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../_static/bootstrap-sphinx.css" />
     <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
@@ -105,8 +105,8 @@
 <li class="toctree-l1"><a class="reference internal" href="3/colorized_river_basin_map.html">ایجاد یک نقشه حوضه رودخانه رنگی (QGIS3)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="3/creating_landuse_map.html">ایجاد نقشه کاربری اراضی(QGIS3)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="3/calculating_intersection_density.html">محاسبه تراکم تقاطع خیابان(QGIS3)</a></li>
-<li class="toctree-l1"><a class="reference internal" href="3/landuse_buffer.html">Determining Landuse Buffer Zones (QGIS3)</a></li>
-<li class="toctree-l1"><a class="reference internal" href="3/solidwaste_mapping.html">Mapping Waste Disposal Volumes (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/landuse_buffer.html">تعیین مناطق بافر کاربری اراضی (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/solidwaste_mapping.html">نقشه برداری حجم دفع زباله (QGIS3)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="3/getting_started_with_pyqgis.html">شروع برنامه نویسی پایتون (QGIS3)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="3/processing_algorithms_pyqgis.html">Running Processing Algorithms via Python (QGIS3)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="3/custom_python_functions.html">استفاده از بیان توابع عبارتی پایتون (QGIS3)</a></li>
@@ -172,61 +172,45 @@
       
 
   <section id="nearest-neighbor-analysis">
-<h1>Nearest Neighbor Analysis<a class="headerlink" href="#nearest-neighbor-analysis" title="Permalink to this heading">¶</a></h1>
+<h1>تحلیل نزدیکترین همسایه<a class="headerlink" href="#nearest-neighbor-analysis" title="Permalink to this heading">¶</a></h1>
 <div class="admonition warning">
 <p class="admonition-title">هشدار</p>
-<p>This tutorial is now obsolete. A new and updated version is available at <a class="reference internal" href="3/nearest_neighbor_analysis.html"><span class="doc">Nearest Neighbor Analysis (QGIS3)</span></a></p>
+<p>این آموزش در حال حاضر منسوخ شده است. نسخه جدید و به روز شده در <a class="reference internal" href="3/nearest_neighbor_analysis.html"><span class="doc">Nearest Neighbor Analysis (QGIS3)</span></a> موجود است.</p>
 </div>
-<p>GIS is very useful in analyzing spatial relationship between features. One such
-analysis is finding out which features are closest to a given feature. QGIS has
-a tool called <strong>Distance Matrix</strong> which helps with such analysis. In this
-tutorial, we will use 2 datasets and find out which points from one layer are
-closest to which point from the second layer.</p>
+<p>GIS در تجزیه و تحلیل روابط فضایی بین ویژگی ها بسیار مفید است. یکی از این تحلیل‌ها، یافتن این است که کدام ویژگی به یک ویژگی خاص نزدیک‌تر است. QGIS ابزاری به نام <strong>Distance Matrix</strong> دارد که به چنین تحلیلی کمک می کند. در این آموزش از 2 مجموعه داده استفاده می کنیم و متوجه می شویم که کدام نقطه از یک لایه به کدام نقطه از لایه دوم نزدیکتر است.</p>
 <section id="overview-of-the-task">
-<h2>Overview of the task<a class="headerlink" href="#overview-of-the-task" title="Permalink to this heading">¶</a></h2>
-<p>Given the locations of all known significant earthquakes, find out the nearest
-populated place for each location where the earthquake happened.</p>
+<h2>بررسی اجمالی کار<a class="headerlink" href="#overview-of-the-task" title="Permalink to this heading">¶</a></h2>
+<p>با توجه به مکان تمام زمین لرزه های مهم شناخته شده، نزدیک ترین مکان پرجمعیت را برای هر مکانی که زمین لرزه در آن رخ داده است، بیابید.</p>
 <section id="other-skills-you-will-learn">
-<h3>Other skills you will learn<a class="headerlink" href="#other-skills-you-will-learn" title="Permalink to this heading">¶</a></h3>
+<h3>مهارت های دیگری که یاد خواهید گرفت<a class="headerlink" href="#other-skills-you-will-learn" title="Permalink to this heading">¶</a></h3>
 <ul class="simple">
-<li><p>How to do table joins in QGIS. (See <a class="reference internal" href="performing_table_joins.html"><span class="doc">اجرای اتصال جدول</span></a> for
-detailed instructions.)</p></li>
-<li><p>Using <span class="guilabel">Query Builder</span> to show a subset of features from a layer.</p></li>
-<li><p>Using MMQGIS plugin to create hub lines to visualize the nearest neighbors.</p></li>
+<li><p>نحوه اتصال جدول در QGIS (برای دستورالعمل های دقیق به <a class="reference internal" href="performing_table_joins.html"><span class="doc">اجرای اتصال جدول</span></a> مراجعه کنید.)</p></li>
+<li><p>استفاده از :guilabel: <cite>Query Builder</cite> برای نمایش زیرمجموعه ای از ویژگی های یک لایه.</p></li>
+<li><p>استفاده از پلاگین MMQGIS برای ایجاد خطوط هاب برای تجسم نزدیکترین همسایگان.</p></li>
 </ul>
 </section>
 </section>
 <section id="get-the-data">
-<h2>Get the data<a class="headerlink" href="#get-the-data" title="Permalink to this heading">¶</a></h2>
-<p>We will use NOAA’s National Geophysical Data Center’s <a class="reference external" href="http://www.ngdc.noaa.gov/nndc/struts/form?t=101650&amp;s=1&amp;d=1">Significant Earthquake
-Database</a> as our
-layer representing all major earthquakes. Download the <a class="reference external" href="http://www.ngdc.noaa.gov/nndc/struts/results?type_0=Exact&amp;query_0=$ID&amp;t=101650&amp;s=13&amp;d=189&amp;dfn=signif.txt">tab-delimited
-earthquake data</a>.</p>
-<p>Natural Earth has a nice <a class="reference external" href="http://www.naturalearthdata.com/downloads/10m-cultural-vectors/10m-populated-places/">Populated Places</a>
-dataset. Download the <a class="reference external" href="http://www.naturalearthdata.com/http//www.naturalearthdata.com/download/10m/cultural/ne_10m_populated_places_simple.zip">simple (less columns) dataset</a></p>
-<p>For convenience, you may directly download a copy of both the datasets from the links
-below:</p>
+<h2>داده ها را دریافت کنید<a class="headerlink" href="#get-the-data" title="Permalink to this heading">¶</a></h2>
+<p>ما از پایگاه داده زلزله مهم مرکز ملی داده های ژئوفیزیک NOAA &lt;<a class="reference external" href="http://www.ngdc.noaa.gov/nndc/struts/form?t=101650&amp;s=1&amp;d=1">http://www.ngdc.noaa.gov/nndc/struts/form?t=101650&amp;s=1&amp;d=1</a>&gt;`_ به عنوان لایه خود که تمام زمین لرزه های بزرگ را نشان می دهد استفاده خواهیم کرد. «داده‌های زمین‌لرزه تعیین‌شده با برگه‌ها &lt;<a class="reference external" href="http://www.ngdc.noaa.gov/nndc/struts/results?type_0=Exact&amp;query_0=$ID&amp;t=101650&amp;s=13&amp;d=189&amp;dfn=signif.txt">http://www.ngdc.noaa.gov/nndc/struts/results?type_0=Exact&amp;query_0=$ID&amp;t=101650&amp;s=13&amp;d=189&amp;dfn=signif.txt</a>&gt;`_ را دانلود کنید.</p>
+<p>زمین طبیعی یک مجموعه داده زیبای «مکان‌های پرجمعیت &lt;<a class="reference external" href="http://www.naturalearthdata.com/downloads/10m-cultural-vectors/10m-populated-places/">http://www.naturalearthdata.com/downloads/10m-cultural-vectors/10m-populated-places/</a>&gt;» دارد. مجموعه داده «ساده (کمتر ستون) &lt;<a class="reference external" href="http://www.naturalearthdata.com/http//www.naturalearthdata.com/download/10m/cultural/ne_10m_populated_places_simple.zip">http://www.naturalearthdata.com/http//www.naturalearthdata.com/download/10m/cultural/ne_10m_populated_places_simple.zip</a>&gt;`_ را دانلود کنید</p>
+<p>برای راحتی کار، می‌توانید مستقیماً یک کپی از هر دو مجموعه داده را از لینک‌های زیر دانلود کنید:</p>
 <p><a class="reference external" href="http://www.qgistutorials.com/downloads/signif.txt">signif.txt</a></p>
 <p><a class="reference external" href="http://www.qgistutorials.com/downloads/ne_10m_populated_places_simple.zip">ne_10m_populated_places_simple.zip</a></p>
-<p>Data Sources: <a class="reference internal" href="credits.html#ncei" id="id1"><span>[NCEI]</span></a> <a class="reference internal" href="credits.html#naturalearth" id="id2"><span>[NATURALEARTH]</span></a></p>
+<p>منابع داده: <a class="reference internal" href="credits.html#ncei" id="id1"><span>[NCEI]</span></a> <a class="reference internal" href="credits.html#naturalearth" id="id2"><span>[NATURALEARTH]</span></a></p>
 </section>
 <section id="procedure">
-<h2>Procedure<a class="headerlink" href="#procedure" title="Permalink to this heading">¶</a></h2>
+<h2>روش<a class="headerlink" href="#procedure" title="Permalink to this heading">¶</a></h2>
 <ol class="arabic simple">
-<li><p>Open <span class="menuselection">Layer ‣ Add Layer ‣ Add Delimited Text Layer</span> and
-browse to the downloaded <code class="docutils literal notranslate"><span class="pre">signif.txt</span></code> file.</p></li>
+<li><p><span class="menuselection">Layer ‣ Add Layer ‣ Add Limited Text Layer</span> را باز کنید و فایل &quot;signif.txt&quot; دانلود شده را مرور کنید.</p></li>
 </ol>
 <img alt="../_images/1190.png" class="align-center" src="../_images/1190.png" />
 <ol class="arabic simple" start="2">
-<li><p>Since this is a <em>tab-delimited file</em>, choose <span class="guilabel">Tab</span> as the
-<span class="guilabel">File format</span>. The <span class="guilabel">X field</span> and <span class="guilabel">Y field</span>
-would be auto-populated. Click <span class="guilabel">OK</span>.</p></li>
+<li><p>از آنجایی که این یک <em>فایل جداشده با تب</em> است، <span class="guilabel">Tab</span> را به عنوان <span class="guilabel">فرمت فایل انتخاب کنید. فیلد :guilabel:`X</span> و <span class="guilabel">Y فیلد به صورت خودکار پر می شود. روی :guilabel:`OK</span> کلیک کنید.</p></li>
 </ol>
 <div class="admonition note">
 <p class="admonition-title">توجه</p>
-<p>You may see some error messages as QGIS tries to import the file. These are
-valid errors and some rows from the file will not be imported. You can ignore
-the errors for the purpose of this tutorial.</p>
+<p>هنگامی که QGIS سعی می کند فایل را وارد کند، ممکن است برخی از پیام های خطا را مشاهده کنید. اینها خطاهای معتبر هستند و برخی از ردیف‌های فایل وارد نمی‌شوند. برای هدف این آموزش می توانید خطاها را نادیده بگیرید.</p>
 </div>
 <img alt="../_images/2156.png" class="align-center" src="../_images/2156.png" />
 <ol class="arabic simple" start="3">
@@ -451,7 +435,7 @@ the processing.</p></li>
     </p>
     <p>
         &copy; Copyright 2023, Ujaval Gandhi.<br/>
-      آخرین بروز رسانی در ژانویه 01, 2024 .<br/>
+      آخرین بروز رسانی در ژانویه 02, 2024 .<br/>
       Created using <a href="http://sphinx-doc.org/">Sphinx</a> 7.0.1.<br/>
     </p>
   </div>
