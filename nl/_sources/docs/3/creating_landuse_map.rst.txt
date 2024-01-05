@@ -8,6 +8,10 @@ Overview of the task
 
 You will work with a land parcels dataset with zoning information and create a map showing zoning pattern across the CBD region of Cape Town.
 
+   .. image:: /static/3/creating_landuse_map/images/zoning_map.png
+      :align: center
+
+    
 Other skills you will learn
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^
 - How to access and download data from ArcGIS REST in QGIS.

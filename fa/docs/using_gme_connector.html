@@ -5,7 +5,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Using Google Maps Engine Connector for QGIS &#8212; QGIS Tutorials and Tips</title>
+    <title>استفاده از رابط Google Maps Engine برای QGIS &#8212; QGIS Tutorials and Tips</title>
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../_static/bootstrap-sphinx.css" />
     <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
@@ -72,9 +72,9 @@
 <li class="toctree-l1"><a class="reference internal" href="3/making_a_map.html">Making a Map (QGIS3)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="3/working_with_attributes.html">Working with Attributes (QGIS3)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="3/importing_spreadsheets_csv.html">Importing Spreadsheets or CSV files (QGIS3)</a></li>
-<li class="toctree-l1"><a class="reference internal" href="3/basic_vector_styling.html">Basic Vector Styling (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/basic_vector_styling.html">استایل برداری پایه (QGIS3)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="3/calculating_line_lengths.html">محاسبه طول خط و آمار (QGIS3)</a></li>
-<li class="toctree-l1"><a class="reference internal" href="3/raster_styling_and_analysis.html">Basic Raster Styling and Analysis (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/raster_styling_and_analysis.html">استایل‌سازی و تحلیل شطرنجی پایه (QGIS3)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="3/raster_mosaicing_and_clipping.html">Raster Mosaicing and Clipping (QGIS3)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="3/working_with_terrain.html">Working with Terrain Data (QGIS3)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="3/working_with_wms.html">Working with WMS Data (QGIS3)</a></li>
@@ -119,8 +119,8 @@
 <li class="toctree-l1"><a class="reference internal" href="3/using_plugins.html">Using Plugins (QGIS3)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="downloading_osm_data.html">جستجو و دانلود داده های OpenStreetMap</a></li>
 <li class="toctree-l1"><a class="reference internal" href="learning_resources.html">منابع آموزشی QGIS</a></li>
-<li class="toctree-l1"><a class="reference internal" href="credits.html">Data Credits</a></li>
-<li class="toctree-l1"><a class="reference internal" href="batch_processing.html">Batch Processing using Processing Framework (QGIS2)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="credits.html">اعتبار داده ها</a></li>
+<li class="toctree-l1"><a class="reference internal" href="batch_processing.html">پردازش دسته ای با استفاده از چارچوب پردازش (QGIS2)</a></li>
 </ul>
 </ul>
 </li>
@@ -172,195 +172,126 @@
       
 
   <section id="using-google-maps-engine-connector-for-qgis">
-<h1>Using Google Maps Engine Connector for QGIS<a class="headerlink" href="#using-google-maps-engine-connector-for-qgis" title="Permalink to this heading">¶</a></h1>
+<h1>استفاده از رابط Google Maps Engine برای QGIS<a class="headerlink" href="#using-google-maps-engine-connector-for-qgis" title="Permalink to this heading">¶</a></h1>
 <div class="admonition warning">
 <p class="admonition-title">هشدار</p>
-<p>As of 29 January, 2015 Google Maps Engine has stopped creation of new free
-accounts. If you already have a Maps Engine account, the Google Maps Engine
-Connector will continue to work till 29 January, 2016.</p>
+<p>از 29 ژانویه 2015 Google Maps Engine ایجاد حساب‌های رایگان جدید را متوقف کرده است. اگر قبلاً یک حساب Maps Engine دارید، رابط Google Maps Engine تا 29 ژانویه 2016 به کار خود ادامه خواهد داد.</p>
 </div>
-<p>Google Maps Engine is a cloud based mapping platform for creating and sharing
-custom maps. <a class="reference external" href="https://github.com/googlemaps/mapsengine-qgis-connector">Google Maps Engine Connector</a> is a plugin
-that allows you to view and upload Google Maps Engine data from within QGIS.
-This tutorial will go through the process of creating a Google Maps Engine
-account, obtaining necessary credentials for using the connector, creating a map
-using Google Maps Engine and consuming the resulting map in QGIS.</p>
+<p>Google Maps Engine یک پلت فرم نقشه برداری مبتنی بر ابر برای ایجاد و اشتراک گذاری نقشه های سفارشی است. <a class="reference external" href="https://github.com/googlemaps/mapsengine-qgis-connector">Google Maps Engine Connector</a> افزونه ای است که به شما امکان می دهد داده های Google Maps Engine را از داخل QGIS مشاهده و آپلود کنید. این آموزش مراحل ایجاد حساب Google Maps Engine، دریافت اعتبار لازم برای استفاده از کانکتور، ایجاد نقشه با استفاده از Google Maps Engine و مصرف نقشه حاصل در QGIS را طی خواهد کرد.</p>
 <div class="admonition note">
 <p class="admonition-title">توجه</p>
-<p>Disclaimer: I am the author of the Google Maps Engine Connector and
-currently part of the Google Maps team.</p>
+<p>سلب مسئولیت: من نویسنده Google Maps Engine Connector هستم و در حال حاضر بخشی از تیم Google Maps هستم.</p>
 </div>
 <section id="overview-of-the-task">
-<h2>Overview of the task<a class="headerlink" href="#overview-of-the-task" title="Permalink to this heading">¶</a></h2>
-<p>We will take a line layer representing bike routes in San Francisco and upload
-it to Google Maps Engine using the plugin. Once the layer is styled and a map
-is created, we will add that map to QGIS as a WMS layer.</p>
+<h2>بررسی اجمالی کار<a class="headerlink" href="#overview-of-the-task" title="Permalink to this heading">¶</a></h2>
+<p>ما یک لایه خطی می گیریم که مسیرهای دوچرخه را در سانفرانسیسکو نشان می دهد و با استفاده از افزونه آن را در Google Maps Engine آپلود می کنیم. پس از استایل دهی به لایه و ایجاد نقشه، آن نقشه را به عنوان لایه WMS به QGIS اضافه می کنیم.</p>
 <section id="other-skills-you-will-learn">
-<h3>Other skills you will learn<a class="headerlink" href="#other-skills-you-will-learn" title="Permalink to this heading">¶</a></h3>
+<h3>مهارت های دیگری که یاد خواهید گرفت<a class="headerlink" href="#other-skills-you-will-learn" title="Permalink to this heading">¶</a></h3>
 <ul class="simple">
-<li><p>Using the Google Developer Console to set up a new project for using Google
-APIs.</p></li>
+<li><p>استفاده از Google Developer Console برای راه اندازی یک پروژه جدید برای استفاده از Google API.</p></li>
 </ul>
 </section>
 </section>
 <section id="get-the-data">
-<h2>Get the data<a class="headerlink" href="#get-the-data" title="Permalink to this heading">¶</a></h2>
-<p><a class="reference external" href="https://data.sfgov.org/">San Francisco Data</a> is an excellent source
-of open data for San Francisco.</p>
+<h2>داده ها را دریافت کنید<a class="headerlink" href="#get-the-data" title="Permalink to this heading">¶</a></h2>
+<p><a class="reference external" href="https://data.sfgov.org/">San Francisco Data</a> یک منبع عالی برای داده های باز برای سانفرانسیسکو است.</p>
 <ol class="arabic simple">
-<li><p>Download the <a class="reference external" href="https://data.sfgov.org/Transportation/SFMTA-Bikeway-Network/t6vv-tjkd">SFMTA Bikeway Network</a>
-shapefile using the Export option on the portal.</p></li>
+<li><p>با استفاده از گزینه Export در پورتال، شکل فایل <a class="reference external" href="https://data.sfgov.org/Transportation/SFMTA-Bikeway-Network/t6vv-tjkd">SFMTA Bikeway Network</a> را دانلود کنید.</p></li>
 </ol>
 <img alt="../_images/1207.png" class="align-center" src="../_images/1207.png" />
-<p>Data Source: <a class="reference internal" href="credits.html#sfmta" id="id1"><span>[SFMTA]</span></a></p>
+<p>منبع داده: <a class="reference internal" href="credits.html#sfmta" id="id1"><span>[SFMTA]</span></a></p>
 </section>
 <section id="create-a-google-maps-engine-account">
-<h2>Create a Google Maps Engine account<a class="headerlink" href="#create-a-google-maps-engine-account" title="Permalink to this heading">¶</a></h2>
+<h2>یک حساب Google Maps Engine ایجاد کنید<a class="headerlink" href="#create-a-google-maps-engine-account" title="Permalink to this heading">¶</a></h2>
 <ol class="arabic simple" start="2">
-<li><p>You can sign up for a free Google Maps Engine trial account. The trial
-account is a full featured Maps Engine instance with limited storage quota.
-Visit <a class="reference external" href="http://www.google.com/enterprise/mapsearth/products/mapsengine.html">Google Maps Engine homepage</a> and
-click the <span class="guilabel">Get started with a free account</span> link.</p></li>
+<li><p>می توانید در یک حساب آزمایشی رایگان Google Maps Engine ثبت نام کنید. حساب آزمایشی یک نمونه کامل موتور نقشه با سهمیه ذخیره سازی محدود است. به صفحه اصلی موتور Google Maps مراجعه کنید &lt;<a class="reference external" href="http://www.google.com/enterprise/mapsearth/products/mapsengine.html">http://www.google.com/enterprise/mapsearth/products/mapsengine.html</a>&gt; <cite>_ و روی: Guilabel:</cite> با یک لینک حساب کاربری رایگان شروع کنید.</p></li>
 </ol>
 <img alt="../_images/2176.png" class="align-center" src="../_images/2176.png" />
 <ol class="arabic simple" start="3">
-<li><p>You will need to sign-in to your Google account. If you wish to use your
-work email, you can create a new Google account with your work email address
-as well. Once signed in, you will see the <span class="guilabel">Create a Maps Engine
-Project</span> screen. Enter a <span class="guilabel">Project Name</span> which will identify your
-account when using Google Maps Engine. Accept the terms and click
-<span class="guilabel">Accept and create</span> button.</p></li>
+<li><p>شما باید وارد حساب کاربری گوگل خود شوید. اگر می خواهید از ایمیل کاری خود استفاده کنید، می توانید یک حساب Google جدید با آدرس ایمیل کاری خود نیز ایجاد کنید. پس از ورود به سیستم، صفحه :guilabel:<a href="#id1"><span class="problematic" id="id2">`</span></a>Create a Maps Engine Project را خواهید دید. یک :guilabel:'Project Name' وارد کنید که هنگام استفاده از Google Maps Engine، حساب شما را شناسایی می کند. شرایط را بپذیرید و روی دکمه :guilabel:<a href="#id3"><span class="problematic" id="id4">`</span></a>Accept and create کلیک کنید.</p></li>
 </ol>
 <img alt="../_images/3121.png" class="align-center" src="../_images/3121.png" />
 </section>
 <section id="create-a-google-developer-console-project">
-<h2>Create a Google Developer Console project<a class="headerlink" href="#create-a-google-developer-console-project" title="Permalink to this heading">¶</a></h2>
+<h2>یک پروژه Google Developer Console ایجاد کنید<a class="headerlink" href="#create-a-google-developer-console-project" title="Permalink to this heading">¶</a></h2>
 <ol class="arabic simple" start="4">
-<li><p>The Google Maps Engine Connector uses the <code class="docutils literal notranslate"><span class="pre">Google</span> <span class="pre">Maps</span> <span class="pre">Engine</span>
-<span class="pre">API</span></code> to access the data stored in your account. You will need to obtain
-special credentials which the plugin will use to programatically access your
-data. Visit <a class="reference external" href="https://console.developers.google.com/">Google Developer Console</a>
-and click <span class="guilabel">Create Project</span>. Enter <code class="docutils literal notranslate"><span class="pre">GME</span> <span class="pre">Connector</span> <span class="pre">for</span>
-<span class="pre">QGIS</span> <span class="pre">API</span></code> as the <span class="guilabel">PROJECT NAME</span> and <code class="docutils literal notranslate"><span class="pre">gme-qgis-api</span></code> as the
-<span class="guilabel">PROJECT ID</span>. These names are just a suggestion - you may use any
-name and id you like.</p></li>
+<li><p>رابط Google Maps Engine از &quot;Google Maps Engine API&quot; برای دسترسی به داده های ذخیره شده در حساب شما استفاده می کند. شما باید اعتبارنامه های خاصی را بدست آورید که افزونه از آنها برای دسترسی برنامه ریزی شده به داده های شما استفاده می کند. از «Google Developer Console &lt;<a class="reference external" href="https://console.developers.google.com/">https://console.developers.google.com/</a>&gt;`_» دیدن کنید و روی :guilabel:<a href="#id1"><span class="problematic" id="id2">`</span></a>Create Project کلیک کنید. «GME Connector برای QGIS API» را به‌عنوان :guilabel: «نام پروژه» و «gme-qgis-api» را به‌عنوان :guilabel: «ID PROJECT» وارد کنید. این نام ها فقط یک پیشنهاد هستند - می توانید از هر نام و شناسه ای که دوست دارید استفاده کنید.</p></li>
 </ol>
 <img alt="../_images/473.png" class="align-center" src="../_images/473.png" />
 <ol class="arabic simple" start="5">
-<li><p>Once the project is created, click the <span class="guilabel">APIs &amp; auth</span> link. Scroll
-down and find the <span class="guilabel">Google Maps Engine API</span>. Click the
-<span class="guilabel">OFF</span> button to toggle it to <span class="guilabel">ON</span>.</p></li>
+<li><p>پس از ایجاد پروژه، روی پیوند <span class="guilabel">APIs &amp; auth</span> کلیک کنید. به پایین بروید و <span class="guilabel">Google Maps Engine API</span> را پیدا کنید. روی دکمه <span class="guilabel">OFF</span> کلیک کنید تا آن را به <span class="guilabel">ON</span> تغییر دهید.</p></li>
 </ol>
 <img alt="../_images/567.png" class="align-center" src="../_images/567.png" />
 <ol class="arabic simple" start="6">
-<li><p>Next, click on the <span class="guilabel">Credentials</span> link. Click <span class="guilabel">CREATE NEW
-CLIEND ID</span> under the <span class="guilabel">OAuth</span> section.</p></li>
+<li><p>سپس روی لینک :guilabel:<a href="#id1"><span class="problematic" id="id2">`</span></a>Credentials کلیک کنید. روی :gui label:&quot;CREATE NEW CLIENT ID&quot; در زیر بخش :guilabel:&quot;OAuth&quot; کلیک کنید.</p></li>
 </ol>
 <img alt="../_images/664.png" class="align-center" src="../_images/664.png" />
 <ol class="arabic simple" start="7">
-<li><p>In the <span class="guilabel">Create Client ID</span> dialog, select <span class="guilabel">Installed
-Application</span> as the <span class="guilabel">APPLICATION TYPE</span> and <span class="guilabel">Other</span> as
-the <span class="guilabel">INSTALLED APPLICATION TYPE</span>. Click <span class="guilabel">Create Client
-ID.</span></p></li>
+<li><p>در گفتگوی :guilabel:'Create Client ID'، :guilabel:'Application Installed' را به عنوان :guilabel:'APPLICATION TYPE' و :guilabel:'Other' را به عنوان :guilabel:'Installed APPLICATION TYPE' انتخاب کنید. روی <span class="guilabel">Create Client ID کلیک کنید.</span></p></li>
 </ol>
 <img alt="../_images/763.png" class="align-center" src="../_images/763.png" />
 <ol class="arabic simple" start="8">
-<li><p>Once the client id is created, you will see a new section called
-<span class="guilabel">Client ID for native application</span>. Note the <span class="guilabel">Client ID</span>
-and <span class="guilabel">Client secret</span>. These are the credentials you will need to use
-in QGIS.</p></li>
+<li><p>هنگامی که شناسه کلاینت ایجاد شد، بخش جدیدی به نام <span class="guilabel">شناسه مشتری برای برنامه بومی را خواهید دید. به :guilabel:`Client ID</span> و <span class="guilabel">Client Secret</span> توجه کنید. اینها اعتبارنامه هایی هستند که باید در QGIS استفاده کنید.</p></li>
 </ol>
 <img alt="../_images/861.png" class="align-center" src="../_images/861.png" />
 <ol class="arabic simple" start="9">
-<li><p>Back in QGIS, visit <span class="menuselection">Plugins ‣ Manage and Install
-Plugins...</span>. Find the <code class="docutils literal notranslate"><span class="pre">Google</span> <span class="pre">Maps</span> <span class="pre">Engine</span> <span class="pre">Connector</span></code> plugin and
-click <span class="guilabel">Install plugin</span>.</p></li>
+<li><p>بازگشت به QGIS، از <span class="menuselection">Plugins ‣ Manage and Install Plugins...</span> بازدید کنید. افزونه <code class="docutils literal notranslate"><span class="pre">Google</span> <span class="pre">Maps</span> <span class="pre">Engine</span> <span class="pre">Connector</span></code> را پیدا کرده و روی :guilabel:<a href="#id1"><span class="problematic" id="id2">`</span></a>Install plugin کلیک کنید.</p></li>
 </ol>
 <img alt="../_images/960.png" class="align-center" src="../_images/960.png" />
 <ol class="arabic simple" start="10">
-<li><p>Once the plugin is installed, you will see a new toolbar in QGIS. This
-toolbar contains various tools to work with Google Maps Engine. Click the
-<span class="guilabel">More</span> button.</p></li>
+<li><p>پس از نصب افزونه، نوار ابزار جدیدی را در QGIS مشاهده خواهید کرد. این نوار ابزار شامل ابزارهای مختلفی برای کار با Google Maps Engine است. روی دکمه :guilabel:'More' کلیک کنید.</p></li>
 </ol>
 <img alt="../_images/1068.png" class="align-center" src="../_images/1068.png" />
 <ol class="arabic simple" start="11">
-<li><p>In the <span class="guilabel">Advanced Settings</span> dialog, enter the <span class="guilabel">Client
-ID</span> and <span class="guilabel">Client Secret</span> you obtained from Google Developer
-Console. Click <span class="guilabel">OK</span>.</p></li>
+<li><p>در گفتگوی :guilabel:'تنظیمات پیشرفته'، :guilabel:'Client ID' و :guilabel:'Client Secret' را که از Google Developer Console دریافت کرده اید، وارد کنید. روی <span class="guilabel">OK</span> کلیک کنید.</p></li>
 </ol>
 <img alt="../_images/11107.png" class="align-center" src="../_images/11107.png" />
 <ol class="arabic simple" start="12">
-<li><p>As you entered new API credentials, you will be prompted to log-in and
-authorize the plugin to use these. Sign-in to your Google account.</p></li>
+<li><p>از آنجا که اعتبار جدید API را وارد کردید ، از شما خواسته می شود که از این افزونه استفاده کنید و به این افزونه اجازه استفاده از این موارد را بدهید. وارد حساب گوگل خود شوید.</p></li>
 </ol>
 <img alt="../_images/1269.png" class="align-center" src="../_images/1269.png" />
 <ol class="arabic simple" start="13">
-<li><p>Click <span class="guilabel">Accept</span> in the next screen.</p></li>
+<li><p>در صفحه بعدی روی :guilabel:<a href="#id1"><span class="problematic" id="id2">`</span></a>Accept کلیک کنید.</p></li>
 </ol>
 <img alt="../_images/1366.png" class="align-center" src="../_images/1366.png" />
 <ol class="arabic simple" start="14">
-<li><p>If all went well, you will see a message indicating you have successfully
-logged in.</p></li>
+<li><p>اگر همه چیز به خوبی پیش رفت، پیامی را مشاهده خواهید کرد که نشان می دهد با موفقیت وارد سیستم شده اید.</p></li>
 </ol>
 <img alt="../_images/1463.png" class="align-center" src="../_images/1463.png" />
 <ol class="arabic simple" start="15">
-<li><p>Now lets add the SFMTA Bikeway Network layer that was downloaded earlier.
-Go to <span class="menuselection">Layer ‣ Add Vector Layer</span>. Browse to the downloaded
-<code class="docutils literal notranslate"><span class="pre">SFMTA_Bikeway_Network.zip</span></code> file and click <span class="guilabel">Open</span>. Select the
-<code class="docutils literal notranslate"><span class="pre">SFMTA_Bikeway_Network.shp</span></code> layer and click <span class="guilabel">OK</span>.</p></li>
+<li><p>اکنون اجازه می‌دهیم لایه شبکه SFMTA Bikeway را که قبلا دانلود شده بود اضافه کنیم. به <span class="menuselection">Layer ‣ Add Vector Layer</span> بروید. فایل &quot;SFMTA_Bikeway_Network.zip&quot; را دانلود کرده و روی :guilabel:&quot;Open&quot; کلیک کنید. لایه &quot;SFMTA_Bikeway_Network.shp&quot; را انتخاب کنید و روی :guilabel:&quot;OK&quot; کلیک کنید.</p></li>
 </ol>
 <img alt="../_images/1559.png" class="align-center" src="../_images/1559.png" />
 <ol class="arabic simple" start="16">
-<li><p>One of the features of the <code class="docutils literal notranslate"><span class="pre">Google</span> <span class="pre">Maps</span> <span class="pre">Engine</span> <span class="pre">Connector</span></code> plugin
-is the ability to upload datasets directly from QGIS. Select the
-<code class="docutils literal notranslate"><span class="pre">SFMTA_Bikeway_Network</span></code> layer and click <span class="guilabel">Upload</span> icon in the
-toolbar.</p></li>
+<li><p>یکی از ویژگی های افزونه <a href="#id1"><span class="problematic" id="id2">``</span></a>Google Maps Engine Connector` امکان آپلود مجموعه داده ها به طور مستقیم از QGIS است. لایه &quot;SFMTA_Bikeway_Network&quot; را انتخاب کنید و روی نماد :guilabel:&quot;Upload&quot; در نوار ابزار کلیک کنید.</p></li>
 </ol>
 <img alt="../_images/1656.png" class="align-center" src="../_images/1656.png" />
 <ol class="arabic simple" start="17">
-<li><p>In the <span class="guilabel">Upload a dataset to Google Maps Engine</span> dialog, enter a
-<span class="guilabel">Description</span> of the dataset. You may leave all other settings to
-default values. Click <span class="guilabel">OK</span>.</p></li>
+<li><p>در گفتگوی :guilabel:` آپلود یک مجموعه داده در Google Maps Engine` یک <span class="guilabel">Description</span> مجموعه داده را وارد کنید. می توانید تمام تنظیمات دیگر را به مقادیر پیش فرض بسپارید. روی <span class="guilabel">OK</span> کلیک کنید.</p></li>
 </ol>
 <img alt="../_images/1752.png" class="align-center" src="../_images/1752.png" />
 <ol class="arabic simple" start="18">
-<li><p>The plugin will use the Google Maps Engine API to upload the layer and
-create a Google Maps Engine <em>Data Source</em>. Once the upload is finished, a
-new browser tab will open and take you to the newly created data source.</p></li>
+<li><p>این افزونه از Google Maps Engine API برای آپلود لایه و ایجاد یک Google Maps Engine <em>منبع داده</em> استفاده می کند. پس از اتمام آپلود، یک برگه مرورگر جدید باز می شود و شما را به منبع داده جدید ایجاد شده می برد.</p></li>
 </ol>
 <img alt="../_images/1850.png" class="align-center" src="../_images/1850.png" />
 <ol class="arabic simple" start="19">
-<li><p>The next few steps will demonstrate the process of creating a map using
-Google Maps Engine. Once the map is created, we will access that map using
-the plugin in QGIS. Once your vector table has finished processing, click
-<span class="guilabel">Create styled layer</span>.</p></li>
+<li><p>چند مرحله بعدی روند ایجاد نقشه با استفاده از Google Maps Engine را نشان می دهد. پس از ایجاد نقشه، با استفاده از افزونه در QGIS به آن نقشه دسترسی خواهیم داشت. هنگامی که پردازش جدول برداری شما به پایان رسید، روی :guilabel:<a href="#id1"><span class="problematic" id="id2">`</span></a>Create styled layer کلیک کنید.</p></li>
 </ol>
 <img alt="../_images/1942.png" class="align-center" src="../_images/1942.png" />
 <ol class="arabic simple" start="20">
-<li><p>Name the layer as <code class="docutils literal notranslate"><span class="pre">SFMTA_Bikeway_Network</span></code> and click <span class="guilabel">Create</span>.</p></li>
+<li><p>لایه را به عنوان &quot;SFMTA_Bikeway_Network&quot; نامگذاری کنید و روی :guilabel:&quot;Create&quot; کلیک کنید.</p></li>
 </ol>
 <img alt="../_images/2037.png" class="align-center" src="../_images/2037.png" />
 <ol class="arabic simple" start="21">
-<li><p>Click <span class="guilabel">Add rule</span> to add a custom style for the layer.</p></li>
+<li><p>برای افزودن یک سبک سفارشی برای لایه، روی :guilabel:<a href="#id1"><span class="problematic" id="id2">`</span></a>Add rule کلیک کنید.</p></li>
 </ol>
 <img alt="../_images/2177.png" class="align-center" src="../_images/2177.png" />
 <ol class="arabic simple" start="22">
-<li><p>Choose the color and label options under the <span class="guilabel">Line style</span>
-section. Click <span class="guilabel">Apply</span> to view the style settings applied to your
-layer. You may also select <span class="guilabel">No Basemap</span> option from top-right
-corner to allow you to see your layer without the underlying basemap. Once
-you are satisfied with the styling, switch to the <span class="guilabel">Info windows</span>
-tab.</p></li>
+<li><p>گزینه های رنگ و برچسب را در قسمت :guilabel:` Line style` انتخاب کنید. برای مشاهده تنظیمات استایل اعمال شده بر روی لایه خود، روی <span class="guilabel">Apply کلیک کنید. همچنین می توانید گزینه :guilabel:`No Basemap را از گوشه سمت راست بالا انتخاب کنید تا بتوانید لایه خود را بدون نقشه پایه زیرین ببینید. هنگامی که از استایل راضی شدید، به برگه :guilabel: `Info windows</span> بروید.</p></li>
 </ol>
 <img alt="../_images/2236.png" class="align-center" src="../_images/2236.png" />
 <ol class="arabic simple" start="23">
-<li><p>Here you can specify what content is shown when a feature is clicked on the
-map. You can access the feature attributes using the markup
-<code class="docutils literal notranslate"><span class="pre">{attribute_name}</span></code>. In this case, we just want to display the street name
-for the line feature. Enter the following in the text area. Click
-<span class="guilabel">Apply</span> and click on any line feature on the map to test the info
-window code. When done, check the <span class="guilabel">Publish on exit</span> button and
-click <span class="guilabel">Exit</span>.</p></li>
+<li><p>در اینجا می توانید مشخص کنید که وقتی یک ویژگی روی نقشه کلیک می شود، چه محتوایی نشان داده شود. می‌توانید با استفاده از نشانه‌گذاری «{attribute_name}» به ویژگی‌های ویژگی دسترسی داشته باشید. در این مورد، ما فقط می خواهیم نام خیابان را برای ویژگی خط نمایش دهیم. موارد زیر را در قسمت متن وارد کنید. روی :guilabel:'Apply' کلیک کنید و روی هر ویژگی خط روی نقشه کلیک کنید تا کد پنجره اطلاعات را آزمایش کنید. پس از اتمام، دکمه <span class="guilabel">Publish on exit</span> را علامت بزنید و روی :guilabel:<a href="#id1"><span class="problematic" id="id2">`</span></a>Exit کلیک کنید.</p></li>
 </ol>
 <div class="highlight-none notranslate"><div class="highlight"><pre><span></span>&lt;div class=&#39;googeb-info-window&#39; style=&#39;font-family: sans-serif&#39;&gt;
  {STREETNAME}  {TYPE}
@@ -369,54 +300,43 @@ click <span class="guilabel">Exit</span>.</p></li>
 </div>
 <img alt="../_images/2332.png" class="align-center" src="../_images/2332.png" />
 <ol class="arabic simple" start="24">
-<li><p>Click <span class="guilabel">Add to map</span> to create a map with this layer.</p></li>
+<li><p>برای ایجاد نقشه با این لایه روی :guilabel:<a href="#id1"><span class="problematic" id="id2">`</span></a>Add to map کلیک کنید.</p></li>
 </ol>
 <img alt="../_images/2431.png" class="align-center" src="../_images/2431.png" />
 <ol class="arabic simple" start="25">
-<li><p>Select <span class="guilabel">Create new</span> and enter <code class="docutils literal notranslate"><span class="pre">SFMTA</span> <span class="pre">Bikeway</span> <span class="pre">Network</span></code> as the
-<span class="guilabel">Map title</span>.</p></li>
+<li><p>:guilabel:'Create new' را انتخاب کنید و 'SFMTA Bikeway Network' را به عنوان :guilabel:'Map title' وارد کنید.</p></li>
 </ol>
 <img alt="../_images/2528.png" class="align-center" src="../_images/2528.png" />
 <ol class="arabic simple" start="26">
-<li><p>You will see a new map containing the styled layer. You have an option of
-choosing different basemaps for the map. Since this is a bike path map, you
-can select the <span class="guilabel">Terrain</span> style basemap.</p></li>
+<li><p>یک نقشه جدید حاوی لایه استایل شده مشاهده خواهید کرد. شما می توانید نقشه های پایه مختلف را برای نقشه انتخاب کنید. از آنجایی که این یک نقشه مسیر دوچرخه است، می توانید نقشه پایه <span class="guilabel">Terrain</span> را انتخاب کنید.</p></li>
 </ol>
 <img alt="../_images/2626.png" class="align-center" src="../_images/2626.png" />
 <ol class="arabic simple" start="27">
-<li><p>Click <span class="guilabel">Publish map</span>.</p></li>
+<li><p>روی :guilabel:<a href="#id1"><span class="problematic" id="id2">`</span></a>Publish map کلیک کنید.</p></li>
 </ol>
 <img alt="../_images/2725.png" class="align-center" src="../_images/2725.png" />
 <ol class="arabic simple" start="28">
-<li><p>Once the map is published, click on the <span class="guilabel">Access links</span> icon.</p></li>
+<li><p>پس از انتشار نقشه، روی نماد :guilabel:<a href="#id1"><span class="problematic" id="id2">`</span></a>Access links کلیک کنید.</p></li>
 </ol>
 <img alt="../_images/2824.png" class="align-center" src="../_images/2824.png" />
 <ol class="arabic simple" start="29">
-<li><p>You will see various options to view, embed and access the newly created
-map. Since we will be accessing the map using the QGIS plugin, you do not
-need any links from here.</p></li>
+<li><p>گزینه های مختلفی را برای مشاهده، جاسازی و دسترسی به نقشه جدید ایجاد شده مشاهده خواهید کرد. از آنجایی که ما با استفاده از افزونه QGIS به نقشه دسترسی خواهیم داشت، به هیچ لینکی از اینجا نیاز ندارید.</p></li>
 </ol>
 <img alt="../_images/2921.png" class="align-center" src="../_images/2921.png" />
 <ol class="arabic simple" start="30">
-<li><p>Back in QGIS, click the <span class="guilabel">Search</span> icon in the toolbar.</p></li>
+<li><p>به QGIS برگردید، روی نماد :guilabel:<a href="#id1"><span class="problematic" id="id2">`</span></a>Search در نوار ابزار کلیک کنید.</p></li>
 </ol>
 <img alt="../_images/3018.png" class="align-center" src="../_images/3018.png" />
 <ol class="arabic simple" start="31">
-<li><p>In the <span class="guilabel">Maps Engine Maps</span> dialog, you will see your map listed.
-Click on the row to select it. Click <span class="guilabel">Add Selected to Map</span>.</p></li>
+<li><p>در گفتگوی :guilabel:<a href="#id1"><span class="problematic" id="id2">`</span></a>Maps Engine Maps، نقشه خود را فهرست شده خواهید دید. برای انتخاب ردیف، روی آن کلیک کنید. روی :guilabel:<a href="#id3"><span class="problematic" id="id4">`</span></a>Add Selected to Map کلیک کنید.</p></li>
 </ol>
 <img alt="../_images/3122.png" class="align-center" src="../_images/3122.png" />
 <ol class="arabic simple" start="32">
-<li><p>The plugin will query Google Maps Engine and load a vector layer containing
-the bounding box of the map. If you do not see any data on the canvas,
-right-click on the <code class="docutils literal notranslate"><span class="pre">SFMTA_Bikeway_Network</span></code> layer and select
-<span class="guilabel">Zoom to Layer Extent</span>.</p></li>
+<li><p>این افزونه Google Maps Engine را پرس و جو می کند و یک لایه برداری حاوی کادر مرزی نقشه را بارگیری می کند. اگر هیچ داده‌ای روی بوم نمی‌بینید، روی لایه «SFMTA_Bikeway_Network» کلیک راست کرده و :guilabel: «Zoom to Layer Extent» را انتخاب کنید.</p></li>
 </ol>
 <img alt="../_images/3216.png" class="align-center" src="../_images/3216.png" />
 <ol class="arabic simple" start="33">
-<li><p>Click on the bounding box layer to select it. You will notice that the
-<span class="guilabel">View</span> tools are now enabled. Click on the <span class="guilabel">WMS
-Overlay</span> icon in the toolbar.</p></li>
+<li><p>برای انتخاب لایه جعبه مرزی روی آن کلیک کنید. متوجه خواهید شد که ابزارهای <span class="guilabel">View اکنون فعال هستند. روی نماد :guilabel:`WMS Overlay</span> در نوار ابزار کلیک کنید.</p></li>
 </ol>
 <img alt="../_images/3314.png" class="align-center" src="../_images/3314.png" />
 <ol class="arabic simple" start="34">
@@ -472,7 +392,7 @@ width="100%" height="600px"></iframe>
     </p>
     <p>
         &copy; Copyright 2023, Ujaval Gandhi.<br/>
-      آخرین بروز رسانی در ژانویه 02, 2024 .<br/>
+      آخرین بروز رسانی در ژانویه 05, 2024 .<br/>
       Created using <a href="http://sphinx-doc.org/">Sphinx</a> 7.0.1.<br/>
     </p>
   </div>

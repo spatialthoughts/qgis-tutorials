@@ -31,10 +31,14 @@ Get the data
 Basin Boundaries
 ^^^^^^^^^^^^^^^^
 
-HydroBasins provides polygon boundaries of basins for different continents. The boundaries are hierarchical – each basin at Level N is further subdivided into smaller basins at Level N+1. For this tutorial, we will use the Level 6 basin boundaries. You can use different level depending on your region and type of map you want to create. Visit the `HydroBASINS <https://www.hydrosheds.org/products/hydrobasins>`_  page and download the zip file for your region. 
+HydroBasins provides polygon boundaries of basins for different continents. The boundaries are hierarchical – each basin at Level N is further subdivided into smaller basins at Level N+1. For this tutorial, we will use the Level 6 basin boundaries. You can use different level depending on your region and type of map you want to create. Visit the `HydroBASINS <https://www.hydrosheds.org/products/hydrobasins>`_  page and download the zip file for your region.
 
   .. image:: /static/3/colorized_river_basin_map/images/download1.png
     :align: center
+    
+.. note:: 
+   
+    HydroSHEDS basin boundaries are derived from SRTM data which is over 20 years old at this point. The basin boundaries may not match the official basin boundaries in your region. You can substitute HydroBasins data with polygons from official sources when available.
     
 River Network
 ^^^^^^^^^^^^^

@@ -5,7 +5,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Find Neighbor Polygons in a Layer &#8212; QGIS Tutorials and Tips</title>
+    <title>چند ضلعی های همسایه را در یک لایه پیدا کنید &#8212; QGIS Tutorials and Tips</title>
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../_static/bootstrap-sphinx.css" />
     <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
@@ -72,9 +72,9 @@
 <li class="toctree-l1"><a class="reference internal" href="3/making_a_map.html">Making a Map (QGIS3)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="3/working_with_attributes.html">Working with Attributes (QGIS3)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="3/importing_spreadsheets_csv.html">Importing Spreadsheets or CSV files (QGIS3)</a></li>
-<li class="toctree-l1"><a class="reference internal" href="3/basic_vector_styling.html">Basic Vector Styling (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/basic_vector_styling.html">استایل برداری پایه (QGIS3)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="3/calculating_line_lengths.html">محاسبه طول خط و آمار (QGIS3)</a></li>
-<li class="toctree-l1"><a class="reference internal" href="3/raster_styling_and_analysis.html">Basic Raster Styling and Analysis (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/raster_styling_and_analysis.html">استایل‌سازی و تحلیل شطرنجی پایه (QGIS3)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="3/raster_mosaicing_and_clipping.html">Raster Mosaicing and Clipping (QGIS3)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="3/working_with_terrain.html">Working with Terrain Data (QGIS3)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="3/working_with_wms.html">Working with WMS Data (QGIS3)</a></li>
@@ -119,8 +119,8 @@
 <li class="toctree-l1"><a class="reference internal" href="3/using_plugins.html">Using Plugins (QGIS3)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="downloading_osm_data.html">جستجو و دانلود داده های OpenStreetMap</a></li>
 <li class="toctree-l1"><a class="reference internal" href="learning_resources.html">منابع آموزشی QGIS</a></li>
-<li class="toctree-l1"><a class="reference internal" href="credits.html">Data Credits</a></li>
-<li class="toctree-l1"><a class="reference internal" href="batch_processing.html">Batch Processing using Processing Framework (QGIS2)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="credits.html">اعتبار داده ها</a></li>
+<li class="toctree-l1"><a class="reference internal" href="batch_processing.html">پردازش دسته ای با استفاده از چارچوب پردازش (QGIS2)</a></li>
 </ul>
 </ul>
 </li>
@@ -172,84 +172,61 @@
       
 
   <section id="find-neighbor-polygons-in-a-layer">
-<h1>Find Neighbor Polygons in a Layer<a class="headerlink" href="#find-neighbor-polygons-in-a-layer" title="Permalink to this heading">¶</a></h1>
+<h1>چند ضلعی های همسایه را در یک لایه پیدا کنید<a class="headerlink" href="#find-neighbor-polygons-in-a-layer" title="Permalink to this heading">¶</a></h1>
 <div class="admonition note">
 <p class="admonition-title">توجه</p>
-<p>If you are using QGIS3, there is a simpler and better way to do this analysis using the aggregate function. See my post <a class="reference external" href="https://spatialthoughts.com/2019/05/23/neighbor-polygons-aggregate-qgis/">Find Neighbor Polygons using Summary Aggregate Function in QGIS</a></p>
+<p>اگر از QGIS3 استفاده می کنید، راه ساده تر و بهتری برای انجام این تحلیل با استفاده از تابع جمع وجود دارد. پست من را ببینید «پیدا کردن چند ضلعی های همسایه با استفاده از تابع جمع خلاصه در QGIS &lt;<a class="reference external" href="https://spatialthoughts.com/2019/05/23/neighbor-polygons-aggregate-qgis/">https://spatialthoughts.com/2019/05/23/neighbor-polygons-aggregate-qgis/</a>&gt;`_</p>
 </div>
-<p>There are some use cases where you want to find all neighboring polygons of
-each of the polygons in a layer. With a little python script, we can accomplish
-this and much more in QGIS. Here is an example script you can use to find all
-polygons that share boundary with each of the polygons in a layer and also add
-their names to the attribute table. As an added bonus, the script also sums up
-an attribute of your choice from all the neighboring polygons.</p>
+<p>مواردی وجود دارد که می خواهید همه چند ضلعی های مجاور هر چند ضلعی را در یک لایه پیدا کنید. با کمی اسکریپت پایتون، می‌توانیم این کار و خیلی بیشتر را در QGIS انجام دهیم. در اینجا یک نمونه اسکریپت وجود دارد که می توانید از آن برای یافتن همه چند ضلعی هایی که با هر چند ضلعی در یک لایه مرز مشترک دارند و همچنین نام آنها را به جدول ویژگی اضافه کنید، استفاده کنید. به عنوان یک امتیاز اضافی، اسکریپت همچنین یک ویژگی انتخابی شما را از همه چند ضلعی های همسایه خلاصه می کند.</p>
 <section id="overview-of-the-task">
-<h2>Overview of the task<a class="headerlink" href="#overview-of-the-task" title="Permalink to this heading">¶</a></h2>
-<p>To demonstrate how the script works, we will use a layer of country polygons
-and find countries that share the border. We also want to compute the total
-population of the country’s neighbors.</p>
+<h2>بررسی اجمالی کار<a class="headerlink" href="#overview-of-the-task" title="Permalink to this heading">¶</a></h2>
+<p>برای نشان دادن نحوه عملکرد اسکریپت، از لایه ای از چند ضلعی های کشور استفاده می کنیم و کشورهایی را که مرز مشترک دارند، پیدا می کنیم. ما همچنین می خواهیم کل جمعیت همسایگان کشور را محاسبه کنیم.</p>
 </section>
 <section id="get-the-data">
-<h2>Get the data<a class="headerlink" href="#get-the-data" title="Permalink to this heading">¶</a></h2>
-<p>We will use the <a class="reference external" href="http://www.naturalearthdata.com/downloads/10m-cultural-vectors/10m-admin-0-countries/">Admin 0 - Countries</a>
-dataset from Natural Earth.</p>
-<p>Download the <a class="reference external" href="http://www.naturalearthdata.com/http//www.naturalearthdata.com/download/10m/cultural/ne_10m_admin_0_countries.zip">Admin 0 - countries shapefile.</a>.</p>
-<p>Data Source <a class="reference internal" href="credits.html#naturalearth" id="id1"><span>[NATURALEARTH]</span></a></p>
+<h2>داده ها را دریافت کنید<a class="headerlink" href="#get-the-data" title="Permalink to this heading">¶</a></h2>
+<p>ما از مجموعه داده &quot;Admin 0 - Countries &lt;<a class="reference external" href="http://www.naturalearthdata.com/downloads/10m-cultural-vectors/10m-admin-0-countries/">http://www.naturalearthdata.com/downloads/10m-cultural-vectors/10m-admin-0-countries/</a>&gt;&quot;_ از Natural Earth استفاده خواهیم کرد.</p>
+<p>فایل شکل فایل «Admin 0 - Country» را دانلود کنید. &lt;<a class="reference external" href="http://www.naturalearthdata.com/http//www.naturalearthdata.com/download/10m/cultural/ne_10m_admin_0_countries.zip">http://www.naturalearthdata.com/http//www.naturalearthdata.com/download/10m/cultural/ne_10m_admin_0_countries.zip</a>&gt;`_.</p>
+<p>منبع داده <a class="reference internal" href="credits.html#naturalearth" id="id1"><span>[NATURALEARTH]</span></a></p>
 </section>
 <section id="get-the-script">
-<h2>Get the script<a class="headerlink" href="#get-the-script" title="Permalink to this heading">¶</a></h2>
-<p>Download the <a class="reference download internal" download="" href="../_downloads/4cea2e81c7cbba6c6a79b31dd0eb3c2a/neighbors.py"><code class="xref download docutils literal notranslate"><span class="pre">neighbors.py</span> <span class="pre">script</span></code></a>
-and save it to your disk.</p>
+<h2>فیلمنامه را دریافت کنید<a class="headerlink" href="#get-the-script" title="Permalink to this heading">¶</a></h2>
+<p>اسکریپت :download:<a href="#id1"><span class="problematic" id="id2">`</span></a>neighbors.py را دانلود کنید و آن را در دیسک خود ذخیره کنید.</p>
 </section>
 <section id="procedure">
-<h2>Procedure<a class="headerlink" href="#procedure" title="Permalink to this heading">¶</a></h2>
+<h2>روش<a class="headerlink" href="#procedure" title="Permalink to this heading">¶</a></h2>
 <ol class="arabic simple">
-<li><p>Load the <code class="docutils literal notranslate"><span class="pre">ne_10m_admin_0_countries</span></code> layer by going to
-<span class="menuselection">Layer ‣ Add Vector Layer</span>.</p></li>
+<li><p>لایه «ne_10m_admin_0_countries» را با رفتن به <span class="menuselection">Layer ‣ Add Vector Layer</span> بارگیری کنید.</p></li>
 </ol>
 <img alt="../_images/1178.png" class="align-center" src="../_images/1178.png" />
 <ol class="arabic simple" start="2">
-<li><p>The script uses 2 fields to perform the action. A name field and a field
-that you want to sum up. Use the <span class="guilabel">Identify</span> tool to click on any
-feature and examine the attributes. In this case the name field is <strong>NAME</strong> and we want
-to sum up the population estimates from <strong>POP_EST</strong> field.</p></li>
+<li><p>اسکریپت از 2 فیلد برای انجام عمل استفاده می کند. یک فیلد نام و یک فیلد که می خواهید خلاصه کنید. از ابزار :guilabel:<a href="#id1"><span class="problematic" id="id2">`</span></a>Identify برای کلیک بر روی هر ویژگی و بررسی ویژگی ها استفاده کنید. در این مورد، فیلد نام <strong>NAME</strong> است و می‌خواهیم برآوردهای جمعیت را از قسمت <strong>POP_EST</strong> جمع‌بندی کنیم.</p></li>
 </ol>
 <img alt="../_images/2147.png" class="align-center" src="../_images/2147.png" />
 <ol class="arabic simple" start="3">
-<li><p>Go to <span class="menuselection">Plugins ‣ Python Console</span>.</p></li>
+<li><p>به :menuselection:<a href="#id1"><span class="problematic" id="id2">`</span></a>Plugins --&gt; Python Console بروید.</p></li>
 </ol>
 <img alt="../_images/388.png" class="align-center" src="../_images/388.png" />
 <ol class="arabic simple" start="4">
-<li><p>In the <span class="guilabel">Python Console</span> window, click the <span class="guilabel">Show Editor</span>
-button.</p></li>
+<li><p>در پنجره :guilabel:'Python Console'، روی دکمه :guilabel:'Show Editor' کلیک کنید.</p></li>
 </ol>
 <img alt="../_images/454.png" class="align-center" src="../_images/454.png" />
 <ol class="arabic simple" start="5">
-<li><p>In the <span class="guilabel">Editor</span> panel, click the <span class="guilabel">Open file</span> button and
-browse to downloaded <code class="docutils literal notranslate"><span class="pre">neighbors.py</span></code> script and click <span class="guilabel">Open</span>.</p></li>
+<li><p>در پانل :guilabel:'Editor'، روی دکمه :guilabel:'Open file' کلیک کنید و اسکریپت &quot;neighbors.py&quot; دانلود شده را مرور کنید و روی :guilabel:&quot;Open&quot; کلیک کنید.</p></li>
 </ol>
 <img alt="../_images/547.png" class="align-center" src="../_images/547.png" />
 <ol class="arabic simple" start="6">
-<li><p>Once the script is loaded, you may want to change the <code class="docutils literal notranslate"><span class="pre">_NAME_FIELD</span></code> and
-<code class="docutils literal notranslate"><span class="pre">_SUM_FIELD</span></code> values to match the attributes from your own layer. If you
-are working with the <code class="docutils literal notranslate"><span class="pre">ne_10m_admin_0_countries</span></code> layer, you can leave those
-as they are. Click the <span class="guilabel">Save</span> button in the <span class="guilabel">Editor</span>
-panel if you made any changes. Now click the <span class="guilabel">Run script</span> button
-to execute the script.</p></li>
+<li><p>پس از بارگیری اسکریپت، ممکن است بخواهید مقادیر &quot;_NAME_FIELD&quot; و &quot;_SUM_FIELD&quot; را تغییر دهید تا با ویژگی های لایه خود مطابقت داشته باشد. اگر با لایه «ne_10m_admin_0_countries» کار می‌کنید، می‌توانید آن‌ها را همانطور که هستند رها کنید. اگر تغییری ایجاد کردید، روی دکمه <span class="guilabel">Save</span> در پنل <span class="guilabel">Editor کلیک کنید. اکنون روی دکمه :guilabel:`Run script</span> کلیک کنید تا اسکریپت اجرا شود.</p></li>
 </ol>
 <img alt="../_images/645.png" class="align-center" src="../_images/645.png" />
 <ol class="arabic simple" start="7">
-<li><p>Once the script finishes, right-click the <code class="docutils literal notranslate"><span class="pre">ne_10m_admin_0_countries</span></code> layer
-and select <span class="guilabel">Open Attribute Table</span>.</p></li>
+<li><p>پس از اتمام اسکریپت، روی لایه &quot;ne_10m_admin_0_countries&quot; کلیک راست کرده و :guilabel:&quot;Open Attribute Table&quot; را انتخاب کنید.</p></li>
 </ol>
 <img alt="../_images/745.png" class="align-center" src="../_images/745.png" />
 <ol class="arabic simple" start="8">
-<li><p>You will notice 2 new attributes called <code class="docutils literal notranslate"><span class="pre">NEIGHBORS</span></code> and <code class="docutils literal notranslate"><span class="pre">SUM</span></code>. These
-were added by the script.</p></li>
+<li><p>متوجه 2 ویژگی جدید به نام‌های «همسایه» و «جمع» خواهید شد. اینها توسط فیلمنامه اضافه شد.</p></li>
 </ol>
 <img alt="../_images/844.png" class="align-center" src="../_images/844.png" />
-<p>Below is the complete script for reference. You may modify it to suit your
-needs.</p>
+<p>در زیر اسکریپت کامل برای مرجع آورده شده است. شما می توانید آن را مطابق با نیاز خود تغییر دهید.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1">################################################################################</span>
 <span class="c1"># Copyright 2014 Ujaval Gandhi</span>
 <span class="c1">#</span>
@@ -368,7 +345,7 @@ needs.</p>
     </p>
     <p>
         &copy; Copyright 2023, Ujaval Gandhi.<br/>
-      آخرین بروز رسانی در ژانویه 02, 2024 .<br/>
+      آخرین بروز رسانی در ژانویه 05, 2024 .<br/>
       Created using <a href="http://sphinx-doc.org/">Sphinx</a> 7.0.1.<br/>
     </p>
   </div>
