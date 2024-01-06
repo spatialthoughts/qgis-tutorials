@@ -1,7 +1,9 @@
 QGIS Learning Resources
 =======================
 
-Spatial Thoughts has a comprehensive |qgis_learning_plan| covering all levels of users that includes free courses, videos and additional tutorials.
+In addition to these tutorials, I also create and maintain hundreds of hours of free learning resources that includes free courses, videos and articles. Click on the link below to see my structured learning guide to access all the content.
+
+|qgis_learning_plan|
 
 .. |qgis_learning_plan| raw:: html
 
@@ -19,6 +21,14 @@ Official Documentation
   <https://docs.qgis.org/testing/en/docs/gentle_gis_introduction/>`_
 - `The QGIS Training Manual <https://docs.qgis.org/testing/en/docs/training_manual/>`_
 
+Online Resources
+----------------
+
+- `QGIS Introduction Tutorials <https://kevelyn1.github.io/QGIS-Intro/>`_ by Evelyn Uuemaa 
+- `QGIS in Mineral Exploration <https://qgis-in-mineral-exploration.readthedocs.io/en/latest/>`_ by Grant Boxer
+- `QGIS for Crime Analysus <https://sites.google.com/view/routineactivity/blog-and-site-articles/qgis-for-crime-analysis>`_ by Iain Agar
+
+
 Books
 -----
 
@@ -26,18 +36,15 @@ Books
 - `QGIS Map Design <https://locatepress.com/qmd2>`_ by  Anita Graser and Gretchen N. Peterson
 - `QGIS for Hydrological Applications <https://locatepress.com/hyd>`_ by Hans van der Kwast and Kurt Menke
 
-
-Blogs and Online Resources
---------------------------
+Blogs
+-----
 
 - `Free and Open Source GIS Ramblings <http://anitagraser.com/>`_ by Anita Graser
 - `North Road Blog <https://north-road.com/blog/>`_ by Nyall Dawson
-- `QGIS Introduction Tutorials <https://kevelyn1.github.io/QGIS-Intro/>`_ by Evelyn Uuemaa 
-- `QGIS in Mineral Exploration <https://qgis-in-mineral-exploration.readthedocs.io/en/latest/>`_ by Grant Boxer
 - `Xenocartography, neogeography & colorful pixels <https://tjukanov.org/blog>`_ by Topi Tjukanov
 
-Free Video Tutorials
---------------------
+YouTube Channels
+----------------
 
 - `QGIS Uncovered <https://www.youtube.com/channel/UCrBM8Ka8HhDAYvQY1VX2P0w/videos>`_ by Steven Bernard 
 - `Klas Karlsson's YouTube channel <https://www.youtube.com/channel/UCxs7cfMwzgGZhtUuwhny4-Q>`_
