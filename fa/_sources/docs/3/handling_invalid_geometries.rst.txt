@@ -5,7 +5,7 @@ When working with vector data layers, you may encounter geometry errors. These e
 
 .. note::
 
-  Different software systems implement different notions of geometry validity. But the leading standard for the geometry model for use in a GIS is the OGC `Simple Features Specifications (SFS) <https://www.opengeospatial.org/standards/sfs>`_. In this tutorial, we will use GEOS library to check for geometry validity which uses this standard. `This post <https://knowledge.safe.com/articles/21674/invalid-ogc-geometry-examples.html>`_ gives a good overview of common geometry errors as defined by the OGC standard.
+  Different software systems implement different notions of geometry validity. But the leading standard for the geometry model for use in a GIS is the OGC `Simple Features Specifications (SFS) <https://www.opengeospatial.org/standards/sfs>`_. In this tutorial, we will use GEOS library to check for geometry validity which uses this standard. `This post <https://support.safe.com/s/article/invalid-ogc-geometry-examples>`_ gives a good overview of common geometry errors as defined by the OGC standard.
   
 Overview of the task
 --------------------
