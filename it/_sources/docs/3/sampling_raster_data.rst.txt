@@ -83,9 +83,6 @@ Procedure
   .. image:: /static/3/sampling_raster_data/images/9.png
      :align: center
 
-.. note::
-
-  Most processing algorithms will read the input layer and create a new layer. But the **Zonal Statistics** algorithm is different. It modifies the input layer and adds new attributes to it. That's why it is important to unzip the input files first. QGIS can load a layer from a zip archive directly, but it cannot modify a zipped layer. The processing algorithm will fail if it cannot update the input layer.
   
 10. A new layer ``tl_2018_us_county`` will be loaded to the :guilabel:`Layers` panel. Go to :menuselection:`Processing --> Toolbox`. 
 
@@ -106,18 +103,23 @@ Procedure
 
   .. image:: /static/3/sampling_raster_data/images/13.png
      :align: center
+	 
+14. Now, click on the :guilabel:`...` next to :guilabel:`Zonal Statistics` and select :guilabel:`Save to File` option to save the output.
 
-14. Click :guilabel:`Run` to start the processing. The algorithm may take a few minutes to complete. Click :guilabel:`Close`.
+    .. image:: /static/3/sampling_raster_data/images/14.png
+       :align: center
 
-  .. image:: /static/3/sampling_raster_data/images/14.png
-     :align: center
-
-15. As noted earlier, the **Zonal Statistics** algorithm doesn't create a new layer, but modifies the zone layer. Right-click the ``tl_2018_us_county`` layer, and select :guilabel:`Open Attribute Table`.
+15. Browse to the folder where you want to save the output. Save the output layer as ``us_county_tmax.shp``. Click :guilabel:`Run` to start the processing. The algorithm may take a few minutes to complete and you will see the output layer added as soon as the processing finishes. Click :guilabel:`Close`.
 
   .. image:: /static/3/sampling_raster_data/images/15.png
      :align: center
 
-16. You will see a new column called ``tmax_mean`` added to the attribute table. This contains the average temperature value extracted over the polygon for each feature. There are some null values because those counties (belonging to Alaska, Hawaii and Puerto Rico) are outside of the raster layer's extent.
+16. Right-click the ``us_county_tmax`` layer, and select :guilabel:`Open Attribute Table`.
 
   .. image:: /static/3/sampling_raster_data/images/16.png
+     :align: center
+
+17. You will see a new column called ``tmax_mean`` added in the attribute table. This contains the average temperature value extracted over the polygon for each feature. There are some null values because those counties (belonging to Alaska, Hawaii and Puerto Rico) are outside of the raster layer's extent.
+
+  .. image:: /static/3/sampling_raster_data/images/17.png
      :align: center
