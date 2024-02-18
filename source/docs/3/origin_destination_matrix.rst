@@ -107,7 +107,7 @@ Procedure
   .. image:: /static/3/origin_destination_matrix/images/10.png
     :align: center
   
-11. A new table layer called ``Output OD Matrix`` will be added to the :guilabel:`Layers` panel. Right-click and select :guilabel:`Open Attributes Table`. You will see that the table contains *13000* rows. We had 74 origin points and 1000 destination points - so the output contains *74x1000 = 74000* pairs of origins and destination. The ``total_cost`` column contains distance in meters between each origin point to every destination point. 
+11. A new table layer called ``Output OD Matrix`` will be added to the :guilabel:`Layers` panel. Right-click and select :guilabel:`Open Attributes Table`. You will see that the table contains *13000* rows. We had 67 origin points and 1000 destination points - so the output contains *67x1000 = 67000* pairs of origins and destination. The ``total_cost`` column contains distance in meters between each origin point to every destination point. 
 
   .. image:: /static/3/origin_destination_matrix/images/11.png
     :align: center
