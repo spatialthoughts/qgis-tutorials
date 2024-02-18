@@ -102,12 +102,12 @@ Procedure
   .. image:: /static/3/origin_destination_matrix/images/9.png
     :align: center
   
-10. As many streets in the network are one-way, we need to set the :guilabel:`Advanced parameters` to specify the direction. See :doc:`basic_network_analysis` for more details on how these attributes are structured. We also have an option to select geometry style of the generated matrix. We are having a road network with direction information so we can generate matrix by folling the route. Choose  ``Matrix geometry follows routes``.Choose ``SUMMARYDIR`` as the :guilabel:`Direction field`. Enter ``OB`` as the :guilabel:`Value for the forward direction`, ``IB`` as the :guilabel:`Value for backward direction`, and ``BD`` as the :guilabel:`Value for the both direction`. Set the :guilabel:`Topology tolerance` as ``0.0000150``. Keep other options to their default values and click :guilabel:`Run`.
+10. As many streets in the network are one-way, we need to set the :guilabel:`Advanced parameters` to specify the direction. See :doc:`basic_network_analysis` for more details on how these attributes are structured. We also have an option to select geometry style of the generated matrix. We are having a road network with direction information so we can generate matrix by folling the route. Choose ``Matrix geometry follows routes``. Choose ``SUMMARYDIR`` as the :guilabel:`Direction field`. Enter ``OB`` as the :guilabel:`Value for the forward direction`, ``IB`` as the :guilabel:`Value for backward direction`, and ``BD`` as the :guilabel:`Value for the both direction`. Set the :guilabel:`Topology tolerance` as ``0.0000150``. Keep other options to their default values and click :guilabel:`Run`.
 
   .. image:: /static/3/origin_destination_matrix/images/10.png
     :align: center
   
-11. A new table layer called ``Output OD Matrix`` will be added to the :guilabel:`Layers` panel. Right-click and select :guilabel:`Open Attributes Table`. You will see that the table contains *13000* rows. We had 67 origin points and 1000 destination points - so the output contains *67x1000 = 67000* pairs of origins and destination. The ``total_cost`` column contains distance in meters between each origin point to every destination point. 
+11. A new table layer called ``Output OD Matrix`` will be added to the :guilabel:`Layers` panel. Right-click and select :guilabel:`Open Attributes Table`. You will see that the table contains *67000* rows. We had 67 origin points and 1000 destination points - so the output contains *67x1000 = 67000* pairs of origins and destination. The ``total_cost`` column contains distance in meters between each origin point to every destination point. 
 
   .. image:: /static/3/origin_destination_matrix/images/11.png
     :align: center
