@@ -87,7 +87,7 @@ Procedure
   .. image:: /static/3/origin_destination_matrix/images/6.png
     :align: center
   
-7. Similarly, rename the ``Adult_Mental_Health_Providers`` layers representing the health facilities as ``destination_points``. Naming the layers this way makes it easy to identify them in subsequent processing. Further we will open processing toolbox to create the distance matrix using origin and destination layers. 
+7. Similarly, rename the ``Community_Based_Service_Provider`` layers representing the health facilities as ``destination_points``. Naming the layers this way makes it easy to identify them in subsequent processing. Further we will open processing toolbox to create the distance matrix using origin and destination layers. 
 
   .. image:: /static/3/origin_destination_matrix/images/7.png
     :align: center
@@ -97,7 +97,7 @@ Procedure
   .. image:: /static/3/origin_destination_matrix/images/8.png
     :align: center
   
-9. This algorithm helps find the distances along with the network between selected origin and destination layers. Select ``Roadway_Block`` as the :guilabel:`Network layer`. Select ``origin_points`` as the :guilabel:`From-Points layer` and ``OBJECTID_1`` as the :guilabel:`Unique Point ID field`. Similarly, set ``destination_points`` as the :guilabel:`To-Points Layer` and ``OBJECTID`` as  the :guilabel:`Unique Point ID field`. Set the :guilabel:`Optimization Criterion` as ``Shortest Path (distance optimization)``.
+9. This algorithm helps find the distances along with the network between selected origin and destination layers. Select ``Roadway_Block`` as the :guilabel:`Network layer`. Select ``origin_points`` as the :guilabel:`From-Points layer` and ``OBJECTID`` as the :guilabel:`Unique Point ID field`. Similarly, set ``destination_points`` as the :guilabel:`To-Points Layer` and ``OBJECTID`` as  the :guilabel:`Unique Point ID field`. Set the :guilabel:`Optimization Criterion` as ``Shortest Path (distance optimization)``.
 
   .. image:: /static/3/origin_destination_matrix/images/9.png
     :align: center
@@ -107,7 +107,7 @@ Procedure
   .. image:: /static/3/origin_destination_matrix/images/10.png
     :align: center
   
-11. A new table layer called ``Output OD Matrix`` will be added to the :guilabel:`Layers` panel. Right-click and select :guilabel:`Open Attributes Table`. You will see that the table contains *13000* rows. We had 13 origin points and 1000 destination points - so the output contains *13x1000 = 13000* pairs of origins and destination. The ``total_cost`` column contains distance in meters between each origin point to every destination point. 
+11. A new table layer called ``Output OD Matrix`` will be added to the :guilabel:`Layers` panel. Right-click and select :guilabel:`Open Attributes Table`. You will see that the table contains *13000* rows. We had 74 origin points and 1000 destination points - so the output contains *74x1000 = 74000* pairs of origins and destination. The ``total_cost`` column contains distance in meters between each origin point to every destination point. 
 
   .. image:: /static/3/origin_destination_matrix/images/11.png
     :align: center
