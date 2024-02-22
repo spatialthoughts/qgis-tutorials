@@ -1,17 +1,17 @@
 <!DOCTYPE html>
 
-<html lang="sl">
+<html lang="sl" data-content_root="../../">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
     <title>Iskanje najbližjega objekta z matriko izvor-destinacija (QGIS3) &#8212; QGIS Tutorials and Tips</title>
-    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-sphinx.css" />
-    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
-    <script src="../../_static/doctools.js"></script>
-    <script src="../../_static/sphinx_highlight.js"></script>
-    <script src="../../_static/translations.js"></script>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-sphinx.css?v=0bf093e7" />
+    <script src="../../_static/documentation_options.js?v=d40e29de"></script>
+    <script src="../../_static/doctools.js?v=888ff710"></script>
+    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/translations.js?v=82705e9b"></script>
     <link rel="search" title="Išči" href="../../search.html" />
     <link rel="next" title="Analiza storitvenih območij z uporabo storitve Openrouteservice (QGIS3)" href="service_area_analysis.html" />
     <link rel="prev" title="Osnove vizualizacije in usmerjanja omrežja (QGIS3)" href="basic_network_analysis.html" />
@@ -182,17 +182,17 @@
       
 
   <section id="locating-nearest-facility-with-origin-destination-matrix-qgis3">
-<h1>Iskanje najbližjega objekta z matriko izvor-destinacija (QGIS3)<a class="headerlink" href="#locating-nearest-facility-with-origin-destination-matrix-qgis3" title="Permalink to this heading">¶</a></h1>
+<h1>Iskanje najbližjega objekta z matriko izvor-destinacija (QGIS3)<a class="headerlink" href="#locating-nearest-facility-with-origin-destination-matrix-qgis3" title="Link to this heading">¶</a></h1>
 <p>V prejšnji vadnici, <a class="reference internal" href="basic_network_analysis.html"><span class="doc">Osnove vizualizacije in usmerjanja omrežja (QGIS3)</span></a>, smo se naučili, kako zgraditi omrežje in izračunati najkrajšo pot med dvema točkama. To tehniko lahko uporabimo pri številnih različnih vrstah analiz, ki temeljijo na omrežju. Ena takih aplikacij je izračun <strong>matrike izvora in destinacije</strong> ali <strong>matrike OD</strong>. Če imamo množico izvornih točk in drugo množico ciljnih točk, lahko izračunamo najkrajšo pot med vsakim parom izvor-cilj in ugotovimo potovalno razdaljo/čas med njima. Takšna analiza je uporabna za iskanje najbližjega objekta do katere koli točke. Logistično podjetje lahko na primer uporabi to analizo za iskanje najbližjega skladišča svojim strankam, da bi optimiziralo dostavne poti. Tukaj uporabljamo algoritem Distance Matrix iz vtičnika <strong>QGIS Network Analysis Toolbox (QNEAT3)</strong> za iskanje najbližje zdravstvene ustanove vsakega naslova v mestu.</p>
 <div class="admonition note">
 <p class="admonition-title">Opomba</p>
 <p>V tej vadnici je prikazano, kako za izračun matrike izvora in destinacije uporabite lastne omrežne podatke. Če nimate lastnih omrežnih podatkov, lahko uporabite <strong>ORS Tools Plugin</strong> in algoritem <span class="menuselection">ORS Tools ‣ Matrix ‣ Matrix from Layers</span> za izvedbo podobne analize z uporabo podatkov OpenStreetMap. Če želite izvedeti, kako uporabljati vtičnik ORS Tools, glejte <a class="reference internal" href="service_area_analysis.html"><span class="doc">Analiza storitvenih območij z uporabo storitve Openrouteservice (QGIS3)</span></a>.</p>
 </div>
 <section id="overview-of-the-task">
-<h2>Pregled naloge<a class="headerlink" href="#overview-of-the-task" title="Permalink to this heading">¶</a></h2>
+<h2>Pregled naloge<a class="headerlink" href="#overview-of-the-task" title="Link to this heading">¶</a></h2>
 <p>Vzamemo dva sloja za Washington DC - enega s točkami, ki predstavljajo naslove, in drugega s točkami, ki predstavljajo ustanove za duševno zdravje - in poiščemo ustanovo z najkrajšo potovalno razdaljo od vsakega naslova.</p>
 <section id="other-skills-you-will-learn">
-<h3>Druga znanja, ki se jih boste naučili<a class="headerlink" href="#other-skills-you-will-learn" title="Permalink to this heading">¶</a></h3>
+<h3>Druga znanja, ki se jih boste naučili<a class="headerlink" href="#other-skills-you-will-learn" title="Link to this heading">¶</a></h3>
 <ul class="simple">
 <li><p>Izbor naključnega vzorca iz točkovnega sloja.</p></li>
 <li><p>Uporabite virtualne sloje za izvajanje poizvedbe SQL na sloju QGIS.</p></li>
@@ -200,7 +200,7 @@
 </section>
 </section>
 <section id="get-the-data">
-<h2>Pridobivanje podatkov<a class="headerlink" href="#get-the-data" title="Permalink to this heading">¶</a></h2>
+<h2>Pridobivanje podatkov<a class="headerlink" href="#get-the-data" title="Link to this heading">¶</a></h2>
 <p>Vlada okrožja Columbia prosto deli na stotine podatkovnih nizov na portalu <a class="reference external" href="https://opendata.dc.gov/">Open Data Catalog</a>.</p>
 <p>Prenesite naslednje podatkovne sloje kot shapefile.</p>
 <ul class="simple">
@@ -215,12 +215,12 @@
 <p>Vir podatkov: <a class="reference internal" href="../credits.html#dcopendata" id="id1"><span>[DCOPENDATA]</span></a></p>
 </section>
 <section id="setup">
-<h2>Nastavitve<a class="headerlink" href="#setup" title="Permalink to this heading">¶</a></h2>
+<h2>Nastavitve<a class="headerlink" href="#setup" title="Link to this heading">¶</a></h2>
 <p>Obiščite <span class="menuselection">Plugins ‣ Manage and Install plugins</span>. Izberite <span class="guilabel">Vse</span> Poiščite vtičnik <strong>QNEAT3</strong> in ga namestite. Kliknite <span class="guilabel">Close</span>.</p>
 <img alt="../../_images/setup11.png" class="align-center" src="../../_images/setup11.png" />
 </section>
 <section id="procedure">
-<h2>Postopek<a class="headerlink" href="#procedure" title="Permalink to this heading">¶</a></h2>
+<h2>Postopek<a class="headerlink" href="#procedure" title="Link to this heading">¶</a></h2>
 <ol class="arabic simple">
 <li><p>Locate the <code class="docutils literal notranslate"><span class="pre">Community_Based_Service_Providers.zip</span></code> file, expand it and add <code class="docutils literal notranslate"><span class="pre">Community_Based_Service_Providers.shp</span></code> to the canvas. We will select only those centres providing facilities to adults. Right-click on the <code class="docutils literal notranslate"><span class="pre">Community_Based_Service_Providers.shp</span></code> layer and select <span class="guilabel">Filter</span>.</p></li>
 </ol>
@@ -351,8 +351,8 @@ from input1 group by origin_id
     </p>
     <p>
         &copy; Copyright 2023, Ujaval Gandhi.<br/>
-      Zadnjič posodobljeno feb. 19, 2024.<br/>
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 7.0.1.<br/>
+      Zadnjič posodobljeno feb. 22, 2024.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 7.2.6.<br/>
     </p>
   </div>
 </footer>

@@ -1,17 +1,17 @@
 <!DOCTYPE html>
 
-<html lang="de">
+<html lang="de" data-content_root="../../">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
     <title>Ein Verarbeitungsplugin erstellen (QGIS3) &#8212; QGIS Tutorials and Tips</title>
-    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-sphinx.css" />
-    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
-    <script src="../../_static/doctools.js"></script>
-    <script src="../../_static/sphinx_highlight.js"></script>
-    <script src="../../_static/translations.js"></script>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-sphinx.css?v=0bf093e7" />
+    <script src="../../_static/documentation_options.js?v=54d918e9"></script>
+    <script src="../../_static/doctools.js?v=888ff710"></script>
+    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/translations.js?v=70a09b52"></script>
     <link rel="search" title="Suche" href="../../search.html" />
     <link rel="next" title="Running and Scheduling QGIS Processing Jobs" href="../running_qgis_jobs.html" />
     <link rel="prev" title="Ein Python Plugin erstellen (QGIS3)" href="building_a_python_plugin.html" />
@@ -182,16 +182,16 @@
       
 
   <section id="building-a-processing-plugin-qgis3">
-<h1>Ein Verarbeitungsplugin erstellen (QGIS3)<a class="headerlink" href="#building-a-processing-plugin-qgis3" title="Permalink to this heading">¶</a></h1>
+<h1>Ein Verarbeitungsplugin erstellen (QGIS3)<a class="headerlink" href="#building-a-processing-plugin-qgis3" title="Link to this heading">¶</a></h1>
 <p>Im letzten Tutorial <a class="reference internal" href="building_a_python_plugin.html"><span class="doc">Ein Python Plugin erstellen (QGIS3)</span></a> haben wir die Erstellung eines Python Plugins erlernt. Wir haben eine Nutzerschnittstelle erstellt und angepassten Code zur Verarbeitung der Daten verwendet. Obwohl diese Art von Plugins nützlich sind, fällt für den Autor die Last der Erstellung der Benutzerschnittstelle an. Es kann für den Nutzer verwirrend sein, da sich der Aufbau der Plugins immer unterscheiden kann. Außerdem interagieren normale Plugins nicht mit anderen Teilen von QGIS. So kann man z.B. die Plugin-Funktionalität von anderen Algorithmen nicht nutzen. Wenn z.B. das Plugin, das wir erstellen wollen vorrangig zu Analysezwecken gedacht ist und die Benutzerschnittstelle nur aus der Wahl von Eingabe- und Ausgabedatei besteht, gibt es einen einfacheren und vorzuziehenden Weg der Erstellung eines Plugins mit Hilfe der Verarbeitungswerkzeuge. Damit entfällt die Erstellung der Benutzerschnittstelle. Die eingebaute Verarbeitungsbibliothek erstellt eine Standardverarbeitungsschnittstelle in Abhängigkeit von den Eingaben, die genauso wie jedes andere Verarbeitungswerkzeug in QGIS aussieht und sich verhält. Das Plugin integriert sich auch nahtlos in die vorhandenen Verarbeitungswerkzeuge. Der Plugin-Algorithmus kann mit der Stapelverarbeitung, der grafischen Modellierung, dem Aufruf aus der Python Konsole usw. verwendet werden.</p>
 <section id="overview-of-the-task">
-<h2>Überblick über die Aufgabe<a class="headerlink" href="#overview-of-the-task" title="Permalink to this heading">¶</a></h2>
+<h2>Überblick über die Aufgabe<a class="headerlink" href="#overview-of-the-task" title="Link to this heading">¶</a></h2>
 <p>Wir werden ein einfaches Plugin aus dem Tutorial <a class="reference internal" href="building_a_python_plugin.html"><span class="doc">Ein Python Plugin erstellen (QGIS3)</span></a> als Verarbeitungswerkzeug umfunktionieren. Als Resultat erhalten wir eine neuen Verarbeitungsanbieter <code class="docutils literal notranslate"><span class="pre">Save</span> <span class="pre">Attributes</span></code> und einen Algorithmus <code class="docutils literal notranslate"><span class="pre">Save</span> <span class="pre">Attributes</span> <span class="pre">as</span> <span class="pre">CSV</span></code>, der dem Nutzer erlaubt, einen Vektorlayer zu wählen und seine Attribute in eine CSV-Datei zu schreiben.</p>
 </section>
 <section id="get-the-tools">
-<h2>Die Werkzeuge beschaffen<a class="headerlink" href="#get-the-tools" title="Permalink to this heading">¶</a></h2>
+<h2>Die Werkzeuge beschaffen<a class="headerlink" href="#get-the-tools" title="Link to this heading">¶</a></h2>
 <section id="a-text-editor-or-a-python-ide">
-<h3>Ein Texteditor oder eine Python IDE<a class="headerlink" href="#a-text-editor-or-a-python-ide" title="Permalink to this heading">¶</a></h3>
+<h3>Ein Texteditor oder eine Python IDE<a class="headerlink" href="#a-text-editor-or-a-python-ide" title="Link to this heading">¶</a></h3>
 <p>Jede Art von Softwareentwicklung erfordert einen guten Texteditor. Wenn man schon einen Lieblingstexteditor oder eine IDE (Integrated Development Environment - Softwareentwicklungsumgebung) hat, kann man sie hier verwenden. Ansonsten bieten alle Plattformen eine Vielzahl  an freien oder kommerziellen Möglichkeiten für einen Texteditor. Wähle den Editor entsprechend der Erfordernisse aus.</p>
 <p>In dieser Anleitung wird der Editor Notepad++ für Windows verwendet.</p>
 <p><strong>Windows</strong></p>
@@ -202,11 +202,11 @@
 </div>
 </section>
 <section id="plugin-builder-plugin">
-<h3>Plugin Builder Erweiterung<a class="headerlink" href="#plugin-builder-plugin" title="Permalink to this heading">¶</a></h3>
+<h3>Plugin Builder Erweiterung<a class="headerlink" href="#plugin-builder-plugin" title="Link to this heading">¶</a></h3>
 <p>Es gibt eine nützliche QGIS Erweiterung <code class="docutils literal notranslate"><span class="pre">Plugin</span> <span class="pre">Builder</span></code>, die alle notwendigen Dateien und  eine Vorlage des Programmcodes für die Erweiterung erstellt. Finde und installiere die Erweiterung <code class="docutils literal notranslate"><span class="pre">Plugin</span> <span class="pre">Builder</span></code>. Unter <a class="reference internal" href="../using_plugins.html"><span class="doc">Verwenden von Erweiterungen</span></a> findet man weitere Details zur Installation von Erweiterungen.</p>
 </section>
 <section id="plugins-reloader-plugin">
-<h3>Plugins Reloader plugin<a class="headerlink" href="#plugins-reloader-plugin" title="Permalink to this heading">¶</a></h3>
+<h3>Plugins Reloader plugin<a class="headerlink" href="#plugins-reloader-plugin" title="Link to this heading">¶</a></h3>
 <p>Dies ist eine andere Erweiterung, die die schrittweise Entwicklung von Erweiterungen ermöglicht. Mit Hilfe dieser Erweiterung kann man den Programmcode der Erweiterung ändern und die Auswirkung in QGIS sehen, ohne QGIS jedes Mal neu starten zu müssen. Finde und installiere die Erweiterung <code class="docutils literal notranslate"><span class="pre">Plugin</span> <span class="pre">Reloader</span></code>. Unter <a class="reference internal" href="../using_plugins.html"><span class="doc">Verwenden von Erweiterungen</span></a> findet man weitere Details zur Installation von Erweiterungen.</p>
 <div class="admonition note">
 <p class="admonition-title">Bemerkung</p>
@@ -215,7 +215,7 @@
 </section>
 </section>
 <section id="procedure">
-<h2>Arbeitsablauf<a class="headerlink" href="#procedure" title="Permalink to this heading">¶</a></h2>
+<h2>Arbeitsablauf<a class="headerlink" href="#procedure" title="Link to this heading">¶</a></h2>
 <ol class="arabic simple">
 <li><p>Öffne QGIS. Gehe zu <span class="menuselection">Erweiterungen ‣ Plugin Builder ‣ Plugin Builder</span>.</p></li>
 </ol>
@@ -947,8 +947,8 @@
     </p>
     <p>
         &copy; Copyright 2023, Ujaval Gandhi.<br/>
-      Zuletzt aktualisiert am Feb. 19, 2024.<br/>
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 7.0.1.<br/>
+      Zuletzt aktualisiert am Feb. 22, 2024.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 7.2.6.<br/>
     </p>
   </div>
 </footer>

@@ -1,17 +1,17 @@
 <!DOCTYPE html>
 
-<html lang="nl">
+<html lang="nl" data-content_root="../../">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
     <title>Geanimeerde gegevens tijdreeks (QGIS3) &#8212; QGIS Tutorials and Tips</title>
-    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-sphinx.css" />
-    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
-    <script src="../../_static/doctools.js"></script>
-    <script src="../../_static/sphinx_highlight.js"></script>
-    <script src="../../_static/translations.js"></script>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-sphinx.css?v=0bf093e7" />
+    <script src="../../_static/documentation_options.js?v=abdfb6f9"></script>
+    <script src="../../_static/doctools.js?v=888ff710"></script>
+    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/translations.js?v=83e0b41b"></script>
     <link rel="search" title="Zoeken" href="../../search.html" />
     <link rel="next" title="Ongeldige geometrieën afhandelen (QGIS3)" href="handling_invalid_geometries.html" />
     <link rel="prev" title="Heatmaps maken (QGIS3)" href="creating_heatmaps.html" />
@@ -182,17 +182,17 @@
       
 
   <section id="animating-time-series-data-qgis3">
-<h1>Geanimeerde gegevens tijdreeks (QGIS3)<a class="headerlink" href="#animating-time-series-data-qgis3" title="Permalink to this heading">¶</a></h1>
+<h1>Geanimeerde gegevens tijdreeks (QGIS3)<a class="headerlink" href="#animating-time-series-data-qgis3" title="Link to this heading">¶</a></h1>
 <p>Tijd is een belangrijke component van veel ruimtelijke gegevenssets. Naast informatie over de locatie verschaft tijd een andere dimensie voor analyseren en visualiseren van gegevens. Als u werkt met een gegevensset die tijdstempels bevat of waarnemingen hebt opgenomen in meerdere tijdstappen, kunt u die gemakkelijk visualiseren met <strong>Tijdbeheer</strong> in QGIS. Tijdbeheer stelt u in staat  ‘stukjes’ gegevens te bekijken en te exporteren tussen bepaalde tijdintervallen die kunnen worden gecombineerd in animaties.</p>
 <div class="admonition note">
 <p class="admonition-title">Notitie</p>
 <p>Tijdbeheer is beschikbaar vanaf QGIS 3.14 en hoger. Voor oudere versies van QGIS verschaft de <strong>plug-in Time Manager</strong> een soortgelijke functionaliteit.</p>
 </div>
 <section id="overview-of-the-task">
-<h2>Overzicht van de taak<a class="headerlink" href="#overview-of-the-task" title="Permalink to this heading">¶</a></h2>
+<h2>Overzicht van de taak<a class="headerlink" href="#overview-of-the-task" title="Link to this heading">¶</a></h2>
 <p>We zullen een puntenlaag gebruiken van maritieme incidenten met piraten, een visualisatie van een heatmap maken en een animatie maken over hoe de hotspots voor piraten zijn gewijzigd over de laatste 20 jaar.</p>
 <section id="other-skills-you-will-learn">
-<h3>Andere vaardigheden die u zult leren<a class="headerlink" href="#other-skills-you-will-learn" title="Permalink to this heading">¶</a></h3>
+<h3>Andere vaardigheden die u zult leren<a class="headerlink" href="#other-skills-you-will-learn" title="Link to this heading">¶</a></h3>
 <ul class="simple">
 <li><p>De renderer Heatmap gebruiken om snel dichte puntgegevens te visualiseren</p></li>
 <li><p>Aangepaste kaartprojecties maken en gebruiken</p></li>
@@ -200,7 +200,7 @@
 </section>
 </section>
 <section id="get-the-data">
-<h2>De gegevens ophalen<a class="headerlink" href="#get-the-data" title="Permalink to this heading">¶</a></h2>
+<h2>De gegevens ophalen<a class="headerlink" href="#get-the-data" title="Link to this heading">¶</a></h2>
 <p>National Geospatial-Intelligence Agency’s <a class="reference external" href="https://msi.nga.mil/NGAPortal/MSI.portal">Maritime Safety Information portal</a> verschaft een shapefile van alle incidenten van maritieme piraterij in de vorm van <a class="reference external" href="https://msi.nga.mil/Piracy">Anti-shipping Activity Messages</a>. Download de <a class="reference external" href="https://msi.nga.mil/api/publications/download?key=16920958/SFH00000/ASAM_shp.zip&amp;type=download">Arc Shapefile</a> versie van de database.</p>
 <p><a class="reference external" href="http://naturalearthdata.com">Natural Earth</a> heeft verscheidene globale vectorlagen. Download de <a class="reference external" href="https://www.naturalearthdata.com/http//www.naturalearthdata.com/download/10m/physical/ne_10m_land.zip">10m Physical Vectors - Land</a> die polygonen voor landen bevat.</p>
 <p>Voor het gemak kunt u direct een kopie downloaden van bovenstaande lagen vanaf de links hieronder:</p>
@@ -209,7 +209,7 @@
 <p>Gegevensbron: <a class="reference internal" href="../credits.html#nga-msi" id="id1"><span>[NGA_MSI]</span></a> <a class="reference internal" href="../credits.html#naturalearth" id="id2"><span>[NATURALEARTH]</span></a></p>
 </section>
 <section id="procedure">
-<h2>Procedure<a class="headerlink" href="#procedure" title="Permalink to this heading">¶</a></h2>
+<h2>Procedure<a class="headerlink" href="#procedure" title="Link to this heading">¶</a></h2>
 <ol class="arabic simple">
 <li><p>Zoek, in het paneel QGIS Browser, de map waar u uw gegevens hebt gedownload. Vergroot het item <code class="docutils literal notranslate"><span class="pre">ne_10m_land.zip</span></code> en selecteer de laag <code class="docutils literal notranslate"><span class="pre">ne_10m_land.shp</span></code>. Sleep de laag naar het kaartvenster. Zoek vervolgens het bestand <code class="docutils literal notranslate"><span class="pre">ASAM_shp.zip</span></code> op. Vergroot het en selecteer de laag <code class="docutils literal notranslate"><span class="pre">asam_data_download/ASAM_events.shp</span></code> en sleep die naar het kaartvenster.</p></li>
 </ol>
@@ -360,8 +360,8 @@
     </p>
     <p>
         &copy; Copyright 2023, Ujaval Gandhi.<br/>
-      Laatste aanpassing op feb 19, 2024.<br/>
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 7.0.1.<br/>
+      Laatste aanpassing op feb 22, 2024.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 7.2.6.<br/>
     </p>
   </div>
 </footer>

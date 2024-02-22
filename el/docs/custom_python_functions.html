@@ -1,17 +1,17 @@
 <!DOCTYPE html>
 
-<html lang="el">
+<html lang="el" data-content_root="../">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
     <title>Χρήση προσαρμοσμένων εκφράσεων συναρτήσεων στην Python &#8212; QGIS Tutorials and Tips</title>
-    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/bootstrap-sphinx.css" />
-    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
-    <script src="../_static/doctools.js"></script>
-    <script src="../_static/sphinx_highlight.js"></script>
-    <script src="../_static/translations.js"></script>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="../_static/bootstrap-sphinx.css?v=0bf093e7" />
+    <script src="../_static/documentation_options.js?v=37bfc1db"></script>
+    <script src="../_static/doctools.js?v=888ff710"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/translations.js?v=dd0234b1"></script>
     <link rel="search" title="Αναζήτηση" href="../search.html" />
 
 <meta charset='utf-8'>
@@ -172,30 +172,30 @@
       
 
   <section id="using-custom-python-expression-functions">
-<h1>Χρήση προσαρμοσμένων εκφράσεων συναρτήσεων στην Python<a class="headerlink" href="#using-custom-python-expression-functions" title="Permalink to this heading">¶</a></h1>
+<h1>Χρήση προσαρμοσμένων εκφράσεων συναρτήσεων στην Python<a class="headerlink" href="#using-custom-python-expression-functions" title="Link to this heading">¶</a></h1>
 <div class="admonition warning">
 <p class="admonition-title">Προειδοποίηση</p>
 <p>A new version of this tutorial is available at <a class="reference internal" href="3/custom_python_functions.html"><span class="doc">Using Custom Python Expression Functions (QGIS3)</span></a></p>
 </div>
 <p>Οι εντολές στο QGIS έχουν εξαιρετική δύναμη και χρησιμοποιούνται σε πολλά βασικά χαρακτηριστικά - επιλογή, υπολογισμός τιμών πεδίων, μορφοποίηση, ετικέτες κ.α. Το QGIS υποστηρίζει επίσης καθορισμένες από τον χρήστη εντολές. Με  λίγο προγραμματισμό στην python, μπορείτε να καθορίσετε τις δικές σας συναρτήσεις οι οποίες μπορούν να χρησιμοποιηθούν μέσα στην μηχανή εντολών.</p>
 <section id="overview-of-the-task">
-<h2>Επισκόπηση του έργου<a class="headerlink" href="#overview-of-the-task" title="Permalink to this heading">¶</a></h2>
+<h2>Επισκόπηση του έργου<a class="headerlink" href="#overview-of-the-task" title="Link to this heading">¶</a></h2>
 <p>Θα καθορίσουμε μια προσαρμοσένη συνάρτηση η οποία θα βρίσκει την χρονικη ζώνη UTM από ένα χαρακτηριστικό του χάρτη και θα χρησιμοποιεί αυτή την συνάρτηση για να γράψει μια εντολή η οποία θα εμφανίζει την χρονική ζώνη σαν μια πληροφορία στον χάρτη που θα εμφανίζεται όταν θα περνάει ο κέρσορας πάνω από το σημείο.</p>
 <section id="other-skills-you-will-learn">
-<h3>Άλλες δεξιότητες που θα μάθετε<a class="headerlink" href="#other-skills-you-will-learn" title="Permalink to this heading">¶</a></h3>
+<h3>Άλλες δεξιότητες που θα μάθετε<a class="headerlink" href="#other-skills-you-will-learn" title="Link to this heading">¶</a></h3>
 <ul class="simple">
 <li><p>Πως να χρησιμοποιείτε το εργαλείο «Πληροφορίες Χάρτη» για να εμφανίσετε προσαρμοσμένο κείμενο όταν ο κέρσορας περνάει πάνω από ένα χαρακτηριστικό.</p></li>
 </ul>
 </section>
 </section>
 <section id="get-the-data">
-<h2>Λήψη δεδομένων<a class="headerlink" href="#get-the-data" title="Permalink to this heading">¶</a></h2>
+<h2>Λήψη δεδομένων<a class="headerlink" href="#get-the-data" title="Link to this heading">¶</a></h2>
 <p>Θα χρησιμοποιήσουμε τα δεδομένα για τις κατοικημένες περιοχές από την σελίδα  Natural Earth&lt;<a class="reference external" href="http://www.naturalearthdata.com/downloads/10m-cultural-vectors/10m-populated-places/">http://www.naturalearthdata.com/downloads/10m-cultural-vectors/10m-populated-places/</a>&gt;`. Μεταφορτώστε το απλό (λιγότερες στήλες) σύνολο δεδομένων &lt;<a class="reference external" href="http://www.naturalearthdata.com/http//www.naturalearthdata.com/download/10m/cultural/ne_10m_populated_places_simple.zip">http://www.naturalearthdata.com/http//www.naturalearthdata.com/download/10m/cultural/ne_10m_populated_places_simple.zip</a>&gt;`_</p>
 <p>Για ευκολία, μπορείτε να κατεβάσετε απευθείας ένα αντίγραφο και από το σύνολο των δεδομένων από τις παρακάτω συνδέσεις</p>
 <p><a class="reference external" href="http://www.qgistutorials.com/downloads/ne_10m_populated_places_simple.zip">ne_10m_populated_places_simple.zip</a></p>
 </section>
 <section id="procedure">
-<h2>Διαδικασία<a class="headerlink" href="#procedure" title="Permalink to this heading">¶</a></h2>
+<h2>Διαδικασία<a class="headerlink" href="#procedure" title="Link to this heading">¶</a></h2>
 <ol class="arabic simple">
 <li><p>Ανοίξτε το QGIS και πηγαίνετε στο <span class="menuselection">Layer ‣ Add Vector Layer..</span>.</p></li>
 </ol>
@@ -320,8 +320,8 @@
     </p>
     <p>
         &copy; Copyright 2023, Ujaval Gandhi.<br/>
-      Τελευταία ενημέρωση στις Φεβ 19, 2024.<br/>
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 7.0.1.<br/>
+      Τελευταία ενημέρωση στις Φεβ 22, 2024.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 7.2.6.<br/>
     </p>
   </div>
 </footer>

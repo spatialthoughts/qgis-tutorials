@@ -1,17 +1,17 @@
 <!DOCTYPE html>
 
-<html lang="ko">
+<html lang="ko" data-content_root="../">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
     <title>점 또는 다각형을 이용한 래스터 데이터 표본 추출 작업 &#8212; QGIS Tutorials and Tips</title>
-    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/bootstrap-sphinx.css" />
-    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
-    <script src="../_static/doctools.js"></script>
-    <script src="../_static/sphinx_highlight.js"></script>
-    <script src="../_static/translations.js"></script>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="../_static/bootstrap-sphinx.css?v=0bf093e7" />
+    <script src="../_static/documentation_options.js?v=fefd262b"></script>
+    <script src="../_static/doctools.js?v=888ff710"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/translations.js?v=b5f768d8"></script>
     <link rel="search" title="검색" href="../search.html" />
 
 <meta charset='utf-8'>
@@ -172,17 +172,17 @@
       
 
   <section id="sampling-raster-data-using-points-or-polygons">
-<h1>점 또는 다각형을 이용한 래스터 데이터 표본 추출 작업<a class="headerlink" href="#sampling-raster-data-using-points-or-polygons" title="이 제목에 대한 퍼머링크">¶</a></h1>
+<h1>점 또는 다각형을 이용한 래스터 데이터 표본 추출 작업<a class="headerlink" href="#sampling-raster-data-using-points-or-polygons" title="Link to this heading">¶</a></h1>
 <div class="admonition warning">
 <p class="admonition-title">경고</p>
 <p>This tutorial is now obsolete. A new and updated version is available at <a class="reference internal" href="3/sampling_raster_data.html"><span class="doc">점 또는 다각형을 이용한 래스터 데이터 표본 추출 작업(QGIS3)</span></a></p>
 </div>
 <p>많은 과학적 그리고 환경적 데이터셋은 그리드 래스터 데이터입니다. 해발고도 데이터 (DEM) 또한 래스터 파일로 배포되고 있습니다. 이러한 래스터 파일에서 표현되는 매개변수는 래스터의 픽셀값으로 부호화 됩니다. 종종 어떤 위치의 픽셀값을 추출하거나 어떤 지역을 모아서 수집할 필요가 있습니다. QGIS에 이런 기능이  <a href="#id1"><span class="problematic" id="id2">``</span></a>Point Sampling Tool``와 <a href="#id3"><span class="problematic" id="id4">``</span></a>Zonal Statistics plugin``플러그인을 통해 가능합니다.</p>
 <section id="overview-of-the-task">
-<h2>과업 개요<a class="headerlink" href="#overview-of-the-task" title="이 제목에 대한 퍼머링크">¶</a></h2>
+<h2>과업 개요<a class="headerlink" href="#overview-of-the-task" title="Link to this heading">¶</a></h2>
 <p>미국내 최대 기온의 래스터 그리드를 가지고 모든 도시지역의 기온을 추출하고 더불어 미국에서 각 군의 평균기온을 추출할 필요가 있습니다.</p>
 <section id="other-skills-you-will-learn">
-<h3>다른 스킬<a class="headerlink" href="#other-skills-you-will-learn" title="이 제목에 대한 퍼머링크">¶</a></h3>
+<h3>다른 스킬<a class="headerlink" href="#other-skills-you-will-learn" title="Link to this heading">¶</a></h3>
 <ul class="simple">
 <li><p>벡터 레이어를 재투영합니다.</p></li>
 <li><p>QGIS의 TOC에서 다중 레이어를 선택하고 삭제합니다.</p></li>
@@ -190,7 +190,7 @@
 </section>
 </section>
 <section id="get-the-data">
-<h2>데이터 획득<a class="headerlink" href="#get-the-data" title="이 제목에 대한 퍼머링크">¶</a></h2>
+<h2>데이터 획득<a class="headerlink" href="#get-the-data" title="Link to this heading">¶</a></h2>
 <p>NOAA’s <a class="reference external" href="http://www.cpc.ncep.noaa.gov/">Climate Prediction Center</a> 는 미국내 온도와 강수량과 관련된 <a href="#id1"><span class="problematic" id="id2">`</span></a>GIS data &lt;<a class="reference external" href="http://www.cpc.ncep.noaa.gov/products/GIS/GIS_DATA/">http://www.cpc.ncep.noaa.gov/products/GIS/GIS_DATA/</a>&gt;`_를 제공합니다. <a href="#id3"><span class="problematic" id="id4">`</span></a>latest grid filei for maximum temperatures &lt;<a class="reference external" href="ftp://ftp.cpc.ncep.noaa.gov/GIS/GRADS_GIS/GeoTIFF/TEMP/us_tmax/">ftp://ftp.cpc.ncep.noaa.gov/GIS/GRADS_GIS/GeoTIFF/TEMP/us_tmax/</a>&gt;`_를 다운로드 하십시오. 파일명은 <a href="#id5"><span class="problematic" id="id6">``</span></a>us.tmax_nohads_ll_{YYYYMMDD}_float.tif``이 될 것입니다.</p>
 <p>미국에서 도시지역을 나타내는  <a href="#id1"><span class="problematic" id="id2">`</span></a>2013 US Gazetteer &lt;<a class="reference external" href="https://www.census.gov/geo/maps-data/data/gazetteer2013.html">https://www.census.gov/geo/maps-data/data/gazetteer2013.html</a>&gt;`_로부터 CSV파일을 사용할 것입니다. <a href="#id3"><span class="problematic" id="id4">`</span></a>Urban Areas Gazetteer File &lt;<a class="reference external" href="http://www2.census.gov/geo/gazetteer/2013_Gazetteer/2013_Gaz_ua_national.zip">http://www2.census.gov/geo/gazetteer/2013_Gazetteer/2013_Gaz_ua_national.zip</a>&gt;`_를 다운로드하십시오.</p>
 <p>군단위의 온도를 모으기 위해서  <a href="#id1"><span class="problematic" id="id2">`</span></a>2013 TIGER/Line Shapefiles &lt;<a class="reference external" href="https://www.census.gov/cgi-bin/geo/shapefiles2013/main">https://www.census.gov/cgi-bin/geo/shapefiles2013/main</a>&gt;`_를 사용할 것입니다. <a href="#id3"><span class="problematic" id="id4">`</span></a>Counties (and equivalents) shapefile &lt;<a class="reference external" href="http://www2.census.gov/geo/tiger/TIGER2013/COUNTY/tl_2013_us_county.zip">http://www2.census.gov/geo/tiger/TIGER2013/COUNTY/tl_2013_us_county.zip</a>&gt;`_를 다운로드 하십시오.</p>
@@ -202,7 +202,7 @@ links below:</p>
 <p>데이터 출처: <a class="reference internal" href="credits.html#noaacpc" id="id1"><span>[NOAACPC]</span></a>, <a class="reference internal" href="credits.html#usgazetteer" id="id2"><span>[USGAZETTEER]</span></a> <a class="reference internal" href="credits.html#tiger" id="id3"><span>[TIGER]</span></a></p>
 </section>
 <section id="procedure">
-<h2>과정<a class="headerlink" href="#procedure" title="이 제목에 대한 퍼머링크">¶</a></h2>
+<h2>과정<a class="headerlink" href="#procedure" title="Link to this heading">¶</a></h2>
 <ol class="arabic simple">
 <li><p>메뉴 –&gt; 래스터 데이터 추가  :menuselection:<a href="#id1"><span class="problematic" id="id2">`</span></a>Layer –&gt; Add Raster Layer`로 가서 다운로드한 <a href="#id3"><span class="problematic" id="id4">``</span></a>us.tmax_nohads_ll_{YYYYMMDD}_float.tif``파일을 찾고 열기 :guilabel:<a href="#id5"><span class="problematic" id="id6">`</span></a>Open`를 클릭합니다.</p></li>
 </ol>
@@ -326,8 +326,8 @@ links below:</p>
     </p>
     <p>
         &copy; Copyright 2023, Ujaval Gandhi.<br/>
-      최종 업데이트: 2월 19, 2024<br/>
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 7.0.1.<br/>
+      최종 업데이트: 2월 22, 2024<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 7.2.6.<br/>
     </p>
   </div>
 </footer>

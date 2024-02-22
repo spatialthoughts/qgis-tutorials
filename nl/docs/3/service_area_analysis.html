@@ -1,17 +1,17 @@
 <!DOCTYPE html>
 
-<html lang="nl">
+<html lang="nl" data-content_root="../../">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
     <title>Analyse Servicegebied met Openrouteservice (QGIS3) &#8212; QGIS Tutorials and Tips</title>
-    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-sphinx.css" />
-    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
-    <script src="../../_static/doctools.js"></script>
-    <script src="../../_static/sphinx_highlight.js"></script>
-    <script src="../../_static/translations.js"></script>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-sphinx.css?v=0bf093e7" />
+    <script src="../../_static/documentation_options.js?v=abdfb6f9"></script>
+    <script src="../../_static/doctools.js?v=888ff710"></script>
+    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/translations.js?v=83e0b41b"></script>
     <link rel="search" title="Zoeken" href="../../search.html" />
     <link rel="next" title="Reistijd-analyse met Uber Movement (QGIS3)" href="travel_time_analysis.html" />
     <link rel="prev" title="Dichtstbijzijnde faciliteit zoeken met Origin-Destination Matrix (QGIS3)" href="origin_destination_matrix.html" />
@@ -182,13 +182,13 @@
       
 
   <section id="service-area-analysis-using-openrouteservice-qgis3">
-<h1>Analyse Servicegebied met Openrouteservice (QGIS3)<a class="headerlink" href="#service-area-analysis-using-openrouteservice-qgis3" title="Permalink to this heading">¶</a></h1>
+<h1>Analyse Servicegebied met Openrouteservice (QGIS3)<a class="headerlink" href="#service-area-analysis-using-openrouteservice-qgis3" title="Link to this heading">¶</a></h1>
 <p>Analyse voor Servicegebied is nuttig voor het evalueren van de toegankelijkheid van locaties. Bekende locaties van brandweerkazernes, ziekenhuizen, stations voor openbaar vervoer etc. kunt u gebruiken voor dergelijke analyses om te identificeren welke gebieden vanuit die locaties kunnen worden bediend, ofwel op basis van een gereisde afstand, of op basis van verstreken tijd. Tot recent waren dergelijke analyses moeilijk met behulp van gereedschappen voor open-bron en gegevens. Maar nu hebben we toegang tot een een globaal netwerk van straten met OpenStreetMap (OSM) en gratis web-services, zoals Openrouteservice (ORS) die complexe taken voor routering kunnen uitvoeren met gegevens van OpenStreetMap (OSM). In deze handleiding zullen we de <strong>Plug-in ORS Tools</strong> gebruiken om een analyse voor een servicegebied uit te voeren in QGIS.</p>
 <section id="overview-of-the-task">
-<h2>Overzicht van de taak<a class="headerlink" href="#overview-of-the-task" title="Permalink to this heading">¶</a></h2>
+<h2>Overzicht van de taak<a class="headerlink" href="#overview-of-the-task" title="Link to this heading">¶</a></h2>
 <p>We zullen gegevens gebruiken van de metrostations voor Kochi, India om gebieden te bepalen die binnen een loopafstand van 15 minuten liggen.</p>
 <section id="other-skills-you-will-learn">
-<h3>Andere vaardigheden die u zult leren<a class="headerlink" href="#other-skills-you-will-learn" title="Permalink to this heading">¶</a></h3>
+<h3>Andere vaardigheden die u zult leren<a class="headerlink" href="#other-skills-you-will-learn" title="Link to this heading">¶</a></h3>
 <ul class="simple">
 <li><p>Hoe General Transit Feed Specification (GTFS) gegevens voor transport te laden in QGIS.</p></li>
 <li><p>Hoe puntgegevens van reeksen voor lijnen te laden met het gereedschap <em>Punten naar pad</em>.</p></li>
@@ -196,14 +196,14 @@
 </section>
 </section>
 <section id="get-the-data">
-<h2>De gegevens ophalen<a class="headerlink" href="#get-the-data" title="Permalink to this heading">¶</a></h2>
+<h2>De gegevens ophalen<a class="headerlink" href="#get-the-data" title="Link to this heading">¶</a></h2>
 <p><a class="reference external" href="https://kochimetro.org">Kochi Metro Rail Limited (KMRL)</a> verschaft open gegevens voor de indeling Kochi Metro Rail Project in <a class="reference external" href="https://developers.google.com/transit/gtfs/reference/">Global Transit Feed Specification (GTFS-static)</a>.  Bezoek de pagina <a class="reference external" href="https://kochimetro.org/open-data/">Open Data</a> voor het verzoeken van gegevens.</p>
 <p>Voor het gemak kunt u direct een kopie van de gegevensset downloaden vanaf de link hieronder:</p>
 <p><a class="reference external" href="https://www.qgistutorials.com/downloads/KMRL-Open-Data.zip">KMRL-Open-Data.zip</a></p>
 <p>Gegevensbron <a class="reference internal" href="../credits.html#kmrl" id="id1"><span>[KMRL]</span></a></p>
 </section>
 <section id="setup">
-<h2>Instellen<a class="headerlink" href="#setup" title="Permalink to this heading">¶</a></h2>
+<h2>Instellen<a class="headerlink" href="#setup" title="Link to this heading">¶</a></h2>
 <p><a class="reference external" href="https://openrouteservice.org/">Openrouteservice API</a> verschaft algoritmes voor routeren die werken met vrije geografische gegevens van OpenStreetMap. Het is een gratis web-gebaseerde service waartoe toegang kan worden verkregen via een plug-in van QGIS. Hoewel de service gratis is, moet u zich wel registreren en een API-sleutel ophalen. De API-sleutel wordt gebruikt om misbruik tegen te gaan en beperkingen voor het gebruik af te dwingen.</p>
 <ol class="arabic simple">
 <li><p>Bezoek de pagina <a class="reference external" href="https://openrouteservice.org/dev/#/signup">Openrouteservice Sign Up</a> en maak een account aan. Als uw account eenmaal is geactiveerd, bezoek dan uw <a class="reference external" href="https://openrouteservice.org/dev/#/home">Dashboard</a> en vraag een token aan. Selecteer <code class="docutils literal notranslate"><span class="pre">Free</span></code> als het <span class="guilabel">Token type</span> en voer <code class="docutils literal notranslate"><span class="pre">ORS</span> <span class="pre">Tools</span> <span class="pre">QGIS</span></code> in als de <span class="guilabel">Token name</span>. Klik op <span class="guilabel">CREATE TOKEN</span>.</p></li>
@@ -237,7 +237,7 @@
 </div></blockquote>
 </section>
 <section id="procedure">
-<h2>Procedure<a class="headerlink" href="#procedure" title="Permalink to this heading">¶</a></h2>
+<h2>Procedure<a class="headerlink" href="#procedure" title="Link to this heading">¶</a></h2>
 <ol class="arabic simple">
 <li><p>Pak het gedownloade bestand <code class="docutils literal notranslate"><span class="pre">KMRL-Open-Data.zip</span></code> uit in een map op uw computer. U zult zien dat de uitgepakte map veel tekstbestanden zal bevatten. Elk bestand bevat gegevens voor een verschillend aspect van het transportsysteem. De indeling van de bestanden en hun gebruik worden beschreven in <a class="reference external" href="https://developers.google.com/transit/gtfs/reference/">GTFS Reference</a>. Van alle bestanden zijn 2 bestanden die georuimtelijke gegevens bevatten voor ons van belang. Het bestand <code class="docutils literal notranslate"><span class="pre">shapes.txt</span></code> bevat punten die een fysiek pad beschrijven die de voertuigen nemen, en het bestand <code class="docutils literal notranslate"><span class="pre">stops.txt</span></code> bevat de locatie van elke halte voor het transport. Beide zijn CSV-bestanden die in QGIS kunnen worden geïmporteerd. Klik op de knop <span class="guilabel">Gegevensbronnen beheren openen</span>.</p></li>
 </ol>
@@ -365,8 +365,8 @@
     </p>
     <p>
         &copy; Copyright 2023, Ujaval Gandhi.<br/>
-      Laatste aanpassing op feb 19, 2024.<br/>
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 7.0.1.<br/>
+      Laatste aanpassing op feb 22, 2024.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 7.2.6.<br/>
     </p>
   </div>
 </footer>

@@ -1,17 +1,17 @@
 <!DOCTYPE html>
 
-<html lang="fa">
+<html lang="fa" data-content_root="../">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
     <title>ارجاع جغرافیایی به برگه های Topo و نقشه های اسکن شده &#8212; QGIS Tutorials and Tips</title>
-    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/bootstrap-sphinx.css" />
-    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
-    <script src="../_static/doctools.js"></script>
-    <script src="../_static/sphinx_highlight.js"></script>
-    <script src="../_static/translations.js"></script>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="../_static/bootstrap-sphinx.css?v=0bf093e7" />
+    <script src="../_static/documentation_options.js?v=40f7bd05"></script>
+    <script src="../_static/doctools.js?v=888ff710"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/translations.js?v=35c83baa"></script>
     <link rel="search" title="جستجو" href="../search.html" />
 
 <meta charset='utf-8'>
@@ -172,31 +172,31 @@
       
 
   <section id="georeferencing-topo-sheets-and-scanned-maps">
-<h1>ارجاع جغرافیایی به برگه های Topo و نقشه های اسکن شده<a class="headerlink" href="#georeferencing-topo-sheets-and-scanned-maps" title="Permalink to this heading">¶</a></h1>
+<h1>ارجاع جغرافیایی به برگه های Topo و نقشه های اسکن شده<a class="headerlink" href="#georeferencing-topo-sheets-and-scanned-maps" title="Link to this heading">¶</a></h1>
 <div class="admonition warning">
 <p class="admonition-title">هشدار</p>
 <p>این آموزش در حال حاضر منسوخ شده است. نسخه جدید و به روز شده در <a class="reference internal" href="3/georeferencing_basics.html"><span class="doc">زمین مرجع کردن نقشه  شیت توپوگرافی اسکن شده (QGIS3)</span></a> موجود است</p>
 </div>
 <p>اکثر پروژه های GIS نیاز به ارجاع جغرافیایی برخی از داده های شطرنجی دارند. <em>Georeferencing</em> فرآیند تخصیص مختصات دنیای واقعی به هر پیکسل از شطرنجی است. بسیاری از اوقات این مختصات با انجام بررسی های میدانی به دست می آیند - جمع آوری مختصات با دستگاه GPS برای چند ویژگی به راحتی قابل شناسایی در تصویر یا نقشه. در برخی موارد، جایی که به دنبال دیجیتالی کردن نقشه های اسکن شده هستید، می توانید مختصات را از علامت گذاری روی خود تصویر نقشه بدست آورید. با استفاده از این مختصات نمونه یا GCP (نقاط کنترل زمینی)، تصویر تاب می‌خورد و در داخل سیستم مختصات انتخابی قرار می‌گیرد. در این آموزش، مفاهیم، استراتژی‌ها و ابزارهای درون QGIS برای دستیابی به یک ارجاع جغرافیایی با دقت بالا را مورد بحث قرار می‌دهم.</p>
 <section id="overview-of-the-task">
-<h2>بررسی اجمالی کار<a class="headerlink" href="#overview-of-the-task" title="Permalink to this heading">¶</a></h2>
+<h2>بررسی اجمالی کار<a class="headerlink" href="#overview-of-the-task" title="Link to this heading">¶</a></h2>
 <p>ما از یک نقشه اسکن شده از جنوب هند در سال 1870 استفاده خواهیم کرد و با استفاده از QGIS به آن ارجاع جغرافیایی خواهیم داد.</p>
 <section id="other-skills-you-will-learn">
-<h3>مهارت های دیگری که یاد خواهید گرفت<a class="headerlink" href="#other-skills-you-will-learn" title="Permalink to this heading">¶</a></h3>
+<h3>مهارت های دیگری که یاد خواهید گرفت<a class="headerlink" href="#other-skills-you-will-learn" title="Link to this heading">¶</a></h3>
 <ul class="simple">
 <li><p>نحوه تعیین مبنا و سیستم مختصات برای نقشه های قدیمی</p></li>
 </ul>
 </section>
 </section>
 <section id="get-the-data">
-<h2>داده ها را دریافت کنید<a class="headerlink" href="#get-the-data" title="Permalink to this heading">¶</a></h2>
+<h2>داده ها را دریافت کنید<a class="headerlink" href="#get-the-data" title="Link to this heading">¶</a></h2>
 <p>وب‌سایت «نقشه‌های قدیمی اسکن شده هیپکیس &lt;<a class="reference external" href="http://www.hipkiss.org/data/maps.html">http://www.hipkiss.org/data/maps.html</a>&gt;» مجموعه‌ای عالی از نقشه‌های اسکن شده بدون حق نسخه‌برداری دارد که می‌توان از آنها برای تحقیق استفاده کرد.</p>
 <p>نقشه 1870 جنوب هند &lt;<a class="reference external" href="http://www.hipkiss.org/data/maps/william-mackenzie_gallery-of-geography_1870_southern-india_3975_3071_600.jpg">http://www.hipkiss.org/data/maps/william-mackenzie_gallery-of-geography_1870_southern-india_3975_3071_600.jpg</a>&gt;`_ را دانلود کنید و آن را به عنوان یک تصویر JPG در هارد دیسک خود ذخیره کنید.</p>
 <p>برای راحتی کار، می توانید مستقیماً یک نسخه از مجموعه داده را از لینک زیر دانلود کنید:</p>
 <p>1870_southern_india.jpg &lt;<a class="reference external" href="http://www.qgistutorials.com/downloads/1870_southern-india.jpg">http://www.qgistutorials.com/downloads/1870_southern-india.jpg</a>&gt;`_</p>
 </section>
 <section id="procedure">
-<h2>روش<a class="headerlink" href="#procedure" title="Permalink to this heading">¶</a></h2>
+<h2>روش<a class="headerlink" href="#procedure" title="Link to this heading">¶</a></h2>
 <p>1. Georeferencing in QGIS is done via the ‘Georeferencer GDAL’ plugin. This is a
 core plugin - meaning it is already part of your QGIS installation. You just
 need to enable it. Go to <span class="menuselection">Plugins ‣ Manage and Install
@@ -299,8 +299,8 @@ work with plugins.</p>
     </p>
     <p>
         &copy; Copyright 2023, Ujaval Gandhi.<br/>
-      آخرین بروز رسانی در فوریه 19, 2024 .<br/>
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 7.0.1.<br/>
+      آخرین بروز رسانی در فوریه 22, 2024 .<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 7.2.6.<br/>
     </p>
   </div>
 </footer>

@@ -1,17 +1,17 @@
 <!DOCTYPE html>
 
-<html lang="fa">
+<html lang="fa" data-content_root="../../">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
     <title>محاسبه منطقه ای میانگین بارش(QGIS3) &#8212; QGIS Tutorials and Tips</title>
-    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-sphinx.css" />
-    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
-    <script src="../../_static/doctools.js"></script>
-    <script src="../../_static/sphinx_highlight.js"></script>
-    <script src="../../_static/translations.js"></script>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-sphinx.css?v=0bf093e7" />
+    <script src="../../_static/documentation_options.js?v=40f7bd05"></script>
+    <script src="../../_static/doctools.js?v=888ff710"></script>
+    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/translations.js?v=35c83baa"></script>
     <link rel="search" title="جستجو" href="../../search.html" />
     <link rel="next" title="ایجاد یک نقشه حوضه رودخانه رنگی (QGIS3)" href="colorized_river_basin_map.html" />
     <link rel="prev" title="Travel Time Analysis with Uber Movement (QGIS3)" href="travel_time_analysis.html" />
@@ -182,7 +182,7 @@
       
 
   <section id="calculating-areal-mean-rainfall-qgis3">
-<h1>محاسبه منطقه ای میانگین بارش(QGIS3)<a class="headerlink" href="#calculating-areal-mean-rainfall-qgis3" title="Permalink to this heading">¶</a></h1>
+<h1>محاسبه منطقه ای میانگین بارش(QGIS3)<a class="headerlink" href="#calculating-areal-mean-rainfall-qgis3" title="Link to this heading">¶</a></h1>
 <p>محاسبه بیلان آب، مدل سازی سیلاب، پیش بینی رواناب، مطالعات اقلیمی و غیره اغلب به عمق متوسط بارندگی در یک حوضه هیدرولوژیکی به عنوان ورودی نیاز دارد - که همچنین به نام بارش منطقه ای یا میانگین بارندگی (AMR) نامیده می شود.</p>
 <p>محاسبه AMR را می توان با استفاده از داده های باران سنج انجام داد. با استفاده از محل بارش باران و بارش مشاهده شده، می توان با استفاده از هر یک از تکنیک های زیر، بارش متوسط را در یک مکان مشخص تخمین زد:</p>
 <ol class="arabic simple">
@@ -194,11 +194,11 @@
 </ol>
 <p>در این آموزش، گردش کار QGIS برای محاسبه میانگین مساحتی با استفاده از روش <strong>Thiessen Polygon</strong> را یاد می گیریم.</p>
 <section id="overview-of-the-task">
-<h2>بررسی اجمالی کار<a class="headerlink" href="#overview-of-the-task" title="Permalink to this heading">¶</a></h2>
+<h2>بررسی اجمالی کار<a class="headerlink" href="#overview-of-the-task" title="Link to this heading">¶</a></h2>
 <p>در این آموزش، میزان بارندگی را که توسط ایستگاه‌های شبکه جهانی اقلیم‌شناسی تاریخی (GHCN) اندازه‌گیری می‌شود، می‌گیریم و میانگین بارندگی را در هر حوضه هیدرولوژیکی در ایالت فلوریدا محاسبه می‌کنیم.</p>
 </section>
 <section id="other-skills-you-will-learn">
-<h2>مهارت های دیگری که یاد خواهید گرفت<a class="headerlink" href="#other-skills-you-will-learn" title="Permalink to this heading">¶</a></h2>
+<h2>مهارت های دیگری که یاد خواهید گرفت<a class="headerlink" href="#other-skills-you-will-learn" title="Link to this heading">¶</a></h2>
 <ul class="simple">
 <li><p>نحوه حذف داده ها با مقادیر Null</p></li>
 <li><p>نحوه اصلاح هندسه های نامعتبر در یک لایه</p></li>
@@ -208,10 +208,10 @@
 </ul>
 </section>
 <section id="get-the-data">
-<h2>داده ها را دریافت کنید<a class="headerlink" href="#get-the-data" title="Permalink to this heading">¶</a></h2>
+<h2>داده ها را دریافت کنید<a class="headerlink" href="#get-the-data" title="Link to this heading">¶</a></h2>
 <p>ما از «داده‌های آب و هوایی NOAA &lt;<a class="reference external" href="https://www.ncdc.noaa.gov/cdo-web/">https://www.ncdc.noaa.gov/cdo-web/</a>&gt;`_، «HydroSHEDS &lt;<a class="reference external" href="https://www.hydrosheds.org/">https://www.hydrosheds.org/</a>&gt;» و «کارتوگرافی اداره سرشماری ایالات متحده» استفاده خواهیم کرد. لایه های داده مرزی &lt;<a class="reference external" href="https://www.census.gov/geographies/mapping-files/time-series/geo/carto-boundary-file.html">https://www.census.gov/geographies/mapping-files/time-series/geo/carto-boundary-file.html</a>&gt;`_.</p>
 <section id="station-wise-precipitation">
-<h3>بارش از نظر ایستگاهی<a class="headerlink" href="#station-wise-precipitation" title="Permalink to this heading">¶</a></h3>
+<h3>بارش از نظر ایستگاهی<a class="headerlink" href="#station-wise-precipitation" title="Link to this heading">¶</a></h3>
 <ol class="arabic simple">
 <li><p>به وب سایت «NOAA Climate data &lt;<a class="reference external" href="https://www.ncdc.noaa.gov/cdo-web/">https://www.ncdc.noaa.gov/cdo-web/</a>&gt;`_ بروید. بر روی ابزار جستجو کلیک کنید.</p></li>
 </ol>
@@ -250,7 +250,7 @@
 </div></blockquote>
 </section>
 <section id="hydrological-basins">
-<h3>حوضه های هیدرولوژیکی<a class="headerlink" href="#hydrological-basins" title="Permalink to this heading">¶</a></h3>
+<h3>حوضه های هیدرولوژیکی<a class="headerlink" href="#hydrological-basins" title="Link to this heading">¶</a></h3>
 <ol class="arabic simple">
 <li><p>به &quot;وب سایت HydroSHEDS &lt;<a class="reference external" href="https://www.hydrosheds.org/">https://www.hydrosheds.org/</a>&gt;&quot;_ بروید و روی :guilabel:&quot;دانلود&quot; کلیک کنید.</p></li>
 </ol>
@@ -271,7 +271,7 @@
 </div></blockquote>
 </section>
 <section id="state-boundaries">
-<h3>مرزهای ایالتی<a class="headerlink" href="#state-boundaries" title="Permalink to this heading">¶</a></h3>
+<h3>مرزهای ایالتی<a class="headerlink" href="#state-boundaries" title="Link to this heading">¶</a></h3>
 <p>از صفحه &lt;<a class="reference external" href="https://www.census.gov/geographies/mapping-files/time-series/geo/carto-boundary-file.html">https://www.census.gov/geographies/mapping-files/time-series/geo/carto-boundary-file.html</a>&gt;`_ فایل های مرزی نقشه برداری - Shapefile دیدن کنید. فایل <code class="docutils literal notranslate"><span class="pre">cb_2018_us_state_500k.zip</span></code> را از بخش <em>States</em> دانلود کنید.</p>
 <p>برای راحتی کار، می‌توانید مستقیماً یک نسخه از مجموعه داده‌ها را از لینک‌های زیر دانلود کنید:</p>
 <p>florida_2020_07_prcp &lt;<a class="reference external" href="https://www.qgistutorials.com/downloads/florida_2020_07_prcp.csv">https://www.qgistutorials.com/downloads/florida_2020_07_prcp.csv</a>&gt;`_</p>
@@ -281,7 +281,7 @@
 </section>
 </section>
 <section id="procedure">
-<h2>روش<a class="headerlink" href="#procedure" title="Permalink to this heading">¶</a></h2>
+<h2>روش<a class="headerlink" href="#procedure" title="Link to this heading">¶</a></h2>
 <ol class="arabic simple">
 <li><p>QGIS را باز کرده و روی :guilabel:<a href="#id1"><span class="problematic" id="id2">`</span></a>Open Data Source Manager کلیک کنید.</p></li>
 </ol>
@@ -510,8 +510,8 @@
     </p>
     <p>
         &copy; Copyright 2023, Ujaval Gandhi.<br/>
-      آخرین بروز رسانی در فوریه 19, 2024 .<br/>
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 7.0.1.<br/>
+      آخرین بروز رسانی در فوریه 22, 2024 .<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 7.2.6.<br/>
     </p>
   </div>
 </footer>

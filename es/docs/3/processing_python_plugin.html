@@ -1,17 +1,17 @@
 <!DOCTYPE html>
 
-<html lang="es">
+<html lang="es" data-content_root="../../">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
     <title>Construyendo un Complemento de Procesamiento (QGIS3) &#8212; QGIS Tutorials and Tips</title>
-    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-sphinx.css" />
-    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
-    <script src="../../_static/doctools.js"></script>
-    <script src="../../_static/sphinx_highlight.js"></script>
-    <script src="../../_static/translations.js"></script>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-sphinx.css?v=0bf093e7" />
+    <script src="../../_static/documentation_options.js?v=92345faf"></script>
+    <script src="../../_static/doctools.js?v=888ff710"></script>
+    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/translations.js?v=efdbd0b9"></script>
     <link rel="search" title="Búsqueda" href="../../search.html" />
     <link rel="next" title="Ejecutar y Programar Trabajos de Procesamiento QGIS" href="../running_qgis_jobs.html" />
     <link rel="prev" title="Construyendo un Complemento Python (QGIS3)" href="building_a_python_plugin.html" />
@@ -182,16 +182,16 @@
       
 
   <section id="building-a-processing-plugin-qgis3">
-<h1>Construyendo un Complemento de Procesamiento (QGIS3)<a class="headerlink" href="#building-a-processing-plugin-qgis3" title="Enlace permanente a este encabezado">¶</a></h1>
+<h1>Construyendo un Complemento de Procesamiento (QGIS3)<a class="headerlink" href="#building-a-processing-plugin-qgis3" title="Link to this heading">¶</a></h1>
 <p>En el tutorial previo <a class="reference internal" href="building_a_python_plugin.html"><span class="doc">Construyendo un Complemento Python (QGIS3)</span></a>, aprendió cómo crear un complemento python - incluyendo el interfaz de usuario y lógica personalizada para procesar los datos. Mientras este tipo de complemento es útil, dejan la carga de diseñar el interfaz de usuario en el autor del complemento. Esto resulta en que cada complemento tiene diferentes maneras para interactuar con él - lo que es confuso para los usuarios. También, los complementos regulares no interactúan con otras partes de QGIS. Por ejemplo, no puedes usar la funcionalidad del complemento para otro algoritmo. Si el complemento que quieres escribir es principalmente para análisis, y la interacción del usuario que quieres es limitada a permitir que el usuario elija entradas y salidas, hay una manera más fácil y preferida para escribir complementos usando el Marco de Procesamiento. Elimina la necesidad de que diseñes el interfaz de usuario - simplificando el proceso. La biblioteca incorporada de procesamiento crea una interfaz estándar de procesamiento que dependen de tus entradas que lucen y se comportan como cualquier otro algoritmo de procesamiento en QGIS. También se integra perfectamente con el resto del marco Procesamiento - con lo que tus algoritmos de complemento pueden ser usados en procesamiento por lotes, modelador gráfico, llamado desde la consola de python, etc.</p>
 <section id="overview-of-the-task">
-<h2>Vista general de la tarea<a class="headerlink" href="#overview-of-the-task" title="Enlace permanente a este encabezado">¶</a></h2>
+<h2>Vista general de la tarea<a class="headerlink" href="#overview-of-the-task" title="Link to this heading">¶</a></h2>
 <p>Reimplementaremos un complemento simple del tutorial <a class="reference internal" href="building_a_python_plugin.html"><span class="doc">Construyendo un Complemento Python (QGIS3)</span></a> como un complemento de procesamiento. Resultará en un nuevo proveedor de procesamiento llamado <code class="docutils literal notranslate"><span class="pre">Guardar</span> <span class="pre">Atributos</span></code> y un algoritmo <code class="docutils literal notranslate"><span class="pre">Guardar</span> <span class="pre">Atributos</span> <span class="pre">como</span> <span class="pre">CSV</span></code> que permitirá a los usuarios elegir una capa vector y escribir sus atributos como un archivo CSV.</p>
 </section>
 <section id="get-the-tools">
-<h2>Obtener las Herramientas<a class="headerlink" href="#get-the-tools" title="Enlace permanente a este encabezado">¶</a></h2>
+<h2>Obtener las Herramientas<a class="headerlink" href="#get-the-tools" title="Link to this heading">¶</a></h2>
 <section id="a-text-editor-or-a-python-ide">
-<h3>Un Editor de Texto o un IDE Python.<a class="headerlink" href="#a-text-editor-or-a-python-ide" title="Enlace permanente a este encabezado">¶</a></h3>
+<h3>Un Editor de Texto o un IDE Python.<a class="headerlink" href="#a-text-editor-or-a-python-ide" title="Link to this heading">¶</a></h3>
 <p>Cualquier tipo de desarrollo de software requiere un buen editor de texto. Si ya tiene un editor de texto favorito o un IDE (Ambiente Integrado de Desarrollo, en inglés), puede usarlo para este tutorial. De otra forma, cada plataforma ofrece una amplia variedad de opciones gratuitas o pagadas para editores de texto. Elija aquel que se ajuste a sus necesidades.</p>
 <p>Este tutorial usa el editor Notepad++ en Windows.</p>
 <p><strong>Windows</strong></p>
@@ -202,11 +202,11 @@
 </div>
 </section>
 <section id="plugin-builder-plugin">
-<h3>Complemento Plugin Builder<a class="headerlink" href="#plugin-builder-plugin" title="Enlace permanente a este encabezado">¶</a></h3>
+<h3>Complemento Plugin Builder<a class="headerlink" href="#plugin-builder-plugin" title="Link to this heading">¶</a></h3>
 <p>Hay un complemento útil QGIS llamado <code class="docutils literal notranslate"><span class="pre">Plugin</span> <span class="pre">Builder</span></code> que crea todos los archivos necesarios y el código repetitivo para un complemento. Encuentre e instale el complemento <code class="docutils literal notranslate"><span class="pre">Plugin</span> <span class="pre">Builder</span></code>. Vea <a class="reference internal" href="../using_plugins.html"><span class="doc">Uso de Complementos</span></a> para más detalles de cómo instalar complementos.</p>
 </section>
 <section id="plugins-reloader-plugin">
-<h3>Complemento Plugins Reloader<a class="headerlink" href="#plugins-reloader-plugin" title="Enlace permanente a este encabezado">¶</a></h3>
+<h3>Complemento Plugins Reloader<a class="headerlink" href="#plugins-reloader-plugin" title="Link to this heading">¶</a></h3>
 <p>Este es otro complemento asistente que permite el desarrollo iterativo de complementos. Usando este complemento, puede cambiar el código del complemento y tenerlo reflejado en QGIS sin tener que reiniciar QGIS cada vez. Encuentre e instale el complemento <code class="docutils literal notranslate"><span class="pre">Plugin</span> <span class="pre">Reloader</span></code>. Vea <a class="reference internal" href="../using_plugins.html"><span class="doc">Uso de Complementos</span></a> para más detalles sobre como instalar complementos.</p>
 <div class="admonition note">
 <p class="admonition-title">Nota</p>
@@ -215,7 +215,7 @@
 </section>
 </section>
 <section id="procedure">
-<h2>Procedimiento<a class="headerlink" href="#procedure" title="Enlace permanente a este encabezado">¶</a></h2>
+<h2>Procedimiento<a class="headerlink" href="#procedure" title="Link to this heading">¶</a></h2>
 <ol class="arabic simple">
 <li><p>Abra QGIS. Vaya a <span class="menuselection">Complementos ‣ Plugin Builder ‣ Plugin Builder</span>.</p></li>
 </ol>
@@ -947,8 +947,8 @@
     </p>
     <p>
         &copy; Copyright 2023, Ujaval Gandhi.<br/>
-      Actualizado por última vez en feb 19, 2024.<br/>
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 7.0.1.<br/>
+      Actualizado por última vez en feb 22, 2024.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 7.2.6.<br/>
     </p>
   </div>
 </footer>

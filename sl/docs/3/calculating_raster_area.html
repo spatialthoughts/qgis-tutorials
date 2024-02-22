@@ -1,17 +1,17 @@
 <!DOCTYPE html>
 
-<html lang="sl">
+<html lang="sl" data-content_root="../../">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
     <title>Izračun površine rastra (QGIS3) &#8212; QGIS Tutorials and Tips</title>
-    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-sphinx.css" />
-    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
-    <script src="../../_static/doctools.js"></script>
-    <script src="../../_static/sphinx_highlight.js"></script>
-    <script src="../../_static/translations.js"></script>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-sphinx.css?v=0bf093e7" />
+    <script src="../../_static/documentation_options.js?v=d40e29de"></script>
+    <script src="../../_static/doctools.js?v=888ff710"></script>
+    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/translations.js?v=82705e9b"></script>
     <link rel="search" title="Išči" href="../../search.html" />
     <link rel="next" title="Ustvarjanje kart zgostitev (QGIS3)" href="creating_heatmaps.html" />
     <link rel="prev" title="Vzorčenje rastrskih podatkov z uporabo točk ali poligonov (QGIS3)" href="sampling_raster_data.html" />
@@ -182,17 +182,17 @@
       
 
   <section id="calculating-raster-area-qgis3">
-<h1>Izračun površine rastra (QGIS3)<a class="headerlink" href="#calculating-raster-area-qgis3" title="Permalink to this heading">¶</a></h1>
+<h1>Izračun površine rastra (QGIS3)<a class="headerlink" href="#calculating-raster-area-qgis3" title="Link to this heading">¶</a></h1>
 <p>Številne aplikacije zahtevajo kvantifikacijo vzorca rabe tal v regiji. Zbirke podatkov o rabi tal in pokrovnosti (LULC) so na voljo v obliki rastrskih datotek, v katerih je vsakemu pikslu dodeljena vrednost razreda. Analitiki GIS morajo na podlagi teh podatkov pogosto pripraviti poročila, tako da izračunajo površino razreda v določeni regiji. QGIS je opremljen s številnimi vgrajenimi orodji za izračunavanje in povzemanje rastrskih površin.</p>
 <div class="admonition note">
 <p class="admonition-title">Opomba</p>
 <p>V preteklosti je bil predlagani pristop za izračun površin rastra pretvorba rastrskega sloja v vektorski in uporaba tehnik izračuna vektorskega območja. Ta pristop je računsko zahteven in nagnjen k napakam. Priporočeni pristop je uporaba orodja za obdelavo <strong>Raster layer unique values report</strong>, ki lahko neposredno izračuna površine pikslov. Če imate sloj z veliko poligoni in potrebujete površine za vsakega od njih, lahko uporabite orodje <strong>Zonal histogram</strong>, kjer dobite število pikslov posameznega razreda in ga nato pomnožite s površino vsakega piksla.</p>
 </div>
 <section id="overview-of-the-task">
-<h2>Pregled naloge<a class="headerlink" href="#overview-of-the-task" title="Permalink to this heading">¶</a></h2>
+<h2>Pregled naloge<a class="headerlink" href="#overview-of-the-task" title="Link to this heading">¶</a></h2>
 <p>Uporabili bomo rastrski sloj z 11 razredi pokrovnosti tal in izračunali površino vsakega razreda v nacionalnem parku. Rezultate bomo tudi naknadno obdelali in ustvarili preglednico z imeni razredov in površinami.</p>
 <section id="other-skills-you-will-learn">
-<h3>Česa se bomo še naučili<a class="headerlink" href="#other-skills-you-will-learn" title="Permalink to this heading">¶</a></h3>
+<h3>Česa se bomo še naučili<a class="headerlink" href="#other-skills-you-will-learn" title="Link to this heading">¶</a></h3>
 <ul class="simple">
 <li><p>Kako uporabiti simbologijo v sloju iz slogovne datoteke v formatu <cite>.qml</cite>.</p></li>
 <li><p>Kako zapisati izraze z več pogoji if/else z uporabo stavka <cite>CASE</cite>.</p></li>
@@ -201,14 +201,14 @@
 </section>
 </section>
 <section id="get-the-data">
-<h2>Pridobivanje podatkov<a class="headerlink" href="#get-the-data" title="Permalink to this heading">¶</a></h2>
+<h2>Pridobivanje podatkov<a class="headerlink" href="#get-the-data" title="Link to this heading">¶</a></h2>
 <p>Prenesli bomo naslednje nabore podatkov</p>
 <ol class="arabic simple">
 <li><p>Svetovna zbirka podatkov o zavarovanih območjih (WDPA): V Indiji bomo prenesli shapefile meje nacionalnega parka <em>Kaziranga National Park</em>.</p></li>
 <li><p>ESA WorldCover 2020: WorldCover 10 m 2020 Evropske vesoljske agencije (ESA) zagotavlja globalni zemljevid pokritosti tal za leto 2020 z ločljivostjo 10 m. Prenesli bomo del, ki pokriva naše interesno območje.</p></li>
 </ol>
 <section id="park-boundary">
-<h3>Meja parka<a class="headerlink" href="#park-boundary" title="Permalink to this heading">¶</a></h3>
+<h3>Meja parka<a class="headerlink" href="#park-boundary" title="Link to this heading">¶</a></h3>
 <ol class="arabic simple">
 <li><p>Pojdite na spletno mesto <a class="reference external" href="https://www.protectedplanet.net/">Protected Planet</a> in kliknite na iskalnik. Poiščite <code class="docutils literal notranslate"><span class="pre">Kaziranga</span> <span class="pre">National</span> <span class="pre">Park</span></code>.</p></li>
 </ol>
@@ -235,7 +235,7 @@
 </div></blockquote>
 </section>
 <section id="landcover-data">
-<h3>Podatki o pokrovnosti tal<a class="headerlink" href="#landcover-data" title="Permalink to this heading">¶</a></h3>
+<h3>Podatki o pokrovnosti tal<a class="headerlink" href="#landcover-data" title="Link to this heading">¶</a></h3>
 <ol class="arabic simple">
 <li><p>Pojdite na spletno stran <a class="reference external" href="https://esa-worldcover.org/en">ESA WorldCover</a> in kliknite na meni <span class="guilabel">DATA ACCESS</span>.</p></li>
 </ol>
@@ -294,7 +294,7 @@
 </section>
 </section>
 <section id="procedure">
-<h2>Postopek<a class="headerlink" href="#procedure" title="Permalink to this heading">¶</a></h2>
+<h2>Postopek<a class="headerlink" href="#procedure" title="Link to this heading">¶</a></h2>
 <ol class="arabic simple">
 <li><p>Razpakirajte vse prenesene datoteke. V <span class="guilabel">Browser</span>-ju poiščite mapo z datoteko meje <code class="docutils literal notranslate"><span class="pre">WDPA_WDOECM_Apr2022_Publicc_10744_shp-polygons.shp</span></code> in jo povlecite ter spustite na delovno površino QGIS.</p></li>
 </ol>
@@ -532,8 +532,8 @@ END
     </p>
     <p>
         &copy; Copyright 2023, Ujaval Gandhi.<br/>
-      Zadnjič posodobljeno feb. 19, 2024.<br/>
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 7.0.1.<br/>
+      Zadnjič posodobljeno feb. 22, 2024.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 7.2.6.<br/>
     </p>
   </div>
 </footer>

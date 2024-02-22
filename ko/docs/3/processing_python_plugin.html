@@ -1,17 +1,17 @@
 <!DOCTYPE html>
 
-<html lang="ko">
+<html lang="ko" data-content_root="../../">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
     <title>Building a Processing Plugin (QGIS3) &#8212; QGIS Tutorials and Tips</title>
-    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-sphinx.css" />
-    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
-    <script src="../../_static/doctools.js"></script>
-    <script src="../../_static/sphinx_highlight.js"></script>
-    <script src="../../_static/translations.js"></script>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-sphinx.css?v=0bf093e7" />
+    <script src="../../_static/documentation_options.js?v=fefd262b"></script>
+    <script src="../../_static/doctools.js?v=888ff710"></script>
+    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/translations.js?v=b5f768d8"></script>
     <link rel="search" title="검색" href="../../search.html" />
     <link rel="next" title="Running and Scheduling QGIS Processing Jobs" href="../running_qgis_jobs.html" />
     <link rel="prev" title="Building a Python Plugin (QGIS3)" href="building_a_python_plugin.html" />
@@ -182,16 +182,16 @@
       
 
   <section id="building-a-processing-plugin-qgis3">
-<h1>Building a Processing Plugin (QGIS3)<a class="headerlink" href="#building-a-processing-plugin-qgis3" title="이 제목에 대한 퍼머링크">¶</a></h1>
+<h1>Building a Processing Plugin (QGIS3)<a class="headerlink" href="#building-a-processing-plugin-qgis3" title="Link to this heading">¶</a></h1>
 <p>In the previous tutorial <a class="reference internal" href="building_a_python_plugin.html"><span class="doc">Building a Python Plugin (QGIS3)</span></a>, you learnt how to create a python plugin - including the user interface and custom logic for processing the data. While these type of plugins are useful, it puts the burden of designing the user interface on the plugin author. This results in each plugin having different ways to interact with it - which is confusing to the users. Also, regular plugins do not interact with another parts of QGIS. For example, you cannot use the plugin functionality from another algorithm. If the plugin that you want to write is primarily for analysis, and the user interaction that you want is limited to letting the user pick inputs and outputs, there is a much easier and preferred way to write plugins using the Processing Framework. It removes the need for you to design the user interface - simplifying the process. The built-in processing library creates a standard processing interface depending on your inputs that looks and behaves just like any other processing algorithm in QGIS. It also seamlessly integrates with rest of the Processing framework - so your plugin algorithms can be used in batch processing, graphical modeler, called from python console etc.</p>
 <section id="overview-of-the-task">
-<h2>Overview of the Task<a class="headerlink" href="#overview-of-the-task" title="이 제목에 대한 퍼머링크">¶</a></h2>
+<h2>Overview of the Task<a class="headerlink" href="#overview-of-the-task" title="Link to this heading">¶</a></h2>
 <p>We will re-implement a simple plugin from the tutorial  <a class="reference internal" href="building_a_python_plugin.html"><span class="doc">Building a Python Plugin (QGIS3)</span></a> as a processing plugin. It will result in a new processing provider called <code class="docutils literal notranslate"><span class="pre">Save</span> <span class="pre">Attributes</span></code> and an algorithm <code class="docutils literal notranslate"><span class="pre">Save</span> <span class="pre">Attributes</span> <span class="pre">as</span> <span class="pre">CSV</span></code> that will allow users to pick a vector layer and write its attributes to a CSV file.</p>
 </section>
 <section id="get-the-tools">
-<h2>Get the Tools<a class="headerlink" href="#get-the-tools" title="이 제목에 대한 퍼머링크">¶</a></h2>
+<h2>Get the Tools<a class="headerlink" href="#get-the-tools" title="Link to this heading">¶</a></h2>
 <section id="a-text-editor-or-a-python-ide">
-<h3>A Text Editor or a Python IDE<a class="headerlink" href="#a-text-editor-or-a-python-ide" title="이 제목에 대한 퍼머링크">¶</a></h3>
+<h3>A Text Editor or a Python IDE<a class="headerlink" href="#a-text-editor-or-a-python-ide" title="Link to this heading">¶</a></h3>
 <p>Any kind of software development requires a good text editor. If you already have a favorite text editor or an IDE (Integrated Development Environment), you may use it for this tutorial. Otherwise, each platform offers a wide variety of free or paid options for text editors. Choose the one that fits your needs.</p>
 <p>This tutorial uses Notepad++ editor on Windows.</p>
 <p><strong>Windows</strong></p>
@@ -203,11 +203,11 @@ Download and install the <a class="reference external" href="https://notepad-plu
 </div>
 </section>
 <section id="plugin-builder-plugin">
-<h3>Plugin Builder plugin<a class="headerlink" href="#plugin-builder-plugin" title="이 제목에 대한 퍼머링크">¶</a></h3>
+<h3>Plugin Builder plugin<a class="headerlink" href="#plugin-builder-plugin" title="Link to this heading">¶</a></h3>
 <p>There is a helpful QGIS plugin named <code class="docutils literal notranslate"><span class="pre">Plugin</span> <span class="pre">Builder</span></code> which creates all the necessary files and the boilerplate code for a plugin. Find and install the <code class="docutils literal notranslate"><span class="pre">Plugin</span> <span class="pre">Builder</span></code> plugin. See <a class="reference internal" href="../using_plugins.html"><span class="doc">플러그인 사용하기</span></a> for more details on how to install plugins.</p>
 </section>
 <section id="plugins-reloader-plugin">
-<h3>Plugins Reloader plugin<a class="headerlink" href="#plugins-reloader-plugin" title="이 제목에 대한 퍼머링크">¶</a></h3>
+<h3>Plugins Reloader plugin<a class="headerlink" href="#plugins-reloader-plugin" title="Link to this heading">¶</a></h3>
 <p>This is another helper plugin which allows iterative development of plugins. Using this plugin, you can change your plugin code and have it reflected in QGIS without having to restart QGIS every time. Find and install the <code class="docutils literal notranslate"><span class="pre">Plugin</span> <span class="pre">Reloader</span></code> plugin. See <a class="reference internal" href="../using_plugins.html"><span class="doc">플러그인 사용하기</span></a> for more details on how to install plugins.</p>
 <div class="admonition note">
 <p class="admonition-title">참고</p>
@@ -216,7 +216,7 @@ Download and install the <a class="reference external" href="https://notepad-plu
 </section>
 </section>
 <section id="procedure">
-<h2>Procedure<a class="headerlink" href="#procedure" title="이 제목에 대한 퍼머링크">¶</a></h2>
+<h2>Procedure<a class="headerlink" href="#procedure" title="Link to this heading">¶</a></h2>
 <ol class="arabic simple">
 <li><p>Open QGIS. Go to <span class="menuselection">Plugins ‣ Plugin Builder ‣ Plugin Builder</span>.</p></li>
 </ol>
@@ -949,8 +949,8 @@ upload it to the QGIS plugin repository.</p>
     </p>
     <p>
         &copy; Copyright 2023, Ujaval Gandhi.<br/>
-      최종 업데이트: 2월 19, 2024<br/>
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 7.0.1.<br/>
+      최종 업데이트: 2월 22, 2024<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 7.2.6.<br/>
     </p>
   </div>
 </footer>

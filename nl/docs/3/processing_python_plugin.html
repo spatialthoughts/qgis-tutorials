@@ -1,17 +1,17 @@
 <!DOCTYPE html>
 
-<html lang="nl">
+<html lang="nl" data-content_root="../../">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
     <title>Een plug-in voor Processing bouwen (QGIS3) &#8212; QGIS Tutorials and Tips</title>
-    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-sphinx.css" />
-    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
-    <script src="../../_static/doctools.js"></script>
-    <script src="../../_static/sphinx_highlight.js"></script>
-    <script src="../../_static/translations.js"></script>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-sphinx.css?v=0bf093e7" />
+    <script src="../../_static/documentation_options.js?v=abdfb6f9"></script>
+    <script src="../../_static/doctools.js?v=888ff710"></script>
+    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/translations.js?v=83e0b41b"></script>
     <link rel="search" title="Zoeken" href="../../search.html" />
     <link rel="next" title="Taken voor QGIS uitvoeren en in schema zetten" href="../running_qgis_jobs.html" />
     <link rel="prev" title="Een plug-in in Python bouwen (QGIS3)" href="building_a_python_plugin.html" />
@@ -182,16 +182,16 @@
       
 
   <section id="building-a-processing-plugin-qgis3">
-<h1>Een plug-in voor Processing bouwen (QGIS3)<a class="headerlink" href="#building-a-processing-plugin-qgis3" title="Permalink to this heading">¶</a></h1>
+<h1>Een plug-in voor Processing bouwen (QGIS3)<a class="headerlink" href="#building-a-processing-plugin-qgis3" title="Link to this heading">¶</a></h1>
 <p>In de vorige handleiding <a class="reference internal" href="building_a_python_plugin.html"><span class="doc">Een plug-in in Python bouwen (QGIS3)</span></a>, leerde u hoe een plug-in voor Python te maken - inclusief de gebruikersinterface en aangepaste logica voor het verwerken van de gegevens. Hoewel dit type plug-ins nuttig zijn, legt het de last van het ontwerpen van de gebruikersinterface bij de auteur van de plug-in. Dit heeft tot gevolg dat elke plug-in verschillende manieren heeft om er mee te werken - wat voor gebruikers verwarrend is. Ook werken gewone plug-ins niet samen met andere delen van QGIS. U kunt bijvoorbeeld niet de functionaliteit van een plug-in uit een ander algoritme gebruiken. Als de plug-in die u wilt schrijven primair is bedoeld voor analyses, en de interactie met de gebruiker die u wilt is beperkt tot de gebruiker de in- en uitvoer te laten kiezen, is er een veel eenvoudiger en aanbevolen manier om plug-ins te schrijven met het framewerk Processing. Het verwijdert de noodzaak voor u om de gebruikersinterface te ontwerpen - wat het proces vereenvoudigt. De ingebouwde bibliotheek voor Processing maakt een standaard interface voor Processing, afhankelijk van uw invoer, die eruit ziet en aanvoelt net als elk ander algoritme voor processing in QGIS. Het integreert ook naadloos met de rest van het framewerk Processing - dus uwplug-in voor algoritmes kan worden gebruikt voor het verwerken van massa, Grafische modellen bouwen, aangeroepen worden vanuit de console voor Python etc.</p>
 <section id="overview-of-the-task">
-<h2>Overzicht van de taak<a class="headerlink" href="#overview-of-the-task" title="Permalink to this heading">¶</a></h2>
+<h2>Overzicht van de taak<a class="headerlink" href="#overview-of-the-task" title="Link to this heading">¶</a></h2>
 <p>We zullen een eenvoudige plug-in opnieuw implementeren, vanuit de handleiding <a class="reference internal" href="building_a_python_plugin.html"><span class="doc">Een plug-in in Python bouwen (QGIS3)</span></a>, als een plug-in voor Processing. Het zal leiden tot een nieuwe provider voor Processing, genaamd <code class="docutils literal notranslate"><span class="pre">Attributen</span> <span class="pre">opslaan</span></code>, en een algoritme “Attributen opslaan als CSV” dat gebruikers in staat zal stellen een vectorlaag uit te zoeken en de attributen daarvan weg te schrijven naar een CSV-bestand.</p>
 </section>
 <section id="get-the-tools">
-<h2>De gereedschappen ophalen<a class="headerlink" href="#get-the-tools" title="Permalink to this heading">¶</a></h2>
+<h2>De gereedschappen ophalen<a class="headerlink" href="#get-the-tools" title="Link to this heading">¶</a></h2>
 <section id="a-text-editor-or-a-python-ide">
-<h3>Een tekstbewerker of een Python IDE<a class="headerlink" href="#a-text-editor-or-a-python-ide" title="Permalink to this heading">¶</a></h3>
+<h3>Een tekstbewerker of een Python IDE<a class="headerlink" href="#a-text-editor-or-a-python-ide" title="Link to this heading">¶</a></h3>
 <p>Elke soort softwareontwikkeling vereist een goede tekstbewerker. Als u al een favoriete tekstbewerker of een IDE (Integrated Development Environment) heeft, zou u die kunnen gebruiken voor deze handleiding. Anders biedt elk platform een grote variëteit van gratis of betaalde opties voor tekstbewerkers. Kies er een die aan uw wensen voldoet.</p>
 <p>Deze handleiding gebruikt de bewerker Notepad++ op Windows.</p>
 <p><strong>Windows</strong></p>
@@ -202,11 +202,11 @@
 </div>
 </section>
 <section id="plugin-builder-plugin">
-<h3>plug-in Plugin Builder<a class="headerlink" href="#plugin-builder-plugin" title="Permalink to this heading">¶</a></h3>
+<h3>plug-in Plugin Builder<a class="headerlink" href="#plugin-builder-plugin" title="Link to this heading">¶</a></h3>
 <p>Er is een nuttige plug-in voor QGIS, genaamd <code class="docutils literal notranslate"><span class="pre">Plugin</span> <span class="pre">Builder</span></code> die alle noodzakelijke bestanden en onderliggende code voor een plug-in maakt. Zoek en installeer de plug-in <code class="docutils literal notranslate"><span class="pre">Plugin</span> <span class="pre">Builder</span></code>. Bekijk <a class="reference internal" href="../using_plugins.html"><span class="doc">Plug-ins gebruiken</span></a> voor meer details over hoe plug-ins te installeren.</p>
 </section>
 <section id="plugins-reloader-plugin">
-<h3>plug-in Plugins Reloader<a class="headerlink" href="#plugins-reloader-plugin" title="Permalink to this heading">¶</a></h3>
+<h3>plug-in Plugins Reloader<a class="headerlink" href="#plugins-reloader-plugin" title="Link to this heading">¶</a></h3>
 <p>Dit is een andere nuttige hulpplug-in die het iteratief ontwikkelen van plug-ins mogelijk maakt. Met behulp van deze plug-in kunt u de code voor uw plug-in wijzigen en die hebben gereflecteerd in QGIS zonder dat u QGIS elke keer opnieuw moet starten. Zoek en installeer de plug-in <code class="docutils literal notranslate"><span class="pre">Plugin</span> <span class="pre">Reloader</span></code>. Bekijk <a class="reference internal" href="../using_plugins.html"><span class="doc">Plug-ins gebruiken</span></a> voor meer details over hoe plug-ins te installeren.</p>
 <div class="admonition note">
 <p class="admonition-title">Notitie</p>
@@ -215,7 +215,7 @@
 </section>
 </section>
 <section id="procedure">
-<h2>Procedure<a class="headerlink" href="#procedure" title="Permalink to this heading">¶</a></h2>
+<h2>Procedure<a class="headerlink" href="#procedure" title="Link to this heading">¶</a></h2>
 <ol class="arabic simple">
 <li><p>Open QGIS. Ga naar <span class="menuselection">Plug-ins ‣ Plugin Builder ‣ Plugin Builder</span>.</p></li>
 </ol>
@@ -947,8 +947,8 @@
     </p>
     <p>
         &copy; Copyright 2023, Ujaval Gandhi.<br/>
-      Laatste aanpassing op feb 19, 2024.<br/>
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 7.0.1.<br/>
+      Laatste aanpassing op feb 22, 2024.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 7.2.6.<br/>
     </p>
   </div>
 </footer>

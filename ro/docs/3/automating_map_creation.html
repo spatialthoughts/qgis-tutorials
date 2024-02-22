@@ -1,17 +1,17 @@
 <!DOCTYPE html>
 
-<html lang="ro">
+<html lang="ro" data-content_root="../../">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
     <title>Automatizarea Creării Hărților cu ajutorul Atlasului (QGIS3) &#8212; QGIS Tutorials and Tips</title>
-    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-sphinx.css" />
-    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
-    <script src="../../_static/doctools.js"></script>
-    <script src="../../_static/sphinx_highlight.js"></script>
-    <script src="../../_static/translations.js"></script>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-sphinx.css?v=0bf093e7" />
+    <script src="../../_static/documentation_options.js?v=d115fa34"></script>
+    <script src="../../_static/doctools.js?v=888ff710"></script>
+    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/translations.js?v=f855708e"></script>
     <link rel="search" title="Căutare" href="../../search.html" />
     <link rel="next" title="Multi Criteria Overlay Analysis (QGIS3)" href="multi_criteria_overlay.html" />
     <link rel="prev" title="Automatizarea Fluxurilor de Lucru Complexe utilizând Modelatorul de Procese (QGIS3)" href="processing_graphical_modeler.html" />
@@ -182,13 +182,13 @@
       
 
   <section id="automating-map-creation-with-print-layout-atlas-qgis3">
-<h1>Automatizarea Creării Hărților cu ajutorul Atlasului (QGIS3)<a class="headerlink" href="#automating-map-creation-with-print-layout-atlas-qgis3" title="Permalink to this heading">¶</a></h1>
+<h1>Automatizarea Creării Hărților cu ajutorul Atlasului (QGIS3)<a class="headerlink" href="#automating-map-creation-with-print-layout-atlas-qgis3" title="Link to this heading">¶</a></h1>
 <p>Dacă organizația dvs. imprimă hărți sau le publică online, apare adesea nevoia de a crea unele hărți pe baza aceluiași șablon - de obicei câte unul pentru fiecare unitate administrativă sau regiune de interes. Crearea manuală a acestor hărți poate fi consumatoare de timp, iar dacă acestea necesită actualizare periodică, atunci totul se poate transforma într-o adevărată corvoadă. QGIS dispune de un instrument numit <code class="docutils literal notranslate"><span class="pre">Atlas</span></code> care vă poate ajuta să creați un șablon, pe baza căruia să publicați cu ușurință un număr mare de hărți, pentru diferite regiuni geografice. Dacă nu sunteți familiarizați cu elementele de bază privind Paginarea Compozițiilor, puteți parcurge tutorialul  <a class="reference internal" href="../making_a_map.html"><span class="doc">Crearea unei Hărți</span></a>.</p>
 <section id="overview-of-the-task">
-<h2>Privire de ansamblu asupra activității<a class="headerlink" href="#overview-of-the-task" title="Permalink to this heading">¶</a></h2>
+<h2>Privire de ansamblu asupra activității<a class="headerlink" href="#overview-of-the-task" title="Link to this heading">¶</a></h2>
 <p>Acest tutorial vă arată cum să creați harta zonelor mlăștinoase pentru fiecare regiune din statul Hawaii.</p>
 <section id="other-skills-you-will-learn">
-<h3>Alte competențe pe care le veți dobândi<a class="headerlink" href="#other-skills-you-will-learn" title="Permalink to this heading">¶</a></h3>
+<h3>Alte competențe pe care le veți dobândi<a class="headerlink" href="#other-skills-you-will-learn" title="Link to this heading">¶</a></h3>
 <ul class="simple">
 <li><p>Utilizarea stilului de randare <code class="docutils literal notranslate"><span class="pre">Poligoane</span> <span class="pre">Inversate</span></code> pentru umplerea zonelor din afara poligoanelor.</p></li>
 <li><p>Scrierea unei expresii folosind stilul de randare <code class="docutils literal notranslate"><span class="pre">Bazat</span> <span class="pre">pe</span> <span class="pre">Reguli</span></code>, în scopul afișării doar a entității curente din Atlas.</p></li>
@@ -198,7 +198,7 @@
 </section>
 </section>
 <section id="get-the-data">
-<h2>Obținerea datelor<a class="headerlink" href="#get-the-data" title="Permalink to this heading">¶</a></h2>
+<h2>Obținerea datelor<a class="headerlink" href="#get-the-data" title="Link to this heading">¶</a></h2>
 <p>Vom folosi <a class="reference external" href="http://planning.hawaii.gov/gis/download-gis-data/">Straturile de Date GIS</a> din <a class="reference external" href="http://planning.hawaii.gov/">Statul Hawaii - Biroul de Planificare</a></p>
 <p>Descărcați stratul de <a href="#id2"><span class="problematic" id="id3">`Zone umede http://files.hawaii.gov/dbedt/op/gis/data/HI_Wetlands.shp.zip&gt;`_</span></a> din categoriile Biologică și Ecologică.</p>
 <p>Descărcați stratul <a class="reference external" href="http://files.hawaii.gov/dbedt/op/gis/data/county10.shp.zip">Limitelor recensământului regional 2010</a> din categoria Cultură și Demografie.</p>
@@ -208,7 +208,7 @@
 <p>Sursa de date: <a class="reference internal" href="../credits.html#hawaii" id="id1"><span>[HAWAII]</span></a></p>
 </section>
 <section id="procedure">
-<h2>Procedura<a class="headerlink" href="#procedure" title="Permalink to this heading">¶</a></h2>
+<h2>Procedura<a class="headerlink" href="#procedure" title="Link to this heading">¶</a></h2>
 <ol class="arabic simple">
 <li><p>Locate the <code class="docutils literal notranslate"><span class="pre">HI_Wetlands.shp.zip</span></code> file in the QGIS Browser and expand it. Select the <code class="docutils literal notranslate"><span class="pre">HI_Wetlands_Poly.shp</span></code> file and drag it to the canvas. This layer contains polygons representing wetlands in the entire state of Hawaii.</p></li>
 </ol>
@@ -425,8 +425,8 @@
     </p>
     <p>
         &copy; Copyright 2023, Ujaval Gandhi.<br/>
-      Ultima actualizare la feb. 19, 2024.<br/>
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 7.0.1.<br/>
+      Ultima actualizare la feb. 22, 2024.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 7.2.6.<br/>
     </p>
   </div>
 </footer>

@@ -1,17 +1,17 @@
 <!DOCTYPE html>
 
-<html lang="zh_TW">
+<html lang="zh_TW" data-content_root="../../">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
     <title>利用處理建模自動執行複雜的工作流程 (QGIS3) &#8212; QGIS Tutorials and Tips</title>
-    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-sphinx.css" />
-    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
-    <script src="../../_static/doctools.js"></script>
-    <script src="../../_static/sphinx_highlight.js"></script>
-    <script src="../../_static/translations.js"></script>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-sphinx.css?v=0bf093e7" />
+    <script src="../../_static/documentation_options.js?v=2123726e"></script>
+    <script src="../../_static/doctools.js?v=888ff710"></script>
+    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/translations.js?v=d9a6981e"></script>
     <link rel="search" title="搜尋" href="../../search.html" />
     <link rel="next" title="Automating Map Creation with Print Layout Atlas (QGIS3)" href="automating_map_creation.html" />
     <link rel="prev" title="使用處理框架進行批次處理 (QGIS3)" href="batch_processing.html" />
@@ -182,13 +182,13 @@
       
 
   <section id="automating-complex-workflows-using-processing-modeler-qgis3">
-<h1>利用處理建模自動執行複雜的工作流程 (QGIS3)<a class="headerlink" href="#automating-complex-workflows-using-processing-modeler-qgis3" title="本標頭的永久連結">¶</a></h1>
+<h1>利用處理建模自動執行複雜的工作流程 (QGIS3)<a class="headerlink" href="#automating-complex-workflows-using-processing-modeler-qgis3" title="Link to this heading">¶</a></h1>
 <p>GIS 操作通常包含許多步驟，上一步驟的輸出會被拿來當作下一步驟的輸入。如果你想改變輸入資料或調整操作中的參數，可能就需要手動把整套操作重新跑一遍。幸運的是，QGIS 有內建的圖形建模，可以用來定義操作中的各步驟，然後以非常簡單的方式執行。你也可以使用它來進行批次處理，把很多的輸入檔一次完成。</p>
 <section id="overview-of-the-task">
-<h2>內容說明<a class="headerlink" href="#overview-of-the-task" title="本標頭的永久連結">¶</a></h2>
+<h2>內容說明<a class="headerlink" href="#overview-of-the-task" title="Link to this heading">¶</a></h2>
 <p>We will take a point layer of maritime piracy incidents and create a processing model to produce a density map by aggregating them over a global hexagonal grid.</p>
 <section id="other-skills-you-will-learn">
-<h3>你還會學到這些<a class="headerlink" href="#other-skills-you-will-learn" title="本標頭的永久連結">¶</a></h3>
+<h3>你還會學到這些<a class="headerlink" href="#other-skills-you-will-learn" title="Link to this heading">¶</a></h3>
 <ul class="simple">
 <li><p>Using a global equal area projection and setting the Project CRS.</p></li>
 <li><p>Applying a Graduated symbology to a polygon layer.</p></li>
@@ -196,7 +196,7 @@
 </section>
 </section>
 <section id="get-the-data">
-<h2>取得資料<a class="headerlink" href="#get-the-data" title="本標頭的永久連結">¶</a></h2>
+<h2>取得資料<a class="headerlink" href="#get-the-data" title="Link to this heading">¶</a></h2>
 <p>National Geospatial-Intelligence Agency’s <a class="reference external" href="https://msi.nga.mil/NGAPortal/MSI.portal">Maritime Safety Information portal</a> provides a shapefile of all incidencts of maritine piracy in the form on <a class="reference external" href="https://msi.nga.mil/Piracy">Anti-shipping Activity Messages</a>. Download the <a class="reference external" href="https://msi.nga.mil/api/publications/download?key=16920958/SFH00000/ASAM_shp.zip&amp;type=download">Arc Shape file</a> version of the database.</p>
 <p><a class="reference external" href="http://naturalearthdata.com">Natural Earth</a> has several global vector
 layers. Download the <a class="reference external" href="https://www.naturalearthdata.com/http//www.naturalearthdata.com/download/10m/physical/ne_10m_land.zip">10m Physical Vectors - Land</a> containing Land polygons.</p>
@@ -206,7 +206,7 @@ layers. Download the <a class="reference external" href="https://www.naturaleart
 <p>資料來源 <a class="reference internal" href="../credits.html#nga-msi" id="id1"><span>[NGA_MSI]</span></a> <a class="reference internal" href="../credits.html#naturalearth" id="id2"><span>[NATURALEARTH]</span></a></p>
 </section>
 <section id="procedure">
-<h2>操作流程<a class="headerlink" href="#procedure" title="本標頭的永久連結">¶</a></h2>
+<h2>操作流程<a class="headerlink" href="#procedure" title="Link to this heading">¶</a></h2>
 <ol class="arabic simple">
 <li><p>In the QGIS Browser Panel, locate the directory where you saved your downloaded data. Expand the <code class="docutils literal notranslate"><span class="pre">ne_10m_land.zip</span></code> and select the <code class="docutils literal notranslate"><span class="pre">ne_10m_land.shp</span></code> layer. Drag the layer to the canvas. Next, locate the <code class="docutils literal notranslate"><span class="pre">ASAM_shp.zip</span></code> file. Expand it and select the <code class="docutils literal notranslate"><span class="pre">asam_data_download/ASAM_events.shp</span></code> layer and drag it on to the canvas.</p></li>
 </ol>
@@ -367,8 +367,8 @@ layers. Download the <a class="reference external" href="https://www.naturaleart
     </p>
     <p>
         &copy; Copyright 2023, Ujaval Gandhi.<br/>
-      最後更新於 2月 19, 2024。<br/>
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 7.0.1.<br/>
+      最後更新於 2月 22, 2024。<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 7.2.6.<br/>
     </p>
   </div>
 </footer>

@@ -1,16 +1,16 @@
 <!DOCTYPE html>
 
-<html lang="en">
+<html lang="en" data-content_root="../../">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
     <title>Creating a Colorized River Basin Map (QGIS3) &#8212; QGIS Tutorials and Tips</title>
-    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-sphinx.css" />
-    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
-    <script src="../../_static/doctools.js"></script>
-    <script src="../../_static/sphinx_highlight.js"></script>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-sphinx.css?v=0bf093e7" />
+    <script src="../../_static/documentation_options.js?v=29a6c3e3"></script>
+    <script src="../../_static/doctools.js?v=888ff710"></script>
+    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <link rel="search" title="Search" href="../../search.html" />
     <link rel="next" title="Creating a Landuse Map (QGIS3)" href="creating_landuse_map.html" />
     <link rel="prev" title="Calculating Areal Mean Rainfall (QGIS3)" href="areal_mean_rainfall.html" />
@@ -181,21 +181,21 @@
       
 
   <section id="creating-a-colorized-river-basin-map-qgis3">
-<h1>Creating a Colorized River Basin Map (QGIS3)<a class="headerlink" href="#creating-a-colorized-river-basin-map-qgis3" title="Permalink to this heading">¶</a></h1>
+<h1>Creating a Colorized River Basin Map (QGIS3)<a class="headerlink" href="#creating-a-colorized-river-basin-map-qgis3" title="Link to this heading">¶</a></h1>
 <p>In this tutorial, we will learn the QGIS workflow to create artistic river maps for your own country or region using openly available hydrological data.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>This tutorial is inspired by the beautiful maps produced by <a class="reference external" href="https://www.grasshoppergeography.com/">Grasshopper Geography</a>. I own one of their prints and you too can support their work by purchasing one of their maps from their <a class="reference external" href="https://www.etsy.com/shop/GrasshopperGeography">online store</a>.</p>
 </div>
 <section id="overview-of-the-task">
-<h2>Overview of the task<a class="headerlink" href="#overview-of-the-task" title="Permalink to this heading">¶</a></h2>
+<h2>Overview of the task<a class="headerlink" href="#overview-of-the-task" title="Link to this heading">¶</a></h2>
 <p>In this tutorial, we will take data layers of basins and rivers from HydroSHEDS and create a basin map for rivers of India.</p>
 <blockquote>
 <div><img alt="../../_images/rivers_of_india.png" class="align-center" src="../../_images/rivers_of_india.png" />
 </div></blockquote>
 </section>
 <section id="other-skills-you-will-learn">
-<h2>Other skills you will learn<a class="headerlink" href="#other-skills-you-will-learn" title="Permalink to this heading">¶</a></h2>
+<h2>Other skills you will learn<a class="headerlink" href="#other-skills-you-will-learn" title="Link to this heading">¶</a></h2>
 <ul class="simple">
 <li><p>How to assign projection to a vector layer with incorrect or missing projection.</p></li>
 <li><p>How to add multiple layers in a single GeoPackage.</p></li>
@@ -203,10 +203,10 @@
 </ul>
 </section>
 <section id="get-the-data">
-<h2>Get the data<a class="headerlink" href="#get-the-data" title="Permalink to this heading">¶</a></h2>
+<h2>Get the data<a class="headerlink" href="#get-the-data" title="Link to this heading">¶</a></h2>
 <p><a class="reference external" href="https://www.hydrosheds.org/">HydroSHEDS</a> provides global hydrological datasets suitable for regional and global applications. The data layers are derived from hydrologically conditioned DEM from SRTM.</p>
 <section id="basin-boundaries">
-<h3>Basin Boundaries<a class="headerlink" href="#basin-boundaries" title="Permalink to this heading">¶</a></h3>
+<h3>Basin Boundaries<a class="headerlink" href="#basin-boundaries" title="Link to this heading">¶</a></h3>
 <p>HydroBasins provides polygon boundaries of basins for different continents. The boundaries are hierarchical – each basin at Level N is further subdivided into smaller basins at Level N+1. For this tutorial, we will use the Level 6 basin boundaries. You can use different level depending on your region and type of map you want to create. Visit the <a class="reference external" href="https://www.hydrosheds.org/products/hydrobasins">HydroBASINS</a>  page and download the zip file for your region.</p>
 <blockquote>
 <div><img alt="../../_images/download1.png" class="align-center" src="../../_images/download1.png" />
@@ -217,14 +217,14 @@
 </div>
 </section>
 <section id="river-network">
-<h3>River Network<a class="headerlink" href="#river-network" title="Permalink to this heading">¶</a></h3>
+<h3>River Network<a class="headerlink" href="#river-network" title="Link to this heading">¶</a></h3>
 <p>HydroRIVERS provides a line shapefile representing the river network. Visit the <a class="reference external" href="https://www.hydrosheds.org/products/hydrorivers">HydroRIVERS</a> page and download the zip file for your region of interest.</p>
 <blockquote>
 <div><img alt="../../_images/download2.png" class="align-center" src="../../_images/download2.png" />
 </div></blockquote>
 </section>
 <section id="administrative-boundary">
-<h3>Administrative Boundary<a class="headerlink" href="#administrative-boundary" title="Permalink to this heading">¶</a></h3>
+<h3>Administrative Boundary<a class="headerlink" href="#administrative-boundary" title="Link to this heading">¶</a></h3>
 <p>We will clip the HydroSHEDS data to the boundary of your chosen region. In this tutorial, we want to create a river basin map of India, so we will get the boundary shapefile from Survey of India. Visit the <a class="reference external" href="https://surveyofindia.gov.in/pages/outline-maps-of-india">Outline Maps of India</a> page and download the India International Boundary Vector Format. If you need admin boundaries for other countries or states, you can get them from <a class="reference external" href="https://gadm.org/">GADM</a> or <a class="reference external" href="https://www.geoboundaries.org/">geoBoundaries</a>.</p>
 <blockquote>
 <div><img alt="../../_images/download3.png" class="align-center" src="../../_images/download3.png" />
@@ -237,7 +237,7 @@
 </section>
 </section>
 <section id="procedure">
-<h2>Procedure<a class="headerlink" href="#procedure" title="Permalink to this heading">¶</a></h2>
+<h2>Procedure<a class="headerlink" href="#procedure" title="Link to this heading">¶</a></h2>
 <ol class="arabic simple">
 <li><p>Open QGIS and locate the downloaded files in the QGIS <span class="guilabel">Browser</span>. Drag and drop <code class="docutils literal notranslate"><span class="pre">hybas_as_lev06_v1c.shp</span></code> and <code class="docutils literal notranslate"><span class="pre">HydroRIVERS_v10_as.shp</span></code> to the canvas.</p></li>
 </ol>
@@ -553,8 +553,8 @@
     </p>
     <p>
         &copy; Copyright 2023, Ujaval Gandhi.<br/>
-      Last updated on Feb 19, 2024.<br/>
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 7.0.1.<br/>
+      Last updated on Feb 22, 2024.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 7.2.6.<br/>
     </p>
   </div>
 </footer>

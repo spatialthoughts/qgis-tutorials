@@ -1,17 +1,17 @@
 <!DOCTYPE html>
 
-<html lang="ko">
+<html lang="ko" data-content_root="../../">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
     <title>Openrouteservice를 이용한 서비스 영역 분석(QGIS3) &#8212; QGIS Tutorials and Tips</title>
-    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-sphinx.css" />
-    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
-    <script src="../../_static/doctools.js"></script>
-    <script src="../../_static/sphinx_highlight.js"></script>
-    <script src="../../_static/translations.js"></script>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-sphinx.css?v=0bf093e7" />
+    <script src="../../_static/documentation_options.js?v=fefd262b"></script>
+    <script src="../../_static/doctools.js?v=888ff710"></script>
+    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/translations.js?v=b5f768d8"></script>
     <link rel="search" title="검색" href="../../search.html" />
     <link rel="next" title="Travel Time Analysis with Uber Movement (QGIS3)" href="travel_time_analysis.html" />
     <link rel="prev" title="가장 가까운 기-종점 매트릭스 위치 (QGIS3)" href="origin_destination_matrix.html" />
@@ -182,13 +182,13 @@
       
 
   <section id="service-area-analysis-using-openrouteservice-qgis3">
-<h1>Openrouteservice를 이용한 서비스 영역 분석(QGIS3)<a class="headerlink" href="#service-area-analysis-using-openrouteservice-qgis3" title="이 제목에 대한 퍼머링크">¶</a></h1>
+<h1>Openrouteservice를 이용한 서비스 영역 분석(QGIS3)<a class="headerlink" href="#service-area-analysis-using-openrouteservice-qgis3" title="Link to this heading">¶</a></h1>
 <p>서비스 지역 분석은 위치의 접근성을 평가하는 데 유용합니다. 소방서, 병원, 대중 교통 정류장 등의 위치를 고려할 때 이러한 분석을 사용하여 이동 한 거리 또는 소요 시간에 따라 이러한 위치에서 어떤 지역에 서비스를 제공 할 수 있는지 확인할 수 있습니다. 최근까지는 오픈 소스 도구와 데이터를 사용하여 이러한 분석이 어려웠습니다. 그러나 이제 OSM (OpenStreetMap) 및 OpenStreetMap (OSM) 데이터를 사용하여 복잡한 라우팅 작업을 수행 할 수있는 ORS (Openrouteservice)와 같은 무료 웹 서비스를 사용하여 글로벌 거리 네트워크에 액세스 할 수 있습니다. 이 자습서에서는 ORS 도구 플러그인을 사용하여 QGIS에서 서비스 영역 분석을 수행합니다.</p>
 <section id="overview-of-the-task">
-<h2>작업 개요<a class="headerlink" href="#overview-of-the-task" title="이 제목에 대한 퍼머링크">¶</a></h2>
+<h2>작업 개요<a class="headerlink" href="#overview-of-the-task" title="Link to this heading">¶</a></h2>
 <p>인도 고치의 지하철 역 데이터를 사용하여 도보 거리에서 15 분 이내의 지역을 찾습니다.</p>
 <section id="other-skills-you-will-learn">
-<h3>기타 스킬<a class="headerlink" href="#other-skills-you-will-learn" title="이 제목에 대한 퍼머링크">¶</a></h3>
+<h3>기타 스킬<a class="headerlink" href="#other-skills-you-will-learn" title="Link to this heading">¶</a></h3>
 <ul class="simple">
 <li><p>QGIS에서 GTFS (General Transit Feed Specification) 운송 피드 데이터를 로드하는 방법.</p></li>
 <li><p>포인트 투 패스 도구를 사용하여 순차적 포인트 데이터를 라인 트랙으로 변환하는 방법</p></li>
@@ -196,14 +196,14 @@
 </section>
 </section>
 <section id="get-the-data">
-<h2>데이터 획득<a class="headerlink" href="#get-the-data" title="이 제목에 대한 퍼머링크">¶</a></h2>
+<h2>데이터 획득<a class="headerlink" href="#get-the-data" title="Link to this heading">¶</a></h2>
 <p>코치 메트로 레일 리미티드 (KMRL)는 코치 메트로 레일 프로젝트에 대한 공개 데이터를 GTFS 정적 (Global Transit Feed Specification) 형식으로 제공합니다. Open Data 페이지를 방문하여 데이터 다운로드를 요청하십시오.</p>
 <p>아래 링크에서 이번예제에 사용되는 샘플파일을 쉽게 내려받을 수 있습니다</p>
 <p><a class="reference external" href="https://www.qgistutorials.com/downloads/KMRL-Open-Data.zip">KMRL-Open-Data.zip</a></p>
 <p>데이터 출처:<a class="reference internal" href="../credits.html#kmrl" id="id1"><span>[KMRL]</span></a></p>
 </section>
 <section id="setup">
-<h2>설정<a class="headerlink" href="#setup" title="이 제목에 대한 퍼머링크">¶</a></h2>
+<h2>설정<a class="headerlink" href="#setup" title="Link to this heading">¶</a></h2>
 <p>Openrouteservice API &lt;<a class="reference external" href="https://openrouteservice.org/">https://openrouteservice.org/</a>&gt;는 OpenStreetMap의 무료 지리 데이터에서 작동하는 라우팅 알고리즘을 제공합니다. QGIS 플러그인을 통해 액세스 할 수있는 무료 웹 기반 서비스입니다. 서비스는 무료이지만 가입하고 API 키를 받아야합니다. API 키는 남용을 방지하고 사용을 제한하는 데 사용됩니다.</p>
 <ol class="arabic simple">
 <li><p>Openrouteservice 가입 페이지를 방문하여 계정을 생성하십시오. 계정이 활성화되면 대시 보드를 방문하여 token을 요청하십시오 token 유형으로 Free를 선택하고 토큰 이름으로 ORS Tools QGIS를 입력 한 후 creat token을 클릭하십시오.</p></li>
@@ -237,7 +237,7 @@
 </div></blockquote>
 </section>
 <section id="procedure">
-<h2>과정<a class="headerlink" href="#procedure" title="이 제목에 대한 퍼머링크">¶</a></h2>
+<h2>과정<a class="headerlink" href="#procedure" title="Link to this heading">¶</a></h2>
 <ol class="arabic simple">
 <li><p>다운로드 한 KMRL-Open-Data.zip 파일을 컴퓨터의 폴더에 압축 해제하십시오. 압축이 풀린 디렉토리에는 많은 텍스트 파일이 포함되어 있습니다. 각 파일에는 대중 교통 시스템의 다른 측면에 대한 데이터가 포함되어 있습니다. 파일 형식과 용도는 GTFS 참조에 설명되어 있습니다. 모든 파일 중에서 2 개의 파일은 지리 공간 데이터를 포함하며 우리에게 관심이 있습니다. shapes.txt 파일에는 차량의 실제 경로를 나타내는 점이 포함되며 stops.txt 파일에는 각 경유지의 위치가 포함됩니다. 둘 다 QGIS로 가져올 수있는 CSV 파일입니다. 데이터 소스 관리자 열기 버튼을 클릭하십시오.</p></li>
 </ol>
@@ -365,8 +365,8 @@
     </p>
     <p>
         &copy; Copyright 2023, Ujaval Gandhi.<br/>
-      최종 업데이트: 2월 19, 2024<br/>
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 7.0.1.<br/>
+      최종 업데이트: 2월 22, 2024<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 7.2.6.<br/>
     </p>
   </div>
 </footer>

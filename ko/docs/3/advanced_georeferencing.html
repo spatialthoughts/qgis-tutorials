@@ -1,17 +1,17 @@
 <!DOCTYPE html>
 
-<html lang="ko">
+<html lang="ko" data-content_root="../../">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
     <title>항공사진 지오레퍼런싱 (QGIS3) &#8212; QGIS Tutorials and Tips</title>
-    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-sphinx.css" />
-    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
-    <script src="../../_static/doctools.js"></script>
-    <script src="../../_static/sphinx_highlight.js"></script>
-    <script src="../../_static/translations.js"></script>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-sphinx.css?v=0bf093e7" />
+    <script src="../../_static/documentation_options.js?v=fefd262b"></script>
+    <script src="../../_static/doctools.js?v=888ff710"></script>
+    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/translations.js?v=b5f768d8"></script>
     <link rel="search" title="검색" href="../../search.html" />
     <link rel="next" title="Digitizing Map Data (QGIS3)" href="digitizing_basics.html" />
     <link rel="prev" title="Georeferencing Topo Sheets and Scanned Maps (QGIS3)" href="georeferencing_basics.html" />
@@ -182,13 +182,13 @@
       
 
   <section id="georeferencing-aerial-imagery-qgis3">
-<h1>항공사진 지오레퍼런싱 (QGIS3)<a class="headerlink" href="#georeferencing-aerial-imagery-qgis3" title="이 제목에 대한 퍼머링크">¶</a></h1>
+<h1>항공사진 지오레퍼런싱 (QGIS3)<a class="headerlink" href="#georeferencing-aerial-imagery-qgis3" title="Link to this heading">¶</a></h1>
 <p>In the tutorial <a class="reference internal" href="georeferencing_basics.html"><span class="doc">Georeferencing Topo Sheets and Scanned Maps (QGIS3)</span></a>, we covered the basic georeferencing process in QGIS. That method involved reading the coordinates from your scanned map and entering them manually as control points. Many times though, you may not have the coordinates printed on your map, or you are trying to georeference an image. In that case, you can use another georeferenced data source as your input. This tutorial will teach you how to use existing open data sources in your georeferencing process.</p>
 <section id="overview-of-the-task">
-<h2>작업 개요<a class="headerlink" href="#overview-of-the-task" title="이 제목에 대한 퍼머링크">¶</a></h2>
+<h2>작업 개요<a class="headerlink" href="#overview-of-the-task" title="Link to this heading">¶</a></h2>
 <p>We will georeference a high resolution balloon-imagery using reference coordinates from OpenStreetMap.</p>
 <section id="other-skills-you-will-learn">
-<h3>배워야 할 다른 기술<a class="headerlink" href="#other-skills-you-will-learn" title="이 제목에 대한 퍼머링크">¶</a></h3>
+<h3>배워야 할 다른 기술<a class="headerlink" href="#other-skills-you-will-learn" title="Link to this heading">¶</a></h3>
 <ul class="simple">
 <li><p>Using XYZ Tile Layers as a Basemap in QGIS.</p></li>
 <li><p>Using Built-in Nominatim Geocoder.</p></li>
@@ -197,14 +197,14 @@
 </section>
 </section>
 <section id="get-the-data">
-<h2>데이터 획득<a class="headerlink" href="#get-the-data" title="이 제목에 대한 퍼머링크">¶</a></h2>
+<h2>데이터 획득<a class="headerlink" href="#get-the-data" title="Link to this heading">¶</a></h2>
 <p>In this tutorial, we will be using kite and balloon imagery collected by <a class="reference external" href="https://publiclab.org/archive">The Public Laboratory</a>. They make the georeferenced versions of the images also available, but we will download a non-georeferenced JPG image and go through the process of georeferencing it in QGIS.</p>
 <p>Download the JPG image of <a class="reference external" href="https://publiclab.org/map/washington-square-park-new-york-new-york/2012-10-01">Washington Square Park, New York</a>. You can right-click the JPG button and choose <span class="guilabel">Save link as…</span>.</p>
 <p>아래링크를 통해 편리하게 데이터 세트를 내려받을 수 있습니다.</p>
 <p><a class="reference external" href="https://www.qgistutorials.com/downloads/newyorkcity-washingtonsquarepark.jpg">newyorkcity-washingtonsquarepark.jpg</a></p>
 </section>
 <section id="procedure">
-<h2>과정<a class="headerlink" href="#procedure" title="이 제목에 대한 퍼머링크">¶</a></h2>
+<h2>과정<a class="headerlink" href="#procedure" title="Link to this heading">¶</a></h2>
 <ol class="arabic simple">
 <li><p>OpenStreetMap의베이스 맵을 사용하여 지리 참조를위한 좌표를 캡처합니다. QGIS3는 타일 레이어를 기본적으로 지원합니다. x, y 좌표 격자의 각 확대 / 축소 수준 (z)에 대해 개별 맵 타일을 사용하여 만들어 지므로 일반적으로 ‘XYZ’레이어라고합니다. : guilabel :<a href="#id1"><span class="problematic" id="id2">`</span></a>브라우저 패널`의 : guilabel :<a href="#id3"><span class="problematic" id="id4">`</span></a>XYZ Tiles 아래에서``OpenStreetMap ‘’레이어를 찾을 수 있습니다. 레이어를 기본 캔버스로 드래그하십시오. 일단로드되면 오른쪽 아래 코더에서이 레이어의 좌표계 (CRS)를 확인하십시오. <a href="#id5"><span class="problematic" id="id6">``</span></a>EPSG 3857 Pseudo Mercator ‘’로 설정되어 있습니다. 지리 참조 중에이 레이어에서 추론하는 좌표가이 CRS에 있기 때문에 이것은 중요합니다.</p></li>
 </ol>
@@ -328,8 +328,8 @@
     </p>
     <p>
         &copy; Copyright 2023, Ujaval Gandhi.<br/>
-      최종 업데이트: 2월 19, 2024<br/>
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 7.0.1.<br/>
+      최종 업데이트: 2월 22, 2024<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 7.2.6.<br/>
     </p>
   </div>
 </footer>

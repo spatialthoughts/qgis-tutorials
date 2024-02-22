@@ -1,17 +1,17 @@
 <!DOCTYPE html>
 
-<html lang="fa">
+<html lang="fa" data-content_root="../../">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
     <title>ایجاد یک نقشه حوضه رودخانه رنگی (QGIS3) &#8212; QGIS Tutorials and Tips</title>
-    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-sphinx.css" />
-    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
-    <script src="../../_static/doctools.js"></script>
-    <script src="../../_static/sphinx_highlight.js"></script>
-    <script src="../../_static/translations.js"></script>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-sphinx.css?v=0bf093e7" />
+    <script src="../../_static/documentation_options.js?v=40f7bd05"></script>
+    <script src="../../_static/doctools.js?v=888ff710"></script>
+    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/translations.js?v=35c83baa"></script>
     <link rel="search" title="جستجو" href="../../search.html" />
     <link rel="next" title="ایجاد نقشه کاربری اراضی(QGIS3)" href="creating_landuse_map.html" />
     <link rel="prev" title="محاسبه منطقه ای میانگین بارش(QGIS3)" href="areal_mean_rainfall.html" />
@@ -182,21 +182,21 @@
       
 
   <section id="creating-a-colorized-river-basin-map-qgis3">
-<h1>ایجاد یک نقشه حوضه رودخانه رنگی (QGIS3)<a class="headerlink" href="#creating-a-colorized-river-basin-map-qgis3" title="Permalink to this heading">¶</a></h1>
+<h1>ایجاد یک نقشه حوضه رودخانه رنگی (QGIS3)<a class="headerlink" href="#creating-a-colorized-river-basin-map-qgis3" title="Link to this heading">¶</a></h1>
 <p>در این آموزش، ما گردش کار QGIS را برای ایجاد نقشه های هنری رودخانه برای کشور یا منطقه خود با استفاده از داده های هیدرولوژیکی در دسترس می آموزیم.</p>
 <div class="admonition note">
 <p class="admonition-title">توجه</p>
 <p>این آموزش از نقشه های زیبای تولید شده توسط <a class="reference external" href="https://www.grasshoppergeography.com/">Grasshopper Geography</a> الهام گرفته شده است. من صاحب یکی از چاپ های آنها هستم و شما نیز می توانید با خرید یکی از نقشه های آنها از &quot;فروشگاه آنلاین &lt;<a class="reference external" href="https://www.etsy.com/shop/GrasshopperGeography">https://www.etsy.com/shop/GrasshopperGeography</a>&gt;&quot; از کار آنها حمایت کنید.</p>
 </div>
 <section id="overview-of-the-task">
-<h2>بررسی اجمالی کار<a class="headerlink" href="#overview-of-the-task" title="Permalink to this heading">¶</a></h2>
+<h2>بررسی اجمالی کار<a class="headerlink" href="#overview-of-the-task" title="Link to this heading">¶</a></h2>
 <p>در این آموزش، لایه های داده حوضه ها و رودخانه ها را از HydroSHEDS می گیریم و یک نقشه حوضه برای رودخانه های هند ایجاد می کنیم.</p>
 <blockquote>
 <div><img alt="../../_images/rivers_of_india.png" class="align-center" src="../../_images/rivers_of_india.png" />
 </div></blockquote>
 </section>
 <section id="other-skills-you-will-learn">
-<h2>مهارت های دیگری که یاد خواهید گرفت<a class="headerlink" href="#other-skills-you-will-learn" title="Permalink to this heading">¶</a></h2>
+<h2>مهارت های دیگری که یاد خواهید گرفت<a class="headerlink" href="#other-skills-you-will-learn" title="Link to this heading">¶</a></h2>
 <ul class="simple">
 <li><p>نحوه اختصاص دادن طرح به یک لایه برداری با طرح نادرست یا گم شده است.</p></li>
 <li><p>چگونه چندین لایه را در یک GeoPackage اضافه کنیم.</p></li>
@@ -204,10 +204,10 @@
 </ul>
 </section>
 <section id="get-the-data">
-<h2>داده ها را دریافت کنید<a class="headerlink" href="#get-the-data" title="Permalink to this heading">¶</a></h2>
+<h2>داده ها را دریافت کنید<a class="headerlink" href="#get-the-data" title="Link to this heading">¶</a></h2>
 <p><a class="reference external" href="https://www.hydrosheds.org/">HydroSHEDS</a> مجموعه داده های هیدرولوژیکی جهانی را برای کاربردهای منطقه ای و جهانی فراهم می کند. لایه های داده از DEM شرطی شده هیدرولوژیکی از SRTM مشتق شده اند.</p>
 <section id="basin-boundaries">
-<h3>مرزهای حوضه<a class="headerlink" href="#basin-boundaries" title="Permalink to this heading">¶</a></h3>
+<h3>مرزهای حوضه<a class="headerlink" href="#basin-boundaries" title="Link to this heading">¶</a></h3>
 <p>HydroBasins مرزهای چند ضلعی حوضه ها را برای قاره های مختلف فراهم می کند. مرزها سلسله مراتبی هستند - هر حوضه در سطح N بیشتر به حوضه های کوچکتر در سطح N+1 تقسیم می شود. برای این آموزش از مرزهای حوضه سطح 6 استفاده می کنیم. بسته به منطقه و نوع نقشه ای که می خواهید ایجاد کنید، می توانید از سطوح مختلف استفاده کنید. از صفحه <a class="reference external" href="https://www.hydrosheds.org/products/hydrobasins">HydroBASINS</a> دیدن کنید و فایل فشرده را برای منطقه خود دانلود کنید.</p>
 <blockquote>
 <div><img alt="../../_images/download1.png" class="align-center" src="../../_images/download1.png" />
@@ -218,14 +218,14 @@
 </div>
 </section>
 <section id="river-network">
-<h3>شبکه رودخانه<a class="headerlink" href="#river-network" title="Permalink to this heading">¶</a></h3>
+<h3>شبکه رودخانه<a class="headerlink" href="#river-network" title="Link to this heading">¶</a></h3>
 <p>HydroRIVERS یک شکل فایل خطی را ارائه می دهد که شبکه رودخانه را نشان می دهد. از صفحه «HydroRIVERS &lt;<a class="reference external" href="https://www.hydrosheds.org/products/hydrorivers">https://www.hydrosheds.org/products/hydrorivers</a>&gt;» دیدن کنید و فایل فشرده را برای منطقه مورد علاقه خود دانلود کنید.</p>
 <blockquote>
 <div><img alt="../../_images/download2.png" class="align-center" src="../../_images/download2.png" />
 </div></blockquote>
 </section>
 <section id="administrative-boundary">
-<h3>مرز اداری<a class="headerlink" href="#administrative-boundary" title="Permalink to this heading">¶</a></h3>
+<h3>مرز اداری<a class="headerlink" href="#administrative-boundary" title="Link to this heading">¶</a></h3>
 <p>ما داده‌های HydroSHEDS را در مرز منطقه انتخابی شما برش می‌دهیم. در این آموزش می خواهیم نقشه حوضه رودخانه هند را ایجاد کنیم، بنابراین شکل فایل مرزی را از Survey of India دریافت می کنیم. از صفحه «نقشه های کلی هند &lt;<a class="reference external" href="https://surveyofindia.gov.in/pages/outline-maps-of-india">https://surveyofindia.gov.in/pages/outline-maps-of-india</a>&gt;» دیدن کنید و فرمت برداری مرز بین المللی هند را دانلود کنید. اگر به مرزهای سرپرست برای سایر کشورها یا ایالت ها نیاز دارید، می توانید آنها را از «GADM &lt;<a class="reference external" href="https://gadm.org/">https://gadm.org/</a>&gt;`_ یا «geoBoundaries &lt;<a class="reference external" href="https://www.geoboundaries.org/">https://www.geoboundaries.org/</a>&gt;`_ دریافت کنید.</p>
 <blockquote>
 <div><img alt="../../_images/download3.png" class="align-center" src="../../_images/download3.png" />
@@ -238,7 +238,7 @@
 </section>
 </section>
 <section id="procedure">
-<h2>روش<a class="headerlink" href="#procedure" title="Permalink to this heading">¶</a></h2>
+<h2>روش<a class="headerlink" href="#procedure" title="Link to this heading">¶</a></h2>
 <ol class="arabic simple">
 <li><p>QGIS را باز کنید و فایل های دانلود شده را در QGIS <span class="guilabel">Browser</span> پیدا کنید. «hybas_as_lev06_v1c.shp» و «HydroRIVERS_v10_as.shp» را روی بوم بکشید و رها کنید.</p></li>
 </ol>
@@ -554,8 +554,8 @@
     </p>
     <p>
         &copy; Copyright 2023, Ujaval Gandhi.<br/>
-      آخرین بروز رسانی در فوریه 19, 2024 .<br/>
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 7.0.1.<br/>
+      آخرین بروز رسانی در فوریه 22, 2024 .<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 7.2.6.<br/>
     </p>
   </div>
 </footer>

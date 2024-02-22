@@ -1,17 +1,17 @@
 <!DOCTYPE html>
 
-<html lang="sl">
+<html lang="sl" data-content_root="../../">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
     <title>Prikazovanje podatkov časovnih vrst (QGIS3) &#8212; QGIS Tutorials and Tips</title>
-    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-sphinx.css" />
-    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
-    <script src="../../_static/doctools.js"></script>
-    <script src="../../_static/sphinx_highlight.js"></script>
-    <script src="../../_static/translations.js"></script>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-sphinx.css?v=0bf093e7" />
+    <script src="../../_static/documentation_options.js?v=d40e29de"></script>
+    <script src="../../_static/doctools.js?v=888ff710"></script>
+    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/translations.js?v=82705e9b"></script>
     <link rel="search" title="Išči" href="../../search.html" />
     <link rel="next" title="Ravnanje z neveljavnimi geometrijami (QGIS3)" href="handling_invalid_geometries.html" />
     <link rel="prev" title="Ustvarjanje kart zgostitev (QGIS3)" href="creating_heatmaps.html" />
@@ -182,17 +182,17 @@
       
 
   <section id="animating-time-series-data-qgis3">
-<h1>Prikazovanje podatkov časovnih vrst (QGIS3)<a class="headerlink" href="#animating-time-series-data-qgis3" title="Permalink to this heading">¶</a></h1>
+<h1>Prikazovanje podatkov časovnih vrst (QGIS3)<a class="headerlink" href="#animating-time-series-data-qgis3" title="Link to this heading">¶</a></h1>
 <p>Čas je pomembna sestavina številnih zbirk prostorskih podatkov. Poleg informacij o lokaciji čas zagotavlja še eno dimenzijo za analizo in vizualizacijo podatkov. Če delate s podatkovnim nizom, ki vsebuje časovne oznake ali ima opazovanja, zabeležena v več časovnih korakih, jih lahko preprosto vizualizirate z uporabo <strong>časovnega krmilnika</strong>. Časovni krmilnik omogoča ogled in izvoz „rezin“ podatkov med določenimi časovnimi intervali, ki jih lahko združite v animacije.</p>
 <div class="admonition note">
 <p class="admonition-title">Opomba</p>
 <p>Temporal Controller je na voljo od različice QGIS 3.14 naprej. Za starejše različice QGIS zagotavlja podobno funkcionalnost vtičnik <strong>Time Manager</strong>.</p>
 </div>
 <section id="overview-of-the-task">
-<h2>Pregled naloge<a class="headerlink" href="#overview-of-the-task" title="Permalink to this heading">¶</a></h2>
+<h2>Pregled naloge<a class="headerlink" href="#overview-of-the-task" title="Link to this heading">¶</a></h2>
 <p>Vzeli bomo točkovni sloj pomorskih piratskih incidentov, ustvarili vizualizacijo karte zgostitev in ustvarili animacijo o tem, kako so se žarišča piratstva spreminjala v zadnjih dveh desetletjih.</p>
 <section id="other-skills-you-will-learn">
-<h3>Česa se bomo še naučili<a class="headerlink" href="#other-skills-you-will-learn" title="Permalink to this heading">¶</a></h3>
+<h3>Česa se bomo še naučili<a class="headerlink" href="#other-skills-you-will-learn" title="Link to this heading">¶</a></h3>
 <ul class="simple">
 <li><p>Uporaba upodobitvenega programa Heatmap za hitro vizualizacijo gostih točkovnih podatkov</p></li>
 <li><p>Ustvarjanje in uporaba projekcij zemljevidov po meri</p></li>
@@ -200,7 +200,7 @@
 </section>
 </section>
 <section id="get-the-data">
-<h2>Pridobivanje podatkov<a class="headerlink" href="#get-the-data" title="Permalink to this heading">¶</a></h2>
+<h2>Pridobivanje podatkov<a class="headerlink" href="#get-the-data" title="Link to this heading">¶</a></h2>
 <p>Na portalu <a class="reference external" href="https://msi.nga.mil/NGAPortal/MSI.portal">Maritime Safety Information portal</a> ational Geospatial-Intelligence Agency je na voljo shapefile vseh primerov pomorskega piratstva v obliki <a class="reference external" href="https://msi.nga.mil/Piracy">Anti-shipping Activity Messages</a>. Prenesite različico podatkovne zbirke <a class="reference external" href="https://msi.nga.mil/api/publications/download?key=16920958/SFH00000/ASAM_shp.zip&amp;type=download">Arc Shape file</a>.</p>
 <p>Zbirka <a class="reference external" href="http://naturalearthdata.com">Natural Earth</a> vsebuje več vektorskih podatkovnih slojev, ki pokrivajo celoten svet. Prenesite sloj <a class="reference external" href="https://www.naturalearthdata.com/http//www.naturalearthdata.com/download/10m/physical/ne_10m_land.zip">10m Physical Vectors - Land</a>, ki vsebuje poligone na kopnem.</p>
 <p>Kopijo podatkov lahko poberete tudi neposredno s spodnjega naslova:</p>
@@ -209,7 +209,7 @@
 <p>Vir podatkov: <a class="reference internal" href="../credits.html#nga-msi" id="id1"><span>[NGA_MSI]</span></a> <a class="reference internal" href="../credits.html#naturalearth" id="id2"><span>[NATURALEARTH]</span></a></p>
 </section>
 <section id="procedure">
-<h2>Postopek<a class="headerlink" href="#procedure" title="Permalink to this heading">¶</a></h2>
+<h2>Postopek<a class="headerlink" href="#procedure" title="Link to this heading">¶</a></h2>
 <ol class="arabic simple">
 <li><p>Na plošči brskalnika QGIS poiščite mapo, v katereo ste shranili prenesene podatke. Razširite <code class="docutils literal notranslate"><span class="pre">ne_10m_land.zip</span></code> in izberite sloj <code class="docutils literal notranslate"><span class="pre">ne_10m_land.shp</span></code>. Sloj povlecite na delovno površino. Nato poiščite datoteko <code class="docutils literal notranslate"><span class="pre">ASAM_shp.zip</span></code>. Razširite jo in izberite plast <code class="docutils literal notranslate"><span class="pre">asam_data_download/ASAM_events.shp</span></code> ter jo povlecite na delovno površino.</p></li>
 </ol>
@@ -360,8 +360,8 @@
     </p>
     <p>
         &copy; Copyright 2023, Ujaval Gandhi.<br/>
-      Zadnjič posodobljeno feb. 19, 2024.<br/>
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 7.0.1.<br/>
+      Zadnjič posodobljeno feb. 22, 2024.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 7.2.6.<br/>
     </p>
   </div>
 </footer>

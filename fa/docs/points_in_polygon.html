@@ -1,17 +1,17 @@
 <!DOCTYPE html>
 
-<html lang="fa">
+<html lang="fa" data-content_root="../">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
     <title>نکات در تجزیه و تحلیل چند ضلعی &#8212; QGIS Tutorials and Tips</title>
-    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/bootstrap-sphinx.css" />
-    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
-    <script src="../_static/doctools.js"></script>
-    <script src="../_static/sphinx_highlight.js"></script>
-    <script src="../_static/translations.js"></script>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="../_static/bootstrap-sphinx.css?v=0bf093e7" />
+    <script src="../_static/documentation_options.js?v=40f7bd05"></script>
+    <script src="../_static/doctools.js?v=888ff710"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/translations.js?v=35c83baa"></script>
     <link rel="search" title="جستجو" href="../search.html" />
 
 <meta charset='utf-8'>
@@ -172,18 +172,18 @@
       
 
   <section id="points-in-polygon-analysis">
-<h1>نکات در تجزیه و تحلیل چند ضلعی<a class="headerlink" href="#points-in-polygon-analysis" title="Permalink to this heading">¶</a></h1>
+<h1>نکات در تجزیه و تحلیل چند ضلعی<a class="headerlink" href="#points-in-polygon-analysis" title="Link to this heading">¶</a></h1>
 <div class="admonition note">
 <p class="admonition-title">توجه</p>
 <p>در QGIS3، می‌توانید این تحلیل را با استفاده از ابزار «پیوستن ویژگی‌ها بر اساس مکان (خلاصه)» در جعبه ابزار پردازش انجام دهید. از لایه چند ضلعی به عنوان <span class="guilabel">لایه ورودی</span>، لایه نقطه به عنوان <span class="guilabel">لایه پیوستن</span> و از <code class="docutils literal notranslate"><span class="pre">count</span></code> به عنوان <span class="guilabel">خلاصه برای محاسبه استفاده کنید. برای دستورالعمل های گام به گام به آموزش :doc:`3/performing_spatial_joins</span> مراجعه کنید.</p>
 </div>
 <p>قدرت GIS در تجزیه و تحلیل چندین منبع داده با هم نهفته است. اغلب پاسخی که به دنبال آن هستید در لایه‌های مختلف نهفته است و برای استخراج و جمع‌آوری این اطلاعات باید تحلیلی انجام دهید. یکی از این نوع تحلیل ها <strong>نقاط در چندضلعی</strong> است. هنگامی که یک لایه چند ضلعی و یک لایه نقطه دارید - و می خواهید بدانید چه تعداد یا کدام یک از نقاط در محدوده هر چند ضلعی قرار می گیرند، می توانید از این روش تحلیل استفاده کنید.</p>
 <section id="overview-of-the-task">
-<h2>بررسی اجمالی کار<a class="headerlink" href="#overview-of-the-task" title="Permalink to this heading">¶</a></h2>
+<h2>بررسی اجمالی کار<a class="headerlink" href="#overview-of-the-task" title="Link to this heading">¶</a></h2>
 <p>با توجه به مکان همه زمین لرزه های مهم شناخته شده، سعی خواهیم کرد دریابیم که کدام کشور بیشترین تعداد زلزله را داشته است.</p>
 </section>
 <section id="get-the-data">
-<h2>داده ها را دریافت کنید<a class="headerlink" href="#get-the-data" title="Permalink to this heading">¶</a></h2>
+<h2>داده ها را دریافت کنید<a class="headerlink" href="#get-the-data" title="Link to this heading">¶</a></h2>
 <p>ما از پایگاه داده زمین لرزه های مهم مرکز ملی داده های ژئوفیزیک NOAA &lt;<a class="reference external" href="http://www.ngdc.noaa.gov/nndc/struts/form?t=101650&amp;s=1&amp;d=1">http://www.ngdc.noaa.gov/nndc/struts/form?t=101650&amp;s=1&amp;d=1</a>&gt;` به عنوان لایه ای که تمام زمین لرزه های بزرگ را نشان می دهد استفاده خواهیم کرد. «داده‌های زمین‌لرزه تعیین‌شده با برگه‌ها &lt;<a class="reference external" href="http://www.ngdc.noaa.gov/nndc/struts/results?type_0=Exact&amp;query_0=$ID&amp;t=101650&amp;s=13&amp;d=189&amp;dfn=signif.txt">http://www.ngdc.noaa.gov/nndc/struts/results?type_0=Exact&amp;query_0=$ID&amp;t=101650&amp;s=13&amp;d=189&amp;dfn=signif.txt</a>&gt;`_ را دانلود کنید.</p>
 <p>Natural Earth دارای مجموعه داده Admin 0 - Countries &lt;<a class="reference external" href="http://www.naturalearthdata.com/downloads/10m-cultural-vectors/">http://www.naturalearthdata.com/downloads/10m-cultural-vectors/</a>&gt;`_ است. &quot;کشورها &lt;<a class="reference external" href="http://www.naturalearthdata.com/http//www.naturalearthdata.com/download/10m/cultural/ne_10m_admin_0_countries.zip">http://www.naturalearthdata.com/http//www.naturalearthdata.com/download/10m/cultural/ne_10m_admin_0_countries.zip</a>&gt;&quot; را دانلود کنید</p>
 <p>برای راحتی کار، می‌توانید یک نسخه از مجموعه داده را مستقیماً از لینک زیر دانلود کنید:</p>
@@ -192,7 +192,7 @@
 <p>منابع داده: <a class="reference internal" href="credits.html#ncei" id="id1"><span>[NCEI]</span></a> <a class="reference internal" href="credits.html#naturalearth" id="id2"><span>[NATURALEARTH]</span></a></p>
 </section>
 <section id="procedure">
-<h2>روش<a class="headerlink" href="#procedure" title="Permalink to this heading">¶</a></h2>
+<h2>روش<a class="headerlink" href="#procedure" title="Link to this heading">¶</a></h2>
 <ol class="arabic simple">
 <li><p><span class="menuselection">Layer ‣ Add Limited Text Layer</span> را باز کنید و به فایل &quot;signif.txt&quot; دانلود شده بروید.</p></li>
 </ol>
@@ -280,8 +280,8 @@
     </p>
     <p>
         &copy; Copyright 2023, Ujaval Gandhi.<br/>
-      آخرین بروز رسانی در فوریه 19, 2024 .<br/>
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 7.0.1.<br/>
+      آخرین بروز رسانی در فوریه 22, 2024 .<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 7.2.6.<br/>
     </p>
   </div>
 </footer>

@@ -1,17 +1,17 @@
 <!DOCTYPE html>
 
-<html lang="ko">
+<html lang="ko" data-content_root="../">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
     <title>파이썬 플러그인 만들기 &#8212; QGIS Tutorials and Tips</title>
-    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/bootstrap-sphinx.css" />
-    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
-    <script src="../_static/doctools.js"></script>
-    <script src="../_static/sphinx_highlight.js"></script>
-    <script src="../_static/translations.js"></script>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="../_static/bootstrap-sphinx.css?v=0bf093e7" />
+    <script src="../_static/documentation_options.js?v=fefd262b"></script>
+    <script src="../_static/doctools.js?v=888ff710"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/translations.js?v=b5f768d8"></script>
     <link rel="search" title="검색" href="../search.html" />
 
 <meta charset='utf-8'>
@@ -172,25 +172,25 @@
       
 
   <section id="building-a-python-plugin">
-<h1>파이썬 플러그인 만들기<a class="headerlink" href="#building-a-python-plugin" title="이 제목에 대한 퍼머링크">¶</a></h1>
+<h1>파이썬 플러그인 만들기<a class="headerlink" href="#building-a-python-plugin" title="Link to this heading">¶</a></h1>
 <div class="admonition warning">
 <p class="admonition-title">경고</p>
 <p>A new version of this tutorial is available at <a class="reference internal" href="3/building_a_python_plugin.html"><span class="doc">Building a Python Plugin (QGIS3)</span></a></p>
 </div>
 <p>플러그인은 QGIS의 기능을 확장시키는데 있어 훌륭한 방법입니다. 단순히 명령어버튼을 추가하는 것에서 부터 정교한 툴킷까지 폭넓은 범위를 파이썬을 이용하여 플러그인을 작성할 수 있습니다. 이 예제에서는 개발환경을 포함하는 과정, 플러그인에 대한 사용자 인터페이스 설계 그리고 QGIS와 상호작용하는 코드 작성의 전체적인 윤곽을 보여줄 것입니다. 기본적인 내용은  <a class="reference internal" href="getting_started_with_pyqgis.html"><span class="doc">파이썬 프로그램밍 시작</span></a> 예제를 살펴보시기 바랍니다.</p>
 <section id="overview-of-the-task">
-<h2>작업 개요<a class="headerlink" href="#overview-of-the-task" title="이 제목에 대한 퍼머링크">¶</a></h2>
+<h2>작업 개요<a class="headerlink" href="#overview-of-the-task" title="Link to this heading">¶</a></h2>
 <p>이 예제에서는 사용자가 벡터레이어를 선택할 수 있고, CSV 포맷의 파일로 속성을 쓸 수 있는 속성 저장 <a href="#id1"><span class="problematic" id="id2">``</span></a>Save Attributes``이라고 하는 간단한 플러그인을 개발할 것입니다.</p>
 </section>
 <section id="get-the-tools">
-<h2>도구 획득<a class="headerlink" href="#get-the-tools" title="이 제목에 대한 퍼머링크">¶</a></h2>
+<h2>도구 획득<a class="headerlink" href="#get-the-tools" title="Link to this heading">¶</a></h2>
 <section id="qt-creator">
-<h3>Qt Creator<a class="headerlink" href="#qt-creator" title="이 제목에 대한 퍼머링크">¶</a></h3>
+<h3>Qt Creator<a class="headerlink" href="#qt-creator" title="Link to this heading">¶</a></h3>
 <p><a href="#id1"><span class="problematic" id="id2">`</span></a>Qt &lt;<a class="reference external" href="http://www.qt.io/">http://www.qt.io/</a>&gt;`_는 윈도우, 맥, 리눅스에서 구동되는 어플리케이션뿐 아니라 다양한 모바일 구동 시스템을 개발하는데 사용되는 소프트웨어 개발 프레임웤입니다. QGIS  그 자체는 Qt 프레임웤을 사용해서 만들어졌습니다. 플러그인 개발을 위해서는 플러그인 인터페이스을 설계하기 위해 <a href="#id3"><span class="problematic" id="id4">`</span></a>Qt Creator &lt;<a class="reference external" href="http://doc.qt.io/qtcreator/index.html">http://doc.qt.io/qtcreator/index.html</a>&gt;`_라고 하는 어플리케이션을 사용할 것입니다.</p>
 <p>Qt Creator 소프트웨어를 <a href="#id1"><span class="problematic" id="id2">`</span></a>SourgeForge &lt;<a class="reference external" href="http://sourceforge.net/projects/qtcreator.mirror/files/latest/download">http://sourceforge.net/projects/qtcreator.mirror/files/latest/download</a>&gt;`_에서 다운로드하고 설치하십시오.</p>
 </section>
 <section id="python-bindings-for-qt">
-<h3>Qt를 위한 파이썬 만들기<a class="headerlink" href="#python-bindings-for-qt" title="이 제목에 대한 퍼머링크">¶</a></h3>
+<h3>Qt를 위한 파이썬 만들기<a class="headerlink" href="#python-bindings-for-qt" title="Link to this heading">¶</a></h3>
 <p>파이썬에서 플러그인을 개발해야 하므로 Qt를 위한 파이썬 바인딩을 설치할 필요가 있습니다. 이것들을 설치하는 방법은 사용하는 플랫폼에 달려 있습니다. 플러그인을 만들기위해서는 <code class="docutils literal notranslate"><span class="pre">pyrcc4</span></code> 명령어-라인 툴이 필요합니다.</p>
 <p><strong>윈도우</strong></p>
 <p>Download the <a class="reference external" href="http://trac.osgeo.org/osgeo4w/">OSGeo4W network installer</a> and choose <span class="guilabel">Express Desktop
@@ -209,7 +209,7 @@ package by running the following command:</p>
 </div>
 </section>
 <section id="a-text-editor-or-a-python-ide">
-<h3>텍스트 편집기 또는 파이썬 IDE<a class="headerlink" href="#a-text-editor-or-a-python-ide" title="이 제목에 대한 퍼머링크">¶</a></h3>
+<h3>텍스트 편집기 또는 파이썬 IDE<a class="headerlink" href="#a-text-editor-or-a-python-ide" title="Link to this heading">¶</a></h3>
 <p>Any kind of software development requires a good text editor. If you already
 have a favorite text editor or an IDE (Integrated Development Environment), you
 may use it for this tutorial. Otherwise, each platform offers a wide variety of
@@ -223,14 +223,14 @@ free or paid options for text editors. Choose the one that fits your needs.</p>
 </div>
 </section>
 <section id="plugin-builder-plugin">
-<h3>플러그인 빌더 플러그인<a class="headerlink" href="#plugin-builder-plugin" title="이 제목에 대한 퍼머링크">¶</a></h3>
+<h3>플러그인 빌더 플러그인<a class="headerlink" href="#plugin-builder-plugin" title="Link to this heading">¶</a></h3>
 <p>There is a helpful QGIS plugin named <code class="docutils literal notranslate"><span class="pre">Plugin</span> <span class="pre">Builder</span></code> which creates all the
 necessary files and the boilerplate code for a plugin. Find and install the
 <code class="docutils literal notranslate"><span class="pre">Plugin</span> <span class="pre">Builder</span></code> plugin. See <a class="reference internal" href="using_plugins.html"><span class="doc">플러그인 사용하기</span></a> for more details on how to
 install plugins.</p>
 </section>
 <section id="plugins-reloader-plugin">
-<h3>플러그인 리로더 플러그인<a class="headerlink" href="#plugins-reloader-plugin" title="이 제목에 대한 퍼머링크">¶</a></h3>
+<h3>플러그인 리로더 플러그인<a class="headerlink" href="#plugins-reloader-plugin" title="Link to this heading">¶</a></h3>
 <p>이것은 또다른 유용한 플러그인으로 플러그인의 반복개발을 가능하게 해줍니다. 이 플러그인을 사용하여 플러그인 코드를 변경할 수 있고, 매번 QGIS를 재시작하지 않고 QGIS에 반영할 수 있게 해줍니다. <code class="docutils literal notranslate"><span class="pre">Plugin</span> <span class="pre">Reloader</span></code> 플러그인을 찾아 설치하십시오. 플러그인을 어떻게 설치하는 지에 대한 상세한 내용은  :doc:<a href="#id1"><span class="problematic" id="id2">`</span></a>using_plugins`를 보십시오.</p>
 <div class="admonition note">
 <p class="admonition-title">참고</p>
@@ -239,7 +239,7 @@ install plugins.</p>
 </section>
 </section>
 <section id="procedure">
-<h2>과정<a class="headerlink" href="#procedure" title="이 제목에 대한 퍼머링크">¶</a></h2>
+<h2>과정<a class="headerlink" href="#procedure" title="Link to this heading">¶</a></h2>
 <ol class="arabic simple">
 <li><p>Open QGIS. Go to <span class="menuselection">Plugins ‣ Plugin Builder ‣ Plugin
 Builder</span>.</p></li>
@@ -750,8 +750,8 @@ upload it to the QGIS plugin repository.</p>
     </p>
     <p>
         &copy; Copyright 2023, Ujaval Gandhi.<br/>
-      최종 업데이트: 2월 19, 2024<br/>
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 7.0.1.<br/>
+      최종 업데이트: 2월 22, 2024<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 7.2.6.<br/>
     </p>
   </div>
 </footer>

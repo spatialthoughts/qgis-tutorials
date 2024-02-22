@@ -1,17 +1,17 @@
 <!DOCTYPE html>
 
-<html lang="fa">
+<html lang="fa" data-content_root="../">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
     <title>ساخت پلاگین پایتون &#8212; QGIS Tutorials and Tips</title>
-    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/bootstrap-sphinx.css" />
-    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
-    <script src="../_static/doctools.js"></script>
-    <script src="../_static/sphinx_highlight.js"></script>
-    <script src="../_static/translations.js"></script>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="../_static/bootstrap-sphinx.css?v=0bf093e7" />
+    <script src="../_static/documentation_options.js?v=40f7bd05"></script>
+    <script src="../_static/doctools.js?v=888ff710"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/translations.js?v=35c83baa"></script>
     <link rel="search" title="جستجو" href="../search.html" />
 
 <meta charset='utf-8'>
@@ -172,25 +172,25 @@
       
 
   <section id="building-a-python-plugin">
-<h1>ساخت پلاگین پایتون<a class="headerlink" href="#building-a-python-plugin" title="Permalink to this heading">¶</a></h1>
+<h1>ساخت پلاگین پایتون<a class="headerlink" href="#building-a-python-plugin" title="Link to this heading">¶</a></h1>
 <div class="admonition warning">
 <p class="admonition-title">هشدار</p>
 <p>نسخه جدید این آموزش در <a class="reference internal" href="3/building_a_python_plugin.html"><span class="doc">ساخت پلاگین پایتون (QGIS3)</span></a> موجود است.</p>
 </div>
 <p>پلاگین ها یک راه عالی برای گسترش عملکرد QGIS هستند. می‌توانید با استفاده از پایتون پلاگین‌هایی بنویسید که می‌توانند از افزودن یک دکمه ساده تا جعبه‌ابزارهای پیچیده متغیر باشند. این آموزش به تشریح مراحل مربوط به راه اندازی محیط توسعه، طراحی رابط کاربری برای یک افزونه و نوشتن کد برای تعامل با QGIS می پردازد. لطفاً آموزش :doc:<a href="#id1"><span class="problematic" id="id2">`</span></a>getting_started_with_pyqgis را مرور کنید تا با اصول اولیه آشنا شوید.</p>
 <section id="overview-of-the-task">
-<h2>بررسی اجمالی کار<a class="headerlink" href="#overview-of-the-task" title="Permalink to this heading">¶</a></h2>
+<h2>بررسی اجمالی کار<a class="headerlink" href="#overview-of-the-task" title="Link to this heading">¶</a></h2>
 <p>ما یک پلاگین ساده به نام &quot;ذخیره ویژگی ها&quot; ایجاد خواهیم کرد که به کاربران امکان می دهد یک لایه برداری را انتخاب کنند و ویژگی های آن را در یک فایل CSV بنویسند.</p>
 </section>
 <section id="get-the-tools">
-<h2>ابزارها را دریافت کنید<a class="headerlink" href="#get-the-tools" title="Permalink to this heading">¶</a></h2>
+<h2>ابزارها را دریافت کنید<a class="headerlink" href="#get-the-tools" title="Link to this heading">¶</a></h2>
 <section id="qt-creator">
-<h3>خالق Qt<a class="headerlink" href="#qt-creator" title="Permalink to this heading">¶</a></h3>
+<h3>خالق Qt<a class="headerlink" href="#qt-creator" title="Link to this heading">¶</a></h3>
 <p><a class="reference external" href="http://www.qt.io/">Qt</a> یک چارچوب توسعه نرم افزار است که برای توسعه برنامه هایی که بر روی ویندوز، مک، لینوکس و همچنین سیستم عامل های مختلف تلفن همراه اجرا می شوند، استفاده می شود. خود QGIS با استفاده از چارچوب Qt نوشته شده است. برای توسعه افزونه، ما از یک برنامه کاربردی به نام «Qt Creator &lt;<a class="reference external" href="http://doc.qt.io/qtcreator/index.html">http://doc.qt.io/qtcreator/index.html</a>&gt;`_ برای طراحی رابط برای افزونه خود استفاده خواهیم کرد.</p>
 <p>نرم افزار Qt Creator را از <a class="reference external" href="http://sourceforge.net/projects/qtcreator.mirror/files/latest/download">SourgeForge</a> دانلود و نصب کنید</p>
 </section>
 <section id="python-bindings-for-qt">
-<h3>پیوندهای پایتون برای Qt<a class="headerlink" href="#python-bindings-for-qt" title="Permalink to this heading">¶</a></h3>
+<h3>پیوندهای پایتون برای Qt<a class="headerlink" href="#python-bindings-for-qt" title="Link to this heading">¶</a></h3>
 <p>از آنجایی که ما در حال توسعه افزونه در پایتون هستیم، باید پیوندهای پایتون را برای Qt نصب کنیم. روش نصب اینها به پلتفرمی که استفاده می کنید بستگی دارد. برای ساخت پلاگین ها به ابزار خط فرمان «pyrcc4» نیاز داریم.</p>
 <p><strong>پنجره ها</strong></p>
 <p>&quot;نصب کننده شبکه OSGeo4W &lt;<a class="reference external" href="http://trac.osgeo.org/osgeo4w/">http://trac.osgeo.org/osgeo4w/</a>&gt;`_ را دانلود کنید و :guilabel:&quot;Express Desktop Install&quot; را انتخاب کنید. بسته &quot;QGIS&quot; را نصب کنید. پس از نصب، می توانید از طریق <span class="guilabel">OSGeo4W Shell به ابزار ``pyrcc4`</span> دسترسی پیدا کنید.</p>
@@ -206,7 +206,7 @@
 </div>
 </section>
 <section id="a-text-editor-or-a-python-ide">
-<h3>یک ویرایشگر متن یا یک IDE پایتون<a class="headerlink" href="#a-text-editor-or-a-python-ide" title="Permalink to this heading">¶</a></h3>
+<h3>یک ویرایشگر متن یا یک IDE پایتون<a class="headerlink" href="#a-text-editor-or-a-python-ide" title="Link to this heading">¶</a></h3>
 <p>هر نوع توسعه نرم افزاری نیاز به یک ویرایشگر متن خوب دارد. اگر قبلاً یک ویرایشگر متن مورد علاقه یا یک IDE (محیط توسعه یکپارچه) دارید، می توانید از آن برای این آموزش استفاده کنید. در غیر این صورت، هر پلتفرم طیف گسترده ای از گزینه های رایگان یا پولی را برای ویرایشگرهای متن ارائه می دهد. یکی را انتخاب کنید که متناسب با نیاز شما باشد.</p>
 <p>این آموزش از ویرایشگر Notepad++ در ویندوز استفاده می کند.</p>
 <p><strong>پنجره ها</strong></p>
@@ -217,11 +217,11 @@
 </div>
 </section>
 <section id="plugin-builder-plugin">
-<h3>پلاگین افزونه ساز<a class="headerlink" href="#plugin-builder-plugin" title="Permalink to this heading">¶</a></h3>
+<h3>پلاگین افزونه ساز<a class="headerlink" href="#plugin-builder-plugin" title="Link to this heading">¶</a></h3>
 <p>یک پلاگین QGIS مفید به نام &quot;Plugin Builder&quot; وجود دارد که تمام فایل های لازم و کد دیگ بخار را برای یک پلاگین ایجاد می کند. افزونه «Plugin Builder» را پیدا و نصب کنید. برای جزئیات بیشتر در مورد نحوه نصب افزونه ها به <a class="reference internal" href="using_plugins.html"><span class="doc">استفاده از پلاگین Plugins</span></a> مراجعه کنید.</p>
 </section>
 <section id="plugins-reloader-plugin">
-<h3>افزونه Plugins Reloader<a class="headerlink" href="#plugins-reloader-plugin" title="Permalink to this heading">¶</a></h3>
+<h3>افزونه Plugins Reloader<a class="headerlink" href="#plugins-reloader-plugin" title="Link to this heading">¶</a></h3>
 <p>این افزونه کمکی دیگری است که امکان توسعه تکراری پلاگین ها را فراهم می کند. با استفاده از این افزونه، می توانید کد پلاگین خود را تغییر دهید و بدون نیاز به راه اندازی مجدد QGIS هر بار، آن را در QGIS منعکس کنید. افزونه «Plugin Reloader» را پیدا و نصب کنید. برای جزئیات بیشتر در مورد نحوه نصب افزونه ها به <a class="reference internal" href="using_plugins.html"><span class="doc">استفاده از پلاگین Plugins</span></a> مراجعه کنید.</p>
 <div class="admonition note">
 <p class="admonition-title">توجه</p>
@@ -230,7 +230,7 @@
 </section>
 </section>
 <section id="procedure">
-<h2>روش<a class="headerlink" href="#procedure" title="Permalink to this heading">¶</a></h2>
+<h2>روش<a class="headerlink" href="#procedure" title="Link to this heading">¶</a></h2>
 <ol class="arabic simple">
 <li><p>QGIS را باز کنید. به <span class="menuselection">Plugins ‣ Plugin Builder ‣ Plugin Builder</span> بروید.</p></li>
 </ol>
@@ -715,8 +715,8 @@ upload it to the QGIS plugin repository.</p>
     </p>
     <p>
         &copy; Copyright 2023, Ujaval Gandhi.<br/>
-      آخرین بروز رسانی در فوریه 19, 2024 .<br/>
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 7.0.1.<br/>
+      آخرین بروز رسانی در فوریه 22, 2024 .<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 7.2.6.<br/>
     </p>
   </div>
 </footer>

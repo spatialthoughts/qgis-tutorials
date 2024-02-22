@@ -1,17 +1,17 @@
 <!DOCTYPE html>
 
-<html lang="sl">
+<html lang="sl" data-content_root="../../">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
     <title>Analiza storitvenih območij z uporabo storitve Openrouteservice (QGIS3) &#8212; QGIS Tutorials and Tips</title>
-    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-sphinx.css" />
-    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
-    <script src="../../_static/doctools.js"></script>
-    <script src="../../_static/sphinx_highlight.js"></script>
-    <script src="../../_static/translations.js"></script>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-sphinx.css?v=0bf093e7" />
+    <script src="../../_static/documentation_options.js?v=d40e29de"></script>
+    <script src="../../_static/doctools.js?v=888ff710"></script>
+    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/translations.js?v=82705e9b"></script>
     <link rel="search" title="Išči" href="../../search.html" />
     <link rel="next" title="Analiza potovalnega časa z gibanjem Uberja (QGIS3)" href="travel_time_analysis.html" />
     <link rel="prev" title="Iskanje najbližjega objekta z matriko izvor-destinacija (QGIS3)" href="origin_destination_matrix.html" />
@@ -182,13 +182,13 @@
       
 
   <section id="service-area-analysis-using-openrouteservice-qgis3">
-<h1>Analiza storitvenih območij z uporabo storitve Openrouteservice (QGIS3)<a class="headerlink" href="#service-area-analysis-using-openrouteservice-qgis3" title="Permalink to this heading">¶</a></h1>
+<h1>Analiza storitvenih območij z uporabo storitve Openrouteservice (QGIS3)<a class="headerlink" href="#service-area-analysis-using-openrouteservice-qgis3" title="Link to this heading">¶</a></h1>
 <p>Analiza storitvenega območja je koristna pri ocenjevanju dostopnosti lokacij. Glede na lokacije gasilskih postaj, bolnišnic, postaj javnega prevoza, itd., lahko s takšno analizo ugotovite, katera območja je mogoče oskrbovati s teh lokacij glede na prevoženo razdaljo ali čas. Do nedavnega je bilo tako analizo težko opraviti z uporabo odprtokodnih orodij in podatkov. Zdaj pa imamo dostop do globalnega omrežja ulic z uporabo OpenStreetMap (OSM) in brezplačnih spletnih storitev, kot je Openrouteservice (ORS), ki lahko izvajajo kompleksne naloge usmerjanja z uporabo podatkov OpenStreetMap (OSM). V tej vadnici bomo uporabili vtičnik <strong>ORS Tools Plugin</strong> za izvajanje analize storitvenih območij v QGISu.</p>
 <section id="overview-of-the-task">
-<h2>Pregled naloge<a class="headerlink" href="#overview-of-the-task" title="Permalink to this heading">¶</a></h2>
+<h2>Pregled naloge<a class="headerlink" href="#overview-of-the-task" title="Link to this heading">¶</a></h2>
 <p>Uporabili bomo podatke o postajah podzemne železnice v indijskem mestu Kochi, z namenom določitve območij, ki so oddaljena do 15 minut hoje.</p>
 <section id="other-skills-you-will-learn">
-<h3>Druga znanja, ki jih boste pridobili<a class="headerlink" href="#other-skills-you-will-learn" title="Permalink to this heading">¶</a></h3>
+<h3>Druga znanja, ki jih boste pridobili<a class="headerlink" href="#other-skills-you-will-learn" title="Link to this heading">¶</a></h3>
 <ul class="simple">
 <li><p>Kako v QGIS naložiti podatke o tranzitu iz Splošne specifikacije za tranzitni vir (GTFS).</p></li>
 <li><p>Kako pretvoriti zaporedne podatke o točkah v linijske sledi z orodjem <em>Points to Path</em>.</p></li>
@@ -196,14 +196,14 @@
 </section>
 </section>
 <section id="get-the-data">
-<h2>Pridobivanje podatkov<a class="headerlink" href="#get-the-data" title="Permalink to this heading">¶</a></h2>
+<h2>Pridobivanje podatkov<a class="headerlink" href="#get-the-data" title="Link to this heading">¶</a></h2>
 <p><a class="reference external" href="https://kochimetro.org">Kochi Metro Rail Limited (KMRL)</a> zagotavlja odprte podatke za projekt Kochi Metro Rail v formatu <a class="reference external" href="https://developers.google.com/transit/gtfs/reference/">Global Transit Feed Specification (GTFS-static)</a>. Zahtevek za prenos podatkov pošljite na strani <a class="reference external" href="https://kochimetro.org/open-data/">Open Data</a>.</p>
 <p>Zaradi priročnosti lahko kopijo zbirk podatkov neposredno prenesete s spodnjih povezav:</p>
 <p><a class="reference external" href="https://www.qgistutorials.com/downloads/KMRL-Open-Data.zip">KMRL-Open-Data.zip</a></p>
 <p>Vir podatkov <a class="reference internal" href="../credits.html#kmrl" id="id1"><span>[KMRL]</span></a></p>
 </section>
 <section id="setup">
-<h2>Nastavitve<a class="headerlink" href="#setup" title="Permalink to this heading">¶</a></h2>
+<h2>Nastavitve<a class="headerlink" href="#setup" title="Link to this heading">¶</a></h2>
 <p><a class="reference external" href="https://openrouteservice.org/">Openrouteservice API</a> zagotavlja algoritme za usmerjanje, ki delujejo na brezplačnih geografskih podatkih iz OpenStreetMap. Gre za brezplačno spletno storitev, do katere je mogoče dostopati prek vtičnika QGIS. Čeprav je storitev brezplačna, se je treba prijaviti in pridobiti ključ API. Ključ API se uporablja za preprečevanje zlorab in uveljavljanje omejitev uporabe.</p>
 <ol class="arabic simple">
 <li><p>Obiščite <a class="reference external" href="https://openrouteservice.org/dev/#/signup">Openrouteservice Sign Up</a> stran in ustvarite račun. Ko je račun aktiviran, obiščite svojo <a class="reference external" href="https://openrouteservice.org/dev/#/home">Prikazno ploščo</a> in podajte zahtevo. Izberite <code class="docutils literal notranslate"><span class="pre">Free</span></code> kot <span class="guilabel">Token type</span> in vnesite <code class="docutils literal notranslate"><span class="pre">ORS</span> <span class="pre">Tools</span> <span class="pre">QGIS</span></code> kot <span class="guilabel">Token name</span>. Kliknite <span class="guilabel">CREATE TOKEN</span>.</p></li>
@@ -237,7 +237,7 @@
 </div></blockquote>
 </section>
 <section id="procedure">
-<h2>Postopek<a class="headerlink" href="#procedure" title="Permalink to this heading">¶</a></h2>
+<h2>Postopek<a class="headerlink" href="#procedure" title="Link to this heading">¶</a></h2>
 <ol class="arabic simple">
 <li><p>Preneseno datoteko <code class="docutils literal notranslate"><span class="pre">KMRL-Open-Data.zip</span></code> razpakirajte v mapo v računalniku. Opazili boste, da razpakirana mapa vsebuje veliko besedilnih datotek. Vsaka datoteka vsebuje podatke za različne vidike tranzitnega sistema. Format datotek in njihova uporaba sta opisana v <a href="#id2"><span class="problematic" id="id3">`GTFS Reference &lt;https://developers.google.com/transit/gtfs/reference/&gt;``_</span></a>. Od vseh datotek dve vsebujeta geoprostorske podatke in sta za nas zanimivi. Datoteka <code class="docutils literal notranslate"><span class="pre">shapes.txt</span></code> vsebuje točke, ki opisujejo fizično pot, po kateri vozi vozilo, datoteka <code class="docutils literal notranslate"><span class="pre">stops.txt</span></code> pa vsebuje lokacijo vsakega tranzitnega postajališča. Obe datoteki sta CSV, ki ju lahko uvozimo v QGIS. Kliknite gumb <span class="guilabel">Open Data Source Manager</span>.</p></li>
 </ol>
@@ -365,8 +365,8 @@
     </p>
     <p>
         &copy; Copyright 2023, Ujaval Gandhi.<br/>
-      Zadnjič posodobljeno feb. 19, 2024.<br/>
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 7.0.1.<br/>
+      Zadnjič posodobljeno feb. 22, 2024.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 7.2.6.<br/>
     </p>
   </div>
 </footer>

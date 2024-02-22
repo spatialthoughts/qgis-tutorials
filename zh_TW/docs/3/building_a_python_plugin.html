@@ -1,17 +1,17 @@
 <!DOCTYPE html>
 
-<html lang="zh_TW">
+<html lang="zh_TW" data-content_root="../../">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
     <title>以 Python 製作附加元件 (QGIS3) &#8212; QGIS Tutorials and Tips</title>
-    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-sphinx.css" />
-    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
-    <script src="../../_static/doctools.js"></script>
-    <script src="../../_static/sphinx_highlight.js"></script>
-    <script src="../../_static/translations.js"></script>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-sphinx.css?v=0bf093e7" />
+    <script src="../../_static/documentation_options.js?v=2123726e"></script>
+    <script src="../../_static/doctools.js?v=888ff710"></script>
+    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/translations.js?v=d9a6981e"></script>
     <link rel="search" title="搜尋" href="../../search.html" />
     <link rel="next" title="Building a Processing Plugin (QGIS3)" href="processing_python_plugin.html" />
     <link rel="prev" title="撰寫 Python 腳本並在處理框架下執行（QGIS3)" href="processing_python_scripts.html" />
@@ -182,20 +182,20 @@
       
 
   <section id="building-a-python-plugin-qgis3">
-<h1>以 Python 製作附加元件 (QGIS3)<a class="headerlink" href="#building-a-python-plugin-qgis3" title="本標頭的永久連結">¶</a></h1>
+<h1>以 Python 製作附加元件 (QGIS3)<a class="headerlink" href="#building-a-python-plugin-qgis3" title="Link to this heading">¶</a></h1>
 <p>增進 QGIS 功能的最佳方法，就是使用附加元件。你也可以使用 Python 來寫一個，從只有一個按鈕到複雜的功能面板，都可任君挑選。本教學會介紹設計附加元件的大致流程，包括設置開發環境、打造使用者介面，以及撰寫程式碼與 QGIS 互動。有關較為基礎的部分，請參閱 <a class="reference internal" href="getting_started_with_pyqgis.html"><span class="doc">Python 程式設計的初步上手 (QGIS3)</span></a>。</p>
 <div class="admonition note">
 <p class="admonition-title">備註</p>
 <p>If you are building a new plugin, I strongly recommend building a Processing Plugin instead of the GUI plugin described in this tutorial. See  <a class="reference internal" href="processing_python_plugin.html"><span class="doc">Building a Processing Plugin (QGIS3)</span></a> for details.</p>
 </div>
 <section id="overview-of-the-task">
-<h2>內容說明<a class="headerlink" href="#overview-of-the-task" title="本標頭的永久連結">¶</a></h2>
+<h2>內容說明<a class="headerlink" href="#overview-of-the-task" title="Link to this heading">¶</a></h2>
 <p>我們要開發一個簡單的附加元件，稱為 <code class="docutils literal notranslate"><span class="pre">Save</span> <span class="pre">Attributes</span></code>，它可以讓使用者任意挑選一個向量圖層，把它的屬性另存為 CSV 檔。</p>
 </section>
 <section id="get-the-tools">
-<h2>取得工具<a class="headerlink" href="#get-the-tools" title="本標頭的永久連結">¶</a></h2>
+<h2>取得工具<a class="headerlink" href="#get-the-tools" title="Link to this heading">¶</a></h2>
 <section id="qt-creator">
-<h3>Qt Creator<a class="headerlink" href="#qt-creator" title="本標頭的永久連結">¶</a></h3>
+<h3>Qt Creator<a class="headerlink" href="#qt-creator" title="Link to this heading">¶</a></h3>
 <p><a class="reference external" href="http://www.qt.io/">Qt</a> 是一套軟體開發框架，用於設計在 Windows、Mac、Linux 或是其他行動作業系統上執行的軟體。QGIS 本身就是用 Qt 框架打造的，所以我們在這裡要使用一個稱為 <a class="reference external" href="https://doc.qt.io/qt-5/qtdesigner-manual.html">Qt Creator</a> 的程式來設計我們附加元件的介面。</p>
 <p>Download and install the Qt Creator installer from <a class="reference external" href="https://www.qt.io/offline-installers">Qt Offline Installers</a>. Make sure you select <strong>Qt Creator</strong> on the download page. Note that you will have to create a free Qt account to install the package.</p>
 <div class="admonition note">
@@ -205,7 +205,7 @@
 <img alt="../../_images/setup1.png" class="align-center" src="../../_images/setup1.png" />
 </section>
 <section id="python-bindings-for-qt">
-<h3>Qt 的 Python Bindings<a class="headerlink" href="#python-bindings-for-qt" title="本標頭的永久連結">¶</a></h3>
+<h3>Qt 的 Python Bindings<a class="headerlink" href="#python-bindings-for-qt" title="Link to this heading">¶</a></h3>
 <p>由於我們要使用 Python 來設計附加元件，因此得安裝 Qt 的 Python binding ，以便在 Python 中可以輕鬆使用 Qt 的功能。此步驟會因作業系統的不同而不同，像是 Windows 命令列下，要裝的程式叫做 <code class="docutils literal notranslate"><span class="pre">pyrcc5</span></code>。</p>
 <p><strong>Windows</strong></p>
 <p>Relevant python bindings are included in the QGIS install on Windows. But to use them from the plugin folder, we need to indicate the path to the QGIS install.</p>
@@ -238,7 +238,7 @@ pyrcc5 -o resources.py resources.qrc
 </div>
 </section>
 <section id="a-text-editor-or-a-python-ide">
-<h3>編輯器或 Python IDE<a class="headerlink" href="#a-text-editor-or-a-python-ide" title="本標頭的永久連結">¶</a></h3>
+<h3>編輯器或 Python IDE<a class="headerlink" href="#a-text-editor-or-a-python-ide" title="Link to this heading">¶</a></h3>
 <p>要進行任何種類的軟體開發，優良的文字編輯器是必不可少的。在本教學中，你可以使用你喜歡的文字編輯器或 IDE (整合開發環境)；如果沒有的話，每個作業系統都有很多免費或付費的文字編輯軟體可使用，挑一個符合你需求的即可。</p>
 <p>本教學中使用的是 Windows 版本的 Notepad++ 編輯器。</p>
 <p><strong>Windows</strong></p>
@@ -249,11 +249,11 @@ pyrcc5 -o resources.py resources.qrc
 </div>
 </section>
 <section id="plugin-builder-plugin">
-<h3>附加元件「Plugin Builder」<a class="headerlink" href="#plugin-builder-plugin" title="本標頭的永久連結">¶</a></h3>
+<h3>附加元件「Plugin Builder」<a class="headerlink" href="#plugin-builder-plugin" title="Link to this heading">¶</a></h3>
 <p>QGIS 有個實用的 <code class="docutils literal notranslate"><span class="pre">Plugin</span> <span class="pre">Builder</span></code> 附加元件，它可以創造附加元件所需檔案和樣板設計的代碼。請尋找並安裝 <code class="docutils literal notranslate"><span class="pre">Point</span> <span class="pre">Sampling</span> <span class="pre">Tool</span></code> 附加元件，安裝細節請參考 <a class="reference internal" href="../using_plugins.html"><span class="doc">使用附加元件</span></a>。</p>
 </section>
 <section id="plugins-reloader-plugin">
-<h3>附加元件「Plugin Reloader」<a class="headerlink" href="#plugins-reloader-plugin" title="本標頭的永久連結">¶</a></h3>
+<h3>附加元件「Plugin Reloader」<a class="headerlink" href="#plugins-reloader-plugin" title="Link to this heading">¶</a></h3>
 <p>還有一個實用的附加元件，可以讓我們反覆測試不斷更新的附加元件。使用此元件，可以在改變附加元件的程式碼之後，不用重新啟動 QGIS 就能讀取程式碼修改的部分。請尋找並安裝 <code class="docutils literal notranslate"><span class="pre">Plugin</span> <span class="pre">Reloader</span></code> 附加元件，安裝細節請參考 <a class="reference internal" href="../using_plugins.html"><span class="doc">使用附加元件</span></a>。</p>
 <div class="admonition note">
 <p class="admonition-title">備註</p>
@@ -262,7 +262,7 @@ pyrcc5 -o resources.py resources.qrc
 </section>
 </section>
 <section id="procedure">
-<h2>操作流程<a class="headerlink" href="#procedure" title="本標頭的永久連結">¶</a></h2>
+<h2>操作流程<a class="headerlink" href="#procedure" title="Link to this heading">¶</a></h2>
 <ol class="arabic simple">
 <li><p>開啟 QGIS，選擇 <span class="menuselection">附加元件 ‣ Plugin Builder ‣ Plugin Builder</span>。</p></li>
 </ol>
@@ -797,8 +797,8 @@ pyrcc5 -o resources.py resources.qrc
     </p>
     <p>
         &copy; Copyright 2023, Ujaval Gandhi.<br/>
-      最後更新於 2月 19, 2024。<br/>
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 7.0.1.<br/>
+      最後更新於 2月 22, 2024。<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 7.2.6.<br/>
     </p>
   </div>
 </footer>

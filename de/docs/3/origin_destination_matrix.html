@@ -1,17 +1,17 @@
 <!DOCTYPE html>
 
-<html lang="de">
+<html lang="de" data-content_root="../../">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
     <title>Lokalisierung der am nächsten gelegenen Einrichtung mit einer Quelle-Ziel-Matrix (QGIS3) &#8212; QGIS Tutorials and Tips</title>
-    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-sphinx.css" />
-    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
-    <script src="../../_static/doctools.js"></script>
-    <script src="../../_static/sphinx_highlight.js"></script>
-    <script src="../../_static/translations.js"></script>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-sphinx.css?v=0bf093e7" />
+    <script src="../../_static/documentation_options.js?v=54d918e9"></script>
+    <script src="../../_static/doctools.js?v=888ff710"></script>
+    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/translations.js?v=70a09b52"></script>
     <link rel="search" title="Suche" href="../../search.html" />
     <link rel="next" title="Einzugsgebietsanalyse mit dem Openrouteservice (QGIS3)" href="service_area_analysis.html" />
     <link rel="prev" title="Einfache Netzwerkvisualisierung und Routing (QGIS3)" href="basic_network_analysis.html" />
@@ -182,17 +182,17 @@
       
 
   <section id="locating-nearest-facility-with-origin-destination-matrix-qgis3">
-<h1>Lokalisierung der am nächsten gelegenen Einrichtung mit einer Quelle-Ziel-Matrix (QGIS3)<a class="headerlink" href="#locating-nearest-facility-with-origin-destination-matrix-qgis3" title="Permalink to this heading">¶</a></h1>
+<h1>Lokalisierung der am nächsten gelegenen Einrichtung mit einer Quelle-Ziel-Matrix (QGIS3)<a class="headerlink" href="#locating-nearest-facility-with-origin-destination-matrix-qgis3" title="Link to this heading">¶</a></h1>
 <p>In the previous tutorial, <a class="reference internal" href="basic_network_analysis.html"><span class="doc">Einfache Netzwerkvisualisierung und Routing (QGIS3)</span></a>, we learned how to build a network and calculate the shortest path between 2 points. We can apply that technique to many different types of network-based analysis. One such application is to compute <strong>Origin-Destination Matrix</strong> or <strong>OD Matrix</strong>. Given a set of origin points and another set of destination points, we can calculate the shortest path between each origin-destination pairs and find out the travel distance/time between them. Such analysis is useful to locate the closest facility to any given point. For example, a logistics company may use this analysis to find the closest warehouse to their customers to optimize delivery routes. Here we use the Distance Matrix algorithm from <strong>QGIS Network Analysis Toolbox (QNEAT3)</strong> plugin to find the nearest health facility to each address in the city.</p>
 <div class="admonition note">
 <p class="admonition-title">Bemerkung</p>
 <p>This tutorial shows how to use your own network data to compute an origin-destination matrix. If you do not have your own network data, you can use <strong>ORS Tools Plugin</strong> and algorithm <span class="menuselection">ORS Tools ‣ Matrix ‣  Matrix from Layers</span> to do a similar analysis using OpenStreetMap data. See <a class="reference internal" href="service_area_analysis.html"><span class="doc">Einzugsgebietsanalyse mit dem Openrouteservice (QGIS3)</span></a> to learn how to use ORS Tools plugin.</p>
 </div>
 <section id="overview-of-the-task">
-<h2>Überblick über die Aufgabe<a class="headerlink" href="#overview-of-the-task" title="Permalink to this heading">¶</a></h2>
+<h2>Überblick über die Aufgabe<a class="headerlink" href="#overview-of-the-task" title="Link to this heading">¶</a></h2>
 <p>Wir werden 2 Layer für Washington DC verwenden - einen Layer mit Punkten für Adressen und einen anderen Layer mit Punkten für psychosoziale Einrichtungen. Wir werden dann die Einrichtung mit dem kürzesten Weg zu jeder Adresse ermitteln.</p>
 <section id="other-skills-you-will-learn">
-<h3>Weitere Fähigkeiten, die wir erlernen<a class="headerlink" href="#other-skills-you-will-learn" title="Permalink to this heading">¶</a></h3>
+<h3>Weitere Fähigkeiten, die wir erlernen<a class="headerlink" href="#other-skills-you-will-learn" title="Link to this heading">¶</a></h3>
 <ul class="simple">
 <li><p>Extract a random sample from a point layer.</p></li>
 <li><p>Nutzung von virtuellen Layer, um eine SQL-Abfrage auf einem QGIS-Layer auszuführen</p></li>
@@ -200,7 +200,7 @@
 </section>
 </section>
 <section id="get-the-data">
-<h2>Beschaffung der Daten<a class="headerlink" href="#get-the-data" title="Permalink to this heading">¶</a></h2>
+<h2>Beschaffung der Daten<a class="headerlink" href="#get-the-data" title="Link to this heading">¶</a></h2>
 <p>Die Regierung des Distrikts Columbia stellt hunderte Datensätze frei zur Verfügung: <a class="reference external" href="https://opendata.dc.gov/">Open Data Catalog</a>.</p>
 <p>Wir laden die folgenden Datenlayer als shape-Dateien herunter.</p>
 <ul class="simple">
@@ -215,12 +215,12 @@
 <p>Datenquelle: <a class="reference internal" href="../credits.html#dcopendata" id="id1"><span>[DCOPENDATA]</span></a></p>
 </section>
 <section id="setup">
-<h2>Einrichtung<a class="headerlink" href="#setup" title="Permalink to this heading">¶</a></h2>
+<h2>Einrichtung<a class="headerlink" href="#setup" title="Link to this heading">¶</a></h2>
 <p>Visit <span class="menuselection">Plugins ‣ Manage and Install plugins</span>. Select :guilabel:` All` Search for <strong>QNEAT3</strong> plugin and install it. Click <span class="guilabel">Close</span>.</p>
 <img alt="../../_images/setup11.png" class="align-center" src="../../_images/setup11.png" />
 </section>
 <section id="procedure">
-<h2>Arbeitsablauf<a class="headerlink" href="#procedure" title="Permalink to this heading">¶</a></h2>
+<h2>Arbeitsablauf<a class="headerlink" href="#procedure" title="Link to this heading">¶</a></h2>
 <ol class="arabic simple">
 <li><p>Locate the <code class="docutils literal notranslate"><span class="pre">Community_Based_Service_Providers.zip</span></code> file, expand it and add <code class="docutils literal notranslate"><span class="pre">Community_Based_Service_Providers.shp</span></code> to the canvas. We will select only those centres providing facilities to adults. Right-click on the <code class="docutils literal notranslate"><span class="pre">Community_Based_Service_Providers.shp</span></code> layer and select <span class="guilabel">Filter</span>.</p></li>
 </ol>
@@ -351,8 +351,8 @@ from input1 group by origin_id
     </p>
     <p>
         &copy; Copyright 2023, Ujaval Gandhi.<br/>
-      Zuletzt aktualisiert am Feb. 19, 2024.<br/>
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 7.0.1.<br/>
+      Zuletzt aktualisiert am Feb. 22, 2024.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 7.2.6.<br/>
     </p>
   </div>
 </footer>

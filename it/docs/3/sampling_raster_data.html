@@ -1,17 +1,17 @@
 <!DOCTYPE html>
 
-<html lang="it">
+<html lang="it" data-content_root="../../">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
     <title>Campionare i dati di un raster usando punti o poligoni (QGIS3) &#8212; QGIS Tutorials and Tips</title>
-    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-sphinx.css" />
-    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
-    <script src="../../_static/doctools.js"></script>
-    <script src="../../_static/sphinx_highlight.js"></script>
-    <script src="../../_static/translations.js"></script>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-sphinx.css?v=0bf093e7" />
+    <script src="../../_static/documentation_options.js?v=4f581db3"></script>
+    <script src="../../_static/doctools.js?v=888ff710"></script>
+    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/translations.js?v=0173e136"></script>
     <link rel="search" title="Cerca" href="../../search.html" />
     <link rel="next" title="Calculating Raster Area (QGIS3)" href="calculating_raster_area.html" />
     <link rel="prev" title="Nearest Neighbor Analysis (QGIS3)" href="nearest_neighbor_analysis.html" />
@@ -182,20 +182,20 @@
       
 
   <section id="sampling-raster-data-using-points-or-polygons-qgis3">
-<h1>Campionare i dati di un raster usando punti o poligoni (QGIS3)<a class="headerlink" href="#sampling-raster-data-using-points-or-polygons-qgis3" title="Permalink to this heading">¶</a></h1>
+<h1>Campionare i dati di un raster usando punti o poligoni (QGIS3)<a class="headerlink" href="#sampling-raster-data-using-points-or-polygons-qgis3" title="Link to this heading">¶</a></h1>
 <p>Molti dataset di tipo scientifico e relativi all’ambiente si presentano in forma di griglie raster. Per esempio i dati riguardanti l’altezza del suolo (DEM) sono distribuiti in formato raster.  In questi file raster, il parametro che viene rappresentato è codificato nel valore di ciascuno dei pixel del raster. Spesso, abbiamo bisogno di estrarre questi valori relativamente a un dato territorio oppure di aggregarli su un’area definita. Queste funzioni sono disponibili con il modulo <code class="docutils literal notranslate"><span class="pre">Sample</span> <span class="pre">raster</span> <span class="pre">values</span></code> (campiona i valori raster) e il <code class="docutils literal notranslate"><span class="pre">Zonal</span> <span class="pre">Statistics</span></code> (statistiche zonali). PS esiste anche un plugin chiamato  <code class="docutils literal notranslate"><span class="pre">Point</span> <span class="pre">Sampling</span> <span class="pre">Tool</span></code> che campiona i punti anche su livelli multipli.</p>
 <section id="overview-of-the-task">
-<h2>Descrizione del compito<a class="headerlink" href="#overview-of-the-task" title="Permalink to this heading">¶</a></h2>
+<h2>Descrizione del compito<a class="headerlink" href="#overview-of-the-task" title="Link to this heading">¶</a></h2>
 <p>Data una griglia raster contenente le temperature massime negli Stati Uniti, vogliamo ricavarne le temperature di tutte le aree urbane e quindi calcolare la temperatura media per ciascuna divisione amministrativa degli USA.</p>
 <section id="other-skills-you-will-learn">
-<h3>Altri aspetti che avremo modo di apprendere nel corso dell’esercizio<a class="headerlink" href="#other-skills-you-will-learn" title="Permalink to this heading">¶</a></h3>
+<h3>Altri aspetti che avremo modo di apprendere nel corso dell’esercizio<a class="headerlink" href="#other-skills-you-will-learn" title="Link to this heading">¶</a></h3>
 <ul class="simple">
 <li><p>Selezionare e rimuovere layer multipli dalla Tabella dei Contenuti di QGIS.</p></li>
 </ul>
 </section>
 </section>
 <section id="get-the-data">
-<h2>Ottenere i dati necessari.<a class="headerlink" href="#get-the-data" title="Permalink to this heading">¶</a></h2>
+<h2>Ottenere i dati necessari.<a class="headerlink" href="#get-the-data" title="Link to this heading">¶</a></h2>
 <p>Il servizio fornito da NOAA  <a class="reference external" href="http://www.cpc.ncep.noaa.gov/">Climate Prediction Center</a> fornisce <a class="reference external" href="http://www.cpc.ncep.noaa.gov/products/GIS/GIS_DATA/">dati GIS</a> riguardanti il clima e le precipitazioni negli Stati Uniti. Scaricate la <a class="reference external" href="ftp://ftp.cpc.ncep.noaa.gov/GIS/GRADS_GIS/GeoTIFF/TEMP/us_tmax/">griglia più recente per le temperature massime</a>. Al file verrà assegnato il nome di <code class="docutils literal notranslate"><span class="pre">us.tmax_nohads_ll_{YYYYMMDD}_float.tif</span></code>.</p>
 <p>Useremo inoltre un file CSV da <a class="reference external" href="https://www.census.gov/geographies/reference-files/time-series/geo/gazetteer-files.2018.html">2018 US Gazetteer</a>  che descrive le aree urbane negli USA. Scarichiamo il file <a class="reference external" href="https://www2.census.gov/geo/docs/maps-data/data/gazetteer/2018_Gazetteer/2018_Gaz_ua_national.zip">Urban Areas Gazetteer File</a>.</p>
 <p><a class="reference external" href="https://www.census.gov/en.html">US Census Bureau</a> provides <a class="reference external" href="https://www.census.gov/geographies/mapping-files/time-series/geo/tiger-line-file.html">TIGER/Line Shapefiles</a>. Potete visitare il sito  <a class="reference external" href="https://www2.census.gov/geo/tiger/TIGER2018/">FTP site</a> and download census tracts shapefile for California. Download <a class="reference external" href="https://www2.census.gov/geo/tiger/TIGER2018/COUNTY/tl_2018_us_county.zip">Census Tracts for California</a> file.</p>
@@ -206,7 +206,7 @@
 <p>Data Sources: <a class="reference internal" href="../credits.html#noaacpc" id="id1"><span>[NOAACPC]</span></a>, <a class="reference internal" href="../credits.html#usgazetteer" id="id2"><span>[USGAZETTEER]</span></a> <a class="reference internal" href="../credits.html#tiger" id="id3"><span>[TIGER]</span></a></p>
 </section>
 <section id="procedure">
-<h2>Procedimento<a class="headerlink" href="#procedure" title="Permalink to this heading">¶</a></h2>
+<h2>Procedimento<a class="headerlink" href="#procedure" title="Link to this heading">¶</a></h2>
 <ol class="arabic simple">
 <li><p>Estrai i file che trovi nel file complresso <code class="docutils literal notranslate"><span class="pre">2018_Gaz_ua_national.zip</span></code> e <code class="docutils literal notranslate"><span class="pre">tl_2018_us_county.zip</span></code> in una cartella nel tuo PC. Apri QGIS e usa il browser i QGIS per aprire il file <code class="docutils literal notranslate"><span class="pre">us.tmax_nohads_ll_20190501_float.tif</span></code> e aggiungerlo nella mappa.</p></li>
 </ol>
@@ -341,8 +341,8 @@
     </p>
     <p>
         &copy; Copyright 2023, Ujaval Gandhi.<br/>
-      Ultimo aggiornamento feb 19, 2024.<br/>
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 7.0.1.<br/>
+      Ultimo aggiornamento feb 22, 2024.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 7.2.6.<br/>
     </p>
   </div>
 </footer>

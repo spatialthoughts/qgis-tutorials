@@ -1,17 +1,17 @@
 <!DOCTYPE html>
 
-<html lang="nl">
+<html lang="nl" data-content_root="../../">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
     <title>Een gekleurde rivierbekken-kaart maken (QGIS3) &#8212; QGIS Tutorials and Tips</title>
-    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-sphinx.css" />
-    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
-    <script src="../../_static/doctools.js"></script>
-    <script src="../../_static/sphinx_highlight.js"></script>
-    <script src="../../_static/translations.js"></script>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-sphinx.css?v=0bf093e7" />
+    <script src="../../_static/documentation_options.js?v=abdfb6f9"></script>
+    <script src="../../_static/doctools.js?v=888ff710"></script>
+    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/translations.js?v=83e0b41b"></script>
     <link rel="search" title="Zoeken" href="../../search.html" />
     <link rel="next" title="Een kaart voor gebruik van land maken (QGIS3)" href="creating_landuse_map.html" />
     <link rel="prev" title="Berekenen gemiddelde regenval voor gebied (QGIS3)" href="areal_mean_rainfall.html" />
@@ -182,21 +182,21 @@
       
 
   <section id="creating-a-colorized-river-basin-map-qgis3">
-<h1>Een gekleurde rivierbekken-kaart maken (QGIS3)<a class="headerlink" href="#creating-a-colorized-river-basin-map-qgis3" title="Permalink to this heading">¶</a></h1>
+<h1>Een gekleurde rivierbekken-kaart maken (QGIS3)<a class="headerlink" href="#creating-a-colorized-river-basin-map-qgis3" title="Link to this heading">¶</a></h1>
 <p>In deze handleiding zullen we de werkstroom voor QGIS leren om artistieke kaarten voor rivieren te maken voor uw eigen land of regio met openbaar beschikbare hydrologische gegevens.</p>
 <div class="admonition note">
 <p class="admonition-title">Notitie</p>
 <p>Deze handleiding is geïnspireerd op de prachtige kaarten die worden geproduceerd door <a class="reference external" href="https://www.grasshoppergeography.com/">Grasshopper Geography</a>. Ik ben eigenaar van een van hun afdrukken en ook u kunt hun werk ondersteunen door een van kaarten te kopen vanaf hun <a class="reference external" href="https://www.etsy.com/shop/GrasshopperGeography">online winkel</a>.</p>
 </div>
 <section id="overview-of-the-task">
-<h2>Overzicht van de taak<a class="headerlink" href="#overview-of-the-task" title="Permalink to this heading">¶</a></h2>
+<h2>Overzicht van de taak<a class="headerlink" href="#overview-of-the-task" title="Link to this heading">¶</a></h2>
 <p>In deze handleiding zullen we gegevenslagen voor bekkens en rivieren van HydroSHEDS gebruiken en een kaart van de beddingen van rivieren in India maken.</p>
 <blockquote>
 <div><img alt="../../_images/rivers_of_india.png" class="align-center" src="../../_images/rivers_of_india.png" />
 </div></blockquote>
 </section>
 <section id="other-skills-you-will-learn">
-<h2>Andere vaardigheden die u zult leren<a class="headerlink" href="#other-skills-you-will-learn" title="Permalink to this heading">¶</a></h2>
+<h2>Andere vaardigheden die u zult leren<a class="headerlink" href="#other-skills-you-will-learn" title="Link to this heading">¶</a></h2>
 <ul class="simple">
 <li><p>Hoe een projectie toe te wijzen aan een vectorlaag met onjuiste of ontbrekende projectie.</p></li>
 <li><p>Hoe meerdere lagen samen te voegen tot één Geopackage.</p></li>
@@ -204,10 +204,10 @@
 </ul>
 </section>
 <section id="get-the-data">
-<h2>De gegevens ophalen<a class="headerlink" href="#get-the-data" title="Permalink to this heading">¶</a></h2>
+<h2>De gegevens ophalen<a class="headerlink" href="#get-the-data" title="Link to this heading">¶</a></h2>
 <p><a class="reference external" href="https://www.hydrosheds.org/">HydroSHEDS</a> provides global hydrological datasets suitable for regional and global applications. The data layers are derived from hydrologically conditioned DEM from SRTM.</p>
 <section id="basin-boundaries">
-<h3>Grenzen van bekkens<a class="headerlink" href="#basin-boundaries" title="Permalink to this heading">¶</a></h3>
+<h3>Grenzen van bekkens<a class="headerlink" href="#basin-boundaries" title="Link to this heading">¶</a></h3>
 <p>HydroBasins verschaft polygoongrenzen van bekkens voor verschillende continenten. De grenzen zijn hiërarchisch – elk bekken op niveau N wordt verder onderverdeeld in kleinere bekkens op het niveau N+1. Voor deze handleiding zullen we de niveau 6 grenzen voor bekkens gebruiken. U kunt een ander niveau gebruiken, afhankelijk van uw regio en het type kaart dat u wilt maken. Bezoek de pagina <a class="reference external" href="https://www.hydrosheds.org/products/hydrobasins">HydroBASINS</a>  en download het zip-bestand voor uw regio.</p>
 <blockquote>
 <div><img alt="../../_images/download1.png" class="align-center" src="../../_images/download1.png" />
@@ -218,14 +218,14 @@
 </div>
 </section>
 <section id="river-network">
-<h3>Riviernetwerk<a class="headerlink" href="#river-network" title="Permalink to this heading">¶</a></h3>
+<h3>Riviernetwerk<a class="headerlink" href="#river-network" title="Link to this heading">¶</a></h3>
 <p>HydroRIVERS verschaft een lijn-shapefile dat het netwerk van de rivier weergeeft. Bezoek de pagina <a class="reference external" href="https://www.hydrosheds.org/products/hydrorivers">HydroRIVERS</a> en download het zip-bestand voor uw regio van interesse.</p>
 <blockquote>
 <div><img alt="../../_images/download2.png" class="align-center" src="../../_images/download2.png" />
 </div></blockquote>
 </section>
 <section id="administrative-boundary">
-<h3>Administratieve grens<a class="headerlink" href="#administrative-boundary" title="Permalink to this heading">¶</a></h3>
+<h3>Administratieve grens<a class="headerlink" href="#administrative-boundary" title="Link to this heading">¶</a></h3>
 <p>We zullen de gegevens van HydroSHEDS clippen naar de grens van de door u gekozen regio. In deze handleiding willen we een kaart met bekkens in India maken, we zullen dus de Shapefile met grenzen van Survey of India gebruiken. Bezoek de pagina <a class="reference external" href="https://surveyofindia.gov.in/pages/outline-maps-of-india">Outline Maps of India</a> en download de India International Boundary Vector Format. Als u administratieve grenzen van andere landen of staten wilt, kunt u die ophalen vanaf <a class="reference external" href="https://gadm.org/">GADM</a> of <a class="reference external" href="https://www.geoboundaries.org/">geoBoundaries</a>.</p>
 <blockquote>
 <div><img alt="../../_images/download3.png" class="align-center" src="../../_images/download3.png" />
@@ -238,7 +238,7 @@
 </section>
 </section>
 <section id="procedure">
-<h2>Procedure<a class="headerlink" href="#procedure" title="Permalink to this heading">¶</a></h2>
+<h2>Procedure<a class="headerlink" href="#procedure" title="Link to this heading">¶</a></h2>
 <ol class="arabic simple">
 <li><p>Open QGIS en lokaliseer de gedownloade bestanden in de QGIS <span class="guilabel">Browser</span>. Sleep <code class="docutils literal notranslate"><span class="pre">hybas_as_lev06_v1c.shp</span></code> en <code class="docutils literal notranslate"><span class="pre">HydroRIVERS_v10_as.shp</span></code> naar het kaartvenster en zet ze daar neer.</p></li>
 </ol>
@@ -554,8 +554,8 @@
     </p>
     <p>
         &copy; Copyright 2023, Ujaval Gandhi.<br/>
-      Laatste aanpassing op feb 19, 2024.<br/>
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 7.0.1.<br/>
+      Laatste aanpassing op feb 22, 2024.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 7.2.6.<br/>
     </p>
   </div>
 </footer>
