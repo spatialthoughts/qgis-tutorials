@@ -89,7 +89,7 @@ Procedure
   .. image:: /static/3/basic_vector_styling/images/10.png
      :align: center
      
-11. While a Categorized view is useful, this layer contains too-many categories for one to meaningfully interpret the map. A better approach would be to group certain type of fuel categories and reduce the number of classes. Let's try to create 3 categories - **Renewable fuel**, **Non-renewable fuel** and **Other**. Select ``Rule-based`` renderer. Select all but one rules by holding the :kbd:`Ctrl` key and clicking on each row. Once selected, click the :guilabel:`Remove selected rules` button to delete them.
+11. While a Categorized view is useful, this layer contains too-many categories for one to meaningfully interpret the map. A better approach would be to group certain type of fuel categories and reduce the number of classes. Let's try to create 3 categories - **Renewable fuel**, **Non-renewable fuel** and **Other**. Select ``Rule-based`` renderer. We want to delete all the categories except the top one. Select the second category from the top, hold the :kbd:`Shift` key and click the bottom category. This will select all the categories except the top one. Once selected, click the :guilabel:`Remove selected rules` button to delete them.
 
   .. image:: /static/3/basic_vector_styling/images/11.png
      :align: center
