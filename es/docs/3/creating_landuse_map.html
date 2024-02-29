@@ -5,7 +5,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Creating a Landuse Map (QGIS3) &#8212; QGIS Tutorials and Tips</title>
+    <title>Creación de un mapa de uso de la tierra (QGIS3) &#8212; QGIS Tutorials and Tips</title>
     <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=fa44fd50" />
     <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-sphinx.css?v=0bf093e7" />
     <script src="../../_static/documentation_options.js?v=92345faf"></script>
@@ -89,7 +89,7 @@
 <li class="toctree-l1"><a class="reference internal" href="performing_spatial_queries.html">Realizar Consultas Espaciales (QGIS3)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="nearest_neighbor_analysis.html">Análisis del Vecino Más Cercano (QGIS3)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="sampling_raster_data.html">Muestrear Datos Ráster usando Puntos o Polígonos (QGIS3)</a></li>
-<li class="toctree-l1"><a class="reference internal" href="calculating_raster_area.html">Calculating Raster Area (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="calculating_raster_area.html">Cálcular el área ráster (QGIS3)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="creating_heatmaps.html">Crear Mapas de Calor (QGIS3)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="animating_time_series.html">Animar Datos de Series de Tiempo (QGIS3)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="handling_invalid_geometries.html">Manejar Geometrías No Válidas (QGIS3)</a></li>
@@ -105,7 +105,7 @@
 <li class="toctree-l1"><a class="reference internal" href="travel_time_analysis.html">Análisis del tiempo de viaje con el movimiento de Uber (QGIS3)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="areal_mean_rainfall.html">Calcular la Precipitación Media de Área (QGIS3)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="colorized_river_basin_map.html">Creating a Colorized River Basin Map (QGIS3)</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Creating a Landuse Map (QGIS3)</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Creación de un mapa de uso de la tierra (QGIS3)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="calculating_intersection_density.html">Calcular Densidad de Intersección de Calle (QGIS3)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="landuse_buffer.html">Determining Landuse Buffer Zones (QGIS3)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="solidwaste_mapping.html">Mapping Waste Disposal Volumes (QGIS3)</a></li>
@@ -182,125 +182,124 @@
       
 
   <section id="creating-a-landuse-map-qgis3">
-<h1>Creating a Landuse Map (QGIS3)<a class="headerlink" href="#creating-a-landuse-map-qgis3" title="Link to this heading">¶</a></h1>
-<p>Zoning designations define and regulate what kinds of uses are allowed on specific parcels and outline design and development requirements and guidelines. In this tutorial you will learn how to access parcel datasets, style them according to zoning attributes and create a map.</p>
+<h1>Creación de un mapa de uso de la tierra (QGIS3)<a class="headerlink" href="#creating-a-landuse-map-qgis3" title="Link to this heading">¶</a></h1>
+<p>Las designaciones de zonificación definen y regulan qué tipos de usos están permitidos en parcelas específicas y esbozan los requisitos y directrices de diseño y desarrollo. En este tutorial aprenderá a acceder a conjuntos de datos de parcelas, a aplicarles estilos según los atributos de zonificación y a crear un mapa.</p>
 <section id="overview-of-the-task">
-<h2>Overview of the task<a class="headerlink" href="#overview-of-the-task" title="Link to this heading">¶</a></h2>
-<p>You will work with a land parcels dataset with zoning information and create a map showing zoning pattern across the CBD region of Cape Town.</p>
+<h2>Visión general de la tarea<a class="headerlink" href="#overview-of-the-task" title="Link to this heading">¶</a></h2>
+<p>Trabajará con un conjunto de datos de parcelas con información de zonificación y creará un mapa que muestre el patrón de zonificación en la región del CBD de Ciudad del Cabo.</p>
 <blockquote>
 <div><img alt="../../_images/zoning_map.png" class="align-center" src="../../_images/zoning_map.png" />
 </div></blockquote>
 <section id="other-skills-you-will-learn">
-<h3>Other skills you will learn<a class="headerlink" href="#other-skills-you-will-learn" title="Link to this heading">¶</a></h3>
+<h3>Otras competencias que aprenderá<a class="headerlink" href="#other-skills-you-will-learn" title="Link to this heading">¶</a></h3>
 <ul class="simple">
-<li><p>How to access and download data from ArcGIS REST in QGIS.</p></li>
-<li><p>How to extract features from a layer that intersect a boundary layer.</p></li>
-<li><p>How to merge different sub-categories from Categorized renderer.</p></li>
+<li><p>Cómo acceder y descargar datos de ArcGIS REST en QGIS.</p></li>
+<li><p>Cómo extraer objetos espaciales de una capa que intersecta una capa límite.</p></li>
+<li><p>Cómo fusionar diferentes subcategorías desde el renderizador Categorizado.</p></li>
 </ul>
 </section>
 </section>
 <section id="get-the-data">
-<h2>Get the data<a class="headerlink" href="#get-the-data" title="Link to this heading">¶</a></h2>
-<p>You can find the data for the tutorial from Cape Town Open Data Portal - <a class="reference external" href="https://odp-cctegis.opendata.arcgis.com">https://odp-cctegis.opendata.arcgis.com</a>.
-We will be importing data from the portal using ArcGIS REST server URL and will be preparing three layers mentioned below .</p>
+<h2>Obtener los datos<a class="headerlink" href="#get-the-data" title="Link to this heading">¶</a></h2>
+<p>Puede encontrar los datos para el tutorial en el Portal de Datos Abiertos de Ciudad del Cabo - <a class="reference external" href="https://odp-cctegis.opendata.arcgis.com">https://odp-cctegis.opendata.arcgis.com</a>. Vamos a importar datos desde el portal utilizando ArcGIS REST URL del servidor y se preparará tres capas se mencionan a continuación .</p>
 <ol class="arabic simple">
-<li><p>Zoning layer: A polygon shapefile with zoning code and description for land parcels having a single zoning - clipped to the Cape Town CBD area.</p></li>
-<li><p>Split-zoning layer: A polygon shapefile with zoning code and description for land parcels having multiple zoning - with each polygon split into single zones polygons.</p></li>
-<li><p>Cape Town CDB Area: A polygon demarcating the Cape Town CBD area.</p></li>
+<li><p>Capa de zonificación: Un archivo shape de polígonos con el código de zonificación y la descripción de las parcelas que tienen una única zonificación - recortada en el área del CBD de Ciudad del Cabo.</p></li>
+<li><p>Capa de zonificación dividida: Un archivo shape de polígonos con el código de zonificación y la descripción de las parcelas con zonificación múltiple, con cada polígono dividido en polígonos de zonas individuales.</p></li>
+<li><p>Área CDB de Ciudad del Cabo: Un polígono que delimita la zona del CDB de Ciudad del Cabo.</p></li>
 </ol>
-<p>Let’s see the step wise to prepare the dataset for this tutorial.</p>
+<p>Veamos paso a paso cómo preparar el conjunto de datos para este tutorial.</p>
 <ol class="arabic">
-<li><p>Go to the Data Portal - <a class="reference external" href="https://odp-cctegis.opendata.arcgis.com/">https://odp-cctegis.opendata.arcgis.com/</a>. We will search for the Cape Town CBD data in the search bar and click to browse further.</p>
+<li><p>Vaya al portal de datos - <a class="reference external" href="https://odp-cctegis.opendata.arcgis.com/">https://odp-cctegis.opendata.arcgis.com/</a>. Buscaremos los datos del CBD de Ciudad del Cabo en la barra de búsqueda y haremos clic para seguir navegando.</p>
 <img alt="../../_images/db1.png" class="align-center" src="../../_images/db1.png" />
 </li>
-<li><p>Click on <span class="guilabel">View Full Details</span> to explore services available to get the data.</p>
+<li><p>Haga clic en <span class="guilabel">Ver todos los detalles</span> para explorar los servicios disponibles para obtener los datos.</p>
 <blockquote>
 <div><img alt="../../_images/db2.png" class="align-center" src="../../_images/db2.png" />
 </div></blockquote>
 </li>
-<li><p>Scroll down to find <span class="guilabel">View Data Source</span> open and click on the it.</p>
+<li><p>Desplácese hacia abajo hasta encontrar :guilabel: <cite>Ver fuente de datos</cite> abierta y haga clic en ella.</p>
 <blockquote>
 <div><img alt="../../_images/db3.png" class="align-center" src="../../_images/db3.png" />
 </div></blockquote>
 </li>
-<li><p>On the ArcGIS REST Services Directory , Go to <span class="guilabel">Home</span> and copy the URL of that page. The copied URL looks like - <a class="reference external" href="https://citymaps.capetown.gov.za/agsext1/rest/services">https://citymaps.capetown.gov.za/agsext1/rest/services</a>.</p>
+<li><p>En el Directorio de Servicios REST de ArcGIS, vaya a :guilabel: <cite>Inicio</cite> y copie la URL de esa página. La URL copiada tiene el siguiente aspecto - <a class="reference external" href="https://citymaps.capetown.gov.za/agsext1/rest/services">https://citymaps.capetown.gov.za/agsext1/rest/services</a>.</p>
 <blockquote>
 <div><img alt="../../_images/db4.png" class="align-center" src="../../_images/db4.png" />
 </div></blockquote>
 </li>
-<li><p>Now, Open QGIS and go to <span class="menuselection">Open Data Source Manager</span>.</p>
+<li><p>Ahora, abra QGIS y vaya a :menuselection: <cite>Abrir Gestor de Fuentes de Datos</cite>.</p>
 <blockquote>
 <div><img alt="../../_images/db5.png" class="align-center" src="../../_images/db5.png" />
 </div></blockquote>
 </li>
-<li><p>The list of data sources is seen in the left panel. Scroll down to find <span class="menuselection">ArcGIS REST Server</span>. Click on <span class="guilabel">new</span> to create new server connection.</p>
+<li><p>La lista de fuentes de datos se ve en el panel izquierdo. Desplácese hacia abajo hasta encontrar <span class="menuselection">ArcGIS REST Server</span>. Haga clic en <span class="guilabel">nuevo</span> para crear una nueva conexión al servidor.</p>
 <blockquote>
 <div><img alt="../../_images/db6.png" class="align-center" src="../../_images/db6.png" />
 </div></blockquote>
 </li>
-<li><p>In the <span class="guilabel">Connection Details</span>, give the <span class="guilabel">Name</span> <code class="docutils literal notranslate"><span class="pre">Cape</span> <span class="pre">Town</span> <span class="pre">Open</span> <span class="pre">Data</span> <span class="pre">Portal</span></code> and paste the copied url as an input for  for <span class="guilabel">URL</span>.</p>
+<li><p>En <span class="guilabel">Detalles de conexión</span>, indique el <span class="guilabel">Nombre</span> <code class="docutils literal notranslate"><span class="pre">Portal</span> <span class="pre">de</span> <span class="pre">Datos</span> <span class="pre">Abiertos</span> <span class="pre">de</span> <span class="pre">Ciudad</span> <span class="pre">del</span> <span class="pre">Cabo</span></code> y pegue la url copiada como entrada para <span class="guilabel">URL</span>.</p>
 <blockquote>
 <div><img alt="../../_images/db7.png" class="align-center" src="../../_images/db7.png" />
 </div></blockquote>
 </li>
-<li><p>Click <span class="guilabel">Ok</span> and then <span class="guilabel">Connect</span> to see the data folders available in the server.</p>
+<li><p>Haga clic en :guilabel: <cite>Aceptar</cite> y luego en :guilabel: <cite>Conectar</cite> para ver las carpetas de datos disponibles en el servidor.</p>
 <blockquote>
 <div><img alt="../../_images/db8.png" class="align-center" src="../../_images/db8.png" />
 </div></blockquote>
 </li>
-<li><p>Now we will search for all three layers required for the tutorial from the database. Firstly, we will open <code class="docutils literal notranslate"><span class="pre">Cape</span> <span class="pre">Town</span> <span class="pre">CBD</span></code> layer in the QGIS. Expand folders to browse to the layers. Full path to the layer is <span class="menuselection">Theme_Based ‣ Open_Data_Service ‣ Cape Town CBD</span>. Select the layer and click <span class="guilabel">Add</span>.</p>
+<li><p>Ahora buscaremos en la base de datos las tres capas necesarias para el tutorial. En primer lugar, abriremos la capa <code class="docutils literal notranslate"><span class="pre">Cape</span> <span class="pre">Town</span> <span class="pre">CBD</span></code> en QGIS. Despliegue las carpetas para buscar las capas. La ruta completa a la capa es <span class="menuselection">Theme_Based ‣ Open_Data_Service ‣ Cape Town CBD</span>. Seleccione la capa y haga clic en :guilabel: <cite>Añadir</cite>.</p>
 <blockquote>
 <div><img alt="../../_images/db9.png" class="align-center" src="../../_images/db9.png" />
 </div></blockquote>
 </li>
-<li><p>Close the <span class="menuselection">Data Source Manager</span> to see the layer added to the QGIS. Click on <span class="menuselection">Zoom to Layer</span> to centre and display the layer on the canvas.</p>
+<li><p>Cierre :menuselection: <cite>Gestor de fuentes de datos</cite> para ver la capa añadida al QGIS. Haga clic en :menuselection: <cite>Zoom a Capa</cite> para centrar y mostrar la capa en el lienzo.</p>
 <img alt="../../_images/db10.png" class="align-center" src="../../_images/db10.png" />
 </li>
-<li><p>Now, will add the <code class="docutils literal notranslate"><span class="pre">Zoning</span></code> layer using <span class="guilabel">Data Source Manager</span>.Connect to <code class="docutils literal notranslate"><span class="pre">Cape</span> <span class="pre">Town</span> <span class="pre">Open</span> <span class="pre">Data</span> <span class="pre">Portal</span></code> and browse to  <code class="docutils literal notranslate"><span class="pre">Zoning</span></code> layer. The full path is <span class="menuselection">Theme_Based ‣ Open_Data_Service_Zoning ‣ Zoning</span>. This is a very large layer, so make sure to check the box <span class="guilabel">Only request features overlapping the current view extent</span> to avoid loading all the features available in the layer. If you forget this, loading of the layer may take a long time. Click  <span class="guilabel">Add</span> to open in the QGIS.</p>
+<li><p>Ahora, añadiremos la capa <code class="docutils literal notranslate"><span class="pre">Zoning</span></code> usando <span class="guilabel">Gestor de Fuentes de Datos</span>. Conéctese al «Portal de Datos Abiertos de Ciudad del Cabo» y busque la capa <code class="docutils literal notranslate"><span class="pre">Zoning</span></code>. La ruta completa es <span class="menuselection">Theme_Based ‣ Open_Data_Service_Zoning ‣ Zoning</span>. Esta es una capa muy grande, así que asegúrese de marcar la casilla <span class="guilabel">Only request features overlapping the current view extent</span> para evitar cargar todas las prestaciones disponibles en la capa. Si olvida esto, la carga de la capa puede tardar mucho tiempo. Haga clic en <span class="guilabel">Add</span> para abrir en QGIS.</p>
 <img alt="../../_images/db11.png" class="align-center" src="../../_images/db11.png" />
 </li>
-<li><p>Similarly add <code class="docutils literal notranslate"><span class="pre">Split_Zoning</span></code> layer. The full path is - <span class="menuselection">Theme_Based ‣ Land_Parcel_Zoning ‣ Split Zoning</span>.</p>
+<li><p>Del mismo modo añadir <code class="docutils literal notranslate"><span class="pre">Split_Zoning</span></code> capa. La ruta completa es - <span class="menuselection">Theme_Based ‣ Land_Parcel_Zoning ‣ Split Zoning</span>.</p>
 <img alt="../../_images/db12.png" class="align-center" src="../../_images/db12.png" />
 </li>
-<li><p>We can see all three source layers are open in QGIS. We want to clip the <code class="docutils literal notranslate"><span class="pre">Zoning</span></code> and <code class="docutils literal notranslate"><span class="pre">Split</span> <span class="pre">Zoning</span></code> layers to the <code class="docutils literal notranslate"><span class="pre">Cape</span> <span class="pre">Town</span> <span class="pre">CBD</span></code> boundary layer. Firstly, let’s save all three layers locally as shapefiles. Right click on the <code class="docutils literal notranslate"><span class="pre">Cape</span> <span class="pre">Town</span> <span class="pre">CBD</span></code> layer. Look for <span class="guilabel">Export</span> and click on <span class="guilabel">Save Features As</span>.</p>
+<li><p>Podemos ver que las tres capas de origen están abiertas en QGIS. Queremos recortar las capas <code class="docutils literal notranslate"><span class="pre">Zoning</span></code> y <code class="docutils literal notranslate"><span class="pre">Split</span> <span class="pre">Zoning</span></code> a la capa límite <code class="docutils literal notranslate"><span class="pre">Cape</span> <span class="pre">Town</span> <span class="pre">CBD</span></code>. En primer lugar, vamos a guardar las tres capas localmente como archivos shape. Haga clic con el botón derecho en la capa <code class="docutils literal notranslate"><span class="pre">Cape</span> <span class="pre">Town</span> <span class="pre">CBD</span></code>. Busque <span class="guilabel">Exportar</span> y haga clic en :guilabel: <cite>Guardar objetos espaciales como</cite>.</p>
 <img alt="../../_images/db13.png" class="align-center" src="../../_images/db13.png" />
 </li>
-<li><p>Set the format <span class="guilabel">ESRI Shapefile</span> and browse to the local folder where you want to save the shapefiles. We will save all the layers related to this tutorial in a single data folder. Save the layer as <code class="docutils literal notranslate"><span class="pre">cbd</span></code>.  Keep all other options default and click <span class="guilabel">OK</span>. Similarly export other two layers as <code class="docutils literal notranslate"><span class="pre">Zoning.shp</span></code> and <code class="docutils literal notranslate"><span class="pre">Split</span> <span class="pre">Zoning</span></code> to the same folder.</p>
+<li><p>Establezca el formato <span class="guilabel">ESRI Shapefile</span> y vaya a la carpeta local donde desea guardar los archivos shape. Guardaremos todas las capas relacionadas con este tutorial en una única carpeta de datos. Guarde la capa como <code class="docutils literal notranslate"><span class="pre">cbd</span></code>. Mantenga el resto de opciones por defecto y haga clic en <span class="guilabel">Aceptar</span>. Del mismo modo exportar otras dos capas como <code class="docutils literal notranslate"><span class="pre">Zoning.shp</span></code> y <code class="docutils literal notranslate"><span class="pre">Split</span> <span class="pre">Zoning</span></code> a la misma carpeta.</p>
 <img alt="../../_images/db14.png" class="align-center" src="../../_images/db14.png" />
 </li>
-<li><p>Remove the layers loaded from server. Select all three layers, and click on <span class="guilabel">Remove Layer/Group</span> icon. We want to extract features from <code class="docutils literal notranslate"><span class="pre">Zoning</span></code> and <code class="docutils literal notranslate"><span class="pre">Split</span> <span class="pre">Zoning</span></code> layers intersecting with <code class="docutils literal notranslate"><span class="pre">cbd</span></code> boundary.</p>
+<li><p>Elimine las capas cargadas desde el servidor. Seleccione las tres capas, y haga clic en :guilabel: <cite>Quitar Capa / Grupo</cite> icono. Queremos extraer los objetos espaciales de las capas <code class="docutils literal notranslate"><span class="pre">Zoning</span></code> y <code class="docutils literal notranslate"><span class="pre">Split</span> <span class="pre">Zoning</span></code> que se cruzan con el límite <code class="docutils literal notranslate"><span class="pre">cbd</span></code>.</p>
 <img alt="../../_images/db15.png" class="align-center" src="../../_images/db15.png" />
 </li>
-<li><p>Go to <span class="menuselection">Processing ‣ Toolbox</span> from the menubar.</p>
+<li><p>Vaya a <span class="menuselection">Procesos ‣ Caja de herramientas</span> de la barra de menús.</p>
 <img alt="../../_images/db16.png" class="align-center" src="../../_images/db16.png" />
 </li>
-<li><p>In the toolbax, search for <span class="guilabel">Intersection</span> algorithm and double-click to open.</p>
+<li><p>En la caja de herramientas, busque el algoritmo :guilabel: <cite>Intersección</cite> y haga doble clic para abrirlo.</p>
 <img alt="../../_images/db17.png" class="align-center" src="../../_images/db17.png" />
 </li>
-<li><p>Select <code class="docutils literal notranslate"><span class="pre">Zoning</span></code> as <span class="guilabel">Input layer</span> and <code class="docutils literal notranslate"><span class="pre">cbd</span></code> as <span class="guilabel">Overlay layer</span>. Keep other options default and proceed to save output to file.</p>
+<li><p>Seleccione <code class="docutils literal notranslate"><span class="pre">Zoning</span></code> como <span class="guilabel">Capa de entrada</span> y <code class="docutils literal notranslate"><span class="pre">cbd</span></code> como <span class="guilabel">Capa de superposición</span>. Mantenga las demás opciones por defecto y proceda a guardar el resultado en un archivo.</p>
 <img alt="../../_images/db18.png" class="align-center" src="../../_images/db18.png" />
 </li>
-<li><p>Save the output layer as <code class="docutils literal notranslate"><span class="pre">zoning_cbd</span></code> in the data folder and click <span class="guilabel">Run</span>.</p>
+<li><p>Guarde la capa de salida como <code class="docutils literal notranslate"><span class="pre">zoning_cbd</span></code> en la carpeta de datos y haga clic en <span class="guilabel">Ejecutar</span>.</p>
 <img alt="../../_images/db19.png" class="align-center" src="../../_images/db19.png" />
 </li>
-<li><p>Depending on your Processing settings, you will see some errors or warnings displayed in <span class="guilabel">Log</span> tab. The input layer has some invalid geometries and it is being skipped while running intersection. We will fix geometries of <code class="docutils literal notranslate"><span class="pre">Zoning</span></code> and <code class="docutils literal notranslate"><span class="pre">Split</span> <span class="pre">Zoning</span></code> layers before taking the intersection to extract all geometries.</p>
+<li><p>Dependiendo de la configuración de Procesos, verá algunos errores o advertencias en la pestaña <span class="guilabel">Registro</span>. La capa de entrada tiene algunas geometrías inválidas y está siendo omitida mientras se ejecuta la intersección. Corregiremos las geometrías de las capas <code class="docutils literal notranslate"><span class="pre">Zoning</span></code> y <code class="docutils literal notranslate"><span class="pre">Split</span> <span class="pre">Zoning</span></code> antes de ejecutar la intersección para extraer todas las geometrías.</p>
 <img alt="../../_images/db20.png" class="align-center" src="../../_images/db20.png" />
 </li>
-<li><p>Remove the intersection output from QGIS and data folder. Search for <span class="menuselection">Fix geometries</span> tool in the processing toolbox. Double-click to open.</p>
+<li><p>Elimine la salida de intersección de QGIS y de la carpeta de datos. Busque la herramienta <span class="menuselection">Corregir geometrías</span> en la caja de herramientas de procesamiento. Haga doble clic para abrir.</p>
 <img alt="../../_images/db21.png" class="align-center" src="../../_images/db21.png" />
 </li>
-<li><p>Select <code class="docutils literal notranslate"><span class="pre">Zoning</span></code> as <span class="guilabel">Input layer</span>. Keep all the other inputs as default and save the output layer as <code class="docutils literal notranslate"><span class="pre">zoning_fixed.shp</span></code> in the data folder by clicking  <span class="guilabel">Save to File</span>. Click <span class="guilabel">Run</span>. Repeat the process for fixing geometries on <code class="docutils literal notranslate"><span class="pre">Split</span> <span class="pre">Zoning</span></code> layer and save the layer with fixed geometries as <code class="docutils literal notranslate"><span class="pre">split_zoning_fixed.shp</span></code>.</p>
+<li><p>Seleccione <code class="docutils literal notranslate"><span class="pre">Zoning</span></code> como <span class="guilabel">Capa de entrada</span>. Mantenga el resto de entradas por defecto y guarde la capa de salida como <code class="docutils literal notranslate"><span class="pre">zoning_fixed.shp</span></code> en la carpeta de datos haciendo clic en <span class="guilabel">Guardar en archivo</span>. Haga clic en <span class="guilabel">Ejecutar</span>. Repita el proceso para fijar las geometrías en la capa <code class="docutils literal notranslate"><span class="pre">Split</span> <span class="pre">Zoning</span></code> y guarde la capa con geometrías fijas como <code class="docutils literal notranslate"><span class="pre">split_zoning_fixed.shp</span></code>.</p>
 <img alt="../../_images/db22.png" class="align-center" src="../../_images/db22.png" />
 </li>
-<li><p>Remove <code class="docutils literal notranslate"><span class="pre">Zoning</span></code> and <code class="docutils literal notranslate"><span class="pre">Split</span> <span class="pre">Zoning</span></code> layers. We will move ahead with extracting features from <code class="docutils literal notranslate"><span class="pre">zoning_fixed</span></code> and <code class="docutils literal notranslate"><span class="pre">split_zoning_fixed</span></code> layers which intersect <code class="docutils literal notranslate"><span class="pre">cbd</span></code>. Search for <span class="menuselection">Intersection</span> from the processing toolbox and double-click to open.</p>
+<li><p>Eliminar <code class="docutils literal notranslate"><span class="pre">Zoning</span></code> y <code class="docutils literal notranslate"><span class="pre">Split</span> <span class="pre">Zoning</span></code> capas. Vamos a seguir adelante con la extracción de objetos espaciales de <code class="docutils literal notranslate"><span class="pre">zoning_fixed</span></code> y <code class="docutils literal notranslate"><span class="pre">split_zoning_fixed</span></code> capas que se cruzan <code class="docutils literal notranslate"><span class="pre">cbd</span></code>. Busque <span class="menuselection">Intersección</span> en la caja de herramientas de procesado y haga doble clic para abrirla.</p>
 <img alt="../../_images/db23.png" class="align-center" src="../../_images/db23.png" />
 </li>
 </ol>
-<p>24.Select <code class="docutils literal notranslate"><span class="pre">Zoning_fixed</span></code> as <span class="guilabel">Input layer</span> and <code class="docutils literal notranslate"><span class="pre">cbd</span></code> as <span class="guilabel">Overlay layer</span> to perform intersection as described in steps 18 and 19. Save the output as <code class="docutils literal notranslate"><span class="pre">zoning_cbd</span></code> and repeat the same for <code class="docutils literal notranslate"><span class="pre">split_zoning_fixed</span></code> layer and save the output layer as <code class="docutils literal notranslate"><span class="pre">split_zoning_cbd</span></code>.</p>
+<p>24.Seleccione <code class="docutils literal notranslate"><span class="pre">Zoning_fixed</span></code> como <span class="guilabel">Capa de entrada</span> y <code class="docutils literal notranslate"><span class="pre">cbd</span></code> como <span class="guilabel">Capa de superposición`</span> para realizar la intersección como se describe en los pasos 18 y 19. Guarde la salida como <code class="docutils literal notranslate"><span class="pre">zoning_cbd</span></code> y repita lo mismo para la capa <code class="docutils literal notranslate"><span class="pre">split_zoning_fixed</span></code> y guarde la capa de salida como <code class="docutils literal notranslate"><span class="pre">split_zoning_cbd</span></code>. Guarde la salida como <code class="docutils literal notranslate"><span class="pre">zoning_cbd</span></code> y repita lo mismo para la capa <code class="docutils literal notranslate"><span class="pre">split_zoning_fixed</span></code> y guarde la capa de salida como <code class="docutils literal notranslate"><span class="pre">split_zoning_cbd</span></code>.</p>
 <blockquote>
 <div><img alt="../../_images/db24.png" class="align-center" src="../../_images/db24.png" />
 </div></blockquote>
-<p>For convenience, you may directly download a copy of all three pre-processed layers from the links below:</p>
+<p>Para mayor comodidad, puede descargar directamente una copia de las tres capas preprocesadas desde los siguientes enlaces:</p>
 <p><a class="reference external" href="https://www.qgistutorials.com/downloads/cbd.zip">cbd.shp</a></p>
 <p><a class="reference external" href="https://www.qgistutorials.com/downloads/zoning_cbd.zip">zoning_cbd.shp</a></p>
 <p><a class="reference external" href="https://www.qgistutorials.com/downloads/split_zoning_cbd.zip">split_zoning_cbd.shp</a></p>
@@ -487,7 +486,7 @@ We will be importing data from the portal using ArcGIS REST server URL and will 
     </p>
     <p>
         &copy; Copyright 2023, Ujaval Gandhi.<br/>
-      Actualizado por última vez en feb 25, 2024.<br/>
+      Actualizado por última vez en feb 29, 2024.<br/>
       Created using <a href="http://sphinx-doc.org/">Sphinx</a> 7.2.6.<br/>
     </p>
   </div>
