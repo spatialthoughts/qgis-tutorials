@@ -1,7 +1,7 @@
 Animating Time Series Data (QGIS3)
 ==================================
 
-Time is an important component of many spatial datasets. Along with location information, time providers another dimension for analysis and visualization of data. If you are working with dataset that contains timestamps or have observations recorded at multiple time-steps, you can easily visualize it using the **Temporal controler**. Temporal controler allows you to view and export 'slices' of data between certain time intervals that can be combined into animations. 
+Time is an important component of many spatial datasets. Along with location information, time provides another dimension for analysis and visualization of data. If you are working with dataset that contains timestamps or have observations recorded at multiple time-steps, you can easily visualize it using the **Temporal controler**. Temporal controler allows you to view and export 'slices' of data between certain time intervals that can be combined into animations. 
 
 .. note::
 
@@ -20,7 +20,7 @@ Other skills you will learn
 
 Get the data
 ------------
-National Geospatial-Intelligence Agency's `Maritime Safety Information portal <https://msi.nga.mil/NGAPortal/MSI.portal>`_ provides a shapefile of all incidencts of maritine piracy in the form on `Anti-shipping Activity Messages <https://msi.nga.mil/Piracy>`_. Download the `Arc Shape file <https://msi.nga.mil/api/publications/download?key=16920958/SFH00000/ASAM_shp.zip&type=download>`_ version of the database.
+National Geospatial-Intelligence Agency's `Maritime Safety Information portal <https://msi.nga.mil/NGAPortal/MSI.portal>`_ provides a shapefile of all incidencts of maritime piracy in the form on `Anti-shipping Activity Messages <https://msi.nga.mil/Piracy>`_. Download the `Arc Shape file <https://msi.nga.mil/api/publications/download?key=16920958/SFH00000/ASAM_shp.zip&type=download>`_ version of the database.
 
 `Natural Earth <http://naturalearthdata.com>`_ has several global vector
 layers. Download the `10m Physical Vectors - Land <https://www.naturalearthdata.com/http//www.naturalearthdata.com/download/10m/physical/ne_10m_land.zip>`_ containing Land polygons.
