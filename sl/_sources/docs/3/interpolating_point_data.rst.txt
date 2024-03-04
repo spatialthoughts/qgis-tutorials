@@ -67,7 +67,7 @@ Procedure
 
 
 6. Select the :guilabel:`Identify` tool and click on a point. You will see the
-   :guilabel:`Identify Results` panel show up on the left with the attribute
+   :guilabel:`Identify Results` panel show up on the right with the attribute
    value of the point. In this case, the ``ELEVATION`` attribute contains the
    depth of the lake at the location. As our task is to create a depth profile
    and elevation contours, we will use these values as input for the
