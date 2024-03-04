@@ -67,7 +67,7 @@ Procedure
 .. image:: /static/3/batch_processing/images/4.png
    :align: center
 
-5. In the :guilabel:`Query Builder` window, select the **CONTINENT** field and click :guilabel:`Sample`. This will populate the :guilabel:`Values` panel with the a subset of values of that attribute from features. This step is useful to get an understanding of what type of values are present in your dataset. We can see that our dataset contains contains a value called **Africa** among others.
+5. In the :guilabel:`Query Builder` window, select the **CONTINENT** field and click :guilabel:`Sample`. This will populate the :guilabel:`Values` panel with the a subset of values of that attribute from features. This step is useful to get an understanding of what type of values are present in your dataset. We can see that our dataset contains a value called **Africa** among others.
 
 .. image:: /static/3/batch_processing/images/5.png
    :align: center
@@ -157,7 +157,7 @@ Procedure
 .. image:: /static/3/batch_processing/images/21.png
    :align: center
 
-22. The clip algorithm will run for each of the inputs and create output files are we have specified. Once the batch process finishes, click :guilabel:`Close` to return to QGIS.
+22. The clip algorithm will run for each of the inputs and create output files as we have specified. Once the batch process finishes, click :guilabel:`Close` to return to QGIS.
 
 .. note::
 
@@ -171,7 +171,7 @@ Procedure
 .. image:: /static/3/batch_processing/images/23.png
    :align: center
 
-24. We have accomplished the task of clipping multiple layers in a batch. But QGIS3 has another handy feature that will help you save and deliver the result in a more efficient way. If you wanted to deliver the clipped layers to someone, you would zip the individual files outside of QGIS. A better option to to package the output layers in a single Geopackage. In the :guilabel:`QGIS Browser`, locate the clipped output layers. You may have to click the :guilabel:`Refresh` button to see the newly added files. 
+24. We have accomplished the task of clipping multiple layers in a batch. But QGIS3 has another handy feature that will help you save and deliver the result in a more efficient way. If you wanted to deliver the clipped layers to someone, you would zip the individual files outside of QGIS. A better option is to package the output layers in a single Geopackage. In the :guilabel:`QGIS Browser`, locate the clipped output layers. You may have to click the :guilabel:`Refresh` button to see the newly added files. 
 
 .. image:: /static/3/batch_processing/images/24.png
    :align: center

@@ -58,7 +58,7 @@ Procedure
 .. image:: /static/3/processing_graphical_modeler/images/5.png
    :align: center
 	 
-6. Now we can start building a graphical model of our processing pipeline.  The :guilabel:`Processing modeler` dialog contains a left-hand panel and a main canvas. On he left-hand panel, locate the :guilabel:`Inputs` panel listing various types of input data types. Scroll down and select the :guilabel:`+ Vector Layer` input. Drag it to the canvas.
+6. Now we can start building a graphical model of our processing pipeline.  The :guilabel:`Processing modeler` dialog contains a left-hand panel and a main canvas. On the left-hand panel, locate the :guilabel:`Inputs` panel listing various types of input data types. Scroll down and select the :guilabel:`+ Vector Layer` input. Drag it to the canvas.
 
 .. image:: /static/3/processing_graphical_modeler/images/6.png
    :align: center
@@ -110,7 +110,7 @@ Procedure
 .. image:: /static/3/processing_graphical_modeler/images/15.png
    :align: center
 
-16. For :guilabel:`Extract features from`, select ``'Grid' from algorithm 'Generate Grid'``, :guilabel:`Where the features (geometric predicate)` as ``Intersect`` and :guilabel:`By compating to the features from` as ``Input points``. Click :guilabel:`OK`.
+16. For :guilabel:`Extract features from`, select ``'Grid' from algorithm 'Generate Grid'``, :guilabel:`Where the features (geometric predicate)` as ``Intersect`` and :guilabel:`By comparing to the features from` as ``Input points``. Click :guilabel:`OK`.
 
 .. image:: /static/3/processing_graphical_modeler/images/16.png
    :align: center
