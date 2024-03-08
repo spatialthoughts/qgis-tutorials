@@ -5,7 +5,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Creating a Colorized River Basin Map (QGIS3) &#8212; QGIS Tutorials and Tips</title>
+    <title>Creación de un mapa de cuenca fluvial coloreado (QGIS3) &#8212; QGIS Tutorials and Tips</title>
     <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=fa44fd50" />
     <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-sphinx.css?v=0bf093e7" />
     <script src="../../_static/documentation_options.js?v=92345faf"></script>
@@ -104,11 +104,11 @@
 <li class="toctree-l1"><a class="reference internal" href="service_area_analysis.html">Análisis de Área de Servicio usando Openrouteservice (QGIS3)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="travel_time_analysis.html">Análisis del tiempo de viaje con el movimiento de Uber (QGIS3)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="areal_mean_rainfall.html">Calcular la Precipitación Media de Área (QGIS3)</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Creating a Colorized River Basin Map (QGIS3)</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Creación de un mapa de cuenca fluvial coloreado (QGIS3)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="creating_landuse_map.html">Creación de un mapa de uso de la tierra (QGIS3)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="calculating_intersection_density.html">Calcular Densidad de Intersección de Calle (QGIS3)</a></li>
-<li class="toctree-l1"><a class="reference internal" href="landuse_buffer.html">Determining Landuse Buffer Zones (QGIS3)</a></li>
-<li class="toctree-l1"><a class="reference internal" href="solidwaste_mapping.html">Mapping Waste Disposal Volumes (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="landuse_buffer.html">Determinación de zonas de influencia de usos de la tierra (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="solidwaste_mapping.html">Cartografía de los volúmenes de eliminación de residuos (QGIS3)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="getting_started_with_pyqgis.html">Iniciándote con la Programación Python (QGIS3)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="processing_algorithms_pyqgis.html">Ejecutar Algoritmos de Procesamiento vía Python (QGIS3)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="custom_python_functions.html">Usando Funciones de Expresión Python Personalizadas (QGIS3)</a></li>
@@ -182,163 +182,163 @@
       
 
   <section id="creating-a-colorized-river-basin-map-qgis3">
-<h1>Creating a Colorized River Basin Map (QGIS3)<a class="headerlink" href="#creating-a-colorized-river-basin-map-qgis3" title="Link to this heading">¶</a></h1>
-<p>In this tutorial, we will learn the QGIS workflow to create artistic river maps for your own country or region using openly available hydrological data.</p>
+<h1>Creación de un mapa de cuenca fluvial coloreado (QGIS3)<a class="headerlink" href="#creating-a-colorized-river-basin-map-qgis3" title="Link to this heading">¶</a></h1>
+<p>En este tutorial, aprenderemos el flujo de trabajo de QGIS para crear mapas fluviales artísticos de tu propio país o región utilizando datos hidrológicos de libre acceso.</p>
 <div class="admonition note">
 <p class="admonition-title">Nota</p>
-<p>This tutorial is inspired by the beautiful maps produced by <a class="reference external" href="https://www.grasshoppergeography.com/">Grasshopper Geography</a>. I own one of their prints and you too can support their work by purchasing one of their maps from their <a class="reference external" href="https://www.etsy.com/shop/GrasshopperGeography">online store</a>.</p>
+<p>Este tutorial está inspirado en los hermosos mapas producidos por <a class="reference external" href="https://www.grasshoppergeography.com/">Grasshopper Geography</a>. Yo tengo uno de sus grabados y tú también puedes apoyar su trabajo comprando uno de sus mapas en su tienda en-línea &lt;<a class="reference external" href="https://www.etsy.com/shop/GrasshopperGeography">https://www.etsy.com/shop/GrasshopperGeography</a>&gt;`_.</p>
 </div>
 <section id="overview-of-the-task">
-<h2>Overview of the task<a class="headerlink" href="#overview-of-the-task" title="Link to this heading">¶</a></h2>
-<p>In this tutorial, we will take data layers of basins and rivers from HydroSHEDS and create a basin map for rivers of India.</p>
+<h2>Visión general de la tarea<a class="headerlink" href="#overview-of-the-task" title="Link to this heading">¶</a></h2>
+<p>En este tutorial, tomaremos capas de datos de cuencas y ríos de HydroSHEDS y crearemos un mapa de cuencas para los ríos de la India.</p>
 <blockquote>
 <div><img alt="../../_images/rivers_of_india.png" class="align-center" src="../../_images/rivers_of_india.png" />
 </div></blockquote>
 </section>
 <section id="other-skills-you-will-learn">
-<h2>Other skills you will learn<a class="headerlink" href="#other-skills-you-will-learn" title="Link to this heading">¶</a></h2>
+<h2>Otras competencias que aprenderá<a class="headerlink" href="#other-skills-you-will-learn" title="Link to this heading">¶</a></h2>
 <ul class="simple">
-<li><p>How to assign projection to a vector layer with incorrect or missing projection.</p></li>
-<li><p>How to add multiple layers in a single GeoPackage.</p></li>
-<li><p>How to add a “Made with QGIS” badge to your map.</p></li>
+<li><p>Cómo asignar proyección a una capa vectorial con proyección incorrecta o ausente.</p></li>
+<li><p>Cómo añadir varias capas en un mismo GeoPackage.</p></li>
+<li><p>Cómo añadir una insignia “Hecho con QGIS” a su mapa.</p></li>
 </ul>
 </section>
 <section id="get-the-data">
-<h2>Get the data<a class="headerlink" href="#get-the-data" title="Link to this heading">¶</a></h2>
-<p><a class="reference external" href="https://www.hydrosheds.org/">HydroSHEDS</a> provides global hydrological datasets suitable for regional and global applications. The data layers are derived from hydrologically conditioned DEM from SRTM.</p>
+<h2>Obtener los datos<a class="headerlink" href="#get-the-data" title="Link to this heading">¶</a></h2>
+<p><a class="reference external" href="https://www.hydrosheds.org/">HydroSHEDS</a> proporciona conjuntos de datos hidrológicos globales adecuados para aplicaciones regionales y globales. Las capas de datos se derivan de MDE condicionados hidrológicamente a partir de SRTM.</p>
 <section id="basin-boundaries">
-<h3>Basin Boundaries<a class="headerlink" href="#basin-boundaries" title="Link to this heading">¶</a></h3>
-<p>HydroBasins provides polygon boundaries of basins for different continents. The boundaries are hierarchical – each basin at Level N is further subdivided into smaller basins at Level N+1. For this tutorial, we will use the Level 6 basin boundaries. You can use different level depending on your region and type of map you want to create. Visit the <a class="reference external" href="https://www.hydrosheds.org/products/hydrobasins">HydroBASINS</a>  page and download the zip file for your region.</p>
+<h3>Límites de las cuencas<a class="headerlink" href="#basin-boundaries" title="Link to this heading">¶</a></h3>
+<p>HydroBasins proporciona límites poligonales de cuencas para diferentes continentes. Los límites son jerárquicos: cada cuenca de Nivel N se subdivide a su vez en cuencas más pequeñas de Nivel N+1. Para este tutorial, utilizaremos los límites de cuenca del Nivel 6. Puede utilizar un nivel diferente en función de sus necesidades. Puede utilizar un nivel diferente en función de su región y del tipo de mapa que desee crear. Visite la página <a class="reference external" href="https://www.hydrosheds.org/products/hydrobasins">HydroBASINS</a> y descargue el archivo zip correspondiente a su región.</p>
 <blockquote>
 <div><img alt="../../_images/download1.png" class="align-center" src="../../_images/download1.png" />
 </div></blockquote>
 <div class="admonition note">
 <p class="admonition-title">Nota</p>
-<p>HydroSHEDS basin boundaries are derived from SRTM data which is over 20 years old at this point. The basin boundaries may not match the official basin boundaries in your region. You can substitute HydroBasins data with polygons from official sources when available.</p>
+<p>Los límites de cuenca de HydroSHEDS se derivan de los datos SRTM, que en este momento tienen más de 20 años. Los límites de las cuencas pueden no coincidir con los límites oficiales de las cuencas de su región. Puede sustituir los datos de HydroBasins por polígonos de fuentes oficiales cuando estén disponibles.</p>
 </div>
 </section>
 <section id="river-network">
-<h3>River Network<a class="headerlink" href="#river-network" title="Link to this heading">¶</a></h3>
-<p>HydroRIVERS provides a line shapefile representing the river network. Visit the <a class="reference external" href="https://www.hydrosheds.org/products/hydrorivers">HydroRIVERS</a> page and download the zip file for your region of interest.</p>
+<h3>Red fluvial<a class="headerlink" href="#river-network" title="Link to this heading">¶</a></h3>
+<p>HydroRIVERS proporciona un archivo shape línea que representa la red fluvial. Visite la página <a class="reference external" href="https://www.hydrosheds.org/products/hydrorivers">HydroRIVERS</a> y descargue el archivo zip correspondiente a su región de interés.</p>
 <blockquote>
 <div><img alt="../../_images/download2.png" class="align-center" src="../../_images/download2.png" />
 </div></blockquote>
 </section>
 <section id="administrative-boundary">
-<h3>Administrative Boundary<a class="headerlink" href="#administrative-boundary" title="Link to this heading">¶</a></h3>
-<p>We will clip the HydroSHEDS data to the boundary of your chosen region. In this tutorial, we want to create a river basin map of India, so we will get the boundary shapefile from Survey of India. Visit the <a class="reference external" href="https://surveyofindia.gov.in/pages/outline-maps-of-india">Outline Maps of India</a> page and download the India International Boundary Vector Format. If you need admin boundaries for other countries or states, you can get them from <a class="reference external" href="https://gadm.org/">GADM</a> or <a class="reference external" href="https://www.geoboundaries.org/">geoBoundaries</a>.</p>
+<h3>Límites administrativos<a class="headerlink" href="#administrative-boundary" title="Link to this heading">¶</a></h3>
+<p>Recortaremos los datos de HydroSHEDS a los límites de la región elegida. En este tutorial, queremos crear un mapa de cuenca fluvial de la India, por lo que obtendremos el archivo shape de límites de Survey of India. Visite la página <a class="reference external" href="https://surveyofindia.gov.in/pages/outline-maps-of-india">Outline Maps of India</a> y descargue el formato vectorial de límites internacionales de la India. Si necesita los límites administrativos de otros países o estados, puede obtenerlos de <a class="reference external" href="https://gadm.org/">GADM</a> o <a class="reference external" href="https://www.geoboundaries.org/">geoBoundaries</a>.</p>
 <blockquote>
 <div><img alt="../../_images/download3.png" class="align-center" src="../../_images/download3.png" />
 </div></blockquote>
-<p>Once all the files are downloaded, unzip them and copy them to a folder. You should now have 3 shapefiles: <code class="docutils literal notranslate"><span class="pre">hybas_as_lev06_v1c.shp</span></code>, <code class="docutils literal notranslate"><span class="pre">HydroRIVERS_v10_as.shp</span></code> and admin boundaries <code class="docutils literal notranslate"><span class="pre">`polymap15m_area.shp`</span></code>.</p>
+<p>Una vez descargados todos los archivos, descomprímalos y cópielos en una carpeta. Ahora debería tener 3 archivos shape: <code class="docutils literal notranslate"><span class="pre">hybas_as_lev06_v1c.shp</span></code>, <code class="docutils literal notranslate"><span class="pre">HydroRIVERS_v10_as.shp</span></code> y admin boundaries <code class="docutils literal notranslate"><span class="pre">polymap15m_area.shp</span></code>.</p>
 <blockquote>
 <div><img alt="../../_images/download4.png" class="align-center" src="../../_images/download4.png" />
 </div></blockquote>
-<p>Data Sources: <a class="reference internal" href="../credits.html#hydrosheds" id="id1"><span>[HYDROSHEDS]</span></a>, <a class="reference internal" href="../credits.html#soi" id="id2"><span>[SOI]</span></a></p>
+<p>Fuentes de datos: <a class="reference internal" href="../credits.html#hydrosheds" id="id1"><span>[HYDROSHEDS]</span></a>, <a class="reference internal" href="../credits.html#soi" id="id2"><span>[SOI]</span></a></p>
 </section>
 </section>
 <section id="procedure">
-<h2>Procedure<a class="headerlink" href="#procedure" title="Link to this heading">¶</a></h2>
+<h2>Procedimiento<a class="headerlink" href="#procedure" title="Link to this heading">¶</a></h2>
 <ol class="arabic simple">
-<li><p>Open QGIS and locate the downloaded files in the QGIS <span class="guilabel">Browser</span>. Drag and drop <code class="docutils literal notranslate"><span class="pre">hybas_as_lev06_v1c.shp</span></code> and <code class="docutils literal notranslate"><span class="pre">HydroRIVERS_v10_as.shp</span></code> to the canvas.</p></li>
+<li><p>Abra QGIS y localice los archivos descargados en el <span class="guilabel">Navegador</span> de QGIS. Arrastre y suelte <code class="docutils literal notranslate"><span class="pre">hybas_as_lev06_v1c.shp</span></code> y <code class="docutils literal notranslate"><span class="pre">HydroRIVERS_v10_as.shp</span></code> al lienzo.</p></li>
 </ol>
 <blockquote>
 <div><img alt="../../_images/130.png" class="align-center" src="../../_images/130.png" />
 </div></blockquote>
 <ol class="arabic simple" start="2">
-<li><p>Locate the administrative boundaries shapefile <code class="docutils literal notranslate"><span class="pre">polymap15m_area.shp</span></code> and drag-and-drop it to the canvas.</p></li>
+<li><p>Localice el archivo shape de límites administrativos <code class="docutils literal notranslate"><span class="pre">polymap15m_area.shp</span></code> y arrástrelo y suéltelo en el lienzo.</p></li>
 </ol>
 <blockquote>
 <div><img alt="../../_images/227.png" class="align-center" src="../../_images/227.png" />
 </div></blockquote>
 <ol class="arabic simple" start="3">
-<li><p>The HydroSHEDS data layers have some features with invalid geometries Let’s fix them proceeding further. Open the Processing Toolbox from <span class="menuselection">Processing ‣ Toolbox</span>. Search and locate the <span class="menuselection">Vector geometry ‣ Fix geometries</span> tool. Double-click to launch it.</p></li>
+<li><p>Las capas de datos HydroSHEDS tienen algunos objetos espaciales con geometrías no válidas. Vamos a arreglarlas procediendo más adelante. Abra la caja de herramientas de procesado desde <span class="menuselection">Procesos ‣ Caja de herramientas</span>. Busque y localice la herramienta <span class="menuselection">Geometría vectorial ‣ Corregir geometrías</span>. Haga doble clic para ejecutarla.</p></li>
 </ol>
 <blockquote>
 <div><img alt="../../_images/318.png" class="align-center" src="../../_images/318.png" />
 </div></blockquote>
 <div class="admonition note">
 <p class="admonition-title">Nota</p>
-<p>You can review the tutorial <a class="reference internal" href="handling_invalid_geometries.html"><span class="doc">Manejar Geometrías No Válidas (QGIS3)</span></a> to learn more about the causes and fixes for invalid geometries.</p>
+<p>Puede consultar el tutorial <a class="reference internal" href="handling_invalid_geometries.html"><span class="doc">Manejar Geometrías No Válidas (QGIS3)</span></a> para obtener más información sobre las causas y soluciones de las geometrías no válidas.</p>
 </div>
 <ol class="arabic simple" start="4">
-<li><p>Select <code class="docutils literal notranslate"><span class="pre">hybas_as_lev06_v1c</span></code> as the <span class="guilabel">Input layer</span>. Click the <span class="guilabel">…</span> button next to <span class="guilabel">Fixed geometries</span> and select <span class="guilabel">Save to GeoPackage…</span>.</p></li>
+<li><p>Seleccione <code class="docutils literal notranslate"><span class="pre">hybas_as_lev06_v1c</span></code> como <span class="guilabel">Capa de entrada`</span>. Haga clic en el botón <span class="guilabel">…</span> situado junto a <span class="guilabel">Geometrías corregidas</span> y seleccione <span class="guilabel">Guardar en GeoPackage…</span>.</p></li>
 </ol>
 <blockquote>
 <div><img alt="../../_images/47.png" class="align-center" src="../../_images/47.png" />
 </div></blockquote>
 <ol class="arabic simple" start="5">
-<li><p>Browse to the location where you want to save the output data and enter the name <code class="docutils literal notranslate"><span class="pre">data.gpkg</span></code>. Click <span class="guilabel">Save</span>. You will be prompted to enter a <span class="guilabel">Layer name</span>. Enter <code class="docutils literal notranslate"><span class="pre">basins_fixed</span></code>. Click <span class="guilabel">OK</span>. Next click <span class="guilabel">Run</span> to run the algorithm and generate the output layer.</p></li>
+<li><p>Busque la ubicación donde desea guardar los datos de salida e introduzca el nombre <code class="docutils literal notranslate"><span class="pre">data.gpkg</span></code>. Haga clic en <span class="guilabel">Guardar</span>. Se le pedirá que introduzca un <span class="guilabel">Nombre de capa`</span>. Introduzca <code class="docutils literal notranslate"><span class="pre">basins_fixed</span></code>. Haga clic en <span class="guilabel">Aceptar</span>. A continuación, haga clic en <span class="guilabel">Ejecutar</span> para ejecutar el algoritmo y generar la capa de salida.</p></li>
 </ol>
 <blockquote>
 <div><img alt="../../_images/57.png" class="align-center" src="../../_images/57.png" />
 </div></blockquote>
 <ol class="arabic simple" start="6">
-<li><p>Repeat the step for the <code class="docutils literal notranslate"><span class="pre">HydroRIVERS_v10_as</span></code> layer. Select the same GeoPackage <code class="docutils literal notranslate"><span class="pre">data.gpkg</span></code> that was created in the previous step. Do not worry if you get a message indicating that the file will be overwritten. QGIS will not overwrite the file, but append a new layer to the same GeoPackage. This time use <code class="docutils literal notranslate"><span class="pre">rivers_fixed</span></code> as the <span class="guilabel">Layer name</span>.</p></li>
+<li><p>Repita el paso para la capa <code class="docutils literal notranslate"><span class="pre">HydroRIVERS_v10_as</span></code>. Seleccione el mismo GeoPackage <code class="docutils literal notranslate"><span class="pre">data.gpkg</span></code> que se creó en el paso anterior. No se preocupe si recibe un mensaje indicando que el archivo se sobrescribirá. QGIS no sobrescribirá el archivo, sino que añadirá una nueva capa al mismo GeoPaquete. Esta vez utilice <code class="docutils literal notranslate"><span class="pre">rivers_fixed</span></code> como <span class="guilabel">Nombre de la capa</span>.</p></li>
 </ol>
 <blockquote>
 <div><img alt="../../_images/67.png" class="align-center" src="../../_images/67.png" />
 </div></blockquote>
 <ol class="arabic simple" start="7">
-<li><p>The <code class="docutils literal notranslate"><span class="pre">polymap15m_area</span></code> layer comes with a projection that is not recognized by QGIS. We will assign a known projection to this layer. Search and locate the <span class="menuselection">Vector general ‣ Assign projection</span> tool and double-click to open it.</p></li>
+<li><p>La capa <code class="docutils literal notranslate"><span class="pre">polymap15m_area</span></code> viene con una proyección que no es reconocida por QGIS. Vamos a asignar una proyección conocida a esta capa. Busque y localice la herramienta <span class="menuselection">Vector general ‣ Asignar proyección</span> y haga doble clic para abrirla.</p></li>
 </ol>
 <blockquote>
 <div><img alt="../../_images/77.png" class="align-center" src="../../_images/77.png" />
 </div></blockquote>
 <div class="admonition note">
 <p class="admonition-title">Nota</p>
-<p>Remember that <em>Assign projection</em> tool does not reproject the layer but simply adds the correct projection information to an existing georeferenced layer with missing or incorrect projection. Use the <em>Reproject layer</em> tool if you want to change the CRS of a layer.</p>
+<p>Recuerde que la herramienta <em>Asignar proyección</em> no reproyecta la capa sino que simplemente añade la información de proyección correcta a una capa georreferenciada existente con proyección ausente o incorrecta. Utilice la herramienta <em>Reproyectar capa</em> si desea cambiar el SRC de una capa.</p>
 </div>
 <ol class="arabic simple" start="8">
-<li><p>Select <code class="docutils literal notranslate"><span class="pre">polymap15m_area</span></code> as the <span class="guilabel">Input layer</span>. Click the <span class="guilabel">Select CRS</span> button and search for the <code class="docutils literal notranslate"><span class="pre">EPSG:7755</span> <span class="pre">-</span> <span class="pre">WGS</span> <span class="pre">84</span> <span class="pre">/</span> <span class="pre">India</span> <span class="pre">NSF</span> <span class="pre">LCC</span></code> projection and select it. Click the <span class="guilabel">…</span> button next to <span class="guilabel">Assigned CRS</span> and select <span class="guilabel">Save to GeoPackage…</span>.</p></li>
+<li><p>Seleccione <code class="docutils literal notranslate"><span class="pre">polymap15m_area</span></code> como <span class="guilabel">Capa de entrada</span>. Haga clic en el botón <span class="guilabel">Seleccionar SRC</span> y busque la proyección <code class="docutils literal notranslate"><span class="pre">EPSG:7755</span> <span class="pre">-</span> <span class="pre">WGS</span> <span class="pre">84</span> <span class="pre">/</span> <span class="pre">India</span> <span class="pre">NSF</span> <span class="pre">LCC</span></code> y selecciónela. Haga clic en el botón <span class="guilabel">…</span> situado junto a <span class="guilabel">SRC asignado`</span> y seleccione <span class="guilabel">Guardar en GeoPackage…</span>.</p></li>
 </ol>
 <blockquote>
 <div><img alt="../../_images/87.png" class="align-center" src="../../_images/87.png" />
 </div></blockquote>
 <ol class="arabic simple" start="9">
-<li><p>Select the same GeoPackage <code class="docutils literal notranslate"><span class="pre">data.gpkg</span></code> and enter the layer name <code class="docutils literal notranslate"><span class="pre">admin_boundary_fixed</span></code>. Click <span class="guilabel">Run</span>.</p></li>
+<li><p>Seleccione el mismo GeoPackage <code class="docutils literal notranslate"><span class="pre">data.gpkg</span></code> e introduzca el nombre de la capa <code class="docutils literal notranslate"><span class="pre">admin_boundary_fixed</span></code>. Haga clic en <span class="guilabel">Ejecutar</span>.</p></li>
 </ol>
 <blockquote>
 <div><img alt="../../_images/97.png" class="align-center" src="../../_images/97.png" />
 </div></blockquote>
 <ol class="arabic simple" start="10">
-<li><p>You will now have 3 new layers <code class="docutils literal notranslate"><span class="pre">basins_fixed</span></code>, <code class="docutils literal notranslate"><span class="pre">rivers_fixed</span></code> and <code class="docutils literal notranslate"><span class="pre">admin_boundary_fixed</span></code> loaded to the <span class="guilabel">Layers</span> panel in QGIS. Hold the <kbd class="kbd docutils literal notranslate">Shift</kbd> key and select all remaining layers. Right-click and choose <span class="guilabel">Remove Layer…</span>.</p></li>
+<li><p>Ahora tendrá 3 nuevas capas <code class="docutils literal notranslate"><span class="pre">basins_fixed</span></code>, <code class="docutils literal notranslate"><span class="pre">rivers_fixed</span></code> y <code class="docutils literal notranslate"><span class="pre">admin_boundary_fixed</span></code> cargadas en el panel <span class="guilabel">Capas`</span> de QGIS. Mantenga pulsada la tecla <kbd class="kbd docutils literal notranslate">Mayús</kbd> y seleccione todas las capas restantes. Haga clic con el botón derecho y seleccione <span class="guilabel">Quitar capa…</span>.</p></li>
 </ol>
 <blockquote>
 <div><img alt="../../_images/1011.png" class="align-center" src="../../_images/1011.png" />
 </div></blockquote>
 <ol class="arabic simple" start="11">
-<li><p>We will now clip the basins and rivers layers to the administrative boundary. Search and locate the <span class="menuselection">Vector overlay ‣ Clip</span> tool from the Processing Toolbox. Double-click to open it.</p></li>
+<li><p>Ahora recortaremos las capas de cuencas y ríos al límite administrativo. Busque y localice la herramienta <span class="menuselection">Superposición vectorial ‣ Recortar</span> de la Caja de herramientas de procesos. Haga doble clic para abrirla.</p></li>
 </ol>
 <blockquote>
 <div><img alt="../../_images/1114.png" class="align-center" src="../../_images/1114.png" />
 </div></blockquote>
 <ol class="arabic simple" start="12">
-<li><p>Select <code class="docutils literal notranslate"><span class="pre">basins_fixed</span></code> as the <span class="guilabel">Input layer</span> and <code class="docutils literal notranslate"><span class="pre">admin_boundary_fixed</span></code> as the <span class="guilabel">Overlay layer</span>. Save the output to the same GeoPackage <code class="docutils literal notranslate"><span class="pre">data.gpkg</span></code> as the layer <code class="docutils literal notranslate"><span class="pre">basins_clipped</span></code>. Click <span class="guilabel">Run</span>.</p></li>
+<li><p>Seleccione <code class="docutils literal notranslate"><span class="pre">basins_fixed</span></code> como <span class="guilabel">Capa de entrada</span> y <code class="docutils literal notranslate"><span class="pre">admin_boundary_fixed</span></code> como <span class="guilabel">Capa de superposición`</span>. Guarde el resultado en el mismo GeoPackage <code class="docutils literal notranslate"><span class="pre">data.gpkg</span></code> que la capa <code class="docutils literal notranslate"><span class="pre">basins_clipped</span></code>. Haga clic en <span class="guilabel">Ejecutar</span>.</p></li>
 </ol>
 <blockquote>
 <div><img alt="../../_images/1212.png" class="align-center" src="../../_images/1212.png" />
 </div></blockquote>
 <ol class="arabic simple" start="13">
-<li><p>Once the processing finishes, repeat the process with the <code class="docutils literal notranslate"><span class="pre">rivers_fixed</span></code> layer as the <span class="guilabel">Input layer</span>.  Save the output to the same geopackage <code class="docutils literal notranslate"><span class="pre">data.gpkg</span></code> as the layer <code class="docutils literal notranslate"><span class="pre">rivers_clipped</span></code>. Click <span class="guilabel">Run</span>.</p></li>
+<li><p>Una vez finalizado el procesamiento, repite el proceso con la capa <code class="docutils literal notranslate"><span class="pre">rivers_fixed</span></code> como <span class="guilabel">Capa de entrada`</span>. Guarde el resultado en el mismo geopackage <code class="docutils literal notranslate"><span class="pre">data.gpkg</span></code> que la capa <code class="docutils literal notranslate"><span class="pre">rivers_clipped</span></code>. Haga clic en <span class="guilabel">Ejecutar</span>.</p></li>
 </ol>
 <blockquote>
 <div><img alt="../../_images/1310.png" class="align-center" src="../../_images/1310.png" />
 </div></blockquote>
 <ol class="arabic simple" start="14">
-<li><p>You will now have 2 new layers <code class="docutils literal notranslate"><span class="pre">basins_clipped</span></code> and <code class="docutils literal notranslate"><span class="pre">rivers_clipped</span></code>, as well as <code class="docutils literal notranslate"><span class="pre">admin_boundary_fixed</span></code> layer loaded to the <span class="guilabel">Layers</span> panel in QGIS. Hold the <kbd class="kbd docutils literal notranslate">Shift</kbd> key and select all remaining layers. Right-click and choose <span class="guilabel">Remove Layer…</span>.</p></li>
+<li><p>Ahora tendrá 2 nuevas capas <code class="docutils literal notranslate"><span class="pre">basins_clipped</span></code> y <code class="docutils literal notranslate"><span class="pre">rivers_clipped</span></code>, así como la capa <code class="docutils literal notranslate"><span class="pre">admin_boundary_fixed</span></code> cargada en el panel <span class="guilabel">Capas</span> en QGIS. Mantenga pulsada la tecla <kbd class="kbd docutils literal notranslate">Mayús</kbd> y seleccione todas las capas restantes. Haga clic con el botón derecho y seleccione <span class="guilabel">Quitar capa…</span>.</p></li>
 </ol>
 <blockquote>
 <div><img alt="../../_images/149.png" class="align-center" src="../../_images/149.png" />
 </div></blockquote>
 <ol class="arabic simple" start="15">
-<li><p>Before we proceed further, let’s save the project. QGIS allows you to save a project inside of a GeoPackage - making it very convenient to avoid managing additional files. Go to <span class="menuselection">Project ‣ Save To ‣ GeoPackage…</span>.</p></li>
+<li><p>Antes de continuar, vamos a guardar el proyecto. QGIS permite guardar un proyecto dentro de un GeoPackage - lo que resulta muy cómodo para evitar la gestión de archivos adicionales. Vaya a <span class="menuselection">Proyecto ‣ Guardar en ‣ GeoPackage…</span>.</p></li>
 </ol>
 <blockquote>
 <div><img alt="../../_images/159.png" class="align-center" src="../../_images/159.png" />
 </div></blockquote>
 <ol class="arabic simple" start="16">
-<li><p>In the <span class="guilabel">Save project to GeoPackage</span> dialog, click the <span class="guilabel">…</span> button next to <span class="guilabel">Connection</span> and browse to the existing <code class="docutils literal notranslate"><span class="pre">data.gpkg</span></code> file. Enter the name <code class="docutils literal notranslate"><span class="pre">rivers_basin_map</span></code> as the <span class="guilabel">Project</span> name. Click <span class="guilabel">OK</span>.</p></li>
+<li><p>En el cuadro de diálogo <span class="guilabel">Guardar proyecto en GeoPackage</span>, haga clic en el botón <span class="guilabel">…</span> situado junto a <span class="guilabel">Conexión</span> y busque el archivo <code class="docutils literal notranslate"><span class="pre">data.gpkg</span></code> existente. Introduzca el nombre <code class="docutils literal notranslate"><span class="pre">rivers_basin_map</span></code> como nombre del <span class="guilabel">Proyecto</span>. Haga clic en <span class="guilabel">Aceptar</span>.</p></li>
 </ol>
 <blockquote>
 <div><img alt="../../_images/168.png" class="align-center" src="../../_images/168.png" />
@@ -554,7 +554,7 @@
     </p>
     <p>
         &copy; Copyright 2023, Ujaval Gandhi.<br/>
-      Actualizado por última vez en mar 04, 2024.<br/>
+      Actualizado por última vez en mar 08, 2024.<br/>
       Created using <a href="http://sphinx-doc.org/">Sphinx</a> 7.2.6.<br/>
     </p>
   </div>

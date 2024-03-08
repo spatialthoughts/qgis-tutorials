@@ -5,7 +5,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Determining Landuse Buffer Zones (QGIS3) &#8212; QGIS Tutorials and Tips</title>
+    <title>Determinación de zonas de influencia de usos de la tierra (QGIS3) &#8212; QGIS Tutorials and Tips</title>
     <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=fa44fd50" />
     <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-sphinx.css?v=0bf093e7" />
     <script src="../../_static/documentation_options.js?v=92345faf"></script>
@@ -13,7 +13,7 @@
     <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../_static/translations.js?v=efdbd0b9"></script>
     <link rel="search" title="Búsqueda" href="../../search.html" />
-    <link rel="next" title="Mapping Waste Disposal Volumes (QGIS3)" href="solidwaste_mapping.html" />
+    <link rel="next" title="Cartografía de los volúmenes de eliminación de residuos (QGIS3)" href="solidwaste_mapping.html" />
     <link rel="prev" title="Calcular Densidad de Intersección de Calle (QGIS3)" href="calculating_intersection_density.html" />
 
 <meta charset='utf-8'>
@@ -104,11 +104,11 @@
 <li class="toctree-l1"><a class="reference internal" href="service_area_analysis.html">Análisis de Área de Servicio usando Openrouteservice (QGIS3)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="travel_time_analysis.html">Análisis del tiempo de viaje con el movimiento de Uber (QGIS3)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="areal_mean_rainfall.html">Calcular la Precipitación Media de Área (QGIS3)</a></li>
-<li class="toctree-l1"><a class="reference internal" href="colorized_river_basin_map.html">Creating a Colorized River Basin Map (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="colorized_river_basin_map.html">Creación de un mapa de cuenca fluvial coloreado (QGIS3)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="creating_landuse_map.html">Creación de un mapa de uso de la tierra (QGIS3)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="calculating_intersection_density.html">Calcular Densidad de Intersección de Calle (QGIS3)</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Determining Landuse Buffer Zones (QGIS3)</a></li>
-<li class="toctree-l1"><a class="reference internal" href="solidwaste_mapping.html">Mapping Waste Disposal Volumes (QGIS3)</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Determinación de zonas de influencia de usos de la tierra (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="solidwaste_mapping.html">Cartografía de los volúmenes de eliminación de residuos (QGIS3)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="getting_started_with_pyqgis.html">Iniciándote con la Programación Python (QGIS3)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="processing_algorithms_pyqgis.html">Ejecutar Algoritmos de Procesamiento vía Python (QGIS3)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="custom_python_functions.html">Usando Funciones de Expresión Python Personalizadas (QGIS3)</a></li>
@@ -136,7 +136,7 @@
     </a>
   </li>
   <li>
-    <a href="solidwaste_mapping.html" title="Next Chapter: Mapping Waste Disposal Volumes (QGIS3)"><span class="glyphicon glyphicon-chevron-right visible-sm"></span><span class="hidden-sm hidden-tablet">Mapping Waste... &raquo;</span>
+    <a href="solidwaste_mapping.html" title="Next Chapter: Cartografía de los volúmenes de eliminación de residuos (QGIS3)"><span class="glyphicon glyphicon-chevron-right visible-sm"></span><span class="hidden-sm hidden-tablet">Cartografía d... &raquo;</span>
     </a>
   </li>
               
@@ -182,162 +182,161 @@
       
 
   <section id="determining-landuse-buffer-zones-qgis3">
-<h1>Determining Landuse Buffer Zones (QGIS3)<a class="headerlink" href="#determining-landuse-buffer-zones-qgis3" title="Link to this heading">¶</a></h1>
-<p>In this tutorial you will work with landuse data for a city and determine buffer zones around a particular land parcel. Such analysis is required to establish a corridor of restrictions around noise pollution or heavy traffic.</p>
+<h1>Determinación de zonas de influencia de usos de la tierra (QGIS3)<a class="headerlink" href="#determining-landuse-buffer-zones-qgis3" title="Link to this heading">¶</a></h1>
+<p>En este tutorial trabajarás con los datos de uso de la tierra de una ciudad y determinarás las zonas de influencia alrededor de una parcela concreta. Este análisis es necesario para establecer un corredor de restricciones en torno a la contaminación acústica o el tráfico pesado.</p>
 <section id="overview-of-the-task">
-<h2>Overview of the task<a class="headerlink" href="#overview-of-the-task" title="Link to this heading">¶</a></h2>
-<p>We will start with a shapefile of land parcels for the City of San Francisco and use geoprocessing and spatial analysis techniques to determine a buffer of restricted area around all properties with institutional land use.</p>
+<h2>Visión general de la tarea<a class="headerlink" href="#overview-of-the-task" title="Link to this heading">¶</a></h2>
+<p>Empezaremos con un archivo shape de parcelas de la ciudad de San Francisco y utilizaremos técnicas de geoprocesamiento y análisis espacial para determinar un buffer de zona restringida alrededor de todas las propiedades con uso institucional del suelo.</p>
 <section id="other-skills-you-will-learn">
-<h3>Other skills you will learn<a class="headerlink" href="#other-skills-you-will-learn" title="Link to this heading">¶</a></h3>
+<h3>Otras competencias que aprenderá<a class="headerlink" href="#other-skills-you-will-learn" title="Link to this heading">¶</a></h3>
 <ul class="simple">
-<li><p>Creating rectangular buffers in QGIS</p></li>
-<li><p>Using a Spatial Index to speed up analysis</p></li>
+<li><p>Creación de buffers rectangulares en QGIS</p></li>
+<li><p>Utilización de un índice espacial para acelerar el análisis</p></li>
 </ul>
 </section>
 </section>
 <section id="get-the-data">
-<h2>Get the data<a class="headerlink" href="#get-the-data" title="Link to this heading">¶</a></h2>
-<p>The data comes from City of San Francisco in form of parcels polygons with attribute indicating the Land use categories.
-You can find the data for the tutorial from DataSF Open Data Portal.</p>
-<p>Let’s see the steps to download a polygon shapefile with land use categories for every parcel in San Francisco.</p>
+<h2>Obtener los datos<a class="headerlink" href="#get-the-data" title="Link to this heading">¶</a></h2>
+<p>Los datos proceden del Ayuntamiento de San Francisco en forma de polígonos de parcelas con atributos que indican las categorías de uso del suelo. Puede encontrar los datos para el tutorial en el portal de datos abiertos DataSF.</p>
+<p>Veamos los pasos para descargar un archivo shape poligonal con categorías de uso del suelo para cada parcela de San Francisco.</p>
 <ol class="arabic">
-<li><p>Go to the data portal - <a class="reference external" href="https://datasf.org/opendata/">https://datasf.org/opendata/</a>. Search for the keyword <code class="docutils literal notranslate"><span class="pre">Land</span> <span class="pre">use</span></code> in the search bar.</p>
+<li><p>Vaya al portal de datos - <a class="reference external" href="https://datasf.org/opendata/">https://datasf.org/opendata/</a>. Busque la palabra clave <code class="docutils literal notranslate"><span class="pre">Uso</span> <span class="pre">de</span> <span class="pre">la</span> <span class="pre">tierra</span></code> en la barra de búsqueda.</p>
 <img alt="../../_images/db110.png" class="align-center" src="../../_images/db110.png" />
 </li>
-<li><p>Click on the first search result to visualise and export the data.</p>
+<li><p>Haga clic en el primer resultado de la búsqueda para visualizar y exportar los datos.</p>
 <img alt="../../_images/db25.png" class="align-center" src="../../_images/db25.png" />
 </li>
-<li><p>You will see the data and attributes. Click <span class="guilabel">Export</span> to download the <code class="docutils literal notranslate"><span class="pre">Land</span> <span class="pre">Use</span> <span class="pre">2020</span></code> data.</p>
+<li><p>Verá los datos y atributos. Haga clic en <span class="guilabel">Exportar</span> para descargar los datos de <code class="docutils literal notranslate"><span class="pre">Land</span> <span class="pre">Use</span> <span class="pre">2020</span></code>.</p>
 <img alt="../../_images/db31.png" class="align-center" src="../../_images/db31.png" />
 </li>
-<li><p>In the export options, click on <span class="guilabel">Shapefile</span> to download the polygon shapefile of the data.</p>
+<li><p>En las opciones de exportación, haga clic en <span class="guilabel">Archivo shape</span> para descargar el archivo shape poligonal de los datos.</p>
 <img alt="../../_images/db41.png" class="align-center" src="../../_images/db41.png" />
 </li>
-<li><p>A zip-file of the landuse will be downloaded. Switch to the <span class="guilabel">About</span> tab to read information about landuse categories and units which will be useful further in this tutorial.</p>
+<li><p>Se descargará un archivo zip del uso de la tierra. Vaya a la pestaña <span class="guilabel">Acerca</span> para leer información sobre las categorías y unidades de uso de la tierra que le será útil más adelante en este tutorial.</p>
 <img alt="../../_images/db51.png" class="align-center" src="../../_images/db51.png" />
 </li>
 </ol>
-<p>For convenience, you may directly download a copy of the shapefile below:</p>
+<p>Para mayor comodidad, a continuación puede descargar directamente una copia del archivo shape:</p>
 <p><a class="reference external" href="https://www.qgistutorials.com/downloads/land_use.zip">land_use.shp</a></p>
 </section>
 <section id="procedure">
-<h2>Procedure<a class="headerlink" href="#procedure" title="Link to this heading">¶</a></h2>
+<h2>Procedimiento<a class="headerlink" href="#procedure" title="Link to this heading">¶</a></h2>
 <ol class="arabic">
-<li><p>Open QGIS. Click <span class="menuselection">Open Data Source Manager</span> icon to add  the layer.</p>
+<li><p>Abra QGIS. Haga clic en el icono <span class="menuselection">Abrir gestor de fuentes de datos</span> para añadir la capa.</p>
 <img alt="../../_images/1101.png" class="align-center" src="../../_images/1101.png" />
 </li>
-<li><p>Switch to <span class="guilabel">Vector</span> tab and navigate to the landuse shapefile. Click <span class="guilabel">Add</span>.</p>
+<li><p>Cambie a la pestaña <span class="guilabel">Vector</span> y navegue hasta el archivo shape de uso del suelo. Haga clic en <span class="guilabel">Añadir</span>.</p>
 <img alt="../../_images/270.png" class="align-center" src="../../_images/270.png" />
 </li>
-<li><p>Notice the CRS name at the bottom-right corner of QGIS. It indicates that the data is in geographic coordinate system <code class="docutils literal notranslate"><span class="pre">OGC:CRS84</span></code>. Click on it.</p>
+<li><p>Observe el nombre SRC en la esquina inferior derecha de QGIS. Indica que los datos están en el sistema de coordenadas geográficas <code class="docutils literal notranslate"><span class="pre">OGC:CRS84</span></code>. Haga clic en él.</p>
 <img alt="../../_images/337.png" class="align-center" src="../../_images/337.png" />
 </li>
-<li><p>The Project Coordinate Reference System (CRS) dialog will show the selected CRS is <code class="docutils literal notranslate"><span class="pre">WGS</span> <span class="pre">84</span> <span class="pre">(CRS</span> <span class="pre">84)</span></code>. Unit of measurement for this CRS is <code class="docutils literal notranslate"><span class="pre">Degree</span></code>. All geoprocessing on this layer will be done in the native units of the CRS. The unit degree is inappropriate for this analysis.</p>
+<li><p>El diálogo del Sistema de Referencia de Coordenadas («SRC») del proyecto mostrará que el SRC seleccionado es <code class="docutils literal notranslate"><span class="pre">WGS</span> <span class="pre">84</span> <span class="pre">(SRC</span> <span class="pre">84)</span></code>. La unidad de medida para este SRC es <code class="docutils literal notranslate"><span class="pre">Grado</span></code>. Todo el geoprocesamiento de esta capa se realizará en las unidades nativas del SRC. La unidad grado es inapropiada para este análisis.</p>
 <img alt="../../_images/416.png" class="align-center" src="../../_images/416.png" />
 </li>
-<li><p>We will reproject the layer to the projected CRS suitable for the region - <code class="docutils literal notranslate"><span class="pre">NAD83</span> <span class="pre">/</span> <span class="pre">California</span> <span class="pre">zone</span> <span class="pre">3</span> <span class="pre">(ftUS)</span></code>. This is <code class="docutils literal notranslate"><span class="pre">EPSG:2227</span></code> which uses NAD83 datum with measurement units in feet.Go to <span class="menuselection">Vector ‣ Data Management Tools ‣ Reproject Layer</span>.</p>
+<li><p>Reproyectaremos la capa al SRC proyectado adecuado para la región - <code class="docutils literal notranslate"><span class="pre">NAD83</span> <span class="pre">/</span> <span class="pre">California</span> <span class="pre">zona</span> <span class="pre">3</span> <span class="pre">(ftUS)</span></code>. Esto es <code class="docutils literal notranslate"><span class="pre">EPSG:2227</span></code> que utiliza el datum NAD83 con unidades de medida en pies.Vaya a <a href="#id1"><span class="problematic" id="id2">:menuselección:`Vector --&gt; Herramientas de Gestión de Datos --&gt; Reproyectar Capa`</span></a>.</p>
 <img alt="../../_images/515.png" class="align-center" src="../../_images/515.png" />
 </li>
-<li><p>In the Reproject Layer dialog, select the loaded layer as <span class="guilabel">Input Layer</span>. Click on the icon beside the selector to choose the <span class="guilabel">Target CRS</span>.</p>
+<li><p>En el cuadro de diálogo Reproyectar capa, seleccione la capa cargada como <span class="guilabel">Capa de entrada</span>. Haga clic en el icono situado junto al selector para seleccionar el <span class="guilabel">SRC de destino</span>.</p>
 <img alt="../../_images/615.png" class="align-center" src="../../_images/615.png" />
 </li>
-<li><p>Search for <code class="docutils literal notranslate"><span class="pre">EPSG:2227</span></code> in the bar and select the <code class="docutils literal notranslate"><span class="pre">NAD83</span> <span class="pre">/</span> <span class="pre">California</span> <span class="pre">zone</span> <span class="pre">3</span> <span class="pre">(ftUS)</span></code> CRS. Click <span class="guilabel">Go back</span> to continue.</p>
+<li><p>Busque <code class="docutils literal notranslate"><span class="pre">EPSG:2227</span></code> en la barra y seleccione el SRC <code class="docutils literal notranslate"><span class="pre">NAD83</span> <span class="pre">/</span> <span class="pre">California</span> <span class="pre">zona</span> <span class="pre">3</span> <span class="pre">(ftUS)</span></code>. Haga clic en <span class="guilabel">Regresar</span> para continuar.</p>
 <blockquote>
 <div><img alt="../../_images/714.png" class="align-center" src="../../_images/714.png" />
 </div></blockquote>
 </li>
-<li><p>Save the <span class="guilabel">Reprojected</span> output. Expand the browsing options and select <span class="guilabel">Save to File</span>.</p>
+<li><p>Guarde la salida <span class="guilabel">Reproyectado</span>. Despliegue las opciones de exploración y seleccione <span class="guilabel">Guardar en archivo</span>.</p>
 <blockquote>
 <div><img alt="../../_images/814.png" class="align-center" src="../../_images/814.png" />
 </div></blockquote>
 </li>
-<li><p>Save the output shapefile in your chosen folder as <code class="docutils literal notranslate"><span class="pre">LandUse2020.shp</span></code>. Check the <span class="guilabel">Open output file after running algorithm</span> option to add the reprojected layer to QGIS.</p>
+<li><p>Guarde el archivo shape de salida en la carpeta elegida como <code class="docutils literal notranslate"><span class="pre">LandUse2020.shp</span></code>. Marque la opción <span class="guilabel">Abrir el archivo de salida después de ejecutar el algoritmo</span> para añadir la capa reproyectada a QGIS.</p>
 <blockquote>
 <div><img alt="../../_images/914.png" class="align-center" src="../../_images/914.png" />
 </div></blockquote>
 </li>
-<li><p>Remove the original layer with CRS WGS 84 from the QGIS. Select the layer and click on <span class="guilabel">Remove Layer</span> symbol.</p>
+<li><p>Elimine la capa original con SRC WGS 84 de QGIS. Seleccione la capa y haga clic en el símbolo <span class="guilabel">Quitar capa</span>.</p>
 <img alt="../../_images/1020.png" class="align-center" src="../../_images/1020.png" />
 </li>
-<li><p>We will continue the process with the reprojected layer. As we saw in the <span class="guilabel">About</span> section of the downloaded shapefile in the data portal, the classification is as follows.</p>
+<li><p>Continuaremos el proceso con la capa reproyectada. Como vimos en la sección <span class="guilabel">Acerca</span> del shapefile descargado en el portal de datos, la clasificación es la siguiente.</p>
 <blockquote>
 <div><ul class="simple">
-<li><p><strong>CIE</strong> = Cultural, Institutional, Educational</p></li>
-<li><p><strong>MED</strong> = Medical</p></li>
-<li><p><strong>MIPS</strong> = Office (Management, Information, Professional Services)</p></li>
-<li><p><strong>MIXED</strong> = Mixed Uses (Without Residential)</p></li>
-<li><p><strong>MIXRES</strong> = Mixed Uses (With Residential)</p></li>
-<li><p><strong>PDR</strong> = Industrial (Production, Distribution, Repair)</p></li>
-<li><p><strong>RETAIL/ENT</strong> = Retail, Entertainment</p></li>
-<li><p><strong>RESIDENT</strong> = Residential</p></li>
-<li><p><strong>VISITOR</strong> = Hotels, Visitor Services</p></li>
-<li><p><strong>VACANT</strong> = Vacant</p></li>
-<li><p><strong>ROW</strong> = Right-of-Way</p></li>
-<li><p><strong>OPENSPACE</strong> = Open Space</p></li>
+<li><p><strong>CIE</strong> = Cultural, Institucional, Educativo</p></li>
+<li><p><strong>MED</strong> = Médico</p></li>
+<li><p><strong>MIPS</strong> = Oficina (Gestión, Información, Servicios Profesionales)</p></li>
+<li><p><strong>MIXED</strong> = Usos mixtos (sin residencial)</p></li>
+<li><p><strong>MIXRES</strong> = Usos mixtos (con residencial)</p></li>
+<li><p><strong>PDR</strong> = Industrial (Producción, Distribución, Reparación)</p></li>
+<li><p><strong>RETAIL/ENT</strong> = Venta al por menor, Entretenimiento</p></li>
+<li><p><strong>RESIDENTE</strong> = Residencial</p></li>
+<li><p><strong>VISITANTE</strong> = Hoteles, servicios a los visitantes</p></li>
+<li><p><strong>VACANT</strong> = Vacante</p></li>
+<li><p><strong>ROW</strong> = Derecho de paso</p></li>
+<li><p><strong>OPENSPACE</strong> = Espacio abierto</p></li>
 </ul>
 </div></blockquote>
 </li>
 </ol>
-<p>For this tutorial, we are interested only in the Institutional land use. So we can query for the value <strong>CIE</strong> in the attribute table. Go to <span class="menuselection">Processing ‣ Toolbox</span>.</p>
+<p>En este tutorial, sólo nos interesa el uso institucional del suelo. Así que podemos consultar el valor <strong>CIE</strong> en la tabla de atributos. Vaya a <span class="menuselection">Procesos ‣ Caja de herramientas</span>.</p>
 <blockquote>
 <div><img alt="../../_images/1123.png" class="align-center" src="../../_images/1123.png" />
 </div></blockquote>
 <ol class="arabic simple" start="12">
-<li><p>Search the <span class="guilabel">Select by Attribute</span> tool from the processing toolbox. Double-click to open it.</p></li>
+<li><p>Busque la herramienta <span class="guilabel">Seleccionar por atributo</span> en la caja de herramientas de procesamiento. Haga doble clic para abrirla.</p></li>
 </ol>
 <blockquote>
 <div><img alt="../../_images/1221.png" class="align-center" src="../../_images/1221.png" />
 </div></blockquote>
 <ol class="arabic simple" start="13">
-<li><p>In the Select by Attribute dialog, set <code class="docutils literal notranslate"><span class="pre">LandUse2020</span></code> as the <span class="guilabel">Input layer</span>. Select <code class="docutils literal notranslate"><span class="pre">landuse</span></code> as the <span class="guilabel">Selection attribute</span> and enter <code class="docutils literal notranslate"><span class="pre">CIE</span></code> as the <span class="guilabel">Value</span>. Click Run.</p></li>
+<li><p>En el cuadro de diálogo Seleccionar por atributo, establezca <code class="docutils literal notranslate"><span class="pre">LandUse2020</span></code> como <span class="guilabel">Capa de entrada</span>. Seleccione <code class="docutils literal notranslate"><span class="pre">landuse</span></code> como <span class="guilabel">Atributo de selección</span> e introduzca <code class="docutils literal notranslate"><span class="pre">CIE</span></code> como <span class="guilabel">Valor`</span>. Haga clic en Ejecutar.</p></li>
 </ol>
 <blockquote>
 <div><img alt="../../_images/1319.png" class="align-center" src="../../_images/1319.png" />
 </div></blockquote>
 <ol class="arabic simple" start="14">
-<li><p>You will see the parcels matching our query will be highlighted in yellow. These are all parcels belonging to the institutional land use in the city.</p></li>
+<li><p>Verá que las parcelas que coinciden con nuestra consulta aparecen resaltadas en amarillo. Se trata de todas las parcelas que pertenecen al uso institucional del suelo en la ciudad.</p></li>
 </ol>
 <blockquote>
 <div><img alt="../../_images/1417.png" class="align-center" src="../../_images/1417.png" />
 </div></blockquote>
 <ol class="arabic simple" start="15">
-<li><p>Now we can create a buffer around the selected parcels. Back in the main QGIS window, open Processing Toolbox. Search and locate the <span class="guilabel">Buffer</span> tool. Double-click to open it.</p></li>
+<li><p>Ahora podemos crear un buffer alrededor de las parcelas seleccionadas. De vuelta en la ventana principal de QGIS, abra la Caja de herramienta Procesos. Busque y localice la herramienta <span class="guilabel">Buffer</span>. Haga doble clic para abrirla.</p></li>
 </ol>
 <blockquote>
 <div><img alt="../../_images/1516.png" class="align-center" src="../../_images/1516.png" />
 </div></blockquote>
 <ol class="arabic simple" start="16">
-<li><p>In the Buffer dialog, select LandUse2020 as the <span class="guilabel">Input layer</span>. Check the <span class="guilabel">Selected features only</span> box so the buffer will apply only to the selected institutional land use parcels. We will create a buffer zone of 100ft around each parcel. Enter 100 feet as the <span class="guilabel">Distance</span>. The default buffers are of circular shape. Since we are dealing with parcel data, a rectangular buffer area is more appropriate where each edge of the parcel will be offset by the buffer distance. Select <code class="docutils literal notranslate"><span class="pre">Square</span></code> as the <span class="guilabel">End cap style</span> and <code class="docutils literal notranslate"><span class="pre">Miter</span></code> as the <span class="guilabel">Join style</span>. Click the browse button next to Buffered and select <span class="guilabel">Save to File</span>.</p></li>
+<li><p>En el cuadro de diálogo Buffer, seleccione LandUse2020 como <span class="guilabel">Capa de entrada</span>. Marque la casilla :guilabel: <cite>Sólo objetos espaciales seleccionados</cite> para que el búfer se aplique sólo a las parcelas institucionales seleccionadas. Crearemos una zona de seguridad de 100 pies alrededor de cada parcela. Introduzca 100 pies como <span class="guilabel">Distancia</span>. Los buffers por defecto tienen forma circular. Dado que estamos tratando con datos de parcelas, una zona de influencia rectangular es más apropiada donde cada borde de la parcela será desplazado por la distancia de amortiguación. Seleccione <code class="docutils literal notranslate"><span class="pre">Cuadrado</span></code> como <span class="guilabel">Estilo de límite final</span> y <code class="docutils literal notranslate"><span class="pre">Miter</span></code> como <span class="guilabel">Estilo de unión</span>. Haga clic en el botón Examinar situado junto a Buffered y seleccione <span class="guilabel">Guardar en archivo</span>.</p></li>
 </ol>
 <blockquote>
 <div><img alt="../../_images/1615.png" class="align-center" src="../../_images/1615.png" />
 </div></blockquote>
 <ol class="arabic simple" start="17">
-<li><p>Enter the output file name as <code class="docutils literal notranslate"><span class="pre">buffer.shp</span></code> and click OK. Click <span class="guilabel">Run</span>.</p></li>
+<li><p>Introduzca el nombre del fichero de salida como <code class="docutils literal notranslate"><span class="pre">buffer.shp</span></code> y haga clic en OK. Haga clic en <span class="guilabel">Ejecutar</span>.</p></li>
 </ol>
 <blockquote>
 <div><img alt="../../_images/1716.png" class="align-center" src="../../_images/1716.png" />
 </div></blockquote>
 <ol class="arabic simple" start="18">
-<li><p>Once the processing finishes, a new layer buffer will be added to QGIS. These polygons represent the buffer zone of restrictions around the institutional land use.</p></li>
+<li><p>Una vez finalizado el procesamiento, se añadirá una nueva capa tampón a QGIS. Estos polígonos representan la zona de influencia de restricciones en torno al uso institucional del suelo.</p></li>
 </ol>
 <blockquote>
 <div><img alt="../../_images/1814.png" class="align-center" src="../../_images/1814.png" />
 </div></blockquote>
 <ol class="arabic simple" start="19">
-<li><p>We now know which areas of the city fall under the restricted zone. It would be useful to identify all parcels which fall in this zone and add an attribute indicating that a restriction applies to that parcel. Let’s first add a column to the buffer polygons. Search for <span class="menuselection">Field Calculator</span> in the processing toolbox. Double-click to open.</p></li>
+<li><p>Ahora ya sabemos qué zonas de la ciudad entran dentro de la zona restringida. Sería útil identificar todas las parcelas que caen en esta zona y añadir un atributo que indique que se aplica una restricción a esa parcela. Primero vamos a añadir una columna a los polígonos de amortiguación. Busque <span class="menuselection">Calculadora de campos</span> en la caja de herramientas de tratamiento. Haga doble clic para abrir.</p></li>
 </ol>
 <blockquote>
 <div><img alt="../../_images/1912.png" class="align-center" src="../../_images/1912.png" />
 </div></blockquote>
 <ol class="arabic simple" start="20">
-<li><p>In the Field Calculator dialog, ensure buffer is selected as the <span class="guilabel">Input layer</span>. We don’t need to save this layer, so leave the Output file field empty. Enter <code class="docutils literal notranslate"><span class="pre">RESTRICTED</span></code> as the result <span class="guilabel">Field Name</span>. Set the <span class="guilabel">Result field type</span> to <code class="docutils literal notranslate"><span class="pre">String</span></code>. Type <code class="docutils literal notranslate"><span class="pre">Yes</span></code> as the <span class="guilabel">Expression</span>. Click Run.</p></li>
+<li><p>En el cuadro de diálogo Calculadora de campos, asegúrese de que se ha seleccionado Tampón como <span class="guilabel">Capa de entrada</span>. No necesitamos guardar esta capa, así que deje vacío el campo Archivo de salida. Introduzca <code class="docutils literal notranslate"><span class="pre">RESTRICTED</span></code> como resultado <span class="guilabel">Nombre de campo</span>. Establezca el tipo de campo <span class="guilabel">Resultado</span> como <code class="docutils literal notranslate"><span class="pre">Cadena</span></code>. Escriba <code class="docutils literal notranslate"><span class="pre">Sí</span></code> como <span class="guilabel">Expresión</span>. Haga clic en Ejecutar.</p></li>
 </ol>
 <blockquote>
 <div><img alt="../../_images/2012.png" class="align-center" src="../../_images/2012.png" />
 </div></blockquote>
 <ol class="arabic simple" start="21">
-<li><p>A new layer called Calculated will be added to QGIS. Open the Attribute Table and verify that a new column called RESTRICTED with value Yes exists in this layer.</p></li>
+<li><p>Una nueva capa llamada Calculada será añadida a QGIS. Abra la Tabla de Atributos y compruebe que en esta capa existe una nueva columna llamada RESTRICTED con valor Sí.</p></li>
 </ol>
 <blockquote>
 <div><img alt="../../_images/2115.png" class="align-center" src="../../_images/2115.png" />
@@ -349,46 +348,46 @@ Now, search and locate the <span class="menuselection">Create Spatial Index</spa
 <div><img alt="../../_images/2214.png" class="align-center" src="../../_images/2214.png" />
 </div></blockquote>
 <ol class="arabic" start="23">
-<li><p>Select <code class="docutils literal notranslate"><span class="pre">LandUse2020</span></code> as <span class="guilabel">Input layer</span> and click <span class="guilabel">Run</span>.</p>
+<li><p>Seleccione <code class="docutils literal notranslate"><span class="pre">LandUse2020</span></code> como <span class="guilabel">Capa de entrada</span> y haga clic en <span class="guilabel">Ejecutar</span>.</p>
 <img alt="../../_images/2312.png" class="align-center" src="../../_images/2312.png" />
 </li>
-<li><p>The spatial index is created for the layer. You can verify this by checking the property of the layer. Right-click on the layer and click <span class="guilabel">Properties</span>.</p>
+<li><p>El índice espacial se crea para la capa. Puede verificarlo comprobando la propiedad de la capa. Haga clic con el botón derecho en la capa y haga clic en <span class="guilabel">Propiedades</span>.</p>
 <img alt="../../_images/2411.png" class="align-center" src="../../_images/2411.png" />
 </li>
-<li><p>Switch to the <span class="guilabel">Source</span> tab and and look under the <span class="guilabel">Geometry</span> section. It indicates that the spatial index exists.</p>
+<li><p>Cambie a la pestaña <span class="guilabel">Fuente</span> y busque en la sección <span class="guilabel">Geometría</span>. Indica que el índice espacial existe.</p>
 <img alt="../../_images/2510.png" class="align-center" src="../../_images/2510.png" />
 </li>
-<li><p>Now we can do the spatial join. Look for <span class="menuselection">Join attributes by location</span> tool in the processing toolbox. Double-click to open it.</p></li>
+<li><p>Ahora podemos hacer la unión espacial. Busque la herramienta <span class="menuselection">Unir atributos por ubicación</span> en la caja de herramientas de procesamiento. Haga doble clic para abrirla.</p></li>
 </ol>
 <blockquote>
 <div><img alt="../../_images/2610.png" class="align-center" src="../../_images/2610.png" />
 </div></blockquote>
 <ol class="arabic simple" start="27">
-<li><p>We want to <span class="guilabel">Join to features in</span> the <code class="docutils literal notranslate"><span class="pre">LandUse2020</span></code> layer <span class="guilabel">By comparing to</span> the <code class="docutils literal notranslate"><span class="pre">Calculated</span></code> layer. We want to join attributes features that intersect. Check the box for <code class="docutils literal notranslate"><span class="pre">intersect</span></code>.  Click the browse button next to <span class="guilabel">Fields to add</span>.</p></li>
+<li><p>Queremos <span class="guilabel">Unir a objetos espaciales en</span> la capa <code class="docutils literal notranslate"><span class="pre">LandUse2020</span></code> <span class="guilabel">Comparando con</span> la capa <code class="docutils literal notranslate"><span class="pre">Calculated</span></code>. Queremos unir atributos de prestaciones que se cruzan. Marque la casilla <code class="docutils literal notranslate"><span class="pre">intersect</span></code>. Haga clic en el botón Examinar junto a <span class="guilabel">Campos a añadir</span>.</p></li>
 </ol>
 <blockquote>
 <div><img alt="../../_images/2710.png" class="align-center" src="../../_images/2710.png" />
 </div></blockquote>
 <ol class="arabic simple" start="28">
-<li><p>Select only the <code class="docutils literal notranslate"><span class="pre">RESTRICTED</span></code> field and click <span class="guilabel">OK</span>.</p></li>
+<li><p>Seleccione sólo el campo <code class="docutils literal notranslate"><span class="pre">RESTRICTED</span></code> y haga clic en :guilabel:”Aceptar”.</p></li>
 </ol>
 <blockquote>
 <div><img alt="../../_images/2810.png" class="align-center" src="../../_images/2810.png" />
 </div></blockquote>
 <ol class="arabic simple" start="29">
-<li><p>For Join Type, select <code class="docutils literal notranslate"><span class="pre">Take</span> <span class="pre">attribute</span> <span class="pre">of</span> <span class="pre">the</span> <span class="pre">first</span> <span class="pre">matching</span> <span class="pre">feature</span> <span class="pre">only</span></code>. Next, click … next to Joined layer and select Save to File.</p></li>
+<li><p>En Tipo de unión, seleccione <code class="docutils literal notranslate"><span class="pre">Tomar</span> <span class="pre">atributo</span> <span class="pre">sólo</span> <span class="pre">del</span> <span class="pre">primer</span> <span class="pre">objeto</span> <span class="pre">espacial</span> <span class="pre">coincidente</span></code>. A continuación, haga clic en … junto a Capa unida y seleccione Guardar en archivo.</p></li>
 </ol>
 <blockquote>
 <div><img alt="../../_images/299.png" class="align-center" src="../../_images/299.png" />
 </div></blockquote>
 <ol class="arabic simple" start="30">
-<li><p>Enter the <span class="guilabel">Joined layer</span> name as <code class="docutils literal notranslate"><span class="pre">LandUseWithRestrictions.shp</span></code> and click <span class="guilabel">OK</span>. Click <span class="guilabel">Run</span>.</p></li>
+<li><p>Introduzca el nombre de la <span class="guilabel">Capa unida</span> como <code class="docutils literal notranslate"><span class="pre">LandUseWithRestrictions.shp</span></code> y haga clic en <span class="guilabel">Aceptar</span>. Haga clic en <span class="guilabel">Ejecutar</span>.</p></li>
 </ol>
 <blockquote>
 <div><img alt="../../_images/309.png" class="align-center" src="../../_images/309.png" />
 </div></blockquote>
 <ol class="arabic" start="31">
-<li><p>Once the processing finishes, you will get a new layer <code class="docutils literal notranslate"><span class="pre">LandUseWithRestrictions</span></code>. Open the attribute table and examine the <code class="docutils literal notranslate"><span class="pre">RESTRICTED</span></code> column. The parcels that fall within 100ft of an institutional parcel now have the value <code class="docutils literal notranslate"><span class="pre">Yes</span></code> indicating a restriction applies to that parcel. Other parcels have a <code class="docutils literal notranslate"><span class="pre">NULL</span></code> value indicating no restriction.</p>
+<li><p>Una vez finalizado el procesamiento, obtendrá una nueva capa <code class="docutils literal notranslate"><span class="pre">LandUseWithRestrictions</span></code>. Abra la tabla de atributos y examine la columna <code class="docutils literal notranslate"><span class="pre">RESTRICTED</span></code>. Las parcelas que se encuentran a menos de 100 pies de una parcela institucional tienen ahora el valor «Sí», lo que indica que se aplica una restricción a esa parcela. Otras parcelas tienen un valor <code class="docutils literal notranslate"><span class="pre">NULL</span></code> que indica que no hay restricción.</p>
 <img alt="../../_images/3112.png" class="align-center" src="../../_images/3112.png" />
 </li>
 </ol>
@@ -427,7 +426,7 @@ Now, search and locate the <span class="menuselection">Create Spatial Index</spa
     </p>
     <p>
         &copy; Copyright 2023, Ujaval Gandhi.<br/>
-      Actualizado por última vez en mar 04, 2024.<br/>
+      Actualizado por última vez en mar 08, 2024.<br/>
       Created using <a href="http://sphinx-doc.org/">Sphinx</a> 7.2.6.<br/>
     </p>
   </div>
