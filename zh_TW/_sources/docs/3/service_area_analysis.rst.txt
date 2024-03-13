@@ -57,7 +57,7 @@ Setup
 Procedure
 ---------
 
-1. Unzip the downloaded ``KMRL-Open-Data.zip`` file to a folder on your computer. You will notice that the unzipped directory contains many text files. Each file contains data for a different aspect of the transit system. The format of the files and their uses are described in `GTFS Reference <https://developers.google.com/transit/gtfs/reference/>`_. Out of all the files, 2 files contains geospatial data and is of interest to us. The file ``shapes.txt`` contains points that describe a physical path that the vehicle takes, and the file ``stops.txt`` contains the location of each transit stop. Both of these are CSV files that can be imported into QGIS. Click the :guilabel:`Open Data Source Manager` button.
+1. Unzip the downloaded ``KMRL-Open-Data.zip`` file to a folder on your computer. You will notice that the unzipped directory contains many text files. Each file contains data for a different aspect of the transit system. The format of the files and their uses are described in `GTFS Reference <https://developers.google.com/transit/gtfs/reference/>`_. Out of all the files, 2 files contain geospatial data and are of interest to us. The file ``shapes.txt`` contains points that describe a physical path that the vehicle takes, and the file ``stops.txt`` contains the location of each transit stop. Both of these are CSV files that can be imported into QGIS. Click the :guilabel:`Open Data Source Manager` button.
 
   .. image:: /static/3/service_area_analysis/images/1.png
     :align: center
