@@ -21,6 +21,8 @@ Basic GIS operations
 * :doc:`docs/3/advanced_georeferencing`
 * :doc:`docs/3/digitizing_basics`
 * :doc:`docs/3/downloading_osm_data`
+* :doc:`docs/3/basic_filtering_and_styling_with_expressions`
+
 
 Intermediate GIS operations
 """""""""""""""""""""""""""
