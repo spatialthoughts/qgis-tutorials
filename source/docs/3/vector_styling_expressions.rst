@@ -7,7 +7,7 @@ Expressions offer a powerful way to manipulate attribute values, geometries and 
 Overview of the task
 --------------------
 
-We will use expressions to filter features by attribute from a Natural Earth country layer, and then style them to our liking. We will create a map of South East Asia with each country styled in a shade of green.
+We will use expressions to filter features by attribute from a Natural Earth country layer, and then style them to create a map of South East Asia with each country styled in a shade of green.
 
   .. image:: /static/3/vector_styling_expressions/images/output.png
     :align: center
@@ -28,13 +28,14 @@ Get the data
 
 
 For convenience, you may directly download a copy of the above layer from below:
+
 `ne_50m_admin_0_countries.zip <http://www.qgistutorials.com/downloads/ne_50m_admin_0_countries.zip>`_
 
 
 Procedure
 ---------
 
-1. Locate the ``Natural_Earth_quick_start.zip`` file in the QGIS Browser and expand it. Select the ``packages/Natural_Earth_quick_start/50m_cultural/ne_50m_admin_0_countries.shp`` file and drag it to the canvas.
+1. Locate the ``Natural_Earth_quick_start.zip`` file in the QGIS Browser and expand it. Select the ``ne_50m_admin_0_countries.shp`` file and drag it to the canvas.
 
   .. image:: /static/3/vector_styling_expressions/images/1.png
     :align: center
