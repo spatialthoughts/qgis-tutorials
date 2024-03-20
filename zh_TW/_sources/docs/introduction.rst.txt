@@ -29,6 +29,7 @@ Contributors
 - `Santhosh M <https://www.linkedin.com/in/santhoshm31>`_ 
 - `Ian Turton <https://www.ianturton.com/>`_ 
 - `Rohit Sharma <https://www.linkedin.com/in/rohit-sharma-8b499ba6/>`_
+- `Steven Kim <https://geographyclub.github.io/>`_
 
 Translations
 ^^^^^^^^^^^^

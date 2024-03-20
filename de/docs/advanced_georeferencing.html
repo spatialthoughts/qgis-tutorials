@@ -97,6 +97,7 @@
 <li class="toctree-l1"><a class="reference internal" href="3/processing_graphical_modeler.html">Komplexe Arbeitsabläufe mit Hilfe der Verarbeitungsmodellierung (QGIS3)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="3/automating_map_creation.html">Automatisierung der Kartenerstellung mit dem Drucklayout Atlas (QGIS3)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="3/multi_criteria_overlay.html">Multi Criteria Overlay Analysis (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/vector_styling_expressions.html">Basic Filtering and Styling with Expressions (QGIS3)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="3/basic_network_analysis.html">Einfache Netzwerkvisualisierung und Routing (QGIS3)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="3/origin_destination_matrix.html">Lokalisierung der am nächsten gelegenen Einrichtung mit einer Quelle-Ziel-Matrix (QGIS3)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="3/service_area_analysis.html">Einzugsgebietsanalyse mit dem Openrouteservice (QGIS3)</a></li>
@@ -223,20 +224,20 @@ layer. Install the OpenLayers plugin from <span class="menuselection">Plugins �
 and install plugins ‣ Get more</span>. See <a class="reference internal" href="using_plugins.html"><span class="doc">Verwenden von Erweiterungen</span></a> for more
 information on using plugins in QGIS.</p></li>
 </ol>
-<img alt="../_images/1156.png" class="align-center" src="../_images/1156.png" />
+<img alt="../_images/1158.png" class="align-center" src="../_images/1158.png" />
 <ol class="arabic simple" start="2">
 <li><p>Once installed, go to <span class="menuselection">Plugins ‣ OpenLayers plugin ‣ Add
 OpenStreetMap layer</span>. This will add a layer of pre-rendered tiles created
 from <a class="reference external" href="http://www.openstreetmap.org/">OpenStreetMap data</a>.</p></li>
 </ol>
-<img alt="../_images/2131.png" class="align-center" src="../_images/2131.png" />
+<img alt="../_images/2132.png" class="align-center" src="../_images/2132.png" />
 <ol class="arabic simple" start="3">
 <li><p>Now you have the OpenStreetMap layer loaded in QGIS. Note the Coordinate
 Reference System (CRS) for this layer. It is set as EPSG 3857 Pseudo
 Mercator. This is important to note, since the coordinates we infer from
 this layer will be in this CRS.</p></li>
 </ol>
-<img alt="../_images/374.png" class="align-center" src="../_images/374.png" />
+<img alt="../_images/375.png" class="align-center" src="../_images/375.png" />
 <ol class="arabic simple" start="4">
 <li><p>Now the task is to locate the general vicinity of the area that we are
 trying to georeference. You can just use Pan and Zoom tools to locate that
@@ -246,7 +247,7 @@ we downloaded is for Washington Square Park in New York. If you search for
 that place, you will be able to locate the wikipedia page for it. The
 coordinates for the park are listed there.</p></li>
 </ol>
-<img alt="../_images/439.png" class="align-center" src="../_images/439.png" />
+<img alt="../_images/440.png" class="align-center" src="../_images/440.png" />
 <ol class="arabic simple" start="5">
 <li><p>You will notice that the coordinates are in Degrees/Minute/Seconds and are
 Latitude and Longitude. But since our layer is in Mercator projection, we
@@ -261,7 +262,7 @@ a terminal at <span class="menuselection">Start ‣ OSGeo4W ‣ MSYS</span>.</p>
 <p class="admonition-title">Bemerkung</p>
 <p>MacOS users can locate the cs2cs tool at /Library/Frameworks/PROJ.Framework/Programs/cs2cs</p>
 </div>
-<img alt="../_images/535.png" class="align-center" src="../_images/535.png" />
+<img alt="../_images/536.png" class="align-center" src="../_images/536.png" />
 <ol class="arabic simple" start="6">
 <li><p>Once you have verified that the cs2cs tool exists on your system, it is time
 to convert out Latitude and Longitude to Mercator coordinates. The way this
@@ -284,7 +285,7 @@ coordinates in EPSG 3857 CRS.</p></li>
 <div class="highlight-none notranslate"><div class="highlight"><pre><span></span>echo -73d59&#39;51 40d43&#39;51 | cs2cs +init=EPSG:4326 +to +init=EPSG:3857
 </pre></div>
 </div>
-<img alt="../_images/634.png" class="align-center" src="../_images/634.png" />
+<img alt="../_images/635.png" class="align-center" src="../_images/635.png" />
 <ol class="arabic simple" start="7">
 <li><p>Copy these coordinates and switch to QGIS. At the bottom of the QGIS window,
 you will see a textbox labeled Coordinates. Enter the coordinates there in
@@ -292,7 +293,7 @@ X,Y form. Press Enter.  You will see the map shift a bit, but not zoom. To
 zoom to the area, select 1:2500 scale from the Scale drop-down next to the
 Coordinate box and press Enter.</p></li>
 </ol>
-<img alt="../_images/734.png" class="align-center" src="../_images/734.png" />
+<img alt="../_images/735.png" class="align-center" src="../_images/735.png" />
 <ol class="arabic simple" start="8">
 <li><p>Voila! you now see Washington Square Park area on your canvas. Now it is
 time to start georeferencing. Launch the <strong>Georeferencer</strong> from
@@ -301,40 +302,40 @@ see that menu item, you will need to enable the <span class="guilabel">Georefere
 GDAL</span> plugin from <span class="menuselection">Plugins ‣ Manage and install Plugins ‣
 Installed</span>.</p></li>
 </ol>
-<img alt="../_images/833.png" class="align-center" src="../_images/833.png" />
+<img alt="../_images/834.png" class="align-center" src="../_images/834.png" />
 <ol class="arabic simple" start="9">
 <li><p>In the <span class="guilabel">Georeferencer</span> window, go to <span class="menuselection">File ‣ Open
 raster</span>. Navigate to the downloaded JPG file and click <span class="guilabel">Open</span>.</p></li>
 </ol>
-<img alt="../_images/934.png" class="align-center" src="../_images/934.png" />
+<img alt="../_images/935.png" class="align-center" src="../_images/935.png" />
 <ol class="arabic simple" start="10">
 <li><p>In the <span class="guilabel">Coordinate Reference System Selector</span>,
 choose <span class="guilabel">EPSG:3857 Pseudo Mercator</span></p></li>
 </ol>
-<img alt="../_images/1041.png" class="align-center" src="../_images/1041.png" />
+<img alt="../_images/1042.png" class="align-center" src="../_images/1042.png" />
 <ol class="arabic simple" start="11">
 <li><p>Now click on the <span class="guilabel">Add Point</span> button on the toolbar and select an easily
 identifiable location on the image. Corners, intersections, poles etc. make
 good control points.</p></li>
 </ol>
-<img alt="../_images/1157.png" class="align-center" src="../_images/1157.png" />
+<img alt="../_images/1159.png" class="align-center" src="../_images/1159.png" />
 <ol class="arabic simple" start="12">
 <li><p>Once you click on the image at a control point location, you will see a
 pop-up asking you to enter map coordinates. Click the button
 <span class="guilabel">From map canvas</span>.</p></li>
 </ol>
-<img alt="../_images/1244.png" class="align-center" src="../_images/1244.png" />
+<img alt="../_images/1245.png" class="align-center" src="../_images/1245.png" />
 <ol class="arabic simple" start="13">
 <li><p>Find the same location in your reference layer, i.e. the OpenStreetMap
 layer and click there. The coordinates are auto-populated from your click
 on the map canvas. Click Ok. Similarly, choose at least 4 points on the
 image and add their coordinates from the reference layer.</p></li>
 </ol>
-<img alt="../_images/1342.png" class="align-center" src="../_images/1342.png" />
+<img alt="../_images/1343.png" class="align-center" src="../_images/1343.png" />
 <ol class="arabic simple" start="14">
 <li><p>Now go to <span class="menuselection">Settings ‣ Transformation settings.</span></p></li>
 </ol>
-<img alt="../_images/1439.png" class="align-center" src="../_images/1439.png" />
+<img alt="../_images/1440.png" class="align-center" src="../_images/1440.png" />
 <ol class="arabic simple" start="15">
 <li><p>Choose the settings as shown below. Make sure you the <span class="guilabel">Load in
 QGIS when done</span> button is checked. Click OK. Back in the
@@ -402,7 +403,7 @@ add 255 as the transparent pixels for each band and enter 100 as the
     </p>
     <p>
         &copy; Copyright 2023, Ujaval Gandhi.<br/>
-      Zuletzt aktualisiert am März 13, 2024.<br/>
+      Zuletzt aktualisiert am März 20, 2024.<br/>
       Created using <a href="http://sphinx-doc.org/">Sphinx</a> 7.2.6.<br/>
     </p>
   </div>

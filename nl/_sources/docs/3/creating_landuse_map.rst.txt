@@ -40,7 +40,7 @@ Let's see the step wise to prepare the dataset for this tutorial.
     .. image:: /static/3/creating_landuse_map/images/db2.png
        :align: center
 	 
-3. Scroll down to find :guilabel:`View Data Source` open and click on the it.
+3. Scroll down to find :guilabel:`View Data Source` and click on the it.
 
      .. image:: /static/3/creating_landuse_map/images/db3.png
         :align: center
@@ -60,7 +60,7 @@ Let's see the step wise to prepare the dataset for this tutorial.
     .. image:: /static/3/creating_landuse_map/images/db6.png
        :align: center
 	   
-7. In the :guilabel:`Connection Details`, give the :guilabel:`Name` ``Cape Town Open Data Portal`` and paste the copied url as an input for  for :guilabel:`URL`.
+7. In the :guilabel:`Connection Details`, give the :guilabel:`Name` ``Cape Town Open Data Portal`` and paste the copied url as an input for :guilabel:`URL`.
 
     .. image:: /static/3/creating_landuse_map/images/db7.png 
        :align: center
