@@ -116,6 +116,7 @@ Appendix
    docs/3/processing_graphical_modeler
    docs/3/automating_map_creation
    docs/3/multi_criteria_overlay
+   docs/3/vector_styling_expressions
    docs/3/basic_network_analysis
    docs/3/origin_destination_matrix
    docs/3/service_area_analysis
@@ -140,5 +141,4 @@ Appendix
    docs/learning_resources
    docs/credits
    docs/batch_processing
-   docs/3/vector_styling_expressions
 
