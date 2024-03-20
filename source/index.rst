@@ -21,8 +21,6 @@ Basic GIS operations
 * :doc:`docs/3/advanced_georeferencing`
 * :doc:`docs/3/digitizing_basics`
 * :doc:`docs/3/downloading_osm_data`
-* :doc:`docs/3/basic_filtering_and_styling_with_expressions`
-
 
 Intermediate GIS operations
 """""""""""""""""""""""""""
@@ -44,6 +42,10 @@ Advanced GIS operations
 * :doc:`docs/3/processing_graphical_modeler`
 * :doc:`docs/3/automating_map_creation`
 * :doc:`docs/3/multi_criteria_overlay`
+
+Expressions
+"""""""""""
+* :doc:`docs/3/vector_styling_expressions`
 
 Network Analysis
 """"""""""""""""
@@ -138,4 +140,5 @@ Appendix
    docs/learning_resources
    docs/credits
    docs/batch_processing
+   docs/3/vector_styling_expressions
 
