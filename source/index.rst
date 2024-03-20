@@ -43,6 +43,10 @@ Advanced GIS operations
 * :doc:`docs/3/automating_map_creation`
 * :doc:`docs/3/multi_criteria_overlay`
 
+Expressions
+"""""""""""
+* :doc:`docs/3/vector_styling_expressions`
+
 Network Analysis
 """"""""""""""""
 * :doc:`docs/3/basic_network_analysis`
@@ -136,4 +140,5 @@ Appendix
    docs/learning_resources
    docs/credits
    docs/batch_processing
+   docs/3/vector_styling_expressions
 
