@@ -46,12 +46,12 @@ Download the Road Network
   .. image:: /static/3/calculating_intersection_density/images/data4.png
      :align: center
 
-3. The ``india-latest-free.shp.zip`` is the file we are looking for click it to download, this data can be downloaded in other formats also as per requirement.  
+3. The ``.shp.zip`` file for the :guilabel:`Southern Zone` is the file we are looking for. Click on the link to download.
 
   .. image:: /static/3/calculating_intersection_density/images/data5.png
      :align: center
 
-4. This is a large download containing an extract of data for the entire country. Unzip the ``india-latest-free.shp.zip``. You will get many shapefile layers. 
+4. This is a large download containing an extract of data for the entire country. Unzip the ``southern-zone-latest-free.shp.zip``. You will get many shapefile layers. 
 
   .. image:: /static/3/calculating_intersection_density/images/data6.png
      :align: center
@@ -175,7 +175,7 @@ Procedure
   .. image:: /static/3/calculating_intersection_density/images/image14.png
      :align: center
 
-15. Select ``road_intersections`` as the :guilabel:`Input layer`. Search by clicking the :guilabel:`globe` icon next to :guilabel:`Target CRS` and select ``EPSG:32664 - WGS 84 / UTM zone 44N``. This is a CRS based on the WGS84 datum for the *UTM Zone 44N*. Enter the :guilabel:`Reprojected` output layer as ``road_intersections_reprojected.gpkg``. Click :guilabel:`Run`. 
+15. Select ``road_intersections`` as the :guilabel:`Input layer`. Search by clicking the :guilabel:`globe` icon next to :guilabel:`Target CRS` and select ``EPSG:32644 - WGS 84 / UTM zone 44N``. This is a CRS based on the WGS84 datum for the *UTM Zone 44N*. Enter the :guilabel:`Reprojected` output layer as ``road_intersections_reprojected.gpkg``. Click :guilabel:`Run`. 
 
   .. image:: /static/3/calculating_intersection_density/images/image15.png
      :align: center

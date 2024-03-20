@@ -12,6 +12,7 @@ Data Credits
 - :doc:`nearest_neighbor_analysis`
 - :doc:`batch_processing`
 - :doc:`3/batch_processing`
+- :doc:`3/vector_styling_expressions`
 - :doc:`getting_started_with_pyqgis`
 - :doc:`custom_python_functions`
 - :doc:`processing_python_scripts`
