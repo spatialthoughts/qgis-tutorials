@@ -16,7 +16,7 @@ We will use expressions to filter features by attribute from a Natural Earth cou
 Get the data
 ------------
 
-1. `Natural Earth <https://www.naturalearthdata.com/downloads/>`_ has the admin shapefiles for contries. On the downloads page look for :guilabel:`Cultural` option under the ``Medium scale data``. 
+1. `Natural Earth <https://www.naturalearthdata.com/downloads/>`_ has the admin shapefiles for countries. On the downloads page look for :guilabel:`Cultural` option under the ``Medium scale data``. 
 
   .. image:: /static/3/vector_styling_expressions/images/data1.png
     :align: center
@@ -51,17 +51,17 @@ Procedure
   .. image:: /static/3/vector_styling_expressions/images/3.png
     :align: center
     
-4. Double-click on the default rule to enter the :guilabel:`Edit Rule` dialog..
+4. Double-click on the default rule to enter the :guilabel:`Edit Rule` dialog.
 
   .. image:: /static/3/vector_styling_expressions/images/4.png
     :align: center
 
-5. To filter using an expression, Click the Filter :guilabel:`ε`. 
+5. To filter using an expression, click the Filter :guilabel:`ε`. 
 
   .. image:: /static/3/vector_styling_expressions/images/5.png
     :align: center
 
-6. You have entered the  :guilabel:`Expression Builder`. This dialog provides the main interface to write expressions and can be accessed in many ways. It contains an input box on the left, a list of functions in the middle and a help box on the right.
+6. You have entered the :guilabel:`Expression Builder`. This dialog provides the main interface to write expressions and can be accessed in many ways. It contains an input box on the left, a list of functions in the middle and a help box on the right.
 
   .. image:: /static/3/vector_styling_expressions/images/6.png
     :align: center
@@ -101,7 +101,7 @@ Procedure
 
      set_color_part(ramp_color('Greens',scale_linear("MAPCOLOR7",1,7,0.2,1)),'alpha',100)
  
-This expression contains multiple functions: ``set_color_part()`` to set alpha or transparency, ``ramp_color()`` to apply a color ramp and ``scale_linear()`` to    use the field MAPCOLOR7 in setting the color for each country. In this example, we are using greens, setting the alpha at 100 out of 255 and scaling MAPCOLOR7 from it's orginal range of 1-7 to 0.2-1, which will look nice with ramp_color.
+This expression contains multiple functions: ``set_color_part()`` to set alpha or transparency, ``ramp_color()`` to apply a color ramp and ``scale_linear()`` to use the field MAPCOLOR7 in setting the color for each country. In this example, we are using greens, setting the alpha at 100 out of 255 and scaling MAPCOLOR7 from it's original range of 1-7 to 0.2-1, which will look nice with ramp_color.
 
   .. image:: /static/3/vector_styling_expressions/images/12.png
     :align: center
