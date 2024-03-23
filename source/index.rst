@@ -46,7 +46,7 @@ Advanced GIS operations
 Expressions
 """""""""""
 * :doc:`docs/3/vector_styling_expressions`
-* :doc:`docs/3/2.5d_rendering_and_conditional styling`
+* :doc:`docs/3/2.5d_rendering_and_conditional_styling`
 
 Network Analysis
 """"""""""""""""
@@ -142,5 +142,5 @@ Appendix
    docs/learning_resources
    docs/credits
    docs/batch_processing
-   docs/3/2.5d_rendering_and_conditional styling
+   docs/3/2.5d_rendering_and_conditional_styling
 
