@@ -100,6 +100,7 @@
 <li class="toctree-l1"><a class="reference internal" href="automating_map_creation.html">Maken van kaarten automatiseren met Atlas van afdruklay-out (QGIS3)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="multi_criteria_overlay.html">Multi Criteria Overlay Analyse (QGIS3)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="vector_styling_expressions.html">Basis filteren en opmaken met expressies (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="block_world_styling.html">Creating a Block World Map (QGIS3)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="basic_network_analysis.html">Basis netwerk visualisatie en routeren (QGIS3)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="origin_destination_matrix.html">Dichtstbijzijnde faciliteit zoeken met Origin-Destination Matrix (QGIS3)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="service_area_analysis.html">Analyse Servicegebied met Openrouteservice (QGIS3)</a></li>
@@ -199,7 +200,7 @@
 <section id="get-the-data">
 <h2>De gegevens ophalen<a class="headerlink" href="#get-the-data" title="Link to this heading">¶</a></h2>
 <p><a class="reference external" href="http://www.prism.oregonstate.edu/">De PRISM Climate Group</a> verzamelt klimatologische gegevens en verschaft historische en recente klimaatgegevens voor de gehele VS. Ga naar de gegevenspagina <a class="reference external" href="http://www.prism.oregonstate.edu/recent/">Recent Years</a> en download de maandelijkse neerslaggegevens voor het jaar 2017 in de indeling BIL.</p>
-<img alt="../../_images/data114.png" class="align-center" src="../../_images/data114.png" />
+<img alt="../../_images/data115.png" class="align-center" src="../../_images/data115.png" />
 <p><a class="reference external" href="https://data.seattle.gov/">City of Seattle Open Data portal</a> verschaft gratis en open gegevens voor de stad. Zoek naar en download de gegevens <a class="reference external" href="https://data.seattle.gov/Land-Base/Zip-Codes/n58k-cykw">Zip Codes</a> in de indeling shapefile.</p>
 <p>Voor het gemak kunt u direct een kopie van beide gegevenssets downloaden vanaf de links hieronder:</p>
 <p><a class="reference external" href="https://www.qgistutorials.com/downloads/PRISM_ppt_stable_4kmM3_2017_all_bil.zip">PRISM_ppt_stable_4kmM3_2017_all_bil.zip</a></p>
@@ -212,7 +213,7 @@
 <li><p>Zoek naar de map <code class="docutils literal notranslate"><span class="pre">PRISM_ppt_stable_4kmM3_2017_all_bil</span></code> in de QGIS Browser en vergroot die. De map bevat 12 individuele lagen voor elke maand. Houd de <kbd class="kbd docutils literal notranslate">Ctrl</kbd>-toets ingedrukt en selecteer de bestanden <code class="docutils literal notranslate"><span class="pre">.bil</span></code> voor alle 12 maanden. Eenmaal geselecteerd, sleep ze naar het kaartvenster.</p></li>
 </ol>
 <blockquote>
-<div><img alt="../../_images/1107.png" class="align-center" src="../../_images/1107.png" />
+<div><img alt="../../_images/1108.png" class="align-center" src="../../_images/1108.png" />
 </div></blockquote>
 <div class="admonition note">
 <p class="admonition-title">Notitie</p>
@@ -234,49 +235,49 @@
 <li><p>Klik met rechts op de laag <code class="docutils literal notranslate"><span class="pre">Zip_Codes</span></code> en selecteer <span class="guilabel">Op kaartlaag inzoomen</span>. U zult de polygonen van de postcodes voor de stad en omliggende gebieden zien.</p></li>
 </ol>
 <blockquote>
-<div><img alt="../../_images/423.png" class="align-center" src="../../_images/423.png" />
+<div><img alt="../../_images/424.png" class="align-center" src="../../_images/424.png" />
 </div></blockquote>
 <ol class="arabic simple" start="5">
 <li><p>Ga naar <span class="menuselection">Processing ‣ Toolbox</span>.</p></li>
 </ol>
 <blockquote>
-<div><img alt="../../_images/521.png" class="align-center" src="../../_images/521.png" />
+<div><img alt="../../_images/522.png" class="align-center" src="../../_images/522.png" />
 </div></blockquote>
 <ol class="arabic simple" start="6">
 <li><p>Het algoritme om monsters te nemen uit een rasterlaag met behulp van vectorpolygonen staat bekend als <code class="docutils literal notranslate"><span class="pre">Gebiedsstatistieken</span></code>. Zoek naar het algoritme in de <span class="guilabel">Toolbox van Processing</span>. Selecteer het algoritme en ga er met uw muis overheen. U zult een Helptip zien met de tekst <em>Algorithm ID: ‘native:zonalstatisticsfb’</em>. Onthoud deze ID, die nodig is om dit algoritme aan te roepen via de API van Python. Dubbelklik op het algoritme <code class="docutils literal notranslate"><span class="pre">Gebiedsstatistieken</span></code> om het te starten.</p></li>
 </ol>
 <blockquote>
-<div><img alt="../../_images/621.png" class="align-center" src="../../_images/621.png" />
+<div><img alt="../../_images/622.png" class="align-center" src="../../_images/622.png" />
 </div></blockquote>
 <ol class="arabic simple" start="7">
 <li><p>We zullen een handmatige test van het algoritme uitvoeren voor één enkele laag. Dit is een nuttige manier om te controleren of het algoritme zich gedraagt zoals verwacht en ook een gemakkelijke manier om uit te zoeken hoe de relevante parameters aan het algoritme door te geven wanneer het gebruikt wordt via Python. Selecteer, in het dialoogvenster <span class="guilabel">Gebiedsstatistieken</span>, <code class="docutils literal notranslate"><span class="pre">Zip_Codes</span></code> als de <span class="guilabel">Invoerlaag</span>, <code class="docutils literal notranslate"><span class="pre">PRISM_ppt_stable_4kmM3_201701_bil</span></code> als de <span class="guilabel">Rasterlaag</span> en laat de andere parameters op hun standaardwaarden. Klik op de knop <span class="guilabel">…</span> naast <span class="guilabel">Statistieken om te berekenen</span> en selecteer alleen <code class="docutils literal notranslate"><span class="pre">Gemiddelde</span></code>, klik vervolgens op de knop <span class="guilabel">…</span> naast <span class="guilabel">Gebiedsstatistieken</span> en sla de laag op als <code class="docutils literal notranslate"><span class="pre">january_mean.gpkg</span></code> . Klik op <span class="guilabel">Uitvoeren</span>.</p></li>
 </ol>
 <blockquote>
-<div><img alt="../../_images/720.png" class="align-center" src="../../_images/720.png" />
+<div><img alt="../../_images/721.png" class="align-center" src="../../_images/721.png" />
 </div></blockquote>
 <ol class="arabic simple" start="8">
 <li><p>Schakel, als het algoritme is voltooid, naar de tab <span class="guilabel">Log</span>. Maak een notitie van de <span class="guilabel">Parameters invoer</span> die werden doorgegeven aan het algoritme. Klik op <span class="guilabel">Close</span>.</p></li>
 </ol>
 <blockquote>
-<div><img alt="../../_images/820.png" class="align-center" src="../../_images/820.png" />
+<div><img alt="../../_images/821.png" class="align-center" src="../../_images/821.png" />
 </div></blockquote>
 <ol class="arabic simple" start="9">
 <li><p>Nu zal een nieuwe laag <code class="docutils literal notranslate"><span class="pre">january_mean</span></code> worden toegevoegd aan het kaartvenster. Laten we de resultaten  controleren, klik met rechts op de laag en selecteer <span class="guilabel">Attributentabel openen</span>. Dit bepaalde algoritme past de laag voor de invoerzones ter plekke aan en voegt een nieuwe kolom toe voor elke statistiek die werd geselecteerd. Een nieuwe kolom, genaamd <code class="docutils literal notranslate"><span class="pre">_mean</span></code>, is toegevoegd aan de tabel, omdat we alleen de waarde <code class="docutils literal notranslate"><span class="pre">Gemiddelde</span></code> hadden geselecteerd. De <code class="docutils literal notranslate"><span class="pre">_</span></code> is het standaard voorvoegsel. Wanneer we het algoritme uitvoeren voor lagen van alle maanden is het nuttig om een aangepast voorvoegsel met het nummer van de maand te specificeren, zodat we eenvoudig de gemiddelde waarden kunnen identificeren voor elke maand (d.i. 01_mean, 02_mean etc.). Specificeren van dit aangepaste voorvoegsel is niet mogelijk in de interface Batch Processing van QGIS en als we deze opdracht zouden uitvoeren met die interface, zouden we het aangepaste voorvoegsel handmatig moeten toevoegen voor elke laag. Als u werkt met een groot aantal lagen kan dit behoorlijk omslachtig zijn. Vandaar dat we deze aangepaste logica kunnen toevoegen met de API van Python en het algoritme in een for-loop voor elke laag uitvoeren.</p></li>
 </ol>
 <blockquote>
-<div><img alt="../../_images/920.png" class="align-center" src="../../_images/920.png" />
+<div><img alt="../../_images/921.png" class="align-center" src="../../_images/921.png" />
 </div></blockquote>
 <ol class="arabic simple" start="10">
 <li><p>Ga, terug in het hoofdvenster van QGIS, naar <span class="menuselection">Plug-ins ‣ Python Console</span>.</p></li>
 </ol>
 <blockquote>
-<div><img alt="../../_images/1028.png" class="align-center" src="../../_images/1028.png" />
+<div><img alt="../../_images/1029.png" class="align-center" src="../../_images/1029.png" />
 </div></blockquote>
 <ol class="arabic simple" start="11">
 <li><p>Klik op de knop <span class="guilabel">Bewerker weergeven</span>. Dit zal de bewerker voor Python openen waar veel code voor Python kan worden geschreven en uitgevoerd met één enkele klik op een knop.</p></li>
 </ol>
 <blockquote>
-<div><img alt="../../_images/1131.png" class="align-center" src="../../_images/1131.png" />
+<div><img alt="../../_images/1132.png" class="align-center" src="../../_images/1132.png" />
 </div></blockquote>
 <ol class="arabic simple" start="12">
 <li><p>We moeten toegang hebben tot alle namen van de lagen om het algoritme van Processing uit te voeren via Python. Voer de volgende code in de bewerker in en druk op de knop <span class="guilabel">Opdracht uitvoeren</span>. U zult de namen van alle lagen zien afgedrukt in de console.</p></li>
@@ -287,7 +288,7 @@
   <span class="nb">print</span><span class="p">(</span><span class="n">layer</span><span class="o">.</span><span class="n">name</span><span class="p">())</span>
 </pre></div>
 </div>
-<img alt="../../_images/1229.png" class="align-center" src="../../_images/1229.png" />
+<img alt="../../_images/1230.png" class="align-center" src="../../_images/1230.png" />
 </div></blockquote>
 <ol class="arabic simple" start="13">
 <li><p>Wel, laten we nu het <code class="docutils literal notranslate"><span class="pre">Gemiddelde</span></code> berekenen voor één maand en een uitvoerlaag maken. In de code hieronder wordt <span class="guilabel">break</span> gebruikt om de loop te beëindigen nadat die de eerste keer is uitgevoerd, op deze manier kunnen we het gemiddelde voor de maand Januari berekenen.</p></li>
@@ -319,7 +320,7 @@
 <span class="n">QgsProject</span><span class="o">.</span><span class="n">instance</span><span class="p">()</span><span class="o">.</span><span class="n">addMapLayer</span><span class="p">(</span><span class="n">result_layer</span><span class="p">)</span>
 </pre></div>
 </div>
-<img alt="../../_images/1327.png" class="align-center" src="../../_images/1327.png" />
+<img alt="../../_images/1328.png" class="align-center" src="../../_images/1328.png" />
 </div></blockquote>
 <div class="admonition note">
 <p class="admonition-title">Notitie</p>
@@ -329,7 +330,7 @@
 <li><p>Een nieuwe laag <code class="docutils literal notranslate"><span class="pre">output</span></code> zal wordne toegevoegd aan het kaartvenster, klik met rechts op de laag en selecteer <span class="guilabel">Attributentabel openen</span>. <span class="guilabel">01_mean</span> geeft het gemiddelde voor één mand weer, net zoals het hierboven vermelde algoritme 12 nieuwe lagen zal maken als het wordt uitgevoerd zonder de break.</p></li>
 </ol>
 <blockquote>
-<div><img alt="../../_images/1425.png" class="align-center" src="../../_images/1425.png" />
+<div><img alt="../../_images/1426.png" class="align-center" src="../../_images/1426.png" />
 </div></blockquote>
 <ol class="arabic simple" start="15">
 <li><p>Laten we nu code toevoegen om alle gemiddelden van de maanden samen te voegen en daarvoor één enkele uitvoerlaag te maken. Voer de volgende code in om door alle rasterlagen te gaan, het aangepaste voorvoegsel uit te nemen en het algoritme <code class="docutils literal notranslate"><span class="pre">native:joinattributestable</span></code> uit te voeren om één enkele uitvoerlaag te maken met de gemiddelden van alle maanden.</p></li>
@@ -371,19 +372,19 @@
 <span class="n">QgsProject</span><span class="o">.</span><span class="n">instance</span><span class="p">()</span><span class="o">.</span><span class="n">addMapLayer</span><span class="p">(</span><span class="n">result_layer</span><span class="p">)</span>
 </pre></div>
 </div>
-<img alt="../../_images/1522.png" class="align-center" src="../../_images/1522.png" />
+<img alt="../../_images/1523.png" class="align-center" src="../../_images/1523.png" />
 </div></blockquote>
 <ol class="arabic simple" start="16">
 <li><p>Als het verwerken eenmaal is voltooid zal een nieuwe laag <code class="docutils literal notranslate"><span class="pre">output</span></code> worden toegevoegd aan het kaartvenster. Klik met rechts op de laag en klik op <span class="guilabel">Attributentabel openen</span>.</p></li>
 </ol>
 <blockquote>
-<div><img alt="../../_images/1621.png" class="align-center" src="../../_images/1621.png" />
+<div><img alt="../../_images/1622.png" class="align-center" src="../../_images/1622.png" />
 </div></blockquote>
 <ol class="arabic simple" start="17">
 <li><p>U zult in de tabel 12 nieuw toegevoegde kolommen zien met aangepaste voorvoegsels en waarden voor de gemiddelde neerslag, uitgenomen uit de rasterlagen.</p></li>
 </ol>
 <blockquote>
-<div><img alt="../../_images/1722.png" class="align-center" src="../../_images/1722.png" />
+<div><img alt="../../_images/1723.png" class="align-center" src="../../_images/1723.png" />
 </div></blockquote>
 </section>
 </section>

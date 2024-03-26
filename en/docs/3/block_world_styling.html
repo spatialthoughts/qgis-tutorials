@@ -1,0 +1,522 @@
+<!DOCTYPE html>
+
+<html lang="en" data-content_root="../../">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Creating a Block World Map (QGIS3) &#8212; QGIS Tutorials and Tips</title>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-sphinx.css?v=0bf093e7" />
+    <script src="../../_static/documentation_options.js?v=29a6c3e3"></script>
+    <script src="../../_static/doctools.js?v=888ff710"></script>
+    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Basic Network Visualization and Routing (QGIS3)" href="basic_network_analysis.html" />
+    <link rel="prev" title="Basic Filtering and Styling with Expressions (QGIS3)" href="vector_styling_expressions.html" />
+
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<script type="text/javascript" src="../../_static/js/jquery-1.12.4.min.js"></script>
+<script type="text/javascript" src="../../_static/js/jquery-fix.js"></script>
+<script type="text/javascript" src="../../_static/bootstrap-3.4.1/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="../../_static/bootstrap-sphinx.js"></script>
+
+
+<!-- Cookie Notice -->
+<!-- Script from https://github.com/AOEpeople/cookie-notice -->
+<script type="text/javascript" src="../../_static/cookie.notice.min.js"></script>
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-B1WQ7B80XJ"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-B1WQ7B80XJ');
+</script>
+
+
+  </head><body>
+
+  <div id="navbar" class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="../../index.html">
+          QGIS Tutorials and Tips</a>
+        <span class="navbar-text navbar-version pull-left"><b>v1</b></span>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="../../index.html">Tutorials List <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"><ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="making_a_map.html">Making a Map (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="working_with_attributes.html">Working with Attributes (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="importing_spreadsheets_csv.html">Importing Spreadsheets or CSV files (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="basic_vector_styling.html">Basic Vector Styling (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="calculating_line_lengths.html">Calculating Line Lengths and Statistics (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="raster_styling_and_analysis.html">Basic Raster Styling and Analysis (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="raster_mosaicing_and_clipping.html">Raster Mosaicing and Clipping (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="working_with_terrain.html">Working with Terrain Data (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="working_with_wms.html">Working with WMS Data (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="working_with_projections.html">Working with Projections (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="georeferencing_basics.html">Georeferencing Topo Sheets and Scanned Maps (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="advanced_georeferencing.html">Georeferencing Aerial Imagery (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="digitizing_basics.html">Digitizing Map Data (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="performing_table_joins.html">Performing Table Joins (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="performing_spatial_joins.html">Performing Spatial Joins (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="performing_spatial_queries.html">Performing Spatial Queries (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="nearest_neighbor_analysis.html">Nearest Neighbor Analysis (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="sampling_raster_data.html">Sampling Raster Data using Points or Polygons (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="calculating_raster_area.html">Calculating Raster Area (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="creating_heatmaps.html">Creating Heatmaps (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="animating_time_series.html">Animating Time Series Data (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="handling_invalid_geometries.html">Handling Invalid Geometries (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="advanced_raster_analysis.html">Advanced Raster Analysis (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="interpolating_point_data.html">Interpolating Point Data (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="batch_processing.html">Batch Processing using Processing Framework (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="processing_graphical_modeler.html">Automating Complex Workflows using Processing Modeler (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="automating_map_creation.html">Automating Map Creation with Print Layout Atlas (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="multi_criteria_overlay.html">Multi Criteria Overlay Analysis (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="vector_styling_expressions.html">Basic Filtering and Styling with Expressions (QGIS3)</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Creating a Block World Map (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="basic_network_analysis.html">Basic Network Visualization and Routing (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="origin_destination_matrix.html">Locating Nearest Facility with Origin-Destination Matrix (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="service_area_analysis.html">Service Area Analysis using Openrouteservice (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="travel_time_analysis.html">Travel Time Analysis with Uber Movement (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="areal_mean_rainfall.html">Calculating Areal Mean Rainfall (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="colorized_river_basin_map.html">Creating a Colorized River Basin Map (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="creating_landuse_map.html">Creating a Landuse Map (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="calculating_intersection_density.html">Calculating Street Intersection Density (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="landuse_buffer.html">Determining Landuse Buffer Zones (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="solidwaste_mapping.html">Mapping Waste Disposal Volumes (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="getting_started_with_pyqgis.html">Getting Started With Python Programming (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="processing_algorithms_pyqgis.html">Running Processing Algorithms via Python (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="custom_python_functions.html">Using Custom Python Expression Functions (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="processing_python_scripts.html">Writing Python Scripts for Processing Framework (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="building_a_python_plugin.html">Building a Python Plugin (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="processing_python_plugin.html">Building a Processing Plugin (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../running_qgis_jobs.html">Running and Scheduling QGIS Processing Jobs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="web_mapping_with_qgis2web.html">Web Mapping with QGIS2Web (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../creating_basemaps_with_qtiles.html">Creating Basemaps with QTiles</a></li>
+<li class="toctree-l1"><a class="reference internal" href="using_plugins.html">Using Plugins (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../downloading_osm_data.html">Searching and Downloading OpenStreetMap Data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../learning_resources.html">QGIS Learning Resources</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../credits.html">Data Credits</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../batch_processing.html">Batch Processing using Processing Framework (QGIS2)</a></li>
+</ul>
+</ul>
+</li>
+              
+            
+            
+              
+                
+  <li>
+    <a href="vector_styling_expressions.html" title="Previous Chapter: Basic Filtering and Styling with Expressions (QGIS3)"><span class="glyphicon glyphicon-chevron-left visible-sm"></span><span class="hidden-sm hidden-tablet">&laquo; Basic Filteri...</span>
+    </a>
+  </li>
+  <li>
+    <a href="basic_network_analysis.html" title="Next Chapter: Basic Network Visualization and Routing (QGIS3)"><span class="glyphicon glyphicon-chevron-right visible-sm"></span><span class="hidden-sm hidden-tablet">Basic Network... &raquo;</span>
+    </a>
+  </li>
+              
+            
+            
+
+            
+
+            
+              <li class="hidden-sm"></li>
+            
+          </ul>
+
+          
+            
+<form class="navbar-form navbar-right" action="../../search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+      <div class="col-md-3">
+        <div id="sidebar" class="bs-sidenav" role="complementary"><h4>Author</h4>
+<p>Ujaval Gandhi</p>
+<a href="https://twitter.com/intent/follow?screen_name=spatialthoughts" class="twitter-follow-button" data-show-count="false">Follow @spatialthoughts</a>
+<hr>
+<p>Want to learn QGIS in a structured way? Check out <a href="https://spatialthoughts.com/" target="_blank">Spatial Thoughts</a> for more learning materials and instructor-led online programs with QGIS.org certification.</p>
+
+<hr>
+<p>These tutorials are also available in many other languages. Please see <a href="https://www.qgistutorials.com/en/docs/introduction.html#translations" target="_blank">translations</a> page.
+</p>
+        </div>
+      </div>
+    <div class="body col-md-9 content" role="main">
+      
+
+  <section id="creating-a-block-world-map-qgis3">
+<h1>Creating a Block World Map (QGIS3)<a class="headerlink" href="#creating-a-block-world-map-qgis3" title="Link to this heading">¶</a></h1>
+<p><em>Contributed by:</em> <a class="reference external" href="https://geographyclub.github.io/">Steven Kim</a></p>
+<p>In the previous tutorial <a class="reference internal" href="vector_styling_expressions.html"><span class="doc">Basic Filtering and Styling with Expressions (QGIS3)</span></a> we looked at how simple expressions can be used to filter and style data in QGIS. We expand on this by creating a block world out of a hex grid with elevation values.</p>
+<section id="overview-of-the-task">
+<h2>Overview of the task<a class="headerlink" href="#overview-of-the-task" title="Link to this heading">¶</a></h2>
+<p>We will take a hex grid containing elevation values and use a mathematical function to set a height variable for the 2.5d renderer and a conditional statement to apply a color ramp.</p>
+<blockquote>
+<div><img alt="../../_images/output.png" class="align-center" src="../../_images/output.png" />
+</div></blockquote>
+<section id="other-skills-you-will-learn">
+<h3>Other skills you will learn<a class="headerlink" href="#other-skills-you-will-learn" title="Link to this heading">¶</a></h3>
+<ul class="simple">
+<li><p>Discovering and downloading elevation datasets.</p></li>
+<li><p>Creating a hexagonal grid and extracting raster statistics for each grid cell.</p></li>
+<li><p>Adding a new color ramp to QGIS.</p></li>
+</ul>
+</section>
+</section>
+<section id="get-the-data">
+<h2>Get the data<a class="headerlink" href="#get-the-data" title="Link to this heading">¶</a></h2>
+<p><a class="reference external" href="https://opentopography.org/start">OpenTopography</a> provides access to many openly licensed elevation datasets. We will extract and download a DEM for your region of interest from a global DEM and Ocean Bathymetry dataset hosted on OpenTopography.</p>
+<ol class="arabic simple">
+<li><p>Visit the <a class="reference external" href="https://portal.opentopography.org/raster?opentopoID=OTSRTM.122019.4326.1">Global Bathymetry and Topography at 15 Arc Sec: SRTM15+ V2.5.5</a> data page on OpenTopography website. This is a 500m resolution global dataset derived from SRTM DEM and various ocean bathymetry dataset.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/data12.png" class="align-center" src="../../_images/data12.png" />
+</div></blockquote>
+<ol class="arabic simple" start="2">
+<li><p>Scroll down to the <span class="guilabel">1. Select area of data to process</span> section. Click on the <span class="guilabel">SELECT A REGION</span> button and draw a rectangle covering your region of interest.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/data21.png" class="align-center" src="../../_images/data21.png" />
+</div></blockquote>
+<ol class="arabic simple" start="3">
+<li><p>Once the region is set, scroll down to the <span class="guilabel">2. Data Outputs Formats</span> section and select <code class="docutils literal notranslate"><span class="pre">GeoTiff</span></code>. Leave all other options to default and scroll down to the <span class="guilabel">Job Description</span> section. Enter your email address to be notified when the download is ready. Click <span class="guilabel">SUBMIT</span> button.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/data31.png" class="align-center" src="../../_images/data31.png" />
+</div></blockquote>
+<ol class="arabic simple" start="4">
+<li><p>The download may take a few minutes to get processed. Once ready, you will receive a link to download the selected subset. Download the file to your computer. The downloaded file is a tar compressed file that needs to be uncompressed to be opened in QGIS. On Windows, you may use an external program like <a class="reference external" href="https://www.7-zip.org/">7-Zip</a> to uncompress and extract the  <code class="docutils literal notranslate"><span class="pre">output_SRTM15Plus.tif</span></code> file.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/data41.png" class="align-center" src="../../_images/data41.png" />
+</div></blockquote>
+<ol class="arabic simple" start="5">
+<li><p>In QGIS, locate the <code class="docutils literal notranslate"><span class="pre">output_SRTM15Plus.tif</span></code> file in the <span class="guilabel">Browser</span>. Drag and drop it to the QGIS Canvas. A new layer <code class="docutils literal notranslate"><span class="pre">output_SRTM15Plus</span></code> will be added to the <span class="guilabel">Layers</span> panel.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/data51.png" class="align-center" src="../../_images/data51.png" />
+</div></blockquote>
+<ol class="arabic simple" start="6">
+<li><p>Open the Processing Toolbox from <span class="menuselection">Processing ‣ Toolbox</span>. Search and locate the <span class="menuselection">Vector creation ‣ Create grid</span> algorithm. Double-click to open it.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/data61.png" class="align-center" src="../../_images/data61.png" />
+</div></blockquote>
+<ol class="arabic simple" start="7">
+<li><p>In the <span class="guilabel">Create Grid</span> dialog, choose <code class="docutils literal notranslate"><span class="pre">Hexagon</span></code> as the <span class="guilabel">Grid type</span>. We will create a grid spanning the entire DEM. So for the <span class="guilabel">Grid extent</span>, click the down arrow and select <span class="menuselection">Calculate form Layer ‣ output_SRTM15Plus</span>.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/data71.png" class="align-center" src="../../_images/data71.png" />
+</div></blockquote>
+<ol class="arabic simple" start="8">
+<li><p>Our selected region is pretty big, so we can create a 1 degree grid. Select <code class="docutils literal notranslate"><span class="pre">1</span></code> for both <span class="guilabel">Horizontal spacing</span> and <span class="guilabel">Vertical spacing</span>. If you are working in a smaller region, you may choose a smaller grid spacing. Leave other options to their default values and click the <span class="guilabel">Run</span> button to create the grid.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/data8.png" class="align-center" src="../../_images/data8.png" />
+</div></blockquote>
+<ol class="arabic simple" start="9">
+<li><p>A new layer <code class="docutils literal notranslate"><span class="pre">Grid</span></code> will be added to the <span class="guilabel">Layers</span> panel. We will now extract the minimum, maximum and average elevation values in each grid polygon. Select the <code class="docutils literal notranslate"><span class="pre">Grid</span></code> layer and locate the <span class="menuselection">Raster analysis ‣ Zonal statistics</span> algorithm from the Processing Toolbox. Double-click to open it.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/data9.png" class="align-center" src="../../_images/data9.png" />
+</div></blockquote>
+<ol class="arabic simple" start="10">
+<li><p>Select <code class="docutils literal notranslate"><span class="pre">Grid</span></code> as the <span class="guilabel">Input layer</span> and <code class="docutils literal notranslate"><span class="pre">output_SRTM15Plus</span></code> as the <span class="guilabel">Raster layer</span>. Enter <code class="docutils literal notranslate"><span class="pre">dem_</span></code> as the <span class="guilabel">Output column prefix</span>. Next we want to configure what statistics we want to extract from the raster. Click the <span class="guilabel">…</span> button next to <span class="guilabel">Statistics to calculate</span>.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/data10.png" class="align-center" src="../../_images/data10.png" />
+</div></blockquote>
+<ol class="arabic simple" start="11">
+<li><p>Check the options for <code class="docutils literal notranslate"><span class="pre">Mean</span></code>, <code class="docutils literal notranslate"><span class="pre">Maximum</span></code> and <code class="docutils literal notranslate"><span class="pre">Minimum</span></code> values and click <span class="guilabel">OK</span>. We will save the results to a file. Click the <span class="guilabel">…</span> button next to <span class="guilabel">Zonal Statistics</span> and select <span class="guilabel">Save to File…</span>.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/data111.png" class="align-center" src="../../_images/data111.png" />
+</div></blockquote>
+<ol class="arabic simple" start="12">
+<li><p>Browse to a folder on your computer and enter the file name as <code class="docutils literal notranslate"><span class="pre">hex_grid_with_elevation</span></code>. Make sure the file type is selected as <span class="guilabel">GeoPackage files (*.gpkg)</span>. Click <span class="guilabel">Save</span>. Once the <span class="guilabel">Zonal Statistics</span> dialog is configured, click <span class="guilabel">Run</span>.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/data121.png" class="align-center" src="../../_images/data121.png" />
+</div></blockquote>
+<ol class="arabic simple" start="13">
+<li><p>The processing may take a few minutes depending on the size of your grid. Once the calculations are complete, a new layer <code class="docutils literal notranslate"><span class="pre">hex_grid_with_elevation</span></code> will be added to the <span class="guilabel">Layers</span> panel. This is a vector layer having attributes <code class="docutils literal notranslate"><span class="pre">dem_mean</span></code>, <code class="docutils literal notranslate"><span class="pre">dem_min</span></code> and <code class="docutils literal notranslate"><span class="pre">dem_max</span></code> containing elevation statistics extracted from the DEM.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/data13.png" class="align-center" src="../../_images/data13.png" />
+</div></blockquote>
+<p>For convenience, you may directly download a copy of the prepared grid from below:</p>
+<p><a class="reference external" href="http://www.qgistutorials.com/downloads/hex_grid_with_elevation.gpkg">hex_grid_with_elevation.gpkg</a></p>
+<p>Data Source <a class="reference internal" href="../credits.html#opentopography" id="id1"><span>[OPENTOPOGRAPHY]</span></a></p>
+</section>
+<section id="procedure">
+<h2>Procedure<a class="headerlink" href="#procedure" title="Link to this heading">¶</a></h2>
+<ol class="arabic simple">
+<li><p>Locate the <code class="docutils literal notranslate"><span class="pre">hex_grid_with_elevation.gpkg</span></code> file in the QGIS Browser and expand it. Select the <code class="docutils literal notranslate"><span class="pre">hex_grid_with_elevation</span></code> layer and drag it to the canvas.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/120.png" class="align-center" src="../../_images/120.png" />
+</div></blockquote>
+<ol class="arabic simple" start="2">
+<li><p>A new layer <code class="docutils literal notranslate"><span class="pre">hex_grid_with_elevation</span></code> will now be loaded in QGIS and you should see a hex grid.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/218.png" class="align-center" src="../../_images/218.png" />
+</div></blockquote>
+<ol class="arabic simple" start="3">
+<li><p>Before continuing, we must first add a color ramp suitable for coloring DEMs. Click on <span class="guilabel">Settings</span> in the menubar and select <span class="guilabel">Style Manager</span>.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/316.png" class="align-center" src="../../_images/316.png" />
+</div></blockquote>
+<ol class="arabic simple" start="4">
+<li><p>Click on the plus sign <span class="guilabel">Add item</span> at the bottom and select <span class="menuselection">Catalog: cpt-city…</span>.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/45.png" class="align-center" src="../../_images/45.png" />
+</div></blockquote>
+<ol class="arabic simple" start="5">
+<li><p>Scroll done the color ramps until you find <span class="guilabel">wiki-1.02</span>. There may be several with the same name, just click on one and click <span class="guilabel">OK</span>.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/55.png" class="align-center" src="../../_images/55.png" />
+</div></blockquote>
+<ol class="arabic simple" start="6">
+<li><p>At the ‘Save New Color Ramp’ window, enter the value <code class="docutils literal notranslate"><span class="pre">wiki-1.02</span></code> as the <span class="guilabel">Name</span>.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/65.png" class="align-center" src="../../_images/65.png" />
+</div></blockquote>
+<ol class="arabic simple" start="7">
+<li><p>Click <span class="guilabel">Save</span> to exit the window, then click <span class="guilabel">Close</span> to exit Style Manager. Now the wiki-1.02 color ramp is available to use in your projects going forward.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/75.png" class="align-center" src="../../_images/75.png" />
+</div></blockquote>
+<ol class="arabic simple" start="8">
+<li><p>Click on <span class="guilabel">Open Layer Styling Panel</span> and switch from <span class="guilabel">Single Symbol</span> to <span class="guilabel">2.5 D</span>. Click the <span class="guilabel">ε</span> button next to <span class="guilabel">Height</span>:</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/85.png" class="align-center" src="../../_images/85.png" />
+</div></blockquote>
+<ol class="arabic simple" start="9">
+<li><p>In the <span class="guilabel">Expression Builder</span>, enter the following expression. This expression uses <code class="docutils literal notranslate"><span class="pre">scale_exp()</span></code> function to change the range of the attribute values <code class="docutils literal notranslate"><span class="pre">dem_mean</span></code> from 0-10000 to 0-4 and to use an exponent of 2. The exponential scaling looks pretty in block world. The <code class="docutils literal notranslate"><span class="pre">+8000</span></code> is to make the bottom of the ocean equal zero.</p></li>
+</ol>
+<blockquote>
+<div><div class="highlight-none notranslate"><div class="highlight"><pre><span></span>scale_exp((&quot;dem_mean&quot;+8000),0,10000,0,4,2)
+</pre></div>
+</div>
+<img alt="../../_images/95.png" class="align-center" src="../../_images/95.png" />
+</div></blockquote>
+<ol class="arabic simple" start="10">
+<li><p>Change the <span class="guilabel">Angle</span> to <code class="docutils literal notranslate"><span class="pre">135</span></code>.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/108.png" class="align-center" src="../../_images/108.png" />
+</div></blockquote>
+<ol class="arabic simple" start="11">
+<li><p>We will be applying our own colors to the grids. Click off <span class="guilabel">Shade walls based on aspect</span> and <span class="guilabel">Shadow</span>.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/1111.png" class="align-center" src="../../_images/1111.png" />
+</div></blockquote>
+<ol class="arabic simple" start="12">
+<li><p>You should see the topography of region begin to take shape. Click on <span class="guilabel">Open Layer Styling Panel</span> and switch from <span class="guilabel">2.5D</span> back to <span class="guilabel">Single Symbol</span>.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/128.png" class="align-center" src="../../_images/128.png" />
+</div></blockquote>
+<ol class="arabic simple" start="13">
+<li><p>In the <span class="guilabel">Symbol</span> window, notice there are two Geometry Generators, each with a <span class="guilabel">Simple Fill</span> layer type. The first <span class="guilabel">Simple Fill</span> is the top face of each block, whereas the second <span class="guilabel">Simple Fill</span> is the side face.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/137.png" class="align-center" src="../../_images/137.png" />
+</div></blockquote>
+<ol class="arabic simple" start="14">
+<li><p>Click on the first <span class="guilabel">Simple Fill</span> to change the color of the top face. Click on <span class="guilabel">Data define override</span> button for the <span class="guilabel">Fill color</span> and select <span class="guilabel">Edit…</span> on the menu.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/147.png" class="align-center" src="../../_images/147.png" />
+</div></blockquote>
+<ol class="arabic simple" start="15">
+<li><p>This brings up the <span class="guilabel">Expression Builder</span> dialog for Fill color. Enter the following expression. This expression has a <code class="docutils literal notranslate"><span class="pre">CASE</span></code> conditional statement to use wiki-1.02 colors when value of the attribute <code class="docutils literal notranslate"><span class="pre">dem_mean</span></code> is greater than or equal to zero and green-blue colors when <code class="docutils literal notranslate"><span class="pre">dem_mean</span></code> is less than zero.</p></li>
+</ol>
+<blockquote>
+<div><div class="highlight-none notranslate"><div class="highlight"><pre><span></span>CASE
+WHEN &quot;dem_mean&quot; &gt;= 0 THEN ramp_color(&#39;wiki-1.02&#39;,scale_linear(&quot;dem_min&quot;,0,1500,0.4,1))
+ELSE ramp_color(&#39;GnBu&#39;,scale_linear(&quot;dem_mean&quot;,-6000,0,1,0))
+END
+</pre></div>
+</div>
+<img alt="../../_images/157.png" class="align-center" src="../../_images/157.png" />
+</div></blockquote>
+<ol class="arabic simple" start="16">
+<li><p>The hex grid is now rendered in colors determined by our expression. Click on <span class="guilabel">Data define override</span> button for the <span class="guilabel">Fill color</span> and select <span class="guilabel">Copy</span> on the menu.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/167.png" class="align-center" src="../../_images/167.png" />
+</div></blockquote>
+<ol class="arabic simple" start="17">
+<li><p>Click on <span class="guilabel">Data define override</span> button for the <span class="guilabel">Stroke color</span> and select <span class="guilabel">Paste</span> on the menu.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/177.png" class="align-center" src="../../_images/177.png" />
+</div></blockquote>
+<ol class="arabic simple" start="18">
+<li><p>You should see the colors take effect and our map is finished. Feel free to experiment with the expressions in this tutorial, like changing parameters in the height function or adding and trying new color ramps.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/185.png" class="align-center" src="../../_images/185.png" />
+</div></blockquote>
+</section>
+</section>
+
+
+
+
+
+  <!-- Comment Section Powered by utterances -->
+<div id="comments">
+  <hr />
+  <p>If you want to give feedback or share your experience with this tutorial, please comment below. (requires GitHub account)</p>
+<script src="https://utteranc.es/client.js"
+        repo="spatialthoughts/qgis-tutorials"
+        issue-term="title"
+        label="comment"
+        theme="github-light"
+        crossorigin="anonymous"
+        async>
+</script>
+</div>
+
+
+    </div>
+      
+  </div>
+</div>
+
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+    </p>
+    <p>
+        &copy; Copyright 2023, Ujaval Gandhi.<br/>
+      Last updated on Mar 26, 2024.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 7.2.6.<br/>
+    </p>
+  </div>
+</footer>
+<div class="container">
+  <p>This work is licensed under a <a href="http://creativecommons.org/licenses/by/4.0/deed.en_US">Creative Commons Attribution 4.0 International License</a></p>
+</div>
+<!-- Twitter Button -->
+<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+
+<!-- Disqus comments widget -->
+<script type="text/javascript">
+  /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+  var disqus_shortname = 'qgistutorials'; // required: replace example with your forum shortname
+  /* * * DON'T EDIT BELOW THIS LINE * * */
+  (function () {
+    var s = document.createElement('script'); s.async = true;
+    s.type = 'text/javascript';
+    s.src = '//' + disqus_shortname + '.disqus.com/count.js';
+    (document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);
+  }());
+</script>
+
+<script type="text/javascript">
+  /* * * DON'T EDIT BELOW THIS LINE * * */
+  (function() {
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+
+<!-- Script fpr language switching. Largely adapted from https://github.com/pcav/faunalia-website -->
+<script>
+    var currentPage = 'docs/3/block_world_styling.html'; // coming from sphinx, always without starting '/'
+    var currentLang = 'en';
+    $(document).ready(function(){
+
+        var search = new RegExp('\/[a-zA-Z_]{2,8}\/'+ currentPage, 'gi');
+        var langPlusPage = window.location.href.match(search);
+        // it's possible this is a index.html page called without 'index.html', try without the currentPage
+        if (langPlusPage==undefined){
+            search = new RegExp('\/[a-zA-Z_]{2,8}\/$', 'gi');
+            langPlusPage = window.location.href.match(search);
+        }
+
+        // it's possible this is an index.html page called without 'index.html', try removing index.html
+        if (langPlusPage==undefined){
+            currentPage = currentPage.replace('index.html','')
+            search = new RegExp('\/[a-zA-Z_]{2,8}\/'+ currentPage, 'gi');
+            langPlusPage = window.location.href.match(search);
+        }
+        // still no langPlugPage: stop, because the language swicher will misbehave 
+
+        if (langPlusPage == undefined || langPlusPage.length != 1){
+            alert('You hit an error, please report back to us.');
+            return;
+        }
+        langPlusPage = langPlusPage[0];
+        currentLang = langPlusPage.replace(currentPage, '');
+
+        $("#languages").val(currentLang.replace(/\//g,'')); // currentLang is something like '/nl/'
+
+        $("#languages").change(function() {
+            gotoLang($(this).val());
+        });
+
+    });
+
+    // load current page in a different language
+    function gotoLang(lang){
+        var currentUrl = window.location.href;
+        var newUrl = currentUrl.replace(currentLang, '/'+lang+'/');
+        window.location.href = newUrl;
+    }
+</script>
+
+  </body>
+</html>

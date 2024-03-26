@@ -216,3 +216,7 @@ Data Credits
 - :doc:`3/colorized_river_basin_map`
 
 .. [SOI] Survey of India. Office of the Surveyor General of India
+
+- :doc:`3/block_world_styling`
+
+.. [OPENTOPOGRAPHY] Tozer, B, Sandwell, D. T., Smith, W. H. F., Olson, C., Beale, J. R., & Wessel, P. (2019). Global bathymetry and topography at 15 arc sec: SRTM15+. Distributed by OpenTopography. https://doi.org/10.5069/G92R3PT9. Accessed: 2024-03-26

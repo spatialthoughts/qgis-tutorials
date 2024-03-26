@@ -100,6 +100,7 @@
 <li class="toctree-l1"><a class="reference internal" href="automating_map_creation.html">Automatisierung der Kartenerstellung mit dem Drucklayout Atlas (QGIS3)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="multi_criteria_overlay.html">Multi Criteria Overlay Analysis (QGIS3)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="vector_styling_expressions.html">Basic Filtering and Styling with Expressions (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="block_world_styling.html">Creating a Block World Map (QGIS3)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="basic_network_analysis.html">Einfache Netzwerkvisualisierung und Routing (QGIS3)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="origin_destination_matrix.html">Lokalisierung der am nächsten gelegenen Einrichtung mit einer Quelle-Ziel-Matrix (QGIS3)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="service_area_analysis.html">Einzugsgebietsanalyse mit dem Openrouteservice (QGIS3)</a></li>
@@ -201,7 +202,7 @@
 <p>Mit Hilfe der Export Option des Portals laden wir folgende Daten herunter: <a class="reference external" href="https://data.cityofnewyork.us/City-Government/Borough-Boundaries/tqmj-j8zm">Borough Boundaries</a>.</p>
 <img alt="../../_images/data19.png" class="align-center" src="../../_images/data19.png" />
 <p>Mit Hilfe der Export Option des Portals laden wir folgende Daten herunter: <a class="reference external" href="https://data.cityofnewyork.us/Transportation/Street-Pavement-Rating/2cav-chmn">Street Pavement Rating</a>.</p>
-<img alt="../../_images/data22.png" class="align-center" src="../../_images/data22.png" />
+<img alt="../../_images/data23.png" class="align-center" src="../../_images/data23.png" />
 <p>Der Einfachheit halber können wir eine Kopie der Datensätze unter folgenden links herunterladen:</p>
 <p><a class="reference external" href="https://www.qgistutorials.com/downloads/nybb_19a.zip">nybb_19a.zip</a></p>
 <p><a class="reference external" href="https://www.qgistutorials.com/downloads/V_SSS_SEGMENTRATING_1.zip">V_SSS_SEGMENTRATING_1.zip</a></p>
@@ -213,7 +214,7 @@
 <li><p>Gehe im QGIS Browser zur Datei <code class="docutils literal notranslate"><span class="pre">nybb_19a.zip</span></code> und erweitere sie. Wähle den Layer <code class="docutils literal notranslate"><span class="pre">nybb_19a/nybb.shp</span></code> und ziehe ihn in den Arbeitsbereich. Es handelt sich um einen Polygonlayer mit den Grenzen der Stadtbezirke New York city’s.</p></li>
 </ol>
 <blockquote>
-<div><img alt="../../_images/1105.png" class="align-center" src="../../_images/1105.png" />
+<div><img alt="../../_images/1106.png" class="align-center" src="../../_images/1106.png" />
 </div></blockquote>
 <ol class="arabic simple" start="2">
 <li><p>Finde als nächstes im QGIS Browser die Datei  <code class="docutils literal notranslate"><span class="pre">V_SSS_SEGMENTRATING_1.zip</span></code> und erweitere sie. Wähle den Layer <code class="docutils literal notranslate"><span class="pre">dot_V_SSS_SEGMENTRATING_1_20190129.shp</span></code> und füge ihn zum Arbeitsbereich hinzu. Dieser Linienlayer enthält alle Straßen der Stadt.</p></li>
@@ -231,13 +232,13 @@
 <li><p>Wir sehen ein Attribut mit der Bezeichnung <code class="docutils literal notranslate"><span class="pre">Rating_B</span></code>. Dieses Attribut mit Werten zwischen 0-10 enthält die Bewertung des Zustandes dieses Straßenabschnittes. Das Attribut <code class="docutils literal notranslate"><span class="pre">RatingWord</span></code> enthält eine beschreibende Bewertung. Wir können das Feld <code class="docutils literal notranslate"><span class="pre">Rating_B</span></code> nutzen, um die mittlere Bewertung zu bestimmen.</p></li>
 </ol>
 <blockquote>
-<div><img alt="../../_images/419.png" class="align-center" src="../../_images/419.png" />
+<div><img alt="../../_images/420.png" class="align-center" src="../../_images/420.png" />
 </div></blockquote>
 <ol class="arabic simple" start="5">
 <li><p>Wir merken, dass für einige Features die Bewertung von <code class="docutils literal notranslate"><span class="pre">NR</span></code> vergeben ist. Diese Abschnitte sind nicht bewertet. Sie in die Analyse mit einzubeziehen, wäre nicht korrekt. Bevor wir die räumliche Verbindung herstellen, erstellen wir einen <strong>Filter</strong>, um diese Datensätze auszuschließen. Klicke mit der rechten Maustaste auf den Layer <code class="docutils literal notranslate"><span class="pre">dot_V_SSS_SEGMENTRATING_1_20190129</span></code> und wähle <span class="guilabel">Filter…</span>.</p></li>
 </ol>
 <blockquote>
-<div><img alt="../../_images/519.png" class="align-center" src="../../_images/519.png" />
+<div><img alt="../../_images/520.png" class="align-center" src="../../_images/520.png" />
 </div></blockquote>
 <ol class="arabic simple" start="6">
 <li><p>Im Fenster <span class="guilabel">Abfrageerstellung</span> geben wir folgenden Ausdruck ein, um alle Datensätze mit dem Wert <code class="docutils literal notranslate"><span class="pre">NR</span></code> zu selektieren. Man kann den Ausdruck auch interaktiv durch Drücken auf <span class="guilabel">Felder</span>, <span class="guilabel">Operatoren</span> und der Auswahl der passenden <span class="guilabel">Werte</span> erzeugen. Klicke auf <span class="guilabel">OK</span>.</p></li>
@@ -246,25 +247,25 @@
 <div><div class="highlight-none notranslate"><div class="highlight"><pre><span></span>&quot;RatingWord&quot; != &#39;NR&#39;
 </pre></div>
 </div>
-<img alt="../../_images/619.png" class="align-center" src="../../_images/619.png" />
+<img alt="../../_images/620.png" class="align-center" src="../../_images/620.png" />
 </div></blockquote>
 <ol class="arabic simple" start="7">
 <li><p>Wir merken, dass der Layer <code class="docutils literal notranslate"><span class="pre">dot_V_SSS_SEGMENTRATING_1_20190129</span></code> nun ein Filtersymbol hat, dass einen aktiven Filter für diesen Layer anzeigt. Jetzt können wir eine räumliche Verbindung zum Layer herstellen. Gehe zu <span class="menuselection">Verarbeitung ‣ Werkzeugkiste</span>.</p></li>
 </ol>
 <blockquote>
-<div><img alt="../../_images/718.png" class="align-center" src="../../_images/718.png" />
+<div><img alt="../../_images/719.png" class="align-center" src="../../_images/719.png" />
 </div></blockquote>
 <ol class="arabic simple" start="8">
 <li><p>Suche den Algorithmus <span class="menuselection">Vektoren allgemein ‣ Attribute nach Position verknüpfen (Zusammenfassung)</span>. Klicke doppelt darauf, um ihn zu starten.</p></li>
 </ol>
 <blockquote>
-<div><img alt="../../_images/818.png" class="align-center" src="../../_images/818.png" />
+<div><img alt="../../_images/819.png" class="align-center" src="../../_images/819.png" />
 </div></blockquote>
 <ol class="arabic simple" start="9">
 <li><p>Wir wählen Im Dialogfenster <span class="guilabel">Attribute nach Position verknüpfen (Zusammenfassung)</span> den Layer <code class="docutils literal notranslate"><span class="pre">nybb</span></code> als <span class="guilabel">Eingabelayer</span>. Den Layer mit den Straßen <code class="docutils literal notranslate"><span class="pre">dot_V_SSS_SEGMENTRATING_1_20190129</span></code> tragen wir unter <span class="guilabel">Layer verknüpfen</span> ein. Die Einstellungen unter  <span class="guilabel">Geometrisches Prädikat</span> können wir unverändert bei <code class="docutils literal notranslate"><span class="pre">schneidet</span> <span class="pre">sich</span> <span class="pre">mit</span></code> belassen. Klicke auf den Knopf <span class="guilabel">…</span> neben <span class="guilabel">Zusammenzufassende Felder</span>.</p></li>
 </ol>
 <blockquote>
-<div><img alt="../../_images/918.png" class="align-center" src="../../_images/918.png" />
+<div><img alt="../../_images/919.png" class="align-center" src="../../_images/919.png" />
 </div></blockquote>
 <div class="admonition note">
 <p class="admonition-title">Bemerkung</p>
@@ -274,55 +275,55 @@
 <li><p>Wähle <code class="docutils literal notranslate"><span class="pre">Rating_B</span></code> und klicke auf <span class="guilabel">OK</span>.</p></li>
 </ol>
 <blockquote>
-<div><img alt="../../_images/1025.png" class="align-center" src="../../_images/1025.png" />
+<div><img alt="../../_images/1026.png" class="align-center" src="../../_images/1026.png" />
 </div></blockquote>
 <ol class="arabic simple" start="11">
 <li><p>Klicke analog auf den Knopf <span class="guilabel">…</span> neben <span class="guilabel">Zu berechnende Zusammenfassungen</span>.</p></li>
 </ol>
 <blockquote>
-<div><img alt="../../_images/1128.png" class="align-center" src="../../_images/1128.png" />
+<div><img alt="../../_images/1129.png" class="align-center" src="../../_images/1129.png" />
 </div></blockquote>
 <ol class="arabic simple" start="12">
 <li><p>Wähle <code class="docutils literal notranslate"><span class="pre">Durchschnitt</span></code> als Operation für die Zusammenfassung und klicke auf <span class="guilabel">OK</span>. Jetzt können wir die Berechnung starten. Klicke auf <span class="guilabel">Starte</span>.</p></li>
 </ol>
 <blockquote>
-<div><img alt="../../_images/1226.png" class="align-center" src="../../_images/1226.png" />
+<div><img alt="../../_images/1227.png" class="align-center" src="../../_images/1227.png" />
 </div></blockquote>
 <ol class="arabic simple" start="13">
 <li><p>Der Algorithmus verarbeit die Features und erstellt die räumliche Verbindung. Wir vergewissern uns, dass die Verabeitung erfolgreich abgeschlossen wurde und klicken auf <span class="guilabel">Schließen</span>.</p></li>
 </ol>
 <blockquote>
-<div><img alt="../../_images/1324.png" class="align-center" src="../../_images/1324.png" />
+<div><img alt="../../_images/1325.png" class="align-center" src="../../_images/1325.png" />
 </div></blockquote>
 <ol class="arabic simple" start="14">
 <li><p>Zurück im QGIS Fenster sehen wir einen neuen Layer <code class="docutils literal notranslate"><span class="pre">Zusammengefasster</span> <span class="pre">Layer</span></code> der dem Arbeitsbereich hinzugefügt wurde. Wir öffnen die Attributtabelle dieses Layers und bemerken eine neue Spalte <code class="docutils literal notranslate"><span class="pre">Rating_B_mean</span></code>, die die mittlere Bewertung aller Straßen enthält, die einen Stadtbezirk überschneiden.</p></li>
 </ol>
 <blockquote>
-<div><img alt="../../_images/1422.png" class="align-center" src="../../_images/1422.png" />
+<div><img alt="../../_images/1423.png" class="align-center" src="../../_images/1423.png" />
 </div></blockquote>
 <ol class="arabic simple" start="15">
 <li><p>Jetzt wenden wir ein umgekehrtes Verfahren an. Manchmal benötigen wir Attribute eines anderen Layers basierend auf dessen räumlicher Beziehung ohne das eine Summenbildung erfolgen muss. Wir können in diesem Fall den Algorithmus <code class="docutils literal notranslate"><span class="pre">Attribute</span> <span class="pre">nach</span> <span class="pre">Position</span> <span class="pre">zusammenführen</span></code> verwenden. Die Aufgabe besteht darin, für alle Features im Straßenlayer den zugehörigen Stadtbezirk zu ermitteln. Bevor wir die Berechnung beginnen, entfernen wir den Filter vom Layer <code class="docutils literal notranslate"><span class="pre">dot_V_SSS_SEGMENTRATING_1_20190129</span></code>. Klicke auf das Filtersymbol und drücke im Fenster <span class="guilabel">Abfrageerstellung</span> auf <span class="guilabel">Löschen</span>. Klicke auf <span class="guilabel">OK</span>.</p></li>
 </ol>
 <blockquote>
-<div><img alt="../../_images/1519.png" class="align-center" src="../../_images/1519.png" />
+<div><img alt="../../_images/1520.png" class="align-center" src="../../_images/1520.png" />
 </div></blockquote>
 <ol class="arabic simple" start="16">
 <li><p>Schalte den Layer <code class="docutils literal notranslate"><span class="pre">Zusammengefasster</span> <span class="pre">Layer</span></code> im <span class="guilabel">Layer</span> Bereich ab. Gehe zu <span class="menuselection">Vektoren allgemein ‣ Attribute nach Position zusammenführen</span> in den Verarbeitungswerkzeugen und klicke doppelt darauf, um die Berechnung zu starten.</p></li>
 </ol>
 <blockquote>
-<div><img alt="../../_images/1618.png" class="align-center" src="../../_images/1618.png" />
+<div><img alt="../../_images/1619.png" class="align-center" src="../../_images/1619.png" />
 </div></blockquote>
 <ol class="arabic simple" start="17">
 <li><p>Wähle <code class="docutils literal notranslate"><span class="pre">dot_V_SSS_SEGMENTRATING_1_20190129</span></code> als <span class="guilabel">Eingabelayer</span> und <code class="docutils literal notranslate"><span class="pre">nybb</span></code> als <span class="guilabel">Layer verknüpfen</span>. Wir können die Einstellung <span class="guilabel">Geometrische Prädikat</span> auf der Voreinstellung <code class="docutils literal notranslate"><span class="pre">Schneidet</span> <span class="pre">sich</span> <span class="pre">mit</span></code> belassen. Klicke auf den Knopf <span class="guilabel">…</span> neben <span class="guilabel">Hinzuzufügende Felder</span>  und wähle <code class="docutils literal notranslate"><span class="pre">BoroName</span></code>. Klicke auf <span class="guilabel">OK</span>.</p></li>
 </ol>
 <blockquote>
-<div><img alt="../../_images/1719.png" class="align-center" src="../../_images/1719.png" />
+<div><img alt="../../_images/1720.png" class="align-center" src="../../_images/1720.png" />
 </div></blockquote>
 <ol class="arabic simple" start="18">
 <li><p>Ein Linienabschnitt kann u.U. in mehreren Stadtbezirken liegen. Wir wählen daher für <span class="guilabel">Verknüpfungstyp</span> <code class="docutils literal notranslate"><span class="pre">Separates</span> <span class="pre">Objekt</span> <span class="pre">für</span> <span class="pre">jedes</span> <span class="pre">lokalisiertes</span> <span class="pre">Objekt</span> <span class="pre">erzeugen</span> <span class="pre">(eins-zu-vielen)</span></code>. Klicke auf <span class="guilabel">Starte</span>.</p></li>
 </ol>
 <blockquote>
-<div><img alt="../../_images/1817.png" class="align-center" src="../../_images/1817.png" />
+<div><img alt="../../_images/1818.png" class="align-center" src="../../_images/1818.png" />
 </div></blockquote>
 <ol class="arabic simple" start="19">
 <li><p>Nachdem die Berechnung abgeschlossen wurde, öffenen wir die Attributtabelle des neu hinzugefügten Layers <code class="docutils literal notranslate"><span class="pre">Zusammengefasster</span> <span class="pre">Layer</span></code>. Wir sehen, dass das neue Attribut <code class="docutils literal notranslate"><span class="pre">BoroName</span></code> zu jedem Straßenfeature hinzugefügt wurde.</p></li>

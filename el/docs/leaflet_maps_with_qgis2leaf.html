@@ -98,6 +98,7 @@
 <li class="toctree-l1"><a class="reference internal" href="3/automating_map_creation.html">Automating Map Creation with Print Layout Atlas (QGIS3)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="3/multi_criteria_overlay.html">Multi Criteria Overlay Analysis (QGIS3)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="3/vector_styling_expressions.html">Basic Filtering and Styling with Expressions (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/block_world_styling.html">Creating a Block World Map (QGIS3)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="3/basic_network_analysis.html">Basic Network Visualization and Routing (QGIS3)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="3/origin_destination_matrix.html">Locating Nearest Facility with Origin-Destination Matrix (QGIS3)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="3/service_area_analysis.html">Service Area Analysis using Openrouteservice (QGIS3)</a></li>
@@ -204,11 +205,11 @@ this tutorial.</p>
 <ol class="arabic simple">
 <li><p>Εγκαταστήστε το πρόσθετο <code class="docutils literal notranslate"><span class="pre">qgis2leaf</span></code> πηγαίνοντας  στο <span class="menuselection">Plugins ‣ Manage and Install Plugin</span>. Σημειώστε ότι το πρόσθετο είναι προς το παρόν μαρκαρισμένο ως <strong>experimental</strong>, οπότε θα πρέπει να τσεκάρετε το <span class="guilabel">Show also experimental plugins</span> στις Ρυθμίσεις Πρόσθετων. (See <a class="reference internal" href="using_plugins.html"><span class="doc">Χρησιμοποιώντας Πρόσθετες Λειτουργίες</span></a> για περισσότερες πληροφορίες σχετικά με την εγκατάσταση πρόσθετων στο QGIS)</p></li>
 </ol>
-<img alt="../_images/1188.png" class="align-center" src="../_images/1188.png" />
+<img alt="../_images/1190.png" class="align-center" src="../_images/1190.png" />
 <ol class="arabic simple" start="2">
 <li><p>Αποσυμπιέστε το αρχείο <code class="docutils literal notranslate"><span class="pre">ne_10m_airports.zip</span></code>. Ανοίξτε το QGIS  και πηγαίνετε στο <span class="menuselection">Layer ‣ Add Vector Layer</span>. Πηγαίνετε στην τοποθεσία όπου αποσυμπιέστηκαν τα αρχεία και επιλέξτε το <code class="docutils literal notranslate"><span class="pre">ne_10m_airports.shp</span></code>. Πατήστε <span class="guilabel">OK</span>.</p></li>
 </ol>
-<img alt="../_images/2153.png" class="align-center" src="../_images/2153.png" />
+<img alt="../_images/2154.png" class="align-center" src="../_images/2154.png" />
 <ol class="arabic simple" start="3">
 <li><p>Μόλις φορτωθεί το επίπεδο <code class="docutils literal notranslate"><span class="pre">ne_10m_airports</span></code>, χρησιμοποιήστε το εργαλείο <span class="guilabel">Identify</span> για να κάνετε κλικ σε οποιοδήποτε χαρακτηριστικό και να δείτε τις ιδιότητες του. Θα δημιουργήσουμε έναν χάρτη αεροδρομίου όπου θα ταξινομήσουμε τα αεροδρόμια σε 3 κατηγορίες. Η ιδιότητα <code class="docutils literal notranslate"><span class="pre">type</span></code> θα είναι χρήσιμη όταν ταξινομήσουμε τα χαρακτηριστικά.</p></li>
 </ol>
@@ -216,11 +217,11 @@ this tutorial.</p>
 <ol class="arabic simple" start="4">
 <li><p>Κάντε δεξί κλικ στο επίπεδο <code class="docutils literal notranslate"><span class="pre">ne_10m_airports</span></code> και επιλέξτε <span class="guilabel">Open Attribute Table</span>.</p></li>
 </ol>
-<img alt="../_images/460.png" class="align-center" src="../_images/460.png" />
+<img alt="../_images/461.png" class="align-center" src="../_images/461.png" />
 <ol class="arabic simple" start="5">
 <li><p>Στο παράθυρο διαλόγου του πίνακα χαρακτηριστικών, πατήστε το κουμπί <span class="guilabel">Toggle Editing</span>. Μόλις το επίπεδο  είναι σε κατάσταση επεξεργασίας, πατήστε το κουμπί <span class="guilabel">Open Field Calculator</span>.</p></li>
 </ol>
-<img alt="../_images/553.png" class="align-center" src="../_images/553.png" />
+<img alt="../_images/554.png" class="align-center" src="../_images/554.png" />
 <ol class="arabic simple" start="6">
 <li><p>Θέλουμε να δημιουργήσουμε μια νέα ιδιότητα που θα ονομάζεται <code class="docutils literal notranslate"><span class="pre">type_code</span></code>, όπου θα δίνουμε στα μεγάλα αεροδρόμια την τιμή 3, στα μεσαίου μεγέθους αεροδρόμια την τιμή 2 και σε όλα τα υπόλοιπα την τιμή 1. Μπορούμε να χρησιμοποιήσουμε τη δήλωση <em>CASE</em> και να γράψουμε μια έκφραση η οποία θα βλέπει την τιμή της ιδιότητας <code class="docutils literal notranslate"><span class="pre">type</span></code> και θα δημιουργεί μια ιδιότητα <code class="docutils literal notranslate"><span class="pre">type_code</span></code> βασισμένη στην κατάσταση. Τσεκάρετε το κουτάκι <span class="guilabel">Create a new field</span> και εισάγετε <code class="docutils literal notranslate"><span class="pre">type_code</span></code> ως <span class="guilabel">Output field name</span>. Επιλέξτε <span class="guilabel">Whole number (integer)</span> ως <span class="guilabel">Output field type</span>. Στο παράθυρο <span class="guilabel">Expression</span>, εισάγετε το κείμενο που ακολουθεί.</p></li>
 </ol>
@@ -230,39 +231,39 @@ this tutorial.</p>
 END
 </pre></div>
 </div>
-<img alt="../_images/651.png" class="align-center" src="../_images/651.png" />
+<img alt="../_images/652.png" class="align-center" src="../_images/652.png" />
 <ol class="arabic simple" start="7">
 <li><p>Πίσω στο παράθυρο <span class="guilabel">Attribute Table</span>, θα δείτε μια νέα στήλη στο τέλος. Ελέγξτε ότι η έκφραση σας λειτούργησε σωστά και πατήστε το κουμπί <span class="guilabel">Toggle Editing</span> για να αποθηκεύσετε τις αλλαγές.</p></li>
 </ol>
-<img alt="../_images/750.png" class="align-center" src="../_images/750.png" />
+<img alt="../_images/751.png" class="align-center" src="../_images/751.png" />
 <ol class="arabic simple" start="8">
 <li><p>Τώρα θα μορφοποιήσουμε το επίπεδο των αεροδρομίων χρησιμοποιώντας την ιδιότητα <code class="docutils literal notranslate"><span class="pre">type_code</span></code> που μόλις δημιουργήθηκε. Κάντε δεξί κλικ στο επίπεδο <code class="docutils literal notranslate"><span class="pre">ne_10m_airports</span></code> και επιλέξτε <span class="guilabel">Properties</span>.</p></li>
 </ol>
-<img alt="../_images/849.png" class="align-center" src="../_images/849.png" />
+<img alt="../_images/850.png" class="align-center" src="../_images/850.png" />
 <ol class="arabic simple" start="9">
 <li><p>Επιλέξτε την καρτέλα <span class="guilabel">Style</span> στο παράθυρο διαλόγου  <span class="guilabel">Layer Properties</span>. Επιλέξτε μορφοποίηση <span class="guilabel">Categorized</span> από το μενού και επιλέξτε <code class="docutils literal notranslate"><span class="pre">type_code</span></code> ως <span class="guilabel">Column</span>. Επιλέξτε μια βαθμίδα χρώματος της αρεσκείας σας και πατήστε <span class="guilabel">Classify</span>. Πατήστε <span class="guilabel">OK</span> για να επιστρέψετε στο κυρίως παράθυρο του QGIS.</p></li>
 </ol>
-<img alt="../_images/949.png" class="align-center" src="../_images/949.png" />
+<img alt="../_images/950.png" class="align-center" src="../_images/950.png" />
 <ol class="arabic simple" start="10">
 <li><p>Εδώ θα δείτε έναν ωραία μορφοποιημένο χάρτη αεροδρομίων. Ας το εξάγουμε αυτό για να δημιουργήσουμε έναν διαδραστικό διαδικτυακό χάρτη. Πηγαίνετε στο <span class="menuselection">Web ‣ qgis2leaf ‣ Exports a QGIS Project to a working leaflet webmap</span>.</p></li>
 </ol>
-<img alt="../_images/1056.png" class="align-center" src="../_images/1056.png" />
+<img alt="../_images/1057.png" class="align-center" src="../_images/1057.png" />
 <ol class="arabic simple" start="11">
 <li><p>Στο παράθυρο διαλόγου <span class="guilabel">QGIS 2 Leaflet</span>, πατήστε <span class="guilabel">Get Layers</span> για να δείτε την ανανεωμένη λίστα επιπέδων. Επιλέξτε <span class="guilabel">Full screen</span> για να δείτε τον διαδικτυακό χάρτη σε πλήρη οθόνη. Επιλέξτε <span class="guilabel">layer extent</span> ως <span class="guilabel">Extent</span> του εξαγόμενου χάρτη. Επιλέξτε <span class="guilabel">Output project folder</span> στο σύστημα σας, όπου θέλετε  το πρόσθετο να  γράψει τα αρχεία που θα παραχθούν. Πατήστε <span class="guilabel">OK</span>.</p></li>
 </ol>
-<img alt="../_images/1189.png" class="align-center" src="../_images/1189.png" />
+<img alt="../_images/1191.png" class="align-center" src="../_images/1191.png" />
 <ol class="arabic simple" start="12">
 <li><p>Μόλις τελειώσει η διαδικασία εξαγωγής, εντοπίστε το φάκελο που παράχθηκε στον δίσκο σας. Ανοίξτε το αρχείο <code class="docutils literal notranslate"><span class="pre">index.html</span></code> με ένα πρόγραμμα περιήγησης. Θα δείτε έναν διαδραστικό διαδικτυακό χάρτη που είναι αντίγραφο του QGIS χάρτη. Μπορείτε να κάνετε μεγέθυνση και μετακίνηση γύρω από τον χάρτη και επίσης να κάνετε κλικ σε οποιαδήποτε από τα χαρακτηριστικά, για να σας ανοίξει ένα αναδυόμενο παράθυρο με τις πληροφορίες τους. Μπορείτε να αντιγράψετε τα περιεχόμενα αυτού του φακέλου σε έναν διακομιστή για να έχετε έναν πλήρες διαδικτυακό χάρτη με όλα του τα χαρακτηριστικά.</p></li>
 </ol>
-<img alt="../_images/1258.png" class="align-center" src="../_images/1258.png" />
+<img alt="../_images/1259.png" class="align-center" src="../_images/1259.png" />
 <ol class="arabic simple" start="13">
 <li><p>Τώρα θα ανακαλύψουμε κάποιες εξειδικευμένες ιδιότητες αυτού του πρόσθετου που θα σας επιτρέψει να προσαρμόσετε τον χάρτη περαιτέρω. Εάν παρατηρήσατε, το αναδυόμενο παράθυρο περιείχε όλες τις ιδιότητες του χαρακτηριστικού. Κάποιες ιδιότητες δεν είναι χρήσιμες και το παράθυρο φαίνεται άσχημο. Μπορεί να αντικαταστήσουμε το προεπιλεγμένο αναδυόμενο παράθυρο με το δικό μας προσαρμοσμένο HTML, για να το κάνουμε να φαίνεται καλύτερα. Αυτό επιτυγχάνεται με το να προσθέσουμε το προσαρμοσμένο HTML σε μια στήλη με το όνομα <code class="docutils literal notranslate"><span class="pre">html_exp</span></code>. Κάντε δεξί κλικ στο επίπεδο <code class="docutils literal notranslate"><span class="pre">ne_10m_airports</span></code> και επιλέξτε <span class="guilabel">Open Attribute Table</span>.</p></li>
 </ol>
-<img alt="../_images/1356.png" class="align-center" src="../_images/1356.png" />
+<img alt="../_images/1357.png" class="align-center" src="../_images/1357.png" />
 <ol class="arabic simple" start="14">
 <li><p>Στο παράθυρο διαλόγου του πίνακα χαρακτηριστικών, πατήστε το κουμπί <span class="guilabel">Toggle Editing</span>. Μόλις το επίπεδο  είναι σε κατάσταση επεξεργασίας, πατήστε το κουμπί <span class="guilabel">Open Field Calculator</span>.</p></li>
 </ol>
-<img alt="../_images/1452.png" class="align-center" src="../_images/1452.png" />
+<img alt="../_images/1453.png" class="align-center" src="../_images/1453.png" />
 <ol class="arabic simple" start="15">
 <li><p>Τσεκάρετε το κουτάκι <span class="guilabel">Create a new field</span> και εισάγετε <code class="docutils literal notranslate"><span class="pre">html_exp</span></code> ως <span class="guilabel">Output field name</span>. Επιλέξτε  <span class="guilabel">Text (string)</span> ως <span class="guilabel">Output field type</span>. Εφόσον θα δημιουργήσουμε ένα μεγάλου μήκους αλφαριθμητικό, επιλέξτε <code class="docutils literal notranslate"><span class="pre">200</span></code> ως <span class="guilabel">Output field width</span>. Εισάγετε την έκφραση που ακολουθεί στην περιοχή  <span class="guilabel">Expression</span>. Αυτή η έκφραση που φαίνεται περίεργη, απλώς προσδιορίζει έναν HTML πίνακα και υποκαθιστά τιμές κελιών από χαρακτηριστικά <code class="docutils literal notranslate"><span class="pre">iata_code</span></code>, <code class="docutils literal notranslate"><span class="pre">name</span></code> and <code class="docutils literal notranslate"><span class="pre">type</span></code>. Ελέγξτε το <span class="guilabel">Output preview</span> για να βεβαιωθείτε ότι η έκφραση είναι σωστή.</p></li>
 </ol>
@@ -275,19 +276,19 @@ END
 <p class="admonition-title">Σημείωση</p>
 <p>Το αρχείο τύπου shapefile, μπορεί να περιέχει μέσα σε ένα πεδίο μέχρι και 254 χαρακτήρες.</p>
 </div>
-<img alt="../_images/1548.png" class="align-center" src="../_images/1548.png" />
+<img alt="../_images/1549.png" class="align-center" src="../_images/1549.png" />
 <ol class="arabic simple" start="16">
 <li><p>Πίσω στο παράθυρο <span class="guilabel">Attribute Table</span>, θα δείτε μια νέα στήλη στο τέλος. Ελέγξτε ότι η έκφραση σας λειτούργησε σωστά και πατήστε το κουμπί <span class="guilabel">Toggle Editing</span> για να αποθηκεύσετε τις αλλαγές.</p></li>
 </ol>
-<img alt="../_images/1645.png" class="align-center" src="../_images/1645.png" />
+<img alt="../_images/1646.png" class="align-center" src="../_images/1646.png" />
 <ol class="arabic simple" start="17">
 <li><p>Τώρα κάντε εξαγωγή τον χάρτη ξανά, χρησιμοποιώντας το <span class="menuselection">Web ‣ qgis2leaf ‣ Exports a QGIS Project to a working leaflet webmap</span>.</p></li>
 </ol>
-<img alt="../_images/1742.png" class="align-center" src="../_images/1742.png" />
+<img alt="../_images/1743.png" class="align-center" src="../_images/1743.png" />
 <ol class="arabic simple" start="18">
 <li><p>Κάντε τις ίδιες επιλογές όπως και πριν.</p></li>
 </ol>
-<img alt="../_images/1839.png" class="align-center" src="../_images/1839.png" />
+<img alt="../_images/1840.png" class="align-center" src="../_images/1840.png" />
 <ol class="arabic simple" start="19">
 <li><p>Πηγαίνετε στον φάκελο που παράχθηκε μόλις τελειώσει η διαδικασία εξαγωγής. Θα έχετε έναν υποφάκελο με την παρούσα χρονική στιγμή. Εντοπίστε το αρχείο <code class="docutils literal notranslate"><span class="pre">index.html</span></code> μέσα στο φάκελο και ανοίξτε το με ένα πρόγραμμα περιήγησης. Κάντε κλικ πάνω σε οποιοδήποτε χαρακτηριστικό και δείτε το αναδυόμενο παράθυρο . Θα παρατηρήσετε ότι πλέον είναι πιο ευανάγνωστο και ενημερωτικό.</p></li>
 </ol>
@@ -302,7 +303,7 @@ END
 <div class="highlight-none notranslate"><div class="highlight"><pre><span></span>&quot;type_code&quot; = 3
 </pre></div>
 </div>
-<img alt="../_images/2154.png" class="align-center" src="../_images/2154.png" />
+<img alt="../_images/2155.png" class="align-center" src="../_images/2155.png" />
 <ol class="arabic simple" start="22">
 <li><p>Κάντε δεξί κλικ στο επίπεδο <code class="docutils literal notranslate"><span class="pre">ne_10m_airports</span></code> και επιλέξτε <span class="guilabel">Save Selection As…</span>.</p></li>
 </ol>
@@ -345,7 +346,7 @@ END
 <ol class="arabic simple" start="31">
 <li><p>Τώρα ανοίξτε το αρχείο <code class="docutils literal notranslate"><span class="pre">index.html</span></code> που βρίσκεται στο φάκελο. Θα δείτε μια όμορφη βάση χάρτη με τα προσαρμοσμένα μας εικονίδια, για τα μεγάλα αεροδρόμια. Επίσης, θα παρατηρήσετε τον πίνακα επιπέδου στην πάνω δεξιά γωνία, ο οποίος έχει επιλογές εμφάνισης και για τα δυο επίπεδα.</p></li>
 </ol>
-<img alt="../_images/3118.png" class="align-center" src="../_images/3118.png" />
+<img alt="../_images/3119.png" class="align-center" src="../_images/3119.png" />
 <p>Hope this tutorial gives you a head start in creating web maps. Below is the
 live interactive map created for this tutorial.</p>
 <div>
