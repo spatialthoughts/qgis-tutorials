@@ -143,5 +143,4 @@ Appendix
    docs/learning_resources
    docs/credits
    docs/batch_processing
-   docs/3/2.5d_rendering_and_conditional_styling
 
