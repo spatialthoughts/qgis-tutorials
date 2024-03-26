@@ -46,7 +46,7 @@ Advanced GIS operations
 Expressions
 """""""""""
 * :doc:`docs/3/vector_styling_expressions`
-* :doc:`docs/3/2.5d_rendering_and_conditional_styling`
+* :doc:`docs/3/block_world_styling`
 
 Network Analysis
 """"""""""""""""
@@ -118,6 +118,7 @@ Appendix
    docs/3/automating_map_creation
    docs/3/multi_criteria_overlay
    docs/3/vector_styling_expressions
+   docs/3/block_world_styling
    docs/3/basic_network_analysis
    docs/3/origin_destination_matrix
    docs/3/service_area_analysis

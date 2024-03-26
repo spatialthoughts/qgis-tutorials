@@ -1,8 +1,8 @@
-2.5d rendering and conditional styling (QGIS3)
-==============================================
+Creating a Block World Map (QGIS3)
+==================================
 *Contributed by:* `Steven Kim <https://geographyclub.github.io/>`_
 
-Previously we looked at how simple expressions can be used to filter and style data in QGIS. We expand on this by creating a block world out of a hex grid and height values.
+In the previous tutorial :doc:`vector_styling_expressions` we looked at how simple expressions can be used to filter and style data in QGIS. We expand on this by creating a block world out of a hex grid and elevation values.
 
 Overview of the task
 --------------------
@@ -10,35 +10,35 @@ We use a mathematical function to set a height variable for the 2.5d renderer an
 
 Get the data
 ------------
-Download the prepared hex grid `hex1_dem_central_america <https://github.com/geographyclub/qgis-expressions/blob/main/data/hex1_dem_central_america.gpkg>`_.
-Data Source [GitHub]
+
+Data Source [OpenTopography]
 
 Procedure
 ---------
 
 1. Locate the ``hex1_dem_central_america.gpkg`` file in the QGIS Browser and expand it. Select the ``hex1_dem_central_america`` file and drag it to the canvas. 
 
-  .. image:: /static/3/2.5d_rendering_and_conditional_styling/images/1.png
+  .. image:: /static/3/block_world_styling/images/1.png
     :align: center
 
 2. A new layer ``hex1_dem_central_america`` will now be loaded in QGIS and you should see a hex grid.
 
-  .. image:: /static/3/2.5d_rendering_and_conditional_styling/images/2.png
+  .. image:: /static/3/block_world_styling/images/2.png
     :align: center
 
 3. Before continuing, we must first add a color ramp suitable for coloring DEMs. Click on :guilabel:`Settings` in the menubar and select :guilabel:`Style Manager`.
 
-  .. image:: /static/3/2.5d_rendering_and_conditional_styling/images/3.png
+  .. image:: /static/3/block_world_styling/images/3.png
     :align: center
 
 4. Click on the plus sign :guilabel:`Add item` at the bottom and select :menuselection:`Catalog: cpt-city`.
 
-  .. image:: /static/3/2.5d_rendering_and_conditional_styling/images/4.png
+  .. image:: /static/3/block_world_styling/images/4.png
     :align: center
 
 5. Scroll done the color ramps until you find :guilabel:`wiki-1.02`. There may be several with the same name, just click on one and click :guilabel:`OK`.
 
-  .. image:: /static/3/2.5d_rendering_and_conditional_styling/images/5.png
+  .. image:: /static/3/block_world_styling/images/5.png
     :align: center
 
 6. At the 'Save New Color Ramp' window, input :guilabel:`Name`:
@@ -47,12 +47,12 @@ Procedure
 
      wiki-1.02
 	 
-  .. image:: /static/3/2.5d_rendering_and_conditional_styling/images/6.png
+  .. image:: /static/3/block_world_styling/images/6.png
     :align: center
 
 7. Click :guilabel:`Save` to exit the window, then click :guilabel:`Close` to exit Style Manager. Now the wiki-1.02 color ramp is available to use in your projects going forward.
 
-  .. image:: /static/3/2.5d_rendering_and_conditional_styling/images/7.png
+  .. image:: /static/3/block_world_styling/images/7.png
     :align: center
 
 8. Click on :guilabel:`Open Layer Styling Panel` and switch from :guilabel:`Single Symbol` to :guilabel:`2.5 D`. Enter :guilabel:`Height`:
@@ -61,12 +61,12 @@ Procedure
 
      scale_exp(("dem_mean"+8000),0,10000,0,4,2)
 	 
-  .. image:: /static/3/2.5d_rendering_and_conditional_styling/images/8.png
+  .. image:: /static/3/block_world_styling/images/8.png
     :align: center
 
 9. This expression uses scale_exp() to change the range of the variable 'dem_mean' from 0-10000 to 0-4 and to use an exponent of 2. The exponential scaling looks pretty in block world. The +8000 is to make the bottom of the ocean equal zero.
 
-  .. image:: /static/3/2.5d_rendering_and_conditional_styling/images/9.png
+  .. image:: /static/3/block_world_styling/images/9.png
     :align: center
 
 10. Enter :guilabel:`Angle`:
@@ -75,27 +75,27 @@ Procedure
 
      135
 	 
-  .. image:: /static/3/2.5d_rendering_and_conditional_styling/images/10.png
+  .. image:: /static/3/block_world_styling/images/10.png
     :align: center
 
 11. Click off :guilabel:`Shade walls based on aspect` and :guilabel:`Shadow`. We will be appling our own colors. Click :guilabel:`Apply` if needed.
 
-  .. image:: /static/3/2.5d_rendering_and_conditional_styling/images/11.png
+  .. image:: /static/3/block_world_styling/images/11.png
     :align: center
 
 12. You should see the topography of Central America begin to take shape. Click on :guilabel:`Open Layer Styling Panel` and switch from :guilabel:`2.5D` back to :guilabel:`Single Symbol`.
 
-  .. image:: /static/3/2.5d_rendering_and_conditional_styling/images/12.png
+  .. image:: /static/3/block_world_styling/images/12.png
     :align: center
 
 13. In the :guilabel:`Symbol` window, notice there are two Geometry Generators, each with a :guilabel:`Simple Fill` layer type. The first :guilabel:`Simple Fill` is the top face of each block, whereas the second :guilabel:`Simple Fill` is the side face.
 
-  .. image:: /static/3/2.5d_rendering_and_conditional_styling/images/13.png
+  .. image:: /static/3/block_world_styling/images/13.png
     :align: center
 
 14. Click on the first :guilabel:`Simple Fill` to change the color of the top face. Click on :guilabel:`Data define override` button for the :guilabel:`Fill color` and select :guilabel:`Edit...` on the menu.
 
-  .. image:: /static/3/2.5d_rendering_and_conditional_styling/images/14.png
+  .. image:: /static/3/block_world_styling/images/14.png
     :align: center
 
 15. This brings up the :guilabel:`Expression Builder` dialog for Fill color. Enter the following expression: 
@@ -106,25 +106,25 @@ Procedure
      ELSE ramp_color('GnBu',scale_linear("dem_mean",-6000,0,1,0))
      END
 	 
-  .. image:: /static/3/2.5d_rendering_and_conditional_styling/images/15.png
+  .. image:: /static/3/block_world_styling/images/15.png
     :align: center
 
 16. Click :guilabel:`OK`. We have just written a CASE conditional statement to use wiki-1.02 colors when 'dem_mean' is greater than or equal to zero and green-blue colors when 'dem_mean' is less than zero. 
 
-  .. image:: /static/3/2.5d_rendering_and_conditional_styling/images/16.png
+  .. image:: /static/3/block_world_styling/images/16.png
     :align: center
 
 17. Click on :guilabel:`Data define override` button for the :guilabel:`Fill color` and select :guilabel:`Copy...` on the menu.
 
-  .. image:: /static/3/2.5d_rendering_and_conditional_styling/images/17.png
+  .. image:: /static/3/block_world_styling/images/17.png
     :align: center
 
 18. Click on :guilabel:`Data define override` button for the :guilabel:`Stroke color` and select :guilabel:`Paste...` on the menu
 
-  .. image:: /static/3/2.5d_rendering_and_conditional_styling/images/18.png
+  .. image:: /static/3/block_world_styling/images/18.png
     :align: center
 
 19. You should see the colors take effect and our map is finished. Feel free to experiment with the expressions in this tutorial, like changing parameters in the height function or adding and trying new color ramps.
 
-  .. image:: /static/3/2.5d_rendering_and_conditional_styling/images/19.png
+  .. image:: /static/3/block_world_styling/images/19.png
     :align: center
