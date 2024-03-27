@@ -29,7 +29,7 @@ Get the data
 
 For convenience, you may directly download a copy of the above layer from below:
 
-`ne_50m_admin_0_countries.zip <http://www.qgistutorials.com/downloads/ne_50m_admin_0_countries.zip>`_
+`ne_50m_admin_0_countries.zip <https://www.qgistutorials.com/downloads/ne_50m_admin_0_countries.zip>`_
 
 Data Source [NATURALEARTH]_
 

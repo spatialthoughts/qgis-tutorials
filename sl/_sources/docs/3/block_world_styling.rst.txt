@@ -90,7 +90,7 @@ Get the data
 
 For convenience, you may directly download a copy of the prepared grid from below:
 
-`hex_grid_with_elevation.gpkg <http://www.qgistutorials.com/downloads/hex_grid_with_elevation.gpkg>`_
+`hex_grid_with_elevation.gpkg <https://www.qgistutorials.com/downloads/hex_grid_with_elevation.gpkg>`_
 
 
 Data Source [OPENTOPOGRAPHY]_
