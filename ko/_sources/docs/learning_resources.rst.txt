@@ -46,9 +46,10 @@ Blogs
 YouTube Channels
 ----------------
 
-- `QGIS Uncovered <https://www.youtube.com/channel/UCrBM8Ka8HhDAYvQY1VX2P0w/videos>`_ by Steven Bernard 
-- `Klas Karlsson's YouTube channel <https://www.youtube.com/channel/UCxs7cfMwzgGZhtUuwhny4-Q>`_
 - `Hans van der Kwast's YouTube channel <https://www.youtube.com/channel/UCHGe8ccP2z2wHQa6B04m4Lg>`_
+- `Alasdair Rae's Map Academy <https://www.youtube.com/@automaticknowledge>`_
+- `Klas Karlsson's YouTube channel <https://www.youtube.com/channel/UCxs7cfMwzgGZhtUuwhny4-Q>`_
+- `QGIS Uncovered <https://www.youtube.com/channel/UCrBM8Ka8HhDAYvQY1VX2P0w/videos>`_ by Steven Bernard 
 
 Free Online Courses
 -------------------
