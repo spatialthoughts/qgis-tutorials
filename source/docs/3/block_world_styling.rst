@@ -38,7 +38,7 @@ Get the data
   .. image:: /static/3/block_world_styling/images/data3.png
     :align: center
 
-4. The download may take a few minutes to get processed. Once ready, you will receive a link to download the selected subset. Download the file to your computer. The downloaded file is a tar compressed file that needs to be uncompressed to be opened in QGIS. On Windows, you may use an external program like `7-Zip <https://www.7-zip.org/>`_ to uncompress and extract the  ``output_SRTM15Plus.tif`` file.
+4. The download may take a few minutes to get processed. Once ready, you will receive a link to download the selected subset. Download the file to your computer. The downloaded file is a tar compressed file that needs to be uncompressed to be opened in QGIS. On Windows, you may use an external program like `7-Zip <https://www.7-zip.org/>`_ to uncompress and extract the ``output_SRTM15Plus.tif`` file.
 
   .. image:: /static/3/block_world_styling/images/data4.png
     :align: center
@@ -118,7 +118,7 @@ Procedure
   .. image:: /static/3/block_world_styling/images/4.png
     :align: center
 
-5. Scroll done the color ramps until you find :guilabel:`wiki-1.02`. There may be several with the same name, just click on one and click :guilabel:`OK`.
+5. Scroll down the color ramps until you find :guilabel:`wiki-1.02`. There may be several with the same name, just click on one and click :guilabel:`OK`.
 
   .. image:: /static/3/block_world_styling/images/5.png
     :align: center
