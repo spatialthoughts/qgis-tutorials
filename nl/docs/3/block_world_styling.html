@@ -5,7 +5,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Creating a Block World Map (QGIS3) &#8212; QGIS Tutorials and Tips</title>
+    <title>Een geblokte kaart van de wereld maken (QGIS3) &#8212; QGIS Tutorials and Tips</title>
     <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=fa44fd50" />
     <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-sphinx.css?v=0bf093e7" />
     <script src="../../_static/documentation_options.js?v=abdfb6f9"></script>
@@ -100,7 +100,7 @@
 <li class="toctree-l1"><a class="reference internal" href="automating_map_creation.html">Maken van kaarten automatiseren met Atlas van afdruklay-out (QGIS3)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="multi_criteria_overlay.html">Multi Criteria Overlay Analyse (QGIS3)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="vector_styling_expressions.html">Basis filteren en opmaken met expressies (QGIS3)</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Creating a Block World Map (QGIS3)</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Een geblokte kaart van de wereld maken (QGIS3)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="basic_network_analysis.html">Basis netwerk visualisatie en routeren (QGIS3)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="origin_destination_matrix.html">Dichtstbijzijnde faciliteit zoeken met Origin-Destination Matrix (QGIS3)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="service_area_analysis.html">Analyse Servicegebied met Openrouteservice (QGIS3)</a></li>
@@ -184,41 +184,41 @@
       
 
   <section id="creating-a-block-world-map-qgis3">
-<h1>Creating a Block World Map (QGIS3)<a class="headerlink" href="#creating-a-block-world-map-qgis3" title="Link to this heading">¶</a></h1>
-<p><em>Contributed by:</em> <a class="reference external" href="https://geographyclub.github.io/">Steven Kim</a></p>
-<p>In the previous tutorial <a class="reference internal" href="vector_styling_expressions.html"><span class="doc">Basis filteren en opmaken met expressies (QGIS3)</span></a> we looked at how simple expressions can be used to filter and style data in QGIS. We expand on this by creating a block world out of a hex grid with elevation values.</p>
+<h1>Een geblokte kaart van de wereld maken (QGIS3)<a class="headerlink" href="#creating-a-block-world-map-qgis3" title="Link to this heading">¶</a></h1>
+<p><em>Bijgedragen door:</em> <a class="reference external" href="https://geographyclub.github.io/">Steven Kim</a></p>
+<p>In de vorige handleiding <a class="reference internal" href="vector_styling_expressions.html"><span class="doc">Basis filteren en opmaken met expressies (QGIS3)</span></a> hebben we gezien hoe eenvoudig expressies kunnen worden gebruikt om gegevens in QGIS te filteren en op te maken. We borduren hierop voort door een geblokte wereld te maken uit een hexagonaal raster met waarden voor hoogte.</p>
 <section id="overview-of-the-task">
-<h2>Overview of the task<a class="headerlink" href="#overview-of-the-task" title="Link to this heading">¶</a></h2>
-<p>We will take a hex grid containing elevation values and use a mathematical function to set a height variable for the 2.5d renderer and a conditional statement to apply a color ramp.</p>
+<h2>Overzicht van de taak<a class="headerlink" href="#overview-of-the-task" title="Link to this heading">¶</a></h2>
+<p>We zullen een hexagonaal raster nemen dat waarden voor hoogte bevat en een wiskundige functie gebruiken om een variabele voor de hoogte in te stellen voor de 2.5D-renderer en een voorwaardelijk argument om een kleurverloop toe te passen.</p>
 <blockquote>
 <div><img alt="../../_images/output.png" class="align-center" src="../../_images/output.png" />
 </div></blockquote>
 <section id="other-skills-you-will-learn">
-<h3>Other skills you will learn<a class="headerlink" href="#other-skills-you-will-learn" title="Link to this heading">¶</a></h3>
+<h3>Andere vaardigheden die u zult leren<a class="headerlink" href="#other-skills-you-will-learn" title="Link to this heading">¶</a></h3>
 <ul class="simple">
-<li><p>Discovering and downloading elevation datasets.</p></li>
-<li><p>Creating a hexagonal grid and extracting raster statistics for each grid cell.</p></li>
-<li><p>Adding a new color ramp to QGIS.</p></li>
+<li><p>Ontdekken en downloaden van gegevenssets met hoogten.</p></li>
+<li><p>Maken van een hexagonale raster en uitnemen van statistieken voor het raster uit elke rastercel.</p></li>
+<li><p>Toevoegen van een nieuw kleurverloop aan QGIS</p></li>
 </ul>
 </section>
 </section>
 <section id="get-the-data">
-<h2>Get the data<a class="headerlink" href="#get-the-data" title="Link to this heading">¶</a></h2>
-<p><a class="reference external" href="https://opentopography.org/start">OpenTopography</a> provides access to many openly licensed elevation datasets. We will extract and download a DEM for your region of interest from a global DEM and Ocean Bathymetry dataset hosted on OpenTopography.</p>
+<h2>De gegevens ophalen<a class="headerlink" href="#get-the-data" title="Link to this heading">¶</a></h2>
+<p><a class="reference external" href="https://opentopography.org/start">OpenTopography</a> verschaft toegang tot vele open gelicenseerde gegevenssets met hoogten. We zullen een DEM voor uw gebied van interesse uitnemen en downloaden uit een globale DEM en gegevensset Ocean Bathymetry, gehost op OpenTopography.</p>
 <ol class="arabic simple">
-<li><p>Visit the <a class="reference external" href="https://portal.opentopography.org/raster?opentopoID=OTSRTM.122019.4326.1">Global Bathymetry and Topography at 15 Arc Sec: SRTM15+ V2.5.5</a> data page on OpenTopography website. This is a 500m resolution global dataset derived from SRTM DEM and various ocean bathymetry dataset.</p></li>
+<li><p>Bezoek de gegevenspagina <a class="reference external" href="https://portal.opentopography.org/raster?opentopoID=OTSRTM.122019.4326.1">Global Bathymetry and Topography at 15 Arc Sec: SRTM15+ V2.5.5</a> op de website OpenTopography. Dit is een 500m resolutie globale gegevensset, afgeleid van SRTM DEM en verscheidene gegevenssets van oceaan bathymetrie.</p></li>
 </ol>
 <blockquote>
 <div><img alt="../../_images/data12.png" class="align-center" src="../../_images/data12.png" />
 </div></blockquote>
 <ol class="arabic simple" start="2">
-<li><p>Scroll down to the <span class="guilabel">1. Select area of data to process</span> section. Click on the <span class="guilabel">SELECT A REGION</span> button and draw a rectangle covering your region of interest.</p></li>
+<li><p>Scroll naar beneden naar het gedeelte <span class="guilabel">1. Select area of data to process</span>. Klik op de knop <span class="guilabel">SELECT A REGION</span> en teken een rechthoek die uw gebied van interesse bedekt.</p></li>
 </ol>
 <blockquote>
 <div><img alt="../../_images/data21.png" class="align-center" src="../../_images/data21.png" />
 </div></blockquote>
 <ol class="arabic simple" start="3">
-<li><p>Once the region is set, scroll down to the <span class="guilabel">2. Data Outputs Formats</span> section and select <code class="docutils literal notranslate"><span class="pre">GeoTiff</span></code>. Leave all other options to default and scroll down to the <span class="guilabel">Job Description</span> section. Enter your email address to be notified when the download is ready. Click <span class="guilabel">SUBMIT</span> button.</p></li>
+<li><p>Als het gebied eenmaal is ingesteld, scroll naar beneden naar het gedeelte <span class="guilabel">2. Data Outputs Formats</span> en selecteer <code class="docutils literal notranslate"><span class="pre">GeoTiff</span></code>. Laat alle andere opties op hun standaard staan en scroll naar beneden naar het gedeelte <span class="guilabel">Job Description</span>. Voer uw e-mailadres in om te worden genotificeerd als de download gereed is. Klik op de knop <span class="guilabel">SUBMIT</span>.</p></li>
 </ol>
 <blockquote>
 <div><img alt="../../_images/data31.png" class="align-center" src="../../_images/data31.png" />
@@ -230,85 +230,85 @@
 <div><img alt="../../_images/data41.png" class="align-center" src="../../_images/data41.png" />
 </div></blockquote>
 <ol class="arabic simple" start="5">
-<li><p>In QGIS, locate the <code class="docutils literal notranslate"><span class="pre">output_SRTM15Plus.tif</span></code> file in the <span class="guilabel">Browser</span>. Drag and drop it to the QGIS Canvas. A new layer <code class="docutils literal notranslate"><span class="pre">output_SRTM15Plus</span></code> will be added to the <span class="guilabel">Layers</span> panel.</p></li>
+<li><p>In QGIS, lokaliseer het bestand <code class="docutils literal notranslate"><span class="pre">output_SRTM15Plus.tif</span></code> in de <span class="guilabel">Browser</span>. Sleep het en zet het neer in het QGIS kaartvenster. Als een nieuwe laag zal <code class="docutils literal notranslate"><span class="pre">output_SRTM15Plus</span></code> worden toegevoegd aan het paneel <span class="guilabel">Lagen</span>.</p></li>
 </ol>
 <blockquote>
 <div><img alt="../../_images/data51.png" class="align-center" src="../../_images/data51.png" />
 </div></blockquote>
 <ol class="arabic simple" start="6">
-<li><p>Open the Processing Toolbox from <span class="menuselection">Processing ‣ Toolbox</span>. Search and locate the <span class="menuselection">Vector creation ‣ Create grid</span> algorithm. Double-click to open it.</p></li>
+<li><p>Open de Toolbox van Processing via <span class="menuselection">Processing ‣ Toolbox</span>. Zoek en lokaliseer het algoritme <span class="menuselection">Vector maken ‣ Grid maken</span>. Dubbelklik erop om het te openen.</p></li>
 </ol>
 <blockquote>
 <div><img alt="../../_images/data61.png" class="align-center" src="../../_images/data61.png" />
 </div></blockquote>
 <ol class="arabic simple" start="7">
-<li><p>In the <span class="guilabel">Create Grid</span> dialog, choose <code class="docutils literal notranslate"><span class="pre">Hexagon</span></code> as the <span class="guilabel">Grid type</span>. We will create a grid spanning the entire DEM. So for the <span class="guilabel">Grid extent</span>, click the down arrow and select <span class="menuselection">Calculate form Layer ‣ output_SRTM15Plus</span>.</p></li>
+<li><p>In het dialoogvenster <span class="guilabel">Grid maken</span>, kies <code class="docutils literal notranslate"><span class="pre">Hexagoon</span></code> als het <span class="guilabel">Type grid</span>. We zullen een raster maken dat de gehele DEM bedekt. Klik dus, voor het <span class="guilabel">Grid-bereik</span>, op het pijltje voor de keuze en selecteer <span class="menuselection">Uit laag berekenen ‣ output_SRTM15Plus</span>.</p></li>
 </ol>
 <blockquote>
 <div><img alt="../../_images/data71.png" class="align-center" src="../../_images/data71.png" />
 </div></blockquote>
 <ol class="arabic simple" start="8">
-<li><p>Our selected region is pretty big, so we can create a 1 degree grid. Select <code class="docutils literal notranslate"><span class="pre">1</span></code> for both <span class="guilabel">Horizontal spacing</span> and <span class="guilabel">Vertical spacing</span>. If you are working in a smaller region, you may choose a smaller grid spacing. Leave other options to their default values and click the <span class="guilabel">Run</span> button to create the grid.</p></li>
+<li><p>Ons geselecteerd gebied is behoorlijk groot, dus kunnen we een raster van 1 graad maken. Selecteer <code class="docutils literal notranslate"><span class="pre">1</span></code> voor zowel <span class="guilabel">Horizontale afstand</span> als <span class="guilabel">Verticale afstand</span>. Als u met een kleiner gebied werkt, zou u een kleinere afstand voor het raster kunnen kiezen. Laat de andere opties op hun standaardwaarden en klik op de knop <span class="guilabel">Uitvoeren</span> om het raster te maken.</p></li>
 </ol>
 <blockquote>
 <div><img alt="../../_images/data8.png" class="align-center" src="../../_images/data8.png" />
 </div></blockquote>
 <ol class="arabic simple" start="9">
-<li><p>A new layer <code class="docutils literal notranslate"><span class="pre">Grid</span></code> will be added to the <span class="guilabel">Layers</span> panel. We will now extract the minimum, maximum and average elevation values in each grid polygon. Select the <code class="docutils literal notranslate"><span class="pre">Grid</span></code> layer and locate the <span class="menuselection">Raster analysis ‣ Zonal statistics</span> algorithm from the Processing Toolbox. Double-click to open it.</p></li>
+<li><p>Een nieuwe laag <code class="docutils literal notranslate"><span class="pre">Raster</span></code> zal worden toegevoegd aan het paneel <span class="guilabel">Lagen</span>. We zullen nu de minimum, maximum en gemiddelde waarden voor hoogten uitnemen uit elk polygoon van het raster. Selecteer de laag <code class="docutils literal notranslate"><span class="pre">Raster</span></code> en lokaliseer het algoritme <span class="menuselection">Rasteranalyse ‣ Gebiedsstatistieken</span> uit de Toolbox van Processing. Dubbelklik erop om het te openen.</p></li>
 </ol>
 <blockquote>
 <div><img alt="../../_images/data9.png" class="align-center" src="../../_images/data9.png" />
 </div></blockquote>
 <ol class="arabic simple" start="10">
-<li><p>Select <code class="docutils literal notranslate"><span class="pre">Grid</span></code> as the <span class="guilabel">Input layer</span> and <code class="docutils literal notranslate"><span class="pre">output_SRTM15Plus</span></code> as the <span class="guilabel">Raster layer</span>. Enter <code class="docutils literal notranslate"><span class="pre">dem_</span></code> as the <span class="guilabel">Output column prefix</span>. Next we want to configure what statistics we want to extract from the raster. Click the <span class="guilabel">…</span> button next to <span class="guilabel">Statistics to calculate</span>.</p></li>
+<li><p>Selecteer <code class="docutils literal notranslate"><span class="pre">Raster</span></code> als de <span class="guilabel">Invoerlaag</span> en <code class="docutils literal notranslate"><span class="pre">output_SRTM15Plus</span></code> als de <span class="guilabel">Rasterlaag</span>. Voer <code class="docutils literal notranslate"><span class="pre">dem_</span></code> in als het <span class="guilabel">Voorvoegsel uitvoerkolom</span>. Vervolgens willen we configureren welke statistieken we uit het raster willen uitnemen. Klik op de knop <span class="guilabel">…</span> naast <span class="guilabel">Statistieken om te berekenen</span>.</p></li>
 </ol>
 <blockquote>
 <div><img alt="../../_images/data10.png" class="align-center" src="../../_images/data10.png" />
 </div></blockquote>
 <ol class="arabic simple" start="11">
-<li><p>Check the options for <code class="docutils literal notranslate"><span class="pre">Mean</span></code>, <code class="docutils literal notranslate"><span class="pre">Maximum</span></code> and <code class="docutils literal notranslate"><span class="pre">Minimum</span></code> values and click <span class="guilabel">OK</span>. We will save the results to a file. Click the <span class="guilabel">…</span> button next to <span class="guilabel">Zonal Statistics</span> and select <span class="guilabel">Save to File…</span>.</p></li>
+<li><p>Selecteer de opties voor de waarden <code class="docutils literal notranslate"><span class="pre">Gemiddelde</span></code>, <code class="docutils literal notranslate"><span class="pre">Maximum</span></code> en <code class="docutils literal notranslate"><span class="pre">Minimum</span></code> en klik op <span class="guilabel">OK</span>. We zullen de resultaten opslaan naar een bestand. Klik op de knop <span class="guilabel">…</span> naast <span class="guilabel">Gebiedsstatistieken</span> en selecteer <span class="guilabel">Opslaan als bestand…</span>.</p></li>
 </ol>
 <blockquote>
 <div><img alt="../../_images/data111.png" class="align-center" src="../../_images/data111.png" />
 </div></blockquote>
 <ol class="arabic simple" start="12">
-<li><p>Browse to a folder on your computer and enter the file name as <code class="docutils literal notranslate"><span class="pre">hex_grid_with_elevation</span></code>. Make sure the file type is selected as <span class="guilabel">GeoPackage files (*.gpkg)</span>. Click <span class="guilabel">Save</span>. Once the <span class="guilabel">Zonal Statistics</span> dialog is configured, click <span class="guilabel">Run</span>.</p></li>
+<li><p>Blader naar een map op uw computer en voer de bestandsnaam in als <code class="docutils literal notranslate"><span class="pre">hex_grid_with_elevation</span></code>. Zorg ervoor dat het type bestand is geselecteerd als <span class="guilabel">GPKG-bestanden (*.gpkg)</span>. Klik op <span class="guilabel">Opslaan</span>. Als het dialoogvenster <span class="guilabel">Gebiedsstatistieken</span> is geconfigureerd, klik dan op <span class="guilabel">Uitvoeren</span>.</p></li>
 </ol>
 <blockquote>
 <div><img alt="../../_images/data121.png" class="align-center" src="../../_images/data121.png" />
 </div></blockquote>
 <ol class="arabic simple" start="13">
-<li><p>The processing may take a few minutes depending on the size of your grid. Once the calculations are complete, a new layer <code class="docutils literal notranslate"><span class="pre">hex_grid_with_elevation</span></code> will be added to the <span class="guilabel">Layers</span> panel. This is a vector layer having attributes <code class="docutils literal notranslate"><span class="pre">dem_mean</span></code>, <code class="docutils literal notranslate"><span class="pre">dem_min</span></code> and <code class="docutils literal notranslate"><span class="pre">dem_max</span></code> containing elevation statistics extracted from the DEM.</p></li>
+<li><p>Het verwerken kan enige minuten duren, afhankelijk van de grootte van uw raster. Als de berekeningen eenmaal zijn voltooid, zal een nieuwe laag <code class="docutils literal notranslate"><span class="pre">hex_grid_with_elevation</span></code> worden toegevoegd aan het paneel <span class="guilabel">Lagen</span>. Dit is een vectorlaag met de attributen <code class="docutils literal notranslate"><span class="pre">dem_mean</span></code>, <code class="docutils literal notranslate"><span class="pre">dem_min</span></code> en <code class="docutils literal notranslate"><span class="pre">dem_max</span></code>, die de statistieken voor de hoogten bevatten die zijn uitgenomen uit de DEM.</p></li>
 </ol>
 <blockquote>
 <div><img alt="../../_images/data13.png" class="align-center" src="../../_images/data13.png" />
 </div></blockquote>
-<p>For convenience, you may directly download a copy of the prepared grid from below:</p>
+<p>Voor het gemak kunt u direct een kopie van het voorbereide raster downloaden vanaf hieronder:</p>
 <p><a class="reference external" href="https://www.qgistutorials.com/downloads/hex_grid_with_elevation.gpkg">hex_grid_with_elevation.gpkg</a></p>
-<p>Data Source <a class="reference internal" href="../credits.html#opentopography" id="id1"><span>[OPENTOPOGRAPHY]</span></a></p>
+<p>Gegevensbron <a class="reference internal" href="../credits.html#opentopography" id="id1"><span>[OPENTOPOGRAPHY]</span></a></p>
 </section>
 <section id="procedure">
 <h2>Procedure<a class="headerlink" href="#procedure" title="Link to this heading">¶</a></h2>
 <ol class="arabic simple">
-<li><p>Locate the <code class="docutils literal notranslate"><span class="pre">hex_grid_with_elevation.gpkg</span></code> file in the QGIS Browser and expand it. Select the <code class="docutils literal notranslate"><span class="pre">hex_grid_with_elevation</span></code> layer and drag it to the canvas.</p></li>
+<li><p>Zoek in de QGIS Browser naar het bestand <code class="docutils literal notranslate"><span class="pre">hex_grid_with_elevation.gpkg</span></code> en vergroot het. Selecteer de laag <code class="docutils literal notranslate"><span class="pre">hex_grid_with_elevation.gpkg</span></code> en sleep het naar het kaartvenster.</p></li>
 </ol>
 <blockquote>
 <div><img alt="../../_images/120.png" class="align-center" src="../../_images/120.png" />
 </div></blockquote>
 <ol class="arabic simple" start="2">
-<li><p>A new layer <code class="docutils literal notranslate"><span class="pre">hex_grid_with_elevation</span></code> will now be loaded in QGIS and you should see a hex grid.</p></li>
+<li><p>Een nieuwe laag <code class="docutils literal notranslate"><span class="pre">hex_grid_with_elevation</span></code> zal nu worden geladen in QGIS en u zou een hexagonaal raster moeten zien.</p></li>
 </ol>
 <blockquote>
 <div><img alt="../../_images/218.png" class="align-center" src="../../_images/218.png" />
 </div></blockquote>
 <ol class="arabic simple" start="3">
-<li><p>Before continuing, we must first add a color ramp suitable for coloring DEMs. Click on <span class="guilabel">Settings</span> in the menubar and select <span class="guilabel">Style Manager</span>.</p></li>
+<li><p>Voordat we doorgaan moeten we eerst een kleurverloop toevoegen dat geschikt is voor het inkleuren van DEM’s. Klik op <span class="guilabel">Extra</span> op de menubalk en selecteer <span class="guilabel">Stijlmanager</span>.</p></li>
 </ol>
 <blockquote>
 <div><img alt="../../_images/316.png" class="align-center" src="../../_images/316.png" />
 </div></blockquote>
 <ol class="arabic simple" start="4">
-<li><p>Click on the plus sign <span class="guilabel">Add item</span> at the bottom and select <span class="menuselection">Catalog: cpt-city…</span>.</p></li>
+<li><p>Klik op het plusteken <span class="guilabel">Item toevoegen</span> aan de onderzijde en selecteer <span class="menuselection">Catalog: cpt-city…</span>.</p></li>
 </ol>
 <blockquote>
 <div><img alt="../../_images/45.png" class="align-center" src="../../_images/45.png" />
@@ -320,25 +320,25 @@
 <div><img alt="../../_images/55.png" class="align-center" src="../../_images/55.png" />
 </div></blockquote>
 <ol class="arabic simple" start="6">
-<li><p>At the ‘Save New Color Ramp’ window, enter the value <code class="docutils literal notranslate"><span class="pre">wiki-1.02</span></code> as the <span class="guilabel">Name</span>.</p></li>
+<li><p>In het venster ‘Nieuw kleurverloop opslaan’, voer de waarde <code class="docutils literal notranslate"><span class="pre">wiki-1.02</span></code> in als de <span class="guilabel">Naam</span>.</p></li>
 </ol>
 <blockquote>
 <div><img alt="../../_images/65.png" class="align-center" src="../../_images/65.png" />
 </div></blockquote>
 <ol class="arabic simple" start="7">
-<li><p>Click <span class="guilabel">Save</span> to exit the window, then click <span class="guilabel">Close</span> to exit Style Manager. Now the wiki-1.02 color ramp is available to use in your projects going forward.</p></li>
+<li><p>Klik op <span class="guilabel">Opslaan</span> om het venster te verlaten en klik dan op <span class="guilabel">Sluiten</span> om de Stijlmanager te verlaten. Nu is het kleurverloop wiki-1.02 beschikbaar om in uw projecten te gebruiken en kunnen we doorgaan.</p></li>
 </ol>
 <blockquote>
 <div><img alt="../../_images/75.png" class="align-center" src="../../_images/75.png" />
 </div></blockquote>
 <ol class="arabic simple" start="8">
-<li><p>Click on <span class="guilabel">Open Layer Styling Panel</span> and switch from <span class="guilabel">Single Symbol</span> to <span class="guilabel">2.5 D</span>. Click the <span class="guilabel">ε</span> button next to <span class="guilabel">Height</span>:</p></li>
+<li><p>Klik op <span class="guilabel">Paneel Laag opmaken openen</span> en schakel van <span class="guilabel">Enkel symbool</span> naar <span class="guilabel">2.5 D</span>. Klik op de knop <span class="guilabel">ε</span>, naast <span class="guilabel">Hoogte</span>:</p></li>
 </ol>
 <blockquote>
 <div><img alt="../../_images/85.png" class="align-center" src="../../_images/85.png" />
 </div></blockquote>
 <ol class="arabic simple" start="9">
-<li><p>In the <span class="guilabel">Expression Builder</span>, enter the following expression. This expression uses <code class="docutils literal notranslate"><span class="pre">scale_exp()</span></code> function to change the range of the attribute values <code class="docutils literal notranslate"><span class="pre">dem_mean</span></code> from 0-10000 to 0-4 and to use an exponent of 2. The exponential scaling looks pretty in block world. The <code class="docutils literal notranslate"><span class="pre">+8000</span></code> is to make the bottom of the ocean equal zero.</p></li>
+<li><p>Voer, in de <span class="guilabel">Expressiebouwer</span>, de volgende expressie in. Deze expressie gebruikt de functie <code class="docutils literal notranslate"><span class="pre">scale_exp()</span></code> om het bereik van de waarden voor het attribuut <code class="docutils literal notranslate"><span class="pre">dem_mean</span></code> te wijzigen van 0-10000 naar 0-4 en om een exponent van 2 te gebruiken. Het exponentieel op schaal brengen ziet er netjes uit in de geblokte wereld. De <code class="docutils literal notranslate"><span class="pre">+8000</span></code> is ervoor om de bodem van de oceaan gelijk aan nul te maken.</p></li>
 </ol>
 <blockquote>
 <div><div class="highlight-none notranslate"><div class="highlight"><pre><span></span>scale_exp((&quot;dem_mean&quot;+8000),0,10000,0,4,2)
@@ -347,37 +347,37 @@
 <img alt="../../_images/95.png" class="align-center" src="../../_images/95.png" />
 </div></blockquote>
 <ol class="arabic simple" start="10">
-<li><p>Change the <span class="guilabel">Angle</span> to <code class="docutils literal notranslate"><span class="pre">135</span></code>.</p></li>
+<li><p>Wijzig de <span class="guilabel">Hoek</span> naar <code class="docutils literal notranslate"><span class="pre">135</span></code>.</p></li>
 </ol>
 <blockquote>
 <div><img alt="../../_images/108.png" class="align-center" src="../../_images/108.png" />
 </div></blockquote>
 <ol class="arabic simple" start="11">
-<li><p>We will be applying our own colors to the grids. Click off <span class="guilabel">Shade walls based on aspect</span> and <span class="guilabel">Shadow</span>.</p></li>
+<li><p>We zullen onze eigen kleuren toepassen op het raster. Schakel uit <span class="guilabel">Muren voorzien van schaduw, gebaseerd op aspect</span> en <span class="guilabel">Schaduw</span>.</p></li>
 </ol>
 <blockquote>
 <div><img alt="../../_images/1111.png" class="align-center" src="../../_images/1111.png" />
 </div></blockquote>
 <ol class="arabic simple" start="12">
-<li><p>You should see the topography of region begin to take shape. Click on <span class="guilabel">Open Layer Styling Panel</span> and switch from <span class="guilabel">2.5D</span> back to <span class="guilabel">Single Symbol</span>.</p></li>
+<li><p>U zou de topografie van het gebied vorm moeten zien krijgen. Klik op <span class="guilabel">Paneel Laag opmaken openen</span> en schakel van <span class="guilabel">2.5D</span> terug naar <span class="guilabel">Enkel symbool</span>.</p></li>
 </ol>
 <blockquote>
 <div><img alt="../../_images/128.png" class="align-center" src="../../_images/128.png" />
 </div></blockquote>
 <ol class="arabic simple" start="13">
-<li><p>In the <span class="guilabel">Symbol</span> window, notice there are two Geometry Generators, each with a <span class="guilabel">Simple Fill</span> layer type. The first <span class="guilabel">Simple Fill</span> is the top face of each block, whereas the second <span class="guilabel">Simple Fill</span> is the side face.</p></li>
+<li><p>In het venster <span class="guilabel">Symbool</span>, merk op dat er twee Geometrie-generatoren zijn, elk met een laagtype <span class="guilabel">Standaard vulling</span>. De eerste <span class="guilabel">Standaard vulling</span> is het bovenste vlak van elk blok, terwijl de tweede <span class="guilabel">Standaard vulling</span> is de zijkant is.</p></li>
 </ol>
 <blockquote>
 <div><img alt="../../_images/137.png" class="align-center" src="../../_images/137.png" />
 </div></blockquote>
 <ol class="arabic simple" start="14">
-<li><p>Click on the first <span class="guilabel">Simple Fill</span> to change the color of the top face. Click on <span class="guilabel">Data define override</span> button for the <span class="guilabel">Fill color</span> and select <span class="guilabel">Edit…</span> on the menu.</p></li>
+<li><p>Klik op de eerste <span class="guilabel">Standaard vulling</span> om de kleur van het bovenste vlak te wijzigen. Klik op de knop <span class="guilabel">Data-bepaalde ‘override’</span> voor de <span class="guilabel">Vulkleur</span> en selecteer <span class="guilabel">Bewerken…</span> in het menu.</p></li>
 </ol>
 <blockquote>
 <div><img alt="../../_images/147.png" class="align-center" src="../../_images/147.png" />
 </div></blockquote>
 <ol class="arabic simple" start="15">
-<li><p>This brings up the <span class="guilabel">Expression Builder</span> dialog for Fill color. Enter the following expression. This expression has a <code class="docutils literal notranslate"><span class="pre">CASE</span></code> conditional statement to use wiki-1.02 colors when value of the attribute <code class="docutils literal notranslate"><span class="pre">dem_mean</span></code> is greater than or equal to zero and green-blue colors when <code class="docutils literal notranslate"><span class="pre">dem_mean</span></code> is less than zero.</p></li>
+<li><p>Dat brengt het dialoogvenster <span class="guilabel">Expressiebouwer</span> voor de Vulkleur naar voren. Voer de volgende expressie in. Deze expressie heeft een voorwaardelijk argument <code class="docutils literal notranslate"><span class="pre">CASE</span></code> om de kleuren van wiki-1.02 te gebruiken als de waarde van het attribuut <code class="docutils literal notranslate"><span class="pre">dem_mean</span></code> groter is dan of gelijk aan nul en groen-blauwe kleuren als <code class="docutils literal notranslate"><span class="pre">dem_mean</span></code> kleiner is dan nul.</p></li>
 </ol>
 <blockquote>
 <div><div class="highlight-none notranslate"><div class="highlight"><pre><span></span>CASE
@@ -389,19 +389,19 @@ END
 <img alt="../../_images/157.png" class="align-center" src="../../_images/157.png" />
 </div></blockquote>
 <ol class="arabic simple" start="16">
-<li><p>The hex grid is now rendered in colors determined by our expression. Click on <span class="guilabel">Data define override</span> button for the <span class="guilabel">Fill color</span> and select <span class="guilabel">Copy</span> on the menu.</p></li>
+<li><p>Het hexagonale raster is nu gerenderd in kleuren die worden bepaald door onze expressie. Klik op de knop <span class="guilabel">Data-bepaalde ‘override’</span> voor de <span class="guilabel">Vulkleur</span> en selecteer <span class="guilabel">Kopiëren</span> in het menu.</p></li>
 </ol>
 <blockquote>
 <div><img alt="../../_images/167.png" class="align-center" src="../../_images/167.png" />
 </div></blockquote>
 <ol class="arabic simple" start="17">
-<li><p>Click on <span class="guilabel">Data define override</span> button for the <span class="guilabel">Stroke color</span> and select <span class="guilabel">Paste</span> on the menu.</p></li>
+<li><p>Klik op de knop <span class="guilabel">Data-bepaalde ‘override’</span> voor de <span class="guilabel">Lijnkleur</span> en selecteer <span class="guilabel">Plakken</span> in het menu.</p></li>
 </ol>
 <blockquote>
 <div><img alt="../../_images/177.png" class="align-center" src="../../_images/177.png" />
 </div></blockquote>
 <ol class="arabic simple" start="18">
-<li><p>You should see the colors take effect and our map is finished. Feel free to experiment with the expressions in this tutorial, like changing parameters in the height function or adding and trying new color ramps.</p></li>
+<li><p>U zou moeten zien dat de kleuren zich aanpassen en onze kaart is voltooid. Experimenteer vooral met de expressies in deze handleiding, zoals het wijzigen van parameters in de functies voor de hoogte of toevoegen van of proberen van nieuwe kleurverlopen.</p></li>
 </ol>
 <blockquote>
 <div><img alt="../../_images/185.png" class="align-center" src="../../_images/185.png" />
@@ -441,7 +441,7 @@ END
     </p>
     <p>
         &copy; Copyright 2023, Ujaval Gandhi.<br/>
-      Laatste aanpassing op mrt 27, 2024.<br/>
+      Laatste aanpassing op mrt 28, 2024.<br/>
       Created using <a href="http://sphinx-doc.org/">Sphinx</a> 7.2.6.<br/>
     </p>
   </div>
