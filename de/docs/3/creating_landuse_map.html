@@ -5,7 +5,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Creating a Landuse Map (QGIS3) &#8212; QGIS Tutorials and Tips</title>
+    <title>Erstellung einer Karte zur Landnutzung (QGIS3) &#8212; QGIS Tutorials and Tips</title>
     <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=fa44fd50" />
     <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-sphinx.css?v=0bf093e7" />
     <script src="../../_static/documentation_options.js?v=54d918e9"></script>
@@ -14,7 +14,7 @@
     <script src="../../_static/translations.js?v=70a09b52"></script>
     <link rel="search" title="Suche" href="../../search.html" />
     <link rel="next" title="Calculating Street Intersection Density (QGIS3)" href="calculating_intersection_density.html" />
-    <link rel="prev" title="Creating a Colorized River Basin Map (QGIS3)" href="colorized_river_basin_map.html" />
+    <link rel="prev" title="Erzeugen einer farbigen Karte für ein Einzugsgebiet (QGIS3)" href="colorized_river_basin_map.html" />
 
 <meta charset='utf-8'>
 <meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
@@ -106,8 +106,8 @@
 <li class="toctree-l1"><a class="reference internal" href="service_area_analysis.html">Einzugsgebietsanalyse mit dem Openrouteservice (QGIS3)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="travel_time_analysis.html">Travel Time Analysis with Uber Movement (QGIS3)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="areal_mean_rainfall.html">Calculating Areal Mean Rainfall (QGIS3)</a></li>
-<li class="toctree-l1"><a class="reference internal" href="colorized_river_basin_map.html">Creating a Colorized River Basin Map (QGIS3)</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Creating a Landuse Map (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="colorized_river_basin_map.html">Erzeugen einer farbigen Karte für ein Einzugsgebiet (QGIS3)</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Erstellung einer Karte zur Landnutzung (QGIS3)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="calculating_intersection_density.html">Calculating Street Intersection Density (QGIS3)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="landuse_buffer.html">Determining Landuse Buffer Zones (QGIS3)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="solidwaste_mapping.html">Mapping Waste Disposal Volumes (QGIS3)</a></li>
@@ -134,7 +134,7 @@
               
                 
   <li>
-    <a href="colorized_river_basin_map.html" title="Previous Chapter: Creating a Colorized River Basin Map (QGIS3)"><span class="glyphicon glyphicon-chevron-left visible-sm"></span><span class="hidden-sm hidden-tablet">&laquo; Creating a Co...</span>
+    <a href="colorized_river_basin_map.html" title="Previous Chapter: Erzeugen einer farbigen Karte für ein Einzugsgebiet (QGIS3)"><span class="glyphicon glyphicon-chevron-left visible-sm"></span><span class="hidden-sm hidden-tablet">&laquo; Erzeugen eine...</span>
     </a>
   </li>
   <li>
@@ -184,192 +184,191 @@
       
 
   <section id="creating-a-landuse-map-qgis3">
-<h1>Creating a Landuse Map (QGIS3)<a class="headerlink" href="#creating-a-landuse-map-qgis3" title="Link to this heading">¶</a></h1>
-<p>Zoning designations define and regulate what kinds of uses are allowed on specific parcels and outline design and development requirements and guidelines. In this tutorial you will learn how to access parcel datasets, style them according to zoning attributes and create a map.</p>
+<h1>Erstellung einer Karte zur Landnutzung (QGIS3)<a class="headerlink" href="#creating-a-landuse-map-qgis3" title="Link to this heading">¶</a></h1>
+<p>Zonierungen definieren und regulieren die Art und Weise der Landnutzung auf einzelnen Grundstücken, deren Grenzen, die Entwicklungsanforderungen und -richtlinien. In diesem Tutorial werden wir lernen, wie wir an Grundstücks-Datensätze kommen und sie entsprechend der Zonierungs-Attribute in einer Karte darstellen.</p>
 <section id="overview-of-the-task">
-<h2>Overview of the task<a class="headerlink" href="#overview-of-the-task" title="Link to this heading">¶</a></h2>
-<p>You will work with a land parcels dataset with zoning information and create a map showing zoning pattern across the CBD region of Cape Town.</p>
+<h2>Überblick über die Aufgabe<a class="headerlink" href="#overview-of-the-task" title="Link to this heading">¶</a></h2>
+<p>Wir werden mit einem Datensatz von Grundstücken arbeiten, der Zonierungs-Informationen enthält und eine Karte erstellen, welche die Zonierungs-Muster der Innenstadt von Kapstadt darstellt.</p>
 <blockquote>
 <div><img alt="../../_images/zoning_map.png" class="align-center" src="../../_images/zoning_map.png" />
 </div></blockquote>
 <section id="other-skills-you-will-learn">
-<h3>Other skills you will learn<a class="headerlink" href="#other-skills-you-will-learn" title="Link to this heading">¶</a></h3>
+<h3>Weitere Fähigkeiten, die wir erlernen:<a class="headerlink" href="#other-skills-you-will-learn" title="Link to this heading">¶</a></h3>
 <ul class="simple">
-<li><p>How to access and download data from ArcGIS REST in QGIS.</p></li>
-<li><p>How to extract features from a layer that intersect a boundary layer.</p></li>
-<li><p>How to merge different sub-categories from Categorized renderer.</p></li>
+<li><p>Zugang zu und Download von Daten über die ArcGIS REST-Schnittstelle in QGIS</p></li>
+<li><p>Ausschneiden von Objekten aus einem Layer, der einen Begrenzungs-Layer überlappt</p></li>
+<li><p>Verschmelzen verschiedener Unter-Kategorien</p></li>
 </ul>
 </section>
 </section>
 <section id="get-the-data">
-<h2>Get the data<a class="headerlink" href="#get-the-data" title="Link to this heading">¶</a></h2>
-<p>You can find the data for the tutorial from Cape Town Open Data Portal - <a class="reference external" href="https://odp-cctegis.opendata.arcgis.com">https://odp-cctegis.opendata.arcgis.com</a>.
-We will be importing data from the portal using ArcGIS REST server URL and will be preparing three layers mentioned below .</p>
+<h2>Beschaffung der Daten<a class="headerlink" href="#get-the-data" title="Link to this heading">¶</a></h2>
+<p>Die für dieses Tutorial geeigneten Daten sind im <a class="reference external" href="https://odp-cctegis.opendata.arcgis.com">Cape Town Open Data Portal</a> verfügbar. Aus diesem Portal werden wir die Daten mithilfe der REST-Schnittstelle von ArcGIS importieren und drei im Folgenden beschriebene Layer erzeugen.</p>
 <ol class="arabic simple">
-<li><p>Zoning layer: A polygon shapefile with zoning code and description for land parcels having a single zoning - clipped to the Cape Town CBD area.</p></li>
-<li><p>Split-zoning layer: A polygon shapefile with zoning code and description for land parcels having multiple zoning - with each polygon split into single zones polygons.</p></li>
-<li><p>Cape Town CDB Area: A polygon demarcating the Cape Town CBD area.</p></li>
+<li><p>Zonierungs-Layer: ein Polygon-Shapefile mit einem Zonierungs-Code und einer Beschreibung der Grundstücke mit je einer eigenen Zonierung - zugeschnitten auf die Innenstadt von Kapstadt</p></li>
+<li><p>Teil-Zonierungs-Layer: ein Polgon-Shapefile mit einem Zonierungs-Code und einer Beschreibung der Grundstücke mit Mehrfach-Zonierung, bei dem jedes Polygon in einzelne zonierte Polygone aufgeteilt wird</p></li>
+<li><p>Innenstadt von Kapstadt: ein Polygon, das die Grenzen des Innenstadtbereichs von Kapstadt markiert</p></li>
 </ol>
-<p>Let’s see the step wise to prepare the dataset for this tutorial.</p>
+<p>Wir wollen den Datensatz für dieses Tutorial schrittweise erzeugen.</p>
 <ol class="arabic">
-<li><p>Go to the Data Portal - <a class="reference external" href="https://odp-cctegis.opendata.arcgis.com/">https://odp-cctegis.opendata.arcgis.com/</a>. We will search for the Cape Town CBD data in the search bar and click to browse further.</p>
+<li><p>Wir gehen zum <a class="reference external" href="https://odp-cctegis.opendata.arcgis.com/">Daten-Portal</a> und suchen nach den Innenstadt-Daten von Kapstadt (<code class="docutils literal notranslate"><span class="pre">Cape</span> <span class="pre">Town</span> <span class="pre">CBD</span> <span class="pre">data</span></code>) in der Suchleiste und starten die Suche.</p>
 <img alt="../../_images/db1.png" class="align-center" src="../../_images/db1.png" />
 </li>
-<li><p>Click on <span class="guilabel">View Full Details</span> to explore services available to get the data.</p>
+<li><p>Wir benutzen den Button <span class="guilabel">Vollständige Details anzeigen</span>, um die Daten zu laden.</p>
 <blockquote>
 <div><img alt="../../_images/db2.png" class="align-center" src="../../_images/db2.png" />
 </div></blockquote>
 </li>
-<li><p>Scroll down to find <span class="guilabel">View Data Source</span> and click on the it.</p>
+<li><p>Ggf. müssen wir nach unten scrollen, um <span class="guilabel">Datenquelle anzeigen</span> zu finden; wir klicken darauf.</p>
 <blockquote>
 <div><img alt="../../_images/db3.png" class="align-center" src="../../_images/db3.png" />
 </div></blockquote>
 </li>
-<li><p>On the ArcGIS REST Services Directory , Go to <span class="guilabel">Home</span> and copy the URL of that page. The copied URL looks like - <a class="reference external" href="https://citymaps.capetown.gov.za/agsext1/rest/services">https://citymaps.capetown.gov.za/agsext1/rest/services</a>.</p>
+<li><p>Im Verzeichnis der ArcGIS REST Services wählen wir <span class="guilabel">Home</span> und kopieren die URL dieser Seite; diese sollte etwa diese Form haben: <a class="reference external" href="https://citymaps.capetown.gov.za/agsext1/rest/services">https://citymaps.capetown.gov.za/agsext1/rest/services</a>.</p>
 <blockquote>
 <div><img alt="../../_images/db4.png" class="align-center" src="../../_images/db4.png" />
 </div></blockquote>
 </li>
-<li><p>Now, Open QGIS and go to <span class="menuselection">Open Data Source Manager</span>.</p>
+<li><p>Nun öffnen wir QGIS und wählen <span class="menuselection">Layer -&gt; Datenquellenverwaltung</span>.</p>
 <blockquote>
 <div><img alt="../../_images/db5.png" class="align-center" src="../../_images/db5.png" />
 </div></blockquote>
 </li>
-<li><p>The list of data sources is seen in the left panel. Scroll down to find <span class="menuselection">ArcGIS REST Server</span>. Click on <span class="guilabel">new</span> to create new server connection.</p>
+<li><p>Die Liste der möglichen Datenquellen befindet sich im linken Teil des Dialogs. Wir scrollen nach unten, bis <span class="menuselection">ArcGIS REST Server</span> angezeigt wird, wählen dies aus und klicken auf <span class="guilabel">Neu</span>, um eine neue Server-Verbindung zu erstellen.</p>
 <blockquote>
 <div><img alt="../../_images/db6.png" class="align-center" src="../../_images/db6.png" />
 </div></blockquote>
 </li>
-<li><p>In the <span class="guilabel">Connection Details</span>, give the <span class="guilabel">Name</span> <code class="docutils literal notranslate"><span class="pre">Cape</span> <span class="pre">Town</span> <span class="pre">Open</span> <span class="pre">Data</span> <span class="pre">Portal</span></code> and paste the copied url as an input for <span class="guilabel">URL</span>.</p>
+<li><p>Unter <span class="guilabel">Verbindungsdetails</span> vergeben wir als <span class="guilabel">Name</span> <code class="docutils literal notranslate"><span class="pre">Cape</span> <span class="pre">Town</span> <span class="pre">Open</span> <span class="pre">Data</span> <span class="pre">Portal</span></code> und fügen die kopierte URL als Quelle unter <span class="guilabel">URL</span> ein.</p>
 <blockquote>
 <div><img alt="../../_images/db7.png" class="align-center" src="../../_images/db7.png" />
 </div></blockquote>
 </li>
-<li><p>Click <span class="guilabel">Ok</span> and then <span class="guilabel">Connect</span> to see the data folders available in the server.</p>
+<li><p>Wir bestätigen mit <span class="guilabel">OK</span> und wählen dann <span class="guilabel">Verbinden</span>, um die auf dem Server verfügbaren Datenquellen anzuzeigen.</p>
 <blockquote>
 <div><img alt="../../_images/db8.png" class="align-center" src="../../_images/db8.png" />
 </div></blockquote>
 </li>
-<li><p>Now we will search for all three layers required for the tutorial from the database. Firstly, we will open <code class="docutils literal notranslate"><span class="pre">Cape</span> <span class="pre">Town</span> <span class="pre">CBD</span></code> layer in the QGIS. Expand folders to browse to the layers. Full path to the layer is <span class="menuselection">Theme_Based ‣ Open_Data_Service ‣ Cape Town CBD</span>. Select the layer and click <span class="guilabel">Add</span>.</p>
+<li><p>Nun suchen wir in der Datenbank nach den drei Layern, die wir für das Tutorial benötigen. Zuerst öffnen wir den Layer <code class="docutils literal notranslate"><span class="pre">Cape</span> <span class="pre">Town</span> <span class="pre">CBD</span></code> in QGIS. Dazu erweitern wir die Ordner-Struktur. Der vollständige Pfad ist <span class="menuselection">Theme_Based ‣ Open_Data_Service ‣ Cape Town CBD</span>. Wir wählen den Layer und dann den Button <span class="guilabel">Hinzufügen</span>.</p>
 <blockquote>
 <div><img alt="../../_images/db9.png" class="align-center" src="../../_images/db9.png" />
 </div></blockquote>
 </li>
-<li><p>Close the <span class="menuselection">Data Source Manager</span> to see the layer added to the QGIS. Click on <span class="menuselection">Zoom to Layer</span> to centre and display the layer on the canvas.</p>
+<li><p>Wir schließen die <span class="menuselection">Datenquellenverwaltung</span>, um den Layer in QGIS zu betrachten. Mit der rechten Maustaste rufen wir das Kontextmenü auf und wählen <span class="menuselection">Auf Layer zoomen</span>, um ihn im Arbeitsbereich zu zentrieren.</p>
 <img alt="../../_images/db10.png" class="align-center" src="../../_images/db10.png" />
 </li>
-<li><p>Now, will add the <code class="docutils literal notranslate"><span class="pre">Zoning</span></code> layer using <span class="guilabel">Data Source Manager</span>.Connect to <code class="docutils literal notranslate"><span class="pre">Cape</span> <span class="pre">Town</span> <span class="pre">Open</span> <span class="pre">Data</span> <span class="pre">Portal</span></code> and browse to  <code class="docutils literal notranslate"><span class="pre">Zoning</span></code> layer. The full path is <span class="menuselection">Theme_Based ‣ Open_Data_Service_Zoning ‣ Zoning</span>. This is a very large layer, so make sure to check the box <span class="guilabel">Only request features overlapping the current view extent</span> to avoid loading all the features available in the layer. If you forget this, loading of the layer may take a long time. Click  <span class="guilabel">Add</span> to open in the QGIS.</p>
+<li><p>Wir werden nun den Layer <code class="docutils literal notranslate"><span class="pre">Zonierung</span></code> mithilfe der <span class="guilabel">Datenquellenverwaltung</span> hinzufügen. Wir verbinden uns zum <code class="docutils literal notranslate"><span class="pre">Cape</span> <span class="pre">Town</span> <span class="pre">Open</span> <span class="pre">Data</span> <span class="pre">Portal</span></code> und navigieren zum Layer <code class="docutils literal notranslate"><span class="pre">Zoning</span></code>; der vollständige Pfad ist <span class="menuselection">Theme_Based ‣ Open_Data_Service_Zoning ‣ Zoning</span>. Der Layer ist sehr groß, so dass wir die Option <span class="guilabel">Nur sich mit aktueller Ansicht überschneidende Objekte abfragen</span> wählen sollten. Ohne diese Option dauert das Laden sehr lange. Wir klicken <span class="guilabel">Hinzufügen</span>, um den Layer in QGIS zu öffnen.</p>
 <img alt="../../_images/db11.png" class="align-center" src="../../_images/db11.png" />
 </li>
-<li><p>Similarly add <code class="docutils literal notranslate"><span class="pre">Split_Zoning</span></code> layer. The full path is - <span class="menuselection">Theme_Based ‣ Land_Parcel_Zoning ‣ Split Zoning</span>.</p>
+<li><p>In gleicher Weise fügen wir den Teil-Zonierungs-Layer hinzu. Der vollständige Pfad ist <cite>Theme_Based –&gt; Land_Parcel_Zoning –&gt; Split Zoning</cite>.</p>
 <img alt="../../_images/db12.png" class="align-center" src="../../_images/db12.png" />
 </li>
-<li><p>We can see all three source layers are open in QGIS. We want to clip the <code class="docutils literal notranslate"><span class="pre">Zoning</span></code> and <code class="docutils literal notranslate"><span class="pre">Split</span> <span class="pre">Zoning</span></code> layers to the <code class="docutils literal notranslate"><span class="pre">Cape</span> <span class="pre">Town</span> <span class="pre">CBD</span></code> boundary layer. Firstly, let’s save all three layers locally as shapefiles. Right click on the <code class="docutils literal notranslate"><span class="pre">Cape</span> <span class="pre">Town</span> <span class="pre">CBD</span></code> layer. Look for <span class="guilabel">Export</span> and click on <span class="guilabel">Save Features As</span>.</p>
+<li><p>Nun sind alle drei Layer in QGIS geöffnet. Wir wollen die Layer <code class="docutils literal notranslate"><span class="pre">Zoning</span></code> und <code class="docutils literal notranslate"><span class="pre">Split</span> <span class="pre">Zoning</span></code> mit dem Begrenzungs-Layer <code class="docutils literal notranslate"><span class="pre">Cape</span> <span class="pre">Town</span> <span class="pre">CBD</span></code> verschneiden. Zunächst sollten wir alle drei Layer lokal als Shapefiles speichern. Nach einem Rechtsklick auf den Layer <code class="docutils literal notranslate"><span class="pre">Cape</span> <span class="pre">Town</span> <span class="pre">CBD</span></code> und der Auswahl <span class="guilabel">Export</span> wählen wir <span class="guilabel">Objekte speicher als</span>.</p>
 <img alt="../../_images/db13.png" class="align-center" src="../../_images/db13.png" />
 </li>
-<li><p>Set the format <span class="guilabel">ESRI Shapefile</span> and browse to the local folder where you want to save the shapefiles. We will save all the layers related to this tutorial in a single data folder. Save the layer as <code class="docutils literal notranslate"><span class="pre">cbd</span></code>.  Keep all other options default and click <span class="guilabel">OK</span>. Similarly export other two layers as <code class="docutils literal notranslate"><span class="pre">Zoning.shp</span></code> and <code class="docutils literal notranslate"><span class="pre">Split</span> <span class="pre">Zoning</span></code> to the same folder.</p>
+<li><p>Wir stellen als Format <span class="guilabel">ESRI Shapefile</span> ein und navigieren zu einem lokalen Ordner, in dem wir die Shapefiles abspeichern werden. Als Namen vergeben wir <code class="docutils literal notranslate"><span class="pre">cbd</span></code> und klicken <span class="guilabel">OK</span>. Genauso verfahren wir mit den übrigen Layern und speichern sie als <code class="docutils literal notranslate"><span class="pre">Zoning</span></code> und <code class="docutils literal notranslate"><span class="pre">Split</span> <span class="pre">Zoning</span></code> im selben Ordner.</p>
 <img alt="../../_images/db14.png" class="align-center" src="../../_images/db14.png" />
 </li>
-<li><p>Remove the layers loaded from server. Select all three layers, and click on <span class="guilabel">Remove Layer/Group</span> icon. We want to extract features from <code class="docutils literal notranslate"><span class="pre">Zoning</span></code> and <code class="docutils literal notranslate"><span class="pre">Split</span> <span class="pre">Zoning</span></code> layers intersecting with <code class="docutils literal notranslate"><span class="pre">cbd</span></code> boundary.</p>
+<li><p>Die vom Server geladenen Layer können nun entfernt werden. Dazu wählen wir alle drei Layer aus und wählen per Rechtskklick aus dem Kontextmenü <span class="guilabel">Layer löschen …</span>. Wir wollen nun die Objekte aus den Layern <code class="docutils literal notranslate"><span class="pre">Zoning</span></code> und <code class="docutils literal notranslate"><span class="pre">Split</span> <span class="pre">Zoning</span></code> ausschneiden, die sich mit dem Layer <code class="docutils literal notranslate"><span class="pre">cbd</span></code> überschneiden.</p>
 <img alt="../../_images/db15.png" class="align-center" src="../../_images/db15.png" />
 </li>
-<li><p>Go to <span class="menuselection">Processing ‣ Toolbox</span> from the menubar.</p>
+<li><p>Wir wählen <span class="menuselection">Verarbeitung ‣ Werkzeugkiste</span> aus dem Menü.</p>
 <img alt="../../_images/db16.png" class="align-center" src="../../_images/db16.png" />
 </li>
-<li><p>In the toolbax, search for <span class="guilabel">Intersection</span> algorithm and double-click to open.</p>
+<li><p>In den Verarbeitungswerkzeugen suchen wir nach <span class="guilabel">Verschneidung</span> und öffnen das Werkzeug per Doppelklick.</p>
 <img alt="../../_images/db17.png" class="align-center" src="../../_images/db17.png" />
 </li>
-<li><p>Select <code class="docutils literal notranslate"><span class="pre">Zoning</span></code> as <span class="guilabel">Input layer</span> and <code class="docutils literal notranslate"><span class="pre">cbd</span></code> as <span class="guilabel">Overlay layer</span>. Keep other options default and proceed to save output to file.</p>
+<li><p>Wir wählen <code class="docutils literal notranslate"><span class="pre">Zoning</span></code> als <span class="guilabel">Eingabelayer</span> und für <span class="guilabel">Layer überlagern</span> <code class="docutils literal notranslate"><span class="pre">cbd</span></code>. Bei den übrigen Optionen belassen wir die voreingestellten Werte und fahren damit fort, das Ergebnis als Datei abzuspeichern.</p>
 <img alt="../../_images/db18.png" class="align-center" src="../../_images/db18.png" />
 </li>
-<li><p>Save the output layer as <code class="docutils literal notranslate"><span class="pre">zoning_cbd</span></code> in the data folder and click <span class="guilabel">Run</span>.</p>
+<li><p>Im Eingabefeld <span class="guilabel">Verschneidung</span> tragen wir <code class="docutils literal notranslate"><span class="pre">zoning_cbd</span></code>  als Namen für den temporären Layer ein und klicken den Button <span class="guilabel">Starte</span>.</p>
 <img alt="../../_images/db19.png" class="align-center" src="../../_images/db19.png" />
 </li>
-<li><p>Depending on your Processing settings, you will see some errors or warnings displayed in <span class="guilabel">Log</span> tab. The input layer has some invalid geometries and it is being skipped while running intersection. We will fix geometries of <code class="docutils literal notranslate"><span class="pre">Zoning</span></code> and <code class="docutils literal notranslate"><span class="pre">Split</span> <span class="pre">Zoning</span></code> layers before taking the intersection to extract all geometries.</p>
+<li><p>Abhängig von den Einstellungen zur Verarbeitung werden unterschiedliche Fehler oder Warnungen im <span class="guilabel">Protokoll</span>-Bereich angezeigt. Der Eingabelayer weist einige ungültige Geometrien auf und wird daher bei der Verschneidung nicht verarbeitet. Wir werden diese Geometrien in den Layern <code class="docutils literal notranslate"><span class="pre">Zoning</span></code> und <code class="docutils literal notranslate"><span class="pre">Split</span> <span class="pre">Zoning</span></code> zunächst reparieren, bevor wird die Verschneidungen ausführen können.</p>
 <img alt="../../_images/db20.png" class="align-center" src="../../_images/db20.png" />
 </li>
-<li><p>Remove the intersection output from QGIS and data folder. Search for <span class="menuselection">Fix geometries</span> tool in the processing toolbox. Double-click to open.</p>
+<li><p>Eine etwaig erstellte Ausgabe kann sowohl aus QGIS als auch aus dem Dateisystem wieder entfernt werden. Wir suchen in den Verarbeitungswerkzeugen nach <span class="menuselection">Geometrien reparieren</span> und öffnen das Werkzeug per Doppelklick.</p>
 <img alt="../../_images/db21.png" class="align-center" src="../../_images/db21.png" />
 </li>
-<li><p>Select <code class="docutils literal notranslate"><span class="pre">Zoning</span></code> as <span class="guilabel">Input layer</span>. Keep all the other inputs as default and save the output layer as <code class="docutils literal notranslate"><span class="pre">zoning_fixed.shp</span></code> in the data folder by clicking  <span class="guilabel">Save to File</span>. Click <span class="guilabel">Run</span>. Repeat the process for fixing geometries on <code class="docutils literal notranslate"><span class="pre">Split</span> <span class="pre">Zoning</span></code> layer and save the layer with fixed geometries as <code class="docutils literal notranslate"><span class="pre">split_zoning_fixed.shp</span></code>.</p>
+<li><p>Wir wählen <code class="docutils literal notranslate"><span class="pre">Zoning</span></code> als <span class="guilabel">Eingabelayer</span>. Alle anderen Optionen belassen wir bei den Voreinstellungen und speichern den Ausgabe-Layer als <code class="docutils literal notranslate"><span class="pre">zoning_fixed.shp</span></code> im Dateisystem, indem wir den Button <span class="guilabel">…</span> rechts neben <span class="guilabel">Geometrien reparieren</span> klicken und <span class="guilabel">In Datei speichern…</span> wählen. Wir klicken den Button <span class="guilabel">Starte</span>. Die Verarbeitung wiederholen wir für den Layer <code class="docutils literal notranslate"><span class="pre">Split</span> <span class="pre">Zoning</span></code> und speichern die Ausgabe mit den reparierten Geometrien unter <code class="docutils literal notranslate"><span class="pre">split_zoning_fixed.shp</span></code>.</p>
 <img alt="../../_images/db22.png" class="align-center" src="../../_images/db22.png" />
 </li>
-<li><p>Remove <code class="docutils literal notranslate"><span class="pre">Zoning</span></code> and <code class="docutils literal notranslate"><span class="pre">Split</span> <span class="pre">Zoning</span></code> layers. We will move ahead with extracting features from <code class="docutils literal notranslate"><span class="pre">zoning_fixed</span></code> and <code class="docutils literal notranslate"><span class="pre">split_zoning_fixed</span></code> layers which intersect <code class="docutils literal notranslate"><span class="pre">cbd</span></code>. Search for <span class="menuselection">Intersection</span> from the processing toolbox and double-click to open.</p>
+<li><p>Die Layer <code class="docutils literal notranslate"><span class="pre">Zoning</span></code> und <code class="docutils literal notranslate"><span class="pre">Split</span> <span class="pre">Zoning</span></code> können entfernt werden. Nun können wir die Layer <code class="docutils literal notranslate"><span class="pre">zoning_fixed</span></code> und <code class="docutils literal notranslate"><span class="pre">split_zoning_fixed</span></code> mit dem Layer <code class="docutils literal notranslate"><span class="pre">cbd</span></code> verschneiden. Wir wählen erneut das Werkzeug <span class="menuselection">Verschneidung</span> aus den Verarbeitungswerkzeugen und starten es per Doppelklick.</p>
 <img alt="../../_images/db23.png" class="align-center" src="../../_images/db23.png" />
 </li>
 </ol>
-<p>24.Select <code class="docutils literal notranslate"><span class="pre">Zoning_fixed</span></code> as <span class="guilabel">Input layer</span> and <code class="docutils literal notranslate"><span class="pre">cbd</span></code> as <span class="guilabel">Overlay layer</span> to perform intersection as described in steps 18 and 19. Save the output as <code class="docutils literal notranslate"><span class="pre">zoning_cbd</span></code> and repeat the same for <code class="docutils literal notranslate"><span class="pre">split_zoning_fixed</span></code> layer and save the output layer as <code class="docutils literal notranslate"><span class="pre">split_zoning_cbd</span></code>.</p>
+<p>Wir wählen <code class="docutils literal notranslate"><span class="pre">zoning_fixed</span></code> als <span class="guilabel">Eingabelayer</span> und <code class="docutils literal notranslate"><span class="pre">cbd</span></code> unter <span class="guilabel">Layer überlagern</span>, um die Verschneidung wie oben beschrieben auszuführen. Die Ausgabe speichern wir als <code class="docutils literal notranslate"><span class="pre">zoning_cbd</span></code> und wiederholen die Prozedur für den Layer <code class="docutils literal notranslate"><span class="pre">split_zoning_fixed</span></code>; diese Ausgabe speichern wir als <code class="docutils literal notranslate"><span class="pre">split_zoning_cbd</span></code>.</p>
 <blockquote>
 <div><img alt="../../_images/db24.png" class="align-center" src="../../_images/db24.png" />
 </div></blockquote>
-<p>For convenience, you may directly download a copy of all three pre-processed layers from the links below:</p>
+<p>Der Einfachheit halber können wir eine Kopie aller drei vorverarbeiteten Layer unter folgenden Links herunterladen:</p>
 <p><a class="reference external" href="https://www.qgistutorials.com/downloads/cbd.zip">cbd.shp</a></p>
 <p><a class="reference external" href="https://www.qgistutorials.com/downloads/zoning_cbd.zip">zoning_cbd.shp</a></p>
 <p><a class="reference external" href="https://www.qgistutorials.com/downloads/split_zoning_cbd.zip">split_zoning_cbd.shp</a></p>
 </section>
 <section id="procedure">
-<h2>Procedure<a class="headerlink" href="#procedure" title="Link to this heading">¶</a></h2>
+<h2>Arbeitsablauf<a class="headerlink" href="#procedure" title="Link to this heading">¶</a></h2>
 <ol class="arabic simple">
-<li><p>Open QGIS. Click <span class="menuselection">Open Data Source Manager</span> icon to add layers to work on for the tutorial.</p></li>
+<li><p>Die folgenden Schritte sind nur erforderlich, wenn mit einem neuen Projekt gestartet wird. Dazu starten wir QGIS und klicken <span class="menuselection">Datenquellenverwaltung öffnen</span>, um mit den für das Tutorial erforderlichen Layern arbeiten zu können.</p></li>
 </ol>
 <blockquote>
 <div><img alt="../../_images/160.png" class="align-center" src="../../_images/160.png" />
 </div></blockquote>
 <ol class="arabic simple" start="2">
-<li><p>Switch to the <span class="guilabel">Vector</span> tab and use the browsing button to navigate to the folder where you have kept the processed shapefiles.</p></li>
+<li><p>Wir wechseln in den <span class="guilabel">Vektor</span>-Bereich und verwenden den Navigations-Button, um den Ordner zu öffnen, in dem die Shapefiles abgelegt wurden.</p></li>
 </ol>
 <blockquote>
 <div><img alt="../../_images/230.png" class="align-center" src="../../_images/230.png" />
 </div></blockquote>
 <ol class="arabic simple" start="3">
-<li><p>Select <code class="docutils literal notranslate"><span class="pre">cbd.shp</span></code>, <code class="docutils literal notranslate"><span class="pre">zoning_cbd.shp</span></code> and <code class="docutils literal notranslate"><span class="pre">split_zoning_cbd.shp</span></code> files and click <span class="guilabel">Open</span>.</p></li>
+<li><p>Wir wählen die Dateien <code class="docutils literal notranslate"><span class="pre">cbd.shp</span></code>, <code class="docutils literal notranslate"><span class="pre">zoning_cbd.shp</span></code> und <code class="docutils literal notranslate"><span class="pre">split_zoning_cbd.shp</span></code> und klicken <span class="guilabel">Öffnen</span>.</p></li>
 </ol>
 <blockquote>
 <div><img alt="../../_images/325.png" class="align-center" src="../../_images/325.png" />
 </div></blockquote>
 <ol class="arabic simple" start="4">
-<li><p>You will see all three file paths in the text box beside <span class="guilabel">Vector Dataset</span>. Click <span class="guilabel">Add</span> followed by <span class="guilabel">Close</span>.</p></li>
+<li><p>Alle ausgewählten Dateien werden in der Textbox neben dem Bezeichner <span class="guilabel">Vektordatensätze</span> angezeigt. Wir klicken <span class="guilabel">Hinzufügen</span> und danach <span class="guilabel">Schließen</span>.</p></li>
 </ol>
 <blockquote>
 <div><img alt="../../_images/410.png" class="align-center" src="../../_images/410.png" />
 </div></blockquote>
 <ol class="arabic simple" start="5">
-<li><p>As we work on the exercise, it is important to save our work. Go to <span class="menuselection">Project ‣ Save</span>.</p></li>
+<li><p>Wir sollten hin und wieder unsere Arbeit speichern. Dazu wählen wir <span class="menuselection">Projekt ‣ Speichern</span>.</p></li>
 </ol>
 <blockquote>
 <div><img alt="../../_images/510.png" class="align-center" src="../../_images/510.png" />
 </div></blockquote>
 <ol class="arabic simple" start="6">
-<li><p>Save the project to the data directory as landuse_map.qgz file. The QGIS Project file contains references to the data layers and saves styles, map templates etc.</p></li>
+<li><p>Wir speichern das Projekt in einem Arbeitsverzeichnis als <code class="docutils literal notranslate"><span class="pre">landuse_map.qgz</span></code>. Die Projektdatei in QGIS enthält Referenzen auf die Daten-Layer und speichert außerdem Styles, Karten-Vorlagen usw.</p></li>
 </ol>
 <blockquote>
 <div><img alt="../../_images/610.png" class="align-center" src="../../_images/610.png" />
 </div></blockquote>
 <ol class="arabic simple" start="7">
-<li><p>Select the <code class="docutils literal notranslate"><span class="pre">zoning_cbd</span></code> layer and click the <span class="guilabel">Open Attribute Table</span> button in the <span class="menuselection">Attributes</span> Toolbar. Note that the attribute <code class="docutils literal notranslate"><span class="pre">INT_ZONE_C</span></code> has the zoning codes and <code class="docutils literal notranslate"><span class="pre">INT_ZONE_D</span></code> has the zoning description. Close the attribute table.</p></li>
+<li><p>Wir wählen erst den Layer <code class="docutils literal notranslate"><span class="pre">zoning_cbd</span></code> und dann <span class="guilabel">Attributtabelle öffnen</span> aus dem Menü <span class="menuselection">Layer</span>. Hier ist wichtig, dass das Attribut <code class="docutils literal notranslate"><span class="pre">INT_ZONE_C</span></code> die Zonierungscodes enthält und das Attribut <code class="docutils literal notranslate"><span class="pre">INT_ZONE_D</span></code> die Beschreibung der Zonierung. die Attributtabelle können wir wieder schließen.</p></li>
 </ol>
 <blockquote>
 <div><img alt="../../_images/710.png" class="align-center" src="../../_images/710.png" />
 </div></blockquote>
 <ol class="arabic simple" start="8">
-<li><p>Now let’s style the layer based on these attributes, so the parcels with the same zoning codes are styles in the same color. Click the <span class="guilabel">Open the Layer Styling panel</span> button in the Layers panel. Click the dropdown button next to <span class="guilabel">Single Symbol</span>.</p></li>
+<li><p>Wir wollen nun den Stil der Layer unter Nutzung dieser Attribute anpassen, so dass Grundstücke mit demselben Zonierungscode in derselben Farbe dargestellt werden. Dazu klicken wir auf den Button <span class="guilabel">Layergestaltungsfenster öffnen</span> im Layer-Panel und im jetzt geöffneten Fenster den Dropdown-Button bei <span class="guilabel">Einzelsymbol</span>.</p></li>
 </ol>
 <blockquote>
 <div><img alt="../../_images/810.png" class="align-center" src="../../_images/810.png" />
 </div></blockquote>
 <ol class="arabic" start="9">
-<li><p>Select <span class="guilabel">Categorized</span> as the renderer. Select <code class="docutils literal notranslate"><span class="pre">INT_ZONE_C</span></code> as the Value. Click Classify.</p>
+<li><p>Wir wählen <span class="guilabel">Kategorisiert</span> aus. Als <span class="guilabel">Wert</span> wählen wir <code class="docutils literal notranslate"><span class="pre">INT_ZONE_C</span></code>, anschließend klicken wir <span class="guilabel">Klassifizieren</span>.</p>
 <blockquote>
 <div><img alt="../../_images/910.png" class="align-center" src="../../_images/910.png" />
 </div></blockquote>
 </li>
-<li><p>You will see a series of symbols appear. There is a different color symbol assigned for every unique code in the layer.</p>
+<li><p>Eine Reihe von Symbolen wird angezeigt. Jedem einzelnen Code wird eine eigene Farbe zugeordnet.</p>
 <img alt="../../_images/1014.png" class="align-center" src="../../_images/1014.png" />
 </li>
-<li><p>Notice that each zoning category has sub-categories. The <code class="docutils literal notranslate"><span class="pre">General</span> <span class="pre">Business</span> <span class="pre">(GB)</span></code> category has further sub-divisions like <code class="docutils literal notranslate"><span class="pre">GB1</span></code>, <code class="docutils literal notranslate"><span class="pre">GB2</span></code>, and so on. For the purpose of this map, we can merge all the sub-categories to a single top-level category. Hold the Shift key and select all sub-categories. Right-click and select <span class="guilabel">Merge Categories</span>.</p>
+<li><p>Zu beachten ist, dass jede Kategorie der Zonierung Unterkategorien enthält. Die Kategorie <code class="docutils literal notranslate"><span class="pre">General</span> <span class="pre">Business</span> <span class="pre">(GB)</span></code> hat die Unterkategorien `` GB1``, <code class="docutils literal notranslate"><span class="pre">GB2</span></code> usw. Für die Zielkarte können wir alle Unterkategorien zu einer übergeordneten Kategorie zusammenfassen. Dazu wählen wir alle Unterkategorien mit gedrückter <kbd class="kbd docutils literal notranslate">Shift</kbd>-Taste aus und wählen per Rechtsklick im Kontextmenü <span class="guilabel">Kategorien verschmelzen</span>.</p>
 <img alt="../../_images/1117.png" class="align-center" src="../../_images/1117.png" />
 </li>
-<li><p>Repeat the process for <code class="docutils literal notranslate"><span class="pre">MU</span></code> and <code class="docutils literal notranslate"><span class="pre">TR</span></code> categories. Once merged, we can now change the Legend label to be more descriptive. Click on the <span class="guilabel">Legend</span> label to rename a class.</p>
+<li><p>Dies wiederholen wir für die Kategorien <code class="docutils literal notranslate"><span class="pre">MU</span></code> und <code class="docutils literal notranslate"><span class="pre">TR</span></code>. Nach dem Zusammenfassen können wir die Beschriftung in der Legende ändern, um eine bessere Beschreibung anzuzeigen. Wir klicken doppelt auf einen Wert in der Spalte <span class="guilabel">Legende</span>, um die Kategorie unzubenennen.</p>
 <img alt="../../_images/1215.png" class="align-center" src="../../_images/1215.png" />
 </li>
 <li><p>Enter descriptions of each zoning category based on the values given in the <code class="docutils literal notranslate"><span class="pre">INR_ZONE_D</span></code> column. As you enter those description, you will see the legend of the layer in the Layers panel also updates.</p>
@@ -489,7 +488,7 @@ We will be importing data from the portal using ArcGIS REST server URL and will 
     </p>
     <p>
         &copy; Copyright 2023, Ujaval Gandhi.<br/>
-      Zuletzt aktualisiert am Apr. 03, 2024.<br/>
+      Zuletzt aktualisiert am Apr. 09, 2024.<br/>
       Created using <a href="http://sphinx-doc.org/">Sphinx</a> 7.2.6.<br/>
     </p>
   </div>
