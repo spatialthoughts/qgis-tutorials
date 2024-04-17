@@ -40,7 +40,7 @@ The tutorials for the following languages have active translation teams and are 
 
 - `Chinese (Taiwan) <https://www.qgistutorials.com/zh_TW/>`_ (Translation by: *Whyjay Zheng*)
 - `Dutch <https://www.qgistutorials.com/nl/>`_ (Translation by: *Dick Groskamp*)
-- `German <https://www.qgistutorials.com/de/>`_ (Translation by: *Michael Gieding*)
+- `German <https://www.qgistutorials.com/de/>`_ (Translation by: *Michael Gieding*, *Jörn Vorwald*)
 - `Italian <https://www.qgistutorials.com/it/>`_ (Translation by: *Pino Nicolosi a.k.a Rattus*, *Francesco Pirotti*)
 - `Persian <https://www.qgistutorials.com/fa/>`_ (Translation by: *Chooghi Bairam Komaki*)
 - `Slovenian <https://www.qgistutorials.com/sl/>`_ (Translation by: *Krištof Oštir*, *Ana Potočnik Buhvald*)

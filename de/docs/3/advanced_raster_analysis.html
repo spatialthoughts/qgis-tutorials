@@ -5,7 +5,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Advanced Raster Analysis (QGIS3) &#8212; QGIS Tutorials and Tips</title>
+    <title>Fortgeschrittene Raster-Analyse (QGIS3) &#8212; QGIS Tutorials and Tips</title>
     <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=fa44fd50" />
     <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-sphinx.css?v=0bf093e7" />
     <script src="../../_static/documentation_options.js?v=54d918e9"></script>
@@ -91,16 +91,16 @@
 <li class="toctree-l1"><a class="reference internal" href="sampling_raster_data.html">Stichproben aus Rasterdaten mit Hilfe von Punkten und Polygonen (QGIS3)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="calculating_raster_area.html">Calculating Raster Area (QGIS3)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="creating_heatmaps.html">Heatmaps erstellen (QGIS3)</a></li>
-<li class="toctree-l1"><a class="reference internal" href="animating_time_series.html">Animating Time Series Data (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="animating_time_series.html">Animierte Zeitreihen-Daten (QGIS3)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="handling_invalid_geometries.html">Handling Invalid Geometries (QGIS3)</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Advanced Raster Analysis (QGIS3)</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Fortgeschrittene Raster-Analyse (QGIS3)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="interpolating_point_data.html">Interpolating Point Data (QGIS3)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="batch_processing.html">Stapelverarbeitung mit dem Processing Framework (QGIS3)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="processing_graphical_modeler.html">Komplexe Arbeitsabläufe mit Hilfe der Verarbeitungsmodellierung (QGIS3)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="automating_map_creation.html">Automatisierung der Kartenerstellung mit dem Drucklayout Atlas (QGIS3)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="multi_criteria_overlay.html">Multi Criteria Overlay Analysis (QGIS3)</a></li>
-<li class="toctree-l1"><a class="reference internal" href="vector_styling_expressions.html">Basic Filtering and Styling with Expressions (QGIS3)</a></li>
-<li class="toctree-l1"><a class="reference internal" href="block_world_styling.html">Creating a Block World Map (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="vector_styling_expressions.html">Grundlagen für Filterung und Gestaltung mit Ausdrücken (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="block_world_styling.html">Erstellung einer Weltkarte im Gitter-Stil (QGIS3)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="basic_network_analysis.html">Einfache Netzwerkvisualisierung und Routing (QGIS3)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="origin_destination_matrix.html">Lokalisierung der am nächsten gelegenen Einrichtung mit einer Quelle-Ziel-Matrix (QGIS3)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="service_area_analysis.html">Einzugsgebietsanalyse mit dem Openrouteservice (QGIS3)</a></li>
@@ -184,160 +184,160 @@
       
 
   <section id="advanced-raster-analysis-qgis3">
-<h1>Advanced Raster Analysis (QGIS3)<a class="headerlink" href="#advanced-raster-analysis-qgis3" title="Link to this heading">¶</a></h1>
-<p>In the previous tutorial <a class="reference internal" href="raster_styling_and_analysis.html"><span class="doc">Einfache Visualisierung und Analyse von Rasterdaten (QGIS3)</span></a>, you learnt about performing raster algebra with <em>Raster Calculator</em>. This tutorial builds on these techniques and shows you how to use other raster analysis tools from the Processing Toolbox. You will learn how to process with Land Use Land Cover (LULC) rasters in QGIS to extract certain types of landcover classes and map changes.</p>
+<h1>Fortgeschrittene Raster-Analyse (QGIS3)<a class="headerlink" href="#advanced-raster-analysis-qgis3" title="Link to this heading">¶</a></h1>
+<p>Im vorigen Tutorial <a class="reference internal" href="raster_styling_and_analysis.html"><span class="doc">Einfache Visualisierung und Analyse von Rasterdaten (QGIS3)</span></a> haben wir den Umgang mit dem <em>Rasterrechner</em> bei Operationen auf Rasterdaten kennengelernt. Dieses Tutorial baut auf diesen Kenntnissen auf und zeigt, wie die Raster-Analysetools aus den Verarbeitungswerkzeugen verwendet werden. Wir werden lernen, wie Rasterdaten aus Landnutzungskartierungen (engl.: Land Use Land Cover ‒ LULC) in QGIS verarbeitet werden, um verschiedene Klassen der Landbedeckung zu gewinnen und Karten anzupassen.</p>
 <section id="overview-of-the-task">
-<h2>Overview of the task<a class="headerlink" href="#overview-of-the-task" title="Link to this heading">¶</a></h2>
-<p>We will use the South African National Land Cover dataset to identify and extract informal settlements in the City of Johannesburg, South Africa. We will also use a change assessment dataset to identify urban growth patterns in the city from 2014 to 2018.</p>
+<h2>Überblick über die Aufgabe<a class="headerlink" href="#overview-of-the-task" title="Link to this heading">¶</a></h2>
+<p>Wir werden den Datensatz des <em>South African National Land Cover</em> verwenden, um informelle Siedlungen im Stadtgebiet von Johannesburg in Südafrika zu identifizieren und zu extrahieren. Außerdem werden wir einen Datensatz zur Bewertung des Wandels verwenden, um Muster im urbanen Wachstum der Stadt von 2014 bis 2018 zu identifizieren.</p>
 <section id="other-skills-you-will-learn">
-<h3>Other skills you will learn<a class="headerlink" href="#other-skills-you-will-learn" title="Link to this heading">¶</a></h3>
+<h3>Weitere Fähigkeiten, die wir erlernen:<a class="headerlink" href="#other-skills-you-will-learn" title="Link to this heading">¶</a></h3>
 <ul class="simple">
-<li><p>How to reproject raster data to another projection.</p></li>
-<li><p>How to load an excel file in QGIS.</p></li>
-<li><p>How to adjust the transperancy of a raster layer in QGIS.</p></li>
+<li><p>die Abbildung von Rasterdaten in einer anderen Projektion</p></li>
+<li><p>den Import einer Excel-Datei in QGIS</p></li>
+<li><p>die Anpassung der Transparenz eines Raster-Layers in QGIS</p></li>
 </ul>
 </section>
 </section>
 <section id="get-the-data">
-<h2>Get the data<a class="headerlink" href="#get-the-data" title="Link to this heading">¶</a></h2>
-<p>We will download the following datasets for this tutorial</p>
+<h2>Beschaffung der Daten<a class="headerlink" href="#get-the-data" title="Link to this heading">¶</a></h2>
+<p>Wir werden folgende Datensätze zur Verwendung in diesem Tutorial herunterladen:</p>
 <ol class="arabic simple">
-<li><p><em>The South African National Land Cover 2018 dataset</em>: The new South African National Land-Cover 2018 dataset has been generated from 20 meter multi-seasonal Sentinel 2 satellite imagery and contains 73 landcover classes.</p></li>
-<li><p><em>The South African National Land Cover 2018 Change Assessments</em>: This dataset compares the change in 20 landcover classes from 2014 to 2018.</p></li>
-<li><p><em>COJ Boundary</em>: A boundary shapefile for the City of Johannesburg, South Africa.</p></li>
+<li><p><em>The South African National Land Cover 2018 dataset</em>: Dieser Datensatz wurde aus den Sentinel-2-Satellitenbildern mehrerer Jahreszeiten mit einer Auflösung von 20 Metern generiert und enthält 73 Klassen der Landbedeckung.</p></li>
+<li><p><em>The South African National Land Cover 2018 Change Assessments</em>: Dieser Datensatz vergleicht die Änderungen in 20 Klassen der Landbedeckung von 2014 bis 2018.</p></li>
+<li><p><em>COJ Boundary</em>: ein Shapefile für die Grenzen der Stadt Johannesburg in Südafrika</p></li>
 </ol>
-<p>The <a class="reference external" href="https://egis.environment.gov.za/">Environmental Geographical Information Systems (E-GIS)</a> provides access to environmental geospatial data for South Africa. We will download the South African National Land-Cover (SANLC) rasters from this portal.</p>
+<p>Das <a class="reference external" href="https://egis.environment.gov.za/">Environmental Geographical Information Systems (E-GIS)</a> bietet Zugang zu umweltbezogenen Geodaten für Südafrika. Wir werden die Rasterdaten des South African National Land-Cover (SANLC) aus diesem Portal herunterladen.</p>
 <ol class="arabic simple">
-<li><p>Visit the <a class="reference external" href="https://egis.environment.gov.za/gis_data_downloads">GIS Data Download</a>  page. Click <span class="guilabel">I agree</span> to accept the <em>Conditions of Use</em> and proceed.</p></li>
+<li><p>Dazu rufen wir die Website <a class="reference external" href="https://egis.environment.gov.za/gis_data_downloads">GIS Data Download</a> auf und klicken auf <span class="guilabel">I agree</span>, um die <em>Nutzungsbedingungen</em> zu akzeptieren und fortzufahren.</p></li>
 </ol>
 <blockquote>
 <div><img alt="../../_images/data1.png" class="align-center" src="../../_images/data1.png" />
 </div></blockquote>
 <ol class="arabic simple" start="2">
-<li><p>You will need to create a free account to download the dataset. Click <span class="guilabel">I want to create an account</span> and follow the instructions to create an account.</p></li>
+<li><p>Um die Daten herunterladen zu können, ist es erforderlich, ein kostenloses Nutzerkonto anzulegen. Wir klicken auf <span class="guilabel">I want to create an account</span> und folgen den Anweisungen zur Anlage eines Nutzerkontos.</p></li>
 </ol>
 <blockquote>
 <div><img alt="../../_images/data2.png" class="align-center" src="../../_images/data2.png" />
 </div></blockquote>
 <ol class="arabic simple" start="3">
-<li><p>Once logged in, search for <em>South African National Land Cover (SANLC) 2018 Computer Automated Land Cover (CALC)</em>. This dataset is provided in 2 different projections. For this tutorial, we will downnload the <cite>ALBERS</cite> dataset. Click to it to download the <cite>SA_NLC_2018_Albers_CALC_data.zip</cite> file.</p></li>
+<li><p>Nach dem Login suchen wir nach <em>South African National Land Cover (SANLC) 2018 Computer Automated Land Cover (CALC)</em>. Dieser Datensatz wird mit zwei unterschiedlichen Projektionen ausgeliefert. Für dieses Tutorial laden wir den <cite>ALBERS</cite>-Datensatz herunter und klicken auf den Link zum Download der Datei <cite>SA_NLC_2018_Albers_CALC_data.zip</cite>.</p></li>
 </ol>
 <blockquote>
 <div><img alt="../../_images/data3.png" class="align-center" src="../../_images/data3.png" />
 </div></blockquote>
 <ol class="arabic simple" start="4">
-<li><p>Next, search for <em>New South African National Land Cover (SANLC) 2014 and 2018 Change Assessment Datasets Computer Automated Land Cover (CALC)</em> and click on the <cite>SA_NLC_2014_2018_CLASS_CHANGE_CALC (DATASET AND REPORT)</cite> to download the <cite>SA_NLC_2014_2018_CLASS_CHANGE_ALBERS_CALC.tif.vat.zip</cite> file.</p></li>
+<li><p>Danach suchen wir nach <em>New South African National Land Cover (SANLC) 2014 and 2018 Change Assessment Datasets Computer Automated Land Cover (CALC)</em> und klicken auf <cite>SA_NLC_2014_2018_CLASS_CHANGE_CALC (DATASET AND REPORT)</cite>, um die Datei <cite>SA_NLC_2014_2018_CLASS_CHANGE_ALBERS_CALC.tif.vat.zip</cite> herunterzuladen.</p></li>
 </ol>
 <blockquote>
 <div><img alt="../../_images/data4.png" class="align-center" src="../../_images/data4.png" />
 </div></blockquote>
-<p>The <a class="reference external" href="https://www.joburg.org.za/">City of Johannesburg</a> publishes spatial datasets as part of the  <a class="reference external" href="https://www.joburg.org.za/documents_/Pages/Key%20Documents/policies/Development%20Planning%20%EF%BC%86%20Urban%20Management/Citywide%20Spatial%20Policies/Spatial-Development-Framework-2040.aspx">Spatial Development Framework 2040 (SDF) for Johannesburg</a> data. We will download the boundary shapefile from this site.</p>
+<p>Die <a class="reference external" href="https://www.joburg.org.za/">City of Johannesburg</a> veröffentlicht räumlich zuordenbare Datensätze als Teil des <a class="reference external" href="https://www.joburg.org.za/documents_/Pages/Key%20Documents/policies/Development%20Planning%20F%BC%86%20Urban%20Management/Citywide%20Spatial%20Policies/Spatial-Development-Framework-2040.aspx">Spatial Development Framework 2040 (SDF) for Johannesburg</a>. Wir werden das Shapefile mit den Grenzen der Stadt von dieser Website herunterladen.</p>
 <ol class="arabic simple">
-<li><p>Click the download link <a class="reference external" href="http://bit.ly/joburg-sdf-16">http://bit.ly/joburg-sdf-16</a>.</p></li>
+<li><p>Dazu klicken wir auf den Download-Link <a class="reference external" href="http://bit.ly/joburg-sdf-16">http://bit.ly/joburg-sdf-16</a>.</p></li>
 </ol>
 <blockquote>
 <div><img alt="../../_images/data5.png" class="align-center" src="../../_images/data5.png" />
 </div></blockquote>
 <ol class="arabic simple" start="2">
-<li><p>Click on the <code class="docutils literal notranslate"><span class="pre">SDF</span> <span class="pre">Shapefiles</span></code> directory.</p></li>
+<li><p>Wir wählen das Verzeichnis <code class="docutils literal notranslate"><span class="pre">SDF</span> <span class="pre">Shapefiles</span></code>.</p></li>
 </ol>
 <blockquote>
 <div><img alt="../../_images/data6.png" class="align-center" src="../../_images/data6.png" />
 </div></blockquote>
 <ol class="arabic simple" start="3">
-<li><p>Download the <code class="docutils literal notranslate"><span class="pre">SDF</span> <span class="pre">Shapefiles.zip</span></code> file, and unzip it to a folder.</p></li>
+<li><p>Wir laden die Datei <cite>SDF Shapefiles.zip`</cite> herunter und entpacken sie in ein Verzeichnis unserer Wahl.</p></li>
 </ol>
 <blockquote>
 <div><img alt="../../_images/data7.png" class="align-center" src="../../_images/data7.png" />
 </div></blockquote>
-<p>For your convenience, a clipped version of the required layers is available from the link below:</p>
+<p>Der Einfachheit halber sind die zugeschnittenen Versionen der erforderlichen Layer unter den folgenden Links verfügbar:</p>
 <p><a class="reference external" href="https://www.qgistutorials.com/downloads/SA_NLC_2018_ALBERS_CALC.tif">SA_NLC_2018_ALBERS_CALC.tif</a></p>
 <p><a class="reference external" href="https://www.qgistutorials.com/downloads/SA_NLC_2014_2018_CLASS_CHANGE_ALBERS_CALC.tif">SA_NLC_2014_2018_CLASS_CHANGE_ALBERS_CALC.tif</a></p>
 <p><a class="reference external" href="https://www.qgistutorials.com/downloads/COJ_Boundary.zip">COJ_Boundary.zip</a></p>
-<p>Data Source: <a class="reference internal" href="../credits.html#sanlc" id="id1"><span>[SANLC]</span></a> <a class="reference internal" href="../credits.html#coj" id="id2"><span>[COJ]</span></a></p>
+<p>Datenquelle: <a class="reference internal" href="../credits.html#sanlc" id="id1"><span>[SANLC]</span></a> <a class="reference internal" href="../credits.html#coj" id="id2"><span>[COJ]</span></a></p>
 </section>
 <section id="procedure">
-<h2>Procedure<a class="headerlink" href="#procedure" title="Link to this heading">¶</a></h2>
+<h2>Arbeitsablauf<a class="headerlink" href="#procedure" title="Link to this heading">¶</a></h2>
 <ol class="arabic simple">
-<li><p>Browse to the downloaded and unzipped  folder in the browser. Expand it and drag and drop the <code class="docutils literal notranslate"><span class="pre">SA_NLC_2018_ALBERS_CALC.tif</span></code> in canvas.</p></li>
+<li><p>Wir suchen nach dem heruntergeladenen und extrahierten Ordner im <span class="guilabel">Browser</span>, öffnen ihn und ziehen <code class="docutils literal notranslate"><span class="pre">SA_NLC_2018_ALBERS_CALC.tif</span></code> in den Arbeitsbereich.</p></li>
 </ol>
 <blockquote>
 <div><img alt="../../_images/011.png" class="align-center" src="../../_images/011.png" />
 </div></blockquote>
 <ol class="arabic simple" start="2">
-<li><p>Once the layer is loaded, you can notice the CRS will be set as <span class="guilabel">Unknown CRS</span> on the bottom right. Double-click on it to open the <span class="guilabel">Project Properties - CRS</span> dialog box.</p></li>
+<li><p>Sobald der Layer geladen wurde, kann man feststellen, dass das KBS als <span class="guilabel">Unbekanntes KBS</span> in der Statusleiste unten rechts deklariert wurde. Wir führen darauf einen Doppelklick aus, um das Dialog-Fenster <span class="guilabel">Projekteeigenschaften - KBS</span> zu öffnen.</p></li>
 </ol>
 <blockquote>
 <div><img alt="../../_images/021.png" class="align-center" src="../../_images/021.png" />
 </div></blockquote>
 <ol class="arabic simple" start="3">
-<li><p>At the bottom, you will see a preview of the projection extent. This <em>Unknown CRS</em> is a custom <em>Lambert Equal-Area Projection</em> defined for the country of South Africa. We will later reproject this layer to another projection. Click <span class="guilabel">OK</span>.</p></li>
+<li><p>Im unteren Teil wird eine Vorschau auf die Ausdehnung der Projektion angezeigt. Dieses <em>Unbekannte KBS</em> verwendet eine benutzerdefinierte Methode <em>Albers Equal Area</em> für Südafrika. Wir werden den Layer später reprojizieren und klicken zunächst auf <span class="guilabel">OK</span>.</p></li>
 </ol>
 <blockquote>
 <div><img alt="../../_images/031.png" class="align-center" src="../../_images/031.png" />
 </div></blockquote>
 <ol class="arabic simple" start="4">
-<li><p>Load other two layers <code class="docutils literal notranslate"><span class="pre">SA_NLC_2014_2018_CLASS_CHANGE_ALBERS_CALC.tif</span></code> and <code class="docutils literal notranslate"><span class="pre">COJ_Boundary</span></code>. You will see that the raster layer cover the entire country. For our analysis, we are only interested in the area covered by the <code class="docutils literal notranslate"><span class="pre">COJ_Boundary</span></code> layer. We will now clip the raster layer to this region. Go to <span class="menuselection">Processing ‣ Toolbox ‣ GDAL ‣ Raster extraction ‣ Clip raster by mask layer</span> tool. Double-click to open it.</p></li>
+<li><p>Wir laden die anderen beiden Layer <code class="docutils literal notranslate"><span class="pre">SA_NLC_2014_2018_CLASS_CHANGE_ALBERS_CALC.tif</span></code> und <code class="docutils literal notranslate"><span class="pre">COJ_Boundary</span></code>. Die Raster-Layer überdecken das gesamte Land. Für unsere Analyse interessiert jedoch nur die Fläche, die vom Layer <code class="docutils literal notranslate"><span class="pre">COJ_Boundary</span></code> abgedeckt wird. Daher werden wir die Raster-Layer auf diese Region zuschneiden und wählen <span class="menuselection">Verarbeitung ‣ Werkzeugkiste</span> und darin <span class="menuselection">GDAL ‣ Rasterextraktion ‣ Raster auf Layermaske zuschneiden</span>. Wir öffnen das Werkzeug mit einem Doppelklick.</p></li>
 </ol>
 <blockquote>
 <div><img alt="../../_images/041.png" class="align-center" src="../../_images/041.png" />
 </div></blockquote>
 <ol class="arabic simple" start="5">
-<li><p>In the <span class="guilabel">Clip Raster by Mask Layer</span>, select <code class="docutils literal notranslate"><span class="pre">SA_NLC_2018_ALBERS_CALC</span></code>  as the <span class="guilabel">Input layer</span>, then <code class="docutils literal notranslate"><span class="pre">COJ_Boundary</span></code> as <span class="guilabel">Mask layer</span>. We also have an option to reproject the data to another projection. It is a good practice to keep all your data layers in the same projection. We will reproject the rasters to match the CRS to that of the <code class="docutils literal notranslate"><span class="pre">COJ_Boundary</span></code> layer. Select <code class="docutils literal notranslate"><span class="pre">EPSG:4326</span> <span class="pre">-</span> <span class="pre">WGS</span> <span class="pre">84</span></code> as the <span class="guilabel">Target CRS</span>.</p></li>
+<li><p>Im Dialog <span class="guilabel">Raster auf Layermaske zuschneiden</span>, wählen wir <code class="docutils literal notranslate"><span class="pre">SA_NLC_2018_ALBERS_CALC</span></code> als <span class="guilabel">Eingabelayer</span>, danach <code class="docutils literal notranslate"><span class="pre">COJ_Boundary</span></code> als <span class="guilabel">Maskenlayer</span>. Wir haben hier auch die Möglichkeit, die Daten zu reprojizieren. Es zeugt von guter Praxis, alle Daten-Layer in derselben Projektion vorzuhalten. Wir werden die Raster so reprojizieren, dass sie der Projektion des <code class="docutils literal notranslate"><span class="pre">COJ_Boundary</span></code>-Layers entsprechen. Dazu wählen wir <code class="docutils literal notranslate"><span class="pre">EPSG:4326</span> <span class="pre">-</span> <span class="pre">WGS</span> <span class="pre">84</span></code> als  <span class="guilabel">Ziel KBS</span>.</p></li>
 </ol>
 <blockquote>
 <div><img alt="../../_images/051.png" class="align-center" src="../../_images/051.png" />
 </div></blockquote>
 <ol class="arabic simple" start="6">
-<li><p>The default output data format is GeoTiff. GeoTiff files can get very large if they are not compressed. A good practice is to always apply a loss-less compression when creating new raster layers. Expand <span class="guilabel">Advanced Parameters</span> and choose <code class="docutils literal notranslate"><span class="pre">High</span> <span class="pre">Compression</span></code> as the <span class="guilabel">Profile</span>. Next, click the <code class="docutils literal notranslate"><span class="pre">...</span></code> button next to <span class="guilabel">Clipped (mask)</span> and select <span class="guilabel">Save to file…</span> to enter layer name as <code class="docutils literal notranslate"><span class="pre">SA_NLC_2018_Clipped</span></code>. Click <span class="guilabel">Run</span>.</p></li>
+<li><p>Das voreingestellte Ausgabeformat ist GeoTiff. Dateien dieses Typs können sehr groß sein, wenn sie nicht komprimiert werden. Es zeugt von guter Praxis, immer eine verlustfreie Kompressionsmethode zu wählen, wenn neue Raster-Layer erstellt werden. Wir erweitern den Bereich <span class="guilabel">Fortgeschrittene Parameter</span> und wählen <code class="docutils literal notranslate"><span class="pre">Hohe</span> <span class="pre">Kompression</span></code> als <span class="guilabel">Profil</span>. Als nächstes benutzen wir den Button <span class="guilabel">…</span> neben dem Eingabefeld von <span class="guilabel">Abgeschnitten (Maske)</span> und wählen <span class="guilabel">In Datei speichern…</span>, um als Namen des Layers <code class="docutils literal notranslate"><span class="pre">SA_NLC_2018_Clipped</span></code> anzugeben. Wir klicken auf <span class="guilabel">Starte</span>.</p></li>
 </ol>
 <blockquote>
 <div><img alt="../../_images/061.png" class="align-center" src="../../_images/061.png" />
 </div></blockquote>
 <ol class="arabic simple" start="7">
-<li><p>Once the algorithm finishes, do not close the window. We will apply the same operation to the other raster layer. Switch to the <span class="guilabel">Parameters</span> tab and change the <span class="guilabel">Input layer</span> to <code class="docutils literal notranslate"><span class="pre">SA_NLC_2014_2018_CLASS_CHANGE_ALBERS_CALC</span></code>. Keep all other options but change the output layer name to <code class="docutils literal notranslate"><span class="pre">SA_NLC_2014_2018_CLASS_CHANGE_Clipped</span></code>. Click <span class="guilabel">Run</span>.</p></li>
+<li><p>Wir schließen das Fenster nicht, wenn der Algorithmus beendet wurde. Stattdessen werden wir dieselbe Operation auf den anderen Raster-Layer anwenden. Dazu wechseln wir in den Bereich <span class="guilabel">Parameter</span> und ändern den <span class="guilabel">Eingabelayer</span> auf <code class="docutils literal notranslate"><span class="pre">SA_NLC_2014_2018_CLASS_CHANGE_ALBERS_CALC</span></code>. Alle anderen Optionen belassen wir, nur der Name des Ausgabelayers wird auf  <code class="docutils literal notranslate"><span class="pre">SA_NLC_2014_2018_CLASS_CHANGE_Clipped</span></code> geändert. Wir klicken erneut auf <span class="guilabel">Starte</span>.</p></li>
 </ol>
 <blockquote>
 <div><img alt="../../_images/071.png" class="align-center" src="../../_images/071.png" />
 </div></blockquote>
 <ol class="arabic simple" start="8">
-<li><p>Both clipped layers will now be loaded in canvas. Select the original layer and click <span class="guilabel">Remove Layer</span> to remove them.</p></li>
+<li><p>Die zugeschnittenen Layer werden in den Arbeitsbereich geladen. Wir wählen die Original-Layer und im Kontextmenü <span class="guilabel">Layer löschen…</span>, um sie zu entfernen.</p></li>
 </ol>
 <blockquote>
 <div><img alt="../../_images/081.png" class="align-center" src="../../_images/081.png" />
 </div></blockquote>
 <ol class="arabic simple" start="9">
-<li><p>All the three remaining layers are now in the same CRS. We can switch the project CRS to the CRS of the layers now. Right click on any clipped layer and choose <span class="menuselection">Layer CRS ‣ Set Project CRS from Layer</span>.</p></li>
+<li><p>Die drei verbliebenen Layer werden in dasselbe KBS projiziert. Wir können nun das Projekt-KBS auf das der Layer setzen. Wir klicken dazu mit der rechten Maustaste auf einen der Layer und wählen <span class="menuselection">Layer-KBS ‣ Layer-KBS dem Projekt zuweisen</span>.</p></li>
 </ol>
 <blockquote>
 <div><img alt="../../_images/091.png" class="align-center" src="../../_images/091.png" />
 </div></blockquote>
 <ol class="arabic simple" start="10">
-<li><p>Now the project CRS will be set to <code class="docutils literal notranslate"><span class="pre">EPSG:4326</span></code>. Bring the <span class="guilabel">SA_NLC_2018_Clipped</span> layer to top.</p></li>
+<li><p>Das KBS <code class="docutils literal notranslate"><span class="pre">EPSG:4326</span></code> wird nun dem Projekt zugewiesen. Wir ziehen den Layer <span class="guilabel">SA_NLC_2018_Clipped</span> ganz nach oben.</p></li>
 </ol>
 <blockquote>
 <div><img alt="../../_images/101.png" class="align-center" src="../../_images/101.png" />
 </div></blockquote>
 <ol class="arabic simple" start="11">
-<li><p>Click on <cite>SA_NLC_2018_Clipped</cite> and use the <span class="guilabel">identify</span> tool in the <span class="guilabel">Attributes Toolbar</span> to click on the image and inspect the pixel values. You will see that the pixel values range from 1 to 73. These values represent a distinct land use/land cover class.</p></li>
+<li><p>Wir wählen den Layer <cite>SA_NLC_2018_Clipped</cite> aus und benutzen das Werkzeug <span class="guilabel">Objekte abfragen</span> aus der <span class="guilabel">Attributwerkzeugleiste</span>, um über einen Klick auf das Bild die Werte des entsprechenden Pixels prüfen zu können. Es ist ersichtlich, dass die Pixel Werte zwischen 1 und 73 besitzen. Diese Werte repräsentieren jeweils eine Klasse der Landnutzung/Landbedeckung.</p></li>
 </ol>
 <blockquote>
 <div><img alt="../../_images/111.png" class="align-center" src="../../_images/111.png" />
 </div></blockquote>
 <ol class="arabic simple" start="12">
-<li><p>The dataset classes are described in the <code class="docutils literal notranslate"><span class="pre">SANLC</span> <span class="pre">2018</span> <span class="pre">Presentation</span></code>, which can be downloaded from the <a class="reference external" href="https://egis.environment.gov.za/sa_national_land_cover_datasets">EGIS Portal</a>. For this exercise, we are interested in the <em>informal settlements</em> represented by class numbers 51 through 54.</p></li>
+<li><p>Die Klassen in diesem Datensatz sind in <code class="docutils literal notranslate"><span class="pre">SANLC</span> <span class="pre">2018</span> <span class="pre">Presentation</span></code> beschrieben, was über das <a class="reference external" href="https://egis.environment.gov.za/sa_national_land_cover_datasets">EGIS Portal</a> abgerufen werden kann. Für diese Übung interessieren wir uns für die <em>informellen Siedlungen</em>, welche durch die Klassen 51 bis 54 repräsentiert sind.</p></li>
 </ol>
 <blockquote>
 <div><img alt="../../_images/121.png" class="align-center" src="../../_images/121.png" />
 </div></blockquote>
 <ol class="arabic simple" start="13">
-<li><p>Let’s extract pixels belonging to these classes. Go to <span class="menuselection">Processing ‣ Toolbox ‣ Raster analysis ‣ Raster calculator</span> tool. Double-click to open it.</p></li>
+<li><p>Wir werden nun die Pixel extrahieren, welche zu diesen Klassen gehören. Wir wählen in den <span class="guilabel">Verarbeitungswerkzeugen</span> das Werkzeug <span class="guilabel">Rasteranalyse –&gt; Rasterrechner</span> und öffnen es per Doppelklick.</p></li>
 </ol>
 <blockquote>
 <div><img alt="../../_images/13.png" class="align-center" src="../../_images/13.png" />
 </div></blockquote>
 <ol class="arabic simple" start="14">
-<li><p>The source image has only 1 band. The <code class="docutils literal notranslate"><span class="pre">&#64;1</span></code> suffix indicates the band number. Enter the following expression to select pixels from class 51-54.</p></li>
+<li><p>Die Bildquelle umfasst lediglich 1 Spektralband. Das Suffix <code class="docutils literal notranslate"><span class="pre">&#64;1</span></code> bezieht sich auf die Nummer des Spektralbandes. Wir geben den folgenden Ausdruck ein, um die Pixel der Klassen 51-54 zu extrahieren.</p></li>
 </ol>
 <blockquote>
 <div><div class="highlight-none notranslate"><div class="highlight"><pre><span></span>&quot;SA_NLC_2018_Clipped@1&quot; &gt;= 51 AND &quot;SA_NLC_2018_Clipped@1&quot; &lt;= 54
@@ -346,73 +346,73 @@
 <img alt="../../_images/14.png" class="align-center" src="../../_images/14.png" />
 </div></blockquote>
 <ol class="arabic simple" start="15">
-<li><p>Scroll down and click the <code class="docutils literal notranslate"><span class="pre">...</span></code> button next to <span class="guilabel">Reference layer(s)</span>. Select the <code class="docutils literal notranslate"><span class="pre">SA_NLC_2018_Clipped</span></code> layer and click <span class="guilabel">OK</span>.</p></li>
+<li><p>Wir scrollen soweit herunter, dass wir den Button <code class="docutils literal notranslate"><span class="pre">...</span></code> neben dem Eingabefeld <span class="guilabel">Referenzlayer</span> wählen können. Im Dialog wählen wir den Layer <code class="docutils literal notranslate"><span class="pre">SA_NLC_2018_Clipped</span></code> und klicken <span class="guilabel">OK</span>.</p></li>
 </ol>
 <blockquote>
 <div><img alt="../../_images/15.png" class="align-center" src="../../_images/15.png" />
 </div></blockquote>
 <ol class="arabic simple" start="16">
-<li><p>Next, click the <code class="docutils literal notranslate"><span class="pre">...</span></code> button next to <span class="guilabel">Output</span> and select <span class="guilabel">Save to File…</span>.</p></li>
+<li><p>Wir klicken auf den Button <span class="guilabel">…</span> neben <span class="guilabel">Berechnet</span> und wählen <span class="guilabel">In Datei speichern…</span>.</p></li>
 </ol>
 <blockquote>
 <div><img alt="../../_images/16.png" class="align-center" src="../../_images/16.png" />
 </div></blockquote>
 <ol class="arabic simple" start="17">
-<li><p>Name the output file <code class="docutils literal notranslate"><span class="pre">residential_informal.tif</span></code> and click <span class="guilabel">Run</span>.</p></li>
+<li><p>Die Ausgabedatei nennen wir <code class="docutils literal notranslate"><span class="pre">residential_informal.tif</span></code> und klicken <span class="guilabel">Starte</span>.</p></li>
 </ol>
 <blockquote>
 <div><img alt="../../_images/17.png" class="align-center" src="../../_images/17.png" />
 </div></blockquote>
 <ol class="arabic simple" start="18">
-<li><p>Once the process finishes, a new layer, <code class="docutils literal notranslate"><span class="pre">residential_informal</span></code> will be added to QGIS. This raster layer has only two-pixel values - <code class="docutils literal notranslate"><span class="pre">1</span></code> where our expression evaluated <em>true</em> and <code class="docutils literal notranslate"><span class="pre">0</span></code> where it was <em>false</em>. The pixels that appear white are the ones belonging to the informal settlement classes. We will style this layer better so we can see the informal settlements clearly. Click the <span class="guilabel">Open the layer styling panel</span> button.</p></li>
+<li><p>Nach Abschluss der Verarbeitung wird ein neuer Layer <code class="docutils literal notranslate"><span class="pre">residential_informal</span></code> hinzugefügt. Die Pixel dieses Raster-Layers haben nur zwei Werte: <code class="docutils literal notranslate"><span class="pre">1</span></code> für die auf den eingegebenen Ausdruck bezogen mit <em>wahr</em> gekennzeichneten Pixel und <code class="docutils literal notranslate"><span class="pre">0</span></code> für die Pixel, in denen der Ausdruck mit <em>falsch</em> ausgewertet wurde. Die weiß erscheinenden Pixel gehören zu den Klassen der informellen Siedlungen. Wir werden die Darstellung dieses Layers so verändern, dass wir die informellen Siedlungen klar erkennen können. Dazu klicken wir auf den Button <span class="guilabel">Layergestaltungsfenster öffnen</span>.</p></li>
 </ol>
 <blockquote>
 <div><img alt="../../_images/18.png" class="align-center" src="../../_images/18.png" />
 </div></blockquote>
 <ol class="arabic simple" start="19">
-<li><p>Select the <code class="docutils literal notranslate"><span class="pre">residential_informal</span></code> layer and change the renderer to be <span class="guilabel">Paletted/Unique values</span>. Click the <span class="guilabel">Add values manually</span> (+) button.</p></li>
+<li><p>Wir wählen <code class="docutils literal notranslate"><span class="pre">residential_informal</span></code> als zu bearbeitenden Layer und ändern die Darstellung auf <span class="guilabel">Paletten-/Eindeutige Werte</span>. Wir klicken auf den Button <span class="guilabel">Werte manuell hinzufügen</span> (+).</p></li>
 </ol>
 <blockquote>
 <div><img alt="../../_images/19.png" class="align-center" src="../../_images/19.png" />
 </div></blockquote>
 <ol class="arabic simple" start="20">
-<li><p>Change the <span class="guilabel">Value</span> to <code class="docutils literal notranslate"><span class="pre">1</span></code> and enter <code class="docutils literal notranslate"><span class="pre">Residential</span> <span class="pre">Informal</span></code> as <span class="guilabel">Label</span>. Select a color of your choice.</p></li>
+<li><p>Wir ändern den <span class="guilabel">Wert</span> auf <code class="docutils literal notranslate"><span class="pre">1</span></code> und geben <code class="docutils literal notranslate"><span class="pre">Informelle</span> <span class="pre">Siedlung</span></code> als <span class="guilabel">Beschriftung</span> ein. Die Farbe können wir beliebig wählen.</p></li>
 </ol>
 <blockquote>
 <div><img alt="../../_images/20.png" class="align-center" src="../../_images/20.png" />
 </div></blockquote>
 <ol class="arabic simple" start="21">
-<li><p>We can now see all the informal settlements in the city of Johannesburg. It would be helpful to see them in context with a base map. We have access to a variety of base maps from the <span class="guilabel">QuickMapServices</span> plugin. Once you install the plugin, go to <span class="menuselection">Web ‣ QuickMapServices ‣ OSM ‣ OSM Standard</span> to add the OpenStreetMap layer.</p></li>
+<li><p>Nun sind alle informellen Siedlungen von Johannesburg dargestellt. Es wäre hilfreich, sie im Zusammenhang mit einer Basiskarte darzustellen. Mithilfe der Erweiterung <span class="guilabel">QuickMapServices</span> haben wir Zugriff auf eine Vielzahl von Basiskarten. Nach der Installation der Erweiterung wählen wir <span class="menuselection">Web ‣ QuickMapServices ‣ OSM ‣ OSM Standard</span>, um den OpenStreetMap-Layer hinzuzufügen.</p></li>
 </ol>
 <blockquote>
 <div><img alt="../../_images/21.png" class="align-center" src="../../_images/21.png" />
 </div></blockquote>
 <ol class="arabic simple" start="22">
-<li><p>Now you can easily identify and verify whether our analysis correctly identified the informal settlements. You can select the <code class="docutils literal notranslate"><span class="pre">residential_informal</span></code> layer and switch to the <span class="guilabel">Transparency</span> tab in the <span class="guilabel">Layer styling panel</span>. You can reduce the <span class="guilabel">Global Opacity</span> to see both the extracted pixels and the base-map together.</p></li>
+<li><p>Nun können wir leicht ermitteln, ob unsere Analyse die informellen Siedlungen korrekt ermittelt hat. Wir wählen den Layer <code class="docutils literal notranslate"><span class="pre">residential_informal</span></code> und wechseln im Layergestaltungsfenster zum Bereich <span class="guilabel">Transparenz</span>. Wir können die <span class="guilabel">Globale Deckkraft</span> reduzieren, sodass sowhl die extrahierten Pixel als auch die Basis-Karte zu sehen sind.</p></li>
 </ol>
 <blockquote>
 <div><img alt="../../_images/22.png" class="align-center" src="../../_images/22.png" />
 </div></blockquote>
 <ol class="arabic simple" start="23">
-<li><p>You have now completed the first part of the tutorial. Now we will use the <code class="docutils literal notranslate"><span class="pre">SA_NLC_2014_2018_CHANGE_Clipped</span></code> raster layer to identify regions that were urbanized between 2014 and 2018. Turn off all layers except <code class="docutils literal notranslate"><span class="pre">SA_NLC_2014_2018_CHANGE_Clipped</span></code>, then click the <span class="guilabel">Open the layer styling panel</span> button. Switch to the <span class="guilabel">Transparency</span> tab and enter <code class="docutils literal notranslate"><span class="pre">0</span></code> in <span class="guilabel">Additional no data value</span>. This will set the pixels with value 0 to transparent.</p></li>
+<li><p>Der erste Teil des Tutorials ist nun bearbeitet. Im Folgenden werden wir den Raster-Layer <code class="docutils literal notranslate"><span class="pre">SA_NLC_2014_2018_CHANGE_Clipped</span></code> benutzen, um die Regionen zu identifizieren, die zwischen 2014 und 2018 urbanisiert wurden. Wir schalten die Sichtbarkeit aller Layer außer <code class="docutils literal notranslate"><span class="pre">SA_NLC_2014_2018_CHANGE_Clipped</span></code> aus und klicken dann auf den Button <span class="guilabel">Layergestaltungsfenster öffnen</span>. Wir wechseln in den Bereich <span class="guilabel">Transparenz</span> und geben <code class="docutils literal notranslate"><span class="pre">0</span></code> bei <span class="guilabel">Zusätzlicher Leerwert</span> ein. Das wird alle Pixel mit dem Wert 0 transparent schalten.</p></li>
 </ol>
 <blockquote>
 <div><img alt="../../_images/23.png" class="align-center" src="../../_images/23.png" />
 </div></blockquote>
 <ol class="arabic simple" start="24">
-<li><p>Use the <span class="guilabel">Identify</span> tool in the <span class="guilabel">Attributes Toolbar</span> to click on the image and inspect the pixel values. You will see that the pixel values range from 21-420. Each value indicates a transition from one of the 73 source classes to another class.</p></li>
+<li><p>Wir verwenden das Werkzeug <span class="guilabel">Objekte abfragen</span> in der <span class="guilabel">Attributwerkzeugleiste</span>, um an verschiedenen Stellen auf das Bild zu klicken und die Pixelwerte zu erkunden. Die Werte variieren zwischen 21 und 420. Jeder Wert repräsentiert die Veränderung von einer der ursprünglichen 73 Klassen zu einer anderen.</p></li>
 </ol>
 <blockquote>
 <div><img alt="../../_images/24.png" class="align-center" src="../../_images/24.png" />
 </div></blockquote>
 <ol class="arabic simple" start="25">
-<li><p>Your data download comes with a spreadsheet named <code class="docutils literal notranslate"><span class="pre">lcccodes.xlsx</span></code>. This sheet has a sheet <strong>03 urban_change_codes</strong> that gives more details about each pixel value. We are interested in all pixel values where any 2014 class changed into a 2018 built-up class. In the image below, these are highlighted in blue.</p></li>
+<li><p>Die aus der Originalquelle heruntergeladenen Daten enthalten eine Datei <code class="docutils literal notranslate"><span class="pre">lcccodes.xlsx</span></code>. Diese Datei enthält ein Datenblatt <strong>03 urban_change_codes</strong>, das mehr Details zu jedem Pixelwert enthält. Wir interessieren uns für alle Pixelwerte, in denen irgendeine 2014 ermittelte Klasse sich 2018 in eine Klasse mit Bebauung gewandelt hat. Im unten gezeigten Bild sind diese Pixel blau hervorgehoben.</p></li>
 </ol>
 <blockquote>
 <div><img alt="../../_images/25.png" class="align-center" src="../../_images/25.png" />
 </div></blockquote>
 <ol class="arabic simple" start="26">
-<li><p>Our goal is to map changes in the built-up class. We will apply a transformation on the <code class="docutils literal notranslate"><span class="pre">SA_NLC_2014_2018_CHANGE_Clipped</span></code> layer so all the pixel values are mapped from their original values to either of the following values.</p></li>
+<li><p>Unser Ziel ist die Darstellung der Änderungen in der Klasse für Bebauung. Wir werden eine Transformation auf den Layer <code class="docutils literal notranslate"><span class="pre">SA_NLC_2014_2018_CHANGE_Clipped</span></code> anwenden, sodass alle Pixelwerte dargestellt werden, die von ihren Originalwerten in einen der folgenden Werte geändert wurden.</p></li>
 </ol>
 <table class="docutils align-default">
 <colgroup>
@@ -421,60 +421,60 @@
 </colgroup>
 <tbody>
 <tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">1</span></code></p></td>
-<td><p>All pixels which were a built-up class in both 2014 and 2018</p></td>
+<td><p>Alle Pixel, die sowohl 2014 als auch 2018 eine Klasse der Bebauung darstellten</p></td>
 </tr>
 <tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">2</span></code></p></td>
-<td><p>All pixels which changed from a non built-up class in 2014 to a built-up class in 2018.</p></td>
+<td><p>Alle Pixel, in denen sich die Klasse von unbebaut in in 2014 zu bebaut in 2018 geändert hat</p></td>
 </tr>
 <tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">0</span></code></p></td>
-<td><p>All remaining pixels</p></td>
+<td><p>Alle übrigen Pixel</p></td>
 </tr>
 </tbody>
 </table>
 <ol class="arabic simple" start="27">
-<li><p>To do this, we need to create a table specifying these rules. As QGIS is able to read spreadsheets directly, it is the most convenient method to create this table. Our spreadsheet should have 3 columns, <code class="docutils literal notranslate"><span class="pre">MIN</span></code>, <code class="docutils literal notranslate"><span class="pre">MAX</span></code>, and <code class="docutils literal notranslate"><span class="pre">OUTPUT</span></code>. Each row should be the range of input raster values that should be assigned an output value. Create a spreadsheet as shown below and save it to your computer as <code class="docutils literal notranslate"><span class="pre">reclass.xlsx</span></code>. You may also download a ready-to-use copy from this link - <a class="reference external" href="https://www.qgistutorials.com/downloads/reclass.xlsx">reclass.xlsx</a></p></li>
+<li><p>Um dies zu erreichen, müssen wir eine Tabelle erstellen, welche diese Regeln abbildet. Da QGIS Tabellenkalkulationsdateien direkt verarbeiten kann, besteht die günstigste Methode darin, sie direkt zu erstellen. Unsere Tabelle soll 3 Spalten enthalten, <code class="docutils literal notranslate"><span class="pre">MIN</span></code>, <code class="docutils literal notranslate"><span class="pre">MAX</span></code> und <code class="docutils literal notranslate"><span class="pre">OUTPUT</span></code>. Jede Zeile soll den Wertebereich der Eingabedaten enthalten, der auf einen Ausgabewert abgebildet wird. Wir erzeugen die Tabelle wie unten dargestellt und speichern sie als <code class="docutils literal notranslate"><span class="pre">reclass.xlsx</span></code> im Dateiverzeichnis. Eine sofort nutzbare Tabelle kann auch über den folgenden Link heruntergeladen werden - <a class="reference external" href="https://www.qgistutorials.com/downloads/reclass.xlsx">reclass.xlsx</a></p></li>
 </ol>
 <blockquote>
 <div><img alt="../../_images/27.png" class="align-center" src="../../_images/27.png" />
 </div></blockquote>
 <ol class="arabic simple" start="28">
-<li><p>Locate the <code class="docutils literal notranslate"><span class="pre">reclass.xlsx</span></code> file in the browser. Drag-and-drop it to the main window.</p></li>
+<li><p>Wir suchen die Datei <code class="docutils literal notranslate"><span class="pre">reclass.xlsx</span></code> im <span class="guilabel">Browser</span> und fügen sie per Drag &amp; Drop in den Arbeitsbereich ein.</p></li>
 </ol>
 <blockquote>
 <div><img alt="../../_images/28.png" class="align-center" src="../../_images/28.png" />
 </div></blockquote>
 <ol class="arabic simple" start="29">
-<li><p>A new layer <code class="docutils literal notranslate"><span class="pre">Sheet1</span></code> will be added to the <span class="guilabel">Layers</span> panel. Right-click on it and select <span class="guilabel">Open Attribute Table</span>. Verify that the sheet was imported correctly and you have 3 columns named <code class="docutils literal notranslate"><span class="pre">MIN</span></code>, <code class="docutils literal notranslate"><span class="pre">MAX</span></code> and <code class="docutils literal notranslate"><span class="pre">OUTPUT</span></code>. Open the <span class="menuselection">Processing Toolbox ‣ Reclassify by layer</span> tool.</p></li>
+<li><p>Im <span class="guilabel">Layer</span>-Bereich wird ein neuer Layer <code class="docutils literal notranslate"><span class="pre">Sheet1</span></code> hinzugefügt. Per Rechtsklick öffnen wir das Kontextmenü und wählen <span class="guilabel">Attributtabelle öffnen</span>. Wir prüfen, ob die Tabelle korrekt importiert wurde und die 3 Spalten <code class="docutils literal notranslate"><span class="pre">MIN</span></code>, <code class="docutils literal notranslate"><span class="pre">MAX</span></code> und <code class="docutils literal notranslate"><span class="pre">OUTPUT</span></code> enthält. Wir öffnen das Werkzeug <span class="menuselection">Verarbeitungswerkzeuge ‣ Rasteranalyse ‣ Nach Layer neuklassifizieren</span>.</p></li>
 </ol>
 <blockquote>
 <div><img alt="../../_images/29.png" class="align-center" src="../../_images/29.png" />
 </div></blockquote>
 <ol class="arabic simple" start="30">
-<li><p>In the <span class="guilabel">Reclassify by layer</span> dialog, select <code class="docutils literal notranslate"><span class="pre">SA_NLC_2014_2018_CHANGE_Clipped</span></code> as the <span class="guilabel">Raster layer</span>. Select <code class="docutils literal notranslate"><span class="pre">Sheet1</span></code> as the <span class="guilabel">Layer containing class breaks</span>. Select <code class="docutils literal notranslate"><span class="pre">MIN</span></code>, <code class="docutils literal notranslate"><span class="pre">MAX</span></code> and <code class="docutils literal notranslate"><span class="pre">OUTPUT</span></code> fields for their respective fields.</p></li>
+<li><p>Im Dialog <span class="guilabel">Nach Layer neuklassifizieren</span> wählen wir <code class="docutils literal notranslate"><span class="pre">SA_NLC_2014_2018_CHANGE_Clipped</span></code> als <span class="guilabel">Rasterlayer</span>. Wir wählen <code class="docutils literal notranslate"><span class="pre">Sheet1</span></code> als <span class="guilabel">Layer mit Klassengrenzen</span> und die Felder <code class="docutils literal notranslate"><span class="pre">MIN</span></code>, <code class="docutils literal notranslate"><span class="pre">MAX</span></code> und <code class="docutils literal notranslate"><span class="pre">OUTPUT</span></code> für die entsprechenden Werte <code class="docutils literal notranslate"><span class="pre">mit</span> <span class="pre">minimalem</span> <span class="pre">Klassenwert</span></code>, <code class="docutils literal notranslate"><span class="pre">mit</span> <span class="pre">maximalem</span> <span class="pre">Klassenwert</span></code> und als <code class="docutils literal notranslate"><span class="pre">Ausgabewertfeld</span></code>.</p></li>
 </ol>
 <blockquote>
 <div><img alt="../../_images/30.png" class="align-center" src="../../_images/30.png" />
 </div></blockquote>
 <ol class="arabic simple" start="31">
-<li><p>Expand the <span class="guilabel">Advanced Parameters</span> section. Change the <span class="guilabel">Range boundaries</span> to <code class="docutils literal notranslate"><span class="pre">min</span> <span class="pre">&lt;=</span> <span class="pre">value</span> <span class="pre">&lt;=</span> <span class="pre">max</span></code>. Click the <span class="guilabel">…</span> button for <span class="guilabel">Reclassified raster</span> and enter the output file name as <code class="docutils literal notranslate"><span class="pre">builtup_change.tif</span></code>. Click <span class="guilabel">Run</span>.</p></li>
+<li><p>Wir erweitern den Bereich <span class="guilabel">Fortgeschrittene Parameter</span> und ändern die <span class="guilabel">Bereichsgrenzen</span> in <code class="docutils literal notranslate"><span class="pre">min</span> <span class="pre">&lt;=</span> <span class="pre">Wert</span> <span class="pre">&lt;=</span> <span class="pre">max</span></code>. Mithilfe des Buttons <span class="guilabel">…</span> neben <span class="guilabel">Neuklassifiziertes Raster</span> geben wir als Namen für die Ausgabedatei <code class="docutils literal notranslate"><span class="pre">builtup_change.tif</span></code> ein. Wir klicken auf <span class="guilabel">Starte</span>.</p></li>
 </ol>
 <blockquote>
 <div><img alt="../../_images/31.png" class="align-center" src="../../_images/31.png" />
 </div></blockquote>
 <ol class="arabic simple" start="32">
-<li><p>Once the processing finishes, a new layer <code class="docutils literal notranslate"><span class="pre">builtup_change</span></code> with pixel values <code class="docutils literal notranslate"><span class="pre">0-2</span></code> will be added to the canvas. In the <span class="guilabel">Layer styling panel</span>, choose <code class="docutils literal notranslate"><span class="pre">Paletted/Unique</span> <span class="pre">values</span></code>, then click <code class="docutils literal notranslate"><span class="pre">Classify</span></code>.</p></li>
+<li><p>Nach Abschluss der Verarbeitung wird ein neuer Layer <code class="docutils literal notranslate"><span class="pre">builtup_change</span></code> mit Pixelwerten <code class="docutils literal notranslate"><span class="pre">0-2</span></code> zum Arbeitsbereich hinzugefügt. Im <span class="guilabel">Layergestaltungsfenster</span> wählen wir <code class="docutils literal notranslate"><span class="pre">Paletten-/Eindeutige</span> <span class="pre">Werte</span></code> und klicken dann auf <span class="guilabel">Klassifizieren</span>.</p></li>
 </ol>
 <blockquote>
 <div><img alt="../../_images/32.png" class="align-center" src="../../_images/32.png" />
 </div></blockquote>
 <ol class="arabic simple" start="33">
-<li><p>Choose the color of your choice for each category and label the <code class="docutils literal notranslate"><span class="pre">0</span></code>, <code class="docutils literal notranslate"><span class="pre">1</span></code> , and <code class="docutils literal notranslate"><span class="pre">2</span></code> pixel values as <code class="docutils literal notranslate"><span class="pre">Non</span> <span class="pre">Built-up</span></code>, <code class="docutils literal notranslate"><span class="pre">Existing</span> <span class="pre">Built-up</span></code> and <code class="docutils literal notranslate"><span class="pre">New</span> <span class="pre">Built-up</span></code>.</p></li>
+<li><p>Für jede Kategorie kann eine beliebige Farbe gewählt werden. Außerdem sollten wir die Beschriftungen für die Werte <code class="docutils literal notranslate"><span class="pre">0</span></code>, <code class="docutils literal notranslate"><span class="pre">1</span></code>  und <code class="docutils literal notranslate"><span class="pre">2</span></code> auf <code class="docutils literal notranslate"><span class="pre">Unbebaut</span></code>, <code class="docutils literal notranslate"><span class="pre">Vorhandene</span> <span class="pre">Bebauung</span></code> und <code class="docutils literal notranslate"><span class="pre">Neue</span> <span class="pre">Bebauung</span></code> ändern.</p></li>
 </ol>
 <blockquote>
 <div><img alt="../../_images/33.png" class="align-center" src="../../_images/33.png" />
 </div></blockquote>
 <ol class="arabic simple" start="34">
-<li><p>Now in the <span class="guilabel">Transparency</span> tab, reduce the <span class="guilabel">Global Opacity</span>, and turn on the <code class="docutils literal notranslate"><span class="pre">OSM</span> <span class="pre">Standard</span></code> layer to see both the builtup_change pixels and the base-map together.</p></li>
+<li><p>Schließlich verringern wir im Bereich <span class="guilabel">Transparenz</span> die <span class="guilabel">Globale Deckkraft</span> und schalten die Sichtbarkeit des Layers <code class="docutils literal notranslate"><span class="pre">OSM</span> <span class="pre">Standard</span></code> an, um sowohl die Pixel mit den Änderungen in der Bebauung als auch die Basis-Karte sehen zu können.</p></li>
 </ol>
 <blockquote>
 <div><img alt="../../_images/34.png" class="align-center" src="../../_images/34.png" />
@@ -514,7 +514,7 @@
     </p>
     <p>
         &copy; Copyright 2023, Ujaval Gandhi.<br/>
-      Zuletzt aktualisiert am Apr. 09, 2024.<br/>
+      Zuletzt aktualisiert am Apr. 17, 2024.<br/>
       Created using <a href="http://sphinx-doc.org/">Sphinx</a> 7.2.6.<br/>
     </p>
   </div>
