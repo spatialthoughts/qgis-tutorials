@@ -47,6 +47,7 @@ Expressions
 """""""""""
 * :doc:`docs/3/vector_styling_expressions`
 * :doc:`docs/3/block_world_styling`
+* :doc:`docs/3/river_styling_expressions`
 
 Network Analysis
 """"""""""""""""
@@ -119,6 +120,7 @@ Appendix
    docs/3/multi_criteria_overlay
    docs/3/vector_styling_expressions
    docs/3/block_world_styling
+   docs/3/river_styling_expressions
    docs/3/basic_network_analysis
    docs/3/origin_destination_matrix
    docs/3/service_area_analysis
