@@ -2,30 +2,40 @@ Styling a River Network with Expressions (QGIS3)
 ================================================
 *Contributed by:* `Steven Kim <https://geographyclub.github.io/>`_
 
-In the previous tutorial `Creating a Block World Map (QGIS3) <https://www.qgistutorials.com/en/docs/3/block_world_styling.html>`_ We created a block world out of a hex grid with elevation values. In this tutorial, we will us eexpression to create visualization for South American rivers.
+In the previous tutorial `Creating a Block World Map (QGIS3) <https://www.qgistutorials.com/en/docs/3/block_world_styling.html>`_ we used expressions for scaling values and apply a color ramp. We build on those concepts and learn how to use expressions to visualize rivers in a popular style.
 
+.. note::
+
+  This tutorial focuses on the use of expressions for styling. You can check out our another tutorial :doc:`colorized_river_basin_map` that creates a different version of the map shown here using a tools-based workflow.
+  
+  
 Overview of the task
 --------------------
 
-We will use expressions to visualize South American rivers in a popular style, with line widths representing upland area and colors representing basin id from HydroRIVERS.
+We will use expressions to filter and style South American rivers - with line widths representing upland area and colors representing basin id from HydroRIVERS.
 
+  .. image:: /static/3/river_styling_expressions/images/output.png
+    :align: center
+    
 Get the data
 ------------
 
-The HydroRIVERS dataset provides seamless global coverage of consistently sized river reaches, supported by geometric information that allows for basic analysis of river network topology such as stream connectivity and distances. The data is a subset of the comprehensive HydroATLAS package from WWF.
+The HydroRIVERS dataset provides seamless global coverage of consistently sized river reaches, supported by geometric information that allows for basic analysis of river network topology such as stream connectivity and distances. The data is a subset of the comprehensive HydroATLAS package from WWF. Let's download the shapefile of rivers for South America.
 
-1. `HydroRIVERS <https://www.hydrosheds.org/products/hydrorivers>`_ has links for global and regional extracts of HydroRIVERS in shapefile and geodatabase formats. Look for the links at the bottom of the page. 
+1. Visit the `HydroRIVERS <https://www.hydrosheds.org/products/hydrorivers>`_ homepage.
 
   .. image:: /static/3/river_styling_expressions/images/data1.png
     :align: center
 	
-2. Click on the download link for the ``South America`` shapefile. You will see the ``HydroRIVERS_v10_sa_shp.zip`` file downloaded which is used for this tutorial.
+2. The page has links for global and regional extracts of HydroRIVERS in shapefile and geodatabase formats. Scroll down and click on the download link for the ``South America`` shapefile. You will see the ``HydroRIVERS_v10_sa_shp.zip`` file downloaded which is used for this tutorial.
 
-  .. image:: /static/3/river_styling_expressions/images/data1.png
+  .. image:: /static/3/river_styling_expressions/images/data2.png
     :align: center
 
 For convenience, you may directly download a copy of the above layer from below:
-`ne_50m_admin_0_countries.zip <https://www.qgistutorials.com/downloads/HydroRIVERS_v10_sa_shp.zip>`_
+`HydroRIVERS_v10_sa_shp.zip <https://www.qgistutorials.com/downloads/HydroRIVERS_v10_sa_shp.zip>`_
+
+Data Source: [HYDROSHEDS]_
 
 Procedure
 ---------
@@ -59,26 +69,26 @@ Procedure
 
 You have entered the :guilabel:`Expression Builder`. If this is your first time working with expressions, see the official docs at `QGIS User Guide <https://docs.qgis.org/testing/en/docs/user_manual/expressions/expression.html>`_ 
 
-6. Select the :guilabel:`Expression` box on the left to input the expression as follows and click :guilabel:`OK`.
+6. Select the :guilabel:`Expression` box on the left to input the expression as follows and click :guilabel:`OK`. This expression selects river features with an upland area equal to or greater than 100 square km. 
 
   .. code-block:: none
 
-     "upland_skm" >= 100
-	 
+     "UPLAND_SKM" >= 100
+ 	 
   .. image:: /static/3/river_styling_expressions/images/6.png
     :align: center
   
-7. You have filtered for rivers with an upland area equal to or greater than 100 square km. You can adjust this threshold based on the scale of your study.
+7. The map now shows the filtered rivers with large upland areas. You can adjust this threshold based on the scale of your region.
 
   .. image:: /static/3/river_styling_expressions/images/7.png
     :align: center
 
-8. Now that we have used an expression to filter features, let us use an expression to color each river segment based on a field ``MAIN_RIV``. Scroll-down to the :guilabel:`Symbol` options in the  styling panel and select :guilabel:`Simple Line` to bring up styling options such as color, stroke width and more. Click on :guilabel:`Data define override` button for the :guilabel:`Color` and select :guilabel:`Edit...` on the menu.
+8. Now that we have used an expression to filter features, let us use an expression to color each river segment based on the field ``MAIN_RIV``. Scroll-down to the :guilabel:`Symbol` options in the  styling panel and select :guilabel:`Simple Line` to bring up styling options such as color, stroke width and more. Click on :guilabel:`Data define override` button for the :guilabel:`Color` and select :guilabel:`Edit...` on the menu.
 
   .. image:: /static/3/river_styling_expressions/images/8.png
     :align: center
 	
-9. This brings up the :guilabel:`Expression Builder` dialog for color. Enter the following expression:
+9. This brings up the :guilabel:`Expression Builder` dialog for color. Enter the expression below. This expression combines the functions ``ramp_color()`` and ``scale_linear()`` to select colors from the spectral color ramp using the range of *MAIN_RIV* id values. Click :guilabel:`OK` to exit the dialog.
 
   .. code-block:: none
 
@@ -87,9 +97,9 @@ You have entered the :guilabel:`Expression Builder`. If this is your first time 
   .. image:: /static/3/river_styling_expressions/images/9.png
     :align: center
  
-This expression combines the functions ``ramp_color()`` and ``scale_linear()`` to select colors from the spectral color ramp using the range of MAIN_RIV id values.
 
-10. Click :guilabel:`OK` to exit the dialog. At the :guilabel:`Edit Rule` dialog, click on :guilabel:`Data define override` button for :guilabel:`Stroke width` and select :guilabel:`Edit...` on the menu. Enter the following expression. The expression scales line width based on the upland area of each river segment, with a minimum of 0.01 mm to a maximum of 0.1 mm for rivers with an upland area equal to or larger than 10,000 sqkm.
+
+10. At the :guilabel:`Edit Rule` dialog, click on :guilabel:`Data define override` button for :guilabel:`Stroke width` and select :guilabel:`Edit...` on the menu. Enter the following expression. The expression scales line width based on the upland area of each river segment, with a minimum of 0.01 mm to a maximum of 0.1 mm for rivers with an upland area equal to or larger than 10,000 sqkm.
 
   .. code-block:: none
 
@@ -98,12 +108,17 @@ This expression combines the functions ``ramp_color()`` and ``scale_linear()`` t
   .. image:: /static/3/river_styling_expressions/images/10.png
     :align: center
 
-11. Click :guilabel:`OK` to exit the dialog and click :guilabel:`Apply`.
+11. Click :guilabel:`OK` to exit the dialog. The river lines will now be rendered in different widths based on their upland area. The expression needs to be evaluated for each feature and thus the rendering may take some time.
 
   .. image:: /static/3/river_styling_expressions/images/11.png
     :align: center
 
-12. Let's change the background color to black to contrast with our color choices. Navigate to :menuselection:`Project > Properties > General`. Click on the down arrow and select black. Click :guilabel:`OK` and you should see the completed river network of South America.
+12. Let's change the background color to black to contrast with our color choices. Navigate to :menuselection:`Project --> Properties --> General`. Click on the down arrow and select black. Click :guilabel:`OK`.
 
   .. image:: /static/3/river_styling_expressions/images/12.png
+    :align: center
+
+13. You should now see the completed river network of South America.
+
+  .. image:: /static/3/river_styling_expressions/images/13.png
     :align: center
