@@ -60,7 +60,7 @@ Procedure
   .. image:: /static/3/river_styling_expressions/images/4.png
     :align: center
 
-5. To filter using an expression, click the Filter :guilabel:`ε`. This will open the :guilabel:`Expression Builder`. If this is your first time working with expressions, see the official docs at `QGIS User Guide <https://docs.qgis.org/testing/en/docs/user_manual/expressions/expression.html>`_. 
+5. To filter using an expression, click the Filter :guilabel:`ε`. This will open the :guilabel:`Expression Builder`.
 
   .. image:: /static/3/river_styling_expressions/images/5.png
     :align: center
