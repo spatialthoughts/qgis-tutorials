@@ -60,14 +60,11 @@ Procedure
   .. image:: /static/3/river_styling_expressions/images/4.png
     :align: center
 
-5. To filter using an expression, click the Filter :guilabel:`ε`. 
+5. To filter using an expression, click the Filter :guilabel:`ε`. This will open the :guilabel:`Expression Builder`. If this is your first time working with expressions, see the official docs at `QGIS User Guide <https://docs.qgis.org/testing/en/docs/user_manual/expressions/expression.html>`_. 
 
   .. image:: /static/3/river_styling_expressions/images/5.png
     :align: center
 
-.. note:: 
-
-You have entered the :guilabel:`Expression Builder`. If this is your first time working with expressions, see the official docs at `QGIS User Guide <https://docs.qgis.org/testing/en/docs/user_manual/expressions/expression.html>`_ 
 
 6. Select the :guilabel:`Expression` box on the left to input the expression as follows and click :guilabel:`OK`. This expression selects river features with an upland area equal to or greater than 100 square km. 
 
