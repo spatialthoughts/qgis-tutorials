@@ -1,8 +1,8 @@
-Styling a river network with Expressions (QGIS3)
-===============================
+Styling a River Network with Expressions (QGIS3)
+================================================
 *Contributed by:* `Steven Kim <https://geographyclub.github.io/>`_
 
-The HydroRIVERS dataset provides seamless global coverage of consistently sized river reaches, supported by geometric information that allows for basic analysis of river network topology such as stream connectivity and distances. The data is a subset of the comprehensive HydroATLAS package from WWF.
+In the previous tutorial `Creating a Block World Map (QGIS3) <https://www.qgistutorials.com/en/docs/3/block_world_styling.html>`_ We created a block world out of a hex grid with elevation values. In this tutorial, we will us eexpression to create visualization for South American rivers.
 
 Overview of the task
 --------------------
@@ -11,6 +11,8 @@ We will use expressions to visualize South American rivers in a popular style, w
 
 Get the data
 ------------
+
+The HydroRIVERS dataset provides seamless global coverage of consistently sized river reaches, supported by geometric information that allows for basic analysis of river network topology such as stream connectivity and distances. The data is a subset of the comprehensive HydroATLAS package from WWF.
 
 1. `HydroRIVERS <https://www.hydrosheds.org/products/hydrorivers>`_ has links for global and regional extracts of HydroRIVERS in shapefile and geodatabase formats. Look for the links at the bottom of the page. 
 
@@ -23,7 +25,7 @@ Get the data
     :align: center
 
 For convenience, you may directly download a copy of the above layer from below:
-`ne_50m_admin_0_countries.zip <https://www.qgistutorials.com/downloads/HydroRIVERS_v10_sa.shp.zip>`_
+`ne_50m_admin_0_countries.zip <https://www.qgistutorials.com/downloads/HydroRIVERS_v10_sa_shp.zip>`_
 
 Procedure
 ---------
@@ -55,7 +57,7 @@ Procedure
 
 .. note:: 
 
-You have entered the :guilabel:`Expression Builder`. If this is your first time working with expressions, see the official docs at `QGIS User Guide <https://docs.qgis.org/3.34/en/docs/user_manual/expressions/expression.html>`_ 
+You have entered the :guilabel:`Expression Builder`. If this is your first time working with expressions, see the official docs at `QGIS User Guide <https://docs.qgis.org/testing/en/docs/user_manual/expressions/expression.html>`_ 
 
 6. Select the :guilabel:`Expression` box on the left to input the expression as follows and click :guilabel:`OK`.
 
@@ -87,14 +89,12 @@ You have entered the :guilabel:`Expression Builder`. If this is your first time 
  
 This expression combines the functions ``ramp_color()`` and ``scale_linear()`` to select colors from the spectral color ramp using the range of MAIN_RIV id values.
 
-10. Click :guilabel:`OK` to exit the dialog. At the :guilabel:`Edit Rule` dialog, click on :guilabel:`Data define override` button for :guilabel:`Stroke width` and select :guilabel:`Edit...` on the menu.
+10. Click :guilabel:`OK` to exit the dialog. At the :guilabel:`Edit Rule` dialog, click on :guilabel:`Data define override` button for :guilabel:`Stroke width` and select :guilabel:`Edit...` on the menu. Enter the following expression. The expression scales line width based on the upland area of each river segment, with a minimum of 0.01 mm to a maximum of 0.1 mm for rivers with an upland area equal to or larger than 10,000 sqkm.
 
   .. code-block:: none
 
      scale_linear("UPLAND_SKM",100,10000,0.01,0.1)
 	 
-This expression scales line width based on the upland area of each river segment, with a minimum of 0.01 mm to a maximum of 0.1 mm for rivers with an upland area equal to or larger than 10,000 sqkm.
-
   .. image:: /static/3/river_styling_expressions/images/10.png
     :align: center
 
@@ -103,7 +103,7 @@ This expression scales line width based on the upland area of each river segment
   .. image:: /static/3/river_styling_expressions/images/11.png
     :align: center
 
-12. Let's change the background color to black to contrast with our color choices. Navigate to Project > Properties > General. Click on the down arrow and select black. Click :guilabel:`OK` and you should see the completed river network of South America.
+12. Let's change the background color to black to contrast with our color choices. Navigate to :menuselection:`Project > Properties > General`. Click on the down arrow and select black. Click :guilabel:`OK` and you should see the completed river network of South America.
 
   .. image:: /static/3/river_styling_expressions/images/12.png
     :align: center
