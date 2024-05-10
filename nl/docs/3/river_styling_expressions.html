@@ -5,7 +5,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Styling a River Network with Expressions (QGIS3) &#8212; QGIS Tutorials and Tips</title>
+    <title>Een netwerk van rivieren opmaken met expressies (QGIS3) &#8212; QGIS Tutorials and Tips</title>
     <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=fa44fd50" />
     <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-sphinx.css?v=0bf093e7" />
     <script src="../../_static/documentation_options.js?v=abdfb6f9"></script>
@@ -101,7 +101,7 @@
 <li class="toctree-l1"><a class="reference internal" href="multi_criteria_overlay.html">Multi Criteria Overlay Analyse (QGIS3)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="vector_styling_expressions.html">Basis filteren en opmaken met expressies (QGIS3)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="block_world_styling.html">Een geblokte kaart van de wereld maken (QGIS3)</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Styling a River Network with Expressions (QGIS3)</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Een netwerk van rivieren opmaken met expressies (QGIS3)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="basic_network_analysis.html">Basis netwerk visualisatie en routeren (QGIS3)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="origin_destination_matrix.html">Dichtstbijzijnde faciliteit zoeken met Origin-Destination Matrix (QGIS3)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="service_area_analysis.html">Analyse Servicegebied met Openrouteservice (QGIS3)</a></li>
@@ -185,61 +185,60 @@
       
 
   <section id="styling-a-river-network-with-expressions-qgis3">
-<h1>Styling a River Network with Expressions (QGIS3)<a class="headerlink" href="#styling-a-river-network-with-expressions-qgis3" title="Link to this heading">¶</a></h1>
-<p><em>Contributed by:</em> <a class="reference external" href="https://geographyclub.github.io/">Steven Kim</a></p>
-<p>In the previous tutorial <a class="reference external" href="https://www.qgistutorials.com/en/docs/3/block_world_styling.html">Creating a Block World Map (QGIS3)</a> we used expressions for scaling values and apply a color ramp. We build on those concepts and learn how to use expressions to visualize rivers in a popular style.</p>
+<h1>Een netwerk van rivieren opmaken met expressies (QGIS3)<a class="headerlink" href="#styling-a-river-network-with-expressions-qgis3" title="Link to this heading">¶</a></h1>
+<p><em>Bijgedragen door:</em> <a class="reference external" href="https://geographyclub.github.io/">Steven Kim</a></p>
+<p>In de eerdere handleiding <a class="reference external" href="https://www.qgistutorials.com/nl/docs/3/block_world_styling.html">Een geblokte kaart van de wereld maken (QGIS3)</a> gebruikten we expressies voor het op schaal brengen van waarden en het toepassen van een kleurverloop. We bouwen voort op deze concepten en leren hoe expressies te gebruiken om rivieren te visualiseren in een populaire stijl.</p>
 <div class="admonition note">
 <p class="admonition-title">Notitie</p>
-<p>This tutorial focuses on the use of expressions for styling. You can check out our another tutorial <a class="reference internal" href="colorized_river_basin_map.html"><span class="doc">Een gekleurde rivierbekken-kaart maken (QGIS3)</span></a> that creates a different version of the map shown here using a tools-based workflow.</p>
+<p>Deze handleiding focust op het gebruiken van expressies voor opmaak. U kunt ook een andere handleiding, <a class="reference internal" href="colorized_river_basin_map.html"><span class="doc">Een gekleurde rivierbekken-kaart maken (QGIS3)</span></a>, bekijken die een andere versie van de hier gebruikte kaart laat zien met een op gereedschappen gebaseerde werkstroom.</p>
 </div>
 <section id="overview-of-the-task">
-<h2>Overview of the task<a class="headerlink" href="#overview-of-the-task" title="Link to this heading">¶</a></h2>
-<p>We will use expressions to filter and style South American rivers - with line widths representing upland area and colors representing basin id from HydroRIVERS.</p>
+<h2>Overzicht van de taak<a class="headerlink" href="#overview-of-the-task" title="Link to this heading">¶</a></h2>
+<p>We zullen expressies gebruiken om Zuid-Amerikaanse rivieren te filteren en op te maken - met lijndiktes die hoger gelegen land laten zien en kleuren die het ID van het bekken uit HydroRIVERS weergeven.</p>
 <blockquote>
 <div><img alt="../../_images/output2.png" class="align-center" src="../../_images/output2.png" />
 </div></blockquote>
 </section>
 <section id="get-the-data">
-<h2>Get the data<a class="headerlink" href="#get-the-data" title="Link to this heading">¶</a></h2>
-<p>The HydroRIVERS dataset provides seamless global coverage of consistently sized river reaches, supported by geometric information that allows for basic analysis of river network topology such as stream connectivity and distances. The data is a subset of the comprehensive HydroATLAS package from WWF. Let’s download the shapefile of rivers for South America.</p>
+<h2>De gegevens ophalen<a class="headerlink" href="#get-the-data" title="Link to this heading">¶</a></h2>
+<p>De gegevensset HydroRIVERS verschaft naadloze bedekking van consistent op grootte gebrachte bereiken van rivieren, ondersteund door geometrische informatie die basisanalyses van de topologie van netwerken van rivieren mogelijk maakt, zoals verbindingen tussen stromen en afstanden. De gegevens zijn een subset van het uitgebreide pakket HydroATLAS van WWF. Laten we de Shapefile van de rivieren in Zuid-Amerika downloaden.</p>
 <ol class="arabic simple">
-<li><p>Visit the <a class="reference external" href="https://www.hydrosheds.org/products/hydrorivers">HydroRIVERS</a> homepage.</p></li>
+<li><p>Bezoek de thuispagina van <a class="reference external" href="https://www.hydrosheds.org/products/hydrorivers">HydroRIVERS</a>.</p></li>
 </ol>
 <blockquote>
 <div><img alt="../../_images/data118.png" class="align-center" src="../../_images/data118.png" />
 </div></blockquote>
 <ol class="arabic simple" start="2">
-<li><p>The page has links for global and regional extracts of HydroRIVERS in shapefile and geodatabase formats. Scroll down and click on the download link for the <code class="docutils literal notranslate"><span class="pre">South</span> <span class="pre">America</span></code> shapefile. You will see the <code class="docutils literal notranslate"><span class="pre">HydroRIVERS_v10_sa_shp.zip</span></code> file downloaded which is used for this tutorial.</p></li>
+<li><p>De pagina heeft links voor globale en regionale extracten van de HydroRIVERS in Shapefile en indelingen voor geodatabases. Scroll maar beneden en klik op de downloadlink voor de Shapefile <code class="docutils literal notranslate"><span class="pre">South</span> <span class="pre">America</span></code>. U zult het bestand <code class="docutils literal notranslate"><span class="pre">HydroRIVERS_v10_sa_shp.zip</span></code> gedownload zien worden, wat wordt gebruikt voor deze handleiding.</p></li>
 </ol>
 <blockquote>
 <div><img alt="../../_images/data25.png" class="align-center" src="../../_images/data25.png" />
 </div></blockquote>
-<p>For convenience, you may directly download a copy of the above layer from below:
-<a class="reference external" href="https://www.qgistutorials.com/downloads/HydroRIVERS_v10_sa_shp.zip">HydroRIVERS_v10_sa_shp.zip</a></p>
-<p>Data Source: <a class="reference internal" href="../credits.html#hydrosheds" id="id1"><span>[HYDROSHEDS]</span></a></p>
+<p>Voor het gemak kunt u direct een kopie van bovenstaand bestand laden vanaf de link hieronder: <a class="reference external" href="https://www.qgistutorials.com/downloads/HydroRIVERS_v10_sa_shp.zip">HydroRIVERS_v10_sa_shp.zip</a></p>
+<p>Gegevensbron: <a class="reference internal" href="../credits.html#hydrosheds" id="id1"><span>[HYDROSHEDS]</span></a></p>
 </section>
 <section id="procedure">
 <h2>Procedure<a class="headerlink" href="#procedure" title="Link to this heading">¶</a></h2>
 <ol class="arabic simple">
-<li><p>Locate the <code class="docutils literal notranslate"><span class="pre">HydroRIVERS_v10_sa_shp.zip</span></code> file in the QGIS Browser and expand it. Select the <code class="docutils literal notranslate"><span class="pre">HydroRIVERS_v10_sa_shp/HydroRIVERS_v10_sa.shp</span></code> file and drag it to the canvas.</p></li>
+<li><p>Zoek in de QGIS Browser naar het bestand <code class="docutils literal notranslate"><span class="pre">HydroRIVERS_v10_sa_shp.zip</span></code> en vergroot het. Selecteer het bestand <code class="docutils literal notranslate"><span class="pre">HydroRIVERS_v10_sa_shp/HydroRIVERS_v10_sa.shp</span></code> en sleep het naar het kaartvenster.</p></li>
 </ol>
 <blockquote>
 <div><img alt="../../_images/1141.png" class="align-center" src="../../_images/1141.png" />
 </div></blockquote>
 <ol class="arabic simple" start="2">
-<li><p>A new layer <code class="docutils literal notranslate"><span class="pre">HydroRIVERS_v10_sa</span></code> will now be loaded in QGIS and you should see a map of rivers in South America. Click on <span class="guilabel">Open Layer Styling Panel</span>.</p></li>
+<li><p>Een nieuwe laag <code class="docutils literal notranslate"><span class="pre">HydroRIVERS_v10_sa</span></code> zal nu in QGIS worden geladen en u zou een kaart van de rivieren in Zuid-Amerika moeten zien. Klik op <span class="guilabel">Paneel Laag opmaken openen</span>.</p></li>
 </ol>
 <blockquote>
 <div><img alt="../../_images/2109.png" class="align-center" src="../../_images/2109.png" />
 </div></blockquote>
 <ol class="arabic simple" start="3">
-<li><p>Switch from <span class="guilabel">Single Symbol</span> to <span class="guilabel">Rule-based</span>.</p></li>
+<li><p>Schakel van <span class="guilabel">Enkel symbool</span> naar <span class="guilabel">Regel-gebaseerd</span>.</p></li>
 </ol>
 <blockquote>
 <div><img alt="../../_images/360.png" class="align-center" src="../../_images/360.png" />
 </div></blockquote>
 <ol class="arabic simple" start="4">
-<li><p>Double-click on the default rule to enter the <span class="guilabel">Edit Rule</span> dialog.</p></li>
+<li><p>Dubbelklik op de standaardregel om naar het dialoogvenster <span class="guilabel">Regel bewerken</span> te gaan.</p></li>
 </ol>
 <blockquote>
 <div><img alt="../../_images/430.png" class="align-center" src="../../_images/430.png" />
@@ -251,7 +250,7 @@
 <div><img alt="../../_images/528.png" class="align-center" src="../../_images/528.png" />
 </div></blockquote>
 <ol class="arabic simple" start="6">
-<li><p>Select the <span class="guilabel">Expression</span> box on the left to input the expression as follows and click <span class="guilabel">OK</span>. This expression selects river features with an upland area equal to or greater than 100 square km.</p></li>
+<li><p>Selecteer het vak <span class="guilabel">Expressie</span> aan de linkerkant om de expressie als volgt in te voeren en klik op <span class="guilabel">OK</span>. Deze expressie selecteert objecten river met een hoger gelegen land dat gelijk is aan of groter dan 100 vierkante km.</p></li>
 </ol>
 <blockquote>
 <div><div class="highlight-none notranslate"><div class="highlight"><pre><span></span>&quot;UPLAND_SKM&quot; &gt;= 100
@@ -260,19 +259,19 @@
 <img alt="../../_images/627.png" class="align-center" src="../../_images/627.png" />
 </div></blockquote>
 <ol class="arabic simple" start="7">
-<li><p>The map now shows the filtered rivers with large upland areas. You can adjust this threshold based on the scale of your region.</p></li>
+<li><p>De kaart laat nu de gefilterde rivieren zien met gebieden hoger gelegen land. U kunt deze drempel aanpassen, gebaseerd op de schaal van uw regio.</p></li>
 </ol>
 <blockquote>
 <div><img alt="../../_images/727.png" class="align-center" src="../../_images/727.png" />
 </div></blockquote>
 <ol class="arabic simple" start="8">
-<li><p>Now that we have used an expression to filter features, let us use an expression to color each river segment based on the field <code class="docutils literal notranslate"><span class="pre">MAIN_RIV</span></code>. Scroll-down to the <span class="guilabel">Symbol</span> options in the  styling panel and select <span class="guilabel">Simple Line</span> to bring up styling options such as color, stroke width and more. Click on <span class="guilabel">Data define override</span> button for the <span class="guilabel">Color</span> and select <span class="guilabel">Edit…</span> on the menu.</p></li>
+<li><p>Nu we een expressie hebben gebruikt om de objecten te filteren, laten we een expressie gebruiken om elk segment van ene rivier een kleur te geven, gebaseerd op het veld <code class="docutils literal notranslate"><span class="pre">MAIN_RIV</span></code>. Scroll naar beneden naar de opties <span class="guilabel">Symbool</span> in het paneel voor de opmaak en selecteer <span class="guilabel">Doorgetrokken lijn</span> om de opties voor de opmaak op te halen, zoals kleur, lijndikte en meer. Klik op de knop <span class="guilabel">Data-bepaalde ‘override’</span> voor de <span class="guilabel">Kleur</span> en selecteer <span class="guilabel">Bewerken…</span> in het menu.</p></li>
 </ol>
 <blockquote>
 <div><img alt="../../_images/826.png" class="align-center" src="../../_images/826.png" />
 </div></blockquote>
 <ol class="arabic simple" start="9">
-<li><p>This brings up the <span class="guilabel">Expression Builder</span> dialog for color. Enter the expression below. This expression combines the functions <code class="docutils literal notranslate"><span class="pre">ramp_color()</span></code> and <code class="docutils literal notranslate"><span class="pre">scale_linear()</span></code> to select colors from the spectral color ramp using the range of <em>MAIN_RIV</em> id values. Click <span class="guilabel">OK</span> to exit the dialog.</p></li>
+<li><p>Dit brengt het dialoogvenster <span class="guilabel">Expressie Bouwer</span> voor kleur naar voren. Voer de expressie hieronder in. Deze expressie combineert de functies <code class="docutils literal notranslate"><span class="pre">ramp_color()</span></code> en <code class="docutils literal notranslate"><span class="pre">scale_linear()</span></code> om kleuren te selecteren uit het spectrale kleurverloop binnen het bereik van de waarden ID van <em>MAIN_RIV</em>. Klik op <span class="guilabel">OK</span> om het dialoogvenster te verlaten.</p></li>
 </ol>
 <blockquote>
 <div><div class="highlight-none notranslate"><div class="highlight"><pre><span></span>ramp_color(&#39;Spectral&#39;,scale_linear(&quot;MAIN_RIV&quot;,60000001,61620963,0,1))
@@ -281,7 +280,7 @@
 <img alt="../../_images/927.png" class="align-center" src="../../_images/927.png" />
 </div></blockquote>
 <ol class="arabic simple" start="10">
-<li><p>At the <span class="guilabel">Edit Rule</span> dialog, click on <span class="guilabel">Data define override</span> button for <span class="guilabel">Stroke width</span> and select <span class="guilabel">Edit…</span> on the menu. Enter the following expression. The expression scales line width based on the upland area of each river segment, with a minimum of 0.01 mm to a maximum of 0.1 mm for rivers with an upland area equal to or larger than 10,000 sqkm.</p></li>
+<li><p>In het dialoogvenster <span class="guilabel">Regel bewerken</span>, klik op de knop <span class="guilabel">Data-bepaalde ‘override’</span> voor <span class="guilabel">Lijndikte</span> en selecteer <span class="guilabel">Bewerken…</span> in het menu. Voer de volgende expressie in. De expressie brengt de lijndikte op schaal, gebaseerd op het gebied van het hoger gelegen land van elk segment van een rivier, met een minimum van 0,01 mm tot een maximum van 0,1 mm voor rivieren met een hoger gelegen land dat gelijk is aan of groter dan 10.000 km².</p></li>
 </ol>
 <blockquote>
 <div><div class="highlight-none notranslate"><div class="highlight"><pre><span></span>scale_linear(&quot;UPLAND_SKM&quot;,100,10000,0.01,0.1)
@@ -290,19 +289,19 @@
 <img alt="../../_images/1033.png" class="align-center" src="../../_images/1033.png" />
 </div></blockquote>
 <ol class="arabic simple" start="11">
-<li><p>Click <span class="guilabel">OK</span> to exit the dialog. The river lines will now be rendered in different widths based on their upland area. The expression needs to be evaluated for each feature and thus the rendering may take some time.</p></li>
+<li><p>Klik op <span class="guilabel">OK</span> om het dialoogvenster te verlaten. De lijnen voor de rivieren zullen nu in verschillende dikten worden gerenderd, gebaseerd op hun gebied van hoger gelegen land. De expressie moet voor elk object worden geëvalueerd en dus kan het renderen even duren.</p></li>
 </ol>
 <blockquote>
 <div><img alt="../../_images/1142.png" class="align-center" src="../../_images/1142.png" />
 </div></blockquote>
 <ol class="arabic simple" start="12">
-<li><p>Let’s change the background color to black to contrast with our color choices. Navigate to <span class="menuselection">Project ‣ Properties ‣ General</span>. Click on the down arrow and select black. Click <span class="guilabel">OK</span>.</p></li>
+<li><p>Laten we de kleur van de achtergrond wijzigen naar zwart om te contrasteren met onze keuzes voor de kleuren. Navigeer naar <span class="menuselection">Project ‣ Eigenschappen ‣ Algemeen</span>. Klik op het pijltje naar beneden en selecteer zwart. Klik op <span class="guilabel">OK</span>.</p></li>
 </ol>
 <blockquote>
 <div><img alt="../../_images/1236.png" class="align-center" src="../../_images/1236.png" />
 </div></blockquote>
 <ol class="arabic simple" start="13">
-<li><p>You should now see the completed river network of South America.</p></li>
+<li><p>U zou nu het voltooide netwerk van de rivieren in Zuid-Amerika moeten zien.</p></li>
 </ol>
 <blockquote>
 <div><img alt="../../_images/1334.png" class="align-center" src="../../_images/1334.png" />
@@ -342,7 +341,7 @@
     </p>
     <p>
         &copy; Copyright 2023, Ujaval Gandhi.<br/>
-      Laatste aanpassing op mei 01, 2024.<br/>
+      Laatste aanpassing op mei 10, 2024.<br/>
       Created using <a href="http://sphinx-doc.org/">Sphinx</a> 7.2.6.<br/>
     </p>
   </div>

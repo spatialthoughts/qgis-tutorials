@@ -186,24 +186,24 @@
 
   <section id="building-a-python-plugin-qgis3">
 <h1>Construirea unui Plugin Python (QGIS3)<a class="headerlink" href="#building-a-python-plugin-qgis3" title="Link to this heading">¶</a></h1>
-<p>Plugin-urile reprezintă o modalitate foarte bună de a extinde funcționalitatea QGIS. Puteți scrie plugin-uri care folosesc Python, care pot consta în adăugarea unui simplu buton până la construirea unor instrumente sofisticate. Acest tutorial va evidenția procesul implicat în crearea mediului de dezvoltare, proiectarea interfeței cu utilizatorul pentru un plugin și scrierea de cod pentru interacțiunea cu aplicația QGIS. Vă rugăm să revedeți <a class="reference internal" href="getting_started_with_pyqgis.html"><span class="doc">Noțiuni de Bază Despre Programarea în Python (QGIS3)</span></a> pentru a vă familiariza cu elementele de bază.</p>
+<p>Plugin-urile reprezintă o modalitate foarte bună de a extinde funcționalitatea QGIS. Puteți scrie plugin-uri care folosesc Python, începând cu adăugarea unui simplu buton până la realizarea unor instrumente sofisticate. Acest tutorial pune accent pe instalarea mediului de dezvoltare, proiectarea interfeței grafice a unui plugin și scrierea codului necesar interacțiunii cu aplicația QGIS. Este indicat să parcurgeți <a class="reference internal" href="getting_started_with_pyqgis.html"><span class="doc">Noțiuni de Bază Despre Programarea în Python (QGIS3)</span></a> pentru a vă familiariza cu elementele de bază.</p>
 <div class="admonition note">
 <p class="admonition-title">Notă</p>
 <p>If you are building a new plugin, I strongly recommend building a Processing Plugin instead of the GUI plugin described in this tutorial. See  <a class="reference internal" href="processing_python_plugin.html"><span class="doc">Construirea unui Plugin de Procesare (QGIS3)</span></a> for details.</p>
 </div>
 <section id="overview-of-the-task">
 <h2>Privire de ansamblu asupra activității<a class="headerlink" href="#overview-of-the-task" title="Link to this heading">¶</a></h2>
-<p>Vom dezvolta un plugin simplu numit <code class="docutils literal notranslate"><span class="pre">Salvare</span> <span class="pre">Atribute</span></code>, care va permite utilizatorilor alegerea unui strat vectorial, și scrierea atributelor sale într-un fișier CSV.</p>
+<p>Vom dezvolta un plugin simplu numit <code class="docutils literal notranslate"><span class="pre">Salvare</span> <span class="pre">Atribute</span></code>, care va permite utilizatorilor alegerea unui strat vectorial, apoi înscrierea atributelor sale într-un fișier CSV.</p>
 </section>
 <section id="get-the-tools">
 <h2>Obținerea instrumentelor<a class="headerlink" href="#get-the-tools" title="Link to this heading">¶</a></h2>
 <section id="qt-creator">
 <h3>Qt Creator<a class="headerlink" href="#qt-creator" title="Link to this heading">¶</a></h3>
-<p><a class="reference external" href="http://www.qt.io/">Qt</a> is a software development framework that is used to develop applications that run on Windows, Mac, Linux as well as various mobile operating systems. QGIS itself is written using the Qt framework. For plugin development, we will use an application called <a class="reference external" href="https://doc.qt.io/qt-5/qtdesigner-manual.html">Qt Creator</a> to design the interface for our plugin.</p>
-<p>Download and install the Qt Creator installer from <a class="reference external" href="https://www.qt.io/offline-installers">Qt Offline Installers</a>. Make sure you select <strong>Qt Creator</strong> on the download page. Note that you will have to create a free Qt account to install the package.</p>
+<p><a class="reference external" href="http://www.qt.io/">Qt</a> este un cadru de dezvoltare de software folosit la construirea de aplicații care pot rula pe Windows, Mac, Linux, precum și pe diferite sisteme de operare mobile. Însuși QGIS este scris cu ajutorul Qt. Pentru proiectarea interfeței plugin-urilor vom utiliza aplicația <a class="reference external" href="https://doc.qt.io/qt-5/qtdesigner-manual.html">Qt Creator</a>.</p>
+<p>Descărcați și instalați programul de instalare al aplicației Qt Creator din <a class="reference external" href="https://www.qt.io/offline-installers">Qt Offline Installers</a>. Asigurați-vă că ați selectat <strong>Qt Creator</strong> în pagina de descărcare. Rețineți că va trebui să vă creați un cont Qt gratuit pentru a putea instala pachetul.</p>
 <div class="admonition note">
 <p class="admonition-title">Notă</p>
-<p>OSGeo4w installer for QGIS on Windows include a copy of <strong>Qt Designer</strong> program which is a lightweight version of <strong>Qt Creator</strong> and perfectly suitable for building plugins. You may skip downloading Qt Creator and use it instead from <span class="menuselection">C:\OSGeo4W64\bin\qgis-designer</span>.</p>
+<p>Programul de instalare OSGeo4w pentru QGIS pe Windows include o copie a programului <strong>Qt Designer</strong>, care reprezintă o versiune de <strong>Qt Creator</strong> simplificată, perfect adecvată construirii de plugin-uri. Puteți omite descărcarea Qt Creator și să folosiți în schimb <span class="menuselection">C:\OSGeo4W64\bin\qgis-designer</span>.</p>
 </div>
 <img alt="../../_images/setup1.png" class="align-center" src="../../_images/setup1.png" />
 </section>
@@ -212,7 +212,7 @@
 <p>Din moment ce dezvoltăm un plugin în Python, trebuie să instalăm legăturile Python pentru Qt. Metoda de instalare a acestora va depinde de platforma pe care o utilizați. Pentru construirea plugin-urilor avem nevoie de instrumentul în linie de comandă <code class="docutils literal notranslate"><span class="pre">pyrcc5</span></code>.</p>
 <p><strong>Windows</strong></p>
 <p>Relevant python bindings are included in the QGIS install on Windows. But to use them from the plugin folder, we need to indicate the path to the QGIS install.</p>
-<p>Create a Windows Batch file (.bat extension) with the following content and save it on your computer as <code class="docutils literal notranslate"><span class="pre">compile.bat</span></code>. We will later copy this file to the plugin folder. If you installed QGIS at a different path, replace the <code class="docutils literal notranslate"><span class="pre">C:\OSGeo4W64\bin\</span></code> with your path.</p>
+<p>Creați un fișier de comenzi Windows (cu extensia .bat) în care inserați următorul conținut, apoi salvați-l pe computerul dvs. sub denumirea de <code class="docutils literal notranslate"><span class="pre">compile.bat</span></code>. Ulterior vom copia acest fișier în folderul pluginului. Dacă ați instalat QGIS într-o altă locație, înlocuiți <code class="docutils literal notranslate"><span class="pre">C:\OSGeo4W64\bin\</span></code> cu calea dvs.</p>
 <div class="highlight-none notranslate"><div class="highlight"><pre><span></span>@echo off
 call &quot;C:\OSGeo4W64\bin\o4w_env.bat&quot;
 call &quot;C:\OSGeo4W64\bin\qt5_env.bat&quot;
@@ -224,12 +224,12 @@ pyrcc5 -o resources.py resources.qrc
 </div>
 <img alt="../../_images/setup2.png" class="align-center" src="../../_images/setup2.png" />
 <p><strong>Mac</strong></p>
-<p>Install the <a class="reference external" href="http://brew.sh">Homebrew</a> package manager. Install <code class="docutils literal notranslate"><span class="pre">PyQt</span></code> package by running the following command:</p>
+<p>Instalați managerul de pachete <a class="reference external" href="http://brew.sh">Homebrew</a>. Instalați pachetul <code class="docutils literal notranslate"><span class="pre">PyQt</span></code>, prin rularea următoarei comenzi:</p>
 <div class="highlight-none notranslate"><div class="highlight"><pre><span></span>brew install pyqt
 </pre></div>
 </div>
 <dl class="simple">
-<dt><strong>Linux</strong></dt><dd><p>Depending on your distribution, find and install the <code class="docutils literal notranslate"><span class="pre">python-qt5</span></code> package. On Ubuntu and Debian-based distributions, you can run the following command:</p>
+<dt><strong>Linux</strong></dt><dd><p>În funcție de distribuția dvs., găsiți și instalați pachetul <code class="docutils literal notranslate"><span class="pre">python-q5</span></code>. În distribuțiile bazate pe Ubuntu și Debian, aveți posibilitatea să executați următoarea comandă:</p>
 </dd>
 </dl>
 <div class="highlight-none notranslate"><div class="highlight"><pre><span></span>sudo apt-get install python-qt5
@@ -237,50 +237,49 @@ pyrcc5 -o resources.py resources.qrc
 </div>
 <div class="admonition note">
 <p class="admonition-title">Notă</p>
-<p>You may find that QGIS has already installed this package.</p>
+<p>Este posibil să descoperiți că în QGIS acest pachet este instalat deja.</p>
 </div>
 </section>
 <section id="a-text-editor-or-a-python-ide">
-<h3>A Text Editor or a Python IDE<a class="headerlink" href="#a-text-editor-or-a-python-ide" title="Link to this heading">¶</a></h3>
-<p>Any kind of software development requires a good text editor. If you already have a favorite text editor or an IDE (Integrated Development Environment), you may use it for this tutorial. Otherwise, each platform offers a wide variety of free or paid options for text editors. Choose the one that fits your needs.</p>
-<p>This tutorial uses Notepad++ editor on Windows.</p>
+<h3>Un Editor de Text sau un IDE Python<a class="headerlink" href="#a-text-editor-or-a-python-ide" title="Link to this heading">¶</a></h3>
+<p>Orice fel de dezvoltare software necesită un editor de text bun. Dacă aveți deja un editor de text favorit sau un IDE (Mediu Integrat de Dezvoltare), îl puteți folosi pentru acest tutorial. În caz contrar, fiecare platformă oferă o largă varietate de opțiuni gratuite, sau plătite, de editoare de text. Alegeți una care se potrivește nevoilor dumneavoastră.</p>
+<p>Acest tutorial folosește editorul Notepad++ pe Windows.</p>
 <p><strong>Windows</strong></p>
-<p><a class="reference external" href="http://notepad-plus-plus.org/">Notepad++</a> is a good free editor for windows.
-Download and install the <a class="reference external" href="https://notepad-plus-plus.org/download/">Notepad++ editor</a>.</p>
+<p><a class="reference external" href="http://notepad-plus-plus.org/">Notepad++</a> este un bun editor gratuit pentru Windows. Descărcați și instalați editorul Notepad++ &lt;<a class="reference external" href="https://notepad-plus-plus.org/download/">https://notepad-plus-plus.org/download/</a>&gt;`_.</p>
 <div class="admonition note">
 <p class="admonition-title">Notă</p>
-<p>If you are using Notepad++, makes sure to go to <span class="menuselection">Settings ‣ Preferences ‣ Tab Settings</span> and enable <span class="guilabel">Replace by space</span>. Python is very sensitive about whitespace and this setting will ensure tabs and spaces are treated properly.</p>
+<p>Dacă utilizați Notepad++, asigurați-vă că ați bifat <span class="guilabel">Înlocuiește cu spațiu gol</span> în <span class="menuselection">Setări ‣ Preferințe ‣ Tabulator</span>. Python este foarte sensibil la spațiile albe, iar această setare vă asigură că tab-urile și spațiile sunt tratate în mod corespunzător.</p>
 </div>
 </section>
 <section id="plugin-builder-plugin">
-<h3>Plugin Builder plugin<a class="headerlink" href="#plugin-builder-plugin" title="Link to this heading">¶</a></h3>
-<p>There is a helpful QGIS plugin named <code class="docutils literal notranslate"><span class="pre">Plugin</span> <span class="pre">Builder</span></code> which creates all the necessary files and the boilerplate code for a plugin. Find and install the <code class="docutils literal notranslate"><span class="pre">Plugin</span> <span class="pre">Builder</span></code> plugin. See <a class="reference internal" href="../using_plugins.html"><span class="doc">Utilizarea Plugin-urilor</span></a> for more details on how to install plugins.</p>
+<h3>Plugin Builder<a class="headerlink" href="#plugin-builder-plugin" title="Link to this heading">¶</a></h3>
+<p>Există un plugin QGIS util, denumit <code class="docutils literal notranslate"><span class="pre">Plugin</span> <span class="pre">Builder</span></code>, care creează toate fișierele necesare și șabloanele de cod necesare unui plugin. Găsiți și instalați <code class="docutils literal notranslate"><span class="pre">Plugin</span> <span class="pre">Builder</span></code>. Parcurgeți <a class="reference internal" href="../using_plugins.html"><span class="doc">Utilizarea Plugin-urilor</span></a> pentru mai multe detalii despre instalarea pluginurilor.</p>
 </section>
 <section id="plugins-reloader-plugin">
-<h3>Plugins Reloader plugin<a class="headerlink" href="#plugins-reloader-plugin" title="Link to this heading">¶</a></h3>
-<p>This is another helper plugin which allows iterative development of plugins. Using this plugin, you can change your plugin code and have it reflected in QGIS without having to restart QGIS every time. Find and install the <code class="docutils literal notranslate"><span class="pre">Plugin</span> <span class="pre">Reloader</span></code> plugin. See <a class="reference internal" href="../using_plugins.html"><span class="doc">Utilizarea Plugin-urilor</span></a> for more details on how to install plugins.</p>
+<h3>Plugins Reloader<a class="headerlink" href="#plugins-reloader-plugin" title="Link to this heading">¶</a></h3>
+<p>Acesta este un alt plugin util, care permite dezvoltarea iterativă a plugin-urilor. Folosiți-l pentru a beneficia de răspunsul imediat la orice modificare de cod, fără a reporni QGIS de fiecare dată. Găsiți și instalați <code class="docutils literal notranslate"><span class="pre">Plugin</span> <span class="pre">Reloader</span></code>. Parcurgeți <a class="reference internal" href="../using_plugins.html"><span class="doc">Utilizarea Plugin-urilor</span></a> pentru mai multe detalii despre instalarea pluginurilor.</p>
 <div class="admonition note">
 <p class="admonition-title">Notă</p>
-<p>Plugin Reloader is an experimental plugin. Make sure you have checked <span class="guilabel">Show also experimental plugins</span> in <span class="guilabel">Plugin Manager</span> settings if you cannot find it.</p>
+<p>Plugin Reloader este un plugin experimental. Dacă nu-l puteți găsi, asigurați-vă că este bifată, în setările <span class="guilabel">Managerului de Plugin-uri</span>, <span class="guilabel">Afișarea Pluginurilor experimentale</span>.</p>
 </div>
 </section>
 </section>
 <section id="procedure">
-<h2>Procedure<a class="headerlink" href="#procedure" title="Link to this heading">¶</a></h2>
+<h2>Procedura<a class="headerlink" href="#procedure" title="Link to this heading">¶</a></h2>
 <ol class="arabic simple">
-<li><p>Open QGIS. Go to <span class="menuselection">Plugins ‣ Plugin Builder ‣ Plugin Builder</span>.</p></li>
+<li><p>Deschideți QGIS. Mergeți la <span class="menuselection">Plugins ‣ Plugin Builder ‣ Plugin Builder</span>.</p></li>
 </ol>
 <blockquote>
 <div><img alt="../../_images/129.png" class="align-center" src="../../_images/129.png" />
 </div></blockquote>
 <ol class="arabic simple" start="2">
-<li><p>You will see the <span class="guilabel">QGIS Plugin Builder</span> dialog with a form. You can fill the form with details relating to our plugin. The <span class="guilabel">Class name</span> will be the name of the Python Class containing the logic of the plugin. This will also be the name of the folder containing all the plugin files. Enter <code class="docutils literal notranslate"><span class="pre">SaveAttributes</span></code> as the class name. The <span class="guilabel">Plugin name</span> is the name under which your plugin will appear in the    <span class="guilabel">Plugin Manager</span>. Enter the name as <code class="docutils literal notranslate"><span class="pre">Save</span> <span class="pre">Attributes</span></code>. Add a description in the <span class="guilabel">Description</span> field. The <span class="guilabel">Module name</span> will be the name of the main python file for the plugin. Enter it as <code class="docutils literal notranslate"><span class="pre">save_attributes</span></code>. Leave the version numbers as they are and enter your name and email address in the appropriate fields. Click <span class="guilabel">Next</span>.</p></li>
+<li><p>Veți vedea un formular în interiorul ferestrei <span class="guilabel">QGIS Plugin Builder</span>. Puteți completa formularul cu datele referitoare la viitorul plugin. La <span class="guilabel">Numele clasei</span> se va specifica clasa Python care conține logica pluginului. Aceeași denumire se va utiliza pentru folderul care conține toate fișierele pluginului. Introduceți <code class="docutils literal notranslate"><span class="pre">SaveAttributes</span></code> ca nume al clasei. <span class="guilabel">Numele Pluginului</span> reprezintă denumirea sub care pluginul se va regăsi în <span class="guilabel">Managerul de Pluginuri</span>. Introduceți denumirea <code class="docutils literal notranslate"><span class="pre">Save</span> <span class="pre">Attributes</span></code>. Adăugați o descriere în câmpul <span class="guilabel">Descriere</span>. <span class="guilabel">Numele modulului</span> reprezintă numele principalului fișier python al pluginului. Introduceți denumirea <code class="docutils literal notranslate"><span class="pre">save_attributes</span></code>. Lăsați numerele de versiune așa cum sunt, apoi introduceți numele și adresa de email în câmpurile corespunzătoare. Clic pe <span class="guilabel">Next</span>.</p></li>
 </ol>
 <blockquote>
 <div><img alt="../../_images/219.png" class="align-center" src="../../_images/219.png" />
 </div></blockquote>
 <ol class="arabic simple" start="3">
-<li><p>Enter a brief description of the plugin for the <span class="guilabel">About</span> dialog and click <span class="guilabel">Next</span>.</p></li>
+<li><p>Introduceți o scurtă descriere a pluginului în fereastra de dialog <span class="guilabel">About</span> apoi apăsați pe <span class="guilabel">OK</span>.</p></li>
 </ol>
 <blockquote>
 <div><img alt="../../_images/317.png" class="align-center" src="../../_images/317.png" />
@@ -492,7 +491,7 @@ Download and install the <a class="reference external" href="https://notepad-plu
 <div><img alt="../../_images/294.png" class="align-center" src="../../_images/294.png" />
 </div></blockquote>
 <ol class="arabic" start="30">
-<li><p>When you click <span class="guilabel">OK</span> on the plugin dialog, nothing happens. That  is because we have not added the logic to pull attribute information from the layer and write it to the text file. We now have all the pieces in place to do just that. Find the place in the <code class="docutils literal notranslate"><span class="pre">run</span></code> method where it says <code class="docutils literal notranslate"><span class="pre">pass</span></code>. Replace it with the code below. The explanation for this code can be found in <a class="reference internal" href="getting_started_with_pyqgis.html"><span class="doc">Noțiuni de Bază Despre Programarea în Python (QGIS3)</span></a>.</p>
+<li><p>Când faceți clic pe <span class="guilabel">OK</span> din dialogul plugin-ului, nu se întâmplă nimic. Asta pentru că nu am adăugat logica de extragere a informațiilor atributelor stratului, și pentru a le scrie în fișierul text. Avem acum toate piesele la locul lor, doar pentru a face asta. Găsiți locul din  metoda <code class="docutils literal notranslate"><span class="pre">run</span></code> unde scrie <code class="docutils literal notranslate"><span class="pre">pass</span></code>. Înlocuiți-l cu codul de mai jos. Explicațiile acestui cod pot fi găsite în <a class="reference internal" href="getting_started_with_pyqgis.html"><span class="doc">Noțiuni de Bază Despre Programarea în Python (QGIS3)</span></a>.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">filename</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">dlg</span><span class="o">.</span><span class="n">lineEdit</span><span class="o">.</span><span class="n">text</span><span class="p">()</span>
 <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">output_file</span><span class="p">:</span>
   <span class="n">selectedLayerIndex</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">dlg</span><span class="o">.</span><span class="n">comboBox</span><span class="o">.</span><span class="n">currentIndex</span><span class="p">()</span>
@@ -802,7 +801,7 @@ upload it to the QGIS plugin repository.</p>
     </p>
     <p>
         &copy; Copyright 2023, Ujaval Gandhi.<br/>
-      Ultima actualizare la mai 01, 2024.<br/>
+      Ultima actualizare la mai 10, 2024.<br/>
       Created using <a href="http://sphinx-doc.org/">Sphinx</a> 7.2.6.<br/>
     </p>
   </div>
