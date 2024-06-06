@@ -102,6 +102,7 @@
 <li class="toctree-l1"><a class="reference internal" href="vector_styling_expressions.html">Grundlagen für Filterung und Gestaltung mit Ausdrücken (QGIS3)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="block_world_styling.html">Erstellung einer Weltkarte im Gitter-Stil (QGIS3)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="river_styling_expressions.html">Styling a River Network with Expressions (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="contour_3d_styling.html">Styling Contours in 3D (QGIS3)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="basic_network_analysis.html">Einfache Netzwerkvisualisierung und Routing (QGIS3)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="origin_destination_matrix.html">Lokalisierung der nächstgelegenen Einrichtung mit einer Quelle-Ziel-Matrix (QGIS3)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="service_area_analysis.html">Einzugsgebietsanalyse mit dem Openrouteservice (QGIS3)</a></li>
@@ -203,9 +204,9 @@
 <h2>Beschaffung der Daten<a class="headerlink" href="#get-the-data" title="Link to this heading">¶</a></h2>
 <p>Die <a class="reference external" href="https://data.melbourne.vic.gov.au/">Open-Data-Plattform der Stadt Melbourne</a> bietet viele Datensätze über die Stadt an, die mit einem GIS verarbeitet werden können.</p>
 <p>Wir laden den Datensatz der U-Bahnstationen Melbournes herunter: <a class="reference external" href="https://data.melbourne.vic.gov.au/Transport-Movement/Metro-Train-Stations-with-Accessibility-Informatio/mgkp-67ad">Metro Train Stations with Accessibility Information</a>. Die Daten sollen im <em>Original</em> Format exportiert werden.</p>
-<img alt="../../_images/data110.png" class="align-center" src="../../_images/data110.png" />
+<img alt="../../_images/data114.png" class="align-center" src="../../_images/data114.png" />
 <p>Wir laden folgenden Datensatz herunter: <a class="reference external" href="https://data.melbourne.vic.gov.au/Economy/Bars-and-pubs-with-patron-capacity/mffi-m9yn">Bars and pubs, with patron capacity</a>. Der Datensatz wird von der Behörde City of Melbourne’s Census of Land Use and Employment (CLUE) bereit gestellt. Wir exportieren die Daten als <em>CSV</em>.</p>
-<img alt="../../_images/data24.png" class="align-center" src="../../_images/data24.png" />
+<img alt="../../_images/data25.png" class="align-center" src="../../_images/data25.png" />
 <p>Der Einfachheit halber können wir eine Kopie der Datensätze unter folgenden Links herunterladen:</p>
 <p><a class="reference external" href="https://www.qgistutorials.com/downloads/metro_stations_accessbility.zip">metro_stations_accessbility.zip</a></p>
 <p><a class="reference external" href="https://www.qgistutorials.com/downloads/Bars_and_pubs__with_patron_capacity.csv">Bars_and_pubs__with_patron_capacity</a></p>
@@ -217,13 +218,13 @@
 <li><p>Wir suchen im QGIS-Browser den Datensatz <code class="docutils literal notranslate"><span class="pre">metro_stations_accessbility.zip</span></code> und erweitern ihn. Die Datei <code class="docutils literal notranslate"><span class="pre">metro_stations_accessbility.shp</span></code> ziehen wir in den Arbeitsbereich. Der neue Layer <code class="docutils literal notranslate"><span class="pre">metro_stations_accessbility</span></code> wird nun im <span class="guilabel">Layer</span>-Panel angezeigt.</p></li>
 </ol>
 <blockquote>
-<div><img alt="../../_images/1107.png" class="align-center" src="../../_images/1107.png" />
+<div><img alt="../../_images/1108.png" class="align-center" src="../../_images/1108.png" />
 </div></blockquote>
 <ol class="arabic simple" start="2">
 <li><p>Der Datenlayer der Bars und Pubs liegt im CSV-Format vor. Um ihn in QGIS zu laden, wählen wir <span class="menuselection">Layer ‣ Layer hinzufügen ‣ Getrennte Textdatei als Layer hinzufügen…</span>. (Siehe <a class="reference internal" href="importing_spreadsheets_csv.html"><span class="doc">Import von Tabellenblättern oder CSV-Dateien (QGIS3)</span></a> für weitere Details zum Import von CSV-Dateien)</p></li>
 </ol>
 <blockquote>
-<div><img alt="../../_images/2102.png" class="align-center" src="../../_images/2102.png" />
+<div><img alt="../../_images/2103.png" class="align-center" src="../../_images/2103.png" />
 </div></blockquote>
 <ol class="arabic simple" start="3">
 <li><p>Im Fenster <span class="guilabel">Datenquellenverwaltung | Getrennte Texte</span> wählen wir als <span class="guilabel">Dateiname</span> die Datei <code class="docutils literal notranslate"><span class="pre">Bars_and_pubs__with_patron_capacity.csv</span></code> aus. Die Werte <span class="guilabel">X-Feld</span> und <span class="guilabel">Y-Feld</span> sollten schon mit <code class="docutils literal notranslate"><span class="pre">x</span> <span class="pre">coordinate</span></code> und <code class="docutils literal notranslate"><span class="pre">y</span> <span class="pre">coordinate</span></code> gefüllt sein. Wir betätigen die Schaltfläche <span class="guilabel">Hinzufügen</span>.</p></li>
@@ -235,25 +236,25 @@
 <li><p>Ein neuer Layer <code class="docutils literal notranslate"><span class="pre">Bars_and_pubs__with_patron_capacity</span></code> wird zum <span class="guilabel">Layer</span>-Panel hinzugefügt. Beide Eingabelayer sind im Koordinatenbezugssystem (KBS) <code class="docutils literal notranslate"><span class="pre">EPSG:4326</span> <span class="pre">WGS84</span></code>. definiert. Um räumliche Analysen ausführen zu können, wird empfohlen, ein projiziertes Koordinatenbezugssystem (KBS) zu verwenden. Deshalb werden wir zunächst die Layer in ein geeignetes regionales KBS reprojizieren, welches Verzerrungen minimiert und uns erlaubt, mit Abstandseinheiten wie Metern anstelle geographischer Grade zu arbeiten. Dazu wählen wir <span class="menuselection">Verarbeitung ‣ Werkzeugkiste</span>.</p></li>
 </ol>
 <blockquote>
-<div><img alt="../../_images/423.png" class="align-center" src="../../_images/423.png" />
+<div><img alt="../../_images/424.png" class="align-center" src="../../_images/424.png" />
 </div></blockquote>
 <ol class="arabic simple" start="5">
 <li><p>Wir suchen das Werkzeug <span class="menuselection">Vektoren allgemein ‣ Layer reprojizieren</span> und starten es durch Doppelklick.</p></li>
 </ol>
 <blockquote>
-<div><img alt="../../_images/521.png" class="align-center" src="../../_images/521.png" />
+<div><img alt="../../_images/522.png" class="align-center" src="../../_images/522.png" />
 </div></blockquote>
 <ol class="arabic simple" start="6">
 <li><p>Wir wählen <code class="docutils literal notranslate"><span class="pre">Bars_and_pubs__with_patron_capacity</span></code> als <span class="guilabel">Eingabelayer</span> und betätigen die Schaltfläche <span class="guilabel">KBS wählen</span> neben <span class="guilabel">Ziel KBS</span>.</p></li>
 </ol>
 <blockquote>
-<div><img alt="../../_images/621.png" class="align-center" src="../../_images/621.png" />
+<div><img alt="../../_images/622.png" class="align-center" src="../../_images/622.png" />
 </div></blockquote>
 <ol class="arabic simple" start="7">
 <li><p>Bei einem projizierten Koordinatenbezugssystem für unsere Analyse sollte es sich um ein regionales KBS für das betreffende Gebiet handeln. Für Australien ist das <a class="reference external" href="https://www.ga.gov.au/scientific-topics/positioning-navigation/geodesy/datums-projections/grid2020">Map Grid of Australia (MGA) 2020</a> ein UTM-basiertes Gittersystem, das für lokale und regionale Karten verwendet wird. Melbourne liegt in der UTM-Zone 55, sodass wir das KBS <cite>GDA 2020 / MGA zone 55 EPSG:7855`</cite> auswählen können.</p></li>
 </ol>
 <blockquote>
-<div><img alt="../../_images/720.png" class="align-center" src="../../_images/720.png" />
+<div><img alt="../../_images/721.png" class="align-center" src="../../_images/721.png" />
 </div></blockquote>
 <div class="admonition note">
 <p class="admonition-title">Bemerkung</p>
@@ -263,49 +264,49 @@
 <li><p>Als nächstes betätigen wir die Schaltfläche <span class="guilabel">…</span> neben <span class="guilabel">Reprojiziert</span> und wählen <code class="docutils literal notranslate"><span class="pre">Speichere</span> <span class="pre">in</span> <span class="pre">GeoPackage...</span></code>. <a class="reference external" href="https://www.geopackage.org/">Geopackage</a> ist das empfohlene offene Format für räumliche Daten und das Standardaustauschformat in QGIS3. Eine einzelne GeoPackage-Datei (<code class="docutils literal notranslate"><span class="pre">.gpkg</span></code>) kann mehrere Vektor- und Rasterlayer enthalten.</p></li>
 </ol>
 <blockquote>
-<div><img alt="../../_images/820.png" class="align-center" src="../../_images/820.png" />
+<div><img alt="../../_images/821.png" class="align-center" src="../../_images/821.png" />
 </div></blockquote>
 <ol class="arabic simple" start="9">
 <li><p>Wir nennen das GeoPackage <code class="docutils literal notranslate"><span class="pre">spatialquery</span></code> und betätigen die Schaltfläche <span class="guilabel">Speichern</span>.</p></li>
 </ol>
 <blockquote>
-<div><img alt="../../_images/920.png" class="align-center" src="../../_images/920.png" />
+<div><img alt="../../_images/921.png" class="align-center" src="../../_images/921.png" />
 </div></blockquote>
 <ol class="arabic simple" start="10">
 <li><p>Bei der Abfrage des Layernamens geben wir <code class="docutils literal notranslate"><span class="pre">bars_and_pubs</span></code> ein und bestätigen mit <span class="guilabel">OK</span>. Dann betätigen wir die Schaltfläche <span class="guilabel">Starte</span>, um den Layer zu reprojizieren.</p></li>
 </ol>
 <blockquote>
-<div><img alt="../../_images/1027.png" class="align-center" src="../../_images/1027.png" />
+<div><img alt="../../_images/1028.png" class="align-center" src="../../_images/1028.png" />
 </div></blockquote>
 <ol class="arabic simple" start="11">
 <li><p>Das Fenster zeigt nach Ausführung des Algorithmus den <span class="guilabel">Protokoll</span> Tab. Die Erstellung des Ausgabelayers <code class="docutils literal notranslate"><span class="pre">bars_and_pubs</span></code> wird hier angezeigt.</p></li>
 </ol>
 <blockquote>
-<div><img alt="../../_images/1130.png" class="align-center" src="../../_images/1130.png" />
+<div><img alt="../../_images/1131.png" class="align-center" src="../../_images/1131.png" />
 </div></blockquote>
 <ol class="arabic simple" start="12">
 <li><p>Jetzt werden wir den Layer <code class="docutils literal notranslate"><span class="pre">metro_stations_accessbility</span></code> reprojizieren. Dazu wechseln wir im Fenster <span class="guilabel">Layer reprojizieren</span> zurück zum Tab <span class="guilabel">Parameter</span>. Wir wählen <code class="docutils literal notranslate"><span class="pre">metro_stations_accessbility</span></code> als <span class="guilabel">Eingabelayer</span>. Das <span class="guilabel">Ziel KBS</span> lassen wir unverändert. Dann betätigen wir die Schaltfläche <span class="guilabel">…</span> neben <span class="guilabel">Reprojiziert</span> und wählen <code class="docutils literal notranslate"><span class="pre">Speichere</span> <span class="pre">in</span> <span class="pre">GeoPackage...</span></code>. Wir wählen dieselbe Ausgabedatei <code class="docutils literal notranslate"><span class="pre">spatialquery</span></code>. (Eine GeoPackage-Datei kann mehrere Layer enthalten, sodass wir auch den neuen Layer in derselben Datei speichern können.) Wir geben <code class="docutils literal notranslate"><span class="pre">metro_stations</span></code> als <span class="guilabel">Layername</span> ein und betätigen die Schaltfläche <span class="guilabel">Starte</span>.</p></li>
 </ol>
 <blockquote>
-<div><img alt="../../_images/1228.png" class="align-center" src="../../_images/1228.png" />
+<div><img alt="../../_images/1229.png" class="align-center" src="../../_images/1229.png" />
 </div></blockquote>
 <ol class="arabic simple" start="13">
 <li><p>Zurück im QGIS Hauptfenster sehen wir 2 neue Layer im <span class="guilabel">Layer</span> Bereich: <code class="docutils literal notranslate"><span class="pre">bars_and_pubs</span></code> und <code class="docutils literal notranslate"><span class="pre">metro_stations</span></code>. Die Sichtbarkeit der Ausgangslayer können wir ausschalten. Jetzt führen wir die räumliche Abfrage aus. Da wir die Bars und Pubs in einem Umkreis von 500m um die U-Bahnstationen suchen, ist der erste Schritt die Erstellung eines Puffers um die U-Bahnstationen. Der Puffer repräsentiert unser Suchgebiet. Gehe unter <span class="guilabel">Verarbeitungswerzeuge</span> zu <span class="menuselection">Vektoren allgemein ‣ Puffer</span> und klicke zum Start doppelt darauf.</p></li>
 </ol>
 <blockquote>
-<div><img alt="../../_images/1326.png" class="align-center" src="../../_images/1326.png" />
+<div><img alt="../../_images/1327.png" class="align-center" src="../../_images/1327.png" />
 </div></blockquote>
 <ol class="arabic simple" start="14">
 <li><p>In the <span class="guilabel">Buffer</span> dialog, select <code class="docutils literal notranslate"><span class="pre">metro_stations</span></code> as the <span class="guilabel">Input layer</span>. Set <code class="docutils literal notranslate"><span class="pre">500</span></code> meters as the <span class="guilabel">Distance</span>. Save the output to the same <code class="docutils literal notranslate"><span class="pre">spatialquery</span></code> geopackage and enter <code class="docutils literal notranslate"><span class="pre">metro_stations_buffers</span></code> as the <span class="guilabel">Layer name</span>. Click <span class="guilabel">Run</span>.</p></li>
 </ol>
 <blockquote>
-<div><img alt="../../_images/1424.png" class="align-center" src="../../_images/1424.png" />
+<div><img alt="../../_images/1425.png" class="align-center" src="../../_images/1425.png" />
 </div></blockquote>
 <ol class="arabic simple" start="15">
 <li><p>Wir sehen den neu hinzugefügten Layer <code class="docutils literal notranslate"><span class="pre">metro_stations_puffer</span></code> im Bereich <span class="guilabel">Layer</span>. Nun können wir ermitteln, welche Punkte des Layers <code class="docutils literal notranslate"><span class="pre">bars_and_pubs</span></code> innerhalb der Fläche des Layers <code class="docutils literal notranslate"><span class="pre">metro_stations_puffer</span></code> liegen. Gehe unter <span class="guilabel">Verarbeitungswerkzeuge</span> zu <span class="menuselection">Vektorauswahl ‣ Nach Position extrahieren</span> und klicke zum Start doppelt darauf.</p></li>
 </ol>
 <blockquote>
-<div><img alt="../../_images/1521.png" class="align-center" src="../../_images/1521.png" />
+<div><img alt="../../_images/1522.png" class="align-center" src="../../_images/1522.png" />
 </div></blockquote>
 <div class="admonition note">
 <p class="admonition-title">Bemerkung</p>
@@ -315,13 +316,13 @@
 <li><p>Im Dialogfenster <span class="guilabel">Nach Position extrahieren</span> wählen wir <code class="docutils literal notranslate"><span class="pre">bars_and_pubs</span></code> als <span class="guilabel">Objekte extrahieren aus</span>. Wähle <code class="docutils literal notranslate"><span class="pre">Schneidet</span></code> als <span class="guilabel">geometrisches Prädikat</span>. Setze <code class="docutils literal notranslate"><span class="pre">metro_stations_puffer</span></code> bei <span class="guilabel">Durch Vergleich mit Objekte aus</span> ein. Speichere die Ausgabe in die geopackage <code class="docutils literal notranslate"><span class="pre">spatialquery</span></code> als Layer <code class="docutils literal notranslate"><span class="pre">ausgewählt</span></code>. Klicke auf <span class="guilabel">Starte</span>.</p></li>
 </ol>
 <blockquote>
-<div><img alt="../../_images/1620.png" class="align-center" src="../../_images/1620.png" />
+<div><img alt="../../_images/1621.png" class="align-center" src="../../_images/1621.png" />
 </div></blockquote>
 <ol class="arabic simple" start="17">
 <li><p>Nachdem der Prozess abgeschlossen wurde, sehen wir wie der Layer <code class="docutils literal notranslate"><span class="pre">ausgewählt</span></code> neu im Bereich <span class="guilabel">Layer</span> erscheint. Beachte, dass dieser Layer nur die Punkte enthält, die innerhalb der Pufferpolygone liegen.</p></li>
 </ol>
 <blockquote>
-<div><img alt="../../_images/1721.png" class="align-center" src="../../_images/1721.png" />
+<div><img alt="../../_images/1722.png" class="align-center" src="../../_images/1722.png" />
 </div></blockquote>
 <ol class="arabic simple" start="18">
 <li><p>Unsere Analyse ist abgeschlossen. Wir bemerken vielleicht, dass die Pufferpolygone oval sind. Das liegt daran, dass unser Projekt KBS noch auf <strong>EPSG:4326 WGS84</strong> eingestellt ist. Um die Ergebnisse besser zu visualisieren, können wir unter <span class="menuselection">Projekt ‣ Eigenschaften ‣ KBS</span> das KBS <code class="docutils literal notranslate"><span class="pre">GDA</span> <span class="pre">2020</span> <span class="pre">/</span> <span class="pre">MGA</span> <span class="pre">zone</span> <span class="pre">55</span> <span class="pre">EPSG:7855</span></code> wählen, dass wir auch für die Analyse verwendet haben. Nachdem wir das KBS eingestellt haben, erscheinen die Puffer mit ihrer korrekten Form.</p></li>
@@ -364,7 +365,7 @@
     </p>
     <p>
         &copy; Copyright 2023, Ujaval Gandhi.<br/>
-      Zuletzt aktualisiert am Mai 10, 2024.<br/>
+      Zuletzt aktualisiert am Juni 06, 2024.<br/>
       Created using <a href="http://sphinx-doc.org/">Sphinx</a> 7.2.6.<br/>
     </p>
   </div>
