@@ -12,11 +12,6 @@ We will use a geometry generator symbol layer to dynamically apply an offset to 
   .. image:: /static/3/contour_3d_styling/images/output.png
     :align: center
     
-Other skills you will learn
-^^^^^^^^^^^^^^^^^^^^^^^^^^^
-- How to obtain minimum and maximum values for an attribute of a vector layer.
-
-
 Get the data
 ------------
 
@@ -64,85 +59,75 @@ Procedure
   .. image:: /static/3/contour_3d_styling/images/2.png
     :align: center
 
-3. Right-click the `Elev_Contour` layer and choose :guilabel:`Open Attribute Table`. You will notice that the field ``contourinterval`` contains the elevation value for each contour line. This field name is important and is used in the expressions in subsequent steps. Before we apply the style, we need to find the minimum and maximum value of the elevation in the layer. Go to :menuselection:`Processing --> Toolbox`.
+3. Right-click the `Elev_Contour` layer and choose :guilabel:`Open Attribute Table`. You will notice that the field ``contourinterval`` contains the elevation value for each contour line. This field name is important and is used in the expressions in subsequent steps.
 
   .. image:: /static/3/contour_3d_styling/images/3.png
     :align: center
 
-4. Search and locate the :menuselection:`Vector analysis --> Basic statistics for fields` algorithm. Double-click to open it.
+
+4. We are now ready to style the contours. Before continuing, we must first add a color ramp suitable for coloring elevation. If you already have added the `wiki-1.02` color ramp for our previous tutorial :doc:`block_world_styling`, you can skip to Step 12. Click on :guilabel:`Settings` in the menubar and select :guilabel:`Style Manager`. 
 
   .. image:: /static/3/contour_3d_styling/images/4.png
     :align: center
 
-5. Select `Elev_Contour` as the :guilabel:`Input layer` and `contourelevation` as the :guilabel:`Field to calculate statistics on`. Click :guilabel:`Run`.
+5. Click on the plus sign :guilabel:`Add item` at the bottom and select :menuselection:`Catalog: cpt-city...`.
 
   .. image:: /static/3/contour_3d_styling/images/5.png
     :align: center
 
-6. Once the processing finishes, the :guilabel:`Log` panel will display the results. Note the values for **MIN** and **MAX** elevation. Close the window.
+6. Scroll down the color ramps until you find :guilabel:`wiki-1.02`. There may be several with the same name, just click on one and click :guilabel:`OK`.
 
   .. image:: /static/3/contour_3d_styling/images/6.png
     :align: center
 
-7. We are now ready to style the contours. Before continuing, we must first add a color ramp suitable for coloring elevation. If you already have added the `wiki-1.02` color ramp for our previous tutorial :doc:`block_world_styling`, you can skip to Step 12. Click on :guilabel:`Settings` in the menubar and select :guilabel:`Style Manager`. 
+7. At the :guilabel:`Save New Color Ramp` window, enter the value ``wiki-1.02`` as the :guilabel:`Name`.
 
   .. image:: /static/3/contour_3d_styling/images/7.png
     :align: center
 
-8. Click on the plus sign :guilabel:`Add item` at the bottom and select :menuselection:`Catalog: cpt-city...`.
+8. Click :guilabel:`Save` to exit the window, then click :guilabel:`Close` to exit Style Manager. Now the wiki-1.02 color ramp is available to use in your projects going forward.
 
   .. image:: /static/3/contour_3d_styling/images/8.png
     :align: center
 
-9. Scroll down the color ramps until you find :guilabel:`wiki-1.02`. There may be several with the same name, just click on one and click :guilabel:`OK`.
+9. Now we can style the contours. Select the ``Elev_Contour`` layer and click on the  :guilabel:`Open Layer Styling Panel`. Select :guilabel:`Simple Line` to access its properties.
 
   .. image:: /static/3/contour_3d_styling/images/9.png
     :align: center
 
-10. At the :guilabel:`Save New Color Ramp` window, enter the value ``wiki-1.02`` as the :guilabel:`Name`.
+10. Switch `Symbol layer type` from :guilabel:`Simple Line` to :guilabel:`Geometry Generator`. This symbol layer allows us to dynamically change the geometry of features in the layer using an expression.
 
   .. image:: /static/3/contour_3d_styling/images/10.png
     :align: center
 
-11. Click :guilabel:`Save` to exit the window, then click :guilabel:`Close` to exit Style Manager. Now the wiki-1.02 color ramp is available to use in your projects going forward.
+11. In the input box, enter this expression to translate each contour line in the y-axis by its elevation value. We use the ``minimum()`` and ``maximum()`` functions to find the range of values in the **contourelevation** column and the `scale_linear()` function applies an offset from 0 to 0.2 degrees by scaling the elevation from the mimumum to the . Enter the expression and click :guilabel:`OK`.
 
+  .. code-block:: none
+ 
+    translate($geometry,0,scale_linear("contourelevation",
+    minimum("contourelevation"),maximum("contourelevation"),0,0.2))
+  
   .. image:: /static/3/contour_3d_styling/images/11.png
     :align: center
 
-12. Now we can style the contours. Select the ``Elev_Contour`` layer and click on the  :guilabel:`Open Layer Styling Panel`. Select :guilabel:`Simple Line` to access its properties.
+12. Below `Geometry Generator` in the symbol window, select the :guilabel:`Simple Line` layer to access it's properties. Click on the :guilabel:`Data define override` button for :guilabel:`Color` and select the :guilabel:`Edit` menu.
 
   .. image:: /static/3/contour_3d_styling/images/12.png
     :align: center
 
-13. Switch `Symbol layer type` from :guilabel:`Simple Line` to :guilabel:`Geometry Generator`. This symbol layer allows us to dynamically change the geometry of features in the layer using an expression.
+13. This brings up the :guilabel:`Expression Builder` dialog for the color of the line. Enter this expression to color contour lines by **contourelevation** value from the *wiki-1.02* color ramp. We need to map the elevation values to the range expected by the color ramp (0 to 1). Instead of `scale_linear` function used earlier, we use the `scale_polynomial` function to scale the values in a non-linear way. Once the expression is entered, click :guilabel:`OK`.
 
+  .. code-block:: none
+    
+    ramp_color('wiki-1.02',scale_polynomial("contourelevation"
+    minimum("contourelevation"),maximum("contourelevation"),
+    0,1,0.5))
+    
+  
   .. image:: /static/3/contour_3d_styling/images/13.png
     :align: center
 
-14. In the input box, enter this expression to translate each contour line in the y-axis by its elevation value. The expression takes the elevation value in the `contourelevation` column and applies an offset from 0 to 0.2 degrees depending on its elevation. The values **120** and **650** are the minimum and maximum values of elevation obtained in step 6.
+14. You should see a 3D representation of the contours colored by elevation. Experiment with the coloring and scaling expressions to reveal different artistic representations of the landscape.
 
-  .. code-block:: none
- 
-     translate($geometry,0,scale_linear("contourelevation",120,650,0,0.2))
-  
   .. image:: /static/3/contour_3d_styling/images/14.png
-    :align: center
-
-15. Below `Geometry Generator` in the symbol window, select the :guilabel:`Simple Line` layer to access it's properties. Click on the :guilabel:`Data define override` button for :guilabel:`Color` and select the :guilabel:`Edit` menu.
-
-  .. image:: /static/3/contour_3d_styling/images/15.png
-    :align: center
-
-16. This brings up the :guilabel:`Expression Builder` dialog for the color of the line. Enter this expression to color contour lines by `contourelevation` value from the *wiki-1.02* color ramp. We need to map the elevation values to the range expected by the color ramp (0 to 1). Instead of `scale_linear` function used earlier, we use the `scale_polynomial` function to scale the values in a non-linear way. Once the expression is entered, click :guilabel:`OK`.
-
-  .. code-block:: none
-
-    ramp_color('wiki-1.02',scale_polynomial("contourelevation",120,650,0,1,0.5))
-  
-  .. image:: /static/3/contour_3d_styling/images/16.png
-    :align: center
-
-17. You should see a 3D representation of the contours colored by elevation. Experiment with the coloring and scaling expressions to reveal different artistic representations of the landscape.
-
-  .. image:: /static/3/contour_3d_styling/images/17.png
     :align: center
