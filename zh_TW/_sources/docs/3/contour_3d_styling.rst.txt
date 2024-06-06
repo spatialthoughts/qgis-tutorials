@@ -84,7 +84,7 @@ Procedure
   .. image:: /static/3/contour_3d_styling/images/6.png
     :align: center
 
-7. We are now ready to style the contours. Before continuing, we must first add a color ramp suitable for coloring elevation. If you already have added the `wiki-1.02` color ramp for our previous tutorial :docs:`block_world_styling`, you can skip to Step 12. Click on :guilabel:`Settings` in the menubar and select :guilabel:`Style Manager`. 
+7. We are now ready to style the contours. Before continuing, we must first add a color ramp suitable for coloring elevation. If you already have added the `wiki-1.02` color ramp for our previous tutorial :doc:`block_world_styling`, you can skip to Step 12. Click on :guilabel:`Settings` in the menubar and select :guilabel:`Style Manager`. 
 
   .. image:: /static/3/contour_3d_styling/images/7.png
     :align: center
