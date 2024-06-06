@@ -28,7 +28,7 @@ Get the data
   .. image:: /static/3/contour_3d_styling/images/data1.png
     :align: center
 
-2. On the downloader, look for the ``Elevation Products(3DEP)`` dataset and check the box to see all subcategories. Select only the ``Contojurs (1:24,000-scale)`` category. Under :guilabel:`File Formats`, select ``GeoPackage``. 
+2. On the downloader, look for the ``Elevation Products(3DEP)`` dataset and check the box to see all subcategories. Select only the ``Contours (1:24,000-scale)`` category. Under :guilabel:`File Formats`, select ``GeoPackage``. 
 
   .. image:: /static/3/contour_3d_styling/images/data2.png
     :align: center
@@ -38,7 +38,7 @@ Get the data
   .. image:: /static/3/contour_3d_styling/images/data3.png
     :align: center
 
-4. In the results, you will find the ``USGS NED 1/3 arc-second Contours for Austin E, Texas`` file. Click on :guilable:`Download Link(ZIP)` to download the zipped GeoPackage file ```ELEV_Austin_E_TX_1X1_GPKG.zip```.
+4. In the results, you will find the ``USGS NED 1/3 arc-second Contours for Austin E, Texas`` file. Click on :guilabel:`Download Link(ZIP)` to download the zipped GeoPackage file ``ELEV_Austin_E_TX_1X1_GPKG.zip``.
 
   .. image:: /static/3/contour_3d_styling/images/data4.png
     :align: center
@@ -99,7 +99,7 @@ Procedure
   .. image:: /static/3/contour_3d_styling/images/9.png
     :align: center
 
-10. At the 'Save New Color Ramp' window, enter the value ``wiki-1.02`` as the :guilabel:`Name`.
+10. At the :guilabel:`Save New Color Ramp` window, enter the value ``wiki-1.02`` as the :guilabel:`Name`.
 
   .. image:: /static/3/contour_3d_styling/images/10.png
     :align: center
@@ -109,7 +109,7 @@ Procedure
   .. image:: /static/3/contour_3d_styling/images/11.png
     :align: center
 
-12. Now we can style the contours. Select the `Elev_Contour` layer and click on the  :guilabel:`Open Layer Styling Panel`. Select :guilabel:`Simple Line` to access its properties.
+12. Now we can style the contours. Select the ``Elev_Contour`` layer and click on the  :guilabel:`Open Layer Styling Panel`. Select :guilabel:`Simple Line` to access its properties.
 
   .. image:: /static/3/contour_3d_styling/images/12.png
     :align: center
@@ -128,12 +128,12 @@ Procedure
   .. image:: /static/3/contour_3d_styling/images/14.png
     :align: center
 
-15. Below `Geometry Generator` in the symbol window, select the :guilabel:`Simple Line` layer to access it's properties. Click on :guilabel:`Data define override` button for :guilabel:`Color` and select the :guilabel:`Edit` menu.
+15. Below `Geometry Generator` in the symbol window, select the :guilabel:`Simple Line` layer to access it's properties. Click on the :guilabel:`Data define override` button for :guilabel:`Color` and select the :guilabel:`Edit` menu.
 
   .. image:: /static/3/contour_3d_styling/images/15.png
     :align: center
 
-15. This brings up the :guilabel:`Expression Builder` dialog for the color of the line. Enter this expression to color contour lines by `contourelevation` value from the *wiki-1.02* color ramp. Click :guilabel:`OK`. We need to map the elevation values to the range expected by the color ramp (0 to 1). Instead of `scale_linear` function used earlier, we use the `scale_polynomial` function to scale the values in a non-linear way.
+16. This brings up the :guilabel:`Expression Builder` dialog for the color of the line. Enter this expression to color contour lines by `contourelevation` value from the *wiki-1.02* color ramp. We need to map the elevation values to the range expected by the color ramp (0 to 1). Instead of `scale_linear` function used earlier, we use the `scale_polynomial` function to scale the values in a non-linear way. Once the expression is entered, click :guilabel:`OK`.
 
   .. code-block:: none
 

@@ -123,7 +123,7 @@ Procedure
   .. image:: /static/3/block_world_styling/images/5.png
     :align: center
 
-6. At the 'Save New Color Ramp' window, enter the value ``wiki-1.02`` as the :guilabel:`Name`.
+6. At the :guilabel:`Save New Color Ramp` window, enter the value ``wiki-1.02`` as the :guilabel:`Name`.
 	 
   .. image:: /static/3/block_world_styling/images/6.png
     :align: center
