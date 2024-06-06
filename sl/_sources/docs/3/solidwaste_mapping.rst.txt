@@ -8,6 +8,9 @@ Overview of the task
 
 You will learn how to take point data of landfills and create a proportional-symbol map showing amount of waste processed at each landfill.
 
+  .. image:: /static/3/solidwaste_mapping/images/output.png
+    :align: center
+    
 Other skills you will learn
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^
 - Importing ArcGIS server data in QGIS using REST URL.
