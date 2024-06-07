@@ -100,7 +100,7 @@ Procedure
   .. image:: /static/3/contour_3d_styling/images/10.png
     :align: center
 
-11. In the input box, enter this expression to translate each contour line in the y-axis by its elevation value. We use the ``minimum()`` and ``maximum()`` functions to find the range of values in the **contourelevation** column and the `scale_linear()` function applies an offset from 0 to 0.2 degrees by scaling the elevation from the mimumum to the . Enter the expression and click :guilabel:`OK`.
+11. In the input box, enter this expression to translate each contour line in the y-axis by its elevation value. We use the ``minimum()`` and ``maximum()`` functions to find the range of values in the **contourelevation** column and the `scale_linear()` function to scale the elevation linearly from the mimumum to the maximum to the desired y-offset range between 0 to 0.2 degrees. If your contour layer is in a CRS that has units other than degrees, make sure to adjust these values appropriately. Enter the expression and click :guilabel:`OK`.
 
   .. code-block:: none
  
