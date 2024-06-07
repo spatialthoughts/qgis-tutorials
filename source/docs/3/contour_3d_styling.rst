@@ -119,9 +119,9 @@ Procedure
 
   .. code-block:: none
     
-    ramp_color('wiki-1.02',scale_polynomial("contourelevation",minimum("contourelevation"),maximum("contourelevation"),
+    ramp_color('wiki-1.02',scale_polynomial("contourelevation",
+    minimum("contourelevation"),maximum("contourelevation"),
     0,1,0.5))
-    
   
   .. image:: /static/3/contour_3d_styling/images/13.png
     :align: center
