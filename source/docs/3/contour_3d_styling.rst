@@ -90,7 +90,7 @@ Procedure
   .. image:: /static/3/contour_3d_styling/images/8.png
     :align: center
 
-9. Now we can style the contours. Select the ``Elev_Contour`` layer and click on the  :guilabel:`Open Layer Styling Panel`. Select :guilabel:`Simple Line` to access its properties.
+9. Now we can style the contours. Select the ``Elev_Contour`` layer and click on the button :guilabel:`Open Layer Styling Panel`. Select :guilabel:`Simple Line` to access its properties.
 
   .. image:: /static/3/contour_3d_styling/images/9.png
     :align: center
