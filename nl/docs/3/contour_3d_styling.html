@@ -5,7 +5,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Styling Contours in 3D (QGIS3) &#8212; QGIS Tutorials and Tips</title>
+    <title>Contouren opmaken in 3D (QGIS3) &#8212; QGIS Tutorials and Tips</title>
     <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=fa44fd50" />
     <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-sphinx.css?v=0bf093e7" />
     <script src="../../_static/documentation_options.js?v=abdfb6f9"></script>
@@ -102,7 +102,7 @@
 <li class="toctree-l1"><a class="reference internal" href="vector_styling_expressions.html">Basis filteren en opmaken met expressies (QGIS3)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="block_world_styling.html">Een geblokte kaart van de wereld maken (QGIS3)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="river_styling_expressions.html">Een netwerk van rivieren opmaken met expressies (QGIS3)</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Styling Contours in 3D (QGIS3)</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Contouren opmaken in 3D (QGIS3)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="basic_network_analysis.html">Basis netwerk visualisatie en routeren (QGIS3)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="origin_destination_matrix.html">Dichtstbijzijnde faciliteit zoeken met Origin-Destination Matrix (QGIS3)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="service_area_analysis.html">Analyse Servicegebied met Openrouteservice (QGIS3)</a></li>
@@ -186,114 +186,114 @@
       
 
   <section id="styling-contours-in-3d-qgis3">
-<h1>Styling Contours in 3D (QGIS3)<a class="headerlink" href="#styling-contours-in-3d-qgis3" title="Link to this heading">¶</a></h1>
-<p><em>Contributed by:</em> <a class="reference external" href="https://geographyclub.github.io/">Steven Kim</a></p>
-<p>In the previous tutorial, <a class="reference internal" href="river_styling_expressions.html"><span class="doc">Een netwerk van rivieren opmaken met expressies (QGIS3)</span></a> we used expressions to filter and style a river network. In this tutorial, we will work with a contour dataset and style it using expressions to give it a 3D effect.</p>
+<h1>Contouren opmaken in 3D (QGIS3)<a class="headerlink" href="#styling-contours-in-3d-qgis3" title="Link to this heading">¶</a></h1>
+<p><em>Bijgedragen door:</em> <a class="reference external" href="https://geographyclub.github.io/">Steven Kim</a></p>
+<p>In de vorige handleiding, <a class="reference internal" href="river_styling_expressions.html"><span class="doc">Een netwerk van rivieren opmaken met expressies (QGIS3)</span></a> gebruikten we expressies om een netwerk van rivieren te filteren en op te maken. In deze handleiding zullen we werken met een gegevensset met contouren en die opmaken met expressies om het een 3D-effect te geven.</p>
 <section id="overview-of-the-task">
-<h2>Overview of the task<a class="headerlink" href="#overview-of-the-task" title="Link to this heading">¶</a></h2>
-<p>We will use a geometry generator symbol layer to dynamically apply an offset to the contours and then apply a color ramp to create an appearance of a 3d map.</p>
+<h2>Overzicht van de taak<a class="headerlink" href="#overview-of-the-task" title="Link to this heading">¶</a></h2>
+<p>We zullen een symboollaag geometrie-generator gebruiken om dynamisch een verschuiving toe te passen op de contouren en dan een kleurverloop toepassen om het uiterlijk van een 3D-kaart te maken.</p>
 <blockquote>
 <div><img alt="../../_images/output1.png" class="align-center" src="../../_images/output1.png" />
 </div></blockquote>
 </section>
 <section id="get-the-data">
-<h2>Get the data<a class="headerlink" href="#get-the-data" title="Link to this heading">¶</a></h2>
-<p><a class="reference external" href="https://www.usgs.gov/programs/national-geospatial-program/national-map">The National Map</a> is a collaborative effort among the U.S. Geological Survey (USGS) and other partners to improve and deliver topographic information for the Nation. We will download a contour dataset from The National Map downloader.</p>
+<h2>De gegevens ophalen<a class="headerlink" href="#get-the-data" title="Link to this heading">¶</a></h2>
+<p><a class="reference external" href="https://www.usgs.gov/programs/national-geospatial-program/national-map">De National Map</a> is een samenwerking tussen de U.S. Geological Survey (USGS) en andere partners om topografische informatie te verbeteren en te leveren voor de natie. We zullen een gegevensset met contouren downloaden vanuit de downloader van The National Map.</p>
 <ol class="arabic simple">
-<li><p>Visit the <a class="reference external" href="https://apps.nationalmap.gov/downloader/">TNM Download v2</a>. Browse to your region of interest. For this tutorial, we will be downloading the contours for a region around Austin, Texas.</p></li>
+<li><p>Bezoek de <a class="reference external" href="https://apps.nationalmap.gov/downloader/">TNM Download v2</a>. Blader naar uw gebied van interesse. Voor deze handleiding zullen we de contouren downloaden voor een gebied rondom Austin, Texas.</p></li>
 </ol>
 <blockquote>
 <div><img alt="../../_images/data19.png" class="align-center" src="../../_images/data19.png" />
 </div></blockquote>
 <ol class="arabic simple" start="2">
-<li><p>On the downloader, look for the <code class="docutils literal notranslate"><span class="pre">Elevation</span> <span class="pre">Products(3DEP)</span></code> dataset and check the box to see all subcategories. Select only the <code class="docutils literal notranslate"><span class="pre">Contours</span> <span class="pre">(1:24,000-scale)</span></code> category. Under <span class="guilabel">File Formats</span>, select <code class="docutils literal notranslate"><span class="pre">GeoPackage</span></code>.</p></li>
+<li><p>Zoek, in de downloader, naar de gegevensset <code class="docutils literal notranslate"><span class="pre">Elevation</span> <span class="pre">Products(3DEP)</span></code> en selecteer het vak om alle sub-categorieën te zien. Selecteer alleen de categorie <code class="docutils literal notranslate"><span class="pre">Contours</span> <span class="pre">(1:24,000-scale)</span></code>. Onder <span class="guilabel">File Formats</span>, selecteer <code class="docutils literal notranslate"><span class="pre">GeoPackage</span></code>.</p></li>
 </ol>
 <blockquote>
 <div><img alt="../../_images/data23.png" class="align-center" src="../../_images/data23.png" />
 </div></blockquote>
 <ol class="arabic simple" start="3">
-<li><p>Click the blue button <span class="guilabel">Search Products</span> to see the list of matching files.</p></li>
+<li><p>Klik op de blauwe knop <span class="guilabel">Search Products</span> om een lijst met overeenkomende bestanden te bekijken.</p></li>
 </ol>
 <blockquote>
 <div><img alt="../../_images/data33.png" class="align-center" src="../../_images/data33.png" />
 </div></blockquote>
 <ol class="arabic simple" start="4">
-<li><p>In the results, you will find the <code class="docutils literal notranslate"><span class="pre">USGS</span> <span class="pre">NED</span> <span class="pre">1/3</span> <span class="pre">arc-second</span> <span class="pre">Contours</span> <span class="pre">for</span> <span class="pre">Austin</span> <span class="pre">E,</span> <span class="pre">Texas</span></code> file. Click on <span class="guilabel">Download Link(ZIP)</span> to download the zipped GeoPackage file <code class="docutils literal notranslate"><span class="pre">ELEV_Austin_E_TX_1X1_GPKG.zip</span></code>.</p></li>
+<li><p>In de resultaten zult u het bestand <code class="docutils literal notranslate"><span class="pre">USGS</span> <span class="pre">NED</span> <span class="pre">1/3</span> <span class="pre">arc-second</span> <span class="pre">Contours</span> <span class="pre">for</span> <span class="pre">Austin</span> <span class="pre">E,</span> <span class="pre">Texas</span></code> vinden. Klik op <span class="guilabel">Download Link(ZIP)</span> om het gezipte bestand voor GeoPackage <code class="docutils literal notranslate"><span class="pre">ELEV_Austin_E_TX_1X1_GPKG.zip</span></code> te downloaden.</p></li>
 </ol>
 <blockquote>
 <div><img alt="../../_images/data43.png" class="align-center" src="../../_images/data43.png" />
 </div></blockquote>
-<p>You can directly download the zip file at <a class="reference external" href="https://prd-tnm.s3.amazonaws.com/StagedProducts/Contours/GPKG/ELEV_Austin_E_TX_1X1_GPKG.zip">ELEV_Austin_E_TX_1X1_GPKG.zip</a></p>
-<p>Data Source <a class="reference internal" href="../credits.html#usgs" id="id1"><span>[USGS]</span></a></p>
+<p>U kunt het zip-bestand direct downloaden vanaf <a class="reference external" href="https://prd-tnm.s3.amazonaws.com/StagedProducts/Contours/GPKG/ELEV_Austin_E_TX_1X1_GPKG.zip">ELEV_Austin_E_TX_1X1_GPKG.zip</a></p>
+<p>Gegevensbron <a class="reference internal" href="../credits.html#usgs" id="id1"><span>[USGS]</span></a></p>
 <div class="admonition note">
 <p class="admonition-title">Notitie</p>
-<p>You can also generate contours from any DEM layer and use it instead of the contours used here. Refer to our tutorial <a class="reference internal" href="working_with_terrain.html"><span class="doc">Werken met gegevens over het terrein (QGIS3)</span></a> for step-by-step instructions.</p>
+<p>U kunt ook contouren generen vanuit elke DEM-laag en die gebruiken in plaats van de contouren die we hier gebruiken. Bekijk onze handleiding <a class="reference internal" href="working_with_terrain.html"><span class="doc">Werken met gegevens over het terrein (QGIS3)</span></a> voor stap-voor-stap instructies.</p>
 </div>
 </section>
 <section id="procedure">
 <h2>Procedure<a class="headerlink" href="#procedure" title="Link to this heading">¶</a></h2>
 <ol class="arabic simple">
-<li><p>Unzip the <cite>ELEV_Austin_E_TX_1X1_GPKG.zip</cite> file on your computer. Locate the resulting <cite>ELEV_Austin_E_TX_1X1_GPKG.gpkg</cite> file in the <span class="guilabel">QGIS Browser</span> and expand it. Select the <cite>Elev_Contour</cite> layer and drag it to the canvas.</p></li>
+<li><p>Pak het bestand <cite>ELEV_Austin_E_TX_1X1_GPKG.zip</cite> uit op uw computer. Zoek het resulterende bestand <cite>ELEV_Austin_E_TX_1X1_GPKG.gpkg</cite> op in de <span class="guilabel">QGIS Browser</span> en vergoot het. Selecteer de laag <cite>Elev_Contour</cite> en sleep die in het kaartvenster.</p></li>
 </ol>
 <blockquote>
 <div><img alt="../../_images/150.png" class="align-center" src="../../_images/150.png" />
 </div></blockquote>
 <ol class="arabic simple" start="2">
-<li><p>A new layer <cite>Elev_Contour</cite> will now be loaded and you should see the contour lines.</p></li>
+<li><p>Een nieuwe laag <cite>Elev_Contour</cite> zal nu worden geladen en u zou de contourlijnen moeten kunnen zien.</p></li>
 </ol>
 <blockquote>
 <div><img alt="../../_images/229.png" class="align-center" src="../../_images/229.png" />
 </div></blockquote>
 <ol class="arabic simple" start="3">
-<li><p>Right-click the <cite>Elev_Contour</cite> layer and choose <span class="guilabel">Open Attribute Table</span>. You will notice that the field <code class="docutils literal notranslate"><span class="pre">contourelevation</span></code> contains the elevation value for each contour line. This field name is important and is used in the expressions in subsequent steps.</p></li>
+<li><p>Klik met rechts op de laag <cite>Elev_Contour</cite> en kies <span class="guilabel">Attributentabel openen</span>. U zult zien dat het veld <code class="docutils literal notranslate"><span class="pre">contourelevation</span></code> de waarde voor de hoogte voor elke contourlijn bevat. Deze veldnaam is belangrijk en wordt gebruikt in de expressies in volgende stappen.</p></li>
 </ol>
 <blockquote>
 <div><img alt="../../_images/320.png" class="align-center" src="../../_images/320.png" />
 </div></blockquote>
 <ol class="arabic simple" start="4">
-<li><p>We are now ready to style the contours. Before continuing, we must first add a color ramp suitable for coloring elevation. If you already have added the <cite>wiki-1.02</cite> color ramp for our previous tutorial <a class="reference internal" href="block_world_styling.html"><span class="doc">Een geblokte kaart van de wereld maken (QGIS3)</span></a>, you can skip to Step 9. Click on <span class="guilabel">Settings</span> in the menubar and select <span class="guilabel">Style Manager</span>.</p></li>
+<li><p>We zijn nu klaar om de contouren op te maken. Voordat we doorgaan moeten we eerst een geschikt kleurverloop toevoegen voor het kleuren van de hoogten. Als u het kleurverloop <cite>wiki-1.02</cite> al hebt toegevoegd voor onze vorige handleiding <a class="reference internal" href="block_world_styling.html"><span class="doc">Een geblokte kaart van de wereld maken (QGIS3)</span></a>, kunt u doorgaan naar Stap 9. Klik op <span class="guilabel">Extra</span> in de menubalk en selecteer <span class="guilabel">Stijlmanager</span>.</p></li>
 </ol>
 <blockquote>
 <div><img alt="../../_images/49.png" class="align-center" src="../../_images/49.png" />
 </div></blockquote>
 <ol class="arabic simple" start="5">
-<li><p>Click on the plus sign <span class="guilabel">Add item</span> at the bottom and select <span class="menuselection">Catalog: cpt-city…</span>.</p></li>
+<li><p>Klik op het plusteken <span class="guilabel">Item toevoegen</span> aan de onderzijde en selecteer <span class="menuselection">Catalog: cpt-city…</span>.</p></li>
 </ol>
 <blockquote>
 <div><img alt="../../_images/59.png" class="align-center" src="../../_images/59.png" />
 </div></blockquote>
 <ol class="arabic simple" start="6">
-<li><p>Scroll down the color ramps until you find <span class="guilabel">wiki-1.02</span>. There may be several with the same name, just click on one and click <span class="guilabel">OK</span>.</p></li>
+<li><p>Scroll naar beneden door de kleurverlopen totdat u <span class="guilabel">wiki-1.02</span> vindt. Er zouden er meerdere kunnen zijn met dezelfde naam, kies er gewoon een en klik op <span class="guilabel">OK</span>.</p></li>
 </ol>
 <blockquote>
 <div><img alt="../../_images/69.png" class="align-center" src="../../_images/69.png" />
 </div></blockquote>
 <ol class="arabic simple" start="7">
-<li><p>At the <span class="guilabel">Save New Color Ramp</span> window, enter the value <code class="docutils literal notranslate"><span class="pre">wiki-1.02</span></code> as the <span class="guilabel">Name</span>.</p></li>
+<li><p>Voer, in het venster <span class="guilabel">Nieuw kleurverloop opslaan</span>, de waarde <code class="docutils literal notranslate"><span class="pre">wiki-1.02</span></code> in als de <span class="guilabel">Naam</span>.</p></li>
 </ol>
 <blockquote>
 <div><img alt="../../_images/79.png" class="align-center" src="../../_images/79.png" />
 </div></blockquote>
 <ol class="arabic simple" start="8">
-<li><p>Click <span class="guilabel">Save</span> to exit the window, then click <span class="guilabel">Close</span> to exit Style Manager. Now the wiki-1.02 color ramp is available to use in your projects going forward.</p></li>
+<li><p>Klik op <span class="guilabel">Opslaan</span> om het venster te verlaten en klik dan op <span class="guilabel">Sluiten</span> om de Stijlmanager te verlaten. Nu is het kleurverloop wiki-1.02 beschikbaar om in uw projecten te gebruiken en kunnen we doorgaan.</p></li>
 </ol>
 <blockquote>
 <div><img alt="../../_images/89.png" class="align-center" src="../../_images/89.png" />
 </div></blockquote>
 <ol class="arabic simple" start="9">
-<li><p>Now we can style the contours. Select the <code class="docutils literal notranslate"><span class="pre">Elev_Contour</span></code> layer and click on the button <span class="guilabel">Open Layer Styling Panel</span>. Select <span class="guilabel">Simple Line</span> to access its properties.</p></li>
+<li><p>Nu kunnen we de contouren gaan opmaken. Selecteer de laag <code class="docutils literal notranslate"><span class="pre">Elev_Contour</span></code> en klik op de knop <span class="guilabel">Paneel Laag opmaken openen</span>. Selecteer <span class="guilabel">Doorgetrokken lijn</span> voor toegang tot zijn eigenschappen.</p></li>
 </ol>
 <blockquote>
 <div><img alt="../../_images/99.png" class="align-center" src="../../_images/99.png" />
 </div></blockquote>
 <ol class="arabic simple" start="10">
-<li><p>Switch <cite>Symbol layer type</cite> from <span class="guilabel">Simple Line</span> to <span class="guilabel">Geometry Generator</span>. This symbol layer allows us to dynamically change the geometry of features in the layer using an expression.</p></li>
+<li><p>Schakel <cite>Symboollaagtype</cite> van <span class="guilabel">Doorgetrokken lijn</span> naar <span class="guilabel">Geometrie-generator</span>. Die symboollaag maakt het voor ons mogelijk om dynamisch de geometrie van objecten op de laag te wijzigen met een expressie.</p></li>
 </ol>
 <blockquote>
 <div><img alt="../../_images/1013.png" class="align-center" src="../../_images/1013.png" />
 </div></blockquote>
 <ol class="arabic simple" start="11">
-<li><p>In the input box, enter this expression to translate each contour line in the y-axis by its elevation value. We use the <code class="docutils literal notranslate"><span class="pre">minimum()</span></code> and <code class="docutils literal notranslate"><span class="pre">maximum()</span></code> functions to find the range of values in the <strong>contourelevation</strong> column and the <cite>scale_linear()</cite> function to scale the elevation linearly from the mimumum to the maximum to the desired y-offset range between 0 to 0.2 degrees. If your contour layer is in a CRS that has units other than degrees, make sure to adjust these values appropriately. Enter the expression and click <span class="guilabel">OK</span>.</p></li>
+<li><p>In the input box, enter this expression to translate each contour line in the y-axis by its elevation value. We use the <code class="docutils literal notranslate"><span class="pre">minimum()</span></code> and <code class="docutils literal notranslate"><span class="pre">maximum()</span></code> functions to find the range of values in the <strong>contourelevation</strong> column and the <cite>scale_linear()</cite> function to scale the elevation linearly from the minimum to the maximum to the desired y-offset range between 0 to 0.2 degrees. If your contour layer is in a CRS that has units other than degrees, make sure to adjust these values appropriately. Enter the expression and click <span class="guilabel">OK</span>.</p></li>
 </ol>
 <blockquote>
 <div><div class="highlight-none notranslate"><div class="highlight"><pre><span></span>translate($geometry,0,scale_linear(&quot;contourelevation&quot;,
@@ -303,13 +303,13 @@ minimum(&quot;contourelevation&quot;),maximum(&quot;contourelevation&quot;),0,0.
 <img alt="../../_images/1116.png" class="align-center" src="../../_images/1116.png" />
 </div></blockquote>
 <ol class="arabic simple" start="12">
-<li><p>Below <cite>Geometry Generator</cite> in the symbol window, select the <span class="guilabel">Simple Line</span> layer to access it’s properties. Click on the <span class="guilabel">Data define override</span> button for <span class="guilabel">Color</span> and select the <span class="guilabel">Edit</span> menu.</p></li>
+<li><p>Onder <cite>Geometrie-generator</cite> in het venster Symbool, selecteer de laag <span class="guilabel">Doorgetrokken lijn</span> om toegang te krijgen tot zijn eigenschappen. Klik op de knop <span class="guilabel">Data-bepaalde ‘override’</span> voor <span class="guilabel">Kleur</span> en selecteer het menu <span class="guilabel">Bewerken</span>.</p></li>
 </ol>
 <blockquote>
 <div><img alt="../../_images/1214.png" class="align-center" src="../../_images/1214.png" />
 </div></blockquote>
 <ol class="arabic simple" start="13">
-<li><p>This brings up the <span class="guilabel">Expression Builder</span> dialog for the color of the line. Enter this expression to color contour lines by <strong>contourelevation</strong> value from the <em>wiki-1.02</em> color ramp. We need to map the elevation values to the range expected by the color ramp (0 to 1). Instead of <cite>scale_linear</cite> function used earlier, we use the <cite>scale_polynomial</cite> function to scale the values in a non-linear way. Once the expression is entered, click <span class="guilabel">OK</span>.</p></li>
+<li><p>Dat brengt het dialoogvenster <span class="guilabel">Expressiebouwer</span> naar voren voor de kleur van de lijn. Voer deze expressie in om de contourlijnen te kleuren op hun waarde <strong>contourelevation</strong> uit het kleurverloop <em>wiki-1.02</em>. We moeten de waarden voor de hoogten in kaart brengen zoals zij worden verwacht door het kleurverloop (0 tot en met 1). In plaats van de eerder gebruikte functie <cite>scale_linear</cite>, gebruiken we de functie <cite>scale_polynomial</cite> om de waarden op schaal te brengen op een niet-lineaire manier. Klik op <span class="guilabel">OK</span> als de expressie is ingevoerd.</p></li>
 </ol>
 <blockquote>
 <div><div class="highlight-none notranslate"><div class="highlight"><pre><span></span>ramp_color(&#39;wiki-1.02&#39;,scale_polynomial(&quot;contourelevation&quot;,
@@ -320,7 +320,7 @@ minimum(&quot;contourelevation&quot;),maximum(&quot;contourelevation&quot;),
 <img alt="../../_images/1312.png" class="align-center" src="../../_images/1312.png" />
 </div></blockquote>
 <ol class="arabic simple" start="14">
-<li><p>You should see a 3D representation of the contours colored by elevation. Experiment with the coloring and scaling expressions to reveal different artistic representations of the landscape.</p></li>
+<li><p>U zou een 3D-weergave van de contouren moeten zien, gekleurd op hoogte. Experimenteer met de kleuring en de expressies voor het op schaal brengen om verschillende artistieke weergaven van het landschap te onthullen.</p></li>
 </ol>
 <blockquote>
 <div><img alt="../../_images/1411.png" class="align-center" src="../../_images/1411.png" />
