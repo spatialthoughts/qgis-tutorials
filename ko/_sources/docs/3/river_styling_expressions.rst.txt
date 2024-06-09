@@ -89,12 +89,12 @@ Procedure
 
   .. code-block:: none
 
-     ramp_color('Spectral',scale_linear("MAIN_RIV",60000001,61620963,0,1))
+     ramp_color('Spectral',scale_linear("MAIN_RIV",
+     minimum("MAIN_RIV"),maximum("MAIN_RIV"),0,1))
 
   .. image:: /static/3/river_styling_expressions/images/9.png
     :align: center
  
-
 
 10. At the :guilabel:`Edit Rule` dialog, click on :guilabel:`Data define override` button for :guilabel:`Stroke width` and select :guilabel:`Edit...` on the menu. Enter the following expression. The expression scales line width based on the upland area of each river segment, with a minimum of 0.01 mm to a maximum of 0.1 mm for rivers with an upland area equal to or larger than 10,000 sqkm.
 
