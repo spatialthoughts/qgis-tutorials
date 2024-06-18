@@ -35,13 +35,13 @@ Data Sources: [TWDB]_
 Procedure
 ---------
 
-1. Open QGIS, in :guilabel:`Browser` locate and drag the ``Arlington_Soundings_2007_stpl83.shp`` the layer to canvas. 
+1. Open QGIS, in :guilabel:`Browser` locate and drag the ``Arlington2007_SS_points_stpl83`` the layer to canvas. 
 
   .. image:: /static/3/interpolating_point_data/images/1.png
      :align: center
 
 
-2. A :guilabel:`Select Transformation of Arlington_Soundings_2007_stpl83` dialog box will appear, leave the select to default and click :guilabel:`OK`. 
+2. A :guilabel:`Select Transformation of Arlington2007_SS_points_stpl83` dialog box will appear, leave the select to default and click :guilabel:`OK`. 
 
   .. image:: /static/3/interpolating_point_data/images/2.png
      :align: center
@@ -52,7 +52,7 @@ Procedure
      :align: center
 
 
-4. The layer will be added to the canvas, now turn off this layer to visualize the ``Arlington_Soundings_2007_stpl83`` .
+4. The layer will be added to the canvas, now turn off this layer to visualize the ``Arlington2007_SS_points_stpl83`` .
 
   .. image:: /static/3/interpolating_point_data/images/4.png
      :align: center  
@@ -104,7 +104,7 @@ Procedure
   :align: center
 
 
-10. In the :guilabel:`TIN Interpolation` dialog box, select ``Arlington_Soundings_2007_stpl83`` as the :guilabel:`Vector layer`, ``Elevation`` as the :guilabel:`Interpolation attribute`. Then click on the :guilabel:`Add` icon. 
+10. In the :guilabel:`TIN Interpolation` dialog box, select ``Arlington2007_SS_points_stpl83`` as the :guilabel:`Vector layer`, ``Elevation`` as the :guilabel:`Interpolation attribute`. Then click on the :guilabel:`Add` icon. 
 
   .. image:: /static/3/interpolating_point_data/images/10.png
      :align: center
