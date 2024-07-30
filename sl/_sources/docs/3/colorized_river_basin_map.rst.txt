@@ -1,5 +1,5 @@
 Creating a Colorized River Basin Map (QGIS3)
-===========================================
+============================================
 
 In this tutorial, we will learn the QGIS workflow to create artistic river maps for your own country or region using openly available hydrological data. 
 

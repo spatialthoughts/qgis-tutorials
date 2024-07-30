@@ -296,18 +296,22 @@
 <li><p>Now, let’s calculate the <code class="docutils literal notranslate"><span class="pre">Mean</span></code> for one month and create an output layer. In the below code <span class="guilabel">break</span> is used to exit the loop after the first execution, by this we can calculate the mean for January month.</p></li>
 </ol>
 <blockquote>
-<div><div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">root</span> <span class="o">=</span> <span class="n">QgsProject</span><span class="o">.</span><span class="n">instance</span><span class="p">()</span><span class="o">.</span><span class="n">layerTreeRoot</span><span class="p">()</span>
+<div><div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">re</span>
+
+<span class="n">root</span> <span class="o">=</span> <span class="n">QgsProject</span><span class="o">.</span><span class="n">instance</span><span class="p">()</span><span class="o">.</span><span class="n">layerTreeRoot</span><span class="p">()</span>
 
 <span class="n">input_layer</span> <span class="o">=</span> <span class="s1">&#39;Zip_Codes&#39;</span>
-<span class="n">result_layer</span> <span class="o">=</span> <span class="n">input_layer</span>
 <span class="n">unique_field</span> <span class="o">=</span> <span class="s1">&#39;OBJECTID&#39;</span>
 
 <span class="c1"># Iterate through all raster layers</span>
 <span class="k">for</span> <span class="n">layer</span> <span class="ow">in</span> <span class="n">root</span><span class="o">.</span><span class="n">children</span><span class="p">():</span>
   <span class="k">if</span> <span class="n">layer</span><span class="o">.</span><span class="n">name</span><span class="p">()</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s1">&#39;PRISM&#39;</span><span class="p">):</span>
     <span class="c1"># Run Zonal Stats algorithm</span>
-
-    <span class="n">prefix</span> <span class="o">=</span> <span class="n">layer</span><span class="o">.</span><span class="n">name</span><span class="p">()[</span><span class="o">-</span><span class="mi">6</span><span class="p">:</span><span class="o">-</span><span class="mi">4</span><span class="p">]</span>
+    <span class="c1"># Extract the YYYYMM part of the layer name</span>
+    <span class="n">pattern</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;_(\d+)_&#39;</span>
+    <span class="n">matches</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="n">pattern</span><span class="p">,</span> <span class="n">layer</span><span class="o">.</span><span class="n">name</span><span class="p">())</span>
+    <span class="c1"># Use the month as the prefix</span>
+    <span class="n">prefix</span> <span class="o">=</span> <span class="n">matches</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="o">-</span><span class="mi">2</span><span class="p">:]</span>
     <span class="n">params</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;INPUT_RASTER&#39;</span><span class="p">:</span> <span class="n">layer</span><span class="o">.</span><span class="n">name</span><span class="p">(),</span>
         <span class="s1">&#39;RASTER_BAND&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;INPUT&#39;</span><span class="p">:</span> <span class="n">input_layer</span><span class="p">,</span>
         <span class="s1">&#39;COLUMN_PREFIX&#39;</span><span class="p">:</span> <span class="n">prefix</span><span class="o">+</span><span class="s1">&#39;_&#39;</span><span class="p">,</span> <span class="s1">&#39;STATISTICS&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">2</span><span class="p">],</span>
@@ -316,10 +320,10 @@
     <span class="n">result</span> <span class="o">=</span> <span class="n">processing</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="s2">&quot;native:zonalstatisticsfb&quot;</span><span class="p">,</span> <span class="n">params</span><span class="p">)</span>
 
     <span class="n">result_layer</span> <span class="o">=</span> <span class="n">result</span><span class="p">[</span><span class="s1">&#39;OUTPUT&#39;</span><span class="p">]</span>
-    <span class="c1"># Breaking out of loop to demonstrate the zonalstatistics algorithm.</span>
+    <span class="n">QgsProject</span><span class="o">.</span><span class="n">instance</span><span class="p">()</span><span class="o">.</span><span class="n">addMapLayer</span><span class="p">(</span><span class="n">result_layer</span><span class="p">)</span>
+    <span class="c1"># Breaking out of loop to demonstrate the</span>
+    <span class="c1"># zonalstatistics algorithm.</span>
     <span class="k">break</span>
-
-<span class="n">QgsProject</span><span class="o">.</span><span class="n">instance</span><span class="p">()</span><span class="o">.</span><span class="n">addMapLayer</span><span class="p">(</span><span class="n">result_layer</span><span class="p">)</span>
 </pre></div>
 </div>
 <img alt="../../_images/1329.png" class="align-center" src="../../_images/1329.png" />
@@ -335,10 +339,12 @@
 <div><img alt="../../_images/1427.png" class="align-center" src="../../_images/1427.png" />
 </div></blockquote>
 <ol class="arabic simple" start="15">
-<li><p>Now lets add code to merge all the months mean, and create an single output layer from it. Enter the following code to iterate over all raster layers, extract the custom prefix and run the <code class="docutils literal notranslate"><span class="pre">native:joinattributestable</span></code> algorithm to create an single layer containing all months mean.</p></li>
+<li><p>Now lets add code to merge all the months mean, and create an single output layer from it. We update the previous code, to iteratively run the Zonal Statistics algorithm. We define a new variable <code class="docutils literal notranslate"><span class="pre">result_layer</span></code> which is set to <code class="docutils literal notranslate"><span class="pre">Zip_Codes</span></code> in the beginning but gets updated with the output layer from each iteration. This will allow us to use the result of each iteration and add new columns to it. Enter the following code to iterate over all raster layers and create an single layer containing all months mean.</p></li>
 </ol>
 <blockquote>
-<div><div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">root</span> <span class="o">=</span> <span class="n">QgsProject</span><span class="o">.</span><span class="n">instance</span><span class="p">()</span><span class="o">.</span><span class="n">layerTreeRoot</span><span class="p">()</span>
+<div><div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">re</span>
+
+<span class="n">root</span> <span class="o">=</span> <span class="n">QgsProject</span><span class="o">.</span><span class="n">instance</span><span class="p">()</span><span class="o">.</span><span class="n">layerTreeRoot</span><span class="p">()</span>
 
 <span class="n">input_layer</span> <span class="o">=</span> <span class="s1">&#39;Zip_Codes&#39;</span>
 <span class="n">result_layer</span> <span class="o">=</span> <span class="n">input_layer</span>
@@ -348,27 +354,20 @@
 <span class="k">for</span> <span class="n">layer</span> <span class="ow">in</span> <span class="n">root</span><span class="o">.</span><span class="n">children</span><span class="p">():</span>
   <span class="k">if</span> <span class="n">layer</span><span class="o">.</span><span class="n">name</span><span class="p">()</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s1">&#39;PRISM&#39;</span><span class="p">):</span>
     <span class="c1"># Run Zonal Stats algorithm</span>
-
-    <span class="n">prefix</span> <span class="o">=</span> <span class="n">layer</span><span class="o">.</span><span class="n">name</span><span class="p">()[</span><span class="o">-</span><span class="mi">6</span><span class="p">:</span><span class="o">-</span><span class="mi">4</span><span class="p">]</span>
+    <span class="c1"># Extract the YYYYMM part of the layer name</span>
+    <span class="n">pattern</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;_(\d+)_&#39;</span>
+    <span class="n">matches</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="n">pattern</span><span class="p">,</span> <span class="n">layer</span><span class="o">.</span><span class="n">name</span><span class="p">())</span>
+    <span class="c1"># Use the month as the prefix</span>
+    <span class="n">prefix</span> <span class="o">=</span> <span class="n">matches</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="o">-</span><span class="mi">2</span><span class="p">:]</span>
     <span class="n">params</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;INPUT_RASTER&#39;</span><span class="p">:</span> <span class="n">layer</span><span class="o">.</span><span class="n">name</span><span class="p">(),</span>
-        <span class="s1">&#39;RASTER_BAND&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;INPUT&#39;</span><span class="p">:</span> <span class="n">input_layer</span><span class="p">,</span>
+        <span class="s1">&#39;RASTER_BAND&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;INPUT&#39;</span><span class="p">:</span> <span class="n">result_layer</span><span class="p">,</span>
         <span class="s1">&#39;COLUMN_PREFIX&#39;</span><span class="p">:</span> <span class="n">prefix</span><span class="o">+</span><span class="s1">&#39;_&#39;</span><span class="p">,</span> <span class="s1">&#39;STATISTICS&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">2</span><span class="p">],</span>
         <span class="s1">&#39;OUTPUT&#39;</span><span class="p">:</span> <span class="s1">&#39;memory:&#39;</span>
         <span class="p">}</span>
     <span class="n">result</span> <span class="o">=</span> <span class="n">processing</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="s2">&quot;native:zonalstatisticsfb&quot;</span><span class="p">,</span> <span class="n">params</span><span class="p">)</span>
-    <span class="n">zonalstats</span> <span class="o">=</span> <span class="n">result</span><span class="p">[</span><span class="s1">&#39;OUTPUT&#39;</span><span class="p">]</span>
 
-    <span class="c1"># Run Join Attributes by Table to join the newly created</span>
-    <span class="c1"># column with original layer</span>
-    <span class="n">params</span> <span class="o">=</span> <span class="p">{</span> <span class="s1">&#39;INPUT&#39;</span><span class="p">:</span> <span class="n">result_layer</span><span class="p">,</span> <span class="s1">&#39;FIELD&#39;</span><span class="p">:</span><span class="n">unique_field</span><span class="p">,</span>
-        <span class="s1">&#39;INPUT_2&#39;</span><span class="p">:</span> <span class="n">zonalstats</span><span class="p">,</span> <span class="s1">&#39;FIELD_2&#39;</span><span class="p">:</span> <span class="n">unique_field</span><span class="p">,</span>
-        <span class="s1">&#39;FIELDS_TO_COPY&#39;</span><span class="p">:</span> <span class="n">prefix</span> <span class="o">+</span> <span class="s1">&#39;_&#39;</span> <span class="o">+</span> <span class="s1">&#39;mean&#39;</span><span class="p">,</span>
-        <span class="s1">&#39;OUTPUT&#39;</span><span class="p">:</span> <span class="s1">&#39;memory:&#39;</span><span class="p">}</span>
-
-    <span class="n">result</span> <span class="o">=</span> <span class="n">processing</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="s2">&quot;native:joinattributestable&quot;</span><span class="p">,</span> <span class="n">params</span><span class="p">)</span>
-
-    <span class="c1"># At the end of each iteration, update the result layer to the</span>
-    <span class="c1"># newly processed layer, so we keep adding new fields to the same layer</span>
+    <span class="c1"># Update the result_layer variable</span>
+    <span class="c1"># The result will be used as input for the next iteration</span>
     <span class="n">result_layer</span> <span class="o">=</span> <span class="n">result</span><span class="p">[</span><span class="s1">&#39;OUTPUT&#39;</span><span class="p">]</span>
 
 <span class="n">QgsProject</span><span class="o">.</span><span class="n">instance</span><span class="p">()</span><span class="o">.</span><span class="n">addMapLayer</span><span class="p">(</span><span class="n">result_layer</span><span class="p">)</span>
@@ -423,7 +422,7 @@
     </p>
     <p>
         &copy; Copyright 2023, Ujaval Gandhi.<br/>
-      最後更新於 7月 08, 2024。<br/>
+      最後更新於 7月 30, 2024。<br/>
       Created using <a href="http://sphinx-doc.org/">Sphinx</a> 7.2.6.<br/>
     </p>
   </div>

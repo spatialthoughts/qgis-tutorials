@@ -113,31 +113,36 @@ Procedure
   .. code-block:: python
 
   
+      import re
+
       root = QgsProject.instance().layerTreeRoot()
 
       input_layer = 'Zip_Codes'
-      result_layer = input_layer
       unique_field = 'OBJECTID'
 
       # Iterate through all raster layers
       for layer in root.children():
         if layer.name().startswith('PRISM'):
           # Run Zonal Stats algorithm
-        
-          prefix = layer.name()[-6:-4]
+          # Extract the YYYYMM part of the layer name
+          pattern = r'_(\d+)_'
+          matches = re.findall(pattern, layer.name())
+          # Use the month as the prefix
+          prefix = matches[0][-2:] 
           params = {'INPUT_RASTER': layer.name(),
               'RASTER_BAND': 1, 'INPUT': input_layer,
               'COLUMN_PREFIX': prefix+'_', 'STATISTICS': [2],
               'OUTPUT': 'memory:'
               }
           result = processing.run("native:zonalstatisticsfb", params)
-          
-          result_layer = result['OUTPUT']
-          # Breaking out of loop to demonstrate the zonalstatistics algorithm. 
-          break 
-          
-      QgsProject.instance().addMapLayer(result_layer)
 
+          result_layer = result['OUTPUT']
+          QgsProject.instance().addMapLayer(result_layer)
+          # Breaking out of loop to demonstrate the
+          # zonalstatistics algorithm.
+          break
+
+      
   .. image:: /static/3/processing_algorithms_pyqgis/images/13.png
      :align: center
 
@@ -150,11 +155,12 @@ Procedure
   .. image:: /static/3/processing_algorithms_pyqgis/images/14.png
      :align: center
 
-15. Now lets add code to merge all the months mean, and create an single output layer from it. Enter the following code to iterate over all raster layers, extract the custom prefix and run the ``native:joinattributestable`` algorithm to create an single layer containing all months mean. 
+15. Now lets add code to merge all the months mean, and create an single output layer from it. We update the previous code, to iteratively run the Zonal Statistics algorithm. We define a new variable ``result_layer`` which is set to ``Zip_Codes`` in the beginning but gets updated with the output layer from each iteration. This will allow us to use the result of each iteration and add new columns to it. Enter the following code to iterate over all raster layers and create an single layer containing all months mean. 
 
   .. code-block:: python
 
-  
+        import re
+
         root = QgsProject.instance().layerTreeRoot()
 
         input_layer = 'Zip_Codes'
@@ -165,30 +171,25 @@ Procedure
         for layer in root.children():
           if layer.name().startswith('PRISM'):
             # Run Zonal Stats algorithm
-          
-            prefix = layer.name()[-6:-4]
+            # Extract the YYYYMM part of the layer name
+            pattern = r'_(\d+)_'
+            matches = re.findall(pattern, layer.name())
+            # Use the month as the prefix
+            prefix = matches[0][-2:] 
             params = {'INPUT_RASTER': layer.name(),
-                'RASTER_BAND': 1, 'INPUT': input_layer,
+                'RASTER_BAND': 1, 'INPUT': result_layer,
                 'COLUMN_PREFIX': prefix+'_', 'STATISTICS': [2],
                 'OUTPUT': 'memory:'
                 }
             result = processing.run("native:zonalstatisticsfb", params)
-            zonalstats = result['OUTPUT']
-            
-            # Run Join Attributes by Table to join the newly created
-            # column with original layer
-            params = { 'INPUT': result_layer, 'FIELD':unique_field,
-                'INPUT_2': zonalstats, 'FIELD_2': unique_field, 
-                'FIELDS_TO_COPY': prefix + '_' + 'mean',
-                'OUTPUT': 'memory:'}
-                
-            result = processing.run("native:joinattributestable", params)
-            
-            # At the end of each iteration, update the result layer to the
-            # newly processed layer, so we keep adding new fields to the same layer
+
+            # Update the result_layer variable
+            # The result will be used as input for the next iteration
             result_layer = result['OUTPUT']
-            
+
         QgsProject.instance().addMapLayer(result_layer)
+
+        
 
   .. image:: /static/3/processing_algorithms_pyqgis/images/15.png
      :align: center
