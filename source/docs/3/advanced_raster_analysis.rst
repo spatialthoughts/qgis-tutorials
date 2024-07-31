@@ -142,23 +142,23 @@ Procedure
 
   .. image:: /static/3/advanced_raster_analysis/images/13.png
     :align: center
+	
+14. Click the ``...`` button next to :guilabel:`Input layers`. Select the ``SA_NLC_2018_Clipped`` layer and click :guilabel:`OK`. Next, click on the ``ε`` button to open the expression window.
 
-14. The source image has only 1 band. The ``@1`` suffix indicates the band number. Enter the following expression to select pixels from class 51-54. 
+  .. image:: /static/3/advanced_raster_analysis/images/14.png
+    :align: center
+	
+15. Enter the following expression to select pixels from class 51-54. The source image has only 1 band. The ``@1`` suffix indicates the band number. Click :guilabel:`OK` to close the expression window.
 
   .. code-block:: none
 
      "SA_NLC_2018_Clipped@1" >= 51 AND "SA_NLC_2018_Clipped@1" <= 54
 
 
-  .. image:: /static/3/advanced_raster_analysis/images/14.png
-    :align: center
-
-15. Scroll down and click the ``...`` button next to :guilabel:`Reference layer(s)`. Select the ``SA_NLC_2018_Clipped`` layer and click :guilabel:`OK`.
-
   .. image:: /static/3/advanced_raster_analysis/images/15.png
     :align: center
 
-16. Next, click the ``...`` button next to :guilabel:`Output` and select :guilabel:`Save to File...`.
+16. Next, click the ``...`` button next to :guilabel:`Calculated` and select :guilabel:`Save to File...`.
 
   .. image:: /static/3/advanced_raster_analysis/images/16.png
     :align: center
