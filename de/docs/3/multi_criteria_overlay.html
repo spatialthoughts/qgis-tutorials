@@ -103,6 +103,7 @@
 <li class="toctree-l1"><a class="reference internal" href="block_world_styling.html">Erstellung einer Weltkarte im Gitter-Stil (QGIS3)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="river_styling_expressions.html">Styling a River Network with Expressions (QGIS3)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="contour_3d_styling.html">Styling Contours in 3D (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cartogram_animation.html">Creating an Animated Cartogram (QGIS3)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="basic_network_analysis.html">Einfache Netzwerkvisualisierung und Routing (QGIS3)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="origin_destination_matrix.html">Lokalisierung der nächstgelegenen Einrichtung mit einer Quelle-Ziel-Matrix (QGIS3)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="service_area_analysis.html">Einzugsgebietsanalyse mit dem Openrouteservice (QGIS3)</a></li>
@@ -217,13 +218,13 @@
 <li><p>Wir suchen die heruntergeladene Datei <code class="docutils literal notranslate"><span class="pre">assam.gpkg</span></code> im QGIS-Browser, erweitern sie und ziehen jeden der 5 Datenlayer in den Arbeitsbereich.  Die Layer <code class="docutils literal notranslate"><span class="pre">boundary</span></code>, <code class="docutils literal notranslate"><span class="pre">roads</span></code>, <code class="docutils literal notranslate"><span class="pre">protected_regions</span></code>, <code class="docutils literal notranslate"><span class="pre">water_polygons</span></code> und <code class="docutils literal notranslate"><span class="pre">water_polylines</span></code> werden in das <span class="guilabel">Layer</span>-Panel geladen.</p></li>
 </ol>
 <blockquote>
-<div><img alt="../../_images/1105.png" class="align-center" src="../../_images/1105.png" />
+<div><img alt="../../_images/1106.png" class="align-center" src="../../_images/1106.png" />
 </div></blockquote>
 <ol class="arabic simple" start="2">
 <li><p>Der erste Schritt der Überlagerungs-Analyse besteht darin, jeden der Datenalyer in einen Rasterlayer zu konvertieren. Es ist wichtig, dass alle entstehenden Rasterlayer dieselbe Ausdehnung haben. Wir verwenden den <code class="docutils literal notranslate"><span class="pre">boundary</span></code>-Layer als Begrenzung für die Rasterlayer. wir wählen <span class="menuselection">Verarbeitung ‣ Werkzeugkiste</span> und suchen den Algorithmus <span class="menuselection">GDAL ‣ Vektorkonvertierung ‣ Rastern (Vektor nach Raster)</span> und starten ihn per Doppelklick.</p></li>
 </ol>
 <blockquote>
-<div><img alt="../../_images/2100.png" class="align-center" src="../../_images/2100.png" />
+<div><img alt="../../_images/2101.png" class="align-center" src="../../_images/2101.png" />
 </div></blockquote>
 <ol class="arabic simple" start="3">
 <li><p>Im Dialogfenster <span class="guilabel">Rastern (Vektor nach Raster)</span> wählen wir <code class="docutils literal notranslate"><span class="pre">roads</span></code> als <span class="guilabel">Eingabelayer</span>. Wir wollen ein Ausgaberaster erzeugen, in welchem der Pixelwert 1 die Straßen und der Wert 0 keine Straßen darstellt. Wir geben <code class="docutils literal notranslate"><span class="pre">1</span></code> als <span class="guilabel">Festen Wert einbrennen</span> an. Die Eingabelayer sind in einem KBS definiert, welches Meter als Einheit verwendet. Wir wählen <code class="docutils literal notranslate"><span class="pre">Georeferenzierte</span> <span class="pre">Einheiten</span></code> als <span class="guilabel">Ausgaberastergrößeneinheiten</span>. Die Auflösung des Ausgaberasters soll 15 Meter betragen. Dazu setzen wir sowohl die <span class="guilabel">Breite/Horizontale Ausflösung</span> als auch die <span class="guilabel">Höhe/Vertikale Auflösung</span> auf <code class="docutils literal notranslate"><span class="pre">15</span></code>. Danach öffnen wir die Drop-Down-Liste neben <span class="guilabel">Ausgabegröße</span> und wählen <span class="guilabel">Aus Layer berechnen -&gt; boundary</span>.</p></li>
@@ -235,37 +236,37 @@
 <li><p>Wir scrollen weiter nach unten und löschen den Wert bei <span class="guilabel">Legt den Leerwert des Ausgabekanals fest</span>.</p></li>
 </ol>
 <blockquote>
-<div><img alt="../../_images/420.png" class="align-center" src="../../_images/420.png" />
+<div><img alt="../../_images/423.png" class="align-center" src="../../_images/423.png" />
 </div></blockquote>
 <ol class="arabic simple" start="5">
 <li><p>Dieser Wert sollte nun als <code class="docutils literal notranslate"><span class="pre">Nicht</span> <span class="pre">gesetzt</span></code> angezeigt werden. Das ist wichtig, weil der später benutzte Rasterrechner einen NULL-Wert (engl. nodata value) für ein Pixel in irgendeinem Layer in einen NULL-Wert in der Ausgabe umsetzt, was ein falsches Ergebnis darstellt.</p></li>
 </ol>
 <blockquote>
-<div><img alt="../../_images/519.png" class="align-center" src="../../_images/519.png" />
+<div><img alt="../../_images/520.png" class="align-center" src="../../_images/520.png" />
 </div></blockquote>
 <ol class="arabic simple" start="6">
 <li><p>Im Abschnitt <span class="guilabel">Fortgeschrittene Parameter</span> weiter unten wählen wir als <span class="guilabel">Profil</span> <code class="docutils literal notranslate"><span class="pre">Hohe</span> <span class="pre">Kompression</span></code>, um das Bild zu komprimieren. Das komprimierte Rasterbild wird dadurch nach Anwenden des Werkzeugs weniger Speicherplatz beanspruchen. Eine verlustlose Kompression ist für die Arbeit mit Rasterdatan dringend zu empfehlen.</p></li>
 </ol>
 <blockquote>
-<div><img alt="../../_images/619.png" class="align-center" src="../../_images/619.png" />
+<div><img alt="../../_images/620.png" class="align-center" src="../../_images/620.png" />
 </div></blockquote>
 <ol class="arabic simple" start="7">
 <li><p>Unter <span class="guilabel">Gerastert -&gt; In Datei speichern…</span> geben wir <code class="docutils literal notranslate"><span class="pre">raster_roads.tif</span></code> als Ausgaberaster an und betätigen die Schaltfläche <span class="guilabel">Starte</span>.</p></li>
 </ol>
 <blockquote>
-<div><img alt="../../_images/718.png" class="align-center" src="../../_images/718.png" />
+<div><img alt="../../_images/719.png" class="align-center" src="../../_images/719.png" />
 </div></blockquote>
 <ol class="arabic simple" start="8">
 <li><p>Nach Ende der Verarbeitung wird der neue Layer <span class="guilabel">raster_roads</span> in das <span class="guilabel">Layer</span>-Panel geladen. Die Voreinstellung zeigt Pixel mit Straßen in weiß und den Rest in schwarz an. Auf dieselbe Art und Weise wollen wir die anderen 4 Vektorlayer konvertieren. Statt den Rastern-Algorithmus jedesmal neu zu starten, können wir auch die eingebaute Stapelverarbeitungsfunktion benutzen, um alle Layer auf einmal zu konvertieren. Weiterführende Informationen zur Stapelverarbeitung enthält das Tutorial <a class="reference internal" href="batch_processing.html"><span class="doc">Stapelverarbeitung mit dem Processing Framework (QGIS3)</span></a>. Per Rechtsklick öffnen wir das Kontextmenü des Algorithmus <code class="docutils literal notranslate"><span class="pre">Rastern</span> <span class="pre">(Vektor</span> <span class="pre">nach</span> <span class="pre">Raster)</span></code> und wählen <span class="guilabel">Als Stapelprozess ausführen</span>.</p></li>
 </ol>
 <blockquote>
-<div><img alt="../../_images/818.png" class="align-center" src="../../_images/818.png" />
+<div><img alt="../../_images/819.png" class="align-center" src="../../_images/819.png" />
 </div></blockquote>
 <ol class="arabic simple" start="9">
 <li><p>Im Dialogfenster <span class="guilabel">Stapelverarbeitung</span> ist als erster <span class="guilabel">Eingabelayer</span> der im <span class="guilabel">Layer</span>-Panel des QGIS-Hauptfensters ausgewählte Layer ausgewählt. Mithilfe der Drodown-Liste <span class="guilabel">Autofüllung…</span> in der Spalte <span class="guilabel">Eingabelayer</span> wählen wir <span class="guilabel">Aus geöffneten Layern wählen…</span>. Wir wählen die noch nicht angezeigten Rasterlayer aus <code class="docutils literal notranslate"><span class="pre">boundary</span></code>, <code class="docutils literal notranslate"><span class="pre">protected_regions</span></code>, <code class="docutils literal notranslate"><span class="pre">water_polygons</span></code> und <code class="docutils literal notranslate"><span class="pre">water_polylines</span></code> aus und klicken <span class="guilabel">OK</span>.</p></li>
 </ol>
 <blockquote>
-<div><img alt="../../_images/918.png" class="align-center" src="../../_images/918.png" />
+<div><img alt="../../_images/919.png" class="align-center" src="../../_images/919.png" />
 </div></blockquote>
 <div class="admonition note">
 <p class="admonition-title">Bemerkung</p>
@@ -275,25 +276,25 @@
 <li><p>Dazu geben wir in die erste Zeile dieselben Werte für die Parameter wie für den <code class="docutils literal notranslate"><span class="pre">roads</span></code>-Layer ein und verwenden die Schaltflächen <span class="menuselection">Autofüllung ‣ Nach unten füllen</span>, um die Werte auf alle Layer anzuwenden.</p></li>
 </ol>
 <blockquote>
-<div><img alt="../../_images/1024.png" class="align-center" src="../../_images/1024.png" />
+<div><img alt="../../_images/1025.png" class="align-center" src="../../_images/1025.png" />
 </div></blockquote>
 <ol class="arabic simple" start="11">
 <li><p>In der letzten Spalte <span class="guilabel">Gerastert</span> betätigen wir die Schaltfläche <span class="guilabel">…</span> in der ersten Zeile. Wir geben <code class="docutils literal notranslate"><span class="pre">raster_</span></code> als Dateinamen ein und <span class="guilabel">Speichern</span>. Im Pop-Up-Fenster wählen wir als <span class="guilabel">Autofüllmodus</span> <code class="docutils literal notranslate"><span class="pre">Mit</span> <span class="pre">Parameterwerten</span> <span class="pre">füllen</span></code> und in <span class="guilabel">Zu benutzender Parameter</span> <code class="docutils literal notranslate"><span class="pre">Eingabelayer</span></code>; wir bestätigen mit <span class="guilabel">OK</span>.</p></li>
 </ol>
 <blockquote>
-<div><img alt="../../_images/1127.png" class="align-center" src="../../_images/1127.png" />
+<div><img alt="../../_images/1128.png" class="align-center" src="../../_images/1128.png" />
 </div></blockquote>
 <ol class="arabic simple" start="12">
 <li><p>Die Schnittstelle zur Stapelverarbeitung ergänzt den Dateinamen mit den Layernamen und füllt alle Zeilen aus. Wir sollten sicherstellen, dass die Option <span class="guilabel">Layer bei Abschluss laden</span> gesetzt ist, bevor wir die Schaltfläche <span class="guilabel">Starte</span> betätigen.</p></li>
 </ol>
 <blockquote>
-<div><img alt="../../_images/1225.png" class="align-center" src="../../_images/1225.png" />
+<div><img alt="../../_images/1226.png" class="align-center" src="../../_images/1226.png" />
 </div></blockquote>
 <ol class="arabic simple" start="13">
 <li><p>Nach Abschluss der Verarbeitung sind 4 neue Layer im <span class="guilabel">Layer</span>-Panel geladen. Offensichtlich gibt es 2 Layer mit Bezug zu Gewässern. Wir können beide Layer zu einem verschmelzen, welcher die Gewässer der Region repräsentiert. Wir suchen den Algorithmus <span class="menuselection">Rasteranalyse ‣ Rasterrechner</span> in den Verarbeitungswerkzeugen und starten ihn per Doppelklick.</p></li>
 </ol>
 <blockquote>
-<div><img alt="../../_images/1323.png" class="align-center" src="../../_images/1323.png" />
+<div><img alt="../../_images/1324.png" class="align-center" src="../../_images/1324.png" />
 </div></blockquote>
 <ol class="arabic simple" start="14">
 <li><p>Wir öffnen das Dialogfenster <span class="guilabel">Rasterrechnerausdruck</span> durch Betätigen der Schaltfläche <code class="docutils literal notranslate"><span class="pre">Ɛ</span></code> und geben den unten stehenden Ausdruck ein. Der Ausdruck besagt, dass die Pixelwerte des jeweils ersten Kanals der Wasser-Layer summiert werden sollen. Wir wählen mithilfe der Schaltfläche <code class="docutils literal notranslate"><span class="pre">...</span></code> neben <span class="guilabel">Eingabelayer</span> die zu verschmelzenden Layer <code class="docutils literal notranslate"><span class="pre">raster_water_polygons</span></code> und <code class="docutils literal notranslate"><span class="pre">raster_water_polylines</span></code> aus. Mithilfe der Schaltfläche <span class="guilabel">…</span> neben <span class="guilabel">Berechnet</span> setzen wir als Namen für den Ausgabelayer <code class="docutils literal notranslate"><span class="pre">raster_water_merged.tif</span></code> und betätigen die Schaltfläche <span class="guilabel">Starte</span>.</p></li>
@@ -302,13 +303,13 @@
 <div><div class="highlight-none notranslate"><div class="highlight"><pre><span></span>&quot;raster_water_polygons@1&quot; + &quot;raster_water_polylines@1&quot;
 </pre></div>
 </div>
-<img alt="../../_images/1421.png" class="align-center" src="../../_images/1421.png" />
+<img alt="../../_images/1422.png" class="align-center" src="../../_images/1422.png" />
 </div></blockquote>
 <ol class="arabic simple" start="15">
 <li><p>Das Ergebnis enthält Pixel mit dem Wert 1 für alle Gebiete mit Wasserflächen. Es gibt jedoch auch einige Regionen, in denen sowohl Wasser-Polygone als auch -Linien verzeichnet sind. Dort werden sich Pixel mit dem Wert 2 finden lassen ‒ was nicht korrekt ist. Wir können dies aber mit einem einfachen Ausdruck beheben. Wir wählen den <span class="menuselection">Rasteranalyse ‣ Rasterrechner</span> erneut.</p></li>
 </ol>
 <blockquote>
-<div><img alt="../../_images/1519.png" class="align-center" src="../../_images/1519.png" />
+<div><img alt="../../_images/1520.png" class="align-center" src="../../_images/1520.png" />
 </div></blockquote>
 <ol class="arabic simple" start="16">
 <li><p>Wir geben den folgenden Ausdruck ein, der allen Pixeln, für die er <code class="docutils literal notranslate"><span class="pre">wahr</span></code> ist, den Wert 1 zuordnet und allen übrigen den Wert 0.  Mithilfe der Schaltfläche <span class="guilabel">…</span> neben <span class="guilabel">Eingabelayer</span> wählen wir <code class="docutils literal notranslate"><span class="pre">raster_water_merged</span></code>. Die Ausgabe nennen wir <code class="docutils literal notranslate"><span class="pre">raster_water.tif</span></code> und betätigen die Schaltfläche <span class="guilabel">Starte</span>.</p></li>
@@ -317,31 +318,31 @@
 <div><div class="highlight-none notranslate"><div class="highlight"><pre><span></span>&quot;raster_water_merged@1&quot; &gt; 0
 </pre></div>
 </div>
-<img alt="../../_images/1618.png" class="align-center" src="../../_images/1618.png" />
+<img alt="../../_images/1619.png" class="align-center" src="../../_images/1619.png" />
 </div></blockquote>
 <ol class="arabic simple" start="17">
 <li><p>Der Ergebnislayer <code class="docutils literal notranslate"><span class="pre">raster_water</span></code> hat nur noch Pixel mit den Werten 0 und 1.</p></li>
 </ol>
 <blockquote>
-<div><img alt="../../_images/1719.png" class="align-center" src="../../_images/1719.png" />
+<div><img alt="../../_images/1720.png" class="align-center" src="../../_images/1720.png" />
 </div></blockquote>
 <ol class="arabic simple" start="18">
 <li><p>Mithilfe der Layer für Straßen und Gewässer können wir nun Nachbarschaftsraster erstellen. Diese werden auch Euklidische Distanzen genannt, bei denen jeder Pixel im Ausgaberaster den Abstand zum nächstgelegenen Pixel im Eingaberaster repräsentiert. Das Ergebnisraster kann anschließend verwendet werden, um geeignete Gebiete innerhalb eines bestimmten Abstandes von den Eingabepixeln zu definieren. Wir suchen den Algorithmus <span class="menuselection">GDAL ‣ Rasteranalyse ‣ Nähe (Rasterabstand)</span> und starten ihn per Doppelklick.</p></li>
 </ol>
 <blockquote>
-<div><img alt="../../_images/1817.png" class="align-center" src="../../_images/1817.png" />
+<div><img alt="../../_images/1818.png" class="align-center" src="../../_images/1818.png" />
 </div></blockquote>
 <ol class="arabic simple" start="19">
 <li><p>Im Dialogfenster <span class="guilabel">Nähe (Rasterabstand)</span> wählen wir <code class="docutils literal notranslate"><span class="pre">raster_roads</span></code> als <span class="guilabel">Eingabelayer</span> und <code class="docutils literal notranslate"><span class="pre">Georeferenzierte</span> <span class="pre">Koordinaten</span></code> als <span class="guilabel">Distanzeinheit</span>. Da in den Eingabelayern durch das projizierte KBS <code class="docutils literal notranslate"><span class="pre">Meter</span></code> als Einheit verwendet werden, geben wir <code class="docutils literal notranslate"><span class="pre">5000</span></code> (5 Kilometer) als <span class="guilabel">Maximal zu generierender Abstand</span> ein. Es muss sichergestellt sein, dass <span class="guilabel">Für Zielnäheraster zu verwendender Leerwert</span> <code class="docutils literal notranslate"><span class="pre">Nicht</span> <span class="pre">gesetzt</span></code> ist.</p></li>
 </ol>
 <blockquote>
-<div><img alt="../../_images/1914.png" class="align-center" src="../../_images/1914.png" />
+<div><img alt="../../_images/1915.png" class="align-center" src="../../_images/1915.png" />
 </div></blockquote>
 <ol class="arabic simple" start="20">
 <li><p>Nach Erweiterung des Bereichs <span class="guilabel">Fortgeschrittene Parameter</span> wählen wir als <span class="guilabel">Profil</span> <code class="docutils literal notranslate"><span class="pre">Hohe</span> <span class="pre">Kompression</span></code> aus. Die Ausgabedatei benennen wir mit <code class="docutils literal notranslate"><span class="pre">roads_proximity.tif</span></code> und betätigen die Schaltfläche <span class="guilabel">Starte</span>.</p></li>
 </ol>
 <blockquote>
-<div><img alt="../../_images/2014.png" class="align-center" src="../../_images/2014.png" />
+<div><img alt="../../_images/2015.png" class="align-center" src="../../_images/2015.png" />
 </div></blockquote>
 <div class="admonition note">
 <p class="admonition-title">Bemerkung</p>
@@ -351,19 +352,19 @@
 <li><p>Nach Abschluss der Berechnungen wird ein neuer Layer <code class="docutils literal notranslate"><span class="pre">roads_proximity</span></code> zum <span class="guilabel">Layer</span>-Panel hinzugefügt. Um ihn besser zu visualisieren, sollten wir die Voreinstellung für die Darstellung ändern. Wir betätigen die Schaltfläche <span class="guilabel">Layergestaltungsfenster öffnen</span> im <span class="guilabel">Layer</span>-Panel und ändern den <span class="guilabel">Max</span>-Wert unter <span class="guilabel">Farbverlauf</span> auf <code class="docutils literal notranslate"><span class="pre">5000</span></code>.</p></li>
 </ol>
 <blockquote>
-<div><img alt="../../_images/2118.png" class="align-center" src="../../_images/2118.png" />
+<div><img alt="../../_images/2119.png" class="align-center" src="../../_images/2119.png" />
 </div></blockquote>
 <ol class="arabic simple" start="22">
 <li><p>Wir wiederholen die Anwendung des Algorithmus‘ <span class="guilabel">Nähe (Rasterabstand)</span> für den Layer <code class="docutils literal notranslate"><span class="pre">raster_water</span></code> mit denselben Parametern und nennen die Ausgabedatei <code class="docutils literal notranslate"><span class="pre">water_proximity.tif</span></code>.</p></li>
 </ol>
 <blockquote>
-<div><img alt="../../_images/2216.png" class="align-center" src="../../_images/2216.png" />
+<div><img alt="../../_images/2217.png" class="align-center" src="../../_images/2217.png" />
 </div></blockquote>
 <ol class="arabic simple" start="23">
 <li><p>Nach Abschluss der Verarbeitung kann die gleiche Darstellung wie zuvor angewandt werden, um das Ergebnis besser zu visualisieren. Wenn wir in den Pixeln des Rasters herumklicken, können wir erkennen, dass es sich bei den Werten um ein Kontinuum der Werte zwischen 0 und 5000 handelt. Um das Raster für die Überlagerungs-Analyse verwenden zu können, müssen wir es zuerst reklassifizieren, um diskrete Werte zu erzeugen. Dazu öffnen wir den Algorithmus <span class="menuselection">Rasteranalyse ‣ Rasterrechner</span> erneut.</p></li>
 </ol>
 <blockquote>
-<div><img alt="../../_images/2314.png" class="align-center" src="../../_images/2314.png" />
+<div><img alt="../../_images/2315.png" class="align-center" src="../../_images/2315.png" />
 </div></blockquote>
 <ol class="arabic simple" start="24">
 <li><p>Auf näher an der Straße gelegene Pixel wollen wir höhere Bewertungen anwenden; dazu benutzen wir das folgende Schema.</p></li>
@@ -376,7 +377,7 @@
 <div class="highlight-none notranslate"><div class="highlight"><pre><span></span>100*(&quot;roads_proximity@1&quot;&lt;=1000) + 50*(&quot;roads_proximity@1&quot;&gt;1000)*(&quot;roads_proximity@1&quot;&lt;=5000) + 10*(&quot;roads_proximity@1&quot;&gt;5000)
 </pre></div>
 </div>
-<img alt="../../_images/2413.png" class="align-center" src="../../_images/2413.png" />
+<img alt="../../_images/2414.png" class="align-center" src="../../_images/2414.png" />
 </li>
 </ul>
 <ol class="arabic simple" start="25">
@@ -440,7 +441,7 @@
 <li><p>Um die Auswirkung des Renderers anzuzeigen, ist es nötig, dass der Layer nach oben sortiert wird. Dazu öffnen wir per Rechtsklick das Kontextmenü des Layers <code class="docutils literal notranslate"><span class="pre">boundary</span></code> und wählen <span class="guilabel">Nach oben bringen</span>.</p></li>
 </ol>
 <blockquote>
-<div><img alt="../../_images/3211.png" class="align-center" src="../../_images/3211.png" />
+<div><img alt="../../_images/3212.png" class="align-center" src="../../_images/3212.png" />
 </div></blockquote>
 <ol class="arabic simple" start="33">
 <li><p>Wir schalten den Layer sichtbar, und im Kartenbereich sollte das <code class="docutils literal notranslate"><span class="pre">overlay</span></code>-Raster auf den <code class="docutils literal notranslate"><span class="pre">boundary</span></code>-Layer zugeschnitten sein. Dies stellt die endgültige Ausgabe dar, in der die Flächen innerhalb des Bundesstaates in ihrer Eignung für die Erschließung angezeigt werden.</p></li>
@@ -483,7 +484,7 @@
     </p>
     <p>
         &copy; Copyright 2023, Ujaval Gandhi.<br/>
-      Zuletzt aktualisiert am Juli 31, 2024.<br/>
+      Zuletzt aktualisiert am Aug. 09, 2024.<br/>
       Created using <a href="http://sphinx-doc.org/">Sphinx</a> 7.2.6.<br/>
     </p>
   </div>

@@ -101,6 +101,7 @@
 <li class="toctree-l1"><a class="reference internal" href="3/block_world_styling.html">Creating a Block World Map (QGIS3)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="3/river_styling_expressions.html">Styling a River Network with Expressions (QGIS3)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="3/contour_3d_styling.html">Styling Contours in 3D (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/cartogram_animation.html">Creating an Animated Cartogram (QGIS3)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="3/basic_network_analysis.html">Basic Network Visualization and Routing (QGIS3)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="3/origin_destination_matrix.html">Locating Nearest Facility with Origin-Destination Matrix (QGIS3)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="3/service_area_analysis.html">Service Area Analysis using Openrouteservice (QGIS3)</a></li>
@@ -197,11 +198,11 @@
 <ol class="arabic simple">
 <li><p>在 QGIS 中選擇 <span class="menuselection">圖層 ‣ 加入向量圖層</span>，找到剛下載的 <code class="docutils literal notranslate"><span class="pre">ne_10m_airports.zip</span></code> 檔案，按下 <span class="guilabel">開啟</span>，選擇 <code class="docutils literal notranslate"><span class="pre">ne_10m_airports.shp</span></code>，最後按 <span class="guilabel">確定</span>。</p></li>
 </ol>
-<img alt="../_images/1189.png" class="align-center" src="../_images/1189.png" />
+<img alt="../_images/1191.png" class="align-center" src="../_images/1191.png" />
 <ol class="arabic simple" start="2">
 <li><p>接著 QGIS 中就可以看到 <code class="docutils literal notranslate"><span class="pre">ne_10m_airports</span></code> 圖層。</p></li>
 </ol>
-<img alt="../_images/2153.png" class="align-center" src="../_images/2153.png" />
+<img alt="../_images/2155.png" class="align-center" src="../_images/2155.png" />
 <ol class="arabic simple" start="3">
 <li><p>使用 <span class="guilabel">識別圖徵</span> 按鈕，選擇任一個點看一下有哪些屬性。你會發現機場的名字是記在 <code class="docutils literal notranslate"><span class="pre">name</span></code> 屬性，而機場的 3 位英文代碼則是記在 <code class="docutils literal notranslate"><span class="pre">iata_code</span></code> 屬性。</p></li>
 </ol>
@@ -209,21 +210,21 @@
 <ol class="arabic simple" start="4">
 <li><p>QGIS 有內建終端機模式，可以讓你輸入 Python 指令和查閱輸出，對於學習和快速的資料處理很有幫助。選擇 <span class="menuselection">附加元件 ‣ Python 主控台</span>，就可以進入該模式。</p></li>
 </ol>
-<img alt="../_images/460.png" class="align-center" src="../_images/460.png" />
+<img alt="../_images/461.png" class="align-center" src="../_images/461.png" />
 <ol class="arabic simple" start="5">
 <li><p>這時有個新面板會出現在 QGIS 畫布下方，而且最底下會有一個左側有 <code class="docutils literal notranslate"><span class="pre">&gt;&gt;&gt;</span></code> 的欄位，這裡就是輸入指令的地方。在此模式下方所有與 QGIS 環境的互動，都會透過一個叫做 <code class="docutils literal notranslate"><span class="pre">iface</span></code> 的變數來達成。例如要存取現在顯示在 QGIS 中的圖層的話，可輸入如下指令後按下 <kbd class="kbd docutils literal notranslate">Enter</kbd> 鍵，<code class="docutils literal notranslate"><span class="pre">layer</span></code> 這個變數就會被設定成此圖層。</p></li>
 </ol>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">layer</span> <span class="o">=</span> <span class="n">iface</span><span class="o">.</span><span class="n">activeLayer</span><span class="p">()</span>
 </pre></div>
 </div>
-<img alt="../_images/553.png" class="align-center" src="../_images/553.png" />
+<img alt="../_images/554.png" class="align-center" src="../_images/554.png" />
 <ol class="arabic simple" start="6">
 <li><p>Python 中有個蠻實用的函數叫做 <code class="docutils literal notranslate"><span class="pre">dir()</span></code>，它會秀出某物件的所有可操作方法。當你不太了解這個物件該怎麼操作時，這個函數相當管用。所以我們就輸入如下指令，看看接下來我們可以對 <code class="docutils literal notranslate"><span class="pre">layer</span></code> 變數做什麼事情。</p></li>
 </ol>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nb">dir</span><span class="p">(</span><span class="n">layer</span><span class="p">)</span>
 </pre></div>
 </div>
-<img alt="../_images/651.png" class="align-center" src="../_images/651.png" />
+<img alt="../_images/652.png" class="align-center" src="../_images/652.png" />
 <ol class="arabic simple" start="7">
 <li><p>這下子你就會看到一長串的可用函數。在這裡，我們試著用 <code class="docutils literal notranslate"><span class="pre">getFeatures()</span></code>，這是幫助取得某個在圖層中的圖徵的函數，在我們的例子中，它可以幫我們取得圖層中代表「機場」的點。使用下面的指令就可以逐一取得圖層中的所有圖徵，不過記得一定要在第二行的最前面加上 2 個空格。</p></li>
 </ol>
@@ -231,7 +232,7 @@
   <span class="nb">print</span> <span class="n">f</span>
 </pre></div>
 </div>
-<img alt="../_images/751.png" class="align-center" src="../_images/751.png" />
+<img alt="../_images/752.png" class="align-center" src="../_images/752.png" />
 <ol class="arabic simple" start="8">
 <li><p>接著在輸出畫面中就可以看到每一行都是圖層中的一個特定圖徵。圖徵的資訊會存在 <code class="docutils literal notranslate"><span class="pre">f</span></code> 變數當中，所以只要對 <code class="docutils literal notranslate"><span class="pre">f</span></code> 進行一些操作，就可以取得圖徵的屬性，像是輸入下面的指令，就可以印出每個機場的 <code class="docutils literal notranslate"><span class="pre">name</span></code> 和 <code class="docutils literal notranslate"><span class="pre">iata_code</span></code> 屬性。</p></li>
 </ol>
@@ -239,7 +240,7 @@
   <span class="nb">print</span> <span class="n">f</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">],</span> <span class="n">f</span><span class="p">[</span><span class="s1">&#39;iata_code&#39;</span><span class="p">]</span>
 </pre></div>
 </div>
-<img alt="../_images/850.png" class="align-center" src="../_images/850.png" />
+<img alt="../_images/851.png" class="align-center" src="../_images/851.png" />
 <ol class="arabic simple" start="9">
 <li><p>現在我們已經知道要怎麼用指令取得圖層中的圖徵屬性了，接下來我們還得取得圖徵的座標。向量圖徵的座標可以使用一個叫做 <code class="docutils literal notranslate"><span class="pre">geometry()</span></code> 的函數來取得，此函數會輸出一種「幾何物件」，這裡我們把它存在 <code class="docutils literal notranslate"><span class="pre">geom</span></code> 變數中，而「點幾何物件」可以透過 <code class="docutils literal notranslate"><span class="pre">asPoint()</span></code> 函數來取得這個物件的 x 與 y 座標。如果圖徵是線或是多邊形的話，取得座標的函數會變成 <code class="docutils literal notranslate"><span class="pre">asPolyline()</span></code> 或 <code class="docutils literal notranslate"><span class="pre">asPolygon()</span></code>。請輸入以下指令後按下 <kbd class="kbd docutils literal notranslate">Enter</kbd>，就可以看到每個圖徵的座標。</p></li>
 </ol>
@@ -248,7 +249,7 @@
   <span class="nb">print</span> <span class="n">geom</span><span class="o">.</span><span class="n">asPoint</span><span class="p">()</span>
 </pre></div>
 </div>
-<img alt="../_images/950.png" class="align-center" src="../_images/950.png" />
+<img alt="../_images/951.png" class="align-center" src="../_images/951.png" />
 <ol class="arabic simple" start="10">
 <li><p>如果我們只想要秀出 <code class="docutils literal notranslate"><span class="pre">x</span></code> 座標的話要怎麼辦? 只要在點幾何物件上多套入一個 <code class="docutils literal notranslate"><span class="pre">x()</span></code> 函數就行了，如下所示。</p></li>
 </ol>
@@ -257,7 +258,7 @@
   <span class="nb">print</span> <span class="n">geom</span><span class="o">.</span><span class="n">asPoint</span><span class="p">()</span><span class="o">.</span><span class="n">x</span><span class="p">()</span>
 </pre></div>
 </div>
-<img alt="../_images/1057.png" class="align-center" src="../_images/1057.png" />
+<img alt="../_images/1058.png" class="align-center" src="../_images/1058.png" />
 <ol class="arabic simple" start="11">
 <li><p>以上所講的各種操作，只要把它們拼湊起來，就可以產生我們想要的輸出結果。像是底下的程式碼可以印出每個機場的名字、iata_code 以及經緯度，程式碼中的 <code class="docutils literal notranslate"><span class="pre">%s</span></code> 和 <code class="docutils literal notranslate"><span class="pre">%f</span></code> 是用來調整字串和數字的輸出格式的記號。</p></li>
 </ol>
@@ -267,7 +268,7 @@
          <span class="n">geom</span><span class="o">.</span><span class="n">asPoint</span><span class="p">()</span><span class="o">.</span><span class="n">y</span><span class="p">(),</span> <span class="n">geom</span><span class="o">.</span><span class="n">asPoint</span><span class="p">()</span><span class="o">.</span><span class="n">x</span><span class="p">())</span>
 </pre></div>
 </div>
-<img alt="../_images/1190.png" class="align-center" src="../_images/1190.png" />
+<img alt="../_images/1192.png" class="align-center" src="../_images/1192.png" />
 <ol class="arabic simple" start="12">
 <li><p>到目前為止，所有的輸出都直接顯示在螢幕上，但其實如果能夠存成檔案，應該會更好用。你可以輸入如下的程式碼，第一行的檔名和路徑記得改成你想存在你電腦中的樣子，剛才的結果就會另存成新檔。注意我們在每行的結尾都加上了 <code class="docutils literal notranslate"><span class="pre">\n</span></code>，這是用來告訴電腦存完每個圖徵資料後應該要換到下一行繼續存。另外，<code class="docutils literal notranslate"><span class="pre">unicode_line</span> <span class="pre">=</span> <span class="pre">line.encode('utf-8')</span></code> 這一行的用意在於，有些圖徵的屬性使用了 Unicode 字元，我們要先把它們編碼成 UTF-8 格式，才能正確地存到文字檔當中。</p></li>
 </ol>
@@ -281,11 +282,11 @@
 <span class="n">output_file</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
 </pre></div>
 </div>
-<img alt="../_images/1259.png" class="align-center" src="../_images/1259.png" />
+<img alt="../_images/1260.png" class="align-center" src="../_images/1260.png" />
 <ol class="arabic simple" start="13">
 <li><p>最後就可以在輸出的文字檔中，查看我們剛剛利用 Python 指令從 shapefile 中轉存出來的資料了！</p></li>
 </ol>
-<img alt="../_images/1357.png" class="align-center" src="../_images/1357.png" />
+<img alt="../_images/1358.png" class="align-center" src="../_images/1358.png" />
 </section>
 </section>
 
@@ -321,7 +322,7 @@
     </p>
     <p>
         &copy; Copyright 2023, Ujaval Gandhi.<br/>
-      最後更新於 7月 31, 2024。<br/>
+      最後更新於 8月 09, 2024。<br/>
       Created using <a href="http://sphinx-doc.org/">Sphinx</a> 7.2.6.<br/>
     </p>
   </div>

@@ -103,6 +103,7 @@
 <li class="toctree-l1"><a class="reference internal" href="block_world_styling.html">Erstellung einer Weltkarte im Gitter-Stil (QGIS3)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="river_styling_expressions.html">Styling a River Network with Expressions (QGIS3)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="contour_3d_styling.html">Styling Contours in 3D (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cartogram_animation.html">Creating an Animated Cartogram (QGIS3)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="basic_network_analysis.html">Einfache Netzwerkvisualisierung und Routing (QGIS3)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="origin_destination_matrix.html">Lokalisierung der nächstgelegenen Einrichtung mit einer Quelle-Ziel-Matrix (QGIS3)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="service_area_analysis.html">Einzugsgebietsanalyse mit dem Openrouteservice (QGIS3)</a></li>
@@ -201,7 +202,7 @@
 <section id="get-the-data">
 <h2>Beschaffung der Daten<a class="headerlink" href="#get-the-data" title="Link to this heading">¶</a></h2>
 <p>Wir werden folgenden Datensatz der Columbia University benutzen: <a class="reference external" href="https://sedac.ciesin.columbia.edu/data/collection/gpw-v4">Gridded Population of the World (GPW) v4</a>. Im Detail brauchen wir <a class="reference external" href="https://sedac.ciesin.columbia.edu/data/set/gpw-v4-population-count-rev11/data-download">Population Count</a> für die gesamte Erde mit einer Auflösung von 2,5 geografischen Minuten im GeoTIFF Format für die Jahre 2000 und 2010. Man benötigt einen kostenloses Nutzerkonto, um die Daten herunterzuladen: <a class="reference external" href="https://urs.earthdata.nasa.gov/home">Earth Data account</a>.</p>
-<img alt="../../_images/data118.png" class="align-center" src="../../_images/data118.png" />
+<img alt="../../_images/data120.png" class="align-center" src="../../_images/data120.png" />
 <p>Der Einfachheit halber können wir eine Kopie der Datensätze unter folgenden links herunterladen:</p>
 <p><a class="reference external" href="https://www.qgistutorials.com/downloads/gpw-v4-population-count-rev11_2000_2pt5_min_tif.zip">gpw-v4-population-count-rev11_2000_2pt5_min_tif.zip</a></p>
 <p><a class="reference external" href="https://www.qgistutorials.com/downloads/gpw-v4-population-count-rev11_2010_2pt5_min_tif.zip">gpw-v4-population-count-rev11_2010_2pt5_min_tif.zip</a></p>
@@ -213,13 +214,13 @@
 <li><p>Wir öffenen QGIS und gehen im <span class="guilabel">Browser</span> zu den heruntergeladenen Dateien. Erweitere die <code class="docutils literal notranslate"><span class="pre">gpw-v4-population-count-rev11_2000_2pt5_min_tif.zip</span></code> Datei und ziehe die Datei <code class="docutils literal notranslate"><span class="pre">gpw-v4-population-count-rev11_2000_2pt5_min.tif</span></code> in den Arbeitsbereich.</p></li>
 </ol>
 <blockquote>
-<div><img alt="../../_images/1142.png" class="align-center" src="../../_images/1142.png" />
+<div><img alt="../../_images/1144.png" class="align-center" src="../../_images/1144.png" />
 </div></blockquote>
 <ol class="arabic simple" start="2">
 <li><p>Der neue Layer <code class="docutils literal notranslate"><span class="pre">gpw-v4-population-count-rev11_2000_2pt5_min</span></code> wird nun im Bereich <span class="guilabel">Layer</span> angezeigt. Analog verfahren wir mit der Datei <code class="docutils literal notranslate"><span class="pre">gpw-v4-population-count-rev11_2010_2pt5_min_tif.zip</span></code>. Wir erweitern sie und ziehen die Datei <code class="docutils literal notranslate"><span class="pre">gpw-v4-population-count-rev11_2010_2pt5_min.tif</span></code> in den Arbeitsbereich.</p></li>
 </ol>
 <blockquote>
-<div><img alt="../../_images/2109.png" class="align-center" src="../../_images/2109.png" />
+<div><img alt="../../_images/2123.png" class="align-center" src="../../_images/2123.png" />
 </div></blockquote>
 <ol class="arabic simple" start="3">
 <li><p>Wir schauen uns die Layer näher an. Klicke auf den Knopf <span class="guilabel">Objekte abfragen</span> in der <span class="guilabel">Attributwerkzeugleiste</span>. Nach Auswahl des Tools können wir in einen beliebigen Bereich der Arbeitsfläche klicken.</p></li>
@@ -231,37 +232,37 @@
 <li><p>Der zu dem jeweiligen Pixel gehörende Wert wird in einem neuen Bereich <span class="guilabel">Identifikationsergebnis</span> angezeigt. Wir ändern im <span class="guilabel">Identifikationsergebnis</span> den <span class="guilabel">Modus</span> zu <code class="docutils literal notranslate"><span class="pre">Von</span> <span class="pre">oben</span> <span class="pre">nach</span> <span class="pre">unten</span></code>. Damit werden die Pixelwerte  aller Rasterlayer angezeigt und nicht nur die des obersten Layers. Wir können die Werte der beiden Layer vergleichen. Die Auflösung der Rasterzellen beträgt in etwa 5 km x 5 km. Die Pixelwerte stellen die Bevölkerungssumme bezogen auf die Fläche des Pixels dar (25 km²).</p></li>
 </ol>
 <blockquote>
-<div><img alt="../../_images/430.png" class="align-center" src="../../_images/430.png" />
+<div><img alt="../../_images/433.png" class="align-center" src="../../_images/433.png" />
 </div></blockquote>
 <ol class="arabic simple" start="5">
 <li><p>Wir schließen das <span class="guilabel">Identifikationsergebnis</span>. Wir werden jetzt eine bessere Darstellung der Layer erzeugen. Klicke auf den Knopf <span class="guilabel">Layergestaltungsfenster öffnen</span> im Bereich <span class="guilabel">Layer</span>.</p></li>
 </ol>
 <blockquote>
-<div><img alt="../../_images/528.png" class="align-center" src="../../_images/528.png" />
+<div><img alt="../../_images/529.png" class="align-center" src="../../_images/529.png" />
 </div></blockquote>
 <ol class="arabic simple" start="6">
 <li><p>Im Fenster <span class="guilabel">Layergestaltung</span> wählen wir im Dropdown-Menü neben <span class="guilabel">Symbolisierung</span> die Darstellung <code class="docutils literal notranslate"><span class="pre">Einkanalpseudofarbe</span></code>.</p></li>
 </ol>
 <blockquote>
-<div><img alt="../../_images/627.png" class="align-center" src="../../_images/627.png" />
+<div><img alt="../../_images/628.png" class="align-center" src="../../_images/628.png" />
 </div></blockquote>
 <ol class="arabic simple" start="7">
 <li><p>Diese Darstellung stellt den Layer mit Hilfe eines Farbverlaufes dar. Der voreingestellte Farbverlauf ist weiß zu blau, wobei dem minimalen Wert des Layers weiß und dem maximalen Wert blau zugeordnet ist. Die dazwischen liegenden Werte werden als Farbverlauf verschiedener Blautöne dargestellt. Erweitere die <span class="guilabel">Min/Max-Werteinstellungen</span> und wähle die Option <code class="docutils literal notranslate"><span class="pre">Kumulativer</span> <span class="pre">Zählschritt</span></code>. Die Kartendarstellung sieht nun viel besser aus. Der vorgegebene Wertebereich umfasst nur die Werte zwischen 2 % und 98 % der Datenwerte. Die extremen Werte werden nicht angezeigt. Die Darstellung ist damit viel ansprechender.</p></li>
 </ol>
 <blockquote>
-<div><img alt="../../_images/727.png" class="align-center" src="../../_images/727.png" />
+<div><img alt="../../_images/728.png" class="align-center" src="../../_images/728.png" />
 </div></blockquote>
 <ol class="arabic simple" start="8">
 <li><p>Wir schließen die <span class="guilabel">Layergestaltung</span>. Eine ähnliche Darstellung können wir für den anderen Layer einstellen. Es gibt aber einen einfacheren Weg, um die Gestaltung von einem Layer auf einen anderen zu übertragen. Klicke mit der rechten Maustaste auf den Layer <code class="docutils literal notranslate"><span class="pre">gpw-v4-population-count-rev11_2010_2pt5_min</span></code> und wähle <span class="menuselection">Stile ‣ Stil kopieren</span>.</p></li>
 </ol>
 <blockquote>
-<div><img alt="../../_images/826.png" class="align-center" src="../../_images/826.png" />
+<div><img alt="../../_images/827.png" class="align-center" src="../../_images/827.png" />
 </div></blockquote>
 <ol class="arabic simple" start="9">
 <li><p>Klicke jetzt auf den noch unveränderten Layer <code class="docutils literal notranslate"><span class="pre">gpw-v4-population-count-rev11_2000_2pt5_min</span></code> und wähle <span class="menuselection">Stile ‣ Stil einfügen</span>.</p></li>
 </ol>
 <blockquote>
-<div><img alt="../../_images/927.png" class="align-center" src="../../_images/927.png" />
+<div><img alt="../../_images/928.png" class="align-center" src="../../_images/928.png" />
 </div></blockquote>
 <ol class="arabic simple" start="10">
 <li><p>Dieselben Darstellungsparameter werden nun auf den Layer angewendet. Diese Funktionalität ist besonders nützlich, wenn man verschiedene Layer anhand derselben Kategorisierung vergleichen möchte. Durch Umschalten der Sichtbarkeit des obersten Layers, sieht man die Veränderung der Bevölkerungszahlen.</p></li>
@@ -282,49 +283,49 @@
 <div><div class="highlight-none notranslate"><div class="highlight"><pre><span></span>&quot;gpw-v4-population-count-rev11_2010_2pt5_min@1&quot; - &quot;gpw-v4-population-count-rev11_2000_2pt5_min@1&quot;
 </pre></div>
 </div>
-<img alt="../../_images/1236.png" class="align-center" src="../../_images/1236.png" />
+<img alt="../../_images/1237.png" class="align-center" src="../../_images/1237.png" />
 </div></blockquote>
 <ol class="arabic simple" start="13">
 <li><p>Gib <code class="docutils literal notranslate"><span class="pre">population_change_2010_2000.tif</span></code> als <span class="guilabel">Ausgabelayer</span> ein und klicke auf <span class="guilabel">OK</span>, um die Berechnung zu starten.</p></li>
 </ol>
 <blockquote>
-<div><img alt="../../_images/1334.png" class="align-center" src="../../_images/1334.png" />
+<div><img alt="../../_images/1335.png" class="align-center" src="../../_images/1335.png" />
 </div></blockquote>
 <ol class="arabic simple" start="14">
 <li><p>Nach Beendigung der Berechnung wird der neue Layer <code class="docutils literal notranslate"><span class="pre">population_change_2010_2000</span></code> im <span class="guilabel">Layer</span>-Panel hinzugefügt. Wir werden jetzt die Darstellung anpassen, so dass man die Änderung der Bevölkerung besser erkennen kann. Klicke auf den Button <span class="guilabel">Layergestaltungsfenster öffnen</span> im Bereich <span class="guilabel">Layer</span>.</p></li>
 </ol>
 <blockquote>
-<div><img alt="../../_images/1431.png" class="align-center" src="../../_images/1431.png" />
+<div><img alt="../../_images/1432.png" class="align-center" src="../../_images/1432.png" />
 </div></blockquote>
 <ol class="arabic simple" start="15">
 <li><p>Eine Möglichkeit besteht darin, die gleiche Gestaltungstechnik wie zuvor zu verwenden und einen divergierenden Farbverlauf zu wählen. Klicke auf das Dropdown-Menü <span class="guilabel">Farbverlauf</span> und wähle <code class="docutils literal notranslate"><span class="pre">Spectral</span></code>. Klicke erneut auf das Dropdown-Menü und wähle <code class="docutils literal notranslate"><span class="pre">Farbverlauf</span> <span class="pre">invertieren</span></code>, um niedrigen Werten Blautöne und hohen Werten Rottöne zuzuordnen.</p></li>
 </ol>
 <blockquote>
-<div><img alt="../../_images/1528.png" class="align-center" src="../../_images/1528.png" />
+<div><img alt="../../_images/1529.png" class="align-center" src="../../_images/1529.png" />
 </div></blockquote>
 <ol class="arabic simple" start="16">
 <li><p>Das ist eine gute Darstellung, die aber nicht leicht zu interpretieren ist. Wir erzeugen jetzt eine bessere Darstellung mit 4 Kategorien: <code class="docutils literal notranslate"><span class="pre">Abnahme</span></code>, <code class="docutils literal notranslate"><span class="pre">Unverändert</span></code>, <code class="docutils literal notranslate"><span class="pre">Wachstum</span></code> und <code class="docutils literal notranslate"><span class="pre">Starkes</span> <span class="pre">Wachstum</span></code>. Scrolle nach unten zur Tabelle mit der Klasseneinteilung. Halte die <kbd class="kbd docutils literal notranslate">Shift</kbd>-Taste gedrückt und selektiere alle Zeilen. Klicke auf den Button <span class="guilabel">Gewählte Zeile(n) entfernen</span>.</p></li>
 </ol>
 <blockquote>
-<div><img alt="../../_images/1626.png" class="align-center" src="../../_images/1626.png" />
+<div><img alt="../../_images/1627.png" class="align-center" src="../../_images/1627.png" />
 </div></blockquote>
 <ol class="arabic simple" start="17">
 <li><p>Ändere den Modus bei <span class="guilabel">Interpolation</span> zu <code class="docutils literal notranslate"><span class="pre">Diskret</span></code>. Wir werden jetzt die Farben manuell zuweisen. Klicke auf den Button <span class="guilabel">Werte manuell hinzufügen</span>. Gib <code class="docutils literal notranslate"><span class="pre">-100</span></code> als <span class="guilabel">Wert</span> und <code class="docutils literal notranslate"><span class="pre">Abnahme</span></code> als <span class="guilabel">Beschriftung</span> ein. Weise der Klasse blau als Farbe zu. Alle Werte kleiner als der verwendete Wert werden in der vorgegebenen Farbe der Klasse angezeigt. Wir bemerken, dass nur noch die Gebiete mit negativer Bevölkerungsentwicklung in der Karte angezeigt werden.</p></li>
 </ol>
 <blockquote>
-<div><img alt="../../_images/1727.png" class="align-center" src="../../_images/1727.png" />
+<div><img alt="../../_images/1728.png" class="align-center" src="../../_images/1728.png" />
 </div></blockquote>
 <ol class="arabic simple" start="18">
 <li><p>Vervollständige die Farbkarte mit geeigneten Werten. Ich wählte <code class="docutils literal notranslate"><span class="pre">100</span></code>, <code class="docutils literal notranslate"><span class="pre">1000</span></code> und <code class="docutils literal notranslate"><span class="pre">100000</span></code> als Obergrenzen für die Kategorien <code class="docutils literal notranslate"><span class="pre">Neutral</span></code>, <code class="docutils literal notranslate"><span class="pre">Wachstum</span></code> und <code class="docutils literal notranslate"><span class="pre">Hohes</span> <span class="pre">Wachstum</span></code>. Weise jeder der erstellten Kategorien Farben zu, zum Beispiel beige, orange und rot.</p></li>
 </ol>
 <blockquote>
-<div><img alt="../../_images/1824.png" class="align-center" src="../../_images/1824.png" />
+<div><img alt="../../_images/1825.png" class="align-center" src="../../_images/1825.png" />
 </div></blockquote>
 <ol class="arabic simple" start="19">
 <li><p>Nach Fertigstellung der gewünschten Darstellung, können wir das Fenster <span class="guilabel">Layergestaltung</span> schließen. Wir haben jetzt unsere globale thematische Karte der Bevölkerungsentwicklung fertig gestellt.</p></li>
 </ol>
 <blockquote>
-<div><img alt="../../_images/1919.png" class="align-center" src="../../_images/1919.png" />
+<div><img alt="../../_images/1920.png" class="align-center" src="../../_images/1920.png" />
 </div></blockquote>
 </section>
 </section>
@@ -361,7 +362,7 @@
     </p>
     <p>
         &copy; Copyright 2023, Ujaval Gandhi.<br/>
-      Zuletzt aktualisiert am Juli 31, 2024.<br/>
+      Zuletzt aktualisiert am Aug. 09, 2024.<br/>
       Created using <a href="http://sphinx-doc.org/">Sphinx</a> 7.2.6.<br/>
     </p>
   </div>

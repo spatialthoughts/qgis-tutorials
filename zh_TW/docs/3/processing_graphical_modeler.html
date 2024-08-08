@@ -103,6 +103,7 @@
 <li class="toctree-l1"><a class="reference internal" href="block_world_styling.html">Creating a Block World Map (QGIS3)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="river_styling_expressions.html">Styling a River Network with Expressions (QGIS3)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="contour_3d_styling.html">Styling Contours in 3D (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cartogram_animation.html">Creating an Animated Cartogram (QGIS3)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="basic_network_analysis.html">Basic Network Visualization and Routing (QGIS3)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="origin_destination_matrix.html">Locating Nearest Facility with Origin-Destination Matrix (QGIS3)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="service_area_analysis.html">Service Area Analysis using Openrouteservice (QGIS3)</a></li>
@@ -214,11 +215,11 @@ layers. Download the <a class="reference external" href="https://www.naturaleart
 <ol class="arabic simple">
 <li><p>In the QGIS Browser Panel, locate the directory where you saved your downloaded data. Expand the <code class="docutils literal notranslate"><span class="pre">ne_10m_land.zip</span></code> and select the <code class="docutils literal notranslate"><span class="pre">ne_10m_land.shp</span></code> layer. Drag the layer to the canvas. Next, locate the <code class="docutils literal notranslate"><span class="pre">ASAM_shp.zip</span></code> file. Expand it and select the <code class="docutils literal notranslate"><span class="pre">asam_data_download/ASAM_events.shp</span></code> layer and drag it on to the canvas.</p></li>
 </ol>
-<img alt="../../_images/1134.png" class="align-center" src="../../_images/1134.png" />
+<img alt="../../_images/1136.png" class="align-center" src="../../_images/1136.png" />
 <ol class="arabic simple" start="2">
 <li><p>The <code class="docutils literal notranslate"><span class="pre">ASAM_events.shp</span></code> layer does not have projection information associated with it, so you will be prompted to select a CRS in the <span class="guilabel">Coordinate Reference System Selector</span>. Here, the points are in the Latitude and Longitude coordinates, so select the <code class="docutils literal notranslate"><span class="pre">WGS</span> <span class="pre">84</span></code> CRS and click <span class="guilabel">OK</span>.</p></li>
 </ol>
-<img alt="../../_images/2105.png" class="align-center" src="../../_images/2105.png" />
+<img alt="../../_images/2106.png" class="align-center" src="../../_images/2106.png" />
 <ol class="arabic simple" start="3">
 <li><p>Once the layer is loaded, you can see the individual points representing incidents of piracy locations. Let’s start building our Processing model to process these layers. Go to <span class="menuselection">Processing ‣ Graphical Modeler…</span>.</p></li>
 </ol>
@@ -226,27 +227,27 @@ layers. Download the <a class="reference external" href="https://www.naturaleart
 <ol class="arabic simple" start="4">
 <li><p>In the <span class="guilabel">Processing Modeler</span> dialog, locate the <span class="guilabel">Model Properties</span> panel. Enter <code class="docutils literal notranslate"><span class="pre">piracy</span> <span class="pre">hexbin</span></code> as the <span class="guilabel">Name</span> of the model and <code class="docutils literal notranslate"><span class="pre">projects</span></code> as the <span class="guilabel">Groups</span>. Click the <span class="guilabel">Save</span> button.</p></li>
 </ol>
-<img alt="../../_images/426.png" class="align-center" src="../../_images/426.png" />
+<img alt="../../_images/427.png" class="align-center" src="../../_images/427.png" />
 <ol class="arabic simple" start="5">
 <li><p>Save the model as <code class="docutils literal notranslate"><span class="pre">piracy_hexbin</span></code>.</p></li>
 </ol>
-<img alt="../../_images/524.png" class="align-center" src="../../_images/524.png" />
+<img alt="../../_images/525.png" class="align-center" src="../../_images/525.png" />
 <ol class="arabic simple" start="6">
 <li><p>Now we can start building a graphical model of our processing pipeline.  The <span class="guilabel">Processing modeler</span> dialog contains a left-hand panel and a main canvas. On the left-hand panel, locate the <span class="guilabel">Inputs</span> panel listing various types of input data types. Scroll down and select the <span class="guilabel">+ Vector Layer</span> input. Drag it to the canvas.</p></li>
 </ol>
-<img alt="../../_images/624.png" class="align-center" src="../../_images/624.png" />
+<img alt="../../_images/625.png" class="align-center" src="../../_images/625.png" />
 <ol class="arabic simple" start="7">
 <li><p>Enter <code class="docutils literal notranslate"><span class="pre">Input</span> <span class="pre">Points</span></code> as the <span class="guilabel">Parameter name</span> and <code class="docutils literal notranslate"><span class="pre">Point</span></code> as the <span class="guilabel">Geometry type</span>. This input represents the piracy incidents point layer.</p></li>
 </ol>
-<img alt="../../_images/723.png" class="align-center" src="../../_images/723.png" />
+<img alt="../../_images/724.png" class="align-center" src="../../_images/724.png" />
 <ol class="arabic simple" start="8">
 <li><p>Next, drag another <span class="guilabel">+ Vector Layer</span> input to the canvas. Enter <code class="docutils literal notranslate"><span class="pre">Base</span> <span class="pre">Layer</span></code> as the <span class="guilabel">Parameter name</span> and <code class="docutils literal notranslate"><span class="pre">Polygon</span></code> as the <span class="guilabel">Geometry type</span>. This input represents the natural earth global land layer.</p></li>
 </ol>
-<img alt="../../_images/823.png" class="align-center" src="../../_images/823.png" />
+<img alt="../../_images/824.png" class="align-center" src="../../_images/824.png" />
 <ol class="arabic simple" start="9">
 <li><p>As we are generating a global hexagonal grid, we can ask the user to supply us the grid size as an input instead of hard-coding it as part of our model. This way, the user can quickly experiment with different grid sizes without changing the model at all. select a <span class="guilabel">+ Number</span> input and drag it to the canvas. Enter <code class="docutils literal notranslate"><span class="pre">Grid</span> <span class="pre">Size</span></code> as the <span class="guilabel">Parameter name</span> and click <span class="guilabel">OK</span>.</p></li>
 </ol>
-<img alt="../../_images/923.png" class="align-center" src="../../_images/923.png" />
+<img alt="../../_images/924.png" class="align-center" src="../../_images/924.png" />
 <ol class="arabic simple" start="10">
 <li><p>Now that we have our user inputs defined, we are ready to add processing steps. All of the processing algorithms are available to you under the <span class="guilabel">Algorithms</span> tab. The first step in our pipeline will be to reproject the base layer to the Project CRS.  Search for <code class="docutils literal notranslate"><span class="pre">Reproject</span> <span class="pre">layer</span></code> algorithm and drag it to the canvas.</p></li>
 </ol>
@@ -254,63 +255,63 @@ layers. Download the <a class="reference external" href="https://www.naturaleart
 <p class="admonition-title">備註</p>
 <p>The necessity of this reprojection step will become clear shortly. The grid generation algorithm requires us to specify the extent of the grid in the unit of the Project CRS. We can supply this reprojected layer to compute this extent.</p>
 </div>
-<img alt="../../_images/1031.png" class="align-center" src="../../_images/1031.png" />
+<img alt="../../_images/1032.png" class="align-center" src="../../_images/1032.png" />
 <ol class="arabic simple" start="11">
 <li><p>In the <span class="guilabel">Reproject layer</span> dialog, select <code class="docutils literal notranslate"><span class="pre">Base</span> <span class="pre">Layer</span></code> as the <span class="guilabel">Input layer</span>. Check the <span class="guilabel">Use project CRS</span> as the <span class="guilabel">Target CRS</span>. Click <span class="guilabel">OK</span>.</p></li>
 </ol>
-<img alt="../../_images/1135.png" class="align-center" src="../../_images/1135.png" />
+<img alt="../../_images/1137.png" class="align-center" src="../../_images/1137.png" />
 <ol class="arabic simple" start="12">
 <li><p>In the <span class="guilabel">Processing Modeler</span> canvas, you will notice a connection appear between the <span class="guilabel">+ Base Layer</span> input and the <span class="guilabel">Reproject layer</span> algorithm. This connection indicates the flow of our processing pipeline. Next step is to create a hexagonal grid. Search for the <code class="docutils literal notranslate"><span class="pre">Create</span> <span class="pre">grid</span></code> algorithm and drag it to the canvas.</p></li>
 </ol>
-<img alt="../../_images/1232.png" class="align-center" src="../../_images/1232.png" />
+<img alt="../../_images/1233.png" class="align-center" src="../../_images/1233.png" />
 <ol class="arabic simple" start="13">
 <li><p>In the <span class="guilabel">Generate grid</span> dialog, choose <code class="docutils literal notranslate"><span class="pre">Hexagon</span> <span class="pre">(polygon)</span></code> as the <span class="guilabel">Grid type</span>. Select <code class="docutils literal notranslate"><span class="pre">Extent</span> <span class="pre">of</span> <span class="pre">'Reprojected'</span> <span class="pre">from</span> <span class="pre">algorithm</span> <span class="pre">'Reproject</span> <span class="pre">Layer'</span></code> as the <span class="guilabel">Grid extent</span>. Click the <span class="guilabel">123</span> button under the <span class="guilabel">Horizonal spacing</span> label and choose <span class="guilabel">Model input</span>.</p></li>
 </ol>
-<img alt="../../_images/1330.png" class="align-center" src="../../_images/1330.png" />
+<img alt="../../_images/1331.png" class="align-center" src="../../_images/1331.png" />
 <ol class="arabic simple" start="14">
 <li><p>Select <code class="docutils literal notranslate"><span class="pre">Grid</span> <span class="pre">Size</span></code> input for <span class="guilabel">Using model input</span>. Repeat the same process for <span class="guilabel">Vertical Spacing</span>. Click <span class="guilabel">OK</span>.</p></li>
 </ol>
-<img alt="../../_images/1428.png" class="align-center" src="../../_images/1428.png" />
+<img alt="../../_images/1429.png" class="align-center" src="../../_images/1429.png" />
 <ol class="arabic simple" start="15">
 <li><p>At this point, we have a global hexagonal grid. The grid spans the full extent of the base layer, including land areas and places where there are no points. Let’s filter out those grid polygons where there are no input points. Search for <code class="docutils literal notranslate"><span class="pre">Extract</span> <span class="pre">by</span> <span class="pre">location</span></code> algorithm and drag it to the canvas.</p></li>
 </ol>
-<img alt="../../_images/1524.png" class="align-center" src="../../_images/1524.png" />
+<img alt="../../_images/1525.png" class="align-center" src="../../_images/1525.png" />
 <ol class="arabic simple" start="16">
 <li><p>For <span class="guilabel">Extract features from</span>, select <code class="docutils literal notranslate"><span class="pre">'Grid'</span> <span class="pre">from</span> <span class="pre">algorithm</span> <span class="pre">'Generate</span> <span class="pre">Grid'</span></code>, <span class="guilabel">Where the features (geometric predicate)</span> as <code class="docutils literal notranslate"><span class="pre">Intersect</span></code> and <span class="guilabel">By comparing to the features from</span> as <code class="docutils literal notranslate"><span class="pre">Input</span> <span class="pre">points</span></code>. Click <span class="guilabel">OK</span>.</p></li>
 </ol>
-<img alt="../../_images/1623.png" class="align-center" src="../../_images/1623.png" />
+<img alt="../../_images/1624.png" class="align-center" src="../../_images/1624.png" />
 <ol class="arabic simple" start="17">
 <li><p>Now we have only those grid polygons that contain some input points. To aggregate these points, we will use <code class="docutils literal notranslate"><span class="pre">Count</span> <span class="pre">points</span> <span class="pre">in</span> <span class="pre">polygon</span></code> algorithm. Search and drag it to the canvas.</p></li>
 </ol>
-<img alt="../../_images/1724.png" class="align-center" src="../../_images/1724.png" />
+<img alt="../../_images/1725.png" class="align-center" src="../../_images/1725.png" />
 <ol class="arabic simple" start="18">
 <li><p>Select <code class="docutils literal notranslate"><span class="pre">'Extracted</span> <span class="pre">(location)'</span> <span class="pre">from</span> <span class="pre">algorithm</span> <span class="pre">'Extract</span> <span class="pre">by</span> <span class="pre">location'</span></code> as the value for <span class="guilabel">Polygons</span>. The <span class="guilabel">Points</span> layer would be <code class="docutils literal notranslate"><span class="pre">Input</span> <span class="pre">Points</span></code>. At the bottom, name the <span class="guilabel">Count</span> output layer as <code class="docutils literal notranslate"><span class="pre">Aggregated</span></code>. Click <span class="guilabel">OK</span>.</p></li>
 </ol>
-<img alt="../../_images/1821.png" class="align-center" src="../../_images/1821.png" />
+<img alt="../../_images/1822.png" class="align-center" src="../../_images/1822.png" />
 <ol class="arabic simple" start="19">
 <li><p>The model is now complete. Click the <span class="guilabel">Save</span> button.</p></li>
 </ol>
-<img alt="../../_images/1917.png" class="align-center" src="../../_images/1917.png" />
+<img alt="../../_images/1918.png" class="align-center" src="../../_images/1918.png" />
 <ol class="arabic simple" start="20">
 <li><p>Switch to the main QGIS window. You can find your newly created model in the <span class="guilabel">Processing Toolbox</span> under <span class="menuselection">Models ‣ projects ‣ piracy_hexbin</span>. Now it is time to run and test the model. As our goal is to aggregate the input points over hexagonal grids, it is important that the grids are generated using a equal-area projection. This will ensure that regardless of the location of the grid, it will cover exactly the same area. Our model doesn’t explicitely ask for a CRS, but uses whatever CRS is set as the <strong>Project CRS</strong>. Let’s choose a global equal area projection as the Project CRS. Go to <span class="menuselection">Project ‣ Properties</span>.</p></li>
 </ol>
-<img alt="../../_images/2016.png" class="align-center" src="../../_images/2016.png" />
+<img alt="../../_images/2017.png" class="align-center" src="../../_images/2017.png" />
 <ol class="arabic simple" start="21">
 <li><p>In the <span class="guilabel">Project Properties</span> dialog, switch to the <span class="guilabel">CRS</span> tab. We will use a global <strong>Mollweide</strong> projection for this exercise which is a equal area projection. Search for <code class="docutils literal notranslate"><span class="pre">Mollweide</span></code> in the <span class="guilabel">Filter</span> box and select <code class="docutils literal notranslate"><span class="pre">World_Mollweide</span> <span class="pre">EPSG:54009</span></code> as the CRS. Click <span class="guilabel">OK</span>.</p></li>
 </ol>
-<img alt="../../_images/2120.png" class="align-center" src="../../_images/2120.png" />
+<img alt="../../_images/2121.png" class="align-center" src="../../_images/2121.png" />
 <ol class="arabic simple" start="22">
 <li><p>You will see the layers getting reprojected on-the-fly to the selected CRS. Locate the <code class="docutils literal notranslate"><span class="pre">piracy_hexbin</span></code> model in the <span class="guilabel">Processing Toolbox</span> and double-click it.</p></li>
 </ol>
-<img alt="../../_images/2218.png" class="align-center" src="../../_images/2218.png" />
+<img alt="../../_images/2219.png" class="align-center" src="../../_images/2219.png" />
 <ol class="arabic simple" start="23">
 <li><p>Our <span class="guilabel">Base Layer</span> is the <code class="docutils literal notranslate"><span class="pre">ne_10m_land</span></code> and the <span class="guilabel">Input Points</span> layer is <code class="docutils literal notranslate"><span class="pre">ASAM_events</span></code>. The <span class="guilabel">Grid Size</span> needs to be specified in the units of the selected CRS. The World_Mollweide CRS unit is meters, so we specify <code class="docutils literal notranslate"><span class="pre">100000</span></code> m (100 Kms) as the <span class="guilabel">Grid Size</span>. Click <span class="guilabel">Run</span> to start the processing pipeline. Once the process finishes, click <span class="guilabel">Close</span>.</p></li>
 </ol>
-<img alt="../../_images/2316.png" class="align-center" src="../../_images/2316.png" />
+<img alt="../../_images/2317.png" class="align-center" src="../../_images/2317.png" />
 <ol class="arabic simple" start="24">
 <li><p>You will see a new layer <code class="docutils literal notranslate"><span class="pre">Aggregated</span></code> loaded as the result of the model. As you explore, you will notice the layer contains an attribute called <em>NUMPOINTS</em> containing the number of piracy incidents points contained within that grid feature. Let’s style this layer to display this information better. Right-click the <code class="docutils literal notranslate"><span class="pre">Aggregated</span></code> layer and select <span class="guilabel">Properties</span>.</p></li>
 </ol>
-<img alt="../../_images/2415.png" class="align-center" src="../../_images/2415.png" />
+<img alt="../../_images/2416.png" class="align-center" src="../../_images/2416.png" />
 <ol class="arabic simple" start="25">
 <li><p>Switch to the <span class="guilabel">Symbology</span> tab. Select <code class="docutils literal notranslate"><span class="pre">Graduated</span></code> symbology and <code class="docutils literal notranslate"><span class="pre">NUMPOINTS</span></code> as the <span class="guilabel">Column</span>. Click <code class="docutils literal notranslate"><span class="pre">Change..</span></code> next to <span class="guilabel">Symbol</span> label.</p></li>
 </ol>
@@ -371,7 +372,7 @@ layers. Download the <a class="reference external" href="https://www.naturaleart
     </p>
     <p>
         &copy; Copyright 2023, Ujaval Gandhi.<br/>
-      最後更新於 7月 31, 2024。<br/>
+      最後更新於 8月 09, 2024。<br/>
       Created using <a href="http://sphinx-doc.org/">Sphinx</a> 7.2.6.<br/>
     </p>
   </div>

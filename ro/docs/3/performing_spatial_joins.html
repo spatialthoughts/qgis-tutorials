@@ -103,6 +103,7 @@
 <li class="toctree-l1"><a class="reference internal" href="block_world_styling.html">Creating a Block World Map (QGIS3)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="river_styling_expressions.html">Styling a River Network with Expressions (QGIS3)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="contour_3d_styling.html">Styling Contours in 3D (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cartogram_animation.html">Creating an Animated Cartogram (QGIS3)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="basic_network_analysis.html">Basic Network Visualization and Routing (QGIS3)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="origin_destination_matrix.html">Locating Nearest Facility with Origin-Destination Matrix (QGIS3)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="service_area_analysis.html">Service Area Analysis using Openrouteservice (QGIS3)</a></li>
@@ -202,9 +203,9 @@
 <h2>Obținerea datelor<a class="headerlink" href="#get-the-data" title="Link to this heading">¶</a></h2>
 <p><a class="reference external" href="https://data.cityofnewyork.us/">NYC Open Data Portal</a> is an excellent source of free data for New York city.</p>
 <p>Download the <a class="reference external" href="https://data.cityofnewyork.us/City-Government/Borough-Boundaries/tqmj-j8zm">Borough Boundaries</a> zip file using the Export option on the portal.</p>
-<img alt="../../_images/data110.png" class="align-center" src="../../_images/data110.png" />
+<img alt="../../_images/data115.png" class="align-center" src="../../_images/data115.png" />
 <p>Download the <a class="reference external" href="https://data.cityofnewyork.us/Transportation/Street-Pavement-Rating/2cav-chmn">Street Pavement Rating</a> zip file using the Export option on the portal.</p>
-<img alt="../../_images/data24.png" class="align-center" src="../../_images/data24.png" />
+<img alt="../../_images/data25.png" class="align-center" src="../../_images/data25.png" />
 <p>Pentru comoditate, puteți descărca o copie a seturilor de date direct de la adresele de mai jos:</p>
 <p><a class="reference external" href="https://www.qgistutorials.com/downloads/nybb_19a.zip">nybb_19a.zip</a></p>
 <p><a class="reference external" href="https://www.qgistutorials.com/downloads/V_SSS_SEGMENTRATING_1.zip">V_SSS_SEGMENTRATING_1.zip</a></p>
@@ -216,13 +217,13 @@
 <li><p>Locate the <code class="docutils literal notranslate"><span class="pre">nybb_19a.zip</span></code> file in the QGIS Browser and expand it. Select the <code class="docutils literal notranslate"><span class="pre">nybb_19a/nybb.shp</span></code> layer and drag it to the canvas. This is a polygon layer representing the borough boundaries in New York city.</p></li>
 </ol>
 <blockquote>
-<div><img alt="../../_images/1107.png" class="align-center" src="../../_images/1107.png" />
+<div><img alt="../../_images/1108.png" class="align-center" src="../../_images/1108.png" />
 </div></blockquote>
 <ol class="arabic simple" start="2">
 <li><p>Next, locate the <code class="docutils literal notranslate"><span class="pre">V_SSS_SEGMENTRATING_1.zip</span></code> file and expand it. Select the <code class="docutils literal notranslate"><span class="pre">dot_V_SSS_SEGMENTRATING_1_20190129.shp</span></code> layer and add it to the canvas. This is a line layer of all streets in the city.</p></li>
 </ol>
 <blockquote>
-<div><img alt="../../_images/2102.png" class="align-center" src="../../_images/2102.png" />
+<div><img alt="../../_images/2103.png" class="align-center" src="../../_images/2103.png" />
 </div></blockquote>
 <ol class="arabic simple" start="3">
 <li><p>Let’s examine the attributes available for each feature of the <code class="docutils literal notranslate"><span class="pre">dot_V_SSS_SEGMENTRATING_1_20190129</span></code> layer. Right-click and select <span class="guilabel">Open Attribute Table</span>.</p></li>
@@ -234,13 +235,13 @@
 <li><p>You will notice the attribute called <code class="docutils literal notranslate"><span class="pre">Rating_B</span></code> which has values in the range 0-10 representing the street segment’s rating. The attribute <code class="docutils literal notranslate"><span class="pre">RatingWord</span></code> has descriptive rating. We can use the <code class="docutils literal notranslate"><span class="pre">Rating_B</span></code> field to calculate the average rating.</p></li>
 </ol>
 <blockquote>
-<div><img alt="../../_images/423.png" class="align-center" src="../../_images/423.png" />
+<div><img alt="../../_images/424.png" class="align-center" src="../../_images/424.png" />
 </div></blockquote>
 <ol class="arabic simple" start="5">
 <li><p>You may have notice some features have a rating of <code class="docutils literal notranslate"><span class="pre">NR</span></code>. These are the segments that were not rated. Including them in our analysis will not be correct. Before we do the spatial join, let’s set up a <strong>Filter</strong> to exclude these records. Right-click the <code class="docutils literal notranslate"><span class="pre">dot_V_SSS_SEGMENTRATING_1_20190129</span></code> layer and select <span class="guilabel">Filter</span>.</p></li>
 </ol>
 <blockquote>
-<div><img alt="../../_images/521.png" class="align-center" src="../../_images/521.png" />
+<div><img alt="../../_images/522.png" class="align-center" src="../../_images/522.png" />
 </div></blockquote>
 <ol class="arabic simple" start="6">
 <li><p>In the <span class="guilabel">Query Builder</span>, type the following expression to select all records that are not rated <code class="docutils literal notranslate"><span class="pre">NR</span></code>. You can also build the expression interactively by clicking on <span class="guilabel">Field</span>, <span class="guilabel">Operator</span> and selecting the appropriate <span class="guilabel">Value</span>. Click <span class="guilabel">OK</span>.</p></li>
@@ -249,25 +250,25 @@
 <div><div class="highlight-none notranslate"><div class="highlight"><pre><span></span>&quot;RatingWord&quot; != &#39;NR&#39;
 </pre></div>
 </div>
-<img alt="../../_images/621.png" class="align-center" src="../../_images/621.png" />
+<img alt="../../_images/622.png" class="align-center" src="../../_images/622.png" />
 </div></blockquote>
 <ol class="arabic simple" start="7">
 <li><p>You will notice the <code class="docutils literal notranslate"><span class="pre">dot_V_SSS_SEGMENTRATING_1_20190129</span></code> layer now has a filter icon indicating that there is an active filter applied to this layer. Now we can do a spatial join using this layer. Go to <span class="menuselection">Processing ‣ Toolbox</span>.</p></li>
 </ol>
 <blockquote>
-<div><img alt="../../_images/720.png" class="align-center" src="../../_images/720.png" />
+<div><img alt="../../_images/721.png" class="align-center" src="../../_images/721.png" />
 </div></blockquote>
 <ol class="arabic simple" start="8">
 <li><p>Search and locate the <span class="menuselection">Vector general ‣ Join attribute by location (summary)</span> algorithm. Double-click to launch it.</p></li>
 </ol>
 <blockquote>
-<div><img alt="../../_images/820.png" class="align-center" src="../../_images/820.png" />
+<div><img alt="../../_images/821.png" class="align-center" src="../../_images/821.png" />
 </div></blockquote>
 <ol class="arabic simple" start="9">
 <li><p>In the <span class="guilabel">Join attribute by location (summary)</span> dialog, select <code class="docutils literal notranslate"><span class="pre">nybb</span></code> as the <span class="guilabel">Input layer</span>. The street layer <code class="docutils literal notranslate"><span class="pre">dot_V_SSS_SEGMENTRATING_1_20190129</span></code> will be the <span class="guilabel">Join layer</span>. You can leave the <span class="guilabel">Geometry predicate</span> to the default <code class="docutils literal notranslate"><span class="pre">Intersects</span></code>. Click the <span class="guilabel">…</span> button next to <span class="guilabel">Fields to sumarize</span>.</p></li>
 </ol>
 <blockquote>
-<div><img alt="../../_images/920.png" class="align-center" src="../../_images/920.png" />
+<div><img alt="../../_images/921.png" class="align-center" src="../../_images/921.png" />
 </div></blockquote>
 <div class="admonition note">
 <p class="admonition-title">Notă</p>
@@ -277,61 +278,61 @@
 <li><p>Select <code class="docutils literal notranslate"><span class="pre">Rating_B</span></code> and click <span class="guilabel">OK</span>.</p></li>
 </ol>
 <blockquote>
-<div><img alt="../../_images/1027.png" class="align-center" src="../../_images/1027.png" />
+<div><img alt="../../_images/1028.png" class="align-center" src="../../_images/1028.png" />
 </div></blockquote>
 <ol class="arabic simple" start="11">
 <li><p>Similarly, click the <span class="guilabel">…</span> button next to <span class="guilabel">Summaries to calculate</span>.</p></li>
 </ol>
 <blockquote>
-<div><img alt="../../_images/1130.png" class="align-center" src="../../_images/1130.png" />
+<div><img alt="../../_images/1131.png" class="align-center" src="../../_images/1131.png" />
 </div></blockquote>
 <ol class="arabic simple" start="12">
 <li><p>Select <code class="docutils literal notranslate"><span class="pre">mean</span></code> as the summary operator and click <span class="guilabel">OK</span>. Now we are ready to start the processing. Click <span class="guilabel">Run</span>.</p></li>
 </ol>
 <blockquote>
-<div><img alt="../../_images/1228.png" class="align-center" src="../../_images/1228.png" />
+<div><img alt="../../_images/1229.png" class="align-center" src="../../_images/1229.png" />
 </div></blockquote>
 <ol class="arabic simple" start="13">
 <li><p>The processing algorithm will work through the features and apply the spatial join. Verify that the processing job was successful and click <span class="guilabel">Close</span>.</p></li>
 </ol>
 <blockquote>
-<div><img alt="../../_images/1326.png" class="align-center" src="../../_images/1326.png" />
+<div><img alt="../../_images/1327.png" class="align-center" src="../../_images/1327.png" />
 </div></blockquote>
 <ol class="arabic simple" start="14">
 <li><p>Back in the main QGIS window, you will see a new <code class="docutils literal notranslate"><span class="pre">Joined</span> <span class="pre">layer</span></code> layer added to canvas. Open the attribute table for this layer. You will see a new column <code class="docutils literal notranslate"><span class="pre">Rating_B_mean</span></code> is added to the input borough layer with the average rating of all streets that are interesecting with that feature.</p></li>
 </ol>
 <blockquote>
-<div><img alt="../../_images/1424.png" class="align-center" src="../../_images/1424.png" />
+<div><img alt="../../_images/1425.png" class="align-center" src="../../_images/1425.png" />
 </div></blockquote>
 <ol class="arabic simple" start="15">
 <li><p>Now we can perform a reverse operation. Sometimes your analysis requires getting attributes from another layer based on the spatial relationship but not compute any summary. We can use the <code class="docutils literal notranslate"><span class="pre">Join</span> <span class="pre">attribute</span> <span class="pre">by</span> <span class="pre">location</span></code> algorithm for such analysis. The task is to add the name of the borough to each feature in the streets layer based on which borough polygon it intersects with. Before we run this algorithm, let’s remove the filter from the <code class="docutils literal notranslate"><span class="pre">dot_V_SSS_SEGMENTRATING_1_20190129</span></code> layer. Click the filter icon and press the <span class="guilabel">Clear</span> in the <span class="guilabel">Query Builder</span>. Click <span class="guilabel">OK</span>.</p></li>
 </ol>
 <blockquote>
-<div><img alt="../../_images/1520.png" class="align-center" src="../../_images/1520.png" />
+<div><img alt="../../_images/1521.png" class="align-center" src="../../_images/1521.png" />
 </div></blockquote>
 <ol class="arabic simple" start="16">
 <li><p>Turn of the <code class="docutils literal notranslate"><span class="pre">Joined</span> <span class="pre">layer</span></code> in the <span class="guilabel">Layers</span> panel. Find the <span class="menuselection">Vector general ‣ Join attribute by location</span> algorithm in the Processing Toolbox and double-click it to launch.</p></li>
 </ol>
 <blockquote>
-<div><img alt="../../_images/1619.png" class="align-center" src="../../_images/1619.png" />
+<div><img alt="../../_images/1620.png" class="align-center" src="../../_images/1620.png" />
 </div></blockquote>
 <ol class="arabic simple" start="17">
 <li><p>Select <code class="docutils literal notranslate"><span class="pre">dot_V_SSS_SEGMENTRATING_1_20190129</span></code> as the <span class="guilabel">Input layer</span> and <code class="docutils literal notranslate"><span class="pre">nybb</span></code> as the <span class="guilabel">Join layer</span>. You can leave the <span class="guilabel">Geometry predicate</span> to the default <code class="docutils literal notranslate"><span class="pre">Intersects</span></code>. Click the <span class="guilabel">…</span> button next to <span class="guilabel">Fields to add</span>  and select <code class="docutils literal notranslate"><span class="pre">BoroName</span></code>. Click <span class="guilabel">OK</span>.</p></li>
 </ol>
 <blockquote>
-<div><img alt="../../_images/1720.png" class="align-center" src="../../_images/1720.png" />
+<div><img alt="../../_images/1721.png" class="align-center" src="../../_images/1721.png" />
 </div></blockquote>
 <ol class="arabic simple" start="18">
 <li><p>The line segment may cross a borough boundary, so we choose the <span class="guilabel">Join type</span> as <code class="docutils literal notranslate"><span class="pre">Crate</span> <span class="pre">separate</span> <span class="pre">feature</span> <span class="pre">for</span> <span class="pre">each</span> <span class="pre">located</span> <span class="pre">feature</span> <span class="pre">(one-to-many)</span></code>. Click <span class="guilabel">Run</span>.</p></li>
 </ol>
 <blockquote>
-<div><img alt="../../_images/1818.png" class="align-center" src="../../_images/1818.png" />
+<div><img alt="../../_images/1819.png" class="align-center" src="../../_images/1819.png" />
 </div></blockquote>
 <ol class="arabic simple" start="19">
 <li><p>Once the processing finishes, open the attribute table of the newly added <code class="docutils literal notranslate"><span class="pre">Joined</span> <span class="pre">layer</span></code>. You will see that there is a new <code class="docutils literal notranslate"><span class="pre">BoroName</span></code> attribute added to each street feature.</p></li>
 </ol>
 <blockquote>
-<div><img alt="../../_images/1915.png" class="align-center" src="../../_images/1915.png" />
+<div><img alt="../../_images/1916.png" class="align-center" src="../../_images/1916.png" />
 </div></blockquote>
 </section>
 </section>
@@ -368,7 +369,7 @@
     </p>
     <p>
         &copy; Copyright 2023, Ujaval Gandhi.<br/>
-      Ultima actualizare la iul. 31, 2024.<br/>
+      Ultima actualizare la aug. 09, 2024.<br/>
       Created using <a href="http://sphinx-doc.org/">Sphinx</a> 7.2.6.<br/>
     </p>
   </div>
