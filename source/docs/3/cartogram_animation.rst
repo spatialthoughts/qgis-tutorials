@@ -140,6 +140,11 @@ Procedure
   .. image:: /static/3/cartogram_animation/images/7.png
     :align: center
 
+.. note::
+
+   The expression above uses ``maximum()`` function which will keep the feature with the highest value to its original size and shrink others proportionately. You can replace maximum() with ``median()`` (or ``q3()``, ``q1()`` etc.) to change this behavior where the features with above average values will increase in size and ones below average will reduce in size.
+   
+   
 8. You will see the state polygons are now sized by the proportion of each state's population to the highest population. Many large states with small populations are now much smaller than their original size. You will notice that polygons with irregular shapes are off-center after being scaled. This is because the anchor point of the scaling is the centroid of the geometry's bounding box - which often falls outside of the actual polygon. Let's update our expression to fix this. Click the :guilabel:`Expression Builder` button.
 
   .. image:: /static/3/cartogram_animation/images/8.png
