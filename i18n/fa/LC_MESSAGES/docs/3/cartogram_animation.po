@@ -1,0 +1,416 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2023, Ujaval Gandhi
+# This file is distributed under the same license as the QGIS Tutorials and Tips package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# 
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: QGIS Tutorials and Tips v1\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-08-09 13:08+0530\n"
+"PO-Revision-Date: 2024-08-09 07:39+0000\n"
+"Language-Team: Persian (https://app.transifex.com/spatialthoughts/teams/7952/fa/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: fa\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+
+#: ../../source/docs/3/cartogram_animation.rst:2
+msgid "Creating an Animated Cartogram (QGIS3)"
+msgstr ""
+
+#: ../../source/docs/3/cartogram_animation.rst:4
+msgid ""
+"Cartogram is a type of map visualization where the shape of each feature is "
+"distorted in proportion to a variable. Cartograms make it easy to see large "
+"variations in the data. The simplest method to create a cartogram is by "
+"scaling the size of each region according to a variable. This method retains"
+" the original shape of the polygon and only changes the size. These are "
+"known as `Non-contiguous isomorphic cartograms "
+"<https://en.wikipedia.org/wiki/Cartogram#Non-"
+"contiguous_isomorphic_cartograms>`_. In this tutorial, we will learn how to "
+"use QGIS expressions to create a cartogram and use the Temporal Controller "
+"to create an animation that gradually transforms the features to the target "
+"size."
+msgstr ""
+
+#: ../../source/docs/3/cartogram_animation.rst:6
+msgid ""
+"This tutorial is inspired by `Keith Jenkins's Demo "
+"<https://x.com/kgjenkins/status/1495986986250813442?cxt=HHwWhICygZ2P6MIpAAAA>`_"
+" and builds on `Hans van der Kwast's excellent cartogram tutorial "
+"<https://www.youtube.com/watch?v=qxKD6wcFUcE>`_."
+msgstr ""
+
+#: ../../source/docs/3/cartogram_animation.rst:9
+msgid "Overview of the task"
+msgstr ""
+
+#: ../../source/docs/3/cartogram_animation.rst:10
+msgid ""
+"We will take a layer of states in the US and create an animated cartogram by"
+" scaling each state by population. The resulting map will have each state "
+"sized according to its population."
+msgstr ""
+
+#: ../../source/docs/3/cartogram_animation.rst:18
+msgid "Get the data"
+msgstr ""
+
+#: ../../source/docs/3/cartogram_animation.rst:20
+msgid ""
+"`United States Census Bureau <https://www.census.gov/>`_ provides "
+"cartographic boundary files along with demographic datasets. We will "
+"download the data and process them to create a data layer suitable for our "
+"task."
+msgstr ""
+
+#: ../../source/docs/3/cartogram_animation.rst:22
+msgid ""
+"Visit the `Cartographic Boundary Files - Shapefile "
+"<https://www.census.gov/geographies/mapping-files/time-series/geo/carto-"
+"boundary-file.html>`_ data page on the US Census Bureau website. Scroll down"
+" and download the States shapefile ``cb_2018_us_state_20m.zip``. This has "
+"the state polygons we need for the visualization."
+msgstr ""
+
+#: ../../source/docs/3/cartogram_animation.rst:27
+msgid ""
+"The state polygons do not have any demographic data. This data needs to be "
+"downloaded separately and joined with the shapefile for use in a GIS. Visit "
+"the `State Population Totals and Components of Change: 2020-2023 "
+"<https://www.census.gov/data/tables/time-series/demo/popest/2020s-state-"
+"total.html>`_ page and download the *Annual Population Estimates, Estimated "
+"Components of Resident Population Change, and Rates of the Components of "
+"Resident Population Change for the United States, States, District of "
+"Columbia, and Puerto Rico: April 1, 2020 to July 1, 2023* dataset which will"
+" be downloaded as ``NST-EST2023-ALLDATA.csv``."
+msgstr ""
+
+#: ../../source/docs/3/cartogram_animation.rst:32
+msgid ""
+"Open QGIS. Locate the ``cb_2018_us_state_20m.zip`` file in the QGIS "
+":guilabel:`Browser` and expand it. Drag and drop the "
+"``cb_2018_us_state_20m.shp`` layer to the canvas."
+msgstr ""
+
+#: ../../source/docs/3/cartogram_animation.rst:37
+msgid ""
+"A new layer ``cb_2018_us_state_20m`` will be added to the :guilabel:`Layers`"
+" panel. Next, we will load the CSV file. Click the :guilabel:`Open Data "
+"Source Manager` button."
+msgstr ""
+
+#: ../../source/docs/3/cartogram_animation.rst:42
+msgid ""
+"Switch to the :guilabel:`Delimited Text` tab. Click :guilabel:`...` next to "
+":guilabel:`File name` and browse to the downloaded ``NST-"
+"EST2023-ALLDATA.csv`` file. Expand the :guilabel:`Geometry Definition` "
+"section and select ``No geometry (attribute only table)``. Click "
+":guilabel:`Add`."
+msgstr ""
+
+#: ../../source/docs/3/cartogram_animation.rst:47
+msgid ""
+"A new layer ``NST-EST2023-ALLDATA`` will be added to the :guilabel:`Layers` "
+"panel. Right-click and select :guilabel:`Open Attribute Table`. This table "
+"as the population counts in the ``POPESTIMATE2023`` column. Each state has a"
+" unique id in the ``STATE`` column that we will use to join this table with "
+"the polygon layer."
+msgstr ""
+
+#: ../../source/docs/3/cartogram_animation.rst:52
+msgid ""
+"Right-click the ``cb_2018_us_state_20m`` layer and select :guilabel:`Open "
+"Attribute Table`. The state ids are contained in the ``GEOID`` column. White"
+" the numbers are the same, they are formatted as a 2-digit 0-padded number. "
+"To match these with the ``STATE`` column from our population table, we need "
+"a similarly formatted numbers. Select the ``NST-EST2023-ALLDATA``. Go to "
+":menuselection:`Processing --> Toolbox`. Search and locate the "
+":menuselection:`Vector table --> Field calculator` algorithm. Double-click "
+"to open it."
+msgstr ""
+
+#: ../../source/docs/3/cartogram_animation.rst:57
+msgid ""
+"In the :guilabel:`Field calculator` dialog, select ``NST-EST2023-ALLDATA`` "
+"as the :guilabel:`Input layer`. Enter ``GEOID`` as the :guilabel:`Field "
+"name` and set the :guilabel:`Result field type` to ``Text (string)``. We "
+"will now take the numbers from the ``STATE`` field and use the ``lpad()`` "
+"function to create a 2-digit 0-padded string. Enter the following expression"
+" and click :guilabel:`Run`."
+msgstr ""
+
+#: ../../source/docs/3/cartogram_animation.rst:66
+msgid ""
+"A new layer ``Calculated`` will be added to the :guilabel:`Layers` panel. "
+"Right-click and select :guilabel:`Open Attribute Table`. Note that the newly"
+" created ``GEOID`` column has correctly formatted identifiers. We can now "
+"use this field to join this table with the states layer. Search and locate "
+"the :menuselection:`Vector general --> Join attributes by field value` "
+"algorithm. Double-click to open it."
+msgstr ""
+
+#: ../../source/docs/3/cartogram_animation.rst:71
+msgid ""
+"In the :guilabel:`Join attributes by field value` dialog, select "
+"``cb_2018_us_state_20m`` as the :guilabel:`Input layer`. Select ``GEOID`` as"
+" the :guilabel:`Table field`. For :guilabel:`Input layer 2`, select our "
+"table ``Calculated`` and :guilabel:`Table field 2` select ``GEOID``. The "
+"table has many columns but we only need the population for the latest year. "
+"Click the :guilabel:`...` button for :guilabel:`Layer 2 fields to copy` and "
+"select only the ``POPESTIMATE2023`` field. Leave other options to their "
+"default value and click :guilabel:`Run`."
+msgstr ""
+
+#: ../../source/docs/3/cartogram_animation.rst:76
+msgid ""
+"A new layer ``Joined layer`` will be added to the :guilabel:`Layers` panel. "
+"Before using this layer for our cartogram, let's reproject it to a projected"
+" CRS. Search and locate the :menuselection:`Vector general --> Reproject "
+"layer` algorithm. Double-click to open it."
+msgstr ""
+
+#: ../../source/docs/3/cartogram_animation.rst:81
+msgid ""
+"In the :guilabel:`Reproject layer` dialog, select ``Joined layer`` as the "
+":guilabel:`Input layer`. For the :guilabel:`Target CRS`, click the "
+":guilabel:`Select CRS` button. Search for the "
+"``North_America_Albers_Equal_Area_Conic`` CRS and select it. This is our "
+"final layer so we will save it to disk. Click the :guilabel:`...` button "
+"next to :guilabel:`Reprojected` and select :guilabel:`Save to File..`."
+msgstr ""
+
+#: ../../source/docs/3/cartogram_animation.rst:86
+msgid ""
+"Enter the name of the layer as ``us_states_with_population.gpkg`` and select"
+" :guilabel:`Save`. Click :guilabel:`Run` to create the GeoPackage file with "
+"the reprojected data."
+msgstr ""
+
+#: ../../source/docs/3/cartogram_animation.rst:91
+msgid ""
+"We will use this layer in the next section. For convenience, you may "
+"directly download a copy of the above layer from below:"
+msgstr ""
+
+#: ../../source/docs/3/cartogram_animation.rst:93
+msgid ""
+"`us_states_with_population.gpkg "
+"<https://www.qgistutorials.com/downloads/us_states_with_population.gpkg>`_"
+msgstr ""
+
+#: ../../source/docs/3/cartogram_animation.rst:95
+msgid "Data Source [USCENSUS]_"
+msgstr ""
+
+#: ../../source/docs/3/cartogram_animation.rst:99
+msgid "Procedure"
+msgstr ""
+
+#: ../../source/docs/3/cartogram_animation.rst:101
+msgid ""
+"Start a new QGIS project. Locate the ``us_states_with_population.gpkg`` file"
+" in the :guilabel:`Browser` and expand it. Drag and drop the "
+"``us_states_with_population`` layer to the empty canvas."
+msgstr ""
+
+#: ../../source/docs/3/cartogram_animation.rst:106
+msgid ""
+"A new layer ``us_states_with_population`` will be added to the "
+":guilabel:`Layers` panel. Right-click and select :guilabel:`Open Attribute "
+"Table`. For our cartogram, we want to use the population values in the "
+"``POPESTIMATE2023``. Close the attribute table."
+msgstr ""
+
+#: ../../source/docs/3/cartogram_animation.rst:111
+msgid ""
+"Click the :guilabel:`Open the layer styling panel` button in the "
+":guilabel:`Layers` panel. Select :guilabel:`Simple Fill` and open the drop-"
+"down selector for :guilabel:`Symbol layer type`."
+msgstr ""
+
+#: ../../source/docs/3/cartogram_animation.rst:116
+msgid ""
+"Set the :guilabel:`Symbol layer type` to ``Outline: Simple Line`` and select"
+" a :guilabel:`Color` of your choice. This symbol layer will be a a reference"
+" for our map when we resize the polygons. Click the :guilabel:` + Add Symbol"
+" layer` button."
+msgstr ""
+
+#: ../../source/docs/3/cartogram_animation.rst:121
+msgid ""
+"A new symbol layer :guilabel:`Simple Fill` will be added. Set the "
+":guilabel:`Fill color` to the same color as the lines. Open the drop-down "
+"selector for :guilabel:`Symbol layer type`."
+msgstr ""
+
+#: ../../source/docs/3/cartogram_animation.rst:126
+msgid ""
+"Select ``Geometry Generator`` as the :guilabel:`Symbol layer type`. Geometry"
+" generator allows us to modify the geometry for rendering using expressions."
+" Click the :guilabel:`Expression Builder` button."
+msgstr ""
+
+#: ../../source/docs/3/cartogram_animation.rst:131
+msgid ""
+"We will use the `scale()` function which resizes the given geometry by X- "
+"and Y-scaling factors.  For our cartogram, we want to resize each polygon by"
+" the ratio of its population to the highest population. Enter the following "
+"expression to apply this scaling and click :guilabel:`OK`."
+msgstr ""
+
+#: ../../source/docs/3/cartogram_animation.rst:143
+msgid ""
+"You will see the state polygons are now sized by the proportion of each "
+"state's population to the highest population. Many large states with small "
+"populations are now much smaller than their original size. You will notice "
+"that polygons with irregular shapes are off-center after being scaled. This "
+"is because the anchor point of the scaling is the centroid of the geometry's"
+" bounding box - which often falls outside of the actual polygon. Let's "
+"update our expression to fix this. Click the :guilabel:`Expression Builder` "
+"button."
+msgstr ""
+
+#: ../../source/docs/3/cartogram_animation.rst:148
+msgid ""
+"The `scale()` function takes an optional parameter to specify the scaling "
+"center point. We will use the `pole_of_inaccessibility()` function to find a"
+" representative anchor point for each polygon. This is similar to a "
+"centroid, but it is guaranteed to be inside of the polygon whereas a "
+"centroid can fall outside for certain shapes. Update the expression as shown"
+" below and click :guilabel:`OK`."
+msgstr ""
+
+#: ../../source/docs/3/cartogram_animation.rst:161
+msgid ""
+"Now the scaled polygons will have much better placement. We see another "
+"problem. Many features in the layer are **Multipolygons**, i.e. they have "
+"more than one part. Such features have 2 or more polygons that are part of "
+"the same geometry. With our current expression, both are scaled with the "
+"same anchor point computed from the combined geometry. This is not ideal. "
+"For example, a large feature with multiple islands should be scaled such "
+"that each island is scaled with its own center point. To fix this, we update"
+" our expression to iterate over each part of the geometry and scale it with "
+"its own center. Click the :guilabel:`Expression Builder` button."
+msgstr ""
+
+#: ../../source/docs/3/cartogram_animation.rst:166
+msgid ""
+"Here we use the `array_foreach()` function to iterate over each part of the "
+"geometry and generate the scaled versions of them. Finally "
+"`collect_geometries()` function combines each scaled part into a single "
+"multi-polygon geometry. Update the expression as shown below and click "
+":guilabel:`OK`."
+msgstr ""
+
+#: ../../source/docs/3/cartogram_animation.rst:183
+msgid ""
+"The result is much better. Select the :guilabel:`Simple Fill` symbol layer "
+"and change the :guilabel:`Stroke color` to a darker shade of the fill color."
+msgstr ""
+
+#: ../../source/docs/3/cartogram_animation.rst:188
+msgid ""
+"Our cartogram is ready. This map shows the concentration of population in "
+"the US to a handful of states and a striking absence of population in states"
+" west of the Mississippi river. We can make an improved visualization by "
+"creating an animation that slowly transforms the original rendering to the "
+"final size. Click the :guilabel:`Temporal Control Panel` button with the "
+"Clock icon in the :guilabel:`Map Navigation Toolbar`."
+msgstr ""
+
+#: ../../source/docs/3/cartogram_animation.rst:193
+msgid ""
+"Select the :guilabel:`Animated temporal navigation` button. The default "
+":guilabel:`Animation range` will be populated with a 24-hour window in the "
+"increment of 1-hour. This is fine for our use case as we will get 24-frames "
+"of animation. You can adjust this if you want a slower/faster animation."
+msgstr ""
+
+#: ../../source/docs/3/cartogram_animation.rst:198
+msgid ""
+"Right-click the ``us_states_with_population`` layer and select "
+":guilabel:`Properties`."
+msgstr ""
+
+#: ../../source/docs/3/cartogram_animation.rst:203
+msgid ""
+"Select :guilabel:`Temporal` tab and enable the :guilabel:`Dynamic Temporal "
+"Control`. This layer will be updated using expression so we don't need to "
+"configure it here. Just select ``Redraw Layer Only`` so that the layer is "
+"refreshed after each time step and rendered with the updated values from the"
+" expression."
+msgstr ""
+
+#: ../../source/docs/3/cartogram_animation.rst:208
+msgid ""
+"Let's update our Geometry Generator expression to use the animation time "
+"steps and gradually scale the geometry. Click the :guilabel:`Open the layer "
+"styling panel` button in the :guilabel:`Layers` panel. Select "
+":guilabel:`Geometry Generator` followed by the :guilabel:`Expression "
+"Builder` button."
+msgstr ""
+
+#: ../../source/docs/3/cartogram_animation.rst:213
+msgid ""
+"Here we want to start with a scale factor of 1 and end up with the final "
+"scale factor of ``\"POPESTIMATE2023\" / maximum( \"POPESTIMATE2023\")``. We "
+"use the `scale_linear()` function which takes the time of the current time-"
+"step and calculates the scale factor using the start and end times. Update "
+"the expression as shown below and click :guilabel:`OK`."
+msgstr ""
+
+#: ../../source/docs/3/cartogram_animation.rst:240
+msgid ""
+"Back in the :guilabel:`Temporal Controller` panel, click the "
+":guilabel:`Play` button to see the animation. You should see the shape of "
+"each polygon gradually scaled after each frame. Our expression is quite long"
+" and has repetitive code. We can make it more readable so it is easier to "
+"maintain. Click the :guilabel:`Expression Builder` button."
+msgstr ""
+
+#: ../../source/docs/3/cartogram_animation.rst:245
+msgid ""
+"We can use the `with_variable()` function to assign a named variable to an "
+"expression and refer to it again by its name. This helps us avoid repeating "
+"the same expression multiple times. Update the expression as shown below and"
+" click :guilabel:`OK`."
+msgstr ""
+
+#: ../../source/docs/3/cartogram_animation.rst:271
+msgid ""
+"Once you are happy with the configuration, we can export the animation. "
+"Click the :guilabel:`Export Animation` button."
+msgstr ""
+
+#: ../../source/docs/3/cartogram_animation.rst:276
+msgid ""
+"In the :guilabel:`Export Map Animation` dialog, click :guilabel:`...` next "
+"to :guilabel:`Output directory` and browse to any folder on your computer. "
+"Keep all the other options to their default value and click "
+":guilabel:`Save`."
+msgstr ""
+
+#: ../../source/docs/3/cartogram_animation.rst:281
+msgid ""
+"The individual frames of the animation will be exported as images. We can "
+"create a video or animated GIF from these frames. I recommend using the "
+"website ezgif.com which allows you to create GIFs from individual images "
+"easily. Visit `Ezgif Animated GIF Maker <https://ezgif.com/maker>`_. Browse "
+"to the exported animation frames and click :guilabel:`Upload files!`."
+msgstr ""
+
+#: ../../source/docs/3/cartogram_animation.rst:286
+msgid ""
+"Configure the GIF options by setting the :guilabel:`Delay time` to ``5``. "
+"Check :guilabel:`crossfade frames` effect and set the :guilabel:`Fader "
+"delay` and :guilabel:`Fader count` to ``2``. Click :guilabel:`Make a GIF!`/"
+msgstr ""
+
+#: ../../source/docs/3/cartogram_animation.rst:291
+msgid ""
+"Click the :guilabel:`save` button to download the animation as a GIF file."
+msgstr ""
