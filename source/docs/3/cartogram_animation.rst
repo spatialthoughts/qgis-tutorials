@@ -44,12 +44,12 @@ Get the data
   .. image:: /static/3/cartogram_animation/images/data5.png
     :align: center
 
-6. A new layer ``NST-EST2023-ALLDATA`` will be added to the :guilabel:`Layers` panel. Right-click and select :guilabel:`Open Attribute Table`. This table as the population counts in the ``POPESTIMATE2023`` column. Each state has a unique id in the ``STATE`` column that we will use to join this table with the polygon layer.
+6. A new layer ``NST-EST2023-ALLDATA`` will be added to the :guilabel:`Layers` panel. Right-click and select :guilabel:`Open Attribute Table`. This table has the population counts in the ``POPESTIMATE2023`` column. Each state has a unique id in the ``STATE`` column that we will use to join this table with the polygon layer.
 
   .. image:: /static/3/cartogram_animation/images/data6.png
     :align: center
 
-7. Right-click the ``cb_2018_us_state_20m`` layer and select :guilabel:`Open Attribute Table`. The state ids are contained in the ``GEOID`` column. White the numbers are the same, they are formatted as a 2-digit 0-padded number. To match these with the ``STATE`` column from our population table, we need a similarly formatted numbers. Select the ``NST-EST2023-ALLDATA``. Go to :menuselection:`Processing --> Toolbox`. Search and locate the :menuselection:`Vector table --> Field calculator` algorithm. Double-click to open it.
+7. Right-click the ``cb_2018_us_state_20m`` layer and select :guilabel:`Open Attribute Table`. The state ids are contained in the ``GEOID`` column. While the numbers are the same, they are formatted as a 2-digit 0-padded number. To match these with the ``STATE`` column from our population table, we need similarly formatted numbers. Select the ``NST-EST2023-ALLDATA``. Go to :menuselection:`Processing --> Toolbox`. Search and locate the :menuselection:`Vector table --> Field calculator` algorithm. Double-click to open it.
 
   .. image:: /static/3/cartogram_animation/images/data7.png
     :align: center
@@ -78,7 +78,7 @@ Get the data
   .. image:: /static/3/cartogram_animation/images/data11.png
     :align: center
 
-12. In the :guilabel:`Reproject layer` dialog, select ``Joined layer`` as the :guilabel:`Input layer`. For the :guilabel:`Target CRS`, click the :guilabel:`Select CRS` button. Search for the ``North_America_Albers_Equal_Area_Conic`` CRS and select it. This is our final layer so we will save it to disk. Click the :guilabel:`...` button next to :guilabel:`Reprojected` and select :guilabel:`Save to File..`.
+12. In the :guilabel:`Reproject layer` dialog, select ``Joined layer`` as the :guilabel:`Input layer`. For the :guilabel:`Target CRS`, click the :guilabel:`Select CRS` button. Search for the ``North_America_Albers_Equal_Area_Conic`` CRS and select it. This is our final layer so we will save it to disk. Click the :guilabel:`...` button next to :guilabel:`Reprojected` and select :guilabel:`Save to File...`.
 
   .. image:: /static/3/cartogram_animation/images/data12.png
     :align: center
@@ -103,7 +103,7 @@ Procedure
   .. image:: /static/3/cartogram_animation/images/1.png
     :align: center
 
-2. A new layer ``us_states_with_population`` will be added to the :guilabel:`Layers` panel. Right-click and select :guilabel:`Open Attribute Table`. For our cartogram, we want to use the population values in the ``POPESTIMATE2023``. Close the attribute table.
+2. A new layer ``us_states_with_population`` will be added to the :guilabel:`Layers` panel. Right-click and select :guilabel:`Open Attribute Table`. For our cartogram, we want to use the population values in the ``POPESTIMATE2023`` field. Close the attribute table.
 
   .. image:: /static/3/cartogram_animation/images/2.png
     :align: center
@@ -128,7 +128,7 @@ Procedure
   .. image:: /static/3/cartogram_animation/images/6.png
     :align: center
 
-7. We will use the `scale()` function which resizes the given geometry by X- and Y-scaling factors.  For our cartogram, we want to resize each polygon by the ratio of its population to the highest population. Enter the following expression to apply this scaling and click :guilabel:`OK`.
+7. We will use the `scale()` function which resizes the given geometry by X- and Y-scaling factors. For our cartogram, we want to resize each polygon by the ratio of its population to the highest population. Enter the following expression to apply this scaling and click :guilabel:`OK`.
 
   .. code-block:: none
 
