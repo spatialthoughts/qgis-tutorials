@@ -159,7 +159,7 @@ Procedure
   .. image:: /static/3/cartogram_animation/images/10.png
     :align: center
     
-11. Click the :guilabel:` + Add Symbol layer` button. A new symbol layer :guilabel:`Simple Fill` will be added. Set the :guilabel:`Fill color` to the same color as the lines and the :guilabel:`Stroke color` to be a slightly darker color. 
+11. Click the :guilabel:`Add Symbol layer (+)` button. A new symbol layer :guilabel:`Simple Fill` will be added. Set the :guilabel:`Fill color` to the same color as the lines and the :guilabel:`Stroke color` to be a slightly darker color. 
 
   .. image:: /static/3/cartogram_animation/images/11.png
     :align: center
