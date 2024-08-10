@@ -5,7 +5,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Creating an Animated Cartogram (QGIS3) &#8212; QGIS Tutorials and Tips</title>
+    <title>Creación de un cartograma animado (QGIS3) &#8212; QGIS Tutorials and Tips</title>
     <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=fa44fd50" />
     <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-sphinx.css?v=0bf093e7" />
     <script src="../../_static/documentation_options.js?v=92345faf"></script>
@@ -103,7 +103,7 @@
 <li class="toctree-l1"><a class="reference internal" href="block_world_styling.html">Creación de un Mapa Mundial de Bloques (QGIS3)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="river_styling_expressions.html">Estilización de una red fluvial con expresiones (QGIS3)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="contour_3d_styling.html">Styling Contours in 3D (QGIS3)</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Creating an Animated Cartogram (QGIS3)</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Creación de un cartograma animado (QGIS3)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="basic_network_analysis.html">Visualización y Enrutamiento Básico de Red (QGIS3)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="origin_destination_matrix.html">Localizando la Instalación Más Cercana con Matriz Origen-Destino (QGIS3)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="service_area_analysis.html">Análisis de Área de Servicio usando Openrouteservice (QGIS3)</a></li>
@@ -187,45 +187,45 @@
       
 
   <section id="creating-an-animated-cartogram-qgis3">
-<h1>Creating an Animated Cartogram (QGIS3)<a class="headerlink" href="#creating-an-animated-cartogram-qgis3" title="Link to this heading">¶</a></h1>
-<p>Cartogram is a type of map visualization where the shape of each feature is distorted in proportion to a variable. Cartograms make it easy to see large variations in the data. The simplest method to create a cartogram is by scaling the size of each region according to a variable. This method retains the original shape of the polygon and only changes the size. These are known as <a class="reference external" href="https://en.wikipedia.org/wiki/Cartogram#Non-contiguous_isomorphic_cartograms">Non-contiguous isomorphic cartograms</a>. In this tutorial, we will learn how to use QGIS expressions to create a cartogram and use the Temporal Controller to create an animation that gradually transforms the features to the target size.</p>
+<h1>Creación de un cartograma animado (QGIS3)<a class="headerlink" href="#creating-an-animated-cartogram-qgis3" title="Link to this heading">¶</a></h1>
+<p>El cartograma es un tipo de visualización cartográfica en el que la forma de cada objeto espacial se distorsiona en proporción a una variable. Los cartogramas facilitan la visualización de grandes variaciones en los datos. El método más sencillo para crear un cartograma es escalar el tamaño de cada región en función de una variable. Este método conserva la forma original del polígono y sólo cambia el tamaño. Estos se conocen como <a class="reference external" href="https://es.wikipedia.org/wiki/Cartograma#Cartogramas_sin_contig%C3%BCidad">Cartogramas isomórficos no contiguos</a>. En este tutorial aprenderemos a utilizar expresiones de QGIS para crear un cartograma y a utilizar el Controlador Temporal para crear una animación que transforme gradualmente los objetos espaciales hasta el tamaño objetivo.</p>
 <p>This tutorial is inspired by <a class="reference external" href="https://x.com/kgjenkins/status/1495986986250813442?cxt=HHwWhICygZ2P6MIpAAAA">Keith Jenkins’s Demo</a> and builds on <a class="reference external" href="https://www.youtube.com/watch?v=qxKD6wcFUcE">Hans van der Kwast’s excellent cartogram tutorial</a>. The formula for scale factor used here is from the original paper <a class="reference external" href="https://doi.org/10.1111/j.0033-0124.1976.00371.x">Noncontiguous Area Cartograms</a> by Judy M Olson.</p>
 <section id="overview-of-the-task">
-<h2>Overview of the task<a class="headerlink" href="#overview-of-the-task" title="Link to this heading">¶</a></h2>
+<h2>Visión general de la tarea<a class="headerlink" href="#overview-of-the-task" title="Link to this heading">¶</a></h2>
 <p>We will take a layer of states in the US and create an animated cartogram by scaling each state by population. The resulting map will have each state’s area proportional its population.</p>
 <blockquote>
 <div><img alt="../../_images/output.gif" class="align-center" src="../../_images/output.gif" />
 </div></blockquote>
 </section>
 <section id="get-the-data">
-<h2>Get the data<a class="headerlink" href="#get-the-data" title="Link to this heading">¶</a></h2>
-<p><a class="reference external" href="https://www.census.gov/">United States Census Bureau</a> provides cartographic boundary files along with demographic datasets. We will download the data and process them to create a data layer suitable for our task.</p>
+<h2>Obtener los datos<a class="headerlink" href="#get-the-data" title="Link to this heading">¶</a></h2>
+<p><a class="reference external" href="https://www.census.gov/">La Oficina del Censo de los Estados Unidos</a> proporciona archivos de límites cartográficos junto con conjuntos de datos demográficos. Descargaremos los datos y los procesaremos para crear una capa de datos adecuada para nuestra tarea.</p>
 <ol class="arabic simple">
-<li><p>Visit the <a class="reference external" href="https://www.census.gov/geographies/mapping-files/time-series/geo/carto-boundary-file.html">Cartographic Boundary Files - Shapefile</a> data page on the US Census Bureau website. Scroll down and download the States shapefile <code class="docutils literal notranslate"><span class="pre">cb_2018_us_state_20m.zip</span></code>. This has the state polygons we need for the visualization.</p></li>
+<li><p>Visite la página de datos <a class="reference external" href="https://www.census.gov/geographies/mapping-files/time-series/geo/carto-boundary-file.html">Cartographic Boundary Files - Shapefile</a> en el sitio web de la Oficina del Censo de Estados Unidos. Desplácese hacia abajo y descargue el archivo shape de los estados <code class="docutils literal notranslate"><span class="pre">cb_2018_us_state_20m.zip</span></code>. Contiene los polígonos estatales que necesitamos para la visualización.</p></li>
 </ol>
 <blockquote>
 <div><img alt="../../_images/data19.png" class="align-center" src="../../_images/data19.png" />
 </div></blockquote>
 <ol class="arabic simple" start="2">
-<li><p>The state polygons do not have any demographic data. This data needs to be downloaded separately and joined with the shapefile for use in a GIS. Visit the <a class="reference external" href="https://www.census.gov/data/tables/time-series/demo/popest/2020s-state-total.html">State Population Totals and Components of Change: 2020-2023</a> page and download the <em>Annual Population Estimates, Estimated Components of Resident Population Change, and Rates of the Components of Resident Population Change for the United States, States, District of Columbia, and Puerto Rico: April 1, 2020 to July 1, 2023</em> dataset which will be downloaded as <code class="docutils literal notranslate"><span class="pre">NST-EST2023-ALLDATA.csv</span></code>.</p></li>
+<li><p>Los polígonos estatales no contienen datos demográficos. Estos datos deben descargarse por separado y unirse al archivo shape para su uso en un SIG. Visite la página <a class="reference external" href="https://www.census.gov/data/tables/time-series/demo/popest/2020s-state-total.html">Totales de Población Estatal y Componentes de Cambio: 2020-2023</a> y descargue las <em>Estimaciones Anuales de Población, Componentes Estimados de Cambio de Población Residente y Tasas de los Componentes de Cambio de Población Residente para los Estados Unidos, Estados, Distrito de Columbia y Puerto Rico: April 1, 2020 to July 1, 2023</em> dataset que se descargará como <code class="docutils literal notranslate"><span class="pre">NST-EST2023-ALLDATA.csv</span></code>.</p></li>
 </ol>
 <blockquote>
 <div><img alt="../../_images/data23.png" class="align-center" src="../../_images/data23.png" />
 </div></blockquote>
 <ol class="arabic simple" start="3">
-<li><p>Open QGIS. Locate the <code class="docutils literal notranslate"><span class="pre">cb_2018_us_state_20m.zip</span></code> file in the QGIS <span class="guilabel">Browser</span> and expand it. Drag and drop the <code class="docutils literal notranslate"><span class="pre">cb_2018_us_state_20m.shp</span></code> layer to the canvas.</p></li>
+<li><p>Abra QGIS. Localice el archivo <code class="docutils literal notranslate"><span class="pre">cb_2018_us_state_20m.zip</span></code> en el <span class="guilabel">Browser</span> de QGIS y expándalo. Arrastre y suelte la capa <code class="docutils literal notranslate"><span class="pre">cb_2018_us_state_20m.shp</span></code> al lienzo.</p></li>
 </ol>
 <blockquote>
 <div><img alt="../../_images/data33.png" class="align-center" src="../../_images/data33.png" />
 </div></blockquote>
 <ol class="arabic simple" start="4">
-<li><p>A new layer <code class="docutils literal notranslate"><span class="pre">cb_2018_us_state_20m</span></code> will be added to the <span class="guilabel">Layers</span> panel. Next, we will load the CSV file. Click the <span class="guilabel">Open Data Source Manager</span> button.</p></li>
+<li><p>Se añadirá una nueva capa <code class="docutils literal notranslate"><span class="pre">cb_2018_us_state_20m</span></code> al panel <span class="guilabel">Layers`</span>. A continuación, cargaremos el archivo CSV. Haga clic en el botón <span class="guilabel">Abrir gestor de fuentes de datos</span>.</p></li>
 </ol>
 <blockquote>
 <div><img alt="../../_images/data43.png" class="align-center" src="../../_images/data43.png" />
 </div></blockquote>
 <ol class="arabic simple" start="5">
-<li><p>Switch to the <span class="guilabel">Delimited Text</span> tab. Click <span class="guilabel">…</span> next to <span class="guilabel">File name</span> and browse to the downloaded <code class="docutils literal notranslate"><span class="pre">NST-EST2023-ALLDATA.csv</span></code> file. Expand the <span class="guilabel">Geometry Definition</span> section and select <code class="docutils literal notranslate"><span class="pre">No</span> <span class="pre">geometry</span> <span class="pre">(attribute</span> <span class="pre">only</span> <span class="pre">table)</span></code>. Click <span class="guilabel">Add</span>.</p></li>
+<li><p>Cambie a la pestaña <span class="guilabel">Texto delimitado</span>. Haga clic en <span class="guilabel">…</span> junto a <span class="guilabel">Nombre de archivo</span> y busque el archivo descargado <code class="docutils literal notranslate"><span class="pre">NST-EST2023-ALLDATA.csv</span></code>. Despliegue la sección <span class="guilabel">Definición de geometría</span> y seleccione <code class="docutils literal notranslate"><span class="pre">Sin</span> <span class="pre">geometría</span> <span class="pre">(tabla</span> <span class="pre">sólo</span> <span class="pre">de</span> <span class="pre">atributos)</span></code>. Haga clic en <span class="guilabel">Añadir</span>.</p></li>
 </ol>
 <blockquote>
 <div><img alt="../../_images/data53.png" class="align-center" src="../../_images/data53.png" />
@@ -243,7 +243,7 @@
 <div><img alt="../../_images/data73.png" class="align-center" src="../../_images/data73.png" />
 </div></blockquote>
 <ol class="arabic simple" start="8">
-<li><p>In the <span class="guilabel">Field calculator</span> dialog, select <code class="docutils literal notranslate"><span class="pre">NST-EST2023-ALLDATA</span></code> as the <span class="guilabel">Input layer</span>. Enter <code class="docutils literal notranslate"><span class="pre">GEOID</span></code> as the <span class="guilabel">Field name</span> and set the <span class="guilabel">Result field type</span> to <code class="docutils literal notranslate"><span class="pre">Text</span> <span class="pre">(string)</span></code>. We will now take the numbers from the <code class="docutils literal notranslate"><span class="pre">STATE</span></code> field and use the <code class="docutils literal notranslate"><span class="pre">lpad()</span></code> function to create a 2-digit 0-padded string. Enter the following expression and click <span class="guilabel">Run</span>.</p></li>
+<li><p>En el cuadro de diálogo <span class="guilabel">Calculadora de campos</span>, seleccione <code class="docutils literal notranslate"><span class="pre">NST-EST2023-ALLDATA</span></code> como <span class="guilabel">Capa de entrada`</span>. Introduzca <code class="docutils literal notranslate"><span class="pre">GEOID</span></code> como <span class="guilabel">Nombre de campo`</span> y defina el <span class="guilabel">Tipo de campo de resultado`</span> como <code class="docutils literal notranslate"><span class="pre">Texto</span> <span class="pre">(cadena)</span></code>. A continuación, tomaremos los números del campo <code class="docutils literal notranslate"><span class="pre">STATE</span></code> y utilizaremos la función <code class="docutils literal notranslate"><span class="pre">lpad()</span></code> para crear una cadena de 2 dígitos con 0 puntos. Introduzca la siguiente expresión y haga clic en <span class="guilabel">Ejecutar</span>.</p></li>
 </ol>
 <blockquote>
 <div><div class="highlight-none notranslate"><div class="highlight"><pre><span></span>lpad(&quot;STATE&quot;, 2, &#39;0&#39;)
@@ -252,19 +252,19 @@
 <img alt="../../_images/data82.png" class="align-center" src="../../_images/data82.png" />
 </div></blockquote>
 <ol class="arabic simple" start="9">
-<li><p>A new layer <code class="docutils literal notranslate"><span class="pre">Calculated</span></code> will be added to the <span class="guilabel">Layers</span> panel. Right-click and select <span class="guilabel">Open Attribute Table</span>. Note that the newly created <code class="docutils literal notranslate"><span class="pre">GEOID</span></code> column has correctly formatted identifiers. We can now use this field to join this table with the states layer. Search and locate the <span class="menuselection">Vector general ‣ Join attributes by field value</span> algorithm. Double-click to open it.</p></li>
+<li><p>Se añadirá una nueva capa <code class="docutils literal notranslate"><span class="pre">Calculated</span></code> al panel <span class="guilabel">Capas</span>. Haga clic con el botón derecho y seleccione <span class="guilabel">Abrir tabla de atributos</span>. Observe que la columna recién creada <code class="docutils literal notranslate"><span class="pre">GEOID</span></code> tiene los identificadores correctamente formateados. Ahora podemos utilizar este campo para unir esta tabla con la capa de estados. Busque y localice el algoritmo <span class="menuselection">Vector general ‣ Unir atributos por valor de campo</span>. Haga doble clic para abrirlo.</p></li>
 </ol>
 <blockquote>
 <div><img alt="../../_images/data92.png" class="align-center" src="../../_images/data92.png" />
 </div></blockquote>
 <ol class="arabic simple" start="10">
-<li><p>In the <span class="guilabel">Join attributes by field value</span> dialog, select <code class="docutils literal notranslate"><span class="pre">cb_2018_us_state_20m</span></code> as the <span class="guilabel">Input layer</span>. Select <code class="docutils literal notranslate"><span class="pre">GEOID</span></code> as the <span class="guilabel">Table field</span>. For <span class="guilabel">Input layer 2</span>, select our table <code class="docutils literal notranslate"><span class="pre">Calculated</span></code> and <span class="guilabel">Table field 2</span> select <code class="docutils literal notranslate"><span class="pre">GEOID</span></code>. The table has many columns but we only need the population for the latest year. Click the <span class="guilabel">…</span> button for <span class="guilabel">Layer 2 fields to copy</span> and select only the <code class="docutils literal notranslate"><span class="pre">POPESTIMATE2023</span></code> field. Leave other options to their default value and click <span class="guilabel">Run</span>.</p></li>
+<li><p>En el cuadro de diálogo <span class="guilabel">Unir atributos por valor de campo</span>, seleccione <code class="docutils literal notranslate"><span class="pre">cb_2018_us_state_20m</span></code> como <span class="guilabel">Capa de entrada</span>. Seleccione <code class="docutils literal notranslate"><span class="pre">GEOID</span></code> como <span class="guilabel">Campo de tabla</span>. Para <span class="guilabel">Capa de entrada 2</span>, seleccione nuestra tabla <code class="docutils literal notranslate"><span class="pre">Calculated</span></code> y <span class="guilabel">Campo de tabla 2`</span> seleccione <code class="docutils literal notranslate"><span class="pre">GEOID</span></code>. La tabla tiene muchas columnas pero sólo necesitamos la población del último año. Haga clic en el botón <span class="guilabel">…</span> de <span class="guilabel">Campos 2 a copiar`</span> y seleccione sólo el campo <code class="docutils literal notranslate"><span class="pre">POPESTIMATE2023</span></code>. Deje las demás opciones predeterminadas y haga clic en <span class="guilabel">Ejecutar</span>.</p></li>
 </ol>
 <blockquote>
 <div><img alt="../../_images/data102.png" class="align-center" src="../../_images/data102.png" />
 </div></blockquote>
 <ol class="arabic simple" start="11">
-<li><p>A new layer <code class="docutils literal notranslate"><span class="pre">Joined</span> <span class="pre">layer</span></code> will be added to the <span class="guilabel">Layers</span> panel. Before using this layer for our cartogram, let’s reproject it to a projected CRS. Search and locate the <span class="menuselection">Vector general ‣ Reproject layer</span> algorithm. Double-click to open it.</p></li>
+<li><p>Se añadirá una nueva capa <code class="docutils literal notranslate"><span class="pre">Joined</span> <span class="pre">layer</span></code> al panel <span class="guilabel">Capas</span>. Antes de utilizar esta capa para nuestro cartograma, vamos a reproyectarla a un SRC proyectado. Busque y localice el algoritmo <span class="menuselection">Vector general ‣ Reproyectar capa</span>. Haga doble clic para abrirlo.</p></li>
 </ol>
 <blockquote>
 <div><img alt="../../_images/data114.png" class="align-center" src="../../_images/data114.png" />
@@ -276,19 +276,19 @@
 <div><img alt="../../_images/data123.png" class="align-center" src="../../_images/data123.png" />
 </div></blockquote>
 <ol class="arabic simple" start="13">
-<li><p>Enter the name of the layer as <code class="docutils literal notranslate"><span class="pre">us_states_with_population.gpkg</span></code> and select <span class="guilabel">Save</span>. Click <span class="guilabel">Run</span> to create the GeoPackage file with the reprojected data.</p></li>
+<li><p>Introduzca el nombre de la capa como <code class="docutils literal notranslate"><span class="pre">us_states_with_population.gpkg</span></code> y seleccione <span class="guilabel">Guardar</span>. Haga clic en <span class="guilabel">Ejecutar</span> para crear el archivo GeoPackage con los datos reproyectados.</p></li>
 </ol>
 <blockquote>
 <div><img alt="../../_images/data132.png" class="align-center" src="../../_images/data132.png" />
 </div></blockquote>
-<p>We will use this layer in the next section. For convenience, you may directly download a copy of the above layer from below:</p>
+<p>Utilizaremos esta capa en la siguiente sección. Para mayor comodidad, puede descargar directamente una copia de la capa anterior desde abajo:</p>
 <p><a class="reference external" href="https://www.qgistutorials.com/downloads/us_states_with_population.gpkg">us_states_with_population.gpkg</a></p>
-<p>Data Source <a class="reference internal" href="../credits.html#uscensus" id="id1"><span>[USCENSUS]</span></a></p>
+<p>Fuente de datos <a class="reference internal" href="../credits.html#uscensus" id="id1"><span>[USCENSUS]</span></a></p>
 </section>
 <section id="procedure">
-<h2>Procedure<a class="headerlink" href="#procedure" title="Link to this heading">¶</a></h2>
+<h2>Procedimiento<a class="headerlink" href="#procedure" title="Link to this heading">¶</a></h2>
 <ol class="arabic simple">
-<li><p>Start a new QGIS project. Locate the <code class="docutils literal notranslate"><span class="pre">us_states_with_population.gpkg</span></code> file in the <span class="guilabel">Browser</span> and expand it. Drag and drop the <code class="docutils literal notranslate"><span class="pre">us_states_with_population</span></code> layer to the empty canvas.</p></li>
+<li><p>Inicie un nuevo proyecto QGIS. Localice el archivo <code class="docutils literal notranslate"><span class="pre">us_states_with_population.gpkg</span></code> en la etiqueta <span class="guilabel">Navegador</span> y expándalo. Arrastre y suelte la capa <code class="docutils literal notranslate"><span class="pre">us_states_with_population</span></code> al lienzo vacío.</p></li>
 </ol>
 <blockquote>
 <div><img alt="../../_images/140.png" class="align-center" src="../../_images/140.png" />
@@ -300,7 +300,7 @@
 <div><img alt="../../_images/227.png" class="align-center" src="../../_images/227.png" />
 </div></blockquote>
 <ol class="arabic simple" start="3">
-<li><p>Search and locate the <span class="menuselection">Vector table ‣ Field calculator</span> algorithm from the Processing Toolbox. double-click to open it.</p></li>
+<li><p>Search and locate the <span class="menuselection">Vector table ‣ Field calculator</span> algorithm from the Processing Toolbox. Double-click to open it.</p></li>
 </ol>
 <blockquote>
 <div><img alt="../../_images/319.png" class="align-center" src="../../_images/319.png" />
@@ -328,7 +328,7 @@ area(@geometry)
 <div><img alt="../../_images/68.png" class="align-center" src="../../_images/68.png" />
 </div></blockquote>
 <ol class="arabic simple" start="7">
-<li><p>In Area cartograms, the scale factor determines how much the feature’s area is reduced. We must reduce each feature’s area so that the population density of the feature is the same as the population density of the anchor feature. The formula for scale factor is the ratio of the square-root of the feature’s value against the square-root of the value of the anchor feature. Open the <span class="menuselection">Vector table ‣ Field calculator</span> algorithm from the Processing Toolbox. In the <span class="guilabel">Field calculator</span> dialog, select <code class="docutils literal notranslate"><span class="pre">us_states_population_density</span></code> as the <span class="guilabel">Input layer</span>. Enter <code class="docutils literal notranslate"><span class="pre">scale_factor</span></code> as the <span class="guilabel">Field name</span>. Enter the following expression to compute the scale factor. The expression calculates the ratio of the square root of the feature’s density against the square root of the density of the second largest density value.  Click the <span class="guilabel">…</span> button next to <span class="guilabel">Calculated</span> and select <span class="guilabel">Save to File…</span>. Enter the name of the layer as <code class="docutils literal notranslate"><span class="pre">us_states_scale_factor.gpkg</span></code> and select <span class="guilabel">Save</span>. Click <span class="guilabel">Run</span>.</p></li>
+<li><p>In Area cartograms, the scale factor determines how much the feature’s area is reduced. We must reduce each feature’s area so that the population density of the feature is the same as the population density of the anchor feature. The formula for scale factor is the ratio of the square-root of the feature’s value against the square-root of the value of the anchor feature. Open the <span class="menuselection">Vector table ‣ Field calculator</span> algorithm from the Processing Toolbox. In the <span class="guilabel">Field calculator</span> dialog, select <code class="docutils literal notranslate"><span class="pre">us_states_population_density</span></code> as the <span class="guilabel">Input layer</span>. Enter <code class="docutils literal notranslate"><span class="pre">scale_factor</span></code> as the <span class="guilabel">Field name</span>. Enter the following expression to compute the scale factor. The expression calculates the ratio of the square root of the feature’s density against the square root of the density of the second largest density value. Click the <span class="guilabel">…</span> button next to <span class="guilabel">Calculated</span> and select <span class="guilabel">Save to File…</span>. Enter the name of the layer as <code class="docutils literal notranslate"><span class="pre">us_states_scale_factor.gpkg</span></code> and select <span class="guilabel">Save</span>. Click <span class="guilabel">Run</span>.</p></li>
 </ol>
 <blockquote>
 <div><div class="highlight-none notranslate"><div class="highlight"><pre><span></span>sqrt(&quot;density&quot;)/array_get(array_agg(
@@ -351,13 +351,13 @@ area(@geometry)
 <div><img alt="../../_images/98.png" class="align-center" src="../../_images/98.png" />
 </div></blockquote>
 <ol class="arabic simple" start="10">
-<li><p>Select the <code class="docutils literal notranslate"><span class="pre">us_states_scale_factor</span></code> layer and click the <span class="guilabel">Open the layer styling panel</span> button in the <span class="guilabel">Layers</span> panel. Select <span class="guilabel">Simple Fill</span> and open the drop-down selector for <span class="guilabel">Symbol layer type</span>. Set the <span class="guilabel">Symbol layer type</span> to <code class="docutils literal notranslate"><span class="pre">Outline:</span> <span class="pre">Simple</span> <span class="pre">Line</span></code> and select a <span class="guilabel">Color</span> of your choice. This symbol layer will be a a reference for our map when we resize the polygons.</p></li>
+<li><p>Select the <code class="docutils literal notranslate"><span class="pre">us_states_scale_factor</span></code> layer and click the <span class="guilabel">Open the layer styling panel</span> button in the <span class="guilabel">Layers</span> panel. Select <span class="guilabel">Simple Fill</span> and open the drop-down selector for <span class="guilabel">Symbol layer type</span>. Set the <span class="guilabel">Symbol layer type</span> to <code class="docutils literal notranslate"><span class="pre">Outline:</span> <span class="pre">Simple</span> <span class="pre">Line</span></code> and select a <span class="guilabel">Color</span> of your choice. This symbol layer will be a reference for our map when we resize the polygons.</p></li>
 </ol>
 <blockquote>
 <div><img alt="../../_images/1012.png" class="align-center" src="../../_images/1012.png" />
 </div></blockquote>
 <ol class="arabic simple" start="11">
-<li><p>Click the :guilabel:` + Add Symbol layer` button. A new symbol layer <span class="guilabel">Simple Fill</span> will be added. Set the <span class="guilabel">Fill color</span> to the same color as the lines and the <span class="guilabel">Stroke color</span> to be a slightly darker color.</p></li>
+<li><p>Click the <span class="guilabel">Add Symbol layer (+)</span> button. A new symbol layer <span class="guilabel">Simple Fill</span> will be added. Set the <span class="guilabel">Fill color</span> to the same color as the lines and the <span class="guilabel">Stroke color</span> to be a slightly darker color.</p></li>
 </ol>
 <blockquote>
 <div><img alt="../../_images/1115.png" class="align-center" src="../../_images/1115.png" />
@@ -443,7 +443,9 @@ pole_of_inaccessibility(geometry_n(@geometry,@element), 100)
 <blockquote>
 <div><img alt="../../_images/207.png" class="align-center" src="../../_images/207.png" />
 </div></blockquote>
-<p>21 .The default <span class="guilabel">Animation range</span> will be populated with a 24-hour window in the increment of 1-hour. This is fine for our use case as we will get 24-frames of animation. You can adjust this if you want a slower/faster animation. Right-click the <code class="docutils literal notranslate"><span class="pre">us_states_with_population</span></code> layer and select <span class="guilabel">Properties</span>.</p>
+<ol class="arabic simple" start="21">
+<li><p>The default <span class="guilabel">Animation range</span> will be populated with a 24-hour window in the increment of 1-hour. This is fine for our use case as we will get 24-frames of animation. You can adjust this if you want a slower/faster animation. Right-click the <code class="docutils literal notranslate"><span class="pre">us_states_with_population</span></code> layer and select <span class="guilabel">Properties</span>.</p></li>
+</ol>
 <blockquote>
 <div><img alt="../../_images/2112.png" class="align-center" src="../../_images/2112.png" />
 </div></blockquote>
@@ -486,7 +488,9 @@ pole_of_inaccessibility(geometry_n(@geometry,@element), 100)
 </div>
 <img alt="../../_images/247.png" class="align-center" src="../../_images/247.png" />
 </div></blockquote>
-<p>25 . Back in the <span class="guilabel">Temporal Controller</span> panel, click the <span class="guilabel">Play</span> button to see the animation. You should see the shape of each polygon gradually scaled after each frame.</p>
+<ol class="arabic simple" start="25">
+<li><p>Back in the <span class="guilabel">Temporal Controller</span> panel, click the <span class="guilabel">Play</span> button to see the animation. You should see the shape of each polygon gradually scaled after each frame.</p></li>
+</ol>
 <blockquote>
 <div><img alt="../../_images/257.png" class="align-center" src="../../_images/257.png" />
 </div></blockquote>
