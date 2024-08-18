@@ -1,21 +1,21 @@
 Making Interactive Canvas Maps (QGIS3)
 =====================================
 
-This tutorial shows how to make features dynamically update as you move your cursor in the QGIS Canvas. We demonstrate canvas brushing technique using expressions to make maps that respond to the cursor movement.
+This tutorial shows how to make features dynamically update as you move your cursor in the QGIS Canvas. We will implement canvas brushing using expressions to make features respond to the cursor movement.
 
 Overview of the task
 --------------------
 
-We will create a grid of QGIS icons and apply dynamic styling that makes all icons follow the cursor movement.
+We will create a grid of QGIS icons and apply a data defined override for icon rotation to make the icons follow the cursor movement.
 
-  .. image:: /static/3/interactive_canvas_maps/images/output.gif
-    :align: center
+.. image:: /static/3/interactive_canvas_maps/images/output.gif
+  :align: center
 	
     
 Procedure
 ---------
 
-1. We will start by creating a grid. To make our grid with global extents, we can load the world map on the canvas. You can type ``world`` in the coordinates box at the bottom and press :guilabel:`Enter`. 
+1. We will start by creating a grid. To make our grid with global extents, we can load the world map on the canvas. You can type ``world`` in the coordinates box at the bottom of the QGIS window and press :guilabel:`Enter`. 
 This is one of the several hidden *easter eggs* in QGIS. You can discover other easter eggs on our `YouTube Channel <https://www.youtube.com/watch?v=3zLb8ar7jvg&list=PLppGmFLhQ1HIqNiNWxVqs5wBLiA_UrKTQ&index=13>`_.
 
   .. image:: /static/3/interactive_canvas_maps/images/1.png
