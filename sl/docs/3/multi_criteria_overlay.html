@@ -103,6 +103,7 @@
 <li class="toctree-l1"><a class="reference internal" href="block_world_styling.html">Creating a Block World Map (QGIS3)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="river_styling_expressions.html">Styling a River Network with Expressions (QGIS3)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="contour_3d_styling.html">Styling Contours in 3D (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="interactive_canvas_maps.html">Making Interactive Canvas Maps (QGIS3)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="cartogram_animation.html">Creating an Animated Cartogram (QGIS3)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="basic_network_analysis.html">Osnove vizualizacije in usmerjanja omrežja (QGIS3)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="origin_destination_matrix.html">Iskanje najbližjega objekta z matriko izvor-destinacija (QGIS3)</a></li>
@@ -218,55 +219,55 @@
 <li><p>V brskalniku QGIS poiščite preneseno datoteko <code class="docutils literal notranslate"><span class="pre">assam.gpkg</span></code>. Razširite jo in povlecite vsakega od petih posameznih podatkovnih slojev na platno zemljevida. Na plošči <span class="guilabel">Layers</span> boste videli naložene sloje <code class="docutils literal notranslate"><span class="pre">boundary</span></code>, <code class="docutils literal notranslate"><span class="pre">roads</span></code>, <code class="docutils literal notranslate"><span class="pre">protected_regions</span></code>, <code class="docutils literal notranslate"><span class="pre">water_polygons</span></code> in <code class="docutils literal notranslate"><span class="pre">water_polylines</span></code>.</p></li>
 </ol>
 <blockquote>
-<div><img alt="../../_images/1106.png" class="align-center" src="../../_images/1106.png" />
+<div><img alt="../../_images/1107.png" class="align-center" src="../../_images/1107.png" />
 </div></blockquote>
 <ol class="arabic simple" start="2">
 <li><p>First step in the overlay analysis, is to convert each data layer to raster. An important consideration is that all rasters must be of the same extent. We will use the <code class="docutils literal notranslate"><span class="pre">boundary</span></code> layer as the extent for all the rasters. Go to <span class="menuselection">Processing ‣ Toolbox</span>. Search for and locate the <span class="menuselection">GDAL ‣ Vector conversion ‣ Rasterize (vector to raster)</span> algorithm. Double-click to launch it.</p></li>
 </ol>
 <blockquote>
-<div><img alt="../../_images/2102.png" class="align-center" src="../../_images/2102.png" />
+<div><img alt="../../_images/2103.png" class="align-center" src="../../_images/2103.png" />
 </div></blockquote>
 <ol class="arabic simple" start="3">
 <li><p>V pogovornem oknu <span class="guilabel">Rasterize (vector to raster)</span> izberite <code class="docutils literal notranslate"><span class="pre">roads</span></code> kot <span class="guilabel">Input layer</span>. Ustvariti želimo izhodni raster, v katerem so vrednosti pikslov 1, če je cesta, in 0, če ceste ni. Vnesite <code class="docutils literal notranslate"><span class="pre">1</span></code> kot <span class="guilabel">A fixed value to burn</span>. Vhodni sloji so v projiciranem sistemu CRS, katerega enota so metri. Izberite <code class="docutils literal notranslate"><span class="pre">Geoferenced</span> <span class="pre">units</span></code> kot <span class="guilabel">Output raster size units</span> Nastavili bomo ločljivost izhodnega rastra na 15 metrov. Izberite <code class="docutils literal notranslate"><span class="pre">15</span></code> kot <span class="guilabel">Width/Horizontal resolution</span> in <span class="guilabel">Height/Vertical resolution</span>. Nato kliknite gumb <span class="guilabel">…</span> poleg <span class="guilabel">Output extent</span> in za <span class="guilabel">Use extent for</span> izberite <code class="docutils literal notranslate"><span class="pre">boundary</span></code>.</p></li>
 </ol>
 <blockquote>
-<div><img alt="../../_images/340.png" class="align-center" src="../../_images/340.png" />
+<div><img alt="../../_images/346.png" class="align-center" src="../../_images/346.png" />
 </div></blockquote>
 <ol class="arabic simple" start="4">
 <li><p>Scroll down further and click the arrow button in the <span class="guilabel">Assign a specific nodata value to output bands</span>.</p></li>
 </ol>
 <blockquote>
-<div><img alt="../../_images/423.png" class="align-center" src="../../_images/423.png" />
+<div><img alt="../../_images/424.png" class="align-center" src="../../_images/424.png" />
 </div></blockquote>
 <ol class="arabic simple" start="5">
 <li><p>That field should now be set to <code class="docutils literal notranslate"><span class="pre">Not</span> <span class="pre">set</span></code>. This is important because when raster calculator (which we will use later) encounters a pixel with nodata value in any layer, it sets the output to nodata as well, resulting is wrong output.</p></li>
 </ol>
 <blockquote>
-<div><img alt="../../_images/520.png" class="align-center" src="../../_images/520.png" />
+<div><img alt="../../_images/521.png" class="align-center" src="../../_images/521.png" />
 </div></blockquote>
 <ol class="arabic simple" start="6">
 <li><p>Scroll down to find the <span class="guilabel">Advanced Parameters</span> and select the profile <code class="docutils literal notranslate"><span class="pre">High</span> <span class="pre">Compression</span></code> to apply the compression. This will generate the compressed raster file of smaller size after running the tool. Applying lossless compression is highly recommended while working with raster data.</p></li>
 </ol>
 <blockquote>
-<div><img alt="../../_images/620.png" class="align-center" src="../../_images/620.png" />
+<div><img alt="../../_images/621.png" class="align-center" src="../../_images/621.png" />
 </div></blockquote>
 <ol class="arabic simple" start="7">
 <li><p>Set the <span class="guilabel">Rasterized</span> output raster as <code class="docutils literal notranslate"><span class="pre">raster_roads.tif</span></code> and click <span class="guilabel">Run</span>.</p></li>
 </ol>
 <blockquote>
-<div><img alt="../../_images/719.png" class="align-center" src="../../_images/719.png" />
+<div><img alt="../../_images/720.png" class="align-center" src="../../_images/720.png" />
 </div></blockquote>
 <ol class="arabic simple" start="8">
 <li><p>Ko se obdelava konča, se na plošči <span class="guilabel">raster_roads</span> naloži nov sloj <span class="guilabel">Layers</span>. Privzeto oblikovanje bo prikazalo piksle s cestami kot bele, druge pa kot črne. Tudi druge 4 vektorske plasti želimo pretvoriti v rastre. Namesto da bi algoritem za rasterizacijo izvajali enega za drugim, lahko uporabimo vgrajeno funkcionalnost paketne obdelave in jih pretvorimo vse naenkrat. Za več informacij o paketni obdelavi glejte <a class="reference internal" href="batch_processing.html"><span class="doc">Batch Processing using Processing Framework (QGIS3)</span></a> tutorial. Z desno tipko miške kliknite algoritem <code class="docutils literal notranslate"><span class="pre">Rasterize</span> <span class="pre">(vector</span> <span class="pre">to</span> <span class="pre">raster)</span></code> in izberite <span class="guilabel">Execute as Batch Process</span>.</p></li>
 </ol>
 <blockquote>
-<div><img alt="../../_images/819.png" class="align-center" src="../../_images/819.png" />
+<div><img alt="../../_images/820.png" class="align-center" src="../../_images/820.png" />
 </div></blockquote>
 <ol class="arabic simple" start="9">
 <li><p>V pogovornem oknu <span class="guilabel">Batch Processing</span> kliknite gumb <span class="guilabel">…</span> v prvi vrstici stolpca <span class="guilabel">Input layer</span>. Izberite sloje <code class="docutils literal notranslate"><span class="pre">boundary</span></code>, <code class="docutils literal notranslate"><span class="pre">protected_regions</span></code>, <code class="docutils literal notranslate"><span class="pre">water_polygons</span></code> in <code class="docutils literal notranslate"><span class="pre">water_polylines</span></code> ter kliknite <span class="guilabel">OK</span>.</p></li>
 </ol>
 <blockquote>
-<div><img alt="../../_images/919.png" class="align-center" src="../../_images/919.png" />
+<div><img alt="../../_images/920.png" class="align-center" src="../../_images/920.png" />
 </div></blockquote>
 <div class="admonition note">
 <p class="admonition-title">Opomba</p>
@@ -276,25 +277,25 @@
 <li><p>Parametre izpolnite z enakimi vrednostmi, kot smo jih uporabili v sloju cest. Po izpolnitvi prve vrstice parametra uporabite gumb <span class="menuselection">Autofill ‣ Fill Down</span>, da dodate enako vrednost za vse plasti.</p></li>
 </ol>
 <blockquote>
-<div><img alt="../../_images/1025.png" class="align-center" src="../../_images/1025.png" />
+<div><img alt="../../_images/1026.png" class="align-center" src="../../_images/1026.png" />
 </div></blockquote>
 <ol class="arabic simple" start="11">
 <li><p>V zadnjem stolpcu <span class="guilabel">Rasterized</span> kliknite gumb <span class="guilabel">…</span> v prvi vrstici. Kot kot <span class="guilabel">Autofill mode</span> izberite <code class="docutils literal notranslate"><span class="pre">Fill</span> <span class="pre">with</span> <span class="pre">parameter</span> <span class="pre">values</span></code> in <span class="guilabel">Parameter to use</span> izberite <code class="docutils literal notranslate"><span class="pre">Input</span> <span class="pre">layer</span></code>. Kliknite <span class="guilabel">OK</span>.</p></li>
 </ol>
 <blockquote>
-<div><img alt="../../_images/1128.png" class="align-center" src="../../_images/1128.png" />
+<div><img alt="../../_images/1129.png" class="align-center" src="../../_images/1129.png" />
 </div></blockquote>
 <ol class="arabic simple" start="12">
 <li><p>Poiščite mapo v računalniku in sloj poimenujte <code class="docutils literal notranslate"><span class="pre">raster_</span></code>. Vmesnik za paketno obdelavo bo samodejno dopolnil ime z imenom sloja in izpolnil vse vrstice. Prepričajte se, da je polje <span class="guilabel">Load layers on completion</span> označeno, in kliknite <span class="guilabel">OK</span>.</p></li>
 </ol>
 <blockquote>
-<div><img alt="../../_images/1226.png" class="align-center" src="../../_images/1226.png" />
+<div><img alt="../../_images/1227.png" class="align-center" src="../../_images/1227.png" />
 </div></blockquote>
 <ol class="arabic simple" start="13">
 <li><p>Ko se obdelava konča, se na plošči <span class="guilabel">Layers</span> naložijo 4 novi rastrski sloji. Opazili boste, da imamo 2 sloja, povezana z vodo - oba predstavljata vodo. Lahko ju združimo in tako dobimo en sam sloj, ki predstavlja vodna območja v regiji. Poiščite in poiščite algoritem <span class="menuselection">Raster analysis ‣ Raster calculator</span> v orodjarni Processing Toolbox. Z dvoklikom ga zaženite.</p></li>
 </ol>
 <blockquote>
-<div><img alt="../../_images/1324.png" class="align-center" src="../../_images/1324.png" />
+<div><img alt="../../_images/1325.png" class="align-center" src="../../_images/1325.png" />
 </div></blockquote>
 <ol class="arabic simple" start="14">
 <li><p>V polje <span class="guilabel">Expression</span> vnesite naslednji izraz. V polju <span class="guilabel">Layers</span> lahko kliknete na ustrezno plast, da se samodejno vstavijo imena plasti. Ta izraz pomeni, da želimo sešteti vrednosti pikslov v prvem pasu obeh vodnih rastrov. Kliknite gumb <span class="guilabel">…</span> ob polju <span class="guilabel">Reference layer(s)</span> in kot referenčni sloj izberite <code class="docutils literal notranslate"><span class="pre">raster_water_polygons</span></code>. Poimenujte izhodno datoteko <code class="docutils literal notranslate"><span class="pre">raster_water_merged.tif</span></code> in kliknite <span class="guilabel">Run</span>.</p></li>
@@ -303,7 +304,7 @@
 <div><div class="highlight-none notranslate"><div class="highlight"><pre><span></span>&quot;raster_water_polygons@1&quot; + &quot;raster_water_polylines@1&quot;
 </pre></div>
 </div>
-<img alt="../../_images/1422.png" class="align-center" src="../../_images/1422.png" />
+<img alt="../../_images/1423.png" class="align-center" src="../../_images/1423.png" />
 </div></blockquote>
 <ol class="arabic simple" start="15">
 <li><p>Tako združen raster bo imel piksle z vrednostjo 1 za vsa območja z vodo. Opazili pa boste, da je na nekaterih območjih obstajal tako poligon z vodo kot poligon z vodo. Ta območja bodo imela piksle z vrednostjo 2, kar ni pravilno. To lahko popravimo s preprostim izrazom. Ponovno odprite algoritem <span class="menuselection">Raster analysis ‣ Raster calculator</span>.</p></li>
@@ -484,7 +485,7 @@
     </p>
     <p>
         &copy; Copyright 2023, Ujaval Gandhi.<br/>
-      Zadnjič posodobljeno avg. 10, 2024.<br/>
+      Zadnjič posodobljeno avg. 18, 2024.<br/>
       Created using <a href="http://sphinx-doc.org/">Sphinx</a> 7.2.6.<br/>
     </p>
   </div>

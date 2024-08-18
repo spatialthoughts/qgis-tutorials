@@ -101,6 +101,7 @@
 <li class="toctree-l1"><a class="reference internal" href="3/block_world_styling.html">Creating a Block World Map (QGIS3)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="3/river_styling_expressions.html">Styling a River Network with Expressions (QGIS3)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="3/contour_3d_styling.html">Styling Contours in 3D (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/interactive_canvas_maps.html">Making Interactive Canvas Maps (QGIS3)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="3/cartogram_animation.html">Creating an Animated Cartogram (QGIS3)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="3/basic_network_analysis.html">Basic Network Visualization and Routing (QGIS3)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="3/origin_destination_matrix.html">Locating Nearest Facility with Origin-Destination Matrix (QGIS3)</a></li>
@@ -217,7 +218,7 @@
 <span class="n">QgsMapLayerRegistry</span><span class="o">.</span><span class="n">instance</span><span class="p">()</span><span class="o">.</span><span class="n">addMapLayer</span><span class="p">(</span><span class="n">shp</span><span class="p">)</span>
 </pre></div>
 </div>
-<img alt="../_images/1205.png" class="align-center" src="../_images/1205.png" />
+<img alt="../_images/1206.png" class="align-center" src="../_images/1206.png" />
 <ol class="arabic simple" start="2">
 <li><p>接下來載入 CSV 檔。由於 CSV 檔不包含任何空間資訊，我們要使用 <code class="docutils literal notranslate"><span class="pre">delimitedtext</span></code> 做為資料提供元，載入成表格。</p></li>
 </ol>
@@ -226,7 +227,7 @@
 <span class="n">QgsMapLayerRegistry</span><span class="o">.</span><span class="n">instance</span><span class="p">()</span><span class="o">.</span><span class="n">addMapLayer</span><span class="p">(</span><span class="n">csv</span><span class="p">)</span>
 </pre></div>
 </div>
-<img alt="../_images/2170.png" class="align-center" src="../_images/2170.png" />
+<img alt="../_images/2171.png" class="align-center" src="../_images/2171.png" />
 <ol class="arabic simple" start="3">
 <li><p>開始進行資料表連接。在 QGIS 中此操作要使用 <code class="docutils literal notranslate"><span class="pre">QgsVectorJoinInfo</span></code> 物件，而且我們需要指定 CSV 圖層中的 <code class="docutils literal notranslate"><span class="pre">GEO.id2</span></code> 作為 <span class="guilabel">連結欄位</span>，以及 shapefile 圖層中的 <code class="docutils literal notranslate"><span class="pre">GEOID</span></code> 作為 <span class="guilabel">目標欄位</span>。執行下列程式碼後，shapefile 的圖層就會多出一個從 CSV 圖層連結過來的屬性。</p></li>
 </ol>
@@ -244,7 +245,7 @@
 <span class="n">shp</span><span class="o">.</span><span class="n">addJoin</span><span class="p">(</span><span class="n">joinObject</span><span class="p">)</span>
 </pre></div>
 </div>
-<img alt="../_images/3105.png" class="align-center" src="../_images/3105.png" />
+<img alt="../_images/3106.png" class="align-center" src="../_images/3106.png" />
 <ol class="arabic simple" start="4">
 <li><p>另一個較簡單，而且也較為推薦的方法是使用「處理框架」。你可以呼叫 <code class="docutils literal notranslate"><span class="pre">qgis:joinattributestable</span></code> 演算法來創造連接完畢的圖層。</p></li>
 </ol>
@@ -258,7 +259,7 @@
 <span class="n">result</span> <span class="o">=</span> <span class="n">processing</span><span class="o">.</span><span class="n">runandload</span><span class="p">(</span><span class="s1">&#39;qgis:joinattributestable&#39;</span><span class="p">,</span> <span class="n">shp</span><span class="p">,</span> <span class="n">csv</span><span class="p">,</span> <span class="n">shpField</span><span class="p">,</span> <span class="n">csvField</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
 </pre></div>
 </div>
-<img alt="../_images/470.png" class="align-center" src="../_images/470.png" />
+<img alt="../_images/471.png" class="align-center" src="../_images/471.png" />
 <ol class="arabic simple" start="5">
 <li><p>在本教學剩餘的部分中，我們會繼續使用第一種利用 <code class="docutils literal notranslate"><span class="pre">QgsVectorJoinInfo</span></code> 的方法。接下來我們要來為連接後的圖層設定漸層樣式。在連接後的圖層中，人口的欄位是 <code class="docutils literal notranslate"><span class="pre">ca_tracts_pop_D001</span></code>，我們要使用 <code class="docutils literal notranslate"><span class="pre">QgsGraduatedSymbolRendererV2</span></code>，在 <code class="docutils literal notranslate"><span class="pre">分位數</span></code> 模式下設定漸層樣式，相關的顏色和數值範圍設定請參考 <a class="reference internal" href="performing_table_joins.html"><span class="doc">資料表連接</span></a>。</p></li>
 </ol>
@@ -314,11 +315,11 @@
 <span class="n">shp</span><span class="o">.</span><span class="n">setRendererV2</span><span class="p">(</span><span class="n">myRenderer</span><span class="p">)</span>
 </pre></div>
 </div>
-<img alt="../_images/564.png" class="align-center" src="../_images/564.png" />
+<img alt="../_images/565.png" class="align-center" src="../_images/565.png" />
 <ol class="arabic simple" start="6">
 <li><p>在 Python 主控台中直接輸入程式碼，對於執行小型的工作非常方便，不過對於以上的程式片段，使用內建的 <span class="guilabel">編輯器</span> 會容易得多。你可以複製整段程式碼然後貼上到 <span class="guilabel">編輯器</span> 中，然後按下 <span class="guilabel">執行</span>，當腳本執行完畢後，資料表連接和樣式設定就完成了，不需要多餘的手動操作。</p></li>
 </ol>
-<img alt="../_images/662.png" class="align-center" src="../_images/662.png" />
+<img alt="../_images/663.png" class="align-center" src="../_images/663.png" />
 <p>以下放上完整的 <code class="docutils literal notranslate"><span class="pre">join_attributes.py</span></code> 檔做為參考。</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">PyQt4</span> <span class="kn">import</span> <span class="n">QtGui</span>
 <span class="n">zip_uri</span> <span class="o">=</span> <span class="s1">&#39;/vsizip/C:/Users/Ujaval/Downloads/tl_2013_06_tract.zip/tl_2013_06_tract.shp&#39;</span>
@@ -423,7 +424,7 @@
     </p>
     <p>
         &copy; Copyright 2023, Ujaval Gandhi.<br/>
-      最後更新於 8月 10, 2024。<br/>
+      最後更新於 8月 18, 2024。<br/>
       Created using <a href="http://sphinx-doc.org/">Sphinx</a> 7.2.6.<br/>
     </p>
   </div>
