@@ -3,7 +3,7 @@ Creating an Animated Cartogram (QGIS3)
 
 Cartogram is a type of map visualization where the shape of each feature is distorted in proportion to a variable. Cartograms make it easy to see large variations in the data. The simplest method to create a cartogram is by scaling the size of each region according to a variable. This method retains the original shape of the polygon and only changes the size. These are known as `Non-contiguous isomorphic cartograms <https://en.wikipedia.org/wiki/Cartogram#Non-contiguous_isomorphic_cartograms>`_. In this tutorial, we will learn how to use QGIS expressions to create a cartogram and use the Temporal Controller to create an animation that gradually transforms the features to the target size. 
 
-This tutorial is inspired by `Keith Jenkins's Demo <https://x.com/kgjenkins/status/1495986986250813442?cxt=HHwWhICygZ2P6MIpAAAA>`_ and builds on `Hans van der Kwast's excellent cartogram tutorial <https://www.youtube.com/watch?v=qxKD6wcFUcE>`_. The formula for scale factor used here is from the original paper `Noncontiguous Area Cartograms <https://doi.org/10.1111/j.0033-0124.1976.00371.x>`_ by Judy M Olson.
+This tutorial is builds on `Hans van der Kwast's excellent cartogram tutorial <https://www.youtube.com/watch?v=qxKD6wcFUcE>`_. The formula for scale factor used here is from the original paper `Noncontiguous Area Cartograms <https://doi.org/10.1111/j.0033-0124.1976.00371.x>`_ by Judy M Olson.
 
 Overview of the task
 --------------------
