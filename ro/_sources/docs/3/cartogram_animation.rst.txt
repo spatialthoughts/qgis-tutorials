@@ -188,7 +188,7 @@ Procedure
   .. image:: /static/3/cartogram_animation/images/14.png
     :align: center
     
-15. The `scale()` function takes an optional parameter to specify the scaling center point. We will use the `pole_of_inaccessibility()` function to find a representative anchor point for each polygon. This is similar to a centroid, but it is guaranteed to be inside of the polygon whereas a centroid can fall outside for certain shapes. Update the expression as shown below and click :guilabel:`OK`.
+15. The `scale()` function takes an optional parameter to specify the scaling center point. We will use the `pole_of_inaccessibility()` function to find a representative anchor point for each polygon. This is similar to a centroid, but it is guaranteed to be inside of the polygon whereas a centroid can fall outside for certain shapes. Update the expression as shown below which calculates the pole of inaccessibility of the geometry with a small tolerance value and click :guilabel:`OK`.
 
   .. code-block:: none
  
@@ -196,7 +196,7 @@ Procedure
     	@geometry,
     	"scale_factor",
     	"scale_factor",
-    	pole_of_inaccessibility(@geometry)
+    	pole_of_inaccessibility(@geometry, 100)
     )
 
   .. image:: /static/3/cartogram_animation/images/15.png
