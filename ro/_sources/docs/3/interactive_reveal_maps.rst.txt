@@ -1,9 +1,9 @@
 Making Interactive Reveal Maps (QGIS3)
 ======================================
 
-This tutorial shows how to use a dynamic mask layer in a layer group along with expressions to make an interactive map that reveal the layers beneath the current layer as you move your cursor around. This is done using the new `mask blending modes <https://changelog.qgis.org/en/entry/2154>`_ in QGIS along with the `@canvas_cursor_point` variable that we learnt in the previous tutorial on :doc:`interactive_canvas_maps`.
+This tutorial shows how to use a dynamic mask layer in a layer group along with expressions to make an interactive map that reveal the layers beneath the current layer as you move your cursor around. This is done using the new `mask blending modes <https://changelog.qgis.org/en/entry/2154>`_ in QGIS along with technique for adding interactivity shown in the previous tutorial on :doc:`interactive_canvas_maps`.
 
-This tutorial is inspired from `Hamish Campbell <https://www.linkedin.com/in/hncampbell/>`_ interactive visualization shared on LinkedIn.
+This tutorial is inspired from `Hamish Campbell <https://www.linkedin.com/in/hncampbell/>`_ who shared his interactive visualization shared on LinkedIn.
 
 Overview of the task
 --------------------
