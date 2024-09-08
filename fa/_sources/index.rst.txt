@@ -50,6 +50,7 @@ Expressions
 * :doc:`docs/3/river_styling_expressions`
 * :doc:`docs/3/contour_3d_styling`
 * :doc:`docs/3/interactive_canvas_maps`
+* :doc:`docs/3/interactive_reveal_maps`
 * :doc:`docs/3/cartogram_animation`
 
 
@@ -127,6 +128,7 @@ Appendix
    docs/3/river_styling_expressions
    docs/3/contour_3d_styling
    docs/3/interactive_canvas_maps
+   docs/3/interactive_reveal_maps
    docs/3/cartogram_animation
    docs/3/basic_network_analysis
    docs/3/origin_destination_matrix

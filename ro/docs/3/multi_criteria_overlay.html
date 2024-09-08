@@ -104,6 +104,7 @@
 <li class="toctree-l1"><a class="reference internal" href="river_styling_expressions.html">Styling a River Network with Expressions (QGIS3)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="contour_3d_styling.html">Styling Contours in 3D (QGIS3)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="interactive_canvas_maps.html">Making Interactive Canvas Maps (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="interactive_reveal_maps.html">Making Interactive Reveal Maps (QGIS3)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="cartogram_animation.html">Creating an Animated Cartogram (QGIS3)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="basic_network_analysis.html">Basic Network Visualization and Routing (QGIS3)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="origin_destination_matrix.html">Locating Nearest Facility with Origin-Destination Matrix (QGIS3)</a></li>
@@ -219,55 +220,55 @@
 <li><p>Browse to the downloaded <code class="docutils literal notranslate"><span class="pre">assam.gpkg</span></code> file in QGIS Browser. Expand it and drag each of the 5 individual data layers to the map canvas. You will see <code class="docutils literal notranslate"><span class="pre">boundary</span></code>, <code class="docutils literal notranslate"><span class="pre">roads</span></code>, <code class="docutils literal notranslate"><span class="pre">protected_regions</span></code>, <code class="docutils literal notranslate"><span class="pre">water_polygons</span></code> and <code class="docutils literal notranslate"><span class="pre">water_polylines</span></code> layers loaded in the <span class="guilabel">Layers</span> panel.</p></li>
 </ol>
 <blockquote>
-<div><img alt="../../_images/1107.png" class="align-center" src="../../_images/1107.png" />
+<div><img alt="../../_images/1108.png" class="align-center" src="../../_images/1108.png" />
 </div></blockquote>
 <ol class="arabic simple" start="2">
 <li><p>First step in the overlay analysis, is to convert each data layer to raster. An important consideration is that all rasters must be of the same extent. We will use the <code class="docutils literal notranslate"><span class="pre">boundary</span></code> layer as the extent for all the rasters. Go to <span class="menuselection">Processing ‣ Toolbox</span>. Search for and locate the <span class="menuselection">GDAL ‣ Vector conversion ‣ Rasterize (vector to raster)</span> algorithm. Double-click to launch it.</p></li>
 </ol>
 <blockquote>
-<div><img alt="../../_images/2103.png" class="align-center" src="../../_images/2103.png" />
+<div><img alt="../../_images/2104.png" class="align-center" src="../../_images/2104.png" />
 </div></blockquote>
 <ol class="arabic simple" start="3">
 <li><p>In the <span class="guilabel">Rasterize (vector to raster)</span> dialog, select <code class="docutils literal notranslate"><span class="pre">roads</span></code> as the <span class="guilabel">Input layer</span>. We want to create an output raster where pixel values are 1 where there is a road and 0 where there are no roads. Enter <code class="docutils literal notranslate"><span class="pre">1</span></code> as the <span class="guilabel">A fixed value to burn</span>. The input layers are in a projected CRS with meters are the unit. Select <code class="docutils literal notranslate"><span class="pre">Geoferenced</span> <span class="pre">units</span></code> as the <span class="guilabel">Output raster size units</span>. We will set the resolution of the output raster to be 15 meters. Select <code class="docutils literal notranslate"><span class="pre">15</span></code> as both <span class="guilabel">Width/Horizontal resolution</span> and <span class="guilabel">Height/Vertical resolution</span>. Next, click the <span class="guilabel">…</span> button next to <span class="guilabel">Output extent</span> and select <code class="docutils literal notranslate"><span class="pre">boundary</span></code> for <span class="guilabel">Use extent for</span>.</p></li>
 </ol>
 <blockquote>
-<div><img alt="../../_images/346.png" class="align-center" src="../../_images/346.png" />
+<div><img alt="../../_images/347.png" class="align-center" src="../../_images/347.png" />
 </div></blockquote>
 <ol class="arabic simple" start="4">
 <li><p>Scroll down further and click the arrow button in the <span class="guilabel">Assign a specific nodata value to output bands</span>.</p></li>
 </ol>
 <blockquote>
-<div><img alt="../../_images/424.png" class="align-center" src="../../_images/424.png" />
+<div><img alt="../../_images/425.png" class="align-center" src="../../_images/425.png" />
 </div></blockquote>
 <ol class="arabic simple" start="5">
 <li><p>That field should now be set to <code class="docutils literal notranslate"><span class="pre">Not</span> <span class="pre">set</span></code>. This is important because when raster calculator (which we will use later) encounters a pixel with nodata value in any layer, it sets the output to nodata as well, resulting is wrong output.</p></li>
 </ol>
 <blockquote>
-<div><img alt="../../_images/521.png" class="align-center" src="../../_images/521.png" />
+<div><img alt="../../_images/522.png" class="align-center" src="../../_images/522.png" />
 </div></blockquote>
 <ol class="arabic simple" start="6">
 <li><p>Scroll down to find the <span class="guilabel">Advanced Parameters</span> and select the profile <code class="docutils literal notranslate"><span class="pre">High</span> <span class="pre">Compression</span></code> to apply the compression. This will generate the compressed raster file of smaller size after running the tool. Applying lossless compression is highly recommended while working with raster data.</p></li>
 </ol>
 <blockquote>
-<div><img alt="../../_images/621.png" class="align-center" src="../../_images/621.png" />
+<div><img alt="../../_images/622.png" class="align-center" src="../../_images/622.png" />
 </div></blockquote>
 <ol class="arabic simple" start="7">
 <li><p>Set the <span class="guilabel">Rasterized</span> output raster as <code class="docutils literal notranslate"><span class="pre">raster_roads.tif</span></code> and click <span class="guilabel">Run</span>.</p></li>
 </ol>
 <blockquote>
-<div><img alt="../../_images/720.png" class="align-center" src="../../_images/720.png" />
+<div><img alt="../../_images/721.png" class="align-center" src="../../_images/721.png" />
 </div></blockquote>
 <ol class="arabic simple" start="8">
 <li><p>Once the processing finishes, you will see a new layer <span class="guilabel">raster_roads</span> loaded in the <span class="guilabel">Layers</span> panel. The default styling will show pixels with roads as white and others as black. We want to convert other 4 vector layers to rasters as well. Rather than running the rasterize algorithm one-by-one, we can use the built-in batch-processing functionality to convert them all at once. See <a class="reference internal" href="batch_processing.html"><span class="doc">Procesarea În Serie, folosind Cadrul de Procesare (QGIS3)</span></a> tutorial to learn more about batch processing. Right-click the <code class="docutils literal notranslate"><span class="pre">Rasterize</span> <span class="pre">(vector</span> <span class="pre">to</span> <span class="pre">raster)</span></code> algorithm and select <span class="guilabel">Execute as Batch Process</span>.</p></li>
 </ol>
 <blockquote>
-<div><img alt="../../_images/820.png" class="align-center" src="../../_images/820.png" />
+<div><img alt="../../_images/821.png" class="align-center" src="../../_images/821.png" />
 </div></blockquote>
 <ol class="arabic simple" start="9">
 <li><p>In the <span class="guilabel">Batch Processing</span> dialog, click the <span class="guilabel">…</span> button in the first row of the <span class="guilabel">Input layer</span> column. Select <code class="docutils literal notranslate"><span class="pre">boundary</span></code>, <code class="docutils literal notranslate"><span class="pre">protected_regions</span></code>, <code class="docutils literal notranslate"><span class="pre">water_polygons</span></code> and <code class="docutils literal notranslate"><span class="pre">water_polylines</span></code> layers and click <span class="guilabel">OK</span>.</p></li>
 </ol>
 <blockquote>
-<div><img alt="../../_images/920.png" class="align-center" src="../../_images/920.png" />
+<div><img alt="../../_images/921.png" class="align-center" src="../../_images/921.png" />
 </div></blockquote>
 <div class="admonition note">
 <p class="admonition-title">Notă</p>
@@ -277,25 +278,25 @@
 <li><p>Fill in the parameters with the same values we used in the roads layer. After filling the first-row of the parameter, use the <span class="menuselection">Autofill ‣ Fill Down</span> button to add the same value for all layers.</p></li>
 </ol>
 <blockquote>
-<div><img alt="../../_images/1026.png" class="align-center" src="../../_images/1026.png" />
+<div><img alt="../../_images/1027.png" class="align-center" src="../../_images/1027.png" />
 </div></blockquote>
 <ol class="arabic simple" start="11">
 <li><p>In the last column <span class="guilabel">Rasterized</span>, click the <span class="guilabel">…</span> button in the first row. Select <code class="docutils literal notranslate"><span class="pre">Fill</span> <span class="pre">with</span> <span class="pre">parameter</span> <span class="pre">values</span></code> as the <span class="guilabel">Autofill mode</span> and <code class="docutils literal notranslate"><span class="pre">Input</span> <span class="pre">layer</span></code> as the <span class="guilabel">Parameter to use</span>. Click <span class="guilabel">OK</span>.</p></li>
 </ol>
 <blockquote>
-<div><img alt="../../_images/1129.png" class="align-center" src="../../_images/1129.png" />
+<div><img alt="../../_images/1130.png" class="align-center" src="../../_images/1130.png" />
 </div></blockquote>
 <ol class="arabic simple" start="12">
 <li><p>Browse to a directory on your computer and name the layer as <code class="docutils literal notranslate"><span class="pre">raster_</span></code>. The batch processing interface will autocomplete the name with the layer name and fill in all rows. Make sure the <span class="guilabel">Load layers on completion</span> box is checked and click <span class="guilabel">OK</span>.</p></li>
 </ol>
 <blockquote>
-<div><img alt="../../_images/1227.png" class="align-center" src="../../_images/1227.png" />
+<div><img alt="../../_images/1228.png" class="align-center" src="../../_images/1228.png" />
 </div></blockquote>
 <ol class="arabic simple" start="13">
 <li><p>Once the processing finishes, you will have 4 new raster layers loaded in the <span class="guilabel">Layers</span> panel. You will notice that we have 2 water related layers - both representing water. We can merge them to have a single layer representing water areas in the region. Search for and locate <span class="menuselection">Raster analysis ‣ Raster calculator</span> algorithm in the Processing Toolbox. Double-click to launch it.</p></li>
 </ol>
 <blockquote>
-<div><img alt="../../_images/1325.png" class="align-center" src="../../_images/1325.png" />
+<div><img alt="../../_images/1326.png" class="align-center" src="../../_images/1326.png" />
 </div></blockquote>
 <ol class="arabic simple" start="14">
 <li><p>Enter the following expression in the <span class="guilabel">Expression</span> box. You can click on the appropriate layer in the <span class="guilabel">Layers</span> box to auto insert the layer names. This expression means that we want to sum the pixel values in the first band of both the water rasters. Click the <span class="guilabel">…</span> button next to <span class="guilabel">Reference layer(s) and select ``raster_water_polygons`</span> as the reference layer. Name the output <code class="docutils literal notranslate"><span class="pre">raster_water_merged.tif</span></code> and click <span class="guilabel">Run</span>.</p></li>
@@ -304,13 +305,13 @@
 <div><div class="highlight-none notranslate"><div class="highlight"><pre><span></span>&quot;raster_water_polygons@1&quot; + &quot;raster_water_polylines@1&quot;
 </pre></div>
 </div>
-<img alt="../../_images/1423.png" class="align-center" src="../../_images/1423.png" />
+<img alt="../../_images/1424.png" class="align-center" src="../../_images/1424.png" />
 </div></blockquote>
 <ol class="arabic simple" start="15">
 <li><p>The resulting merged raster will have pixels with value 1 for all areas with water. But you will notice that there are some regions where there was both a water polygon and a water polyline. Those areas will have pixels with value 2 - which is not correct. We can fix it with a simple expression. Open <span class="menuselection">Raster analysis ‣ Raster calculator</span> algorithm again.</p></li>
 </ol>
 <blockquote>
-<div><img alt="../../_images/1520.png" class="align-center" src="../../_images/1520.png" />
+<div><img alt="../../_images/1521.png" class="align-center" src="../../_images/1521.png" />
 </div></blockquote>
 <ol class="arabic simple" start="16">
 <li><p>Enter the following expression which will assign the value 1 that match the expression and 0 where it doesn’t. Click the <span class="guilabel">…</span> button next to <span class="guilabel">Reference layer(s) and select ``raster_water_merged`</span> layer. Name the output <code class="docutils literal notranslate"><span class="pre">raster_water.tif</span></code> and click <span class="guilabel">Run</span>.</p></li>
@@ -319,31 +320,31 @@
 <div><div class="highlight-none notranslate"><div class="highlight"><pre><span></span>&quot;raster_water_merged@1&quot; &gt; 0
 </pre></div>
 </div>
-<img alt="../../_images/1619.png" class="align-center" src="../../_images/1619.png" />
+<img alt="../../_images/1620.png" class="align-center" src="../../_images/1620.png" />
 </div></blockquote>
 <ol class="arabic simple" start="17">
 <li><p>The resulting layer <code class="docutils literal notranslate"><span class="pre">raster_water</span></code> now has pixels with only 0 and 1 values.</p></li>
 </ol>
 <blockquote>
-<div><img alt="../../_images/1720.png" class="align-center" src="../../_images/1720.png" />
+<div><img alt="../../_images/1721.png" class="align-center" src="../../_images/1721.png" />
 </div></blockquote>
 <ol class="arabic simple" start="18">
 <li><p>Now that we have layers representing road and water pixels, we can generate proximity rasters. These are also known as Euclidean distances - where each pixel in the output raster represents the distance to the nearest pixel in the input raster. This resulting raster can be then used to determine suitable areas which are within certain distance from the input. Search for and locate the <span class="menuselection">GDAL ‣ Raster analysis ‣ Proximity (raster distance)</span> algorithm. Double-click to launch it.</p></li>
 </ol>
 <blockquote>
-<div><img alt="../../_images/1818.png" class="align-center" src="../../_images/1818.png" />
+<div><img alt="../../_images/1819.png" class="align-center" src="../../_images/1819.png" />
 </div></blockquote>
 <ol class="arabic simple" start="19">
 <li><p>In the <span class="guilabel">Proximity (Raster Distance)</span> dialog, select <code class="docutils literal notranslate"><span class="pre">raster_roads</span></code> as the <span class="guilabel">Input layer</span>. Choose <code class="docutils literal notranslate"><span class="pre">Georeferenced</span> <span class="pre">coordinates</span></code> as the <span class="guilabel">Distance units</span>. As the input layers are in a projected CRS with meters as the units, enter <code class="docutils literal notranslate"><span class="pre">5000</span></code> (5 kilometers) as the <span class="guilabel">Maximum distance to be generated</span>. Make sure the <span class="guilabel">Nodata value to use for the destination proximity raster</span> value is <code class="docutils literal notranslate"><span class="pre">Not</span> <span class="pre">set</span></code>.</p></li>
 </ol>
 <blockquote>
-<div><img alt="../../_images/1915.png" class="align-center" src="../../_images/1915.png" />
+<div><img alt="../../_images/1916.png" class="align-center" src="../../_images/1916.png" />
 </div></blockquote>
 <ol class="arabic simple" start="20">
 <li><p>You can expand the <span class="guilabel">Advanced Parameters</span> and select the profile <code class="docutils literal notranslate"><span class="pre">High</span> <span class="pre">Compression</span></code> to apply the compression. Name the output file as <code class="docutils literal notranslate"><span class="pre">roads_proximity.tif</span></code> and click <span class="guilabel">Run</span>.</p></li>
 </ol>
 <blockquote>
-<div><img alt="../../_images/2015.png" class="align-center" src="../../_images/2015.png" />
+<div><img alt="../../_images/2016.png" class="align-center" src="../../_images/2016.png" />
 </div></blockquote>
 <div class="admonition note">
 <p class="admonition-title">Notă</p>
@@ -353,13 +354,13 @@
 <li><p>Once the processing is over, a new layer <code class="docutils literal notranslate"><span class="pre">roads_proximity</span></code> will be added to the <span class="guilabel">Layers</span> panel. To visualize it better, let’s change the default styling. Click the <span class="guilabel">Open the Layer Styling panel</span> button in the <span class="guilabel">Layers</span> panel. Change the <span class="guilabel">Max</span> value to <code class="docutils literal notranslate"><span class="pre">5000</span></code> under <span class="guilabel">Color gradient</span>.</p></li>
 </ol>
 <blockquote>
-<div><img alt="../../_images/2119.png" class="align-center" src="../../_images/2119.png" />
+<div><img alt="../../_images/2120.png" class="align-center" src="../../_images/2120.png" />
 </div></blockquote>
 <ol class="arabic simple" start="22">
 <li><p>Repeat the <span class="guilabel">Proximity (Raster Distance)</span> algorithm for the <code class="docutils literal notranslate"><span class="pre">raster_water</span></code> layer with same parameters and name the output <code class="docutils literal notranslate"><span class="pre">water_proximity.tif</span></code>.</p></li>
 </ol>
 <blockquote>
-<div><img alt="../../_images/2217.png" class="align-center" src="../../_images/2217.png" />
+<div><img alt="../../_images/2218.png" class="align-center" src="../../_images/2218.png" />
 </div></blockquote>
 <ol class="arabic simple" start="23">
 <li><p>Once the processing finishes, you can apply the similar styling as before to visualize the results better. If you click around the resulting raster, you will see that it is a continuum of values from 0 to 5000. To use this raster in overlay analysis ,we must first re-classify it to create discrete values. Open <span class="menuselection">Raster analysis ‣ Raster calculator</span> algorithm again.</p></li>
@@ -485,7 +486,7 @@
     </p>
     <p>
         &copy; Copyright 2023, Ujaval Gandhi.<br/>
-      Ultima actualizare la sept. 02, 2024.<br/>
+      Ultima actualizare la sept. 08, 2024.<br/>
       Created using <a href="http://sphinx-doc.org/">Sphinx</a> 7.2.6.<br/>
     </p>
   </div>

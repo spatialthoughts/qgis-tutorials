@@ -104,6 +104,7 @@
 <li class="toctree-l1"><a class="reference internal" href="river_styling_expressions.html">Styling a River Network with Expressions (QGIS3)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="contour_3d_styling.html">Styling Contours in 3D (QGIS3)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="interactive_canvas_maps.html">Making Interactive Canvas Maps (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="interactive_reveal_maps.html">Making Interactive Reveal Maps (QGIS3)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="cartogram_animation.html">Creating an Animated Cartogram (QGIS3)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="basic_network_analysis.html">تجسم و مسیریابی شبکه پایه (QGIS3)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="origin_destination_matrix.html">Locating Nearest Facility with Origin-Destination Matrix (QGIS3)</a></li>
@@ -368,19 +369,19 @@
 <li><p>The <code class="docutils literal notranslate"><span class="pre">ID</span></code> column contains the unique id for each record, which can be used to join this table with the <code class="docutils literal notranslate"><span class="pre">tl_2019_06_tract</span></code> layer. If you compare the values of the <code class="docutils literal notranslate"><span class="pre">ID</span></code> with the <code class="docutils literal notranslate"><span class="pre">GEOID</span></code> column from the  <code class="docutils literal notranslate"><span class="pre">tl_2019_06_tract</span></code>. you will notice that it is prefixed with <em>1400000US</em>. To merge these two tables successfully, the values must match exactly. Let's remove this prefix and add a new column with the last 11 characters which contain the value that is an exact match.</p></li>
 </ol>
 <blockquote>
-<div><img alt="../../_images/1031.png" class="align-center" src="../../_images/1031.png" />
+<div><img alt="../../_images/1032.png" class="align-center" src="../../_images/1032.png" />
 </div></blockquote>
 <ol class="arabic simple" start="11">
 <li><p>To create a new column with the last 11 digits, open the Processing Toolbox by going to <span class="menuselection">Processing ‣ Toolbox</span>, and search and locate the <span class="menuselection">Vector table ‣ Field calculator</span> algorithm.</p></li>
 </ol>
 <blockquote>
-<div><img alt="../../_images/1135.png" class="align-center" src="../../_images/1135.png" />
+<div><img alt="../../_images/1137.png" class="align-center" src="../../_images/1137.png" />
 </div></blockquote>
 <ol class="arabic simple" start="12">
 <li><p>In the <span class="guilabel">Field calculator</span> dialog, select <code class="docutils literal notranslate"><span class="pre">ACST5Y2019.S0101</span></code> as the <span class="guilabel">Input layer</span>, enter <code class="docutils literal notranslate"><span class="pre">geoid</span></code> in <span class="guilabel">Field name</span>, and select <code class="docutils literal notranslate"><span class="pre">string</span></code> in <span class="guilabel">Result Field type</span>. Now search for <code class="docutils literal notranslate"><span class="pre">substr</span></code> in expressions. We can use this function to extract the required part from the id field.</p></li>
 </ol>
 <blockquote>
-<div><img alt="../../_images/1232.png" class="align-center" src="../../_images/1232.png" />
+<div><img alt="../../_images/1233.png" class="align-center" src="../../_images/1233.png" />
 </div></blockquote>
 <ol class="arabic simple" start="13">
 <li><p>Enter the below expression. We use the <cite>substr</cite> function and extract the value from position <em>-11</em> (negative value is counted from the end). The final result can be viewed in the <span class="guilabel">Preview</span> section. Click <span class="guilabel">Run</span>.</p></li>
@@ -389,55 +390,55 @@
 <div><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">substr</span><span class="p">(</span><span class="s2">&quot;id&quot;</span><span class="p">,</span> <span class="o">-</span><span class="mi">11</span><span class="p">)</span>
 </pre></div>
 </div>
-<img alt="../../_images/1330.png" class="align-center" src="../../_images/1330.png" />
+<img alt="../../_images/1331.png" class="align-center" src="../../_images/1331.png" />
 </div></blockquote>
 <ol class="arabic simple" start="14">
 <li><p>Now a new layer <code class="docutils literal notranslate"><span class="pre">Calculated</span></code> will be loaded in the canvas, lets inspect the attribute table. A new column <code class="docutils literal notranslate"><span class="pre">geoid</span></code> with the value that can be matched with the cencus tract will be present.</p></li>
 </ol>
 <blockquote>
-<div><img alt="../../_images/1428.png" class="align-center" src="../../_images/1428.png" />
+<div><img alt="../../_images/1429.png" class="align-center" src="../../_images/1429.png" />
 </div></blockquote>
 <ol class="arabic simple" start="15">
 <li><p>To create a table join, open the Processing Toolbox by going to <span class="menuselection">Processing ‣ Toolbox</span>, and search and locate the <span class="menuselection">Vector general ‣ Join attributes by field value</span> algorithm.</p></li>
 </ol>
 <blockquote>
-<div><img alt="../../_images/1523.png" class="align-center" src="../../_images/1523.png" />
+<div><img alt="../../_images/1524.png" class="align-center" src="../../_images/1524.png" />
 </div></blockquote>
 <ol class="arabic simple" start="16">
 <li><p>In the <span class="guilabel">Join attributes by field value</span> dialog, select <code class="docutils literal notranslate"><span class="pre">tl_2019_06_tract</span></code> as the <span class="guilabel">Input layer</span> and <code class="docutils literal notranslate"><span class="pre">GEOID</span></code> as the <span class="guilabel">Table field</span>. Select <code class="docutils literal notranslate"><span class="pre">Calculated</span></code> as the <span class="guilabel">Input layer 2</span> and <code class="docutils literal notranslate"><span class="pre">geoid</span></code> as the <span class="guilabel">Table field 2</span>. Under <span class="guilabel">Layer2 fields to copy</span>, click on the <code class="docutils literal notranslate"><span class="pre">...</span></code>.</p></li>
 </ol>
 <blockquote>
-<div><img alt="../../_images/1622.png" class="align-center" src="../../_images/1622.png" />
+<div><img alt="../../_images/1623.png" class="align-center" src="../../_images/1623.png" />
 </div></blockquote>
 <ol class="arabic simple" start="17">
 <li><p>Check <code class="docutils literal notranslate"><span class="pre">Geographic</span> <span class="pre">Area</span> <span class="pre">Name</span></code>, <code class="docutils literal notranslate"><span class="pre">Estimate!!Total!!Total</span> <span class="pre">population</span></code> and <code class="docutils literal notranslate"><span class="pre">geoid</span></code>. Click <span class="guilabel">OK</span>.</p></li>
 </ol>
 <blockquote>
-<div><img alt="../../_images/1723.png" class="align-center" src="../../_images/1723.png" />
+<div><img alt="../../_images/1724.png" class="align-center" src="../../_images/1724.png" />
 </div></blockquote>
 <ol class="arabic simple" start="18">
 <li><p>Check the <span class="guilabel">Discard records which could not be joined</span>. This will eliminate any extra records in the population table. Click the <span class="guilabel">...</span> button under <span class="guilabel">joined layer</span> to select the output file location and select <code class="docutils literal notranslate"><span class="pre">Save</span> <span class="pre">to</span> <span class="pre">File...</span></code>.</p></li>
 </ol>
 <blockquote>
-<div><img alt="../../_images/1821.png" class="align-center" src="../../_images/1821.png" />
+<div><img alt="../../_images/1822.png" class="align-center" src="../../_images/1822.png" />
 </div></blockquote>
 <ol class="arabic simple" start="19">
 <li><p>Name the output geopackage as <code class="docutils literal notranslate"><span class="pre">california_total_population.gpkg</span></code> . Click <span class="guilabel">Run</span>.</p></li>
 </ol>
 <blockquote>
-<div><img alt="../../_images/1917.png" class="align-center" src="../../_images/1917.png" />
+<div><img alt="../../_images/1918.png" class="align-center" src="../../_images/1918.png" />
 </div></blockquote>
 <ol class="arabic simple" start="20">
 <li><p>Once the processing finishes, verify that the algorithm was successful if all 8057 feature(s) are joined. Click <span class="guilabel">Close</span>.</p></li>
 </ol>
 <blockquote>
-<div><img alt="../../_images/2016.png" class="align-center" src="../../_images/2016.png" />
+<div><img alt="../../_images/2017.png" class="align-center" src="../../_images/2017.png" />
 </div></blockquote>
 <ol class="arabic simple" start="21">
 <li><p>You will see a new layer <code class="docutils literal notranslate"><span class="pre">california_total_population</span></code> loaded in the <span class="guilabel">Layers</span> panel. At this point, the fields from the CSV file are joined with the census tracts layer. Now that we have the population data in the census tracts layer, we can style it to create a visualization of population density distribution. Click the <span class="guilabel">Open the Layer Styling Panel</span> button.</p></li>
 </ol>
 <blockquote>
-<div><img alt="../../_images/2120.png" class="align-center" src="../../_images/2120.png" />
+<div><img alt="../../_images/2121.png" class="align-center" src="../../_images/2121.png" />
 </div></blockquote>
 <ol class="arabic simple" start="22">
 <li><p>In the <span class="guilabel">Layer Styling</span> panel, select <code class="docutils literal notranslate"><span class="pre">Graduated</span></code> from the drop-down menu. As we are looking to create a population density map, we want to assign different color to each census tract feature based on the population density. We have the population in the <strong>Estimate!!Total!!Total population</strong> field, and the area field in <strong>ALAND</strong>. Click <span class="guilabel">Expression</span> button, to compute the percentage of total population in each cencus tract.</p></li>
@@ -447,7 +448,7 @@
 <p class="admonition-title">توجه</p>
 <p>هنگام ایجاد یک نقشه موضوعی (کروپلت Choropleth) مانند این، مهم است که مقادیری را که نقشه نمایش می دهد استاندارد کنید. نقشه برداری تعداد کل در هر پلیگون درست نیست. مهم است که ارزش های تقسیم بر این منطقه را نرمالسازی شود اگر شما مجموعا مانند جرم و جنایت را نمایش می دهید، می توانید آنها را با تقسیم بر جمعیت کل، به طور کلی، میزان جرایم و نه جرم را  نرمل  کنید . <cite>بیشتر بدانید &lt;https://en.wikipedia.org/wiki/choropleth_map#normalization&gt;</cite> <a href="#id1"><span class="problematic" id="id2">`</span></a>_</p>
 </div>
-<img alt="../../_images/2218.png" class="align-center" src="../../_images/2218.png" />
+<img alt="../../_images/2219.png" class="align-center" src="../../_images/2219.png" />
 </div></blockquote>
 <ol class="arabic simple" start="23">
 <li><p>Enter the following expression to calculate the population density. The area of the feature is given in square kilometers. We then convert it to square meters by multiplying with <code class="docutils literal notranslate"><span class="pre">1000000</span></code> and calculating the population density with the formula <em>Population/Area</em>. Preview the result and click <span class="guilabel">OK</span>.</p></li>
@@ -535,7 +536,7 @@
     </p>
     <p>
         &copy; Copyright 2023, Ujaval Gandhi.<br/>
-      آخرین بروز رسانی در سپتامبر 02, 2024 .<br/>
+      آخرین بروز رسانی در سپتامبر 08, 2024 .<br/>
       Created using <a href="http://sphinx-doc.org/">Sphinx</a> 7.2.6.<br/>
     </p>
   </div>
