@@ -17,7 +17,7 @@ We will load 2 raster tile layers and use a mask layer with geometry generator s
 Procedure
 ---------
 
-1. We will start by loading 2 raster layers. One layer at the top and another one at the bottom that will be revealed by the mask layer. We will get these from the QuickMapServices plugin. Search and install the **QuickMapServices** plugin from the QGIS Official Plugin Repository. See :doc:`../using_plugins` for instructions on installing plugins. Once installed, we will need to add some additional service to this plugin. Go to :menuselection:`Web --> QuickMapServices --> Settings`.
+1. We will start by loading 2 raster layers. One layer at the top and another one at the bottom that will be revealed by the mask layer. We will get these from the QuickMapServices plugin. Search and install the **QuickMapServices** plugin from the QGIS Official Plugin Repository. See :doc:`using_plugins` for instructions on installing plugins. Once installed, we will need to add some additional service to this plugin. Go to :menuselection:`Web --> QuickMapServices --> Settings`.
 
   .. image:: /static/3/interactive_reveal_maps/images/1.png
     :align: center
