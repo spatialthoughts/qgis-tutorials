@@ -57,9 +57,9 @@ Procedure
   .. image:: /static/3/interactive_reveal_maps/images/8.png
     :align: center
 
-..note::
+.. note::
 
-  The inverted polygon renderer is used to show regions outside the feature. In our case, the ``mask`` layer is empty, so the inverted region is the whole canvas and it is rendered using the chosen symbology.
+  The inverted polygon renderer is used to show regions outside the feature. In our case, the ``mask`` layer is empty, the *inverted* region is the whole canvas. That is why you see the whole canvas rendered using the chosen symbology.
   
 9. Select ``Geometry Generator`` as the :guilabel:`Symbol layer type`. We will now enter an expressions to change how the layer is rendered. Click the :guilabel:`Expression` button.
 
