@@ -230,123 +230,90 @@
 <div><img alt="../../_images/518.png" class="align-center" src="../../_images/518.png" />
 </div></blockquote>
 <ol class="arabic simple" start="6">
-<li><p>In the <span class="guilabel">New GeoPackage Layer</span> dialog, click the <span class="guilabel">…</span> button for <span class="guilabel">Database</span> and browse to a directory on your computer. Save the layer as <code class="docutils literal notranslate"><span class="pre">point.gpkg</span></code>. Change the CRS to be <strong>Project CRS: EPSG:3857 - WGS84 / Pseudo-Mercator</strong>. Having this layer in a Projected CRS is helpful as it allows us to specify the radius of the mask in meters as opposed to degrees. Click <span class="guilabel">OK</span>.</p></li>
+<li><p>In the <span class="guilabel">New GeoPackage Layer</span> dialog, click the <span class="guilabel">…</span> button for <span class="guilabel">Database</span> and browse to a directory on your computer. Save the layer as <code class="docutils literal notranslate"><span class="pre">mask.gpkg</span></code>. Change the <span class="guilabel">Geometry type</span> to <code class="docutils literal notranslate"><span class="pre">Polygon</span></code> and the CRS to be <code class="docutils literal notranslate"><span class="pre">Project</span> <span class="pre">CRS:</span> <span class="pre">EPSG:3857</span> <span class="pre">-</span> <span class="pre">WGS84</span> <span class="pre">/</span> <span class="pre">Pseudo-Mercator</span></code>. Having this layer in a Projected CRS is helpful as it allows us to specify the radius of the mask in meters as opposed to degrees. Click <span class="guilabel">OK</span>.</p></li>
 </ol>
 <blockquote>
 <div><img alt="../../_images/618.png" class="align-center" src="../../_images/618.png" />
 </div></blockquote>
 <ol class="arabic simple" start="7">
-<li><p>A new layer <code class="docutils literal notranslate"><span class="pre">point</span></code> will be added to the <span class="guilabel">Layers</span> panel. Locate the <span class="guilabel">Digitizing Toolbar</span> and click the <span class="guilabel">Toggle Editing</span> button. Next, click the <span class="guilabel">Add Point Feature</span> button.</p></li>
+<li><p>A new layer <code class="docutils literal notranslate"><span class="pre">mask</span></code> will be added to the <span class="guilabel">Layers</span> panel. Click the <span class="guilabel">Open the Layer Styling Panel</span> button. Click on <span class="guilabel">Single Symbol</span> to see additional options for renderers.</p></li>
 </ol>
 <blockquote>
 <div><img alt="../../_images/717.png" class="align-center" src="../../_images/717.png" />
 </div></blockquote>
 <ol class="arabic simple" start="8">
-<li><p>Click on the canvas to add a point. Once the <span class="guilabel">Attribute Form</span> pops-up, click <span class="guilabel">OK</span>.</p></li>
+<li><p>Select <code class="docutils literal notranslate"><span class="pre">Inverted</span> <span class="pre">Polygons</span></code> as the renderer. Scroll down and click on the <span class="guilabel">Simple Fill</span> to see additional symbol layer types.</p></li>
 </ol>
 <blockquote>
 <div><img alt="../../_images/817.png" class="align-center" src="../../_images/817.png" />
 </div></blockquote>
+<div class="admonition note">
+<p class="admonition-title">Bemerkung</p>
+<p>The inverted polygon renderer is used to show regions outside the feature. In our case, the <code class="docutils literal notranslate"><span class="pre">mask</span></code> layer is empty, the <em>inverted</em> region is the whole canvas. That is why you see the whole canvas rendered using the chosen symbology.</p>
+</div>
 <ol class="arabic simple" start="9">
-<li><p>On the <span class="guilabel">Digitizing Toolbar</span>, click the <span class="guilabel">Save Layer Edits</span> button followed by the <span class="guilabel">Toggle Editing</span> button.</p></li>
+<li><p>Select <code class="docutils literal notranslate"><span class="pre">Geometry</span> <span class="pre">Generator</span></code> as the <span class="guilabel">Symbol layer type</span>. We will now enter an expressions to change how the layer is rendered. Click the <span class="guilabel">Expression</span> button.</p></li>
 </ol>
 <blockquote>
 <div><img alt="../../_images/917.png" class="align-center" src="../../_images/917.png" />
 </div></blockquote>
 <ol class="arabic simple" start="10">
-<li><p>We now have a point on the map that we will render as a circular buffer using Geometry Generator renderer. Click the <span class="guilabel">Open the Layer Styling Panel</span> button. Click on <span class="guilabel">Simple Marker</span> to see additional options. Click the dropdown next to <span class="guilabel">Symbol layer type</span> to see all available sub-renderers.</p></li>
-</ol>
-<blockquote>
-<div><img alt="../../_images/1023.png" class="align-center" src="../../_images/1023.png" />
-</div></blockquote>
-<ol class="arabic simple" start="11">
-<li><p>Select <code class="docutils literal notranslate"><span class="pre">Geometry</span> <span class="pre">Generator</span></code> as the <span class="guilabel">Symbol layer type</span>. Since we want to render this point as a circular polygon, change the <span class="guilabel">Geometry type</span> to <code class="docutils literal notranslate"><span class="pre">Polygon</span> <span class="pre">/</span> <span class="pre">MultiPolygon</span></code>. We will now enter an expressions to change the geometry of the features in this layer. Click the <span class="guilabel">Expression</span> button.</p></li>
-</ol>
-<blockquote>
-<div><img alt="../../_images/1126.png" class="align-center" src="../../_images/1126.png" />
-</div></blockquote>
-<ol class="arabic simple" start="12">
-<li><p>Enter the following expression in the <span class="guilabel">Expression Builder</span> dialog. This expression will create a buffer polygon with a radius of 5000 meters. Click <span class="guilabel">OK</span>.</p></li>
-</ol>
-<blockquote>
-<div><div class="highlight-none notranslate"><div class="highlight"><pre><span></span>buffer(@geometry, 5000)
-</pre></div>
-</div>
-<img alt="../../_images/1224.png" class="align-center" src="../../_images/1224.png" />
-</div></blockquote>
-<ol class="arabic simple" start="13">
-<li><p>Adjust the size of the buffer if required for your region and close the <span class="guilabel">Layer Styling Panel</span>. To use the mask blending modes, we must create a layer group. Hold the <kbd class="kbd docutils literal notranslate">Ctrl</kbd> key and select the <code class="docutils literal notranslate"><span class="pre">point</span></code> and the <code class="docutils literal notranslate"><span class="pre">OSM</span> <span class="pre">Standard</span></code> layers. Right-click on the selected layers and choose <span class="guilabel">Group Selected</span>.</p></li>
-</ol>
-<blockquote>
-<div><img alt="../../_images/1322.png" class="align-center" src="../../_images/1322.png" />
-</div></blockquote>
-<ol class="arabic simple" start="14">
-<li><p>A new layer group will be created. Enter the name as <code class="docutils literal notranslate"><span class="pre">mask</span></code>. Click the <span class="guilabel">Open the Layer Styling Panel</span> button.</p></li>
-</ol>
-<blockquote>
-<div><img alt="../../_images/1420.png" class="align-center" src="../../_images/1420.png" />
-</div></blockquote>
-<ol class="arabic simple" start="15">
-<li><p>Check the <span class="guilabel">Render Layers as a Group</span> button. This step enables the mask blending modes for the layers in this group.</p></li>
-</ol>
-<blockquote>
-<div><img alt="../../_images/1517.png" class="align-center" src="../../_images/1517.png" />
-</div></blockquote>
-<ol class="arabic simple" start="16">
-<li><p>Select the <code class="docutils literal notranslate"><span class="pre">point</span></code> layer from the <code class="docutils literal notranslate"><span class="pre">mask</span></code> group. In the <span class="guilabel">Layer Styling</span> panel, scropp down and expand the <span class="guilabel">Layer Rendering</span> section.</p></li>
-</ol>
-<blockquote>
-<div><img alt="../../_images/1616.png" class="align-center" src="../../_images/1616.png" />
-</div></blockquote>
-<ol class="arabic simple" start="17">
-<li><p>Click the dropdown selector for the <span class="guilabel">Layer</span> <span class="guilabel">Blending Mode</span>.</p></li>
-</ol>
-<blockquote>
-<div><img alt="../../_images/1717.png" class="align-center" src="../../_images/1717.png" />
-</div></blockquote>
-<ol class="arabic simple" start="18">
-<li><p>Select the <code class="docutils literal notranslate"><span class="pre">Inverse</span> <span class="pre">Mask</span> <span class="pre">Below</span></code> blending mode. The layer below the layer group will now be revealed in the portion covered by the buffer polygon.</p></li>
-</ol>
-<blockquote>
-<div><img alt="../../_images/1815.png" class="align-center" src="../../_images/1815.png" />
-</div></blockquote>
-<ol class="arabic simple" start="19">
-<li><p>This itself is useful in creating maps where you want to draw the attention of the reader to a specifc portion. We will now make this map interactive. Instead of revelaing the buffer region around the point we added, we will now update the expression to reveal the portion around the current position of the cursor. Scroll up and select the <span class="guilabel">Geometry Generator</span> symbol. Click the <span class="guilabel">Expression</span> button.</p></li>
-</ol>
-<blockquote>
-<div><img alt="../../_images/1912.png" class="align-center" src="../../_images/1912.png" />
-</div></blockquote>
-<ol class="arabic simple" start="20">
-<li><p>Enter the following expression which replaces <code class="docutils literal notranslate"><span class="pre">&#64;geometry</span></code> with <code class="docutils literal notranslate"><span class="pre">&#64;canvas_cursor_point</span></code> variable.</p></li>
+<li><p>Enter the following expression in the <span class="guilabel">Expression Builder</span> dialog. This expression will create a buffer polygon with a radius of 5000 meters around the current position of the cursor. Click <span class="guilabel">OK</span>.</p></li>
 </ol>
 <blockquote>
 <div><div class="highlight-none notranslate"><div class="highlight"><pre><span></span>buffer(@canvas_cursor_point, 5000)
 </pre></div>
 </div>
-<img alt="../../_images/2012.png" class="align-center" src="../../_images/2012.png" />
+<img alt="../../_images/1023.png" class="align-center" src="../../_images/1023.png" />
 </div></blockquote>
-<ol class="arabic simple" start="21">
+<ol class="arabic simple" start="11">
+<li><p>You will see a circular polygon rendered wherever you click on the canvas. Adjust the size of the buffer if required for your region and close the <span class="guilabel">Layer Styling Panel</span>. To use the mask blending modes, we must create a layer group. Hold the <kbd class="kbd docutils literal notranslate">Ctrl</kbd> key and select the <code class="docutils literal notranslate"><span class="pre">mask</span></code> and the <code class="docutils literal notranslate"><span class="pre">OSM</span> <span class="pre">Standard</span></code> layers. Right-click on the selected layers and choose <span class="guilabel">Group Selected</span>.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/1126.png" class="align-center" src="../../_images/1126.png" />
+</div></blockquote>
+<ol class="arabic simple" start="12">
+<li><p>A new layer group will be created. Enter the name as <code class="docutils literal notranslate"><span class="pre">mask_group</span></code>. Click the <span class="guilabel">Open the Layer Styling Panel</span> button.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/1224.png" class="align-center" src="../../_images/1224.png" />
+</div></blockquote>
+<ol class="arabic simple" start="13">
+<li><p>Check the <span class="guilabel">Render Layers as a Group</span> button. This step enables the mask blending modes for the layers in this group.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/1322.png" class="align-center" src="../../_images/1322.png" />
+</div></blockquote>
+<ol class="arabic simple" start="14">
+<li><p>Select the <code class="docutils literal notranslate"><span class="pre">mask</span></code> layer from <code class="docutils literal notranslate"><span class="pre">mask_group</span></code>. In the <span class="guilabel">Layer Styling</span> panel, scroll down and expand the <span class="guilabel">Layer Rendering</span> section.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/1420.png" class="align-center" src="../../_images/1420.png" />
+</div></blockquote>
+<ol class="arabic simple" start="15">
+<li><p>Click the dropdown selector for the <span class="guilabel">Layer</span> <span class="guilabel">Blending Mode</span>. Select the <code class="docutils literal notranslate"><span class="pre">Inverse</span> <span class="pre">Mask</span> <span class="pre">Below</span></code> blending mode. The layer below the layer group will now be revealed in the portion covered by the buffer polygon.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/1517.png" class="align-center" src="../../_images/1517.png" />
+</div></blockquote>
+<ol class="arabic simple" start="16">
 <li><p>The map canvas doesn’t yet respond to the cursor movement because it doesn’t refresh unless you move the map. Let’s make it auto-refresh. Right-click the <code class="docutils literal notranslate"><span class="pre">point</span></code> layer and select <span class="guilabel">Properties</span>.</p></li>
 </ol>
 <blockquote>
-<div><img alt="../../_images/2116.png" class="align-center" src="../../_images/2116.png" />
+<div><img alt="../../_images/1616.png" class="align-center" src="../../_images/1616.png" />
 </div></blockquote>
-<ol class="arabic simple" start="22">
+<ol class="arabic simple" start="17">
 <li><p>Switch to the <span class="guilabel">Rendering</span> tab. Scroll down and check the <span class="guilabel">Refresh layer at interval</span>. Set the interval to a small number such as <code class="docutils literal notranslate"><span class="pre">0.1</span></code> (i.e. 100ms) and click <span class="guilabel">OK</span>.</p></li>
 </ol>
 <blockquote>
-<div><img alt="../../_images/2214.png" class="align-center" src="../../_images/2214.png" />
+<div><img alt="../../_images/1717.png" class="align-center" src="../../_images/1717.png" />
 </div></blockquote>
-<ol class="arabic simple" start="23">
+<ol class="arabic simple" start="18">
 <li><p>Now as you move your cursor, the region below your cursor position will be interactively revealed.</p></li>
 </ol>
 <blockquote>
 <div><img alt="../../_images/output2.gif" class="align-center" src="../../_images/output2.gif" />
 </div></blockquote>
-<div class="admonition note">
-<p class="admonition-title">Bemerkung</p>
-<p>This setup works as long as the original point feature that we added is visible in the map extent. If the point is no longer visible, the layer doesn’t render the mask. If you want this to work anywhere in the world, use a global layer (such as country boundaries) instead of the point layer.</p>
-</div>
 </section>
 </section>
 
