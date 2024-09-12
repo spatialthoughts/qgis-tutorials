@@ -117,7 +117,8 @@ Procedure
 
     ramp_color('Spectral',
         scale_linear(
-            distance(@geometry,@map_extent_center),		   0,@map_extent_width/6,
+            distance(@geometry,@map_extent_center),
+            0,@map_extent_width/6,
             0,1
         )
     )
