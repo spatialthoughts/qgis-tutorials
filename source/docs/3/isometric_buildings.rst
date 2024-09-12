@@ -115,7 +115,13 @@ Procedure
 
   .. code-block:: none
 
-    ramp_color('Spectral',scale_linear(distance(@geometry,@map_extent_center),0,@map_extent_width/6,0,1))
+    ramp_color('Spectral',
+        scale_linear(
+            distance(@geometry,@map_extent_center),		   0,@map_extent_width/6,
+            0,1
+        )
+    )
+
 
   .. image:: /static/3/isometric_buildings/images/9.png
       :align: center
