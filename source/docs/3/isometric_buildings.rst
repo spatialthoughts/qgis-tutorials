@@ -16,7 +16,7 @@ We will download building footprints data from OSM for downtown Toronto and crea
 Get the data
 ------------
 
-We will be downloading data from OpenStreetMap(OSM) using the **QuickOSM** plugin. See :doc:`downloading_osm_data`_ for an introduction to the QuickOSM plugin. Once you have installed the plugin, you can proceed with the instructions below to obtain data for your region.
+We will be downloading data from OpenStreetMap(OSM) using the **QuickOSM** plugin. See :doc:`downloading_osm_data` for an introduction to the QuickOSM plugin. Once you have installed the plugin, you can proceed with the instructions below to obtain data for your region.
 
 .. note::
 
@@ -88,7 +88,7 @@ Procedure
 
     coalesce("building:levels"*10, "height"*2, 20)
 
-    .. image:: /static/3/isometric_buildings/images/4.png
+  .. image:: /static/3/isometric_buildings/images/4.png
       :align: center
             
 5. Change the :guilabel:`Angle` to ``135`` degrees.
@@ -117,7 +117,7 @@ Procedure
 
     ramp_color('Spectral',scale_linear(distance(@geometry,@map_extent_center),0,@map_extent_width/6,0,1))
 
-    .. image:: /static/3/isometric_buildings/images/9.png
+  .. image:: /static/3/isometric_buildings/images/9.png
       :align: center
 	    
 10. Click on :guilabel:`Data define override` button for the :guilabel:`Fill color` and select :guilabel:`Copy...` on the menu.
