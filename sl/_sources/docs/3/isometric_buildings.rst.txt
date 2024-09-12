@@ -32,12 +32,12 @@ We will be downloading data from OpenStreetMap(OSM) using the **QuickOSM** plugi
 .. image:: /static/3/isometric_buildings/images/data2.png
   :align: center
 	
-3. In the :guilabel:`Quick query` tab, enter ``building`` as the :guilabel:`Key`. Change the :guilabel:`In` to :guilabel:`Canvas Extent`. This will download all buildings in the current canvas extent. Expand the :guilabel:`Advanced` section, then unclick :guilabel:`Points`, :guilabel:`Lines` and guilabel:`Multilinestrings`. This should leave :guilabel:`Nodes`, :guilabel:`Ways`, :guilabel:`Relations` and :guilabel:`Multipolygons` selected. Select `Run query`. Close the window once the map is loaded.
+3. In the :guilabel:`Quick query` tab, enter ``building`` as the :guilabel:`Key`. Change the :guilabel:`In` to :guilabel:`Canvas Extent`. This will download all buildings in the current canvas extent. Expand the :guilabel:`Advanced` section, then unclick :guilabel:`Points`, :guilabel:`Lines` and :guilabel:`Multilinestrings`. This should leave :guilabel:`Nodes`, :guilabel:`Ways`, :guilabel:`Relations` and :guilabel:`Multipolygons` selected. Select `Run query`. Close the window once the map is loaded.
 
 .. image:: /static/3/isometric_buildings/images/data3.png
   :align: center
 	
-4. All the available building footprints in the canvas extent will be loaded in a new layer ``building``. You can continue with the data, or select a subset of the buildings. For this tutorial, we will select all buildings in the Financial District of Toronto. Click the :guilabel:`Select Features by Area or Single Click` button on the :guilabel:`Selection Toolbar`. You can hold the left mouse button and draw a rectangle to select the required buildings. You can also hold the :kbd:`Shift` key and click on the polygons to select them.
+4. All the available building footprints in the canvas extent will be loaded in a new layer ``building``. You can continue with the data, or select a subset of the buildings. For this tutorial, we will select all buildings in your region of interest. Click the :guilabel:`Select Features by Area or Single Click` button on the :guilabel:`Selection Toolbar`. You can hold the left mouse button and draw a rectangle to select the required buildings. You can also hold the :kbd:`Shift` key and click on the polygons to select them.
 
 .. image:: /static/3/isometric_buildings/images/data4.png
   :align: center
@@ -47,7 +47,7 @@ We will be downloading data from OpenStreetMap(OSM) using the **QuickOSM** plugi
 .. image:: /static/3/isometric_buildings/images/data5.png
   :align: center
 	
-6. In the :guilabel:`Save Vector Layer As...` dialog, click the :guilabel:`...` button next to :guilabel:`File name` and browse to a folder on your computer. Enter the :guilabel:`File name` as ``osm_buildings.gpkg`` and :guilabel:`Layer name` as ``buildings``. The downloaded buildings are in the CRS *EPSG:4326 WGS84*. This is a Geographic CRS with units in degrees. We can choose a Projected CRS which will allow us to use linear units of measurement such as meters. Click the dropdown menu for  :guilabel:`Select CRS` and choose ``Project CRS: EPSG:3857 - WGS84 / Pseudo-Mercator`. Click :guilabel:`OK`.
+6. In the :guilabel:`Save Vector Layer As...` dialog, click the :guilabel:`...` button next to :guilabel:`File name` and browse to a folder on your computer. Enter the :guilabel:`File name` as ``osm_buildings.gpkg`` and :guilabel:`Layer name` as ``buildings``. The downloaded buildings are in the CRS *EPSG:4326 WGS84*. This is a Geographic CRS with units in degrees. We can choose a Projected CRS which will allow us to use linear units of measurement such as meters. Click the dropdown menu for  :guilabel:`Select CRS` and choose ``Project CRS: EPSG:3857 - WGS84 / Pseudo-Mercator``. Click :guilabel:`OK`.
 
 .. image:: /static/3/isometric_buildings/images/data6.png
   :align: center
