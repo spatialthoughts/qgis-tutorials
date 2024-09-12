@@ -49,6 +49,7 @@ Expressions
 * :doc:`docs/3/block_world_styling`
 * :doc:`docs/3/river_styling_expressions`
 * :doc:`docs/3/contour_3d_styling`
+* :doc:`docs/3/isometric_buildings`
 * :doc:`docs/3/interactive_canvas_maps`
 * :doc:`docs/3/interactive_reveal_maps`
 * :doc:`docs/3/cartogram_animation`
@@ -127,6 +128,7 @@ Appendix
    docs/3/block_world_styling
    docs/3/river_styling_expressions
    docs/3/contour_3d_styling
+   docs/3/isometric_buildings
    docs/3/interactive_canvas_maps
    docs/3/interactive_reveal_maps
    docs/3/cartogram_animation

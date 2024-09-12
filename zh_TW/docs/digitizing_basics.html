@@ -101,6 +101,7 @@
 <li class="toctree-l1"><a class="reference internal" href="3/block_world_styling.html">Creating a Block World Map (QGIS3)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="3/river_styling_expressions.html">Styling a River Network with Expressions (QGIS3)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="3/contour_3d_styling.html">Styling Contours in 3D (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3/isometric_buildings.html">Creating Isometric Buildings (QGIS3)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="3/interactive_canvas_maps.html">Making Interactive Canvas Maps (QGIS3)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="3/interactive_reveal_maps.html">Making Interactive Reveal Maps (QGIS3)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="3/cartogram_animation.html">Creating an Animated Cartogram (QGIS3)</a></li>
@@ -209,43 +210,43 @@
 <ol class="arabic simple">
 <li><p>選擇 <span class="menuselection">圖層 ‣ 加入影像圖層</span>，選擇剛才下載的 <code class="docutils literal notranslate"><span class="pre">BX24_GeoTifv1-02.tif</span></code> ，然後按 <span class="guilabel">開啟</span>。</p></li>
 </ol>
-<img alt="../_images/1188.png" class="align-center" src="../_images/1188.png" />
+<img alt="../_images/1190.png" class="align-center" src="../_images/1190.png" />
 <ol class="arabic simple" start="2">
 <li><p>這是張相當大的影像，當我們要拖曳或是縮放地圖時，都要花上一點時間讓程式調整影像的解析尺寸。QGIS 提供了簡單的解決方法來增進這些動作的速度，稱之為「<strong>影像金字塔</strong>」。這種方法其實就是預先產生不同解析度的相同影像，在地圖操作時，可以直接使用而不用再從全尺寸的影像做處理，加快瀏覽速度。請在 <code class="docutils literal notranslate"><span class="pre">BX24_GeoTifv1-02</span></code> 圖層上按右鍵選擇 <span class="guilabel">屬性</span>。</p></li>
 </ol>
-<img alt="../_images/2153.png" class="align-center" src="../_images/2153.png" />
+<img alt="../_images/2154.png" class="align-center" src="../_images/2154.png" />
 <ol class="arabic simple" start="3">
 <li><p>切換到 <span class="guilabel">影像金字塔</span> 分頁，在 <span class="guilabel">解析度</span> 欄位中把所有解析度都選取，其他選項使用預設值，然後按 <span class="guilabel">建立快取金字塔</span>。程式執行完畢後，按下 <span class="guilabel">確定</span>。</p></li>
 </ol>
-<img alt="../_images/390.png" class="align-center" src="../_images/390.png" />
+<img alt="../_images/394.png" class="align-center" src="../_images/394.png" />
 <ol class="arabic simple" start="4">
 <li><p>回到 QGIS 主視窗，使用 <span class="guilabel">放大</span> 鈕搜尋基督城的 <em>Hagley Park</em>，這就是等一下要數位化的區域。</p></li>
 </ol>
-<img alt="../_images/459.png" class="align-center" src="../_images/459.png" />
+<img alt="../_images/460.png" class="align-center" src="../_images/460.png" />
 <ol class="arabic simple" start="5">
 <li><p>在開始之前，先來調整預設的 <strong>數位化選項</strong>。選擇 <span class="menuselection">設定 ‣ 選項…</span>。</p></li>
 </ol>
-<img alt="../_images/552.png" class="align-center" src="../_images/552.png" />
+<img alt="../_images/553.png" class="align-center" src="../_images/553.png" />
 <ol class="arabic simple" start="6">
 <li><p>在 <span class="guilabel">選項</span> 頁面中切換到 <span class="guilabel">數位化</span> 分頁，<span class="guilabel">預設接合模式</span> 選擇 <span class="guilabel">自動接合 轉折點與線段</span>。這個選項可以使相近的轉折點與線段黏在一起。筆者個人也偏好把 <span class="guilabel">預設接合容許範圍</span> 和 <span class="guilabel">編輯轉控點的搜尋半徑</span> 設成以像素為單位，而非以地圖單位為單位，這樣在不同的縮放尺度下，自動接合的距離會保持一樣。接著你可以依照你螢幕的解析度選擇適合的值，最後按下 <span class="guilabel">確定</span>。</p></li>
 </ol>
-<img alt="../_images/650.png" class="align-center" src="../_images/650.png" />
+<img alt="../_images/651.png" class="align-center" src="../_images/651.png" />
 <ol class="arabic simple" start="7">
 <li><p>現在可以開始數位化了！我們先來做個道路的圖層，然後把公園附近的道路數位化到此圖層上。選擇 <span class="menuselection">圖層 ‣ 新增圖層 ‣ 「新增 Spatialite 圖層…」或「新增 Shape 檔圖層」</span>，看你喜歡哪個都可以。Spatialite 是和 ESRI 的地理資料庫（包含 Shapefile）格式相似的開放資料庫，它的特點是可以在一個檔案內塞進不同種類的空間資料 (點、線、多邊形) 與其他種類的圖層，所以在複製或移動檔案時，不用像 shapefiles 那樣每次都得移動一堆檔案。本教學中，我們會建立數個多邊形和一個線圖層，所以 Spatialite 會比較適合我們。你當然也可以在讀取 Spatialite 檔案後，另存成 shapefile 或其他類型的檔案格式。</p></li>
 </ol>
-<img alt="../_images/750.png" class="align-center" src="../_images/750.png" />
+<img alt="../_images/751.png" class="align-center" src="../_images/751.png" />
 <ol class="arabic simple" start="8">
 <li><p>在 <span class="guilabel">新增 Spatilaite 圖層</span> 視窗中，按下 <span class="guilabel">…</span> 鈕，把圖層存成新的名為 <code class="docutils literal notranslate"><span class="pre">nztopo.sqlite</span></code> 的資料庫。在 <span class="guilabel">圖層名稱</span> 中輸入 <code class="docutils literal notranslate"><span class="pre">Roads</span></code>，然後在 <span class="guilabel">類別</span> 中選擇 <code class="docutils literal notranslate"><span class="pre">線</span></code>。我們的地形底圖使用的 CRS 是  <code class="docutils literal notranslate"><span class="pre">EPSG:2193</span> <span class="pre">-</span> <span class="pre">NZGD</span> <span class="pre">2000</span></code>，所以這邊就選個跟底圖一樣的 CRS 即可。請勾選 <span class="guilabel">建立自動遞增的主鍵</span>，這個功能會在屬性表格中新增一個叫做 <strong>pkuid</strong> 的欄位，程式會自動為每個圖徵指定獨特的數值到此欄位中。因為這是個道路圖層，我們應還需要 2 個基本屬性：道路名和道路種類。所以請在 <span class="guilabel">新增屬性</span> 欄位中加入 <code class="docutils literal notranslate"><span class="pre">Name</span></code>，然後按下 <span class="guilabel">加入屬性列表</span>。</p></li>
 </ol>
-<img alt="../_images/849.png" class="align-center" src="../_images/849.png" />
+<img alt="../_images/850.png" class="align-center" src="../_images/850.png" />
 <ol class="arabic simple" start="9">
 <li><p>以同樣的方法建立新屬性 <code class="docutils literal notranslate"><span class="pre">Class</span></code>，類別選 <span class="guilabel">文字資料</span>。建立好後按下 <span class="guilabel">確定</span>。</p></li>
 </ol>
-<img alt="../_images/950.png" class="align-center" src="../_images/950.png" />
+<img alt="../_images/951.png" class="align-center" src="../_images/951.png" />
 <ol class="arabic simple" start="10">
 <li><p>圖層載入後，按一下 <span class="guilabel">切換編輯狀態</span> 以進入圖層編輯模式。</p></li>
 </ol>
-<img alt="../_images/1057.png" class="align-center" src="../_images/1057.png" />
+<img alt="../_images/1058.png" class="align-center" src="../_images/1058.png" />
 <ol class="arabic simple" start="11">
 <li><p>按下 <span class="guilabel">加入圖徵</span> 按鈕，然後在地圖上按滑鼠，就可以加入線段端點。沿著道路加入新的端點，直到全部的路都繞過後，按下右鍵結束圖徵的編輯。</p></li>
 </ol>
@@ -253,47 +254,47 @@
 <p class="admonition-title">備註</p>
 <p>滑動滑鼠的滾輪鍵可以用來放大或縮小地圖，按住滾輪鍵則可以拖曳地圖。</p>
 </div>
-<img alt="../_images/1189.png" class="align-center" src="../_images/1189.png" />
+<img alt="../_images/1191.png" class="align-center" src="../_images/1191.png" />
 <ol class="arabic simple" start="12">
 <li><p>按下右鍵之後，會有一個視窗跳出，你可以在其中為剛剛創造的圖徵輸入屬性。因為 <strong>pkuid</strong> 已經被自動指定了，所以只有它是不能手動設定的。輸入在地圖中的道路名字，以及道路的種類，當然你也可以都不輸入就是了。完成後，按下 <span class="guilabel">確定</span>。</p></li>
 </ol>
-<img alt="../_images/1259.png" class="align-center" src="../_images/1259.png" />
+<img alt="../_images/1260.png" class="align-center" src="../_images/1260.png" />
 <ol class="arabic simple" start="13">
 <li><p>線圖層的預設樣式是非常細的線，我們要把它改粗一點，以方便在地圖上瀏覽。在 <code class="docutils literal notranslate"><span class="pre">Roads</span></code> 圖層上按右鍵選擇 <span class="guilabel">屬性</span>。</p></li>
 </ol>
-<img alt="../_images/1357.png" class="align-center" src="../_images/1357.png" />
+<img alt="../_images/1358.png" class="align-center" src="../_images/1358.png" />
 <ol class="arabic simple" start="14">
 <li><p>在 <span class="guilabel">圖層屬性</span> 視窗中切換到 <span class="guilabel">樣式</span> 分頁，再從樣式庫中選擇一個較粗的樣式，像是 <span class="guilabel">Primary</span>。最後按下 <span class="guilabel">確定</span>。</p></li>
 </ol>
-<img alt="../_images/1453.png" class="align-center" src="../_images/1453.png" />
+<img alt="../_images/1454.png" class="align-center" src="../_images/1454.png" />
 <ol class="arabic simple" start="15">
 <li><p>現在就很容易在地圖上找到此圖徵了。按下 <span class="guilabel">儲存圖層編輯</span>，就可以把剛才的更動寫到檔案內。</p></li>
 </ol>
-<img alt="../_images/1547.png" class="align-center" src="../_images/1547.png" />
+<img alt="../_images/1548.png" class="align-center" src="../_images/1548.png" />
 <ol class="arabic simple" start="16">
 <li><p>在把其他道路數位化之前，有些設定還需要更新，才能保證接下來創造圖層時不會發生錯誤。選擇 <span class="menuselection">選項 ‣ 自動接合選項</span>。</p></li>
 </ol>
-<img alt="../_images/1644.png" class="align-center" src="../_images/1644.png" />
+<img alt="../_images/1645.png" class="align-center" src="../_images/1645.png" />
 <ol class="arabic simple" start="17">
 <li><p>在 <span class="guilabel">自動接合選項</span> 視窗中，勾選 <span class="guilabel">使用拓撲（topological）編輯</span>，這個選項可以確保圖徵共同的邊界可以在多邊形圖層中正確的調整。再來，勾選 <span class="guilabel">開啟在相交處使用自動接合</span>，此選項可以自動連接圖徵的截切點，例如底圖的道路轉角。</p></li>
 </ol>
-<img alt="../_images/1742.png" class="align-center" src="../_images/1742.png" />
+<img alt="../_images/1743.png" class="align-center" src="../_images/1743.png" />
 <ol class="arabic simple" start="18">
 <li><p>接下來就繼續使用 <span class="guilabel">加入圖徵</span> 鈕，加入其他環繞公園的道路吧。記得每一次加入新圖徵後，都要按下 <span class="guilabel">儲存圖層編輯</span> 才會儲存起來。有一個稱為 <strong>節點工具</strong> 的功能也非常的方便，我們就來試試看。請按下 <span class="guilabel">節點工具</span> 鈕。</p></li>
 </ol>
-<img alt="../_images/1838.png" class="align-center" src="../_images/1838.png" />
+<img alt="../_images/1839.png" class="align-center" src="../_images/1839.png" />
 <ol class="arabic simple" start="19">
 <li><p>節點工具啟用後，點選任一個圖徵，節點就會顯現出來。點選任一節點後，它的顏色會改變，以表示這個節點已經被選取了，這時就可以使用滑鼠拖曳此節點。此操作對修改已有的圖層非常的方便，如果我們要刪掉選取的節點，只要按下 <kbd class="kbd docutils literal notranslate">Delete</kbd> 鍵即可。(Mac 上是 <kbd class="kbd compound docutils literal notranslate"><kbd class="kbd docutils literal notranslate">Option</kbd>+<kbd class="kbd docutils literal notranslate">Delete</kbd></kbd> 鍵)</p></li>
 </ol>
-<img alt="../_images/1929.png" class="align-center" src="../_images/1929.png" />
+<img alt="../_images/1930.png" class="align-center" src="../_images/1930.png" />
 <ol class="arabic simple" start="20">
 <li><p>所有的道路都數位化了之後，按一下 <span class="guilabel">切換編輯狀態</span> 關閉圖層編輯模式。</p></li>
 </ol>
-<img alt="../_images/2025.png" class="align-center" src="../_images/2025.png" />
+<img alt="../_images/2026.png" class="align-center" src="../_images/2026.png" />
 <ol class="arabic simple" start="21">
 <li><p>接下來我們要製作的是公園邊界的多邊形圖層。選擇 <span class="menuselection">圖層 ‣ 新增圖層 ‣ 新增 Spatialite 圖層</span>，資料庫要從下拉選單中選擇剛才的 <code class="docutils literal notranslate"><span class="pre">nztopo.sqlite</span></code>，新的圖層命名為 <code class="docutils literal notranslate"><span class="pre">Parks</span></code>， <span class="guilabel">類別</span> 選擇 <code class="docutils literal notranslate"><span class="pre">多邊形</span></code>。另外，新增一個稱為 <code class="docutils literal notranslate"><span class="pre">Name</span></code> 的屬性，最後按下 <span class="guilabel">確定</span>。</p></li>
 </ol>
-<img alt="../_images/2154.png" class="align-center" src="../_images/2154.png" />
+<img alt="../_images/2155.png" class="align-center" src="../_images/2155.png" />
 <ol class="arabic simple" start="22">
 <li><p>按下 <span class="guilabel">加入圖徵</span> 鈕，然後在地圖上點出多邊形的頂點。這些頂點圈住的多邊形，就是以數位化方式呈現的公園邊界。在用右鍵完成多邊形之前，請再次確認你有開啟自動接合選項，這樣公園多邊形和道路的線條中間就不會有任何空隙。</p></li>
 </ol>
@@ -393,7 +394,7 @@
     </p>
     <p>
         &copy; Copyright 2023, Ujaval Gandhi.<br/>
-      最後更新於 9月 11, 2024。<br/>
+      最後更新於 9月 13, 2024。<br/>
       Created using <a href="http://sphinx-doc.org/">Sphinx</a> 7.2.6.<br/>
     </p>
   </div>

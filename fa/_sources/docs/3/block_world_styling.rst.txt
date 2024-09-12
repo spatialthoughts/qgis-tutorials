@@ -133,7 +133,7 @@ Procedure
   .. image:: /static/3/block_world_styling/images/7.png
     :align: center
 
-8. Click on :guilabel:`Open Layer Styling Panel` and switch from :guilabel:`Single Symbol` to :guilabel:`2.5 D`. Click the :guilabel:`ε` button next to :guilabel:`Height`:
+8. Click on :guilabel:`Open Layer Styling Panel` and switch from :guilabel:`Single Symbol` to :guilabel:`2.5 D`. Click the :guilabel:`ε` button next to :guilabel:`Height`.
 
   .. image:: /static/3/block_world_styling/images/8.png
     :align: center
