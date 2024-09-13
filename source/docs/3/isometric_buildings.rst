@@ -152,7 +152,7 @@ Procedure
     .. image:: /static/3/isometric_buildings/images/14.png
       :align: center
 	
-15. Click on the :guilabel:`Data define override` for the bottom color selector and check :guilabel:`Transparent` box. 
+15. Click on the small black triangle of the bottom color selector and check :guilabel:`Transparent` box. 
 
     .. image:: /static/3/isometric_buildings/images/15.png
       :align: center
