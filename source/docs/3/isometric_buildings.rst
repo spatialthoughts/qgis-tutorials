@@ -2,7 +2,7 @@ Creating Isometric Buildings (QGIS3)
 ====================================
 *Contributed by:* `Steven Kim <https://geographyclub.github.io/>`_
 
-OpenStreetMap (OSM) is a crowd-sourced global dataset of roads, boundaries, buildings and more. It has a growing collection of building footprints across the world with many of them also having height information. We will use QGIS expressions to render the building footprint data from OSM as isometric buildings.
+OpenStreetMap (OSM) is a crowd-sourced global dataset of roads, boundaries, buildings and more. It has a growing collection of building footprints across the world with many of them also having height information. While the accuracy of building height data is notoriously difficult to validate for analysis, we can use QGIS expressions to create a fun artistic isometric rendering from this data.
 
 
 Overview of the task
