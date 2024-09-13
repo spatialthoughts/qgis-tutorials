@@ -52,12 +52,12 @@ We will be downloading data from OpenStreetMap(OSM) using the **QuickOSM** plugi
 .. image:: /static/3/isometric_buildings/images/data6.png
   :align: center
 	
-7. The selected buildings will be reprojected and saved to a new geopackage file.
+7. The selected buildings will be reprojected and saved to a new GeoPackage file.
 
 .. image:: /static/3/isometric_buildings/images/data7.png
   :align: center
 	
-For convenience, you may directly download a copy of the downtown toronto buildings from below:
+For convenience, you may directly download a copy of the downtown Toronto buildings from below:
 
 `osm_buildings.gpkg <https://www.qgistutorials.com/downloads/osm_buildings.gpkg>`_
 
@@ -96,7 +96,7 @@ Procedure
     .. image:: /static/3/isometric_buildings/images/5.png
       :align: center
 	
-6. Un-check the :guilabel:`Shade walls based on aspect` and :guilabel:`Shadow`. We will be appling our own colors. Click on the dropdown for selecting the renderer.
+6. Un-check the :guilabel:`Shade walls based on aspect` and :guilabel:`Shadow`. We will be applying our own colors. Click on the dropdown for selecting the renderer.
 
     .. image:: /static/3/isometric_buildings/images/6.png
       :align: center
@@ -142,7 +142,7 @@ Procedure
     .. image:: /static/3/isometric_buildings/images/12.png
       :align: center
         
-13. Change the :guilabel:`Symbol Layer Type` from :guilabel:`Simple Fill` to :guilabel:`Gradient Fill`. The two color selectors beside the :guilabel:`Two color` represent the top and bottom colors of the gradient. Click on :guilabel:`Data define override` button for the top color
+13. Change the :guilabel:`Symbol Layer Type` from :guilabel:`Simple Fill` to :guilabel:`Gradient Fill`. The two color selectors beside the :guilabel:`Two color` represent the top and bottom colors of the gradient. Click on :guilabel:`Data define override` button for the top color.
 
     .. image:: /static/3/isometric_buildings/images/13.png
       :align: center
