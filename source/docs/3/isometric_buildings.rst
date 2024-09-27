@@ -152,7 +152,7 @@ Procedure
 
     .. code-block:: none
 
-    set_color_part(
+      set_color_part(
         ramp_color('Spectral',
             scale_linear(
                 distance(@geometry,@map_extent_center),
