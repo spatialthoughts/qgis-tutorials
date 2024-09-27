@@ -142,16 +142,29 @@ Procedure
     .. image:: /static/3/isometric_buildings/images/12.png
       :align: center
         
-13. Change the :guilabel:`Symbol Layer Type` from :guilabel:`Simple Fill` to :guilabel:`Gradient Fill`. The two color selectors beside the :guilabel:`Two color` represent the top and bottom colors of the gradient. Click on :guilabel:`Data define override` button for the top color
+13. Change the :guilabel:`Symbol Layer Type` from :guilabel:`Simple Fill` to :guilabel:`Gradient Fill`. The two color selectors beside the :guilabel:`Two color` represent the top and bottom colors of the gradient. Click on :guilabel:`Data define override` button for the top color.
 
     .. image:: /static/3/isometric_buildings/images/13.png
       :align: center
 	
-14. Select :guilabel:`Paste` to apply the same expression as the roof color.
+14. Select :guilabel:`Edit` and enter the following expression. This is the same expression that we used for the roof color but adjusts the transparency of the color using the ``set_color_part()`` function.
 
+
+    .. code-block:: none
+
+    set_color_part(
+        ramp_color('Spectral',
+            scale_linear(
+                distance(@geometry,@map_extent_center),
+                0,@map_extent_width/6,
+                0,1
+            )
+        ), 'alpha',100)
+    
     .. image:: /static/3/isometric_buildings/images/14.png
       :align: center
 	
+    
 15. Click on the small black triangle of the bottom color selector and check :guilabel:`Transparent` box. 
 
     .. image:: /static/3/isometric_buildings/images/15.png
