@@ -5,7 +5,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Making Interactive Reveal Maps (QGIS3) &#8212; QGIS Tutorials and Tips</title>
+    <title>Creación de mapas interactivos (QGIS3) &#8212; QGIS Tutorials and Tips</title>
     <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=fa44fd50" />
     <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-sphinx.css?v=0bf093e7" />
     <script src="../../_static/documentation_options.js?v=92345faf"></script>
@@ -14,7 +14,7 @@
     <script src="../../_static/translations.js?v=efdbd0b9"></script>
     <link rel="search" title="Búsqueda" href="../../search.html" />
     <link rel="next" title="Creación de un cartograma animado (QGIS3)" href="cartogram_animation.html" />
-    <link rel="prev" title="Making Interactive Canvas Maps (QGIS3)" href="interactive_canvas_maps.html" />
+    <link rel="prev" title="Creación de mapas interactivos en lienzo (QGIS3)" href="interactive_canvas_maps.html" />
 
 <meta charset='utf-8'>
 <meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
@@ -103,9 +103,9 @@
 <li class="toctree-l1"><a class="reference internal" href="block_world_styling.html">Creación de un Mapa Mundial de Bloques (QGIS3)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="river_styling_expressions.html">Estilización de una red fluvial con expresiones (QGIS3)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="contour_3d_styling.html">Styling Contours in 3D (QGIS3)</a></li>
-<li class="toctree-l1"><a class="reference internal" href="isometric_buildings.html">Creating Isometric Buildings (QGIS3)</a></li>
-<li class="toctree-l1"><a class="reference internal" href="interactive_canvas_maps.html">Making Interactive Canvas Maps (QGIS3)</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Making Interactive Reveal Maps (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="isometric_buildings.html">Creación de edificios isométricos (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="interactive_canvas_maps.html">Creación de mapas interactivos en lienzo (QGIS3)</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Creación de mapas interactivos (QGIS3)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="cartogram_animation.html">Creación de un cartograma animado (QGIS3)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="basic_network_analysis.html">Visualización y Enrutamiento Básico de Red (QGIS3)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="origin_destination_matrix.html">Localizando la Instalación Más Cercana con Matriz Origen-Destino (QGIS3)</a></li>
@@ -140,7 +140,7 @@
               
                 
   <li>
-    <a href="interactive_canvas_maps.html" title="Previous Chapter: Making Interactive Canvas Maps (QGIS3)"><span class="glyphicon glyphicon-chevron-left visible-sm"></span><span class="hidden-sm hidden-tablet">&laquo; Making Intera...</span>
+    <a href="interactive_canvas_maps.html" title="Previous Chapter: Creación de mapas interactivos en lienzo (QGIS3)"><span class="glyphicon glyphicon-chevron-left visible-sm"></span><span class="hidden-sm hidden-tablet">&laquo; Creación de m...</span>
     </a>
   </li>
   <li>
@@ -190,76 +190,76 @@
       
 
   <section id="making-interactive-reveal-maps-qgis3">
-<h1>Making Interactive Reveal Maps (QGIS3)<a class="headerlink" href="#making-interactive-reveal-maps-qgis3" title="Link to this heading">¶</a></h1>
-<p>This tutorial shows how to use a dynamic mask layer in a layer group along with expressions to make an interactive map that reveal the layers beneath the current layer as you move your cursor around. This is done using the new <a class="reference external" href="https://changelog.qgis.org/en/entry/2154">mask blending modes</a> in QGIS along with technique for adding interactivity shown in the previous tutorial on <a class="reference internal" href="interactive_canvas_maps.html"><span class="doc">Making Interactive Canvas Maps (QGIS3)</span></a>.</p>
-<p>This tutorial is inspired from <a class="reference external" href="https://www.linkedin.com/in/hncampbell/">Hamish Campbell</a> who shared his interactive visualization on LinkedIn.</p>
+<h1>Creación de mapas interactivos (QGIS3)<a class="headerlink" href="#making-interactive-reveal-maps-qgis3" title="Link to this heading">¶</a></h1>
+<p>Este tutorial muestra cómo utilizar una capa de máscara dinámica en un grupo de capas junto con expresiones para hacer un mapa interactivo que revele las capas debajo de la capa actual a medida que mueve el cursor. Esto se hace usando los nuevos modos de mezcla de máscara &lt;<a class="reference external" href="https://changelog.qgis.org/en/entry/2154">https://changelog.qgis.org/en/entry/2154</a>&gt;`_ en QGIS junto con la técnica para añadir interactividad mostrada en el tutorial anterior en <a class="reference internal" href="interactive_canvas_maps.html"><span class="doc">Creación de mapas interactivos en lienzo (QGIS3)</span></a>.</p>
+<p>Este tutorial está inspirado en <a class="reference external" href="https://www.linkedin.com/in/hncampbell/">Hamish Campbell</a> que compartió su visualización interactiva en LinkedIn.</p>
 <section id="overview-of-the-task">
-<h2>Overview of the task<a class="headerlink" href="#overview-of-the-task" title="Link to this heading">¶</a></h2>
-<p>We will load 2 raster tile layers and use a mask layer with geometry generator symbology to reveal the below layer as the cursor moves around on the canvas.</p>
+<h2>Visión general de la tarea<a class="headerlink" href="#overview-of-the-task" title="Link to this heading">¶</a></h2>
+<p>Cargaremos 2 capas de teselas rasterizadas y utilizaremos una capa de máscara con simbología de generador de geometría para revelar la capa inferior a medida que el cursor se desplaza por el lienzo.</p>
 <img alt="../../_images/output2.gif" class="align-center" src="../../_images/output2.gif" />
 </section>
 <section id="procedure">
-<h2>Procedure<a class="headerlink" href="#procedure" title="Link to this heading">¶</a></h2>
+<h2>Procedimiento<a class="headerlink" href="#procedure" title="Link to this heading">¶</a></h2>
 <ol class="arabic simple">
-<li><p>We will start by loading 2 raster layers. One layer at the top and another one at the bottom that will be revealed by the mask layer. We will get these from the QuickMapServices plugin. Search and install the <strong>QuickMapServices</strong> plugin from the QGIS Official Plugin Repository. See <a class="reference internal" href="using_plugins.html"><span class="doc">Usar Complementos (QGIS3)</span></a> for instructions on installing plugins. Once installed, we will need to add some additional service to this plugin. Go to <span class="menuselection">Web ‣ QuickMapServices ‣ Settings</span>.</p></li>
+<li><p>Empezaremos cargando 2 capas de trama. Una capa en la parte superior y otra en la parte inferior que será revelada por la capa de máscara. Las obtendremos del plugin QuickMapServices. Busque e instale el complemento <strong>QuickMapServices</strong> del repositorio oficial de complementos de QGIS. Ver <a class="reference internal" href="using_plugins.html"><span class="doc">Usar Complementos (QGIS3)</span></a> para instrucciones sobre la instalación de plugins. Una vez instalado, necesitaremos añadir algún servicio adicional a este complemento. Vaya a <span class="menuselection">Web ‣ QuickMapServices ‣ Configuración</span>.</p></li>
 </ol>
 <blockquote>
 <div><img alt="../../_images/1104.png" class="align-center" src="../../_images/1104.png" />
 </div></blockquote>
 <ol class="arabic simple" start="2">
-<li><p>In the <span class="guilabel">QuickMapServices Settings</span> dialog, switch to the <span class="guilabel">More Services</span> tab and click the <span class="guilabel">Get contributed pack</span> button. This step is required to get access to the Google Satellite basemap.</p></li>
+<li><p>En el cuadro de diálogo <span class="guilabel">Configuración de QuickMapServices</span>, cambie a la pestaña <span class="guilabel">Más servicios</span> y haga clic en el botón <span class="guilabel">Obtener paquete contribuido</span>. Este paso es necesario para acceder al mapa base de Google Satellite.</p></li>
 </ol>
 <blockquote>
 <div><img alt="../../_images/2100.png" class="align-center" src="../../_images/2100.png" />
 </div></blockquote>
 <ol class="arabic simple" start="3">
-<li><p>Now we are ready to add the layers. The top layer in our map will be the OpenStreetMap layer. Go to <span class="menuselection">Web ‣ QuickMapServices ‣ OSM ‣ OSM Standard</span> to add it. Zoom and center the map to any location of your choice.</p></li>
+<li><p>Ahora estamos listos para añadir las capas. La capa superior de nuestro mapa será la capa de OpenStreetMap. Ve a <span class="menuselection">Web ‣ QuickMapServices ‣ OSM ‣ OSM Standard</span> para añadirla. Haz zoom y centra el mapa en la posición que desees.</p></li>
 </ol>
 <blockquote>
 <div><img alt="../../_images/338.png" class="align-center" src="../../_images/338.png" />
 </div></blockquote>
 <ol class="arabic simple" start="4">
-<li><p>Next add the Google Satellite layer from <span class="menuselection">Web ‣ QuickMapServices ‣ Google ‣ Google Satellite</span>. This will be the bottom layer that will be revealed using the mask.</p></li>
+<li><p>A continuación añada la capa Google Satellite desde <span class="menuselection">Web ‣ QuickMapServices ‣ Google ‣ Google Satellite</span>. Esta será la capa inferior que se mostrará utilizando la máscara.</p></li>
 </ol>
 <blockquote>
 <div><img alt="../../_images/419.png" class="align-center" src="../../_images/419.png" />
 </div></blockquote>
 <ol class="arabic simple" start="5">
-<li><p>We will create a new layer that will act as the mask. Go to <span class="menuselection">Layer ‣ Create Layer ‣ New GeoPackage Layer…</span>.</p></li>
+<li><p>Crearemos una nueva capa que actuará como máscara. Vaya a <span class="menuselection">Capa ‣ Crear Capa ‣ Nueva Capa GeoPackage…</span>.</p></li>
 </ol>
 <blockquote>
 <div><img alt="../../_images/518.png" class="align-center" src="../../_images/518.png" />
 </div></blockquote>
 <ol class="arabic simple" start="6">
-<li><p>In the <span class="guilabel">New GeoPackage Layer</span> dialog, click the <span class="guilabel">…</span> button for <span class="guilabel">Database</span> and browse to a directory on your computer. Save the layer as <code class="docutils literal notranslate"><span class="pre">mask.gpkg</span></code>. Change the <span class="guilabel">Geometry type</span> to <code class="docutils literal notranslate"><span class="pre">Polygon</span></code> and the CRS to be <code class="docutils literal notranslate"><span class="pre">Project</span> <span class="pre">CRS:</span> <span class="pre">EPSG:3857</span> <span class="pre">-</span> <span class="pre">WGS84</span> <span class="pre">/</span> <span class="pre">Pseudo-Mercator</span></code>. Having this layer in a Projected CRS is helpful as it allows us to specify the radius of the mask in meters as opposed to degrees. Click <span class="guilabel">OK</span>.</p></li>
+<li><p>En el cuadro de diálogo <span class="guilabel">Nueva capa de GeoPackage</span>, haga clic en el botón <span class="guilabel">…</span> de <span class="guilabel">Base de datos</span> y busque un directorio en su ordenador. Guarde la capa como <code class="docutils literal notranslate"><span class="pre">mask.gpkg</span></code>. Cambie <span class="guilabel">Geometry type</span> a <code class="docutils literal notranslate"><span class="pre">Polígono</span></code> y el SRC a <code class="docutils literal notranslate"><span class="pre">SRC</span> <span class="pre">del</span> <span class="pre">proyecto:</span> <span class="pre">EPSG:3857</span> <span class="pre">-</span> <span class="pre">WGS84</span> <span class="pre">/</span> <span class="pre">Pseudo-Mercator</span></code>. Tener esta capa en un SRC proyectado es útil ya que nos permite especificar el radio de la máscara en metros en lugar de grados. Haga clic en <span class="guilabel">Aceptar</span>.</p></li>
 </ol>
 <blockquote>
 <div><img alt="../../_images/618.png" class="align-center" src="../../_images/618.png" />
 </div></blockquote>
 <ol class="arabic simple" start="7">
-<li><p>A new layer <code class="docutils literal notranslate"><span class="pre">mask</span></code> will be added to the <span class="guilabel">Layers</span> panel. Click the <span class="guilabel">Open the Layer Styling Panel</span> button. Click on <span class="guilabel">Single Symbol</span> to see additional options for renderers.</p></li>
+<li><p>Se añadirá una nueva capa <code class="docutils literal notranslate"><span class="pre">máscara</span></code> al panel <span class="guilabel">Capas</span>. Haga clic en el botón <span class="guilabel">Abrir el panel de estilo de capas</span>. Haga clic en <span class="guilabel">Simbolo único</span> para ver opciones adicionales para los renderizadores.</p></li>
 </ol>
 <blockquote>
 <div><img alt="../../_images/717.png" class="align-center" src="../../_images/717.png" />
 </div></blockquote>
 <ol class="arabic simple" start="8">
-<li><p>Select <code class="docutils literal notranslate"><span class="pre">Inverted</span> <span class="pre">Polygons</span></code> as the renderer. Scroll down and click on the <span class="guilabel">Simple Fill</span> to see additional symbol layer types.</p></li>
+<li><p>Seleccione <code class="docutils literal notranslate"><span class="pre">Polígonos</span> <span class="pre">invertidos</span></code> como renderizador. Desplácese hacia abajo y haga clic en la etiqueta <span class="guilabel">Relleno simple</span> para ver otros tipos de capas de símbolos.</p></li>
 </ol>
 <blockquote>
 <div><img alt="../../_images/817.png" class="align-center" src="../../_images/817.png" />
 </div></blockquote>
 <div class="admonition note">
 <p class="admonition-title">Nota</p>
-<p>The inverted polygon renderer is used to show regions outside the feature. In our case, the <code class="docutils literal notranslate"><span class="pre">mask</span></code> layer is empty so the <em>inverted</em> region is the whole canvas. That is why you see the whole canvas rendered using the chosen symbology. We use this renderer for the tutorial since it can render the map without needing any features being present in the layer and will work anywhere in the world.</p>
+<p>El renderizador de polígonos invertidos se utiliza para mostrar regiones fuera de la característica. En nuestro caso, la capa <code class="docutils literal notranslate"><span class="pre">máscara</span></code> está vacía, por lo que la región <em>invertida</em> es todo el lienzo. Por eso se ve todo el lienzo renderizado usando la simbología elegida. Usamos este renderizador para el tutorial ya que puede renderizar el mapa sin necesidad de que ninguna característica esté presente en la capa y funcionará en cualquier parte del mundo.</p>
 </div>
 <ol class="arabic simple" start="9">
-<li><p>Select <code class="docutils literal notranslate"><span class="pre">Geometry</span> <span class="pre">Generator</span></code> as the <span class="guilabel">Symbol layer type</span>. We will now enter an expressions to change how the layer is rendered. Click the <span class="guilabel">Expression</span> button.</p></li>
+<li><p>Seleccione <code class="docutils literal notranslate"><span class="pre">Generador</span> <span class="pre">de</span> <span class="pre">geometría</span></code> como <span class="guilabel">Tipo de capa de símbolos`</span>. A continuación, introduciremos una expresión para cambiar la representación de la capa. Haga clic en el botón <span class="guilabel">Expresión</span>.</p></li>
 </ol>
 <blockquote>
 <div><img alt="../../_images/917.png" class="align-center" src="../../_images/917.png" />
 </div></blockquote>
 <ol class="arabic simple" start="10">
-<li><p>Enter the following expression in the <span class="guilabel">Expression Builder</span> dialog. This expression will create a buffer polygon with a radius of 5000 meters around the current position of the cursor. Click <span class="guilabel">OK</span>.</p></li>
+<li><p>Introduzca la siguiente expresión en el diálogo <span class="guilabel">Constructor de expresiones</span>. Esta expresión creará un polígono de amortiguación con un radio de 5000 metros alrededor de la posición actual del cursor. Haga clic en <span class="guilabel">Aceptar</span>.</p></li>
 </ol>
 <blockquote>
 <div><div class="highlight-none notranslate"><div class="highlight"><pre><span></span>buffer(@canvas_cursor_point, 5000)
@@ -268,49 +268,49 @@
 <img alt="../../_images/1023.png" class="align-center" src="../../_images/1023.png" />
 </div></blockquote>
 <ol class="arabic simple" start="11">
-<li><p>You will see a circular polygon rendered wherever you click on the canvas. Adjust the size of the buffer if required for your region and close the <span class="guilabel">Layer Styling Panel</span>. To use the mask blending modes, we must create a layer group. Hold the <kbd class="kbd docutils literal notranslate">Ctrl</kbd> key and select the <code class="docutils literal notranslate"><span class="pre">mask</span></code> and the <code class="docutils literal notranslate"><span class="pre">OSM</span> <span class="pre">Standard</span></code> layers. Right-click on the selected layers and choose <span class="guilabel">Group Selected</span>.</p></li>
+<li><p>Verá un polígono circular renderizado dondequiera que haga clic en el lienzo. Ajuste el tamaño del buffer si es necesario para su región y cierre el <span class="guilabel">Panel de Estilización de Capas</span>. Para utilizar los modos de fusión de máscara, debemos crear un grupo de capas. Mantenga pulsada la tecla <kbd class="kbd docutils literal notranslate">Ctrl</kbd> y seleccione las capas <code class="docutils literal notranslate"><span class="pre">máscara</span></code> y <code class="docutils literal notranslate"><span class="pre">OSM</span> <span class="pre">Standard</span></code>. Haga clic con el botón derecho del ratón sobre las capas seleccionadas y elija <span class="guilabel">Grupo seleccionado</span>.</p></li>
 </ol>
 <blockquote>
 <div><img alt="../../_images/1126.png" class="align-center" src="../../_images/1126.png" />
 </div></blockquote>
 <ol class="arabic simple" start="12">
-<li><p>A new layer group will be created. Enter the name as <code class="docutils literal notranslate"><span class="pre">mask_group</span></code>. Click the <span class="guilabel">Open the Layer Styling Panel</span> button.</p></li>
+<li><p>Se creará un nuevo grupo de capas. Introduzca el nombre como <code class="docutils literal notranslate"><span class="pre">mask_group</span></code>. Haga clic en el botón <span class="guilabel">Abrir el panel de estilos de capa</span>.</p></li>
 </ol>
 <blockquote>
 <div><img alt="../../_images/1224.png" class="align-center" src="../../_images/1224.png" />
 </div></blockquote>
 <ol class="arabic simple" start="13">
-<li><p>Check the <span class="guilabel">Render Layers as a Group</span> button. This step enables the mask blending modes for the layers in this group.</p></li>
+<li><p>Marque el botón <span class="guilabel">Renderizar capas como grupo</span>. Este paso activa los modos de fusión de máscara para las capas de este grupo.</p></li>
 </ol>
 <blockquote>
 <div><img alt="../../_images/1322.png" class="align-center" src="../../_images/1322.png" />
 </div></blockquote>
 <ol class="arabic simple" start="14">
-<li><p>Select the <code class="docutils literal notranslate"><span class="pre">mask</span></code> layer from <code class="docutils literal notranslate"><span class="pre">mask_group</span></code>. In the <span class="guilabel">Layer Styling</span> panel, scroll down and expand the <span class="guilabel">Layer Rendering</span> section.</p></li>
+<li><p>Seleccione la capa <code class="docutils literal notranslate"><span class="pre">máscara</span></code> de <code class="docutils literal notranslate"><span class="pre">mask_group</span></code>. En el panel <span class="guilabel">Estilos de capa</span>, desplácese hacia abajo y expanda la sección <span class="guilabel">Renderizado de capa</span>.</p></li>
 </ol>
 <blockquote>
 <div><img alt="../../_images/1420.png" class="align-center" src="../../_images/1420.png" />
 </div></blockquote>
 <ol class="arabic simple" start="15">
-<li><p>Click the dropdown selector for the <span class="guilabel">Layer</span> <span class="guilabel">Blending Mode</span>. Select the <code class="docutils literal notranslate"><span class="pre">Inverse</span> <span class="pre">Mask</span> <span class="pre">Below</span></code> blending mode. The layer below the layer group will now be revealed in the portion covered by the buffer polygon.</p></li>
+<li><p>Haga clic en el selector desplegable de <span class="guilabel">Capa</span> <span class="guilabel">Modo de fusión</span>. Seleccione el modo de fusión <code class="docutils literal notranslate"><span class="pre">Máscara</span> <span class="pre">inversa</span> <span class="pre">debajo</span></code>. La capa situada debajo del grupo de capas se mostrará ahora en la parte cubierta por el polígono intermedio.</p></li>
 </ol>
 <blockquote>
 <div><img alt="../../_images/1517.png" class="align-center" src="../../_images/1517.png" />
 </div></blockquote>
 <ol class="arabic simple" start="16">
-<li><p>The map canvas doesn’t yet respond to the cursor movement because it doesn’t refresh unless you move the map. Let’s make it auto-refresh. Right-click the <code class="docutils literal notranslate"><span class="pre">point</span></code> layer and select <span class="guilabel">Properties</span>.</p></li>
+<li><p>El lienzo del mapa aún no responde al movimiento del cursor porque no se actualiza a menos que muevas el mapa. Hagamos que se actualice automáticamente. Haga clic con el botón derecho en la capa <code class="docutils literal notranslate"><span class="pre">punto</span></code> y seleccione <span class="guilabel">Propiedades`</span>.</p></li>
 </ol>
 <blockquote>
 <div><img alt="../../_images/1616.png" class="align-center" src="../../_images/1616.png" />
 </div></blockquote>
 <ol class="arabic simple" start="17">
-<li><p>Switch to the <span class="guilabel">Rendering</span> tab. Scroll down and check the <span class="guilabel">Refresh layer at interval</span>. Set the interval to a small number such as <code class="docutils literal notranslate"><span class="pre">0.1</span></code> (i.e. 100ms) and click <span class="guilabel">OK</span>.</p></li>
+<li><p>Cambie a la pestaña <span class="guilabel">Renderizado</span>. Desplácese hacia abajo y marque la casilla <span class="guilabel">Refrescar capa a intervalos</span>. Fije el intervalo en un número pequeño como <code class="docutils literal notranslate"><span class="pre">0.1</span></code> (es decir, 100ms) y haga clic en <span class="guilabel">Aceptar</span>.</p></li>
 </ol>
 <blockquote>
 <div><img alt="../../_images/1717.png" class="align-center" src="../../_images/1717.png" />
 </div></blockquote>
 <ol class="arabic simple" start="18">
-<li><p>Now as you move your cursor, the region below your cursor position will be interactively revealed.</p></li>
+<li><p>Ahora, al mover el cursor, la región situada por debajo de la posición del cursor se mostrará de forma interactiva.</p></li>
 </ol>
 <blockquote>
 <div><img alt="../../_images/output2.gif" class="align-center" src="../../_images/output2.gif" />

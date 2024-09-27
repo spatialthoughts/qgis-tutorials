@@ -191,15 +191,15 @@
 
   <section id="creating-isometric-buildings-qgis3">
 <h1>Creating Isometric Buildings (QGIS3)<a class="headerlink" href="#creating-isometric-buildings-qgis3" title="Link to this heading">¶</a></h1>
-<p><em>Contributed by:</em> <a class="reference external" href="https://geographyclub.github.io/">Steven Kim</a></p>
+<p><em>Bereitgestellt von:</em> <a class="reference external" href="https://geographyclub.github.io/">Steven Kim</a></p>
 <p>OpenStreetMap (OSM) is a crowd-sourced global dataset of roads, boundaries, buildings and more. It has a growing collection of building footprints across the world with many of them also having height information. While the accuracy of building height data is notoriously difficult to validate for analysis, we can use QGIS expressions to create a fun artistic isometric rendering from this data.</p>
 <section id="overview-of-the-task">
-<h2>Overview of the task<a class="headerlink" href="#overview-of-the-task" title="Link to this heading">¶</a></h2>
+<h2>Überblick über die Aufgabe<a class="headerlink" href="#overview-of-the-task" title="Link to this heading">¶</a></h2>
 <p>We will download building footprints data from OSM for downtown Toronto and create an isometric map of building heights.</p>
 <img alt="../../_images/output2.png" class="align-center" src="../../_images/output2.png" />
 </section>
 <section id="get-the-data">
-<h2>Get the data<a class="headerlink" href="#get-the-data" title="Link to this heading">¶</a></h2>
+<h2>Datenbeschaffung<a class="headerlink" href="#get-the-data" title="Link to this heading">¶</a></h2>
 <p>We will be downloading data from OpenStreetMap(OSM) using the <strong>QuickOSM</strong> plugin. See <a class="reference internal" href="downloading_osm_data.html"><span class="doc">Suche und Download von OpenStreetMap Daten (QGIS3)</span></a> for an introduction to the QuickOSM plugin. Once you have installed the plugin, you can proceed with the instructions below to obtain data for your region.</p>
 <div class="admonition note">
 <p class="admonition-title">Bemerkung</p>
@@ -230,15 +230,15 @@
 </ol>
 <img alt="../../_images/data64.png" class="align-center" src="../../_images/data64.png" />
 <ol class="arabic simple" start="7">
-<li><p>The selected buildings will be reprojected and saved to a new geopackage file.</p></li>
+<li><p>Die ausgewählten Gebäude werden reprojiziert und in einer neue Geopackage-Datei gespeichert.</p></li>
 </ol>
 <img alt="../../_images/data74.png" class="align-center" src="../../_images/data74.png" />
-<p>For convenience, you may directly download a copy of the downtown toronto buildings from below:</p>
+<p>Der Einfachheit halber ist es möglich eine Kopie der Gebäude von Donwtown Toronto  unter folgendem Link herunterzuladen:</p>
 <p><a class="reference external" href="https://www.qgistutorials.com/downloads/osm_buildings.gpkg">osm_buildings.gpkg</a></p>
-<p>Data Source <a class="reference internal" href="../credits.html#openstreetmap" id="id1"><span>[OPENSTREETMAP]</span></a></p>
+<p>Datenquelle <a class="reference internal" href="../credits.html#openstreetmap" id="id1"><span>[OPENSTREETMAP]</span></a></p>
 </section>
 <section id="procedure">
-<h2>Procedure<a class="headerlink" href="#procedure" title="Link to this heading">¶</a></h2>
+<h2>Prozedere<a class="headerlink" href="#procedure" title="Link to this heading">¶</a></h2>
 <ol class="arabic">
 <li><p>Locate the <code class="docutils literal notranslate"><span class="pre">osm_buildings.gpkg</span></code> file in the QGIS Browser and expand it. Select the <code class="docutils literal notranslate"><span class="pre">buildings</span></code> layer and drag it to the canvas.</p>
 <blockquote>
@@ -302,7 +302,7 @@
 <li><p>Click on <span class="guilabel">Data define override</span> button for the <span class="guilabel">Fill color</span> and select <span class="guilabel">Copy…</span> on the menu.</p>
 <img alt="../../_images/1025.png" class="align-center" src="../../_images/1025.png" />
 </li>
-<li><p>Click on <span class="guilabel">Data define override</span> button for the <span class="guilabel">Stroke color</span> and select <span class="guilabel">Paste…</span> on the menu to apply the same expression.</p>
+<li><p>Wir klicken auf den Button <span class="guilabel">Datendefinierte Übersteuerung</span> für die <span class="guilabel">Strichfarbe</span> und wählen <span class="guilabel">Einfügen</span> aus dem Menü um denselben Ausdruck anzuwenden.</p>
 <img alt="../../_images/1128.png" class="align-center" src="../../_images/1128.png" />
 </li>
 <li><p>Now click on the second <span class="guilabel">Simple Fill</span> to change the sides. You may have to scroll down to do this. Click on the dropdown menu for the <span class="guilabel">Symbol Layer Type</span>.</p>
@@ -312,23 +312,16 @@
 <img alt="../../_images/1324.png" class="align-center" src="../../_images/1324.png" />
 </li>
 <li><p>Select <span class="guilabel">Edit</span> and enter the following expression. This is the same expression that we used for the roof color but adjusts the transparency of the color using the <code class="docutils literal notranslate"><span class="pre">set_color_part()</span></code> function.</p>
-<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>set_color_part(
+  ramp_color(&#39;Spectral&#39;,
+      scale_linear(
+          distance(@geometry,@map_extent_center),
+          0,@map_extent_width/6,
+          0,1
+      )
+  ), &#39;alpha&#39;,100)
 </pre></div>
 </div>
-<dl>
-<dt>set_color_part(</dt><dd><dl>
-<dt>ramp_color(‚Spectral‘,</dt><dd><dl class="simple">
-<dt>scale_linear(</dt><dd><p>distance(&#64;geometry,&#64;map_extent_center),
-0,&#64;map_extent_width/6,
-0,1</p>
-</dd>
-</dl>
-<p>)</p>
-</dd>
-</dl>
-<p>), ‚alpha‘,100)</p>
-</dd>
-</dl>
 <img alt="../../_images/1422.png" class="align-center" src="../../_images/1422.png" />
 </li>
 <li><p>Click on the small black triangle of the bottom color selector and check <span class="guilabel">Transparent</span> box.</p>

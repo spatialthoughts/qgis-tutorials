@@ -5,7 +5,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Making Interactive Reveal Maps (QGIS3) &#8212; QGIS Tutorials and Tips</title>
+    <title>Een interactieve onthullende kaart maken (QGIS3) &#8212; QGIS Tutorials and Tips</title>
     <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=fa44fd50" />
     <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-sphinx.css?v=0bf093e7" />
     <script src="../../_static/documentation_options.js?v=abdfb6f9"></script>
@@ -14,7 +14,7 @@
     <script src="../../_static/translations.js?v=83e0b41b"></script>
     <link rel="search" title="Zoeken" href="../../search.html" />
     <link rel="next" title="Een geanimeerd cartogram maken (QGIS3)" href="cartogram_animation.html" />
-    <link rel="prev" title="Making Interactive Canvas Maps (QGIS3)" href="interactive_canvas_maps.html" />
+    <link rel="prev" title="Een interactief kaartvenster maken (QGIS3)" href="interactive_canvas_maps.html" />
 
 <meta charset='utf-8'>
 <meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
@@ -103,9 +103,9 @@
 <li class="toctree-l1"><a class="reference internal" href="block_world_styling.html">Een geblokte kaart van de wereld maken (QGIS3)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="river_styling_expressions.html">Een netwerk van rivieren opmaken met expressies (QGIS3)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="contour_3d_styling.html">Contouren opmaken in 3D (QGIS3)</a></li>
-<li class="toctree-l1"><a class="reference internal" href="isometric_buildings.html">Creating Isometric Buildings (QGIS3)</a></li>
-<li class="toctree-l1"><a class="reference internal" href="interactive_canvas_maps.html">Making Interactive Canvas Maps (QGIS3)</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Making Interactive Reveal Maps (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="isometric_buildings.html">Isometrische gebouwen maken (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="interactive_canvas_maps.html">Een interactief kaartvenster maken (QGIS3)</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Een interactieve onthullende kaart maken (QGIS3)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="cartogram_animation.html">Een geanimeerd cartogram maken (QGIS3)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="basic_network_analysis.html">Basis netwerk visualisatie en routeren (QGIS3)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="origin_destination_matrix.html">Dichtstbijzijnde faciliteit zoeken met Origin-Destination Matrix (QGIS3)</a></li>
@@ -140,7 +140,7 @@
               
                 
   <li>
-    <a href="interactive_canvas_maps.html" title="Previous Chapter: Making Interactive Canvas Maps (QGIS3)"><span class="glyphicon glyphicon-chevron-left visible-sm"></span><span class="hidden-sm hidden-tablet">&laquo; Making Intera...</span>
+    <a href="interactive_canvas_maps.html" title="Previous Chapter: Een interactief kaartvenster maken (QGIS3)"><span class="glyphicon glyphicon-chevron-left visible-sm"></span><span class="hidden-sm hidden-tablet">&laquo; Een interacti...</span>
     </a>
   </li>
   <li>
@@ -190,76 +190,76 @@
       
 
   <section id="making-interactive-reveal-maps-qgis3">
-<h1>Making Interactive Reveal Maps (QGIS3)<a class="headerlink" href="#making-interactive-reveal-maps-qgis3" title="Link to this heading">¶</a></h1>
-<p>This tutorial shows how to use a dynamic mask layer in a layer group along with expressions to make an interactive map that reveal the layers beneath the current layer as you move your cursor around. This is done using the new <a class="reference external" href="https://changelog.qgis.org/en/entry/2154">mask blending modes</a> in QGIS along with technique for adding interactivity shown in the previous tutorial on <a class="reference internal" href="interactive_canvas_maps.html"><span class="doc">Making Interactive Canvas Maps (QGIS3)</span></a>.</p>
-<p>This tutorial is inspired from <a class="reference external" href="https://www.linkedin.com/in/hncampbell/">Hamish Campbell</a> who shared his interactive visualization on LinkedIn.</p>
+<h1>Een interactieve onthullende kaart maken (QGIS3)<a class="headerlink" href="#making-interactive-reveal-maps-qgis3" title="Link to this heading">¶</a></h1>
+<p>Deze handleiding laat zien hoe een dynamische maskeerlaag te gebruiken in een groep met lagen, samen met expressies om een interactieve kaart te maken die de lagen onder de huidige laag onthult als u uw cursor verplaatst. Dit wordt gedaan met de nieuwe <a class="reference external" href="https://changelog.qgis.org/en/entry/2154">modi voor samenvoegen van masker</a> in QGIS, naast de techniek voor het toevoegen van interactie, die is weergegeven in de vorige handleiding in <a class="reference internal" href="interactive_canvas_maps.html"><span class="doc">Een interactief kaartvenster maken (QGIS3)</span></a>.</p>
+<p>Deze handleiding is geïnspireerd op <a class="reference external" href="https://www.linkedin.com/in/hncampbell/">Hamish Campbell</a> die deze interactieve visualisatie deelde op LinkedIn.</p>
 <section id="overview-of-the-task">
-<h2>Overview of the task<a class="headerlink" href="#overview-of-the-task" title="Link to this heading">¶</a></h2>
-<p>We will load 2 raster tile layers and use a mask layer with geometry generator symbology to reveal the below layer as the cursor moves around on the canvas.</p>
+<h2>Overzicht van de taak<a class="headerlink" href="#overview-of-the-task" title="Link to this heading">¶</a></h2>
+<p>We zullen 2 raster tegellagen laden en een maskerlaag gebruiken met symbologie van de geometriegenerator om de onderliggende laag te laten zien als de cursor over het kaartvenster wordt verplaatst.</p>
 <img alt="../../_images/output2.gif" class="align-center" src="../../_images/output2.gif" />
 </section>
 <section id="procedure">
 <h2>Procedure<a class="headerlink" href="#procedure" title="Link to this heading">¶</a></h2>
 <ol class="arabic simple">
-<li><p>We will start by loading 2 raster layers. One layer at the top and another one at the bottom that will be revealed by the mask layer. We will get these from the QuickMapServices plugin. Search and install the <strong>QuickMapServices</strong> plugin from the QGIS Official Plugin Repository. See <a class="reference internal" href="using_plugins.html"><span class="doc">Plug-ins gebruiken (QGIS3)</span></a> for instructions on installing plugins. Once installed, we will need to add some additional service to this plugin. Go to <span class="menuselection">Web ‣ QuickMapServices ‣ Settings</span>.</p></li>
+<li><p>We zullen beginnen met het laden van 2 rasterlagen. Een laag bovenop en een andere laag daaronder, die zal worden weergegeven door de maskerlaag. We zullen deze verkrijgen met de plug-in QuickMapServices. Zoek en installeer de plug-in <strong>QuickMapServices</strong> vanuit de QGIS Official Plugin Repository. Bekijk <a class="reference internal" href="using_plugins.html"><span class="doc">Plug-ins gebruiken (QGIS3)</span></a> voor instructies over het installeren van plug-ins. Eenmaal geïnstalleerd, zullen we wat aanvullende service toevoegen aan deze plug-in. Ga naar <span class="menuselection">Web ‣ QuickMapServices ‣ Settings</span>.</p></li>
 </ol>
 <blockquote>
 <div><img alt="../../_images/1104.png" class="align-center" src="../../_images/1104.png" />
 </div></blockquote>
 <ol class="arabic simple" start="2">
-<li><p>In the <span class="guilabel">QuickMapServices Settings</span> dialog, switch to the <span class="guilabel">More Services</span> tab and click the <span class="guilabel">Get contributed pack</span> button. This step is required to get access to the Google Satellite basemap.</p></li>
+<li><p>Schakel, in het dialoogvenster <span class="guilabel">QuickMapServices Settings</span>, naar de tab <span class="guilabel">More Services</span> en klik op de knop <span class="guilabel">Get contributed pack</span>. Deze stap is vereist om toegang te verkrijgen tot de basiskaart van Google Satellite.</p></li>
 </ol>
 <blockquote>
 <div><img alt="../../_images/2100.png" class="align-center" src="../../_images/2100.png" />
 </div></blockquote>
 <ol class="arabic simple" start="3">
-<li><p>Now we are ready to add the layers. The top layer in our map will be the OpenStreetMap layer. Go to <span class="menuselection">Web ‣ QuickMapServices ‣ OSM ‣ OSM Standard</span> to add it. Zoom and center the map to any location of your choice.</p></li>
+<li><p>Nu zijn we klaar om de lagen toe te voegen. De bovenste laag in onze kaart zal de laag OpenStreetMap zijn. Ga naar <span class="menuselection">Web ‣ QuickMapServices ‣ OSM ‣ OSM Standard</span> om die toe te voegen. Zoom en centreer de kaart op een locatie van uw keuze.</p></li>
 </ol>
 <blockquote>
 <div><img alt="../../_images/338.png" class="align-center" src="../../_images/338.png" />
 </div></blockquote>
 <ol class="arabic simple" start="4">
-<li><p>Next add the Google Satellite layer from <span class="menuselection">Web ‣ QuickMapServices ‣ Google ‣ Google Satellite</span>. This will be the bottom layer that will be revealed using the mask.</p></li>
+<li><p>Voeg vervolgens de laag Google Satellite toe vanuit <span class="menuselection">Web ‣ QuickMapServices ‣ Google ‣ Google Satellite</span>. Dit zal de onderste laag zijn, die wordt weergegeven met het masker.</p></li>
 </ol>
 <blockquote>
 <div><img alt="../../_images/419.png" class="align-center" src="../../_images/419.png" />
 </div></blockquote>
 <ol class="arabic simple" start="5">
-<li><p>We will create a new layer that will act as the mask. Go to <span class="menuselection">Layer ‣ Create Layer ‣ New GeoPackage Layer…</span>.</p></li>
+<li><p>We zullen een nieuwe laag maken die als masker zal optreden. Ga naar <span class="menuselection">Kaartlagen ‣ Laag maken ‣ Nieuwe laag voor GeoPackage…</span>.</p></li>
 </ol>
 <blockquote>
 <div><img alt="../../_images/518.png" class="align-center" src="../../_images/518.png" />
 </div></blockquote>
 <ol class="arabic simple" start="6">
-<li><p>In the <span class="guilabel">New GeoPackage Layer</span> dialog, click the <span class="guilabel">…</span> button for <span class="guilabel">Database</span> and browse to a directory on your computer. Save the layer as <code class="docutils literal notranslate"><span class="pre">mask.gpkg</span></code>. Change the <span class="guilabel">Geometry type</span> to <code class="docutils literal notranslate"><span class="pre">Polygon</span></code> and the CRS to be <code class="docutils literal notranslate"><span class="pre">Project</span> <span class="pre">CRS:</span> <span class="pre">EPSG:3857</span> <span class="pre">-</span> <span class="pre">WGS84</span> <span class="pre">/</span> <span class="pre">Pseudo-Mercator</span></code>. Having this layer in a Projected CRS is helpful as it allows us to specify the radius of the mask in meters as opposed to degrees. Click <span class="guilabel">OK</span>.</p></li>
+<li><p>Klik, in het dialoogvenster <span class="guilabel">Nieuwe laag voor GeoPackage</span>, op de knop <span class="guilabel">…</span> voor <span class="guilabel">Database</span> en blader naar een map op uw computer. Sla de laag op als <code class="docutils literal notranslate"><span class="pre">mask.gpkg</span></code>. Wijzig het <span class="guilabel">Type geometry</span> naar <code class="docutils literal notranslate"><span class="pre">Polygoon</span></code> en het CRS naar <code class="docutils literal notranslate"><span class="pre">Project</span> <span class="pre">CRS:</span> <span class="pre">EPSG:3857</span> <span class="pre">-</span> <span class="pre">WGS84</span> <span class="pre">/</span> <span class="pre">Pseudo-Mercator</span></code>. Deze laag in een geprojecteerd CRS te hebben is nuttig, omdat het ons helpt de straal van het masker te specificeren in meters,  tegengesteld aan graden. Klik op <span class="guilabel">OK</span>.</p></li>
 </ol>
 <blockquote>
 <div><img alt="../../_images/618.png" class="align-center" src="../../_images/618.png" />
 </div></blockquote>
 <ol class="arabic simple" start="7">
-<li><p>A new layer <code class="docutils literal notranslate"><span class="pre">mask</span></code> will be added to the <span class="guilabel">Layers</span> panel. Click the <span class="guilabel">Open the Layer Styling Panel</span> button. Click on <span class="guilabel">Single Symbol</span> to see additional options for renderers.</p></li>
+<li><p>Een nieuwe laag <code class="docutils literal notranslate"><span class="pre">mask</span></code> zal worden toegevoegd. Klik op de knop <span class="guilabel">Paneel Laag opmaken openen</span>. Klik op de <span class="guilabel">Enkel symbool</span> om aanvullende opties voor renderers te zien.</p></li>
 </ol>
 <blockquote>
 <div><img alt="../../_images/717.png" class="align-center" src="../../_images/717.png" />
 </div></blockquote>
 <ol class="arabic simple" start="8">
-<li><p>Select <code class="docutils literal notranslate"><span class="pre">Inverted</span> <span class="pre">Polygons</span></code> as the renderer. Scroll down and click on the <span class="guilabel">Simple Fill</span> to see additional symbol layer types.</p></li>
+<li><p>Selecteer <code class="docutils literal notranslate"><span class="pre">Geïnverteerde</span> <span class="pre">polygonen</span></code> als de renderer. Scroll naar beneden en klik op <span class="guilabel">Standaard vulling</span> om aanvullende symbollaagtypen  te bekijken.</p></li>
 </ol>
 <blockquote>
 <div><img alt="../../_images/817.png" class="align-center" src="../../_images/817.png" />
 </div></blockquote>
 <div class="admonition note">
 <p class="admonition-title">Notitie</p>
-<p>The inverted polygon renderer is used to show regions outside the feature. In our case, the <code class="docutils literal notranslate"><span class="pre">mask</span></code> layer is empty so the <em>inverted</em> region is the whole canvas. That is why you see the whole canvas rendered using the chosen symbology. We use this renderer for the tutorial since it can render the map without needing any features being present in the layer and will work anywhere in the world.</p>
+<p>De renderer Geïnverteerde polygonen wordt gebruikt om regio’s buiten het object weer te geven. In ons geval, de laag <code class="docutils literal notranslate"><span class="pre">mask</span></code> is leeg, dus de <em>geïnverteerde</em> regio is het hele kaartvenster. Dat is waarom u het gehele kaartvenster ziet gerenderd met de gekozen symbologie. We zullen deze renderer voor de handleiding gebruiken omdat het de kaart kan renderen zonder dat objecten in de laag aanwezig moeten zijn en zal overal ter wereld werken.</p>
 </div>
 <ol class="arabic simple" start="9">
-<li><p>Select <code class="docutils literal notranslate"><span class="pre">Geometry</span> <span class="pre">Generator</span></code> as the <span class="guilabel">Symbol layer type</span>. We will now enter an expressions to change how the layer is rendered. Click the <span class="guilabel">Expression</span> button.</p></li>
+<li><p>Selecteer <code class="docutils literal notranslate"><span class="pre">Geometrie-generator</span></code> als het <span class="guilabel">Symboollaagtype</span>. We zullen nu een expressie invoeren om te wijzigen hoe de laag wordt gerenderd. Klik  op de knop <span class="guilabel">Expressie</span>.</p></li>
 </ol>
 <blockquote>
 <div><img alt="../../_images/917.png" class="align-center" src="../../_images/917.png" />
 </div></blockquote>
 <ol class="arabic simple" start="10">
-<li><p>Enter the following expression in the <span class="guilabel">Expression Builder</span> dialog. This expression will create a buffer polygon with a radius of 5000 meters around the current position of the cursor. Click <span class="guilabel">OK</span>.</p></li>
+<li><p>Voer de volgende expressie in het dialoogvenster <span class="guilabel">Expressiebouwer</span> in. Deze expressie zal een bufferpolygoon maken met een straal van 5000 meter rondom de huidige positie van de cursor. Klik op <span class="guilabel">OK</span>.</p></li>
 </ol>
 <blockquote>
 <div><div class="highlight-none notranslate"><div class="highlight"><pre><span></span>buffer(@canvas_cursor_point, 5000)
@@ -268,49 +268,49 @@
 <img alt="../../_images/1023.png" class="align-center" src="../../_images/1023.png" />
 </div></blockquote>
 <ol class="arabic simple" start="11">
-<li><p>You will see a circular polygon rendered wherever you click on the canvas. Adjust the size of the buffer if required for your region and close the <span class="guilabel">Layer Styling Panel</span>. To use the mask blending modes, we must create a layer group. Hold the <kbd class="kbd docutils literal notranslate">Ctrl</kbd> key and select the <code class="docutils literal notranslate"><span class="pre">mask</span></code> and the <code class="docutils literal notranslate"><span class="pre">OSM</span> <span class="pre">Standard</span></code> layers. Right-click on the selected layers and choose <span class="guilabel">Group Selected</span>.</p></li>
+<li><p>U zult een cirkelvormige polygoon worden gerenderd, waar u ook maar klikt in het kaartvenster. Pas de grootte van de buffer aan als dat nodig is voor uw regio en sluit het <span class="guilabel">Paneel Laag opmaken</span>. We moeten, om de meng-modi van het masker te kunnen gebruiken, een groep met lagen maken. Houd de <kbd class="kbd docutils literal notranslate">Ctrl</kbd>-toets ingedrukt en selecteer de lagen <code class="docutils literal notranslate"><span class="pre">mask</span></code> en <code class="docutils literal notranslate"><span class="pre">OSM</span> <span class="pre">Standard</span></code>. Klik met rechts op de geselecteerde lagen en kies <span class="guilabel">Geselecteerde groeperen</span>.</p></li>
 </ol>
 <blockquote>
 <div><img alt="../../_images/1126.png" class="align-center" src="../../_images/1126.png" />
 </div></blockquote>
 <ol class="arabic simple" start="12">
-<li><p>A new layer group will be created. Enter the name as <code class="docutils literal notranslate"><span class="pre">mask_group</span></code>. Click the <span class="guilabel">Open the Layer Styling Panel</span> button.</p></li>
+<li><p>Een nieuwe groep met lagen zal worden gemaakt. Voer <code class="docutils literal notranslate"><span class="pre">mask_group</span></code> in als naam. Klik op de knop <span class="guilabel">Paneel Laag opmaken openen</span>.</p></li>
 </ol>
 <blockquote>
 <div><img alt="../../_images/1224.png" class="align-center" src="../../_images/1224.png" />
 </div></blockquote>
 <ol class="arabic simple" start="13">
-<li><p>Check the <span class="guilabel">Render Layers as a Group</span> button. This step enables the mask blending modes for the layers in this group.</p></li>
+<li><p>Selecteer de knop <span class="guilabel">Lagen als een groep renderen</span>. Deze stap schakelt de meng-modi van maskers in voor de lagen van deze groep.</p></li>
 </ol>
 <blockquote>
 <div><img alt="../../_images/1322.png" class="align-center" src="../../_images/1322.png" />
 </div></blockquote>
 <ol class="arabic simple" start="14">
-<li><p>Select the <code class="docutils literal notranslate"><span class="pre">mask</span></code> layer from <code class="docutils literal notranslate"><span class="pre">mask_group</span></code>. In the <span class="guilabel">Layer Styling</span> panel, scroll down and expand the <span class="guilabel">Layer Rendering</span> section.</p></li>
+<li><p>Selecteer de laag <code class="docutils literal notranslate"><span class="pre">mask</span></code> in de <code class="docutils literal notranslate"><span class="pre">mask_group</span></code>. In het paneel <span class="guilabel">Laag opmaken</span>, scroll naar beneden en vergroot het gedeelte <span class="guilabel">Renderen van lagen</span>.</p></li>
 </ol>
 <blockquote>
 <div><img alt="../../_images/1420.png" class="align-center" src="../../_images/1420.png" />
 </div></blockquote>
 <ol class="arabic simple" start="15">
-<li><p>Click the dropdown selector for the <span class="guilabel">Layer</span> <span class="guilabel">Blending Mode</span>. Select the <code class="docutils literal notranslate"><span class="pre">Inverse</span> <span class="pre">Mask</span> <span class="pre">Below</span></code> blending mode. The layer below the layer group will now be revealed in the portion covered by the buffer polygon.</p></li>
+<li><p>Klik op het keuzemenu voor de <span class="guilabel">Laag</span> <span class="guilabel">meng-modus</span>. Selecteer de meng-modus <code class="docutils literal notranslate"><span class="pre">Geïnverteerd</span> <span class="pre">masker</span> <span class="pre">onder</span></code>. De laag onder de groep met lagen zal nu worden weergegeven in het gedeelte dat wordt bedekt door de bufferpolygoon.</p></li>
 </ol>
 <blockquote>
 <div><img alt="../../_images/1517.png" class="align-center" src="../../_images/1517.png" />
 </div></blockquote>
 <ol class="arabic simple" start="16">
-<li><p>The map canvas doesn’t yet respond to the cursor movement because it doesn’t refresh unless you move the map. Let’s make it auto-refresh. Right-click the <code class="docutils literal notranslate"><span class="pre">point</span></code> layer and select <span class="guilabel">Properties</span>.</p></li>
+<li><p>Het kaartvenster reageert nog niet op de beweging van de cursor, omdat het niet vernieuwt, tenzij u de kaart verplaatst. Laten we het automatisch vernieuwen. Klik met rechts op de laag <code class="docutils literal notranslate"><span class="pre">mask</span></code> en selecteer <span class="guilabel">Eigenschappen</span>.</p></li>
 </ol>
 <blockquote>
 <div><img alt="../../_images/1616.png" class="align-center" src="../../_images/1616.png" />
 </div></blockquote>
 <ol class="arabic simple" start="17">
-<li><p>Switch to the <span class="guilabel">Rendering</span> tab. Scroll down and check the <span class="guilabel">Refresh layer at interval</span>. Set the interval to a small number such as <code class="docutils literal notranslate"><span class="pre">0.1</span></code> (i.e. 100ms) and click <span class="guilabel">OK</span>.</p></li>
+<li><p>Schakel naar de tab <span class="guilabel">Renderen</span>. Scroll naar beneden en selecteer <span class="guilabel">Laag vernieuwen met interval</span>. Stel het interval in op een klein getal, zoals <code class="docutils literal notranslate"><span class="pre">0.1</span></code> (d.i. 100ms) en klik op <span class="guilabel">OK</span>.</p></li>
 </ol>
 <blockquote>
 <div><img alt="../../_images/1717.png" class="align-center" src="../../_images/1717.png" />
 </div></blockquote>
 <ol class="arabic simple" start="18">
-<li><p>Now as you move your cursor, the region below your cursor position will be interactively revealed.</p></li>
+<li><p>Als u nu uw cursor verplaatst, zal de regio onder uw positie van de cursor interactief worden weergegeven.</p></li>
 </ol>
 <blockquote>
 <div><img alt="../../_images/output2.gif" class="align-center" src="../../_images/output2.gif" />
