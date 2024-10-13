@@ -107,7 +107,7 @@ Procedure
   .. image:: /static/3/multi_criteria_overlay/images/13.png
     :align: center
 
-14. Enter the following expression in the :guilabel:`Expression` box. You can click on the appropriate layer in the :guilabel:`Layers` box to auto insert the layer names. This expression means that we want to sum the pixel values in the first band of both the water rasters. Click the :guilabel:`...` button next to :guilabel:`Reference layer(s) and select ``raster_water_polygons`` as the reference layer. Name the output ``raster_water_merged.tif`` and click :guilabel:`Run`.
+14. Select ``raster_water_polygons`` and ``raster_water_polylines`` layers using :guilabel:`...` button as Input Layers. Enter the following expression using :guilabel:`ε` button. Keep all the other options as default and save the output layer with the name ``raster_water_merged.tif`` and click :guilabel:`Run`.
 
   .. code-block:: none
   
@@ -121,7 +121,7 @@ Procedure
   .. image:: /static/3/multi_criteria_overlay/images/15.png
     :align: center
 
-16. Enter the following expression which will assign the value 1 that match the expression and 0 where it doesn't. Click the :guilabel:`...` button next to :guilabel:`Reference layer(s) and select ``raster_water_merged`` layer. Name the output ``raster_water.tif`` and click :guilabel:`Run`.
+16. Select ``raster_water_merged`` layer using :guilabel:`...` button as an Input Layer. Enter the following expression using :guilabel:`ε` button. Keep all the other options as default and save the output layer with the name ``raster_water.tif`` and click :guilabel:`Run`.
 
   .. code-block:: none
   
@@ -175,7 +175,7 @@ Procedure
 - 1000-5000m –> 50
 - >5000m –> 10
 
-  Enter the following expression that applies the above criteria on the input. Click the :guilabel:`...` button next to :guilabel:`Reference layer(s) and select ``roads_proximity`` layer. Name the output ``roads_reclass.tif`` and click :guilabel:`Run`.
+   Select ``roads_proximity`` layer using :guilabel:`...` button as an Input Layer. Enter the following expression hat applies the above criteria on the input.  Keep all the other options as default and save the output layer with the name ``roads_reclass.tif`` and click :guilabel:`Run`.
 
   .. code-block:: none
   
@@ -195,7 +195,7 @@ Procedure
 - 1000 -5000m —> 50
 - >5000m –> 100
 
-  Enter the following expression that applies the above criteria on the input. Click the :guilabel:`...` button next to :guilabel:`Reference layer(s) and select ``water_proximity`` layer. Name the output ``water_reclass.tif`` and click :guilabel:`Run`.
+   Select ``water_proximity`` layer using :guilabel:`...` button as an Input Layer. Enter the following expression hat applies the above criteria on the input. Keep all the other options as default and save the output layer with the name ``water_reclass.tif`` and click :guilabel:`Run`.
 
   .. code-block:: none
   
@@ -203,8 +203,8 @@ Procedure
 
   .. image:: /static/3/multi_criteria_overlay/images/26.png
     :align: center
-    
-27. Now we are ready to do the final overlay analysis. Recall that our criteria for determining suitability is as follows - close to roads, away from water and not in a protected region. Open :menuselection:`Raster analysis --> Raster calculator`. Enter the following expression that applies these criteria. Note that we are multiplying the result with ``raster_boundary@1`` at the end to discard pixel values outside of the state boundary. Click the :guilabel:`...` button next to :guilabel:`Reference layer(s)` and select ``raster_boundary`` layer. Name the output ``overlay.tif`` and click :guilabel:`Run`.
+
+27.Now we are ready to do the final overlay analysis. Recall that our criteria for determining suitability is as follows - close to roads, away from water and not in a protected region. Open :menuselection:`Raster analysis --> Raster calculator`.Select ``roads_reclass``,``roads_reclass``,``raster_protected_regions`` and ``raster_boundary`` layers using :guilabel:`...` button as Input Layers. Use :guilabel:`ε` button to enter the following expression that applies these criteria. Note that we are multiplying the result with ``raster_boundary@1`` at the end to discard pixel values outside of the state boundary. Keep other parameters as default. Name the output ``overlay.tif`` and click :guilabel:`Run`.
 
   .. code-block:: none
 

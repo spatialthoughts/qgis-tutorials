@@ -83,21 +83,21 @@ Procedure
   .. image:: /static/3/raster_styling_and_analysis/images/10.gif
     :align: center
     
-11. Our task is to create a thematic map of the changes in population. Let's compute the difference between the 2 layers and create another raster where each pixel represents the change in the population. Go to :menuselection:`Raster --> Raster calculator`.
+11. Our task is to create a thematic map of the changes in population. Let's compute the difference between the 2 layers and create another raster where each pixel represents the change in the population. Go to :menuselection:`Processing --> Toolbox`.
 
-  .. image:: /static/3/raster_styling_and_analysis/images/10.gif
+  .. image:: /static/3/raster_styling_and_analysis/images/11.png
     :align: center
-    
-12. In the :guilabel:`Raster bands` section, you can select the layer by double-clicking on them. The bands are named after the raster name followed by ``@`` and band number. Since each of our rasters have only 1 band, you will the names with ``@1`` appended to the layer name. The raster calculator can apply mathematical     operations on the raster pixels. In this case we want to enter a simple formula to subtract the 2010 population from 2000. Enter the following expression. Next, click the :guilabel:`...` button next to :guilabel:`Output layer`.
-
-  .. code-block:: none
-
-    "gpw-v4-population-count-rev11_2010_2pt5_min@1" - "gpw-v4-population-count-rev11_2000_2pt5_min@1"
+   
+12. Look for :guilabel:`Raster Calculator` under :guilabel:`Raster Analysis` and double-click to open the tool. 
 
   .. image:: /static/3/raster_styling_and_analysis/images/12.png
     :align: center
     
-13. Enter ``population_change_2010_2000.tif`` as the :guilabel:`Output file`. Click :guilabel:`OK` to start the computation.
+13. Select both the layers using :guilabel:`...` button as Input Layers. The raster calculator can apply mathematical operations on the raster pixels. In this case we want to enter a simple formula to subtract the 2010 population from 2000. Enter the following expression using :guilabel:`ε` button. In the expression, The bands are named after the raster name followed by ``@`` and band number. Since each of our rasters have only 1 band, you will see the names with ``@1`` appended to the layer name. Keep all the other options as default and save the output layer with the name ``population_change_2010_2000.tif`` and click :guilabel:`Run`.
+
+  .. code-block:: none
+
+    "gpw-v4-population-count-rev11_2010_2pt5_min@1" - "gpw-v4-population-count-rev11_2000_2pt5_min@1"
 
   .. image:: /static/3/raster_styling_and_analysis/images/13.png
     :align: center

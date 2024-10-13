@@ -61,7 +61,7 @@ Procedure
 
   The inverted polygon renderer is used to show regions outside the feature. In our case, the ``mask`` layer is empty so the *inverted* region is the whole canvas. That is why you see the whole canvas rendered using the chosen symbology. We use this renderer for the tutorial since it can render the map without needing any features being present in the layer and will work anywhere in the world.
   
-9. Select ``Geometry Generator`` as the :guilabel:`Symbol layer type`. We will now enter an expressions to change how the layer is rendered. Click the :guilabel:`Expression` button.
+9. Select ``Geometry Generator`` as the :guilabel:`Symbol layer type`. We will now enter an expression to change how the layer is rendered. Click the :guilabel:`Expression` button.
 
   .. image:: /static/3/interactive_reveal_maps/images/9.png
     :align: center
@@ -101,7 +101,7 @@ Procedure
   .. image:: /static/3/interactive_reveal_maps/images/15.png
     :align: center
 
-16. The map canvas doesn't yet respond to the cursor movement because it doesn't refresh unless you move the map. Let's make it auto-refresh. Right-click the ``point`` layer and select :guilabel:`Properties`.
+16. The map canvas doesn't yet respond to the cursor movement because it doesn't refresh unless you move the map. Let's make it auto-refresh. Right-click the ``mask`` layer and select :guilabel:`Properties`.
 
   .. image:: /static/3/interactive_reveal_maps/images/16.png
     :align: center
