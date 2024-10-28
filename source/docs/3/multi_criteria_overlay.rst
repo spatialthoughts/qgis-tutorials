@@ -204,7 +204,7 @@ Procedure
   .. image:: /static/3/multi_criteria_overlay/images/26.png
     :align: center
 
-27.Now we are ready to do the final overlay analysis. Recall that our criteria for determining suitability is as follows - close to roads, away from water and not in a protected region. Open :menuselection:`Raster analysis --> Raster calculator`.Select ``roads_reclass``,``roads_reclass``,``raster_protected_regions`` and ``raster_boundary`` layers using :guilabel:`...` button as Input Layers. Use :guilabel:`ε` button to enter the following expression that applies these criteria. Note that we are multiplying the result with ``raster_boundary@1`` at the end to discard pixel values outside of the state boundary. Keep other parameters as default. Name the output ``overlay.tif`` and click :guilabel:`Run`.
+27. Now we are ready to do the final overlay analysis. Recall that our criteria for determining suitability is as follows - close to roads, away from water and not in a protected region. Open :menuselection:`Raster analysis --> Raster calculator`.Select ``roads_reclass``, ``water_reclass``, ``raster_protected_regions`` and ``raster_boundary`` layers using :guilabel:`...` button as Input Layers. Use :guilabel:`ε` button to enter the following expression that applies these criteria. Note that we are multiplying the result with ``raster_boundary@1`` at the end to discard pixel values outside of the state boundary. Keep other parameters as default. Name the output ``overlay.tif`` and click :guilabel:`Run`.
 
   .. code-block:: none
 
