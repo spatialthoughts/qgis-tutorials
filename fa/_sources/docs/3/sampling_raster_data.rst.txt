@@ -21,7 +21,7 @@ We will use a CSV file from `2018 US Gazetteer
 urban areas in the US.  Download the `Urban Areas Gazetteer File
 <https://www2.census.gov/geo/docs/maps-data/data/gazetteer/2018_Gazetteer/2018_Gaz_ua_national.zip>`_.
 
-`US Census Bureau <https://www.census.gov/en.html>`_ provides `TIGER/Line Shapefiles <https://www.census.gov/geographies/mapping-files/time-series/geo/tiger-line-file.html>`_. You can visit the `FTP site <https://www2.census.gov/geo/tiger/TIGER2018/>`_ and download census tracts shapefile for California. Download `Census Tracts for California <https://www2.census.gov/geo/tiger/TIGER2018/COUNTY/tl_2018_us_county.zip>`_ file. 
+`US Census Bureau <https://www.census.gov/en.html>`_ provides `TIGER/Line Shapefiles <https://www.census.gov/geographies/mapping-files/time-series/geo/tiger-line-file.html>`_. You can visit the `FTP site <https://www2.census.gov/geo/tiger/TIGER2018/>`_ and download `Census Tracts Shapefile <https://www2.census.gov/geo/tiger/TIGER2018/COUNTY/tl_2018_us_county.zip>`_. 
 
 
 For convenience, you may directly download a copy of the datasets from the
