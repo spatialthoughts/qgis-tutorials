@@ -50,7 +50,7 @@ Procedure
   .. image:: /static/3/performing_spatial_queries/images/2.png
      :align: center
 
-3. In the :guilabel:`Data Source Manager | Delimited Text` dialog, browse and select the downloaded ``Bars_and_pubs__with_patron_capacity.csv`` file as :guilabel:`File name`. The :guilabel:`X field` and :guilabel:`Y field` columns should be auto selected to ``x coordinate`` and ``y coordinate`` respectively. Click :guilabel:`Add`.
+3. In the :guilabel:`Data Source Manager | Delimited Text` dialog, browse and select the downloaded ``Bars_and_pubs__with_patron_capacity.csv`` file as :guilabel:`File name`. The :guilabel:`X field` and :guilabel:`Y field` columns should be auto selected to ``x coordinate`` and ``y coordinate`` respectively. Click :guilabel:`Add`. Note that QGIS saves the last-selected options for this dialog, so if you previously configured this dialog with other options, they may still be selected. Specifically, make sure the :guilabel:`Record and Fields Options` does has :guilabel:`Number of header lines to discard` option set to ``0``.
 
   .. image:: /static/3/performing_spatial_queries/images/3.png
      :align: center
