@@ -50,10 +50,14 @@ Procedure
   .. image:: /static/3/performing_spatial_queries/images/2.png
      :align: center
 
-3. In the :guilabel:`Data Source Manager | Delimited Text` dialog, browse and select the downloaded ``Bars_and_pubs__with_patron_capacity.csv`` file as :guilabel:`File name`. The :guilabel:`X field` and :guilabel:`Y field` columns should be auto selected to ``x coordinate`` and ``y coordinate`` respectively. Click :guilabel:`Add`. Note that QGIS saves the last-selected options for this dialog, so if you previously configured this dialog with other options, they may still be selected. Specifically, make sure the :guilabel:`Record and Fields Options` does has :guilabel:`Number of header lines to discard` option set to ``0``.
+3. In the :guilabel:`Data Source Manager | Delimited Text` dialog, browse and select the downloaded ``Bars_and_pubs__with_patron_capacity.csv`` file as :guilabel:`File name`. The :guilabel:`X field` and :guilabel:`Y field` columns should be auto selected to ``x coordinate`` and ``y coordinate`` respectively. Click :guilabel:`Add`. 
 
   .. image:: /static/3/performing_spatial_queries/images/3.png
      :align: center
+
+.. note::
+
+    QGIS saves the last-selected options for this dialog, so if you previously configured this dialog with other options, they may still be selected. Specifically, make sure the :guilabel:`Record and Fields Options` section has :guilabel:`Number of header lines to discard` option set to ``0``.
 
 4. You will see a new ``Bars_and_pubs__with_patron_capacity`` layer added to the :guilabel:`Layers` panel. Both of the input layers are in the Geograhpic Coordinate Reference System (CRS) ``EPSG:4326 WGS84``. For performing spatial analysis, it is recommended to use a Projected Coordinate Reference System (CRS). So we will now re-project both the layers to an appropriate regional CRS that minimizes distortions and allows us to work in units of distance such as meters instead of degrees. Go to :menuselection:`Processing --> Toolbox`.
 

@@ -5,8 +5,7 @@ Cartogram is a type of map visualization where the shape of each feature is dist
 
 This tutorial is builds on `Hans van der Kwast's excellent cartogram tutorial <https://www.youtube.com/watch?v=qxKD6wcFUcE>`_. The formula for scale factor used here is from the original paper `Noncontiguous Area Cartograms <https://doi.org/10.1111/j.0033-0124.1976.00371.x>`_ by Judy M Olson.
 
-You can also watch my YouTube video `QGIS Expressions: Hidden Gems and Unexpected Possibilities
- <https://www.youtube.com/watch?v=4Rtwqv_z-F4>`_ which explains the concepts behind this tutorial.
+You can also watch my YouTube video `QGIS Expressions: Hidden Gems and Unexpected Possibilities <https://www.youtube.com/watch?v=4Rtwqv_z-F4>`_ which explains the concepts behind this tutorial.
  
 
 Overview of the task
