@@ -192,11 +192,11 @@
   <section id="creating-an-animated-cartogram-qgis3">
 <h1>Een geanimeerd cartogram maken (QGIS3)<a class="headerlink" href="#creating-an-animated-cartogram-qgis3" title="Link to this heading">¶</a></h1>
 <p>Een cartogram is een type kaartvisualisatie waarin de vorm van elk object in verhouding is vervormd tot een variabele. Cartogrammen maken het gemakkelijk grote variaties in de gegevens te zien. De eenvoudigste methode om een cartogram te maken is door de grootte van elke regio op schaal te brengen, overeenkomstig een variabele. Deze methode behoudt de originele vorm van de polygoon en wijzigt alleen de grootte. Deze staan bekend als <a class="reference external" href="https://en.wikipedia.org/wiki/Cartogram#Non-contiguous_isomorphic_cartograms">Niet-aaneensluitende isomorfische cartogrammen</a>. In deze handleiding zullen we leren hoe expressies van QGIS te gebruiken om een cartogram te maken en Tijdbeheer te gebruiken om een animatie te maken die de objecten gradueel vervormt tot de doelgrootte.</p>
-<p>This tutorial is builds on <a class="reference external" href="https://www.youtube.com/watch?v=qxKD6wcFUcE">Hans van der Kwast’s excellent cartogram tutorial</a>. The formula for scale factor used here is from the original paper <a class="reference external" href="https://doi.org/10.1111/j.0033-0124.1976.00371.x">Noncontiguous Area Cartograms</a> by Judy M Olson.</p>
+<p>Deze handleiding is geïnspireerd op <a class="reference external" href="https://www.youtube.com/watch?v=qxKD6wcFUcE">Hans van der Kwast’s excellente handleiding voor een cartogram</a>. De formule voor de hier gebruikte schaalfactor is afkomstig uit het originele paper <a class="reference external" href="https://doi.org/10.1111/j.0033-0124.1976.00371.x">Noncontiguous Area Cartograms</a> door Judy M Olson.</p>
 <p>You can also watch my YouTube video <a class="reference external" href="https://www.youtube.com/watch?v=4Rtwqv_z-F4">QGIS Expressions: Hidden Gems and Unexpected Possibilities</a> which explains the concepts behind this tutorial.</p>
 <section id="overview-of-the-task">
 <h2>Overzicht van de taak<a class="headerlink" href="#overview-of-the-task" title="Link to this heading">¶</a></h2>
-<p>We will take a layer of states in the US and create an animated cartogram by scaling each state by population. The resulting map will have each state’s area proportional its population.</p>
+<p>We zullen een laag van de staten in de Verenigde Staten nemen en een geanimeerd cartogram maken door elke staat op grootte te brengen naar inwoners. De resulterende kaart zal het gebied van elke staat op grootte hebben gebracht, proportioneel ten opzichte van het aantal inwoners.</p>
 <blockquote>
 <div><img alt="../../_images/output.gif" class="align-center" src="../../_images/output.gif" />
 </div></blockquote>
@@ -235,13 +235,13 @@
 <div><img alt="../../_images/data53.png" class="align-center" src="../../_images/data53.png" />
 </div></blockquote>
 <ol class="arabic simple" start="6">
-<li><p>A new layer <code class="docutils literal notranslate"><span class="pre">NST-EST2023-ALLDATA</span></code> will be added to the <span class="guilabel">Layers</span> panel. Right-click and select <span class="guilabel">Open Attribute Table</span>. This table has the population counts in the <code class="docutils literal notranslate"><span class="pre">POPESTIMATE2023</span></code> column. Each state has a unique id in the <code class="docutils literal notranslate"><span class="pre">STATE</span></code> column that we will use to join this table with the polygon layer.</p></li>
+<li><p>Een nieuwe laag <code class="docutils literal notranslate"><span class="pre">NST-EST2023-ALLDATA</span></code> zal worden toegevoegd aan het paneel <span class="guilabel">Lagen</span>. Klik met rechts en selecteer <span class="guilabel">Attributentabel openen</span>. Deze tabel heeft de aantallen inwoners in de kolom <code class="docutils literal notranslate"><span class="pre">POPESTIMATE2023</span></code>. Elke staat heeft een unieke ID in de kolom <code class="docutils literal notranslate"><span class="pre">STATE</span></code>, die we zullen gebruiken om deze tabel samen te voegen met de polygoonlaag.</p></li>
 </ol>
 <blockquote>
 <div><img alt="../../_images/data63.png" class="align-center" src="../../_images/data63.png" />
 </div></blockquote>
 <ol class="arabic simple" start="7">
-<li><p>Right-click the <code class="docutils literal notranslate"><span class="pre">cb_2018_us_state_20m</span></code> layer and select <span class="guilabel">Open Attribute Table</span>. The state ids are contained in the <code class="docutils literal notranslate"><span class="pre">GEOID</span></code> column. While the numbers are the same, they are formatted as a 2-digit 0-padded number. To match these with the <code class="docutils literal notranslate"><span class="pre">STATE</span></code> column from our population table, we need similarly formatted numbers. Select the <code class="docutils literal notranslate"><span class="pre">NST-EST2023-ALLDATA</span></code>. Go to <span class="menuselection">Processing ‣ Toolbox</span>. Search and locate the <span class="menuselection">Vector table ‣ Field calculator</span> algorithm. Double-click to open it.</p></li>
+<li><p>Klik met rechts op de laag <code class="docutils literal notranslate"><span class="pre">cb_2018_us_state_20m</span></code> en selecteer <span class="guilabel">Attributentabel openen</span>. De ID’s voor de staten zijn opgenomen in de kolom <code class="docutils literal notranslate"><span class="pre">GEOID</span></code>. Hoewel de getallen hetzelfde zijn, zijn zij opgemaakt als 2-cijferige, met voorloopnullen aangevulde getallen. We hebben dezelfde soort opgemaakte getallen nodig om deze overeen te laten komen met de kolom <code class="docutils literal notranslate"><span class="pre">STATE</span></code> uit onze tabel met inwoners. Selecteer <code class="docutils literal notranslate"><span class="pre">NST-EST2023-ALLDATA</span></code>. Ga naar <span class="menuselection">Processing ‣ Toolbox</span>. Zoek en lokaliseer het algoritme <span class="menuselection">Vector tabel ‣ Veld calculator</span>. Dubbelklik erop om het te openen.</p></li>
 </ol>
 <blockquote>
 <div><img alt="../../_images/data73.png" class="align-center" src="../../_images/data73.png" />
@@ -274,7 +274,7 @@
 <div><img alt="../../_images/data114.png" class="align-center" src="../../_images/data114.png" />
 </div></blockquote>
 <ol class="arabic simple" start="12">
-<li><p>In the <span class="guilabel">Reproject layer</span> dialog, select <code class="docutils literal notranslate"><span class="pre">Joined</span> <span class="pre">layer</span></code> as the <span class="guilabel">Input layer</span>. For the <span class="guilabel">Target CRS</span>, click the <span class="guilabel">Select CRS</span> button. Search for the <code class="docutils literal notranslate"><span class="pre">North_America_Albers_Equal_Area_Conic</span></code> CRS and select it. This is our final layer so we will save it to disk. Click the <span class="guilabel">…</span> button next to <span class="guilabel">Reprojected</span> and select <span class="guilabel">Save to File…</span>.</p></li>
+<li><p>In het dialoogvenster <span class="guilabel">Laag opnieuw projecteren</span>, selecteer <code class="docutils literal notranslate"><span class="pre">Samengevoegde</span> <span class="pre">laag</span></code> als de <span class="guilabel">Invoerlaag</span>. Klik, voor het <span class="guilabel">Doel-CRS</span>, op de knop <span class="guilabel">CRS selecteren</span>. Zoek naar het CRS <code class="docutils literal notranslate"><span class="pre">North_America_Albers_Equal_Area_Conic</span></code> en selecteer dat. Dit is onze uiteindelijke laag, dus zullen we die opslaan op schijf. Klik op de knop <span class="guilabel">…</span> naast <span class="guilabel">Opnieuw geprojecteerd</span> en selecteer <span class="guilabel">Opslaan als bestand…</span>.</p></li>
 </ol>
 <blockquote>
 <div><img alt="../../_images/data123.png" class="align-center" src="../../_images/data123.png" />
@@ -298,19 +298,19 @@
 <div><img alt="../../_images/140.png" class="align-center" src="../../_images/140.png" />
 </div></blockquote>
 <ol class="arabic simple" start="2">
-<li><p>A new layer <code class="docutils literal notranslate"><span class="pre">us_states_with_population</span></code> will be added to the <span class="guilabel">Layers</span> panel. Right-click and select <span class="guilabel">Open Attribute Table</span>. For our cartogram, we need to use the population density as the variable. We will use the population values in the <code class="docutils literal notranslate"><span class="pre">POPESTIMATE2023</span></code> field. Close the attribute table.</p></li>
+<li><p>Een nieuwe laag <code class="docutils literal notranslate"><span class="pre">us_states_with_population</span></code> zal worden toegevoegd aan het paneel <span class="guilabel">Lagen</span>. Klik met rechts en selecteer <span class="guilabel">Attributentabel openen</span>. Voor ons cartogram willen we de dichtheid van de inwoners als de variabele gebruiken. We zullen de waarden voor de inwoners gebruiken in het veld <code class="docutils literal notranslate"><span class="pre">POPESTIMATE2023</span></code>. Sluit de attributentabel.</p></li>
 </ol>
 <blockquote>
 <div><img alt="../../_images/227.png" class="align-center" src="../../_images/227.png" />
 </div></blockquote>
 <ol class="arabic simple" start="3">
-<li><p>Search and locate the <span class="menuselection">Vector table ‣ Field calculator</span> algorithm from the Processing Toolbox. Double-click to open it.</p></li>
+<li><p>Zoek en lokaliseer het algoritme <span class="menuselection">Vector tabel ‣ Veld calculator</span> in de Toolbox van Processing. Dubbelklik erop om het te starten.</p></li>
 </ol>
 <blockquote>
 <div><img alt="../../_images/319.png" class="align-center" src="../../_images/319.png" />
 </div></blockquote>
 <ol class="arabic simple" start="4">
-<li><p>In the <span class="guilabel">Field calculator</span> dialog, select <code class="docutils literal notranslate"><span class="pre">us_states_with_population</span></code> as the <span class="guilabel">Input layer</span>. Enter <code class="docutils literal notranslate"><span class="pre">density</span></code> as the <span class="guilabel">Field name</span>. Enter the following expression to compute the density. As the function <code class="docutils literal notranslate"><span class="pre">area(&#64;geometry)</span></code> calculates the area in the unit of the CRS (which is in meters), we apply the conversion factor to convert it to square kilometers. Click <span class="guilabel">Run</span>.</p></li>
+<li><p>In het dialoogvenster <span class="guilabel">Veld calculator</span>, selecteer <code class="docutils literal notranslate"><span class="pre">us_states_with_population</span></code> als de <span class="guilabel">Invoerlaag</span>. Voer <code class="docutils literal notranslate"><span class="pre">density</span></code> in als de <span class="guilabel">Veldnaam</span>. Voer de volgende expressie in om de dichtheid te berekenen. Omdat de functie <code class="docutils literal notranslate"><span class="pre">area(&#64;geometry)</span></code> het gebied berekent in de eenheid van het CRS (wat in meters is), passen we de conversiefactor toe om te converteren naar vierkante kilometers. Klik op <span class="guilabel">Uitvoeren</span>.</p></li>
 </ol>
 <blockquote>
 <div><div class="highlight-none notranslate"><div class="highlight"><pre><span></span>1000*1000* &quot;POPESTIMATE2023&quot; /
@@ -320,19 +320,19 @@ area(@geometry)
 <img alt="../../_images/48.png" class="align-center" src="../../_images/48.png" />
 </div></blockquote>
 <ol class="arabic simple" start="5">
-<li><p>Click the <span class="guilabel">…</span> button next to <span class="guilabel">Calculated</span> and select <span class="guilabel">Save to File…</span>. Enter the name of the layer as <code class="docutils literal notranslate"><span class="pre">us_states_population_density.gpkg</span></code> and select <span class="guilabel">Save</span>. Click <span class="guilabel">Run</span>.</p></li>
+<li><p>Klik op de knop <span class="guilabel">…</span> naast <span class="guilabel">Berekend</span> en selecteer <span class="guilabel">Opslaan als bestand…</span>. Voer de naam van de laag in als <code class="docutils literal notranslate"><span class="pre">us_states_population_density.gpkg</span></code> en selecteer <span class="guilabel">Opslaan</span>. Klik op <span class="guilabel">Uitvoeren</span>.</p></li>
 </ol>
 <blockquote>
 <div><img alt="../../_images/58.png" class="align-center" src="../../_images/58.png" />
 </div></blockquote>
 <ol class="arabic simple" start="6">
-<li><p>A new layer <code class="docutils literal notranslate"><span class="pre">us_states_population_density</span></code> will be added to the <span class="guilabel">Layers</span> panel. Right-click and select <span class="guilabel">Open Attribute Table</span>. We need to pick an <strong>Anchor</strong> feature against which all other features will be scaled. Ideally you would pick the feature with the highest value of the variable you want to use for the cartogram. This will ensure there are no overlapping areas. Double-click the <span class="guilabel">density</span> column header to sort the table by density. You will notice that the highest density value in our dataset is quite large compared to other values and it belongs to a fairly small state. This will result all the features being scaled to very small sizes. We can pick the feature the second highest density which has a relatively large area and its density is comparable to other features.</p></li>
+<li><p>Een nieuwe laag <code class="docutils literal notranslate"><span class="pre">us_states_population_density</span></code> zal worden toegevoegd aan het paneel <span class="guilabel">Lagen</span>. Klik met rechts en selecteer <span class="guilabel">Attributentabel openen</span>. We moeten een object <strong>Anker</strong> kiezen waartegen alle andere objecten op schaal zullen worden gebracht. Idealiter zou u het object kiezen met de hoogste waarde voor de variabele die u wilt gebruiken voor het cartogram. Dat zal ervoor zorgen dat er geen overlappende gebieden zijn. Dubbelklik op de kolomkop van <span class="guilabel">density</span> om de tabel op dichtheid te sorteren. U zult merken dat de hoogste waarde voor de dichtheid in onze gegevensset behoorlijk veel groter is in vergelijking tot de andere waarden en het behoort tot een redelijk kleine staat. Dat zal erin resulteren dat alle objecten op schaal zullen worden gebracht in hele kleine grootten. We kunnen het object kiezen met de op een na hoogste dichtheid, wat een behoorlijk groot gebied heeft en waarvan de dichtheid is te vergelijken met andere objecten.</p></li>
 </ol>
 <blockquote>
 <div><img alt="../../_images/68.png" class="align-center" src="../../_images/68.png" />
 </div></blockquote>
 <ol class="arabic simple" start="7">
-<li><p>In Area cartograms, the scale factor determines how much the feature’s area is reduced. We must reduce each feature’s area so that the population density of the feature is the same as the population density of the anchor feature. The formula for scale factor is the ratio of the square-root of the feature’s value against the square-root of the value of the anchor feature. Open the <span class="menuselection">Vector table ‣ Field calculator</span> algorithm from the Processing Toolbox. In the <span class="guilabel">Field calculator</span> dialog, select <code class="docutils literal notranslate"><span class="pre">us_states_population_density</span></code> as the <span class="guilabel">Input layer</span>. Enter <code class="docutils literal notranslate"><span class="pre">scale_factor</span></code> as the <span class="guilabel">Field name</span>. Enter the following expression to compute the scale factor. The expression calculates the ratio of the square root of the feature’s density against the square root of the density of the second largest density value. Click the <span class="guilabel">…</span> button next to <span class="guilabel">Calculated</span> and select <span class="guilabel">Save to File…</span>. Enter the name of the layer as <code class="docutils literal notranslate"><span class="pre">us_states_scale_factor.gpkg</span></code> and select <span class="guilabel">Save</span>. Click <span class="guilabel">Run</span>.</p></li>
+<li><p>In cartogrammen met gebieden bepaalt de schaalfactor hoeveel het gebied van het object wordt verkleind. We moeten het gebied van elk object verkleinen, zodat de dichtheid van de inwoners van het object hetzelfde is als de dichtheid van de inwoners van het anker-object. De formule voor de schaalfactor is de verhouding van de vierkantswortel van de waarde van het object ten opzichte van de vierkantswortel van de waarde van het anker-object. Open het algoritme <span class="menuselection">Vector tabel ‣ Veld calculator</span> uit de Toolbox van Processing. In het dialoogvenster <span class="guilabel">Veld calculator</span>, selecteer <code class="docutils literal notranslate"><span class="pre">us_states_population_density</span></code> als de <span class="guilabel">Invoerlaag</span>. Voer <code class="docutils literal notranslate"><span class="pre">scale_factor</span></code> in als de <span class="guilabel">Veldnaam</span>. Voer de volgende expressie in om de schaalfactor te berekenen. De expressie berekent de verhouding voor de vierkantswortel van de dichtheid van het object met de vierkantswortel van de dichtheid van de op een na grootste waarde voor de dichtheid. Klik op de knop <span class="guilabel">…</span> naast <span class="guilabel">Berekend</span> en selecteer <span class="guilabel">Opslaan als bestand…</span>. Voer als naam voor de laag in <code class="docutils literal notranslate"><span class="pre">us_states_scale_factor.gpkg</span></code> en selecteer <span class="guilabel">Opslaan</span>. Klik op <span class="guilabel">Uitvoeren</span>.</p></li>
 </ol>
 <blockquote>
 <div><div class="highlight-none notranslate"><div class="highlight"><pre><span></span>sqrt(&quot;density&quot;)/array_get(array_agg(
@@ -343,37 +343,37 @@ area(@geometry)
 <img alt="../../_images/78.png" class="align-center" src="../../_images/78.png" />
 </div></blockquote>
 <ol class="arabic simple" start="8">
-<li><p>A new layer <code class="docutils literal notranslate"><span class="pre">us_states_scale_factor</span></code> will be added to the <span class="guilabel">Layers</span> panel. Right-click and select <span class="guilabel">Open Attribute Table</span>. The <code class="docutils literal notranslate"><span class="pre">scale_factor</span></code> field now contains the ratio by which each feature must be scaled to have the same population density as the anchor feature.</p></li>
+<li><p>Een nieuwe laag <code class="docutils literal notranslate"><span class="pre">us_states_scale_factor</span></code> zal worden toegevoegd aan het paneel <span class="guilabel">Lagen</span>. Klik met rechts en selecteer <span class="guilabel">Attributentabel openen</span>. Het veld <code class="docutils literal notranslate"><span class="pre">scale_factor</span></code> bevat nu de verhouding waarmee elk object op schaal moet worden gebracht om dezelfde dichtheid van inwoners te hebben als het anker-object=.</p></li>
 </ol>
 <blockquote>
 <div><img alt="../../_images/88.png" class="align-center" src="../../_images/88.png" />
 </div></blockquote>
 <ol class="arabic simple" start="9">
-<li><p>We only need the <code class="docutils literal notranslate"><span class="pre">us_states_scale_factor</span></code> layer for the final visualization. Select the remaining layers, right-click and select <span class="guilabel">Remove Layer</span>.</p></li>
+<li><p>We hebben alleen de laag <code class="docutils literal notranslate"><span class="pre">us_states_scale_factor</span></code> nodig voor de uiteindelijke visualisatie. Selecteer de overblijvende lagen, klik met rechts en selecteer <span class="guilabel">Laag verwijderen</span>.</p></li>
 </ol>
 <blockquote>
 <div><img alt="../../_images/98.png" class="align-center" src="../../_images/98.png" />
 </div></blockquote>
 <ol class="arabic simple" start="10">
-<li><p>Select the <code class="docutils literal notranslate"><span class="pre">us_states_scale_factor</span></code> layer and click the <span class="guilabel">Open the layer styling panel</span> button in the <span class="guilabel">Layers</span> panel. Select <span class="guilabel">Simple Fill</span> and open the drop-down selector for <span class="guilabel">Symbol layer type</span>. Set the <span class="guilabel">Symbol layer type</span> to <code class="docutils literal notranslate"><span class="pre">Outline:</span> <span class="pre">Simple</span> <span class="pre">Line</span></code> and select a <span class="guilabel">Color</span> of your choice. This symbol layer will be a reference for our map when we resize the polygons.</p></li>
+<li><p>Selecteer de laag <code class="docutils literal notranslate"><span class="pre">us_states_scale_factor</span></code> en klik op de knop <span class="guilabel">Paneel Laag opmaken openen</span> in het paneel <span class="guilabel">Lagen</span>. Selecteer <span class="guilabel">Standaard vulling</span> en open de keuzeselectie voor <span class="guilabel">Symboollaagtype</span>. Stel het <span class="guilabel">Symboollaagtype</span> in op <code class="docutils literal notranslate"><span class="pre">Rand:</span> <span class="pre">Doorgetrokken</span> <span class="pre">lijn</span></code> en selecteer een <span class="guilabel">Kleur</span> van uw keuze. Deze symboollaag zal een verwijzing zijn voor onze kaart als we de grootten van de polygonen wijzigen.</p></li>
 </ol>
 <blockquote>
 <div><img alt="../../_images/1012.png" class="align-center" src="../../_images/1012.png" />
 </div></blockquote>
 <ol class="arabic simple" start="11">
-<li><p>Click the <span class="guilabel">Add Symbol layer (+)</span> button. A new symbol layer <span class="guilabel">Simple Fill</span> will be added. Set the <span class="guilabel">Fill color</span> to the same color as the lines and the <span class="guilabel">Stroke color</span> to be a slightly darker color.</p></li>
+<li><p>Klik op de knop <span class="guilabel">Symboollaag toevoegen (+)</span>. Een nieuwe symboollaag <span class="guilabel">Standaard vulling</span> zal worden toegevoegd. Stel de <span class="guilabel">Vulkleur</span> in op dezelfde kleur als de lijnen en de <span class="guilabel">Lijnkleur</span> op een iets donkerder kleur.</p></li>
 </ol>
 <blockquote>
 <div><img alt="../../_images/1115.png" class="align-center" src="../../_images/1115.png" />
 </div></blockquote>
 <ol class="arabic simple" start="12">
-<li><p>Next, open the drop-down selector for <span class="guilabel">Symbol layer type</span> and select <code class="docutils literal notranslate"><span class="pre">Geometry</span> <span class="pre">Generator</span></code> as the <span class="guilabel">Symbol layer type</span>. Geometry generator allows us to modify the geometry for rendering using expressions. Click the <span class="guilabel">Expression Builder</span> button.</p></li>
+<li><p>Open vervolgens de keuzeselectie voor <span class="guilabel">Symboollaagtype</span> en selecteer <code class="docutils literal notranslate"><span class="pre">Geometrie-generator</span></code> als het <span class="guilabel">Symboollaagtype</span>. Geometrie-generator stelt ons in staat de geometrie voor het renderen aan te passen met expressies. Klik  op de knop <span class="guilabel">Expressiebouwer</span>.</p></li>
 </ol>
 <blockquote>
 <div><img alt="../../_images/1213.png" class="align-center" src="../../_images/1213.png" />
 </div></blockquote>
 <ol class="arabic simple" start="13">
-<li><p>We will use the <cite>scale()</cite> function which resizes the given geometry by X- and Y-scaling factors. For our cartogram, we want to resize each polygon by the ratio of its population to the highest population. Enter the following expression to apply this scaling and click <span class="guilabel">OK</span>.</p></li>
+<li><p>We zullen de functie <cite>scale()</cite> gebruiken die de opgegeven geometrie in grootte wijzigt met de opgegeven X- en Y-factoren voor het op schaal brengen. Voor ons cartogram, willen we elke polygoon opnieuw op grootte brengen in verhouding met zijn inwoneraantal voor het hoogste aantal inwoners. Voer de volgende expressie in om dit op schaal brengen toe te passen en klik op <span class="guilabel">OK</span>.</p></li>
 </ol>
 <blockquote>
 <div><div class="highlight-none notranslate"><div class="highlight"><pre><span></span>scale(
@@ -387,13 +387,13 @@ area(@geometry)
 <img alt="../../_images/1311.png" class="align-center" src="../../_images/1311.png" />
 </div></blockquote>
 <ol class="arabic simple" start="14">
-<li><p>You will see the state polygons are now sized by the proportion of each state’s population to the highest population. Many large states with low population densities are now much smaller than their original size. You will notice that polygons with irregular shapes are off-center after being scaled. This is because the anchor point of the scaling is the centroid of the geometry which is often the representative point for the polygon. Let’s update our expression to fix this. Click the <span class="guilabel">Expression Builder</span> button.</p></li>
+<li><p>U zult nu zien dat de polygonen van de staten nu op grootte zijn gebracht naar de verhouding van de inwoneraantallen van elke staat ten opzichte van het hoogste inwoneraantal. Veel grote staten met lage dichtheid van inwoners zijn nu veel kleiner dan hun originele grootte. Het zal u opvallen dat polygonen met onregelmatige vormen uit het centrum liggen na het op schaal brengen. Dat komt omdat het ankerpunt van het op schaal brengen het zwaartepunt is van de geometrie, wat vaak het representatieve punt voor de polygoon is. Laten we onze expressie aanpassen om dit op te lossen. Klik op de knop <span class="guilabel">Expressiebouwer</span>.</p></li>
 </ol>
 <blockquote>
 <div><img alt="../../_images/1410.png" class="align-center" src="../../_images/1410.png" />
 </div></blockquote>
 <ol class="arabic simple" start="15">
-<li><p>The <cite>scale()</cite> function takes an optional parameter to specify the scaling center point. We will use the <cite>pole_of_inaccessibility()</cite> function to find a representative anchor point for each polygon. This is similar to a centroid, but it is guaranteed to be inside of the polygon whereas a centroid can fall outside for certain shapes. Update the expression as shown below which calculates the pole of inaccessibility of the geometry with a small tolerance value and click <span class="guilabel">OK</span>.</p></li>
+<li><p>De functie <cite>scale()</cite> kan een optionele parameter bevatten om het middelpunt van het op schaal brengen te specificeren. We zullen de functie <cite>pole_of_inaccessibility()</cite> gebruiken om een representatief ankerpunt te zoeken voor elke polygoon. Dat is soortgelijk aan een zwaartepunt, maar het ligt gegarandeerd binnen de polygoon, terwijl een zwaartepunt er buiten kan vallen voor bepaalde vormen. Werk de expressie bij zoals hieronder, die de pool van ontoegankelijkheid van de geometrie berekent met een kleine tolerantiewaarde, en klik op <span class="guilabel">OK</span>.</p></li>
 </ol>
 <blockquote>
 <div><div class="highlight-none notranslate"><div class="highlight"><pre><span></span>scale(
@@ -430,25 +430,25 @@ pole_of_inaccessibility(geometry_n(@geometry,@element), 100)
 <img alt="../../_images/1710.png" class="align-center" src="../../_images/1710.png" />
 </div></blockquote>
 <ol class="arabic simple" start="18">
-<li><p>The result is much better scaling for multi-part features.</p></li>
+<li><p>Het resultaat is het veel beter op schaal brengen van meerdelige objecten.</p></li>
 </ol>
 <blockquote>
 <div><img alt="../../_images/188.png" class="align-center" src="../../_images/188.png" />
 </div></blockquote>
 <ol class="arabic simple" start="19">
-<li><p>Our cartogram is ready. This map shows concentration of the population on the eastern half of the US and a striking absence of population in states west of the Mississippi river.</p></li>
+<li><p>Ons cartogram is voltooid. Deze kaart geeft de concentratie weer van de inwoners voor de oostelijke helft van de VS en een opvallende afwezigheid van inwoners in de staten ten westen van de rivier Mississippi.</p></li>
 </ol>
 <blockquote>
 <div><img alt="../../_images/197.png" class="align-center" src="../../_images/197.png" />
 </div></blockquote>
 <ol class="arabic simple" start="20">
-<li><p>We can make an improved visualization by creating an animation that slowly transforms the original rendering to the final size. Click the <span class="guilabel">Temporal Control Panel</span> button with the Clock icon in the <span class="guilabel">Map Navigation Toolbar</span>.  Select the <span class="guilabel">Animated temporal navigation</span> button.</p></li>
+<li><p>We kunnen een verbeterde visualisatie maken door een animatie die langzaam de originele rendering transformeert naar de uiteindelijke grootte. Klik op de knop <span class="guilabel">Tijdbeheer</span> met het pictogram van een klok op de <span class="guilabel">werkbalk Kaartnavigatie</span>.  Selecteer de knop <span class="guilabel">Geanimeerde navigatie voor tijd</span>.</p></li>
 </ol>
 <blockquote>
 <div><img alt="../../_images/207.png" class="align-center" src="../../_images/207.png" />
 </div></blockquote>
 <ol class="arabic simple" start="21">
-<li><p>The default <span class="guilabel">Animation range</span> will be populated with a 24-hour window in the increment of 1-hour. This is fine for our use case as we will get 24-frames of animation. You can adjust this if you want a slower/faster animation. Right-click the <code class="docutils literal notranslate"><span class="pre">us_states_with_population</span></code> layer and select <span class="guilabel">Properties</span>.</p></li>
+<li><p>Het standaard <span class="guilabel">Bereik animatie</span> zal worden gevuld met een 24 uursvenster, met een verhoging van 1-uur. Dat is prima voor ons geval voor gebruik, omdat we dan 24 frames voor de animatie krijgen. U kunt dat aanpassen als u een tragere/snellere animatie wilt. Klik met rechts op de laag <code class="docutils literal notranslate"><span class="pre">us_states_with_population</span></code> en selecteer <span class="guilabel">Eigenschappen</span>.</p></li>
 </ol>
 <blockquote>
 <div><img alt="../../_images/2112.png" class="align-center" src="../../_images/2112.png" />
@@ -466,7 +466,7 @@ pole_of_inaccessibility(geometry_n(@geometry,@element), 100)
 <div><img alt="../../_images/236.png" class="align-center" src="../../_images/236.png" />
 </div></blockquote>
 <ol class="arabic simple" start="24">
-<li><p>Here we want to start with a scale factor of 1 and end up with the final scale factor value for the feature in the field <code class="docutils literal notranslate"><span class="pre">scale_factor</span></code>. We use the <cite>scale_linear()</cite> function which takes the time of the current time-step and calculates the scale factor using the start and end times. Update the expression as shown below and click <span class="guilabel">OK</span>.</p></li>
+<li><p>Hier willen we beginnen met een schaalfactor van 1 en eindigen met de uiteindelijke schaalfactor van voor het object in het veld <code class="docutils literal notranslate"><span class="pre">scale_factor</span></code>. We gebruiken de functie <cite>scale_linear()</cite> die de tijd van de huidige tijdstap neemt en berekent de schaalfactor met de begin- en eindtijden. Werk de expressie, bij zoals hieronder weergegeven, en klik op <span class="guilabel">OK</span>.</p></li>
 </ol>
 <blockquote>
 <div><div class="highlight-none notranslate"><div class="highlight"><pre><span></span>collect_geometries(
@@ -493,7 +493,7 @@ pole_of_inaccessibility(geometry_n(@geometry,@element), 100)
 <img alt="../../_images/247.png" class="align-center" src="../../_images/247.png" />
 </div></blockquote>
 <ol class="arabic simple" start="25">
-<li><p>Back in the <span class="guilabel">Temporal Controller</span> panel, click the <span class="guilabel">Play</span> button to see the animation. You should see the shape of each polygon gradually scaled after each frame.</p></li>
+<li><p>Terug in het paneel <span class="guilabel">Tijdbeheer</span>, klik op de knop <span class="guilabel">Afspelen</span> om de animatie te bekijken. U zou de vorm van elke polygoon geleidelijk moeten zien worden geschaald na elk frame.</p></li>
 </ol>
 <blockquote>
 <div><img alt="../../_images/257.png" class="align-center" src="../../_images/257.png" />
@@ -565,7 +565,7 @@ pole_of_inaccessibility(geometry_n(@geometry,@element), 100)
     </p>
     <p>
         &copy; Copyright 2023, Ujaval Gandhi.<br/>
-      Laatste aanpassing op nov 11, 2024.<br/>
+      Laatste aanpassing op nov 16, 2024.<br/>
       Created using <a href="http://sphinx-doc.org/">Sphinx</a> 7.2.6.<br/>
     </p>
   </div>

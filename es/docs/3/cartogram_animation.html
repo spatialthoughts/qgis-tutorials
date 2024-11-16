@@ -192,11 +192,11 @@
   <section id="creating-an-animated-cartogram-qgis3">
 <h1>Creación de un cartograma animado (QGIS3)<a class="headerlink" href="#creating-an-animated-cartogram-qgis3" title="Link to this heading">¶</a></h1>
 <p>El cartograma es un tipo de visualización cartográfica en el que la forma de cada objeto espacial se distorsiona en proporción a una variable. Los cartogramas facilitan la visualización de grandes variaciones en los datos. El método más sencillo para crear un cartograma es escalar el tamaño de cada región en función de una variable. Este método conserva la forma original del polígono y sólo cambia el tamaño. Estos se conocen como <a class="reference external" href="https://es.wikipedia.org/wiki/Cartograma#Cartogramas_sin_contig%C3%BCidad">Cartogramas isomórficos no contiguos</a>. En este tutorial aprenderemos a utilizar expresiones de QGIS para crear un cartograma y a utilizar el Controlador Temporal para crear una animación que transforme gradualmente los objetos espaciales hasta el tamaño objetivo.</p>
-<p>This tutorial is builds on <a class="reference external" href="https://www.youtube.com/watch?v=qxKD6wcFUcE">Hans van der Kwast’s excellent cartogram tutorial</a>. The formula for scale factor used here is from the original paper <a class="reference external" href="https://doi.org/10.1111/j.0033-0124.1976.00371.x">Noncontiguous Area Cartograms</a> by Judy M Olson.</p>
+<p>Este tutorial se basa en el excelente tutorial sobre cartogramas de Hans van der Kwast &lt;<a class="reference external" href="https://www.youtube.com/watch?v=qxKD6wcFUcE">https://www.youtube.com/watch?v=qxKD6wcFUcE</a>&gt;`_. La fórmula del factor de escala utilizada aquí procede del artículo original <a class="reference external" href="https://doi.org/10.1111/j.0033-0124.1976.00371.x">Noncontiguous Area Cartograms</a> de Judy M Olson.</p>
 <p>You can also watch my YouTube video <a class="reference external" href="https://www.youtube.com/watch?v=4Rtwqv_z-F4">QGIS Expressions: Hidden Gems and Unexpected Possibilities</a> which explains the concepts behind this tutorial.</p>
 <section id="overview-of-the-task">
 <h2>Visión general de la tarea<a class="headerlink" href="#overview-of-the-task" title="Link to this heading">¶</a></h2>
-<p>We will take a layer of states in the US and create an animated cartogram by scaling each state by population. The resulting map will have each state’s area proportional its population.</p>
+<p>Tomaremos una capa de estados de EE.UU. y crearemos un cartograma animado escalando cada estado según su población. El mapa resultante tendrá la superficie de cada estado proporcional a su población.</p>
 <blockquote>
 <div><img alt="../../_images/output.gif" class="align-center" src="../../_images/output.gif" />
 </div></blockquote>
@@ -235,13 +235,13 @@
 <div><img alt="../../_images/data53.png" class="align-center" src="../../_images/data53.png" />
 </div></blockquote>
 <ol class="arabic simple" start="6">
-<li><p>A new layer <code class="docutils literal notranslate"><span class="pre">NST-EST2023-ALLDATA</span></code> will be added to the <span class="guilabel">Layers</span> panel. Right-click and select <span class="guilabel">Open Attribute Table</span>. This table has the population counts in the <code class="docutils literal notranslate"><span class="pre">POPESTIMATE2023</span></code> column. Each state has a unique id in the <code class="docutils literal notranslate"><span class="pre">STATE</span></code> column that we will use to join this table with the polygon layer.</p></li>
+<li><p>Se añadirá una nueva capa <code class="docutils literal notranslate"><span class="pre">NST-EST2023-ALLDATA</span></code> al panel <span class="guilabel">Capas`</span>. Haga clic con el botón derecho y seleccione <span class="guilabel">Abrir tabla de atributos</span>. Esta tabla contiene los recuentos de población en la columna <code class="docutils literal notranslate"><span class="pre">POPESTIMATE2023</span></code>. Cada estado tiene un id único en la columna <code class="docutils literal notranslate"><span class="pre">STATE</span></code> que utilizaremos para unir esta tabla con la capa de polígonos.</p></li>
 </ol>
 <blockquote>
 <div><img alt="../../_images/data63.png" class="align-center" src="../../_images/data63.png" />
 </div></blockquote>
 <ol class="arabic simple" start="7">
-<li><p>Right-click the <code class="docutils literal notranslate"><span class="pre">cb_2018_us_state_20m</span></code> layer and select <span class="guilabel">Open Attribute Table</span>. The state ids are contained in the <code class="docutils literal notranslate"><span class="pre">GEOID</span></code> column. While the numbers are the same, they are formatted as a 2-digit 0-padded number. To match these with the <code class="docutils literal notranslate"><span class="pre">STATE</span></code> column from our population table, we need similarly formatted numbers. Select the <code class="docutils literal notranslate"><span class="pre">NST-EST2023-ALLDATA</span></code>. Go to <span class="menuselection">Processing ‣ Toolbox</span>. Search and locate the <span class="menuselection">Vector table ‣ Field calculator</span> algorithm. Double-click to open it.</p></li>
+<li><p>Haga clic con el botón derecho en la capa <code class="docutils literal notranslate"><span class="pre">cb_2018_us_state_20m</span></code> y seleccione <span class="guilabel">Abrir tabla de atributos`</span>. Los identificadores de estado se encuentran en la columna <code class="docutils literal notranslate"><span class="pre">GEOID</span></code>. Aunque los números son los mismos, están formateados como números de 2 dígitos con 0 de relleno. Para hacerlos coincidir con la columna <code class="docutils literal notranslate"><span class="pre">STATE</span></code> de nuestra tabla de población, necesitamos números con un formato similar. Seleccione <code class="docutils literal notranslate"><span class="pre">NST-EST2023-ALLDATA</span></code>. Vaya a <span class="menuselection">Procesos ‣ Caja de herramientas</span>. Busque y localice el algoritmo <span class="menuselection">Tabla vectorial ‣ Calculadora de campos</span>. Haga doble clic para abrirlo.</p></li>
 </ol>
 <blockquote>
 <div><img alt="../../_images/data73.png" class="align-center" src="../../_images/data73.png" />
@@ -274,7 +274,7 @@
 <div><img alt="../../_images/data114.png" class="align-center" src="../../_images/data114.png" />
 </div></blockquote>
 <ol class="arabic simple" start="12">
-<li><p>In the <span class="guilabel">Reproject layer</span> dialog, select <code class="docutils literal notranslate"><span class="pre">Joined</span> <span class="pre">layer</span></code> as the <span class="guilabel">Input layer</span>. For the <span class="guilabel">Target CRS</span>, click the <span class="guilabel">Select CRS</span> button. Search for the <code class="docutils literal notranslate"><span class="pre">North_America_Albers_Equal_Area_Conic</span></code> CRS and select it. This is our final layer so we will save it to disk. Click the <span class="guilabel">…</span> button next to <span class="guilabel">Reprojected</span> and select <span class="guilabel">Save to File…</span>.</p></li>
+<li><p>En el cuadro de diálogo <span class="guilabel">Reproyectar capa</span>, seleccione <code class="docutils literal notranslate"><span class="pre">Joined</span> <span class="pre">layer</span></code> como <span class="guilabel">Capa de entrada</span>. Para la <span class="guilabel">Capa de destino</span>, haga clic en el botón <span class="guilabel">Seleccionar capa</span>. Busque el CRS <code class="docutils literal notranslate"><span class="pre">North_America_Albers_Equal_Area_Conic</span></code> y selecciónelo. Esta es nuestra capa final, así que la guardaremos en disco. Haga clic en el botón <span class="guilabel">…</span> situado junto a <span class="guilabel">Reproyectado</span> y seleccione <span class="guilabel">Guardar en archivo…</span>.</p></li>
 </ol>
 <blockquote>
 <div><img alt="../../_images/data123.png" class="align-center" src="../../_images/data123.png" />
@@ -298,19 +298,19 @@
 <div><img alt="../../_images/140.png" class="align-center" src="../../_images/140.png" />
 </div></blockquote>
 <ol class="arabic simple" start="2">
-<li><p>A new layer <code class="docutils literal notranslate"><span class="pre">us_states_with_population</span></code> will be added to the <span class="guilabel">Layers</span> panel. Right-click and select <span class="guilabel">Open Attribute Table</span>. For our cartogram, we need to use the population density as the variable. We will use the population values in the <code class="docutils literal notranslate"><span class="pre">POPESTIMATE2023</span></code> field. Close the attribute table.</p></li>
+<li><p>Se añadirá una nueva capa <code class="docutils literal notranslate"><span class="pre">us_states_with_population</span></code> al panel <span class="guilabel">Capas</span>. Haga clic con el botón derecho y seleccione <span class="guilabel">Abrir tabla de atributos</span>. Para nuestro cartograma, necesitamos utilizar la densidad de población como variable. Utilizaremos los valores de población del campo <code class="docutils literal notranslate"><span class="pre">POPESTIMATE2023</span></code>. Cierra la tabla de atributos.</p></li>
 </ol>
 <blockquote>
 <div><img alt="../../_images/227.png" class="align-center" src="../../_images/227.png" />
 </div></blockquote>
 <ol class="arabic simple" start="3">
-<li><p>Search and locate the <span class="menuselection">Vector table ‣ Field calculator</span> algorithm from the Processing Toolbox. Double-click to open it.</p></li>
+<li><p>Busque y localice el algoritmo <span class="menuselection">Tabla vectorial ‣ Calculadora de campos</span> de la Caja de herramientas de procesado. Haga doble clic para abrirlo.</p></li>
 </ol>
 <blockquote>
 <div><img alt="../../_images/319.png" class="align-center" src="../../_images/319.png" />
 </div></blockquote>
 <ol class="arabic simple" start="4">
-<li><p>In the <span class="guilabel">Field calculator</span> dialog, select <code class="docutils literal notranslate"><span class="pre">us_states_with_population</span></code> as the <span class="guilabel">Input layer</span>. Enter <code class="docutils literal notranslate"><span class="pre">density</span></code> as the <span class="guilabel">Field name</span>. Enter the following expression to compute the density. As the function <code class="docutils literal notranslate"><span class="pre">area(&#64;geometry)</span></code> calculates the area in the unit of the CRS (which is in meters), we apply the conversion factor to convert it to square kilometers. Click <span class="guilabel">Run</span>.</p></li>
+<li><p>En el cuadro de diálogo <span class="guilabel">Calculadora de campos</span>, seleccione <code class="docutils literal notranslate"><span class="pre">us_states_with_population</span></code> como <span class="guilabel">Capa de entrada`</span>. Introduzca <code class="docutils literal notranslate"><span class="pre">density</span></code> como <span class="guilabel">Nombre de campo`</span>. Introduzca la siguiente expresión para calcular la densidad. Como la función <code class="docutils literal notranslate"><span class="pre">area(&#64;geometry)</span></code> calcula el área en la unidad del SRC (que está en metros), aplicamos el factor de conversión para convertirla a kilómetros cuadrados. Pulse <span class="guilabel">Ejecutar</span>.</p></li>
 </ol>
 <blockquote>
 <div><div class="highlight-none notranslate"><div class="highlight"><pre><span></span>1000*1000* &quot;POPESTIMATE2023&quot; /
@@ -320,19 +320,19 @@ area(@geometry)
 <img alt="../../_images/48.png" class="align-center" src="../../_images/48.png" />
 </div></blockquote>
 <ol class="arabic simple" start="5">
-<li><p>Click the <span class="guilabel">…</span> button next to <span class="guilabel">Calculated</span> and select <span class="guilabel">Save to File…</span>. Enter the name of the layer as <code class="docutils literal notranslate"><span class="pre">us_states_population_density.gpkg</span></code> and select <span class="guilabel">Save</span>. Click <span class="guilabel">Run</span>.</p></li>
+<li><p>Haga clic en el botón <span class="guilabel">…</span> situado junto a <span class="guilabel">Calculado</span> y seleccione <span class="guilabel">Guardar en archivo…</span>. Introduzca el nombre de la capa como <code class="docutils literal notranslate"><span class="pre">us_states_population_density.gpkg</span></code> y seleccione <span class="guilabel">Guardar</span>. Pulse <span class="guilabel">Ejecutar</span>.</p></li>
 </ol>
 <blockquote>
 <div><img alt="../../_images/58.png" class="align-center" src="../../_images/58.png" />
 </div></blockquote>
 <ol class="arabic simple" start="6">
-<li><p>A new layer <code class="docutils literal notranslate"><span class="pre">us_states_population_density</span></code> will be added to the <span class="guilabel">Layers</span> panel. Right-click and select <span class="guilabel">Open Attribute Table</span>. We need to pick an <strong>Anchor</strong> feature against which all other features will be scaled. Ideally you would pick the feature with the highest value of the variable you want to use for the cartogram. This will ensure there are no overlapping areas. Double-click the <span class="guilabel">density</span> column header to sort the table by density. You will notice that the highest density value in our dataset is quite large compared to other values and it belongs to a fairly small state. This will result all the features being scaled to very small sizes. We can pick the feature the second highest density which has a relatively large area and its density is comparable to other features.</p></li>
+<li><p>Se añadirá una nueva capa <code class="docutils literal notranslate"><span class="pre">us_states_population_density</span></code> al panel <span class="guilabel">Capas</span>. Haga clic con el botón derecho y seleccione <span class="guilabel">Abrir tabla de atributos</span>. Tenemos que elegir un objeto espacial <strong>Anchor</strong> con respecto a la cual se escalarán todas los demás objetos espacial. Lo ideal sería elegir el objeto espacial con el valor más alto de la variable que desea utilizar para el cartograma. De este modo se asegurará de que no haya zonas superpuestas. Haga doble clic en la cabecera de la columna <span class="guilabel">densidad</span> para ordenar la tabla por densidad. Observará que el valor de densidad más alto de nuestro conjunto de datos es bastante grande en comparación con otros valores y pertenece a un estado bastante pequeño. Esto hará que todos los objetos espaciales se reduzcan a tamaños muy pequeños. Podemos elegir la segunda prestación de mayor densidad, que tiene una superficie relativamente grande y su densidad es comparable al de otros objetos espaciales.</p></li>
 </ol>
 <blockquote>
 <div><img alt="../../_images/68.png" class="align-center" src="../../_images/68.png" />
 </div></blockquote>
 <ol class="arabic simple" start="7">
-<li><p>In Area cartograms, the scale factor determines how much the feature’s area is reduced. We must reduce each feature’s area so that the population density of the feature is the same as the population density of the anchor feature. The formula for scale factor is the ratio of the square-root of the feature’s value against the square-root of the value of the anchor feature. Open the <span class="menuselection">Vector table ‣ Field calculator</span> algorithm from the Processing Toolbox. In the <span class="guilabel">Field calculator</span> dialog, select <code class="docutils literal notranslate"><span class="pre">us_states_population_density</span></code> as the <span class="guilabel">Input layer</span>. Enter <code class="docutils literal notranslate"><span class="pre">scale_factor</span></code> as the <span class="guilabel">Field name</span>. Enter the following expression to compute the scale factor. The expression calculates the ratio of the square root of the feature’s density against the square root of the density of the second largest density value. Click the <span class="guilabel">…</span> button next to <span class="guilabel">Calculated</span> and select <span class="guilabel">Save to File…</span>. Enter the name of the layer as <code class="docutils literal notranslate"><span class="pre">us_states_scale_factor.gpkg</span></code> and select <span class="guilabel">Save</span>. Click <span class="guilabel">Run</span>.</p></li>
+<li><p>En los cartogramas de áreas, el factor de escala determina cuánto se reduce el área del objeto espacial. Debemos reducir el área de cada objeto espacial para que la densidad de población del objeto espacial sea la misma que la densidad de población del objeto espacial de anclaje. La fórmula del factor de escala es la relación entre la raíz cuadrada del valor del objeto espacial y la raíz cuadrada del valor del objeto espacial de anclaje. Abra el algoritmo <span class="menuselection">Tabla vectorial ‣ Calculadora de campo</span> de la Caja de herramientas de procesamiento. En el cuadro de diálogo <span class="guilabel">Calculadora de campos</span>, seleccione <code class="docutils literal notranslate"><span class="pre">us_states_population_density</span></code> como <span class="guilabel">Capa de entrada</span>. Introduzca <code class="docutils literal notranslate"><span class="pre">factor_escala</span></code> como <span class="guilabel">Nombre_de_campo`</span>. Introduzca la siguiente expresión para calcular el factor de escala. La expresión calcula la relación entre la raíz cuadrada de la densidad del objeto espacial y la raíz cuadrada de la densidad del segundo valor de densidad más grande. Haga clic en el botón <span class="guilabel">…</span> situado junto a <span class="guilabel">Calculado</span> y seleccione <span class="guilabel">Guardar en archivo…</span>. Introduzca el nombre de la capa como <code class="docutils literal notranslate"><span class="pre">us_states_scale_factor.gpkg</span></code> y seleccione <span class="guilabel">Guardar</span>. Pulse <span class="guilabel">Ejecutar</span>.</p></li>
 </ol>
 <blockquote>
 <div><div class="highlight-none notranslate"><div class="highlight"><pre><span></span>sqrt(&quot;density&quot;)/array_get(array_agg(
@@ -343,37 +343,37 @@ area(@geometry)
 <img alt="../../_images/78.png" class="align-center" src="../../_images/78.png" />
 </div></blockquote>
 <ol class="arabic simple" start="8">
-<li><p>A new layer <code class="docutils literal notranslate"><span class="pre">us_states_scale_factor</span></code> will be added to the <span class="guilabel">Layers</span> panel. Right-click and select <span class="guilabel">Open Attribute Table</span>. The <code class="docutils literal notranslate"><span class="pre">scale_factor</span></code> field now contains the ratio by which each feature must be scaled to have the same population density as the anchor feature.</p></li>
+<li><p>Se añadirá una nueva capa <code class="docutils literal notranslate"><span class="pre">us_states_scale_factor</span></code> al panel <span class="guilabel">Capas</span>. Haga clic con el botón derecho y seleccione <span class="guilabel">Abrir tabla de atributos</span>. El campo <code class="docutils literal notranslate"><span class="pre">scale_factor</span></code> contiene ahora la proporción en la que debe escalarse cada objeto espacial para que tenga la misma densidad de población que el objeto espacial de anclaje.</p></li>
 </ol>
 <blockquote>
 <div><img alt="../../_images/88.png" class="align-center" src="../../_images/88.png" />
 </div></blockquote>
 <ol class="arabic simple" start="9">
-<li><p>We only need the <code class="docutils literal notranslate"><span class="pre">us_states_scale_factor</span></code> layer for the final visualization. Select the remaining layers, right-click and select <span class="guilabel">Remove Layer</span>.</p></li>
+<li><p>Sólo necesitamos la capa <code class="docutils literal notranslate"><span class="pre">us_states_scale_factor</span></code> para la visualización final. Seleccione las capas restantes, haga clic con el botón derecho y seleccione <span class="guilabel">Quitar capa</span>.</p></li>
 </ol>
 <blockquote>
 <div><img alt="../../_images/98.png" class="align-center" src="../../_images/98.png" />
 </div></blockquote>
 <ol class="arabic simple" start="10">
-<li><p>Select the <code class="docutils literal notranslate"><span class="pre">us_states_scale_factor</span></code> layer and click the <span class="guilabel">Open the layer styling panel</span> button in the <span class="guilabel">Layers</span> panel. Select <span class="guilabel">Simple Fill</span> and open the drop-down selector for <span class="guilabel">Symbol layer type</span>. Set the <span class="guilabel">Symbol layer type</span> to <code class="docutils literal notranslate"><span class="pre">Outline:</span> <span class="pre">Simple</span> <span class="pre">Line</span></code> and select a <span class="guilabel">Color</span> of your choice. This symbol layer will be a reference for our map when we resize the polygons.</p></li>
+<li><p>Seleccione la capa <code class="docutils literal notranslate"><span class="pre">us_states_scale_factor</span></code> y haga clic en el botón <span class="guilabel">Abrir el panel de estilos de capa</span> del panel <span class="guilabel">Capas</span>. Seleccione <span class="guilabel">Relleno simple</span> y abra el selector desplegable de <span class="guilabel">Tipo de capa de símbolos</span>. Establezca <span class="guilabel">Tipo de capa de símbolo</span> en <code class="docutils literal notranslate"><span class="pre">Contorno:</span> <span class="pre">Línea</span> <span class="pre">simple</span></code> y seleccione un <span class="guilabel">Color</span> de su elección. Esta capa de símbolos será una referencia para nuestro mapa cuando redimensionemos los polígonos.</p></li>
 </ol>
 <blockquote>
 <div><img alt="../../_images/1012.png" class="align-center" src="../../_images/1012.png" />
 </div></blockquote>
 <ol class="arabic simple" start="11">
-<li><p>Click the <span class="guilabel">Add Symbol layer (+)</span> button. A new symbol layer <span class="guilabel">Simple Fill</span> will be added. Set the <span class="guilabel">Fill color</span> to the same color as the lines and the <span class="guilabel">Stroke color</span> to be a slightly darker color.</p></li>
+<li><p>Haga clic en el botón <span class="guilabel">Añadir capa de símbolos (+)</span>. Se añadirá una nueva capa de símbolo <span class="guilabel">Relleno simple</span>. Ajuste el <span class="guilabel">Color de relleno</span> al mismo color que las líneas y el <span class="guilabel">Color de trazo</span> a un color ligeramente más oscuro.</p></li>
 </ol>
 <blockquote>
 <div><img alt="../../_images/1115.png" class="align-center" src="../../_images/1115.png" />
 </div></blockquote>
 <ol class="arabic simple" start="12">
-<li><p>Next, open the drop-down selector for <span class="guilabel">Symbol layer type</span> and select <code class="docutils literal notranslate"><span class="pre">Geometry</span> <span class="pre">Generator</span></code> as the <span class="guilabel">Symbol layer type</span>. Geometry generator allows us to modify the geometry for rendering using expressions. Click the <span class="guilabel">Expression Builder</span> button.</p></li>
+<li><p>A continuación, abre el selector desplegable de <span class="guilabel">Tipo de capa de símbolos</span> y selecciona <code class="docutils literal notranslate"><span class="pre">Generador</span> <span class="pre">de</span> <span class="pre">geometría</span></code> como <span class="guilabel">Tipo de capa de símbolos`</span>. El generador de geometría nos permite modificar la geometría para el renderizado utilizando expresiones. Haz clic en el botón <span class="guilabel">Constructor de expresiones</span>.</p></li>
 </ol>
 <blockquote>
 <div><img alt="../../_images/1213.png" class="align-center" src="../../_images/1213.png" />
 </div></blockquote>
 <ol class="arabic simple" start="13">
-<li><p>We will use the <cite>scale()</cite> function which resizes the given geometry by X- and Y-scaling factors. For our cartogram, we want to resize each polygon by the ratio of its population to the highest population. Enter the following expression to apply this scaling and click <span class="guilabel">OK</span>.</p></li>
+<li><p>Utilizaremos la función <cite>scale()</cite> que redimensiona la geometría dada por factores de escala X e Y. Para nuestro cartograma, queremos redimensionar cada polígono por la relación entre su población y la población más alta. Introduzca la siguiente expresión para aplicar este escalado y pulse <span class="guilabel">Aceptar</span>.</p></li>
 </ol>
 <blockquote>
 <div><div class="highlight-none notranslate"><div class="highlight"><pre><span></span>scale(
@@ -387,13 +387,13 @@ area(@geometry)
 <img alt="../../_images/1311.png" class="align-center" src="../../_images/1311.png" />
 </div></blockquote>
 <ol class="arabic simple" start="14">
-<li><p>You will see the state polygons are now sized by the proportion of each state’s population to the highest population. Many large states with low population densities are now much smaller than their original size. You will notice that polygons with irregular shapes are off-center after being scaled. This is because the anchor point of the scaling is the centroid of the geometry which is often the representative point for the polygon. Let’s update our expression to fix this. Click the <span class="guilabel">Expression Builder</span> button.</p></li>
+<li><p>Verá que los polígonos de los estados tienen ahora el tamaño de la proporción de la población de cada estado con respecto a la población más alta. Muchos estados grandes con baja densidad de población son ahora mucho más pequeños que su tamaño original. Notará que los polígonos con formas irregulares están descentrados después de ser escalados. Esto se debe a que el punto de anclaje del escalado es el centroide de la geometría, que suele ser el punto representativo del polígono. Actualicemos nuestra expresión para solucionar este problema. Haga clic en el botón <span class="guilabel">Constructor de expresiones</span>.</p></li>
 </ol>
 <blockquote>
 <div><img alt="../../_images/1410.png" class="align-center" src="../../_images/1410.png" />
 </div></blockquote>
 <ol class="arabic simple" start="15">
-<li><p>The <cite>scale()</cite> function takes an optional parameter to specify the scaling center point. We will use the <cite>pole_of_inaccessibility()</cite> function to find a representative anchor point for each polygon. This is similar to a centroid, but it is guaranteed to be inside of the polygon whereas a centroid can fall outside for certain shapes. Update the expression as shown below which calculates the pole of inaccessibility of the geometry with a small tolerance value and click <span class="guilabel">OK</span>.</p></li>
+<li><p>La función <cite>scale()</cite> toma un parámetro opcional para especificar el punto central de escala. Utilizaremos la función <cite>pole_of_inaccessibility()</cite> para encontrar un punto ancla representativo para cada polígono. Esto es similar a un centroide, pero se garantiza que está dentro del polígono mientras que un centroide puede caer fuera para ciertas formas. Actualice la expresión como se muestra a continuación que calcula el polo de inaccesibilidad de la geometría con un pequeño valor de tolerancia y haga clic en <span class="guilabel">Aceptar</span>.</p></li>
 </ol>
 <blockquote>
 <div><div class="highlight-none notranslate"><div class="highlight"><pre><span></span>scale(
@@ -407,13 +407,13 @@ area(@geometry)
 <img alt="../../_images/1510.png" class="align-center" src="../../_images/1510.png" />
 </div></blockquote>
 <ol class="arabic simple" start="16">
-<li><p>Now the scaled polygons will have much better placement. We see another problem. Many features in the layer are <strong>Multipolygons</strong>, i.e. they have more than one part. Such features have 2 or more polygons that are part of the same geometry. With our current expression, both are scaled with the same anchor point computed from the combined geometry. This is not ideal. For example, a large feature with multiple islands should be scaled such that each island is scaled with its own center point. To fix this, we update our expression to iterate over each part of the geometry and scale it with its own center. Click the <span class="guilabel">Expression Builder</span> button.</p></li>
+<li><p>Ahora los polígonos escalados tendrán una colocación mucho mejor. Vemos otro problema. Muchos objetos espacial de la capa son <strong>Multipolígonos</strong>, es decir, tienen más de una parte. Tales objetos espaciales tienen 2 o más polígonos que forman parte de la misma geometría. Con nuestra expresión actual, ambos se escalan con el mismo punto de anclaje calculado a partir de la geometría combinada. Esto no es lo ideal. Por ejemplo, un objeto espacial de gran tamaño con varias islas debería escalarse de forma que cada isla se escalara con su propio punto central. Para solucionar esto, actualizamos nuestra expresión para iterar sobre cada parte de la geometría y escalarla con su propio centro. Haga clic en el botón <span class="guilabel">Constructor de expresiones</span>.</p></li>
 </ol>
 <blockquote>
 <div><img alt="../../_images/169.png" class="align-center" src="../../_images/169.png" />
 </div></blockquote>
 <ol class="arabic simple" start="17">
-<li><p>Here we use the <cite>array_foreach()</cite> function to iterate over each part of the geometry and generate the scaled versions of them. Finally <cite>collect_geometries()</cite> function combines each scaled part into a single multi-polygon geometry. Update the expression as shown below and click <span class="guilabel">OK</span>.</p></li>
+<li><p>Aquí utilizamos la función <cite>array_foreach()</cite> para iterar sobre cada parte de la geometría y generar las versiones escaladas de las mismas. Finalmente la función <cite>collect_geometries()</cite> combina cada parte escalada en una única geometría multipoligonal. Actualice la expresión como se muestra a continuación y haga clic en <span class="guilabel">Aceptar</span>.</p></li>
 </ol>
 <blockquote>
 <div><div class="highlight-none notranslate"><div class="highlight"><pre><span></span>collect_geometries(
@@ -430,43 +430,43 @@ pole_of_inaccessibility(geometry_n(@geometry,@element), 100)
 <img alt="../../_images/1710.png" class="align-center" src="../../_images/1710.png" />
 </div></blockquote>
 <ol class="arabic simple" start="18">
-<li><p>The result is much better scaling for multi-part features.</p></li>
+<li><p>El resultado es un escalado mucho mejor de los objetos espaciales multiparte.</p></li>
 </ol>
 <blockquote>
 <div><img alt="../../_images/188.png" class="align-center" src="../../_images/188.png" />
 </div></blockquote>
 <ol class="arabic simple" start="19">
-<li><p>Our cartogram is ready. This map shows concentration of the population on the eastern half of the US and a striking absence of population in states west of the Mississippi river.</p></li>
+<li><p>Nuestro cartograma está listo. Este mapa muestra la concentración de la población en la mitad oriental de EE.UU. y una sorprendente ausencia de población en los estados situados al oeste del río Misisipi.</p></li>
 </ol>
 <blockquote>
 <div><img alt="../../_images/197.png" class="align-center" src="../../_images/197.png" />
 </div></blockquote>
 <ol class="arabic simple" start="20">
-<li><p>We can make an improved visualization by creating an animation that slowly transforms the original rendering to the final size. Click the <span class="guilabel">Temporal Control Panel</span> button with the Clock icon in the <span class="guilabel">Map Navigation Toolbar</span>.  Select the <span class="guilabel">Animated temporal navigation</span> button.</p></li>
+<li><p>Podemos hacer una visualización mejorada creando una animación que transforme lentamente el renderizado original al tamaño final. Haga clic en el botón <span class="guilabel">Panel de control temporal</span> con el icono del Reloj en la <span class="guilabel">Barra de herramientas de navegación del mapa</span>. Seleccione el botón <span class="guilabel">Navegación temporal animada</span>.</p></li>
 </ol>
 <blockquote>
 <div><img alt="../../_images/207.png" class="align-center" src="../../_images/207.png" />
 </div></blockquote>
 <ol class="arabic simple" start="21">
-<li><p>The default <span class="guilabel">Animation range</span> will be populated with a 24-hour window in the increment of 1-hour. This is fine for our use case as we will get 24-frames of animation. You can adjust this if you want a slower/faster animation. Right-click the <code class="docutils literal notranslate"><span class="pre">us_states_with_population</span></code> layer and select <span class="guilabel">Properties</span>.</p></li>
+<li><p>De forma predeterminada <span class="guilabel">Rango de animación</span> se rellenará con una ventana de 24 horas en el incremento de 1 hora. Esto está bien para nuestro caso de uso, ya que obtendremos 24 fotogramas de animación. Puede ajustarlo si desea una animación más lenta o más rápida. Haga clic con el botón derecho en la capa <code class="docutils literal notranslate"><span class="pre">us_states_with_population</span></code> y seleccione <span class="guilabel">Propiedades</span>.</p></li>
 </ol>
 <blockquote>
 <div><img alt="../../_images/2112.png" class="align-center" src="../../_images/2112.png" />
 </div></blockquote>
 <ol class="arabic simple" start="22">
-<li><p>Select <span class="guilabel">Temporal</span> tab and enable the <span class="guilabel">Dynamic Temporal Control</span>. This layer will be updated using expression so we don’t need to configure it here. Just select <code class="docutils literal notranslate"><span class="pre">Redraw</span> <span class="pre">Layer</span> <span class="pre">Only</span></code> so that the layer is refreshed after each time step and rendered with the updated values from the expression.</p></li>
+<li><p>Seleccione la pestaña <span class="guilabel">Temporal</span> y active el <span class="guilabel">Control Temporal Dinámico</span>. Esta capa se actualizará mediante expresión, por lo que no es necesario configurarla aquí. Simplemente seleccione <code class="docutils literal notranslate"><span class="pre">Redibujar</span> <span class="pre">sólo</span> <span class="pre">capa</span></code> para que la capa se actualice después de cada paso de tiempo y se muestre con los valores actualizados de la expresión.</p></li>
 </ol>
 <blockquote>
 <div><img alt="../../_images/228.png" class="align-center" src="../../_images/228.png" />
 </div></blockquote>
 <ol class="arabic simple" start="23">
-<li><p>Let’s update our Geometry Generator expression to use the animation time steps and gradually scale the geometry. Click the <span class="guilabel">Open the layer styling panel</span> button in the <span class="guilabel">Layers</span> panel. Select <span class="guilabel">Geometry Generator</span> followed by the <span class="guilabel">Expression Builder</span> button.</p></li>
+<li><p>Actualicemos nuestra expresión del Generador de geometría para utilizar los pasos de tiempo de la animación y escalar gradualmente la geometría. Haga clic en el botón <span class="guilabel">Abrir el panel de estilo de capas</span> en el panel <span class="guilabel">Capas</span>. Seleccione <span class="guilabel">Generador de geometría</span> seguido del botón <span class="guilabel">Constructor de expresiones</span>.</p></li>
 </ol>
 <blockquote>
 <div><img alt="../../_images/236.png" class="align-center" src="../../_images/236.png" />
 </div></blockquote>
 <ol class="arabic simple" start="24">
-<li><p>Here we want to start with a scale factor of 1 and end up with the final scale factor value for the feature in the field <code class="docutils literal notranslate"><span class="pre">scale_factor</span></code>. We use the <cite>scale_linear()</cite> function which takes the time of the current time-step and calculates the scale factor using the start and end times. Update the expression as shown below and click <span class="guilabel">OK</span>.</p></li>
+<li><p>Aquí queremos empezar con un factor de escala de 1 y terminar con el valor final del factor de escala para la prestación en el campo <code class="docutils literal notranslate"><span class="pre">scale_factor</span></code>. Usamos la función <cite>scale_linear()</cite> que toma el tiempo del paso de tiempo actual y calcula el factor de escala usando los tiempos inicial y final. Actualice la expresión como se muestra a continuación y haga clic en <span class="guilabel">Aceptar</span>.</p></li>
 </ol>
 <blockquote>
 <div><div class="highlight-none notranslate"><div class="highlight"><pre><span></span>collect_geometries(
@@ -493,37 +493,37 @@ pole_of_inaccessibility(geometry_n(@geometry,@element), 100)
 <img alt="../../_images/247.png" class="align-center" src="../../_images/247.png" />
 </div></blockquote>
 <ol class="arabic simple" start="25">
-<li><p>Back in the <span class="guilabel">Temporal Controller</span> panel, click the <span class="guilabel">Play</span> button to see the animation. You should see the shape of each polygon gradually scaled after each frame.</p></li>
+<li><p>De nuevo en el panel <span class="guilabel">Controlador temporal</span>, haga clic en el botón <span class="guilabel">Reproducir</span> para ver la animación. Debería ver la forma de cada polígono escalada gradualmente después de cada fotograma.</p></li>
 </ol>
 <blockquote>
 <div><img alt="../../_images/257.png" class="align-center" src="../../_images/257.png" />
 </div></blockquote>
 <ol class="arabic simple" start="26">
-<li><p>Once you are happy with the configuration, we can export the animation. Click the <span class="guilabel">Export Animation</span> button.</p></li>
+<li><p>Una vez que esté satisfecho con la configuración, podemos exportar la animación. Haga clic en el botón <span class="guilabel">Exportar animación</span>.</p></li>
 </ol>
 <blockquote>
 <div><img alt="../../_images/266.png" class="align-center" src="../../_images/266.png" />
 </div></blockquote>
 <ol class="arabic simple" start="27">
-<li><p>In the <span class="guilabel">Export Map Animation</span> dialog, click <span class="guilabel">…</span> next to <span class="guilabel">Output directory</span> and browse to any folder on your computer. Keep all the other options to their default value and click <span class="guilabel">Save</span>.</p></li>
+<li><p>En el cuadro de diálogo <span class="guilabel">Exportar animación de mapa</span>, haga clic en <span class="guilabel">…</span> junto a <span class="guilabel">Directorio de salida</span> y busque cualquier carpeta de su computadora. Mantenga las demás opciones predeterminadas y haga clic en <span class="guilabel">Guardar</span>.</p></li>
 </ol>
 <blockquote>
 <div><img alt="../../_images/277.png" class="align-center" src="../../_images/277.png" />
 </div></blockquote>
 <ol class="arabic simple" start="28">
-<li><p>The individual frames of the animation will be exported as images. We can create a video or animated GIF from these frames. I recommend using the website ezgif.com which allows you to create GIFs from individual images easily. Visit <a class="reference external" href="https://ezgif.com/maker">Ezgif Animated GIF Maker</a>. Browse to the exported animation frames and click <span class="guilabel">Upload files!</span>.</p></li>
+<li><p>Los fotogramas individuales de la animación se exportarán como imágenes. Podemos crear un vídeo o GIF animado a partir de estos fotogramas. Recomiendo utilizar el sitio web ezgif.com que permite crear GIFs a partir de imágenes individuales fácilmente. Visite <a class="reference external" href="https://ezgif.com/maker">Ezgif Animated GIF Maker</a>. Navegue hasta los fotogramas de animación exportados y haga clic en <span class="guilabel">¡Cargar archivos!</span>.</p></li>
 </ol>
 <blockquote>
 <div><img alt="../../_images/287.png" class="align-center" src="../../_images/287.png" />
 </div></blockquote>
 <ol class="arabic simple" start="29">
-<li><p>Configure the GIF options by setting the <span class="guilabel">Delay time</span> to <code class="docutils literal notranslate"><span class="pre">5</span></code>. Check <span class="guilabel">crossfade frames</span> effect and set the <span class="guilabel">Fader delay</span> and <span class="guilabel">Fader count</span> to <code class="docutils literal notranslate"><span class="pre">2</span></code>. Click <span class="guilabel">Make a GIF!</span>/</p></li>
+<li><p>Configure las opciones GIF ajustando <span class="guilabel">Tiempo de retardo</span> a <code class="docutils literal notranslate"><span class="pre">5</span></code>. Marque el efecto <span class="guilabel">Fotogramas cruzados</span> y establezca los valores de <span class="guilabel">Retardo de fundido</span> y <span class="guilabel">Cuento de fundido</span> en <code class="docutils literal notranslate"><span class="pre">2</span></code>. Haga clic en <span class="guilabel">Hacer un GIF</span>.</p></li>
 </ol>
 <blockquote>
 <div><img alt="../../_images/296.png" class="align-center" src="../../_images/296.png" />
 </div></blockquote>
 <ol class="arabic simple" start="30">
-<li><p>Click the <span class="guilabel">save</span> button to download the animation as a GIF file.</p></li>
+<li><p>Haga clic en el botón <span class="guilabel">guardar</span> para descargar la animación como archivo GIF.</p></li>
 </ol>
 <blockquote>
 <div><img alt="../../_images/output.gif" class="align-center" src="../../_images/output.gif" />
@@ -565,7 +565,7 @@ pole_of_inaccessibility(geometry_n(@geometry,@element), 100)
     </p>
     <p>
         &copy; Copyright 2023, Ujaval Gandhi.<br/>
-      Actualizado por última vez en nov 11, 2024.<br/>
+      Actualizado por última vez en nov 16, 2024.<br/>
       Created using <a href="http://sphinx-doc.org/">Sphinx</a> 7.2.6.<br/>
     </p>
   </div>
