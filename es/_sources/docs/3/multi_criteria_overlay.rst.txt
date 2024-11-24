@@ -175,12 +175,14 @@ Procedure
 - 1000-5000m –> 50
 - >5000m –> 10
 
-   Select ``roads_proximity`` layer using :guilabel:`...` button as an Input Layer. Enter the following expression hat applies the above criteria on the input.  Keep all the other options as default and save the output layer with the name ``roads_reclass.tif`` and click :guilabel:`Run`.
+  Select ``roads_proximity`` layer using :guilabel:`...` button as an Input Layer. Enter the following expression hat applies the above criteria on the      input.  Keep all the other options as default and save the output layer with the name ``roads_reclass.tif`` and click :guilabel:`Run`.
 
   .. code-block:: none
   
-    100*("roads_proximity@1"<=1000) + 50*("roads_proximity@1">1000)*("roads_proximity@1"<=5000) + 10*("roads_proximity@1">5000)
-
+    100*("roads_proximity@1"<=1000) 
+	+ 50*("roads_proximity@1">1000)*("roads_proximity@1"<=5000) 
+	+ 10*("roads_proximity@1">5000)
+	
   .. image:: /static/3/multi_criteria_overlay/images/24.png
     :align: center
 
@@ -195,7 +197,7 @@ Procedure
 - 1000 -5000m —> 50
 - >5000m –> 100
 
-   Select ``water_proximity`` layer using :guilabel:`...` button as an Input Layer. Enter the following expression hat applies the above criteria on the input. Keep all the other options as default and save the output layer with the name ``water_reclass.tif`` and click :guilabel:`Run`.
+  Select ``water_proximity`` layer using :guilabel:`...` button as an Input Layer. Enter the following expression hat applies the above criteria on the      input. Keep all the other options as default and save the output layer with the name ``water_reclass.tif`` and click :guilabel:`Run`.
 
   .. code-block:: none
   
