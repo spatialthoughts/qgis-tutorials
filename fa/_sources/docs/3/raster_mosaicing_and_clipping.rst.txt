@@ -83,12 +83,12 @@ Procedure
   .. image:: /static/3/raster_mosaicing_and_clipping/images/5.png
      :align: center
    
-6. Once the processing finishes, the a new layer ``OUTPUT`` will be added to the :guilabel:`Layers` panel. In case the layer is not at the top of the stack, select it and drag it to the top of the :guilabel:`Layers` panel.
+6. Once the processing finishes, the a new layer ``Merged`` will be added to the :guilabel:`Layers` panel. In case the layer is not at the top of the stack, select it and drag it to the top of the :guilabel:`Layers` panel.
 
   .. image:: /static/3/raster_mosaicing_and_clipping/images/6.png
      :align: center
    
-7. You will see that the ``OUTPUT`` layer contains the merged elevation data from the individual input tiles. The default visualization only shows the pixel values in the range from 0-255. But our data contains pixels with values -14 to 2371, resulting in a low contrast rendering. Let's change it a better visualization. Click the :guilabel:`Open the layer Styling panel` button in the :guilabel:`Layers` panel.
+7. You will see that the ``Merged`` layer contains the merged elevation data from the individual input tiles. The default visualization only shows the pixel values in the range from 0-255. But our data contains pixels with values -14 to 2371, resulting in a low contrast rendering. Let's change it a better visualization. Click the :guilabel:`Open the layer Styling panel` button in the :guilabel:`Layers` panel.
 
   .. image:: /static/3/raster_mosaicing_and_clipping/images/7.png
      :align: center
@@ -113,17 +113,17 @@ Procedure
   .. image:: /static/3/raster_mosaicing_and_clipping/images/11.png
      :align: center
    
-12. In the :guilabel:`Clip Raster by Mask Layer` dialog, set ``OUTPUT`` as the :guilabel:`Input Layer`. Select ``ne_10m_admin_0_countries`` as the :guilabel:`Mask layer`, and check the :guilabel:`Selected features only` checkbox. Enter ``0.0000`` as the :guilabel:`Assign a specified nodata value to output bands`. As before, choose ``High compression`` as the :guilabel:`Profile`. Click :guilabel:`Run`.
+12. In the :guilabel:`Clip Raster by Mask Layer` dialog, set ``Merged`` as the :guilabel:`Input Layer`. Select ``ne_10m_admin_0_countries`` as the :guilabel:`Mask layer`, and check the :guilabel:`Selected features only` checkbox. Enter ``0.0000`` as the :guilabel:`Assign a specified nodata value to output bands`. As before, choose ``High compression`` as the :guilabel:`Profile`. Click :guilabel:`Run`.
 
   .. image:: /static/3/raster_mosaicing_and_clipping/images/12.png
      :align: center
    
-13. A new layer ``OUTPUT`` will be added to the :guilabel:`Layers` panel. At this point, it may be hard to see the output because we have too many overlapping layers visible. Click the :guilabel:`Manage Map Themes` button in the :guilabel:`Layers` panel and choose ``Hide All Layers``. 
+13. A new layer ``Clipped (mask)`` will be added to the :guilabel:`Layers` panel. At this point, it may be hard to see the output because we have too many overlapping layers visible. Click the :guilabel:`Manage Map Themes` button in the :guilabel:`Layers` panel and choose ``Hide All Layers``. 
 
   .. image:: /static/3/raster_mosaicing_and_clipping/images/13.png
      :align: center
    
-14. Turn on only the latest ``OUTPUT`` layer and style it with the ``Hilshade`` renderer as done before.
+14. Turn on only the latest ``Clipped (mask)`` layer and style it with the ``Hilshade`` renderer as done before.
 
   .. image:: /static/3/raster_mosaicing_and_clipping/images/14.png
      :align: center
