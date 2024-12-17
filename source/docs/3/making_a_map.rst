@@ -7,6 +7,10 @@ Overview of the task
 --------------------
 
 The tutorial shows how to create a map of Japan with standard map elements like map inset, grids, north arrow, scale bar and labels. 
+
+
+  .. image:: /static/3/making_a_map/images/output.png
+    :align: center
  
 Other skills you will learn
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~
