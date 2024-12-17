@@ -7,7 +7,7 @@ Multi-criteria weighted-overlay analysis is the process of the allocating areas 
 
   Vector vs Raster Overlays
   
-  You can do the overlay analysis on vector layers using geoprocessing tools such as buffer, dissolve, difference and intersection. This method is ideal if you wanted to find a binary **suitable/non-suitable** answer and you are working with a handful of layers. 
+  You can do the overlay analysis on vector layers using geoprocessing tools such as buffer, dissolve, difference and intersection. This method is ideal if you wanted to find a binary **suitable/non-suitable** answer and you are working with a handful of layers. You can review our video tutorial on `Locating A New Bicycle Parking Station using Multicriteria Overlay Analysis <https://www.youtube.com/watch?v=nTz2khWi2-s&list=PLppGmFLhQ1HIqNiNWxVqs5wBLiA_UrKTQ&index=26>`_ for a step-by-step guideon this approach.
   
   Working in the raster space gives you a **ranking** of the suitability - not just the best suited site. It also allows you to combine any number of input layers easily and assign different weights to each criteria. In general, this is the preferred approach for site suitability.
 

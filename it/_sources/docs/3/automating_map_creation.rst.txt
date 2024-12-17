@@ -15,6 +15,9 @@ Overview of the task
 This tutorial shows how to create wetlands map for each county in the state of
 Hawaii.
 
+  .. image:: /static/3/automating_map_creation/images/output.png
+    :align: center
+
 Other skills you will learn
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^
 - Using ``Inverted Polygons`` style renderer to fill areas outside of polygons.
