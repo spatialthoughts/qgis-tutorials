@@ -19,12 +19,12 @@ Get the data
 
 City of Melbourne's `Open Data Platform <https://data.melbourne.vic.gov.au/>`_ provides many GIS-ready datasets for the city.
 
-Download the `Metro Train Stations with Accessibility Information <https://data.melbourne.vic.gov.au/Transport-Movement/Metro-Train-Stations-with-Accessibility-Informatio/mgkp-67ad>`_ dataset by Metro Trains Melbourne. Export the data in the *Original* format.
+Download the `Metro Train Stations with Accessibility Information <https://data.melbourne.vic.gov.au/explore/dataset/metro-train-stations-with-accessibility-information/information/>`_ dataset by Metro Trains Melbourne. Export the data in the *Original* format.
 
 .. image:: /static/3/performing_spatial_queries/images/data1.png
    :align: center
      
-Download the `Bars and pubs, with patron capacity <https://data.melbourne.vic.gov.au/Economy/Bars-and-pubs-with-patron-capacity/mffi-m9yn>`_ dataset by City of Melbourne's Census of Land Use and Employment (CLUE). Export the data as a *CSV*.
+Download the `Bars and pubs, with patron capacity <https://data.melbourne.vic.gov.au/explore/dataset/bars-and-pubs-with-patron-capacity/information/>`_ dataset by City of Melbourne's Census of Land Use and Employment (CLUE). Export the data as a *CSV*.
 
 .. image:: /static/3/performing_spatial_queries/images/data2.png
    :align: center
