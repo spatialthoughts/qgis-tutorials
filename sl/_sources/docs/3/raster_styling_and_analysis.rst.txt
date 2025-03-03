@@ -97,8 +97,8 @@ Procedure
 
   .. code-block:: none
 
-    "gpw_v4_d_count_rev11_2010_2pt5_min@1" 
-    - "gpw_v4_population_count_rev11_2000_2pt5_min@1"
+    "gpw_v4_population_count_rev11_2010_2pt5_min.tif@1"
+    - "gpw_v4_population_count_rev11_2000_2pt5_min.tif@1"
 
   .. image:: /static/3/raster_styling_and_analysis/images/13.png
     :align: center
