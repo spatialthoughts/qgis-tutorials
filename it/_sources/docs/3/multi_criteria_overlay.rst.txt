@@ -65,7 +65,7 @@ Procedure
     :align: center
 
 
-6. Once the processing finishes, you will see a new layer :guilabel:`raster_roads` loaded in the :guilabel:`Layers` panel. The raster has pixel values 1 for pixels which intersected with the roads. All other pixels are set as **NoData** values. These nodata values are problematic because This is important because when raster calculator (which we will use later) encounters a pixel with nodata value in any layer, it sets the output to nodata as well, resulting is wrong output. We will fill these nodata values with the value 0. Search for and locate the :menuselection:`Raster Tools --> Fill NoData cells` algorithm. Double-click to launch it.
+6. Once the processing finishes, you will see a new layer :guilabel:`raster_roads` loaded in the :guilabel:`Layers` panel. The raster has pixel values 1 for pixels which intersected with the roads. All other pixels are set as **NoData** values. These nodata values are problematic because when raster calculator (which we will use later) encounters a pixel with nodata value in any layer, it sets the output value of that pixel to nodata as well, resulting is unexpected output. We will fill these nodata values with the value 0. Search for and locate the :menuselection:`Raster Tools --> Fill NoData cells` algorithm. Double-click to launch it.
 
   .. image:: /static/3/multi_criteria_overlay/images/6.png
     :align: center
