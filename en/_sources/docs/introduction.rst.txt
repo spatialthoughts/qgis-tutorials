@@ -82,4 +82,4 @@ Under this license, you are allowed to use, share or modify the document in any
 way you seem fit and even make commercial use of it. You only need to give
 appropriate credit to the author for the original work.
 
-Copyright (c)  2021 Ujaval Gandhi
+Copyright (c)  2025 Ujaval Gandhi
