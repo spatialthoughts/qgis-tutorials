@@ -53,18 +53,21 @@ Procedure
 
         @qgsfunction(args=0, group='Custom', usesgeometry=True)
         def GetUtmZone(value1, feature, parent):
-            """Return the UTM Zone of the feature's geometry as a String"""
-            centroid = feature.geometry()
-            longitude = centroid.asPoint().x()
-            latitude = centroid.asPoint().y()
-            zone_number = math.floor(((longitude + 180) / 6) % 60) + 1
+            """Return the UTM Zone of the feature's geometry as a string"""
+            centroid = feature.geometry().centroid()
+            if centroid:
+              longitude = centroid.asPoint().x()
+              latitude = centroid.asPoint().y()
+              zone_number = math.floor(((longitude + 180) / 6) % 60) + 1
 
-            if latitude >= 0:
-                zone_letter = 'N'
-            else:
-                zone_letter = 'S'
+              if latitude >= 0:
+                  zone_letter = 'N'
+              else:
+                  zone_letter = 'S'
 
-            return '%d%s' % (int(zone_number), zone_letter)
+              return '%d%s' % (int(zone_number), zone_letter)
+          else:
+            return None
 
     .. image:: /static/3/custom_python_functions/images/5.png
        :align: center
