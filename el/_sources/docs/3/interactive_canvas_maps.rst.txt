@@ -1,5 +1,5 @@
 Making Interactive Canvas Maps (QGIS3)
-=====================================
+======================================
 
 This tutorial shows how to make features dynamically update as you move your cursor in the QGIS Canvas. We will implement canvas brushing using expressions to make features respond to the cursor movement.
 

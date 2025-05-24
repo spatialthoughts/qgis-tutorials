@@ -51,7 +51,7 @@ Procedure
 
 .. note::
 
-  If your input layer is in a *Projected CRS*, you may choose ``Layer CRS`` option for calculation. Local or Regional projected coordinate systems are designed to minimize distortions over their region of interest, and thus are more accurate for such computation. ``Ellipsoidal`` is preferred for layers in a *Geographic CRS* (i.e. Lat/Lon). The default unit for ellipsoidal length calculation is **Meters* and can be changed by going to :menuselection:`Project --> Properties --> General`. 
+  If your input layer is in a *Projected CRS*, you may choose ``Layer CRS`` option for calculation. Local or Regional projected coordinate systems are designed to minimize distortions over their region of interest, and thus are more accurate for such computation. ``Ellipsoidal`` is preferred for layers in a *Geographic CRS* (i.e. Lat/Lon). The default unit for ellipsoidal length calculation is **Meters** and can be changed by going to :menuselection:`Project --> Properties --> General`. 
 
 5. You will see a new layer ``Added geom info`` loaded in the :guilabel:`Layers` panel. This is a copy of the input layer with a new column added for distance. Right-click the ``Added geom info`` layer and select :guilabel:`Open Attribute Table`.
 

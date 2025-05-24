@@ -1,5 +1,6 @@
 Open BIL, BIP or BSQ files in QGIS
 ==================================
+
 When dealing with remote sensing and scientific datasets, one often comes
 across data in formats like **BIL**, **BIP** or **BSQ**. `The GDAL library
 <http://www.gdal.org>`_ - which is used by QGIS to read raster files - has
@@ -39,9 +40,6 @@ For convenience, you may directly download a copy of the dataset from the link
 below:
 
 `gl-latlong-1deg-landcover.bsq.gz <http://www.qgistutorials.com/downloads/gl-latlong-1deg-landcover.bsq.gz>`_
-
-
-Data Source [GLCF]_
 
 Procedure
 ---------
