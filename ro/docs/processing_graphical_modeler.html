@@ -183,191 +183,13 @@
 <h1>Automatizarea Fluxurilor de Lucru Complexe utilizând Modelatorul de Procese<a class="headerlink" href="#automating-complex-workflows-using-processing-modeler" title="Link to this heading">¶</a></h1>
 <div class="admonition warning">
 <p class="admonition-title">Atenționare</p>
-<p>O nouă versiune a acestui tutorial este disponibilă la <a class="reference internal" href="3/processing_graphical_modeler.html"><span class="doc">Automatizarea Fluxurilor de Lucru Complexe utilizând Modelatorul de Procese (QGIS3)</span></a></p>
-</div>
-<p>Fluxurile  de lucru GIS implică, de obicei, mai multe etape - cu fiecare pas se generează un rezultat intermediar care este utilizat în etapa următoare. Dacă schimbați datele de intrare sau doriți să reglați un parametru, va trebui să treceți prin întregul proces din nou, manual. Din fericire, QGIS are un modelator grafic încorporat care vă poate ajuta să definiți fluxul de lucru și să-l rulați cu o singură invocare. Puteți rula, de asemenea, acest lot de fluxuri de lucru pentru un număr mare de intrări.</p>
-<section id="overview-of-the-task">
-<h2>Privire de ansamblu asupra activității<a class="headerlink" href="#overview-of-the-task" title="Link to this heading">¶</a></h2>
-<p>Acest tutorial vă arată cum să construiți un model pentru a extrage zonele unei anumite clase dintr-un raster cu o utilizare a terenului clasificată.</p>
-</section>
-<section id="get-the-data">
-<h2>Obținerea datelor<a class="headerlink" href="#get-the-data" title="Link to this heading">¶</a></h2>
-<p>Vom folosi ca exemplu <a class="reference external" href="http://www.landcover.org/data/lc/">Global Mosaics of the standard MODIS land cover type data product</a> de la <a class="reference external" href="http://www.landcover.org/">Global Land Cover Facility (GLCF)</a>.</p>
-<div class="admonition warning">
-<p class="admonition-title">Atenționare</p>
-<p>La 31 decembrie 2018, GLCF și-a închis serviciile, iar fișierele necesare acestui tutorial nu mai sunt disponibile.</p>
-</div>
-<p>Pentru comoditate, puteți descărca direct o copie a ambelor seturi de date, accesând linkurile de mai jos:</p>
-<p><a class="reference external" href="http://www.qgistutorials.com/downloads/LC_hd_global_2001.tif.gz">LC_hd_global_2001.tif.gz</a></p>
-<p><a class="reference external" href="http://www.qgistutorials.com/downloads/LC_hd_global_2012.tif.gz">LC_hd_global_2012.tif.gz</a></p>
-<p>Sursa de date: <a class="reference internal" href="credits.html#glcf-modis" id="id1"><span>[GLCF_MODIS]</span></a></p>
-</section>
-<section id="procedure">
-<h2>Procedura<a class="headerlink" href="#procedure" title="Link to this heading">¶</a></h2>
-<p>Fluxul nostru de lucru pentru acest exercițiu va avea următoarele etape:</p>
-<ul class="simple">
-<li><p>Aplicați un algoritm <code class="docutils literal notranslate"><span class="pre">Majority</span> <span class="pre">Filter</span></code> asupra rasterului de intrare, de acoperire a teritoriului. Acest lucru va reduce zgomotul în rezultatul nostru, prin eliminarea pixelilor izolați.</p></li>
-<li><p>Conversia rasterului rezultat într-un strat poligonal.</p></li>
-<li><p>Efectuați o interogare după valoarea unei clase din tabela de atribute a stratului poligonal, apoi creați un strat vectorial pentru această clasă.</p></li>
-</ul>
-<p>Următorii pași conturează procesul de codificare a procesului de mai sus într-un model, pe care îl veți rula pe seturile de date descărcate.</p>
-<ol class="arabic simple">
-<li><p>Deschideți QGIS și mergeți la <span class="menuselection">Procesare ‣ Modelatorul Grafic…</span>.</p></li>
-</ol>
-<img alt="../_images/1272.png" class="align-center" src="../_images/1272.png" />
-<ol class="arabic simple" start="2">
-<li><p>Dialogul <span class="guilabel">Modelatorului de procese</span> conține un panou în stânga și un canevas principal. Selectați fila <span class="guilabel">Intrări</span> din panoul din partea stângă, apoi trageți <span class="guilabel">+ Stratul raster</span> pe canevas.</p></li>
-</ol>
-<img alt="../_images/2175.png" class="align-center" src="../_images/2175.png" />
-<ol class="arabic simple" start="3">
-<li><p>Se va afișa un dialog cu <span class="guilabel">Definițiile Parametrului</span>. Introduceți <code class="docutils literal notranslate"><span class="pre">Input</span></code> ca :guilabel: <cite>Nume al Parametrului</cite> și marcați <code class="docutils literal notranslate"><span class="pre">Yes</span></code> la <span class="guilabel">Required</span>. Faceți clic pe <span class="guilabel">OK</span>.</p></li>
-</ol>
-<img alt="../_images/3120.png" class="align-center" src="../_images/3120.png" />
-<ol class="arabic simple" start="4">
-<li><p>Veți vedea o casetă cu numele <span class="guilabel">Input</span> apărând în canevas. Aceasta reprezintă rasterul de acoperire a terenului, pe care îl vom folosi ca intrare. Următorul pas este aplicarea unui algoritm <code class="docutils literal notranslate"><span class="pre">Majority</span> <span class="pre">filter</span></code>. Mergeți în fila :guilabel: <cite>Algoritm</cite> din colțul din stânga-jos. Căutați algoritmul, care va fi listat sub furnizorul <span class="guilabel">SAGA</span>. Glisați-l pe canevas.</p></li>
-</ol>
-<div class="admonition note">
-<p class="admonition-title">Notă</p>
-<p>Dacă nu vedeți acest algoritm sau pe oricare dintre algoritmii ulterior menționați în tutorial, ați putea folosi <span class="guilabel">Simplified Interface</span> din bara de instrumente Processing. Treceți în <span class="guilabel">Interfața Avansată</span> prin utilizarea casetei cu derulare verticală din partea de jos a bării de instrumente Processing, din fereastra principală a QGIS.</p>
-</div>
-<img alt="../_images/475.png" class="align-center" src="../_images/475.png" />
-<ol class="arabic simple" start="5">
-<li><p>Va fi prezentat un dialog de configurare <span class="guilabel">Majority Filter</span>. Lăsați valorile implicite așa cum sunt și faceți clic pe <span class="guilabel">OK</span>.</p></li>
-</ol>
-<img alt="../_images/569.png" class="align-center" src="../_images/569.png" />
-<ol class="arabic simple" start="6">
-<li><p>Rețineți că de acum există pe canevas o nouă casetă denumită <span class="guilabel">Majority Filter</span>, acesta fiind conectată la caseta <span class="guilabel">Input</span>. Acest lucru se datorează faptului că algoritmul <span class="guilabel">Majority Filter</span> folosește rasterul <span class="guilabel">Input</span> ca intrare. Următorul pas al fluxului nostru de lucru, constă din convertirea ieșirii filtrului de majoritate în vector. Găsiți algoritmul <code class="docutils literal notranslate"><span class="pre">Creare</span> <span class="pre">poligon</span> <span class="pre">(din</span> <span class="pre">raster</span> <span class="pre">în</span> <span class="pre">vector)</span></code> și glisați-l pe canevas.</p></li>
-</ol>
-<div class="admonition note">
-<p class="admonition-title">Notă</p>
-<p>Casetele pot fi mutate și aranjate, făcând clic pe ele și trăgându-le, în timp ce se menține apăsat butonul stâng al mouse-ului. Puteți utiliza, de asemenea, rotița de scroll, pentru redimensionarea canevasului modelului.</p>
-</div>
-<img alt="../_images/666.png" class="align-center" src="../_images/666.png" />
-<ol class="arabic simple" start="7">
-<li><p>Selectați «Filtered Grid» din algoritmul «Majority Filter» ca valoare pentru <span class="guilabel">Stratul de intrare</span>. Clic <span class="guilabel">OK</span>.</p></li>
-</ol>
-<img alt="../_images/765.png" class="align-center" src="../_images/765.png" />
-<ol class="arabic simple" start="8">
-<li><p>Ultimul pas în fluxul de lucru este de a interoga valoarea unei clase, și de a crea un nou strat din entitățile identificate. Căutați algoritmul <code class="docutils literal notranslate"><span class="pre">Extragere</span> <span class="pre">după</span> <span class="pre">atribute</span></code> și glisați-l pe canevas.</p></li>
-</ol>
-<img alt="../_images/863.png" class="align-center" src="../_images/863.png" />
-<ol class="arabic simple" start="9">
-<li><p>Selectați «Vectorizat», din algoritmul «Poligonizare (din raster în vector), ca <span class="guilabel">Strat de Intrare</span>. Dorim să extragem pixelii care reprezintă Lanurile de Grâu. Valoarea corespunzătoare pixelilor pentru această clasă este 12. (vedeți <a class="reference external" href="http://www.landcover.org/data/lc/">Codul Valorilor</a>). Introduceți <code class="docutils literal notranslate"><span class="pre">DN</span></code> ca <span class="guilabel">Atribut al selecției</span> și <code class="docutils literal notranslate"><span class="pre">12</span></code> ca <span class="guilabel">valoare</span>. Deoarece rezultatul acestei operațiuni va fi cel final, va trebui să-i dăm un nume. Introduceți <code class="docutils literal notranslate"><span class="pre">clasă</span> <span class="pre">vectorizată</span></code> pentru <span class="guilabel">Ieșire</span>.</p></li>
-</ol>
-<img alt="../_images/962.png" class="align-center" src="../_images/962.png" />
-<ol class="arabic simple" start="10">
-<li><p>Introduceți <code class="docutils literal notranslate"><span class="pre">vectorizare</span></code> pentru <span class="guilabel">Numele modelului</span> și <code class="docutils literal notranslate"><span class="pre">raster</span></code> pentru <span class="guilabel">Numele grupului</span>. Clic pe butonul <span class="guilabel">Salvare</span>.</p></li>
-</ol>
-<img alt="../_images/1070.png" class="align-center" src="../_images/1070.png" />
-<ol class="arabic simple" start="11">
-<li><p>Denumiți modelul <code class="docutils literal notranslate"><span class="pre">vectorize</span></code>, apoi faceți clic pe <span class="guilabel">Save</span>.</p></li>
-</ol>
-<img alt="../_images/11108.png" class="align-center" src="../_images/11108.png" />
-<ol class="arabic simple" start="12">
-<li><p>Acum este timpul să testăm modelul. Închideți modelatorul și comutați în fereastra principală a QGIS. Mergeți la <span class="menuselection">Strat ‣ Adăgare Strat ‣ Adăgare Strat Raster…</span>.</p></li>
-</ol>
-<img alt="../_images/1273.png" class="align-center" src="../_images/1273.png" />
-<ol class="arabic simple" start="13">
-<li><p>Navigați la fișierul descărcat, <code class="docutils literal notranslate"><span class="pre">LC_hd_global_2001.tif.gz</span></code>, apoi faceți clic pe <span class="guilabel">Deschidere</span>. O dată ce rasterul s-a încărcagt, mergeți la <span class="menuselection">Procesare ‣ Instrumentar</span>.</p></li>
-</ol>
-<img alt="../_images/1368.png" class="align-center" src="../_images/1368.png" />
-<ol class="arabic simple" start="14">
-<li><p>Găsiți modelul nou creat în <span class="menuselection">Modele ‣ raster ‣ vectorizare</span>. Faceți dublu clic pentru a lansa modelul.</p></li>
-</ol>
-<img alt="../_images/1464.png" class="align-center" src="../_images/1464.png" />
-<ol class="arabic simple" start="15">
-<li><p>Selectați <code class="docutils literal notranslate"><span class="pre">LC_hd_global_2001</span></code> ca <span class="guilabel">Input</span>, apoi efectuați clic pe <span class="guilabel">Run</span>.</p></li>
-</ol>
-<img alt="../_images/1557.png" class="align-center" src="../_images/1557.png" />
-<ol class="arabic simple" start="16">
-<li><p>Veți vedea toți pașii executându-se fără a se face apel la utilizator. După ce se termină prelucrarea, un nou strat <code class="docutils literal notranslate"><span class="pre">vectorized_class</span></code> va fi adăugat în QGIS. Haideți să îmbunătățim modelul un pic. Faceți clic-dreapta pe modelul <code class="docutils literal notranslate"><span class="pre">vectorizare</span></code> și selectați <span class="guilabel">Editare model</span>.</p></li>
-</ol>
-<img alt="../_images/1653.png" class="align-center" src="../_images/1653.png" />
-<ol class="arabic simple" start="17">
-<li><p>La pasul 12, am hard-codat valoarea <code class="docutils literal notranslate"><span class="pre">12</span></code> ca valoare pentru clasă. În locul acestei operațiuni, o putem specifica ca parametru de intrare pe care utilizatorul îl poate schimba. Pentru aceasta, mergeți la fila <span class="guilabel">Intrări</span> și glisați <span class="guilabel">+ String</span> în model.</p></li>
-</ol>
-<img alt="../_images/1751.png" class="align-center" src="../_images/1751.png" />
-<ol class="arabic simple" start="18">
-<li><p>Introduceți <code class="docutils literal notranslate"><span class="pre">Class</span></code> ca <span class="guilabel">Nume al Parametrului</span>. Introduceți <code class="docutils literal notranslate"><span class="pre">12</span></code> ca <span class="guilabel">Valoare implicită</span>.</p></li>
-</ol>
-<img alt="../_images/1847.png" class="align-center" src="../_images/1847.png" />
-<ol class="arabic simple" start="19">
-<li><p>Vom schimba acum algoritmul <code class="docutils literal notranslate"><span class="pre">Extragere</span> <span class="pre">după</span> <span class="pre">atribute</span></code>, pentru a utiliza această intrare în locul valorii hard-codate. Faceți clic pe butonul <span class="guilabel">Editare</span>, de lângă caseta <span class="guilabel">Extragere după atribute</span>.</p></li>
-</ol>
-<img alt="../_images/1938.png" class="align-center" src="../_images/1938.png" />
-<ol class="arabic simple" start="20">
-<li><p>Faceți clic pe săgeata verticală a <span class="guilabel">Valorii</span> și selectați <code class="docutils literal notranslate"><span class="pre">Clasă</span></code>. Faceți clic pe <span class="guilabel">OK</span>.</p></li>
-</ol>
-<img alt="../_images/2033.png" class="align-center" src="../_images/2033.png" />
-<ol class="arabic simple" start="21">
-<li><p>Veți vedea din diagrama modelului că algoritmul <span class="guilabel">Extragere după atribute</span> folosește acum 2 intrari. Modelatorul are o comandă rapidă pentru a lansa modelul și pentru a-l testa. Faceți clic pe butonul <span class="guilabel">Rulare</span> din bara de instrumente.</p></li>
-</ol>
-<img alt="../_images/2176.png" class="align-center" src="../_images/2176.png" />
-<ol class="arabic simple" start="22">
-<li><p>Observați că dialogul modelului are un nou câmp editabil denumit <span class="guilabel">Clasă</span>. Introduceți <code class="docutils literal notranslate"><span class="pre">16</span></code> ca valoare pentru <span class="guilabel">Clasă</span>, apoi faceți clic pe <span class="guilabel">Rulare</span>.</p></li>
-</ol>
-<img alt="../_images/2232.png" class="align-center" src="../_images/2232.png" />
-<ol class="arabic simple" start="23">
-<li><p>După ce prelucrarea se încheie, veți vedea că, doar cu o apăsare de buton am putut rula un flux de lucru complex, și să extragem zona pentru clasa 16.</p></li>
-</ol>
-<img alt="../_images/2329.png" class="align-center" src="../_images/2329.png" />
-<ol class="arabic simple" start="24">
-<li><p>Acum, că modelul nostru este gata, îl putem rula la fel de ușor pe un nou strat raster. Încărcați fișierul <code class="docutils literal notranslate"><span class="pre">LC_hd_global_2012.tif.gz</span></code>, mergând la <span class="menuselection">Strat ‣ Adăugare Strat ‣ Adăugare Strat Raster…</span>. Clic pe modelul <span class="guilabel">vectorizare`</span>, din panoul <span class="guilabel">Processing Toolbox</span>.</p></li>
-</ol>
-<img alt="../_images/2429.png" class="align-center" src="../_images/2429.png" />
-<ol class="arabic simple" start="25">
-<li><p>Selectați <code class="docutils literal notranslate"><span class="pre">LC_hd_global_2012</span></code> ca <span class="guilabel">Intrare</span>, apoi efectuați clic pe <span class="guilabel">Rulare</span>.</p></li>
-</ol>
-<img alt="../_images/2527.png" class="align-center" src="../_images/2527.png" />
-<ol class="arabic simple" start="26">
-<li><p>O dată ce noul rezultat este încărcat, puteți compara modificările Lanurilor, din 2001 până în 2012.</p></li>
-</ol>
-<img alt="../_images/2624.png" class="align-center" src="../_images/2624.png" />
-<ol class="arabic simple" start="27">
-<li><p>Este întotdeauna o idee bună să adăugați documentația pentru modelul dumneavoastră. Modelatorul are un <span class="guilabel">Editor de Ajutor</span> incorporat, care vă permite să înglobați documentația direct în model. Faceți clic dreapta pe modelul <code class="docutils literal notranslate"><span class="pre">vectorizare</span></code> și selectați <span class="guilabel">Editare model</span>.</p></li>
-</ol>
-<img alt="../_images/2724.png" class="align-center" src="../_images/2724.png" />
-<ol class="arabic simple" start="28">
-<li><p>Clic pe butonul <span class="guilabel">Ajutorul Editării modelului</span> din bara de instrumente</p></li>
-</ol>
-<img alt="../_images/2823.png" class="align-center" src="../_images/2823.png" />
-<ol class="arabic simple" start="29">
-<li><p>În dialogul <span class="guilabel">Editorului de Ajutor</span>, selectați oricare element din panoul <span class="guilabel">Selectați elementul de editat</span>, apoi introduceți textul de ajutor în <span class="guilabel">Descriere Element</span>. Faceți clic pe <span class="guilabel">OK</span>. Acest ajutor va fi disponibil în fila <span class="guilabel">Ajutor</span> atunci când veți lansa în execuție modelul.</p></li>
-</ol>
-<img alt="../_images/2920.png" class="align-center" src="../_images/2920.png" />
-<p>Modelele vă pot ajuta să economisiți timp, permițându-vă să schițați fluxul de lucru o singură dată și să-l rulați de mai multe ori. Aveți chiar posibilitatea să partajați modelul cu alți utilizatori. Fișierele modelului sunt salvate în directorul <code class="docutils literal notranslate"><span class="pre">.qgis2</span></code>. Puteți trimite fișierul <code class="docutils literal notranslate"><span class="pre">.model</span></code> către un alt utilizator, care îl poate copia în directorul corespunzător de pe computerul său, după care va apărea în <span class="guilabel">Instrumentarul Procesare</span>. Locația directorului pentru modele depinde de platformă, după cum urmează: (Înlocuiți <code class="docutils literal notranslate"><span class="pre">username</span></code> cu numele de conectare)</p>
-<p><strong>Windows</strong></p>
-<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>c:\Users\username\.qgis2\processing\models\
-</pre></div>
-</div>
-<p><strong>Mac</strong></p>
-<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>/Users/username/.qgis2/processing/models/
-</pre></div>
-</div>
-<p><strong>Linux</strong></p>
-<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>/home/username/.qgis2/processing/models/
-</pre></div>
+<p>This tutorial is now obsolete. A new version of this tutorial is available at <a class="reference internal" href="3/processing_graphical_modeler.html"><span class="doc">Automatizarea Fluxurilor de Lucru Complexe utilizând Modelatorul de Procese (QGIS3)</span></a></p>
 </div>
 </section>
-</section>
 
 
 
-
-
-  <!-- Comment Section Powered by utterances -->
-<div id="comments">
-  <hr />
-  <p>If you want to give feedback or share your experience with this tutorial, please comment below. (requires GitHub account)</p>
-<script src="https://utteranc.es/client.js"
-        repo="spatialthoughts/qgis-tutorials"
-        issue-term="title"
-        label="comment"
-        theme="github-light"
-        crossorigin="anonymous"
-        async>
-</script>
-</div>
+<!-- Turn on comments on only newer tutorials having 3/ in URL -->
 
 
     </div>
@@ -383,7 +205,7 @@
     </p>
     <p>
         &copy; Copyright 2025, Ujaval Gandhi.<br/>
-      Ultima actualizare la mai 20, 2025.<br/>
+      Ultima actualizare la mai 24, 2025.<br/>
       Created using <a href="http://sphinx-doc.org/">Sphinx</a> 7.2.6.<br/>
     </p>
   </div>

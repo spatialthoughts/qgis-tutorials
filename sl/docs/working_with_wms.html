@@ -185,83 +185,11 @@
 <p class="admonition-title">Opozorilo</p>
 <p>This vadnica je zastarela. Nova različica je na voljo tule: <a class="reference internal" href="3/working_with_wms.html"><span class="doc">Delo s podatki prek vmesnika WMS (QGIS3)</span></a></p>
 </div>
-<p>Za prikaz prostorskih podatkov vedno potrebujemo referenčne podatke, saj le tako lahko podatke prikažemo v kontekstu z drugimi informacijami. Veliko organizacij na spletu objavlja podatke, ki jih lahko takoj vključimo v GIS. Priljubljen standard za objavljanje podatkov v spletu se imenuje <strong>WMS (Web Map Service)</strong>. Prek WMS lahko dostopamo do bogatih podatkovnih zbirk, ne da bi morali podatke presneti k sebi na računalnik in jih oblikovati za prikaz.</p>
-<section id="overview-of-the-task">
-<h2>Pregled naloge<a class="headerlink" href="#overview-of-the-task" title="Link to this heading">¶</a></h2>
-<p>V tej vadnici bomo prikazali podatke <a class="reference external" href="http://mrdata.usgs.gov/wms.html">Mineral Resources</a>, ki jih objavlja USGS.</p>
-<p>Vir podatkov: <a class="reference internal" href="credits.html#mrdata" id="id1"><span>[MRDATA]</span></a></p>
-</section>
-<section id="procedure">
-<h2>Postopek<a class="headerlink" href="#procedure" title="Link to this heading">¶</a></h2>
-<ol class="arabic simple">
-<li><p>Odprite QGIS in v menuju izberite <span class="menuselection">Layer ‣ Add WMS Layer…</span>.</p></li>
-</ol>
-<img alt="../_images/1297.png" class="align-center" src="../_images/1297.png" />
-<ol class="arabic simple" start="2">
-<li><p>Na kartici <span class="guilabel">Layers</span> kliknite <span class="guilabel">New</span>.</p></li>
-</ol>
-<img alt="../_images/2197.png" class="align-center" src="../_images/2197.png" />
-<ol class="arabic simple" start="3">
-<li><p>Poimenujte novo povezavo. Gre za ime servisa, ki pomnuja sloje WMS in ne za ime sloja v QGISu. Posamezen servis ponavadi ponuja več slojev WMS, imenujemo jih <em>GetCapabilities</em>. Ko dostopate do strežnika WMS s paramteri v naslovu URL, dobite seznam slojev skupaj z njihovimi metapodatki. Povezavo poimenujmo <code class="docutils literal notranslate"><span class="pre">MRDATA</span> <span class="pre">USGS</span></code>, GetCapabilities URL pa naj bo <code class="docutils literal notranslate"><span class="pre">http://mrdata.usgs.gov/services/ca?request=getcapabilities&amp;service=WMS&amp;version=1.1.1&amp;</span></code>. Klilknite <span class="guilabel">OK</span>.</p></li>
-</ol>
-<img alt="../_images/3134.png" class="align-center" src="../_images/3134.png" />
-<ol class="arabic simple" start="4">
-<li><p>Nato klilknite na gumb <span class="guilabel">Connect</span> in dobili boste seznam razpoložljivih slojev. Poleg imen so izpisani tudi IDji slojev. ID <code class="docutils literal notranslate"><span class="pre">0</span></code> pomeni, da boste dobili karto z vsemi sloji. Če tega ne želite, lahko seznam razširite tako, da klliknete ikono <span class="guilabel">+</span> in nato izberete tistega, ki vas zanima. Za to vadnico izberite sloj <code class="docutils literal notranslate"><span class="pre">0</span></code>.</p></li>
-</ol>
-<img alt="../_images/488.png" class="align-center" src="../_images/488.png" />
-<ol class="arabic" start="5">
-<li><p>V delu <span class="guilabel">Image encoding</span> morate izbrati format slik, ki jih bo servis ponujal. Kakšen format želite je odvisno od namena uporabe:</p>
-<ul class="simple">
-<li><p>Kakovost: PNG je stisnjen zapis brez izgube kakovosti. JPEG je stisnjen z izgubo kakovosti. TIFF je lahko eno ali drugo. To pomeni, da je kakovost slik PNG boljša od JPEG. Če je vaš glavni namen tiskana karta, uporabite PNG.</p></li>
-<li><p>Hitrost: Ker so slike PNG nestisnjene in zato večje, se nalagajo dlje časa. Če je sloj WMS referenčni in veliko zoomirate oziroma se premikate, potem uporabljajte raje JPEG.</p></li>
-<li><p>Podpora klientov: QGIS podpira veliko zapisov, če pa razvijate spletne aplikacije, morate biti pazljivi. Večina spletnih brskalnikov ne podpira zapisa TIFF in bolje se je odločiti za kakega drugega.</p></li>
-<li><p>Tip podatkov: Če so vaši sloji v glavnem vektorski, bo PNG dal boljše rezultate. Za rastrske, predvsem satelitske in letalske posnetke in relief, pa je JPEG boljša odločitev.</p></li>
-</ul>
-<p>V tej vadnici bomo za ustrezni format uporabili <span class="guilabel">JPEG</span>. Spremenite ime sloja v <span class="guilabel">Layer name</span>, če želite in kliknite <span class="guilabel">Add</span>.</p>
-</li>
-</ol>
-<img alt="../_images/582.png" class="align-center" src="../_images/582.png" />
-<ol class="arabic simple" start="6">
-<li><p>You will see the layer loaded in the QGIS canvas. You can zoom/pan around
-just like any other layer. The way WMS service works is that every time you
-zoom/pan, it sends your viewport coordinates to the server and the server
-creates an image for that viewport and return it to the client. So there
-will be some delay before you see the image for the area after you have
-zoomed in. Also, since the data you see is an image, there is no way to
-query for attributes like in a regular vector/imagery layer.</p></li>
-</ol>
-<img alt="../_images/679.png" class="align-center" src="../_images/679.png" />
-<ol class="arabic simple" start="7">
-<li><p>You can, however, see some metadata about the layer. Right-click the layer
-and choose <span class="guilabel">Properties</span>.</p></li>
-</ol>
-<img alt="../_images/778.png" class="align-center" src="../_images/778.png" />
-<ol class="arabic simple" start="8">
-<li><p>You will notice that the <span class="guilabel">Properties</span> dialog looks different and has fewer
-tabs. You can go to the <span class="guilabel">Metadata</span> tab to learn more about the WMS service
-and the layers.</p></li>
-</ol>
-<img alt="../_images/876.png" class="align-center" src="../_images/876.png" />
-</section>
 </section>
 
 
 
-
-
-  <!-- Comment Section Powered by utterances -->
-<div id="comments">
-  <hr />
-  <p>If you want to give feedback or share your experience with this tutorial, please comment below. (requires GitHub account)</p>
-<script src="https://utteranc.es/client.js"
-        repo="spatialthoughts/qgis-tutorials"
-        issue-term="title"
-        label="comment"
-        theme="github-light"
-        crossorigin="anonymous"
-        async>
-</script>
-</div>
+<!-- Turn on comments on only newer tutorials having 3/ in URL -->
 
 
     </div>
@@ -277,7 +205,7 @@ and the layers.</p></li>
     </p>
     <p>
         &copy; Copyright 2025, Ujaval Gandhi.<br/>
-      Zadnjič posodobljeno maj 20, 2025.<br/>
+      Zadnjič posodobljeno maj 24, 2025.<br/>
       Created using <a href="http://sphinx-doc.org/">Sphinx</a> 7.2.6.<br/>
     </p>
   </div>

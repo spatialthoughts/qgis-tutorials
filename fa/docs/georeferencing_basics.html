@@ -185,113 +185,11 @@
 <p class="admonition-title">هشدار</p>
 <p>این آموزش در حال حاضر منسوخ شده است. نسخه جدید و به روز شده در <a class="reference internal" href="3/georeferencing_basics.html"><span class="doc">زمین مرجع کردن نقشه  شیت توپوگرافی اسکن شده (QGIS3)</span></a> موجود است</p>
 </div>
-<p>اکثر پروژه های GIS نیاز به ارجاع جغرافیایی برخی از داده های شطرنجی دارند. <em>Georeferencing</em> فرآیند تخصیص مختصات دنیای واقعی به هر پیکسل از شطرنجی است. بسیاری از اوقات این مختصات با انجام بررسی های میدانی به دست می آیند - جمع آوری مختصات با دستگاه GPS برای چند ویژگی به راحتی قابل شناسایی در تصویر یا نقشه. در برخی موارد، جایی که به دنبال دیجیتالی کردن نقشه های اسکن شده هستید، می توانید مختصات را از علامت گذاری روی خود تصویر نقشه بدست آورید. با استفاده از این مختصات نمونه یا GCP (نقاط کنترل زمینی)، تصویر تاب می‌خورد و در داخل سیستم مختصات انتخابی قرار می‌گیرد. در این آموزش، مفاهیم، استراتژی‌ها و ابزارهای درون QGIS برای دستیابی به یک ارجاع جغرافیایی با دقت بالا را مورد بحث قرار می‌دهم.</p>
-<section id="overview-of-the-task">
-<h2>بررسی اجمالی کار<a class="headerlink" href="#overview-of-the-task" title="Link to this heading">¶</a></h2>
-<p>ما از یک نقشه اسکن شده از جنوب هند در سال 1870 استفاده خواهیم کرد و با استفاده از QGIS به آن ارجاع جغرافیایی خواهیم داد.</p>
-<section id="other-skills-you-will-learn">
-<h3>مهارت های دیگری که یاد خواهید گرفت<a class="headerlink" href="#other-skills-you-will-learn" title="Link to this heading">¶</a></h3>
-<ul class="simple">
-<li><p>نحوه تعیین مبنا و سیستم مختصات برای نقشه های قدیمی</p></li>
-</ul>
-</section>
-</section>
-<section id="get-the-data">
-<h2>داده ها را دریافت کنید<a class="headerlink" href="#get-the-data" title="Link to this heading">¶</a></h2>
-<p>وب‌سایت «نقشه‌های قدیمی اسکن شده هیپکیس &lt;<a class="reference external" href="http://www.hipkiss.org/data/maps.html">http://www.hipkiss.org/data/maps.html</a>&gt;» مجموعه‌ای عالی از نقشه‌های اسکن شده بدون حق نسخه‌برداری دارد که می‌توان از آنها برای تحقیق استفاده کرد.</p>
-<p>نقشه 1870 جنوب هند &lt;<a class="reference external" href="http://www.hipkiss.org/data/maps/william-mackenzie_gallery-of-geography_1870_southern-india_3975_3071_600.jpg">http://www.hipkiss.org/data/maps/william-mackenzie_gallery-of-geography_1870_southern-india_3975_3071_600.jpg</a>&gt;`_ را دانلود کنید و آن را به عنوان یک تصویر JPG در هارد دیسک خود ذخیره کنید.</p>
-<p>برای راحتی کار، می توانید مستقیماً یک نسخه از مجموعه داده را از لینک زیر دانلود کنید:</p>
-<p>1870_southern_india.jpg &lt;<a class="reference external" href="http://www.qgistutorials.com/downloads/1870_southern-india.jpg">http://www.qgistutorials.com/downloads/1870_southern-india.jpg</a>&gt;`_</p>
-</section>
-<section id="procedure">
-<h2>روش<a class="headerlink" href="#procedure" title="Link to this heading">¶</a></h2>
-<p>1. Georeferencing in QGIS is done via the ‘Georeferencer GDAL’ plugin. This is a
-core plugin - meaning it is already part of your QGIS installation. You just
-need to enable it. Go to <span class="menuselection">Plugins ‣ Manage and Install
-Plugins</span> and enable the <span class="guilabel">Georeferencer GDAL</span> plugin in the
-<span class="guilabel">Installed</span> tab. See <a class="reference internal" href="using_plugins.html"><span class="doc">استفاده از پلاگین Plugins</span></a> for more details on how to
-work with plugins.</p>
-<img alt="../_images/1196.png" class="align-center" src="../_images/1196.png" />
-<ol class="arabic simple" start="2">
-<li><p>این افزونه در منوی Raster نصب شده است. روی <span class="menuselection">Raster ‣ Georeferencer ‣ Georeferencer</span> کلیک کنید تا افزونه باز شود.</p></li>
-</ol>
-<img alt="../_images/2158.png" class="align-center" src="../_images/2158.png" />
-<ol class="arabic simple" start="3">
-<li><p>پنجره پلاگین به 2 بخش تقسیم می شود. بخش بالایی که در آن شطرنجی نمایش داده می شود و بخش پایینی که جدولی که GCP های شما را نشان می دهد ظاهر می شود.</p></li>
-</ol>
-<img alt="../_images/397.png" class="align-center" src="../_images/397.png" />
-<ol class="arabic simple" start="4">
-<li><p>اکنون تصویر JPG خود را باز می کنیم. به <span class="menuselection">File ‣ Open Raster</span> بروید. به تصویر دانلود شده نقشه اسکن شده بروید و روی <span class="guilabel">Open</span> کلیک کنید.</p></li>
-</ol>
-<img alt="../_images/463.png" class="align-center" src="../_images/463.png" />
-<ol class="arabic simple" start="5">
-<li><p>در صفحه بعدی، از شما خواسته می شود که سیستم مرجع مختصات شطرنجی (CRS) را انتخاب کنید. این برای تعیین پیش بینی و داده نقاط کنترل شما است. اگر نقاط کنترل زمینی را با استفاده از دستگاه GPS جمع آوری کرده باشید، WGS84 CRS را خواهید داشت. اگر به نقشه اسکن شده ای مانند این ارجاع جغرافیایی می دهید، می توانید اطلاعات CRS را از خود نقشه بدست آورید. با نگاهی به تصویر نقشه ما، مختصات به صورت Lat/Long هستند. هیچ اطلاعاتی داده نشده است، بنابراین ما باید یک مورد مناسب را فرض کنیم. از آنجایی که هند است و نقشه کاملاً قدیمی است، می‌توانیم شرط ببندیم که داده اورست 1830 نتایج خوبی به ما بدهد.</p></li>
-</ol>
-<img alt="../_images/556.png" class="align-center" src="../_images/556.png" />
-<ol class="arabic simple" start="6">
-<li><p>مشاهده خواهید کرد که تصویر در قسمت بالا بارگذاری می شود.</p></li>
-</ol>
-<img alt="../_images/654.png" class="align-center" src="../_images/654.png" />
-<ol class="arabic simple" start="7">
-<li><p>برای کسب اطلاعات بیشتر در مورد نقشه می توانید از کنترل های بزرگنمایی/پان در نوار ابزار استفاده کنید.</p></li>
-</ol>
-<img alt="../_images/754.png" class="align-center" src="../_images/754.png" />
-<ol class="arabic simple" start="8">
-<li><p>حال باید مختصاتی را به برخی از نقاط این نقشه اختصاص دهیم. اگر دقت کنید، شبکه مختصات را با علامت گذاری می بینید. با استفاده از این شبکه می توانید مختصات X و Y نقاطی که شبکه ها در آن ها تلاقی می کنند را تعیین کنید. در نوار ابزار روی :guilabel:'Add Point' کلیک کنید.</p></li>
-</ol>
-<img alt="../_images/853.png" class="align-center" src="../_images/853.png" />
-<ol class="arabic simple" start="9">
-<li><p>در پنجره باز شده، مختصات را وارد کنید. به یاد داشته باشید که X = طول و Y = عرض جغرافیایی. روی <span class="guilabel">OK</span> کلیک کنید.</p></li>
-</ol>
-<img alt="../_images/953.png" class="align-center" src="../_images/953.png" />
-<ol class="arabic simple" start="10">
-<li><p>متوجه خواهید شد که جدول GCP اکنون دارای یک ردیف با جزئیات اولین GCP شما است.</p></li>
-</ol>
-<img alt="../_images/1060.png" class="align-center" src="../_images/1060.png" />
-<ol class="arabic simple" start="11">
-<li><p>به طور مشابه، حداقل 4 GCP اضافه کنید که کل تصویر را پوشش می دهد. هرچه امتیاز بیشتری داشته باشید، تصویر شما در مختصات هدف دقیق‌تر ثبت می‌شود.</p></li>
-</ol>
-<img alt="../_images/1197.png" class="align-center" src="../_images/1197.png" />
-<ol class="arabic simple" start="12">
-<li><p>هنگامی که امتیاز کافی به دست آوردید، به <span class="menuselection">Settings -&gt; Transformation settings</span> بروید.</p></li>
-</ol>
-<img alt="../_images/1262.png" class="align-center" src="../_images/1262.png" />
-<ol class="arabic simple" start="13">
-<li><p>در گفتگوی <span class="guilabel">تنظیمات تبدیل، :guilabel:`نوع تبدیل</span> را به صورت <span class="guilabel">Thin Plate Spline</span> انتخاب کنید. رستر خروجی خود را به صورت <span class="guilabel">1870_southern_india_modified.tif</span> نامگذاری کنید. <span class="guilabel">EPSG:4326</span> را به عنوان SRS هدف انتخاب کنید تا تصویر حاصل در یک داده کاملاً سازگار باشد. مطمئن شوید که گزینه :guilabel:'Load in QGIS when done' تیک خورده باشد. روی <span class="guilabel">OK</span> کلیک کنید.</p></li>
-</ol>
-<img alt="../_images/1360.png" class="align-center" src="../_images/1360.png" />
-<ol class="arabic simple" start="14">
-<li><p>در پنجره <span class="guilabel">Georeferencer</span>، به <span class="menuselection">File ‣ Start georeferencing</span> بروید. این فرآیند تاب برداشتن تصویر با استفاده از GCP ها و ایجاد شطرنجی هدف را آغاز می کند.</p></li>
-</ol>
-<img alt="../_images/1456.png" class="align-center" src="../_images/1456.png" />
-<ol class="arabic simple" start="15">
-<li><p>پس از پایان فرآیند، لایه جغرافیایی مرجع را خواهید دید که در QGIS بارگذاری شده است.</p></li>
-</ol>
-<img alt="../_images/1550.png" class="align-center" src="../_images/1550.png" />
-<ol class="arabic simple" start="16">
-<li><p>ارجاع جغرافیایی اکنون کامل شده است. اما مثل همیشه، این یک تمرین خوب برای تأیید کار شما است. چگونه بررسی کنیم که آیا ارجاع جغرافیایی ما دقیق است؟ در این مورد، شکل فایل مرزهای کشور را از یک منبع قابل اعتماد مانند مجموعه داده طبیعی زمین بارگیری کرده و آنها را با هم مقایسه کنید. متوجه خواهید شد که آنها به خوبی با هم مطابقت دارند. مقداری خطا وجود دارد و می توان آن را با گرفتن نقاط کنترل بیشتر، تغییر پارامترهای تبدیل و آزمایش داده های متفاوت بهبود داد.</p></li>
-</ol>
-<img alt="../_images/1646.png" class="align-center" src="../_images/1646.png" />
-</section>
 </section>
 
 
 
-
-
-  <!-- Comment Section Powered by utterances -->
-<div id="comments">
-  <hr />
-  <p>If you want to give feedback or share your experience with this tutorial, please comment below. (requires GitHub account)</p>
-<script src="https://utteranc.es/client.js"
-        repo="spatialthoughts/qgis-tutorials"
-        issue-term="title"
-        label="comment"
-        theme="github-light"
-        crossorigin="anonymous"
-        async>
-</script>
-</div>
+<!-- Turn on comments on only newer tutorials having 3/ in URL -->
 
 
     </div>
@@ -307,7 +205,7 @@ work with plugins.</p>
     </p>
     <p>
         &copy; Copyright 2025, Ujaval Gandhi.<br/>
-      آخرین بروز رسانی در مه 20, 2025 .<br/>
+      آخرین بروز رسانی در مه 24, 2025 .<br/>
       Created using <a href="http://sphinx-doc.org/">Sphinx</a> 7.2.6.<br/>
     </p>
   </div>

@@ -185,153 +185,11 @@
 <p class="admonition-title">هشدار</p>
 <p>این آموزش در حال حاضر منسوخ شده است. نسخه جدید و به روز شده در <a class="reference internal" href="3/working_with_terrain.html"><span class="doc">Working with Terrain Data (QGIS3)</span></a> موجود است</p>
 </div>
-<p>داده های زمین یا ارتفاع برای بسیاری از تحلیل های GIS مفید است و اغلب در نقشه ها استفاده می شود. QGIS دارای قابلیت های پردازش زمین خوب است. در این آموزش، مراحل تولید محصولات مختلف از داده های ارتفاعی مانند خطوط، سایه تپه و غیره را طی می کنیم.</p>
-<section id="overview-of-the-task">
-<h2>بررسی اجمالی کار<a class="headerlink" href="#overview-of-the-task" title="Link to this heading">¶</a></h2>
-<p>وظیفه ایجاد خطوط و نقشه سایه تپه برای منطقه اطراف کوه اورست است</p>
-<section id="other-skills-you-will-learn">
-<h3>مهارت های دیگری که یاد خواهید گرفت<a class="headerlink" href="#other-skills-you-will-learn" title="Link to this heading">¶</a></h3>
-<ul class="simple">
-<li><p>جستجو و دانلود داده‌های زمین به‌صورت رایگان در دسترس.</p></li>
-<li><p>صدور یک لایه برداری به عنوان KML و مشاهده آن در Google Earth.</p></li>
-</ul>
-</section>
-</section>
-<section id="get-the-data">
-<h2>داده ها را دریافت کنید<a class="headerlink" href="#get-the-data" title="Link to this heading">¶</a></h2>
-<p>ما با مجموعه داده GMTED2010 از USGS کار خواهیم کرد. این داده‌ها را می‌توان از سایت USGS Earthexplorer &lt;<a class="reference external" href="http://earthexplorer.usgs.gov/">http://earthexplorer.usgs.gov/</a>&gt;`_ دانلود کرد. <a class="reference external" href="http://eros.usgs.gov/#/Find_Data/Products_and_Data_Available/GMTED2010">GMTED (داده‌های ارتفاعی زمین با وضوح چندگانه جهانی)</a> یک مجموعه داده جهانی زمین است که نسخه جدیدتر مجموعه داده GTOPO30 است.</p>
-<p>در اینجا نحوه جستجو و دانلود داده های آشکار از USGS Earthexplorer آمده است.</p>
-<ol class="arabic simple">
-<li><p>به &quot;USGS Earthexplorer &lt;<a class="reference external" href="http://earthexplorer.usgs.gov/">http://earthexplorer.usgs.gov/</a>&gt;&quot;_ بروید. در برگه <span class="guilabel">Search Criteria</span> نام مکان &quot;Mt. اورست`. برای انتخاب مکان روی نتیجه کلیک کنید.</p></li>
-</ol>
-<img alt="../_images/1295.png" class="align-center" src="../_images/1295.png" />
-<ol class="arabic simple" start="2">
-<li><p>در برگه :guilabel:'Data Sets' گروه :guilabel:'Digital Elevation' را گسترش دهید و <span class="guilabel">GMTED2010</span> را علامت بزنید.</p></li>
-</ol>
-<img alt="../_images/2195.png" class="align-center" src="../_images/2195.png" />
-<ol class="arabic simple" start="3">
-<li><p>اکنون می توانید به برگه :guilabel:` Results بروید و بخشی از مجموعه داده را ببینید که معیارهای جستجوی شما را قطع می کند. روی دکمه :guilabel:<a href="#id1"><span class="problematic" id="id2">`</span></a>گزینه های دانلود کلیک کنید. در این مرحله باید وارد سایت شوید. اگر ندارید می توانید یک حساب کاربری رایگان ایجاد کنید.</p></li>
-</ol>
-<img alt="../_images/3133.png" class="align-center" src="../_images/3133.png" />
-<ol class="arabic simple" start="4">
-<li><p>گزینه <span class="guilabel">30 ARC SEC</span> را انتخاب کنید و روی :guilabel:<a href="#id1"><span class="problematic" id="id2">`</span></a>Select Download Option کلیک کنید.</p></li>
-</ol>
-<img alt="../_images/487.png" class="align-center" src="../_images/487.png" />
-<p>اکنون فایلی با نام «GMTED2010N10E060_300.zip» خواهید داشت. داده‌های ارتفاعی در قالب‌های شطرنجی مختلف مانند ASC، BIL، GeoTiff و غیره توزیع می‌شوند. QGIS از طیف گسترده‌ای از قالب‌های شطرنجی &lt;<a class="reference external" href="http://www.gdal.org/formats_list.html">http://www.gdal.org/formats_list.html</a>&gt;`_ از طریق کتابخانه GDAL پشتیبانی می‌کند. داده های GMTED به صورت فایل های GeoTiff موجود در این آرشیو فشرده ارائه می شود.</p>
-<p>برای راحتی، می توانید یک نسخه از داده ها را مستقیماً از زیر دانلود کنید.</p>
-<p><a class="reference external" href="http://www.qgistutorials.com/downloads/GMTED2010N10E060_300.zip">GMTED2010N10E060_300.zip</a></p>
-<p>منبع داده: <a class="reference internal" href="credits.html#gmted2010" id="id2"><span>[GMTED2010]</span></a></p>
-</section>
-<section id="procedure">
-<h2>روش<a class="headerlink" href="#procedure" title="Link to this heading">¶</a></h2>
-<ol class="arabic simple" start="5">
-<li><p><span class="menuselection">Layer ‣ Add Raster Layer</span> را باز کنید و فایل فشرده دانلود شده را مرور کنید.</p></li>
-</ol>
-<img alt="../_images/581.png" class="align-center" src="../_images/581.png" />
-<ol class="arabic simple" start="6">
-<li><p>فایل های مختلفی از الگوریتم های مختلف تولید می شوند. برای این آموزش از فایلی با نام <cite>10n060e_20101117_gmted_mea300.tif</cite> استفاده می کنیم.</p></li>
-</ol>
-<img alt="../_images/678.png" class="align-center" src="../_images/678.png" />
-<ol class="arabic simple" start="7">
-<li><p>داده های زمین ارائه شده را در بوم QGIS خواهید دید. هر پیکسل در شطرنجی زمین نشان دهنده میانگین ارتفاع بر حسب متر در آن مکان است. پیکسل های تیره مناطق با ارتفاع کم و پیکسل های روشن تر مناطق با ارتفاع زیاد را نشان می دهند.</p></li>
-</ol>
-<img alt="../_images/777.png" class="align-center" src="../_images/777.png" />
-<ol class="arabic simple" start="8">
-<li><p>بیایید حوزه مورد علاقه خود را پیدا کنیم. از «ویکی‌پدیا &lt;<a class="reference external" href="http://en.wikipedia.org/wiki/Mount_Everest">http://en.wikipedia.org/wiki/Mount_Everest</a>&gt;» متوجه می‌شویم که مختصات منطقه مورد علاقه ما - کوه اورست - در مختصات 27.9881 درجه شمالی، 86.9253 درجه شرقی واقع شده است. توجه داشته باشید. که QGIS از مختصات در قالب (X,Y) استفاده می کند، بنابراین شما باید از مختصات به عنوان (طول و عرض جغرافیایی) استفاده کنید. «86.9253,27.9881» اینها را در پایین پنجره QGIS جایی که می‌گوید:guilabel: «Coordinate» قرار دهید و Enter را فشار دهید. ویوپورت در این مختصات متمرکز خواهد شد. برای بزرگنمایی، «1:1000000» را در فیلد :guilabel:«مقیاس» وارد کنید و Enter را فشار دهید. بزرگنمایی درگاه دید به ناحیه اطراف هیمالیا را خواهید دید.</p></li>
-</ol>
-<img alt="../_images/875.png" class="align-center" src="../_images/875.png" />
-<ol class="arabic simple" start="9">
-<li><p>اکنون شطرنجی را به این منطقه مورد علاقه برش می دهیم. ابزار Clipper را از <span class="menuselection">Raster ‣ Extraction ‣ Clipper</span> انتخاب کنید.</p></li>
-</ol>
-<div class="admonition note">
-<p class="admonition-title">توجه</p>
-<p>منوی <span class="guilabel">Raster</span> در QGIS از یک پلاگین اصلی به نام <span class="guilabel">GdalTools</span> می آید. اگر منوی <span class="guilabel">Raster</span> را نمی بینید، افزونه <span class="guilabel">GdalTools</span> را از <span class="menuselection">Plugins ‣ Manage and install plugins ‣ Installed</span> فعال کنید. برای جزئیات بیشتر به <a class="reference internal" href="using_plugins.html"><span class="doc">استفاده از پلاگین Plugins</span></a> مراجعه کنید.</p>
-</div>
-<img alt="../_images/974.png" class="align-center" src="../_images/974.png" />
-<ol class="arabic simple" start="10">
-<li><p>در پنجره :guilabel:'Clipper'، فایل خروجی خود را به عنوان 'everest_gmted30.tif' نامگذاری کنید. :guilabel: <cite>حالت برش</cite> را به عنوان :guilabel:` Extent انتخاب کنید.</p></li>
-</ol>
-<img alt="../_images/1082.png" class="align-center" src="../_images/1082.png" />
-<ol class="arabic simple" start="11">
-<li><p>پنجره <span class="guilabel">Clipper</span> را باز نگه دارید و به پنجره اصلی QGIS بروید. دکمه سمت چپ ماوس را نگه دارید و یک مستطیل بکشید که تمام بوم را می پوشاند.</p></li>
-</ol>
-<img alt="../_images/11119.png" class="align-center" src="../_images/11119.png" />
-<ol class="arabic simple" start="12">
-<li><p>اکنون در پنجره <span class="guilabel">Clipper</span>، مختصات را خواهید دید که به صورت خودکار از انتخاب خود جمع می شوند. مطمئن شوید که گزینه :guilabel:'Load into canvas when finished' علامت زده شده است و روی :guilabel:'OK کلیک کنید.</p></li>
-</ol>
-<img alt="../_images/1296.png" class="align-center" src="../_images/1296.png" />
-<ol class="arabic simple" start="13">
-<li><p>پس از اتمام فرآیند، یک لایه جدید در QGIS بارگذاری شده است. این لایه فقط منطقه اطراف کوه اورست را پوشش می دهد. اکنون ما آماده هستیم تا خطوط خطوط را ایجاد کنیم. ابزار contour را از <span class="menuselection">Raster ‣ Extraction ‣ Contour</span> انتخاب کنید.</p></li>
-</ol>
-<img alt="../_images/1379.png" class="align-center" src="../_images/1379.png" />
-<ol class="arabic simple" start="14">
-<li><p>در گفتگوی :guilabel:'Contour'، 'everest_gmted30' را به عنوان :guilabel:'فایل ورودی' انتخاب کنید. نام :guilabel:'فایل خروجی خطوط کانتور' را به عنوان 'everest_countours.shp' بگذارید. ما خطوط کانتور را برای فواصل 100 متر ایجاد خواهیم کرد، بنابراین 100 را به عنوان <span class="guilabel">فاصله بین خطوط کانتور قرار دهید. همچنین گزینه :guilabel:`Attribute name</span> را علامت بزنید تا مقدار elevation به عنوان ویژگی هر خط کانتور ثبت شود. روی :guilabel:'OK' کلیک کنید.</p></li>
-</ol>
-<img alt="../_images/1475.png" class="align-center" src="../_images/1475.png" />
-<ol class="arabic simple" start="15">
-<li><p>پس از تکمیل پردازش، خطوط کانتور را خواهید دید که در بوم بارگذاری شده اند. هر خط در این لایه نشان دهنده یک ارتفاع خاص است. تمام نقاط در امتداد یک خط شمارش در شطرنجی زیرین در یک ارتفاع خواهند بود. هرچه خطوط نزدیکتر باشند، شیب تندتر است. بیایید کانتورها را کمی بیشتر بررسی کنیم. روی لایه contours کلیک راست کرده و :guilabel:'Open Attribute Table' را انتخاب کنید.</p></li>
-</ol>
-<img alt="../_images/1567.png" class="align-center" src="../_images/1567.png" />
-<ol class="arabic simple" start="16">
-<li><p>خواهید دید که هر ویژگی خط دارای یک ویژگی به نام <span class="guilabel">ELEV</span> است. این ارتفاع بر حسب متر است که هر خط نشان دهنده آن است. چند بار روی سربرگ ستون کلیک کنید تا مقادیر به ترتیب نزولی مرتب شوند. در اینجا خطی را خواهید یافت که نشان دهنده بالاترین ارتفاع در داده های ما، یعنی کوه اورست است.</p></li>
-</ol>
-<img alt="../_images/1663.png" class="align-center" src="../_images/1663.png" />
-<ol class="arabic simple" start="17">
-<li><p>ردیف بالا را انتخاب کرده و روی دکمه :guilabel:` Zoom to selection` کلیک کنید.</p></li>
-</ol>
-<img alt="../_images/1760.png" class="align-center" src="../_images/1760.png" />
-<ol class="arabic simple" start="18">
-<li><p>به پنجره اصلی QGIS بروید. خط کانتور انتخاب شده را خواهید دید که با رنگ زرد برجسته شده است. این منطقه بالاترین ارتفاع در مجموعه داده ما است.</p></li>
-</ol>
-<img alt="../_images/1856.png" class="align-center" src="../_images/1856.png" />
-<ol class="arabic simple" start="19">
-<li><p>اکنون اجازه دهید یک نقشه سایه تپه ای از شطرنجی ایجاد کنیم. <span class="menuselection">Raster ‣ Analysis ‣ DEM (Terrain Models)</span> را انتخاب کنید.</p></li>
-</ol>
-<img alt="../_images/1947.png" class="align-center" src="../_images/1947.png" />
-<ol class="arabic simple" start="20">
-<li><p>در گفتگوی <span class="guilabel">DEM (Terrain Models)</span>، &quot;everest_gmted30&quot; را به عنوان :guilabel:&quot;فایل ورودی&quot; انتخاب کنید. <span class="guilabel">فایل خروجی</span> را به عنوان <cite>everest_hillshade.tif</cite> نامگذاری کنید. <span class="guilabel">Hillshade</span> را به عنوان :guilabel:<a href="#id1"><span class="problematic" id="id2">`</span></a>Mode انتخاب کنید. همه گزینه های دیگر را همانطور که هست رها کنید. مطمئن شوید که گزینه :guilabel:'Load into canvas when finished' علامت زده شده است و روی :guilabel:'OK کلیک کنید.</p></li>
-</ol>
-<img alt="../_images/2042.png" class="align-center" src="../_images/2042.png" />
-<ol class="arabic simple" start="21">
-<li><p>پس از پایان فرآیند، شطرنج دیگری را مشاهده خواهید کرد که در بوم QGIS بارگذاری شده است. از آنجایی که ممکن است در نزدیکی منطقه Mt.Everest بزرگنمایی کرده باشید، روی لایه «everest_hillshade» کلیک راست کرده و :guilabel: «Zoom to Layer Extent» را انتخاب کنید.</p></li>
-</ol>
-<img alt="../_images/2196.png" class="align-center" src="../_images/2196.png" />
-<ol class="arabic simple" start="22">
-<li><p>اکنون وسعت کامل شطرنجی سایه تپه را خواهید دید.</p></li>
-</ol>
-<img alt="../_images/2240.png" class="align-center" src="../_images/2240.png" />
-<ol class="arabic simple" start="23">
-<li><p>همچنین می‌توانید لایه کانتور خود را تجسم کنید و با صادرات لایه خطوط به‌عنوان KML و مشاهده آن در Google Earth، تحلیل خود را تأیید کنید. روی لایه contours کلیک راست کرده و <span class="guilabel">Save as...</span> را انتخاب کنید.</p></li>
-</ol>
-<img alt="../_images/2336.png" class="align-center" src="../_images/2336.png" />
-<ol class="arabic simple" start="24">
-<li><p>:guilabel:'Keyhole Markup Language [KML]' را به عنوان :guilabel:'Format' انتخاب کنید. نام خروجی خود را به عنوان 'contours.kml' بگذارید و روی :guilabel:'OK' کلیک کنید.</p></li>
-</ol>
-<img alt="../_images/2435.png" class="align-center" src="../_images/2435.png" />
-<ol class="arabic simple" start="25">
-<li><p>به فایل خروجی روی دیسک خود بروید و روی آن دوبار کلیک کنید تا Google Earth باز شود.</p></li>
-</ol>
-<img alt="../_images/2532.png" class="align-center" src="../_images/2532.png" />
-</section>
 </section>
 
 
 
-
-
-  <!-- Comment Section Powered by utterances -->
-<div id="comments">
-  <hr />
-  <p>If you want to give feedback or share your experience with this tutorial, please comment below. (requires GitHub account)</p>
-<script src="https://utteranc.es/client.js"
-        repo="spatialthoughts/qgis-tutorials"
-        issue-term="title"
-        label="comment"
-        theme="github-light"
-        crossorigin="anonymous"
-        async>
-</script>
-</div>
+<!-- Turn on comments on only newer tutorials having 3/ in URL -->
 
 
     </div>
@@ -347,7 +205,7 @@
     </p>
     <p>
         &copy; Copyright 2025, Ujaval Gandhi.<br/>
-      آخرین بروز رسانی در مه 20, 2025 .<br/>
+      آخرین بروز رسانی در مه 24, 2025 .<br/>
       Created using <a href="http://sphinx-doc.org/">Sphinx</a> 7.2.6.<br/>
     </p>
   </div>

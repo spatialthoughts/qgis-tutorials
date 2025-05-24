@@ -185,170 +185,11 @@
 <p class="admonition-title">警告</p>
 <p>This tutorial is now obsolete. A new and updated version is available at <a class="reference internal" href="3/working_with_projections.html"><span class="doc">Working with Projections (QGIS3)</span></a></p>
 </div>
-<p>地圖的投影法，也稱之為座標參考系統 (CRS)，在處理 GIS 資料時常常是問題的來源。把它的概念與操作方法弄清楚，可以讓你的 GIS 之路輕鬆得多。本教學會說明在 QGIS 中，投影法是怎麼運作的，然後我們也會介紹一些針對向量檔和網格影像檔調整投影的工具，比較重要的像是重新投影向量和影像資料、開啟即時 CRS 轉換，以及指派 CRS 給那些沒有內建投影法的資料。</p>
-<section id="overview-of-the-task">
-<h2>內容說明<a class="headerlink" href="#overview-of-the-task" title="Link to this heading">¶</a></h2>
-<p>在這裡我們要把使用不同投影法的圖層，在 QGIS 中重新投影後再疊圖。</p>
-<section id="other-skills-you-will-learn">
-<h3>你還會學到這些<a class="headerlink" href="#other-skills-you-will-learn" title="Link to this heading">¶</a></h3>
-<ul class="simple">
-<li><p>使用 <code class="docutils literal notranslate"><span class="pre">.tfw</span></code> 檔對網格式影像進行空間對位（Georeference）</p></li>
-<li><p>在圖層中選取部分特徵，另存成新圖層</p></li>
-<li><p>在 QGIS 中查看詮釋資料（Metadata）</p></li>
-</ul>
-</section>
-</section>
-<section id="get-the-data">
-<h2>取得資料<a class="headerlink" href="#get-the-data" title="Link to this heading">¶</a></h2>
-<p>Natural Earth 上有 <a class="reference external" href="http://www.naturalearthdata.com/downloads/10m-cultural-vectors/">Admin 0 - Countries</a> 國家邊界資料，<a class="reference external" href="http://www.naturalearthdata.com/http//www.naturalearthdata.com/download/10m/cultural/ne_10m_admin_0_countries.zip">這邊</a> 可以下載。</p>
-<p>另外還有 <a class="reference external" href="https://www.ordnancesurvey.co.uk/">英國地形測量局 （Ordnance Survey）</a> 提供的開放圖資，可下載大不列顛島的 <a class="reference external" href="https://www.ordnancesurvey.co.uk/opendatadownload/products.html">小比例尺網格影像資料</a>，然後解壓到你的電腦中。</p>
-<div class="admonition note">
-<p class="admonition-title">備註</p>
-<p>要取得英國地形測量局的資料，必須要輸入一些個人資料以註冊取得。</p>
-</div>
-<p>為了方便起見，你也可以直接用下面的連結下載：</p>
-<p><a class="reference external" href="http://www.qgistutorials.com/downloads/ne_10m_admin_0_countries.zip">ne_10m_admin_0_countries.zip</a></p>
-<p><a class="reference external" href="http://www.qgistutorials.com/downloads/minisc_gb.zip">minisc_gb.zip</a> (只包含本教學需要的檔案)</p>
-<p>資料來源 <a class="reference internal" href="credits.html#naturalearth" id="id1"><span>[NATURALEARTH]</span></a> <a class="reference internal" href="credits.html#osopendata" id="id2"><span>[OSOPENDATA]</span></a></p>
-</section>
-<section id="procedure">
-<h2>操作流程<a class="headerlink" href="#procedure" title="Link to this heading">¶</a></h2>
-<ol class="arabic simple">
-<li><p>打開 QGIS，選擇 <span class="menuselection">圖層 ‣ 加入向量圖層</span>。</p></li>
-</ol>
-<img alt="../_images/1293.png" class="align-center" src="../_images/1293.png" />
-<ol class="arabic simple" start="2">
-<li><p>選擇 <code class="docutils literal notranslate"><span class="pre">ne_10m_admin_0_countries.zip</span></code> 並按下 <span class="guilabel">確定</span>。</p></li>
-</ol>
-<img alt="../_images/2193.png" class="align-center" src="../_images/2193.png" />
-<ol class="arabic simple" start="3">
-<li><p>在 QGIS 視窗的底部有個 <span class="guilabel">座標</span> 欄位，在移動滑鼠時，它會即時顯示目前區域的 X 和 Y 座標。另外在右下角還有一個寫著 <span class="guilabel">EPSG:4326</span> 的地方，這個就是本專案的 CRS (投影法)。</p></li>
-</ol>
-<img alt="../_images/3132.png" class="align-center" src="../_images/3132.png" />
-<ol class="arabic simple" start="4">
-<li><p>我們之後會看到，圖層本身的 CRS 未必會跟專案的 CRS 相同。如果要看某個圖層使用的投影法，要到詮釋資料中尋找。在 <code class="docutils literal notranslate"><span class="pre">ne_10m_admin_0_countries</span></code> 上按右鍵，選擇 <span class="guilabel">屬性</span>。</p></li>
-</ol>
-<img alt="../_images/486.png" class="align-center" src="../_images/486.png" />
-<ol class="arabic simple" start="5">
-<li><p>在 <span class="guilabel">圖層屬性</span> 視窗中切換到 <span class="guilabel">詮釋資料</span> 分頁，展開 <span class="guilabel">屬性</span> 欄位，在欄位最下面的 <span class="guilabel">圖層的空間參考系統</span> 一行就可以看到本圖層的指定投影法，它以 <a class="reference external" href="https://en.wikipedia.org/wiki/PROJ.4">PROJ.4 格式</a>標記。</p></li>
-</ol>
-<img alt="../_images/580.png" class="align-center" src="../_images/580.png" />
-<ol class="arabic simple" start="6">
-<li><p>現在就來看看要怎麼更改圖層的投影。這個步驟通常稱為 <strong>重新投影</strong>，可以針對整個圖層或是只對圖層上的某些圖徵進行操作。接下來我們使用 <span class="guilabel">依區域或點擊選擇圖徵</span> 按鈕，選擇美國的圖徵。</p></li>
-</ol>
-<img alt="../_images/677.png" class="align-center" src="../_images/677.png" />
-<ol class="arabic simple" start="7">
-<li><p>在 <code class="docutils literal notranslate"><span class="pre">ne_10m_admin_0_countries</span></code> 圖層上按右鍵然後選擇 <span class="guilabel">存檔為…</span>，</p></li>
-</ol>
-<img alt="../_images/776.png" class="align-center" src="../_images/776.png" />
-<ol class="arabic simple" start="8">
-<li><p>在 <span class="guilabel">儲存向量圖層為…</span> 的視窗中，把輸出檔命名為 <code class="docutils literal notranslate"><span class="pre">united_states.shp</span></code>，然後勾選 <span class="guilabel">儲存僅選取的圖徵</span>，這樣就能確保只有選擇的圖徵會被重新投影後輸出。接下來我們點選 <span class="guilabel">選取 CRS</span> 鈕，為這個圖徵選擇新的投影法。</p></li>
-</ol>
-<img alt="../_images/874.png" class="align-center" src="../_images/874.png" />
-<ol class="arabic simple" start="9">
-<li><p>在 <span class="guilabel">選擇座標參考系統</span> 視窗中的 <span class="guilabel">過濾條件</span> 欄位輸入 <code class="docutils literal notranslate"><span class="pre">north</span> <span class="pre">america</span></code>，在底下稍微捲動一下，找到並選取 <code class="docutils literal notranslate"><span class="pre">North_America_Albers_Equal_Area_Conic</span> <span class="pre">(EPSG:102008)</span></code>，然後按下<span class="guilabel">確定</span>。</p></li>
-</ol>
-<div class="admonition note">
-<p class="admonition-title">備註</p>
-<p>這裡選擇 Albers Equal Area Conic 投影的原因是它常常被用在各種美國的主題地圖上。實務上地圖投影法的選擇與製作地圖的目的息息相關。如想知道投影法的更多資訊可參考<a class="reference external" href="http://docs.qgis.org/2.8/en/docs/gentle_gis_introduction/coordinate_reference_systems.html">這裡</a>。</p>
-</div>
-<img alt="../_images/973.png" class="align-center" src="../_images/973.png" />
-<ol class="arabic simple" start="10">
-<li><p>回到剛才的 <span class="guilabel">儲存向量圖層為…</span> 視窗，此時新的 CRS 已經選取了。按下<span class="guilabel">確定</span>。</p></li>
-</ol>
-<img alt="../_images/1081.png" class="align-center" src="../_images/1081.png" />
-<ol class="arabic simple" start="11">
-<li><p>當這個重投影的圖層載入到 QGIS 中時，你會發現就算這兩個圖層的投影法不同， <code class="docutils literal notranslate"><span class="pre">美國</span></code> 還是位於與 <code class="docutils literal notranslate"><span class="pre">ne_10m_admin_0_countries</span></code> 完全相同的位置上。這是因為 QGIS 中有個稱為「<strong>即時 CRS 轉換</strong>」的功能，你會看到 QGIS 視窗右下角的投影欄，在 <span class="guilabel">EPSG:4326`</span> 旁邊多了 <code class="docutils literal notranslate"><span class="pre">OTF</span></code> 的字樣，讓我們來稍微了解一下這個東西。</p></li>
-</ol>
-<img alt="../_images/11118.png" class="align-center" src="../_images/11118.png" />
-<ol class="arabic simple" start="12">
-<li><p>選擇 <span class="menuselection">設定 ‣ 選項</span>。</p></li>
-</ol>
-<img alt="../_images/1294.png" class="align-center" src="../_images/1294.png" />
-<ol class="arabic simple" start="13">
-<li><p>在 <span class="guilabel">選項</span> 視窗中切換到 <span class="guilabel">CRS</span> 分頁，你可以看到有個預設值是 <span class="guilabel">如果圖層之間有不同的CRS，自動啟用即時座標投影轉換</span>。這是說當 QGIS 偵測到讀入的圖層跟已經存在的圖層有不同的 CRS 時，它會自動把新圖曾以舊圖層的投影法重新投影，這樣他們就可以在正確的座標下自動對齊。按下 <span class="guilabel">確定</span>。</p></li>
-</ol>
-<img alt="../_images/1378.png" class="align-center" src="../_images/1378.png" />
-<ol class="arabic simple" start="14">
-<li><p>來關掉<strong>即時CRS轉換</strong>看會發生什麼事。點選視窗右下角的 <span class="guilabel">現在的CRS</span> 鈕，</p></li>
-</ol>
-<img alt="../_images/1474.png" class="align-center" src="../_images/1474.png" />
-<ol class="arabic simple" start="15">
-<li><p>在 <span class="guilabel">專案屬性</span> 視窗中，取消 <span class="guilabel">開啟即時CRS轉換</span> 的勾選，然後按下<span class="guilabel">確定</span>。</p></li>
-</ol>
-<img alt="../_images/1566.png" class="align-center" src="../_images/1566.png" />
-<ol class="arabic simple" start="16">
-<li><p>Back in the main QGIS window, you will see the nice World map disappear.
-This is because the Project CRS changed to
-<code class="docutils literal notranslate"><span class="pre">North_America_Albers_Equal_Area_Conic</span></code> and the coordinates and scale are
-different now. Right-click the <code class="docutils literal notranslate"><span class="pre">united_states</span></code> layer and select
-<span class="guilabel">Zoom to Layer</span>.</p></li>
-</ol>
-<img alt="../_images/1662.png" class="align-center" src="../_images/1662.png" />
-<ol class="arabic simple" start="17">
-<li><p>現在就可以看到美國以選擇的投影法呈現出來了。注意 <code class="docutils literal notranslate"><span class="pre">ne_10m_admin_0_countries</span></code> 圖層完全沒有顯示在畫面中，因為它和 <code class="docutils literal notranslate"><span class="pre">united_states</span></code> 圖層佔據了完全不同的座標。現在請回到 <span class="guilabel">專案屬性</span> 視窗中把 <span class="guilabel">開啟即時CRS轉換</span> 再度打開，本教學接下來都會在此模式下操作。</p></li>
-</ol>
-<img alt="../_images/1759.png" class="align-center" src="../_images/1759.png" />
-<ol class="arabic simple" start="18">
-<li><p>現在我們要切換到另一個地方，然後再加入一個影像圖層到專案中。找到先前的 <code class="docutils literal notranslate"><span class="pre">minisc_gb.zip</span></code> 然後把它解壓縮，內有一個稱為 <code class="docutils literal notranslate"><span class="pre">RGB_TIF_COMPRESSED</span></code> 的資料夾。你會發現內含的 .tif 圖片就只是 TIF 圖片，而不像 GeoTIFF 圖片般會含有投影資訊。如果我們想要在 GIS 系統中使用這張圖片，必須要先進行「空間對位」才行。空間對位檔案含有 2 種參數設置：影像的涵蓋範圍，或是投影方法。一般來說，影像涵蓋範圍的空間對位檔案，附檔名會是 <code class="docutils literal notranslate"><span class="pre">.tfw</span></code> 或 <code class="docutils literal notranslate"><span class="pre">.jgw</span></code>，通常我們會把它叫做  <a class="reference external" href="https://en.wikipedia.org/wiki/World_file">World file</a>。大部分的 GIS 軟體如 QGIS 都可以讀取 World file 內儲存的地理空間資訊，並把他套用在相同資料夾下、相同主檔名的影像檔上。這張影像的 <code class="docutils literal notranslate"><span class="pre">.tfw</span></code> 檔案目前存在叫做 <code class="docutils literal notranslate"><span class="pre">georeferencing_files</span></code> 的資料夾內。</p></li>
-</ol>
-<img alt="../_images/1855.png" class="align-center" src="../_images/1855.png" />
-<ol class="arabic simple" start="19">
-<li><p>進入 <code class="docutils literal notranslate"><span class="pre">georeferencing_files</span></code> 內的 <code class="docutils literal notranslate"><span class="pre">ESRI_TFW_FILES</span></code> 資料夾，<code class="docutils literal notranslate"><span class="pre">.tfw</span></code> 檔案實際上是純文字檔，所以請用文字編輯器打開任一個 <code class="docutils literal notranslate"><span class="pre">.tfw</span></code> 檔看看。</p></li>
-</ol>
-<img alt="../_images/1946.png" class="align-center" src="../_images/1946.png" />
-<ol class="arabic simple" start="20">
-<li><p>World file 總共會有 6 行，每行都是數字。就如以下的說明所示，每行其實都是某個有關於影像檔的資訊。此格式相當有用，因為有時候有些檔案會沒有 world file，你必須要依照所知的資料，自己建立對應的 world file 才行。</p></li>
-</ol>
-<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>Line 1: A: pixel size in the x-direction in map units/pixel
-Line 2: D: rotation about y-axis
-Line 3: B: rotation about x-axis
-Line 4: E: pixel size in the y-direction in map units
-Line 5: C: x-coordinate of the center of the upper left pixel
-Line 6: F: y-coordinate of the center of the upper left pixel
-</pre></div>
-</div>
-<img alt="../_images/2041.png" class="align-center" src="../_images/2041.png" />
-<ol class="arabic simple" start="21">
-<li><p>從 <code class="docutils literal notranslate"><span class="pre">georeferencing_files</span></code> 資料夾內複製 <code class="docutils literal notranslate"><span class="pre">MiniScale_(standard)_R17.tfw</span></code> 到 <code class="docutils literal notranslate"><span class="pre">RGB_TIF_COMPRESSED</span></code> 底下，把 <code class="docutils literal notranslate"><span class="pre">.tfw</span></code> 和 <code class="docutils literal notranslate"><span class="pre">.tif</span></code> 檔擺在相同目錄，以供 QGIS 辨識。</p></li>
-</ol>
-<img alt="../_images/2194.png" class="align-center" src="../_images/2194.png" />
-<ol class="arabic simple" start="22">
-<li><p>在 QGIS 中選擇 <span class="menuselection">圖層 ‣ 加入圖層 ‣ 加入影像圖層</span>，選擇 <code class="docutils literal notranslate"><span class="pre">MiniScale_(standard)_R17.tif</span></code> 然後按 <span class="guilabel">開啟</span>。</p></li>
-</ol>
-<img alt="../_images/2239.png" class="align-center" src="../_images/2239.png" />
-<ol class="arabic simple" start="23">
-<li><p>英國地形測量局使用的是 British National Grid 投影法。在 <span class="guilabel">選擇座標參考系統</span> 視窗中，搜尋 <code class="docutils literal notranslate"><span class="pre">british</span> <span class="pre">national</span></code> 然後選擇 <code class="docutils literal notranslate"><span class="pre">OSGB</span> <span class="pre">1936</span> <span class="pre">/</span> <span class="pre">British</span> <span class="pre">National</span> <span class="pre">Grid</span> <span class="pre">(EPSG:27700)</span></code> 這個 CRS，最後按下 <span class="guilabel">確定</span>。</p></li>
-</ol>
-<img alt="../_images/2335.png" class="align-center" src="../_images/2335.png" />
-<ol class="arabic simple" start="24">
-<li><p><code class="docutils literal notranslate"><span class="pre">MiniScale_(standard)_R17</span></code> 圖層載入後，以右鍵點選，選擇 <span class="guilabel">縮放到圖層範圍</span>。</p></li>
-</ol>
-<img alt="../_images/2434.png" class="align-center" src="../_images/2434.png" />
-<ol class="arabic simple" start="25">
-<li><p>最後我們就可以看到此圖層已經疊到 <code class="docutils literal notranslate"><span class="pre">ne_10m_admin_0_countries</span></code> 向量圖層之上了。因為我們已經啟用 <code class="docutils literal notranslate"><span class="pre">OTF</span></code> 模式而且把 CRS 設成 EPSG:4326，<code class="docutils literal notranslate"><span class="pre">MiniScale_(standard)_R17</span></code> 圖層會自動重新投影到 EPSG:4326，使用與其它圖層相同的座標系統顯示在畫面中。</p></li>
-</ol>
-<img alt="../_images/2531.png" class="align-center" src="../_images/2531.png" />
-</section>
 </section>
 
 
 
-
-
-  <!-- Comment Section Powered by utterances -->
-<div id="comments">
-  <hr />
-  <p>If you want to give feedback or share your experience with this tutorial, please comment below. (requires GitHub account)</p>
-<script src="https://utteranc.es/client.js"
-        repo="spatialthoughts/qgis-tutorials"
-        issue-term="title"
-        label="comment"
-        theme="github-light"
-        crossorigin="anonymous"
-        async>
-</script>
-</div>
+<!-- Turn on comments on only newer tutorials having 3/ in URL -->
 
 
     </div>
@@ -364,7 +205,7 @@ Line 6: F: y-coordinate of the center of the upper left pixel
     </p>
     <p>
         &copy; Copyright 2025, Ujaval Gandhi.<br/>
-      最後更新於 5月 20, 2025。<br/>
+      最後更新於 5月 24, 2025。<br/>
       Created using <a href="http://sphinx-doc.org/">Sphinx</a> 7.2.6.<br/>
     </p>
   </div>

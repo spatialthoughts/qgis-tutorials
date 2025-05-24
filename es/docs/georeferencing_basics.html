@@ -185,113 +185,11 @@
 <p class="admonition-title">Advertencia</p>
 <p>Este tutorial está ahora obsoleto. Una versión nueva y actualizada está disponible en <a class="reference internal" href="3/georeferencing_basics.html"><span class="doc">Georeferenciar Hojas Topográficas y Mapas Escaneados (QGIS3)</span></a></p>
 </div>
-<p>La mayoría de los proyectos SIG requiere la georeferenciación de algunos datos ráster. La <em>georeferenciación</em> es el proceso de asignar coordenadas del mundo real a cada píxel del ráster. Muchas veces estas coordenadas son obtenidas haciendo estudios de campo - colectando coordenadas con un dispositivo GPS para unas pocas entidades fácilmente identificables en la imagen o mapa. En algunos casos, donde buscas digitalizar mapas escaneados, puedes obtener las coordenadas de las marcadas en la misma imagen del mapa. Usando estas coordenadas de muestra o PCTs (Puntos de Control del Terreno), la imagen es ajustada y se la hace coincidir dentro del sistema de coordenada elegido. En este tutorial discutiré los conceptos, estrategias y herramientas dentro de QGIS para alcanzar una georeferenciación de alta exactitud.</p>
-<section id="overview-of-the-task">
-<h2>Vista general de la tarea<a class="headerlink" href="#overview-of-the-task" title="Link to this heading">¶</a></h2>
-<p>Usaremos un mapa escaneado del sur de la India del 1870 y lo georeferenciaremos usando QGIS.</p>
-<section id="other-skills-you-will-learn">
-<h3>Otras habilidades que aprenderá<a class="headerlink" href="#other-skills-you-will-learn" title="Link to this heading">¶</a></h3>
-<ul class="simple">
-<li><p>Cómo determinar el dátum y sistema de coordenadas para mapas antiguos.</p></li>
-</ul>
-</section>
-</section>
-<section id="get-the-data">
-<h2>Obtener los datos<a class="headerlink" href="#get-the-data" title="Link to this heading">¶</a></h2>
-<p>El sitio web <a class="reference external" href="http://www.hipkiss.org/data/maps.html">Hipkiss’s Scanned Old Maps</a> tiene una excelente colección de mapas escaneados sin derechos reservados que uno puede usar para investigación.</p>
-<p>Descargue el <a class="reference external" href="http://www.hipkiss.org/data/maps/william-mackenzie_gallery-of-geography_1870_southern-india_3975_3071_600.jpg">mapa 1870 del sur de la India</a> y guárdelo como una imagen JPG en su disco duro.</p>
-<p>Para su comodidad, puede descargar directamente una copia del conjunto de datos del enlace abajo:</p>
-<p><a class="reference external" href="http://www.qgistutorials.com/downloads/1870_southern-india.jpg">1870_southern_india.jpg</a></p>
-</section>
-<section id="procedure">
-<h2>Procedimiento<a class="headerlink" href="#procedure" title="Link to this heading">¶</a></h2>
-<p>1. Georeferencing in QGIS is done via the ‘Georeferencer GDAL’ plugin. This is a
-core plugin - meaning it is already part of your QGIS installation. You just
-need to enable it. Go to <span class="menuselection">Plugins ‣ Manage and Install
-Plugins</span> and enable the <span class="guilabel">Georeferencer GDAL</span> plugin in the
-<span class="guilabel">Installed</span> tab. See <a class="reference internal" href="using_plugins.html"><span class="doc">Uso de Complementos</span></a> for more details on how to
-work with plugins.</p>
-<img alt="../_images/1196.png" class="align-center" src="../_images/1196.png" />
-<ol class="arabic simple" start="2">
-<li><p>El complemento está instalado en el menú Ráster. Clic en <span class="menuselection">Ráster ‣ Georeferenciador ‣ Georeferenciador</span> para el abrir el complemento.</p></li>
-</ol>
-<img alt="../_images/2158.png" class="align-center" src="../_images/2158.png" />
-<ol class="arabic simple" start="3">
-<li><p>La ventana del complemento está dividida en 2 secciones. La sección superior donde se mostrará el raster y la sección inferior donde aparecerá una tabla que muestra tus PCTs.</p></li>
-</ol>
-<img alt="../_images/397.png" class="align-center" src="../_images/397.png" />
-<ol class="arabic simple" start="4">
-<li><p>Ahora abriremos nuestra imagen JPG. Vaya a <span class="menuselection">Archivo ‣ Abrir Raster</span>. Navegue a la imagen descargada del mapa escaneado y clic en <span class="guilabel">Abrir</span>.</p></li>
-</ol>
-<img alt="../_images/463.png" class="align-center" src="../_images/463.png" />
-<ol class="arabic simple" start="5">
-<li><p>En la siguiente ventana, se le pedirá elegir el sistema de referencia de coordenadas (SRC) del ráster. Esto es para especificar la proyección y datos de sus puntos de control. Si ha recogido los puntos de control de terreno usando un dispositivo GPS, tendrá un SRC WGS84. Si está georeferenciando un mapa escaneado como este, puede obtener la información SRC del mismo mapa. Mirando a nuestra imagen de mapa, las coordenadas están en Lat/Lon. No hay información dada sobre el dátum, así que tendremos que asumir una apropiada. Debido a que es la India y el mapa es bastante antiguo, podemos apostar que el datum Everest 1830 nos daría buenos resultados.</p></li>
-</ol>
-<img alt="../_images/556.png" class="align-center" src="../_images/556.png" />
-<ol class="arabic simple" start="6">
-<li><p>Verá que la imagen es cargada en la sección superior.</p></li>
-</ol>
-<img alt="../_images/654.png" class="align-center" src="../_images/654.png" />
-<ol class="arabic simple" start="7">
-<li><p>Puede usar los controles de acercamiento/desplazamiento en la barra de herramientas para aprender más sobre el mapa.</p></li>
-</ol>
-<img alt="../_images/754.png" class="align-center" src="../_images/754.png" />
-<ol class="arabic simple" start="8">
-<li><p>Ahora necesitamos asignar coordenadas a algunos puntos en este mapa. Si mira de cerca, verá una cuadrícula de coordenadas con marcas. Usando esta cuadrícula, puedes determinar las coordenadas X y Y de los puntos donde la cuadrícula intersecta. Clic en <span class="guilabel">Agregar Punto</span> en la barra de herramienta.</p></li>
-</ol>
-<img alt="../_images/853.png" class="align-center" src="../_images/853.png" />
-<ol class="arabic simple" start="9">
-<li><p>En la ventana emergente, ingrese las coordenadas. Recuerde que X=longitud y Y=latitud. Clic en <span class="guilabel">Aceptar</span>.</p></li>
-</ol>
-<img alt="../_images/953.png" class="align-center" src="../_images/953.png" />
-<ol class="arabic simple" start="10">
-<li><p>Notará que la tabla PCT ahora tiene una fila con detalles de su primer PCT.</p></li>
-</ol>
-<img alt="../_images/1060.png" class="align-center" src="../_images/1060.png" />
-<ol class="arabic simple" start="11">
-<li><p>De forma similar, agregue por lo menos 4 PCTs que cubran toda la imagen. Mientras más puntos tenga, más exacta será registrada su imagen a la coordenadas destino.</p></li>
-</ol>
-<img alt="../_images/1197.png" class="align-center" src="../_images/1197.png" />
-<ol class="arabic simple" start="12">
-<li><p>Una vez que tenga suficientes puntos, vaya a <span class="menuselection">Configuración -&gt; Configuración de transformación</span>.</p></li>
-</ol>
-<img alt="../_images/1262.png" class="align-center" src="../_images/1262.png" />
-<ol class="arabic simple" start="13">
-<li><p>En el diálogo <span class="guilabel">Configuración de transformación</span>, elija para <span class="guilabel">Tipo de transformación</span> <span class="guilabel">Thin Plate Spline</span>. Dele nombre a su raster de salida como <span class="guilabel">1870_southern_india_modified.tif</span>. Elija <span class="guilabel">EPSG:4326</span> como la SRC destino de manera que la imagen resultante esté en un dátum ampliamente compatible. Asegúrese que la opción <span class="guilabel">Cargar en QGIS cuando esté listo</span> esté marcada. Clic en <span class="guilabel">Aceptar</span>.</p></li>
-</ol>
-<img alt="../_images/1360.png" class="align-center" src="../_images/1360.png" />
-<ol class="arabic simple" start="14">
-<li><p>De vuelta en la ventana <span class="guilabel">Georeferenciador</span>, vaya a <span class="menuselection">Archivo ‣ Inicie la georeferenciación</span>. Esto iniciará el proceso de ajuste de la imagen usando los PCTs y creando el ráster destino.</p></li>
-</ol>
-<img alt="../_images/1456.png" class="align-center" src="../_images/1456.png" />
-<ol class="arabic simple" start="15">
-<li><p>Una vez que termine el proceso, verá la capa georeferenciada cargada en QGIS.</p></li>
-</ol>
-<img alt="../_images/1550.png" class="align-center" src="../_images/1550.png" />
-<ol class="arabic simple" start="16">
-<li><p>La georeferenciación ahora está completa. Pero como siempre, es buena práctica verificar tu trabajo. Como verificamos si nuestra georeferenciación es exacta? En este caso, cargue el archivo shape de límites de países de una fuente confiable como el conjunto de datos Natural Earth y compárelos. Notará que coinciden bastante bien. Existe algun error y se puede corregir tomando más puntos de control, cambiando los parámetros de transformación e intentando un datum diferente.</p></li>
-</ol>
-<img alt="../_images/1646.png" class="align-center" src="../_images/1646.png" />
-</section>
 </section>
 
 
 
-
-
-  <!-- Comment Section Powered by utterances -->
-<div id="comments">
-  <hr />
-  <p>If you want to give feedback or share your experience with this tutorial, please comment below. (requires GitHub account)</p>
-<script src="https://utteranc.es/client.js"
-        repo="spatialthoughts/qgis-tutorials"
-        issue-term="title"
-        label="comment"
-        theme="github-light"
-        crossorigin="anonymous"
-        async>
-</script>
-</div>
+<!-- Turn on comments on only newer tutorials having 3/ in URL -->
 
 
     </div>
@@ -307,7 +205,7 @@ work with plugins.</p>
     </p>
     <p>
         &copy; Copyright 2025, Ujaval Gandhi.<br/>
-      Actualizado por última vez en may 20, 2025.<br/>
+      Actualizado por última vez en may 24, 2025.<br/>
       Created using <a href="http://sphinx-doc.org/">Sphinx</a> 7.2.6.<br/>
     </p>
   </div>

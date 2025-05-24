@@ -185,153 +185,11 @@
 <p class="admonition-title">Waarschuwing</p>
 <p>Deze handleiding is nu gedateerd. Een nieuwe en bijgewerkte versie is beschikbaar op <a class="reference internal" href="3/creating_heatmaps.html"><span class="doc">Heatmaps maken (QGIS3)</span></a></p>
 </div>
-<p>Heatmaps zijn een van de beste manieren van het visualiseren van dicht op elkaar gelegen puntgegevens. Heatmaps worden gebruikt om eenvoudig clusters te identificeren waar een hoge concentratie activiteit is. Zij zijn ook handig voor het doen van <cite>clusteranalyse</cite> of <cite>hotspotanalyse</cite>.</p>
-<section id="overview-of-the-task">
-<h2>Overzicht van de taak<a class="headerlink" href="#overview-of-the-task" title="Link to this heading">¶</a></h2>
-<p>We zullen werken met een gegevensset van misdaadlocaties in Surrey, UK voor het jaar 2011 en hotspots van misdaad vinden in de county.</p>
-<section id="other-skills-you-will-learn">
-<h3>Andere vaardigheden die u zult leren<a class="headerlink" href="#other-skills-you-will-learn" title="Link to this heading">¶</a></h3>
-<ul class="simple">
-<li><p>Hoe <em>HotSpot</em> of <em>Cluster</em>-analyses uit te voeren op gegevens met dichtheidspunten.</p></li>
-</ul>
-</section>
-</section>
-<section id="get-the-data">
-<h2>De gegevens ophalen<a class="headerlink" href="#get-the-data" title="Link to this heading">¶</a></h2>
-<p><a class="reference external" href="https://data.police.uk">data.police.uk</a> verschaft criminaliteit op straat, uitkomst, en gegevens over stoppen en doorzoeken in eenvoudige CSV-indeling.</p>
-<p>Download de gegevens voor <a class="reference external" href="https://data.police.uk/data/">Surrey Police</a> en pak het gedownloade archief uit om het CSV-bestand uit te nemen.</p>
-<p>Voor het gemak kunt u direct een kopie van de gegevensset downloaden vanaf de link hieronder:</p>
-<p><a class="reference external" href="http://www.qgistutorials.com/downloads/2015-08-surrey-street.csv">2015-08-surrey-street.csv</a></p>
-<p>Gegevensbron <a class="reference internal" href="credits.html#policeuk" id="id1"><span>[POLICEUK]</span></a></p>
-</section>
-<section id="procedure">
-<h2>Procedure<a class="headerlink" href="#procedure" title="Link to this heading">¶</a></h2>
-<ol class="arabic simple">
-<li><p>We zullen, om te beginnen, het CSV-bestand importeren in QGIS. (bekijk <a class="reference internal" href="importing_spreadsheets_csv.html"><span class="doc">Werkbladen of CSV-bestanden importeren</span></a>. voor meer details). Klik op <span class="menuselection">Kaartlagen ‣ Laag toevoegen ‣Layer ‣ Tekstgescheiden kaartlaag toevoegen</span>.</p></li>
-</ol>
-<img alt="../_images/1187.png" class="align-center" src="../_images/1187.png" />
-<ol class="arabic simple" start="2">
-<li><p>Blader naar het bestand <cite>2015-08-surrey-street.csv</cite> op uw computer en open het. (Uw bestandsnaam zou anders kunnen zijn indien u een nieuwe kopie van de gegevensset heeft gedownload.) Selecteer <span class="guilabel">CSV (comma separated values)</span> als de bestandsindeling. U zult zien dat de kolommen <em>Longitude</em> en <em>Latitude</em> automatisch worden geselecteerd als X- en Y-velden. Zorg er voor dat u de optie <span class="guilabel">Ruimtelijke index gebruiken</span> selecteert omdat dat de bewerkingen op deze laag versneld. Klik op <span class="guilabel">OK</span>.</p></li>
-</ol>
-<img alt="../_images/2151.png" class="align-center" src="../_images/2151.png" />
-<ol class="arabic simple" start="3">
-<li><p>U zou enkele fouten kunnen zien. Voor het doel van deze handleiding kunt u die negeren. Klik op <span class="guilabel">Sluiten</span>.</p></li>
-</ol>
-<img alt="../_images/389.png" class="align-center" src="../_images/389.png" />
-<ol class="arabic simple" start="4">
-<li><p>Wanneer de gegevenslaag is geladen in QGIS, zult u een dialoogvenster met een waarschuwing zien <span class="guilabel">CRS was undefined: defaulting to CRS EPSG:4326 - WGS84</span>. De importeur van CSV gaat uit van CRS EPSG:4326 indien uw coördinaten in Latitude/Longitude staan. Als uw X- en Y-coördinaten in een geprojecteerd CRS zouden staan, zou u een dialoogvenster krijgen dat u vraagt het CRS te kiezen. Omdat onze gegevens in EPSG:4326 zijn, kunt u de waarschuwing negeren.</p></li>
-</ol>
-<div class="admonition note">
-<p class="admonition-title">Notitie</p>
-<p>Indien u het automatisch toegewezen CRS moet wijzigen, kunt u <span class="menuselection">Vector ‣ Datamanagement-gereedschap ‣ Huidige projectie definiëren…</span> gebruiken.</p>
-</div>
-<img alt="../_images/458.png" class="align-center" src="../_images/458.png" />
-<ol class="arabic simple" start="5">
-<li><p>Zoom een beetje in om de gegevens beter te zien. U zult zien dat de gegevens vrij dicht zijn en het moeilijk is om een idee te krijgen waar een hoge concentratie punten is. Dit is waar een heatmap handig zou kunnen zijn.</p></li>
-</ol>
-<img alt="../_images/551.png" class="align-center" src="../_images/551.png" />
-<ol class="arabic simple" start="6">
-<li><p>Indien u een heatmap voor een puur visueel doel of afdrukken moet maken - heeft QGIS een ingebouwde renderer voor symbologie, genaamd <span class="guilabel">Heatmap</span>. Laten we die eerst eens proberen. Klik met rechts op de laag <code class="docutils literal notranslate"><span class="pre">2015-08-surrey-street</span></code> en selecteer <span class="guilabel">Eigenschappen</span>.</p></li>
-</ol>
-<img alt="../_images/649.png" class="align-center" src="../_images/649.png" />
-<ol class="arabic simple" start="7">
-<li><p>Schakel, in het dialoogvenster <span class="guilabel">Eigenschappen</span>, naar de tab <span class="guilabel">Stijl</span>. Selecteer <span class="guilabel">Heatmap</span> als de renderer. U heeft veel keuze uit kleurbalken voor de heatmap. Kies de kleurenbalk <code class="docutils literal notranslate"><span class="pre">Oranges</span></code>. Laat de andere parameters op hun standaard staan en klik op <span class="guilabel">OK</span>.</p></li>
-</ol>
-<img alt="../_images/749.png" class="align-center" src="../_images/749.png" />
-<ol class="arabic simple" start="8">
-<li><p>U zult een nette heatmap zien van uw gegevens en gaten van <em>heat</em> waar een hoge concentratie criminaliteit is. Er zijn vrij veel opties beschikbaar in de renderer van de heatmap om de meest toepasselijke visualisatie voor uw gegevensset te maken. Indien u slechts een heatmap voor afdrukken of visuele inspectie wilde maken - u bent klaar! Maar we zullen een andere meer krachtige optie voor het maken van een heatmap verkennen waarvan u de resultaten ook in uw analyse kunt gebruiken.</p></li>
-</ol>
-<img alt="../_images/848.png" class="align-center" src="../_images/848.png" />
-<ol class="arabic simple" start="9">
-<li><p>Schakel een plug-in van de bron, genaamd <code class="docutils literal notranslate"><span class="pre">Heatmap</span></code> in. Bekijk <a class="reference internal" href="using_plugins.html"><span class="doc">Plug-ins gebruiken</span></a> om te weten te komen hoe ingebouwde plug-ins moeten worden ingeschakeld. Als u de plug-in eenmaal hebt ingeschakeld, ga dan naar <span class="menuselection">Raster ‣ Heatmap ‣ Heatmap</span>.</p></li>
-</ol>
-<img alt="../_images/949.png" class="align-center" src="../_images/949.png" />
-<ol class="arabic simple" start="10">
-<li><p>Kies, in het dialoogvenster <span class="guilabel">Heatmap Plugin</span>, <cite>crime_heatmap</cite> als de naam in <span class="guilabel">Uitvoer raster</span>. Voer <cite>1000</cite> meter in als de <span class="guilabel">Straal</span>. Straal is het gebied rondom elk punt dat zal worden gebruikt om de <cite>heat</cite> te berekenen die een pixel ontvangt. Selecteer <span class="guilabel">Geavanceerd</span> om de grootte van de uitvoer van onze heatmap te specificeren. Voer <cite>2000</cite> in als waarde voor <span class="guilabel">Rijen</span> . De waarde <span class="guilabel">Kolommen</span> zal automatisch bijgewerkt worden. Klik op <span class="guilabel">OK</span> om het proces van het maken van de heatmap te starten.</p></li>
-</ol>
-<img alt="../_images/1056.png" class="align-center" src="../_images/1056.png" />
-<ol class="arabic simple" start="11">
-<li><p>Als proces eenmaal is voltooid, zult u een heatmap in grijswaarden, genaamd <code class="docutils literal notranslate"><span class="pre">crime_heatmap</span></code>, zien worden geladen in het kaartvenster. Deselecteer de laag <code class="docutils literal notranslate"><span class="pre">2015-08-surrey-street</span></code>.</p></li>
-</ol>
-<img alt="../_images/1188.png" class="align-center" src="../_images/1188.png" />
-<ol class="arabic simple" start="12">
-<li><p>Laten we onze heatmap er eens meer laten uitzien als een traditionele heatmap zoals de eerdere visualisatie. Klik met rechts op laag van de heatmap en klik op <span class="guilabel">Eigenschappen</span>.</p></li>
-</ol>
-<img alt="../_images/1258.png" class="align-center" src="../_images/1258.png" />
-<ol class="arabic simple" start="13">
-<li><p>Selecteer, op de tab <span class="guilabel">Stijl</span>, <span class="guilabel">Enkelbands pseudokleur</span> als het <span class="guilabel">Rendertype</span>. Selecteer vervolgens, onder het gedeelte <span class="guilabel">Min/max waarden laden</span>, <span class="guilabel">Schatten (sneller)</span> als de <span class="guilabel">Nauwkeurigheid</span> en klik op <span class="guilabel">Laden</span>. Dit zal de heatmap scannen en de minimale en maximale pixelwaarden vinden. Deze waarden zullen worden gebruikt om een toepasselijk kleurbereik te genereren. Selecteer, in het gedeelte <span class="guilabel">Genereer nieuw kleurenpalet</span>, <span class="guilabel">YlOrRd</span> (Yellow-Orange-Red) als het kleurbereik en klik op <span class="guilabel">Classificeren</span>. Klik op <span class="guilabel">OK</span>.</p></li>
-</ol>
-<img alt="../_images/1356.png" class="align-center" src="../_images/1356.png" />
-<ol class="arabic simple" start="14">
-<li><p>Nu zult een meer aantrekkelijke heatmap-achtige rendering van de laag zien. U kunt het gereedschap <span class="guilabel">Objecten identificeren</span> gebruiken en klikken op een willekeurige pixel in de heatmap. U zult de pixelwaarde in het resulterende pop-upvenster zien. Deze pixelwaarde is een meting van hoeveel punten uit de bronlaag binnen de gespecificeerde straal liggen ( in ons geval - 1000m) rondom de pixel.</p></li>
-</ol>
-<img alt="../_images/1452.png" class="align-center" src="../_images/1452.png" />
-<ol class="arabic simple" start="15">
-<li><p>Nu heeft u uw laag voor de heatmap die kan worden opgeslagen voor gebruik in de toekomst. Vaak zult u de <cite>hotspots</cite> willen identificeren waar een hoge concentratie van punten is. We zullen nu proberen dergelijke <cite>hotspots</cite> te identificeren met behulp van deze heatmap. Ga naar <span class="menuselection">Raster ‣ Rasterberekeningen</span>.</p></li>
-</ol>
-<img alt="../_images/1546.png" class="align-center" src="../_images/1546.png" />
-<ol class="arabic simple" start="16">
-<li><p>U zult eerst een drempelwaarde moeten bepalen. Alle pixelwaarden boven die drempelwaarde zullen worden geacht zich in een cluster te bevinden. Laten we de waarde <code class="docutils literal notranslate"><span class="pre">10</span></code> gebruiken voor deze gegevens. In het dialoogvenster <span class="guilabel">Rasterberekeningen</span>, noem de Resultaatlaag <cite>crime_hotspots_vector</cite>. Dubbelklik op <span class="guilabel">crime_heatmap&#64;1</span> onder het gedeelte <span class="guilabel">Raster banden</span> en het zal worden toegevoegd aan het tekstgebied <span class="guilabel">Rasterberekening expressie</span>. Voltooi de expressie zoals hieronder weergegeven. Selecteer het vak naast <span class="guilabel">Voeg resultaat toe aan project</span> en <span class="guilabel">OK</span>.</p></li>
-</ol>
-<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>&quot;crime_heatmap@1&quot; &gt; 10
-</pre></div>
-</div>
-<img alt="../_images/1643.png" class="align-center" src="../_images/1643.png" />
-<ol class="arabic simple" start="17">
-<li><p>Een nieuwe laag, genaamd <code class="docutils literal notranslate"><span class="pre">crime_hotspots_vector</span></code> zal worden toegevoegd aan QGIS. Deze laag heeft pixels met de waarden van ofwel 0 of 1. Alle pixels in de invoerlaag waar de pixelwaarde groter was dan <code class="docutils literal notranslate"><span class="pre">10</span></code> heeft nu de waarde 1 en alle resterende pixels zijn 0. Klik op <span class="menuselection">Raster ‣ Conversie ‣ Vectoriseren (Raster naar Vector)</span>.</p></li>
-</ol>
-<img alt="../_images/1742.png" class="align-center" src="../_images/1742.png" />
-<ol class="arabic simple" start="18">
-<li><p>Noem het uitvoerbestand <span class="guilabel">crime_hotspots_vector</span>. Selecteer het vak naast <span class="guilabel">Veldnaam</span> en ook <span class="guilabel">Na afloop in kaartvenster laden</span>. Klik op <span class="guilabel">OK</span>.</p></li>
-</ol>
-<img alt="../_images/1838.png" class="align-center" src="../_images/1838.png" />
-<ol class="arabic simple" start="19">
-<li><p>Als de conversie is voltooid zal er nog een andere laag zijn toegevoegd aan QGIS. Dit is de vector-weergave van de clusters die werden gemaakt in de vorige stap. De laag bevat clusters met zowel de waarden 0 als 1. Laten we de waarden 0 er uit filteren om de clusters van de hotspots te krijgen. Klik met rechts op de laag en selecteer <span class="guilabel">Open attributentabel</span>.</p></li>
-</ol>
-<img alt="../_images/1929.png" class="align-center" src="../_images/1929.png" />
-<ol class="arabic simple" start="20">
-<li><p>Klik, in de <span class="guilabel">Attributentabel</span>, op <span class="guilabel">Selecteer objecten m.b.v. reguliere expressie</span>.</p></li>
-</ol>
-<img alt="../_images/2025.png" class="align-center" src="../_images/2025.png" />
-<ol class="arabic simple" start="21">
-<li><p>Voer de expressie in zoals die hieronder is weergegeven en klik op <span class="guilabel">Selecteren</span>. Klik vervolgens op <span class="guilabel">Sluiten</span>.</p></li>
-</ol>
-<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>&quot;DN&quot; = 0
-</pre></div>
-</div>
-<img alt="../_images/2152.png" class="align-center" src="../_images/2152.png" />
-<ol class="arabic simple" start="22">
-<li><p>In het hoofdvenster van de attributentabel zult u enige geaccentueerde objecten zien. Dat zijn de objecten die overeenkomen met onze query. Klik op de knop <span class="guilabel">Bewerken aan-/uitzetten</span> op de werkbalk en klik dan op de knop <span class="guilabel">Geselecteerde objecten verwijderen (DEL)</span>.</p></li>
-</ol>
-<img alt="../_images/2226.png" class="align-center" src="../_images/2226.png" />
-<ol class="arabic simple" start="23">
-<li><p>Klik, als de geselecteerde objecten eenmaal zijn verwijderd, op de knop <span class="guilabel">Aanpassingen opslaan</span> en dan opnieuw op <span class="guilabel">Bewerken aan-/uitzetten</span> om de laag in de modus Alleen-lezen te zetten. Sluit het venster van de attributentabel.</p></li>
-</ol>
-<img alt="../_images/2323.png" class="align-center" src="../_images/2323.png" />
-<ol class="arabic simple" start="24">
-<li><p>Deselecteer in het hoofdvenster van QGIS de laag <code class="docutils literal notranslate"><span class="pre">crime_hotspots</span></code>. De uiteindelijke laag <code class="docutils literal notranslate"><span class="pre">crime_hotspots_vector</span></code> bevat de uit de heatmap uitgenomen clusters. Deze clusters is de <em>intelligence</em> die is verzameld vanuit de ruwe gegevens en bruikbare inzichten kan verschaffen en ook kunnen dienen als invoer voor verdere acties.</p></li>
-</ol>
-<img alt="../_images/2423.png" class="align-center" src="../_images/2423.png" />
-</section>
 </section>
 
 
 
-
-
-  <!-- Comment Section Powered by utterances -->
-<div id="comments">
-  <hr />
-  <p>If you want to give feedback or share your experience with this tutorial, please comment below. (requires GitHub account)</p>
-<script src="https://utteranc.es/client.js"
-        repo="spatialthoughts/qgis-tutorials"
-        issue-term="title"
-        label="comment"
-        theme="github-light"
-        crossorigin="anonymous"
-        async>
-</script>
-</div>
+<!-- Turn on comments on only newer tutorials having 3/ in URL -->
 
 
     </div>
@@ -347,7 +205,7 @@
     </p>
     <p>
         &copy; Copyright 2025, Ujaval Gandhi.<br/>
-      Laatste aanpassing op mei 20, 2025.<br/>
+      Laatste aanpassing op mei 24, 2025.<br/>
       Created using <a href="http://sphinx-doc.org/">Sphinx</a> 7.2.6.<br/>
     </p>
   </div>

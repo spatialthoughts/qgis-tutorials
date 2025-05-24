@@ -184,198 +184,14 @@
 <div class="admonition warning">
 <p class="admonition-title">Advertencia</p>
 <p>El complemento qgis2leaf ya no está en desarrollo activo. La funcionalidad de este complemento está incorporada en un nuevo complemento llamado <strong>qgis2web</strong>.</p>
-<p>Vea el tutorial <a class="reference internal" href="web_mapping_with_qgis2web.html"><span class="doc">Mapeo web con QGIS2Web</span></a> para una versión actualizada de este tutorial.</p>
+<p>See <a class="reference internal" href="3/web_mapping_with_qgis2web.html"><span class="doc">Mapeo Web con QGIS2Web (QGIS3)</span></a> tutorial for an updated version of
+this tutorial.</p>
 </div>
-<p>Leaflet es una popular librería Javascript de código abierto para construir aplicaciones de mapeo web. El complemento <strong>qgis2leaf</strong> provee una forma simple de exportar su mapa QGIS a un mapa web funcional basado en leaflet. Este complemento es una manera útil de iniciarse en el mapeo web y crear un mapa web interactivo a partir de sus capas estáticas de datos SIG.</p>
-<section id="overview-of-the-task">
-<h2>Vista general de la tarea<a class="headerlink" href="#overview-of-the-task" title="Link to this heading">¶</a></h2>
-<p>Crearemos un mapa web leaflet de los aeropuertos del mundo.</p>
-<section id="other-skills-you-will-learn">
-<h3>Otras habilidades que aprenderá<a class="headerlink" href="#other-skills-you-will-learn" title="Link to this heading">¶</a></h3>
-<ul class="simple">
-<li><p>Usar la sentencia SQL <code class="docutils literal notranslate"><span class="pre">CASE</span></code> en la Calculadora de Campo para crear nuevos valores de campo basados en diferentes condiciones.</p></li>
-<li><p>Localizar y usar íconos SVG personalizados en QGIS.</p></li>
-</ul>
-</section>
-</section>
-<section id="get-the-data">
-<h2>Obtener los datos<a class="headerlink" href="#get-the-data" title="Link to this heading">¶</a></h2>
-<p>Usaremos el conjunto de datos <a class="reference external" href="http://www.naturalearthdata.com/downloads/10m-cultural-vectors/airports/">Aeropuertos</a> de Natural Earth.</p>
-<p>Descarga el  <a class="reference external" href="http://www.naturalearthdata.com/http//www.naturalearthdata.com/download/10m/cultural/ne_10m_airports.zip">archivo shape Aeropuertos</a>.</p>
-<p>Fuente de Datos <a class="reference internal" href="credits.html#naturalearth" id="id1"><span>[NATURALEARTH]</span></a></p>
-</section>
-<section id="procedure">
-<h2>Procedimiento<a class="headerlink" href="#procedure" title="Link to this heading">¶</a></h2>
-<ol class="arabic simple">
-<li><p>Instale el complemento <code class="docutils literal notranslate"><span class="pre">qgis2leaf</span></code> yendo a <span class="menuselection">Complementos ‣ Administrar e Instalar Complemento</span>. Note que este complemento está actualmente marcado como <strong>experimental</strong>, por lo que necesitará marcar  <span class="guilabel">Mostrar también complementos experimentales</span> en la Configuración de Complemento. (Vea <a class="reference internal" href="using_plugins.html"><span class="doc">Uso de Complementos</span></a> para más detalles sobre la instalación de complementos en QGIS)</p></li>
-</ol>
-<img alt="../_images/1202.png" class="align-center" src="../_images/1202.png" />
-<ol class="arabic simple" start="2">
-<li><p>Descomprima el archivo <code class="docutils literal notranslate"><span class="pre">ne_10m_airports.zip</span></code> descargado. Abra QGIS y vaya a <span class="menuselection">Capa ‣ Agregar Capa Vectorial</span>. Explore a la ubicación donde los archivos fueron extraídos y seleccione <code class="docutils literal notranslate"><span class="pre">ne_10m_airports.shp</span></code>. Clic en <span class="guilabel">Aceptar</span>.</p></li>
-</ol>
-<img alt="../_images/2162.png" class="align-center" src="../_images/2162.png" />
-<ol class="arabic simple" start="3">
-<li><p>Una vez que la capa <code class="docutils literal notranslate"><span class="pre">ne_10m_airports</span></code> esté cargada, use la herramienta <span class="guilabel">Identificar</span> para hacer clic en cualquier entidad y mirar los atributos. Creará un mapa de aeropuerto donde clasificaremos los aeropuertos en 3 categorías. El atributo <code class="docutils literal notranslate"><span class="pre">type</span></code> será útil cuando se clasifiquen las entidades.</p></li>
-</ol>
-<img alt="../_images/3101.png" class="align-center" src="../_images/3101.png" />
-<ol class="arabic simple" start="4">
-<li><p>Clic-derecho a la capa <code class="docutils literal notranslate"><span class="pre">ne_10m_airports</span></code> y seleccione <span class="guilabel">Abrir Tabla de Atributo</span>.</p></li>
-</ol>
-<img alt="../_images/467.png" class="align-center" src="../_images/467.png" />
-<ol class="arabic simple" start="5">
-<li><p>En el diálogo de la tabla de atributo, clic el botón <span class="guilabel">Alterne la Edición</span>. Una vez que la capa esté en modo edición, clic el botón <span class="guilabel">Abrir Calculadora de Campo</span>.</p></li>
-</ol>
-<img alt="../_images/560.png" class="align-center" src="../_images/560.png" />
-<ol class="arabic simple" start="6">
-<li><p>Queremos crear un nuevo atributo llamado <code class="docutils literal notranslate"><span class="pre">type_code</span></code> donde le damos un valor de 3 a los principales aeropuertos, un valor de 2 a los aeropuertos de tamaño medio y un valor de 1 a todos los otros. Podemos usar la sentencia <em>CASE</em> y escribir una expresión que revisará el valor del atributo <code class="docutils literal notranslate"><span class="pre">type</span></code> y creará una atributo <code class="docutils literal notranslate"><span class="pre">type_code</span></code> basado en la condición. Marque la caja <span class="guilabel">Crear un nuevo campo</span> e ingrese <code class="docutils literal notranslate"><span class="pre">type_code</span></code> como el <span class="guilabel">Nombre del campo de salida</span>. Seleccione <span class="guilabel">Número completo (entero)</span> como el <span class="guilabel">Tipo de campo de salida</span>. En la ventana <span class="guilabel">Expresión</span>, ingrese el siguiente texto.</p></li>
-</ol>
-<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>CASE  WHEN &quot;type&quot; LIKE &#39;%major%&#39;  THEN 3
- WHEN &quot;type&quot; LIKE &#39;%mid%&#39; THEN 2
- ELSE 1
-END
-</pre></div>
-</div>
-<img alt="../_images/658.png" class="align-center" src="../_images/658.png" />
-<ol class="arabic simple" start="7">
-<li><p>De vuelta en la ventana <span class="guilabel">Tabla de Atributo</span>, verá una nueva columna al final. Verifique que su expresión funcionó correctamente y clic el botón <span class="guilabel">Cambiar Edición</span> para guardar los cambios.</p></li>
-</ol>
-<img alt="../_images/757.png" class="align-center" src="../_images/757.png" />
-<ol class="arabic simple" start="8">
-<li><p>Ahora le daremos estilo a la capa aeropuertos usando el atributo <code class="docutils literal notranslate"><span class="pre">type_code</span></code> recientemente creado. Clic-derecho la capa <code class="docutils literal notranslate"><span class="pre">ne_10m_airports</span></code> y seleccione <span class="guilabel">Propiedades</span>.</p></li>
-</ol>
-<img alt="../_images/856.png" class="align-center" src="../_images/856.png" />
-<ol class="arabic simple" start="9">
-<li><p>Seleccione la pestaña <span class="guilabel">Estilo</span> en el diálogo <span class="guilabel">Propiedades de la Capa</span>. Seleccione el estilo <span class="guilabel">Categorizado</span> de el menú desplegable y elija <code class="docutils literal notranslate"><span class="pre">type_code</span></code> como la <span class="guilabel">Columna</span>. Escoja una rampa de color de su elección y clic en <span class="guilabel">Classificar</span>. Clic en <span class="guilabel">Aceptar</span> para volver a la ventana principal QGIS.</p></li>
-</ol>
-<img alt="../_images/956.png" class="align-center" src="../_images/956.png" />
-<ol class="arabic simple" start="10">
-<li><p>Aquí verá un mapa de aeropuerto con estilo agradable. Exportemos esto para crear un mapa web interactivo. Vaya a <span class="menuselection">Web ‣ qgis2leaf ‣ Exporta un Proyecto QGIS a un mapa web leaflet funcionando</span>.</p></li>
-</ol>
-<img alt="../_images/1063.png" class="align-center" src="../_images/1063.png" />
-<ol class="arabic simple" start="11">
-<li><p>En el diálogo <span class="guilabel">QGIS 2 Leaflet</span>, clic en <span class="guilabel">Obtener Capas</span> para obtener la lista refrescada de capas. Seleccione la opción  <span class="guilabel">Pantalla completa</span> para tener un mapa web de pantalla completa. Elija <span class="guilabel">extensión de la capa</span> como la <span class="guilabel">Extensión</span> del mapa exportado. Elija una <span class="guilabel">Carpeta de salida del proyecto</span> en su sistema donde el complemento escribirá  los archivos de salida. Clic en <span class="guilabel">Aceptar</span>.</p></li>
-</ol>
-<img alt="../_images/11101.png" class="align-center" src="../_images/11101.png" />
-<ol class="arabic simple" start="12">
-<li><p>Una vez finalice el proceso de exportación, ubique la carpeta de salida en su disco. Abra el archivo <code class="docutils literal notranslate"><span class="pre">index.html</span></code> en un navegador. Verá un mapa web interactivo que es una réplica del mapa QGIS. Puede acercarse y desplazar el mapa y también hacer clic en cualquier entidad para obtener una ventana emergente con información de atributo. Puede copiar los contenidos de esta carpeta a un servidor web para tener un mapa web con todas las funciones.</p></li>
-</ol>
-<img alt="../_images/1265.png" class="align-center" src="../_images/1265.png" />
-<ol class="arabic simple" start="13">
-<li><p>Ahora exploraremos algunas características avanzadas de este complemento que nos permitirá personalizar más el mapa. Si lo notó, la ventana emergente contenía todos los atributos de la entidad. Algunos de los atributos no son muy útiles y la ventana emergente en general se ve fea. Podemos reemplazar la venta emergente predeterminada con nuestro HTML personalizado para hacerlo mucho mejor. Esto se logra agregando el HTML personalizado en una columna llamada <code class="docutils literal notranslate"><span class="pre">html_exp</span></code>. Clic-derecho la capa <code class="docutils literal notranslate"><span class="pre">ne_10m_airports</span></code> y seleccione <span class="guilabel">Abrir Tabla de Atributos</span>.</p></li>
-</ol>
-<img alt="../_images/1363.png" class="align-center" src="../_images/1363.png" />
-<ol class="arabic simple" start="14">
-<li><p>En el diálogo de la tabla de atributo, clic el botón <span class="guilabel">Alterne la Edición</span>. Una vez que la capa esté en modo edición, clic el botón <span class="guilabel">Abrir Calculadora de Campo</span>.</p></li>
-</ol>
-<img alt="../_images/1458.png" class="align-center" src="../_images/1458.png" />
-<ol class="arabic simple" start="15">
-<li><p>Marque la casilla <span class="guilabel">Crear un nuevo campo</span> e ingrese <code class="docutils literal notranslate"><span class="pre">html_exp</span></code> como el <span class="guilabel">Nombre de campo salida</span>. Elija <span class="guilabel">Texto (cadena)</span> como el <span class="guilabel">Tipo de campo salida</span>. Como estaremos creando una larga cadena HTML, elija <code class="docutils literal notranslate"><span class="pre">200</span></code> como el <span class="guilabel">Ancho de campo salida</span>. Ingrese la siguiente expresión en el área <span class="guilabel">Expresión</span>. La expresión de apariencia compleja simplemente define una tabla HTML y substituye valores de celda desde atributos <code class="docutils literal notranslate"><span class="pre">iata_code</span></code>, <code class="docutils literal notranslate"><span class="pre">name</span></code> y <code class="docutils literal notranslate"><span class="pre">type</span></code>. Marque <span class="guilabel">Previsualizar salida</span> para asegurar que la expresión está correcta.</p></li>
-</ol>
-<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>concat(&#39;&lt;h3&gt;&#39;, &quot;iata_code&quot;, &#39;&lt;/h3&gt;&lt;table&gt;&#39;, &#39;&lt;tr&gt;&lt;td&gt;Airport Name: &lt;b&gt; &#39;,
-&quot;name&quot;, &#39;&lt;/b&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;Category: &lt;b&gt; &#39;, &quot;type&quot;,
-&#39;&lt;/b&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&#39;)
-</pre></div>
-</div>
-<div class="admonition note">
-<p class="admonition-title">Nota</p>
-<p>El formato de archivo shape puede contener un máximo de 254 caracteres en un campo. Si quiere almacenar texto más largo en el campo, elija otro formato.</p>
-</div>
-<img alt="../_images/1552.png" class="align-center" src="../_images/1552.png" />
-<ol class="arabic simple" start="16">
-<li><p>De vuelta en la ventana <span class="guilabel">Tabla de Atributo</span>, verá una nueva columna al final. Verifique que su expresión funcionó correctamente y clic el botón <span class="guilabel">Cambiar Edición</span> para guardar los cambios.</p></li>
-</ol>
-<img alt="../_images/1648.png" class="align-center" src="../_images/1648.png" />
-<ol class="arabic simple" start="17">
-<li><p>Ahora exportemos de nuevo el mapa usando <span class="menuselection">Web ‣ qgis2leaf ‣ Exporta un Proyecto QGIS a un mapa web leaflet funcional</span>.</p></li>
-</ol>
-<img alt="../_images/1746.png" class="align-center" src="../_images/1746.png" />
-<ol class="arabic simple" start="18">
-<li><p>Elija las opciones como está abajo.</p></li>
-</ol>
-<img alt="../_images/1842.png" class="align-center" src="../_images/1842.png" />
-<ol class="arabic simple" start="19">
-<li><p>Vaya a la carpeta de salida una vez que el proceso de exportación finalice. Tendrá una subcarpeta con la marque de tiempo presente. Localice el archivo <code class="docutils literal notranslate"><span class="pre">index.html</span></code> dentro y ábralo en un navegador. Clic en cualquier objeto y mire en la ventana emergente. Notará que se ve bastante más limpio e informativo.</p></li>
-</ol>
-<img alt="../_images/1933.png" class="align-center" src="../_images/1933.png" />
-<ol class="arabic simple" start="20">
-<li><p>Otra funcionalidad útil del complemento <code class="docutils literal notranslate"><span class="pre">qgis2leaf</span></code> es la habilidad para especificar un icono personalizado para usar con el mapa web. Esto se logra especificando la ruta del icono personalizado en un campo llamado <code class="docutils literal notranslate"><span class="pre">icon_exp</span></code>. Crearemos una nueva capa que contiene sólo los aeropuertos principales y daremos estilo usando un icono SVG personalizado. Localice la herramienta <span class="guilabel">Seleccionar objetos usando una expresión</span> de la barra de herramientas.</p></li>
-</ol>
-<img alt="../_images/2028.png" class="align-center" src="../_images/2028.png" />
-<ol class="arabic simple" start="21">
-<li><p>Ingrese la expresión de abajo y presione <span class="guilabel">Seleccionar</span> para seleccionar todos los aeropuertos principales.</p></li>
-</ol>
-<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>&quot;type_code&quot; = 3
-</pre></div>
-</div>
-<img alt="../_images/2163.png" class="align-center" src="../_images/2163.png" />
-<ol class="arabic simple" start="22">
-<li><p>Clic-derecho a los aeropuertos <code class="docutils literal notranslate"><span class="pre">ne_10m_airports</span></code> y seleccione <span class="guilabel">Guardar Selección Como…</span>.</p></li>
-</ol>
-<img alt="../_images/2228.png" class="align-center" src="../_images/2228.png" />
-<ol class="arabic simple" start="23">
-<li><p>En el diálogo <span class="guilabel">Guardar capa vectorial como…</span>, nombre el archivo de salida como <code class="docutils literal notranslate"><span class="pre">major_airports.shp</span></code>. Marque <span class="guilabel">Añadir archivo guardado al mapa</span> y clic en <span class="guilabel">Aceptar</span>.</p></li>
-</ol>
-<img alt="../_images/2325.png" class="align-center" src="../_images/2325.png" />
-<ol class="arabic simple" start="24">
-<li><p>Una vez que esté cargada la capa <code class="docutils literal notranslate"><span class="pre">major_airports</span></code> en QGIS, haga clic-derecho en ella y seleccione <span class="guilabel">Abrir Tabla de Atributos</span>.</p></li>
-</ol>
-<img alt="../_images/2425.png" class="align-center" src="../_images/2425.png" />
-<ol class="arabic simple" start="25">
-<li><p>En el diálogo de la tabla de atributo, clic el botón <span class="guilabel">Alterne la Edición</span>. Una vez que la capa esté en modo edición, clic el botón <span class="guilabel">Abrir Calculadora de Campo</span>.</p></li>
-</ol>
-<img alt="../_images/2523.png" class="align-center" src="../_images/2523.png" />
-<ol class="arabic simple" start="26">
-<li><p>En el diálogo <span class="guilabel">Calculadora de Campo</span>, ingrese <code class="docutils literal notranslate"><span class="pre">icon_exp</span></code> como el <span class="guilabel">Nombre de campo salida</span>. Hágalo de tipo <span class="guilabel">Texto (cadena)</span>. En el área <span class="guilabel">Expresión</span>, ingrese la siguiente expresión.</p></li>
-</ol>
-<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>&#39;airport.svg&#39;
-</pre></div>
-</div>
-<img alt="../_images/2620.png" class="align-center" src="../_images/2620.png" />
-<ol class="arabic simple" start="27">
-<li><p>Guarde sus ediciones haciendo clic en el botón <span class="guilabel">Conmutar Edición</span> en la <span class="guilabel">Tabla de Atributos</span>.</p></li>
-</ol>
-<img alt="../_images/2720.png" class="align-center" src="../_images/2720.png" />
-<ol class="arabic simple" start="28">
-<li><p>Abra el complemento <code class="docutils literal notranslate"><span class="pre">qgis2leaf</span></code> desde <span class="menuselection">Web ‣ qgis2leaf ‣ Exportar un Proyecto QGIS a un mapa web funcional leaflet</span>. Clic en el botón <span class="guilabel">Obtener Capas</span> para buscar ambas capas  desde QGIS. Hay varias capas teselas prefabricadas disponibles como mapas base. En este mapa, podemos intentar algo diferente y cargar <span class="guilabel">Stamen Watercolor</span> como el <span class="guilabel">Mapa base</span>. Clic en <span class="guilabel">Aceptar</span>.</p></li>
-</ol>
-<img alt="../_images/2819.png" class="align-center" src="../_images/2819.png" />
-<ol class="arabic simple" start="29">
-<li><p>Si recuerda, especificamos <code class="docutils literal notranslate"><span class="pre">airport.svg</span></code> como el icono para los aeropuertos. Necesitamos agregar el icono manualmente al directorio salida. QGIS viene con una gran colección de iconos. En Windows, estos iconos están ubicados en <span class="menuselection">C: ‣ OSGEO4W64 ‣ apps ‣ qgis ‣ svg</span>. La ruta puede diferir dependiendo de su plataforma y tipo de instalación. Localice ese directorio y elija un icono de su gusto. Para nuestro mapa, podemos intentar el icono <code class="docutils literal notranslate"><span class="pre">amenity=airport.svg</span></code> localizado bajo la categoría <code class="docutils literal notranslate"><span class="pre">transport</span></code>.</p></li>
-</ol>
-<img alt="../_images/2918.png" class="align-center" src="../_images/2918.png" />
-<ol class="arabic simple" start="30">
-<li><p>Copie y pegue este icono en el directorio salida que había especificado cuando exportó el mapa. Renómbrelo como <code class="docutils literal notranslate"><span class="pre">airport.svg</span></code>.</p></li>
-</ol>
-<img alt="../_images/3015.png" class="align-center" src="../_images/3015.png" />
-<ol class="arabic simple" start="31">
-<li><p>Ahora abra el archivo <code class="docutils literal notranslate"><span class="pre">index.html</span></code> localizado en la carpeta. Verá un hermoso mapa base con nuestro iconos personalizados para los aeropuertos principales. También notará el panel de capa en la esquina superior derecha que tien un contro de visualización de capa para ambas capas.</p></li>
-</ol>
-<img alt="../_images/3118.png" class="align-center" src="../_images/3118.png" />
-<p>Espero que este tutorial le dé una ventaja inicial para crear mapas web. Abajo está el mapa interactivo en vivo creado para este tutorial.</p>
-<div>
-<iframe
-src="http://spatialthoughts.github.io/qgis2leaf-maps/airports_with_custom_popup/"
-width="100%" height="600px"></iframe>
-</div></section>
 </section>
 
 
 
-
-
-  <!-- Comment Section Powered by utterances -->
-<div id="comments">
-  <hr />
-  <p>If you want to give feedback or share your experience with this tutorial, please comment below. (requires GitHub account)</p>
-<script src="https://utteranc.es/client.js"
-        repo="spatialthoughts/qgis-tutorials"
-        issue-term="title"
-        label="comment"
-        theme="github-light"
-        crossorigin="anonymous"
-        async>
-</script>
-</div>
+<!-- Turn on comments on only newer tutorials having 3/ in URL -->
 
 
     </div>
@@ -391,7 +207,7 @@ width="100%" height="600px"></iframe>
     </p>
     <p>
         &copy; Copyright 2025, Ujaval Gandhi.<br/>
-      Actualizado por última vez en may 20, 2025.<br/>
+      Actualizado por última vez en may 24, 2025.<br/>
       Created using <a href="http://sphinx-doc.org/">Sphinx</a> 7.2.6.<br/>
     </p>
   </div>

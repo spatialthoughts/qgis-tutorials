@@ -185,180 +185,11 @@
 <p class="admonition-title">Advertencia</p>
 <p>Este tutorial está ahora obsoleto. Un versión nueva y actualizada está disponible en <a class="reference internal" href="3/nearest_neighbor_analysis.html"><span class="doc">Análisis del Vecino Más Cercano (QGIS3)</span></a></p>
 </div>
-<p>El SIG es muy útil para analizar la relación espacial entre entidades. Un tipo de análisis es descubrir qué objetos espaciales están más cerca de un objeto espacial dado. QGIS tiene una herramienta llamada <strong>Matriz de Distancia</strong> que ayuda en ese análisis. En este tutorial, usaremos 2 conjuntos de datos y descubriremos qué puntos de una capa están más cerca a qué puntos de la segunda capa.</p>
-<section id="overview-of-the-task">
-<h2>Vista general de la tarea<a class="headerlink" href="#overview-of-the-task" title="Link to this heading">¶</a></h2>
-<p>Dadas las ubicaciones de todos los sismos significativos, descubrir el centro poblado más cercano para cada ubicación donde ocurrió el sismo.</p>
-<section id="other-skills-you-will-learn">
-<h3>Otras habilidades que aprenderá<a class="headerlink" href="#other-skills-you-will-learn" title="Link to this heading">¶</a></h3>
-<ul class="simple">
-<li><p>Cómo hacer uniones de tabla en QGIS. (Ver <a class="reference internal" href="performing_table_joins.html"><span class="doc">Realización de uniones de tabla</span></a> para instrucciones detalladas.)</p></li>
-<li><p>Usar <span class="guilabel">Constructor de Consulta</span> para mostrar un subconjunto de entidades de una capa.</p></li>
-<li><p>Usar el complemento MMQGIS para crear líneas de eje para visualizar los vecinos más cercanos.</p></li>
-</ul>
-</section>
-</section>
-<section id="get-the-data">
-<h2>Obtener los datos<a class="headerlink" href="#get-the-data" title="Link to this heading">¶</a></h2>
-<p>Usaremos la <a class="reference external" href="http://www.ngdc.noaa.gov/nndc/struts/form?t=101650&amp;s=1&amp;d=1">Base de Datos de Sismos Significativos</a> del National Geophysical Data Center de NOAA como nuestra capa que representa todos los sismos principales. Descargue los <a class="reference external" href="http://www.ngdc.noaa.gov/nndc/struts/results?type_0=Exact&amp;query_0=$ID&amp;t=101650&amp;s=13&amp;d=189&amp;dfn=signif.txt">datos delimitados por tabulación de sismo</a>.</p>
-<p>Natural Earth tiene un agradable conjunto de datos de <a class="reference external" href="http://www.naturalearthdata.com/downloads/10m-cultural-vectors/10m-populated-places/">Centros Poblados</a>. Descargue el <a class="reference external" href="http://www.naturalearthdata.com/http//www.naturalearthdata.com/download/10m/cultural/ne_10m_populated_places_simple.zip">conjunto de datos simple (menos columnas)</a>.</p>
-<p>Para su comodidad, puede descargar directamente una copia de ambos conjuntos de datos desde los enlaces abajo:</p>
-<p><a class="reference external" href="http://www.qgistutorials.com/downloads/signif.txt">signif.txt</a></p>
-<p><a class="reference external" href="http://www.qgistutorials.com/downloads/ne_10m_populated_places_simple.zip">ne_10m_populated_places_simple.zip</a></p>
-<p>Fuentes de Datos: <a class="reference internal" href="credits.html#ncei" id="id1"><span>[NCEI]</span></a> <a class="reference internal" href="credits.html#naturalearth" id="id2"><span>[NATURALEARTH]</span></a></p>
-</section>
-<section id="procedure">
-<h2>Procedimiento<a class="headerlink" href="#procedure" title="Link to this heading">¶</a></h2>
-<ol class="arabic simple">
-<li><p>Abra <span class="menuselection">Capa ‣ Agregar Capa ‣ Agregar Capa de Texto Delimitado</span> y navegue hacia el archivo <code class="docutils literal notranslate"><span class="pre">signif.txt</span></code>.</p></li>
-</ol>
-<img alt="../_images/1204.png" class="align-center" src="../_images/1204.png" />
-<ol class="arabic simple" start="2">
-<li><p>Debido a que este es un <em>archivo delimitado por tabulación</em>, escoja <span class="guilabel">Tab</span> como el <span class="guilabel">Formato de archivo</span>. El <span class="guilabel">campo X</span> y <span class="guilabel">campo Y</span> se llenarían automáticamente. Clic en <span class="guilabel">Aceptar</span>.</p></li>
-</ol>
-<div class="admonition note">
-<p class="admonition-title">Nota</p>
-<p>Puede que vea algunos mensajes de error cuando QGIS intenta importar el archivo. Estos son errores válidos y algunas filas del archivo no serán importadas. Puedes ignorar los errores para los fines de este tutorial.</p>
-</div>
-<img alt="../_images/2166.png" class="align-center" src="../_images/2166.png" />
-<ol class="arabic simple" start="3">
-<li><p>Como el conjunto de datos de sismo tiene coordenadas Latitud/Longitud, será importado con el SRC predeterminado <code class="docutils literal notranslate"><span class="pre">EPSG:</span> <span class="pre">4326</span></code>. Verificar que este es el caso en la esquina inferior derecha. Abramos también la capa de Centros Poblados. Vaya a <span class="menuselection">Capa ‣ Agregar Capa ‣ Agregar Capa Vectorial</span>.</p></li>
-</ol>
-<img alt="../_images/3103.png" class="align-center" src="../_images/3103.png" />
-<ol class="arabic simple" start="4">
-<li><p>Navegue al archivo descargado <code class="docutils literal notranslate"><span class="pre">ne_10m_populated_places_simple.zip</span></code> y clic en <span class="guilabel">Abrir</span>.</p></li>
-</ol>
-<img alt="../_images/469.png" class="align-center" src="../_images/469.png" />
-<ol class="arabic simple" start="5">
-<li><p>Acérquese por ahí y explore a ambos conjuntos de datos. Capa punto púrpura representa la ubicación de un sismo significativo y cada punto azul representa la ubicación de un centro poblado. Necesitamos una manera de descubrir el punto más cercano de los centros poblados para cada uno de los puntos en la capa de sismo.</p></li>
-</ol>
-<img alt="../_images/562.png" class="align-center" src="../_images/562.png" />
-<ol class="arabic simple" start="6">
-<li><p>Vaya a <span class="menuselection">Vector ‣ Herramientas de Análisis ‣ Matriz de Distancia</span>.</p></li>
-</ol>
-<img alt="../_images/660.png" class="align-center" src="../_images/660.png" />
-<ol class="arabic simple" start="7">
-<li><p>Aquí seleccione la capa de sismo <code class="docutils literal notranslate"><span class="pre">signif</span></code> como la capa punto Entrada y los centros poblados <code class="docutils literal notranslate"><span class="pre">ne_10m_populated_places_simple</span></code> como la capa Destino. También necesita seleccionar un campo único desde cada una de estas capas que es como sus resultados serán mostrados. En este análisis, estamos buscando conseguir sólo <code class="docutils literal notranslate"><span class="pre">1</span></code> punto más cercano, así que revise <span class="guilabel">Usar sólo los (k) puntos más cercanos del destino</span>, e ingrese <span class="guilabel">1</span>. Dele nombre a su archivo de salida <code class="docutils literal notranslate"><span class="pre">matrix.csv</span></code>, y clic en Aceptar. Una vez finalice el procesamiento, clic en <span class="guilabel">Cerrar</span>.</p></li>
-</ol>
-<div class="admonition note">
-<p class="admonition-title">Nota</p>
-<p>Una cosa útil para notar es que incluso puede realizar el análisis con sólo 1 capa. Seleccione la misma capa tanto como la Entrada y Destino. El resultado sería el vecino más cercano de la misma capa en vez de una capa diferente como lo hicimos aquí.</p>
-</div>
-<img alt="../_images/759.png" class="align-center" src="../_images/759.png" />
-<ol class="arabic simple" start="8">
-<li><p>Una vez que termina el procesamiento, clic en el botón <span class="guilabel">Cerrar</span> en el diálogo <span class="guilabel">Matriz de Distancia</span>. Ahora puede ver el archivo <code class="docutils literal notranslate"><span class="pre">matrix.csv</span></code> en el Bloc de Notas o cualquier editor de texto. QGIS puede importar archivos CSV también, así que lo agregaremos a QGIS y lo veremos allí. Vaya a <span class="menuselection">Capa ‣ Añadir Capa ‣ Añadir Capa de Texto Delimitado…</span>.</p></li>
-</ol>
-<img alt="../_images/858.png" class="align-center" src="../_images/858.png" />
-<ol class="arabic simple" start="9">
-<li><p>Navegue al nuevo archivo creado <code class="docutils literal notranslate"><span class="pre">matrix.csv</span></code>. Debido a que este archivo es sólo columnas de texto, seleccione <span class="guilabel">Ninguna geometría (tabla solo de atributos)</span> como la <span class="guilabel">Definición de geometría</span>. Clic en <span class="guilabel">Aceptar</span>.</p></li>
-</ol>
-<img alt="../_images/957.png" class="align-center" src="../_images/957.png" />
-<ol class="arabic simple" start="10">
-<li><p>Verá el archivo CSV cargado como una tabla. Clic-derecho en la capa tabla y seleccione <span class="guilabel">Abrir tabla de atributos</span>.</p></li>
-</ol>
-<img alt="../_images/1065.png" class="align-center" src="../_images/1065.png" />
-<ol class="arabic simple" start="11">
-<li><p>Ahora será capaz de ver el contenido de nuestros resultados. El campo <span class="guilabel">InputID</span> contiene el nombre de campo de la capa Sismos. El campo <span class="guilabel">TargetID</span> contiene el nombre del objeto espacial de la capa Centros Poblados que era más cerca al punto sismo. El campo <span class="guilabel">Distance</span> es la distancia entre los 2 puntos.</p></li>
-</ol>
-<div class="admonition note">
-<p class="admonition-title">Nota</p>
-<p>Recuerde que el cálculo <em>distance</em> se hará usando el Sistema de Referencia de Coordenadas de la capa. Aquí la distancia será en unidades <em>grados decimales</em> debido a que las coordenadas de nuestra capa fuente están en grados. Si quiere distancia en metros, reproyecte las capas antes de ejecutar la herramienta.</p>
-</div>
-<img alt="../_images/11103.png" class="align-center" src="../_images/11103.png" />
-<ol class="arabic simple" start="12">
-<li><p>Esto es muy cercano al resultado que estamos buscando. Para algunos usuarios, esta tabla sería suficiente. Sin embargo, podemos también integrar estos resultado en nuestra capa original de Sismos usando una <strong>Unión de Tabla</strong>. Clic-derecho en la capa Sismos, y seleccione <span class="guilabel">Propiedades</span>.</p></li>
-</ol>
-<img alt="../_images/1267.png" class="align-center" src="../_images/1267.png" />
-<ol class="arabic simple" start="13">
-<li><p>Vaya a la pestaña <span class="guilabel">Uniones</span> y clic en el botón <span class="guilabel">+</span>.</p></li>
-</ol>
-<img alt="../_images/1460.png" class="align-center" src="../_images/1460.png" />
-<ol class="arabic simple" start="14">
-<li><p>Queremos unir los datos del resultado de nuestro análisis con esta capa. Necesitamos seleccionar un campo para cada una de las capas que tienen los mismos valores. Seleccion <code class="docutils literal notranslate"><span class="pre">matrix</span></code> como la <span class="guilabel">Capa de Unión</span> e <code class="docutils literal notranslate"><span class="pre">InputID</span></code> como el <span class="guilabel">Campo de Unión</span>. El <span class="guilabel">Campo Destino</span> sería <code class="docutils literal notranslate"><span class="pre">I_D</span></code>. Deje las otras opciones en sus valores predeterminados y clic en <span class="guilabel">Aceptar</span>.</p></li>
-</ol>
-<img alt="../_images/1460.png" class="align-center" src="../_images/1460.png" />
-<ol class="arabic simple" start="15">
-<li><p>Verá que la unión aparece en la pestaña <span class="guilabel">Uniones</span>. Clic en <span class="guilabel">Aceptar</span>.</p></li>
-</ol>
-<img alt="../_images/1554.png" class="align-center" src="../_images/1554.png" />
-<ol class="arabic simple" start="16">
-<li><p>Ahora abra la tabla de atributos de la capa <code class="docutils literal notranslate"><span class="pre">signif</span></code> haciendo clic-derecho y seleccione <span class="guilabel">Abrir tabla de atributos</span>.</p></li>
-</ol>
-<img alt="../_images/1650.png" class="align-center" src="../_images/1650.png" />
-<ol class="arabic simple" start="17">
-<li><p>Verá que para cada objeto espacial Sismo, ahora tenemos un atributo que es el vecino más cercano (centro poblado más cercano) y la distancia al vecino más cercano.</p></li>
-</ol>
-<img alt="../_images/1748.png" class="align-center" src="../_images/1748.png" />
-<ol class="arabic simple" start="18">
-<li><p>Ahora exploraremos una manera para visualizar estos resultados. Primero, necesitamos hacer permanente la unión de tabla guardándola como una nueva capa. Clic-derecho en la capa <code class="docutils literal notranslate"><span class="pre">signif</span></code> y seleccione <span class="guilabel">Guardar como…</span>.</p></li>
-</ol>
-<img alt="../_images/1844.png" class="align-center" src="../_images/1844.png" />
-<ol class="arabic simple" start="19">
-<li><p>Clic el botón <span class="guilabel">Navegar</span> junto a la etiqueta <span class="guilabel">Guardar como</span> y nombre la capa de salida como <code class="docutils literal notranslate"><span class="pre">earthquake_with_places.shp</span></code>. Asegúrese que la casilla <span class="guilabel">Añadir archivo guardado al mapa</span> esté marcada y clic en <span class="guilabel">Aceptar</span>.</p></li>
-</ol>
-<img alt="../_images/1935.png" class="align-center" src="../_images/1935.png" />
-<ol class="arabic simple" start="20">
-<li><p>Una vez que esté cargada la nueva capa, puede deshabilitar la visibilidad de la capa <code class="docutils literal notranslate"><span class="pre">signif</span></code>. Como nuestro conjunto de datos es bastante grande, podemos ejecutar nuestro análisis de visualización en un subconjunto de los datos. QGIS tiene una estupenda funcionalidad donde puedes cargar un subconjunto de objetos de una capa sin tener que exportarlos a una nueva capa. Clic-derecho a la capa <code class="docutils literal notranslate"><span class="pre">earthquake_with_places</span></code> y seleccione <span class="guilabel">Propiedades</span>.</p></li>
-</ol>
-<img alt="../_images/2030.png" class="align-center" src="../_images/2030.png" />
-<ol class="arabic simple" start="21">
-<li><p>En la pestaña <span class="guilabel">General</span>, delice hacia abajo  a la sección <span class="guilabel">Subconjunto de entidad</span>. Clic en <span class="guilabel">Constructor de Consulta</span>.</p></li>
-</ol>
-<img alt="../_images/2167.png" class="align-center" src="../_images/2167.png" />
-<ol class="arabic simple" start="22">
-<li><p>Para este tutorial, visualizaremos los sismos y los centros poblados más cercanos para México. Ingrese la siguiente expresión en el diálogo <span class="guilabel">Constructor de Consulta</span>.</p></li>
-</ol>
-<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>&quot;COUNTRY&quot; = &#39;MEXICO&#39;
-</pre></div>
-</div>
-<img alt="../_images/2230.png" class="align-center" src="../_images/2230.png" />
-<ol class="arabic simple" start="23">
-<li><p>Verá que sólo los puntos que caen dentro de México serán visibles en la pantalla. Hagamos lo mismo para la capa de centros poblados. Clic-derecho en la capa <code class="docutils literal notranslate"><span class="pre">ne_10m_populated_places_simple</span></code> y seleccione <span class="guilabel">Propiedades</span>.</p></li>
-</ol>
-<img alt="../_images/2327.png" class="align-center" src="../_images/2327.png" />
-<ol class="arabic simple" start="24">
-<li><p>Abra el diálogo <span class="guilabel">Constructor de Consulta</span> de la pestaña <span class="guilabel">General</span>. Ingrese la siguiente expresión.</p></li>
-</ol>
-<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>&quot;adm0name&quot; = &#39;Mexico&#39;
-</pre></div>
-</div>
-<img alt="../_images/2427.png" class="align-center" src="../_images/2427.png" />
-<ol class="arabic simple" start="25">
-<li><p>Ahora estamos listos para crear nuestra visualización. Usaremos un complemento llamado <code class="docutils literal notranslate"><span class="pre">MMQGIS</span></code>. Encuentre e instale el complemento. Vea <a class="reference internal" href="using_plugins.html"><span class="doc">Uso de Complementos</span></a> para más detalles de cómo trabajar con complementos. Una vez haya instala el complemento, vaya a <span class="menuselection">MMQGIS ‣ Crear ‣ Hub Lines</span>.</p></li>
-</ol>
-<img alt="../_images/2525.png" class="align-center" src="../_images/2525.png" />
-<ol class="arabic simple" start="26">
-<li><p>Seleccione <code class="docutils literal notranslate"><span class="pre">ne_10m_populated_places_simple</span></code> como la <span class="guilabel">Capa punto Eje</span> y <code class="docutils literal notranslate"><span class="pre">name</span></code> como el <span class="guilabel">Atributo ID Eje</span>. De forma similar, seleccione <code class="docutils literal notranslate"><span class="pre">earthquake_with_places</span></code> como la <span class="guilabel">Capa punto Radio</span> y <code class="docutils literal notranslate"><span class="pre">matrix_Tar</span></code> como el <span class="guilabel">Atributo ID Radio Eje</span>. El algoritmo líneas de radio pasará por cada punto de sismo y creará una línea que los unirá con el centro poblado que coincide con el atributo que especificamos. Clic en <span class="guilabel">Explorar</span> y nombre para el <span class="guilabel">Archivo shape de salida</span> <code class="docutils literal notranslate"><span class="pre">earthquake_hub_lines.shp</span></code>. Clic en <span class="guilabel">Aceptar</span> para iniciar el procesamiento.</p></li>
-</ol>
-<img alt="../_images/2622.png" class="align-center" src="../_images/2622.png" />
-<ol class="arabic simple" start="27">
-<li><p>El procesamiento puede tomar algunos minutos. Verá el progreso en la esquina inferior izquierda de la ventana QGIS.</p></li>
-</ol>
-<img alt="../_images/2722.png" class="align-center" src="../_images/2722.png" />
-<ol class="arabic simple" start="28">
-<li><p>Una vez finalice el procesamiento, verá la capa <code class="docutils literal notranslate"><span class="pre">earthquake_hub_lines</span></code> cargada en QGIS. Puede ver que cada punto de sismo ahora tiene una línea que lo conecta al centro poblado más cercano.</p></li>
-</ol>
-<img alt="../_images/2821.png" class="align-center" src="../_images/2821.png" />
-</section>
 </section>
 
 
 
-
-
-  <!-- Comment Section Powered by utterances -->
-<div id="comments">
-  <hr />
-  <p>If you want to give feedback or share your experience with this tutorial, please comment below. (requires GitHub account)</p>
-<script src="https://utteranc.es/client.js"
-        repo="spatialthoughts/qgis-tutorials"
-        issue-term="title"
-        label="comment"
-        theme="github-light"
-        crossorigin="anonymous"
-        async>
-</script>
-</div>
+<!-- Turn on comments on only newer tutorials having 3/ in URL -->
 
 
     </div>
@@ -374,7 +205,7 @@
     </p>
     <p>
         &copy; Copyright 2025, Ujaval Gandhi.<br/>
-      Actualizado por última vez en may 20, 2025.<br/>
+      Actualizado por última vez en may 24, 2025.<br/>
       Created using <a href="http://sphinx-doc.org/">Sphinx</a> 7.2.6.<br/>
     </p>
   </div>

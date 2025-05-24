@@ -185,114 +185,11 @@
 <p class="admonition-title">Avvertimento</p>
 <p>This tutorial is now obsolete. A new and updated version is available at <a class="reference internal" href="3/georeferencing_basics.html"><span class="doc">Georeferenziazione carte topografiche e mappe scannerizzate (QGIS3)</span></a></p>
 </div>
-<p>Molti progetti in ambito GIS richiedono la <em>georeferenziazione</em> di dati di tipo raster. Con il termine georeferenziazione ci si riferisce al processo mediante il quale si assegnano delle coordinate del mondo reale a ciascun pixel del raster. Molte volte queste coordinate si ottengono facendo ricerche sul campo -  raccogliendo con dispositivi GPS le coordinate di alcune geometrie facilmente identificabili nell’immagine o nelle carte. In determinati casi, per esempio quando state cercando di trattare carte digitalizzate con lo scanner, potete ottenere le coordinate dalle indicazioni della mappa stessa. Usando queste semplici coordinate o GCPs (Ground Control Points) l’immagine viene deformata e adeguata al sistema di coordinate che abbiamo scelto. In questa esercitazione affronteremo i concetti, le strategie e gli strumenti che, nell’ambito di QGIS permettono di ottenere un’alta accuratezza nella georeferenziazione.</p>
-<section id="overview-of-the-task">
-<h2>Descrizione del compito<a class="headerlink" href="#overview-of-the-task" title="Link to this heading">¶</a></h2>
-<p>Useremo una carta geografica digitalizzata con lo scanner del sud dell’India nel 1870 e la georeferenzieremo usando QGIS.</p>
-<section id="other-skills-you-will-learn">
-<h3>Altri aspetti che avremo modo di apprendere nel corso dell’esercizio<a class="headerlink" href="#other-skills-you-will-learn" title="Link to this heading">¶</a></h3>
-<ul class="simple">
-<li><p>Come determinare il datum e il sistema delle coordinate di riferimento di vecchie mappe e carte geografiche.</p></li>
-</ul>
-</section>
-</section>
-<section id="get-the-data">
-<h2>Ottenere i dati necessari<a class="headerlink" href="#get-the-data" title="Link to this heading">¶</a></h2>
-<p><a class="reference external" href="http://www.hipkiss.org/data/maps.html">Hipkiss’s Scanned Old Maps</a> è un sito che offre una collezione eccellente di carte digitalizzate e libere da vincoli di copyright  che si possono utilizzare per scopi di ricerca.</p>
-<p>Scaricate la <a class="reference external" href="http://www.hipkiss.org/data/maps/william-mackenzie_gallery-of-geography_1870_southern-india_3975_3071_600.jpg">carta del Sud dell’India del 1870</a> e salvatela sul vostro disco.</p>
-<p>Per comodità, potete scaricare direttamente una copia del dataset dal seguente link:</p>
-<p><a class="reference external" href="http://www.qgistutorials.com/downloads/1870_southern-india.jpg">1870_southern_india.jpg</a></p>
-</section>
-<section id="procedure">
-<h2>Procedimento<a class="headerlink" href="#procedure" title="Link to this heading">¶</a></h2>
-<p>1. Georeferencing in QGIS is done via the ‘Georeferencer GDAL’ plugin. This is a
-core plugin - meaning it is already part of your QGIS installation. You just
-need to enable it. Go to <span class="menuselection">Plugins ‣ Manage and Install
-Plugins</span> and enable the <span class="guilabel">Georeferencer GDAL</span> plugin in the
-<span class="guilabel">Installed</span> tab. See <a class="reference internal" href="using_plugins.html"><span class="doc">Usare i Plugins</span></a> for more details on how to
-work with plugins.</p>
-<img alt="../_images/1196.png" class="align-center" src="../_images/1196.png" />
-<ol class="arabic simple" start="2">
-<li><p>Il plugin è ora installato nel menu Raster. Fate click su <span class="menuselection">Raster ‣ Georeferencer ‣ Georeferencer</span> per aprire il plugin.</p></li>
-</ol>
-<img alt="../_images/2158.png" class="align-center" src="../_images/2158.png" />
-<ol class="arabic simple" start="3">
-<li><p>La finestra del plugin è suddivisa in 2 sezioni. La sezione in alto, quella dove il raster verrà visualizzato e quella in basso, dove verrà visualizzata una scheda con il vostro GCP.
-Che potrebbe essere tradotto in italiano con «Punto di Controllo al Suolo». N.d.T.</p></li>
-</ol>
-<img alt="../_images/397.png" class="align-center" src="../_images/397.png" />
-<ol class="arabic simple" start="4">
-<li><p>Ora apriremo la nostra immagine JPG. Andate su <span class="menuselection">File ‣ Apri Raster</span>. Individuate l’immagine della carta geografica che avete appena salvato e fate click su <span class="guilabel">Apri</span>.</p></li>
-</ol>
-<img alt="../_images/463.png" class="align-center" src="../_images/463.png" />
-<ol class="arabic simple" start="5">
-<li><p>Nella schermata successiva vi verrà chiesto di scegliere il sistema di riferimento delle coordinate (SR). Si tratta di specificare la proiezione e il datum dei vostri punti di controllo.  Qualora aveste raccolto i vostri punti usando un dispositivo GPS, sarebbe stato necessario usare un CRS WGS84. Visto che invece  state geo-referenziando una carta geografica digitalizzata allo scanner,  potete individuare il sistema di riferimento cercandolo nella mappa stessa. Esaminando la nostra immagine vediamo intanto che le coordinate sono in Latidudine/Longitudine. Non sono fornite informazioni specifiche riguardo il datum e dunque toccherà a noi individuarne uno adeguato. Visto che si tratta dell’India e che la mappa è piuttosto antica, possiamo ipotizzare che il datum Everest 1830 sia quello che fa al caso nostro.</p></li>
-</ol>
-<img alt="../_images/556.png" class="align-center" src="../_images/556.png" />
-<ol class="arabic simple" start="6">
-<li><p>A questo punto vedrete l’immagine caricata nella sezione in alto.</p></li>
-</ol>
-<img alt="../_images/654.png" class="align-center" src="../_images/654.png" />
-<ol class="arabic simple" start="7">
-<li><p>Potete utilizzare lo strumento zoom (ingrandisci) e lo strumento pan (sposta) nella barra degli strumenti per esplorare meglio la carta.</p></li>
-</ol>
-<img alt="../_images/754.png" class="align-center" src="../_images/754.png" />
-<ol class="arabic simple" start="8">
-<li><p>Adesso dobbiamo assegnare le coordinate ad alcuni punti di questa mappa. Se ingrandite a sufficienza potrete vedere le coordinate della griglia con i relativi contrassegni. Usando la griglia potete determinare le coordinate X e Y nei punti in cui la griglia fa un’intersezione. Fate click su <span class="guilabel">Aggiungi punto</span>  nella barra degli strumenti.</p></li>
-</ol>
-<img alt="../_images/853.png" class="align-center" src="../_images/853.png" />
-<ol class="arabic simple" start="9">
-<li><p>Nella finestra di pop-up aggiungete le coordinate ricordando che  X =  longitudine  e Y = latitudine. Fate click su <span class="guilabel">OK</span>.</p></li>
-</ol>
-<img alt="../_images/953.png" class="align-center" src="../_images/953.png" />
-<ol class="arabic simple" start="10">
-<li><p>Noterete adesso che la tabella GCP  ha una riga con i dettagli del vostro primo GCP.</p></li>
-</ol>
-<img alt="../_images/1060.png" class="align-center" src="../_images/1060.png" />
-<ol class="arabic simple" start="11">
-<li><p>In modo del tutto analogo aggiungete almeno 4 GCPs per coprire l’intera immagine. Tanto più numerosi saranno i punti di controllo al suolo che registrerete tanto più accurata sarà la riproiezione dell’immagine sul sistema di coordinate che abbiamo scelto.</p></li>
-</ol>
-<img alt="../_images/1197.png" class="align-center" src="../_images/1197.png" />
-<ol class="arabic simple" start="12">
-<li><p>Una volta che avete individuato un numero sufficiente di punti andate su <span class="menuselection">Preferenze -&gt; Impostazioni di Trasformazione</span>.</p></li>
-</ol>
-<img alt="../_images/1262.png" class="align-center" src="../_images/1262.png" />
-<ol class="arabic simple" start="13">
-<li><p>Nella finestra di dialogo <span class="guilabel">Impostazioni di trasformazione</span> , scegliete nella casella  <span class="guilabel">Tipo di trasformazione</span>  il tipo <span class="guilabel">Thin Plate Spline</span> e poi chiamate il vostro raster in uscita con il nome di <span class="guilabel">1870_southern_india_modified.tif</span>. Scegliete <span class="guilabel">EPSG:4326</span> come SR di destinazione in modo che l’immagine risultante sia collocata in un datum ampiamente compatibile. Assicuratevi che l’opzione <span class="guilabel">Carica in QGIS una volta eseguito</span>  sia spuntata.</p></li>
-</ol>
-<img alt="../_images/1360.png" class="align-center" src="../_images/1360.png" />
-<ol class="arabic simple" start="14">
-<li><p>Tornate sulla finestra di georeferenziazione, andate su <span class="menuselection">File ‣ Inizia georeferenziazione</span>. Questo darà inizio al processo di deformazione dell’immagine usando i punti di controllo al suolo e quindi alla creazione del raster che georeferenziato che volevamo ottenere.</p></li>
-</ol>
-<img alt="../_images/1456.png" class="align-center" src="../_images/1456.png" />
-<ol class="arabic simple" start="15">
-<li><p>Una volta che il processo è concluso vedrete il layer georeferenziato in QGIS.</p></li>
-</ol>
-<img alt="../_images/1550.png" class="align-center" src="../_images/1550.png" />
-<ol class="arabic simple" start="16">
-<li><p>La georeferenziazione a questo punto è stata completa. Ma, come sempre, è buona pratica verificare la bontà del nostro lavoro. Come possiamo verificare che la nostra georeferenziazione sia sufficientemente accurata ? In questo caso, possiamo caricare i confini amministrativi del paese da una fonte certa come il dataset di Natural Earth e confrontare con essa i nostri risultati. Noterete che le due mappe si sovrappongono piuttosto bene. Ci sono alcuni errori che potrebbero essere ridotti prendendo un numero maggiore di punti di controllo, cambiando i parametri di trasformazione oppure provando con un diverso tipo di datum.</p></li>
-</ol>
-<img alt="../_images/1646.png" class="align-center" src="../_images/1646.png" />
-</section>
 </section>
 
 
 
-
-
-  <!-- Comment Section Powered by utterances -->
-<div id="comments">
-  <hr />
-  <p>If you want to give feedback or share your experience with this tutorial, please comment below. (requires GitHub account)</p>
-<script src="https://utteranc.es/client.js"
-        repo="spatialthoughts/qgis-tutorials"
-        issue-term="title"
-        label="comment"
-        theme="github-light"
-        crossorigin="anonymous"
-        async>
-</script>
-</div>
+<!-- Turn on comments on only newer tutorials having 3/ in URL -->
 
 
     </div>
@@ -308,7 +205,7 @@ Che potrebbe essere tradotto in italiano con «Punto di Controllo al Suolo». N.
     </p>
     <p>
         &copy; Copyright 2025, Ujaval Gandhi.<br/>
-      Ultimo aggiornamento mag 20, 2025.<br/>
+      Ultimo aggiornamento mag 24, 2025.<br/>
       Created using <a href="http://sphinx-doc.org/">Sphinx</a> 7.2.6.<br/>
     </p>
   </div>

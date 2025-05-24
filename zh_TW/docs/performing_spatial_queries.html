@@ -185,173 +185,11 @@
 <p class="admonition-title">警告</p>
 <p>This tutorial is now obsolete. A new and updated version is available at <a class="reference internal" href="3/performing_spatial_queries.html"><span class="doc">Performing Spatial Queries (QGIS3)</span></a></p>
 </div>
-<p>空間查詢是許多種 GIS 分析技巧的核心。在 QGIS 中，這個功能可以透過 <strong>Spatial Query</strong> 這個附加元件來達成。</p>
-<section id="overview-of-the-task">
-<h2>內容說明<a class="headerlink" href="#overview-of-the-task" title="Link to this heading">¶</a></h2>
-<p>我們使用的 2 個資料庫分別為河流的線圖層以及城市的點圖層，要做的事情是尋找所有與河流的距離小於 10 公里的城市。</p>
-<section id="other-skills-you-will-learn">
-<h3>你還會學到這些<a class="headerlink" href="#other-skills-you-will-learn" title="Link to this heading">¶</a></h3>
-<ul class="simple">
-<li><p>在 QGIS 中直接開啟 zip 檔</p></li>
-<li><p>選擇適合的投影法，重投影向量資料</p></li>
-<li><p>製作「環域〈buffers〉」</p></li>
-<li><p>使用類 SQL 的表示法選擇圖徵</p></li>
-<li><p>把 shapefile 轉換為 KML 檔</p></li>
-<li><p>利用 Google Earth 來驗證結果</p></li>
-</ul>
-</section>
-</section>
-<section id="get-the-data">
-<h2>取得資料<a class="headerlink" href="#get-the-data" title="Link to this heading">¶</a></h2>
-<p>我們要使用 Natural Earth 提供的 <code class="docutils literal notranslate"><span class="pre">ne_10m_rivers_lake_centerlines</span></code> 和 <code class="docutils literal notranslate"><span class="pre">10m_populated_places_simple</span></code> 這兩個資料庫。</p>
-<p>下載 <a class="reference external" href="http://www.naturalearthdata.com/http//www.naturalearthdata.com/download/10m/physical/ne_10m_rivers_lake_centerlines.zip">河流與湖泊中心線</a></p>
-<p>下載 <a class="reference external" href="http://www.naturalearthdata.com/http//www.naturalearthdata.com/download/10m/cultural/ne_10m_populated_places_simple.zip">人口居住地</a></p>
-<p>資料來源  <a class="reference internal" href="credits.html#naturalearth" id="id1"><span>[NATURALEARTH]</span></a></p>
-</section>
-<section id="procedure">
-<h2>操作流程<a class="headerlink" href="#procedure" title="Link to this heading">¶</a></h2>
-<ol class="arabic simple">
-<li><p>載好資料以後，打開 QGIS，選擇 <span class="menuselection">圖層 ‣ 加入圖層 ‣ 加入向量圖層</span>。</p></li>
-</ol>
-<img alt="../_images/1207.png" class="align-center" src="../_images/1207.png" />
-<ol class="arabic simple" start="2">
-<li><p>點選 <span class="guilabel">瀏覽</span> 然後移到你下載資料的地方。</p></li>
-</ol>
-<img alt="../_images/2170.png" class="align-center" src="../_images/2170.png" />
-<ol class="arabic simple" start="3">
-<li><p>按住 <kbd class="kbd docutils literal notranslate">Shift</kbd> 鍵後點選兩個 zip 檔，全部選起來後按下 <span class="guilabel">開啟</span>。</p></li>
-</ol>
-<img alt="../_images/3106.png" class="align-center" src="../_images/3106.png" />
-<ol class="arabic simple" start="4">
-<li><p>你可能需要從 zip 檔中選擇圖層載入，選 <code class="docutils literal notranslate"><span class="pre">ne_10m_rivers_lake_centerlines.shp</span></code> 然後按下<span class="guilabel">確定</span>。</p></li>
-</ol>
-<img alt="../_images/471.png" class="align-center" src="../_images/471.png" />
-<ol class="arabic simple" start="5">
-<li><p>因為我們選了兩個壓縮檔，所以相同步驟要再重複一次。選擇 <code class="docutils literal notranslate"><span class="pre">10m_populated_places_simple.shp</span></code> 然後按下<span class="guilabel">確定</span>。</p></li>
-</ol>
-<img alt="../_images/565.png" class="align-center" src="../_images/565.png" />
-<ol class="arabic simple" start="6">
-<li><p>接著 QGIS 中就可以看到這兩個圖層。</p></li>
-</ol>
-<img alt="../_images/663.png" class="align-center" src="../_images/663.png" />
-<ol class="arabic simple" start="7">
-<li><p>我們的下一步是為點和線圖層製作「環域」，它是一種地理預算函數，QGIS 會使用圖層的單位計算空間中的任一點到圖徵的距離，也就是「環域距離」。目前我們的<cite>地理座標參考系統 (Geographic CRS)</cite> 以<cite>角度</cite>作單位，如果我們要使用<cite>公尺</cite>或<cite>公里</cite>為單位進行分析，可能就不是那麼適當。因此，我們必須先使用一個<cite>投影座標系統 (Projected CRS)</cite>重投影圖層。在 <code class="docutils literal notranslate"><span class="pre">10m_populated_places_simple</span> <span class="pre">layer</span></code> 圖層上按右鍵，然後選擇 <span class="guilabel">存檔為…</span>。</p></li>
-</ol>
-<img alt="../_images/762.png" class="align-center" src="../_images/762.png" />
-<ol class="arabic simple" start="8">
-<li><p>在 <span class="guilabel">儲存向量圖層為…</span> 的視窗中，按下在 <span class="guilabel">另存為</span> 旁邊的 <span class="guilabel">瀏覽</span> 鈕，然後選擇輸出檔的位置。把輸出檔命名為 <code class="docutils literal notranslate"><span class="pre">populated_places_reprojected.shp</span></code>，然後按下在 <span class="guilabel">CRS</span> 旁邊的 <span class="guilabel">瀏覽</span> 鈕 〈地球圖示〉。</p></li>
-</ol>
-<img alt="../_images/860.png" class="align-center" src="../_images/860.png" />
-<ol class="arabic simple" start="9">
-<li><p>Now we must choose an appropriate CRS for our purpose. For creating buffers,
-a Azimuthal Equidistant projection would be best suited as radial distances
-around the center of the projection are accurate. In our case, since the
-dataset is global, we will choose a World projection. In the
-<span class="guilabel">Coordinate Reference System Selector</span> dialog, start searching for
-<cite>world az..</cite> and you will see the results show up. Select the
-<cite>World_Azimuthal_Equidistant</cite> and click <span class="guilabel">OK</span>.</p></li>
-</ol>
-<div class="admonition note">
-<p class="admonition-title">備註</p>
-<p><cite>World_Azimuthal_Equidistant</cite> 投影只會覆蓋到投影中心延伸出去 90 度角的地方，由於我們的投影中心會是經度 0 度，所以只有在經度正負 90 度以內的資料點會被轉換。</p>
-</div>
-<img alt="../_images/959.png" class="align-center" src="../_images/959.png" />
-<ol class="arabic simple" start="10">
-<li><p>回到 <span class="guilabel">儲存向量圖層為…</span> 的視窗，勾選 <span class="guilabel">加入儲存檔案至地圖中</span>，然後按下 <cite>確定</cite>。</p></li>
-</ol>
-<img alt="../_images/1067.png" class="align-center" src="../_images/1067.png" />
-<ol class="arabic simple" start="11">
-<li><p>對 <code class="docutils literal notranslate"><span class="pre">ne_10m_rivers_lake_centerlines</span></code> 重複以上操作，把輸出檔存為 <code class="docutils literal notranslate"><span class="pre">rivers_lake_reprojected.shp</span></code>。</p></li>
-</ol>
-<img alt="../_images/11105.png" class="align-center" src="../_images/11105.png" />
-<ol class="arabic simple" start="12">
-<li><p>現在我們在 <span class="guilabel">圖層面板</span> 中可以看到 4 個圖層，請把原本的圖層取消勾選，這樣就只有重投影過的圖層會顯示。不過，重投影的圖層目前因為設定的關係，仍然以 <cite>Geographic CRS</cite> 顯示，讓我們把此設定關掉吧。點選 <span class="guilabel">專案屬性</span> 鈕，或是前往 <span class="menuselection">專案 ‣ 專案屬性</span>。</p></li>
-</ol>
-<img alt="../_images/1269.png" class="align-center" src="../_images/1269.png" />
-<ol class="arabic simple" start="13">
-<li><p>在 <span class="guilabel">專案屬性</span> 視窗中 <span class="guilabel">CRS</span> 的分頁下，取消 <span class="guilabel">開啟即時 CRS 轉換</span> 的勾選，然後按下 <span class="guilabel">確定</span>。</p></li>
-</ol>
-<img alt="../_images/1366.png" class="align-center" src="../_images/1366.png" />
-<ol class="arabic simple" start="14">
-<li><p>回到 QGIS 主視窗，右鍵點選任一個重投影過的圖層，選擇 <span class="guilabel">縮放到圖層範圍</span>。</p></li>
-</ol>
-<img alt="../_images/1462.png" class="align-center" src="../_images/1462.png" />
-<ol class="arabic simple" start="15">
-<li><p>現在我們就可以看到資料使用圖層的 CRS 投影了。接下來就來製作兩個資料集的環域，請前往 <span class="menuselection">向量 ‣ 地理運算工具 ‣ 環域（Buffer）</span>。</p></li>
-</ol>
-<img alt="../_images/1555.png" class="align-center" src="../_images/1555.png" />
-<ol class="arabic simple" start="16">
-<li><p>在 <span class="guilabel">環域</span> 工具視窗中，選擇 <code class="docutils literal notranslate"><span class="pre">populated_places_reprojected</span></code> 作為輸入圖層，環域距離輸入 <cite>10000</cite>。注意本 CRS 的單位是公尺，所以 10,000 意味著 10 公里。輸出檔取名為 <code class="docutils literal notranslate"><span class="pre">populated_places_buffer.shp</span></code>，然後按下 <span class="guilabel">確定</span>。</p></li>
-</ol>
-<img alt="../_images/1651.png" class="align-center" src="../_images/1651.png" />
-<ol class="arabic simple" start="17">
-<li><p>環域處理結束後，按下 <span class="guilabel">是</span> 以加入新建的圖層到 QGIS 中。（較新的 QGIS 版本則需要在上一步驟選擇。）</p></li>
-</ol>
-<img alt="../_images/1749.png" class="align-center" src="../_images/1749.png" />
-<ol class="arabic simple" start="18">
-<li><p>對 <code class="docutils literal notranslate"><span class="pre">rivers_lake_reprojected</span></code> 圖層重複以上步驟，輸出檔命名為 <code class="docutils literal notranslate"><span class="pre">rivers_lake_buffer.shp</span></code>。</p></li>
-</ol>
-<img alt="../_images/1845.png" class="align-center" src="../_images/1845.png" />
-<ol class="arabic simple" start="19">
-<li><p><code class="docutils literal notranslate"><span class="pre">rivers_lake_buffer</span></code> 圖層實際上包含了河流與湖泊，我們的目標只需要用到河流圖徵，所以我們還要執行一次查詢工作，把河流選取起來。在 <code class="docutils literal notranslate"><span class="pre">rivers_lake_buffer</span></code> 圖層上按右鍵，選擇  <span class="guilabel">開啟屬性表格</span>。</p></li>
-</ol>
-<img alt="../_images/1936.png" class="align-center" src="../_images/1936.png" />
-<ol class="arabic simple" start="20">
-<li><p>可以看到，<cite>featurecla</cite> 屬性可以利用來作為選擇河流圖徵的工具。請按下 <cite>使用表示式選取圖徵</cite> 鈕。</p></li>
-</ol>
-<img alt="../_images/2031.png" class="align-center" src="../_images/2031.png" />
-<ol class="arabic simple" start="21">
-<li><p>輸入表達式 <cite>「featurecla」 = 『River』</cite> 然後按下 <span class="guilabel">選取</span>，接著按下 <span class="guilabel">關閉</span>，回到 QGIS 主視窗。</p></li>
-</ol>
-<img alt="../_images/2171.png" class="align-center" src="../_images/2171.png" />
-<ol class="arabic simple" start="22">
-<li><p>現在我們可以進行空間查詢了。首先你必須要啟用 <cite>Spatial Query</cite> 附加元件才能使用此功能，如需更多細節請查閱 <a class="reference internal" href="using_plugins.html"><span class="doc">使用附加元件</span></a>。啟用後，前往 <span class="menuselection">向量 ‣ 空間查詢 ‣ 空間查詢</span>。</p></li>
-</ol>
-<img alt="../_images/2231.png" class="align-center" src="../_images/2231.png" />
-<ol class="arabic simple" start="23">
-<li><p>我們的查詢目標是選擇那些自身環域有被河流的環域覆蓋到（也就是當圖徵「相交於」）的城市。請確認 <cite>選中的圖徵</cite> 旁的方框有被勾選起來，這是確保本查詢只會只用到我們之前選擇的河流圖徵。最後按下 <span class="guilabel">套用</span>。</p></li>
-</ol>
-<img alt="../_images/2328.png" class="align-center" src="../_images/2328.png" />
-<ol class="arabic simple" start="24">
-<li><p>查詢完成後，視窗會出現一個新區域，名為 <span class="guilabel">選中的圖徵</span>。按下 <span class="guilabel">由所選建立圖層</span> 鈕後，有個新圖層就會被加到 QGIS 的<cite>圖層列表</cite>中。最後按下 <span class="guilabel">關閉</span>。</p></li>
-</ol>
-<img alt="../_images/2428.png" class="align-center" src="../_images/2428.png" />
-<ol class="arabic simple" start="25">
-<li><p>現在你可以縮放到任一區域察看一下結果，可以發現新的圖層只包含了與河流環域相交的圖徵。</p></li>
-</ol>
-<img alt="../_images/2526.png" class="align-center" src="../_images/2526.png" />
-<ol class="arabic simple" start="26">
-<li><p>最後，我們應該要隨時檢查我們的結果，確保分析的過程中並沒有出錯。有個驗證的方法是把結果輸出成 KML 檔，然後在 Google 地球中讀取，這樣就可以確認你找到的城市真的距離河流不到 10 公里。請以右鍵點選圖層，選擇 <span class="guilabel">存檔為…</span>。</p></li>
-</ol>
-<img alt="../_images/2623.png" class="align-center" src="../_images/2623.png" />
-<ol class="arabic simple" start="27">
-<li><p>在 <span class="guilabel">儲存向量圖層為…</span> 的視窗中，需要選擇 <cite>WGS84</cite> 為 CRS，這是 KML 檔案格式的需求。把 KML 命名為 <code class="docutils literal notranslate"><span class="pre">cities_near_river.kml</span></code>。</p></li>
-</ol>
-<img alt="../_images/2723.png" class="align-center" src="../_images/2723.png" />
-<ol class="arabic simple" start="28">
-<li><p>打開 Google 地球，然後驗證這些城市（環域可表達其約略範圍）真的非常接近河流。</p></li>
-</ol>
-<img alt="../_images/2822.png" class="align-center" src="../_images/2822.png" />
-</section>
 </section>
 
 
 
-
-
-  <!-- Comment Section Powered by utterances -->
-<div id="comments">
-  <hr />
-  <p>If you want to give feedback or share your experience with this tutorial, please comment below. (requires GitHub account)</p>
-<script src="https://utteranc.es/client.js"
-        repo="spatialthoughts/qgis-tutorials"
-        issue-term="title"
-        label="comment"
-        theme="github-light"
-        crossorigin="anonymous"
-        async>
-</script>
-</div>
+<!-- Turn on comments on only newer tutorials having 3/ in URL -->
 
 
     </div>
@@ -367,7 +205,7 @@ dataset is global, we will choose a World projection. In the
     </p>
     <p>
         &copy; Copyright 2025, Ujaval Gandhi.<br/>
-      最後更新於 5月 20, 2025。<br/>
+      最後更新於 5月 24, 2025。<br/>
       Created using <a href="http://sphinx-doc.org/">Sphinx</a> 7.2.6.<br/>
     </p>
   </div>

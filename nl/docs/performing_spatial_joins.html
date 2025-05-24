@@ -185,102 +185,11 @@
 <p class="admonition-title">Waarschuwing</p>
 <p>Deze handleiding is nu gedateerd. Een nieuwe en bijgewerkte versie is beschikbaar op <a class="reference internal" href="3/performing_spatial_joins.html"><span class="doc">Ruimtelijke samenvoegingen uitvoeren (QGIS3)</span></a></p>
 </div>
-<p>Ruimtelijk samenvoegen is een klassiek probleem in GIS - verplaatsen van attributen uit de ene laag naar een andere, gebaseerd op hun ruimtelijke relatie. In QGIS is deze functionaliteit beschikbaar via het gereedschap <strong>Attributen op basis van plaats bijeenbrengen</strong>.</p>
-<section id="overview-of-the-task">
-<h2>Overzicht van de taak<a class="headerlink" href="#overview-of-the-task" title="Link to this heading">¶</a></h2>
-<p>We zullen 2 lagen gebruiken - Een shapefile van de grenzen van buroughs in New York en een ander shapefile van locaties van verpleeghuizen in New York. We zullen de techniek van ruimtelijk samenvoegen gebruiken om de totale capaciteit aan verpleeghuizen van de buroughs op te zoeken.</p>
-<section id="other-skills-you-will-learn">
-<h3>Andere vaardigheden die u zult leren<a class="headerlink" href="#other-skills-you-will-learn" title="Link to this heading">¶</a></h3>
-<ul class="simple">
-<li><p>Kolommen uit de attributentabel van een laag verwijderen.</p></li>
-</ul>
-</section>
-</section>
-<section id="get-the-data">
-<h2>De gegevens ophalen<a class="headerlink" href="#get-the-data" title="Link to this heading">¶</a></h2>
-<p><a class="reference external" href="https://data.cityofnewyork.us/">NYC Open Data Portal</a> is een uitmuntende bron voor gratis gegevens van New York.</p>
-<ol class="arabic simple">
-<li><p>Download het zip-bestand <a class="reference external" href="https://data.cityofnewyork.us/City-Government/Borough-Boundaries/tqmj-j8zm">Borough Boundaries</a> met behulp van de optie Export van het portaal.</p></li>
-</ol>
-<img alt="../_images/1206.png" class="align-center" src="../_images/1206.png" />
-<ol class="arabic simple" start="2">
-<li><p>Download het zip-bestand <a class="reference external" href="https://data.cityofnewyork.us/Health/Nursing-Homes/9tqc-rnkr">Nursing Homes</a>  met behulp van de optie Export van het portaal.</p></li>
-</ol>
-<img alt="../_images/2169.png" class="align-center" src="../_images/2169.png" />
-<p>Voor het gemak kunt u direct een kopie van de gegevensset downloaden vanaf de links hieronder:</p>
-<p><a class="reference external" href="http://www.qgistutorials.com/downloads/nybb_12c.zip">nybb_12c.zip</a></p>
-<p><a class="reference external" href="http://www.qgistutorials.com/downloads/OEM_NursingHomes_001.zip">OEM_NursingHomes_001.zip</a></p>
-</section>
-<section id="procedure">
-<h2>Procedure<a class="headerlink" href="#procedure" title="Link to this heading">¶</a></h2>
-<ol class="arabic simple" start="3">
-<li><p>Ga naar <span class="menuselection">Kaartlagen ‣ Laag toevoegen ‣ Vectorlaag toevoegen</span>. Blader naar het gedownloade zip-bestand <code class="docutils literal notranslate"><span class="pre">nybb_12c.zip</span></code> en selecteer <span class="guilabel">Openen</span>.</p></li>
-</ol>
-<img alt="../_images/3105.png" class="align-center" src="../_images/3105.png" />
-<ol class="arabic simple" start="4">
-<li><p>Selecteer de laag <code class="docutils literal notranslate"><span class="pre">nybb.shp</span></code> en klik op <span class="guilabel">OK</span>.</p></li>
-</ol>
-<img alt="../_images/470.png" class="align-center" src="../_images/470.png" />
-<ol class="arabic simple" start="5">
-<li><p>Herhaal de stappen 3 en 4 voor het andere bestand <code class="docutils literal notranslate"><span class="pre">OEM_NursingHomes_001.zip</span></code> en laad de laag <code class="docutils literal notranslate"><span class="pre">OEM_NursingHomes_001.shp</span></code>. Als beide lagen zijn geladen, klik met rechts op de laag <code class="docutils literal notranslate"><span class="pre">OEM_NursingHomes_001</span></code> en selecteer <span class="guilabel">Open attributentabel</span>.</p></li>
-</ol>
-<img alt="../_images/564.png" class="align-center" src="../_images/564.png" />
-<ol class="arabic simple" start="6">
-<li><p>bekijk de voor elk object beschikbare attributen. Omdat onze taak is het berekenen van de totale capaciteit van de verpleeghuizen voor elke borough, kunnen we het attribuut <strong>Capacity</strong> gebruiken wat kan worden samengevoegd met de laag van de begrenzingen.</p></li>
-</ol>
-<img alt="../_images/662.png" class="align-center" src="../_images/662.png" />
-<ol class="arabic simple" start="7">
-<li><p>Ga naar <span class="menuselection">Vector ‣ Data Management-gereedschap ‣ Attributen op basis van plaats bijeenbrengen</span>.</p></li>
-</ol>
-<img alt="../_images/761.png" class="align-center" src="../_images/761.png" />
-<ol class="arabic simple" start="8">
-<li><p>De <span class="guilabel">Doel-vectorlaag</span> is die aan welke we de attributen toe willen voegen. In ons geval zal dat de laag met grenzen van de boroughs zijn, de laag``nybb``. De <span class="guilabel">Join vectorlaag</span> zal de laag met verpleeghuizen zijn, de laag <code class="docutils literal notranslate"><span class="pre">OEM_NursingHomes_001</span></code>. Selecteer <span class="guilabel">Samenvatting gebruiken van snijdende objecten</span> omdat we de capaciteit van de verpleeghuizen bij elkaar op willen tellen en kies <span class="guilabel">Som</span>. Noem het uitvoerbestand <code class="docutils literal notranslate"><span class="pre">nyc_borough_join.shp</span></code>. Selecteer, in de <span class="guilabel">Uitvoer tabel</span>,  <span class="guilabel">Alle rijen behouden`</span>.</p></li>
-</ol>
-<img alt="../_images/859.png" class="align-center" src="../_images/859.png" />
-<ol class="arabic simple" start="9">
-<li><p>Selecteer, als het proces eenmaal is voltooid, <span class="guilabel">Ja</span> indien gevraagd wordt of u de laag wilt toevoegen aan de lagenlijst. De nieuwe laag <code class="docutils literal notranslate"><span class="pre">nyc_borough_join</span></code> zal de objecten hebben uit de laag <code class="docutils literal notranslate"><span class="pre">nybb</span></code> naast de ruimtelijk samengevoegde attributen van de laag <code class="docutils literal notranslate"><span class="pre">OEM_NursingHomes_001</span></code>. Klikmet rechts op de laag en selecteer <span class="guilabel">Open attributentabel</span>.</p></li>
-</ol>
-<img alt="../_images/958.png" class="align-center" src="../_images/958.png" />
-<ol class="arabic simple" start="10">
-<li><p>U zult in de attributentabel een kolom <strong>SUMCapacit</strong> zien. Dat is de som van het attribuut <strong>Capacity</strong> voor de verpleeghuizen die binnen elk object borough vallen.</p></li>
-</ol>
-<img alt="../_images/1066.png" class="align-center" src="../_images/1066.png" />
-<ol class="arabic simple" start="11">
-<li><p>dat is het antwoord waarnaar we zochten. Maar er zijn extra kolommen die we niet nodig hebben zijn onze uitvoer. Laten we onze uitvoer opschonen. Klik op de knop <span class="guilabel">Bewerken aan-/uitzetten</span> en dan op de knop <span class="guilabel">Kolom verwijderen</span>.</p></li>
-</ol>
-<img alt="../_images/11104.png" class="align-center" src="../_images/11104.png" />
-<ol class="arabic simple" start="12">
-<li><p>Druk op <kbd class="kbd compound docutils literal notranslate"><kbd class="kbd docutils literal notranslate">Control</kbd>-<kbd class="kbd docutils literal notranslate">A</kbd></kbd> om alle kolommen te selecteren in het dialoogvenster <span class="guilabel">Attributen verwijderen</span>. Houdt vervolgens de <kbd class="kbd docutils literal notranslate">Control</kbd>-toets ingedrukt en deselecteer de kolommen die u wilt behouden. Klik op <span class="guilabel">OK</span>.</p></li>
-</ol>
-<img alt="../_images/1268.png" class="align-center" src="../_images/1268.png" />
-<ol class="arabic simple" start="13">
-<li><p>Klik, in de attributentabel, opnieuw op de knop <span class="guilabel">Bewerken aan-/uitzetten</span> om de wijzigingen op te slaan.</p></li>
-</ol>
-<img alt="../_images/1365.png" class="align-center" src="../_images/1365.png" />
-<ol class="arabic simple" start="14">
-<li><p>Gebruik, terug in het kaartvenster van QGIS, het gereedschap <span class="guilabel">Object identificeren</span> om te verifiëren dat het uitvoerbestand de gewenste attributen bevat voor elk object burough.</p></li>
-</ol>
-<img alt="../_images/1461.png" class="align-center" src="../_images/1461.png" />
-</section>
 </section>
 
 
 
-
-
-  <!-- Comment Section Powered by utterances -->
-<div id="comments">
-  <hr />
-  <p>If you want to give feedback or share your experience with this tutorial, please comment below. (requires GitHub account)</p>
-<script src="https://utteranc.es/client.js"
-        repo="spatialthoughts/qgis-tutorials"
-        issue-term="title"
-        label="comment"
-        theme="github-light"
-        crossorigin="anonymous"
-        async>
-</script>
-</div>
+<!-- Turn on comments on only newer tutorials having 3/ in URL -->
 
 
     </div>
@@ -296,7 +205,7 @@
     </p>
     <p>
         &copy; Copyright 2025, Ujaval Gandhi.<br/>
-      Laatste aanpassing op mei 20, 2025.<br/>
+      Laatste aanpassing op mei 24, 2025.<br/>
       Created using <a href="http://sphinx-doc.org/">Sphinx</a> 7.2.6.<br/>
     </p>
   </div>

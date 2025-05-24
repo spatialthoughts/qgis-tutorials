@@ -190,127 +190,11 @@
 <p class="admonition-title">Atenționare</p>
 <p>O nouă versiune a acestui tutorial este disponibilă la <a class="reference internal" href="3/batch_processing.html"><span class="doc">Procesarea În Serie, folosind Cadrul de Procesare (QGIS3)</span></a></p>
 </div>
-<p>QGIS 2.0 a introdus un concept nou numit <strong>Processing Framework</strong>. Anterior cunoscut sub numele de <strong>Sextante</strong>, cadrul de procesare oferă un mediu în interiorul QGIS, adecvat rulării algoritmilor nativi și terți de prelucrare a datelor. Acesta conține o interfață de prelucrare în serie, aspectuoasă, care permite execuția cu ușurință a unui algoritm asupra mai multor straturi. Prelucrarea în serie reprezintă un instrument util care poate salva efortul manual, prin automatizarea sarcinilor repetitive.</p>
-<section id="overview-of-the-task">
-<h2>Privire de ansamblu asupra activității<a class="headerlink" href="#overview-of-the-task" title="Link to this heading">¶</a></h2>
-<p>Vom decupa mai multe straturi vectoriale globale, după conturul Africii, folosind o comandă pentru seturi.</p>
-<section id="other-skills-you-will-learn">
-<h3>Alte competențe pe care le veți dobândi<a class="headerlink" href="#other-skills-you-will-learn" title="Link to this heading">¶</a></h3>
-<ul class="simple">
-<li><p>Dizolvarea (îmbinarea) poligoanelor dintr-un strat care are același atribut.</p></li>
-</ul>
-</section>
-</section>
-<section id="get-the-data">
-<h2>Obținerea datelor<a class="headerlink" href="#get-the-data" title="Link to this heading">¶</a></h2>
-<p><a class="reference external" href="http://naturalearthdata.com">Natural Earth</a> are mai multe straturi vectoriale globale. Descărcați următoarele straturi</p>
-<ul class="simple">
-<li><p><a class="reference external" href="http://www.naturalearthdata.com/http//www.naturalearthdata.com/download/10m/cultural/ne_10m_admin_0_countries.zip">Admin 0 - Țări</a></p></li>
-<li><p><a class="reference external" href="http://www.naturalearthdata.com/http//www.naturalearthdata.com/download/10m/cultural/ne_10m_railroads.zip">Căi ferate</a></p></li>
-<li><p><a class="reference external" href="http://www.naturalearthdata.com/http//www.naturalearthdata.com/download/10m/cultural/ne_10m_ports.zip">Porturi</a></p></li>
-<li><p><a class="reference external" href="http://www.naturalearthdata.com/http//www.naturalearthdata.com/download/10m/cultural/ne_10m_airports.zip">Aeroporturi</a></p></li>
-</ul>
-<p>O dată descărcate, dezarhivați și extrageți toate fișierele shape într-un singur folder.</p>
-<p>Sursa datelor: <a class="reference internal" href="credits.html#naturalearth" id="id1"><span>[NATURALEARTH]</span></a></p>
-</section>
-<section id="procedure">
-<h2>Procedura<a class="headerlink" href="#procedure" title="Link to this heading">¶</a></h2>
-<ol class="arabic simple">
-<li><p>Mergeți la <span class="menuselection">Layer ‣ Add Vector Layer</span>.</p></li>
-</ol>
-<img alt="../_images/1179.png" class="align-center" src="../_images/1179.png" />
-<ol class="arabic simple" start="2">
-<li><p>Navigați la fișierul shape descărcat, Admin 0 Țări, <code class="docutils literal notranslate"><span class="pre">ne_10m_admin_0_countries.shp</span></code>, apoi faceți clic pe <span class="guilabel">Open</span>.</p></li>
-</ol>
-<img alt="../_images/2145.png" class="align-center" src="../_images/2145.png" />
-<ol class="arabic simple" start="3">
-<li><p>Atât timp cât sarcina noastră este de a tăia straturile globale după granițele Africii, trebuie să pregătim mai întâi un strat care să conțină un poligon pentru întregul continent. Stratul țărilor are un atribut numit <strong>CONTINENT</strong>. Putem folosi un concept de geoprocesare numit <em>Dissolve</em>, pentru a uni toate țările care au aceeași valoare a continentului, după care le vom contopi într-un singur poligon.</p></li>
-</ol>
-<img alt="../_images/384.png" class="align-center" src="../_images/384.png" />
-<ol class="arabic simple" start="4">
-<li><p>Deschideți instrumentul <span class="guilabel">Dissolve</span> din <span class="menuselection">Vector ‣ Geoprocessing Tools ‣ Dissolve</span>.</p></li>
-</ol>
-<img alt="../_images/453.png" class="align-center" src="../_images/453.png" />
-<ol class="arabic simple" start="5">
-<li><p>Alegeți <code class="docutils literal notranslate"><span class="pre">ne_10m_admin_0_countries</span></code> pentru <span class="guilabel">Input vector layer</span>. În <span class="guilabel">Dissolve field</span> alegeți <code class="docutils literal notranslate"><span class="pre">CONTINENT</span></code>. Denumiți fișierul de ieșire <code class="docutils literal notranslate"><span class="pre">continents.shp</span></code> și bifați caseta de lângă <span class="guilabel">Add result to convas</span>.</p></li>
-</ol>
-<div class="admonition note">
-<p class="admonition-title">Notă</p>
-<p>Dacă doriți să îmbinați <strong>TOATE</strong> poligoanele, indiferent de atributele lor, puteți selecta <span class="guilabel">– Dissolve All –</span> ca <span class="guilabel">Dissolve field</span>. Acest lucru va combina toate poligoanele din strat și vă va oferi un singur poligon agregat.</p>
-</div>
-<img alt="../_images/546.png" class="align-center" src="../_images/546.png" />
-<ol class="arabic simple" start="6">
-<li><p>Procesul de dizolvare poate dura ceva timp. O dată procesul terminat, veți vedea noul strat  <code class="docutils literal notranslate"><span class="pre">continent</span></code> suplimentar, adăugat în QGIS. Utilizați instrumentul <span class="guilabel">Select Single Feature</span> din bara de instrumente și faceți clic pe Africa, pentru a selecta poligonul reprezentând continentul.</p></li>
-</ol>
-<img alt="../_images/645.png" class="align-center" src="../_images/645.png" />
-<ol class="arabic simple" start="7">
-<li><p>Clic-dreapta pe stratul <code class="docutils literal notranslate"><span class="pre">continente</span></code> și selectați <span class="guilabel">Save Selection As…</span>.</p></li>
-</ol>
-<img alt="../_images/745.png" class="align-center" src="../_images/745.png" />
-<ol class="arabic simple" start="8">
-<li><p>Denumiți fișierul de ieșire ca <code class="docutils literal notranslate"><span class="pre">africa.shp</span></code>. Din moment ce suntem interesați numai de forma continentului și nu de toate atributele, puteți bifa <span class="guilabel">Skip attribute creation</span>. Asigurați-vă că ați bifat caseta <span class="guilabel">Add saved file to map</span> și că ați efectuat clic pe <span class="guilabel">OK</span>.</p></li>
-</ol>
-<img alt="../_images/844.png" class="align-center" src="../_images/844.png" />
-<ol class="arabic simple" start="9">
-<li><p>Acum, aveți stratul <code class="docutils literal notranslate"><span class="pre">Africa</span></code> încărcat în QGIS, și conținând un singur poligon pentru întregul continent. A venit momentul procesării comenzii de decupare în serie. Deschideți <span class="menuselection">Processing ‣ Toolbox</span>.</p></li>
-</ol>
-<img alt="../_images/945.png" class="align-center" src="../_images/945.png" />
-<ol class="arabic simple" start="10">
-<li><p>Răsfoiți algoritmii disponibili și găsiți instrumentul <span class="guilabel">Clip</span> din <span class="menuselection">QGIS geoalgorithms ‣ Vector overlay tools ‣ Clip</span>. Puteți folosi, de asemenea, câmpul <span class="guilabel">Search</span> pentru a identifica ușor algoritmul.</p></li>
-</ol>
-<img alt="../_images/1052.png" class="align-center" src="../_images/1052.png" />
-<ol class="arabic simple" start="11">
-<li><p>Faceți clic-dreapta pe algoritmul <span class="guilabel">Clip</span>, apoi selectați <span class="guilabel">Execure as batch process</span>.</p></li>
-</ol>
-<img alt="../_images/1180.png" class="align-center" src="../_images/1180.png" />
-<ol class="arabic simple" start="12">
-<li><p>În fereastra de dialog <span class="guilabel">Batch Processing</span>, prima filă este <span class="guilabel">Parameters</span>, care definește intrările. Clic pe <span class="guilabel">…</span> din dreptul primului rând al coloanei <span class="guilabel">Input layer</span>.</p></li>
-</ol>
-<img alt="../_images/1255.png" class="align-center" src="../_images/1255.png" />
-<ol class="arabic simple" start="13">
-<li><p>Navigați la directorul care conține straturile de transport global, pe care le-ați descărcat. Mențineți apăsată tasta <kbd class="kbd docutils literal notranslate">Ctrl</kbd> și selectați toate straturile pe care doriți să le decupați. De asemenea, puteți folosi <kbd class="kbd docutils literal notranslate">Shift</kbd> sau <kbd class="kbd compound docutils literal notranslate"><kbd class="kbd docutils literal notranslate">Ctrl</kbd>-<kbd class="kbd docutils literal notranslate">A</kbd></kbd> pentru a face selecții multiple. Clic pe <span class="guilabel">Open</span>.</p></li>
-</ol>
-<img alt="../_images/1353.png" class="align-center" src="../_images/1353.png" />
-<ol class="arabic simple" start="14">
-<li><p>Veți observa că se vor auto-popula coloanele <span class="guilabel">Input layer</span>, cu toate straturile pe care le-ați selectat. Puteți folosi butonul <span class="guilabel">Add row</span> pentru a adăuga mai multe rânduri și pentru a defini mai multe intrări. Apoi, trebuie să selectați stratul care conține limita de decupare a straturilor de intrare. Faceți clic pe butonul <span class="guilabel">…</span> din primul rând și adăugați <code class="docutils literal notranslate"><span class="pre">africa.shp</span></code> în <span class="guilabel">Clip layer</span>. Deoarece stratul de tăiere este același pentru toate intrările, puteți face dublu-clic pe antetul coloanei <span class="guilabel">Clip layer</span>, pentru ca stratul să se auto-completeze pentru toate rândurile. Apoi, trebuie să ne definim rezultatele. Faceți clic pe butonul <span class="guilabel">…</span> de lângă primul rând din coloana <span class="guilabel">Clipped</span>.</p></li>
-</ol>
-<img alt="../_images/1449.png" class="align-center" src="../_images/1449.png" />
-<ol class="arabic simple" start="15">
-<li><p>Răsfoiți directorul în care doriți straturile de ieșire. Tastați numele fișierului ca fiind <code class="docutils literal notranslate"><span class="pre">clipped_</span></code>, apoi faceți clic pe <span class="guilabel">Save</span>.</p></li>
-</ol>
-<img alt="../_images/1543.png" class="align-center" src="../_images/1543.png" />
-<ol class="arabic simple" start="16">
-<li><p>Veți vedea o nouă fereastră de dialog, de tip pop-up, <span class="guilabel">Autofill settings</span>. Alegeți <span class="guilabel">Fill with parameter values</span> pentru <span class="guilabel">Autofill mode</span>. Selectați <span class="guilabel">Input layer</span> pentru <span class="guilabel">Parameter to use</span>. Această setare va adăuga numele fișierului de intrare la cel de ieșire, împreună cu numele fișierului <code class="docutils literal notranslate"><span class="pre">output_</span></code> specificat. Acest lucru este important, pentru a ne asigura că toate fișierele de ieșire au nume unice și nu se suprascriu reciproc.</p></li>
-</ol>
-<img alt="../_images/1640.png" class="align-center" src="../_images/1640.png" />
-<ol class="arabic simple" start="17">
-<li><p>Acum suntem gata să începem procesarea în serie. Clic pe <span class="guilabel">Run</span>.</p></li>
-</ol>
-<img alt="../_images/1739.png" class="align-center" src="../_images/1739.png" />
-<ol class="arabic simple" start="18">
-<li><p>Algoritmul de tăiere va rula pentru fiecare intrare și va crea fișierele de ieșire, așa cum s-a specificat. O dată ce procesarea în serie se încheie, veți vedea straturile adăugate la suportul QGIS. După cum veți observa, toate straturile globale sunt tăiate în mod adecvat, la limita continentului specificat.</p></li>
-</ol>
-<img alt="../_images/1835.png" class="align-center" src="../_images/1835.png" />
-</section>
 </section>
 
 
 
-
-
-  <!-- Comment Section Powered by utterances -->
-<div id="comments">
-  <hr />
-  <p>If you want to give feedback or share your experience with this tutorial, please comment below. (requires GitHub account)</p>
-<script src="https://utteranc.es/client.js"
-        repo="spatialthoughts/qgis-tutorials"
-        issue-term="title"
-        label="comment"
-        theme="github-light"
-        crossorigin="anonymous"
-        async>
-</script>
-</div>
+<!-- Turn on comments on only newer tutorials having 3/ in URL -->
 
 
     </div>
@@ -326,7 +210,7 @@
     </p>
     <p>
         &copy; Copyright 2025, Ujaval Gandhi.<br/>
-      Ultima actualizare la mai 20, 2025.<br/>
+      Ultima actualizare la mai 24, 2025.<br/>
       Created using <a href="http://sphinx-doc.org/">Sphinx</a> 7.2.6.<br/>
     </p>
   </div>

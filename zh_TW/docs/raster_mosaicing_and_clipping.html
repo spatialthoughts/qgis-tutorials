@@ -185,141 +185,11 @@
 <p class="admonition-title">警告</p>
 <p>This tutorial is now obsolete. A new and updated version is available at <a class="reference internal" href="3/raster_mosaicing_and_clipping.html"><span class="doc">Raster Mosaicing and Clipping (QGIS3)</span></a></p>
 </div>
-<p>本教學會來介紹在 QGIS 中操作網格式影像的基本方法，像是瀏覽、拼貼與裁切影像等等。</p>
-<section id="overview-of-the-task">
-<h2>內容說明<a class="headerlink" href="#overview-of-the-task" title="Link to this heading">¶</a></h2>
-<p>下載公開的巴西影像資料到 QGIS 中查看，然後把它們拼成一幅大型的影像，最後再把它沿著巴西的國界切下來，完成一幅沒有接縫的巴西影像資料。</p>
-<section id="other-skills-you-will-learn">
-<h3>你還會學到這些<a class="headerlink" href="#other-skills-you-will-learn" title="Link to this heading">¶</a></h3>
-<ul class="simple">
-<li><p>尋找並下載近乎即時公開的衛星影像。</p></li>
-<li><p>在向量圖層中選擇某一圖徵，另存成新的 shapefile。</p></li>
-</ul>
-</section>
-</section>
-<section id="get-the-data">
-<h2>取得資料<a class="headerlink" href="#get-the-data" title="Link to this heading">¶</a></h2>
-<p>首先我們需要巴西的國界來裁切影像，這個 shapefile 可以從 Natural Earth 網站上面抓下來： <a class="reference external" href="http://www.naturalearthdata.com/http//www.naturalearthdata.com/download/10m/cultural/ne_10m_admin_0_countries.zip">Admin 0 - Countries</a></p>
-<p><a class="reference external" href="https://earthdata.nasa.gov/data/near-real-time-data/rapid-response/modis-subsets">NASA/GSFC, Rapid Response site</a> 收集了不錯的、近乎即時公開的衛星影像資料，而 <a class="reference external" href="http://lance-modis.eosdis.nasa.gov/imagery/subsets/?project=fas">USDA Foreign Agricultural Service (FAS) subsets.</a> 則製作了這些衛星影像的區域性資料集。本教學會使用 FAS 的「巴西解析度 2 公里」資料集。</p>
-<p>以下說明如何搜尋與下載相關資料。</p>
-<ol class="arabic simple">
-<li><p>開啟 <a class="reference external" href="http://lance-modis.eosdis.nasa.gov/imagery/subsets/?area=sa">南美洲的區域影像集</a>，在 <span class="guilabel">FAS Subsets</span> 的地方任意點一個副集合（紅框），</p></li>
-</ol>
-<img alt="../_images/1276.png" class="align-center" src="../_images/1276.png" />
-<ol class="arabic simple" start="2">
-<li><p>接下來進入到下載選項頁面，可以選擇任意一個 <span class="guilabel">2km</span> 的連結下載你想要的資料。這裡我們選擇植生指標（NDVI）的影像下載作為示範。<a class="reference external" href="http://en.wikipedia.org/wiki/Normalized_Difference_Vegetation_Index">什麼是 NDVI?</a></p></li>
-</ol>
-<img alt="../_images/2179.png" class="align-center" src="../_images/2179.png" />
-<ol class="arabic simple" start="3">
-<li><p>選擇 <span class="guilabel">Download GeoTIFF file</span> 來下載網格式影像。</p></li>
-</ol>
-<img alt="../_images/3122.png" class="align-center" src="../_images/3122.png" />
-<p>對所有 7 個 FAS 在巴西的副集合進行相同的操作。</p>
-<p>為了方便起見，你也可以直接用下面的連結們下載所有本教學的資料：</p>
-<p><a class="reference external" href="http://www.qgistutorials.com/downloads/ne_10m_admin_0_countries.zip">ne_10m_admin_0_countries.zip</a></p>
-<p><a class="reference external" href="http://www.qgistutorials.com/downloads/FAS_Brazil1.2013363.aqua.ndvi.2km.tif">FAS_Brazil1.2013363.aqua.ndvi.2km.tif</a></p>
-<p><a class="reference external" href="http://www.qgistutorials.com/downloads/FAS_Brazil2.2013363.terra.ndvi.2km.tif">FAS_Brazil2.2013363.terra.ndvi.2km.tif</a></p>
-<p><a class="reference external" href="http://www.qgistutorials.com/downloads/FAS_Brazil3.2013363.aqua.ndvi.2km.tif">FAS_Brazil3.2013363.aqua.ndvi.2km.tif</a></p>
-<p><a class="reference external" href="http://www.qgistutorials.com/downloads/FAS_Brazil4.2013363.aqua.ndvi.2km.tif">FAS_Brazil4.2013363.aqua.ndvi.2km.tif</a></p>
-<p><a class="reference external" href="http://www.qgistutorials.com/downloads/FAS_Brazil5.2013363.aqua.ndvi.2km.tif">FAS_Brazil5.2013363.aqua.ndvi.2km.tif</a></p>
-<p><a class="reference external" href="http://www.qgistutorials.com/downloads/FAS_Brazil6.2013363.terra.ndvi.2km.tif">FAS_Brazil6.2013363.terra.ndvi.2km.tif</a></p>
-<p><a class="reference external" href="http://www.qgistutorials.com/downloads/FAS_Brazil7.2013363.aqua.ndvi.2km.tif">FAS_Brazil7.2013363.aqua.ndvi.2km.tif</a></p>
-<p>資料來源 <a class="reference internal" href="credits.html#lance" id="id1"><span>[LANCE]</span></a> <a class="reference internal" href="credits.html#naturalearth" id="id2"><span>[NATURALEARTH]</span></a></p>
-</section>
-<section id="procedure">
-<h2>操作流程<a class="headerlink" href="#procedure" title="Link to this heading">¶</a></h2>
-<ol class="arabic simple" start="4">
-<li><p>打開 QGIS，選擇 <span class="menuselection">圖層 ‣ 加入影像圖層</span>。</p></li>
-</ol>
-<img alt="../_images/477.png" class="align-center" src="../_images/477.png" />
-<ol class="arabic simple" start="5">
-<li><p>移到放影像的資料夾，按住 <kbd class="kbd docutils literal notranslate">Ctrl</kbd> 鍵後點選每個影像檔，全部選起來後按下 <span class="guilabel">開啟</span>。</p></li>
-</ol>
-<img alt="../_images/571.png" class="align-center" src="../_images/571.png" />
-<ol class="arabic simple" start="6">
-<li><p>你可以看到所有的影像都已經載入並顯示在左側的圖層目錄了，接下來我們要把所有的影像拼成一幅大影像。選擇 <span class="menuselection">影像 ‣ 其他 ‣ 合併影像</span>。</p></li>
-</ol>
-<div class="admonition note">
-<p class="admonition-title">備註</p>
-<p>QGIS 中的 <span class="guilabel">影像</span> 選單其實是一個叫做 <span class="guilabel">GdalTools</span> 的附加元件。如果你找不到 <span class="guilabel">影像</span> 選單的話，請去 <span class="menuselection">附加元件 ‣ 管理與安裝附加元件 ‣ 已安裝</span> 分頁下把 <span class="guilabel">GdalTools</span> 啟用。詳情請參閱 <a class="reference internal" href="using_plugins.html"><span class="doc">使用附加元件</span></a>。</p>
-</div>
-<img alt="../_images/668.png" class="align-center" src="../_images/668.png" />
-<ol class="arabic simple" start="7">
-<li><p>在 <span class="guilabel">合併影像</span> 對話框中，按下 <span class="guilabel">輸入檔案</span> 旁邊的 <span class="guilabel">選擇…</span> 鈕，前往你存放所有 geotiff 檔的資料夾，按住 <kbd class="kbd docutils literal notranslate">Ctrl</kbd> 鍵選取所有檔案。接著按下 <span class="guilabel">輸出檔案</span> 旁邊的 <span class="guilabel">選擇…</span> 鈕，然後把輸出檔命名為 <code class="docutils literal notranslate"><span class="pre">Brazil_mosaic.tif</span></code>。在底下的地方，勾選 <span class="guilabel">處理完成</span> 後載入QGIS地圖中，最後按下 <span class="guilabel">確定</span>。</p></li>
-</ol>
-<img alt="../_images/767.png" class="align-center" src="../_images/767.png" />
-<ol class="arabic simple" start="8">
-<li><p>影像拼貼好載入 QGIS 後，會有一個訊息跳出來告訴你說 <cite>處理完成</cite>。現在所有的獨立影像都結合在一起成為一個大圖層了，儘管關閉所有的原始獨立圖層，把他們都取消勾選吧。</p></li>
-</ol>
-<img alt="../_images/865.png" class="align-center" src="../_images/865.png" />
-<ol class="arabic simple" start="9">
-<li><p>另外一種影像操作則是<cite>裁切</cite>影像，只要用一個多邊形的向量圖層，就可以把一幅影像沿著這個多邊形給剪下。所以來把剛才從 Natural Earth 下載的國界多邊形給讀進來看看吧。選擇 <span class="menuselection">圖層 ‣ 加入向量圖層</span>，</p></li>
-</ol>
-<img alt="../_images/964.png" class="align-center" src="../_images/964.png" />
-<ol class="arabic simple" start="10">
-<li><p>選擇 <code class="docutils literal notranslate"><span class="pre">ne_10m_admin_0_countries.zip</span></code> 然後按下 <span class="guilabel">開啟</span>，如有要你選擇要開啟壓所檔中的哪一個圖層，就選 <code class="docutils literal notranslate"><span class="pre">ne_10m_admin_0_countries.shp</span></code>。</p></li>
-</ol>
-<img alt="../_images/1072.png" class="align-center" src="../_images/1072.png" />
-<ol class="arabic simple" start="11">
-<li><p>所有的國界都載到 QGIS 了，不過我們只想要巴西的國界。所以接著按下位於上方工具列的 <span class="guilabel">選取圖徵</span>，</p></li>
-</ol>
-<img alt="../_images/11110.png" class="align-center" src="../_images/11110.png" />
-<ol class="arabic simple" start="12">
-<li><p>在巴西的多邊形上隨便按一個地方，它就會被選取。</p></li>
-</ol>
-<img alt="../_images/1277.png" class="align-center" src="../_images/1277.png" />
-<ol class="arabic simple" start="13">
-<li><p>在 <code class="docutils literal notranslate"><span class="pre">ne_10m_admin_0_countries</span></code> 圖層上按右鍵然後選擇 <span class="guilabel">儲存選取區域為…</span> （或是 <span class="guilabel">存檔為…</span>），</p></li>
-</ol>
-<img alt="../_images/1370.png" class="align-center" src="../_images/1370.png" />
-<ol class="arabic simple" start="14">
-<li><p>把新檔案命名為 <code class="docutils literal notranslate"><span class="pre">brazil_boundary.shp</span></code>（譯註：如果有的話，要勾選 <span class="guilabel">儲存僅選取的圖徵</span>），確認一下 <span class="guilabel">加入儲存檔案至地圖中</span> 有開啟，最後按下 <span class="guilabel">確定</span>。</p></li>
-</ol>
-<img alt="../_images/1466.png" class="align-center" src="../_images/1466.png" />
-<ol class="arabic simple" start="15">
-<li><p>接著 QGIS 中就可以看到巴西的國界以多邊形顯示。</p></li>
-</ol>
-<img alt="../_images/1559.png" class="align-center" src="../_images/1559.png" />
-<ol class="arabic simple" start="16">
-<li><p>接下來選擇 <span class="menuselection">影像 ‣ 取出 ‣ 裁剪…</span>。</p></li>
-</ol>
-<img alt="../_images/1655.png" class="align-center" src="../_images/1655.png" />
-<ol class="arabic simple" start="17">
-<li><p>在 <span class="guilabel">輸入檔案(影像)</span> 那邊選擇 <code class="docutils literal notranslate"><span class="pre">Brazil_mosaic</span></code>，然後把 <span class="guilabel">輸出檔案</span> 命名為 <code class="docutils literal notranslate"><span class="pre">Brazil_mosaic_clipped</span></code>。在底下的 <span class="guilabel">裁剪模式</span> 中，選 <span class="guilabel">分析遮罩</span> ，然後用剛才存的 <code class="docutils literal notranslate"><span class="pre">brazil_boundary</span></code> 當作要剪下來的形狀，再勾選 <span class="guilabel">處理完成後載入QGIS地圖中</span>，最後按 <span class="guilabel">確定</span>。</p></li>
-</ol>
-<img alt="../_images/1753.png" class="align-center" src="../_images/1753.png" />
-<ol class="arabic simple" start="18">
-<li><p>這下子裁剪過的新圖層就會被載到 QGIS 中。你可能會發現在拼貼邊界外圍的像素都變成黑色的了，如果要移除的話，請在 <code class="docutils literal notranslate"><span class="pre">Brazil_mosaic_clipped</span></code> 圖層上按右鍵選擇 <span class="guilabel">屬性</span>，</p></li>
-</ol>
-<img alt="../_images/1849.png" class="align-center" src="../_images/1849.png" />
-<ol class="arabic simple" start="19">
-<li><p>移到 <span class="guilabel">透明度</span> 的分頁，在 <span class="guilabel">附加無資料值</span> 那邊填上 <code class="docutils literal notranslate"><span class="pre">0</span></code>。</p></li>
-</ol>
-<img alt="../_images/1940.png" class="align-center" src="../_images/1940.png" />
-<ol class="arabic simple" start="20">
-<li><p>現在我們就有了一幅不錯的、沿著國界裁切的拼貼影像。它可以用來當作其他資料的背景圖層，或是直接進行後續的分析。</p></li>
-</ol>
-<img alt="../_images/2035.png" class="align-center" src="../_images/2035.png" />
-</section>
 </section>
 
 
 
-
-
-  <!-- Comment Section Powered by utterances -->
-<div id="comments">
-  <hr />
-  <p>If you want to give feedback or share your experience with this tutorial, please comment below. (requires GitHub account)</p>
-<script src="https://utteranc.es/client.js"
-        repo="spatialthoughts/qgis-tutorials"
-        issue-term="title"
-        label="comment"
-        theme="github-light"
-        crossorigin="anonymous"
-        async>
-</script>
-</div>
+<!-- Turn on comments on only newer tutorials having 3/ in URL -->
 
 
     </div>
@@ -335,7 +205,7 @@
     </p>
     <p>
         &copy; Copyright 2025, Ujaval Gandhi.<br/>
-      最後更新於 5月 20, 2025。<br/>
+      最後更新於 5月 24, 2025。<br/>
       Created using <a href="http://sphinx-doc.org/">Sphinx</a> 7.2.6.<br/>
     </p>
   </div>

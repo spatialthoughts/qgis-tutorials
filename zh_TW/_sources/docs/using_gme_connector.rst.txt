@@ -14,11 +14,6 @@ This tutorial will go through the process of creating a Google Maps Engine
 account, obtaining necessary credentials for using the connector, creating a map
 using Google Maps Engine and consuming the resulting map in QGIS.
 
-.. note::
-
-   Disclaimer: I am the author of the Google Maps Engine Connector and
-   currently part of the Google Maps team.
-
 Overview of the task
 --------------------
 

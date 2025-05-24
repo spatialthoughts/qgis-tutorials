@@ -185,153 +185,11 @@
 <p class="admonition-title">Atenționare</p>
 <p>Acest tutorial este învechit. O versiune actualizată este disponibilă la <a class="reference internal" href="3/working_with_terrain.html"><span class="doc">Working with Terrain Data (QGIS3)</span></a></p>
 </div>
-<p>Datele despre teren, sau despre altitudine, sunt utile pentru multe Analize GIS, fiind folosite, adesea, în cadrul hărților. QGIS are bune capacități de procesare internă a terenului. În acest tutorial, vom parcurge pașii necesari obținerii, din datele de elevație, a diverselor rezultate, cum ar fi curbele de nivel, relieful etc.</p>
-<section id="overview-of-the-task">
-<h2>Privire de ansamblu asupra activității<a class="headerlink" href="#overview-of-the-task" title="Link to this heading">¶</a></h2>
-<p>Sarcina este de a crea hărțile reliefului și a curbelor de nivel, pentru zona din jurul Mt. Everest.</p>
-<section id="other-skills-you-will-learn">
-<h3>Alte competențe pe care le veți dobândi<a class="headerlink" href="#other-skills-you-will-learn" title="Link to this heading">¶</a></h3>
-<ul class="simple">
-<li><p>Găsirea și descărcarea datelor despre teren, disponibile în mod gratuit.</p></li>
-<li><p>Exportarea în format KML a unui strat vectorial, precum și vizualizarea sa în Google Earth.</p></li>
-</ul>
-</section>
-</section>
-<section id="get-the-data">
-<h2>Obținerea datelor<a class="headerlink" href="#get-the-data" title="Link to this heading">¶</a></h2>
-<p>Vom lucra cu setul de date GMTED2010 de la USGS. Aceste date pot fi descărcate de pe site-ul <a class="reference external" href="http://earthexplorer.usgs.gov/">USGS Earthexplorer</a>. <a class="reference external" href="http://eros.usgs.gov/#/Find_Data/Products_and_Data_Available/GMTED2010">GMTED (Global Multi-resolution Terrain Elevation Data)</a> este un set de date despre teritoriul global, fiind, de fapt, o versiune mai nouă a setului de date GTOPO30.</p>
-<p>Iată cum să căutați și să descărcați datele revelante de la USGS Earthexplorer.</p>
-<ol class="arabic simple">
-<li><p>Mergeți la <a class="reference external" href="http://earthexplorer.usgs.gov/">USGS Earthexplorer</a> . În fila <span class="guilabel">Search Criteria</span>  căutați denumirea <cite>Mt. Everest</cite>. Efectuați clic pe rezultat pentru a selecta locația.</p></li>
-</ol>
-<img alt="../_images/1295.png" class="align-center" src="../_images/1295.png" />
-<ol class="arabic simple" start="2">
-<li><p>În fila <span class="guilabel">Data Sets</span> expandați grupul <span class="guilabel">Digital Elevation</span> și bifați <span class="guilabel">GMTED2010</span>.</p></li>
-</ol>
-<img alt="../_images/2195.png" class="align-center" src="../_images/2195.png" />
-<ol class="arabic simple" start="3">
-<li><p>Puteți sări acum la fila <span class="guilabel">Results</span> pentru a vedea acea parte a setului de date care satisface criteriile dvs. de căutare. Efectuați clic pe butonul <span class="guilabel">Download Options</span>. După care, va trebui să vă conectați la site. Puteți să vă creați un cont gratuit, dacă nu aveți unul.</p></li>
-</ol>
-<img alt="../_images/3133.png" class="align-center" src="../_images/3133.png" />
-<ol class="arabic simple" start="4">
-<li><p>Selectați opțiunea <span class="guilabel">30 ARC SEC</span> și efectuați clic pe <span class="guilabel">Select Download Option</span>.</p></li>
-</ol>
-<img alt="../_images/487.png" class="align-center" src="../_images/487.png" />
-<p>Acum, veți avea acum un fișier numit <cite>GMTED2010N10E060_300.zip</cite>. Datele altitudinii sunt distribuite în diverse formate raster, cum ar fi ASC, BIL, GeoTiff etc. QGIS suportă o <a class="reference external" href="http://www.gdal.org/formats_list.html">gamă largă de formate raster</a> prin intermediul bibliotecii GDAL. Datele GMTED vin sub formă de fișiere GeoTIFF, care sunt incluse în această arhivă zip.</p>
-<p>Pentru comoditate, puteți descărca o copie a datelor direct de mai jos.</p>
-<p><a class="reference external" href="http://www.qgistutorials.com/downloads/GMTED2010N10E060_300.zip">GMTED2010N10E060_300.zip</a></p>
-<p>Sursa datelor: <a class="reference internal" href="credits.html#gmted2010" id="id2"><span>[GMTED2010]</span></a></p>
-</section>
-<section id="procedure">
-<h2>Procedura<a class="headerlink" href="#procedure" title="Link to this heading">¶</a></h2>
-<ol class="arabic simple" start="5">
-<li><p>Deschideți  <span class="menuselection">Layer ‣ Add Raster Layer</span> și navigați la fișierul zip, descărcat anterior.</p></li>
-</ol>
-<img alt="../_images/581.png" class="align-center" src="../_images/581.png" />
-<ol class="arabic simple" start="6">
-<li><p>Există o diversitate de fișiere, generate de algoritmi diferiți. Pentru acest tutorial, vom folosi fișierul numit <cite>10n060e_20101117_gmted_mea300.tif</cite>.</p></li>
-</ol>
-<img alt="../_images/678.png" class="align-center" src="../_images/678.png" />
-<ol class="arabic simple" start="7">
-<li><p>Datele terenului vor fi afișate în suportul de hartă al QGIS. Fiecare pixel din raster reprezintă altitudinea medie a acelei locații, în metri. Pixelii întunecați reprezintă zonele cu altitudine joasă, iar pixelii mai luminoși zonele cu altitudine mare.</p></li>
-</ol>
-<img alt="../_images/777.png" class="align-center" src="../_images/777.png" />
-<ol class="arabic simple" start="8">
-<li><p>Haideți să găsim zona noastră de interes. De la <a class="reference external" href="http://en.wikipedia.org/wiki/Mount_Everest">Wikipedia</a>, aflăm că zona noastră de interes - Mt. Everest - se situează la coordonatele 27.9881° N, 86.9253° E. Rețineți că QGIS utilizează coordonatele în format (X, Y), așa că va trebui să utilizăm coordonatele ca (Longitudine, Latitudine). Copiați și lipiți următoarele coordonate, <cite>86.9253,27.9881</cite>,  în partea de jos a ferestrei QGIS în care scrie <span class="guilabel">Coordinate</span> și apăsați Enter. Imaginea se va fi centra pe aceste coordonate. Pentru a mări harta, introduceți <cite>1:1000000</cite> în câmpul <span class="guilabel">Scale</span> și apăsați Enter. Portul de vizualizare se va mări, cuprinzând zona din jurul munților Himalaya.</p></li>
-</ol>
-<img alt="../_images/875.png" class="align-center" src="../_images/875.png" />
-<ol class="arabic simple" start="9">
-<li><p>Vom decupa rasterul după zona de interes. Selectați instrumentul Clipper din <span class="menuselection">Raster ‣ Extraction ‣ Clipper</span>.</p></li>
-</ol>
-<div class="admonition note">
-<p class="admonition-title">Notă</p>
-<p>Meniul <span class="guilabel">Raster</span> din QGIS provine de la un plugin numit <span class="guilabel">GdalTools</span>. Dacă nu vedeți meniul <span class="guilabel">Raster</span>, activați plugin-ul <span class="guilabel">GdalTools</span> din <span class="menuselection">Plugins ‣ Manage and install plugins ‣ Installed</span>. Pentru mai multe detalii, parcurgeți <a class="reference internal" href="using_plugins.html"><span class="doc">Utilizarea Plugin-urilor</span></a>.</p>
-</div>
-<img alt="../_images/974.png" class="align-center" src="../_images/974.png" />
-<ol class="arabic simple" start="10">
-<li><p>În fereastra <span class="guilabel">Clipper</span>, denumiți fișierul de ieșire ca <cite>everest_gmted30.tif</cite>. Alegeți <span class="guilabel">Extent</span> pentru <span class="guilabel">Clipping mode</span>.</p></li>
-</ol>
-<img alt="../_images/1082.png" class="align-center" src="../_images/1082.png" />
-<ol class="arabic simple" start="11">
-<li><p>Păstrați fereastra <span class="guilabel">Clipper</span> deschisă și comutați la fereastra principală a QGIS. Țineți apăsat butonul stâng al mouse-ului, apoi glisați, trasând un dreptunghi care să acopere complet suportul de hartă.</p></li>
-</ol>
-<img alt="../_images/11119.png" class="align-center" src="../_images/11119.png" />
-<ol class="arabic simple" start="12">
-<li><p>Înapoi, în fereastra <span class="guilabel">Clipper</span>, veți vedea coordonatele auto-populându-se conform selecției dvs. Asigurați-vă că opțiunea <span class="guilabel">Load into canvas when finished</span> este bifată, apoi faceți clic pe <span class="guilabel">OK.</span></p></li>
-</ol>
-<img alt="../_images/1296.png" class="align-center" src="../_images/1296.png" />
-<ol class="arabic simple" start="13">
-<li><p>O dată cu încheierea procesului, veți vedea un nou strat încărcat în QGIS. Acest strat va acoperi doar zona din jurul Mt. Everest. În acest moment suntem gata să generăm curbele de nivel. Selectați instrumentul corespunzător din <span class="menuselection">Raster ‣ Extraction ‣ Contour</span>.</p></li>
-</ol>
-<img alt="../_images/1379.png" class="align-center" src="../_images/1379.png" />
-<ol class="arabic simple" start="14">
-<li><p>În fereastra de dialog <span class="guilabel">Contour</span>, selectați <cite>everest_gmted30</cite> ca <span class="guilabel">Input file</span>. Denumiți <span class="guilabel">Output file for contour lines</span> ca <cite>everest_countours.shp</cite>. Vom genera curbele de nivel pentru intervale de 100 de metri, așa că introduceți 100 în <span class="guilabel">Interval between contour lines.</span> Bifați, de asemenea, opțiunea <span class="guilabel">Attribute name</span>, astfel că valorile altitudinii vor fi înregistrate ca atribut al fiecărei curbe. Faceți clic pe <span class="guilabel">OK</span>.</p></li>
-</ol>
-<img alt="../_images/1475.png" class="align-center" src="../_images/1475.png" />
-<ol class="arabic simple" start="15">
-<li><p>O dată ce prelucrarea este completă, veți vedea curbele de nivel încărcate în suportul hărții. Fiecare linie din acest strat reprezintă o anumită altitudine. Toate punctele de pe o curbă de nivel a rasterului de bază vor fi la aceeași altitudine. Cu cât sunt mai apropiate liniile, cu atât e mai abruptă panta. Să analizăm curbele ceva mai mult. Faceți clic dreapta pe stratul acestora și alegeți <span class="guilabel">Open Attribute Table</span>.</p></li>
-</ol>
-<img alt="../_images/1567.png" class="align-center" src="../_images/1567.png" />
-<ol class="arabic simple" start="16">
-<li><p>Veți vedea că fiecare entitate de tip linie are un atribut numit <span class="guilabel">ELEV</span>. Acesta reprezintă înălțimea în metri a fiecărei linii. Faceți clic pe antetul de coloană de câteva ori, pentru a sorta valorile în ordine descrescătoare. Astfel, veți găsi linia care reprezintă cea mai mare altitudine din datele noastre, și anume Mt. Everest.</p></li>
-</ol>
-<img alt="../_images/1663.png" class="align-center" src="../_images/1663.png" />
-<ol class="arabic simple" start="17">
-<li><p>Selectați rândul de sus, și faceți clic pe butonul <span class="guilabel">Zoom to selection</span>.</p></li>
-</ol>
-<img alt="../_images/1760.png" class="align-center" src="../_images/1760.png" />
-<ol class="arabic simple" start="18">
-<li><p>Treceți la fereastra principală QGIS. Veți vedea că linia selectată este evidențiată cu galben. Aceasta este zona cu cea mai mare altitudine din setul nostru de date.</p></li>
-</ol>
-<img alt="../_images/1856.png" class="align-center" src="../_images/1856.png" />
-<ol class="arabic simple" start="19">
-<li><p>Acum, haideți să creăm o hartă a reliefului din raster. Selectați <span class="menuselection">Raster ‣ Analysis ‣ DEM (Terrain Models)</span>.</p></li>
-</ol>
-<img alt="../_images/1947.png" class="align-center" src="../_images/1947.png" />
-<ol class="arabic simple" start="20">
-<li><p>În fereastra de dialog <span class="guilabel">DEM (Terrain Models)</span>, alegeți <cite>everest_gmted30</cite> ca <span class="guilabel">Input file</span>. Denumiți <span class="guilabel">Output file</span> ca <cite>everest_hillshade.tif</cite>. Alegeți <span class="guilabel">Hillshade</span> pentru <span class="guilabel">Mode</span>. Lăsați toate celelalte opțiuni așa cum sunt. Asigurați-vă că opțiunea <span class="guilabel">Load into canvas when finished</span> este bifată, și faceți clic pe <span class="guilabel">OK.</span></p></li>
-</ol>
-<img alt="../_images/2042.png" class="align-center" src="../_images/2042.png" />
-<ol class="arabic simple" start="21">
-<li><p>O dată ce procesul se termină, veți vedea un alt raster încărcat în suportul de hartă QGIS. Din moment ce, eventual, ați mărit harta pentru a fi mai aproape de regiunea Mt. Everest, faceți clic dreapta pe stratul <cite>everest_hillshade</cite> și alegeți <span class="guilabel">Zoom to Layer Extent</span>.</p></li>
-</ol>
-<img alt="../_images/2196.png" class="align-center" src="../_images/2196.png" />
-<ol class="arabic simple" start="22">
-<li><p>Acum, se vede relieful întregii suprafațe a rasterului.</p></li>
-</ol>
-<img alt="../_images/2240.png" class="align-center" src="../_images/2240.png" />
-<ol class="arabic simple" start="23">
-<li><p>De asemenea, puteți vizualiza stratul curbelor de nivel, apoi să vă verificați analiza, prin exportarea în format KML a stratului curbelor de nivel, și afișarea lui în Google Earth. Faceți clic dreapta pe stratul curbelor de nivel, după care selectați <span class="guilabel">Save as..</span>.</p></li>
-</ol>
-<img alt="../_images/2336.png" class="align-center" src="../_images/2336.png" />
-<ol class="arabic simple" start="24">
-<li><p>Selectați <span class="guilabel">Keyhole Markup Language [KML]</span> ca <span class="guilabel">Format</span>. Denumiți ieșirea ca <cite>contours.kml</cite>, după care faceți clic pe <span class="guilabel">OK</span>.</p></li>
-</ol>
-<img alt="../_images/2435.png" class="align-center" src="../_images/2435.png" />
-<ol class="arabic simple" start="25">
-<li><p>Navigați la fișierul de ieșire de pe disk, și efectuați dublu-clic pe el pentru a-l deschide în Google Earth.</p></li>
-</ol>
-<img alt="../_images/2532.png" class="align-center" src="../_images/2532.png" />
-</section>
 </section>
 
 
 
-
-
-  <!-- Comment Section Powered by utterances -->
-<div id="comments">
-  <hr />
-  <p>If you want to give feedback or share your experience with this tutorial, please comment below. (requires GitHub account)</p>
-<script src="https://utteranc.es/client.js"
-        repo="spatialthoughts/qgis-tutorials"
-        issue-term="title"
-        label="comment"
-        theme="github-light"
-        crossorigin="anonymous"
-        async>
-</script>
-</div>
+<!-- Turn on comments on only newer tutorials having 3/ in URL -->
 
 
     </div>
@@ -347,7 +205,7 @@
     </p>
     <p>
         &copy; Copyright 2025, Ujaval Gandhi.<br/>
-      Ultima actualizare la mai 20, 2025.<br/>
+      Ultima actualizare la mai 24, 2025.<br/>
       Created using <a href="http://sphinx-doc.org/">Sphinx</a> 7.2.6.<br/>
     </p>
   </div>

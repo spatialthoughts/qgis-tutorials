@@ -185,172 +185,11 @@
 <p class="admonition-title">경고</p>
 <p>This tutorial is now obsolete. A new and updated version is available at <a class="reference internal" href="3/working_with_projections.html"><span class="doc">Working with Projections (QGIS3)</span></a></p>
 </div>
-<p>지도 투영법 또는 좌표 참조 시스템 (CRS)- GIS 데이터로 작업 할 때 문제가 많이 발생합니다. 하지만 개념에 대한 충분히 이해하고 올바른 도구를 활용하면 쉽게 투영 작업을 할 수 있습니다. 이번 예제에서는 QGIS에서 투영 작업을 하는 방식을 살펴보고 벡터 및 래스터에 사용할 수 있는 도구, 특히 벡터 및 래스터 데이터를 다시 투영하여 즉시 재투영을 수행하고 투영없이 데이터에 투영을 할당하는 방법에 대해 알아봅니다.</p>
-<section id="overview-of-the-task">
-<h2>작업 개요<a class="headerlink" href="#overview-of-the-task" title="Link to this heading">¶</a></h2>
-<p>이 작업은 QGIS에서 투영 할 데이터에 다른 레이어를 함께 다시 투영하여 오버레이하는 것입니다.</p>
-<section id="other-skills-you-will-learn">
-<h3>기타 스킬<a class="headerlink" href="#other-skills-you-will-learn" title="Link to this heading">¶</a></h3>
-<ul class="simple">
-<li><p><a href="#id1"><span class="problematic" id="id2">``</span></a>.tfw ‘’파일을 사용하여 래스터를 지리 참조하십시오.</p></li>
-<li><p>선택한 피처를 레이어에서 새 레이어로 저장하는 방법.</p></li>
-<li><p>QGIS에서 레이어의 메타 데이터 정보를 보는 방법.</p></li>
-</ul>
-</section>
-</section>
-<section id="get-the-data">
-<h2>데이터 획득<a class="headerlink" href="#get-the-data" title="Link to this heading">¶</a></h2>
-<p>Natural Earth는 <a class="reference external" href="http://www.naturalearthdata.com/downloads/10m-cultural-vectors/">Admin 0 - Countries</a> 데이터셋을 가지고 있습니다. <a class="reference external" href="http://www.naturalearthdata.com/downloads/10m-cultural-vectors/">countries &lt;http://www.naturalearthdata.com/http//www.naturalearthdata.com/download/10m/cultural/ne_10m_admin_0_countries.zip&gt;`_를 다운로드 합니다.
-Natural Earth has `Admin 0 - Countries</a> dataset. Download the <a class="reference external" href="http://www.naturalearthdata.com/http//www.naturalearthdata.com/download/10m/cultural/ne_10m_admin_0_countries.zip">countries</a></p>
-<p>영국의 Ordnance Survey  &lt;<a class="reference external" href="https://www.ordnancesurvey.co.uk/">https://www.ordnancesurvey.co.uk/</a>&gt;에서는 공개 데이터를 다운로드 할 수 있습니다. &lt;<a class="reference external" href="https://www.ordnancesurvey.co.uk/opendatadownload/products.html">https://www.ordnancesurvey.co.uk/opendatadownload/products.html</a>&gt;에서 영국용 MiniScale 래스터 제품을 다운로드하여 컴퓨터의 폴더에 압축을 푸십시오.</p>
-<div class="admonition note">
-<p class="admonition-title">참고</p>
-<p>데이터 세트를 다운로드 하려면 개인 정보를 입력해야 합니다.</p>
-</div>
-<p>손쉽게 데이터셋을 아래 링크로에서 바로 다운로드하실 수 있습니다.</p>
-<p>&lt;<a class="reference external" href="http://www.qgistutorials.com/downloads/ne_10m_admin_0_countries.zip">http://www.qgistutorials.com/downloads/ne_10m_admin_0_countries.zip</a>&gt;에서 <a href="#id1"><span class="problematic" id="id2">`</span></a>ne_10m_admin_0_countries.zip ‘을 다운받으십시오.</p>
-<p><a class="reference external" href="http://www.qgistutorials.com/downloads/minisc_gb.zip">minisc_gb.zip</a> (Contains only the files
-required for this tutorial)</p>
-<p>데이터소스: <a class="reference internal" href="credits.html#naturalearth" id="id1"><span>[NATURALEARTH]</span></a> <a class="reference internal" href="credits.html#osopendata" id="id2"><span>[OSOPENDATA]</span></a></p>
-</section>
-<section id="procedure">
-<h2>과정<a class="headerlink" href="#procedure" title="Link to this heading">¶</a></h2>
-<ol class="arabic simple">
-<li><p>GIS를 구동시키고 메뉴 레이어 –&gt; 레이어 추가 –&gt; 벡터 레이어 추가로 갑니다.</p></li>
-</ol>
-<img alt="../_images/1293.png" class="align-center" src="../_images/1293.png" />
-<ol class="arabic simple" start="2">
-<li><p>다운로드 된 ne_10m_admin_0_countries.zip <a href="#id1"><span class="problematic" id="id2">`</span></a>파일을 찾아서 열기를 누릅니다.</p></li>
-</ol>
-<img alt="../_images/2193.png" class="align-center" src="../_images/2193.png" />
-<ol class="arabic simple" start="3">
-<li><p>QGIS 창 하단에 좌표 레이블이 있습니다. 커서를 지도 위로 움직이면 해당 위치의 X 및 Y 좌표가 표시됩니다. 오른쪽 하단에 EPSG : 4326이 표시됩니다. 프로젝트의 현재 CRS (Projection) 코드입니다.</p></li>
-</ol>
-<img alt="../_images/3132.png" class="align-center" src="../_images/3132.png" />
-<ol class="arabic simple" start="4">
-<li><p>나중에 볼 수 있듯이 프로젝트의 CRS가 레이어의 CRS와 일치하지 않을 수 있습니다.</p></li>
-</ol>
-<img alt="../_images/486.png" class="align-center" src="../_images/486.png" />
-<ol class="arabic simple" start="5">
-<li><p>‘레이어 속성 대화 상자’에서 ‘메타 데이터 탭’으로 전환하십시오. ‘속성’ 섹션을 펼치십시오. 맨 아래에는 ‘레이어 공간 참조 시스템’에 투영에 대한 정의가 표시됩니다. 이 정의는 PROJ.4 형식입니다.  &lt;<a class="reference external" href="https://en.wikipedia.org/wiki/PROJ.4">https://en.wikipedia.org/wiki/PROJ.4</a>&gt;`_.</p></li>
-</ol>
-<img alt="../_images/580.png" class="align-center" src="../_images/580.png" />
-<ol class="arabic simple" start="6">
-<li><p>이제 레이어의 투영을 변경하는 방법을 알아보겠습니다. 이 작업을 재투영이라고 합니다. 전체 레이어를 재투영하는 것이나 레이어에서 일부 기능을 재투영 할 수도 있습니다. 영역 별 기능 선택 또는 단일 클릭 도구를 사용하고 미국을 클릭하여 선택하십시오.</p></li>
-</ol>
-<img alt="../_images/677.png" class="align-center" src="../_images/677.png" />
-<ol class="arabic simple" start="7">
-<li><p><a href="#id1"><span class="problematic" id="id2">`</span></a>ne_10m_admin_0_countries``레이어를 오른쪽 클릭하고 다른 이름으로 저장을 선택합니다.</p></li>
-</ol>
-<img alt="../_images/776.png" class="align-center" src="../_images/776.png" />
-<ol class="arabic simple" start="8">
-<li><p>벡터 레이어를 다른 이름으로 저장 … 대화 상자에서 출력 레이어의 이름을 united_states.shp로 지정하십시오. 선택한 요소만 저장 상자를 선택하십시오. 이렇게 하면 선택한 요소만 재투영되어 내보내집니다. 다음으로 레이어의 새 투영을 선택합니다. CRS 선택 버튼을 클릭하십시오.</p></li>
-</ol>
-<img alt="../_images/874.png" class="align-center" src="../_images/874.png" />
-<ol class="arabic simple" start="9">
-<li><p>좌표 참조 시스템 선택기 대화 상자의 필터 검색 상자에 북미를 입력합니다. 결과를 스크롤하고 North_America_Albers_Equal_Area_Conic (EPSG : 102008) 투영을 선택하고 확인을 클릭하십시오.</p></li>
-</ol>
-<div class="admonition note">
-<p class="admonition-title">참고</p>
-<p>이 튜토리얼에서는 미국 주제별지도에서 널리 사용되는 투영 선택이므로 Albers Equal Area Conic 투영법을 선택합니다. 특정 유스 케이스에 대한 프로젝션 선택은 많은 요인에 따라 다릅니다. 투영에 대한 개요는이 안내서를 참조하십시오.&lt;<a class="reference external" href="http://docs.qgis.org/2.8/en/docs/gentle_gis_introduction/coordinate_reference_systems.html">http://docs.qgis.org/2.8/en/docs/gentle_gis_introduction/coordinate_reference_systems.html</a>&gt;</p>
-</div>
-<img alt="../_images/973.png" class="align-center" src="../_images/973.png" />
-<ol class="arabic simple" start="10">
-<li><p>벡터 레이어를 다른 이름으로 저장 … 대화 상자에서 새 CRS가 선택된 것을 볼 수 있습니다. 확인을 클릭하십시오.</p></li>
-</ol>
-<img alt="../_images/1081.png" class="align-center" src="../_images/1081.png" />
-<ol class="arabic simple" start="11">
-<li><p>재투영 된 레이어가 로드되면 새로운 united_states 레이어가 서로 다른 프로젝션에 있어도 ne_10m_admin_0_countries 레이어 위에 완벽하게 오버레이됩니다. QGIS에는 On-the-fly CRS 변환이라는 기능이 있기 때문입니다. QGIS의 오른쪽 하단에있는 투영 텍스트에는 EPSG : 4326` 옆에 OTF라는 단어가 있습니다. 자세한 내용은 QGIS의 CRS 옵션을 살펴 보겠습니다.</p></li>
-</ol>
-<img alt="../_images/11118.png" class="align-center" src="../_images/11118.png" />
-<ol class="arabic simple" start="12">
-<li><p>설정 ‣ 옵션으로 이동하십시오.</p></li>
-</ol>
-<img alt="../_images/1294.png" class="align-center" src="../_images/1294.png" />
-<ol class="arabic simple" start="13">
-<li><p>옵션 대화 상자에서 CRS 탭으로 전환하십시오. 레이어의 CRS가 다른 경우 기본값은 ‘즉석에서’자동 투영 재투영입니다. 이는 QGIS가 다른 CRS를 가진 레이어를 로드한 것을 감지하면 자동으로 다시 공통 CRS로 다시 투영하여 서로  정렬되도록 합니다. 확인을 클릭하십시오.</p></li>
-</ol>
-<img alt="../_images/1378.png" class="align-center" src="../_images/1378.png" />
-<ol class="arabic simple" start="14">
-<li><p>CRS 변환을 끄고 어떻게 되는지 봅시다. 오른쪽 하단에서 현재 CRS 텍스트를 클릭하십시오.</p></li>
-</ol>
-<img alt="../_images/1474.png" class="align-center" src="../_images/1474.png" />
-<ol class="arabic simple" start="15">
-<li><p>프로젝트 속성 다이알로그의 좌표계 <cite>CRS`탭에서 ‘실시간’ 좌표계 변환 활성화 `Enable on-the-fly CRS transformation</cite> 옆에 있는 박스를 체크해제 합니다. <a href="#id1"><span class="problematic" id="id2">`</span></a>OK`를 클릭합니다.</p></li>
-</ol>
-<img alt="../_images/1566.png" class="align-center" src="../_images/1566.png" />
-<ol class="arabic simple" start="16">
-<li><p>Back in the main QGIS window, you will see the nice World map disappear.
-This is because the Project CRS changed to
-<code class="docutils literal notranslate"><span class="pre">North_America_Albers_Equal_Area_Conic</span></code> and the coordinates and scale are
-different now. Right-click the <code class="docutils literal notranslate"><span class="pre">united_states</span></code> layer and select
-<span class="guilabel">Zoom to Layer</span>.</p></li>
-</ol>
-<img alt="../_images/1662.png" class="align-center" src="../_images/1662.png" />
-<ol class="arabic simple" start="17">
-<li><p>이제 선택한 투영에 미국이 표시됩니다. ne_10m_admin_0_countries의 요소은 united_states 레이어와 다른 좌표 공간에 있으므로 캔버스에 나타나지 않습니다. 프로젝트 속성 대화 상자로 돌아가서 ‘즉석에서’CRS 변환 활성화 옵션을 켭니다. 예제의 나머지 부분은 이 상태에서 진행하겠습니다.</p></li>
-</ol>
-<img alt="../_images/1759.png" class="align-center" src="../_images/1759.png" />
-<ol class="arabic simple" start="18">
-<li><p>이제 시점을 바꾸고 프로젝트에 래스터 레이어를 추가하겠습니다. minisc_gb.zip 파일을 찾고 압축풀기를 하십시오. tif 파일이 포함 된 RGB_TIF_COMPRESSED 폴더를 찾으십시오. .tif 이미지 파일은 GeoTIFF 파일이 아닌 일반 TIF 파일입니다. 즉, 투영 정보가 없다는 의미입니다. GIS에서 이 이미지를 사용하려면 지리 참조를 해야합니다. 지리 참조에는 이미지 범위와 투영의 2 가지 유형의 정보가 포함됩니다. 일반적으로 익스텐트는 World 파일이라는 파일에 저장되며 &lt;<a class="reference external" href="https://en.wikipedia.org/wiki/World_file">https://en.wikipedia.org/wiki/World_file</a>&gt; .tfw 또는 .jgw와 같은 확장자를 갖습니다. QGIS를 포함한 대부분의 GIS 소프트웨어는 원본 이미지와 동일한 경로에 저장되고 이름이 같은 world 파일에 저장된 정보를 사용할 수 있습니다. MiniScale 래스터 파일의 .tfw 파일은 georeferencing_files라는 별도의 폴더에 있습니다.</p></li>
-</ol>
-<img alt="../_images/1855.png" class="align-center" src="../_images/1855.png" />
-<ol class="arabic simple" start="19">
-<li><p>georeferencing_files 내의 ESRI_TFW_FILES 폴더로 이동하십시오. .tfw 파일은 일반 텍스트 파일입니다. 텍스트 편집기에서 .tfw 파일 중 하나를 엽니다.</p></li>
-</ol>
-<img alt="../_images/1946.png" class="align-center" src="../_images/1946.png" />
-<ol class="arabic simple" start="20">
-<li><p>world 파일에는 숫자가 6줄로 되어 있습니다. 아래에 설명 된대로 각 줄은 래스터 파일에 대한 정보를 나타냅니다. 이 형식을 아는 것은 일부 데이터에는 월드 파일이 제공되지 않으므로 제공된 정보를 사용하여 직접 작성해야 할 수도 있으므로 유용합니다.</p></li>
-</ol>
-<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>Line 1: A: pixel size in the x-direction in map units/pixel
-Line 2: D: rotation about y-axis
-Line 3: B: rotation about x-axis
-Line 4: E: pixel size in the y-direction in map units
-Line 5: C: x-coordinate of the center of the upper left pixel
-Line 6: F: y-coordinate of the center of the upper left pixel
-</pre></div>
-</div>
-<img alt="../_images/2041.png" class="align-center" src="../_images/2041.png" />
-<ol class="arabic simple" start="21">
-<li><p><a href="#id3"><span class="problematic" id="id4">miniScale_</span></a> (standard) _R17.tfw 파일을 georeferencing_files 폴더에서 RGB_TIF_COMPRESSED 폴더로 복사하십시오. 이 방법으로 .tfw 및 .tif 파일이 동일한 디렉토리에 있으며 QGIS가 정보를 사용할 수 있습니다.</p></li>
-</ol>
-<img alt="../_images/2194.png" class="align-center" src="../_images/2194.png" />
-<ol class="arabic simple" start="22">
-<li><p>QGIS 메인 창에서  레이어 –&gt; 래스터 레이어 추가 Layer –&gt; Add Raster Layer`로 갑니다. 다운로드한 <cite>MiniScale_(standard)_R17.tif`</cite> 를 찾고 열기 <a href="#id1"><span class="problematic" id="id2">`</span></a>Open`를 클릭합니다.</p></li>
-</ol>
-<img alt="../_images/2239.png" class="align-center" src="../_images/2239.png" />
-<ol class="arabic simple" start="23">
-<li><p>병기 파일은 영국의 National Grid Projection에서 가져온 것입니다. <a href="#id1"><span class="problematic" id="id2">``</span></a>좌표 참조 시스템 선택기 ‘’대화 상자에서``영국 국가 ‘’를 검색하고``OSGB 1936 / 영국 국가 그리드 (EPSG : 27700) ‘’CRS를 선택하십시오. ‘확인’을 클릭하십시오.</p></li>
-</ol>
-<img alt="../_images/2335.png" class="align-center" src="../_images/2335.png" />
-<ol class="arabic simple" start="24">
-<li><p>일다 <a href="#id1"><span class="problematic" id="id2">``</span></a>MiniScale_(standard)_R17``레이어가 추가되면 레이어를 우측클릭하고 레이어 영역으로 확대 <a href="#id3"><span class="problematic" id="id4">`</span></a>Zoom to layer`를 선택합니다.</p></li>
-</ol>
-<img alt="../_images/2434.png" class="align-center" src="../_images/2434.png" />
-<ol class="arabic simple" start="25">
-<li><p>이어서 ne_10m_admin_0_countries 벡터 레이어 위에 래스터 레이어가 겹쳐져 있습니다. EPSG : 4326을 사용하여 OTF를 활성화 했으므로 <a href="#id5"><span class="problematic" id="id6">MiniScale_</span></a> (standard) _R17 레이어가 EPSG : 4326으로 동적으로 재 투영되고 다른 레이어와 동일한 좌표 공간에 표시됩니다.</p></li>
-</ol>
-<img alt="../_images/2531.png" class="align-center" src="../_images/2531.png" />
-</section>
 </section>
 
 
 
-
-
-  <!-- Comment Section Powered by utterances -->
-<div id="comments">
-  <hr />
-  <p>If you want to give feedback or share your experience with this tutorial, please comment below. (requires GitHub account)</p>
-<script src="https://utteranc.es/client.js"
-        repo="spatialthoughts/qgis-tutorials"
-        issue-term="title"
-        label="comment"
-        theme="github-light"
-        crossorigin="anonymous"
-        async>
-</script>
-</div>
+<!-- Turn on comments on only newer tutorials having 3/ in URL -->
 
 
     </div>
@@ -366,7 +205,7 @@ Line 6: F: y-coordinate of the center of the upper left pixel
     </p>
     <p>
         &copy; Copyright 2025, Ujaval Gandhi.<br/>
-      최종 업데이트: 5월 20, 2025<br/>
+      최종 업데이트: 5월 24, 2025<br/>
       Created using <a href="http://sphinx-doc.org/">Sphinx</a> 7.2.6.<br/>
     </p>
   </div>

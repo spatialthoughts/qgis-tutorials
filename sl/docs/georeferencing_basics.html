@@ -185,161 +185,11 @@
 <p class="admonition-title">Opozorilo</p>
 <p>This tutorial is now obsolete. A new and updated version is available at <a class="reference internal" href="3/georeferencing_basics.html"><span class="doc">Georeferenciranje skeniranih topografskih kart (QGIS3)</span></a></p>
 </div>
-<p>Most GIS projects require georeferencing some raster data. <em>Georeferencing</em> is
-the process of assigning real-world coordinates to each pixel of the raster.
-Many times these coordinates are obtained by doing field surveys - collecting
-coordinates with a GPS device for few easily identifiable features in the image
-or map. In some cases, where you are looking to digitize scanned maps, you can
-obtain the coordinates from the markings on the map image itself. Using these
-sample coordinates or GCPs ( Ground Control Points ), the image is warped and
-made to fit within the chosen coordinate system. In this tutorial I
-will discuss the concepts, strategies and tools within QGIS to achieve a high
-accuracy georeferencing.</p>
-<section id="overview-of-the-task">
-<h2>Overview of the task<a class="headerlink" href="#overview-of-the-task" title="Link to this heading">¶</a></h2>
-<p>We will use a scanned map of southern India from 1870 and geo-reference it
-using QGIS.</p>
-<section id="other-skills-you-will-learn">
-<h3>Other skills you will learn<a class="headerlink" href="#other-skills-you-will-learn" title="Link to this heading">¶</a></h3>
-<ul class="simple">
-<li><p>How to determine datum and coordinate system for old maps.</p></li>
-</ul>
-</section>
-</section>
-<section id="get-the-data">
-<h2>Get the data<a class="headerlink" href="#get-the-data" title="Link to this heading">¶</a></h2>
-<p><a class="reference external" href="http://www.hipkiss.org/data/maps.html">Hipkiss’s Scanned Old Maps</a> website
-has an excellent collection out-of-copyright scanned maps that one can use for
-research.</p>
-<p>Download the <a class="reference external" href="http://www.hipkiss.org/data/maps/william-mackenzie_gallery-of-geography_1870_southern-india_3975_3071_600.jpg">1870 map of southern India</a>
-and save it as a JPG image on your hard drive.</p>
-<p>For convenience, you may directly download a copy of the dataset from the link
-below:</p>
-<p><a class="reference external" href="http://www.qgistutorials.com/downloads/1870_southern-india.jpg">1870_southern_india.jpg</a></p>
-</section>
-<section id="procedure">
-<h2>Procedure<a class="headerlink" href="#procedure" title="Link to this heading">¶</a></h2>
-<p>1. Georeferencing in QGIS is done via the ‘Georeferencer GDAL’ plugin. This is a
-core plugin - meaning it is already part of your QGIS installation. You just
-need to enable it. Go to <span class="menuselection">Plugins ‣ Manage and Install
-Plugins</span> and enable the <span class="guilabel">Georeferencer GDAL</span> plugin in the
-<span class="guilabel">Installed</span> tab. See <a class="reference internal" href="using_plugins.html"><span class="doc">Using Plugins</span></a> for more details on how to
-work with plugins.</p>
-<img alt="../_images/1196.png" class="align-center" src="../_images/1196.png" />
-<ol class="arabic simple" start="2">
-<li><p>The plugin is installed in the Raster menu. Click on <span class="menuselection">Raster
-‣ Georeferencer ‣ Georeferencer</span> to open the plugin.</p></li>
-</ol>
-<img alt="../_images/2158.png" class="align-center" src="../_images/2158.png" />
-<ol class="arabic simple" start="3">
-<li><p>The plugin window is divided into 2 sections. The top section where the
-raster will be displayed and the bottom section where a table showing your
-GCPs will appear.</p></li>
-</ol>
-<img alt="../_images/397.png" class="align-center" src="../_images/397.png" />
-<ol class="arabic simple" start="4">
-<li><p>Now we will open our JPG image. Go to <span class="menuselection">File ‣ Open Raster</span>.
-Browse to the downloaded image of the scanned map and click
-<span class="guilabel">Open</span>.</p></li>
-</ol>
-<img alt="../_images/463.png" class="align-center" src="../_images/463.png" />
-<ol class="arabic simple" start="5">
-<li><p>In the next screen, you will asked to choose the raster’s coordinate
-reference system (CRS). This is to specify the projection and datum of your
-control points. If you have collected the ground control points using a GPS
-device, you would have the WGS84 CRS. If you are geo-referencing a scanned
-map like this, you can obtain the CRS information from the map itself.
-Looking at our map image, the coordinates are in Lat/Long. There is no datum
-information given, so we have to assume an appropriate one. Since it is
-India and the map is quite old, we can bet the Everest 1830 datum would give
-us good results.</p></li>
-</ol>
-<img alt="../_images/556.png" class="align-center" src="../_images/556.png" />
-<ol class="arabic simple" start="6">
-<li><p>You will see the image will be loaded on the top section.</p></li>
-</ol>
-<img alt="../_images/654.png" class="align-center" src="../_images/654.png" />
-<ol class="arabic simple" start="7">
-<li><p>You can use the zoom/pan controls in the toolbar to learn more about the map.</p></li>
-</ol>
-<img alt="../_images/754.png" class="align-center" src="../_images/754.png" />
-<ol class="arabic simple" start="8">
-<li><p>Now we need to assign coordinates to some points on this map. If you look
-closely, you will see coordinate grid with markings. Using this grid, you
-can determine the X and Y coordinates of the points where the grids
-intersect. Click on <span class="guilabel">Add Point</span> in the toolbar.</p></li>
-</ol>
-<img alt="../_images/853.png" class="align-center" src="../_images/853.png" />
-<ol class="arabic simple" start="9">
-<li><p>In the pop-up window, enter the coordinates. Remember that X=longitude and
-Y=latitude.  Click <span class="guilabel">OK</span>.</p></li>
-</ol>
-<img alt="../_images/953.png" class="align-center" src="../_images/953.png" />
-<ol class="arabic simple" start="10">
-<li><p>You will notice the GCP table now has a row with details of your first GCP.</p></li>
-</ol>
-<img alt="../_images/1060.png" class="align-center" src="../_images/1060.png" />
-<ol class="arabic simple" start="11">
-<li><p>Similarly, add at least 4 GCPs covering the entire image. The more points
-you have, the more accurate your image is registered to the target
-coordinates.</p></li>
-</ol>
-<img alt="../_images/1197.png" class="align-center" src="../_images/1197.png" />
-<ol class="arabic simple" start="12">
-<li><p>Once you have enough points, go to <span class="menuselection">Settings -&gt;
-Transformation settings</span>.</p></li>
-</ol>
-<img alt="../_images/1262.png" class="align-center" src="../_images/1262.png" />
-<ol class="arabic simple" start="13">
-<li><p>In the <span class="guilabel">Transformation settings</span> dialog, choose the
-<span class="guilabel">Transformation type</span> as <span class="guilabel">Thin Plate Spline</span>. Name your
-output raster as  <span class="guilabel">1870_southern_india_modified.tif</span>. Choose
-<span class="guilabel">EPSG:4326</span> as the target SRS so the resulting image is in a
-widely compatible datum. Make sure the <span class="guilabel">Load in QGIS when done</span>
-option is checked. CLick <span class="guilabel">OK</span>.</p></li>
-</ol>
-<img alt="../_images/1360.png" class="align-center" src="../_images/1360.png" />
-<ol class="arabic simple" start="14">
-<li><p>Back in the <span class="guilabel">Georeferencer</span> window, go to <span class="menuselection">File
-‣ Start georeferencing</span>. This will start the process of warping the image
-using the GCPs and creating the target raster.</p></li>
-</ol>
-<img alt="../_images/1456.png" class="align-center" src="../_images/1456.png" />
-<ol class="arabic simple" start="15">
-<li><p>Once the process finishes, you will see the georeferenced layer loaded in
-QGIS.</p></li>
-</ol>
-<img alt="../_images/1550.png" class="align-center" src="../_images/1550.png" />
-<ol class="arabic simple" start="16">
-<li><p>The georeferencing is now complete. But as always, it’s a good practice to
-verify your work. How do we check if our georeferencing is accurate?
-In this case, load the country boundaries shapefile from a trusted source
-like the Natural Earth dataset and compare them. You will notice they match
-up pretty nicely. There is some error and it can be further improved by
-taking more control points, changing transformation parameters and trying a
-different datum.</p></li>
-</ol>
-<img alt="../_images/1646.png" class="align-center" src="../_images/1646.png" />
-</section>
 </section>
 
 
 
-
-
-  <!-- Comment Section Powered by utterances -->
-<div id="comments">
-  <hr />
-  <p>If you want to give feedback or share your experience with this tutorial, please comment below. (requires GitHub account)</p>
-<script src="https://utteranc.es/client.js"
-        repo="spatialthoughts/qgis-tutorials"
-        issue-term="title"
-        label="comment"
-        theme="github-light"
-        crossorigin="anonymous"
-        async>
-</script>
-</div>
+<!-- Turn on comments on only newer tutorials having 3/ in URL -->
 
 
     </div>
@@ -355,7 +205,7 @@ different datum.</p></li>
     </p>
     <p>
         &copy; Copyright 2025, Ujaval Gandhi.<br/>
-      Zadnjič posodobljeno maj 20, 2025.<br/>
+      Zadnjič posodobljeno maj 24, 2025.<br/>
       Created using <a href="http://sphinx-doc.org/">Sphinx</a> 7.2.6.<br/>
     </p>
   </div>

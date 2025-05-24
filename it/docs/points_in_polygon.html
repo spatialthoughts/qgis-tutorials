@@ -185,94 +185,11 @@
 <p class="admonition-title">Nota</p>
 <p>In QGIS3, you can perform this analysis using the <code class="docutils literal notranslate"><span class="pre">Join</span> <span class="pre">attributes</span> <span class="pre">by</span> <span class="pre">location</span> <span class="pre">(summary)</span></code> tool in the Processing Toolbox. Use the polygon layer as the <span class="guilabel">Input Layer</span>, the point layer as the <span class="guilabel">Join layer</span> and <code class="docutils literal notranslate"><span class="pre">count</span></code>  as the <span class="guilabel">Summaries to calculate</span>. See <a class="reference internal" href="3/performing_spatial_joins.html"><span class="doc">Realizzare unioni spaziali (Spatial Joins)  (QGIS3)</span></a> tutorial for step-by-step instructions.</p>
 </div>
-<p>La potenza del GIS risiede nella sua capacità di gestire insieme molteplici fonti di dati. Spesso, la risposta che state cercando è distribuita in numerosi layer diversi e avrai bisogno di effettuare alcune analisi per estrarre e compilare queste informazioni. Uno di questi tipi di analisi è quella che è definita  <a href="#id1"><span class="problematic" id="id2">**</span></a>Punti in un Poligono <a href="#id3"><span class="problematic" id="id4">**</span></a>. Quando avete un layer basato su dati poligonali e un layer basato su dati puntuali - e volete sapere quanti o quali dei punti cadono all’interno del territorio di ciascun poligono, potete usare questo metodo di analisi.</p>
-<section id="overview-of-the-task">
-<h2>Descrizione dell’esercizio<a class="headerlink" href="#overview-of-the-task" title="Link to this heading">¶</a></h2>
-<p>Date le localizzazioni di tutti i terremoti significativi,  cercheremo di individuare quale paese ha subito il numero più elevato di eventi sismici gravi.</p>
-</section>
-<section id="get-the-data">
-<h2>Ottenere i dati necessari<a class="headerlink" href="#get-the-data" title="Link to this heading">¶</a></h2>
-<p>Useremo il <a class="reference external" href="http://www.ngdc.noaa.gov/nndc/struts/form?t=101650&amp;s=1&amp;d=1">Significant Earthquake Database</a>  dell’Amministrazione Nazionale Oceanica ed Atmosferica (NOAA, USA) come nostro layer di riferimento per rappresentare i principali terremoti. Scaricate il t`tab-delimited earthquake data &lt;<a class="reference external" href="http://www.ngdc.noaa.gov/nndc/struts/results?type_0=Exact&amp;query_0=$ID&amp;t=101650&amp;s=13&amp;d=189&amp;dfn=signif.txt">http://www.ngdc.noaa.gov/nndc/struts/results?type_0=Exact&amp;query_0=$ID&amp;t=101650&amp;s=13&amp;d=189&amp;dfn=signif.txt</a>&gt;`_</p>
-<p>Natural Earth dispone del dataset <cite>Admin 0 - Countries &lt;http://www.naturalearthdata.com/downloads/10m-cultural-vectors/&gt;</cite> che contiene i dati vettoriali dei 247 i paesi del <a href="#id3"><span class="problematic" id="id4">mondo_</span></a> . Scaricate qui il file relativo alla voce Download the <a href="#id5"><span class="problematic" id="id6">`countries http://www.naturalearthdata.com/http//www.naturalearthdata.com/download/10m/cultural/ne_10m_admin_0_countries.zip&gt;`_</span></a></p>
-<p>Per comodità, potete scaricare direttamente una copia del dataset dal seguente link:</p>
-<p><a class="reference external" href="http://www.qgistutorials.com/downloads/signif.txt">signif.txt</a></p>
-<p><a class="reference external" href="http://www.qgistutorials.com/downloads/ne_10m_admin_0_countries.zip">ne_10m_admin_0_countries.zip</a></p>
-<p>Data Sources: <a class="reference internal" href="credits.html#ncei" id="id1"><span>[NCEI]</span></a>  <a class="reference internal" href="credits.html#naturalearth" id="id2"><span>[NATURALEARTH]</span></a></p>
-</section>
-<section id="procedure">
-<h2>Procedimento<a class="headerlink" href="#procedure" title="Link to this heading">¶</a></h2>
-<ol class="arabic simple">
-<li><p>Aprite il menu <span class="menuselection">Layer ‣ Aggiungi Layer testo delimitato</span>  Nella finestra di dialogo che compare individuate il file appena scaricato <code class="docutils literal notranslate"><span class="pre">signif.txt</span></code> .</p></li>
-</ol>
-<img alt="../_images/1271.png" class="align-center" src="../_images/1271.png" />
-<ol class="arabic simple" start="2">
-<li><p>Dal momento che si tratta di un <em>tab-delimited file</em>, cioè di un file in cui le colonne sono separate dal tabulatore (tasto tab), scegliete <span class="guilabel">Tab</span> come <span class="guilabel">Formato File</span> . Il campo  <span class="guilabel">X</span>  e il campo <span class="guilabel">Y</span>  sono compilati in modo automatico. Fate click su <span class="guilabel">OK</span>.</p></li>
-</ol>
-<div class="admonition note">
-<p class="admonition-title">Nota</p>
-<p>Vedrete comparire dei messaggi di errore mentre QGIS sta importando il file. Si tratta di errori di incolonnamento e alcune righe del file non saranno importate. Per gli scopi di questo esercizio questi errori possono essere trascurati senza conseguenze. Chiudete.</p>
-</div>
-<img alt="../_images/2174.png" class="align-center" src="../_images/2174.png" />
-<ol class="arabic simple" start="3">
-<li><p>Considerando che il dataset dei terremoti ha coordinate geografiche basate su Latitudine e Longitudine scegliete <span class="guilabel">WGS 84 EPSG:436</span> nella finestra <span class="guilabel">Selettore di Sistema di Riferimento (SR)</span>.</p></li>
-</ol>
-<img alt="../_images/3109.png" class="align-center" src="../_images/3109.png" />
-<ol class="arabic simple" start="4">
-<li><p>A questo punto il layer dei punti del terremoto dovrebbe essere stato caricato e reso visibile in QGIS. Apriamo allora il layer dei paesi. Andate su <span class="menuselection">Layer ‣ Aggiungi Vettore</span>. Individuate il file appena scaricato <code class="docutils literal notranslate"><span class="pre">ne_10m_admin_0_countries.zip</span></code> e fate click su <span class="guilabel">Apri</span>. Selezionate il file <code class="docutils literal notranslate"><span class="pre">ne_10m_admin_0_countries.shp</span></code> come layer nella finestra di dialogo «Selezionare il layer da aggiungere…».</p></li>
-</ol>
-<img alt="../_images/474.png" class="align-center" src="../_images/474.png" />
-<ol class="arabic simple" start="5">
-<li><p>Fate click sul menu <span class="menuselection">Vettore ‣ Strumenti di Analisi ‣ Punti nel Poligono</span>.</p></li>
-</ol>
-<img alt="../_images/568.png" class="align-center" src="../_images/568.png" />
-<ol class="arabic simple" start="6">
-<li><p>Nella finestra di dialogo che compare selezionate nell’ordine il layer poligonale e quello puntuale. Chiamiamo il layer in uscita <code class="docutils literal notranslate"><span class="pre">earthquake_per_coutry.shp</span></code> e facciamo click su <span class="guilabel">OK</span>.</p></li>
-</ol>
-<div class="admonition note">
-<p class="admonition-title">Nota</p>
-<p>Dopo che avete fatto click su OK siate pazienti, QGIS potrebbe avere bisogno di 10 minuti per calcolare il risultato.</p>
-</div>
-<ol class="arabic simple" start="7">
-<li><p>Quando vi viene chiesto se volete aggiungere il nuovo layer alla tavola dei contenuti (TOC), rispondete affermativamente <span class="guilabel">Sì</span>.</p></li>
-</ol>
-<img alt="../_images/764.png" class="align-center" src="../_images/764.png" />
-<ol class="arabic simple" start="8">
-<li><p>Quando vi viene chiesto se volete aggiungere il nuovo layer alla tavola dei contenuti (TOC), rispondete affermativamente <span class="guilabel">Sì</span>.</p></li>
-</ol>
-<img alt="../_images/862.png" class="align-center" src="../_images/862.png" />
-<ol class="arabic simple" start="9">
-<li><p>Nella tavola degli attributi troverete la colonna <code class="docutils literal notranslate"><span class="pre">PNTCNT</span></code>. Questo è il contatore del numero dei punti del terremoto che cadono all’interno di ciascuno dei poligoni.</p></li>
-</ol>
-<img alt="../_images/961.png" class="align-center" src="../_images/961.png" />
-<ol class="arabic simple" start="10">
-<li><p>Per avere una risposta al nostro quesito originario possiamo semplicemente ordinare il campo <code class="docutils literal notranslate"><span class="pre">PNTCNT</span></code> , per cui i paesi con il conteggio più elevato costituiranno la nostra risposta. Fate click 2 volte sulla colonna <code class="docutils literal notranslate"><span class="pre">PNTCNT</span></code>  per avere i risultati in ordine decrescente. Fate click sulla prima riga della tabella e chiudete la tabella degli attributi.</p></li>
-</ol>
-<img alt="../_images/1069.png" class="align-center" src="../_images/1069.png" />
-<ol class="arabic simple" start="11">
-<li><p>Torniamo adesso nella finestra principale di QGIS e vedrete un poligono evidenziato in giallo. Questo è il poligono relativo alla riga che abbiamo appena selezionato nella tavola degli attributi perché contiene al suo interno il più alto numero di punti. Usate lo strumento:guilabel:<cite>Informazione elementi</cite> e fate click sul poligono in giallo. Potete finalmente vedere che il paese con il numero maggiore di terremoti significativi è la <strong>China</strong>.</p></li>
-</ol>
-<img alt="../_images/11107.png" class="align-center" src="../_images/11107.png" />
-<p>Con una semplice analisi di 2 dataset abbiamo dimostrato che la Cina è il paese che ha avuto il maggior numero di terremoti. Potreste approfondire questa indagine prendendo in considerazione sia la popolazione che le dimensioni dei diversi paesi per determinare qual è il paese più gravemente colpito dai principali terremoti.</p>
-</section>
 </section>
 
 
 
-
-
-  <!-- Comment Section Powered by utterances -->
-<div id="comments">
-  <hr />
-  <p>If you want to give feedback or share your experience with this tutorial, please comment below. (requires GitHub account)</p>
-<script src="https://utteranc.es/client.js"
-        repo="spatialthoughts/qgis-tutorials"
-        issue-term="title"
-        label="comment"
-        theme="github-light"
-        crossorigin="anonymous"
-        async>
-</script>
-</div>
+<!-- Turn on comments on only newer tutorials having 3/ in URL -->
 
 
     </div>
@@ -288,7 +205,7 @@
     </p>
     <p>
         &copy; Copyright 2025, Ujaval Gandhi.<br/>
-      Ultimo aggiornamento mag 20, 2025.<br/>
+      Ultimo aggiornamento mag 24, 2025.<br/>
       Created using <a href="http://sphinx-doc.org/">Sphinx</a> 7.2.6.<br/>
     </p>
   </div>

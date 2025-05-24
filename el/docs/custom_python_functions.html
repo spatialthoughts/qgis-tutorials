@@ -183,136 +183,13 @@
 <h1>Χρήση προσαρμοσμένων εκφράσεων συναρτήσεων στην Python<a class="headerlink" href="#using-custom-python-expression-functions" title="Link to this heading">¶</a></h1>
 <div class="admonition warning">
 <p class="admonition-title">Προειδοποίηση</p>
-<p>A new version of this tutorial is available at <a class="reference internal" href="3/custom_python_functions.html"><span class="doc">Using Custom Python Expression Functions (QGIS3)</span></a></p>
+<p>This tutorial is now obsolete. A new version of this tutorial is available at <a class="reference internal" href="3/custom_python_functions.html"><span class="doc">Using Custom Python Expression Functions (QGIS3)</span></a></p>
 </div>
-<p>Οι εντολές στο QGIS έχουν εξαιρετική δύναμη και χρησιμοποιούνται σε πολλά βασικά χαρακτηριστικά - επιλογή, υπολογισμός τιμών πεδίων, μορφοποίηση, ετικέτες κ.α. Το QGIS υποστηρίζει επίσης καθορισμένες από τον χρήστη εντολές. Με  λίγο προγραμματισμό στην python, μπορείτε να καθορίσετε τις δικές σας συναρτήσεις οι οποίες μπορούν να χρησιμοποιηθούν μέσα στην μηχανή εντολών.</p>
-<section id="overview-of-the-task">
-<h2>Επισκόπηση του έργου<a class="headerlink" href="#overview-of-the-task" title="Link to this heading">¶</a></h2>
-<p>Θα καθορίσουμε μια προσαρμοσένη συνάρτηση η οποία θα βρίσκει την χρονικη ζώνη UTM από ένα χαρακτηριστικό του χάρτη και θα χρησιμοποιεί αυτή την συνάρτηση για να γράψει μια εντολή η οποία θα εμφανίζει την χρονική ζώνη σαν μια πληροφορία στον χάρτη που θα εμφανίζεται όταν θα περνάει ο κέρσορας πάνω από το σημείο.</p>
-<section id="other-skills-you-will-learn">
-<h3>Άλλες δεξιότητες που θα μάθετε<a class="headerlink" href="#other-skills-you-will-learn" title="Link to this heading">¶</a></h3>
-<ul class="simple">
-<li><p>Πως να χρησιμοποιείτε το εργαλείο «Πληροφορίες Χάρτη» για να εμφανίσετε προσαρμοσμένο κείμενο όταν ο κέρσορας περνάει πάνω από ένα χαρακτηριστικό.</p></li>
-</ul>
-</section>
-</section>
-<section id="get-the-data">
-<h2>Λήψη δεδομένων<a class="headerlink" href="#get-the-data" title="Link to this heading">¶</a></h2>
-<p>Θα χρησιμοποιήσουμε τα δεδομένα για τις κατοικημένες περιοχές από την σελίδα  Natural Earth&lt;<a class="reference external" href="http://www.naturalearthdata.com/downloads/10m-cultural-vectors/10m-populated-places/">http://www.naturalearthdata.com/downloads/10m-cultural-vectors/10m-populated-places/</a>&gt;`. Μεταφορτώστε το απλό (λιγότερες στήλες) σύνολο δεδομένων &lt;<a class="reference external" href="http://www.naturalearthdata.com/http//www.naturalearthdata.com/download/10m/cultural/ne_10m_populated_places_simple.zip">http://www.naturalearthdata.com/http//www.naturalearthdata.com/download/10m/cultural/ne_10m_populated_places_simple.zip</a>&gt;`_</p>
-<p>Για ευκολία, μπορείτε να κατεβάσετε απευθείας ένα αντίγραφο και από το σύνολο των δεδομένων από τις παρακάτω συνδέσεις</p>
-<p><a class="reference external" href="http://www.qgistutorials.com/downloads/ne_10m_populated_places_simple.zip">ne_10m_populated_places_simple.zip</a></p>
-</section>
-<section id="procedure">
-<h2>Διαδικασία<a class="headerlink" href="#procedure" title="Link to this heading">¶</a></h2>
-<ol class="arabic simple">
-<li><p>Ανοίξτε το QGIS και πηγαίνετε στο <span class="menuselection">Layer ‣ Add Vector Layer..</span>.</p></li>
-</ol>
-<img alt="../_images/1189.png" class="align-center" src="../_images/1189.png" />
-<ol class="arabic simple" start="2">
-<li><p>Περιηγηθείτε στο μεταφορτωμένο αρχείο``ne_10m_populated_places_simple.zip`` και επιλέξτε <span class="guilabel">Open</span>.</p></li>
-</ol>
-<img alt="../_images/2153.png" class="align-center" src="../_images/2153.png" />
-<ol class="arabic simple" start="3">
-<li><p>Πηγαίνετε στο  <span class="menuselection">View ‣ Select ‣ Select By Expressions…</span>.</p></li>
-</ol>
-<img alt="../_images/390.png" class="align-center" src="../_images/390.png" />
-<ol class="arabic simple" start="4">
-<li><p>Πηγαίνετε στην καρτέλα  <span class="guilabel">Function Editor</span>. Εδώ μπορείτε να γράψετε όποιον PyQGIS κώδικα θέλετε να εκτελεστεί από την μηχανή εντολών.</p></li>
-</ol>
-<img alt="../_images/459.png" class="align-center" src="../_images/459.png" />
-<ol class="arabic simple" start="5">
-<li><p>Θα καθορίσουμε μια προσαρμοσμένη συνάρτηση με όνομα <code class="docutils literal notranslate"><span class="pre">GetUtmZone</span></code> που θα υπολογίζει την χρονική ζώνη για το κάθε χαρακτηριστικό. Λαμβάνοντας πάντα υπόψιν οτι οι προσαρμοσμένες εκφράσεις στο QGIS λειτουργούν σε επίπεδο χαρακτηριστικών. Θα χρησιμοποιήσουμε το κεντροειδές από την γεωμετρία των χαρακτηριστικών για να υπολογίσουμε την χρονική ζώνη από το γεωγραφικό μήκος και πλάτος του κεντροειδούς της γεωμετρίας. Θα προσθέσουμε επίσης έναν χαρακτηρισμό «Β» ή «Ν» στην ζώνη ο οποίος θα υποδεικνύει αν η ζώνη είναι στο βόρειο ή νότιο ημισφαίρειο. Πληκτρολογίστε τον παρακάτω κώδικα στον επεξεργαστή , εισάγετε το όνομα του αρχείου ως <code class="docutils literal notranslate"><span class="pre">utm_zones.py</span></code> και πατήστε  <span class="guilabel">Αποθήκευση αρχείου</span>.</p></li>
-</ol>
-<div class="admonition note">
-<p class="admonition-title">Σημείωση</p>
-<p>Οι χρονικές ζώνες είναι ζώνες προβολής κατά γεωγραφικό μήκος με αρίθμηση από το 1 ως το 60. Κάθε χρονική ζώνη έχει πλάτος 6 μοίρες. Εδώ θα χρησιμοποιήσουμε μια απλή μαθηματική εξίσωση για να βρούμε την κατάλληλη ζώνη για την δοσμένη τιμή του γεωγραφικού μήκους. Θυμηθείτε οτι αυτή η εξίσωση δεν καλύπτει μερικές ειδικές χρονικές ζώνες.</p>
-</div>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">math</span>
-<span class="kn">from</span> <span class="nn">qgis.core</span> <span class="kn">import</span> <span class="o">*</span>
-<span class="kn">from</span> <span class="nn">qgis.gui</span> <span class="kn">import</span> <span class="o">*</span>
-
-<span class="nd">@qgsfunction</span><span class="p">(</span><span class="n">args</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">group</span><span class="o">=</span><span class="s1">&#39;Custom&#39;</span><span class="p">,</span> <span class="n">usesgeometry</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-<span class="k">def</span> <span class="nf">GetUtmZone</span><span class="p">(</span><span class="n">value1</span><span class="p">,</span> <span class="n">feature</span><span class="p">,</span> <span class="n">parent</span><span class="p">):</span>
-    <span class="n">centroid</span> <span class="o">=</span> <span class="n">feature</span><span class="o">.</span><span class="n">geometry</span><span class="p">()</span>
-    <span class="n">longitude</span> <span class="o">=</span> <span class="n">centroid</span><span class="o">.</span><span class="n">asPoint</span><span class="p">()</span><span class="o">.</span><span class="n">x</span><span class="p">()</span>
-    <span class="n">latitude</span> <span class="o">=</span> <span class="n">centroid</span><span class="o">.</span><span class="n">asPoint</span><span class="p">()</span><span class="o">.</span><span class="n">y</span><span class="p">()</span>
-    <span class="n">zone_number</span> <span class="o">=</span> <span class="n">math</span><span class="o">.</span><span class="n">floor</span><span class="p">(((</span><span class="n">longitude</span> <span class="o">+</span> <span class="mi">180</span><span class="p">)</span> <span class="o">/</span> <span class="mi">6</span><span class="p">)</span> <span class="o">%</span> <span class="mi">60</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span>
-
-    <span class="k">if</span> <span class="n">latitude</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">:</span>
-        <span class="n">zone_letter</span> <span class="o">=</span> <span class="s1">&#39;N&#39;</span>
-    <span class="k">else</span><span class="p">:</span>
-        <span class="n">zone_letter</span> <span class="o">=</span> <span class="s1">&#39;S&#39;</span>
-
-    <span class="k">return</span> <span class="s1">&#39;</span><span class="si">%d%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">zone_number</span><span class="p">),</span> <span class="n">zone_letter</span><span class="p">)</span>
-</pre></div>
-</div>
-<img alt="../_images/552.png" class="align-center" src="../_images/552.png" />
-<ol class="arabic simple" start="6">
-<li><p>Πατήστε στο:guilabel:<cite>Run Script, Τρέξτε τον κώδικα</cite>. αυτό θα εκτελέσει τον κώδικα στην python και θα καταχωρίσει την συνάρτηση <code class="docutils literal notranslate"><span class="pre">GetUtmZone</span></code> χρησιμοποιώντας την μηχανή εντολών. Θυμηθείτε οτι αυτό θα χρειαστεί να το κάνετε μόνο μία φορά. Μόλις η συνάρτηση καταχωρηθεί, θα είναι πάντα διαθέσιμη μέσα στην μηχανή εντολών.</p></li>
-</ol>
-<img alt="../_images/650.png" class="align-center" src="../_images/650.png" />
-<ol class="arabic simple" start="7">
-<li><p>Μεταφερθείτε στην καρτέλα <span class="guilabel">Expression</span> στο παράθυρο διαλόγου  <span class="guilabel">Select by expression</span>. Βρείτε και επεκτείνετε την ομάδα:guilabel:<cite>Custom</cite> στο τμήμα  <span class="guilabel">Functions</span>. Τώρα θα παρατηρήσετε οτι μια καινούρια προσαρμοσμένη συνάρτηση, η <code class="docutils literal notranslate"><span class="pre">$GetUtmZone</span></code> υπάρχει μέσα στην λίστα. Τώρα μπορούμε να χρησιμοποιήσουμε αυτή την συνάρτηση μέσα σε εντολή, όπως κάθε άλλη συνάρτηση. πληκτρολογήστε την παρακάτω εντολή στον επεξεργαστή. Αυτή η εντολή θα επιλέξει όλα τα σημεία τα οποία βρίσκονται μέσα στην χρονική ζώνη <code class="docutils literal notranslate"><span class="pre">40N</span></code>. Πατήστε  <span class="guilabel">Select</span>.</p></li>
-</ol>
-<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>$GetUtmZone = &#39;40N&#39;
-</pre></div>
-</div>
-<img alt="../_images/750.png" class="align-center" src="../_images/750.png" />
-<ol class="arabic simple" start="8">
-<li><p>Πίσω στο κύριο παράθυρο του QGIS, θα δείτε πολλά σημεία με κίτρινο χρώμα. Αυτά είναι τα σημεία που πέφτουν μέσα στην χρονική ζώνη που καθορίζεται από τις εντολές.</p></li>
-</ol>
-<img alt="../_images/849.png" class="align-center" src="../_images/849.png" />
-<ol class="arabic simple" start="9">
-<li><p>Είδατε πως καθορίσαμε και χρησιμοποιήσαμε μια προσαρμοσμένη συνάρτηση για να επιλέξουμε χαρακτηριστικά μέσω εντολών. Θα χρησιμοποιήσουμε τώρα την ίδια συνάρτηση για κάτι διαφορετικό. Ένα κρυφό διαμάντι στο QGIS είναι το εργαλείο <code class="docutils literal notranslate"><span class="pre">Map</span> <span class="pre">Tip</span></code>. Αυτό το εργαλείο δείχνει καθορισμένο από τον χρήστη κείμενο όταν περάσετε τον κέρσορα πάνω από ένα χαρακτηριστικό. κάντε δεξί κλικ στο στρώμα <a href="#id1"><span class="problematic" id="id2">``</span></a>ne_10m_populated_places_simple``και επιλέξτε  <span class="guilabel">Ιδιότητες</span>.</p></li>
-</ol>
-<img alt="../_images/950.png" class="align-center" src="../_images/950.png" />
-<ol class="arabic simple" start="10">
-<li><p>Μετακινηθείτε στην καρτέλα <span class="guilabel">Display</span> και επιλέξτε <span class="guilabel">HTML</span>. Εδώ μπορείτε να προσθέσετε όποιοδήποτε κειμενο θέλετε να εμφανίζεται όταν περνάτε τον κέρσορα πάνω από το χαρακτηριστικό στο στρώμα. Ακόμα καλύτερα, μπορείτε να χρησιμοποιήσετε τις τιμές του πεδίου και τις εντολές του στρώματος για να εισάγετε ένα πιο χρήσιμο μήνυμα. Κάντε κλικ στο κουμπί  Click on the <span class="guilabel">Insert expression, Προσθήκη εντολής…</span> button.</p></li>
-</ol>
-<img alt="../_images/1057.png" class="align-center" src="../_images/1057.png" />
-<ol class="arabic simple" start="11">
-<li><p>Θα δείτε την γνωστή εντολή στον επεξεργαστή πάλι. Θα χρησιμοποιήσουμε τώρα την συνάρτηση <code class="docutils literal notranslate"><span class="pre">concat</span></code> για να ενώσουμε την τιμή με το πεδίο «όνομα» και το αποτέλεσμα από την προσαρμοσμένη συνάρτηση $GetUtmZone. Εισάγετε τις παρακάτω εντολές και πατήστε  <span class="guilabel">OK</span>.</p></li>
-</ol>
-<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>concat(&quot;name&quot;, &#39; | UTM Zone: &#39;, $GetUtmZone)
-</pre></div>
-</div>
-<img alt="../_images/1190.png" class="align-center" src="../_images/1190.png" />
-<ol class="arabic simple" start="12">
-<li><p>Τώρα θα δείτε την εντολή να έχει εισαχθεί σαν την τιμή  του κειμένου <span class="guilabel">Display</span> . Πατήστε <span class="guilabel">OK</span>.</p></li>
-</ol>
-<img alt="../_images/1259.png" class="align-center" src="../_images/1259.png" />
-<ol class="arabic simple" start="13">
-<li><p>Προτού συνεχίσουμε, ας αποεπιλέξουμε τα χαρακτηριστικά τα οποία είχαν επιλεχθεί από το προηγούμενο βήμα. Πηγαίνετε στο <span class="menuselection">View ‣ Select ‣ Deselect Features from All Layers</span>.</p></li>
-</ol>
-<img alt="../_images/1357.png" class="align-center" src="../_images/1357.png" />
-<ol class="arabic simple" start="14">
-<li><p>Ενεργοποιήστε το εργαλείο <code class="docutils literal notranslate"><span class="pre">Map</span> <span class="pre">Tips</span></code> πηγαίνωντας στο  <span class="menuselection">View ‣ Map Tips</span>.</p></li>
-</ol>
-<img alt="../_images/1453.png" class="align-center" src="../_images/1453.png" />
-<ol class="arabic simple" start="15">
-<li><p>Μεγενθύνετε οπουδήποτε μέσα στον χάρτη και μετακινήστε τον κέρσορα του ποντικιού σας πάνω από κάποιο χαρακτηριστικό. Θα δείτε το όνομα της πόλης και την αντίστοιχη χρονική ζώνη να εμφανίζεται στις πληροφορίες.</p></li>
-</ol>
-<img alt="../_images/1547.png" class="align-center" src="../_images/1547.png" />
-</section>
 </section>
 
 
 
-
-
-  <!-- Comment Section Powered by utterances -->
-<div id="comments">
-  <hr />
-  <p>If you want to give feedback or share your experience with this tutorial, please comment below. (requires GitHub account)</p>
-<script src="https://utteranc.es/client.js"
-        repo="spatialthoughts/qgis-tutorials"
-        issue-term="title"
-        label="comment"
-        theme="github-light"
-        crossorigin="anonymous"
-        async>
-</script>
-</div>
+<!-- Turn on comments on only newer tutorials having 3/ in URL -->
 
 
     </div>
@@ -328,7 +205,7 @@
     </p>
     <p>
         &copy; Copyright 2025, Ujaval Gandhi.<br/>
-      Τελευταία ενημέρωση στις Μαΐ 20, 2025.<br/>
+      Τελευταία ενημέρωση στις Μαΐ 24, 2025.<br/>
       Created using <a href="http://sphinx-doc.org/">Sphinx</a> 7.2.6.<br/>
     </p>
   </div>

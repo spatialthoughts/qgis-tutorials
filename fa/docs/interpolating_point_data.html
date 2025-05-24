@@ -185,142 +185,11 @@
 <p class="admonition-title">هشدار</p>
 <p>این آموزش در حال حاضر منسوخ شده است. نسخه جدید و به روز شده در <a class="reference internal" href="3/interpolating_point_data.html"><span class="doc">Interpolating Point Data (QGIS3)</span></a> موجود است</p>
 </div>
-<p>درون‌یابی یک روش معمول GIS برای ایجاد یک سطح پیوسته از نقاط گسسته است. بسیاری از پدیده‌های دنیای واقعی پیوسته هستند - ارتفاعات، دمای سطح زمین، خصوصیات خاک و غیره. اگر بخواهیم این سطوح را برای تجزیه‌وتحلیل مدل کنیم، اندازه‌گیری در تمامی سطح زمین لازم است که امری غیرممکن است. ازاین‌رو، اندازه‌گیری‌های میدانی (نمونه‌برداری) در نقاط مختلف سطح زمین انجام می‌گیرد و مقادیر میانی توسط فرایندی به نام «درون‌یابی» برآورد می‌شود. درQGIS، با استفاده از ابزار داخلی Interpolation از جعبه‌ابزار Processing، درون‌یابی اجرا می‌شود.</p>
-<section id="overview-of-the-task">
-<h2>رئوس مطالب<a class="headerlink" href="#overview-of-the-task" title="Link to this heading">¶</a></h2>
-<p>ما اندازه گیری های عمق میدانی را برای یک دریاچه آرلینگتون در تگزاس انجام خواهیم داد و یک نقشه ناهمواری و خطوط منحنی تراز از این اندازه گیری ها ایجاد خواهیم کرد.</p>
-<section id="other-skills-you-will-learn">
-<h3>آنچه شما یاد خواهید گرفت<a class="headerlink" href="#other-skills-you-will-learn" title="Link to this heading">¶</a></h3>
-<ul class="simple">
-<li><p>ایجاد منحنی تراز از داده نقطه ای</p></li>
-<li><p>ماسک نمودن ارزش های گم شده از یک لایه رستری</p></li>
-<li><p>افزودن برچسب به لایه برداری</p></li>
-</ul>
-</section>
-</section>
-<section id="get-the-data">
-<h2>دریافت داده<a class="headerlink" href="#get-the-data" title="Link to this heading">¶</a></h2>
-<p>دفرت توسعه منابع آب تگزاس  شیب فایل های  نقشه برداری کامل دریاچه را تهیه می کند.&lt;<a class="reference external" href="http://www.twdb.texas.gov/surfacewater/surveys/completed/list/index.asp">http://www.twdb.texas.gov/surfacewater/surveys/completed/list/index.asp</a>&gt;`_</p>
-<p>شیب فایل های مورخ 2007-12 برای دریاچه آرلینکتن را دونلود نمایید  &lt;<a class="reference external" href="http://www.twdb.texas.gov/hydro_survey/Arlington/2007-12/Shapefiles.zip">http://www.twdb.texas.gov/hydro_survey/Arlington/2007-12/Shapefiles.zip</a>&gt;`_ .</p>
-<p>برای راحتی کار، شما می توانید بطور مستقیم نمونه داده ها مورد استفاده در این راهنما را از لینک زیر دریافت نمایید.</p>
-<p><a class="reference external" href="http://www.qgistutorials.com/downloads/Shapefiles.zip">Shapefiles.zip</a></p>
-<p>منابع داده ها : <a class="reference internal" href="credits.html#twdb" id="id1"><span>[TWDB]</span></a></p>
-</section>
-<section id="procedure">
-<h2>مراحل<a class="headerlink" href="#procedure" title="Link to this heading">¶</a></h2>
-<ol class="arabic simple">
-<li><p>QGIS را باز کنید. برویید به  منوی
-<span class="menuselection">Layer ‣ Add Layer ‣ Add Vector Layer..</span></p></li>
-</ol>
-<img alt="../_images/1201.png" class="align-center" src="../_images/1201.png" />
-<ol class="arabic simple" start="2">
-<li><p>به مسیر فایل <cite>Shapefiles.zip`</cite> دانلود شده برویید و آن را انتخاب نمایید. بر  Open کلیک نمایید</p></li>
-</ol>
-<img alt="../_images/2161.png" class="align-center" src="../_images/2161.png" />
-<ol class="arabic simple" start="3">
-<li><p>در کادرمحاوره ای  <span class="guilabel">Select layers to add...</span>، دکمه <kbd class="kbd docutils literal notranslate">Shift</kbd>  را فشار دهید و لایه های  <code class="docutils literal notranslate"><span class="pre">Arlington_Soundings_2007_stpl83.shp</span></code>  و``Boundary2004_550_stpl83.shp``  را انتخاب نمایید.</p></li>
-</ol>
-<img alt="../_images/3100.png" class="align-center" src="../_images/3100.png" />
-<ol class="arabic simple" start="4">
-<li><p>شما 2 لایه در QGIS خواهید دید. لایه <a href="#id1"><span class="problematic" id="id2">``</span></a>Boundary2004_550_stpl83` مرز دریاچه را نشان می دهد.  تیک جعبه کنار در جدول محتویات بر دارید.</p></li>
-</ol>
-<img alt="../_images/466.png" class="align-center" src="../_images/466.png" />
-<ol class="arabic simple" start="5">
-<li><p>این روش داده های لایه دوم  <code class="docutils literal notranslate"><span class="pre">Arlington_Soundings_2007_stpl83</span></code> را نشان می دهد. گرچه این داده مثل خط دیده می شود، ولی آن مجموعه ای از داده های نقطه ای نزیک به هم است.</p></li>
-</ol>
-<img alt="../_images/559.png" class="align-center" src="../_images/559.png" />
-<ol class="arabic simple" start="6">
-<li><p>بر آیکون <span class="guilabel">Zoom</span> کلیک نمایید و یک منطقه کوچک را در مانیتور انتخاب نمایید. وقتی   زوم می کنید، این نقاط را می بینید. هر نطقه داده برداشتی عمق سنج صوتی با ابزار  <em>DGPS</em> را نشان می دهد.</p></li>
-</ol>
-<img alt="../_images/657.png" class="align-center" src="../_images/657.png" />
-<ol class="arabic simple" start="7">
-<li><p>Select the <span class="guilabel">Identify</span> tool and click on a point. You will see the
-<span class="guilabel">Identify Results</span> panel show up on the left with the attribute
-value of the point. In this case, the <code class="docutils literal notranslate"><span class="pre">ELEVATION</span></code> attribute contains the
-depth of the lake at the location. As our task is to create a depth profile
-and elevation contours, we will use this values as input for the
-interpolation.</p></li>
-</ol>
-<img alt="../_images/756.png" class="align-center" src="../_images/756.png" />
-<ol class="arabic simple" start="8">
-<li><p>Make sure you have the <code class="docutils literal notranslate"><span class="pre">Interpolation</span> <span class="pre">plugin</span></code> enabled. See
-<a class="reference internal" href="using_plugins.html"><span class="doc">استفاده از پلاگین Plugins</span></a> for how to enable plugins. Once enabled, go to
-<span class="menuselection">Raster ‣ Interpolation ‣ Interpolation</span>.</p></li>
-</ol>
-<img alt="../_images/855.png" class="align-center" src="../_images/855.png" />
-<ol class="arabic simple" start="9">
-<li><p>در کادر محاوره ای <span class="guilabel">Interpolation</span>  لایه <code class="docutils literal notranslate"><span class="pre">Arlington_Soundings_2007_stpl83</span></code> به عنوان لایه ورودی <span class="guilabel">Vector layers</span>  در پنل:guilabel:<cite>Input</cite>  انتخاب شود.ستون  &quot;ELEVATION&quot; را به عنوان <span class="guilabel">Interpolation attribute</span> انتخاب کنید. کلیک کنید:guilabel:<cite>Cellsize X</cite>  و <span class="guilabel">Cellsize Y</span> values  به <a href="#id1"><span class="problematic" id="id2">``</span></a>5` تغییر دهید. این مقدار اندازه پیکسل در رسترخروجی است. از آنجا که  در پروژکشن داده های منبع ما* Feet-US ** به عنوان واحد است ، بر اساس انتخاب ما ، اندازه شبکه ** 5 فوت ** خواهد بود. روی دکمه <span class="guilabel">...</span>  کنار:guilabel:<cite>Output file</cite>  کلیک کنید و نام فایل خروجی را &quot;elevation_tin.tif&quot; بگذارید. <span class="guilabel">OK</span> کلیک کنید.</p></li>
-</ol>
-<div class="admonition note">
-<p class="admonition-title">توجه</p>
-<p>نتایج درون‌یابی بر اساس روش و پارامترهایی که انتخاب می‌کنید می‌تواند به میزان قابل‌توجهی متفاوت باشد. نرم‌افزار QGIS از روش‌های <em>شبکه نامنظم مثلثی (TIN)</em> و <em>وزن‌دهی فاصله معکوس (IDW)</em> برای درون‌یابی پشتیبانی می‌کند. از روش TIN معمولاً برای داده‌های ارتفاعی استفاده می‌شود، درحالی‌که از روش IDW برای درون‌یابی انواع دیگر داده‌ها مانند غلظت مواد معدنی، جمعیت و غیره استفاده می‌شود برای جزئیات بیشتر به ماژول تجزیه و تحلیل مکانی <a class="reference external" href="http://docs.qgis.org/2.2/en/docs/gentle_gis_introduction/spatial_analysis_interpolation.html">Spatial Analysis</a>  مستندات QGIS مراجعه کنید.</p>
-</div>
-<img alt="../_images/955.png" class="align-center" src="../_images/955.png" />
-<ol class="arabic simple" start="10">
-<li><p>اکنون یک لایه جدید elevation_tin به پنجره نقشه نرم‌افزار اضافه خواهد شد. با کلیک راست بر روی نام لایه در فهرست لایه ها، گزینه <span class="guilabel">Zoom to layer</span> را انتخاب کنید.</p></li>
-</ol>
-<img alt="../_images/1062.png" class="align-center" src="../_images/1062.png" />
-<ol class="arabic simple" start="11">
-<li><p>اکنون کل منطقه لایه سطحی ایجاد شده را مشاهده خواهید کرد. درون یابی نتایج دقیقی در خارج از منطقه جمع آوری نمی کند. بیایید سطح حاصل را با مرز دریاچه برش بزنیم. از جعبه‌ابزار Processing دستور GDAL ‣ Raster extraction ‣ Clip raster by mask mask tool را جستجو و پیدا کنید. برای اجرای آن دو بار کلیک کنید.</p></li>
-</ol>
-<img alt="../_images/11100.png" class="align-center" src="../_images/11100.png" />
-<ol class="arabic simple" start="12">
-<li><p>در رستر جعبه محاوره کلیپ رستر Clip raster by mask layer، لایه elevation_tin به‌عنوان لایه ورودی، Boundary2004_550_stpl83 به‌عنوان لایه ماسک ا <span class="guilabel">Mask layer`</span> انتخاب شوند. سپس برای ذخیره خروجی، بر روی دکمه ...زیر Clipped (mask) کلیک کنید تا لایه  خروجی را به نام elevation_tin_clipped.tif ذخیره شود. روی Run کلیک کنید.</p></li>
-</ol>
-<img alt="../_images/1264.png" class="align-center" src="../_images/1264.png" />
-<ol class="arabic simple" start="13">
-<li><p>اکنون یک‌لایه جدید <code class="docutils literal notranslate"><span class="pre">elevation_tin_clipped</span></code> به پنجره نقشه نرم‌افزار اضافه خواهد شد. اکنون این لایه را سبک نمایش را تغییرمی دهیم  تا تفاوت در ارتفاعات را نشان دهیم. به مقادیر حداقل و حداکثر ارتفاع از لایه &quot;elevation_tin&quot; توجه کنید. روی لایه &quot;elevation_tin_clipped&quot; کلیک راست کرده و گزینه: guilabel: &quot;Properties&quot; را انتخاب کنید.</p></li>
-</ol>
-<img alt="../_images/1362.png" class="align-center" src="../_images/1362.png" />
-<ol class="arabic simple" start="14">
-<li><p>به برگه: guilabel: <cite>Style</cite> بروید. برای guilabel: &quot;Render type&quot; عنوان &quot;Singleband pseudocolor&quot;انتخاب کنید: . در پنل guilabel: &quot;Generate new map map&quot; ، برای نمایش رنگی  &quot;Spectral&quot; را انتخاب کنید. همانطور که می خواهیم نقشه عمق برعکس نقشه ارتفاع ایجاد کنیم ، جعبه: guilabel: Invert را علامت بزنید. این امر باعث ایجاد  رنگ آبی در مناطق عمیق و  رنگ قرمز در مناطق کم عمق می شود. بر آیکون <span class="guilabel">Classify</span> کلیک کنید.</p></li>
-</ol>
-<img alt="../_images/1457.png" class="align-center" src="../_images/1457.png" />
-<ol class="arabic simple" start="15">
-<li><p>به تب  <span class="guilabel">Tranparency</span> برویید.
-ما می خواهیم پیکسل های تیره رنگ را از نمایش خروجی خود حذف کنیم. عدد <code class="docutils literal notranslate"><span class="pre">0</span></code> را به عنوان:guilabel:<cite>Additional no data value</cite> وارد کنید. کلیک کنید: بر دکمه  <span class="guilabel">OK</span> کلیک نمایید.</p></li>
-</ol>
-<img alt="../_images/1551.png" class="align-center" src="../_images/1551.png" />
-<ol class="arabic simple" start="16">
-<li><p>اکنون یک نقشه نهمواری ارتفاعی برای دریاچه دارید که از قرائت های عمقنقاط  ایجاد شده است. برای ایجاد منحنی تراز،  از جعبه‌ابزار پردازش Processing، ابزار GDAL ‣ Raster extraction ‣ Contour را جستجو و پیدا کنید.</p></li>
-</ol>
-<img alt="../_images/1647.png" class="align-center" src="../_images/1647.png" />
-<ol class="arabic simple" start="17">
-<li><p>در کادرمحاوره‌ای Contour، گزینه elevation_tin_clipped به‌عنوان لایه ورودی انتخاب کنید، ما فاصله بین منحنی تراز 5 فوت درنظر گرفتیم؛ پس &quot;5.00&quot; برای <span class="guilabel">Interval between contour lines</span>.  وارد کنید.تیک  <span class="guilabel">Attribute name</span>  بزنید. بر دکمه  <span class="guilabel">OK</span> کلیک نمایید.</p></li>
-</ol>
-<img alt="../_images/1745.png" class="align-center" src="../_images/1745.png" />
-<ol class="arabic simple" start="18">
-<li><p>پس از اینکه فرایند اجرا تمام شود یک‌لایه  خطوط منحنی تراز <code class="docutils literal notranslate"><span class="pre">contours</span></code>  به پنجره نقشه نرم‌افزار اضافه خواهد شد. بر این لایه کلیک راست نمایید و گزنیه <span class="guilabel">Properties</span>. را انتخاب نمایید.</p></li>
-</ol>
-<img alt="../_images/1841.png" class="align-center" src="../_images/1841.png" />
-<ol class="arabic simple" start="19">
-<li><p>به تب <span class="guilabel">Labels</span>  بروید. guilabel:<cite>Label this layer with</cite> را انتخاب کنید و ستون ELEV  انتخاب کنید.    حال نوع Placement  به Curved. انتخاب شود. بر دکمه guilabel:<cite>OK</cite>. کلیک نمایید.</p></li>
-</ol>
-<img alt="../_images/1932.png" class="align-center" src="../_images/1932.png" />
-<ol class="arabic simple" start="20">
-<li><p>شما خواهید دید که هر خط منحنی تراز به طور مناسب با ارتفاع در امتداد خط برچسب گذاری می شود.</p></li>
-</ol>
-<img alt="../_images/2027.png" class="align-center" src="../_images/2027.png" />
-</section>
 </section>
 
 
 
-
-
-  <!-- Comment Section Powered by utterances -->
-<div id="comments">
-  <hr />
-  <p>If you want to give feedback or share your experience with this tutorial, please comment below. (requires GitHub account)</p>
-<script src="https://utteranc.es/client.js"
-        repo="spatialthoughts/qgis-tutorials"
-        issue-term="title"
-        label="comment"
-        theme="github-light"
-        crossorigin="anonymous"
-        async>
-</script>
-</div>
+<!-- Turn on comments on only newer tutorials having 3/ in URL -->
 
 
     </div>
@@ -336,7 +205,7 @@ interpolation.</p></li>
     </p>
     <p>
         &copy; Copyright 2025, Ujaval Gandhi.<br/>
-      آخرین بروز رسانی در مه 20, 2025 .<br/>
+      آخرین بروز رسانی در مه 24, 2025 .<br/>
       Created using <a href="http://sphinx-doc.org/">Sphinx</a> 7.2.6.<br/>
     </p>
   </div>

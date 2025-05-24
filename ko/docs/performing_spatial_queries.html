@@ -185,175 +185,11 @@
 <p class="admonition-title">경고</p>
 <p>This tutorial is now obsolete. A new and updated version is available at <a class="reference internal" href="3/performing_spatial_queries.html"><span class="doc">공간 조회 실행(QGIS3)</span></a></p>
 </div>
-<p>공간조회는 QGIS 분석의 많은 유형에서 핵심적인 내용입니다. QGIS에서 이 기능은  <strong>Spatial Query</strong> 플러그인을 사용하여 작업을 수행합니다.</p>
-<section id="overview-of-the-task">
-<h2>과업 개요<a class="headerlink" href="#overview-of-the-task" title="Link to this heading">¶</a></h2>
-<p>강을 나타내는 선형 레이어와 도시를 나타내는 점 레이어의 2개 데이터셋을 작업을 합니다. 이 작업은 강으로부터  10km이내 분포하는 도시를 찾는 공간 조회를 하는 것입니다.</p>
-<section id="other-skills-you-will-learn">
-<h3>기타 스킬<a class="headerlink" href="#other-skills-you-will-learn" title="Link to this heading">¶</a></h3>
-<ul class="simple">
-<li><p>QGIS에서 .zip 압출파일을 바로 엽니다.</p></li>
-<li><p>벡터 데이터에 적절한 투영법을 선택하고 재 투영합니다.</p></li>
-<li><p>버퍼를 생성합니다.</p></li>
-<li><p>SQL같은 표현식을 이용하여 객체를 선택합니다.</p></li>
-<li><p>Shapefile을 KML파일로 전환합니다.</p></li>
-<li><p>Google Earth를 이용하여 결과를 검증합니다.</p></li>
-</ul>
-</section>
-</section>
-<section id="get-the-data">
-<h2>데이터 획득<a class="headerlink" href="#get-the-data" title="Link to this heading">¶</a></h2>
-<p>Natural Earth에서 <code class="docutils literal notranslate"><span class="pre">ne_10m_rivers_lake_centerlines``와</span> <span class="pre">``10m_populated_places_simple</span></code> 데이터셋을 사용합니다.</p>
-<p>Download <a class="reference external" href="http://www.naturalearthdata.com/http//www.naturalearthdata.com/download/10m/physical/ne_10m_rivers_lake_centerlines.zip">Rivers and Lake Centerlines</a></p>
-<p><a href="#id1"><span class="problematic" id="id2">`</span></a>Populated Places &lt;<a class="reference external" href="http://www.naturalearthdata.com/http//www.naturalearthdata.com/download/">http://www.naturalearthdata.com/http//www.naturalearthdata.com/download/</a> 10m/cultural/ne_10m_populated_places_simple.zip&gt;`_를 다운로드 합니다.</p>
-<p>데이터 출처: <a class="reference internal" href="credits.html#naturalearth" id="id1"><span>[NATURALEARTH]</span></a></p>
-</section>
-<section id="procedure">
-<h2>과정<a class="headerlink" href="#procedure" title="Link to this heading">¶</a></h2>
-<ol class="arabic simple">
-<li><p>일단 데이터를 다운로드하면 QGIS를 엽니다. 메뉴 –&gt; 메리어 –&gt; 벡터 레이어 추가 :menuselection:<a href="#id1"><span class="problematic" id="id2">`</span></a>Layer –&gt; Add Vector Layer`로 갑니다.</p></li>
-</ol>
-<img alt="../_images/1207.png" class="align-center" src="../_images/1207.png" />
-<ol class="arabic simple" start="2">
-<li><p>탐색 :guilabel:<a href="#id1"><span class="problematic" id="id2">`</span></a>Browse`를 크릭하고 다운로드한 압축파일이 포함된 폴더를 찾습니다.</p></li>
-</ol>
-<img alt="../_images/2170.png" class="align-center" src="../_images/2170.png" />
-<ol class="arabic simple" start="3">
-<li><p>쉬프트  :kbd:<a href="#id1"><span class="problematic" id="id2">`</span></a>Shift`키를 누른 채 두개의 압축파일을 선택하기 위해 클릭합니다. 열기  :guilabel:<a href="#id3"><span class="problematic" id="id4">`</span></a>Open`를 클릭합니다.</p></li>
-</ol>
-<img alt="../_images/3106.png" class="align-center" src="../_images/3106.png" />
-<ol class="arabic simple" start="4">
-<li><p>압축파일로부터 레이어를 선택하라는 창이 나타납니다. <a href="#id1"><span class="problematic" id="id2">``</span></a>ne_10m_rivers_lake_centerlines.shp``를 선택하고 :guilabel:<a href="#id3"><span class="problematic" id="id4">`</span></a>OK`를 클릭합니다.</p></li>
-</ol>
-<img alt="../_images/471.png" class="align-center" src="../_images/471.png" />
-<ol class="arabic simple" start="5">
-<li><p>다중 파일을 선택했으므로 다음 파일을 선택하기위해 과정을 반복합니다. <a href="#id1"><span class="problematic" id="id2">``</span></a>10m_populated_places_simple.shp``를 선택하고 :guilabel:<a href="#id3"><span class="problematic" id="id4">`</span></a>OK`를 클릭합니다.</p></li>
-</ol>
-<img alt="../_images/565.png" class="align-center" src="../_images/565.png" />
-<ol class="arabic simple" start="6">
-<li><p>QGIS에 두 개의 파일이 불러들여지는 것을 보게됩니다.</p></li>
-</ol>
-<img alt="../_images/663.png" class="align-center" src="../_images/663.png" />
-<ol class="arabic simple" start="7">
-<li><p>점과 선레이어 주변에 버퍼가 만들어 질 것입니다. QGIS에서 ‘버퍼’ 지오프로세싱 툴은 버퍼의 거리를 계산하기 위해 ‘레이어 유닛’을 사용합니다. 두 레이어는 <cite>degrees`단위를 가진 `Geographic Coordinate Reference System (CRS)`입니다. 이것은  `metres</cite> 혹은 <a href="#id1"><span class="problematic" id="id2">`</span></a>kilometres`를 사용하여 분석을 하고자 할 때에는 적절치 않습니다. 분석을 하기 위해서는 레이러를  <a href="#id3"><span class="problematic" id="id4">`</span></a>Projected Coordinate Reference System (CRS)`로 반드시 재투영해야 합니다. <a href="#id5"><span class="problematic" id="id6">``</span></a>10m_populated_places_simple layer``를 우측클릭하고 새 이름으로 저장 :guilabel:<a href="#id7"><span class="problematic" id="id8">`</span></a>Save As`을 클릭합니다.</p></li>
-</ol>
-<img alt="../_images/762.png" class="align-center" src="../_images/762.png" />
-<ol class="arabic simple" start="8">
-<li><p>새 이름으로 벡터 레이어 저장하기  <span class="guilabel">Save vector layer as…</span> 다이알로그 박스에서 새임으로 저장 <span class="guilabel">Save as</span> 옆에 있는 탐색 <span class="guilabel">Browse`을 클릭합니다. 출력파일 이름을 ``populated_places_reprojected.shp``로 입력합니다. 다음으로, 좌표계 :guilabel:`CRS</span> 옆에 있는 탐색 <span class="guilabel">Browse</span> 버튼을 클릭합니다.</p></li>
-</ol>
-<img alt="../_images/860.png" class="align-center" src="../_images/860.png" />
-<ol class="arabic simple" start="9">
-<li><p>Now we must choose an appropriate CRS for our purpose. For creating buffers,
-a Azimuthal Equidistant projection would be best suited as radial distances
-around the center of the projection are accurate. In our case, since the
-dataset is global, we will choose a World projection. In the
-<span class="guilabel">Coordinate Reference System Selector</span> dialog, start searching for
-<cite>world az..</cite> and you will see the results show up. Select the
-<cite>World_Azimuthal_Equidistant</cite> and click <span class="guilabel">OK</span>.</p></li>
-</ol>
-<div class="admonition note">
-<p class="admonition-title">참고</p>
-<p>The <cite>World_Azimuthal_Equidistant</cite> projection spans 90 degrees from the
-origin. Here the origin being 0 degrees longitude, the only data contained
-within +/- 90 degrees longitude will be converted.</p>
-</div>
-<img alt="../_images/959.png" class="align-center" src="../_images/959.png" />
-<ol class="arabic simple" start="10">
-<li><p>새 이름으로 벡터레이어 저장하기 <span class="guilabel">Save vector layer as …</span> 다아일로그로 되돌아가서 저장된 파일을 지도에 추가 <span class="guilabel">Add saved file to map</span> 옆에 있는 박스를 체크하고 <a href="#id1"><span class="problematic" id="id2">`</span></a>OK`를 클릭합니다.</p></li>
-</ol>
-<img alt="../_images/1067.png" class="align-center" src="../_images/1067.png" />
-<ol class="arabic simple" start="11">
-<li><p><a href="#id1"><span class="problematic" id="id2">``</span></a>ne_10m_rivers_lake_centerlines``레이어 대해 재투영과정을 반복하고,  <a href="#id3"><span class="problematic" id="id4">``</span></a>rivers_lake_reprojected.shp``로 새로운 레이어를 저장합니다.</p></li>
-</ol>
-<img alt="../_images/11105.png" class="align-center" src="../_images/11105.png" />
-<ol class="arabic simple" start="12">
-<li><p>이제 레이어 판넬 <span class="guilabel">Layers Panel`에 4개의 레이어가 생깁니다. 원래의 레이어 옆에 있는 박스에서 체크해제하고 오로지 재투영된 레이어만 나타냅니다. 재투영된 레이어는 여전히 `Geographic CRS`로 보여지는데 이는 세팅때문입니다. 이것을 꺼보도록 하겠습니다. 프로젝트 속성 :guilabel:`Project Properties</span> 단추를 클릭합니다. 이 세팅은 메뉴 프로젝트 –&gt; 프로젝트 속성 :menuselection:<a href="#id1"><span class="problematic" id="id2">`</span></a>Project –&gt; Project Properties`에서도 접근할 수 있습니다.</p></li>
-</ol>
-<img alt="../_images/1269.png" class="align-center" src="../_images/1269.png" />
-<ol class="arabic simple" start="13">
-<li><p>프로젝트 속성 <span class="guilabel">Project Properties</span> 다이알로그의 좌표계 <span class="guilabel">CRS`탭에서 ‘실시간’ 좌표계 변환 활성화 :guilabel:`Enable on-the-fly CRS transformation</span> 옆에 있는 박스를 체크해제 합니다. :guilabel:<a href="#id1"><span class="problematic" id="id2">`</span></a>OK`를 클릭합니다.</p></li>
-</ol>
-<img alt="../_images/1366.png" class="align-center" src="../_images/1366.png" />
-<ol class="arabic simple" start="14">
-<li><p>QGIS 메인 창으로 되돌아 와서 재투영된 아무 레이어나 우측클릭하고 레이어 영역으로 확대  :guilabel:<a href="#id1"><span class="problematic" id="id2">`</span></a>Zoom to Layer Extent`를 선택합니다.</p></li>
-</ol>
-<img alt="../_images/1462.png" class="align-center" src="../_images/1462.png" />
-<ol class="arabic simple" start="15">
-<li><p>이제 레이어의 CRS에서 데이터를 보게 됩니다. 이제 두 데이터셋에 대한 버퍼를 만들어 보겠습니다. 메뉴 벡터 –&gt; 공간연산도구 –&gt; 버퍼  :menuselection:<a href="#id1"><span class="problematic" id="id2">`</span></a>Vector –&gt; Geoprocessing Tools –&gt; Buffer`를 클릭합니다.</p></li>
-</ol>
-<img alt="../_images/1555.png" class="align-center" src="../_images/1555.png" />
-<ol class="arabic simple" start="16">
-<li><p>버퍼  :guilabel:<a href="#id1"><span class="problematic" id="id2">`</span></a>Buffer`도구에서 <a href="#id3"><span class="problematic" id="id4">``</span></a>populated_places_reprojected``레이어를 입력 레이어로 선택합니다. 버퍼 거리를 <a href="#id5"><span class="problematic" id="id6">`</span></a>10000`으로 입력합니다. 만들고자 하는 버퍼의 거리는 10km을 명심하고 CRS 단위가 미터이므로 10,000을 입력할 필요가 있습니다. 출력파일명으로 <a href="#id7"><span class="problematic" id="id8">``</span></a>populated_places_buffer.shp``를 입력합니다.  :guilabel:<a href="#id9"><span class="problematic" id="id10">`</span></a>OK`를 클릭합니다.</p></li>
-</ol>
-<img alt="../_images/1651.png" class="align-center" src="../_images/1651.png" />
-<ol class="arabic simple" start="17">
-<li><p>일단 버퍼 작업이 끝나면 새롭게 만들어진 레이어를 TOC에 추가하기 위해 :guilabel:<a href="#id1"><span class="problematic" id="id2">`</span></a>Yes`를 클릭합니다.</p></li>
-</ol>
-<img alt="../_images/1749.png" class="align-center" src="../_images/1749.png" />
-<ol class="arabic simple" start="18">
-<li><p><a href="#id1"><span class="problematic" id="id2">``</span></a>rivers_lake_reprojected``레이어에 대해서도 같은 버퍼작업을 반복하고 출력 파일명으로  <a href="#id3"><span class="problematic" id="id4">``</span></a>rivers_lake_buffer.shp``를 만듭니다.</p></li>
-</ol>
-<img alt="../_images/1845.png" class="align-center" src="../_images/1845.png" />
-<ol class="arabic simple" start="19">
-<li><p><a href="#id1"><span class="problematic" id="id2">``</span></a>rivers_lake_buffer``는 강과 호수 객체 둘 다를 포함합니다. 이 예제에서는 오로지 강 객체만 요구되므로 조회를 통해 강 객체만 선택합니다. <a href="#id3"><span class="problematic" id="id4">``</span></a>rivers_lake_buffer``레이어를 우측클릭하고 속성 테이블 열기 :guilabel:<a href="#id5"><span class="problematic" id="id6">`</span></a>Open Attribute Table`를 선택합니다.</p></li>
-</ol>
-<img alt="../_images/1936.png" class="align-center" src="../_images/1936.png" />
-<ol class="arabic simple" start="20">
-<li><p><cite>featurecla</cite> 속성이 각 객체를 선택하는데 사용할 수 있는 정보를 포함하고 있습니다. 표현식을 이용해 객체 선택 <cite>Select features using an expression</cite> 버튼을 클릭합니다.</p></li>
-</ol>
-<img alt="../_images/2031.png" class="align-center" src="../_images/2031.png" />
-<ol class="arabic simple" start="21">
-<li><p>표현식 <cite>“featurecla” = “River”</cite> 를 입력하고 선택 :guilabel:<a href="#id1"><span class="problematic" id="id2">`</span></a>Select`을 클릭한 다음 QGIS로 ㅗ디돌아 가기 위해 닫기 :guilabel:<a href="#id3"><span class="problematic" id="id4">`</span></a>Close`를 클릭합니다.</p></li>
-</ol>
-<img alt="../_images/2171.png" class="align-center" src="../_images/2171.png" />
-<ol class="arabic simple" start="22">
-<li><p>이제 공간조회를 수행할 준비가 되었습니다. 이 기능을 사용하기 위해 <cite>Spatial Query plugin</cite> 을 활성화할 필요가 있습니다. 보다 자세한 사항은 :doc:<a href="#id1"><span class="problematic" id="id2">`</span></a>using_plugins`를 보십시오. 일단 메뉴 벡터 –&gt; 공간검색 –&gt; 공간검색 :menuselection:<a href="#id3"><span class="problematic" id="id4">`</span></a>Vector –&gt; Spatial Query –&gt; Spatial Query`으로 갑니다.</p></li>
-</ol>
-<img alt="../_images/2231.png" class="align-center" src="../_images/2231.png" />
-<ol class="arabic simple" start="23">
-<li><p>조회를 하기 위해서 버퍼분석이 완료된 강의 선과 교차되는 버퍼 지역으로부터 객체를 선택합니다. 선택된 지오메트리 <cite>selected geometries</cite> 옆의 박스가 체크되어 있는지 확인합니다. 이것은 조회를 확실하게 수행하기 위한 것으로 전에 선택된 강 객체만 사용합니다. 적용 :guilabel:<a href="#id1"><span class="problematic" id="id2">`</span></a>Apply`을 클릭합니다.</p></li>
-</ol>
-<img alt="../_images/2328.png" class="align-center" src="../_images/2328.png" />
-<ol class="arabic simple" start="24">
-<li><p>일단 조회가 완료되면 선택된 객체 :guilabel:<a href="#id1"><span class="problematic" id="id2">`</span></a>Selected features`라는 이름의 새로운 섹션이 나타날 것입니다. 선택된객체로 레이어 만들기 :guilabel:<a href="#id3"><span class="problematic" id="id4">`</span></a>Create layer with selected`버튼을 클릭합니다. 새로운 레이어가 레이어판넬  <a href="#id5"><span class="problematic" id="id6">`</span></a>Layers Panel`에 추가될 것입니다. 닫기 :guilabel:<a href="#id7"><span class="problematic" id="id8">`</span></a>Close`를 클릭하십시오.</p></li>
-</ol>
-<img alt="../_images/2428.png" class="align-center" src="../_images/2428.png" />
-<ol class="arabic simple" start="25">
-<li><p>아무 곳이나 확대를 하고 결과를 비교하십시오. 새로운 레이어는 단지 강 버퍼와 교차되는 객체만 포함하고 있음을 알게될 것입니다.</p></li>
-</ol>
-<img alt="../_images/2526.png" class="align-center" src="../_images/2526.png" />
-<ol class="arabic simple" start="26">
-<li><p>분석에 문제는 없는지 확인하기 위해 결과를 항상 검증해야 합니다. 결과를 검증하는 한 가지 방법은 이 레이어를 KML파일로 내보내기를 해서 구슬어스에 올려보는 것입니다.  분석결과로 나온 지역이 실제로 강으로부터 10km이내인지 아닌지 검토할 수 있습니다. 레이어를 우측클릭하고 새이름으로 저장 :guilabel:<a href="#id1"><span class="problematic" id="id2">`</span></a>Save As…`을 선택합니다.</p></li>
-</ol>
-<img alt="../_images/2623.png" class="align-center" src="../_images/2623.png" />
-<ol class="arabic simple" start="27">
-<li><p>새 이름으로 벡터 레이어 저장하기  :guilabel:<a href="#id1"><span class="problematic" id="id2">`</span></a>Save vector layer as…`에서 좌표계로 <a href="#id3"><span class="problematic" id="id4">`</span></a>WGS84`를 선택합니다. 왜냐하면 KML포맷은 좌표계에 있는 좌표가 필요하기 때문입니다. <a href="#id5"><span class="problematic" id="id6">``</span></a>cities_near_river.kml``라고 KML파일명을 입력합니다.</p></li>
-</ol>
-<img alt="../_images/2723.png" class="align-center" src="../_images/2723.png" />
-<ol class="arabic simple" start="28">
-<li><p>구슬어스를 열고 이 버퍼가 표시하는 도시가 강과 실제로 인접한지를 검증합니다.</p></li>
-</ol>
-<img alt="../_images/2822.png" class="align-center" src="../_images/2822.png" />
-</section>
 </section>
 
 
 
-
-
-  <!-- Comment Section Powered by utterances -->
-<div id="comments">
-  <hr />
-  <p>If you want to give feedback or share your experience with this tutorial, please comment below. (requires GitHub account)</p>
-<script src="https://utteranc.es/client.js"
-        repo="spatialthoughts/qgis-tutorials"
-        issue-term="title"
-        label="comment"
-        theme="github-light"
-        crossorigin="anonymous"
-        async>
-</script>
-</div>
+<!-- Turn on comments on only newer tutorials having 3/ in URL -->
 
 
     </div>
@@ -369,7 +205,7 @@ within +/- 90 degrees longitude will be converted.</p>
     </p>
     <p>
         &copy; Copyright 2025, Ujaval Gandhi.<br/>
-      최종 업데이트: 5월 20, 2025<br/>
+      최종 업데이트: 5월 24, 2025<br/>
       Created using <a href="http://sphinx-doc.org/">Sphinx</a> 7.2.6.<br/>
     </p>
   </div>

@@ -185,159 +185,11 @@
 <p class="admonition-title">توجه</p>
 <p>اگر از QGIS3 استفاده می کنید، راه ساده تر و بهتری برای انجام این تحلیل با استفاده از تابع جمع وجود دارد. پست من را ببینید «پیدا کردن چند ضلعی های همسایه با استفاده از تابع جمع خلاصه در QGIS &lt;<a class="reference external" href="https://spatialthoughts.com/2019/05/23/neighbor-polygons-aggregate-qgis/">https://spatialthoughts.com/2019/05/23/neighbor-polygons-aggregate-qgis/</a>&gt;`_</p>
 </div>
-<p>مواردی وجود دارد که می خواهید همه چند ضلعی های مجاور هر چند ضلعی را در یک لایه پیدا کنید. با کمی اسکریپت پایتون، می‌توانیم این کار و خیلی بیشتر را در QGIS انجام دهیم. در اینجا یک نمونه اسکریپت وجود دارد که می توانید از آن برای یافتن همه چند ضلعی هایی که با هر چند ضلعی در یک لایه مرز مشترک دارند و همچنین نام آنها را به جدول ویژگی اضافه کنید، استفاده کنید. به عنوان یک امتیاز اضافی، اسکریپت همچنین یک ویژگی انتخابی شما را از همه چند ضلعی های همسایه خلاصه می کند.</p>
-<section id="overview-of-the-task">
-<h2>بررسی اجمالی کار<a class="headerlink" href="#overview-of-the-task" title="Link to this heading">¶</a></h2>
-<p>برای نشان دادن نحوه عملکرد اسکریپت، از لایه ای از چند ضلعی های کشور استفاده می کنیم و کشورهایی را که مرز مشترک دارند، پیدا می کنیم. ما همچنین می خواهیم کل جمعیت همسایگان کشور را محاسبه کنیم.</p>
-</section>
-<section id="get-the-data">
-<h2>داده ها را دریافت کنید<a class="headerlink" href="#get-the-data" title="Link to this heading">¶</a></h2>
-<p>ما از مجموعه داده &quot;Admin 0 - Countries &lt;<a class="reference external" href="http://www.naturalearthdata.com/downloads/10m-cultural-vectors/10m-admin-0-countries/">http://www.naturalearthdata.com/downloads/10m-cultural-vectors/10m-admin-0-countries/</a>&gt;&quot;_ از Natural Earth استفاده خواهیم کرد.</p>
-<p>فایل شکل فایل «Admin 0 - Country» را دانلود کنید. &lt;<a class="reference external" href="http://www.naturalearthdata.com/http//www.naturalearthdata.com/download/10m/cultural/ne_10m_admin_0_countries.zip">http://www.naturalearthdata.com/http//www.naturalearthdata.com/download/10m/cultural/ne_10m_admin_0_countries.zip</a>&gt;`_.</p>
-<p>منبع داده <a class="reference internal" href="credits.html#naturalearth" id="id1"><span>[NATURALEARTH]</span></a></p>
-</section>
-<section id="get-the-script">
-<h2>فیلمنامه را دریافت کنید<a class="headerlink" href="#get-the-script" title="Link to this heading">¶</a></h2>
-<p>اسکریپت :download:<a href="#id1"><span class="problematic" id="id2">`</span></a>neighbors.py را دانلود کنید و آن را در دیسک خود ذخیره کنید.</p>
-</section>
-<section id="procedure">
-<h2>روش<a class="headerlink" href="#procedure" title="Link to this heading">¶</a></h2>
-<ol class="arabic simple">
-<li><p>لایه «ne_10m_admin_0_countries» را با رفتن به <span class="menuselection">Layer ‣ Add Vector Layer</span> بارگیری کنید.</p></li>
-</ol>
-<img alt="../_images/1195.png" class="align-center" src="../_images/1195.png" />
-<ol class="arabic simple" start="2">
-<li><p>اسکریپت از 2 فیلد برای انجام عمل استفاده می کند. یک فیلد نام و یک فیلد که می خواهید خلاصه کنید. از ابزار :guilabel:<a href="#id1"><span class="problematic" id="id2">`</span></a>Identify برای کلیک بر روی هر ویژگی و بررسی ویژگی ها استفاده کنید. در این مورد، فیلد نام <strong>NAME</strong> است و می‌خواهیم برآوردهای جمعیت را از قسمت <strong>POP_EST</strong> جمع‌بندی کنیم.</p></li>
-</ol>
-<img alt="../_images/2157.png" class="align-center" src="../_images/2157.png" />
-<ol class="arabic simple" start="3">
-<li><p>به :menuselection:<a href="#id1"><span class="problematic" id="id2">`</span></a>Plugins --&gt; Python Console بروید.</p></li>
-</ol>
-<img alt="../_images/396.png" class="align-center" src="../_images/396.png" />
-<ol class="arabic simple" start="4">
-<li><p>در پنجره :guilabel:'Python Console'، روی دکمه :guilabel:'Show Editor' کلیک کنید.</p></li>
-</ol>
-<img alt="../_images/462.png" class="align-center" src="../_images/462.png" />
-<ol class="arabic simple" start="5">
-<li><p>در پانل :guilabel:'Editor'، روی دکمه :guilabel:'Open file' کلیک کنید و اسکریپت &quot;neighbors.py&quot; دانلود شده را مرور کنید و روی :guilabel:&quot;Open&quot; کلیک کنید.</p></li>
-</ol>
-<img alt="../_images/555.png" class="align-center" src="../_images/555.png" />
-<ol class="arabic simple" start="6">
-<li><p>پس از بارگیری اسکریپت، ممکن است بخواهید مقادیر &quot;_NAME_FIELD&quot; و &quot;_SUM_FIELD&quot; را تغییر دهید تا با ویژگی های لایه خود مطابقت داشته باشد. اگر با لایه «ne_10m_admin_0_countries» کار می‌کنید، می‌توانید آن‌ها را همانطور که هستند رها کنید. اگر تغییری ایجاد کردید، روی دکمه <span class="guilabel">Save</span> در پنل <span class="guilabel">Editor کلیک کنید. اکنون روی دکمه :guilabel:`Run script</span> کلیک کنید تا اسکریپت اجرا شود.</p></li>
-</ol>
-<img alt="../_images/653.png" class="align-center" src="../_images/653.png" />
-<ol class="arabic simple" start="7">
-<li><p>پس از اتمام اسکریپت، روی لایه &quot;ne_10m_admin_0_countries&quot; کلیک راست کرده و :guilabel:&quot;Open Attribute Table&quot; را انتخاب کنید.</p></li>
-</ol>
-<img alt="../_images/753.png" class="align-center" src="../_images/753.png" />
-<ol class="arabic simple" start="8">
-<li><p>متوجه 2 ویژگی جدید به نام‌های «همسایه» و «جمع» خواهید شد. اینها توسط فیلمنامه اضافه شد.</p></li>
-</ol>
-<img alt="../_images/852.png" class="align-center" src="../_images/852.png" />
-<p>در زیر اسکریپت کامل برای مرجع آورده شده است. شما می توانید آن را مطابق با نیاز خود تغییر دهید.</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1">################################################################################</span>
-<span class="c1"># Copyright 2014 Ujaval Gandhi</span>
-<span class="c1">#</span>
-<span class="c1">#This program is free software; you can redistribute it and/or</span>
-<span class="c1">#modify it under the terms of the GNU General Public License</span>
-<span class="c1">#as published by the Free Software Foundation; either version 2</span>
-<span class="c1">#of the License, or (at your option) any later version.</span>
-<span class="c1">#</span>
-<span class="c1">#This program is distributed in the hope that it will be useful,</span>
-<span class="c1">#but WITHOUT ANY WARRANTY; without even the implied warranty of</span>
-<span class="c1">#MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the</span>
-<span class="c1">#GNU General Public License for more details.</span>
-<span class="c1">#</span>
-<span class="c1">#You should have received a copy of the GNU General Public License</span>
-<span class="c1">#along with this program; if not, write to the Free Software</span>
-<span class="c1">#Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.</span>
-<span class="c1">#</span>
-<span class="c1">################################################################################</span>
-<span class="kn">from</span> <span class="nn">qgis.utils</span> <span class="kn">import</span> <span class="n">iface</span>
-<span class="kn">from</span> <span class="nn">PyQt4.QtCore</span> <span class="kn">import</span> <span class="n">QVariant</span>
-
-<span class="c1"># Replace the values below with values from your layer.</span>
-<span class="c1"># For example, if your identifier field is called &#39;XYZ&#39;, then change the line</span>
-<span class="c1"># below to _NAME_FIELD = &#39;XYZ&#39;</span>
-<span class="n">_NAME_FIELD</span> <span class="o">=</span> <span class="s1">&#39;NAME&#39;</span>
-<span class="c1"># Replace the value below with the field name that you want to sum up.</span>
-<span class="c1"># For example, if the # field that you want to sum up is called &#39;VALUES&#39;, then</span>
-<span class="c1"># change the line below to _SUM_FIELD = &#39;VALUES&#39;</span>
-<span class="n">_SUM_FIELD</span> <span class="o">=</span> <span class="s1">&#39;POP_EST&#39;</span>
-
-<span class="c1"># Names of the new fields to be added to the layer</span>
-<span class="n">_NEW_NEIGHBORS_FIELD</span> <span class="o">=</span> <span class="s1">&#39;NEIGHBORS&#39;</span>
-<span class="n">_NEW_SUM_FIELD</span> <span class="o">=</span> <span class="s1">&#39;SUM&#39;</span>
-
-<span class="n">layer</span> <span class="o">=</span> <span class="n">iface</span><span class="o">.</span><span class="n">activeLayer</span><span class="p">()</span>
-
-<span class="c1"># Create 2 new fields in the layer that will hold the list of neighbors and sum</span>
-<span class="c1"># of the chosen field.</span>
-<span class="n">layer</span><span class="o">.</span><span class="n">startEditing</span><span class="p">()</span>
-<span class="n">layer</span><span class="o">.</span><span class="n">dataProvider</span><span class="p">()</span><span class="o">.</span><span class="n">addAttributes</span><span class="p">(</span>
-        <span class="p">[</span><span class="n">QgsField</span><span class="p">(</span><span class="n">_NEW_NEIGHBORS_FIELD</span><span class="p">,</span> <span class="n">QVariant</span><span class="o">.</span><span class="n">String</span><span class="p">),</span>
-         <span class="n">QgsField</span><span class="p">(</span><span class="n">_NEW_SUM_FIELD</span><span class="p">,</span> <span class="n">QVariant</span><span class="o">.</span><span class="n">Int</span><span class="p">)])</span>
-<span class="n">layer</span><span class="o">.</span><span class="n">updateFields</span><span class="p">()</span>
-<span class="c1"># Create a dictionary of all features</span>
-<span class="n">feature_dict</span> <span class="o">=</span> <span class="p">{</span><span class="n">f</span><span class="o">.</span><span class="n">id</span><span class="p">():</span> <span class="n">f</span> <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">layer</span><span class="o">.</span><span class="n">getFeatures</span><span class="p">()}</span>
-
-<span class="c1"># Build a spatial index</span>
-<span class="n">index</span> <span class="o">=</span> <span class="n">QgsSpatialIndex</span><span class="p">()</span>
-<span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">feature_dict</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
-    <span class="n">index</span><span class="o">.</span><span class="n">insertFeature</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
-
-<span class="c1"># Loop through all features and find features that touch each feature</span>
-<span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">feature_dict</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
-    <span class="nb">print</span> <span class="s1">&#39;Working on </span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">f</span><span class="p">[</span><span class="n">_NAME_FIELD</span><span class="p">]</span>
-    <span class="n">geom</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">geometry</span><span class="p">()</span>
-    <span class="c1"># Find all features that intersect the bounding box of the current feature.</span>
-    <span class="c1"># We use spatial index to find the features intersecting the bounding box</span>
-    <span class="c1"># of the current feature. This will narrow down the features that we need</span>
-    <span class="c1"># to check neighboring features.</span>
-    <span class="n">intersecting_ids</span> <span class="o">=</span> <span class="n">index</span><span class="o">.</span><span class="n">intersects</span><span class="p">(</span><span class="n">geom</span><span class="o">.</span><span class="n">boundingBox</span><span class="p">())</span>
-    <span class="c1"># Initalize neighbors list and sum</span>
-    <span class="n">neighbors</span> <span class="o">=</span> <span class="p">[]</span>
-    <span class="n">neighbors_sum</span> <span class="o">=</span> <span class="mi">0</span>
-    <span class="k">for</span> <span class="n">intersecting_id</span> <span class="ow">in</span> <span class="n">intersecting_ids</span><span class="p">:</span>
-        <span class="c1"># Look up the feature from the dictionary</span>
-        <span class="n">intersecting_f</span> <span class="o">=</span> <span class="n">feature_dict</span><span class="p">[</span><span class="n">intersecting_id</span><span class="p">]</span>
-
-        <span class="c1"># For our purpose we consider a feature as &#39;neighbor&#39; if it touches or</span>
-        <span class="c1"># intersects a feature. We use the &#39;disjoint&#39; predicate to satisfy</span>
-        <span class="c1"># these conditions. So if a feature is not disjoint, it is a neighbor.</span>
-        <span class="k">if</span> <span class="p">(</span><span class="n">f</span> <span class="o">!=</span> <span class="n">intersecting_f</span> <span class="ow">and</span>
-            <span class="ow">not</span> <span class="n">intersecting_f</span><span class="o">.</span><span class="n">geometry</span><span class="p">()</span><span class="o">.</span><span class="n">disjoint</span><span class="p">(</span><span class="n">geom</span><span class="p">)):</span>
-            <span class="n">neighbors</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">intersecting_f</span><span class="p">[</span><span class="n">_NAME_FIELD</span><span class="p">])</span>
-            <span class="n">neighbors_sum</span> <span class="o">+=</span> <span class="n">intersecting_f</span><span class="p">[</span><span class="n">_SUM_FIELD</span><span class="p">]</span>
-    <span class="n">f</span><span class="p">[</span><span class="n">_NEW_NEIGHBORS_FIELD</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;,&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">neighbors</span><span class="p">)</span>
-    <span class="n">f</span><span class="p">[</span><span class="n">_NEW_SUM_FIELD</span><span class="p">]</span> <span class="o">=</span> <span class="n">neighbors_sum</span>
-    <span class="c1"># Update the layer with new attribute values.</span>
-    <span class="n">layer</span><span class="o">.</span><span class="n">updateFeature</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
-
-<span class="n">layer</span><span class="o">.</span><span class="n">commitChanges</span><span class="p">()</span>
-<span class="nb">print</span> <span class="s1">&#39;Processing complete.&#39;</span>
-</pre></div>
-</div>
-</section>
 </section>
 
 
 
-
-
-  <!-- Comment Section Powered by utterances -->
-<div id="comments">
-  <hr />
-  <p>If you want to give feedback or share your experience with this tutorial, please comment below. (requires GitHub account)</p>
-<script src="https://utteranc.es/client.js"
-        repo="spatialthoughts/qgis-tutorials"
-        issue-term="title"
-        label="comment"
-        theme="github-light"
-        crossorigin="anonymous"
-        async>
-</script>
-</div>
+<!-- Turn on comments on only newer tutorials having 3/ in URL -->
 
 
     </div>
@@ -353,7 +205,7 @@
     </p>
     <p>
         &copy; Copyright 2025, Ujaval Gandhi.<br/>
-      آخرین بروز رسانی در مه 20, 2025 .<br/>
+      آخرین بروز رسانی در مه 24, 2025 .<br/>
       Created using <a href="http://sphinx-doc.org/">Sphinx</a> 7.2.6.<br/>
     </p>
   </div>

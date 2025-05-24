@@ -185,159 +185,11 @@
 <p class="admonition-title">備註</p>
 <p>If you are using QGIS3, there is a simpler and better way to do this analysis using the aggregate function. See my post <a class="reference external" href="https://spatialthoughts.com/2019/05/23/neighbor-polygons-aggregate-qgis/">Find Neighbor Polygons using Summary Aggregate Function in QGIS</a></p>
 </div>
-<p>有些時候，你會想要尋找與圖層中的某個多邊形相鄰的所有多邊形。只要弄一點 Python 程式碼，在 QGIS 中就能完成這件事情，甚至做得更多。這裡有一個範例程式，讓你可以尋找所有與指定的多邊形分享邊界的多邊形，並且把它們的名字加入屬性表格中。除此之外，此腳本也把所有鄰接多邊形的某個指定欄位進行加總運算。</p>
-<section id="overview-of-the-task">
-<h2>內容說明<a class="headerlink" href="#overview-of-the-task" title="Link to this heading">¶</a></h2>
-<p>為了展示腳本如何運作，這邊我們使用全球的國界圖層，然後尋找共享國界的國家。我們也會計算與某個國家相鄰的全部國家的總人口數。</p>
-</section>
-<section id="get-the-data">
-<h2>取得資料<a class="headerlink" href="#get-the-data" title="Link to this heading">¶</a></h2>
-<p>我們要使用 Natural Earth 提供的 <a class="reference external" href="http://www.naturalearthdata.com/downloads/10m-cultural-vectors/10m-admin-0-countries/">Admin 0 - 國界</a> 資料集。</p>
-<p>下載 <a class="reference external" href="http://www.naturalearthdata.com/http//www.naturalearthdata.com/download/10m/cultural/ne_10m_admin_0_countries.zip">Admin 0 - 國界（Countries）shapefile</a></p>
-<p>資料來源  <a class="reference internal" href="credits.html#naturalearth" id="id1"><span>[NATURALEARTH]</span></a></p>
-</section>
-<section id="get-the-script">
-<h2>取得腳本<a class="headerlink" href="#get-the-script" title="Link to this heading">¶</a></h2>
-<p>下載 <a class="reference download internal" download="" href="../_downloads/4cea2e81c7cbba6c6a79b31dd0eb3c2a/neighbors.py"><code class="xref download docutils literal notranslate"><span class="pre">neighbors.py</span> <span class="pre">腳本</span></code></a> 然後儲存至硬碟中。</p>
-</section>
-<section id="procedure">
-<h2>操作流程<a class="headerlink" href="#procedure" title="Link to this heading">¶</a></h2>
-<ol class="arabic simple">
-<li><p>選擇 <span class="menuselection">圖層 ‣ 加入向量圖層</span>，載入 <code class="docutils literal notranslate"><span class="pre">ne_10m_admin_0_countries</span></code> 圖層。</p></li>
-</ol>
-<img alt="../_images/1195.png" class="align-center" src="../_images/1195.png" />
-<ol class="arabic simple" start="2">
-<li><p>此腳本使用 2 個欄位執行操作，分別是名稱與用來加總的欄位。使用 <span class="guilabel">識別圖徵</span> 工具點選任何圖徵檢察屬性，在本例中，會使用 <strong>NAME</strong> 欄位當作名稱，與 <strong>POP_EST</strong> 欄位當作人口估計值。</p></li>
-</ol>
-<img alt="../_images/2157.png" class="align-center" src="../_images/2157.png" />
-<ol class="arabic simple" start="3">
-<li><p>選擇 <span class="menuselection">附加元件 ‣ Python 主控台</span>。</p></li>
-</ol>
-<img alt="../_images/396.png" class="align-center" src="../_images/396.png" />
-<ol class="arabic simple" start="4">
-<li><p>在 <span class="guilabel">Python 主控台</span> 視窗中，按下 <span class="guilabel">顯示編輯器</span> 的按鈕。</p></li>
-</ol>
-<img alt="../_images/462.png" class="align-center" src="../_images/462.png" />
-<ol class="arabic simple" start="5">
-<li><p>在 <span class="guilabel">編輯器</span> 面板中，按下 <span class="guilabel">開啟檔案</span> 鈕，找到剛才下載的 <code class="docutils literal notranslate"><span class="pre">neighbors.py</span></code> 腳本，按下 <span class="guilabel">開啟</span>。</p></li>
-</ol>
-<img alt="../_images/555.png" class="align-center" src="../_images/555.png" />
-<ol class="arabic simple" start="6">
-<li><p>腳本載入後，或許需要依照圖層屬性，編輯 <code class="docutils literal notranslate"><span class="pre">_NAME_FIELD</span></code> 和 <code class="docutils literal notranslate"><span class="pre">_SUM_FIELD</span></code> 的值，不過如果你也是載入 <code class="docutils literal notranslate"><span class="pre">ne_10m_admin_0_countries</span></code> 圖層的話，使用預設值即可。如果你有編輯過的話，請先按下 <span class="guilabel">編輯器</span> 面板中的 <span class="guilabel">儲存</span> 鈕。接下來，按下 <span class="guilabel">執行腳本</span> 鈕，程式就會開始執行。</p></li>
-</ol>
-<img alt="../_images/653.png" class="align-center" src="../_images/653.png" />
-<ol class="arabic simple" start="7">
-<li><p>當腳本執行完畢後，右鍵點選 <code class="docutils literal notranslate"><span class="pre">ne_10m_admin_0_countries</span></code> 圖層然後選擇 <span class="guilabel">開啟屬性表格</span>。</p></li>
-</ol>
-<img alt="../_images/753.png" class="align-center" src="../_images/753.png" />
-<ol class="arabic simple" start="8">
-<li><p>你會發現多了 2 個屬性，分別為 <code class="docutils literal notranslate"><span class="pre">NEIGHBORS</span></code> 和 <code class="docutils literal notranslate"><span class="pre">SUM</span></code>，這兩個屬性就是剛才的程式新增的。</p></li>
-</ol>
-<img alt="../_images/852.png" class="align-center" src="../_images/852.png" />
-<p>以下放上完整的腳本供各位參考，你也可以依照個人需求編輯調整此檔案。</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1">################################################################################</span>
-<span class="c1"># Copyright 2014 Ujaval Gandhi</span>
-<span class="c1">#</span>
-<span class="c1">#This program is free software; you can redistribute it and/or</span>
-<span class="c1">#modify it under the terms of the GNU General Public License</span>
-<span class="c1">#as published by the Free Software Foundation; either version 2</span>
-<span class="c1">#of the License, or (at your option) any later version.</span>
-<span class="c1">#</span>
-<span class="c1">#This program is distributed in the hope that it will be useful,</span>
-<span class="c1">#but WITHOUT ANY WARRANTY; without even the implied warranty of</span>
-<span class="c1">#MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the</span>
-<span class="c1">#GNU General Public License for more details.</span>
-<span class="c1">#</span>
-<span class="c1">#You should have received a copy of the GNU General Public License</span>
-<span class="c1">#along with this program; if not, write to the Free Software</span>
-<span class="c1">#Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.</span>
-<span class="c1">#</span>
-<span class="c1">################################################################################</span>
-<span class="kn">from</span> <span class="nn">qgis.utils</span> <span class="kn">import</span> <span class="n">iface</span>
-<span class="kn">from</span> <span class="nn">PyQt4.QtCore</span> <span class="kn">import</span> <span class="n">QVariant</span>
-
-<span class="c1"># Replace the values below with values from your layer.</span>
-<span class="c1"># For example, if your identifier field is called &#39;XYZ&#39;, then change the line</span>
-<span class="c1"># below to _NAME_FIELD = &#39;XYZ&#39;</span>
-<span class="n">_NAME_FIELD</span> <span class="o">=</span> <span class="s1">&#39;NAME&#39;</span>
-<span class="c1"># Replace the value below with the field name that you want to sum up.</span>
-<span class="c1"># For example, if the # field that you want to sum up is called &#39;VALUES&#39;, then</span>
-<span class="c1"># change the line below to _SUM_FIELD = &#39;VALUES&#39;</span>
-<span class="n">_SUM_FIELD</span> <span class="o">=</span> <span class="s1">&#39;POP_EST&#39;</span>
-
-<span class="c1"># Names of the new fields to be added to the layer</span>
-<span class="n">_NEW_NEIGHBORS_FIELD</span> <span class="o">=</span> <span class="s1">&#39;NEIGHBORS&#39;</span>
-<span class="n">_NEW_SUM_FIELD</span> <span class="o">=</span> <span class="s1">&#39;SUM&#39;</span>
-
-<span class="n">layer</span> <span class="o">=</span> <span class="n">iface</span><span class="o">.</span><span class="n">activeLayer</span><span class="p">()</span>
-
-<span class="c1"># Create 2 new fields in the layer that will hold the list of neighbors and sum</span>
-<span class="c1"># of the chosen field.</span>
-<span class="n">layer</span><span class="o">.</span><span class="n">startEditing</span><span class="p">()</span>
-<span class="n">layer</span><span class="o">.</span><span class="n">dataProvider</span><span class="p">()</span><span class="o">.</span><span class="n">addAttributes</span><span class="p">(</span>
-        <span class="p">[</span><span class="n">QgsField</span><span class="p">(</span><span class="n">_NEW_NEIGHBORS_FIELD</span><span class="p">,</span> <span class="n">QVariant</span><span class="o">.</span><span class="n">String</span><span class="p">),</span>
-         <span class="n">QgsField</span><span class="p">(</span><span class="n">_NEW_SUM_FIELD</span><span class="p">,</span> <span class="n">QVariant</span><span class="o">.</span><span class="n">Int</span><span class="p">)])</span>
-<span class="n">layer</span><span class="o">.</span><span class="n">updateFields</span><span class="p">()</span>
-<span class="c1"># Create a dictionary of all features</span>
-<span class="n">feature_dict</span> <span class="o">=</span> <span class="p">{</span><span class="n">f</span><span class="o">.</span><span class="n">id</span><span class="p">():</span> <span class="n">f</span> <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">layer</span><span class="o">.</span><span class="n">getFeatures</span><span class="p">()}</span>
-
-<span class="c1"># Build a spatial index</span>
-<span class="n">index</span> <span class="o">=</span> <span class="n">QgsSpatialIndex</span><span class="p">()</span>
-<span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">feature_dict</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
-    <span class="n">index</span><span class="o">.</span><span class="n">insertFeature</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
-
-<span class="c1"># Loop through all features and find features that touch each feature</span>
-<span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">feature_dict</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
-    <span class="nb">print</span> <span class="s1">&#39;Working on </span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">f</span><span class="p">[</span><span class="n">_NAME_FIELD</span><span class="p">]</span>
-    <span class="n">geom</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">geometry</span><span class="p">()</span>
-    <span class="c1"># Find all features that intersect the bounding box of the current feature.</span>
-    <span class="c1"># We use spatial index to find the features intersecting the bounding box</span>
-    <span class="c1"># of the current feature. This will narrow down the features that we need</span>
-    <span class="c1"># to check neighboring features.</span>
-    <span class="n">intersecting_ids</span> <span class="o">=</span> <span class="n">index</span><span class="o">.</span><span class="n">intersects</span><span class="p">(</span><span class="n">geom</span><span class="o">.</span><span class="n">boundingBox</span><span class="p">())</span>
-    <span class="c1"># Initalize neighbors list and sum</span>
-    <span class="n">neighbors</span> <span class="o">=</span> <span class="p">[]</span>
-    <span class="n">neighbors_sum</span> <span class="o">=</span> <span class="mi">0</span>
-    <span class="k">for</span> <span class="n">intersecting_id</span> <span class="ow">in</span> <span class="n">intersecting_ids</span><span class="p">:</span>
-        <span class="c1"># Look up the feature from the dictionary</span>
-        <span class="n">intersecting_f</span> <span class="o">=</span> <span class="n">feature_dict</span><span class="p">[</span><span class="n">intersecting_id</span><span class="p">]</span>
-
-        <span class="c1"># For our purpose we consider a feature as &#39;neighbor&#39; if it touches or</span>
-        <span class="c1"># intersects a feature. We use the &#39;disjoint&#39; predicate to satisfy</span>
-        <span class="c1"># these conditions. So if a feature is not disjoint, it is a neighbor.</span>
-        <span class="k">if</span> <span class="p">(</span><span class="n">f</span> <span class="o">!=</span> <span class="n">intersecting_f</span> <span class="ow">and</span>
-            <span class="ow">not</span> <span class="n">intersecting_f</span><span class="o">.</span><span class="n">geometry</span><span class="p">()</span><span class="o">.</span><span class="n">disjoint</span><span class="p">(</span><span class="n">geom</span><span class="p">)):</span>
-            <span class="n">neighbors</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">intersecting_f</span><span class="p">[</span><span class="n">_NAME_FIELD</span><span class="p">])</span>
-            <span class="n">neighbors_sum</span> <span class="o">+=</span> <span class="n">intersecting_f</span><span class="p">[</span><span class="n">_SUM_FIELD</span><span class="p">]</span>
-    <span class="n">f</span><span class="p">[</span><span class="n">_NEW_NEIGHBORS_FIELD</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;,&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">neighbors</span><span class="p">)</span>
-    <span class="n">f</span><span class="p">[</span><span class="n">_NEW_SUM_FIELD</span><span class="p">]</span> <span class="o">=</span> <span class="n">neighbors_sum</span>
-    <span class="c1"># Update the layer with new attribute values.</span>
-    <span class="n">layer</span><span class="o">.</span><span class="n">updateFeature</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
-
-<span class="n">layer</span><span class="o">.</span><span class="n">commitChanges</span><span class="p">()</span>
-<span class="nb">print</span> <span class="s1">&#39;Processing complete.&#39;</span>
-</pre></div>
-</div>
-</section>
 </section>
 
 
 
-
-
-  <!-- Comment Section Powered by utterances -->
-<div id="comments">
-  <hr />
-  <p>If you want to give feedback or share your experience with this tutorial, please comment below. (requires GitHub account)</p>
-<script src="https://utteranc.es/client.js"
-        repo="spatialthoughts/qgis-tutorials"
-        issue-term="title"
-        label="comment"
-        theme="github-light"
-        crossorigin="anonymous"
-        async>
-</script>
-</div>
+<!-- Turn on comments on only newer tutorials having 3/ in URL -->
 
 
     </div>
@@ -353,7 +205,7 @@
     </p>
     <p>
         &copy; Copyright 2025, Ujaval Gandhi.<br/>
-      最後更新於 5月 20, 2025。<br/>
+      最後更新於 5月 24, 2025。<br/>
       Created using <a href="http://sphinx-doc.org/">Sphinx</a> 7.2.6.<br/>
     </p>
   </div>

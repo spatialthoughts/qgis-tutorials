@@ -183,133 +183,13 @@
 <h1>شروع برنامه نویسی پایتون<a class="headerlink" href="#getting-started-with-python-programming" title="Link to this heading">¶</a></h1>
 <div class="admonition warning">
 <p class="admonition-title">هشدار</p>
-<p>نسخه جدید این آموزش <a class="reference internal" href="3/getting_started_with_pyqgis.html"><span class="doc">شروع برنامه نویسی پایتون (QGIS3)</span></a> در دسترس است</p>
+<p>This tutorial is now obsolete. A new version of this tutorial is available at <a class="reference internal" href="3/getting_started_with_pyqgis.html"><span class="doc">شروع برنامه نویسی پایتون (QGIS3)</span></a></p>
 </div>
-<p>QGIS دارای یک رابط برنامه نویسی قدرتمند است که به شما امکان می دهد عملکرد اصلی نرم افزار را توسعه دهید و همچنین اسکریپت ها را برای خودکار کردن وظایف خود بنویسید. QGIS از زبان محبوب اسکریپت نویسی پایتون پشتیبانی می کند. حتی اگر یک مبتدی باشید ، یادگیری کمی از رابط برنامه نویسی Python و QGIS به شما این امکان می دهد که در کار خود بسیار عملکرد بهتری داشته باشید. این آموزش هیچ دانش برنامه نویسی قبلی را در نظر نگرفته است و هدف آن معرفی مقدمه نویسی پایتون در QGIS (PyQGIS) است.</p>
-<section id="overview-of-the-task">
-<h2>نمای کلی تمرین<a class="headerlink" href="#overview-of-the-task" title="Link to this heading">¶</a></h2>
-<p>ما یک لایه نقطه برداری فرودگاههای اصلی بارگیری خواهیم کرد و از اسکریپت پایتون برای ایجاد یک پرونده متنی با نام فرودگاه ، کد فرودگاه ، طول و عرض جغرافیایی برای هر یک از فرودگاههای موجود در لایه استفاده خواهیم کرد.</p>
-</section>
-<section id="get-the-data">
-<h2>اخذ داده<a class="headerlink" href="#get-the-data" title="Link to this heading">¶</a></h2>
-<p>ما داده های  <a class="reference external" href="http://www.naturalearthdata.com/downloads/10m-cultural-vectors/airports/">Airports</a> از Natural Earth  استفاده می کنیم.</p>
-<p>شیب فایل <a class="reference external" href="http://www.naturalearthdata.com/http//www.naturalearthdata.com/download/10m/cultural/ne_10m_airports.zip">Airports shapefile</a> را دانلود کنید.</p>
-<p>منابع داده  <a class="reference internal" href="credits.html#naturalearth" id="id1"><span>[NATURALEARTH]</span></a></p>
-</section>
-<section id="procedure">
-<h2>مراحل<a class="headerlink" href="#procedure" title="Link to this heading">¶</a></h2>
-<ol class="arabic simple">
-<li><p>در QGIS به قسمت منوی  <span class="menuselection">Layers ‣ Add Vector Layer</span> بروید. به فایل بارگیری شده <code class="docutils literal notranslate"><span class="pre">ne_10m_airports.zip</span></code> بروید و بر دکمه <span class="guilabel">Open</span> کلیک کنید. لایه &quot;ne_10m_airports.shp&quot; را انتخاب کرده و روی <a href="#id1"><span class="problematic" id="id2">``</span></a>ne_10m_airports.shp``کلیک کنید.</p></li>
-</ol>
-<img alt="../_images/1198.png" class="align-center" src="../_images/1198.png" />
-<ol class="arabic simple" start="2">
-<li><p>You will see the <code class="docutils literal notranslate"><span class="pre">ne_10m_airports</span></code> layer loaded in QGIS.</p></li>
-</ol>
-<img alt="../_images/2159.png" class="align-center" src="../_images/2159.png" />
-<ol class="arabic simple" start="3">
-<li><p>ابزار  <span class="guilabel">Identify</span>  را انتخاب کرده و بر روی هر یک از نقاط کلیک کنید تا مشخصات موجود بررسی شود. خواهید دید که نام فرودگاه و کد 3 رقمی آن به ترتیب در عارضه های``name``  , <code class="docutils literal notranslate"><span class="pre">iata_code</span></code>   موجود است.</p></li>
-</ol>
-<img alt="../_images/398.png" class="align-center" src="../_images/398.png" />
-<ol class="arabic simple" start="4">
-<li><p>QGIS یک کنسول داخلی در اختیار شما قرار می دهد که در آن می توانید دستورات python را تایپ کرده و نتیجه بگیرید. این کنسول یک روش عالی برای یادگیری اسکریپت نویسی و همچنین انجام پردازش سریع داده است.  کنسول پایتون  <span class="guilabel">Python Console</span>  با رفتن به :menuselection:<a href="#id1"><span class="problematic" id="id2">`</span></a>Plugins --&gt; Python Console  باز کنید.</p></li>
-</ol>
-<img alt="../_images/464.png" class="align-center" src="../_images/464.png" />
-<ol class="arabic simple" start="5">
-<li><p>یک پانل جدید را در پایین بوم QGIS مشاهده خواهید کرد. در زیر یک دستور مانند``&gt;&gt;&gt;`` مشاهده خواهید کرد که می توانید دستورات را تایپ کنید. برای تعامل با محیط QGIS ، باید از متغیر <code class="docutils literal notranslate"><span class="pre">iface</span></code>  استفاده کنیم. برای دسترسی به لایه فعال فعلی در QGIS ، می توانید موارد زیر را تایپ کرده و کلید  <kbd class="kbd docutils literal notranslate">Enter</kbd> از  صفحه کلید را فشار دهید. این دستور ارجاع به لایه بارگیری شده در حال حاضر را می گیرد و آن را در متغیر <code class="docutils literal notranslate"><span class="pre">layer</span></code>  ذخیره می کند.</p></li>
-</ol>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">layer</span> <span class="o">=</span> <span class="n">iface</span><span class="o">.</span><span class="n">activeLayer</span><span class="p">()</span>
-</pre></div>
-</div>
-<img alt="../_images/557.png" class="align-center" src="../_images/557.png" />
-<ol class="arabic simple" start="6">
-<li><p>یک تابع مفید به نام  <code class="docutils literal notranslate"><span class="pre">()dir</span></code>  در پایتون وجود دارد که تمام توابع موجود را برای هر شی به شما نشان می دهد. این مورد زمانی مفید است که مطمئن نیستید چه توابع برای شیء موجود هستند. دستور زیر را اجرا کنید تا ببینید چه کارهایی می توانیم روی متغیر لایه انجام دهیم.</p></li>
-</ol>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nb">dir</span><span class="p">(</span><span class="n">layer</span><span class="p">)</span>
-</pre></div>
-</div>
-<img alt="../_images/655.png" class="align-center" src="../_images/655.png" />
-<ol class="arabic simple" start="7">
-<li><p>لیست طولانی از توابع موجود را مشاهده خواهید کرد. در حال حاضر ، ما از تابعی به نام &quot;()getFeatures &quot; استفاده خواهیم کرد که به شما ارجاع به تمام  عارضه های یک لایه می دهد. در اینجا،   عارضه نقطه ای است که یک فرودگاه را نشان می دهد. برای تکرار بر عوارض  لایه فعلی می توانید دستور زیر را تایپ کنید. قبل از تایپ کردن خط دوم ، حتماً 2 فاصله اضافه کنید.</p></li>
-</ol>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">layer</span><span class="o">.</span><span class="n">getFeatures</span><span class="p">():</span>
-  <span class="nb">print</span> <span class="n">f</span>
-</pre></div>
-</div>
-<img alt="../_images/755.png" class="align-center" src="../_images/755.png" />
-<ol class="arabic simple" start="8">
-<li><p>همانطور که در خروجی مشاهده خواهید کرد ، هر خط حاوی ارجاع به یک ویژگی درون لایه است. ارجاع به این ویژگی در متغیر &quot;f&quot; ذخیره می شود. برای دستیابی به صفات هر عراضه می توانیم از متغیر &quot;f&quot; استفاده کنیم. برای چاپ &quot;نام&quot; و &quot;iata_code&quot; برای هر عارضه فرودگاه ، موارد زیر را تایپ کنید.</p></li>
-</ol>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">layer</span><span class="o">.</span><span class="n">getFeatures</span><span class="p">():</span>
-  <span class="nb">print</span> <span class="n">f</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">],</span> <span class="n">f</span><span class="p">[</span><span class="s1">&#39;iata_code&#39;</span><span class="p">]</span>
-</pre></div>
-</div>
-<img alt="../_images/854.png" class="align-center" src="../_images/854.png" />
-<ol class="arabic simple" start="9">
-<li><p>بنابراین اکنون می دانید که چگونه می توانید به خصوصیات توصیفی  هر عراضه در یک لایه با  برنامه ای دسترسی پیدا کنید. حال ، بیایید ببینیم که چگونه می توانیم به مختصات عارضه دسترسی پیدا کنیم. با فراخوانی تابع &quot;()geometry &quot; می توان به مختصات یک عارضه برداری دسترسی پیدا کرد. این تابع یک شی ء هندسی را برمی گرداند که می توانیم آن را در متغیر &quot;geom&quot; ذخیره کنیم. برای بدست آوردن مختصات x و y  نقطه می توانید تابع <code class="docutils literal notranslate"><span class="pre">()asPoint``را</span> <span class="pre">بر</span> <span class="pre">روی</span> <span class="pre">شی</span> <span class="pre">ء</span> <span class="pre">هندسی</span> <span class="pre">اجرا</span> <span class="pre">کنید.</span> <span class="pre">اگر</span> <span class="pre">عار</span> <span class="pre">ضه</span> <span class="pre">شما</span> <span class="pre">یک</span> <span class="pre">خط</span> <span class="pre">یا</span> <span class="pre">چند</span> <span class="pre">ضلعی</span> <span class="pre">باشد</span> <span class="pre">می</span> <span class="pre">توانید</span> <span class="pre">از</span> <span class="pre">توابع``()asPolyline</span></code> یا  <code class="docutils literal notranslate"><span class="pre">()asPolygon</span></code> استفاده کنید. کد زیر را در سریع تایپ کنید و برای دیدن مختصات x و y هر عارضه بر دکمه  <kbd class="kbd docutils literal notranslate">Enter</kbd> فشار دهید.</p></li>
-</ol>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">layer</span><span class="o">.</span><span class="n">getFeatures</span><span class="p">():</span>
-  <span class="n">geom</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">geometry</span><span class="p">()</span>
-  <span class="nb">print</span> <span class="n">geom</span><span class="o">.</span><span class="n">asPoint</span><span class="p">()</span>
-</pre></div>
-</div>
-<img alt="../_images/954.png" class="align-center" src="../_images/954.png" />
-<ol class="arabic simple" start="10">
-<li><p>اگر بخواهیم فقط مختصات &quot;x&quot; ویژگی را بدست آوریم چه می شود؟ می توانید تابع``()x`` را روی شیء  نقطه ای  فراخوانی کرده و مختصات x را بدست آورید.</p></li>
-</ol>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">layer</span><span class="o">.</span><span class="n">getFeatures</span><span class="p">():</span>
-  <span class="n">geom</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">geometry</span><span class="p">()</span>
-  <span class="nb">print</span> <span class="n">geom</span><span class="o">.</span><span class="n">asPoint</span><span class="p">()</span><span class="o">.</span><span class="n">x</span><span class="p">()</span>
-</pre></div>
-</div>
-<img alt="../_images/1061.png" class="align-center" src="../_images/1061.png" />
-<ol class="arabic simple" start="11">
-<li><p>اکنون ما تمام قطعاتی را داریم که می توانیم آنها را بهم متصل کنیم تا خروجی مورد نظر خود را فراهم کنیم. کد زیر را تایپ کنید تا نام،  کد یاتا، طول جغرافیایی  و عرض جغرافیایی هر یک از عارضه های فرودگاه چاپ شود. علامت های <code class="docutils literal notranslate"><span class="pre">s%</span></code>  و <code class="docutils literal notranslate"><span class="pre">f%</span></code>   روشهایی برای قالب بندی متغیرهای رشته و اعداد هستند.</p></li>
-</ol>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">layer</span><span class="o">.</span><span class="n">getFeatures</span><span class="p">():</span>
-  <span class="n">geom</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">geometry</span><span class="p">()</span>
-  <span class="nb">print</span> <span class="s1">&#39;</span><span class="si">%s</span><span class="s1">, </span><span class="si">%s</span><span class="s1">, </span><span class="si">%f</span><span class="s1">, </span><span class="si">%f</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">f</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">],</span> <span class="n">f</span><span class="p">[</span><span class="s1">&#39;iata_code&#39;</span><span class="p">],</span>
-         <span class="n">geom</span><span class="o">.</span><span class="n">asPoint</span><span class="p">()</span><span class="o">.</span><span class="n">y</span><span class="p">(),</span> <span class="n">geom</span><span class="o">.</span><span class="n">asPoint</span><span class="p">()</span><span class="o">.</span><span class="n">x</span><span class="p">())</span>
-</pre></div>
-</div>
-<img alt="../_images/1199.png" class="align-center" src="../_images/1199.png" />
-<ol class="arabic simple" start="12">
-<li><p>خروجی چاپ شده روی کنسول را مشاهده می کنید. یک روش مفیدتر برای ذخیره خروجی در یک فایل است. برای ایجاد پرونده می توانید کد زیر را تایپ کنید و خروجی را در آنجا بنویسید. مسیر فایل را با یک مسیر روی سیستم خود جایگزین کنید. توجه داشته باشید که &quot;n&quot; را در انتهای قالب بندی خط خود اضافه می کنیم. این کار برای اضافه کردن یک خط جدید بعد از اضافه کردن داده ها برای هر عارضه است. همچنین باید خط <a href="#id1"><span class="problematic" id="id2">``</span></a>unicode_line = line.encode('utf-8')` را یادداشت کنید. از آنجا که لایه ما شامل برخی از عارضه ها با نویسه های یونیکد است ، نمی توانیم آن را به سادگی در یک فایل متنی بنویسیم. ما متن را با استفاده از رمزگذاری UTF-8 رمزگذاری می کنیم و سپس در فایل متنی می نویسیم.</p></li>
-</ol>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">output_file</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;c:/Users/Ujaval/Desktop/airports.txt&#39;</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">)</span>
-<span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">layer</span><span class="o">.</span><span class="n">getFeatures</span><span class="p">():</span>
-  <span class="n">geom</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">geometry</span><span class="p">()</span>
-  <span class="n">line</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="si">%s</span><span class="s1">, </span><span class="si">%s</span><span class="s1">, </span><span class="si">%f</span><span class="s1">, </span><span class="si">%f</span><span class="se">\n</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">f</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">],</span> <span class="n">f</span><span class="p">[</span><span class="s1">&#39;iata_code&#39;</span><span class="p">],</span>
-          <span class="n">geom</span><span class="o">.</span><span class="n">asPoint</span><span class="p">()</span><span class="o">.</span><span class="n">y</span><span class="p">(),</span> <span class="n">geom</span><span class="o">.</span><span class="n">asPoint</span><span class="p">()</span><span class="o">.</span><span class="n">x</span><span class="p">())</span>
-  <span class="n">unicode_line</span> <span class="o">=</span> <span class="n">line</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s1">&#39;utf-8&#39;</span><span class="p">)</span>
-  <span class="n">output_file</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">unicode_line</span><span class="p">)</span>
-<span class="n">output_file</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
-</pre></div>
-</div>
-<img alt="../_images/1263.png" class="align-center" src="../_images/1263.png" />
-<ol class="arabic simple" start="13">
-<li><p>می توانید به محل فایل خروجی که تعیین کرده اید بروید و فایل متنی را باز کنید. شما داده های مربوط به فایل بردرای فرودگاه ها را که با استفاده از برنامه نویسی پایتون استخراج کردیم ، مشاهده خواهید کرد.</p></li>
-</ol>
-<img alt="../_images/1361.png" class="align-center" src="../_images/1361.png" />
-</section>
 </section>
 
 
 
-
-
-  <!-- Comment Section Powered by utterances -->
-<div id="comments">
-  <hr />
-  <p>If you want to give feedback or share your experience with this tutorial, please comment below. (requires GitHub account)</p>
-<script src="https://utteranc.es/client.js"
-        repo="spatialthoughts/qgis-tutorials"
-        issue-term="title"
-        label="comment"
-        theme="github-light"
-        crossorigin="anonymous"
-        async>
-</script>
-</div>
+<!-- Turn on comments on only newer tutorials having 3/ in URL -->
 
 
     </div>
@@ -325,7 +205,7 @@
     </p>
     <p>
         &copy; Copyright 2025, Ujaval Gandhi.<br/>
-      آخرین بروز رسانی در مه 20, 2025 .<br/>
+      آخرین بروز رسانی در مه 24, 2025 .<br/>
       Created using <a href="http://sphinx-doc.org/">Sphinx</a> 7.2.6.<br/>
     </p>
   </div>

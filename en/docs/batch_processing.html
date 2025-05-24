@@ -189,182 +189,11 @@
 <p class="admonition-title">Warning</p>
 <p>A new version of this tutorial is available at <a class="reference internal" href="3/batch_processing.html"><span class="doc">Batch Processing using Processing Framework (QGIS3)</span></a></p>
 </div>
-<p>QGIS 2.0 introduced a new concept called <strong>Processing Framework</strong>. Previously
-known as <strong>Sextante</strong>, the Processing Framework provides an environment within
-QGIS to run native and third-party algorithms for processing data. It contains
-a nice batch processing interface that allows one to execute an algorithm on
-several layers easily. Batch processing is a useful tool that can save manual
-effort and help you automate repetitive tasks.</p>
-<section id="overview-of-the-task">
-<h2>Overview of the task<a class="headerlink" href="#overview-of-the-task" title="Link to this heading">¶</a></h2>
-<p>We will take several global vector layers and clip them to the extent of Africa
-in a single batch command.</p>
-<section id="other-skills-you-will-learn">
-<h3>Other skills you will learn<a class="headerlink" href="#other-skills-you-will-learn" title="Link to this heading">¶</a></h3>
-<ul class="simple">
-<li><p>Dissolve (merge) polygons from a layer that have the same attribute.</p></li>
-</ul>
-</section>
-</section>
-<section id="get-the-data">
-<h2>Get the data<a class="headerlink" href="#get-the-data" title="Link to this heading">¶</a></h2>
-<p><a class="reference external" href="http://naturalearthdata.com">Natural Earth</a> has several global vector
-layers. Download the following layers</p>
-<ul class="simple">
-<li><p><a class="reference external" href="http://www.naturalearthdata.com/http//www.naturalearthdata.com/download/10m/cultural/ne_10m_admin_0_countries.zip">Admin 0 - Countries</a></p></li>
-<li><p><a class="reference external" href="http://www.naturalearthdata.com/http//www.naturalearthdata.com/download/10m/cultural/ne_10m_railroads.zip">Railroads</a></p></li>
-<li><p><a class="reference external" href="http://www.naturalearthdata.com/http//www.naturalearthdata.com/download/10m/cultural/ne_10m_ports.zip">Ports</a></p></li>
-<li><p><a class="reference external" href="http://www.naturalearthdata.com/http//www.naturalearthdata.com/download/10m/cultural/ne_10m_airports.zip">Airports</a></p></li>
-</ul>
-<p>Once downloaded, unzip and extract all the shapefiles in a single folder.</p>
-<p>Data Source: <a class="reference internal" href="credits.html#naturalearth" id="id1"><span>[NATURALEARTH]</span></a></p>
-</section>
-<section id="procedure">
-<h2>Procedure<a class="headerlink" href="#procedure" title="Link to this heading">¶</a></h2>
-<ol class="arabic simple">
-<li><p>Go to <span class="menuselection">Layer ‣ Add Vector Layer</span>.</p></li>
-</ol>
-<img alt="../_images/1179.png" class="align-center" src="../_images/1179.png" />
-<ol class="arabic simple" start="2">
-<li><p>Browse to the downloaded Admin 0 Countries shapefile
-<code class="docutils literal notranslate"><span class="pre">ne_10m_admin_0_countries.shp</span></code> and click <span class="guilabel">Open</span>.</p></li>
-</ol>
-<img alt="../_images/2145.png" class="align-center" src="../_images/2145.png" />
-<ol class="arabic simple" start="3">
-<li><p>As our task is to clip the global layers to the boundary of Africa, we need
-to first prepare a layer containg a polygon for the entire continent. The
-countries layer has an attribute called <strong>CONTINENT</strong>. We can use a
-geoprocessing concept called <em>Dissolve</em> to merge all countries that have the
-same continent value and merge them to a single polygon.</p></li>
-</ol>
-<img alt="../_images/384.png" class="align-center" src="../_images/384.png" />
-<ol class="arabic simple" start="4">
-<li><p>Open the <span class="guilabel">Dissolve</span> tool from <span class="menuselection">Vector ‣
-Geoprocessing Tools ‣ Dissolve</span>.</p></li>
-</ol>
-<img alt="../_images/453.png" class="align-center" src="../_images/453.png" />
-<ol class="arabic simple" start="5">
-<li><p>Select <code class="docutils literal notranslate"><span class="pre">ne_10m_admin_0_countries</span></code> as the <span class="guilabel">Input vector layer</span>.
-The <span class="guilabel">Dissolve field</span> would be <code class="docutils literal notranslate"><span class="pre">CONTINENT</span></code>. Name the output file
-as <code class="docutils literal notranslate"><span class="pre">continents.shp</span></code> and  check the box next to <span class="guilabel">Add result to
-convas</span>.</p></li>
-</ol>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>If you want to merge <strong>ALL</strong> polygons regardless of their attributes, you
-can select <span class="guilabel">– Dissolve All –</span> as the <span class="guilabel">Dissolve field</span>.
-This will combine all polygons in the layer and give you a single aggregate
-polygon.</p>
-</div>
-<img alt="../_images/546.png" class="align-center" src="../_images/546.png" />
-<ol class="arabic simple" start="6">
-<li><p>The dissolve processing may take a while. Once the process finishes, you
-will see the new <code class="docutils literal notranslate"><span class="pre">continent</span></code> layer added to QGIS. Use the
-<span class="guilabel">Select Single Feature</span> tool from the toolbar and click on Africa
-to select the polygon representing the continent.</p></li>
-</ol>
-<img alt="../_images/645.png" class="align-center" src="../_images/645.png" />
-<ol class="arabic simple" start="7">
-<li><p>Right-click the <code class="docutils literal notranslate"><span class="pre">continents</span></code> layer and select <span class="guilabel">Save Selection
-As…</span>.</p></li>
-</ol>
-<img alt="../_images/745.png" class="align-center" src="../_images/745.png" />
-<ol class="arabic simple" start="8">
-<li><p>Name the output file as <code class="docutils literal notranslate"><span class="pre">africa.shp</span></code>. Since we are only interested in the
-shape of the continent and not any attributes, you may check the
-<span class="guilabel">Skip attribute creation</span>. Make sure the <span class="guilabel">Add saved file
-to map</span> box is checked and click <span class="guilabel">OK</span>.</p></li>
-</ol>
-<img alt="../_images/844.png" class="align-center" src="../_images/844.png" />
-<ol class="arabic simple" start="9">
-<li><p>Now you will have the <code class="docutils literal notranslate"><span class="pre">africa</span></code> layer loaded in QGIS containing a single
-polygon for the entire continent. Now, it’s time to start our batch clip
-process. Open <span class="menuselection">Processing ‣ Toolbox</span>.</p></li>
-</ol>
-<img alt="../_images/945.png" class="align-center" src="../_images/945.png" />
-<ol class="arabic simple" start="10">
-<li><p>Browse all available algorithms and find the <span class="guilabel">Clip</span> tool from
-<span class="menuselection">QGIS geoalgorithms ‣ Vector overlay tools ‣ Clip</span>. You
-may also use the <span class="guilabel">Search</span> box to easily find the algorithm as
-well.</p></li>
-</ol>
-<img alt="../_images/1052.png" class="align-center" src="../_images/1052.png" />
-<ol class="arabic simple" start="11">
-<li><p>Right-click the <span class="guilabel">Clip</span> algorithm and select <span class="guilabel">Execure as
-batch process</span>.</p></li>
-</ol>
-<img alt="../_images/1180.png" class="align-center" src="../_images/1180.png" />
-<ol class="arabic simple" start="12">
-<li><p>In the <span class="guilabel">Batch Processing</span> dialog, the first tab is
-<span class="guilabel">Parameters</span> where we define out inputs. Click the
-<span class="guilabel">…</span> next to the first row in the <span class="guilabel">Input layer</span> column.</p></li>
-</ol>
-<img alt="../_images/1255.png" class="align-center" src="../_images/1255.png" />
-<ol class="arabic simple" start="13">
-<li><p>Browse to the directory containing the global transportation layers that
-you had downloaded. Hold the <kbd class="kbd docutils literal notranslate">Ctrl</kbd> key and select all the layers that
-you want to clip. You may also use <kbd class="kbd docutils literal notranslate">Shift</kbd> or <kbd class="kbd compound docutils literal notranslate"><kbd class="kbd docutils literal notranslate">Ctrl</kbd>-<kbd class="kbd docutils literal notranslate">A</kbd></kbd> to make
-multiple selection. Click <span class="guilabel">Open</span>.</p></li>
-</ol>
-<img alt="../_images/1353.png" class="align-center" src="../_images/1353.png" />
-<ol class="arabic simple" start="14">
-<li><p>You will notice that the <span class="guilabel">Input layer</span> columns will be
-auto-populated with all layers you had selected. You may use <span class="guilabel">Add
-row</span> button to add more rows and define more inputs. Next, we need to
-select the layer containing the boundary to clip our input layers. Click the
-<span class="guilabel">…</span> button for the first row and add the <code class="docutils literal notranslate"><span class="pre">africa.shp</span></code>
-<span class="guilabel">Clip layer</span>. Since the clip layer is the same for all our inputs,
-you can double-click the column header <span class="guilabel">Clip layer</span> and the same
-layer will be auto-filled for all the rows. Next, we need to define our
-outputs.  Click the <span class="guilabel">…</span> buton next to the first row in the
-<span class="guilabel">Clipped</span> column.</p></li>
-</ol>
-<img alt="../_images/1449.png" class="align-center" src="../_images/1449.png" />
-<ol class="arabic simple" start="15">
-<li><p>Browse the the directory where you want your output layers. Type the
-filename as <code class="docutils literal notranslate"><span class="pre">clipped_</span></code> and click <span class="guilabel">Save</span>.</p></li>
-</ol>
-<img alt="../_images/1543.png" class="align-center" src="../_images/1543.png" />
-<ol class="arabic simple" start="16">
-<li><p>You will see a new <span class="guilabel">Autofill settings</span> dialog pop up. Select
-<span class="guilabel">Fill with parameter values</span> as the <span class="guilabel">Autofill mode</span>.
-Select <span class="guilabel">Parameter to use</span> as <span class="guilabel">Input layer</span>. This
-setting will add the input file name to the output along with the specified
-<code class="docutils literal notranslate"><span class="pre">output_</span></code> filename. This is important to ensure all the output files have
-unique names and they do not overwrite each other.</p></li>
-</ol>
-<img alt="../_images/1640.png" class="align-center" src="../_images/1640.png" />
-<ol class="arabic simple" start="17">
-<li><p>Now we are ready to start the batch procesing. Click <span class="guilabel">Run</span>.</p></li>
-</ol>
-<img alt="../_images/1739.png" class="align-center" src="../_images/1739.png" />
-<ol class="arabic simple" start="18">
-<li><p>The clip algorithm will run for each of the inputs and create output files
-are we have specified. Once the batch process finishes, you will see the
-layers added to QGIS canvas. As you will notice, all the global layers are
-properly clipped to the continent boundary that we had specified.</p></li>
-</ol>
-<img alt="../_images/1835.png" class="align-center" src="../_images/1835.png" />
-</section>
 </section>
 
 
 
-
-
-  <!-- Comment Section Powered by utterances -->
-<div id="comments">
-  <hr />
-  <p>If you want to give feedback or share your experience with this tutorial, please comment below. (requires GitHub account)</p>
-<script src="https://utteranc.es/client.js"
-        repo="spatialthoughts/qgis-tutorials"
-        issue-term="title"
-        label="comment"
-        theme="github-light"
-        crossorigin="anonymous"
-        async>
-</script>
-</div>
+<!-- Turn on comments on only newer tutorials having 3/ in URL -->
 
 
     </div>
@@ -380,7 +209,7 @@ properly clipped to the continent boundary that we had specified.</p></li>
     </p>
     <p>
         &copy; Copyright 2025, Ujaval Gandhi.<br/>
-      Last updated on May 20, 2025.<br/>
+      Last updated on May 24, 2025.<br/>
       Created using <a href="http://sphinx-doc.org/">Sphinx</a> 7.2.6.<br/>
     </p>
   </div>

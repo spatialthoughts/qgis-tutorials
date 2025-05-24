@@ -183,191 +183,13 @@
 <h1>利用處理建模自動執行複雜的工作流程<a class="headerlink" href="#automating-complex-workflows-using-processing-modeler" title="Link to this heading">¶</a></h1>
 <div class="admonition warning">
 <p class="admonition-title">警告</p>
-<p>本教學已有新的版本，請前往 <a class="reference internal" href="3/processing_graphical_modeler.html"><span class="doc">利用處理建模自動執行複雜的工作流程 (QGIS3)</span></a>。</p>
-</div>
-<p>GIS 操作通常包含許多步驟，上一步驟的輸出會被拿來當作下一步驟的輸入。如果你想改變輸入資料或調整操作中的參數，可能就需要手動把整套操作重新跑一遍。幸運的是，QGIS 有內建的圖形建模，可以用來定義操作中的各步驟，然後以非常簡單的方式執行。你也可以使用它來進行批次處理，把很多的輸入檔一次完成。</p>
-<section id="overview-of-the-task">
-<h2>內容說明<a class="headerlink" href="#overview-of-the-task" title="Link to this heading">¶</a></h2>
-<p>本教學示範如何製作建模，從「土地利用分類」的影像檔中取出特定的分類區域。</p>
-</section>
-<section id="get-the-data">
-<h2>取得資料<a class="headerlink" href="#get-the-data" title="Link to this heading">¶</a></h2>
-<p>我們要使用 <a class="reference external" href="http://www.landcover.org/">全球土地覆蓋設施（Global Land Cover Facility, GLCF）</a>提供的 <a class="reference external" href="http://www.landcover.org/data/lc/">標準 MODIS 全球拼合之土地覆蓋資料（Global Mosaics of the standard MODIS land cover type data ）</a>作為示例。</p>
-<div class="admonition warning">
-<p class="admonition-title">警告</p>
-<p>在 2018 年 12 月 31 日之後，GLCF 關閉了網站服務，因此本教學所需要的檔案已經無法存取了。</p>
-</div>
-<p>如果你想依照本教學的內容操作，可以直接用下面的連結下載這兩份資料集：</p>
-<p><a class="reference external" href="http://www.qgistutorials.com/downloads/LC_hd_global_2001.tif.gz">LC_hd_global_2001.tif.gz</a></p>
-<p><a class="reference external" href="http://www.qgistutorials.com/downloads/LC_hd_global_2012.tif.gz">LC_hd_global_2012.tif.gz</a></p>
-<p>資料來源 <a class="reference internal" href="credits.html#glcf-modis" id="id1"><span>[GLCF_MODIS]</span></a></p>
-</section>
-<section id="procedure">
-<h2>操作流程<a class="headerlink" href="#procedure" title="Link to this heading">¶</a></h2>
-<p>本練習的流程分成下列幾個步驟：</p>
-<ul class="simple">
-<li><p>對輸入的土地覆蓋分類影像進行 <code class="docutils literal notranslate"><span class="pre">Majority</span> <span class="pre">Filter</span></code> 操作，此操作會刪除獨立的像素點，達到降噪的效果。</p></li>
-<li><p>轉換輸出的影像檔至多邊形圖層。</p></li>
-<li><p>在多邊形圖層的屬性表格中查詢某個類別值，然後再為這個類別獨立製作新的向量圖層。</p></li>
-</ul>
-<p>下列步驟描繪出如何處理上述操作、擺到建模內，然後執行在下載的資料上。</p>
-<ol class="arabic simple">
-<li><p>打開 QGIS，選擇 <span class="menuselection">地理運算 ‣ 圖形建模器</span>。</p></li>
-</ol>
-<img alt="../_images/1272.png" class="align-center" src="../_images/1272.png" />
-<ol class="arabic simple" start="2">
-<li><p><span class="guilabel">圖形建模器</span> 的視窗分成左側的工具列和右側的主視窗。在左側的工具列中選擇 <span class="guilabel">輸入</span> 分頁，然後拖曳 <span class="guilabel">+ Raster layer</span> 到主視窗中。</p></li>
-</ol>
-<img alt="../_images/2175.png" class="align-center" src="../_images/2175.png" />
-<ol class="arabic simple" start="3">
-<li><p>有個 <span class="guilabel">參數定義</span> 的視窗會跳出來，在 <span class="guilabel">參數名稱</span> 欄輸入 <code class="docutils literal notranslate"><span class="pre">Input</span></code>，然後在 <span class="guilabel">必要（Required）</span> 欄位中選擇 <code class="docutils literal notranslate"><span class="pre">是</span></code>，按下 <span class="guilabel">確定</span>。</p></li>
-</ol>
-<img alt="../_images/3120.png" class="align-center" src="../_images/3120.png" />
-<ol class="arabic simple" start="4">
-<li><p>主視窗中這時會出現一個叫做 <span class="guilabel">Input</span> 的框框，它代表我們等一下要使用的土地覆蓋分類的影像資料。下一步是加上 <code class="docutils literal notranslate"><span class="pre">Majority</span> <span class="pre">filter</span></code> 的運算。點選左下角的 <span class="guilabel">演算法</span> 以切換左側分頁，然後使用搜尋功能找到此函數，它應該會放在 <span class="guilabel">SAGA</span> 的 Grid - Filter 分類中。把它拖到主視窗中。</p></li>
-</ol>
-<div class="admonition note">
-<p class="admonition-title">備註</p>
-<p>如果你找不到此運算法或其他在本教學中提到的運算法，你可能是用到了地理運算工具列的 <span class="guilabel">Simplified Interface</span>。在地理運算工具列的底部有個下拉式選單，在此改為 <span class="guilabel">Advanced Interface</span> 即可。</p>
-</div>
-<img alt="../_images/475.png" class="align-center" src="../_images/475.png" />
-<ol class="arabic simple" start="5">
-<li><p><span class="guilabel">Majority Filter</span> 的細節設定視窗會跳出，讓所有的選項保持預設，直接按下 <span class="guilabel">確定</span>。</p></li>
-</ol>
-<img alt="../_images/569.png" class="align-center" src="../_images/569.png" />
-<ol class="arabic simple" start="6">
-<li><p>現在主畫面又多了一個 <span class="guilabel">Majority Filter</span> 的框框，除此之外還有一條線與 <span class="guilabel">Input</span> 框連在一起，代表 <span class="guilabel">Majority Filter</span> 的輸入會使用 <span class="guilabel">Input</span> 框的影像資料。下一個步驟是把 Majority Filter 的輸出轉成向量檔，因此請尋找 <code class="docutils literal notranslate"><span class="pre">Polygonize</span> <span class="pre">(raster</span> <span class="pre">to</span> <span class="pre">vector)</span></code> 演算法，把他拖曳加到主畫面中。</p></li>
-</ol>
-<div class="admonition note">
-<p class="admonition-title">備註</p>
-<p>每個框都能夠以滑鼠左鑑拖曳移動到你想要的位置，使用滑鼠滾輪則可以縮放主畫面的窗框尺寸。</p>
-</div>
-<img alt="../_images/666.png" class="align-center" src="../_images/666.png" />
-<ol class="arabic simple" start="7">
-<li><p>在 <span class="guilabel">輸入圖層</span> 欄位中選擇「』Filtered Grid』 從演算法 『Majority Filter』」，然後按下 <span class="guilabel">確定</span>。</p></li>
-</ol>
-<img alt="../_images/765.png" class="align-center" src="../_images/765.png" />
-<ol class="arabic simple" start="8">
-<li><p>工作流程的最後一步驟是尋找類別值然後從符合的的圖徵中建立新圖層。找出 <code class="docutils literal notranslate"><span class="pre">Extract</span> <span class="pre">by</span> <span class="pre">attribute</span></code> 演算法然後拖曳到主畫面。</p></li>
-</ol>
-<img alt="../_images/863.png" class="align-center" src="../_images/863.png" />
-<ol class="arabic simple" start="9">
-<li><p>在 <span class="guilabel">輸入圖層</span> 中選擇「』Vectorized』 從演算法 『Polygonize (raster to vector)」。我們預計要取出代表農地的像素，(參考 <a class="reference external" href="http://www.landcover.org/data/lc/">像素值列表</a> 後可知)類別像素值是 12。<span class="guilabel">選取屬性</span> 欄位輸入 <code class="docutils literal notranslate"><span class="pre">DN</span></code>，<span class="guilabel">值</span> 輸入 <code class="docutils literal notranslate"><span class="pre">12</span></code>。由於運算的輸出就是我們的最終結果，這裡需要為輸出檔命名才行，因此在 <span class="guilabel">Output</span> 欄位中輸入 <code class="docutils literal notranslate"><span class="pre">vectorized_class</span></code>。</p></li>
-</ol>
-<img alt="../_images/962.png" class="align-center" src="../_images/962.png" />
-<ol class="arabic simple" start="10">
-<li><p>在 <span class="guilabel">模型名稱</span> 中輸入 <code class="docutils literal notranslate"><span class="pre">vectorize</span></code>，<span class="guilabel">群組名稱</span> 則輸入 <code class="docutils literal notranslate"><span class="pre">raster</span></code>，然後按下 <span class="guilabel">儲存</span> 鈕。</p></li>
-</ol>
-<img alt="../_images/1070.png" class="align-center" src="../_images/1070.png" />
-<ol class="arabic simple" start="11">
-<li><p>模型取名為 <code class="docutils literal notranslate"><span class="pre">vectorize</span></code> 然後按下 <span class="guilabel">存檔</span>。</p></li>
-</ol>
-<img alt="../_images/11108.png" class="align-center" src="../_images/11108.png" />
-<ol class="arabic simple" start="12">
-<li><p>現在是測試模型的時間了！打開 QGIS，選擇 <span class="menuselection">圖層 ‣ 加入圖層 ‣ 加入向量圖層</span>。</p></li>
-</ol>
-<img alt="../_images/1273.png" class="align-center" src="../_images/1273.png" />
-<ol class="arabic simple" start="13">
-<li><p>選擇剛下載的 <code class="docutils literal notranslate"><span class="pre">LC_hd_global_2001.tif.gz</span></code> 後按下 <span class="guilabel">開啟舊檔。影像載入後，選擇 :menuselection:`地理運算 –&gt; 工具箱</span>。</p></li>
-</ol>
-<img alt="../_images/1368.png" class="align-center" src="../_images/1368.png" />
-<ol class="arabic simple" start="14">
-<li><p>在 <span class="menuselection">模型 ‣ raster ‣ vectorize</span> 目錄下可以找到我們剛才建立的模型，點兩下即可執行此模型。</p></li>
-</ol>
-<img alt="../_images/1464.png" class="align-center" src="../_images/1464.png" />
-<ol class="arabic simple" start="15">
-<li><p><span class="guilabel">Input</span> 選擇 <code class="docutils literal notranslate"><span class="pre">LC_hd_global_2001</span></code>，然後按下 <span class="guilabel">Run</span>。</p></li>
-</ol>
-<img alt="../_images/1557.png" class="align-center" src="../_images/1557.png" />
-<ol class="arabic simple" start="16">
-<li><p>你會看到所有的步驟開始自動執行，無須人工指定任何東西。處理完畢後，新的圖層 <code class="docutils literal notranslate"><span class="pre">vectorized_class</span></code> 會加進 QGIS 中。讓我們再稍微改良一下此模型吧，在 <code class="docutils literal notranslate"><span class="pre">vectorize</span></code> 模型上按右鍵，選擇 <span class="guilabel">編輯模型</span>。</p></li>
-</ol>
-<img alt="../_images/1653.png" class="align-center" src="../_images/1653.png" />
-<ol class="arabic simple" start="17">
-<li><p>在步驟 12 中，我們指定了 <code class="docutils literal notranslate"><span class="pre">12</span></code> 當作類別值，但我們也可以設定為這個值是可以讓模型使用者自由更動的初始輸入值。因此，切換到 <span class="guilabel">輸入</span> 分頁，然後拖曳 <span class="guilabel">+ String</span> 到模型中。</p></li>
-</ol>
-<img alt="../_images/1751.png" class="align-center" src="../_images/1751.png" />
-<ol class="arabic simple" start="18">
-<li><p><span class="guilabel">參數名稱</span> 輸入 <code class="docutils literal notranslate"><span class="pre">Class</span></code>，<span class="guilabel">預設值</span> 輸入 <code class="docutils literal notranslate"><span class="pre">12</span></code>。</p></li>
-</ol>
-<img alt="../_images/1847.png" class="align-center" src="../_images/1847.png" />
-<ol class="arabic simple" start="19">
-<li><p>現在我們要更改 <code class="docutils literal notranslate"><span class="pre">Extract</span> <span class="pre">by</span> <span class="pre">attribute</span></code> 演算法，讓它能接受此輸入值，而不是原本內定的值。點選 <span class="guilabel">Extract by attribute</span> 框旁邊的 <span class="guilabel">編輯</span> 按鈕。</p></li>
-</ol>
-<img alt="../_images/1938.png" class="align-center" src="../_images/1938.png" />
-<ol class="arabic simple" start="20">
-<li><p>點選 <span class="guilabel">值</span> 欄位旁的下拉鈕然後選擇 <code class="docutils literal notranslate"><span class="pre">Class</span></code>，接著按下 <span class="guilabel">確定</span>。</p></li>
-</ol>
-<img alt="../_images/2033.png" class="align-center" src="../_images/2033.png" />
-<ol class="arabic simple" start="21">
-<li><p>你會看到 <span class="guilabel">Extract by attribute</span> 運算法這下就使用了 2 個輸入框。在建模視窗內，有個捷徑可以讓你快速測試執行此模型，請點選工具列上的 <span class="guilabel">執行模型</span> 按鈕。</p></li>
-</ol>
-<img alt="../_images/2176.png" class="align-center" src="../_images/2176.png" />
-<ol class="arabic simple" start="22">
-<li><p>注意現在模型視窗內多了一個稱為 <span class="guilabel">Class</span> 的欄位，請在其中輸入 <code class="docutils literal notranslate"><span class="pre">16</span></code>，然後點選 <span class="guilabel">Run</span>。</p></li>
-</ol>
-<img alt="../_images/2232.png" class="align-center" src="../_images/2232.png" />
-<ol class="arabic simple" start="23">
-<li><p>處理完成後，我們就完成了把所有像素值為 16 的點取出成為向量檔的工作了，而且這一切只需要點一下「執行」鈕即可。</p></li>
-</ol>
-<img alt="../_images/2329.png" class="align-center" src="../_images/2329.png" />
-<ol class="arabic simple" start="24">
-<li><p>現在模型已經完成，可以很簡單的使用在新的影像圖層上。點選 <span class="menuselection">圖層 ‣ 加入圖層 ‣ 加入向量圖層</span>，然後選擇 <code class="docutils literal notranslate"><span class="pre">LC_hd_global_2012.tif.gz</span></code> 檔案，然後在 <span class="guilabel">地理運算工具箱</span> 面板中選擇 <span class="guilabel">vectorize</span> 模型。</p></li>
-</ol>
-<img alt="../_images/2429.png" class="align-center" src="../_images/2429.png" />
-<ol class="arabic simple" start="25">
-<li><p><span class="guilabel">Input</span> 選擇 <code class="docutils literal notranslate"><span class="pre">LC_hd_global_2012</span></code>，然後按下 <span class="guilabel">Run</span>。</p></li>
-</ol>
-<img alt="../_images/2527.png" class="align-center" src="../_images/2527.png" />
-<ol class="arabic simple" start="26">
-<li><p>新的輸出檔載入後，就可以比較一下農地在 2001 和 2012 年間的改變情況了。</p></li>
-</ol>
-<img alt="../_images/2624.png" class="align-center" src="../_images/2624.png" />
-<ol class="arabic simple" start="27">
-<li><p>為你的模型加上說明文件一向是個好主意。處理建模具有內建的 <span class="guilabel">說明編輯器</span>，可以讓你直接在模型中加入一些使用提示。在 <code class="docutils literal notranslate"><span class="pre">vectorize</span></code> 模型上以右鍵點選進入 <span class="guilabel">編輯模型</span>。</p></li>
-</ol>
-<img alt="../_images/2724.png" class="align-center" src="../_images/2724.png" />
-<ol class="arabic simple" start="28">
-<li><p>按下工具列上的 <span class="guilabel">編輯模型說明</span> 鈕，</p></li>
-</ol>
-<img alt="../_images/2823.png" class="align-center" src="../_images/2823.png" />
-<ol class="arabic simple" start="29">
-<li><p>在 <span class="guilabel">說明編輯器</span> 視窗中，可以選取任何在 <span class="guilabel">選取欲編輯的元素</span> 欄位中出現的東西，然後在右側的 <span class="guilabel">元素描述</span> 中打上說明文字。按下 <span class="guilabel">確定</span> 後，說明文字就可以在你執行模型時出現的 <span class="guilabel">說明</span> 分頁中找到。</p></li>
-</ol>
-<img alt="../_images/2920.png" class="align-center" src="../_images/2920.png" />
-<p>模型讓你只需要定義你的流程一次，但是可以執行很多次，藉以省下不少時間。你甚至可以把它分享給其他使用者，模型的儲存位置是在 <code class="docutils literal notranslate"><span class="pre">.qgis2</span></code> 目錄底下，只要傳送 <code class="docutils literal notranslate"><span class="pre">.model</span></code> 檔案給其他人，然後再擺到正確的目錄下，它就會出現在 <span class="guilabel">地理運算工具箱</span> 中。模型存放目錄的絕對路徑依作業平台而異：(記得用你的使用者名稱換掉 <code class="docutils literal notranslate"><span class="pre">username</span></code>)</p>
-<p><strong>Windows</strong></p>
-<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>c:\Users\username\.qgis2\processing\models\
-</pre></div>
-</div>
-<p><strong>Mac</strong></p>
-<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>/Users/username/.qgis2/processing/models/
-</pre></div>
-</div>
-<p><strong>Linux</strong></p>
-<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>/home/username/.qgis2/processing/models/
-</pre></div>
+<p>This tutorial is now obsolete. A new version of this tutorial is available at <a class="reference internal" href="3/processing_graphical_modeler.html"><span class="doc">利用處理建模自動執行複雜的工作流程 (QGIS3)</span></a></p>
 </div>
 </section>
-</section>
 
 
 
-
-
-  <!-- Comment Section Powered by utterances -->
-<div id="comments">
-  <hr />
-  <p>If you want to give feedback or share your experience with this tutorial, please comment below. (requires GitHub account)</p>
-<script src="https://utteranc.es/client.js"
-        repo="spatialthoughts/qgis-tutorials"
-        issue-term="title"
-        label="comment"
-        theme="github-light"
-        crossorigin="anonymous"
-        async>
-</script>
-</div>
+<!-- Turn on comments on only newer tutorials having 3/ in URL -->
 
 
     </div>
@@ -383,7 +205,7 @@
     </p>
     <p>
         &copy; Copyright 2025, Ujaval Gandhi.<br/>
-      最後更新於 5月 20, 2025。<br/>
+      最後更新於 5月 24, 2025。<br/>
       Created using <a href="http://sphinx-doc.org/">Sphinx</a> 7.2.6.<br/>
     </p>
   </div>

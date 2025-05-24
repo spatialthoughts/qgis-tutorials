@@ -185,135 +185,11 @@
 <p class="admonition-title">경고</p>
 <p>This tutorial is now obsolete. A new and updated version is available at <a class="reference internal" href="3/calculating_line_lengths.html"><span class="doc">선의 길이계산과 통계(QGIS3)</span></a></p>
 </div>
-<p>QGIS는 선, 면적, 둘레 등 피처의 지오메트리에 기반한 다양한 속성을 계산할 수 있는 기본 기능을 가지고 있습니다. 이 예제에서는 각 피처의 길이는 나타내는 값을 가진 컬럼을 추가하는  <a href="#id1"><span class="problematic" id="id2">**</span></a>Field Calculator**를 어떻게 사용하는지 보여줄 것입니다.</p>
-<section id="overview-of-the-task">
-<h2>작업 개요<a class="headerlink" href="#overview-of-the-task" title="Link to this heading">¶</a></h2>
-<p>여기서는 북아메리카의 철도 폴리라인 쉐입파일을 사용할 것이고 미국내에서의 철도 전체 철도길이를 산출해 낼 것입니다.</p>
-<section id="other-skills-you-will-learn">
-<h3>배워야 할 다른 기술<a class="headerlink" href="#other-skills-you-will-learn" title="Link to this heading">¶</a></h3>
-<ul class="simple">
-<li><p>피처를 선택하는 표현식 사용</p></li>
-<li><p>지리체계에서 투영된 좌표계(Projected Coordinate Reference System, CRS)로 레이어 재 투영.</p></li>
-<li><p>레이어에서 속성값의 통계 보기</p></li>
-</ul>
-</section>
-</section>
-<section id="get-the-data">
-<h2>데이터 획득<a class="headerlink" href="#get-the-data" title="Link to this heading">¶</a></h2>
-<p><a href="#id1"><span class="problematic" id="id2">`</span></a>Natural Earth &lt;<a class="reference external" href="http://www.naturalearthdata.com/downloads/10m-cultural-vectors/railroads/">http://www.naturalearthdata.com/downloads/10m-cultural-vectors/railroads/</a>&gt;`_에는 공공 도메인 철도 데이터셋이 있습니다.  포털에서 <a href="#id3"><span class="problematic" id="id4">`</span></a>North America supplement &lt;<a class="reference external" href="http://www.naturalearthdata.com/http//www.naturalearthdata.com/download/10m/cultural/ne_10m_railroads_north_america.zip">http://www.naturalearthdata.com/http//www.naturalearthdata.com/download/10m/cultural/ne_10m_railroads_north_america.zip</a>&gt;`_압축파일을 다운로드 하십시오.</p>
-<p>For convenience, you may directly download a copy of the dataset from the link
-below:</p>
-<p><a class="reference external" href="http://www.qgistutorials.com/downloads/ne_10m_railroads_north_america.zip">ne_10m_railroads_north_america..zip</a></p>
-<p>데이터 출처  <a class="reference internal" href="credits.html#naturalearth" id="id1"><span>[NATURALEARTH]</span></a></p>
-</section>
-<section id="procedure">
-<h2>과정<a class="headerlink" href="#procedure" title="Link to this heading">¶</a></h2>
-<ol class="arabic simple">
-<li><p>메뉴에서  :menuselection:<a href="#id1"><span class="problematic" id="id2">`</span></a>Layer –&gt; Add Vector Layer`로 가십시오.</p></li>
-</ol>
-<img alt="../_images/1183.png" class="align-center" src="../_images/1183.png" />
-<ol class="arabic simple" start="2">
-<li><p><a href="#id1"><span class="problematic" id="id2">``</span></a>ne_10m_railroads_north_america.zip``파일을 찾아서  :guilabel:<a href="#id3"><span class="problematic" id="id4">`</span></a>OK`를 클릭하십시오.</p></li>
-</ol>
-<img alt="../_images/2148.png" class="align-center" src="../_images/2148.png" />
-<ol class="arabic simple" start="3">
-<li><p>In the <span class="guilabel">Select layers to add…</span> dialog, choose
-<code class="docutils literal notranslate"><span class="pre">ne_10m_railroads_north_america.shp</span></code> layer.</p></li>
-</ol>
-<img alt="../_images/386.png" class="align-center" src="../_images/386.png" />
-<ol class="arabic simple" start="4">
-<li><p>일단 레이어가 나타나면 북미지역의 모든 철도 노선이 포함되어 있는 것을 알게될 것입니다. 이 예제에서는 미국의 철도 길이만 계산할 것이므로, 미국영역에 있는 노선만 선택을 합니다. 레이어에서 마우스 오른쪽 버튼을 클릭하고   :guilabel:<a href="#id1"><span class="problematic" id="id2">`</span></a>Open Attribute Table`을 선택하십시오.</p></li>
-</ol>
-<img alt="../_images/455.png" class="align-center" src="../_images/455.png" />
-<ol class="arabic simple" start="5">
-<li><p>레이어에는  :guilabel:<a href="#id1"><span class="problematic" id="id2">`</span></a>sov_a3`라는 속성이 포함되어 있습니다. 이것은 철자 3개로 이뤄진 국가 코드로 노선이 어느 영역인지를 알려주는 특별 피처입니다. 이 속성값을 이용해서 미국지역의 피처를 선택할 수 있습니다.</p></li>
-</ol>
-<img alt="../_images/548.png" class="align-center" src="../_images/548.png" />
-<ol class="arabic simple" start="6">
-<li><p>속성 테이블  <span class="guilabel">Attribute Table`창에서 표현식을 이용한 객체선택 :guilabel:`Select features using an expression</span> 단추를 클릭합니다.</p></li>
-</ol>
-<img alt="../_images/647.png" class="align-center" src="../_images/647.png" />
-<ol class="arabic simple" start="7">
-<li><p>새로 <span class="guilabel">Select By Expression</span> 다이알로그가 열릴 것입니다. 함수목록  <span class="guilabel">Functions list</span> 부분에서 필드와 값 <span class="guilabel">Fields and Values</span> 을 확장하여 <span class="guilabel">sov_a3`속성을 찾으십시오. 그리고 그것을 더블클릭하면 표현식 :guilabel:`Expression`텍스트 부분 속성이 포함됩니다.  `</span>”sov_a3” = ‘USA’<a href="#id1"><span class="problematic" id="id2">``</span></a>라고 표현식을 완성하십시오. 선택 :guilabel:<a href="#id3"><span class="problematic" id="id4">`</span></a>Select`에 이어 닫기 :guilabel:<a href="#id5"><span class="problematic" id="id6">`</span></a>Close`를 클릭합니다.</p></li>
-</ol>
-<img alt="../_images/747.png" class="align-center" src="../_images/747.png" />
-<ol class="arabic simple" start="8">
-<li><p>Back in the main QGIS window, you will see that all lines that fall in USA
-are selected and appear in yellow.</p></li>
-</ol>
-<img alt="../_images/846.png" class="align-center" src="../_images/846.png" />
-<ol class="arabic simple" start="9">
-<li><p>이제 선택된 것만 새로운 쉐입파일로 저장하도록 하겠습니다. <a href="#id1"><span class="problematic" id="id2">``</span></a>ne_10m_railroads_north_america``레이어를 오른쪽 클릭하고 선택된 객체만 저장 :guilabel:<a href="#id3"><span class="problematic" id="id4">`</span></a>Save Selection As…`를 선택합니다. 최신 버전에서는 다른 이름으로 저장을 클릭한 후 옵션 중 선택된 객체만 저장을 체크해야 합니다.</p></li>
-</ol>
-<img alt="../_images/947.png" class="align-center" src="../_images/947.png" />
-<ol class="arabic simple" start="10">
-<li><p>탐색 :guilabel:<a href="#id1"><span class="problematic" id="id2">`</span></a>Browse`을 클릭하고 결과 파일명으로  <a href="#id3"><span class="problematic" id="id4">``</span></a>usa_railroads.shp``를 입력합니다. 레이어의 CRS도 바꿔야 합니다.  :guilabel:<a href="#id5"><span class="problematic" id="id6">`</span></a>CRS`에 이어서  :guilabel:<a href="#id7"><span class="problematic" id="id8">`</span></a>Browse`를 클릭합니다.</p></li>
-</ol>
-<div class="admonition note">
-<p class="admonition-title">참고</p>
-<p>계산을 위해 피처의 지오메트리를 사용하는 내장 기능은 레이어의 CRS의 단위를 사용합니다.  <em>EPSG:4326*와 같은 지리좌표체계(CRS)는 단위로  **degrees**를 사용합니다. 그래서 피처의 길이는 **degrees*</em> 이고, 면적은  <strong>square degrees**인데 의미는 없습니다. 여기서 계산을 하기 위해서는 **meters</strong> 혹은 <a href="#id1"><span class="problematic" id="id2">**</span></a>feet**의 단위를 가진 투영좌표체계를 사용할 필요가 있습니다.</p>
-</div>
-<img alt="../_images/1054.png" class="align-center" src="../_images/1054.png" />
-<ol class="arabic simple" start="11">
-<li><p>길이를 계산해야 하므로 등거리 투영을 선택합니다.  필터 :guilabel:<a href="#id1"><span class="problematic" id="id2">`</span></a>Filter`의 찾기 상자에 :guilabel:<a href="#id3"><span class="problematic" id="id4">`</span></a>north america equ`를 입력합니다. 아래쪽 결과창에서 CRS로 :guilabel:<a href="#id5"><span class="problematic" id="id6">`</span></a>North_America_Equidistant_Conic EPSG:102010`을 선택하고  :guilabel:<a href="#id7"><span class="problematic" id="id8">`</span></a>OK`를 클릭합니다.</p></li>
-</ol>
-<img alt="../_images/1184.png" class="align-center" src="../_images/1184.png" />
-<ol class="arabic simple" start="12">
-<li><p>새 이름으로 벡터 레이어 저장하기 <span class="guilabel">Save vector layer as…</span> 다이알로그에서 저장된 파일을 지도에 추가 :guilabel:<a href="#id1"><span class="problematic" id="id2">`</span></a>Add saved file to map`에 체크하고 :guilabel:<a href="#id3"><span class="problematic" id="id4">`</span></a>OK`를 클릭합니다.</p></li>
-</ol>
-<img alt="../_images/1257.png" class="align-center" src="../_images/1257.png" />
-<ol class="arabic simple" start="13">
-<li><p>일단 내보내기 과정이 종료되면 새로운 <code class="docutils literal notranslate"><span class="pre">usa_railroads``레이어가</span> <span class="pre">QGIS에</span> <span class="pre">생깁니다.</span>&#160; <span class="pre">더이상</span> <span class="pre">``ne_10m_railroads_north_america</span></code> 레이어가 필요하지 않으므로 레이어 박스의 체크를 해제하면 객체가 꺼지게 됩니다.</p></li>
-</ol>
-<img alt="../_images/1355.png" class="align-center" src="../_images/1355.png" />
-<ol class="arabic simple" start="14">
-<li><p><a href="#id1"><span class="problematic" id="id2">``</span></a>usa_railroads``레이어를 마우스 오른쪽 클릭하고 속성 테이블 열기  :guilabel:<a href="#id3"><span class="problematic" id="id4">`</span></a>Open Attribute Table`을 선택합니다.</p></li>
-</ol>
-<img alt="../_images/1451.png" class="align-center" src="../_images/1451.png" />
-<ol class="arabic simple" start="15">
-<li><p>이제 각 피처의 폭을 가진 컬럼을 추가합니다.  편집모드전환 :guilabel:<a href="#id1"><span class="problematic" id="id2">`</span></a>Toggle editing`단추를 클릭하여 레이어를 편집모드로 바꿉니다. 일단 편집모드에서 필드계산기열기 :guilabel:<a href="#id3"><span class="problematic" id="id4">`</span></a>Open field calculator’ 단추를 클릭합니다.</p></li>
-</ol>
-<img alt="../_images/1545.png" class="align-center" src="../_images/1545.png" />
-<ol class="arabic simple" start="16">
-<li><p>필드계산기  <span class="guilabel">Field Calculator`에서 새 필드 생성  :guilabel:`Create a new field`을 체크합니다. 출력필드이름 :guilabel:`Output field name`에 **length_km**를 입력합니다. 출력 필드 유형 :guilabel:`Output field type`에 십진수 **Decimal number (real)** 를 선택합니다. 출력 정확도 :guilabel:`Precision`를  **2**로 바꿉니다. 함수목록 :guilabel:`Function list`에서, 지오메트리  :guilabel:`Geometry</span> 하위에서 폭 :guilabel:<a href="#id1"><span class="problematic" id="id2">`</span></a>$length`을 찾습니다. 그것을 더블클릭하여 표현식  :guilabel:<a href="#id3"><span class="problematic" id="id4">`</span></a>Expression`에 추가합니다. 레이어의 CRS가  <strong>meters</strong> 단위이고 출력을  <a href="#id5"><span class="problematic" id="id6">**</span></a>km**로 해야하므로 <a href="#id7"><span class="problematic" id="id8">``</span></a>$length / 1000``와 같이 식을 완성합니다. OK  :guilabel:<a href="#id9"><span class="problematic" id="id10">`</span></a>OK`를 클릭합니다.</p></li>
-</ol>
-<img alt="../_images/1642.png" class="align-center" src="../_images/1642.png" />
-<ol class="arabic simple" start="17">
-<li><p>속성테이블  <span class="guilabel">Attribute Table`로 돌아가면 새로운 컬럼  :guilabel:`length_km`이 나타나게 됩니다. 편집모드전환 :guilabel:`Toggle editing</span> 단추를 클릭하여 변경된 내용을 저장합니다.</p></li>
-</ol>
-<img alt="../_images/1741.png" class="align-center" src="../_images/1741.png" />
-<ol class="arabic simple" start="18">
-<li><p>이제 레이어에서 각 개별 라인의 길이값을 갖게되었습니다. 이 값을 모두 더해서 손쉽게  <strong>Total</strong> 길이값을 찾게됩니다. 메뉴에서 벡터 –&gt; 분석도구 –&gt; 기본통계  :menuselection:<a href="#id1"><span class="problematic" id="id2">`</span></a>Vector –&gt; Analysis Tools –&gt; Basic Statistics`로 갑니다.</p></li>
-</ol>
-<img alt="../_images/1837.png" class="align-center" src="../_images/1837.png" />
-<ol class="arabic simple" start="19">
-<li><p>입력벡터레이어 :guilabel:<a href="#id1"><span class="problematic" id="id2">`</span></a>Input Vector layer`로  <a href="#id3"><span class="problematic" id="id4">``</span></a>usa_railroads``를 선택합니다. 대상필드  :guilabel:<a href="#id5"><span class="problematic" id="id6">`</span></a>Target field`로 <a href="#id7"><span class="problematic" id="id8">``</span></a>length_km``를 선택하고  :guilabel:<a href="#id9"><span class="problematic" id="id10">`</span></a>OK`를 클릭합니다. 합계  :guilabel:<a href="#id11"><span class="problematic" id="id12">`</span></a>Sum`값은 계산해낸 철로의 전체 길이입니다.</p></li>
-</ol>
-<div class="admonition note">
-<p class="admonition-title">참고</p>
-<p>여기서 얻어진 답은 만약 다른 프로젝션이 선택되었다면 조금 다르게 나타날 것입니다. 연습에서 도로와 다른 선형 피처의 길이는 지표면에서 측정된 것이고 데이터셋에서 속성으로 제공된 것입니다. 이 방법은 그런 속성이 없을때 그리고 실제 선의 길이의 대략값으로서 사용됩니다.</p>
-</div>
-<img alt="../_images/1928.png" class="align-center" src="../_images/1928.png" />
-</section>
 </section>
 
 
 
-
-
-  <!-- Comment Section Powered by utterances -->
-<div id="comments">
-  <hr />
-  <p>If you want to give feedback or share your experience with this tutorial, please comment below. (requires GitHub account)</p>
-<script src="https://utteranc.es/client.js"
-        repo="spatialthoughts/qgis-tutorials"
-        issue-term="title"
-        label="comment"
-        theme="github-light"
-        crossorigin="anonymous"
-        async>
-</script>
-</div>
+<!-- Turn on comments on only newer tutorials having 3/ in URL -->
 
 
     </div>
@@ -329,7 +205,7 @@ are selected and appear in yellow.</p></li>
     </p>
     <p>
         &copy; Copyright 2025, Ujaval Gandhi.<br/>
-      최종 업데이트: 5월 20, 2025<br/>
+      최종 업데이트: 5월 24, 2025<br/>
       Created using <a href="http://sphinx-doc.org/">Sphinx</a> 7.2.6.<br/>
     </p>
   </div>

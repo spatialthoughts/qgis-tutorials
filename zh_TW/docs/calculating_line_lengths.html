@@ -185,132 +185,11 @@
 <p class="admonition-title">警告</p>
 <p>This tutorial is now obsolete. A new and updated version is available at <a class="reference internal" href="3/calculating_line_lengths.html"><span class="doc">Calculating Line Lengths and Statistics (QGIS3)</span></a></p>
 </div>
-<p>(Unfinished) QGIS 內建的功能可以計算圖徵的幾何性質，像是長度、面積、周長等等。</p>
-<section id="overview-of-the-task">
-<h2>內容說明<a class="headerlink" href="#overview-of-the-task" title="Link to this heading">¶</a></h2>
-<p>使用北美鐵路網的線段式 shapefile 來計算美國的鐵道總長度。</p>
-<section id="other-skills-you-will-learn">
-<h3>你還會學到這些<a class="headerlink" href="#other-skills-you-will-learn" title="Link to this heading">¶</a></h3>
-<ul class="simple">
-<li><p>使用表達式選擇圖徵。</p></li>
-<li><p>把圖層重新投影到專案的座標參考系統 (CRS) 上。</p></li>
-<li><p>查閱某圖層中某個屬性的統計資訊。</p></li>
-</ul>
-</section>
-</section>
-<section id="get-the-data">
-<h2>取得資料<a class="headerlink" href="#get-the-data" title="Link to this heading">¶</a></h2>
-<p>Natural Earth 上有屬於公領域資料的 <a class="reference external" href="http://www.naturalearthdata.com/downloads/10m-cultural-vectors/railroads/">鐵路</a> 資料庫，<a class="reference external" href="http://www.naturalearthdata.com/http//www.naturalearthdata.com/download/10m/cultural/ne_10m_railroads_north_america.zip">北美的部分</a> 也在此提供下載。</p>
-<p>為了方便起見，你也可以直接用下面的連結下載：</p>
-<p><a class="reference external" href="http://www.qgistutorials.com/downloads/ne_10m_railroads_north_america.zip">ne_10m_railroads_north_america..zip</a></p>
-<p>資料來源  <a class="reference internal" href="credits.html#naturalearth" id="id1"><span>[NATURALEARTH]</span></a></p>
-</section>
-<section id="procedure">
-<h2>操作流程<a class="headerlink" href="#procedure" title="Link to this heading">¶</a></h2>
-<ol class="arabic simple">
-<li><p>選擇 <span class="menuselection">圖層 ‣ 加入向量圖層</span>。</p></li>
-</ol>
-<img alt="../_images/1183.png" class="align-center" src="../_images/1183.png" />
-<ol class="arabic simple" start="2">
-<li><p>選擇 <code class="docutils literal notranslate"><span class="pre">ne_10m_railroads_north_america.zip</span></code> 並按下 <span class="guilabel">確定</span>。</p></li>
-</ol>
-<img alt="../_images/2148.png" class="align-center" src="../_images/2148.png" />
-<ol class="arabic simple" start="3">
-<li><p>在 <span class="guilabel">選擇加入的圖層…</span> 對話框中，選擇 <code class="docutils literal notranslate"><span class="pre">ne_10m_railroads_north_america.shp</span></code>。（譯註：較新的 QGIS 版本不會出現這個步驟）</p></li>
-</ol>
-<img alt="../_images/386.png" class="align-center" src="../_images/386.png" />
-<ol class="arabic simple" start="4">
-<li><p>圖層載入後，會顯示所有北美的鐵道線段。我們的目標是只計算美國的鐵路長度，所以必須要先選擇那些位於美國境內的鐵路才行。以右鍵點選此圖層，然後 <span class="guilabel">開啟屬性表格</span>。</p></li>
-</ol>
-<img alt="../_images/455.png" class="align-center" src="../_images/455.png" />
-<ol class="arabic simple" start="5">
-<li><p>這個圖層含有一個叫做 <span class="guilabel">sov_a3</span> 的屬性，其值使用三個英文字母來代表這段圖徵位在哪個城市。我們要利用這個屬性來選擇位於美國境內的鐵路。</p></li>
-</ol>
-<img alt="../_images/548.png" class="align-center" src="../_images/548.png" />
-<ol class="arabic simple" start="6">
-<li><p>在 <span class="guilabel">屬性表格</span> 視窗中按下 <span class="guilabel">使用表示式選取圖徵</span> 的按鈕。</p></li>
-</ol>
-<img alt="../_images/647.png" class="align-center" src="../_images/647.png" />
-<ol class="arabic simple" start="7">
-<li><p><span class="guilabel">以表示式選取圖徵</span> 的視窗出現後，在 <span class="guilabel">函數列表</span> 中的 <span class="guilabel">欄位與值</span> 的分類中找到 <span class="guilabel">sov_a3</span> 屬性，然後按兩下以加入到 <span class="guilabel">表示式</span> 區中，補完這個表達式 <code class="docutils literal notranslate"><span class="pre">&quot;sov_a3&quot;</span> <span class="pre">=</span> <span class="pre">'USA'</span></code>，好了以後按下 <span class="guilabel">選取</span> 然後 <span class="guilabel">關閉</span>。</p></li>
-</ol>
-<img alt="../_images/747.png" class="align-center" src="../_images/747.png" />
-<ol class="arabic simple" start="8">
-<li><p>回到 QGIS 主視窗，現在在美國境內的線段都被選取，並標為黃色了。</p></li>
-</ol>
-<img alt="../_images/846.png" class="align-center" src="../_images/846.png" />
-<ol class="arabic simple" start="9">
-<li><p>現在來把選取區域另存新檔吧。在 <code class="docutils literal notranslate"><span class="pre">ne_10m_railroads_north_america</span></code> 圖層上按右鍵然後選擇 <span class="guilabel">儲存選取區域為…</span> （或是 <span class="guilabel">存檔為…</span>），</p></li>
-</ol>
-<img alt="../_images/947.png" class="align-center" src="../_images/947.png" />
-<ol class="arabic simple" start="10">
-<li><p>選擇 <span class="guilabel">瀏覽</span> 然後把輸出檔命名為 <code class="docutils literal notranslate"><span class="pre">usa_railroads.shp</span></code>。這裡我們順便轉換一下圖層的 CRS，請按下在 <span class="guilabel">CRS</span> 旁邊的 <span class="guilabel">瀏覽</span> 圖示。</p></li>
-</ol>
-<div class="admonition note">
-<p class="admonition-title">備註</p>
-<p>QGIS 的內建函數是使用圖層的座標參考系統 (CRS) 的預設單位來計算線段長度。因為 <em>EPSG:4326</em> 這個 CRS 使用<strong>角度</strong>當作單位，計算線段或面積的結果也會是<strong>角度</strong>或是<strong>平方度</strong>，以此作單位的數值其實並不實用。所以這裡必須要使用以<strong>公尺</strong>作為單位的專案座標參考系統來做計算。</p>
-</div>
-<img alt="../_images/1054.png" class="align-center" src="../_images/1054.png" />
-<ol class="arabic simple" start="11">
-<li><p>因為我們是要計算長度，這裡來選一個等距離投影試試。在 <span class="guilabel">過濾條件</span> 欄位輸入 <span class="guilabel">north america equ</span> 後，底下的結果就會出現 <span class="guilabel">North_America_Equidistant_Conic EPSG:102010</span>，選擇它作為新的 CRS 之後，按下 <span class="guilabel">確定</span>。</p></li>
-</ol>
-<img alt="../_images/1184.png" class="align-center" src="../_images/1184.png" />
-<ol class="arabic simple" start="12">
-<li><p>回到剛才的 <span class="guilabel">儲存向量圖層為…</span> 視窗，勾選 <span class="guilabel">加入儲存檔案至地圖中`（譯註：如果有 :guilabel:`儲存僅選取的圖徵</span>，也應一併勾選），最後按下 <span class="guilabel">確定</span>。</p></li>
-</ol>
-<img alt="../_images/1257.png" class="align-center" src="../_images/1257.png" />
-<ol class="arabic simple" start="13">
-<li><p>操作完成後，QGIS 中會出現叫做 <code class="docutils literal notranslate"><span class="pre">usa_railroads</span></code> 的新圖層。現在已經用不到舊圖層，可以取消 <code class="docutils literal notranslate"><span class="pre">ne_10m_railroads_north_america</span></code> 的勾選，把它隱藏起來了。</p></li>
-</ol>
-<img alt="../_images/1355.png" class="align-center" src="../_images/1355.png" />
-<ol class="arabic simple" start="14">
-<li><p>在 <code class="docutils literal notranslate"><span class="pre">usa_railroads</span></code> 圖層上按右鍵，選擇 <span class="guilabel">開啟屬性表格</span>，</p></li>
-</ol>
-<img alt="../_images/1451.png" class="align-center" src="../_images/1451.png" />
-<ol class="arabic simple" start="15">
-<li><p>接下來就來為所有圖徵新增一個長度的屬性看看。按下 <span class="guilabel">切換編輯模式</span> 鈕以進入編輯模式，在此模式中，按下 <span class="guilabel">開啟欄位計算</span> 鈕。</p></li>
-</ol>
-<img alt="../_images/1545.png" class="align-center" src="../_images/1545.png" />
-<ol class="arabic simple" start="16">
-<li><p>在 <span class="guilabel">欄位計算器</span> 中，先勾選 <span class="guilabel">建立新欄位</span>，在 <span class="guilabel">輸出欄位名稱</span> 中輸入 <strong>length_km</strong>，在 <span class="guilabel">輸出欄位類別</span> 中選擇 <span class="guilabel">十進位數(實數)</span>，<span class="guilabel">精確度</span> 調到 <strong>2</strong>，然後在底下的 <span class="guilabel">函數列表</span> 框中，找出位於 <span class="guilabel">幾何欄位</span> 分類中的 <span class="guilabel">$length</span>，並且點兩下以加入 <span class="guilabel">表達式</span> 區塊。因為我們想要以<strong>公里</strong>為單位但圖層的 <strong>CRS</strong> 使用<strong>公尺</strong>為單位，所以這裡公式要改成：<code class="docutils literal notranslate"><span class="pre">$length</span> <span class="pre">/</span> <span class="pre">1000</span></code>。最後按下 <span class="guilabel">確定</span>。</p></li>
-</ol>
-<img alt="../_images/1642.png" class="align-center" src="../_images/1642.png" />
-<ol class="arabic simple" start="17">
-<li><p>回到 <span class="guilabel">屬性表格</span>，新的 <span class="guilabel">length_km</span> 屬性就會出現。再次按下 <span class="guilabel">切換編輯模式</span> 以儲存剛才所做的修改。</p></li>
-</ol>
-<img alt="../_images/1741.png" class="align-center" src="../_images/1741.png" />
-<ol class="arabic simple" start="18">
-<li><p>現在每個線段都有自己個長度了，我們只需簡單的加總，就能知道全線段<strong>總長</strong>。選擇 <span class="menuselection">向量 ‣ 分析工具 ‣ 基本統計</span>，</p></li>
-</ol>
-<img alt="../_images/1837.png" class="align-center" src="../_images/1837.png" />
-<ol class="arabic simple" start="19">
-<li><p>然後在 <span class="guilabel">輸入向量圖層</span> 中選擇 <code class="docutils literal notranslate"><span class="pre">usa_railroads</span></code>，在 <span class="guilabel">目標欄位</span> 中選擇 <span class="guilabel">length_km</span>。按下 <span class="guilabel">確定</span> 後，就可以看到許多的統計資訊出現，其中的 <span class="guilabel">總和</span> 數值就是我們這次要找的鐵道總長度。</p></li>
-</ol>
-<div class="admonition note">
-<p class="admonition-title">備註</p>
-<p>鐵道總長度在不同的投影下會有些微的不同。實務上，線段、道路等長度一般會在製作資料庫時一併測量，並作為圖徵的其中一個屬性。本教學介紹的方法可以當作真實線段長度的近似估計，使用在那些沒有這個屬性的圖徵上。</p>
-</div>
-<img alt="../_images/1928.png" class="align-center" src="../_images/1928.png" />
-</section>
 </section>
 
 
 
-
-
-  <!-- Comment Section Powered by utterances -->
-<div id="comments">
-  <hr />
-  <p>If you want to give feedback or share your experience with this tutorial, please comment below. (requires GitHub account)</p>
-<script src="https://utteranc.es/client.js"
-        repo="spatialthoughts/qgis-tutorials"
-        issue-term="title"
-        label="comment"
-        theme="github-light"
-        crossorigin="anonymous"
-        async>
-</script>
-</div>
+<!-- Turn on comments on only newer tutorials having 3/ in URL -->
 
 
     </div>
@@ -326,7 +205,7 @@
     </p>
     <p>
         &copy; Copyright 2025, Ujaval Gandhi.<br/>
-      最後更新於 5月 20, 2025。<br/>
+      最後更新於 5月 24, 2025。<br/>
       Created using <a href="http://sphinx-doc.org/">Sphinx</a> 7.2.6.<br/>
     </p>
   </div>

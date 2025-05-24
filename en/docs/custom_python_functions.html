@@ -182,186 +182,13 @@
 <h1>Using Custom Python Expression Functions<a class="headerlink" href="#using-custom-python-expression-functions" title="Link to this heading">¶</a></h1>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
-<p>A new version of this tutorial is available at <a class="reference internal" href="3/custom_python_functions.html"><span class="doc">Using Custom Python Expression Functions (QGIS3)</span></a></p>
+<p>This tutorial is now obsolete. A new version of this tutorial is available at <a class="reference internal" href="3/custom_python_functions.html"><span class="doc">Using Custom Python Expression Functions (QGIS3)</span></a></p>
 </div>
-<p>Expressions in QGIS have a lot of power and are used in many core features -
-selection, calculating field values, styling, labelling etc. QGIS also has
-support for user-defined expressions. With a little bit of python programming,
-you can define your own functions that can be used within the expression
-engine.</p>
-<section id="overview-of-the-task">
-<h2>Overview of the task<a class="headerlink" href="#overview-of-the-task" title="Link to this heading">¶</a></h2>
-<p>We will define a custom function that finds the UTM Zone of a map feature and
-use this function to write an expression that displays the UTM zone as a map
-tip when hovered over the point.</p>
-<section id="other-skills-you-will-learn">
-<h3>Other skills you will learn<a class="headerlink" href="#other-skills-you-will-learn" title="Link to this heading">¶</a></h3>
-<ul class="simple">
-<li><p>How to use the <code class="docutils literal notranslate"><span class="pre">Map</span> <span class="pre">Tips</span></code> tool to display custom text when hovering over a
-feature.</p></li>
-</ul>
-</section>
-</section>
-<section id="get-the-data">
-<h2>Get the data<a class="headerlink" href="#get-the-data" title="Link to this heading">¶</a></h2>
-<p>We will use Natural Earth’s <a class="reference external" href="http://www.naturalearthdata.com/downloads/10m-cultural-vectors/10m-populated-places/">Populated Places</a>
-dataset. Download the <a class="reference external" href="http://www.naturalearthdata.com/http//www.naturalearthdata.com/download/10m/cultural/ne_10m_populated_places_simple.zip">simple (less columns) dataset</a></p>
-<p>For convenience, you may directly download a copy of the dataset from the links
-below:</p>
-<p><a class="reference external" href="http://www.qgistutorials.com/downloads/ne_10m_populated_places_simple.zip">ne_10m_populated_places_simple.zip</a></p>
-</section>
-<section id="procedure">
-<h2>Procedure<a class="headerlink" href="#procedure" title="Link to this heading">¶</a></h2>
-<ol class="arabic simple">
-<li><p>Open QGIS and go to <span class="menuselection">Layers ‣ Add Vector ‣ Add Vector
-Layer</span>.</p></li>
-</ol>
-<img alt="../_images/1189.png" class="align-center" src="../_images/1189.png" />
-<ol class="arabic simple" start="2">
-<li><p>Browse to the downloaded <code class="docutils literal notranslate"><span class="pre">ne_10m_populated_places_simple.zip</span></code> file and
-click <span class="guilabel">Open</span>.</p></li>
-</ol>
-<img alt="../_images/2153.png" class="align-center" src="../_images/2153.png" />
-<ol class="arabic simple" start="3">
-<li><p>Go to <span class="menuselection">View ‣ Select ‣ Select By Expressions…</span>.</p></li>
-</ol>
-<img alt="../_images/390.png" class="align-center" src="../_images/390.png" />
-<ol class="arabic simple" start="4">
-<li><p>Switch to the <span class="guilabel">Function Editor</span> tab. Here you can write any
-PyQGIS code that will be executed by the expression engine.</p></li>
-</ol>
-<img alt="../_images/459.png" class="align-center" src="../_images/459.png" />
-<ol class="arabic simple" start="5">
-<li><p>We will define a custom function named <code class="docutils literal notranslate"><span class="pre">GetUtmZone</span></code> that will calculate
-the UTM zone number for each feature. Since custom functions in QGIS work at
-the feature level. We will use the centroid of the feature’s geometry and
-compute the UTM Zone from the latitude and longitude of the centroid
-geometry. We will also add a ‘N’ or ‘S’ designation to the zone to indicate
-whether the zone is in the northern or southern hemisphere. Type the
-following code in the editor, enter the name of the file as <code class="docutils literal notranslate"><span class="pre">utm_zones.py</span></code>
-and click <span class="guilabel">Save file</span>.</p></li>
-</ol>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>UTM Zones are longitudinal projection zones numbered from 1 to 60. Each UTM
-zone is 6 degree wide. Here we use a simple mathematical formula to find the
-appropriate zone for a given longitude value. Note that this formula doesn’t
-cover some special UTM zones.</p>
-</div>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">math</span>
-<span class="kn">from</span> <span class="nn">qgis.core</span> <span class="kn">import</span> <span class="o">*</span>
-<span class="kn">from</span> <span class="nn">qgis.gui</span> <span class="kn">import</span> <span class="o">*</span>
-
-<span class="nd">@qgsfunction</span><span class="p">(</span><span class="n">args</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">group</span><span class="o">=</span><span class="s1">&#39;Custom&#39;</span><span class="p">,</span> <span class="n">usesgeometry</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-<span class="k">def</span> <span class="nf">GetUtmZone</span><span class="p">(</span><span class="n">value1</span><span class="p">,</span> <span class="n">feature</span><span class="p">,</span> <span class="n">parent</span><span class="p">):</span>
-    <span class="n">centroid</span> <span class="o">=</span> <span class="n">feature</span><span class="o">.</span><span class="n">geometry</span><span class="p">()</span>
-    <span class="n">longitude</span> <span class="o">=</span> <span class="n">centroid</span><span class="o">.</span><span class="n">asPoint</span><span class="p">()</span><span class="o">.</span><span class="n">x</span><span class="p">()</span>
-    <span class="n">latitude</span> <span class="o">=</span> <span class="n">centroid</span><span class="o">.</span><span class="n">asPoint</span><span class="p">()</span><span class="o">.</span><span class="n">y</span><span class="p">()</span>
-    <span class="n">zone_number</span> <span class="o">=</span> <span class="n">math</span><span class="o">.</span><span class="n">floor</span><span class="p">(((</span><span class="n">longitude</span> <span class="o">+</span> <span class="mi">180</span><span class="p">)</span> <span class="o">/</span> <span class="mi">6</span><span class="p">)</span> <span class="o">%</span> <span class="mi">60</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span>
-
-    <span class="k">if</span> <span class="n">latitude</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">:</span>
-        <span class="n">zone_letter</span> <span class="o">=</span> <span class="s1">&#39;N&#39;</span>
-    <span class="k">else</span><span class="p">:</span>
-        <span class="n">zone_letter</span> <span class="o">=</span> <span class="s1">&#39;S&#39;</span>
-
-    <span class="k">return</span> <span class="s1">&#39;</span><span class="si">%d%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">zone_number</span><span class="p">),</span> <span class="n">zone_letter</span><span class="p">)</span>
-</pre></div>
-</div>
-<img alt="../_images/552.png" class="align-center" src="../_images/552.png" />
-<ol class="arabic simple" start="6">
-<li><p>Click <span class="guilabel">Run Script</span>. This will execute the python code and register
-the function <code class="docutils literal notranslate"><span class="pre">GetUtmZone</span></code> with the expression engine. Note that this is
-needed to be done only once. Once the function is registered, it will always
-be available to the expression engine.</p></li>
-</ol>
-<img alt="../_images/650.png" class="align-center" src="../_images/650.png" />
-<ol class="arabic simple" start="7">
-<li><p>Switch to the <span class="guilabel">Expression</span> tab in the <span class="guilabel">Select by
-expression</span> dialog. Find and expand the <span class="guilabel">Custom</span> group in the
-<span class="guilabel">Functions</span> section. You will notice a new custom function
-<code class="docutils literal notranslate"><span class="pre">$GetUtmZone</span></code> in the list. We can now use this function in the expressions
-just like any other function. Type the following expression in the editor.
-This expression will select all points that fall in the UTM Zone <code class="docutils literal notranslate"><span class="pre">40N</span></code>.
-Click <span class="guilabel">Select</span>.</p></li>
-</ol>
-<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>$GetUtmZone = &#39;40N&#39;
-</pre></div>
-</div>
-<img alt="../_images/750.png" class="align-center" src="../_images/750.png" />
-<ol class="arabic simple" start="8">
-<li><p>Back in the main QGIS window, you will see many points highlighted in
-yellow. These are the points falling in the UTM Zone we specified in the
-expression.</p></li>
-</ol>
-<img alt="../_images/849.png" class="align-center" src="../_images/849.png" />
-<ol class="arabic simple" start="9">
-<li><p>You saw how we defined and used a custom function to select features by
-expression. We will now use the same function in another context. One of the
-hidden gems in QGIS is the <code class="docutils literal notranslate"><span class="pre">Map</span> <span class="pre">Tip</span></code> tool. This tool shows user-defined
-text when you hover over a feature. Right-click the
-<code class="docutils literal notranslate"><span class="pre">ne_10m_populated_places_simple</span></code> layer and select <span class="guilabel">Properties</span>.</p></li>
-</ol>
-<img alt="../_images/950.png" class="align-center" src="../_images/950.png" />
-<ol class="arabic simple" start="10">
-<li><p>Switch to the <span class="guilabel">Display</span> tab and select <span class="guilabel">HTML</span>. Here you
-can enter any text that will be displayed when you hover over the features
-of the layer. Even better, you can use layer field values and expressions
-to define a much more useful message. Click on the <span class="guilabel">Insert
-expression…</span> button.</p></li>
-</ol>
-<img alt="../_images/1057.png" class="align-center" src="../_images/1057.png" />
-<ol class="arabic simple" start="11">
-<li><p>You will see the familiar expression editor again. We will use the
-<code class="docutils literal notranslate"><span class="pre">concat</span></code> function to join the value of the field <code class="docutils literal notranslate"><span class="pre">name</span></code> and the result
-of our custom function $GetUtmZone. Enter the following expression and
-click <span class="guilabel">OK</span>.</p></li>
-</ol>
-<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>concat(&quot;name&quot;, &#39; | UTM Zone: &#39;, $GetUtmZone)
-</pre></div>
-</div>
-<img alt="../_images/1190.png" class="align-center" src="../_images/1190.png" />
-<ol class="arabic simple" start="12">
-<li><p>You will see the expression entered as the value of the <span class="guilabel">Display</span>
-text. Click <span class="guilabel">OK</span>.</p></li>
-</ol>
-<img alt="../_images/1259.png" class="align-center" src="../_images/1259.png" />
-<ol class="arabic simple" start="13">
-<li><p>Before we proceed, let us de-select the features that were selected in the
-previous step. Go to <span class="menuselection">View ‣ Select ‣ Deselect Features
-from All Layers</span>.</p></li>
-</ol>
-<img alt="../_images/1357.png" class="align-center" src="../_images/1357.png" />
-<ol class="arabic simple" start="14">
-<li><p>Activate the <code class="docutils literal notranslate"><span class="pre">Map</span> <span class="pre">Tips</span></code> tool by going to <span class="menuselection">View ‣ Map
-Tips</span>.</p></li>
-</ol>
-<img alt="../_images/1453.png" class="align-center" src="../_images/1453.png" />
-<ol class="arabic simple" start="15">
-<li><p>Zoom into any area of the map and put your mouse cursor over any feature.
-You will see the name of the city and corresponding UTM zone displayed as
-the map tip.</p></li>
-</ol>
-<img alt="../_images/1547.png" class="align-center" src="../_images/1547.png" />
-</section>
 </section>
 
 
 
-
-
-  <!-- Comment Section Powered by utterances -->
-<div id="comments">
-  <hr />
-  <p>If you want to give feedback or share your experience with this tutorial, please comment below. (requires GitHub account)</p>
-<script src="https://utteranc.es/client.js"
-        repo="spatialthoughts/qgis-tutorials"
-        issue-term="title"
-        label="comment"
-        theme="github-light"
-        crossorigin="anonymous"
-        async>
-</script>
-</div>
+<!-- Turn on comments on only newer tutorials having 3/ in URL -->
 
 
     </div>
@@ -377,7 +204,7 @@ the map tip.</p></li>
     </p>
     <p>
         &copy; Copyright 2025, Ujaval Gandhi.<br/>
-      Last updated on May 20, 2025.<br/>
+      Last updated on May 24, 2025.<br/>
       Created using <a href="http://sphinx-doc.org/">Sphinx</a> 7.2.6.<br/>
     </p>
   </div>

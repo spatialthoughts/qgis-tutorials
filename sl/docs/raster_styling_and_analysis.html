@@ -185,148 +185,11 @@
 <p class="admonition-title">Opozorilo</p>
 <p>Vadnica je zastarela. Nova in posodobljena verzija je na voljo v  <a class="reference internal" href="3/raster_styling_and_analysis.html"><span class="doc">Osnovne analize in prikazi rastrov (QGIS3)</span></a></p>
 </div>
-<p>Veliko raziskav ustvari rastrske podatke. Raster je mreža celic, imenovanih piksli, ki so jim pripisane vrednosti. Z matematičnimi operacijami lahko s temi vrednostmi naredimo osnovne in napredne analize. QGIS ima osnovna orodja za računanje z rastri vgrajena v orodju <cite>Raster Calculator</cite>. V tej vadnici bomo raziskali osnove orodja <cite>Raster Calculator</cite> oziroma rastrsko računalo in si ogledali možnosti oblikovanja rastrskih slojev.</p>
-<section id="overview-of-the-task">
-<h2>Pregled naloge<a class="headerlink" href="#overview-of-the-task" title="Link to this heading">¶</a></h2>
-<p>Uporabili bomo podatke o gostoti prebivalcev in poiskali območja, kjer se je število prebivalcev med leti 1990 in 2000 močno spremenilo.</p>
-<section id="other-skills-you-will-learn">
-<h3>Česa se bomo še naučili<a class="headerlink" href="#other-skills-you-will-learn" title="Link to this heading">¶</a></h3>
-<ul class="simple">
-<li><p>Izbiranja in nalaganja več podatkovnih slojev v QGIS-u naenkrat.</p></li>
-</ul>
-</section>
-</section>
-<section id="get-the-data">
-<h2>Pridobivanje podatkov<a class="headerlink" href="#get-the-data" title="Link to this heading">¶</a></h2>
-<p>Uporabili bomo podatkovni sloj <a class="reference external" href="http://sedac.ciesin.columbia.edu/data/collection/gpw-v3">Gridded Population of the World (GPW) v3</a>, ki so ga pripravili na Columbia University. Natančneje, poiskali bomo sloj Population Density Grid za celotno Zemljo za leti 1990 in 2000. Sloj je v zapisu ASCII.</p>
-<p>Podatke poiščemo in jih prenesemo po naslednjem postopku.</p>
-<ol class="arabic simple">
-<li><p>Odprite stran <a class="reference external" href="http://sedac.ciesin.columbia.edu/data/set/gpw-v3-population-density/data-download">Population Density Grid, v3 download page.</a> Izberite <span class="guilabel">Data Attributes</span> kot <span class="guilabel">.ascii format</span>, <span class="guilabel">1° resolution</span> in <span class="guilabel">1990 year</span>. Kliknite <span class="guilabel">Download</span>. Ustvarite lahko brezplačen uporabniški račun ali pa uporabite gumb <span class="guilabel">Guest Download</span> in takoj prenesete podatke. Ponovite postopek za podatke leta <span class="guilabel">2000 year</span>.</p></li>
-</ol>
-<img alt="../_images/1278.png" class="align-center" src="../_images/1278.png" />
-<p>Na računalnik se bosta prenesli 2 datoteki ZIP.</p>
-<p>Kopijo podatkov lahko poberete tudi neposredno s spodnjega naslova:</p>
-<p><a class="reference external" href="http://www.qgistutorials.com/downloads/gl_gpwv3_pdens_90_ascii_one.zip">gl_gpwv3_pdens_90_ascii_one.zip</a></p>
-<p><a class="reference external" href="http://www.qgistutorials.com/downloads/gl_gpwv3_pdens_00_ascii_one.zip">gl_gpwv3_pdens_00_ascii_one.zip</a></p>
-<p>Vir podatkov <a class="reference internal" href="credits.html#gpw3" id="id1"><span>[GPW3]</span></a></p>
-</section>
-<section id="procedure">
-<h2>Postopek<a class="headerlink" href="#procedure" title="Link to this heading">¶</a></h2>
-<ol class="arabic simple" start="2">
-<li><p>Odprite QGIS in izberite  <span class="menuselection">Layer ‣ Add Raster Layer…</span>.</p></li>
-</ol>
-<img alt="../_images/2180.png" class="align-center" src="../_images/2180.png" />
-<ol class="arabic simple" start="3">
-<li><p>Poiščite preneseni datoteki ZIP in obe izberite tako, da držite tipko <kbd class="kbd docutils literal notranslate">Ctrl</kbd> in ju kliknete. Na ta način lahko več datotek izberemo v enem samem koraku.</p></li>
-</ol>
-<img alt="../_images/3123.png" class="align-center" src="../_images/3123.png" />
-<ol class="arabic simple" start="4">
-<li><p>V vsaki datoteki ZIP sta 2 rastrski datoteki. Oznaka <code class="docutils literal notranslate"><span class="pre">a</span></code> v imenu pomeni, da je bilo število prebivalcev prilagojeno skupnemu številu, ki ga beležijo Združeni narodi. V nalogi bomo uporabili prilagojene sloje. Izberite sloj <code class="docutils literal notranslate"><span class="pre">glds00ag60.asc</span></code> in kliknite gumb <span class="guilabel">OK</span>.</p></li>
-</ol>
-<img alt="../_images/478.png" class="align-center" src="../_images/478.png" />
-<ol class="arabic simple" start="5">
-<li><p>Podatkovni sloj nima definirane projekcije CRS. Ker gre za raster v geografskih širinah in dolžinah (lat/long), izberite <cite>EPSG:4326</cite>.</p></li>
-</ol>
-<img alt="../_images/572.png" class="align-center" src="../_images/572.png" />
-<ol class="arabic simple" start="6">
-<li><p>Ker smo izbrali dve datoteki, bomo podobno pogovorno okno videli tudi pri drugi. Postopek ponovite za sloj <code class="docutils literal notranslate"><span class="pre">glds90ag60.asc</span></code>.</p></li>
-</ol>
-<img alt="../_images/669.png" class="align-center" src="../_images/669.png" />
-<ol class="arabic simple" start="7">
-<li><p>Še enkrat kot CRS izberite <cite>EPSG:4326</cite>.</p></li>
-</ol>
-<img alt="../_images/768.png" class="align-center" src="../_images/768.png" />
-<ol class="arabic simple" start="8">
-<li><p>Oba rastra se bosta naložila in prikazala v QGIS-u. Rastra sta prikazana s sivo barvno lestvico, pri čemer temnejše barve predstavljajo manjše in svetlejše višje vrednosti.</p></li>
-</ol>
-<img alt="../_images/866.png" class="align-center" src="../_images/866.png" />
-<ol class="arabic simple" start="9">
-<li><p>Vsak piksel, to je celica v mreži, ima svojo vrednost, ki predstavlja gostoto prebivalstva v tisti celici. Kliknite gumb <span class="guilabel">Identify Features</span> in kliknite kamorkoli na raster. Videli boste vrednost v tej celici.</p></li>
-</ol>
-<img alt="../_images/965.png" class="align-center" src="../_images/965.png" />
-<ol class="arabic simple" start="10">
-<li><p>Da bi laže razumeli vzorce poselitve, je potrebno prikazani sloj primerno oblikovati. Desno kliknite sloj in izberite <span class="guilabel">Properties</span>. Sloj lahko tudi dvakrat kliknete in pojavilo se bo isto pogovorno okno.</p></li>
-</ol>
-<img alt="../_images/1073.png" class="align-center" src="../_images/1073.png" />
-<ol class="arabic simple" start="11">
-<li><p>Na zavihku <span class="guilabel">Style</span> spremenite <span class="guilabel">Render type</span> v <span class="guilabel">Singleband pseudocolor</span>. Nato kliknite <span class="guilabel">Classify</span> v delu <span class="guilabel">Generate a new color map</span>. Izberite bravno lestvico <span class="guilabel">YlOrRd</span>. V različnih barvah se bo prikazalo 5 razredov. Kliknite <span class="guilabel">OK</span>.</p></li>
-</ol>
-<img alt="../_images/11111.png" class="align-center" src="../_images/11111.png" />
-<ol class="arabic simple" start="12">
-<li><p>V delovnem oknu QGIS-a bo raster prikazan v barvah (tako imenovani heatmap), Ponovite postopek za drugi raster.</p></li>
-</ol>
-<img alt="../_images/1279.png" class="align-center" src="../_images/1279.png" />
-<ol class="arabic simple" start="13">
-<li><p>Poiskati želimo območja z največjo spremembo gostote populacije med leti 1990 in 2000. Poiskati moramo razliko vrednosti med posameznimi celicami mreže pri obeh datumih. Izberite <span class="menuselection">Raster ‣ Raster calculator</span>.</p></li>
-</ol>
-<img alt="../_images/1371.png" class="align-center" src="../_images/1371.png" />
-<ol class="arabic simple" start="14">
-<li><p>V delu <span class="guilabel">Raster bands</span> lahko sloje izberete tako, da jih dvokliknete. Sloji se imenujemo po imenu rastra z dodatkom &#64; in številke kanala. Ker imata oba rastra samo po en kanal, vidimo samo eno oznako za posameznega. V rastrskem računalu vpišemo formulo in tako s celicami izvedemo enostavne ali zapletene matematične operacije. V našem primeru želimo odšteti koncentracijo prebivalstva v letu 1990 od koncentracije v letu 2000. V polje <span class="guilabel">Raster calculator expression</span> vpišite formulo <code class="docutils literal notranslate"><span class="pre">glds00ag60&#64;1</span> <span class="pre">-</span> <span class="pre">glds90ag60&#64;1</span></code>, izhodni sloj poimenujte <code class="docutils literal notranslate"><span class="pre">pop_density_change_2000_1990.tif</span></code> in izberite polje <span class="guilabel">Add result to project</span>. Kliknite <span class="guilabel">OK</span>.</p></li>
-</ol>
-<img alt="../_images/1467.png" class="align-center" src="../_images/1467.png" />
-<ol class="arabic simple" start="15">
-<li><p>Once the operation is complete, you will see the new layer load in QGIS.</p></li>
-</ol>
-<img alt="../_images/1560.png" class="align-center" src="../_images/1560.png" />
-<ol class="arabic simple" start="16">
-<li><p>Tudi v tem primeru sivinska skala ni uporabna, zato ustvarimo boljši prikaz. Desno kliknite sloj <code class="docutils literal notranslate"><span class="pre">pop_density_change_2000_1990</span></code> in izberite <span class="guilabel">Properties</span>.</p></li>
-</ol>
-<img alt="../_images/1656.png" class="align-center" src="../_images/1656.png" />
-<ol class="arabic simple" start="17">
-<li><p>Sloj bomo oblikovali tako, da bodo vrednosti v posameznem območju imele enake barve. Preden se tega lotimo, si oglejmo lastnosti ustvarjenega rastra, ki jih dobimo na kartici <span class="guilabel">Metadata</span>. Zapomnimo si največjo in najmanjšo vrednost.</p></li>
-</ol>
-<img alt="../_images/1754.png" class="align-center" src="../_images/1754.png" />
-<ol class="arabic simple" start="18">
-<li><p>Premaknite se na zavihek <span class="guilabel">Style</span>. Izberite <span class="guilabel">Singleband pseudocolor</span> kot <span class="guilabel">Render type</span> pod <span class="guilabel">Band Rendering</span>. Nastavite <span class="guilabel">Color interpolation</span> na <span class="guilabel">Discrete</span>. Kliknite gumb <span class="guilabel">Add entry</span> štirikrat, da ustvarite 4 razrede. Za vsak vnos je potrebno spremeniti razpon vrednosti. Pri diskretni barvni lestvici so vse vrednosti manjše od dane prikazane v tej barvi. Ker je najmanjša vrednost v podatkih malo nad -2000, izberemo za prvo vrednost -2000. Ta bo predstavljala območje brez podatkov. Ponovite postopek za ostale vrednosti in kliknite <span class="guilabel">OK</span>. Meje so -10, 10 in 6000, kategorije pa negativno, nevtralno in pozitivno.</p></li>
-</ol>
-<img alt="../_images/1850.png" class="align-center" src="../_images/1850.png" />
-<ol class="arabic simple" start="19">
-<li><p>Prikaz je veliko bolj učinkovit in hitro lahko opazimo območja negativnih in pozitivnih sprememb gostote prebivalstva. Kliknite gumb <span class="guilabel">Zoom In</span> in zoomirajte na območje Evrope.</p></li>
-</ol>
-<img alt="../_images/1941.png" class="align-center" src="../_images/1941.png" />
-<ol class="arabic simple" start="20">
-<li><p>Kliknite gumb <span class="guilabel">Identify</span> in preglejte, ali barvni prikazi ustrezajo razlikam oziroma pravilom prikaza.</p></li>
-</ol>
-<img alt="../_images/2036.png" class="align-center" src="../_images/2036.png" />
-<ol class="arabic simple" start="21">
-<li><p>Nadaljujmo analizo in poiščimo samo območja z <cite>negativnimi</cite> spremembami gostote prebivalstva. Odprite <span class="menuselection">Raster ‣ Raster calculator</span>.</p></li>
-</ol>
-<img alt="../_images/2181.png" class="align-center" src="../_images/2181.png" />
-<ol class="arabic simple" start="22">
-<li><p>Vnesite spodnjo enačbo v ustrezno polje. S spodnjim izrazom pikslom, ki ustrezajo kriteriju, priredimo vrednost 1 ostalim pa 0. Območja, kjer so spremembe negativne bodo označena z 1, ostala pa bodo imela oznako 0. Izhodni sloj poimenujte <code class="docutils literal notranslate"><span class="pre">negative_pop_change_2000_1990</span></code> in označite polje <span class="guilabel">Add result to project</span>. Kliknite OK.</p></li>
-</ol>
-<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>pop_density_change_2000_1990@1 &lt; -10
-</pre></div>
-</div>
-<img alt="../_images/2234.png" class="align-center" src="../_images/2234.png" />
-<ol class="arabic simple" start="23">
-<li><p>Ko se nov sloj prikaže, ga desno kliknite in izberite <span class="guilabel">Properties</span>. Na zavihku <span class="guilabel">Transparency</span> vpišite 0 v polje <span class="guilabel">Additional no data value</span>. S to nastavitvijo bodo polja z vrednostjo 0 postala prosojna. Kliknite <span class="guilabel">OK</span>.</p></li>
-</ol>
-<img alt="../_images/2331.png" class="align-center" src="../_images/2331.png" />
-<ol class="arabic simple" start="24">
-<li><p>Piksli z negativno vrednostjo postanejo sivi.</p></li>
-</ol>
-<img alt="../_images/2430.png" class="align-center" src="../_images/2430.png" />
-</section>
 </section>
 
 
 
-
-
-  <!-- Comment Section Powered by utterances -->
-<div id="comments">
-  <hr />
-  <p>If you want to give feedback or share your experience with this tutorial, please comment below. (requires GitHub account)</p>
-<script src="https://utteranc.es/client.js"
-        repo="spatialthoughts/qgis-tutorials"
-        issue-term="title"
-        label="comment"
-        theme="github-light"
-        crossorigin="anonymous"
-        async>
-</script>
-</div>
+<!-- Turn on comments on only newer tutorials having 3/ in URL -->
 
 
     </div>
@@ -342,7 +205,7 @@
     </p>
     <p>
         &copy; Copyright 2025, Ujaval Gandhi.<br/>
-      Zadnjič posodobljeno maj 20, 2025.<br/>
+      Zadnjič posodobljeno maj 24, 2025.<br/>
       Created using <a href="http://sphinx-doc.org/">Sphinx</a> 7.2.6.<br/>
     </p>
   </div>

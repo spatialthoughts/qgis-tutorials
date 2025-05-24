@@ -185,99 +185,11 @@
 <p class="admonition-title">참고</p>
 <p>In QGIS3, you can perform this analysis using the <code class="docutils literal notranslate"><span class="pre">Join</span> <span class="pre">attributes</span> <span class="pre">by</span> <span class="pre">location</span> <span class="pre">(summary)</span></code> tool in the Processing Toolbox. Use the polygon layer as the <span class="guilabel">Input Layer</span>, the point layer as the <span class="guilabel">Join layer</span> and <code class="docutils literal notranslate"><span class="pre">count</span></code>  as the <span class="guilabel">Summaries to calculate</span>. See <a class="reference internal" href="3/performing_spatial_joins.html"><span class="doc">공간 결합 수행 (QGIS3)</span></a> tutorial for step-by-step instructions.</p>
 </div>
-<p>GIS의 힘은 여러 데이터 소스를 한꺼번에 같이 분석하는데 있습니다. 종종 찾고있는 답은 수많은 다른 레이어에 있고 이런 정보를 추출하고 컴파일하기 위한 분석을 할 필요가 있습니다.  그러한 유형의 분석이  <a href="#id1"><span class="problematic" id="id2">**</span></a>Points-in-Polygon**입니다. 폴리곤 레이어와 포인트 레이어를 가지고 있을때 그리고 얼만나 많이 혹은 어떤 저들이 각 폴리곤의 경계내에 있는지를 알고자 할때 이 분석방법을 사용할 수 있습니다.</p>
-<section id="overview-of-the-task">
-<h2>과업 개요<a class="headerlink" href="#overview-of-the-task" title="Link to this heading">¶</a></h2>
-<p>모두에게 알려져 있는 주요 지진발생위치 데이터가 주어지고, 어느 나라가 가장 높은 빈도의 지진이 일어났는지 알아내려고 시도합니다.</p>
-</section>
-<section id="get-the-data">
-<h2>데이터 획득<a class="headerlink" href="#get-the-data" title="Link to this heading">¶</a></h2>
-<p>모든 주요한 지진을 나타내는 레이어로써 NOAA’s National Geophysical Data Center의 <a href="#id1"><span class="problematic" id="id2">`</span></a>Significant Earthquake Database &lt;<a class="reference external" href="http://www.ngdc.noaa.gov/nndc/struts/form?t=101650&amp;s=1&amp;d=1">http://www.ngdc.noaa.gov/nndc/struts/form?t=101650&amp;s=1&amp;d=1</a>&gt;`_를 사용합니다.  <a href="#id3"><span class="problematic" id="id4">`</span></a>tab-delimited earthquake data &lt;<a class="reference external" href="http://www.ngdc.noaa.gov/nndc/struts/results?type_0=Exact&amp;query_0=$ID&amp;t=101650&amp;s=13&amp;d=189&amp;dfn=signif.txt">http://www.ngdc.noaa.gov/nndc/struts/results?type_0=Exact&amp;query_0=$ID&amp;t=101650&amp;s=13&amp;d=189&amp;dfn=signif.txt</a>&gt;`_를 다운로드 합니다.</p>
-<p>Natural Earth는 <a class="reference external" href="http://www.naturalearthdata.com/downloads/10m-cultural-vectors/">Admin 0 - Countries</a> 데이터셋을 가지고 있습니다. <a href="#id1"><span class="problematic" id="id2">`</span></a>countries &lt;<a class="reference external" href="http://www.naturalearthdata.com/http//www.naturalearthdata.com/download/10m/cultural/ne_10m_admin_0_countries.zip">http://www.naturalearthdata.com/http//www.naturalearthdata.com/download/10m/cultural/ne_10m_admin_0_countries.zip</a>&gt;`_를 다운로드 합니다.</p>
-<p>For convenience, you may directly download a copy of the dataset from the link
-below:</p>
-<p><a class="reference external" href="http://www.qgistutorials.com/downloads/signif.txt">signif.txt</a></p>
-<p><a class="reference external" href="http://www.qgistutorials.com/downloads/ne_10m_admin_0_countries.zip">ne_10m_admin_0_countries.zip</a></p>
-<p>Data Sources: <a class="reference internal" href="credits.html#ncei" id="id1"><span>[NCEI]</span></a>  <a class="reference internal" href="credits.html#naturalearth" id="id2"><span>[NATURALEARTH]</span></a></p>
-</section>
-<section id="procedure">
-<h2>과정<a class="headerlink" href="#procedure" title="Link to this heading">¶</a></h2>
-<ol class="arabic simple">
-<li><p>메뉴 레이어 –&gt; 구분자로 분리된 텍스트 레이어 추가 :menuselection:<a href="#id1"><span class="problematic" id="id2">`</span></a>Layer –&gt; Add Delimited Text Layer`를 열고 다운로드한 <a href="#id3"><span class="problematic" id="id4">``</span></a>signif.txt``파일을 찾습니다.</p></li>
-</ol>
-<img alt="../_images/1271.png" class="align-center" src="../_images/1271.png" />
-<ol class="arabic simple" start="2">
-<li><p>이것은 탭으로 구분된 파일 <a href="#id1"><span class="problematic" id="id2">*</span></a>tab-delimited file*이므로 파일 포맷 :guilabel:<a href="#id3"><span class="problematic" id="id4">`</span></a>File format`에 탭  :guilabel:<a href="#id5"><span class="problematic" id="id6">`</span></a>Tab`을 선택합니다. X필드 :guilabel:<a href="#id7"><span class="problematic" id="id8">`</span></a>X field`와 Y필드 :guilabel:<a href="#id9"><span class="problematic" id="id10">`</span></a>Y field`는 자동적으로 나타납니다. :guilabel:<a href="#id11"><span class="problematic" id="id12">`</span></a>OK`를 클릭합니다.</p></li>
-</ol>
-<div class="admonition note">
-<p class="admonition-title">참고</p>
-<p>파일은 QGIS로 불러오기를 시도하면서 에러메세지를 를 보게됩니다. 이것들은 유효한 에러이고 파일의 몇 행은 불러들여지지 않을 것입니다. 이 예제에서는 에러를 무시할 수 있습니다.</p>
-</div>
-<img alt="../_images/2174.png" class="align-center" src="../_images/2174.png" />
-<ol class="arabic simple" start="3">
-<li><p>지진 데이터셋은 위도/경도 좌표를 가지므로 좌표계선택 <span class="guilabel">Coordinate Reference System Selector</span> 다이알로그에서 좌표계로 :guilabel:<a href="#id1"><span class="problematic" id="id2">`</span></a>WGS 84 EPSG:436`를 선택합니다.</p></li>
-</ol>
-<img alt="../_images/3109.png" class="align-center" src="../_images/3109.png" />
-<ol class="arabic simple" start="4">
-<li><p>The earthquake point layer would now be loaded and displayed in QGIS. Let’s
-also open the Countries layer. Go to <span class="menuselection">Layer ‣ Add Vector
-Layer</span>.  Browse to the downloaded <code class="docutils literal notranslate"><span class="pre">ne_10m_admin_0_countries.zip</span></code> file and
-click <span class="guilabel">Open</span>. Select the <code class="docutils literal notranslate"><span class="pre">ne_10m_admin_0_countries.shp</span></code> as the
-layer in the <span class="guilabel">Select layers to add…</span> dialog.</p></li>
-</ol>
-<img alt="../_images/474.png" class="align-center" src="../_images/474.png" />
-<ol class="arabic simple" start="5">
-<li><p>메뉴 벡터 –&gt; 분석 도구 –&gt; 폴리곤의 점 :menuselection:<a href="#id1"><span class="problematic" id="id2">`</span></a>Vector –&gt; Analysis Tools –&gt; Point in Polygon`을 클릭합니다.</p></li>
-</ol>
-<img alt="../_images/568.png" class="align-center" src="../_images/568.png" />
-<ol class="arabic simple" start="6">
-<li><p>팝업창에서 폴리곤 레이어와 포인트 레이어를 각각 선택합니다. 출력 레이어에  <a href="#id1"><span class="problematic" id="id2">``</span></a>earthquake_per_coutry.shp``를 입력하고  :guilabel:<a href="#id3"><span class="problematic" id="id4">`</span></a>OK`를 클릭합니다.</p></li>
-</ol>
-<div class="admonition note">
-<p class="admonition-title">참고</p>
-<p>OK를 누른 후 기다립니다. QGIS는 결과를 계산하기까지 최대 10분이 소요될 수 있습니다.</p>
-</div>
-<ol class="arabic simple" start="7">
-<li><p>레이어를 TOC에 추가할 것을 물어보면 :guilabel:<a href="#id1"><span class="problematic" id="id2">`</span></a>Yes`를 클릭하십시오.</p></li>
-</ol>
-<img alt="../_images/764.png" class="align-center" src="../_images/764.png" />
-<ol class="arabic simple" start="8">
-<li><p>TOC에 새로운 렝어가 추가되는 것을 보게될 것입니다. 레이어를 우측클릭하여 속성 테이블을 열고 속성테이블 열기 :guilabel:<a href="#id1"><span class="problematic" id="id2">`</span></a>Open Attribute Table`를 선택합니다.</p></li>
-</ol>
-<img alt="../_images/862.png" class="align-center" src="../_images/862.png" />
-<ol class="arabic simple" start="9">
-<li><p>속성 테이블에서 <a href="#id1"><span class="problematic" id="id2">``</span></a>PNTCNT``라는 이름의 새로운 필드명을 주목하게 됩니다. 이것은 각 폴리곤내에 포함된 지진레이어에서 점의 갯수를 계산한 것입니다.</p></li>
-</ol>
-<img alt="../_images/961.png" class="align-center" src="../_images/961.png" />
-<ol class="arabic simple" start="10">
-<li><p>답을 얻기 위해 <a href="#id1"><span class="problematic" id="id2">``</span></a>PNTCNT``필드를 정렬하면 가장 수가 높은 나라가 답이 됩니다. 내림차순으로 정렬하기 위해 <a href="#id3"><span class="problematic" id="id4">``</span></a>PNTCNT``열을 2번 클릭합니다. 그것을 선택하기 위하여 첫번째 행을 클릭하고 속성 테이블을 닫습니다.</p></li>
-</ol>
-<img alt="../_images/1069.png" class="align-center" src="../_images/1069.png" />
-<ol class="arabic simple" start="11">
-<li><p>QGIS 창으로 되돌아가면 한 객체가 노란색으로 밝게 빛나는 것을 보게됩니다. 이것이 속성테이블에서 가장 점이 많아서 선택한 행과 연결된 객체입니다. 객체 확인  :guilabel:<a href="#id1"><span class="problematic" id="id2">`</span></a>Identify`툴을 선택하고 폴리곤을 클릭합니다. 유효한 지진빈도가 가장 높은 국가가 중국  <a href="#id3"><span class="problematic" id="id4">**</span></a>China**임을 볼 수 있습니다.</p></li>
-</ol>
-<img alt="../_images/11107.png" class="align-center" src="../_images/11107.png" />
-<p>중국이 가장 많은 주요 지진 횟수를 가지고 있다는 것이 2가지 데이터셋의 간단한 분석에서 명확해 졌습니다. 국가의 인구와 면적을 고려하여 분석을 더욱 개선하고 반대로 주요 지진의 영향을 가장 덜 받는 국가를 찾아 낼 수도 있습니다.</p>
-</section>
 </section>
 
 
 
-
-
-  <!-- Comment Section Powered by utterances -->
-<div id="comments">
-  <hr />
-  <p>If you want to give feedback or share your experience with this tutorial, please comment below. (requires GitHub account)</p>
-<script src="https://utteranc.es/client.js"
-        repo="spatialthoughts/qgis-tutorials"
-        issue-term="title"
-        label="comment"
-        theme="github-light"
-        crossorigin="anonymous"
-        async>
-</script>
-</div>
+<!-- Turn on comments on only newer tutorials having 3/ in URL -->
 
 
     </div>
@@ -293,7 +205,7 @@ layer in the <span class="guilabel">Select layers to add…</span> dialog.</p></
     </p>
     <p>
         &copy; Copyright 2025, Ujaval Gandhi.<br/>
-      최종 업데이트: 5월 20, 2025<br/>
+      최종 업데이트: 5월 24, 2025<br/>
       Created using <a href="http://sphinx-doc.org/">Sphinx</a> 7.2.6.<br/>
     </p>
   </div>

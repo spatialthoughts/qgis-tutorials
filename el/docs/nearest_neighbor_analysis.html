@@ -185,180 +185,11 @@
 <p class="admonition-title">Προειδοποίηση</p>
 <p>This tutorial is now obsolete. A new and updated version is available at <a class="reference internal" href="3/nearest_neighbor_analysis.html"><span class="doc">Nearest Neighbor Analysis (QGIS3)</span></a></p>
 </div>
-<p>Τα GIS είναι πολύ χρήσιμα στην ανάλυση χωρικών σχέσεων μεταξύ χαρακτηριστικών. Μια τέτοια ανάλυση είναι η εύρεση ποια χαρακτηριστικά  βρίσκονται πλησιέστερα σε ένα δεδομένο χαρακτηριστικό. Το QGIS έχει ένα εργαλείο το οποίο ονομάζεται <strong>Distance Matrix</strong> το οποίο βοηθάει σε μια τέτοια ανάλυση. Σε αυτό το tutorial, θα χρησιμοποιήσουμε 2 σύνολα δεδομένων και θα βρούμε ποια σημεία από το ένα στρώμα είναι πιο κοντά σε ποια σημεία του άλλου στρώματος.</p>
-<section id="overview-of-the-task">
-<h2>Επισκόπηση του έργου<a class="headerlink" href="#overview-of-the-task" title="Link to this heading">¶</a></h2>
-<p>Λαμβάνοντας υπόψη τις τοποθεσίες όλων των γνωστών σημαντικών σεισμών, βρείτε το πλησιέστερο πυκνοκατοικημένο μέρος για κάθε τοποθεσία όπου συνέβη ο σεισμός.</p>
-<section id="other-skills-you-will-learn">
-<h3>Άλλες δεξιότητες που θα μάθετε<a class="headerlink" href="#other-skills-you-will-learn" title="Link to this heading">¶</a></h3>
-<ul class="simple">
-<li><p>Πως να κάνετε ένωση πινάκων στο QGIS. ( Δείτε <a class="reference internal" href="performing_table_joins.html"><span class="doc">Εκτελώντας συγχωνεύσεις πινάκων</span></a> for detailed instructions.)</p></li>
-<li><p>Πατήστε <span class="guilabel">Add rule</span> για να προσθέσετε ένα προσαρμοσμένο στυλ για το στρώμα.</p></li>
-<li><p>Χρησιμοποιείστε το πρόσθετο MMQGIS  για να δημιουργήσετε γραμμές-κόμβους για να οπτικοποιήσετε τους  πλησιέστερους γείτονες.</p></li>
-</ul>
-</section>
-</section>
-<section id="get-the-data">
-<h2>Πάρτε τα δεδομένα<a class="headerlink" href="#get-the-data" title="Link to this heading">¶</a></h2>
-<p>Θα χρησιμοποιήσουμε δεδομένα από τον ΝΟΑΑ, Εθνικό Γεωφυσικό κέντρο δεδομένων και πιο συγκεκριμένα την βάση <a class="reference external" href="http://www.ngdc.noaa.gov/nndc/struts/form?t=101650&amp;s=1&amp;d=1">Significant Earthquake Database</a> ως το στρώμα στο οποίο θα εμφανίζονται όλοι οι μείζωντες στεισμοί. Μεταφορτώστε τα δεδομένα <a class="reference external" href="http://www.ngdc.noaa.gov/nndc/struts/results?type_0=Exact&amp;query_0=$ID&amp;t=101650&amp;s=13&amp;d=189&amp;dfn=signif.txt">tab-delimited earthquake data</a>.</p>
-<p>Εκ φύσεως η Γη έχει ένα υπέροχο  <a class="reference external" href="http://www.naturalearthdata.com/downloads/10m-cultural-vectors/10m-populated-places/">Populated Places</a> σύνολο δεδομένων. Κάνετε λήψη το  <a class="reference external" href="http://www.naturalearthdata.com/http//www.naturalearthdata.com/download/10m/cultural/ne_10m_populated_places_simple.zip">simple (less columns) dataset</a></p>
-<p>Για ευκολία, μπορείτε να μεταφορτώσετε απευθείας ένα αντίγραφο και από τις δύο δέσμες στοιχείων από τις παρακάτω συνδέσεις.</p>
-<p><a class="reference external" href="http://www.qgistutorials.com/downloads/signif.txt">signif.txt</a></p>
-<p><a class="reference external" href="http://www.qgistutorials.com/downloads/ne_10m_populated_places_simple.zip">ne_10m_populated_places_simple.zip</a></p>
-<p>Data Sources: <a class="reference internal" href="credits.html#ncei" id="id1"><span>[NCEI]</span></a> <a class="reference internal" href="credits.html#naturalearth" id="id2"><span>[NATURALEARTH]</span></a></p>
-</section>
-<section id="procedure">
-<h2>Διαδικασία<a class="headerlink" href="#procedure" title="Link to this heading">¶</a></h2>
-<ol class="arabic simple">
-<li><p>Ανοίξτε το <span class="menuselection">Layer ‣ Add Layer ‣ Add Delimited Text Layer</span> και περιηγηθείτε στο μεταφορτωμένο αρχείο``signif.txt``.</p></li>
-</ol>
-<img alt="../_images/1204.png" class="align-center" src="../_images/1204.png" />
-<ol class="arabic simple" start="2">
-<li><p>Δεδομένου ότι αυτό είναι ένα <em>tab-delimited file</em> , επιλέξτε <span class="guilabel">Tab</span> as the <span class="guilabel">File format</span>. Το <span class="guilabel">X field</span> and <span class="guilabel">Y field</span> would be auto-populated. Κάνετε κλικ στο <span class="guilabel">OK</span>.</p></li>
-</ol>
-<div class="admonition note">
-<p class="admonition-title">Σημείωση</p>
-<p>Μπορεί να δείτε κάποια μηνύματα σφάλματος όπως το QGIS προσπαθεί να εισάγει το αρχείο. Αυτά είναι έγκυρα λάθη και μερικές γραμμές από το αρχείο δεν θα πρέπει να εισάγονται. Μπορείτε να αγνοήσετε τα σφάλματα για τους σκοπούς αυτού του tutorial.</p>
-</div>
-<img alt="../_images/2166.png" class="align-center" src="../_images/2166.png" />
-<ol class="arabic simple" start="3">
-<li><p>Δεδομένου οτι το αρχείο με τους σεισμούς έχει συντεταγμένες σε Γεωγραφικό Μήκος/Πλάτος, η εισαγωγή του θα γίνει χρησιμοποιώντας το προεπιλεγμένο σύστημα «EPSG: 4326». Μπορείτε να το επαληθεύσετε κοιτώντας στην κάτω-δεξιά γωνία του παραθύρου. Ανοίξτε επίσης το επίθεμα Populated Places. Πηγαίνετε στο <span class="menuselection">Layer ‣ Add Layer ‣ Add Vector Layer</span>.</p></li>
-</ol>
-<img alt="../_images/3103.png" class="align-center" src="../_images/3103.png" />
-<ol class="arabic simple" start="4">
-<li><p>Περιηγηθείτε στο μεταφορτωμένο αρχείο``ne_10m_populated_places_simple.zip`` και επιλέξτε <span class="guilabel">Open</span>.</p></li>
-</ol>
-<img alt="../_images/469.png" class="align-center" src="../_images/469.png" />
-<ol class="arabic simple" start="5">
-<li><p>Κάντε zoum και περιηγηθείτε και στα δυο σύνολα δεδομένων. Κάθε μοβ σημείο αντιπροσωπεύει την τοποθεσία ενός σημαντικού σεισμού και τα μπλε σημεία αντιπροσωπεύουν την τοποθεσία κατοικημένων περιοχών. Χρειαζόμαστε έναν τρόπο για να βρούμε το κοντινότερο σημείο από το   επίπεδο με τις κατοικημένες περιοχές΄για κάθε ένα από τα σημεία στο στρώμα των σεισμών.</p></li>
-</ol>
-<img alt="../_images/562.png" class="align-center" src="../_images/562.png" />
-<ol class="arabic simple" start="6">
-<li><p>Πηγαίνετε στο <span class="menuselection">Vector ‣ Analysis Tools ‣ Distance Matrix</span>.</p></li>
-</ol>
-<img alt="../_images/660.png" class="align-center" src="../_images/660.png" />
-<ol class="arabic simple" start="7">
-<li><p>Εδώ επιλέξτε το πεδίο``signif`` ως το επίθεμα εισαγωγής σημείου και τις κατοικημένες περιοχές <code class="docutils literal notranslate"><span class="pre">ne_10m_populated_places_simple</span></code> ως το επίθεμα-στόχος. Θα χρειαστεί επίσης να επιλέξετε ένα μοναδικό πεδίο για κάθε ένα από αυτά τα επιθέματα τα οποία καθορίζουν το πως εμφανίζονται τα αποτελέσματα σας. Σε αυτήν την ανάλυση, ψάχνουμε να βρούμε μόνο <strong>1</strong> πλησιέστερο σημείο, επομένως επιλέξτε το <span class="guilabel">Use only the nearest(k) target points</span>, και πληκτρολογήστε <span class="guilabel">1</span>. Δώστε ένα όνομα στο αρχείο που θα προκύψει <code class="docutils literal notranslate"><span class="pre">matrix.csv</span></code>, και επιλέξτε OK.</p></li>
-</ol>
-<div class="admonition note">
-<p class="admonition-title">Σημείωση</p>
-<p>Κάτι που πρέπει να σημειωθεί είναι πως μπορείτε να πραγματοποιήσετε την ανάλυση με μόνο 1 στρώμα. Επιλέξτε το ίδιο επίπεδο σαν Input και Target. Το αποτέλεσμα θα είναι ο εγγύτερος γείτονας από το ίδιο επίπεδο αντί για ένα διαφορετικό επίπεδο όπως έχουμε χρησιμοποιήσει εδώ.</p>
-</div>
-<img alt="../_images/759.png" class="align-center" src="../_images/759.png" />
-<ol class="arabic simple" start="8">
-<li><p>Όταν είναι έτοιμο το αρχείο σας, πατήστε το κουμπί <span class="guilabel">Close</span> στο παράθυρο διαλόγου :<cite>Distance Matrix</cite>. Μπορείτε να δείτε το αρχείο <code class="docutils literal notranslate"><span class="pre">matrix.csv</span></code> στο Σημειωματάριο ή σε ένα οποιοδήποτε πρόγραμμα επεξεργασίας κειμένου. Το QGIS μπορεί επίσης να ανοίξει CSV αρχεία, επομένως θα το προσθέσουμε στο QGIS και θα το δούμε εκεί. Πηγαίνετε στο <span class="menuselection">Layer ‣ Add Delimited Text Layer…</span>.</p></li>
-</ol>
-<img alt="../_images/858.png" class="align-center" src="../_images/858.png" />
-<ol class="arabic simple" start="9">
-<li><p>Περιηγηθείτε στο νέο αρχείο <code class="docutils literal notranslate"><span class="pre">matrix.csv</span></code> που μόλις δημιουργήθηκε. Δεδομένου ότι αυτό το αρχείο είναι στήλες κειμένου, επιλέξτε <span class="guilabel">No geometry (attribute only table)</span> από το <span class="guilabel">Geometry definition</span>. Επιλέξτε <span class="guilabel">OK</span>.</p></li>
-</ol>
-<img alt="../_images/957.png" class="align-center" src="../_images/957.png" />
-<ol class="arabic simple" start="10">
-<li><p>Θα παρατηρήσετε ότι το CSV αρχείο έχει φορτωθεί ως πίνακας. Κάντε δεξί-κλικ στο επίπεδο του πίνακα και επιλέξτε <span class="guilabel">Open Attribute Table</span>.</p></li>
-</ol>
-<img alt="../_images/1065.png" class="align-center" src="../_images/1065.png" />
-<ol class="arabic simple" start="11">
-<li><p>Τώρα θα είστε σε θέση να δείτε τα περιεχόμενα των αποτελεσμάτων μας. Το πεδίο <span class="guilabel">InputID</span> περιέχει το όνομα του πεδίου από το στρώμα του Σεισμού. Το πεδίο <span class="guilabel">TargetID</span> περιέχει τα περιεχόμενα από το στρώμα με τις Κατοικημένες Περιοχές ήταν πλησιέστερα στο σημείο του σεισμού. Το πεδίο <span class="guilabel">Distance</span> είναι η απόσταση των 2 σημείων.</p></li>
-</ol>
-<div class="admonition note">
-<p class="admonition-title">Σημείωση</p>
-<p>Να θυμάστε ότι ο υπολογισμός της <em>distance</em> θα γίνει με τη χρήση του Συστήματος Αναφοράς Συντεταγμένων του στρώματος. Εδώ η απόσταση θα είναι σε μονάδες <em>decimal degrees</em> επειδή το στρώμα των πηγών συντεταγμένων είναι σε βαθμούς. Εάν θέλετε την απόσταση σε μέτρα, σχεδιάστε τα στρώματα ξανά πριν από την εκτέλεση του εργαλείου.</p>
-</div>
-<img alt="../_images/11103.png" class="align-center" src="../_images/11103.png" />
-<ol class="arabic simple" start="12">
-<li><p>Αυτό είναι πολύ κοντά στο αποτέλεσμα που ψάχνουμε. Για ορισμένους χρήστες, αυτός ο πίνακας  θα ήταν επαρκής. Ωστόσο, μπορούμε επίσης να ενσωματώσουμε αυτά τα αποτελέσματα στο αρχικό επίπεδο Σεισμού χρησιμοποιώντας το  <strong>Table Join</strong>. Κάντε δεξί-κλικ στο επίπεδο σεισμού και επιλέξτε <span class="guilabel">Properties</span>.</p></li>
-</ol>
-<img alt="../_images/1267.png" class="align-center" src="../_images/1267.png" />
-<ol class="arabic simple" start="13">
-<li><p>Πηγαίνετε στην καρτέλα <span class="guilabel">Joins</span> και κάντε κλικ στο κουμπί  <span class="guilabel">+</span></p></li>
-</ol>
-<img alt="../_images/1460.png" class="align-center" src="../_images/1460.png" />
-<ol class="arabic simple" start="14">
-<li><p>Θέλουμε να ενώσουμε τα δεδομένα από τα αποτελέσματα της ανάλυσης μας  σε αυτό το στρώμα. Πρέπει να επιλέξουμε ένα πεδίο από το κάθε ένα από τα στρώματα που έχει τις ίδιες τιμές. Επιλέξτε τα πεδία «matrix``  ως :guilabel:»Στρώμα για την ένωση`` και <code class="docutils literal notranslate"><span class="pre">InputID</span></code> ως <span class="guilabel">Πεδίο για την ένωση</span>. The <span class="guilabel">Πεδίο-στόχος</span> θα είναι <code class="docutils literal notranslate"><span class="pre">I_D</span></code>. Αφήστε τις υπόλοιπες επιλογές στις προεπιλεγμένες τιμές και πατήστε <span class="guilabel">OK</span>.</p></li>
-</ol>
-<img alt="../_images/1460.png" class="align-center" src="../_images/1460.png" />
-<ol class="arabic simple" start="15">
-<li><p>Θα παρατηρήσετε να εμφανίζεται η ένωση στην καρτέλα <span class="guilabel">Joins</span> tab. Κάντε κλικ στο <span class="guilabel">OK</span>.</p></li>
-</ol>
-<img alt="../_images/1554.png" class="align-center" src="../_images/1554.png" />
-<ol class="arabic simple" start="16">
-<li><p>Τώρα ανοίξτε τον πίνακα χαρακτηριστικών του στρώματος σεισμοί  <code class="docutils literal notranslate"><span class="pre">signif</span></code>  κάνοντας δεξί κλίκ και επιλέγοντας <span class="guilabel">Open Attribute Table</span>.</p></li>
-</ol>
-<img alt="../_images/1650.png" class="align-center" src="../_images/1650.png" />
-<ol class="arabic simple" start="17">
-<li><p>Θα δείτε ότι για κάθε χαρακτηριστικό Σεισμού, έχουμε ένα χαρακτηριστικό το οποίο είναι ο εγγύτερος γείτονας (πλησιέστερη κατοικημένη περιοχή) και η απόσταση από τον εγγύτερο γείτονα.</p></li>
-</ol>
-<img alt="../_images/1748.png" class="align-center" src="../_images/1748.png" />
-<ol class="arabic simple" start="18">
-<li><p>Τώρα θα εξερευνήσουμε έναν τρόπο οπτικοποίησης των αποτελεσμάτων. Αρχικά, θα πρέπει να κάνουμε την ένωση μόνιμη σώζοντας την σε νέο στρώμα. Κάντε δεξί-κλικ στο στρώμα``signif`` και επιλέξτε <span class="guilabel">Save As- Αποθήκευση ως…</span>.</p></li>
-</ol>
-<img alt="../_images/1844.png" class="align-center" src="../_images/1844.png" />
-<ol class="arabic simple" start="19">
-<li><p>Πατήστε το κουμπί <span class="guilabel">Browse`δίπλα στην ετικέτα :guilabel:`Save as</span> και ονομάστε το εξαγώμενο αρχείο ως <code class="docutils literal notranslate"><span class="pre">earthquake_with_places.shp</span></code>. Φροντίστε το κουτί <span class="guilabel">Add saved file to map`και πατήστε :guilabel:`OK</span>.</p></li>
-</ol>
-<img alt="../_images/1935.png" class="align-center" src="../_images/1935.png" />
-<ol class="arabic simple" start="20">
-<li><p>Οταν φορτωθεί το νέο στρώμα, μπορείτε να απενεργοποιήσετε την εμφάνισή του στο στρώμα``signif``. Δεδομένου οτι η δέσμη δεδομένων μας είναι εκτενής, μπορούμε να τρέξουμε την οπτικοποίηση σε ένα υποσύνολο των δεδομένων. το QGIS έχει ένα ένδιαφέρον χαρακτηριστικό μέσω του οποίου μπορείτε να φορτώσετε ένα υποσύνολο από τα χαρατηριστικά ενός στρώματος χωρίς να χρειάζετε να γίνει εξαγωγή σε νέο στρώμα. Κάντε δεξί-κλίκ στο στρώμα <code class="docutils literal notranslate"><span class="pre">earthquake_with_places</span></code> και επιλέξτε  <span class="guilabel">Properties-Ιδιότητες</span>.</p></li>
-</ol>
-<img alt="../_images/2030.png" class="align-center" src="../_images/2030.png" />
-<ol class="arabic simple" start="21">
-<li><p>Στην καρτέλα <span class="guilabel">General-Γενικά</span>, επιλέξτε το τμήμα <span class="guilabel">Feature subset- Υποσύνολο χαρακτηριστικών</span>. Κάντε κλίκ στο <span class="guilabel">Query Builder</span>.</p></li>
-</ol>
-<img alt="../_images/2167.png" class="align-center" src="../_images/2167.png" />
-<ol class="arabic simple" start="22">
-<li><p>Στην παρούσα άσκηση, θα οπτικοποιήσουμε τους σεισμούς και τις κοντινότερες σε αυτούς κατοικημένες περιοχές για το Μεξικό. Εισάγετε την παρακάτω έκφραση στο παράθυρο διαλόγου <span class="guilabel">Query Builder</span></p></li>
-</ol>
-<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>&quot;COUNTRY&quot; = &#39;MEXICO&#39;
-</pre></div>
-</div>
-<img alt="../_images/2230.png" class="align-center" src="../_images/2230.png" />
-<ol class="arabic simple" start="23">
-<li><p>Θα δείτε οτι μόνο τα σημεία που εμφανίζονται μέσα στην περιοχή του Μεξικό είναι εμφανή στον καμβά.  Ας κάνουμε το ίδιο και για το στρώμα με τις κατοικημένες περιοχές. Κάντε δεξί-κλίκ στο στρώμα``ne_10m_populated_places_simple`` και επιλέξτε Ιδιότητες `` layer and select <span class="guilabel">Properties</span>.</p></li>
-</ol>
-<img alt="../_images/2327.png" class="align-center" src="../_images/2327.png" />
-<ol class="arabic simple" start="24">
-<li><p>Ανοίξτε το παράθυρο διαλόγου:guilabel:<cite>Query Builder</cite> από την καρτέλα <span class="guilabel">General</span>. Εισάγετε την παρακάτω εντολή.</p></li>
-</ol>
-<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>&quot;adm0name&quot; = &#39;Mexico&#39;
-</pre></div>
-</div>
-<img alt="../_images/2427.png" class="align-center" src="../_images/2427.png" />
-<ol class="arabic simple" start="25">
-<li><p>Τώρα είστε σε θέση να δημιουργήσετε την δική σας οπτικοποίηση. Θα χρησιμοποιήσουμε το πρόσθετο``MMQGIS``. Βρείτε και εγκαταστείστε το πρόσθετο. Βλέπε <a class="reference internal" href="using_plugins.html"><span class="doc">Χρησιμοποιώντας Πρόσθετες Λειτουργίες</span></a> για περισσότερες πληροφορίες σχετικά με το πως να δουλεύετε με τα πρόσθετα. Αφού εγκαταστείσετε το πρόσθετο πηγαίνεται στο <span class="menuselection">MMQGIS ‣ Create ‣ Hub Lines</span>.</p></li>
-</ol>
-<img alt="../_images/2525.png" class="align-center" src="../_images/2525.png" />
-<ol class="arabic simple" start="26">
-<li><p>Επιλέξτε το  <code class="docutils literal notranslate"><span class="pre">ne_10m_populated_places_simple</span></code> ως το <span class="guilabel">Στρώμα κομβικών σημείων</span> και``όνομα`` as the <span class="guilabel">Hub ID Attribute</span>. Ομοίως, επιλέξτε το``earthquake_with_places`` ως το <span class="guilabel">Spoke Point Layer</span> και το``matrix_Tar`` ως το <span class="guilabel">Spoke Hub ID Attribute</span>. Ο αλγόριθμος για τις κομβικές γραμμές θα περάσει μέσα από το κάθε σημείο που απεικονίζει σεισμό και θα δημιουργήσει μια γραμμή η οποί θα ενώνει το σημείο με την κατοικημένη περιοχή που ταιριάζει με την ιδιότητα που έχουμε προκαθορίσει. Κάντε κλίκ στο <span class="guilabel">Browse</span> και ονομάστε το <span class="guilabel">Output Shapefile</span> ως``earthquake_hub_lines.shp``. Κάντε κλίκ στο <span class="guilabel">OK</span> για να ξεκινήσετε την επεξεργασία.</p></li>
-</ol>
-<img alt="../_images/2622.png" class="align-center" src="../_images/2622.png" />
-<ol class="arabic simple" start="27">
-<li><p>Η επεξεργασία μπορεί να πάρει μερικά λεπτά. μπορείτε να δείτε την πρόοδο στην κάτω-αριστερή γωνιά του παραθύρου του QGIS.</p></li>
-</ol>
-<img alt="../_images/2722.png" class="align-center" src="../_images/2722.png" />
-<ol class="arabic simple" start="28">
-<li><p>Μόλις η επεξεργασία είναι έτοιμη, θα δείτε το στρώμα <code class="docutils literal notranslate"><span class="pre">earthquake_hub_lines</span></code> φορτωμένο στο QGIS. Μπορείτε να δείτε ότι το κάθε σημείο που απεικονίζει σεισμό είναι τώρα συνδεδεμένο με την κοντινότερη κατοικημένη περιοχή με μία γραμμή.</p></li>
-</ol>
-<img alt="../_images/2821.png" class="align-center" src="../_images/2821.png" />
-</section>
 </section>
 
 
 
-
-
-  <!-- Comment Section Powered by utterances -->
-<div id="comments">
-  <hr />
-  <p>If you want to give feedback or share your experience with this tutorial, please comment below. (requires GitHub account)</p>
-<script src="https://utteranc.es/client.js"
-        repo="spatialthoughts/qgis-tutorials"
-        issue-term="title"
-        label="comment"
-        theme="github-light"
-        crossorigin="anonymous"
-        async>
-</script>
-</div>
+<!-- Turn on comments on only newer tutorials having 3/ in URL -->
 
 
     </div>
@@ -374,7 +205,7 @@
     </p>
     <p>
         &copy; Copyright 2025, Ujaval Gandhi.<br/>
-      Τελευταία ενημέρωση στις Μαΐ 20, 2025.<br/>
+      Τελευταία ενημέρωση στις Μαΐ 24, 2025.<br/>
       Created using <a href="http://sphinx-doc.org/">Sphinx</a> 7.2.6.<br/>
     </p>
   </div>

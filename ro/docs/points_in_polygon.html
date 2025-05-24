@@ -185,94 +185,11 @@
 <p class="admonition-title">Notă</p>
 <p>In QGIS3, you can perform this analysis using the <code class="docutils literal notranslate"><span class="pre">Join</span> <span class="pre">attributes</span> <span class="pre">by</span> <span class="pre">location</span> <span class="pre">(summary)</span></code> tool in the Processing Toolbox. Use the polygon layer as the <span class="guilabel">Input Layer</span>, the point layer as the <span class="guilabel">Join layer</span> and <code class="docutils literal notranslate"><span class="pre">count</span></code>  as the <span class="guilabel">Summaries to calculate</span>. See <a class="reference internal" href="3/performing_spatial_joins.html"><span class="doc">Realizarea Joncțiunilor Tabelare (QGIS3)</span></a> tutorial for step-by-step instructions.</p>
 </div>
-<p>Puterea GIS-ului constă în analiza simultană a surselor multiple de date. De multe ori, răspunsul pe care îl căutați, rezidă în mai multe straturi diferite, fiind nevoie de unele analize pentru extragerea și compilarea acestei informații. O astfel de analiză este <strong>Points-in-Polygon</strong>. Când aveți un strat poligonal și altul de tip punct - și vreți să aflați câte sau care dintre puncte se încadrează în granițele fiecărui poligon, puteți folosi această metodă de analiză.</p>
-<section id="overview-of-the-task">
-<h2>Privire de ansamblu asupra activității<a class="headerlink" href="#overview-of-the-task" title="Link to this heading">¶</a></h2>
-<p>Fiind în posesia locațiilor tuturor cutremurelor semnificative cunoscute, vom încerca să aflăm care este țara cu cel mai mare număr de cutremure.</p>
-</section>
-<section id="get-the-data">
-<h2>Obținerea datelor<a class="headerlink" href="#get-the-data" title="Link to this heading">¶</a></h2>
-<p>Vom folosi NOAA’s National Geophysical Data Center’s <a class="reference external" href="http://www.ngdc.noaa.gov/nndc/struts/form?t=101650&amp;s=1&amp;d=1">Significant Earthquake Database</a> ca strat al tuturor cutremurelor majore. Descărcați <a class="reference external" href="http://www.ngdc.noaa.gov/nndc/struts/results?type_0=Exact&amp;query_0=$ID&amp;t=101650&amp;s=13&amp;d=189&amp;dfn=signif.txt">tab-delimited earthquake data</a>.</p>
-<p>Natural Earth deține setul de date <a class="reference external" href="http://www.naturalearthdata.com/downloads/10m-cultural-vectors/">Admin 0 - Countries</a>. Descărcați <a class="reference external" href="http://www.naturalearthdata.com/http//www.naturalearthdata.com/download/10m/cultural/ne_10m_admin_0_countries.zip">countries</a></p>
-<p>Pentru comoditate, puteți descărca o copie a setului de date, făcând clic pe link-ul următor:</p>
-<p><a class="reference external" href="http://www.qgistutorials.com/downloads/signif.txt">signif.txt</a></p>
-<p><a class="reference external" href="http://www.qgistutorials.com/downloads/ne_10m_admin_0_countries.zip">ne_10m_admin_0_countries.zip</a></p>
-<p>Sursele datelor: <a class="reference internal" href="credits.html#ncei" id="id1"><span>[NCEI]</span></a> <a class="reference internal" href="credits.html#naturalearth" id="id2"><span>[NATURALEARTH]</span></a></p>
-</section>
-<section id="procedure">
-<h2>Procedura<a class="headerlink" href="#procedure" title="Link to this heading">¶</a></h2>
-<ol class="arabic simple">
-<li><p>Deschideți <span class="menuselection">Layer ‣ Add Delimited Text Layer</span> și navigați la fișierul descărcat <code class="docutils literal notranslate"><span class="pre">signif.txt</span></code>.</p></li>
-</ol>
-<img alt="../_images/1271.png" class="align-center" src="../_images/1271.png" />
-<ol class="arabic simple" start="2">
-<li><p>Deoarece acesta este un <em>fișier delimitat prin tab-uri</em> alegeți <span class="guilabel">Tab</span> pentru <span class="guilabel">File format</span>. <span class="guilabel">X field</span> și <span class="guilabel">Y field</span> se vor auto-popula. Clic pe <span class="guilabel">OK</span>.</p></li>
-</ol>
-<div class="admonition note">
-<p class="admonition-title">Notă</p>
-<p>Puteți vedea unele mesaje de eroare, pe măsură ce QGIS încearcă să importe fișierul. Acestea sunt erori valide, iar câteva rânduri din fișier nu vor fi importate. Puteți ignora erorile, în interesul acestui tutorial.</p>
-</div>
-<img alt="../_images/2174.png" class="align-center" src="../_images/2174.png" />
-<ol class="arabic simple" start="3">
-<li><p>Deoarece setul de date al cutremurelor are coordonate Latitudine/Longitudine, alegeți <span class="guilabel">WGS 84 EPSG:436</span> ca CRS, în fereastra de dialog <span class="guilabel">Coordinate Reference System Selector</span>.</p></li>
-</ol>
-<img alt="../_images/3109.png" class="align-center" src="../_images/3109.png" />
-<ol class="arabic simple" start="4">
-<li><p>Stratul de tip punct al cutremurelor ar trebui să fie de-acum încărcat și afișat în QGIS. Să deschidem, de asemenea, stratul țărilor. Mergeți la <span class="menuselection">Layer ‣ Add Vector Layer</span>. Navigați la fișierul descărcat <code class="docutils literal notranslate"><span class="pre">ne_10m_admin_0_countries.zip</span></code>, apoi faceți clic pe <span class="guilabel">Open</span>. Selectați stratul <code class="docutils literal notranslate"><span class="pre">ne_10m_admin_0_countries.shp</span></code>, în fereastra de dialog <span class="guilabel">Select layers to add…</span>.</p></li>
-</ol>
-<img alt="../_images/474.png" class="align-center" src="../_images/474.png" />
-<ol class="arabic simple" start="5">
-<li><p>Clic pe <span class="menuselection">Vector ‣ Analysis Tools ‣ Point in Polygon</span></p></li>
-</ol>
-<img alt="../_images/568.png" class="align-center" src="../_images/568.png" />
-<ol class="arabic simple" start="6">
-<li><p>În fereastra tip pop-up, selectați stratul poligonal și, respectiv, stratul de tip punct. Denumiți stratul de ieșire ca <code class="docutils literal notranslate"><span class="pre">earthquake_per_coutry.shp</span></code> și faceți clic pe <span class="guilabel">OK</span>.</p></li>
-</ol>
-<div class="admonition note">
-<p class="admonition-title">Notă</p>
-<p>Fiți răbdători după ce faceți clic pe OK; pot dura până la 10 minute până va încheia QGIS calculul.</p>
-</div>
-<ol class="arabic simple" start="7">
-<li><p>Când sunteți întrebați dacă doriți să adăugați stratul la Cuprins, faceți clic pe <span class="guilabel">Yes</span>.</p></li>
-</ol>
-<img alt="../_images/764.png" class="align-center" src="../_images/764.png" />
-<ol class="arabic simple" start="8">
-<li><p>Veți vedea că un nou strat este adăugat la Cuprins. Deschideți tabela de atribute prin clic-dreapta pe strat și selectând <span class="guilabel">Open Attribute Table</span>.</p></li>
-</ol>
-<img alt="../_images/862.png" class="align-center" src="../_images/862.png" />
-<ol class="arabic simple" start="9">
-<li><p>În tabela de atribute, veți observa un câmp nou, denumit <code class="docutils literal notranslate"><span class="pre">PNTCNT</span></code>. Acesta este numărul de puncte din stratul de cutremure care sunt în interiorul fiecărui poligon.</p></li>
-</ol>
-<img alt="../_images/961.png" class="align-center" src="../_images/961.png" />
-<ol class="arabic simple" start="10">
-<li><p>Pentru a obține răspunsul, pur și simplu se poate sorta tabelul după câmpul <code class="docutils literal notranslate"><span class="pre">PNTCNT</span></code>, iar țara cu cel mai mare număr va constitui răspunsul nostru. Efectuând clic de 2 ori pe <code class="docutils literal notranslate"><span class="pre">PNTCNT</span></code>, coloana va fi sortată în ordine descrescătoare. Faceți clic pe primul rând pentru a o selecta, apoi închideți tabela de atribute.</p></li>
-</ol>
-<img alt="../_images/1069.png" class="align-center" src="../_images/1069.png" />
-<ol class="arabic simple" start="11">
-<li><p>Înapoi în fereastra principală QGIS, veți vedea o entitate evidențiată în galben. Aceasta este corelată cu rândul selectat din tabela de atribute, cu cel mai mare număr de puncte. Selectați instrumentul <span class="guilabel">Identificare</span>, apoi faceți clic pe acel poligon. Puteți vedea că țara cu cel mai mare număr de cutremure semnificative este <strong>China</strong>.</p></li>
-</ol>
-<img alt="../_images/11107.png" class="align-center" src="../_images/11107.png" />
-<p>Am determinat, din analiza simplă a 2 seturi de date, că cel mai mare număr de cutremure majore le-a avut China. Am putea rafina această analiză mai departe, prin luarea în considerare a populației și a mărimii țării, apoi să determinăm care este țara cea mai grav afectată de cutremurele majore.</p>
-</section>
 </section>
 
 
 
-
-
-  <!-- Comment Section Powered by utterances -->
-<div id="comments">
-  <hr />
-  <p>If you want to give feedback or share your experience with this tutorial, please comment below. (requires GitHub account)</p>
-<script src="https://utteranc.es/client.js"
-        repo="spatialthoughts/qgis-tutorials"
-        issue-term="title"
-        label="comment"
-        theme="github-light"
-        crossorigin="anonymous"
-        async>
-</script>
-</div>
+<!-- Turn on comments on only newer tutorials having 3/ in URL -->
 
 
     </div>
@@ -288,7 +205,7 @@
     </p>
     <p>
         &copy; Copyright 2025, Ujaval Gandhi.<br/>
-      Ultima actualizare la mai 20, 2025.<br/>
+      Ultima actualizare la mai 24, 2025.<br/>
       Created using <a href="http://sphinx-doc.org/">Sphinx</a> 7.2.6.<br/>
     </p>
   </div>

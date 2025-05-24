@@ -184,198 +184,14 @@
 <div class="admonition warning">
 <p class="admonition-title">Waarschuwing</p>
 <p>Plug-in qgis2leaf wordt niet langer actief ontwikkeld. De functionaliteit van deze plug-in is opgenomen in een nieuwe plug-in, genaamd <strong>qgis2web</strong>.</p>
-<p>Bekijk de handleiding <a class="reference internal" href="web_mapping_with_qgis2web.html"><span class="doc">In kaart brengen op het web met QGIS2Web</span></a> voor een bijgewerkte versie van deze handleiding.</p>
+<p>See <a class="reference internal" href="3/web_mapping_with_qgis2web.html"><span class="doc">In kaart brengen op het web met QGIS2Web (QGIS3)</span></a> tutorial for an updated version of
+this tutorial.</p>
 </div>
-<p>Leaflet is een populaire open-source Javascript-bibliotheek voor het bouwen van toepassingen voor webkaarten. de plug-in <strong>qgis2leaf</strong> verschaft een eenvoudige manier om uw kaart van QGIS te exporteren naar een functionerende, op Leaflet gebaseerde, webkaart. Deze plug-in is een handige manier om te beginnen met webkaarten en een interactieve webkaart te maken vanuit uw statische GIS gegevenslagen.</p>
-<section id="overview-of-the-task">
-<h2>Overzicht van de taak<a class="headerlink" href="#overview-of-the-task" title="Link to this heading">¶</a></h2>
-<p>We zullen een Leaflet webkaart van de vliegvelden in de wereld maken.</p>
-<section id="other-skills-you-will-learn">
-<h3>Andere vaardigheden die u zult leren<a class="headerlink" href="#other-skills-you-will-learn" title="Link to this heading">¶</a></h3>
-<ul class="simple">
-<li><p>SQL-argument <code class="docutils literal notranslate"><span class="pre">CASE</span></code> gebruiken in Veldberekening om nieuwe veldwaarden te maken, gebaseerd op verschillende voorwaarden.</p></li>
-<li><p>Aangepaste SVG-pictogrammen zoeken en gebruiken  in QGIS.</p></li>
-</ul>
-</section>
-</section>
-<section id="get-the-data">
-<h2>De gegevens ophalen<a class="headerlink" href="#get-the-data" title="Link to this heading">¶</a></h2>
-<p>We zullen de gegevensset <a class="reference external" href="http://www.naturalearthdata.com/downloads/10m-cultural-vectors/airports/">Airports</a> van Natural Earth gebruiken.</p>
-<p>Download het <a class="reference external" href="http://www.naturalearthdata.com/http//www.naturalearthdata.com/download/10m/cultural/ne_10m_airports.zip">shapefile Airports</a>.</p>
-<p>Gegevensbron <a class="reference internal" href="credits.html#naturalearth" id="id1"><span>[NATURALEARTH]</span></a></p>
-</section>
-<section id="procedure">
-<h2>Procedure<a class="headerlink" href="#procedure" title="Link to this heading">¶</a></h2>
-<ol class="arabic simple">
-<li><p>Installeer de plug-in <code class="docutils literal notranslate"><span class="pre">qgis2leaf</span></code> door te gaan naar <span class="menuselection">Plug-ins ‣ Plug-ins beheren en installeren</span>. Onthoud dat de plug-in momenteel is gemarkeerd als <strong>experimental</strong>, dus u dient <span class="guilabel">Ook de experimentele plug-ins tonen</span> in Plug-ins Extra te selecteren. (Bekijk <a class="reference internal" href="using_plugins.html"><span class="doc">Plug-ins gebruiken</span></a> voor meer details over het installeren van plug-ins in QGIS)</p></li>
-</ol>
-<img alt="../_images/1202.png" class="align-center" src="../_images/1202.png" />
-<ol class="arabic simple" start="2">
-<li><p>Pak het gedownloade bestand <code class="docutils literal notranslate"><span class="pre">ne_10m_airports.zip</span></code> uit. Open QGIS en ga naar <span class="menuselection">Karatlagen ‣ Laag toevoegen ‣ Vectorlaag toevoegen</span>. Blader naar de plaats waar de bestanden werden uitgepakt en selecteer <code class="docutils literal notranslate"><span class="pre">ne_10m_airports.shp</span></code>. Klik op <span class="guilabel">OK</span>.</p></li>
-</ol>
-<img alt="../_images/2162.png" class="align-center" src="../_images/2162.png" />
-<ol class="arabic simple" start="3">
-<li><p>Gebruik, als de laag <code class="docutils literal notranslate"><span class="pre">ne_10m_airports</span></code> eenmaal is geladen, het gereedschap <span class="guilabel">Objecten identificeren</span> om op een object te klikken en de attributen daarvan te bekijken. We zullen een kaart met vliegvelden maken, waarbij we de vliegvelden classificeren in 3 categorieën. Het attribuut <code class="docutils literal notranslate"><span class="pre">type</span></code> zal handig zijn bij het classificeren van de objecten.</p></li>
-</ol>
-<img alt="../_images/3101.png" class="align-center" src="../_images/3101.png" />
-<ol class="arabic simple" start="4">
-<li><p>Klik met rechts op de laag <code class="docutils literal notranslate"><span class="pre">ne_10m_airports</span></code> en selecteer <span class="guilabel">Open attributentabel</span>.</p></li>
-</ol>
-<img alt="../_images/467.png" class="align-center" src="../_images/467.png" />
-<ol class="arabic simple" start="5">
-<li><p>klik, in het dialoogvenster van de attributentabel, op de knop <span class="guilabel">Bewerken aan/uitzetten</span>. Klik, als de laag in de modus bewerken staat, op de knop <span class="guilabel">Open veldberekening</span>.</p></li>
-</ol>
-<img alt="../_images/560.png" class="align-center" src="../_images/560.png" />
-<ol class="arabic simple" start="6">
-<li><p>We willen een nieuw attribuut maken, genaamd <code class="docutils literal notranslate"><span class="pre">type_code</span></code> waar we de belangrijkste vliegvelden de waarde 3 geven, gemiddelde vliegvelden de waarde 2 en alle andere de waarde 1. We kunnen het argument <em>CASE</em> gebruiken en een expressie schrijven die zal zoeken naar de waarde van het attribuut <code class="docutils literal notranslate"><span class="pre">type</span></code> en  een attribuut <code class="docutils literal notranslate"><span class="pre">type_code</span></code> zal maken dat is gebaseerd op de voorwaarde. Selecteer het vak <span class="guilabel">Nieuw veld aanmaken</span> en voer <code class="docutils literal notranslate"><span class="pre">type_code</span></code> in als de <span class="guilabel">Naam voor veld</span>. Selecteer <span class="guilabel">Geheel getal (integer)</span> als <span class="guilabel">Type voor veld</span>. Voer, in het venster <span class="guilabel">Expressie</span>, de volgende tekst in.</p></li>
-</ol>
-<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>CASE  WHEN &quot;type&quot; LIKE &#39;%major%&#39;  THEN 3
- WHEN &quot;type&quot; LIKE &#39;%mid%&#39; THEN 2
- ELSE 1
-END
-</pre></div>
-</div>
-<img alt="../_images/658.png" class="align-center" src="../_images/658.png" />
-<ol class="arabic simple" start="7">
-<li><p>Terug in het venster <span class="guilabel">Attributentabel</span> zult u aan het einde een nieuwe kolom zien. Verifieer dat uw expressie juist heeft gewerkt en klik op de knop <span class="guilabel">Bewerken aan/uitzetten</span> om de wijzigingen op te slaan.</p></li>
-</ol>
-<img alt="../_images/757.png" class="align-center" src="../_images/757.png" />
-<ol class="arabic simple" start="8">
-<li><p>Nu zullen we de laag met vliegvelden opmaken met behulp van het nieuw gemaakte attribuut <code class="docutils literal notranslate"><span class="pre">type_code</span></code>. Klik met rechts op de laag <code class="docutils literal notranslate"><span class="pre">ne_10m_airports</span></code> en selecteer <span class="guilabel">Eigenschappen</span>.</p></li>
-</ol>
-<img alt="../_images/856.png" class="align-center" src="../_images/856.png" />
-<ol class="arabic simple" start="9">
-<li><p>Selecteer de tab <span class="guilabel">Stijl</span> in het dialoogvenster <span class="guilabel">Laag-eigenschappen</span>. Selecteer de stijl <span class="guilabel">Categorieën</span> uit het keuzemenu en kies <code class="docutils literal notranslate"><span class="pre">type_code</span></code> als de <span class="guilabel">Kolom</span>. Kies een kleurenbalk van uw keuze en klik op <span class="guilabel">Classificeren</span>. Klik op <span class="guilabel">OK</span> om terug te gaan naar het hoofdvenster van QGIS.</p></li>
-</ol>
-<img alt="../_images/956.png" class="align-center" src="../_images/956.png" />
-<ol class="arabic simple" start="10">
-<li><p>Hier zult u een netjes opgemaakte kaart van de vliegvelden zien. Laten we deze exporteren om een interactieve webkaart te maken. Ga naar <span class="menuselection">Web ‣ qgis2leaf ‣ Exports a QGIS Project to a working leaflet webmap</span>.</p></li>
-</ol>
-<img alt="../_images/1063.png" class="align-center" src="../_images/1063.png" />
-<ol class="arabic simple" start="11">
-<li><p>Klik, in het dialoogvenster <span class="guilabel">QGIS 2 Leaflet</span>, op <span class="guilabel">Get Layers</span> om de vernieuwde lagen lijst te verkrijgen. Selecteer de optie <span class="guilabel">Full screen`om een webkaart op volledig scherm te krijgen. Kies :guilabel:`layer extent</span> als de <span class="guilabel">Extent</span> van de geëxporteerde kaart. Kies een <span class="guilabel">Output project folder</span> op uw systeem waar de plug-in de uitvoerbestanden zal wegschrijven. Klik op <span class="guilabel">OK</span>.</p></li>
-</ol>
-<img alt="../_images/11101.png" class="align-center" src="../_images/11101.png" />
-<ol class="arabic simple" start="12">
-<li><p>ga naar de map met de uitvoer op uw schijf als het exporteren is voltooid. Open het bestand <code class="docutils literal notranslate"><span class="pre">index.html</span></code> in een browser. U zult een interactieve webkaart zien die een replica is van de kaart van QGIS. U kunt op de kaart in- en uitzoomen en die verschuiven en ook op een object klikken om een pop-upvenster te verkrijgen met informatie over de attributen. U kunt de inhoud van deze map naar een webserver kopiëren om een webkaart te hebben met volledige mogelijkheden.</p></li>
-</ol>
-<img alt="../_images/1265.png" class="align-center" src="../_images/1265.png" />
-<ol class="arabic simple" start="13">
-<li><p>Nu zullen we enkele geavanceerde mogelijkheden van deze plug-in verkennen die u in staat zullen stellen de kaart verder aan te passen. Zoals u heeft gezien bevatte de pop-up alle attributen van de objecten. Sommige attributen zijn niet erg nuttig en over het algemeen ziet de pop-up er lelijk uit. We kunnen de standaard pop-up vervangen door ons eigen aangepaste HTML om het veel beter te maken. Dat wordt bereikt door de aangepaste HTML toe te voegen in een kolom, genaamd <code class="docutils literal notranslate"><span class="pre">html_exp</span></code>. klik met rechts op de laag <code class="docutils literal notranslate"><span class="pre">ne_10m_airports</span></code> en selecteer <span class="guilabel">Open attributentabel</span>.</p></li>
-</ol>
-<img alt="../_images/1363.png" class="align-center" src="../_images/1363.png" />
-<ol class="arabic simple" start="14">
-<li><p>klik, in het dialoogvenster van de attributentabel, op de knop <span class="guilabel">Bewerken aan/uitzetten</span>. Klik, als de laag in de modus bewerken staat, op de knop <span class="guilabel">Open veldberekening</span>.</p></li>
-</ol>
-<img alt="../_images/1458.png" class="align-center" src="../_images/1458.png" />
-<ol class="arabic simple" start="15">
-<li><p>Selecteer het vak <span class="guilabel">Nieuw veld aanmaken</span> en voer <code class="docutils literal notranslate"><span class="pre">html_exp</span></code> in als de <span class="guilabel">naam voor veld</span>. Kies <span class="guilabel">Tekst (string)</span> als het <span class="guilabel">Type voor veld</span>. Kies, omdat we een nogal lange tekenreeks met HTML  zullen maken, <code class="docutils literal notranslate"><span class="pre">200</span></code> als de <span class="guilabel">Veldbreedte</span>. Voer de volgende expressie in het gebied <span class="guilabel">Expressie</span> in. De complex uitziende expressie definieert eenvoudigweg een HTML-tabel en vervangt celwaarden van de attributen <code class="docutils literal notranslate"><span class="pre">iata_code</span></code>, <code class="docutils literal notranslate"><span class="pre">name</span></code> en <code class="docutils literal notranslate"><span class="pre">type</span></code>. Selecteer <span class="guilabel">Uitvoer voorvertoning</span> om er voor te zorgen dat de expressie juist is.</p></li>
-</ol>
-<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>concat(&#39;&lt;h3&gt;&#39;, &quot;iata_code&quot;, &#39;&lt;/h3&gt;&lt;table&gt;&#39;, &#39;&lt;tr&gt;&lt;td&gt;Airport Name: &lt;b&gt; &#39;,
-&quot;name&quot;, &#39;&lt;/b&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;Category: &lt;b&gt; &#39;, &quot;type&quot;,
-&#39;&lt;/b&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&#39;)
-</pre></div>
-</div>
-<div class="admonition note">
-<p class="admonition-title">Notitie</p>
-<p>De indeling shapefile kan maximaal 254 tekens in een veld bevatten. Als u langere teksten in het veld wilt opslaan dient u een andere indeling te kiezen.</p>
-</div>
-<img alt="../_images/1552.png" class="align-center" src="../_images/1552.png" />
-<ol class="arabic simple" start="16">
-<li><p>Terug in het venster <span class="guilabel">Attributentabel</span> zult u aan het einde een nieuwe kolom zien. Verifieer dat uw expressie juist heeft gewerkt en klik op de knop <span class="guilabel">Bewerken aan/uitzetten</span> om de wijzigingen op te slaan.</p></li>
-</ol>
-<img alt="../_images/1648.png" class="align-center" src="../_images/1648.png" />
-<ol class="arabic simple" start="17">
-<li><p>Exporteer de kaart nu opnieuw met behulp van <span class="menuselection">Web ‣ qgis2leaf ‣ Exports a QGIS Project to a working leaflet webmap</span>.</p></li>
-</ol>
-<img alt="../_images/1746.png" class="align-center" src="../_images/1746.png" />
-<ol class="arabic simple" start="18">
-<li><p>Kies de opties zoals eerder.</p></li>
-</ol>
-<img alt="../_images/1842.png" class="align-center" src="../_images/1842.png" />
-<ol class="arabic simple" start="19">
-<li><p>Ga naar de map voor de uitvoer zodra de export is voltooid. U zult een submap hebben met het huidige tijdstempel. Zoek naar het bestand <code class="docutils literal notranslate"><span class="pre">index.html</span></code> daarin en open dat in een browser. Klik op een object en bekijk de pop-up. U zult zien dat het er een stuk netter en informatiever uitziet.</p></li>
-</ol>
-<img alt="../_images/1933.png" class="align-center" src="../_images/1933.png" />
-<ol class="arabic simple" start="20">
-<li><p>Een andere nuttige mogelijkheid van de plug-in <code class="docutils literal notranslate"><span class="pre">qgis2leaf</span></code> is de mogelijkheid om een aangepast pictogram te specificeren om te gebruiken met de webkaart. Dit kan worden bereikt door het pad naar het aangepaste pictogram te specificeren in een veld, genaamd <code class="docutils literal notranslate"><span class="pre">icon_exp</span></code>. We zullen ene nieuwe laag maken die alleen de belangrijkste vliegvelden bevat en die opmaken met een aangepast SVG-pictogram.  Zoek naar het gereedschap <span class="guilabel">Selecteren van objecten gebruik makend van een expressie</span> op de werkbalk.</p></li>
-</ol>
-<img alt="../_images/2028.png" class="align-center" src="../_images/2028.png" />
-<ol class="arabic simple" start="21">
-<li><p>Voer de hieronder staande expressie in en druk op <span class="guilabel">Selecteren</span> om alle belangrijke vliegvelden te selecteren.</p></li>
-</ol>
-<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>&quot;type_code&quot; = 3
-</pre></div>
-</div>
-<img alt="../_images/2163.png" class="align-center" src="../_images/2163.png" />
-<ol class="arabic simple" start="22">
-<li><p>Klik met rechts op de vliegvelden <code class="docutils literal notranslate"><span class="pre">ne_10m_airports</span></code> en selecteer <span class="guilabel">Opslaan als…</span>.</p></li>
-</ol>
-<img alt="../_images/2228.png" class="align-center" src="../_images/2228.png" />
-<ol class="arabic simple" start="23">
-<li><p>Noem, in het dialoogvenster <span class="guilabel">Vectorlaal opslaan als…</span>, het uitvoerbestand <code class="docutils literal notranslate"><span class="pre">major_airports.shp</span></code>. Selecteer <span class="guilabel">Voeg opgeslagen bestand toe aan kaart</span> en klik op <span class="guilabel">OK</span>.</p></li>
-</ol>
-<img alt="../_images/2325.png" class="align-center" src="../_images/2325.png" />
-<ol class="arabic simple" start="24">
-<li><p>Als de laag <code class="docutils literal notranslate"><span class="pre">major_airports</span></code> eenmaal is geladen in QGIS, klik er met rechts op en selecteer <span class="guilabel">Open attributentabel</span>.</p></li>
-</ol>
-<img alt="../_images/2425.png" class="align-center" src="../_images/2425.png" />
-<ol class="arabic simple" start="25">
-<li><p>klik, in het dialoogvenster van de attributentabel, op de knop <span class="guilabel">Bewerken aan/uitzetten</span>. Klik, als de laag in de modus bewerken staat, op de knop <span class="guilabel">Open veldberekening</span>.</p></li>
-</ol>
-<img alt="../_images/2523.png" class="align-center" src="../_images/2523.png" />
-<ol class="arabic simple" start="26">
-<li><p>Voer, in het dialoogvenster <span class="guilabel">Veldberekening</span>, <code class="docutils literal notranslate"><span class="pre">icon_exp</span></code> in als <span class="guilabel">Naam voor veld</span>. Maak het een type <span class="guilabel">Tekst (string)</span>. Voer, in het gebied <span class="guilabel">Expressie</span>, de volgende expressie in.</p></li>
-</ol>
-<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>&#39;airport.svg&#39;
-</pre></div>
-</div>
-<img alt="../_images/2620.png" class="align-center" src="../_images/2620.png" />
-<ol class="arabic simple" start="27">
-<li><p>Sla  uw bewerkingen op door te klikken op de knop <span class="guilabel">Bewerken aan/uitzetten</span> in de <span class="guilabel">Attributentabel</span>.</p></li>
-</ol>
-<img alt="../_images/2720.png" class="align-center" src="../_images/2720.png" />
-<ol class="arabic simple" start="28">
-<li><p>Open de plug-in <code class="docutils literal notranslate"><span class="pre">qgis2leaf</span></code> vanuit <span class="menuselection">Web ‣ qgis2leaf ‣ Exports a QGIS Project to a working leaflet webmap</span>. Klik op de knop <span class="guilabel">Get Layers</span> om beide lagen te verkrijgen uit QGIS. er zijn vele verschillende vooraf gedefinieerde tegellagen beschikbaar voor basiskaarten. Voor deze kaart zullen we iets anders proberen en <span class="guilabel">Stamen Watercolor</span> laden als de <span class="guilabel">Basemap</span>. Klik op <span class="guilabel">OK</span>.</p></li>
-</ol>
-<img alt="../_images/2819.png" class="align-center" src="../_images/2819.png" />
-<ol class="arabic simple" start="29">
-<li><p>Zoals u zich zult herinneren hebben we <code class="docutils literal notranslate"><span class="pre">airport.svg</span></code> gespecificeerd als het pictogram voor de vliegvelden. We mieten dat pictogram handmatig toevoegen aan de map voor de uitvoer. QGIS bevat een grote collectie pictogrammen. Op Windows staan deze pictogrammen in <span class="menuselection">C: ‣ OSGEO4W64 ‣ apps ‣ qgis ‣ svg</span>. Het pad kan variëren, afhankelijk van uw platform en type installatie. Zoek die map op en kies een pictogram dat u leuk vindt. Voor onze kaart proberen we het pictogram <code class="docutils literal notranslate"><span class="pre">amenity=airport.svg</span></code> in de categorie <code class="docutils literal notranslate"><span class="pre">transport</span></code>.</p></li>
-</ol>
-<img alt="../_images/2918.png" class="align-center" src="../_images/2918.png" />
-<ol class="arabic simple" start="30">
-<li><p>Kopieer en plak dit pictogram in de map voor uitvoer die u heeft gespecificeerd bij het exporteren van de kaart. Hernoem het naar <code class="docutils literal notranslate"><span class="pre">airport.svg</span></code>.</p></li>
-</ol>
-<img alt="../_images/3015.png" class="align-center" src="../_images/3015.png" />
-<ol class="arabic simple" start="31">
-<li><p>Open nu het bestand <code class="docutils literal notranslate"><span class="pre">index.html</span></code> dat zich in de map bevindt. U zult een prachtige basiskaart zien met onze aangepaste pictogrammen voor de belangrijkste vliegvelden. Merk ook het lagenpaneel op aan de rechter bovenkant dat het beheer van de weergave van de lagen bevat voor beide lagen.</p></li>
-</ol>
-<img alt="../_images/3118.png" class="align-center" src="../_images/3118.png" />
-<p>Hopelijk geeft deze handleiding u een goed begin voor het maken van webkaarten. Hieronder staat de live interactieve kaart die is gemaakt voor deze handleiding.</p>
-<div>
-<iframe
-src="http://spatialthoughts.github.io/qgis2leaf-maps/airports_with_custom_popup/"
-width="100%" height="600px"></iframe>
-</div></section>
 </section>
 
 
 
-
-
-  <!-- Comment Section Powered by utterances -->
-<div id="comments">
-  <hr />
-  <p>If you want to give feedback or share your experience with this tutorial, please comment below. (requires GitHub account)</p>
-<script src="https://utteranc.es/client.js"
-        repo="spatialthoughts/qgis-tutorials"
-        issue-term="title"
-        label="comment"
-        theme="github-light"
-        crossorigin="anonymous"
-        async>
-</script>
-</div>
+<!-- Turn on comments on only newer tutorials having 3/ in URL -->
 
 
     </div>
@@ -391,7 +207,7 @@ width="100%" height="600px"></iframe>
     </p>
     <p>
         &copy; Copyright 2025, Ujaval Gandhi.<br/>
-      Laatste aanpassing op mei 20, 2025.<br/>
+      Laatste aanpassing op mei 24, 2025.<br/>
       Created using <a href="http://sphinx-doc.org/">Sphinx</a> 7.2.6.<br/>
     </p>
   </div>

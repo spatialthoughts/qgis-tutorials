@@ -183,135 +183,13 @@
 <h1>Primi passi con la programmazione Python<a class="headerlink" href="#getting-started-with-python-programming" title="Link to this heading">¶</a></h1>
 <div class="admonition warning">
 <p class="admonition-title">Avvertimento</p>
-<p>A new version of this tutorial is available at <a class="reference internal" href="3/getting_started_with_pyqgis.html"><span class="doc">Getting Started With Python Programming (QGIS3)</span></a></p>
+<p>This tutorial is now obsolete. A new version of this tutorial is available at <a class="reference internal" href="3/getting_started_with_pyqgis.html"><span class="doc">Getting Started With Python Programming (QGIS3)</span></a></p>
 </div>
-<p>QGIS fornisce una potente interfaccia di programmazione che vi permette di estendere le funzionalità di base del software e di scrivere codice per automatizzare i vostri lavori. QGIS supporta il celebre linguaggio di scripting Python. Anche se siete dei principianti, imparare un po” di Python e di programmazione delle interfacce QGIS, vi permetterà di essere molto più produttivi nel vostro lavoro. Questa esercitazione non presume competenze pregresse nella programmazione e si propone di offrire un’introduzione allo scripting python in QGIS (PyQGIS).</p>
-<section id="overview-of-the-task">
-<h2>Descrizione del compito<a class="headerlink" href="#overview-of-the-task" title="Link to this heading">¶</a></h2>
-<p>Caricheremo un vettore puntuale che contiene tutti i principali areoporti e useremo lo scripting in python per creare un file di testo con il nome dell’areoporto, il codice dell’aeroporto, la latitudine e la longitudine di ciascuno degli aeroporti presenti nel layer.</p>
-</section>
-<section id="get-the-data">
-<h2>Ottenere i dati necessari<a class="headerlink" href="#get-the-data" title="Link to this heading">¶</a></h2>
-<p>Useremo il dataset <a class="reference external" href="http://www.naturalearthdata.com/downloads/10m-cultural-vectors/airports/">Airports</a> tratto da Natural Earth.</p>
-<p>Scaricate lo <a class="reference external" href="http://www.naturalearthdata.com/http//www.naturalearthdata.com/download/10m/cultural/ne_10m_airports.zip">Airports shapefile</a>.</p>
-<p>Fonte Dati  <a class="reference internal" href="credits.html#naturalearth" id="id1"><span>[NATURALEARTH]</span></a></p>
-</section>
-<section id="procedure">
-<h2>Procedimento<a class="headerlink" href="#procedure" title="Link to this heading">¶</a></h2>
-<ol class="arabic simple">
-<li><p>Aprite QGIS andate su <span class="menuselection">Layers ‣ Aggiungi vettore</span>. Individuate il file scaricato <code class="docutils literal notranslate"><span class="pre">ne_10m_airports.zip</span></code> e fate click su <span class="guilabel">Apri</span>. Selezionate il layer <code class="docutils literal notranslate"><span class="pre">ne_10m_airports.shp</span></code> e fate click su <span class="guilabel">OK</span>.</p></li>
-</ol>
-<img alt="../_images/1198.png" class="align-center" src="../_images/1198.png" />
-<ol class="arabic simple" start="2">
-<li><p>Ora vedrete il layer <code class="docutils literal notranslate"><span class="pre">ne_10m_airports</span></code>  caricato in QGIS.</p></li>
-</ol>
-<img alt="../_images/2159.png" class="align-center" src="../_images/2159.png" />
-<ol class="arabic simple" start="3">
-<li><p>Selezionate lo strumento <span class="guilabel">Identifica elemento</span>  e fate click su uno dei punti per esaminare gli attributi che abbiamo a disposizione. Vedrete che il nome dell’aeroporto e il suo codice di 3 lettere sono contenuti, rispettivamente,  negli attributi <code class="docutils literal notranslate"><span class="pre">name</span></code> e <code class="docutils literal notranslate"><span class="pre">iata_code</span></code>.</p></li>
-</ol>
-<img alt="../_images/398.png" class="align-center" src="../_images/398.png" />
-<ol class="arabic simple" start="4">
-<li><p>QGIS fornisce una console residente dove potete scrivere comandi in Python e verificare il risultato. Questa console è una strada privilegiata per apprendere a scrivere gli script e per effettuare delle rapide elaborazioni di dati.
-Apriamo la <span class="guilabel">Python Console</span>  andando su <span class="menuselection">Plugins ‣ Console Python</span>.</p></li>
-</ol>
-<img alt="../_images/464.png" class="align-center" src="../_images/464.png" />
-<ol class="arabic simple" start="5">
-<li><p>Vedrete comparire un nuovo pannello che si aprirà alla base della finestra principale di QGIS. Noterete un prompt fatto così <code class="docutils literal notranslate"><span class="pre">&gt;&gt;&gt;</span></code> alla base del pannello, dove si digitano i comandi. Per interagire con l’ambiente QGIS dobbiamo usare la variabile <code class="docutils literal notranslate"><span class="pre">iface</span></code>.  Per avere accesso al layer attualmente attivo in QGIS, dovete digitare la riga di codice che segue e quindi premere il tasto <kbd class="kbd docutils literal notranslate">Enter</kbd>. Questo comando porta il controllo sul layer corrente e lo memorizza nella varabile <a href="#id1"><span class="problematic" id="id2">``</span></a>layer`.</p></li>
-</ol>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">layer</span> <span class="o">=</span> <span class="n">iface</span><span class="o">.</span><span class="n">activeLayer</span><span class="p">()</span>
-</pre></div>
-</div>
-<img alt="../_images/557.png" class="align-center" src="../_images/557.png" />
-<ol class="arabic simple" start="6">
-<li><p>Esiste in Python una comoda funzione chiamata <code class="docutils literal notranslate"><span class="pre">dir()</span></code> che vi mostra tutti i metodi a disposizione per ciascun oggetto. Questo è  utile quando non avete chiaro quali funzioni sono a disposizione per un dato oggetto. Lanciate il comando che segue per vedere quali operazioni possiamo fare sulla variabile  <code class="docutils literal notranslate"><span class="pre">layer</span></code> .</p></li>
-</ol>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nb">dir</span><span class="p">(</span><span class="n">layer</span><span class="p">)</span>
-</pre></div>
-</div>
-<img alt="../_images/655.png" class="align-center" src="../_images/655.png" />
-<ol class="arabic simple" start="7">
-<li><p>Vedrete una lunga lista di funzioni disponibili. Per ora, useremo una funzione chiamata <code class="docutils literal notranslate"><span class="pre">getFeatures()</span></code> che vi darà il controllo su tutte le geometrie del layer. Nel nostro caso, ciscun elemento sarà un punto che rappresenta un areoporto. Potete digitare il comando che segue per realizzare un’iterazione di ciascuna delle geometrie presenti nel layer corrente. Assicuratevi di aver battuto 2 spazi prima di digitare la seconda linea di codice.</p></li>
-</ol>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">layer</span><span class="o">.</span><span class="n">getFeatures</span><span class="p">():</span>
-  <span class="nb">print</span> <span class="n">f</span>
-</pre></div>
-</div>
-<img alt="../_images/755.png" class="align-center" src="../_images/755.png" />
-<ol class="arabic simple" start="8">
-<li><p>Come potete vedere nell’output, ciascuna linea contiene un riferimento ad una geometria presente all’interno del layer. Il riferimento all’elemento è contenuto nella variabile <code class="docutils literal notranslate"><span class="pre">f</span></code>. Possiamo quindi usare la variabile <code class="docutils literal notranslate"><span class="pre">f</span></code> per accedere agli attributi di ciascun elemento. Digitate il comando seguente per stampare il <code class="docutils literal notranslate"><span class="pre">name</span></code>  e lo <code class="docutils literal notranslate"><span class="pre">iata_code</span></code>  per ciascuna geometria rappresentata da un areoporto.</p></li>
-</ol>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">layer</span><span class="o">.</span><span class="n">getFeatures</span><span class="p">():</span>
-  <span class="nb">print</span> <span class="n">f</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">],</span> <span class="n">f</span><span class="p">[</span><span class="s1">&#39;iata_code&#39;</span><span class="p">]</span>
-</pre></div>
-</div>
-<img alt="../_images/854.png" class="align-center" src="../_images/854.png" />
-<ol class="arabic simple" start="9">
-<li><p>Così, adesso sapete come accedere agli attributi di ciascuna geometria di un layer. Adesso vediamo come possiamo accedere alle coordinate della  geometria. Le coordinate di un elemento vettoriale possono essere ottenute con una chiamata alla funzione  <code class="docutils literal notranslate"><span class="pre">geometry()</span></code> . Questa funzione restituisce un oggetto geometrico che noi possiamo depositare nella variabile  <code class="docutils literal notranslate"><span class="pre">geom</span></code>. Potete lanciare la funzione <code class="docutils literal notranslate"><span class="pre">asPoint()</span></code> per quegli oggetti che restituiscono le coordinate X e Y di un punto. Nel caso in cui la geometria fosse una linea o un poligono, dovreste usare, rispettivamente, le funzioni <code class="docutils literal notranslate"><span class="pre">asPolyline()</span></code> e <code class="docutils literal notranslate"><span class="pre">asPolygon()</span></code>. Scrivete il codice seguente al prompt e premete <kbd class="kbd docutils literal notranslate">Enter</kbd>  per vedere le coordinate X e Y di ciascun elemento.</p></li>
-</ol>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">layer</span><span class="o">.</span><span class="n">getFeatures</span><span class="p">():</span>
-  <span class="n">geom</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">geometry</span><span class="p">()</span>
-  <span class="nb">print</span> <span class="n">geom</span><span class="o">.</span><span class="n">asPoint</span><span class="p">()</span>
-</pre></div>
-</div>
-<img alt="../_images/954.png" class="align-center" src="../_images/954.png" />
-<ol class="arabic simple" start="10">
-<li><p>Che fare nel caso in cui desiderassimo conoscere la sola coordinata  <code class="docutils literal notranslate"><span class="pre">x</span></code>  del punto?
-Possiamo chiamare la funzione <code class="docutils literal notranslate"><span class="pre">x()</span></code> sull’oggetto punto e ottenere la sua coordinata X.</p></li>
-</ol>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">layer</span><span class="o">.</span><span class="n">getFeatures</span><span class="p">():</span>
-  <span class="n">geom</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">geometry</span><span class="p">()</span>
-  <span class="nb">print</span> <span class="n">geom</span><span class="o">.</span><span class="n">asPoint</span><span class="p">()</span><span class="o">.</span><span class="n">x</span><span class="p">()</span>
-</pre></div>
-</div>
-<img alt="../_images/1061.png" class="align-center" src="../_images/1061.png" />
-<ol class="arabic simple" start="11">
-<li><p>Adesso abbiamo tutti gli elementi che occorre cucire insieme per produrre l’output desiderato. Digitate il codice seguente per stampare il nome, lo iata_code la latitudine e la longitudine di ciascuna delle geometrie areoporto presenti in questo layer. I simboli <code class="docutils literal notranslate"><span class="pre">%s</span></code> e <code class="docutils literal notranslate"><span class="pre">%f</span></code>  sono metodi per formattare variabili stringa e variabili numeriche.</p></li>
-</ol>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">layer</span><span class="o">.</span><span class="n">getFeatures</span><span class="p">():</span>
-  <span class="n">geom</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">geometry</span><span class="p">()</span>
-  <span class="nb">print</span> <span class="s1">&#39;</span><span class="si">%s</span><span class="s1">, </span><span class="si">%s</span><span class="s1">, </span><span class="si">%f</span><span class="s1">, </span><span class="si">%f</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">f</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">],</span> <span class="n">f</span><span class="p">[</span><span class="s1">&#39;iata_code&#39;</span><span class="p">],</span>
-         <span class="n">geom</span><span class="o">.</span><span class="n">asPoint</span><span class="p">()</span><span class="o">.</span><span class="n">y</span><span class="p">(),</span> <span class="n">geom</span><span class="o">.</span><span class="n">asPoint</span><span class="p">()</span><span class="o">.</span><span class="n">x</span><span class="p">())</span>
-</pre></div>
-</div>
-<img alt="../_images/1199.png" class="align-center" src="../_images/1199.png" />
-<ol class="arabic simple" start="12">
-<li><p>Adesso potete osservare l’output stampato sulla console. Un metodo più comodo di immagazzinare questi dati potrebbe essere quello di scriverli in un file. Eseguite il codice che segue per creare un file e scrivere  su di esso il nostro output. Ovviamente, dovrete sostituire il percorso per raggiungere il  file  con un path presente sui vostri sistemi di memoria di massa – disco fisso, pendrive etc. Come vedete aggiungiamo <code class="docutils literal notranslate"><span class="pre">\n</span></code> alla fine di ogni linea che formattiamo. Questo si fa per  andare a capo e aggiungere una linea dopo che sono stati inseriti i dati relativi a ciascun elemento. Dovreste notare anche la linea <code class="docutils literal notranslate"><span class="pre">unicode_line</span> <span class="pre">=</span> <span class="pre">line.encode('utf-8')</span></code>. Siccome alcune geometrie del nostro layer contengono caratteri unicode, non possiamo semplicemente scriverli in un file di testo. Dobbiamo codificare il testo usando la codifica UTF-8 e solo dopo scrivere sul file di testo.</p></li>
-</ol>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">output_file</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;c:/Users/Ujaval/Desktop/airports.txt&#39;</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">)</span>
-<span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">layer</span><span class="o">.</span><span class="n">getFeatures</span><span class="p">():</span>
-  <span class="n">geom</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">geometry</span><span class="p">()</span>
-  <span class="n">line</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="si">%s</span><span class="s1">, </span><span class="si">%s</span><span class="s1">, </span><span class="si">%f</span><span class="s1">, </span><span class="si">%f</span><span class="se">\n</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">f</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">],</span> <span class="n">f</span><span class="p">[</span><span class="s1">&#39;iata_code&#39;</span><span class="p">],</span>
-          <span class="n">geom</span><span class="o">.</span><span class="n">asPoint</span><span class="p">()</span><span class="o">.</span><span class="n">y</span><span class="p">(),</span> <span class="n">geom</span><span class="o">.</span><span class="n">asPoint</span><span class="p">()</span><span class="o">.</span><span class="n">x</span><span class="p">())</span>
-  <span class="n">unicode_line</span> <span class="o">=</span> <span class="n">line</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s1">&#39;utf-8&#39;</span><span class="p">)</span>
-  <span class="n">output_file</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">unicode_line</span><span class="p">)</span>
-<span class="n">output_file</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
-</pre></div>
-</div>
-<img alt="../_images/1263.png" class="align-center" src="../_images/1263.png" />
-<ol class="arabic simple" start="13">
-<li><p>Ora potete andare sul file di output nella cartella che avete specificato e aprire finalmente il file di testo. Vedrete i dati provenienti dallo shapefile degli aeroporti, cioè quelli che abbiamo potuto estrarre grazie all’uso dello scrpting python.</p></li>
-</ol>
-<img alt="../_images/1361.png" class="align-center" src="../_images/1361.png" />
-</section>
 </section>
 
 
 
-
-
-  <!-- Comment Section Powered by utterances -->
-<div id="comments">
-  <hr />
-  <p>If you want to give feedback or share your experience with this tutorial, please comment below. (requires GitHub account)</p>
-<script src="https://utteranc.es/client.js"
-        repo="spatialthoughts/qgis-tutorials"
-        issue-term="title"
-        label="comment"
-        theme="github-light"
-        crossorigin="anonymous"
-        async>
-</script>
-</div>
+<!-- Turn on comments on only newer tutorials having 3/ in URL -->
 
 
     </div>
@@ -327,7 +205,7 @@ Possiamo chiamare la funzione <code class="docutils literal notranslate"><span c
     </p>
     <p>
         &copy; Copyright 2025, Ujaval Gandhi.<br/>
-      Ultimo aggiornamento mag 20, 2025.<br/>
+      Ultimo aggiornamento mag 24, 2025.<br/>
       Created using <a href="http://sphinx-doc.org/">Sphinx</a> 7.2.6.<br/>
     </p>
   </div>

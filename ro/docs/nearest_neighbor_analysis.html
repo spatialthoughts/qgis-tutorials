@@ -185,180 +185,11 @@
 <p class="admonition-title">Atenționare</p>
 <p>Acest tutorial este învechit. O versiune actualizată este disponibilă la <a class="reference internal" href="3/nearest_neighbor_analysis.html"><span class="doc">Analiza Celui Mai Apropiat Vecin (QGIS3)</span></a></p>
 </div>
-<p>Aplicațiile GIS sunt foarte utile în analiza relației spațiale dintre entități. O astfel de analiză constă în identificarea entităților care sunt cele mai apropiate de o anumită caracteristică. QGIS are un instrument numit <strong>Distance Matrix</strong> care ne ajută în efectuarea acestei analize. În acest tutorial, vom folosi 2 seturi de date și vom afla care puncte dintr-un strat sunt mai aproape de punctele dintr-un al doilea strat.</p>
-<section id="overview-of-the-task">
-<h2>Privire de ansamblu asupra activității<a class="headerlink" href="#overview-of-the-task" title="Link to this heading">¶</a></h2>
-<p>Cunoscând locațiile tuturor cutremurelor semnificative cunoscute, vom încerca să aflăm care este cel mai apropiat loc populat față de locul unde s-au produs cutremurele.</p>
-<section id="other-skills-you-will-learn">
-<h3>Alte competențe pe care le veți dobândi<a class="headerlink" href="#other-skills-you-will-learn" title="Link to this heading">¶</a></h3>
-<ul class="simple">
-<li><p>Cum să efectuați unificarea tabelelor în QGIS. (Pentru instrucțiuni detaliate, parcurgeți <a class="reference internal" href="performing_table_joins.html"><span class="doc">Unificarea tabelelor</span></a>.)</p></li>
-<li><p>Folosirea <span class="guilabel">Query Builder</span> pentru a prezenta un subset de entități dintr-un strat.</p></li>
-<li><p>Utilizarea plugin-ului MMQGIS pentru a crea linii radiale pentru a vizualiza cei mai apropiați vecini.</p></li>
-</ul>
-</section>
-</section>
-<section id="get-the-data">
-<h2>Obținerea datelor<a class="headerlink" href="#get-the-data" title="Link to this heading">¶</a></h2>
-<p>Ca strat al tuturor cutremurelor majore, vom folosi <a class="reference external" href="http://www.ngdc.noaa.gov/nndc/struts/form?t=101650&amp;s=1&amp;d=1">Baza de date a Cutremurelor Semnificative,</a>, a Centrului de Date Geofizice Naționale NOAA. Descărcați <a class="reference external" href="http://www.ngdc.noaa.gov/nndc/struts/results?type_0=Exact&amp;query_0=$ID&amp;t=101650&amp;s=13&amp;d=189&amp;dfn=signif.txt">datele cutremurelor, sub formă de text delimitat</a>.</p>
-<p>Natural Earth are un set de date interesant despre`Populated Places <a class="reference external" href="http://www.naturalearthdata.com/downloads/10m-cultural-vectors/10m-populated-places/">http://www.naturalearthdata.com/downloads/10m-cultural-vectors/10m-populated-places/</a>&gt;`_. Descărcați <a class="reference external" href="http://www.naturalearthdata.com/http//www.naturalearthdata.com/download/10m/cultural/ne_10m_populated_places_simple.zip">simple (less columns) dataset</a></p>
-<p>Pentru comoditate, puteți descărca direct o copie a ambelor seturi de date din linkurile de mai jos:</p>
-<p><a class="reference external" href="http://www.qgistutorials.com/downloads/signif.txt">signif.txt</a></p>
-<p><a class="reference external" href="http://www.qgistutorials.com/downloads/ne_10m_populated_places_simple.zip">ne_10m_populated_places_simple.zip</a></p>
-<p>Sursele datelor: <a class="reference internal" href="credits.html#ncei" id="id1"><span>[NCEI]</span></a> <a class="reference internal" href="credits.html#naturalearth" id="id2"><span>[NATURALEARTH]</span></a></p>
-</section>
-<section id="procedure">
-<h2>Procedura<a class="headerlink" href="#procedure" title="Link to this heading">¶</a></h2>
-<ol class="arabic simple">
-<li><p>Deschideți <span class="menuselection">Layer ‣ Add Layer ‣ Add Delimited Text Layer</span> și navigați la fișierul anterior descărcat, <code class="docutils literal notranslate"><span class="pre">signif.txt</span></code>.</p></li>
-</ol>
-<img alt="../_images/1204.png" class="align-center" src="../_images/1204.png" />
-<ol class="arabic simple" start="2">
-<li><p>Deoarece acesta este un <em>fișier delimitat de tab-uri</em>, alegeți <span class="guilabel">Tab</span> ca <span class="guilabel">File format</span>. <span class="guilabel">X field</span> și <span class="guilabel">Y field</span> se vor auto-popula. Clic pe <span class="guilabel">OK</span>.</p></li>
-</ol>
-<div class="admonition note">
-<p class="admonition-title">Notă</p>
-<p>Puteți vedea unele mesaje de eroare, pe măsură ce QGIS încearcă să importe fișierul. Acestea sunt erori valide, iar câteva rânduri din fișier nu vor fi importate. Puteți ignora erorile, în scopul acestui tutorial.</p>
-</div>
-<img alt="../_images/2166.png" class="align-center" src="../_images/2166.png" />
-<ol class="arabic simple" start="3">
-<li><p>Deoarece setul datelor despre cutremur are coordonate de Latitudine/Longitudine, acesta va fi importat cu CRS-ul implicit <code class="docutils literal notranslate"><span class="pre">EPSG:4326</span></code>. Verificați, dacă este cazul, în colțul din dreapta-jos. Să deschidem, de asemenea, stratul Locurilor Populate. Mergeți la <span class="menuselection">Layer ‣ Add Layer ‣ Add Vector Layer</span>.</p></li>
-</ol>
-<img alt="../_images/3103.png" class="align-center" src="../_images/3103.png" />
-<ol class="arabic simple" start="4">
-<li><p>Navigați la fișierul descărcat, <code class="docutils literal notranslate"><span class="pre">ne_10m_populated_places_simple.zip</span></code>, apoi faceți clic pe <span class="guilabel">Open</span>.</p></li>
-</ol>
-<img alt="../_images/469.png" class="align-center" src="../_images/469.png" />
-<ol class="arabic simple" start="5">
-<li><p>Măriți și explorați ambele seturi de date. Fiecare punct purpuriu arată locația unui cutremur semnificativ, în timp ce fiecare punct albastru indică locația unei așezări populate. Avem nevoie de o modalitate de a afla cel mai apropiat punct din stratul de locuri populate, pentru fiecare locație din stratul cutremurelor.</p></li>
-</ol>
-<img alt="../_images/562.png" class="align-center" src="../_images/562.png" />
-<ol class="arabic simple" start="6">
-<li><p>Mergeți la <span class="menuselection">Vector ‣ Analysis Tools ‣ Distance Matrix</span>.</p></li>
-</ol>
-<img alt="../_images/660.png" class="align-center" src="../_images/660.png" />
-<ol class="arabic simple" start="7">
-<li><p>În această fereastră, alegeți stratul cutremurelor, <code class="docutils literal notranslate"><span class="pre">signif</span></code>, ca strat de Intrare de tip punct, iar locurile populate <code class="docutils literal notranslate"><span class="pre">ne_10m_populated_places_simple</span></code> ca strat țintă. De asemenea, trebuie să selectați un câmp unic din fiecare strat, care stabilește modul în care vor fi afișate rezultatele. În această analiză, dorim să obținem doar <code class="docutils literal notranslate"><span class="pre">1</span></code> dintre cele mai apropiate puncte, așa că bifați <span class="guilabel">Use only the nearest(k) target points</span>, apoi introduceți <span class="guilabel">1</span>. Denumiți fișierul de ieșire <code class="docutils literal notranslate"><span class="pre">matrix.csv</span></code>, și apăsați OK. O dată procesul încheiat, faceți clic pe <span class="guilabel">Close</span>.</p></li>
-</ol>
-<div class="admonition note">
-<p class="admonition-title">Notă</p>
-<p>Un lucru util de reținut este faptul că se pot efectua analize chiar și cu 1 singur strat. Selectați același strat atât ca intrare cât și ca ieșire. Rezultatul va fi cel mai apropiat vecin din același strat în loc de a folosi un strat diferit, așa cum am procedat mai înainte.</p>
-</div>
-<img alt="../_images/759.png" class="align-center" src="../_images/759.png" />
-<ol class="arabic simple" start="8">
-<li><p>O dată încheiată prelucrarea, faceți clic pe butonul <span class="guilabel">Close</span> din fereastra de dialog <span class="guilabel">Distance Matrix</span>. Puteți vedea fișierul <code class="docutils literal notranslate"><span class="pre">matrix.csv</span></code> în Notepad sau în oricare alt editor de text. QGIS poate importa fișiere CSV, de asemenea, așa că încărcați-l în QGIS și vizualizați-l acolo. Mergeți la <span class="menuselection">Layer ‣ Add Layer ‣ Add Delimited Text Layer…</span>.</p></li>
-</ol>
-<img alt="../_images/858.png" class="align-center" src="../_images/858.png" />
-<ol class="arabic simple" start="9">
-<li><p>Navigați la fișierul <code class="docutils literal notranslate"><span class="pre">matrix.csv</span></code>, nou creat. Deoarece acest fișier conține doar coloane de text, alegeți <span class="guilabel">No geometry (attribute only table)</span> pentru <span class="guilabel">Geometry definition</span>. Clic pe <span class="guilabel">OK</span>.</p></li>
-</ol>
-<img alt="../_images/957.png" class="align-center" src="../_images/957.png" />
-<ol class="arabic simple" start="10">
-<li><p>Veți vedea fișierul CSV, încărcat sub formă de tabel. Faceți clic dreapta pe stratul acestui tabel, apoi selectați <span class="guilabel">Open Attribute Table</span>.</p></li>
-</ol>
-<img alt="../_images/1065.png" class="align-center" src="../_images/1065.png" />
-<ol class="arabic simple" start="11">
-<li><p>Acum, veți putea vedea conținutul rezultatelor obținute. Câmpul <span class="guilabel">InputID</span> conține numele fișierului din stratul Earthquake. Câmpul <span class="guilabel">TargetID</span> conține numele entității, din stratul Populated Places, care a fost cea mai apropiată de locația cutremurului. Câmpul <span class="guilabel">Distance</span> reprezintă distanța dintre 2 puncte.</p></li>
-</ol>
-<div class="admonition note">
-<p class="admonition-title">Notă</p>
-<p>Calculul <em>distanței</em> se va face cu ajutorul Sistemului de Coordonate de Referință al straturilor. Distanța va fi în <em>grade zecimale</em>, deoarece coordonatele stratului sursă sunt în grade. Dacă doriți distanța în metri, reproiectați straturile înainte de efectuarea calculului.</p>
-</div>
-<img alt="../_images/11103.png" class="align-center" src="../_images/11103.png" />
-<ol class="arabic simple" start="12">
-<li><p>Aproape că am obținut rezultatele dorite. Pentru unii utilizatori, acest tabel va fi suficient. Totuși, am putea integra aceste rezultate în stratul Earthquake original, folosind <strong>Table Join</strong>. Faceți clic-dreapta pe stratul Earthquake, apoi selectați <span class="guilabel">Properties</span>.</p></li>
-</ol>
-<img alt="../_images/1267.png" class="align-center" src="../_images/1267.png" />
-<ol class="arabic simple" start="13">
-<li><p>Mergeți la fila <span class="guilabel">Joins</span> și faceți clic pe butonul <span class="guilabel">+</span>.</p></li>
-</ol>
-<img alt="../_images/1460.png" class="align-center" src="../_images/1460.png" />
-<ol class="arabic simple" start="14">
-<li><p>Vrem să unificăm datele rezultatelor analizelor noastre asupra acestui strat. Trebuie să selectăm un câmp din fiecare dintre straturile care au valori similare. Selectați <code class="docutils literal notranslate"><span class="pre">matrix</span></code> pentru <span class="guilabel">Join layer</span> și <code class="docutils literal notranslate"><span class="pre">InputID</span></code> pentru <span class="guilabel">Join field</span>. <span class="guilabel">Câmpul țintă</span> va fi <code class="docutils literal notranslate"><span class="pre">I_D</span></code>. Lăsați celelalte opțiuni la valorile implicite și faceți clic pe <span class="guilabel">OK</span>.</p></li>
-</ol>
-<img alt="../_images/1460.png" class="align-center" src="../_images/1460.png" />
-<ol class="arabic simple" start="15">
-<li><p>Uniunea va apărea în fila <span class="guilabel">Joins</span>. Clic pe <span class="guilabel">OK</span>.</p></li>
-</ol>
-<img alt="../_images/1554.png" class="align-center" src="../_images/1554.png" />
-<ol class="arabic simple" start="16">
-<li><p>Acum, deschideți tabela de atribute a stratului <code class="docutils literal notranslate"><span class="pre">signif</span></code>, făcând clic-dreapta și selectând <span class="guilabel">Open Attribute Table</span>.</p></li>
-</ol>
-<img alt="../_images/1650.png" class="align-center" src="../_images/1650.png" />
-<ol class="arabic simple" start="17">
-<li><p>Observați că, pentru fiecare entitate de tip cutremur, acum avem câte un atribut care reprezintă cel mai apropiat vecin (cea mai apropiată așezare populată), respectiv distanța până la cel mai apropiat vecin.</p></li>
-</ol>
-<img alt="../_images/1748.png" class="align-center" src="../_images/1748.png" />
-<ol class="arabic simple" start="18">
-<li><p>Vom explora acum o modalitate de a vizualiza aceste rezultate. Mai întâi, trebuie să facem îmbinarea tabelului permanentă, salvând-o într-un un nou strat. Faceți clic dreapta pe stratul <code class="docutils literal notranslate"><span class="pre">signif</span></code> și selectați <span class="guilabel">Save As…</span>.</p></li>
-</ol>
-<img alt="../_images/1844.png" class="align-center" src="../_images/1844.png" />
-<ol class="arabic simple" start="19">
-<li><p>Faceți clic pe butonul <span class="guilabel">Browse</span> de lângă eticheta <span class="guilabel">Save as</span> și denumiți stratul de ieșire ca <code class="docutils literal notranslate"><span class="pre">earthquake_with_places.shp</span></code>. Asigurați-vă că ați bifat caseta <span class="guilabel">Add saved file to map</span> și faceți clic pe <span class="guilabel">OK</span>.</p></li>
-</ol>
-<img alt="../_images/1935.png" class="align-center" src="../_images/1935.png" />
-<ol class="arabic simple" start="20">
-<li><p>O dată ce noul strat este încărcat, puteți dezactiva vizibilitatea stratului <code class="docutils literal notranslate"><span class="pre">signif</span></code>. Deoarece setul nostru de date este destul de mare, puteți rula analiza de vizualizare asupra unui subset de date. QGIS are o caracteristică elegantă, unde se poate încărca un subset de entități dintr-un strat, fără a fi nevoie să-l exportați într-un nou strat. Faceți clic dreapta pe stratul <code class="docutils literal notranslate"><span class="pre">earthquake_with_places</span></code> și selectați <span class="guilabel">Properties</span>.</p></li>
-</ol>
-<img alt="../_images/2030.png" class="align-center" src="../_images/2030.png" />
-<ol class="arabic simple" start="21">
-<li><p>În fila <span class="guilabel">General</span>, derulați până la secțiunea <span class="guilabel">Feature subset</span>. Faceți clic pe <span class="guilabel">Constructorul de Interogări</span>.</p></li>
-</ol>
-<img alt="../_images/2167.png" class="align-center" src="../_images/2167.png" />
-<ol class="arabic simple" start="22">
-<li><p>Pentru acest tutorial, vom vizualiza cutremurele și cele mai apropiate locuri populate față de acestea, în cazul Mexicului. Introduceți următoarea expresie în fereastra de dialog <span class="guilabel">Constructorul de Interogări</span>.</p></li>
-</ol>
-<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>&quot;COUNTRY&quot; = &#39;MEXICO&#39;
-</pre></div>
-</div>
-<img alt="../_images/2230.png" class="align-center" src="../_images/2230.png" />
-<ol class="arabic simple" start="23">
-<li><p>Veți vedea că doar punctele care intră în cadrul Mexicului vor fi vizibile în canevas. Să facem același lucru pentru stratul locurilor populate. Faceți clic dreapta pe stratul <a href="#id1"><span class="problematic" id="id2">``</span></a>ne_10m_populated_places_simple``și selectați <span class="guilabel">Properties</span>.</p></li>
-</ol>
-<img alt="../_images/2327.png" class="align-center" src="../_images/2327.png" />
-<ol class="arabic simple" start="24">
-<li><p>Deschideți fereastra de dialog <span class="guilabel">Query Builder</span> din fila <span class="guilabel">General</span>. Introduceți următoarea expresie.</p></li>
-</ol>
-<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>&quot;adm0name&quot; = &#39;Mexico&#39;
-</pre></div>
-</div>
-<img alt="../_images/2427.png" class="align-center" src="../_images/2427.png" />
-<ol class="arabic simple" start="25">
-<li><p>Acum suntem gata de a crea vizualizarea noastră. Vom folosi un plugin numit <code class="docutils literal notranslate"><span class="pre">MMQGIS</span></code>. Găsiți și instalați plugin-ul. Parcurgeți <a class="reference internal" href="using_plugins.html"><span class="doc">Utilizarea Plugin-urilor</span></a> pentru mai multe detalii cu privire la modul de lucru cu plugin-uri. O dată ce ați instalat plugin-ul, mergeți la <span class="menuselection">MMQGIS ‣ Create ‣ Hub Lines</span>.</p></li>
-</ol>
-<img alt="../_images/2525.png" class="align-center" src="../_images/2525.png" />
-<ol class="arabic simple" start="26">
-<li><p>Selectați <code class="docutils literal notranslate"><span class="pre">ne_10m_populated_places_simple</span></code> ca <span class="guilabel">Hub Pointt Layer</span> și <code class="docutils literal notranslate"><span class="pre">name</span></code> ca <span class="guilabel">Hub ID Attribute</span>. În mod similar, selectați <code class="docutils literal notranslate"><span class="pre">earthquake_with_places</span></code> ca <span class="guilabel">Spoke Point LayeLayer</span> și <code class="docutils literal notranslate"><span class="pre">matrix_Tar</span></code> ca <span class="guilabel">Spoke Hub ID Attribute</span>. Algoritmul liniilor radiale va trece prin fiecare dintre punctele cutremurelor și va crea o linie care le va uni cu locațiile populate care se potrivesc atributelor specificate. Faceți clic pe <span class="guilabel">Browse</span> și alegeți numele <span class="guilabel">Output Shapefile</span> pentru <code class="docutils literal notranslate"><span class="pre">earthquake_hub_lines.shp</span></code>. Faceți clic pe <span class="guilabel">OK</span> pentru a începe prelucrarea.</p></li>
-</ol>
-<img alt="../_images/2622.png" class="align-center" src="../_images/2622.png" />
-<ol class="arabic simple" start="27">
-<li><p>Procesarea poate dura câteva minute. Puteți vedea progresul în colțul din stânga-jos al ferestrei QGIS.</p></li>
-</ol>
-<img alt="../_images/2722.png" class="align-center" src="../_images/2722.png" />
-<ol class="arabic simple" start="28">
-<li><p>O dată încheiată prelucrarea, veți vedea stratul `` earthquake_hub_lines`` încărcat în QGIS. Puteți vedea că fiecare punct corespunzător unui cutremur, are acum o linie care îl conectează la cel mai apropiat loc populat.</p></li>
-</ol>
-<img alt="../_images/2821.png" class="align-center" src="../_images/2821.png" />
-</section>
 </section>
 
 
 
-
-
-  <!-- Comment Section Powered by utterances -->
-<div id="comments">
-  <hr />
-  <p>If you want to give feedback or share your experience with this tutorial, please comment below. (requires GitHub account)</p>
-<script src="https://utteranc.es/client.js"
-        repo="spatialthoughts/qgis-tutorials"
-        issue-term="title"
-        label="comment"
-        theme="github-light"
-        crossorigin="anonymous"
-        async>
-</script>
-</div>
+<!-- Turn on comments on only newer tutorials having 3/ in URL -->
 
 
     </div>
@@ -374,7 +205,7 @@
     </p>
     <p>
         &copy; Copyright 2025, Ujaval Gandhi.<br/>
-      Ultima actualizare la mai 20, 2025.<br/>
+      Ultima actualizare la mai 24, 2025.<br/>
       Created using <a href="http://sphinx-doc.org/">Sphinx</a> 7.2.6.<br/>
     </p>
   </div>

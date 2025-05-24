@@ -185,175 +185,11 @@
 <p class="admonition-title">Opozorilo</p>
 <p>This tutorial is now obsolete. A new and updated version is available at <a class="reference internal" href="3/performing_table_joins.html"><span class="doc">Združevanje tabel (QGIS3)</span></a></p>
 </div>
-<p>Not every dataset you want to use comes as a shapefile, or in a spatial format. Often the data would come as a table or a spreadsheet and you would need to link it with your existing spatial data for use in your analysis. This operation is known as a <cite>Table Join</cite> and this tutorial will cover how to carry out table joins in QGIS.</p>
-<section id="overview-of-the-task">
-<h2>Overview of the task<a class="headerlink" href="#overview-of-the-task" title="Link to this heading">¶</a></h2>
-<p>We will use a shapefile of census tracts for California and population data table from US Census Bureau to create a population map for california.</p>
-<section id="other-skills-you-will-learn">
-<h3>Other skills you will learn<a class="headerlink" href="#other-skills-you-will-learn" title="Link to this heading">¶</a></h3>
-<ul class="simple">
-<li><p>Creating <cite>.csvt</cite> files to indicate column data types in a CSV file.</p></li>
-<li><p>Loading CSV files that do not contain any geometry in QGIS.</p></li>
-</ul>
-</section>
-</section>
-<section id="get-the-data">
-<h2>Get the data<a class="headerlink" href="#get-the-data" title="Link to this heading">¶</a></h2>
-<p><a class="reference external" href="http://www.census.gov/geo/maps-data/data/tiger.html">US Census Bureau</a> has
-various spatial extracts from the MAF/TIGER database. You can query and
-download census tracts shapefile for California. Download <a class="reference external" href="http://www2.census.gov/geo/tiger/TIGER2013/TRACT/tl_2013_06_tract.zip">Census Tracts for
-California</a> file.</p>
-<p><a class="reference external" href="http://factfinder2.census.gov/faces/nav/jsf/pages/searchresults.xhtml?refresh=t">Americal FactFinder</a>
-is a repository of all census data for the US. You can use <cite>Advanced Search</cite> and
-query for the <cite>Topic - Total Population</cite> and
-<cite>Geographies - All Census Tracts in California</cite> to create a custom CSV and
-download it. This tutorial uses <cite>Total Population 2010 Census Summary File 1</cite>
-data.</p>
-<p>For convenience, you may directly download a copy of both the datasets from the
-links below:</p>
-<p><a class="reference external" href="http://www.qgistutorials.com/downloads/tl_2013_06_tract.zip">tl_2013_06_tract.zip</a></p>
-<p><a class="reference external" href="http://www.qgistutorials.com/downloads/ca_tracts_pop.csv">ca_tracts_pop.csv</a></p>
-<p>Data Source <a class="reference internal" href="credits.html#tiger" id="id1"><span>[TIGER]</span></a> <a class="reference internal" href="credits.html#uscensus" id="id2"><span>[USCENSUS]</span></a></p>
-</section>
-<section id="procedure">
-<h2>Procedure<a class="headerlink" href="#procedure" title="Link to this heading">¶</a></h2>
-<ol class="arabic simple">
-<li><p>We will first load the census tracts shapefile. Go to <span class="menuselection">Layer
-‣ Add Vector Layer</span>.</p></li>
-</ol>
-<img alt="../_images/1208.png" class="align-center" src="../_images/1208.png" />
-<ol class="arabic simple" start="2">
-<li><p>Browse to the downloaded zip file <code class="docutils literal notranslate"><span class="pre">tl_2013_06_tract.zip</span></code> and select it. QGIS
-can open zip files directly so no need to uncompress it first.</p></li>
-</ol>
-<img alt="../_images/2172.png" class="align-center" src="../_images/2172.png" />
-<ol class="arabic simple" start="3">
-<li><p>Select the <code class="docutils literal notranslate"><span class="pre">tl_2013_06_tract.shp</span></code> layer and click <span class="guilabel">OK</span>.</p></li>
-</ol>
-<img alt="../_images/3107.png" class="align-center" src="../_images/3107.png" />
-<ol class="arabic simple" start="4">
-<li><p>You will see the census tracts loaded into QGIS.</p></li>
-</ol>
-<img alt="../_images/472.png" class="align-center" src="../_images/472.png" />
-<ol class="arabic simple" start="5">
-<li><p>Right-click on the layer and select <span class="guilabel">Open Attribute Table</span>.</p></li>
-</ol>
-<img alt="../_images/566.png" class="align-center" src="../_images/566.png" />
-<ol class="arabic simple" start="6">
-<li><p>Examine the attributes of the tracts shapefile. To join a table with this shapefile, we need a unique and common attribute for each feature. In this case, the <strong>GEOID</strong> field is a unique identifier for each tract and can be used to <cite>link</cite> this shapefile with any other table containing the same ID.</p></li>
-</ol>
-<img alt="../_images/664.png" class="align-center" src="../_images/664.png" />
-<ol class="arabic simple" start="7">
-<li><p>Open the CSV file <code class="docutils literal notranslate"><span class="pre">ca_tracts_pop.csv</span></code> in a text editor. You will notice that each row of the file contains information about a tract along with the unique identifier we saw in the previous step. Note that this field is called <strong>GEO.id2</strong> in the CSV. You will also note that the <strong>D001</strong> column has population value for each of the census tract.</p></li>
-</ol>
-<img alt="../_images/763.png" class="align-center" src="../_images/763.png" />
-<ol class="arabic simple" start="8">
-<li><p>We could import this csv file without any further action and it would be
-imported. But, the default type of each column would be a <em>String</em> (text).
-That is ok except for the <cite>D001</cite> field which contains numbers for the
-population. Having those imported as text would not allow us to run any
-mathematical operations on this column. To tell QGIS to import the field as
-a number, we need to create a <cite>sidecar</cite> file with a <cite>.csvt</cite> extension. This
-file will have only 1 row specifying data types for each column. Save this
-file as <code class="docutils literal notranslate"><span class="pre">ca_tracts_pop.csvt</span></code> in the same directory as the original <cite>.csv</cite>
-file. You can also <a class="reference external" href="../../downloads/ca_tracts_pop.csvt">download the csvt file from here.</a></p></li>
-</ol>
-<img alt="../_images/861.png" class="align-center" src="../_images/861.png" />
-<ol class="arabic simple" start="9">
-<li><p>Now we are ready to import the CSV file to QGIS. Go to <span class="menuselection">Layer
-‣ Add Delimited Text Layer</span>.</p></li>
-</ol>
-<img alt="../_images/960.png" class="align-center" src="../_images/960.png" />
-<ol class="arabic simple" start="10">
-<li><p>Browse to the folder containing the CSV file and select it. Make sure you
-have selected <span class="guilabel">File format</span> as <span class="guilabel">CSV (comma separated
-values)</span>. Since we are importing this as a table, we must specify that our
-file contains no geometry. Select the <span class="guilabel">No geometry (attribute
-only table)</span> option. Click <span class="guilabel">OK</span>.</p></li>
-</ol>
-<img alt="../_images/1068.png" class="align-center" src="../_images/1068.png" />
-<ol class="arabic simple" start="11">
-<li><p>The CSV will now be imported as a table to QGIS.</p></li>
-</ol>
-<img alt="../_images/11106.png" class="align-center" src="../_images/11106.png" />
-<ol class="arabic simple" start="12">
-<li><p>Select the <code class="docutils literal notranslate"><span class="pre">tl_2013_06_tract</span></code> layer. Right-click on it and select
-<span class="guilabel">Properties</span>.</p></li>
-</ol>
-<img alt="../_images/1270.png" class="align-center" src="../_images/1270.png" />
-<ol class="arabic simple" start="13">
-<li><p>In the <span class="guilabel">Layer Properties</span> dialog, select the <span class="guilabel">Joins</span>
-tab. Click on the <cite>+</cite> button at the bottom to create a new table join.</p></li>
-</ol>
-<img alt="../_images/1367.png" class="align-center" src="../_images/1367.png" />
-<ol class="arabic simple" start="14">
-<li><p>In the <span class="guilabel">Add vector join</span> dialog, select <code class="docutils literal notranslate"><span class="pre">ca_tracts_pop</span></code> as the
-<span class="guilabel">Join layer</span>. Next we have to select the field with unique ids in
-both the shapefile and the CSV. Select <cite>GEO.id2</cite> and <cite>GEOID</cite> as the
-<span class="guilabel">Join field</span> and <span class="guilabel">Target field</span> respectively. Click
-<span class="guilabel">OK</span>.</p></li>
-</ol>
-<img alt="../_images/1463.png" class="align-center" src="../_images/1463.png" />
-<ol class="arabic simple" start="15">
-<li><p>Close the <span class="guilabel">Layer Properties</span> dialog and return to the main QGIS
-window. At this point, the fields from the CSV file are joined with the
-shapefile. Right-click on the <code class="docutils literal notranslate"><span class="pre">tl_2013_06_tract</span></code> layer and select
-<span class="guilabel">Open Attribute Table</span>.</p></li>
-</ol>
-<img alt="../_images/1556.png" class="align-center" src="../_images/1556.png" />
-<ol class="arabic simple" start="16">
-<li><p>You can now see a new set of fields, including
-<span class="guilabel">ca_tracts_pop_D001</span> field added to each feature. Now you have
-access to the population value of each tract from the CSV file. Close the
-attribute table and return to the main QGIS window.</p></li>
-</ol>
-<img alt="../_images/1652.png" class="align-center" src="../_images/1652.png" />
-<ol class="arabic simple" start="17">
-<li><p>Right-click the <code class="docutils literal notranslate"><span class="pre">tl_2013_06_tract</span></code> layer and select <span class="guilabel">Properties</span>.</p></li>
-</ol>
-<img alt="../_images/1750.png" class="align-center" src="../_images/1750.png" />
-<ol class="arabic simple" start="18">
-<li><p>Select the <span class="guilabel">Style</span> tab. Select the <span class="guilabel">Graduated</span> from the
-drop-down menu. As we are looking to create a population map, we want to
-assign different color to each census tract feature based on the population
-count. Select <span class="guilabel">ca_tracts_pop_D001</span> as the <span class="guilabel">Column</span>.
-Select a color ramp of your liking from the <span class="guilabel">Color ramp</span>
-drop-down. In the <span class="guilabel">Mode</span>, select <span class="guilabel">Quantile (Equal
-Count)</span>. Next click <span class="guilabel">Classify</span>. You will see a different color
-assigned to certain population ranges. Click <span class="guilabel">OK</span>.</p></li>
-</ol>
-<img alt="../_images/1846.png" class="align-center" src="../_images/1846.png" />
-<ol class="arabic simple" start="19">
-<li><p>You will now see a nice visualization of the census tracts as styled using
-population values. Use the <span class="guilabel">Zoom in</span> tool to select a smaller
-area from the layer.</p></li>
-</ol>
-<img alt="../_images/1937.png" class="align-center" src="../_images/1937.png" />
-<ol class="arabic simple" start="20">
-<li><p>You have a detailed and accurate population map of California. You can use
-the same technique to create maps based on variety of census data.</p></li>
-</ol>
-<img alt="../_images/2032.png" class="align-center" src="../_images/2032.png" />
-</section>
 </section>
 
 
 
-
-
-  <!-- Comment Section Powered by utterances -->
-<div id="comments">
-  <hr />
-  <p>If you want to give feedback or share your experience with this tutorial, please comment below. (requires GitHub account)</p>
-<script src="https://utteranc.es/client.js"
-        repo="spatialthoughts/qgis-tutorials"
-        issue-term="title"
-        label="comment"
-        theme="github-light"
-        crossorigin="anonymous"
-        async>
-</script>
-</div>
+<!-- Turn on comments on only newer tutorials having 3/ in URL -->
 
 
     </div>
@@ -369,7 +205,7 @@ the same technique to create maps based on variety of census data.</p></li>
     </p>
     <p>
         &copy; Copyright 2025, Ujaval Gandhi.<br/>
-      Zadnjič posodobljeno maj 20, 2025.<br/>
+      Zadnjič posodobljeno maj 24, 2025.<br/>
       Created using <a href="http://sphinx-doc.org/">Sphinx</a> 7.2.6.<br/>
     </p>
   </div>

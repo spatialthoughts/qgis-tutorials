@@ -185,210 +185,14 @@
 <p class="admonition-title">경고</p>
 <p>qgis2leaf plugin is no longer in active development. The functionality of
 this plugin is folded into a new plugin called <strong>qgis2web</strong>.</p>
-<p>See <a class="reference internal" href="web_mapping_with_qgis2web.html"><span class="doc">Web Mapping with QGIS2Web</span></a> tutorial for an updated version of
+<p>See <a class="reference internal" href="3/web_mapping_with_qgis2web.html"><span class="doc">Web Mapping with QGIS2Web (QGIS3)</span></a> tutorial for an updated version of
 this tutorial.</p>
 </div>
-<p>리플릿은 웹 지도 어클리케이션을 만드는데 매우 인기 있는 오픈소프 자바스크립트 라이브러리입니다. <a href="#id1"><span class="problematic" id="id2">**</span></a>qgis2leaf**플러그인은 QGIS 지도를 리플릿에 기반한 웹 지도로 내보내는데 손쉬운 방법을 제공합니다. 이 플러그인은 웹 지도를 만드는 것과 딱딱한 GIS 데이터 레이어를 상호작용하는 웹지도로 만드는데 유용한 수단입니다.</p>
-<section id="overview-of-the-task">
-<h2>과업 개요<a class="headerlink" href="#overview-of-the-task" title="Link to this heading">¶</a></h2>
-<p>세계 공항의 리플릿 웹맵을 만들고자 합니다.</p>
-<section id="other-skills-you-will-learn">
-<h3>기타 스킬<a class="headerlink" href="#other-skills-you-will-learn" title="Link to this heading">¶</a></h3>
-<ul class="simple">
-<li><p>필드 계산기에서 <code class="docutils literal notranslate"><span class="pre">CASE</span></code> SQL구문을 이용하여 다른 상태를 바탕으로 새로운 필드값을 만들어 봅니다.</p></li>
-<li><p>QGIS에 SVG 사용자 아이콘을 위치시키고 사용합니다.</p></li>
-</ul>
-</section>
-</section>
-<section id="get-the-data">
-<h2>데이터 획득<a class="headerlink" href="#get-the-data" title="Link to this heading">¶</a></h2>
-<p>Natural Earth의 <a href="#id1"><span class="problematic" id="id2">`</span></a>Airports &lt;<a class="reference external" href="http://www.naturalearthdata.com/downloads/10m-cultural-vectors/airports/">http://www.naturalearthdata.com/downloads/10m-cultural-vectors/airports/</a>&gt;`_데이터셋을 사용합니다.</p>
-<p>Download the <a class="reference external" href="http://www.naturalearthdata.com/http//www.naturalearthdata.com/download/10m/cultural/ne_10m_airports.zip">Airports shapefile</a>.</p>
-<p>데이터 출처:  <a class="reference internal" href="credits.html#naturalearth" id="id1"><span>[NATURALEARTH]</span></a></p>
-</section>
-<section id="procedure">
-<h2>과정<a class="headerlink" href="#procedure" title="Link to this heading">¶</a></h2>
-<ol class="arabic simple">
-<li><p>메뉴 플러그인 –&gt; 플러그인 관리 및 설치  :menuselection:<a href="#id1"><span class="problematic" id="id2">`</span></a>Plugins –&gt; Manage and Install Plugin`로 가서 <a href="#id3"><span class="problematic" id="id4">``</span></a>qgis2leaf``를 설치합니다. 이 플러그인은 현재 설치되지 않음 <a href="#id5"><span class="problematic" id="id6">**</span></a>experimental**으로 표시되어 있습니다. 그래서 플러그인 세팅에서  :guilabel:<a href="#id7"><span class="problematic" id="id8">`</span></a>Show also experimental plugins`을 체크할 필요가 있습니다. 상위버젼에서는 명령어 등의 내용과 다소 틀릴 수 있습니다. (QGIS에서 플러그인 설치를 하기해 보다 자세한 사항은 :doc:<a href="#id9"><span class="problematic" id="id10">`</span></a>using_plugins`를 보시기 바랍니다.)</p></li>
-</ol>
-<img alt="../_images/1202.png" class="align-center" src="../_images/1202.png" />
-<ol class="arabic simple" start="2">
-<li><p>다운로드한 <a href="#id1"><span class="problematic" id="id2">``</span></a>ne_10m_airports.zip``파일을 압축해제합니다. QGIS를 구동시키고 메뉴 레이어 –&gt; 레이어 추가 –&gt; 벡터 레이어 추가 :menuselection:<a href="#id3"><span class="problematic" id="id4">`</span></a>Layer –&gt; Add Vector Layer`로 갑니다. 파일이 압축해제된 디렉토리를 찾아서 <a href="#id5"><span class="problematic" id="id6">``</span></a>ne_10m_airports.shp``를 선택합니다. 확인 :guilabel:<a href="#id7"><span class="problematic" id="id8">`</span></a>OK`을 클릭합니다.</p></li>
-</ol>
-<img alt="../_images/2162.png" class="align-center" src="../_images/2162.png" />
-<ol class="arabic simple" start="3">
-<li><p>일단 <a href="#id1"><span class="problematic" id="id2">``</span></a>ne_10m_airports``레이어가 불러들여지면 객체 확인 <span class="guilabel">Identify</span> 툴을 사용하여 아무 객체나 눌러 속성을 살펴봅니다. 여기서는 공항을 3개의 범주로 나누어 공항지도를 만들고자 합니다. 속성 <a href="#id3"><span class="problematic" id="id4">``</span></a>type``은 객체를 분리하는데 유용할 것입니다.</p></li>
-</ol>
-<img alt="../_images/3101.png" class="align-center" src="../_images/3101.png" />
-<ol class="arabic simple" start="4">
-<li><p><a href="#id1"><span class="problematic" id="id2">``</span></a>ne_10m_airports``레이어를 우측클릭하고 속성테이블 열기 :guilabel:<a href="#id3"><span class="problematic" id="id4">`</span></a>Open Attribute Table`를 선택합니다.</p></li>
-</ol>
-<img alt="../_images/467.png" class="align-center" src="../_images/467.png" />
-<ol class="arabic simple" start="5">
-<li><p>속성 테이블 다이알로그에서 편집모드전환 <span class="guilabel">Toggle Editing</span> 단추를 누릅니다. 일단 레이어가 편집모드가 되면 필드계산기 열기 <span class="guilabel">Open Field Calculator</span> 단추를 누릅니다.</p></li>
-</ol>
-<img alt="../_images/560.png" class="align-center" src="../_images/560.png" />
-<ol class="arabic simple" start="6">
-<li><p><a href="#id1"><span class="problematic" id="id2">``</span></a>type_code``라는 새로운 속성을 만들려고 하는데, 주요한 공항은 3, 중간 크기의 공항은 2 그리고 나머지 모든 공항은 1의 값을 부여하고자 합니다. 이 상태에서 <a href="#id3"><span class="problematic" id="id4">``</span></a>type``의 속성을 보고 <a href="#id5"><span class="problematic" id="id6">``</span></a>type_code``속성을 만드는 표현식을 만들기 위해 <a href="#id7"><span class="problematic" id="id8">*</span></a>CASE*구문을 사용할 수 있습니다. 출력 필드이름 <span class="guilabel">Output field name`으로 ``type_code``를 입력하고 새 필드 생성 :guilabel:`Create a new field</span> 상자를 체크합니다. 출력 필드 유형  :guilabel:<a href="#id9"><span class="problematic" id="id10">`</span></a>Output field type`으로 정수 :guilabel:<a href="#id11"><span class="problematic" id="id12">`</span></a>Whole number (integer)`를 선택합니다. 표현식  :guilabel:<a href="#id13"><span class="problematic" id="id14">`</span></a>Expression`창에는 다음의 식을 입력합니다.</p></li>
-</ol>
-<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>CASE  WHEN &quot;type&quot; LIKE &#39;%major%&#39;  THEN 3
- WHEN &quot;type&quot; LIKE &#39;%mid%&#39; THEN 2
- ELSE 1
-END
-</pre></div>
-</div>
-<img alt="../_images/658.png" class="align-center" src="../_images/658.png" />
-<ol class="arabic simple" start="7">
-<li><p>속성 테이블  <span class="guilabel">Attribute Table`창으로 되돌아가면 끝에 새로운 컬럼을 볼 수 있을 것입니다. 표현식이 정확하게 작동했는지 확인하고 편집모드전환 :guilabel:`Toggle Editing</span> 단추를 눌러 변경된 내용을 저장합니다.</p></li>
-</ol>
-<img alt="../_images/757.png" class="align-center" src="../_images/757.png" />
-<ol class="arabic simple" start="8">
-<li><p>이제 새롭게 만들어진 <code class="docutils literal notranslate"><span class="pre">type_code``속성을</span> <span class="pre">이용하여</span> <span class="pre">공항</span> <span class="pre">레이어를</span> <span class="pre">스타일링합니다.</span> <span class="pre">``ne_10m_airports</span></code> 레이어를 우측클릭하고 속성 :guilabel:<a href="#id1"><span class="problematic" id="id2">`</span></a>Properties`을 선택합니다.</p></li>
-</ol>
-<img alt="../_images/856.png" class="align-center" src="../_images/856.png" />
-<ol class="arabic simple" start="9">
-<li><p>레이어 속성 <span class="guilabel">Layer Properties</span> 다이알로그에서 스타일 <span class="guilabel">Style</span> 탭을 선택합니다. 드롭다운 메뉴에서 분류된 <span class="guilabel">Categorized</span> 스타일을 선택하고 컬럼  <span class="guilabel">Column`으로  ``type_code`</span> 을 선택합니다. 색상표를 고르고 분류 :guilabel:<a href="#id1"><span class="problematic" id="id2">`</span></a>Classify`를 누릅니다. 확인 :guilabel:<a href="#id3"><span class="problematic" id="id4">`</span></a>OK`을 누르고 QGIS 메인 창으로 되돌아 갑니다.</p></li>
-</ol>
-<img alt="../_images/956.png" class="align-center" src="../_images/956.png" />
-<ol class="arabic simple" start="10">
-<li><p>멋지게 스타일링된 지도를 보게됩니다. 상호작용하는 웹맵을 만들기위해 이것을 내보내보도록 합시다. 메뉴  :menuselection:<a href="#id1"><span class="problematic" id="id2">`</span></a>Web –&gt; qgis2leaf –&gt; Exports a QGIS Project to a working leaflet webmap`로 갑니다.</p></li>
-</ol>
-<img alt="../_images/1063.png" class="align-center" src="../_images/1063.png" />
-<ol class="arabic simple" start="11">
-<li><p>In the <span class="guilabel">QGIS 2 Leaflet</span> dialog, click <span class="guilabel">Get Layers</span> to
-get the refreshed layer list. Select the <span class="guilabel">Full screen</span> option to
-have a full screen web map. Choose <span class="guilabel">layer extent</span> as the
-<span class="guilabel">Extent</span> of the exported map. Choose a <span class="guilabel">Output project
-folder</span> on your system where the plugin will write the output files. Click
-<span class="guilabel">OK</span>.</p></li>
-</ol>
-<img alt="../_images/11101.png" class="align-center" src="../_images/11101.png" />
-<ol class="arabic simple" start="12">
-<li><p>일단 내보내기 과정이 종료되면, 컴퓨터의 출력 폴더를 찾아보십시오. 탐색기에서 <a href="#id1"><span class="problematic" id="id2">``</span></a>index.html``파일을 여십시오. QGIS지도와 똑같은 상호작용 웹 지도를 보게됩니다. 지도 주위를 확대 그리고 이동할 수 있습니다. 그리고 아무 객체나 눌러서 속성정보가 담긴 팝업창을 볼 수 있습니다. 완전한 객체 웹 지도를 얻기 위해서 웹 서버에 이 폴더의 내용을 복사할 수 있습니다.</p></li>
-</ol>
-<img alt="../_images/1265.png" class="align-center" src="../_images/1265.png" />
-<ol class="arabic simple" start="13">
-<li><p>이제 지도를 보다 사용자 중심으로 만들기 위해 이플러그인의 고급 특성을 알보겠습니다. 주목해 보면 팝업창은 객체의 모든 속성을 포함하고 있습니다. 어떤 속성은 유용하지 않고 전체 팝업은 보기 좋지 않습니다. 이것을 보다 낫게 만들기 위해 사용자 HTML로 대체할 수 있습니다. 이것은 <a href="#id1"><span class="problematic" id="id2">``</span></a>html_exp``라는 컬럼에서 사용자 HTML을 추가함으로써 할 수 있습니다. <a href="#id3"><span class="problematic" id="id4">``</span></a>ne_10m_airports``레이어를 우측클릭하고 속성 테이블 열기 :guilabel:<a href="#id5"><span class="problematic" id="id6">`</span></a>Open Attribute Table`를 선택합니다.</p></li>
-</ol>
-<img alt="../_images/1363.png" class="align-center" src="../_images/1363.png" />
-<ol class="arabic simple" start="14">
-<li><p>속성 테이블 다이알로그에서 편집모드전환 <span class="guilabel">Toggle Editing</span> 단추를 누릅니다. 일단 레이어가 편집모드가 되면 필드계산기 열기 <span class="guilabel">Open Field Calculator</span> 단추를 누릅니다.</p></li>
-</ol>
-<img alt="../_images/1458.png" class="align-center" src="../_images/1458.png" />
-<ol class="arabic simple" start="15">
-<li><p>새필드생성 <span class="guilabel">Create a new field</span> 상자를 체크하고 출력필드이름 <span class="guilabel">Output field name`으로  ``html_exp``를 입력합니다. 출력필드유형  :guilabel:`Output field type`으로 텍스트 :guilabel:`Text (string)`를 선택합니다. 긴 HTML 문자열을 입력해야 하므로 출력필드폭 :guilabel:`Output field width`으로 ``200``을 입력합니다. 표현식 :guilabel:`Expression`영역에서 다음의 식을 입력합니다. 복잡해 보이는 표현식은 단순하게 ``iata_code`</span>, <code class="docutils literal notranslate"><span class="pre">name</span></code> 그리고 <code class="docutils literal notranslate"><span class="pre">type</span></code> 속성으로부터 HTML표를 정의하고 셀값을 대신합니다. 표현식이 정확한지 확인하기 위해 출력미리보기 <span class="guilabel">Output preview</span> 를 체크합니다.</p></li>
-</ol>
-<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>concat(&#39;&lt;h3&gt;&#39;, &quot;iata_code&quot;, &#39;&lt;/h3&gt;&lt;table&gt;&#39;, &#39;&lt;tr&gt;&lt;td&gt;Airport Name: &lt;b&gt; &#39;,
-&quot;name&quot;, &#39;&lt;/b&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;Category: &lt;b&gt; &#39;, &quot;type&quot;,
-&#39;&lt;/b&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&#39;)
-</pre></div>
-</div>
-<div class="admonition note">
-<p class="admonition-title">참고</p>
-<p>Shapefile 형식은 필드에서 최대 254자까지 포함할 수 있습니다. 필드에 보다 긴 텍스트를 저장하고 싶다면 다른 형식을 선택하십시오.</p>
-</div>
-<img alt="../_images/1552.png" class="align-center" src="../_images/1552.png" />
-<ol class="arabic simple" start="16">
-<li><p>속성 테이블  <span class="guilabel">Attribute Table`창으로 되돌아가면 끝에 새로운 컬럼을 볼 수 있을 것입니다. 표현식이 정확하게 작동했는지 확인하고 편집모드전환 :guilabel:`Toggle Editing</span> 단추를 눌러 변경된 내용을 저장합니다.</p></li>
-</ol>
-<img alt="../_images/1648.png" class="align-center" src="../_images/1648.png" />
-<ol class="arabic simple" start="17">
-<li><p>이제 메뉴  :menuselection:<a href="#id1"><span class="problematic" id="id2">`</span></a>Web –&gt; qgis2leaf –&gt; Exports a QGIS Project to a working leaflet webmap`를 이용하여 다시 한번 지도를 내보내 보겠습니다.</p></li>
-</ol>
-<img alt="../_images/1746.png" class="align-center" src="../_images/1746.png" />
-<ol class="arabic simple" start="18">
-<li><p>전처럼 옵션을 선택합니다.</p></li>
-</ol>
-<img alt="../_images/1842.png" class="align-center" src="../_images/1842.png" />
-<ol class="arabic simple" start="19">
-<li><p>일단 내보내기 과정이 종료되면 출력 폴더로 갑니다. 현재의 시간이 적힌 하위 폴더가 생길 것입니다. 탐색기에서 하위 폴더 안에 있는  <a href="#id1"><span class="problematic" id="id2">``</span></a>index.html``를 찾아 엽니다. 아무 객체나 누르고 팝업을 봅니다. 전보다 깔끔하고 필요한 정보만 들어 있는 것을 알게됩니다.</p></li>
-</ol>
-<img alt="../_images/1933.png" class="align-center" src="../_images/1933.png" />
-<ol class="arabic simple" start="20">
-<li><p>Another useful feature of the <code class="docutils literal notranslate"><span class="pre">qgis2leaf</span></code> plugin is the ability to
-specify a custom icon to use with the web map. This is accomplished by
-specifying the path to the custom icon in a field called <code class="docutils literal notranslate"><span class="pre">icon_exp</span></code>. We
-will create a new layer containing only the major airports and style using
-a custom SVG icon.  Locate the <span class="guilabel">Select features using an
-expression</span> tool from the toolbar.</p></li>
-</ol>
-<img alt="../_images/2028.png" class="align-center" src="../_images/2028.png" />
-<ol class="arabic simple" start="21">
-<li><p>아래의 식을 입력하고 모든 주요 공항을 선택하기 위해 선택 :guilabel:<a href="#id1"><span class="problematic" id="id2">`</span></a>Select`을 누릅니다.</p></li>
-</ol>
-<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>&quot;type_code&quot; = 3
-</pre></div>
-</div>
-<img alt="../_images/2163.png" class="align-center" src="../_images/2163.png" />
-<ol class="arabic simple" start="22">
-<li><p><code class="docutils literal notranslate"><span class="pre">ne_10m_airports</span></code> 레이어를 우측 클릭하고 다른 이름으로 저장 :guilabel:<a href="#id1"><span class="problematic" id="id2">`</span></a>Save Selection As…`을 선택합니다.</p></li>
-</ol>
-<img alt="../_images/2228.png" class="align-center" src="../_images/2228.png" />
-<ol class="arabic simple" start="23">
-<li><p>새 이름으로 벡터 레이어 저장하기 :guilabel:<a href="#id1"><span class="problematic" id="id2">`</span></a>Save vector layer as…`다이알로그에서 출력파일의 이름을 <a href="#id3"><span class="problematic" id="id4">``</span></a>major_airports.shp``로 입력합니다. 선택된 객체만 저장과  저장된 파일을 지도에 추가:guilabel:<a href="#id5"><span class="problematic" id="id6">`</span></a>Add saved file to map`를 체크하고 확인 :guilabel:<a href="#id7"><span class="problematic" id="id8">`</span></a>OK`을 누릅니다.</p></li>
-</ol>
-<img alt="../_images/2325.png" class="align-center" src="../_images/2325.png" />
-<ol class="arabic simple" start="24">
-<li><p>일다 QGiS에  <a href="#id1"><span class="problematic" id="id2">``</span></a>major_airports``레이어가 추가되면 우측클릭하고 속성 테이블 열기 :guilabel:<a href="#id3"><span class="problematic" id="id4">`</span></a>Open Attribute Table`를 선택합니다.</p></li>
-</ol>
-<img alt="../_images/2425.png" class="align-center" src="../_images/2425.png" />
-<ol class="arabic simple" start="25">
-<li><p>속성 테이블 다이알로그에서 편집모드전환 <span class="guilabel">Toggle Editing</span> 단추를 누릅니다. 일단 레이어가 편집모드가 되면 필드계산기 열기 <span class="guilabel">Open Field Calculator</span> 단추를 누릅니다.</p></li>
-</ol>
-<img alt="../_images/2523.png" class="align-center" src="../_images/2523.png" />
-<ol class="arabic simple" start="26">
-<li><p>필드계산기 <span class="guilabel">Field Calculator</span> 다이알로그에서 출력필드이름 :guilabel:<a href="#id1"><span class="problematic" id="id2">`</span></a>Output field name`으로 <a href="#id3"><span class="problematic" id="id4">``</span></a>icon_exp``를 입력합니다. 텍스트 :guilabel:<a href="#id5"><span class="problematic" id="id6">`</span></a>Text (string)`로 설정합니다. 표현식 :guilabel:<a href="#id7"><span class="problematic" id="id8">`</span></a>Expression`영역에서 다음의 식을 입력합니다.</p></li>
-</ol>
-<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>&#39;airport.svg&#39;
-</pre></div>
-</div>
-<img alt="../_images/2620.png" class="align-center" src="../_images/2620.png" />
-<ol class="arabic simple" start="27">
-<li><p>속성테이블 <span class="guilabel">Attribute Table</span>.에서 편집모드전환 <span class="guilabel">Toggle Editing</span> 단추를 눌러 편집된 내용을 저장합니다.</p></li>
-</ol>
-<img alt="../_images/2720.png" class="align-center" src="../_images/2720.png" />
-<ol class="arabic simple" start="28">
-<li><p>메뉴  <span class="menuselection">Web ‣ qgis2leaf ‣ Exports a QGIS Project to a working leaflet webmap`에서  ``qgis2leaf`</span> 플러그인을 엽니다. QGIS에서 두 개의 레이어를 가져오기 위해  <span class="guilabel">Get Layers</span> 단추를 누릅니다. 베이스맵으로 사용가능한 많은 다른 타일 레이어가 있습니다. 여기서는 다른 것을 시도해보고자  :guilabel:<a href="#id1"><span class="problematic" id="id2">`</span></a>Basemap`으로 :guilabel:<a href="#id3"><span class="problematic" id="id4">`</span></a>Stamen Watercolor`를 선택하겠습니다.  :guilabel:<a href="#id5"><span class="problematic" id="id6">`</span></a>OK`를누릅니다.</p></li>
-</ol>
-<img alt="../_images/2819.png" class="align-center" src="../_images/2819.png" />
-<ol class="arabic simple" start="29">
-<li><p>공항의 아이콘으로 <code class="docutils literal notranslate"><span class="pre">airport.svg``을</span> <span class="pre">명시했던</span> <span class="pre">것을</span> <span class="pre">기억해</span> <span class="pre">봅시다.</span> <span class="pre">출력</span> <span class="pre">디렉토리에</span> <span class="pre">이</span> <span class="pre">아이콘을</span> <span class="pre">추가할</span> <span class="pre">필요가</span> <span class="pre">있습니다.</span> <span class="pre">QGIS는</span> <span class="pre">많은</span> <span class="pre">아이콘을</span> <span class="pre">제공합니다.</span> <span class="pre">윈도우상에서</span> <span class="pre">이러한</span> <span class="pre">아이콘들은</span>&#160; <span class="pre">메뉴</span>&#160; <span class="pre">:menuselection:`C:</span> <span class="pre">--&gt;</span> <span class="pre">Program</span> <span class="pre">Files</span> <span class="pre">--&gt;</span> <span class="pre">OSGEO4W64</span> <span class="pre">혹은</span> <span class="pre">QGIS</span> <span class="pre">Brighton</span> <span class="pre">--&gt;</span> <span class="pre">apps</span> <span class="pre">--&gt;</span> <span class="pre">qgis</span> <span class="pre">--&gt;</span> <span class="pre">svg`에</span> <span class="pre">위치해</span> <span class="pre">있습니다.</span> <span class="pre">경로는</span> <span class="pre">사용자</span> <span class="pre">컴퓨터의</span> <span class="pre">플랫폼과</span> <span class="pre">설치</span> <span class="pre">유형에</span> <span class="pre">따라</span> <span class="pre">다를</span> <span class="pre">수</span> <span class="pre">있습니다.</span> <span class="pre">디렉토리를</span> <span class="pre">찾아서</span> <span class="pre">좋아하는</span> <span class="pre">아이콘을</span> <span class="pre">고릅니다.</span> <span class="pre">지도에서는</span> <span class="pre">``transport</span></code> 카테고리 하위에 있는 <a href="#id1"><span class="problematic" id="id2">``</span></a>amenity=airport.svg``을 시도해 봅니다.</p></li>
-</ol>
-<img alt="../_images/2918.png" class="align-center" src="../_images/2918.png" />
-<ol class="arabic simple" start="30">
-<li><p>내보내기를 할 때 명시했던 출력 디렉토리에 이 아이콘을 복사하고 붙여넣기를 합니다. <a href="#id1"><span class="problematic" id="id2">``</span></a>airport.svg``로 이름을 바꿉니다.</p></li>
-</ol>
-<img alt="../_images/3015.png" class="align-center" src="../_images/3015.png" />
-<ol class="arabic simple" start="31">
-<li><p>이제 폴더에서  <code class="docutils literal notranslate"><span class="pre">index.html</span></code> 파일을 열어봅니다. 주요 공항에대한 사용자 아이콘을 가진 멋진 베이스맵을 볼 수 있을 것입니다. 또한 레이어 패널의 우측 상단 구석에 두개의 레이어가 컨트롤 될 수 있게 된 것을 주목하십시오.</p></li>
-</ol>
-<img alt="../_images/3118.png" class="align-center" src="../_images/3118.png" />
-<p>Hope this tutorial gives you a head start in creating web maps. Below is the
-live interactive map created for this tutorial.</p>
-<div>
-<iframe
-src="http://spatialthoughts.github.io/qgis2leaf-maps/airports_with_custom_popup/"
-width="100%" height="600px"></iframe>
-</div></section>
 </section>
 
 
 
-
-
-  <!-- Comment Section Powered by utterances -->
-<div id="comments">
-  <hr />
-  <p>If you want to give feedback or share your experience with this tutorial, please comment below. (requires GitHub account)</p>
-<script src="https://utteranc.es/client.js"
-        repo="spatialthoughts/qgis-tutorials"
-        issue-term="title"
-        label="comment"
-        theme="github-light"
-        crossorigin="anonymous"
-        async>
-</script>
-</div>
+<!-- Turn on comments on only newer tutorials having 3/ in URL -->
 
 
     </div>
@@ -404,7 +208,7 @@ width="100%" height="600px"></iframe>
     </p>
     <p>
         &copy; Copyright 2025, Ujaval Gandhi.<br/>
-      최종 업데이트: 5월 20, 2025<br/>
+      최종 업데이트: 5월 24, 2025<br/>
       Created using <a href="http://sphinx-doc.org/">Sphinx</a> 7.2.6.<br/>
     </p>
   </div>
