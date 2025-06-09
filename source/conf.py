@@ -27,7 +27,18 @@ import i18n_pdf_docs
 
 # Add any Sphinx extension module names here, as strings. They can be extensions
 # coming with Sphinx (named 'sphinx.ext.*') or your custom ones.
-extensions = ['sphinx.ext.autodoc', 'sphinx.ext.doctest', 'sphinx.ext.intersphinx', 'sphinx.ext.todo', 'sphinx.ext.coverage', 'sphinx.ext.pngmath', 'sphinx.ext.mathjax', 'sphinx.ext.ifconfig', 'sphinx.ext.viewcode']
+extensions = [
+    'sphinx.ext.autodoc', 
+    'sphinx.ext.doctest', 
+    'sphinx.ext.intersphinx',
+    'sphinx.ext.todo',
+    'sphinx.ext.coverage',
+    'sphinx.ext.pngmath',
+    'sphinx.ext.mathjax',
+    'sphinx.ext.ifconfig',
+    'sphinx.ext.viewcode',
+    'sphinx_reredirects'
+]
 
 # Add any paths that contain templates here, relative to this directory.
 templates_path = ['_templates']
@@ -69,6 +80,9 @@ extensions = ['rst2pdf.pdfbuilder']
 # directories to ignore when looking for source files.
 exclude_patterns = []
 
+redirects = {
+     'docs/making_a_map': 'docs/3/making_a_map'
+}
 # The reST default role (used for this markup: `text`) to use for all documents.
 #default_role = None
 
