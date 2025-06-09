@@ -9,9 +9,9 @@
     <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=fa44fd50" />
     <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-sphinx.css?v=0bf093e7" />
     <script src="../../_static/documentation_options.js?v=2123726e"></script>
-    <script src="../../_static/doctools.js?v=888ff710"></script>
+    <script src="../../_static/doctools.js?v=9bcbadda"></script>
     <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
-    <script src="../../_static/translations.js?v=d9a6981e"></script>
+    <script src="../../_static/translations.js?v=cbf116e0"></script>
     <link rel="search" title="搜尋" href="../../search.html" />
     <link rel="next" title="以 Python 製作附加元件 (QGIS3)" href="building_a_python_plugin.html" />
     <link rel="prev" title="使用自訂的 Python 表達式函數 (QGIS3)" href="custom_python_functions.html" />
@@ -190,18 +190,18 @@
       
 
   <section id="writing-python-scripts-for-processing-framework-qgis3">
-<h1>撰寫 Python 腳本並在處理框架下執行（QGIS3)<a class="headerlink" href="#writing-python-scripts-for-processing-framework-qgis3" title="Link to this heading">¶</a></h1>
+<h1>撰寫 Python 腳本並在處理框架下執行（QGIS3)<a class="headerlink" href="#writing-python-scripts-for-processing-framework-qgis3" title="連結到這個標頭">¶</a></h1>
 <p>獨立的 Pyqgis 程式碼可以從 QGIS 中的 Python 主控台執行，不過只要經過些微調整，它也可以在處理框架中執行。這麼做的好處有兩個，首先因為處理框架提供了標準化的介面，所以指定輸出入檔變容易了；再來就是你可以指定你的腳本成為處理建模中的一部份，這樣一來就可以使用批次執行一次處理許多輸入檔。本教學將示範如何撰寫可以當成 QGIS 中處理框架的一部份的 Python 程式碼。</p>
 <div class="admonition note">
 <p class="admonition-title">備註</p>
 <p>The Processing API was completely overhauled in QGIS3. Please refer to <a class="reference external" href="https://raw.githubusercontent.com/qgis/QGIS/master/doc/porting_processing.dox">this guide</a> for best practices and tips.</p>
 </div>
 <section id="overview-of-the-task">
-<h2>內容說明<a class="headerlink" href="#overview-of-the-task" title="Link to this heading">¶</a></h2>
+<h2>內容說明<a class="headerlink" href="#overview-of-the-task" title="連結到這個標頭">¶</a></h2>
 <p>本腳本會依照使用者挑選的屬性，進行融合（Dissolve）操作；除此之外，還會把所有被融合的圖徵的另一個屬性值進行加總。在本例中，我們要依照全球範圍的 shapefile 的 <code class="docutils literal notranslate"><span class="pre">CONTINENT</span></code> 屬性進行融合，然後依照 <code class="docutils literal notranslate"><span class="pre">POP_EST</span></code> 屬性加總估計融合後的新區域的總人口。</p>
 </section>
 <section id="get-the-data">
-<h2>取得資料<a class="headerlink" href="#get-the-data" title="Link to this heading">¶</a></h2>
+<h2>取得資料<a class="headerlink" href="#get-the-data" title="連結到這個標頭">¶</a></h2>
 <p>We will use the <a class="reference external" href="https://www.naturalearthdata.com/downloads/10m-cultural-vectors/10m-admin-0-countries/">Admin 0 - Countries</a>
 dataset from Natural Earth.</p>
 <p>Download the <a class="reference external" href="https://www.naturalearthdata.com/http//www.naturalearthdata.com/download/10m/cultural/ne_10m_admin_0_countries.zip">Admin 0 - countries shapefile.</a>.</p>
@@ -210,7 +210,7 @@ dataset from Natural Earth.</p>
 <p><a class="reference external" href="https://www.qgistutorials.com/downloads/ne_global.gpkg">ne_global.gpkg</a></p>
 </section>
 <section id="procedure">
-<h2>操作流程<a class="headerlink" href="#procedure" title="Link to this heading">¶</a></h2>
+<h2>操作流程<a class="headerlink" href="#procedure" title="連結到這個標頭">¶</a></h2>
 <ol class="arabic simple">
 <li><p>In the QGIS Browser Panel, locate the directory where you saved your downloaded data. Expand the <code class="docutils literal notranslate"><span class="pre">zip</span></code> or the <code class="docutils literal notranslate"><span class="pre">gpkg</span></code>  entry and select the <code class="docutils literal notranslate"><span class="pre">ne_10m_admin_0_countries</span></code> layer. Drag the layer to the canvas.</p></li>
 </ol>
@@ -220,7 +220,7 @@ dataset from Natural Earth.</p>
 </ol>
 <img alt="../../_images/2125.png" class="align-center" src="../../_images/2125.png" />
 <ol class="arabic simple" start="3">
-<li><p>The template contains all the boilerplate code that is required for the Processing Framework to recognize it as a Processing script, and manage inputs/outputs. Let’s start customizing the example template to our needs. First change the class name from <code class="docutils literal notranslate"><span class="pre">ExampleProcessingAlgorithm</span></code> to <code class="docutils literal notranslate"><span class="pre">DissolveProcessingAlgorithm</span></code>. This name also needs to be updated in the <code class="docutils literal notranslate"><span class="pre">createInstance</span></code> method. Add a docstring to the class that explains what the algorithm does.</p></li>
+<li><p>The template contains all the boilerplate code that is required for the Processing Framework to recognize it as a Processing script, and manage inputs/outputs. Let's start customizing the example template to our needs. First change the class name from <code class="docutils literal notranslate"><span class="pre">ExampleProcessingAlgorithm</span></code> to <code class="docutils literal notranslate"><span class="pre">DissolveProcessingAlgorithm</span></code>. This name also needs to be updated in the <code class="docutils literal notranslate"><span class="pre">createInstance</span></code> method. Add a docstring to the class that explains what the algorithm does.</p></li>
 </ol>
 <img alt="../../_images/360.png" class="align-center" src="../../_images/360.png" />
 <ol class="arabic simple" start="4">
@@ -316,7 +316,7 @@ under <span class="menuselection">profiles ‣ default ‣ processing ‣ script
 </ol>
 <div class="admonition note">
 <p class="admonition-title">備註</p>
-<p>Notice the use of <code class="docutils literal notranslate"><span class="pre">parameters[self.INPUT]</span></code> to fetch the input layer from the parameters dictionary directly without defining it as a source. As we are passing the input object to the algorithm without doing anything with it, it’s not necessary to define it as a source.</p>
+<p>Notice the use of <code class="docutils literal notranslate"><span class="pre">parameters[self.INPUT]</span></code> to fetch the input layer from the parameters dictionary directly without defining it as a source. As we are passing the input object to the algorithm without doing anything with it, it's not necessary to define it as a source.</p>
 </div>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">qgis.core</span> <span class="kn">import</span> <span class="n">QgsFeature</span>
 
@@ -355,7 +355,7 @@ under <span class="menuselection">profiles ‣ default ‣ processing ‣ script
 </ol>
 <img alt="../../_images/1336.png" class="align-center" src="../../_images/1336.png" />
 <ol class="arabic simple" start="14">
-<li><p>One another advantage of writing processing script is that the methods within the Processing Framework are aware of layer selection and automatically filter your inputs to use only the selected features. This happens because we are defining our input as a <code class="docutils literal notranslate"><span class="pre">QgsProcessingParameterFeatureSource</span></code>. A feature source allows use of ANY object which contains vector features, not just a vector layer, so when there are selected features in your layer and ask Processing to use selected features, the input is passed on to your script as a <code class="docutils literal notranslate"><span class="pre">QgsProcessingFeatureSource</span></code> object containing selected features and not the full vector layer. Here’s a quick demonstration of this functionality. Let’s say we want to dissolve only certain continents. Let’s create a selection using <span class="guilabel">Select feature by Expression</span> tool.</p></li>
+<li><p>One another advantage of writing processing script is that the methods within the Processing Framework are aware of layer selection and automatically filter your inputs to use only the selected features. This happens because we are defining our input as a <code class="docutils literal notranslate"><span class="pre">QgsProcessingParameterFeatureSource</span></code>. A feature source allows use of ANY object which contains vector features, not just a vector layer, so when there are selected features in your layer and ask Processing to use selected features, the input is passed on to your script as a <code class="docutils literal notranslate"><span class="pre">QgsProcessingFeatureSource</span></code> object containing selected features and not the full vector layer. Here's a quick demonstration of this functionality. Let's say we want to dissolve only certain continents. Let's create a selection using <span class="guilabel">Select feature by Expression</span> tool.</p></li>
 </ol>
 <img alt="../../_images/1433.png" class="align-center" src="../../_images/1433.png" />
 <ol class="arabic simple" start="15">
@@ -605,8 +605,8 @@ under <span class="menuselection">profiles ‣ default ‣ processing ‣ script
     </p>
     <p>
         &copy; Copyright 2025, Ujaval Gandhi.<br/>
-      最後更新於 5月 24, 2025。<br/>
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 7.2.6.<br/>
+      最後更新於 6月 09, 2025。<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 8.2.3.<br/>
     </p>
   </div>
 </footer>

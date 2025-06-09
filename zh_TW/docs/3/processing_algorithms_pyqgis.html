@@ -9,9 +9,9 @@
     <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=fa44fd50" />
     <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-sphinx.css?v=0bf093e7" />
     <script src="../../_static/documentation_options.js?v=2123726e"></script>
-    <script src="../../_static/doctools.js?v=888ff710"></script>
+    <script src="../../_static/doctools.js?v=9bcbadda"></script>
     <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
-    <script src="../../_static/translations.js?v=d9a6981e"></script>
+    <script src="../../_static/translations.js?v=cbf116e0"></script>
     <link rel="search" title="搜尋" href="../../search.html" />
     <link rel="next" title="使用自訂的 Python 表達式函數 (QGIS3)" href="custom_python_functions.html" />
     <link rel="prev" title="Python 程式設計的初步上手 (QGIS3)" href="getting_started_with_pyqgis.html" />
@@ -190,13 +190,13 @@
       
 
   <section id="running-processing-algorithms-via-python-qgis3">
-<h1>Running Processing Algorithms via Python (QGIS3)<a class="headerlink" href="#running-processing-algorithms-via-python-qgis3" title="Link to this heading">¶</a></h1>
+<h1>Running Processing Algorithms via Python (QGIS3)<a class="headerlink" href="#running-processing-algorithms-via-python-qgis3" title="連結到這個標頭">¶</a></h1>
 <p>The Processing Toolbox in QGIS contain an ever-growing collection of geoprocessing tools. The toolbox provides an easy batch processing interface to run any algorithm on a large number of inputs. See <a class="reference internal" href="batch_processing.html"><span class="doc">使用處理框架進行批次處理 (QGIS3)</span></a>. But there are cases where you need to incorporate a little bit of custom logic in your batch processing. As all the processing algorithms can be run programmatically via the Python API, you can run them via the Python Console. This tutorial shows how to run a processing algorithm via the Python Console to perform a custom geoprocessing task in just a few lines of code. Please review the <a class="reference internal" href="getting_started_with_pyqgis.html"><span class="doc">Python 程式設計的初步上手 (QGIS3)</span></a> tutorial to get familiar with the basics of the Python Scripting environment in QGIS.</p>
 <section id="overview-of-the-task">
-<h2>Overview of the Task<a class="headerlink" href="#overview-of-the-task" title="Link to this heading">¶</a></h2>
+<h2>Overview of the Task<a class="headerlink" href="#overview-of-the-task" title="連結到這個標頭">¶</a></h2>
 <p>We will use 12 gridded raster layers representing precipitation for each month of year and calculate average monthly rainfall for all zip codes in the Seattle area.</p>
 <section id="other-skills-you-will-learn">
-<h3>Other skills you will learn<a class="headerlink" href="#other-skills-you-will-learn" title="Link to this heading">¶</a></h3>
+<h3>Other skills you will learn<a class="headerlink" href="#other-skills-you-will-learn" title="連結到這個標頭">¶</a></h3>
 <ul class="simple">
 <li><p>Access all layer(Raster and vector) from Python console and print their names.</p></li>
 <li><p>Merge diffrent layer into single layer using Python script.</p></li>
@@ -204,7 +204,7 @@
 </section>
 </section>
 <section id="get-the-data">
-<h2>Get the data<a class="headerlink" href="#get-the-data" title="Link to this heading">¶</a></h2>
+<h2>Get the data<a class="headerlink" href="#get-the-data" title="連結到這個標頭">¶</a></h2>
 <p><a class="reference external" href="http://www.prism.oregonstate.edu/">The PRISM Climate Group</a> gathers climate observation and provides historic and current climate data for the conterminous US. Head over to the <a class="reference external" href="http://www.prism.oregonstate.edu/recent/">Recent Years</a> data page and download the monthly precipitation data for the year 2017 in BIL format.</p>
 <img alt="../../_images/data119.png" class="align-center" src="../../_images/data119.png" />
 <p><a class="reference external" href="https://data.seattle.gov/">City of Seattle Open Data portal</a> provides free and open data for the city. Search for and download the <a class="reference external" href="https://data.seattle.gov/Land-Base/Zip-Codes/n58k-cykw">Zip Codes</a> data in the shapefile format.</p>
@@ -214,7 +214,7 @@
 <p>Data Source <a class="reference internal" href="../credits.html#prism" id="id1"><span>[PRISM]</span></a> <a class="reference internal" href="../credits.html#cityofseattle" id="id2"><span>[CITYOFSEATTLE]</span></a></p>
 </section>
 <section id="procedure">
-<h2>Procedure<a class="headerlink" href="#procedure" title="Link to this heading">¶</a></h2>
+<h2>Procedure<a class="headerlink" href="#procedure" title="連結到這個標頭">¶</a></h2>
 <ol class="arabic simple">
 <li><p>Locate the <code class="docutils literal notranslate"><span class="pre">PRISM_ppt_stable_4kmM3_2017_all_bil.zip</span></code> folder in the QGIS Browser and expand it. The folder contains 12 individual layers for each month. Hold the <kbd class="kbd docutils literal notranslate">Ctrl</kbd> key and select the <code class="docutils literal notranslate"><span class="pre">.bil</span></code> files for all 12 months. Once selected, drag them to the canvas.</p></li>
 </ol>
@@ -250,13 +250,13 @@
 <div><img alt="../../_images/527.png" class="align-center" src="../../_images/527.png" />
 </div></blockquote>
 <ol class="arabic simple" start="6">
-<li><p>The algorithm to sample a raster layer using vector polygons is known as <code class="docutils literal notranslate"><span class="pre">Zonal</span> <span class="pre">statistics</span></code>. Search for the algorithm in the <span class="guilabel">Processing Toolbox</span>. Select the algorithm and hover your mouse over it. You will see a tooltip with the text <em>Algorithm ID: 『native:zonalstatisticsfb』</em>. Note this id which will be needed  to call this algorithm via the Python API. Double-click the <code class="docutils literal notranslate"><span class="pre">Zonal</span> <span class="pre">Statistics</span></code> algorithm to launch it.</p></li>
+<li><p>The algorithm to sample a raster layer using vector polygons is known as <code class="docutils literal notranslate"><span class="pre">Zonal</span> <span class="pre">statistics</span></code>. Search for the algorithm in the <span class="guilabel">Processing Toolbox</span>. Select the algorithm and hover your mouse over it. You will see a tooltip with the text <em>Algorithm ID: 'native:zonalstatisticsfb'</em>. Note this id which will be needed  to call this algorithm via the Python API. Double-click the <code class="docutils literal notranslate"><span class="pre">Zonal</span> <span class="pre">Statistics</span></code> algorithm to launch it.</p></li>
 </ol>
 <blockquote>
 <div><img alt="../../_images/627.png" class="align-center" src="../../_images/627.png" />
 </div></blockquote>
 <ol class="arabic simple" start="7">
-<li><p>We will do a manual test run of the algorithm for a single layer. This is a useful way to check if the algorithm behaves as expected and also an easy way to find out how to pass on relevant parameters to the algorithm when using it via Python. In the <span class="guilabel">Zonal Statistics</span> dialog, select <code class="docutils literal notranslate"><span class="pre">Zip_Codes</span></code> as the <span class="guilabel">Input layer</span> <code class="docutils literal notranslate"><span class="pre">PRISM_ppt_stable_4kmM3_201701_bil</span></code> as the <span class="guilabel">Raster Layer</span> and, leave other parameters to default. Click the <span class="guilabel">…</span> button next to <span class="guilabel">Statistics to calculate</span> and select only <code class="docutils literal notranslate"><span class="pre">Mean</span></code>, next click the <span class="guilabel">…</span> button next to <span class="guilabel">Zonal Statistics</span> and save the layer as <code class="docutils literal notranslate"><span class="pre">january_mean.gpkg</span></code> Click <span class="guilabel">Run</span> .</p></li>
+<li><p>We will do a manual test run of the algorithm for a single layer. This is a useful way to check if the algorithm behaves as expected and also an easy way to find out how to pass on relevant parameters to the algorithm when using it via Python. In the <span class="guilabel">Zonal Statistics</span> dialog, select <code class="docutils literal notranslate"><span class="pre">Zip_Codes</span></code> as the <span class="guilabel">Input layer</span> <code class="docutils literal notranslate"><span class="pre">PRISM_ppt_stable_4kmM3_201701_bil</span></code> as the <span class="guilabel">Raster Layer</span> and, leave other parameters to default. Click the <span class="guilabel">...</span> button next to <span class="guilabel">Statistics to calculate</span> and select only <code class="docutils literal notranslate"><span class="pre">Mean</span></code>, next click the <span class="guilabel">...</span> button next to <span class="guilabel">Zonal Statistics</span> and save the layer as <code class="docutils literal notranslate"><span class="pre">january_mean.gpkg</span></code> Click <span class="guilabel">Run</span> .</p></li>
 </ol>
 <blockquote>
 <div><img alt="../../_images/726.png" class="align-center" src="../../_images/726.png" />
@@ -268,7 +268,7 @@
 <div><img alt="../../_images/826.png" class="align-center" src="../../_images/826.png" />
 </div></blockquote>
 <ol class="arabic simple" start="9">
-<li><p>Now a new layer <code class="docutils literal notranslate"><span class="pre">january_mean</span></code> will be added to the canvas. Let’s check the results, right-click on the layer and select <span class="guilabel">Open Attribute Table</span>. This particular algorithm modifies the input zone layer in-place and adds a new column for every statistic that was selected. As we had selected only <code class="docutils literal notranslate"><span class="pre">Mean</span></code> value, a new column named <code class="docutils literal notranslate"><span class="pre">_mean</span></code> is added to the table. The <code class="docutils literal notranslate"><span class="pre">_</span></code> was the default prefix. When we run the algorithm for layers of each month, it will be useful to specify a custom prefix with the month number so we can easily identify the mean values for each month (i.e. 01_mean, 02_mean etc.). Specifying this custom prefix is not possible in the Batch Processing interface of QGIS and if we ran this command using that interface, we would have to manually enter the custom prefix for each layer. If you are working with a large number of layers, this can be very cumbersome. Hence, we can add this custom logic using the Python API and run the algorithm in a for-loop for each layer.</p></li>
+<li><p>Now a new layer <code class="docutils literal notranslate"><span class="pre">january_mean</span></code> will be added to the canvas. Let's check the results, right-click on the layer and select <span class="guilabel">Open Attribute Table</span>. This particular algorithm modifies the input zone layer in-place and adds a new column for every statistic that was selected. As we had selected only <code class="docutils literal notranslate"><span class="pre">Mean</span></code> value, a new column named <code class="docutils literal notranslate"><span class="pre">_mean</span></code> is added to the table. The <code class="docutils literal notranslate"><span class="pre">_</span></code> was the default prefix. When we run the algorithm for layers of each month, it will be useful to specify a custom prefix with the month number so we can easily identify the mean values for each month (i.e. 01_mean, 02_mean etc.). Specifying this custom prefix is not possible in the Batch Processing interface of QGIS and if we ran this command using that interface, we would have to manually enter the custom prefix for each layer. If you are working with a large number of layers, this can be very cumbersome. Hence, we can add this custom logic using the Python API and run the algorithm in a for-loop for each layer.</p></li>
 </ol>
 <blockquote>
 <div><img alt="../../_images/926.png" class="align-center" src="../../_images/926.png" />
@@ -297,7 +297,7 @@
 <img alt="../../_images/1235.png" class="align-center" src="../../_images/1235.png" />
 </div></blockquote>
 <ol class="arabic simple" start="13">
-<li><p>Now, let’s calculate the <code class="docutils literal notranslate"><span class="pre">Mean</span></code> for one month and create an output layer. In the below code <span class="guilabel">break</span> is used to exit the loop after the first execution, by this we can calculate the mean for January month.</p></li>
+<li><p>Now, let's calculate the <code class="docutils literal notranslate"><span class="pre">Mean</span></code> for one month and create an output layer. In the below code <span class="guilabel">break</span> is used to exit the loop after the first execution, by this we can calculate the mean for January month.</p></li>
 </ol>
 <blockquote>
 <div><div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">re</span>
@@ -426,8 +426,8 @@
     </p>
     <p>
         &copy; Copyright 2025, Ujaval Gandhi.<br/>
-      最後更新於 5月 24, 2025。<br/>
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 7.2.6.<br/>
+      最後更新於 6月 09, 2025。<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 8.2.3.<br/>
     </p>
   </div>
 </footer>
