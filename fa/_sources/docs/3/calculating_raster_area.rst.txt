@@ -261,8 +261,8 @@ Procedure
 	WHEN "value" = 70 THEN 'Snow and Ice'
 	WHEN "value" = 80 THEN 'Permanent water bodies'
 	WHEN "value" = 90 THEN 'Herbaceous wetland'
-	WHEN "value" = 95 THEN 'Moss and lichen'
-	WHEN "value" = 100 THEN 'Mangroves'
+	WHEN "value" = 95 THEN 'Mangroves'
+	WHEN "value" = 100 THEN 'Moss and lichen'
 	END
 
   .. image:: /static/3/calculating_raster_area/images/25.png
