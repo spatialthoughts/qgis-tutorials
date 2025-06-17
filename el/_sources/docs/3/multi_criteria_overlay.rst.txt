@@ -186,7 +186,7 @@ Procedure
   .. code-block:: none
 
     (("roads_reclass@1" + "water_reclass@1")/2)
-    *("raster_protected_regions@1"  !=  1 )
+    *("raster_protected_regions_filled@1"  !=  1 )
 
   .. image:: /static/3/multi_criteria_overlay/images/22.png
     :align: center
