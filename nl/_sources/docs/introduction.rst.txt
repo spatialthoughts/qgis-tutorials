@@ -63,7 +63,7 @@ Many other languages are partially translated and are hosted externaly.
 
 If you would like to help translate these tutorials in your langugage, please
 `Join the team on Transifex
-<https://www.transifex.com/projects/p/qgis-tutorials/>`_. Please contact me at ujaval@spatialthoughts.com for any questions or help related to translations.
+<https://explore.transifex.com/spatialthoughts/qgis-tutorials/>`_. Please contact me at ujaval@spatialthoughts.com for any questions or help related to translations.
 
 
 Support QGIS
