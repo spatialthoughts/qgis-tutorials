@@ -98,7 +98,7 @@ transifex-push: pretranslate
 # Currently installed at /usr/local/bin/tx
 transifex-pull:
 	@for LANG in $(LANGUAGES) ; do \
-		/usr/local/bin/tx pull -l $$LANG; \
+		tx pull -l $$LANG; \
 	done
 
 all:
