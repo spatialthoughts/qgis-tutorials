@@ -74,14 +74,23 @@ A server will start on port 8000. Visit http://localhost:8000/build/html/en/ and
 
 ## Updating translations
 
-Activate `transifex-client` with your API token. You need this only to pull new translations from transifex.
-The config file is stored in .tx/config. 
+1. Install the latest [`transifex-client`](https://developers.transifex.com/docs/cli). Update the `PATH` variable to include path to the `tx` command.
 
-    tx config
+2. Get a new API token from https://app.transifex.com/user/settings/api/.
 
-Once configure, you can run the following command to pull new translations from Transifex
+3. Create a `.transifexrc` file in your home directory with the following content and replace `your API token` with your actual token.
 
-    make transifex-pull
+```
+[https://www.transifex.com]
+rest_hostname = https://rest.api.transifex.com
+token         = <your API token>
+```
+
+4. Once configure, you can run the following command to pull new translations from Transifex
+
+```
+make transifex-pull
+```
     
 ## Push the Changes and Build the Website
 
