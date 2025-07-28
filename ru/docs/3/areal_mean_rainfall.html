@@ -1,0 +1,578 @@
+<!DOCTYPE html>
+
+<html lang="ru" data-content_root="../../">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Calculating Areal Mean Rainfall (QGIS3) &#8212; QGIS Tutorials and Tips</title>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-sphinx.css?v=0bf093e7" />
+    <script src="../../_static/documentation_options.js?v=47a0e12c"></script>
+    <script src="../../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/translations.js?v=cd1d70c9"></script>
+    <link rel="search" title="Поиск" href="../../search.html" />
+    <link rel="next" title="Creating a Colorized River Basin Map (QGIS3)" href="colorized_river_basin_map.html" />
+    <link rel="prev" title="Travel Time Analysis with Uber Movement (QGIS3)" href="travel_time_analysis.html" />
+
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<script type="text/javascript" src="../../_static/js/jquery-1.12.4.min.js"></script>
+<script type="text/javascript" src="../../_static/js/jquery-fix.js"></script>
+<script type="text/javascript" src="../../_static/bootstrap-3.4.1/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="../../_static/bootstrap-sphinx.js"></script>
+
+
+<!-- Cookie Notice -->
+<!-- Script from https://github.com/AOEpeople/cookie-notice -->
+<script type="text/javascript" src="../../_static/cookie.notice.min.js"></script>
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-B1WQ7B80XJ"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-B1WQ7B80XJ');
+</script>
+
+
+  </head><body>
+
+  <div id="navbar" class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="../../index.html">
+          QGIS Tutorials and Tips</a>
+        <span class="navbar-text navbar-version pull-left"><b>v1</b></span>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="../../index.html">Tutorials List <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"><ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../introduction.html">Введение</a></li>
+<li class="toctree-l1"><a class="reference internal" href="making_a_map.html">Making a Map (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="working_with_attributes.html">Работа с атрибутами (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="importing_spreadsheets_csv.html">Importing Spreadsheets or CSV files (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="basic_vector_styling.html">Basic Vector Styling (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="calculating_line_lengths.html">Вычисление протяжённости линейных объектов  и Сводка Статистики</a></li>
+<li class="toctree-l1"><a class="reference internal" href="raster_styling_and_analysis.html">Basic Raster Styling and Analysis (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="raster_mosaicing_and_clipping.html">Raster Mosaicing and Clipping (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="working_with_terrain.html">Working with Terrain Data (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="working_with_wms.html">Working with WMS Data (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="working_with_projections.html">Working with Projections (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="georeferencing_basics.html">Georeferencing Topo Sheets and Scanned Maps (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="advanced_georeferencing.html">Пространственная привязка космических снимков (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="digitizing_basics.html">Digitizing Map Data (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="performing_table_joins.html">Performing Table Joins (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="performing_spatial_joins.html">Performing Spatial Joins (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="performing_spatial_queries.html">Performing Spatial Queries (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="nearest_neighbor_analysis.html">Nearest Neighbor Analysis (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="sampling_raster_data.html">Sampling Raster Data using Points or Polygons (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="calculating_raster_area.html">Calculating Raster Area (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="creating_heatmaps.html">Создание тепловых карт (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="animating_time_series.html">Animating Time Series Data (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="handling_invalid_geometries.html">Handling Invalid Geometries (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="advanced_raster_analysis.html">Advanced Raster Analysis (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="interpolating_point_data.html">Interpolating Point Data (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="batch_processing.html">Batch Processing using Processing Framework (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="processing_graphical_modeler.html">Автоматизация сложных процессов с помощью Processing Modeler (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="automating_map_creation.html">Автоматизация компоновки карты с помощью инструмента создания атласа (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="multi_criteria_overlay.html">Multi Criteria Overlay Analysis (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="vector_styling_expressions.html">Basic Filtering and Styling with Expressions (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="block_world_styling.html">Creating a Block World Map (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="river_styling_expressions.html">Styling a River Network with Expressions (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="contour_3d_styling.html">Styling Contours in 3D (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="isometric_buildings.html">Creating Isometric Buildings (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="interactive_canvas_maps.html">Making Interactive Canvas Maps (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="interactive_reveal_maps.html">Making Interactive Reveal Maps (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cartogram_animation.html">Creating an Animated Cartogram (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="basic_network_analysis.html">Basic Network Visualization and Routing (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="origin_destination_matrix.html">Locating Nearest Facility with Origin-Destination Matrix (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="service_area_analysis.html">Service Area Analysis using Openrouteservice (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="travel_time_analysis.html">Travel Time Analysis with Uber Movement (QGIS3)</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Calculating Areal Mean Rainfall (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="colorized_river_basin_map.html">Creating a Colorized River Basin Map (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="creating_landuse_map.html">Creating a Landuse Map (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="calculating_intersection_density.html">Calculating Street Intersection Density (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="landuse_buffer.html">Determining Landuse Buffer Zones (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="solidwaste_mapping.html">Mapping Waste Disposal Volumes (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="getting_started_with_pyqgis.html">Getting Started With Python Programming (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="processing_algorithms_pyqgis.html">Running Processing Algorithms via Python (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="custom_python_functions.html">Using Custom Python Expression Functions (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="processing_python_scripts.html">Writing Python Scripts for Processing Framework (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="building_a_python_plugin.html">Building a Python Plugin (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="processing_python_plugin.html">Building a Processing Plugin (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../running_qgis_jobs.html">Running and Scheduling QGIS Processing Jobs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="web_mapping_with_qgis2web.html">Web Mapping with QGIS2Web (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../creating_basemaps_with_qtiles.html">Creating Basemaps with QTiles</a></li>
+<li class="toctree-l1"><a class="reference internal" href="using_plugins.html">Using Plugins (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../downloading_osm_data.html">Поиск и загрузка данных OpenStreetMap</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../learning_resources.html">Учебные материалы по QGIS</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../credits.html">Источники данных</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../batch_processing.html">Batch Processing using Processing Framework (QGIS2)</a></li>
+</ul>
+</ul>
+</li>
+              
+            
+            
+              
+                
+  <li>
+    <a href="travel_time_analysis.html" title="Previous Chapter: Travel Time Analysis with Uber Movement (QGIS3)"><span class="glyphicon glyphicon-chevron-left visible-sm"></span><span class="hidden-sm hidden-tablet">&laquo; Travel Time A...</span>
+    </a>
+  </li>
+  <li>
+    <a href="colorized_river_basin_map.html" title="Next Chapter: Creating a Colorized River Basin Map (QGIS3)"><span class="glyphicon glyphicon-chevron-right visible-sm"></span><span class="hidden-sm hidden-tablet">Creating a Co... &raquo;</span>
+    </a>
+  </li>
+              
+            
+            
+
+            
+
+            
+              <li class="hidden-sm"></li>
+            
+          </ul>
+
+          
+            
+<form class="navbar-form navbar-right" action="../../search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+      <div class="col-md-3">
+        <div id="sidebar" class="bs-sidenav" role="complementary"><h4>Author</h4>
+<p><a href="https://www.linkedin.com/in/spatialthoughts/"><img src="../../_static/ujaval.png">Ujaval Gandhi</a></p>
+
+<hr>
+<p>Want to learn QGIS in a structured way? Check out <a href="https://spatialthoughts.com/" target="_blank">Spatial Thoughts</a> for more learning materials and instructor-led online programs with QGIS.org certification.</p>
+
+<hr>
+<p>These tutorials are also available in many other languages. Please see <a href="https://www.qgistutorials.com/en/docs/introduction.html#translations" target="_blank">translations</a> page.
+</p>
+        </div>
+      </div>
+    <div class="body col-md-9 content" role="main">
+      
+
+  <section id="calculating-areal-mean-rainfall-qgis3">
+<h1>Calculating Areal Mean Rainfall (QGIS3)<a class="headerlink" href="#calculating-areal-mean-rainfall-qgis3" title="Ссылка на этот заголовок">¶</a></h1>
+<p>Calculation of water balance, flood modeling, runoff forecasting, climate studies etc. often need the average depth of rainfall in a hydrological basin as an input - which is also called Areal Precipitation or Areal Mean Rainfall (AMR).</p>
+<p>AMR calculation can be done using rain gauge data. By using the rain gauge location and observed precipitation, one can estimate the average precipitation at a given location by using any of the following techniques:</p>
+<ol class="arabic simple">
+<li><p><strong>Arithmetic Average</strong>: One can simply take an average of all the observed values. This method assumes that the rainfall field is homogeneous and that the rain gauge observations are independent and give equal weight to all rain gauges.</p></li>
+<li><p><strong>Thiessen Polygon</strong>: This method divides the area using Thiessen polygons with the assumption that rainfall is homogeneous within the coverage area of each station. This method is also called an area-weighted average. These assumptions are fine for low-lying or flat terrain, but not suitable for mountainous terrain.</p></li>
+<li><p><strong>Iso-hyetal Method</strong>: This interpolation technique calculates Isohyets - lines joining equal precipitation. It assumes that rainfall between 2 isohyets is homogeneous. This method is suitable when the rain-gauge network is dense.</p></li>
+<li><p><strong>Distance Weighting/Gridded</strong> - This is an interpolation technique where a raster grid is created and a value for each pixel is estimated based on the distance to stations. Once the grid points have all been estimated they are summed and the sum is divided by the number of grid cells to obtain the areal mean precipitation.</p></li>
+<li><p><strong>Geostatistical Methods</strong>: Rainfall is strongly influenced by local factors - such as elevation. Using multivariate regression or Kriging techniques, one can account for spatial autocorrelation and can achieve better accuracy. These methods are suited when the distribution of the rain gauge station is uniform and dense.</p></li>
+</ol>
+<p>In this tutorial, we will learn the QGIS workflow to calculate Areal Mean Rainfall using the <strong>Thiessen Polygon</strong> method.</p>
+<section id="overview-of-the-task">
+<h2>Overview of the task<a class="headerlink" href="#overview-of-the-task" title="Ссылка на этот заголовок">¶</a></h2>
+<p>In this tutorial, we will take the precipitation measured by the Global Historical
+Climatology Network (GHCN) stations and compute Areal Mean Rainfall in each Hydrological basin in the state of Florida.</p>
+</section>
+<section id="other-skills-you-will-learn">
+<h2>Other skills you will learn<a class="headerlink" href="#other-skills-you-will-learn" title="Ссылка на этот заголовок">¶</a></h2>
+<ul class="simple">
+<li><p>How to remove data with Null values.</p></li>
+<li><p>How to fix invalid geometries in a layer.</p></li>
+<li><p>How to check your Processing History and re-run a tool with the same parameters.</p></li>
+<li><p>How to dissolve polygons and summarize statistics.</p></li>
+<li><p>How to use only selected features in Processing algorithms.</p></li>
+</ul>
+</section>
+<section id="get-the-data">
+<h2>Get the data<a class="headerlink" href="#get-the-data" title="Ссылка на этот заголовок">¶</a></h2>
+<p>We will use <a class="reference external" href="https://www.ncdc.noaa.gov/cdo-web/">NOAA Climate data</a> , <a class="reference external" href="https://www.hydrosheds.org/">HydroSHEDS</a> and <a class="reference external" href="https://www.census.gov/geographies/mapping-files/time-series/geo/carto-boundary-file.html">US Census Bureau Cartographic Boundary</a> data layers.</p>
+<section id="station-wise-precipitation">
+<h3>Station-wise Precipitation<a class="headerlink" href="#station-wise-precipitation" title="Ссылка на этот заголовок">¶</a></h3>
+<ol class="arabic simple">
+<li><p>Go to <a class="reference external" href="https://www.ncdc.noaa.gov/cdo-web/">NOAA Climate data</a> website. Click on the Search tool.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/cd01.png" class="align-center" src="../../_images/cd01.png" />
+</div></blockquote>
+<ol class="arabic simple" start="2">
+<li><p>Select <code class="docutils literal notranslate"><span class="pre">Global</span> <span class="pre">Summary</span> <span class="pre">of</span> <span class="pre">the</span> <span class="pre">Month</span></code> in <span class="guilabel">Select weather Observation Type/Dataset</span>, then in <span class="guilabel">Select Date Range</span> choose July 2020, in <span class="guilabel">Search For</span> select <code class="docutils literal notranslate"><span class="pre">States</span></code>, in <span class="guilabel">Enter a Search Term</span>  type <code class="docutils literal notranslate"><span class="pre">Florida</span></code>. Click <span class="guilabel">Search</span>.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/cd02.png" class="align-center" src="../../_images/cd02.png" />
+</div></blockquote>
+<ol class="arabic simple" start="3">
+<li><p>Click <span class="guilabel">Add To Cart</span>, in items click <span class="guilabel">View Items</span>.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/cd03.png" class="align-center" src="../../_images/cd03.png" />
+</div></blockquote>
+<ol class="arabic simple" start="4">
+<li><p>Switch to <span class="guilabel">Custom Global Summary of the Month CSV</span>, click <span class="guilabel">Continue</span>.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/cd04.png" class="align-center" src="../../_images/cd04.png" />
+</div></blockquote>
+<ol class="arabic simple" start="5">
+<li><p>Check the <span class="guilabel">Geographic Locations</span> and in <span class="guilabel">Select data types for custom output</span> expand <code class="docutils literal notranslate"><span class="pre">Precipitation</span></code> select <code class="docutils literal notranslate"><span class="pre">Precipitation</span> <span class="pre">(PRCP)</span></code>. Click <span class="guilabel">Continue</span>.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/cd05.png" class="align-center" src="../../_images/cd05.png" />
+</div></blockquote>
+<ol class="arabic simple" start="6">
+<li><p>Enter the mail address and click <span class="guilabel">SUBMIT ORDER</span> to Download the data.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/cd06.png" class="align-center" src="../../_images/cd06.png" />
+</div></blockquote>
+</section>
+<section id="hydrological-basins">
+<h3>Hydrological Basins<a class="headerlink" href="#hydrological-basins" title="Ссылка на этот заголовок">¶</a></h3>
+<ol class="arabic simple">
+<li><p>Go-to <a class="reference external" href="https://www.hydrosheds.org/">HydroSHEDS website</a> and click <span class="guilabel">Download</span>.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/hydrosheds1.png" class="align-center" src="../../_images/hydrosheds1.png" />
+</div></blockquote>
+<ol class="arabic simple" start="2">
+<li><p>Select <span class="menuselection">HydroBASINS ‣ Standard ‣ North America and Caribbean ‣ hybas_na_lev06_v1c.zip</span></p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/hydrosheds2.png" class="align-center" src="../../_images/hydrosheds2.png" />
+</div></blockquote>
+<ol class="arabic simple" start="3">
+<li><p>Enter the mail address and click <span class="guilabel">Submit Request</span> to Download the data.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/hydrosheds3.png" class="align-center" src="../../_images/hydrosheds3.png" />
+</div></blockquote>
+</section>
+<section id="state-boundaries">
+<h3>State Boundaries<a class="headerlink" href="#state-boundaries" title="Ссылка на этот заголовок">¶</a></h3>
+<p>Visit the <a class="reference external" href="https://www.census.gov/geographies/mapping-files/time-series/geo/carto-boundary-file.html">Cartographic Boundary Files - Shapefile</a> page. Download the <code class="docutils literal notranslate"><span class="pre">cb_2018_us_state_500k.zip</span></code> file from the <em>States</em> section.</p>
+<p>For convenience, you may directly download a copy of all the datasets from the links below:</p>
+<p><a class="reference external" href="https://www.qgistutorials.com/downloads/florida_2020_07_prcp.csv">florida_2020_07_prcp</a></p>
+<p><a class="reference external" href="https://www.qgistutorials.com/downloads/hybas_na_lev06_v1c.zip">hybas_na_lev06_v1c</a></p>
+<p><a class="reference external" href="https://www.qgistutorials.com/downloads/cb_2018_us_state_500k.zip">cb_2018_us_state_500k</a></p>
+<p>Data Sources: <a class="reference internal" href="../credits.html#ghcn" id="id2"><span>[GHCN]</span></a>, <a class="reference internal" href="../credits.html#hydrosheds" id="id3"><span>[HYDROSHEDS]</span></a>, <a class="reference internal" href="../credits.html#uscensus" id="id4"><span>[USCENSUS]</span></a></p>
+</section>
+</section>
+<section id="procedure">
+<h2>Procedure<a class="headerlink" href="#procedure" title="Ссылка на этот заголовок">¶</a></h2>
+<ol class="arabic simple">
+<li><p>Open QGIS and click on the <span class="guilabel">Open Data Source Manager</span>.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/012.png" src="../../_images/012.png" />
+</div></blockquote>
+<ol class="arabic simple" start="2">
+<li><p>In the <span class="guilabel">Data Source Manager</span> dialog box, switch to <span class="guilabel">Delimited Text</span>. Click on the <code class="docutils literal notranslate"><span class="pre">…</span></code>  in <span class="guilabel">File name</span> then browse and select the <code class="docutils literal notranslate"><span class="pre">florida_2020_07_prcp.csv</span></code> file.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/022.png" src="../../_images/022.png" />
+</div></blockquote>
+<ol class="arabic simple" start="3">
+<li><p>Now, under <span class="guilabel">Geometry Definition</span> choose <span class="guilabel">Point coordinates</span>, <span class="guilabel">X field</span> and <span class="guilabel">Y field</span> should be <span class="guilabel">Longitude</span> and <span class="guilabel">Latitude</span> respectively. Choose the <span class="guilabel">Geometry CRS</span> as <span class="guilabel">EPSG 4326 - WGS 84</span>. Click <span class="guilabel">Add</span>.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/032.png" src="../../_images/032.png" />
+</div></blockquote>
+<ol class="arabic simple" start="4">
+<li><p>Now a new point layer will be added, click on the <span class="guilabel">Open Attribute Table</span> icon.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/042.png" src="../../_images/042.png" />
+</div></blockquote>
+<ol class="arabic simple" start="5">
+<li><p>In the Attribute table the field <span class="guilabel">PRCP</span> represents the amount of precipitation in the station during the July 2020. Also, this data is recorded in <em>inches</em>.  Note there are few <code class="docutils literal notranslate"><span class="pre">Null</span></code> values which can cause problems during calculation. Sort the PRCP column, and you would see there is only a small fraction of the dataset is Null. We will now remove the stations with Null values.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/052.png" src="../../_images/052.png" />
+</div></blockquote>
+<ol class="arabic simple" start="6">
+<li><p>Open the Processing Toolbox by going to <span class="menuselection">Processing ‣ Toolbox</span>, and search and locate the <span class="menuselection">Vector selection ‣ Extract by attribute</span> algorithm.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/062.png" src="../../_images/062.png" />
+</div></blockquote>
+<ol class="arabic simple" start="7">
+<li><p>In the <span class="guilabel">Extract by Attribute</span> dialog box, Select the <span class="guilabel">Input layer</span> as <code class="docutils literal notranslate"><span class="pre">florida_2020_07_prcp</span></code>, then choose <code class="docutils literal notranslate"><span class="pre">PRCP</span></code> in <span class="guilabel">Selection attribute</span>, then <code class="docutils literal notranslate"><span class="pre">is</span> <span class="pre">not</span> <span class="pre">null</span></code> in <span class="guilabel">Operator</span>. Click on the <code class="docutils literal notranslate"><span class="pre">…</span></code> next to <span class="guilabel">Extracted (attribute)</span>, choose <span class="guilabel">Save to File…</span>, enter the layer name as <code class="docutils literal notranslate"><span class="pre">precipitation_filtered.gpkg</span></code> and click <span class="guilabel">Run</span>.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/072.png" src="../../_images/072.png" />
+</div></blockquote>
+<ol class="arabic simple" start="8">
+<li><p>Now a new layer is added to canvas, turn off the older layer, and you can see the stations with Null values have been removed.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/082.png" src="../../_images/082.png" />
+</div></blockquote>
+<ol class="arabic simple" start="9">
+<li><p>Now we will generate thiessen polygons from this layer. Open the processing toolbox by going to <span class="menuselection">Processing ‣ Toolbox</span>, and search and locate the <span class="menuselection">Vector Geometry ‣ Voronoi polygon</span> algorithm.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/092.png" src="../../_images/092.png" />
+</div></blockquote>
+<div class="admonition note">
+<p class="admonition-title">Примечание</p>
+<p>Thiessen polygons represent the area of influence around each point. Every polygon defines the area which is closer to a particular station than any other station. This means the precipitation at any point is assumed to be the same as the nearest station.</p>
+</div>
+<ol class="arabic simple" start="10">
+<li><p>Select <code class="docutils literal notranslate"><span class="pre">precipitation_filtered</span></code> as the <span class="guilabel">Input layer</span>. Since we do not have data for any rain-gauge stations outside the basin boundary, we can add some buffer area. Enter <code class="docutils literal notranslate"><span class="pre">15</span></code> as the <span class="guilabel">Buffer region (% of extent)</span>. Click on the <code class="docutils literal notranslate"><span class="pre">…</span></code> in <span class="guilabel">Voronoi polygons</span> and select <span class="guilabel">Save to File…</span>, then enter the name as <code class="docutils literal notranslate"><span class="pre">thiessen_polygons.gpkg</span></code>. Click <span class="guilabel">Run</span>.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/103.png" src="../../_images/103.png" />
+</div></blockquote>
+<ol class="arabic simple" start="11">
+<li><p>A new layer <code class="docutils literal notranslate"><span class="pre">thiessen_polygons</span></code> will be added to canvas. Let’s clip this layer to the state boundary. Search for <code class="docutils literal notranslate"><span class="pre">cb_2018_us_state_500k.shp</span></code> file in <span class="guilabel">Browser</span> and drag it to canvas.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/113.png" src="../../_images/113.png" />
+</div></blockquote>
+<ol class="arabic simple" start="12">
+<li><p>The states layer is in a different CRS than the <em>Project CRS</em>. You will get a prompt with different options for transforming this CRS to the Project CRS. In <span class="guilabel">Select Transformation</span> Dialog box, you can choose the default transformation and click <span class="guilabel">OK</span>.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/123.png" src="../../_images/123.png" />
+</div></blockquote>
+<ol class="arabic simple" start="13">
+<li><p>We will now clip the <code class="docutils literal notranslate"><span class="pre">thiessen</span> <span class="pre">polygons</span></code> layer to the Florida state boundary. Click on the <span class="guilabel">Select Feature by area or Single Click</span> icon and click over Florida state.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/132.png" src="../../_images/132.png" />
+</div></blockquote>
+<ol class="arabic simple" start="14">
+<li><p>Open the Processing Toolbox by going to <span class="menuselection">Processing ‣ Toolbox</span>, and search and locate the <span class="menuselection">Vector overlay ‣ Clip</span> algorithm.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/142.png" src="../../_images/142.png" />
+</div></blockquote>
+<ol class="arabic simple" start="15">
+<li><p>In the <span class="guilabel">Clip</span> dialog box, select the <span class="guilabel">Input layer</span> as <code class="docutils literal notranslate"><span class="pre">thiessen_polygons</span></code>, in the <span class="guilabel">Overlay layer</span> select the <code class="docutils literal notranslate"><span class="pre">cb_2018_us_state_500K</span> <span class="pre">layer</span></code> and check the <span class="guilabel">Selected features only</span> checkbox, then click on the <code class="docutils literal notranslate"><span class="pre">…</span></code> in <span class="guilabel">Clipped</span> and select <span class="guilabel">Save to File…</span> , then enter the name as <code class="docutils literal notranslate"><span class="pre">thiessen_polygons_clipped.gpkg</span></code>. Click <span class="guilabel">Run</span>.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/152.png" src="../../_images/152.png" />
+</div></blockquote>
+<ol class="arabic simple" start="16">
+<li><p>The clipped thiessen polygons layer <code class="docutils literal notranslate"><span class="pre">thiessen_polygons_clipped</span></code> will be added to the canvas. Turn-off the visibility of all other layers. As our task is to calculate average rainfall over each basin, we will now load the polygons representing basins. Locate the <code class="docutils literal notranslate"><span class="pre">hybas_na_lev06_v1c.shp</span></code> layer from the <span class="guilabel">Browser</span> and add it to the canvas.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/162.png" src="../../_images/162.png" />
+</div></blockquote>
+<ol class="arabic simple" start="17">
+<li><p>You will notice that each basin is covered by many thiessen polygons and each polygon spans multiple basins. To visualise this <span class="guilabel">Open layer styling panel</span> icon and change the <span class="guilabel">Opacity</span> to <code class="docutils literal notranslate"><span class="pre">75%</span></code>. We will now intersect both the layers to cut the thiessen polygons to the boundary of each basin.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/172.png" src="../../_images/172.png" />
+</div></blockquote>
+<ol class="arabic simple" start="18">
+<li><p>Open the Processing Toolbox by going to <span class="menuselection">Processing ‣ Toolbox</span>, and search and locate the <span class="menuselection">Vector overlay ‣  Intersection</span> algorithm.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/181.png" src="../../_images/181.png" />
+</div></blockquote>
+<ol class="arabic simple" start="19">
+<li><p>In the <span class="guilabel">Intersection</span> dialog box, select the <span class="guilabel">Input layer</span> as <code class="docutils literal notranslate"><span class="pre">thiessen_polygons_clipped</span></code> and <span class="guilabel">Overlay layer</span> as <code class="docutils literal notranslate"><span class="pre">hybas_na_lev06_v1c</span></code>, then click on the <code class="docutils literal notranslate"><span class="pre">…</span></code> in <span class="guilabel">Intersected</span> and select <span class="guilabel">Save to File…</span> , then enter the name as <code class="docutils literal notranslate"><span class="pre">thiessen_polygons_basin.gpkg</span></code>. Click <span class="guilabel">Run</span>.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/191.png" src="../../_images/191.png" />
+</div></blockquote>
+<ol class="arabic simple" start="20">
+<li><p>The execution will fail with an error message <em>has invalid geometry. Please fix the geometry or change the Processing setting to the “Ignore invalid input features” option.</em>. You can learn more about this error in the <a class="reference internal" href="handling_invalid_geometries.html"><span class="doc">Handling Invalid Geometries (QGIS3)</span></a> tutorial.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/201.png" src="../../_images/201.png" />
+</div></blockquote>
+<ol class="arabic simple" start="21">
+<li><p>To fix the geometries, open the Processing Toolbox by going to <span class="menuselection">Processing ‣ Toolbox</span>, and search and locate the <span class="menuselection">Vector geometry ‣ Fix geometries</span> algorithm.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/211.png" src="../../_images/211.png" />
+</div></blockquote>
+<ol class="arabic simple" start="22">
+<li><p>In the <span class="guilabel">Fix Geometries</span> dialog box select the <span class="guilabel">Input layer</span> as <code class="docutils literal notranslate"><span class="pre">hybas_na_lev06_v1c</span></code> and click on <code class="docutils literal notranslate"><span class="pre">…</span></code> on <span class="guilabel">Fixed geometries</span> and select <span class="guilabel">Save to File…</span>, enter the file name as <code class="docutils literal notranslate"><span class="pre">hybas_na_lev06_v1c_fixed.gpkg</span></code> and click <span class="guilabel">Run</span>.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/221.png" src="../../_images/221.png" />
+</div></blockquote>
+<ol class="arabic simple" start="23">
+<li><p>Now a new layer will be added to canvas. We can now try the intersection again. Instead of running the tool from scratch and filling all the parameters, we can retrieve the pre-filled dialog from <em>Processing History</em> and modify only the Overlay layer. Click <span class="menuselection">Processing ‣ History</span>.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/231.png" src="../../_images/231.png" />
+</div></blockquote>
+<ol class="arabic simple" start="24">
+<li><p>Double-click on the <em>native:intersection</em> algorithm from the list.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/241.png" src="../../_images/241.png" />
+</div></blockquote>
+<ol class="arabic simple" start="25">
+<li><p>Change the <span class="guilabel">Overlay layer</span> to <code class="docutils literal notranslate"><span class="pre">hybas_na_lev06_v1c_fixed</span></code> and click <span class="guilabel">Run</span>.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/251.png" src="../../_images/251.png" />
+</div></blockquote>
+<ol class="arabic simple" start="26">
+<li><p>Now a new layer will be loaded, and you can see the <code class="docutils literal notranslate"><span class="pre">thiessen_polygons_basin</span></code> is clipped based on the basin boundary.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/26.png" src="../../_images/26.png" />
+</div></blockquote>
+<ol class="arabic simple" start="27">
+<li><p>Now, let’s calculate the average rainfall value from the thiessen polygons for each basin. This is done using the <strong>Aggregate</strong> tool which allows us to dissolve individual polygons while calculating statistics on the attribute values. Now, open the Processing Toolbox by going to <span class="menuselection">Processing ‣ Toolbox</span>, and search and locate the <span class="menuselection">Vector geometry ‣ Aggregate</span> algorithm.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/271.png" src="../../_images/271.png" />
+</div></blockquote>
+<ol class="arabic simple" start="28">
+<li><p>In the <span class="guilabel">Aggregate</span> dialog box choose <span class="guilabel">Input layer</span> as <code class="docutils literal notranslate"><span class="pre">thiessen_polygons_basin</span></code>, select all fields except <code class="docutils literal notranslate"><span class="pre">PRCP</span></code> and <code class="docutils literal notranslate"><span class="pre">HYBAS_ID</span></code> and click <span class="guilabel">Delete selected field</span>.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/281.png" src="../../_images/281.png" />
+</div></blockquote>
+<ol class="arabic simple" start="29">
+<li><p>In <span class="guilabel">Group by expression</span> select <code class="docutils literal notranslate"><span class="pre">HYBAS_ID</span></code>. This means that the tool will dissolve all polygons that have the same value of <code class="docutils literal notranslate"><span class="pre">HYBAS_ID</span></code>. In our case, these will be all thiessen polygons falling a basin. In the <span class="guilabel">Aggregates</span> section, we can configure how different field values will be aggregated from all polygons that gets dissolved. For <span class="guilabel">PRCP</span>, click on the <span class="guilabel">expression</span> button to enter the below expression. The expression calculates the area-weighted fraction for each polygon. Set the <span class="guilabel">Aggregate Function</span> to <code class="docutils literal notranslate"><span class="pre">sum</span></code>, which will sum up all the area-weighted fractions resulting in the area-weighted mean. For <span class="guilabel">HYBAS_ID</span>, change the <span class="guilabel">Aggregate Function</span> to <code class="docutils literal notranslate"><span class="pre">first_value</span></code>. Since we are grouping all thiessen polygons by their HYBAS_ID, all the values will be the same and the <em>first_value</em> function will use the attribute value from the first polygon in each basin. Click on <code class="docutils literal notranslate"><span class="pre">…</span></code> on <span class="guilabel">Aggregated</span> and select the <span class="guilabel">Save to File…</span>, enter the file name as <code class="docutils literal notranslate"><span class="pre">areal_mean_rainfall.gpkg</span></code> and click <span class="guilabel">Run</span>.</p></li>
+</ol>
+<blockquote>
+<div><div class="highlight-none notranslate"><div class="highlight"><pre><span></span>(PRCP * $area) / sum($area)
+</pre></div>
+</div>
+<img alt="../../_images/291.png" src="../../_images/291.png" />
+</div></blockquote>
+<ol class="arabic simple" start="30">
+<li><p>A new layer will be added to canvas, lets open the Attribute table to explore. Click on the <span class="guilabel">Open Attribute Table</span> icon.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/301.png" src="../../_images/301.png" />
+</div></blockquote>
+<ol class="arabic simple" start="31">
+<li><p>The field <span class="guilabel">PRCP</span> contains the areal mean rainfall for each basin in inches.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/311.png" src="../../_images/311.png" />
+</div></blockquote>
+</section>
+</section>
+
+
+
+<!-- Turn on comments on only newer tutorials having 3/ in URL -->
+
+  <!-- Comment Section Powered by utterances -->
+<div id="comments">
+  <hr />
+  <p>If you want to give feedback or share your experience with this tutorial, please comment below. (requires GitHub account)</p>
+<script src="https://utteranc.es/client.js"
+        repo="spatialthoughts/qgis-tutorials"
+        issue-term="title"
+        label="comment"
+        theme="github-light"
+        crossorigin="anonymous"
+        async>
+</script>
+</div>
+
+
+    </div>
+      
+  </div>
+</div>
+
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+    </p>
+    <p>
+        &copy; Copyright 2025, Ujaval Gandhi.<br/>
+      Обновлено: июл. 28, 2025.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 8.2.3.<br/>
+    </p>
+  </div>
+</footer>
+<div class="container">
+  <p>This work is licensed under a <a href="http://creativecommons.org/licenses/by/4.0/deed.en_US">Creative Commons Attribution 4.0 International License</a>.<br>
+  You are free to use the material for any purpose as long as you give appropriate credit to the original author.</p>
+</div>
+
+<!-- Script fpr language switching. Largely adapted from https://github.com/pcav/faunalia-website -->
+<script>
+    var currentPage = 'docs/3/areal_mean_rainfall.html'; // coming from sphinx, always without starting '/'
+    var currentLang = 'en';
+    $(document).ready(function(){
+
+        var search = new RegExp('\/[a-zA-Z_]{2,8}\/'+ currentPage, 'gi');
+        var langPlusPage = window.location.href.match(search);
+        // it's possible this is a index.html page called without 'index.html', try without the currentPage
+        if (langPlusPage==undefined){
+            search = new RegExp('\/[a-zA-Z_]{2,8}\/$', 'gi');
+            langPlusPage = window.location.href.match(search);
+        }
+
+        // it's possible this is an index.html page called without 'index.html', try removing index.html
+        if (langPlusPage==undefined){
+            currentPage = currentPage.replace('index.html','')
+            search = new RegExp('\/[a-zA-Z_]{2,8}\/'+ currentPage, 'gi');
+            langPlusPage = window.location.href.match(search);
+        }
+        // still no langPlugPage: stop, because the language swicher will misbehave 
+
+        if (langPlusPage == undefined || langPlusPage.length != 1){
+            alert('You hit an error, please report back to us.');
+            return;
+        }
+        langPlusPage = langPlusPage[0];
+        currentLang = langPlusPage.replace(currentPage, '');
+
+        $("#languages").val(currentLang.replace(/\//g,'')); // currentLang is something like '/nl/'
+
+        $("#languages").change(function() {
+            gotoLang($(this).val());
+        });
+
+    });
+
+    // load current page in a different language
+    function gotoLang(lang){
+        var currentUrl = window.location.href;
+        var newUrl = currentUrl.replace(currentLang, '/'+lang+'/');
+        window.location.href = newUrl;
+    }
+</script>
+
+  </body>
+</html>

@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+
+<html lang="ru" data-content_root="../../">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Создание тепловых карт (QGIS3) &#8212; QGIS Tutorials and Tips</title>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-sphinx.css?v=0bf093e7" />
+    <script src="../../_static/documentation_options.js?v=47a0e12c"></script>
+    <script src="../../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/translations.js?v=cd1d70c9"></script>
+    <link rel="search" title="Поиск" href="../../search.html" />
+    <link rel="next" title="Animating Time Series Data (QGIS3)" href="animating_time_series.html" />
+    <link rel="prev" title="Calculating Raster Area (QGIS3)" href="calculating_raster_area.html" />
+
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<script type="text/javascript" src="../../_static/js/jquery-1.12.4.min.js"></script>
+<script type="text/javascript" src="../../_static/js/jquery-fix.js"></script>
+<script type="text/javascript" src="../../_static/bootstrap-3.4.1/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="../../_static/bootstrap-sphinx.js"></script>
+
+
+<!-- Cookie Notice -->
+<!-- Script from https://github.com/AOEpeople/cookie-notice -->
+<script type="text/javascript" src="../../_static/cookie.notice.min.js"></script>
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-B1WQ7B80XJ"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-B1WQ7B80XJ');
+</script>
+
+
+  </head><body>
+
+  <div id="navbar" class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="../../index.html">
+          QGIS Tutorials and Tips</a>
+        <span class="navbar-text navbar-version pull-left"><b>v1</b></span>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="../../index.html">Tutorials List <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"><ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../introduction.html">Введение</a></li>
+<li class="toctree-l1"><a class="reference internal" href="making_a_map.html">Making a Map (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="working_with_attributes.html">Работа с атрибутами (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="importing_spreadsheets_csv.html">Importing Spreadsheets or CSV files (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="basic_vector_styling.html">Basic Vector Styling (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="calculating_line_lengths.html">Вычисление протяжённости линейных объектов  и Сводка Статистики</a></li>
+<li class="toctree-l1"><a class="reference internal" href="raster_styling_and_analysis.html">Basic Raster Styling and Analysis (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="raster_mosaicing_and_clipping.html">Raster Mosaicing and Clipping (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="working_with_terrain.html">Working with Terrain Data (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="working_with_wms.html">Working with WMS Data (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="working_with_projections.html">Working with Projections (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="georeferencing_basics.html">Georeferencing Topo Sheets and Scanned Maps (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="advanced_georeferencing.html">Пространственная привязка космических снимков (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="digitizing_basics.html">Digitizing Map Data (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="performing_table_joins.html">Performing Table Joins (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="performing_spatial_joins.html">Performing Spatial Joins (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="performing_spatial_queries.html">Performing Spatial Queries (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="nearest_neighbor_analysis.html">Nearest Neighbor Analysis (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="sampling_raster_data.html">Sampling Raster Data using Points or Polygons (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="calculating_raster_area.html">Calculating Raster Area (QGIS3)</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Создание тепловых карт (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="animating_time_series.html">Animating Time Series Data (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="handling_invalid_geometries.html">Handling Invalid Geometries (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="advanced_raster_analysis.html">Advanced Raster Analysis (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="interpolating_point_data.html">Interpolating Point Data (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="batch_processing.html">Batch Processing using Processing Framework (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="processing_graphical_modeler.html">Автоматизация сложных процессов с помощью Processing Modeler (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="automating_map_creation.html">Автоматизация компоновки карты с помощью инструмента создания атласа (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="multi_criteria_overlay.html">Multi Criteria Overlay Analysis (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="vector_styling_expressions.html">Basic Filtering and Styling with Expressions (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="block_world_styling.html">Creating a Block World Map (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="river_styling_expressions.html">Styling a River Network with Expressions (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="contour_3d_styling.html">Styling Contours in 3D (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="isometric_buildings.html">Creating Isometric Buildings (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="interactive_canvas_maps.html">Making Interactive Canvas Maps (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="interactive_reveal_maps.html">Making Interactive Reveal Maps (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cartogram_animation.html">Creating an Animated Cartogram (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="basic_network_analysis.html">Basic Network Visualization and Routing (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="origin_destination_matrix.html">Locating Nearest Facility with Origin-Destination Matrix (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="service_area_analysis.html">Service Area Analysis using Openrouteservice (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="travel_time_analysis.html">Travel Time Analysis with Uber Movement (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="areal_mean_rainfall.html">Calculating Areal Mean Rainfall (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="colorized_river_basin_map.html">Creating a Colorized River Basin Map (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="creating_landuse_map.html">Creating a Landuse Map (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="calculating_intersection_density.html">Calculating Street Intersection Density (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="landuse_buffer.html">Determining Landuse Buffer Zones (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="solidwaste_mapping.html">Mapping Waste Disposal Volumes (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="getting_started_with_pyqgis.html">Getting Started With Python Programming (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="processing_algorithms_pyqgis.html">Running Processing Algorithms via Python (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="custom_python_functions.html">Using Custom Python Expression Functions (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="processing_python_scripts.html">Writing Python Scripts for Processing Framework (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="building_a_python_plugin.html">Building a Python Plugin (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="processing_python_plugin.html">Building a Processing Plugin (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../running_qgis_jobs.html">Running and Scheduling QGIS Processing Jobs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="web_mapping_with_qgis2web.html">Web Mapping with QGIS2Web (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../creating_basemaps_with_qtiles.html">Creating Basemaps with QTiles</a></li>
+<li class="toctree-l1"><a class="reference internal" href="using_plugins.html">Using Plugins (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../downloading_osm_data.html">Поиск и загрузка данных OpenStreetMap</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../learning_resources.html">Учебные материалы по QGIS</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../credits.html">Источники данных</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../batch_processing.html">Batch Processing using Processing Framework (QGIS2)</a></li>
+</ul>
+</ul>
+</li>
+              
+            
+            
+              
+                
+  <li>
+    <a href="calculating_raster_area.html" title="Previous Chapter: Calculating Raster Area (QGIS3)"><span class="glyphicon glyphicon-chevron-left visible-sm"></span><span class="hidden-sm hidden-tablet">&laquo; Calculating R...</span>
+    </a>
+  </li>
+  <li>
+    <a href="animating_time_series.html" title="Next Chapter: Animating Time Series Data (QGIS3)"><span class="glyphicon glyphicon-chevron-right visible-sm"></span><span class="hidden-sm hidden-tablet">Animating Tim... &raquo;</span>
+    </a>
+  </li>
+              
+            
+            
+
+            
+
+            
+              <li class="hidden-sm"></li>
+            
+          </ul>
+
+          
+            
+<form class="navbar-form navbar-right" action="../../search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+      <div class="col-md-3">
+        <div id="sidebar" class="bs-sidenav" role="complementary"><h4>Author</h4>
+<p><a href="https://www.linkedin.com/in/spatialthoughts/"><img src="../../_static/ujaval.png">Ujaval Gandhi</a></p>
+
+<hr>
+<p>Want to learn QGIS in a structured way? Check out <a href="https://spatialthoughts.com/" target="_blank">Spatial Thoughts</a> for more learning materials and instructor-led online programs with QGIS.org certification.</p>
+
+<hr>
+<p>These tutorials are also available in many other languages. Please see <a href="https://www.qgistutorials.com/en/docs/introduction.html#translations" target="_blank">translations</a> page.
+</p>
+        </div>
+      </div>
+    <div class="body col-md-9 content" role="main">
+      
+
+  <section id="creating-heatmaps-qgis3">
+<h1>Создание тепловых карт (QGIS3)<a class="headerlink" href="#creating-heatmaps-qgis3" title="Ссылка на этот заголовок">¶</a></h1>
+<p>Тепловые карты - один из лучших способов визуализации плотных точечных данных. Тепловая карта (основанная на интерполяции) полезна при определении плотности расположения объектов. Чаще всего тепловые карты используются для отображения сведений о  преступности, ДТП, плотности застройки и т. д..  В QGIS имеется генератор (renderer) тепловых карт и алгоритм обработки <strong>Heatmap (Kernel Density Estimation)</strong> , который позволяет создавать растровые изображения на базе точечного слоя.</p>
+<section id="overview-of-the-task">
+<h2>Обзор задания<a class="headerlink" href="#overview-of-the-task" title="Ссылка на этот заголовок">¶</a></h2>
+<p>Мы будем работать с датасетом, содержащим места преступлений в Суррее (Великобритания): создадим тепловую карту. для определения районов с наибольшей плотностью преступлений.</p>
+<section id="other-skills-you-will-learn">
+<h3>Также Вы научитесь<a class="headerlink" href="#other-skills-you-will-learn" title="Ссылка на этот заголовок">¶</a></h3>
+<ul class="simple">
+<li><p>Использовать виртуальные поля и условные выражения.</p></li>
+</ul>
+</section>
+</section>
+<section id="get-the-data">
+<h2>Получение данных<a class="headerlink" href="#get-the-data" title="Ссылка на этот заголовок">¶</a></h2>
+<p>Ресурс <a class="reference external" href="https://data.police.uk">data.police.uk</a> предоставляет сведения об уличных преступлениях, их исходе и позволяет загружать данные в формате CSV. Загрузите информацию по <a class="reference external" href="https://data.police.uk/data/">Surrey Police</a> и  распакуйте архив для получения данных в формате CSV.</p>
+<p>Вы можете напрямую скачать копию набора данных, пройдя по ссылке ниже:</p>
+<p><a class="reference external" href="https://www.qgistutorials.com/downloads/2019-02-surrey-street.csv">2019-02-surrey-street.csv</a></p>
+<p>Источник данных <a class="reference internal" href="../credits.html#policeuk" id="id1"><span>[POLICEUK]</span></a></p>
+</section>
+<section id="procedure">
+<h2>Методика<a class="headerlink" href="#procedure" title="Ссылка на этот заголовок">¶</a></h2>
+<ol class="arabic simple">
+<li><p>Для начала загрузим слой карты-подложки <em>OpenStreetMap</em>, а после импортируем CSV. Во вкладке <span class="guilabel">Browser</span> найдите раздел <span class="guilabel">XYZ Tiles</span>.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/170.png" class="align-center" src="../../_images/170.png" />
+</div></blockquote>
+<ol class="arabic simple" start="2">
+<li><p>Разверните его, чтобы найти слой тайлов <span class="guilabel">OpenStreetMap</span>. Перетащите этот слой в полотно карты. Далее загрузим файл CSV. Нажмите на кнопку <span class="guilabel">Open Data Source Manager</span>.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/238.png" class="align-center" src="../../_images/238.png" />
+</div></blockquote>
+<ol class="arabic simple" start="3">
+<li><p>Перейдите во вкладку <span class="guilabel">Delimited Text</span>. Мы импортируем данные о преступлениях, которые хранятся в формате CSV. Рядом с <span class="guilabel">File name</span> нажмите на кнопку <span class="guilabel">…</span> и найдите загруженный файл <code class="docutils literal notranslate"><span class="pre">2019-02-surrey-street.csv`.</span> <span class="pre">Поля</span> <span class="pre">:guilabel:`X</span> <span class="pre">field`</span> <span class="pre">и</span> <span class="pre">:guilabel:`Y</span> <span class="pre">field`</span> <span class="pre">в</span> <span class="pre">разделе</span> <span class="pre">:guilabel:`Geometry</span> <span class="pre">Definition`</span> <span class="pre">теперь</span> <span class="pre">содержат</span> <span class="pre">данные</span> <span class="pre">из</span> <span class="pre">столбцов</span> <span class="pre">``Longitude</span></code> и <code class="docutils literal notranslate"><span class="pre">Latitude</span></code>. Параметр <span class="guilabel">Geometry CRS</span> следует оставить по умолчанию:<code class="docutils literal notranslate"><span class="pre">EPSG:4326</span> <span class="pre">-</span> <span class="pre">WGS</span> <span class="pre">84</span></code>. Панель <span class="guilabel">Sample data</span>  содержит примеры данных, чтобы Вы удостоверились, что они считались корректно. Нажмите click <span class="guilabel">Add</span> и <span class="guilabel">Close</span>.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/326.png" class="align-center" src="../../_images/326.png" />
+</div></blockquote>
+<ol class="arabic simple" start="4">
+<li><p>В панели QGIS <span class="guilabel">Layers</span>  теперь появятся 2 слоя: <code class="docutils literal notranslate"><span class="pre">OpenStreetMap</span></code> и <code class="docutils literal notranslate"><span class="pre">2019-02-surrey-street`.</span> <span class="pre">Щёлкните</span> <span class="pre">правой</span> <span class="pre">кнопкой</span> <span class="pre">мыши</span> <span class="pre">по</span> <span class="pre">слою</span> <span class="pre">``2019-02-surrey-street</span></code> и выберите <span class="guilabel">Zoom to Layer</span>.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/412.png" class="align-center" src="../../_images/412.png" />
+</div></blockquote>
+<ol class="arabic simple" start="5">
+<li><p>Теперь поверх слоя OpenStreetMap  на карте отображается точечный слой с местами преступлений. Измените увеличение и охват, чтобы внимательно изучить данные. Точки расположены так плотно, что довольно трудно понять, где плотность преступлений выше. Именно для этого нам нужна тепловая карта. Выберите слой <code class="docutils literal notranslate"><span class="pre">2019-02-surrey-street</span></code> и нажмите <span class="guilabel">Open the Layer Styling panel</span>.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/511.png" class="align-center" src="../../_images/511.png" />
+</div></blockquote>
+<ol class="arabic simple" start="6">
+<li><p>В стиле отрисовки слоя выберите <code class="docutils literal notranslate"><span class="pre">Heatmap</span></code>. Панель <span class="guilabel">Layer Styling panel</span> - интерактивная, так что изменения сразу отобразятся в окне карты. Теперь слой будет по-умолчанию отображаться в градациях серого.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/611.png" class="align-center" src="../../_images/611.png" />
+</div></blockquote>
+<ol class="arabic simple" start="7">
+<li><p>Обычно для тепловых карт используют оранжево-красную или бело-красную палитры: чем выше плотность точек, тем больше <strong>тепла</strong>. Щелкните по выпадающему меню <span class="guilabel">Color ramp</span> и выберите цветовой ряд <code class="docutils literal notranslate"><span class="pre">Reds</span></code>.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/711.png" class="align-center" src="../../_images/711.png" />
+</div></blockquote>
+<ol class="arabic simple" start="8">
+<li><p>Теперь нужно указать <span class="guilabel">Radius</span>. Этот параметр задает зону влияния каждой точки. Значение этого параметра будет зависеть от типа исходных данных. В нашем случае предположим, что каждое преступление влияет на зону радиусом 5 км вокруг себя. Заметим (см. правый  нижний угол области просмотра), что система координат проекта <code class="docutils literal notranslate"><span class="pre">EPSG:</span> <span class="pre">3857</span></code>. Единицами измерения в этой системе координат являются метры, поэтому радиус зададим <code class="docutils literal notranslate"><span class="pre">5000</span></code> метров.  Еще один, скрытый параметр - это <span class="guilabel">Kernel shape</span>. Это функция, определяющая влияние каждой точки за пределом выбранного радиуса. Рендерер тепловой карты использует функцию``Quartic``. Можно также указать другие типы функций для генерации тепловой карты: <code class="docutils literal notranslate"><span class="pre">Triangular</span></code>, <code class="docutils literal notranslate"><span class="pre">Uniform</span></code>, <code class="docutils literal notranslate"><span class="pre">Triweight</span></code> или <code class="docutils literal notranslate"><span class="pre">Epanechnikov</span></code>. Подробнее см. <a class="reference external" href="https://www.geodose.com/2017/11/qgis-heatmap-using-kernel-density.html">этот пост</a>.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/811.png" class="align-center" src="../../_images/811.png" />
+</div></blockquote>
+<ol class="arabic simple" start="9">
+<li><p>Визуализация в стиле тепловой карты готова. Мы также можем отрегулировать прозрачность отрисовки <span class="guilabel">Opacity</span> в разделе <span class="guilabel">Layer Rendering</span> . Установите прозрачность на <code class="docutils literal notranslate"><span class="pre">60</span> <span class="pre">%</span></code>, чтобы под тепловой картой была видна подложка.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/911.png" class="align-center" src="../../_images/911.png" />
+</div></blockquote>
+<ol class="arabic simple" start="10">
+<li><p>В большом количестве случаев плотности точек для анализа будет достаточно. Но порой важна каждая точка сама по себе. Например, насильственные преступления должны при анализе иметь больший вес, чем кражи. Одновременно, к одной и той же точке может относиться несколько преступлений, и это тоже надо учитывать. Для учета подобных факторов можно создать отдельное поле с <strong>весом</strong> для каждой точки. Добавим столбец с весами, чтобы подчеркнуть разное влияние точек на общую картину. Щёлкните правой кнопкой мыши``2019-02-surrey-street`` и выберите <span class="guilabel">Open Attribute Table</span>.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/1015.png" class="align-center" src="../../_images/1015.png" />
+</div></blockquote>
+<ol class="arabic simple" start="11">
+<li><p>В исходных данных есть поле <code class="docutils literal notranslate"><span class="pre">Crime</span> <span class="pre">type</span></code>. Используем его для того, чтобы разбить преступления на категории и присвоить больший вес насильственным преступлениям.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/1118.png" class="align-center" src="../../_images/1118.png" />
+</div></blockquote>
+<ol class="arabic simple" start="12">
+<li><p>Щелкните <span class="guilabel">Open field calculator</span>.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/1216.png" class="align-center" src="../../_images/1216.png" />
+</div></blockquote>
+<ol class="arabic simple" start="13">
+<li><p>Теперь введем формулу, задающую вес преступления в зависимости от <code class="docutils literal notranslate"><span class="pre">Crime</span> <span class="pre">type</span></code>. В QGIS есть удобный способ добавлять поля, полученные в результате вычислений через <em>Virtual Fields</em>. Виртуальное поле сохраняется в проекте QGIS и не вносит изменений в исходные данные. Также оно считается динамически и с ним можно работать как с любым атрибутом. Укажите <code class="docutils literal notranslate"><span class="pre">weight</span></code> в качестве <span class="guilabel">Output field name</span> и задайте значение <code class="docutils literal notranslate"><span class="pre">Whole</span> <span class="pre">number</span> <span class="pre">(integer)</span></code> в <span class="guilabel">Output field type</span>. В редакторе <span class="guilabel">Expression editor</span> введите следующее выражение. Мы используем <strong>УСЛОВИЕ</strong> для определения зависимости значения веса от определенных условий. Нажмите Click <span class="guilabel">OK</span>.</p></li>
+</ol>
+<blockquote>
+<div><div class="highlight-none notranslate"><div class="highlight"><pre><span></span>CASE
+WHEN &quot;Crime type&quot; LIKE &#39;Violence%&#39; THEN 10
+WHEN &quot;Crime type&quot; LIKE &#39;Criminal%&#39; THEN 5
+ELSE 1
+END
+</pre></div>
+</div>
+<img alt="../../_images/1314.png" class="align-center" src="../../_images/1314.png" />
+</div></blockquote>
+<ol class="arabic simple" start="14">
+<li><p>Каждому объекту будет присвоен новый атрибут, соответствующий его весу.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/1413.png" class="align-center" src="../../_images/1413.png" />
+</div></blockquote>
+<ol class="arabic simple" start="15">
+<li><p>Вернитесь в панель  <span class="guilabel">Layer Styling</span>, щелкните по выпадающему меню  <span class="guilabel">Weight points by</span> и выберите только что созданное поле <code class="docutils literal notranslate"><span class="pre">weight</span></code>.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/1512.png" class="align-center" src="../../_images/1512.png" />
+</div></blockquote>
+<ol class="arabic simple" start="16">
+<li><p>Теперь стиль отображения тепловой карты изменился в соответствии с весом точки. Закройте панель <span class="guilabel">Layer Styling</span>.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/1611.png" class="align-center" src="../../_images/1611.png" />
+</div></blockquote>
+<ol class="arabic simple" start="17">
+<li><p>Если Вам требуется сохранить тепловую карту как постоянный растровый слой или поменять оформление карты (например, алгоритм отрисовки или радиус), можно воспользоваться инструментом <strong>Heatmap (Kernel Density Estimation)</strong> в Панели Инструментов (Processing Toolbox). Сейчас мы опробуем его. Перейдите к разделу: <cite>Processing –&gt; Toolbox</cite>.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/1712.png" class="align-center" src="../../_images/1712.png" />
+</div></blockquote>
+<ol class="arabic simple" start="18">
+<li><p>Перед созданием тепловой карты, нужно перепроецировать данные в плоскую систему координат. Поскольку в вычислениях участвуют расстояния, не вполне корректно использовать географическую систему координат (с широтой и долготой). В поиске найдите алгоритм <span class="menuselection">Vector general ‣ Reproject layer</span>.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/1810.png" class="align-center" src="../../_images/1810.png" />
+</div></blockquote>
+<ol class="arabic simple" start="19">
+<li><p>Нажмите <span class="guilabel">Select CRS</span> в диалоговом  окне <span class="guilabel">Reproject layer</span> для выбора <span class="guilabel">Target CRS</span>. Отыщите <code class="docutils literal notranslate"><span class="pre">EPSG:27700</span> <span class="pre">OSGB</span> <span class="pre">1936</span> <span class="pre">/</span> <span class="pre">British</span> <span class="pre">National</span> <span class="pre">Grid</span></code>. Это система координат хорошо подходит для Великобритании. Нажмите <span class="guilabel">Run</span>.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/199.png" class="align-center" src="../../_images/199.png" />
+</div></blockquote>
+<ol class="arabic simple" start="20">
+<li><p>В панели <span class="guilabel">Layers</span> появится новый слой <code class="docutils literal notranslate"><span class="pre">Reprojected</span></code>. Чтобы скрыть старый слой <code class="docutils literal notranslate"><span class="pre">2019-02-surrey-street</span></code>, снимите галочку напротив него.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/209.png" class="align-center" src="../../_images/209.png" />
+</div></blockquote>
+<ol class="arabic simple" start="21">
+<li><p>Теперь найдите алгоритм <span class="menuselection">Interpolation ‣ Heatmap (Kernel Density Estimation)</span>.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/2114.png" class="align-center" src="../../_images/2114.png" />
+</div></blockquote>
+<ol class="arabic simple" start="22">
+<li><p>В диалоговом окне <span class="guilabel">Heatmap (Kernel Density Estimation)</span> укажем те же параметры, что и раньше. В поле <span class="guilabel">Radius</span> укажите <code class="docutils literal notranslate"><span class="pre">5000</span></code> метров, а в поле <span class="guilabel">Weight from field</span> - <code class="docutils literal notranslate"><span class="pre">weight</span></code>. Также задайте <span class="guilabel">Pixel size X</span> и <span class="guilabel">Pixel size Y</span> равными <code class="docutils literal notranslate"><span class="pre">50</span></code> метрам. Оставьте значение <span class="guilabel">Kernel shape</span> по умолчанию (<code class="docutils literal notranslate"><span class="pre">Quartic</span></code>). Нажмите <span class="guilabel">Run</span>.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/2211.png" class="align-center" src="../../_images/2211.png" />
+</div></blockquote>
+<div class="admonition note">
+<p class="admonition-title">Примечание</p>
+<p>Параметр <span class="guilabel">Radius from field</span> позволяет динамически задавать радиус поиска для каждой точки. Этот параметр можно использовать вместе с <span class="guilabel">Weight from field</span> для контроля за распространением влияния каждой точки.</p>
+</div>
+<ol class="arabic simple" start="23">
+<li><p>Когда обработка завершится, в проект будет загружен новый растровый слой <code class="docutils literal notranslate"><span class="pre">OUTPUT</span></code>. Стиль оформления по умолчанию у него не очень презентабельный: <code class="docutils literal notranslate"><span class="pre">Singleband</span> <span class="pre">gray</span></code>. Нажмите <span class="guilabel">Open the Layer Styling panel</span> для изменения стиля слоя.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/239.png" class="align-center" src="../../_images/239.png" />
+</div></blockquote>
+<ol class="arabic simple" start="24">
+<li><p>Поменяйте цветовой ряд на <code class="docutils literal notranslate"><span class="pre">Singleband</span> <span class="pre">Pseudocolor</span></code> и выберите палитру <code class="docutils literal notranslate"><span class="pre">Reds</span></code>. Теперь слой похож на тепловую карту, которую мы создавали в начале упражнения.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/249.png" class="align-center" src="../../_images/249.png" />
+</div></blockquote>
+<div class="admonition note">
+<p class="admonition-title">Примечание</p>
+<p>Заметим, что у слоя <cite>OUTPUT`</cite> в панели <span class="guilabel">Layers</span> есть легенда, которой нет у старого слоя <code class="docutils literal notranslate"><span class="pre">2019-02-surrey-street</span></code>. Довольно часто специалисты сталкиваются отсутствием легенды у тепловых карт. Она может потребоваться, например, при выводе на печать в <span class="guilabel">Print Layout</span>. Эта проблема решается созданием аналогичной растровой тепловой карты.</p>
+</div>
+</section>
+</section>
+
+
+
+<!-- Turn on comments on only newer tutorials having 3/ in URL -->
+
+  <!-- Comment Section Powered by utterances -->
+<div id="comments">
+  <hr />
+  <p>If you want to give feedback or share your experience with this tutorial, please comment below. (requires GitHub account)</p>
+<script src="https://utteranc.es/client.js"
+        repo="spatialthoughts/qgis-tutorials"
+        issue-term="title"
+        label="comment"
+        theme="github-light"
+        crossorigin="anonymous"
+        async>
+</script>
+</div>
+
+
+    </div>
+      
+  </div>
+</div>
+
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+    </p>
+    <p>
+        &copy; Copyright 2025, Ujaval Gandhi.<br/>
+      Обновлено: июл. 28, 2025.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 8.2.3.<br/>
+    </p>
+  </div>
+</footer>
+<div class="container">
+  <p>This work is licensed under a <a href="http://creativecommons.org/licenses/by/4.0/deed.en_US">Creative Commons Attribution 4.0 International License</a>.<br>
+  You are free to use the material for any purpose as long as you give appropriate credit to the original author.</p>
+</div>
+
+<!-- Script fpr language switching. Largely adapted from https://github.com/pcav/faunalia-website -->
+<script>
+    var currentPage = 'docs/3/creating_heatmaps.html'; // coming from sphinx, always without starting '/'
+    var currentLang = 'en';
+    $(document).ready(function(){
+
+        var search = new RegExp('\/[a-zA-Z_]{2,8}\/'+ currentPage, 'gi');
+        var langPlusPage = window.location.href.match(search);
+        // it's possible this is a index.html page called without 'index.html', try without the currentPage
+        if (langPlusPage==undefined){
+            search = new RegExp('\/[a-zA-Z_]{2,8}\/$', 'gi');
+            langPlusPage = window.location.href.match(search);
+        }
+
+        // it's possible this is an index.html page called without 'index.html', try removing index.html
+        if (langPlusPage==undefined){
+            currentPage = currentPage.replace('index.html','')
+            search = new RegExp('\/[a-zA-Z_]{2,8}\/'+ currentPage, 'gi');
+            langPlusPage = window.location.href.match(search);
+        }
+        // still no langPlugPage: stop, because the language swicher will misbehave 
+
+        if (langPlusPage == undefined || langPlusPage.length != 1){
+            alert('You hit an error, please report back to us.');
+            return;
+        }
+        langPlusPage = langPlusPage[0];
+        currentLang = langPlusPage.replace(currentPage, '');
+
+        $("#languages").val(currentLang.replace(/\//g,'')); // currentLang is something like '/nl/'
+
+        $("#languages").change(function() {
+            gotoLang($(this).val());
+        });
+
+    });
+
+    // load current page in a different language
+    function gotoLang(lang){
+        var currentUrl = window.location.href;
+        var newUrl = currentUrl.replace(currentLang, '/'+lang+'/');
+        window.location.href = newUrl;
+    }
+</script>
+
+  </body>
+</html>

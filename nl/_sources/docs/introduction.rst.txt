@@ -47,6 +47,7 @@ The tutorials for the following languages have active translation teams and are 
 - `Spanish <https://www.qgistutorials.com/es/>`_ (Translation by: *Eric Armijo*, *Juan Carlos Méndez*, *Felipe Raimann*, *Antonio Mireles*)
 - `Korean <https://www.qgistutorials.com/ko/>`_ (Translation by: *SongHyun Choi*, *Jung Eun Jang*, *Rosa Ahn*, *Haeseon Shin*)
 - `Romanian <https://www.qgistutorials.com/ro/>`_ (Translation by: *Sorin Călinică*)
+- `Russian <https://www.qgistutorials.com/ru/>`_ (Translation by: *Elena Zhuravleva*, *Marina Pavlova*, *Ilya Trofimov*, *Fayçal Fatihi*, *Константин Сергеевич*)
 
 Many other languages are partially translated and are hosted externaly.
 
@@ -55,7 +56,6 @@ Many other languages are partially translated and are hosted externaly.
 - `Greek <https://storage.googleapis.com/qgis-tutorials/el/index.html>`_ (Translation by: *Christina Dimitriadou*, *Paliogiannis Konstantinos*, *Tom Karagkounis*, *Despoina Karfi*)
 - `Indonesian <https://storage.googleapis.com/qgis-tutorials/id/index.html>`_ (Translation by: *Maruli Tua Manullang*, *Bakhtiar Arif*)
 - `Portuguese (Brazil) <https://storage.googleapis.com/qgis-tutorials/pr_BR/index.html>`_ (Translation by: *Narcélio de Sá*, *Wesley Kevin Souto do Vale*)
-- `Russian <https://storage.googleapis.com/qgis-tutorials/ru/index.html>`_ (Translation by: *Marina Pavlova*, *Ilya Trofimov*, *Fayçal Fatihi*, *Константин Сергеевич*)
 - `Thai <https://storage.googleapis.com/qgis-tutorials/th/index.html>`_ (Translation by: *Phondanai Khanti*)
 - `Turkish <https://storage.googleapis.com/qgis-tutorials/tr/index.html>`_ (Translation by: *Birkan*, *Tayfun Akçayır*, *Emrullah Karahasanoğlu*, *İnci Yalçın*)
 - `Ukrainian <https://storage.googleapis.com/qgis-tutorials/uk/index.html>`_ (Translation by: *Igor Konovalov*)

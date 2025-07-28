@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+
+<html lang="ru" data-content_root="../../">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Вычисление протяжённости линейных объектов и Сводка Статистики &#8212; QGIS Tutorials and Tips</title>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-sphinx.css?v=0bf093e7" />
+    <script src="../../_static/documentation_options.js?v=47a0e12c"></script>
+    <script src="../../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/translations.js?v=cd1d70c9"></script>
+    <link rel="search" title="Поиск" href="../../search.html" />
+    <link rel="next" title="Basic Raster Styling and Analysis (QGIS3)" href="raster_styling_and_analysis.html" />
+    <link rel="prev" title="Basic Vector Styling (QGIS3)" href="basic_vector_styling.html" />
+
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<script type="text/javascript" src="../../_static/js/jquery-1.12.4.min.js"></script>
+<script type="text/javascript" src="../../_static/js/jquery-fix.js"></script>
+<script type="text/javascript" src="../../_static/bootstrap-3.4.1/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="../../_static/bootstrap-sphinx.js"></script>
+
+
+<!-- Cookie Notice -->
+<!-- Script from https://github.com/AOEpeople/cookie-notice -->
+<script type="text/javascript" src="../../_static/cookie.notice.min.js"></script>
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-B1WQ7B80XJ"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-B1WQ7B80XJ');
+</script>
+
+
+  </head><body>
+
+  <div id="navbar" class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="../../index.html">
+          QGIS Tutorials and Tips</a>
+        <span class="navbar-text navbar-version pull-left"><b>v1</b></span>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="../../index.html">Tutorials List <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"><ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../introduction.html">Введение</a></li>
+<li class="toctree-l1"><a class="reference internal" href="making_a_map.html">Making a Map (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="working_with_attributes.html">Работа с атрибутами (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="importing_spreadsheets_csv.html">Importing Spreadsheets or CSV files (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="basic_vector_styling.html">Basic Vector Styling (QGIS3)</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Вычисление протяжённости линейных объектов  и Сводка Статистики</a></li>
+<li class="toctree-l1"><a class="reference internal" href="raster_styling_and_analysis.html">Basic Raster Styling and Analysis (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="raster_mosaicing_and_clipping.html">Raster Mosaicing and Clipping (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="working_with_terrain.html">Working with Terrain Data (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="working_with_wms.html">Working with WMS Data (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="working_with_projections.html">Working with Projections (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="georeferencing_basics.html">Georeferencing Topo Sheets and Scanned Maps (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="advanced_georeferencing.html">Пространственная привязка космических снимков (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="digitizing_basics.html">Digitizing Map Data (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="performing_table_joins.html">Performing Table Joins (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="performing_spatial_joins.html">Performing Spatial Joins (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="performing_spatial_queries.html">Performing Spatial Queries (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="nearest_neighbor_analysis.html">Nearest Neighbor Analysis (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="sampling_raster_data.html">Sampling Raster Data using Points or Polygons (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="calculating_raster_area.html">Calculating Raster Area (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="creating_heatmaps.html">Создание тепловых карт (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="animating_time_series.html">Animating Time Series Data (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="handling_invalid_geometries.html">Handling Invalid Geometries (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="advanced_raster_analysis.html">Advanced Raster Analysis (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="interpolating_point_data.html">Interpolating Point Data (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="batch_processing.html">Batch Processing using Processing Framework (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="processing_graphical_modeler.html">Автоматизация сложных процессов с помощью Processing Modeler (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="automating_map_creation.html">Автоматизация компоновки карты с помощью инструмента создания атласа (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="multi_criteria_overlay.html">Multi Criteria Overlay Analysis (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="vector_styling_expressions.html">Basic Filtering and Styling with Expressions (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="block_world_styling.html">Creating a Block World Map (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="river_styling_expressions.html">Styling a River Network with Expressions (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="contour_3d_styling.html">Styling Contours in 3D (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="isometric_buildings.html">Creating Isometric Buildings (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="interactive_canvas_maps.html">Making Interactive Canvas Maps (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="interactive_reveal_maps.html">Making Interactive Reveal Maps (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cartogram_animation.html">Creating an Animated Cartogram (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="basic_network_analysis.html">Basic Network Visualization and Routing (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="origin_destination_matrix.html">Locating Nearest Facility with Origin-Destination Matrix (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="service_area_analysis.html">Service Area Analysis using Openrouteservice (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="travel_time_analysis.html">Travel Time Analysis with Uber Movement (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="areal_mean_rainfall.html">Calculating Areal Mean Rainfall (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="colorized_river_basin_map.html">Creating a Colorized River Basin Map (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="creating_landuse_map.html">Creating a Landuse Map (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="calculating_intersection_density.html">Calculating Street Intersection Density (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="landuse_buffer.html">Determining Landuse Buffer Zones (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="solidwaste_mapping.html">Mapping Waste Disposal Volumes (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="getting_started_with_pyqgis.html">Getting Started With Python Programming (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="processing_algorithms_pyqgis.html">Running Processing Algorithms via Python (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="custom_python_functions.html">Using Custom Python Expression Functions (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="processing_python_scripts.html">Writing Python Scripts for Processing Framework (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="building_a_python_plugin.html">Building a Python Plugin (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="processing_python_plugin.html">Building a Processing Plugin (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../running_qgis_jobs.html">Running and Scheduling QGIS Processing Jobs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="web_mapping_with_qgis2web.html">Web Mapping with QGIS2Web (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../creating_basemaps_with_qtiles.html">Creating Basemaps with QTiles</a></li>
+<li class="toctree-l1"><a class="reference internal" href="using_plugins.html">Using Plugins (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../downloading_osm_data.html">Поиск и загрузка данных OpenStreetMap</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../learning_resources.html">Учебные материалы по QGIS</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../credits.html">Источники данных</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../batch_processing.html">Batch Processing using Processing Framework (QGIS2)</a></li>
+</ul>
+</ul>
+</li>
+              
+            
+            
+              
+                
+  <li>
+    <a href="basic_vector_styling.html" title="Previous Chapter: Basic Vector Styling (QGIS3)"><span class="glyphicon glyphicon-chevron-left visible-sm"></span><span class="hidden-sm hidden-tablet">&laquo; Basic Vector ...</span>
+    </a>
+  </li>
+  <li>
+    <a href="raster_styling_and_analysis.html" title="Next Chapter: Basic Raster Styling and Analysis (QGIS3)"><span class="glyphicon glyphicon-chevron-right visible-sm"></span><span class="hidden-sm hidden-tablet">Basic Raster ... &raquo;</span>
+    </a>
+  </li>
+              
+            
+            
+
+            
+
+            
+              <li class="hidden-sm"></li>
+            
+          </ul>
+
+          
+            
+<form class="navbar-form navbar-right" action="../../search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+      <div class="col-md-3">
+        <div id="sidebar" class="bs-sidenav" role="complementary"><h4>Author</h4>
+<p><a href="https://www.linkedin.com/in/spatialthoughts/"><img src="../../_static/ujaval.png">Ujaval Gandhi</a></p>
+
+<hr>
+<p>Want to learn QGIS in a structured way? Check out <a href="https://spatialthoughts.com/" target="_blank">Spatial Thoughts</a> for more learning materials and instructor-led online programs with QGIS.org certification.</p>
+
+<hr>
+<p>These tutorials are also available in many other languages. Please see <a href="https://www.qgistutorials.com/en/docs/introduction.html#translations" target="_blank">translations</a> page.
+</p>
+        </div>
+      </div>
+    <div class="body col-md-9 content" role="main">
+      
+
+  <section id="calculating-line-lengths-and-statistics-qgis3">
+<h1>Вычисление протяжённости линейных объектов  и Сводка Статистики<a class="headerlink" href="#calculating-line-lengths-and-statistics-qgis3" title="Ссылка на этот заголовок">¶</a></h1>
+<p>В QGIS имеются встроенные функции и алгоритмы, позволяющие вычислять характеристики, связанные с геометрией объектов: протяженность (длину), площадь, периметр и т.д. Данное Руководство содержит сведения об использовании модуля <strong>Add geometry attributess (Добавить атрибуты геометрии)</strong> с добавлением столбца с протяженностью каждого объекта.</p>
+<section id="overview-of-the-task">
+<h2>Обзор задания<a class="headerlink" href="#overview-of-the-task" title="Ссылка на этот заголовок">¶</a></h2>
+<p>Нам дан слой поллиний, представляющих железнодорожную сеть Северной Америки, определим протяженность железных дорог в США.</p>
+<section id="other-skills-you-will-learn">
+<h3>Также Вы научитесь<a class="headerlink" href="#other-skills-you-will-learn" title="Ссылка на этот заголовок">¶</a></h3>
+<ul class="simple">
+<li><p>Использовать выражения для фильтрации объектов.</p></li>
+<li><p>Использовать панель <span class="guilabel">Statistics</span> для вычисления и просмотра статистики по столбцам.</p></li>
+</ul>
+</section>
+</section>
+<section id="get-the-data">
+<h2>Получение данных<a class="headerlink" href="#get-the-data" title="Ссылка на этот заголовок">¶</a></h2>
+<p>Ресурс <a class="reference external" href="http://www.naturalearthdata.com/downloads/10m-cultural-vectors/railroads/">Natural Earth</a> содержит общедоступный датасет с железными дорогами.</p>
+<p>Загрузите файл <a class="reference external" href="https://www.naturalearthdata.com/http//www.naturalearthdata.com/download/10m/cultural/ne_10m_railroads_north_america.zip">North America supplement</a> zip.</p>
+<p>Вы можете напрямую скачать копию набора данных, пройдя по ссылке ниже:</p>
+<p><a class="reference external" href="https://www.qgistutorials.com/downloads/ne_10m_railroads_north_america.zip">ne_10m_railroads_north_america..zip</a></p>
+<p>Источник данных: <a class="reference internal" href="../credits.html#naturalearth" id="id1"><span>[NATURALEARTH]</span></a></p>
+</section>
+<section id="procedure">
+<h2>Методика<a class="headerlink" href="#procedure" title="Ссылка на этот заголовок">¶</a></h2>
+<ol class="arabic simple">
+<li><p>Найдите в панели <span class="guilabel">Browser</span> загруженный файл <code class="docutils literal notranslate"><span class="pre">ne_10m_railroads_north_america.zip</span></code> и перетащите его в полотно карты.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/130.png" class="align-center" src="../../_images/130.png" />
+</div></blockquote>
+<ol class="arabic simple" start="2">
+<li><p>В панели <span class="guilabel">Layers</span> появится новый слой <code class="docutils literal notranslate"><span class="pre">ne_10m_railroads_north_america</span></code>. На этом слое представлена железнодорожная сеть всей Северной Америки. Теперь вычислим протяженность каждого объекта. Перейдите в  <span class="menuselection">Processing ‣ Toolbox</span>.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/220.png" class="align-center" src="../../_images/220.png" />
+</div></blockquote>
+<ol class="arabic simple" start="3">
+<li><p>Найдите пункт <span class="menuselection">Vector geometry ‣ Add geometry attributes</span>. Дважды щелкните по нему, чтобы запустить.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/318.png" class="align-center" src="../../_images/318.png" />
+</div></blockquote>
+<ol class="arabic simple" start="4">
+<li><p>В диалоговом окне <span class="guilabel">Add Geometry Attributes</span> в качестве <span class="guilabel">Input layer</span> укажите <code class="docutils literal notranslate"><span class="pre">ne_10m_railroads_north_america</span></code>. Система координат (CRS) вашего слоя: <em>EPSG:4326 WGS84</em>. Это географическая система координат, оперирующая широтой и долготой в градусах относительно эллипсоида WGS84. Поскольку единицы измерения - градусы, измерить длину и площадь на плоскости в линейных единицах мы не можем. К счастью, QGIS позволяет точно вычислять расстояния на эллипсоиде, что более корректно для протяженных (больших) объектов. В меню <span class="guilabel">Calculate using</span>  укажите <code class="docutils literal notranslate"><span class="pre">Ellipsoidal</span></code>. Нажмите <span class="guilabel">Run</span>. Когда вычисление завершится, нажмите <span class="guilabel">Close</span>.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/47.png" class="align-center" src="../../_images/47.png" />
+</div></blockquote>
+<div class="admonition note">
+<p class="admonition-title">Примечание</p>
+<p>If your input layer is in a <em>Projected CRS</em>, you may choose <code class="docutils literal notranslate"><span class="pre">Layer</span> <span class="pre">CRS</span></code> option for calculation. Local or Regional projected coordinate systems are designed to minimize distortions over their region of interest, and thus are more accurate for such computation. <code class="docutils literal notranslate"><span class="pre">Ellipsoidal</span></code> is preferred for layers in a <em>Geographic CRS</em> (i.e. Lat/Lon). The default unit for ellipsoidal length calculation is <strong>Meters</strong> and can be changed by going to <span class="menuselection">Project ‣ Properties ‣ General</span>.</p>
+</div>
+<ol class="arabic simple" start="5">
+<li><p>В панели <span class="guilabel">Layers</span> появится новый слой <code class="docutils literal notranslate"><span class="pre">Added</span> <span class="pre">geom</span> <span class="pre">info</span></code>. Он является копией исходного слоя с дополнительным столбцом, где указана протяженность объектов. Щёлкните правой кнопкой мыши по слою <code class="docutils literal notranslate"><span class="pre">Added</span> <span class="pre">geom</span> <span class="pre">info</span></code> и  выберите <span class="guilabel">Open Attribute Table</span>.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/57.png" class="align-center" src="../../_images/57.png" />
+</div></blockquote>
+<div class="admonition note">
+<p class="admonition-title">Примечание</p>
+<p>Инструмент <em>Add Geometry Attribute</em>  добавляет к слою различные атрибуты в зависимости от типа слоя (слой состоит из точек, линий, полигонов). См. <a class="reference external" href="https://docs.qgis.org/testing/en/docs/user_manual/processing_algs/qgis/vectorgeometry.html#add-geometry-attributes">QGIS documentation</a> .</p>
+</div>
+<ol class="arabic simple" start="6">
+<li><p>В <span class="guilabel">Attribute Table</span> вы увидите новый столбец <strong>length</strong>. Он содержит протяжённость каждого объекта в <em>метрах</em>. Отметим, что атрибут <strong>sov_a3</strong> содержит информацию о коде страны, к которой относится объект. Закройте окно <span class="guilabel">Attribute Table</span>.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/67.png" class="align-center" src="../../_images/67.png" />
+</div></blockquote>
+<ol class="arabic simple" start="7">
+<li><p>Теперь, когда для каждого сегмента железных дорог известна протяженность, мы можем их сложить, чтобы узнать общую протяженность сети. Но нам нужно узнать протяженность железных дорог только в Соединенных Штатах. Используем  код страны <strong>sov_a3</strong>, чтобы отфильтровать  нужные объекты в слое. Щёлкните правой кнопкой мыши <code class="docutils literal notranslate"><span class="pre">Added</span> <span class="pre">geom</span> <span class="pre">info</span></code> и выберите <span class="guilabel">Filter</span>.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/77.png" class="align-center" src="../../_images/77.png" />
+</div></blockquote>
+<ol class="arabic simple" start="8">
+<li><p>В диалоговом окне <cite>Query Builder</cite> укажите следующее выражение и нажмите <span class="guilabel">OK</span></p></li>
+</ol>
+<blockquote>
+<div><div class="highlight-none notranslate"><div class="highlight"><pre><span></span>&quot;sov_a3&quot; = &#39;USA&#39;
+</pre></div>
+</div>
+<img alt="../../_images/87.png" class="align-center" src="../../_images/87.png" />
+</div></blockquote>
+<ol class="arabic simple" start="9">
+<li><p>В панели <span class="guilabel">Layers</span> рядом со слоем <code class="docutils literal notranslate"><span class="pre">Added</span> <span class="pre">geom</span> <span class="pre">info</span></code> появится иконка <span class="guilabel">Filter</span>.  Она означает, что к объектам в слое применен фильтр. В том, что объекты касаются только Соединенных Штатов Вы можете убедиться, посмотрев на карту. Теперь вычислим сумму. Нажмите на кнопку <span class="guilabel">Show statistical summary</span> в панели <span class="guilabel">Attributes Toolbar</span>.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/97.png" class="align-center" src="../../_images/97.png" />
+</div></blockquote>
+<ol class="arabic simple" start="10">
+<li><p>Откроется новая панель <span class="guilabel">Statistics</span>. Выберите слой <code class="docutils literal notranslate"><span class="pre">Added</span> <span class="pre">geom</span> <span class="pre">info</span></code> и столбец <code class="docutils literal notranslate"><span class="pre">length</span></code>.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/1010.png" class="align-center" src="../../_images/1010.png" />
+</div></blockquote>
+<ol class="arabic simple" start="11">
+<li><p>В панели отобразится статистическая сводка. Она будет выражена в <strong>метрах</strong> (в той же мере, что и столбец <a href="#id1"><span class="problematic" id="id2">``</span></a>length`)`. Для ясности поменяем единицы измерения на <strong>километры</strong>. Нажмите на значок <span class="guilabel">Expression</span> напротив выпадающего поля <span class="guilabel">Statistics</span>.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/1113.png" class="align-center" src="../../_images/1113.png" />
+</div></blockquote>
+<ol class="arabic simple" start="12">
+<li><p>В окне <span class="guilabel">Expression Dialog</span> введите выражение по переводу метров в километры.</p></li>
+</ol>
+<blockquote>
+<div><div class="highlight-none notranslate"><div class="highlight"><pre><span></span>length / 1000
+</pre></div>
+</div>
+<img alt="../../_images/1211.png" class="align-center" src="../../_images/1211.png" />
+</div></blockquote>
+<ol class="arabic simple" start="13">
+<li><p>Теперь значение <span class="guilabel">Sum</span> выражает общую протяженность дорог в США в км.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/139.png" class="align-center" src="../../_images/139.png" />
+</div></blockquote>
+</section>
+</section>
+
+
+
+<!-- Turn on comments on only newer tutorials having 3/ in URL -->
+
+  <!-- Comment Section Powered by utterances -->
+<div id="comments">
+  <hr />
+  <p>If you want to give feedback or share your experience with this tutorial, please comment below. (requires GitHub account)</p>
+<script src="https://utteranc.es/client.js"
+        repo="spatialthoughts/qgis-tutorials"
+        issue-term="title"
+        label="comment"
+        theme="github-light"
+        crossorigin="anonymous"
+        async>
+</script>
+</div>
+
+
+    </div>
+      
+  </div>
+</div>
+
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+    </p>
+    <p>
+        &copy; Copyright 2025, Ujaval Gandhi.<br/>
+      Обновлено: июл. 28, 2025.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 8.2.3.<br/>
+    </p>
+  </div>
+</footer>
+<div class="container">
+  <p>This work is licensed under a <a href="http://creativecommons.org/licenses/by/4.0/deed.en_US">Creative Commons Attribution 4.0 International License</a>.<br>
+  You are free to use the material for any purpose as long as you give appropriate credit to the original author.</p>
+</div>
+
+<!-- Script fpr language switching. Largely adapted from https://github.com/pcav/faunalia-website -->
+<script>
+    var currentPage = 'docs/3/calculating_line_lengths.html'; // coming from sphinx, always without starting '/'
+    var currentLang = 'en';
+    $(document).ready(function(){
+
+        var search = new RegExp('\/[a-zA-Z_]{2,8}\/'+ currentPage, 'gi');
+        var langPlusPage = window.location.href.match(search);
+        // it's possible this is a index.html page called without 'index.html', try without the currentPage
+        if (langPlusPage==undefined){
+            search = new RegExp('\/[a-zA-Z_]{2,8}\/$', 'gi');
+            langPlusPage = window.location.href.match(search);
+        }
+
+        // it's possible this is an index.html page called without 'index.html', try removing index.html
+        if (langPlusPage==undefined){
+            currentPage = currentPage.replace('index.html','')
+            search = new RegExp('\/[a-zA-Z_]{2,8}\/'+ currentPage, 'gi');
+            langPlusPage = window.location.href.match(search);
+        }
+        // still no langPlugPage: stop, because the language swicher will misbehave 
+
+        if (langPlusPage == undefined || langPlusPage.length != 1){
+            alert('You hit an error, please report back to us.');
+            return;
+        }
+        langPlusPage = langPlusPage[0];
+        currentLang = langPlusPage.replace(currentPage, '');
+
+        $("#languages").val(currentLang.replace(/\//g,'')); // currentLang is something like '/nl/'
+
+        $("#languages").change(function() {
+            gotoLang($(this).val());
+        });
+
+    });
+
+    // load current page in a different language
+    function gotoLang(lang){
+        var currentUrl = window.location.href;
+        var newUrl = currentUrl.replace(currentLang, '/'+lang+'/');
+        window.location.href = newUrl;
+    }
+</script>
+
+  </body>
+</html>
