@@ -1,0 +1,494 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2023, Ujaval Gandhi
+# This file is distributed under the same license as the QGIS Tutorials and Tips package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# 
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: QGIS Tutorials and Tips v1\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-03-06 00:20+0530\n"
+"PO-Revision-Date: 2023-12-27 07:58+0000\n"
+"Language-Team: Russian (https://app.transifex.com/spatialthoughts/teams/7952/ru/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: ru\n"
+"Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n%100>=11 && n%100<=14)? 2 : 3);\n"
+
+#: ../../source/docs/3/colorized_river_basin_map.rst:2
+msgid "Creating a Colorized River Basin Map (QGIS3)"
+msgstr ""
+
+#: ../../source/docs/3/colorized_river_basin_map.rst:4
+msgid ""
+"In this tutorial, we will learn the QGIS workflow to create artistic river "
+"maps for your own country or region using openly available hydrological "
+"data."
+msgstr ""
+
+#: ../../source/docs/3/colorized_river_basin_map.rst:9
+msgid ""
+"This tutorial is inspired by the beautiful maps produced by `Grasshopper "
+"Geography <https://www.grasshoppergeography.com/>`_. I own one of their "
+"prints and you too can support their work by purchasing one of their maps "
+"from their `online store <https://www.etsy.com/shop/GrasshopperGeography>`_."
+msgstr ""
+
+#: ../../source/docs/3/colorized_river_basin_map.rst:12
+msgid "Overview of the task"
+msgstr ""
+
+#: ../../source/docs/3/colorized_river_basin_map.rst:14
+msgid ""
+"In this tutorial, we will take data layers of basins and rivers from "
+"HydroSHEDS and create a basin map for rivers of India."
+msgstr ""
+
+#: ../../source/docs/3/colorized_river_basin_map.rst:20
+msgid "Other skills you will learn"
+msgstr ""
+
+#: ../../source/docs/3/colorized_river_basin_map.rst:22
+msgid ""
+"How to assign projection to a vector layer with incorrect or missing "
+"projection."
+msgstr ""
+
+#: ../../source/docs/3/colorized_river_basin_map.rst:23
+msgid "How to add multiple layers in a single GeoPackage."
+msgstr ""
+
+#: ../../source/docs/3/colorized_river_basin_map.rst:24
+msgid "How to add a 'Made with QGIS' badge to your map."
+msgstr ""
+
+#: ../../source/docs/3/colorized_river_basin_map.rst:27
+msgid "Get the data"
+msgstr ""
+
+#: ../../source/docs/3/colorized_river_basin_map.rst:29
+msgid ""
+"`HydroSHEDS <https://www.hydrosheds.org/>`_ provides global hydrological "
+"datasets suitable for regional and global applications. The data layers are "
+"derived from hydrologically conditioned DEM from SRTM."
+msgstr ""
+
+#: ../../source/docs/3/colorized_river_basin_map.rst:32
+msgid "Basin Boundaries"
+msgstr ""
+
+#: ../../source/docs/3/colorized_river_basin_map.rst:34
+msgid ""
+"HydroBasins provides polygon boundaries of basins for different continents. "
+"The boundaries are hierarchical – each basin at Level N is further "
+"subdivided into smaller basins at Level N+1. For this tutorial, we will use "
+"the Level 6 basin boundaries. You can use different level depending on your "
+"region and type of map you want to create. Visit the `HydroBASINS "
+"<https://www.hydrosheds.org/products/hydrobasins>`_  page and download the "
+"zip file for your region."
+msgstr ""
+
+#: ../../source/docs/3/colorized_river_basin_map.rst:41
+msgid ""
+"HydroSHEDS basin boundaries are derived from SRTM data which is over 20 "
+"years old at this point. The basin boundaries may not match the official "
+"basin boundaries in your region. You can substitute HydroBasins data with "
+"polygons from official sources when available."
+msgstr ""
+
+#: ../../source/docs/3/colorized_river_basin_map.rst:44
+msgid "River Network"
+msgstr ""
+
+#: ../../source/docs/3/colorized_river_basin_map.rst:46
+msgid ""
+"HydroRIVERS provides a line shapefile representing the river network. Visit "
+"the `HydroRIVERS <https://www.hydrosheds.org/products/hydrorivers>`_ page "
+"and download the zip file for your region of interest."
+msgstr ""
+
+#: ../../source/docs/3/colorized_river_basin_map.rst:52
+msgid "Administrative Boundary"
+msgstr ""
+
+#: ../../source/docs/3/colorized_river_basin_map.rst:53
+msgid ""
+"We will clip the HydroSHEDS data to the boundary of your chosen region. In "
+"this tutorial, we want to create a river basin map of India, so we will get "
+"the boundary shapefile from Survey of India. Visit the `Outline Maps of "
+"India <https://surveyofindia.gov.in/pages/outline-maps-of-india>`_ page and "
+"download the India International Boundary Vector Format. If you need admin "
+"boundaries for other countries or states, you can get them from `GADM "
+"<https://gadm.org/>`_ or `geoBoundaries <https://www.geoboundaries.org/>`_."
+msgstr ""
+
+#: ../../source/docs/3/colorized_river_basin_map.rst:58
+msgid ""
+"Once all the files are downloaded, unzip them and copy them to a folder. You"
+" should now have 3 shapefiles: ``hybas_as_lev06_v1c.shp``, "
+"``HydroRIVERS_v10_as.shp`` and admin boundaries ```polymap15m_area.shp```."
+msgstr ""
+
+#: ../../source/docs/3/colorized_river_basin_map.rst:63
+msgid "Data Sources: [HYDROSHEDS]_, [SOI]_"
+msgstr ""
+
+#: ../../source/docs/3/colorized_river_basin_map.rst:67
+msgid "Procedure"
+msgstr ""
+
+#: ../../source/docs/3/colorized_river_basin_map.rst:69
+msgid ""
+"Open QGIS and locate the downloaded files in the QGIS :guilabel:`Browser`. "
+"Drag and drop ``hybas_as_lev06_v1c.shp`` and ``HydroRIVERS_v10_as.shp`` to "
+"the canvas."
+msgstr ""
+
+#: ../../source/docs/3/colorized_river_basin_map.rst:74
+msgid ""
+"Locate the administrative boundaries shapefile ``polymap15m_area.shp`` and "
+"drag-and-drop it to the canvas."
+msgstr ""
+
+#: ../../source/docs/3/colorized_river_basin_map.rst:79
+msgid ""
+"The HydroSHEDS data layers have some features with invalid geometries Let's "
+"fix them proceeding further. Open the Processing Toolbox from "
+":menuselection:`Processing --> Toolbox`. Search and locate the "
+":menuselection:`Vector geometry --> Fix geometries` tool. Double-click to "
+"launch it."
+msgstr ""
+
+#: ../../source/docs/3/colorized_river_basin_map.rst:86
+msgid ""
+"You can review the tutorial :doc:`handling_invalid_geometries` to learn more"
+" about the causes and fixes for invalid geometries."
+msgstr ""
+
+#: ../../source/docs/3/colorized_river_basin_map.rst:88
+msgid ""
+"Select ``hybas_as_lev06_v1c`` as the :guilabel:`Input layer`. Click the "
+":guilabel:`...` button next to :guilabel:`Fixed geometries` and select "
+":guilabel:`Save to GeoPackage...`."
+msgstr ""
+
+#: ../../source/docs/3/colorized_river_basin_map.rst:93
+msgid ""
+"Browse to the location where you want to save the output data and enter the "
+"name ``data.gpkg``. Click :guilabel:`Save`. You will be prompted to enter a "
+":guilabel:`Layer name`. Enter ``basins_fixed``. Click :guilabel:`OK`. Next "
+"click :guilabel:`Run` to run the algorithm and generate the output layer."
+msgstr ""
+
+#: ../../source/docs/3/colorized_river_basin_map.rst:98
+msgid ""
+"Repeat the step for the ``HydroRIVERS_v10_as`` layer. Select the same "
+"GeoPackage ``data.gpkg`` that was created in the previous step. Do not worry"
+" if you get a message indicating that the file will be overwritten. QGIS "
+"will not overwrite the file, but append a new layer to the same GeoPackage. "
+"This time use ``rivers_fixed`` as the :guilabel:`Layer name`."
+msgstr ""
+
+#: ../../source/docs/3/colorized_river_basin_map.rst:103
+msgid ""
+"The ``polymap15m_area`` layer comes with a projection that is not recognized"
+" by QGIS. We will assign a known projection to this layer. Search and locate"
+" the :menuselection:`Vector general --> Assign projection` tool and double-"
+"click to open it."
+msgstr ""
+
+#: ../../source/docs/3/colorized_river_basin_map.rst:110
+msgid ""
+"Remember that *Assign projection* tool does not reproject the layer but "
+"simply adds the correct projection information to an existing georeferenced "
+"layer with missing or incorrect projection. Use the *Reproject layer* tool "
+"if you want to change the CRS of a layer."
+msgstr ""
+
+#: ../../source/docs/3/colorized_river_basin_map.rst:112
+msgid ""
+"Select ``polymap15m_area`` as the :guilabel:`Input layer`. Click the "
+":guilabel:`Select CRS` button and search for the ``EPSG:7755 - WGS 84 / "
+"India NSF LCC`` projection and select it. Click the :guilabel:`...` button "
+"next to :guilabel:`Assigned CRS` and select :guilabel:`Save to "
+"GeoPackage...`."
+msgstr ""
+
+#: ../../source/docs/3/colorized_river_basin_map.rst:117
+msgid ""
+"Select the same GeoPackage ``data.gpkg`` and enter the layer name "
+"``admin_boundary_fixed``. Click :guilabel:`Run`."
+msgstr ""
+
+#: ../../source/docs/3/colorized_river_basin_map.rst:122
+msgid ""
+"You will now have 3 new layers ``basins_fixed``, ``rivers_fixed`` and "
+"``admin_boundary_fixed`` loaded to the :guilabel:`Layers` panel in QGIS. "
+"Hold the :kbd:`Shift` key and select all remaining layers. Right-click and "
+"choose :guilabel:`Remove Layer...`."
+msgstr ""
+
+#: ../../source/docs/3/colorized_river_basin_map.rst:127
+msgid ""
+"We will now clip the basins and rivers layers to the administrative "
+"boundary. Search and locate the :menuselection:`Vector overlay --> Clip` "
+"tool from the Processing Toolbox. Double-click to open it."
+msgstr ""
+
+#: ../../source/docs/3/colorized_river_basin_map.rst:132
+msgid ""
+"Select ``basins_fixed`` as the :guilabel:`Input layer` and "
+"``admin_boundary_fixed`` as the :guilabel:`Overlay layer`. Save the output "
+"to the same GeoPackage ``data.gpkg`` as the layer ``basins_clipped``. Click "
+":guilabel:`Run`."
+msgstr ""
+
+#: ../../source/docs/3/colorized_river_basin_map.rst:137
+msgid ""
+"Once the processing finishes, repeat the process with the ``rivers_fixed`` "
+"layer as the :guilabel:`Input layer`.  Save the output to the same "
+"geopackage ``data.gpkg`` as the layer ``rivers_clipped``. Click "
+":guilabel:`Run`."
+msgstr ""
+
+#: ../../source/docs/3/colorized_river_basin_map.rst:142
+msgid ""
+"You will now have 2 new layers ``basins_clipped`` and ``rivers_clipped``, as"
+" well as ``admin_boundary_fixed`` layer loaded to the :guilabel:`Layers` "
+"panel in QGIS. Hold the :kbd:`Shift` key and select all remaining layers. "
+"Right-click and choose :guilabel:`Remove Layer...`."
+msgstr ""
+
+#: ../../source/docs/3/colorized_river_basin_map.rst:147
+msgid ""
+"Before we proceed further, let's save the project. QGIS allows you to save a"
+" project inside of a GeoPackage - making it very convenient to avoid "
+"managing additional files. Go to :menuselection:`Project --> Save To --> "
+"GeoPackage...`."
+msgstr ""
+
+#: ../../source/docs/3/colorized_river_basin_map.rst:152
+msgid ""
+"In the :guilabel:`Save project to GeoPackage` dialog, click the "
+":guilabel:`...` button next to :guilabel:`Connection` and browse to the "
+"existing ``data.gpkg`` file. Enter the name ``rivers_basin_map`` as the "
+":guilabel:`Project` name. Click :guilabel:`OK`."
+msgstr ""
+
+#: ../../source/docs/3/colorized_river_basin_map.rst:157
+msgid ""
+"Once saved, you can expand the ``data.gpkg`` in the :guilabel:`Browser` "
+"panel and see that the QGIS project is now saved inside the GeoPackage. "
+"Users of this GeoPackage can now open the project directly from the "
+"GeoPackage."
+msgstr ""
+
+#: ../../source/docs/3/colorized_river_basin_map.rst:162
+msgid ""
+"To create our colorized map, we need to color all the basins such that no "
+"adjacent basins have the same color. QGIS has a tool to do just that. Open "
+"the :menuselection:`Cartography --> Topological coloring` tool from the "
+"Processing Toolbox."
+msgstr ""
+
+#: ../../source/docs/3/colorized_river_basin_map.rst:167
+msgid ""
+"Select ``basins_clipped`` as the :guilabel:`Input layer`. Leave other "
+"options to their default values. Save the output to the same GeoPackage "
+"``data.gpkg`` as the layer ``basins_with_color``. Click :guilabel:`Run`."
+msgstr ""
+
+#: ../../source/docs/3/colorized_river_basin_map.rst:172
+msgid ""
+"Once the processing finishes, a new layer ``basins_with_color`` will be "
+"loaded to the :guilabel:`Layers` panel. Right-click the layer and select "
+":guilabel:`Open Attribute Table`. You will notice that the layer has a new "
+"attribute named ``color_id`` with an integer value. Assigning a unique color"
+" to each integer value will result in topolocal coloring of the layer."
+msgstr ""
+
+#: ../../source/docs/3/colorized_river_basin_map.rst:177
+msgid ""
+"We want to transfer the color id for the basin to all the rivers contained "
+"within it. Open the :menuselection:`Vector general --> Join attributes by "
+"location` tool from the Processing Toolbox."
+msgstr ""
+
+#: ../../source/docs/3/colorized_river_basin_map.rst:182
+msgid ""
+"Here we want to select ``rivers_clipped`` as the layer to :guilabel:`Join to"
+" features in` and ``basins_with_color`` as the layer for :guilabel:`By "
+"comparing to`. In the :guilabel:`Fields to add` section, click the "
+":guilabel:`...` button and select the ``color_id`` field. Save the output to"
+" the ``data.gpkg`` geopackage as the layer ``rivers_with_color``. Click "
+":guilabel:`Run`."
+msgstr ""
+
+#: ../../source/docs/3/colorized_river_basin_map.rst:187
+msgid ""
+"Once the processing finishes, a new layer ``rivers_with_color`` will be "
+"loaded to the :guilabel:`Layers` panel. Now it is time to apply the "
+"symbology. Select the ``admin_boundary_fixed`` layer and click the "
+":guilabel:`Open Layer Styling Panel` button in the :guilabel:`Layers` panel."
+" Change the color to black."
+msgstr ""
+
+#: ../../source/docs/3/colorized_river_basin_map.rst:192
+msgid ""
+"Next, select the ``rivers_with_color`` layer and select the ``Categorized`` "
+"renderer."
+msgstr ""
+
+#: ../../source/docs/3/colorized_river_basin_map.rst:197
+msgid ""
+"Select ``color_id`` as the :guilabel:`Value` and click :guilabel:`Classify`."
+" You will see the rivers in different basins will be assigned a different "
+"color."
+msgstr ""
+
+#: ../../source/docs/3/colorized_river_basin_map.rst:204
+msgid ""
+"If you are not happy with the randomly chosen colors, you can click the "
+":guilabel:`Symbol` for individual values in the list below and choose your "
+"own color."
+msgstr ""
+
+#: ../../source/docs/3/colorized_river_basin_map.rst:206
+msgid ""
+"The default lines are too thick for our map. Let's change it. Hold the "
+":kbd:`Shift` key and select all the symbols in the list. Click the "
+":guilabel:`Symbol` to open the :guilabel:`Symbol Settings`."
+msgstr ""
+
+#: ../../source/docs/3/colorized_river_basin_map.rst:211
+msgid ""
+"Click on :guilabel:`Simple Line` and change the stroke width to ``0.1``. The"
+" map will look much better now."
+msgstr ""
+
+#: ../../source/docs/3/colorized_river_basin_map.rst:216
+msgid ""
+"We can improve the map by assigning different widths to the rivers based on "
+"their size. The ``rivers_with_color`` layer has a field ``ORD_STRA`` "
+"containing the value of the `Strahler Order "
+"<https://en.wikipedia.org/wiki/Strahler_number>`_ of the river. The larger "
+"the number, the bigger the river. We will use the Assistant to help us use "
+"the value of the strahler order to an appropriate stroke width. Click the "
+":guilabel:`Data defined override` button next to :guilabel:`Stroke width` "
+"and select :guilabel:`Assistant...`."
+msgstr ""
+
+#: ../../source/docs/3/colorized_river_basin_map.rst:221
+msgid ""
+"In the :guilabel:`Input` section, select the ``ORD_STRA`` field as the "
+":guilabel:`Source` with :guilabel:`Values from` ``1`` to :guilabel:`to` "
+"``6``. In the :guilabel:`Output` section, choose :guilabel:`Size from` as "
+"``0.05`` and :guilabel:`to` as ``0.2``. The map will update dynamically as "
+"you enter the values. You may have to adjust these values depending on your "
+"region. Once you are happy with the map, click the :guilabel:`Back` button."
+msgstr ""
+
+#: ../../source/docs/3/colorized_river_basin_map.rst:226
+msgid ""
+"You will notice that the :guilabel:`Data defined override` button for "
+":guilabel:`Stroke width` is now yellow, indicating an active override has "
+"been applied to this setting."
+msgstr ""
+
+#: ../../source/docs/3/colorized_river_basin_map.rst:231
+msgid ""
+"Our colorized river basin map is now ready. Let's put this map in a layout "
+"so we can export a high-resolution version with other map elements. Go to "
+":menuselection:`Project --> New Print Layout...`. When prompted to enter a "
+"name, leave it blank and click :guilabel:`OK`."
+msgstr ""
+
+#: ../../source/docs/3/colorized_river_basin_map.rst:236
+msgid ""
+"In the :guilabel:`Layout 1` window, right-click on the blank canvas and "
+"choose :guilabel:`Page Properties...`."
+msgstr ""
+
+#: ../../source/docs/3/colorized_river_basin_map.rst:241
+msgid ""
+"Choose ``A4`` as the :guilabel:`Size`. Change the :guilabel:`Background` "
+"color to black."
+msgstr ""
+
+#: ../../source/docs/3/colorized_river_basin_map.rst:246
+msgid "Go to :menuselection:`Add Item --> Add Map`."
+msgstr ""
+
+#: ../../source/docs/3/colorized_river_basin_map.rst:251
+msgid ""
+"Hold the left mouse button and select a region on the canvas where you want "
+"the map to be placed."
+msgstr ""
+
+#: ../../source/docs/3/colorized_river_basin_map.rst:256
+msgid ""
+"Once the map appears, scroll down in the :guilabel:`Item Properties` tab and"
+" turn off the :guilabel:`Background`."
+msgstr ""
+
+#: ../../source/docs/3/colorized_river_basin_map.rst:263
+msgid ""
+"If you do not see the :guilabel:`Item Properties` tab or close it by "
+"accident, you can get it back by going to :menuselection:`View --> Panels "
+"--> Item Properties` in the Layout menu."
+msgstr ""
+
+#: ../../source/docs/3/colorized_river_basin_map.rst:265
+msgid ""
+"Let's adjust the map extents. Click on the :guilabel:`Interactively Edit Map"
+" Extent` button and then use the mouse to pan the map. You can also use your"
+" scroll wheel to adjust the zoom. If you want more finer control on the "
+"Zoom, adjust the :guilabel:`Scale` value manually. Repeat till you are happy"
+" with the map placement."
+msgstr ""
+
+#: ../../source/docs/3/colorized_river_basin_map.rst:270
+msgid ""
+"Next we will add a QGIS logo to the map. Go to :menuselection:`Add Item --> "
+"Add Picture`."
+msgstr ""
+
+#: ../../source/docs/3/colorized_river_basin_map.rst:275
+msgid ""
+"Draw a rectangle where you want to place the logo. In the :guilabel:`Item "
+"Properties` dialog, locate the :guilabel:`logos` icon group. Select the "
+"``Made with QGIS`` logo."
+msgstr ""
+
+#: ../../source/docs/3/colorized_river_basin_map.rst:280
+msgid ""
+"Next, we will add a label with data credits. Go to :menuselection:`Add Item "
+"--> Add Label`. Enter the text for data credits and adjust the font and "
+"label alignment."
+msgstr ""
+
+#: ../../source/docs/3/colorized_river_basin_map.rst:285
+msgid ""
+"Once you are ready to export the results, go to :menuselection:`Layout --> "
+"Export as Image...`. Browse to a folder on your computer where you want to "
+"save the PNG image and enter the name ``river_basins.png``."
+msgstr ""
+
+#: ../../source/docs/3/colorized_river_basin_map.rst:290
+msgid ""
+"Choose ``300 dpi`` as the :guilabel:`Export resolution` and click "
+":guilabel:`Save`."
+msgstr ""
+
+#: ../../source/docs/3/colorized_river_basin_map.rst:295
+msgid ""
+"Once the export finishes, you will have your final map image at the chosen "
+"location."
+msgstr ""
+
+#: ../../source/docs/3/colorized_river_basin_map.rst:300
+msgid ""
+"Here's the final PNG image that we created using QGIS and open datasets."
+msgstr ""
