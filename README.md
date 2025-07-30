@@ -115,6 +115,7 @@ We prefer the following style while writing the tutorials.
 | Keyboard shortcuts                         | ``` kbd:`Ctrl+L` ``` |
 | Layer and file names                       | ``` ``layer_name`` ``` |
 | Text input by the user                     | ``` ``value`` ```| 
+| External web links                         | ``` `name <url>`_ ```
 
 
 License
