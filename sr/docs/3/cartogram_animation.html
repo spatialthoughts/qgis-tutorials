@@ -1,0 +1,624 @@
+<!DOCTYPE html>
+
+<html lang="sr" data-content_root="../../">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Kreiranje animiranog kartograma (QGIS3) &#8212; QGIS Tutorials and Tips</title>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-sphinx.css?v=0bf093e7" />
+    <script src="../../_static/documentation_options.js?v=7e8936b6"></script>
+    <script src="../../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/translations.js?v=552f857c"></script>
+    <link rel="search" title="Претрага" href="../../search.html" />
+    <link rel="next" title="Basic Network Visualization and Routing (QGIS3)" href="basic_network_analysis.html" />
+    <link rel="prev" title="Izrada interaktivnih mapa otkrivanja (QGIS3)" href="interactive_reveal_maps.html" />
+
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<script type="text/javascript" src="../../_static/js/jquery-1.12.4.min.js"></script>
+<script type="text/javascript" src="../../_static/js/jquery-fix.js"></script>
+<script type="text/javascript" src="../../_static/bootstrap-3.4.1/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="../../_static/bootstrap-sphinx.js"></script>
+
+
+<!-- Cookie Notice -->
+<!-- Script from https://github.com/AOEpeople/cookie-notice -->
+<script type="text/javascript" src="../../_static/cookie.notice.min.js"></script>
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-B1WQ7B80XJ"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-B1WQ7B80XJ');
+</script>
+
+
+  </head><body>
+
+  <div id="navbar" class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="../../index.html">
+          QGIS Tutorials and Tips</a>
+        <span class="navbar-text navbar-version pull-left"><b>v1</b></span>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="../../index.html">Tutorials List <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"><ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="making_a_map.html">Making a Map (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="working_with_attributes.html">Working with Attributes (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="importing_spreadsheets_csv.html">Importing Spreadsheets or CSV files (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="basic_vector_styling.html">Basic Vector Styling (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="calculating_line_lengths.html">Izračunavanje dužina linija i statistika (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="raster_styling_and_analysis.html">Basic Raster Styling and Analysis (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="raster_mosaicing_and_clipping.html">Raster Mosaicing and Clipping (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="working_with_terrain.html">Working with Terrain Data (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="working_with_wms.html">Working with WMS Data (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="working_with_projections.html">Working with Projections (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="georeferencing_basics.html">Georeferencing Topo Sheets and Scanned Maps (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="advanced_georeferencing.html">Georeferenciranje aerosnimaka (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="digitizing_basics.html">Digitizing Map Data (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="performing_table_joins.html">Performing Table Joins (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="performing_spatial_joins.html">Performing Spatial Joins (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="performing_spatial_queries.html">Performing Spatial Queries (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="nearest_neighbor_analysis.html">Nearest Neighbor Analysis (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="sampling_raster_data.html">Sampling Raster Data using Points or Polygons (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="calculating_raster_area.html">Calculating Raster Area (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="creating_heatmaps.html">Creating Heatmaps (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="animating_time_series.html">Animating Time Series Data (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="handling_invalid_geometries.html">Handling Invalid Geometries (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="advanced_raster_analysis.html">Napredna rasterska analiza (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="interpolating_point_data.html">Interpolating Point Data (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="batch_processing.html">Batch Processing using Processing Framework (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="processing_graphical_modeler.html">Automating Complex Workflows using Processing Modeler (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="automating_map_creation.html">Automating Map Creation with Print Layout Atlas (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="multi_criteria_overlay.html">Multi Criteria Overlay Analysis (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="vector_styling_expressions.html">Osnovno filtriranje i stilizovanje pomoću izraza (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="block_world_styling.html">Kreiranje mape sveta u bloku (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="river_styling_expressions.html">Stilizovanje rečne mreže pomoću izraza (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="contour_3d_styling.html">Stilizovanje kontura u 3D (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="isometric_buildings.html">Kreiranje izometrijskih zgrada (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="interactive_canvas_maps.html">Izrada interaktivnih mapa na platnu (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="interactive_reveal_maps.html">Izrada interaktivnih mapa otkrivanja (QGIS3)</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Kreiranje animiranog kartograma (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="basic_network_analysis.html">Basic Network Visualization and Routing (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="origin_destination_matrix.html">Locating Nearest Facility with Origin-Destination Matrix (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="service_area_analysis.html">Service Area Analysis using Openrouteservice (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="travel_time_analysis.html">Travel Time Analysis with Uber Movement (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="areal_mean_rainfall.html">Calculating Areal Mean Rainfall (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="colorized_river_basin_map.html">Kreiranje karte rečnog sliva u boji (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="creating_landuse_map.html">Kreiranje mape korišćenja zemljišta (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="calculating_intersection_density.html">Calculating Street Intersection Density (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="landuse_buffer.html">Određivanje zaštitnih zona korišćenja zemljišta (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="solidwaste_mapping.html">Mapiranje količina odloženog otpada (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="getting_started_with_pyqgis.html">Getting Started With Python Programming (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="processing_algorithms_pyqgis.html">Running Processing Algorithms via Python (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="custom_python_functions.html">Korišćenje prilagođenih Pajton izraznih funkcija (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="processing_python_scripts.html">Writing Python Scripts for Processing Framework (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="building_a_python_plugin.html">Building a Python Plugin (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="processing_python_plugin.html">Building a Processing Plugin (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../running_qgis_jobs.html">Running and Scheduling QGIS Processing Jobs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="web_mapping_with_qgis2web.html">Web Mapping with QGIS2Web (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../creating_basemaps_with_qtiles.html">Creating Basemaps with QTiles</a></li>
+<li class="toctree-l1"><a class="reference internal" href="using_plugins.html">Using Plugins (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../downloading_osm_data.html">Searching and Downloading OpenStreetMap Data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../learning_resources.html">QGIS Learning Resources</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../credits.html">Data Credits</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../batch_processing.html">Batch Processing using Processing Framework (QGIS2)</a></li>
+</ul>
+</ul>
+</li>
+              
+            
+            
+              
+                
+  <li>
+    <a href="interactive_reveal_maps.html" title="Previous Chapter: Izrada interaktivnih mapa otkrivanja (QGIS3)"><span class="glyphicon glyphicon-chevron-left visible-sm"></span><span class="hidden-sm hidden-tablet">&laquo; Izrada intera...</span>
+    </a>
+  </li>
+  <li>
+    <a href="basic_network_analysis.html" title="Next Chapter: Basic Network Visualization and Routing (QGIS3)"><span class="glyphicon glyphicon-chevron-right visible-sm"></span><span class="hidden-sm hidden-tablet">Basic Network... &raquo;</span>
+    </a>
+  </li>
+              
+            
+            
+
+            
+
+            
+              <li class="hidden-sm"></li>
+            
+          </ul>
+
+          
+            
+<form class="navbar-form navbar-right" action="../../search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+      <div class="col-md-3">
+        <div id="sidebar" class="bs-sidenav" role="complementary"><h4>Author</h4>
+<p><a href="https://www.linkedin.com/in/spatialthoughts/"><img src="../../_static/ujaval.png">Ujaval Gandhi</a></p>
+
+<hr>
+<p>Want to learn QGIS in a structured way? Check out <a href="https://spatialthoughts.com/" target="_blank">Spatial Thoughts</a> for more learning materials and instructor-led online programs with QGIS.org certification.</p>
+
+<hr>
+<p>These tutorials are also available in many other languages. Please see <a href="https://www.qgistutorials.com/en/docs/introduction.html#translations" target="_blank">translations</a> page.
+</p>
+        </div>
+      </div>
+    <div class="body col-md-9 content" role="main">
+      
+
+  <section id="creating-an-animated-cartogram-qgis3">
+<h1>Kreiranje animiranog kartograma (QGIS3)<a class="headerlink" href="#creating-an-animated-cartogram-qgis3" title="Link to this heading">¶</a></h1>
+<p>Kartogram je vrsta vizuelizacije mape gde je oblik svake karakteristike iskrivljen proporcionalno promenljivoj. Kartogrami olakšavaju uočavanje velikih varijacija u podacima. Najjednostavniji metod za kreiranje kartograma je skaliranje veličine svakog regiona prema promenljivoj. Ovaj metod zadržava originalni oblik poligona i menja samo veličinu. Oni su poznati kao „Nesusedni izomorfni kartogrami &lt;<a class="reference external" href="https://en.wikipedia.org/wiki/Cartogram#Non-contiguous_isomorphic_cartograms">https://en.wikipedia.org/wiki/Cartogram#Non-contiguous_isomorphic_cartograms</a>&gt;`_. U ovom tutorijalu ćemo naučiti kako da koristimo QGIS izraze za kreiranje kartograma i kako da koristimo Temporalni kontroler za kreiranje animacije koja postepeno transformiše karakteristike u ciljanu veličinu.</p>
+<p>Ovaj tutorijal je nadogradjen na <a class="reference external" href="https://www.youtube.com/watch?v=qxKD6wcFUcE">Hans van der Kvastov odličan tutorijal za kartograme</a>. Formula za faktor skaliranja koja se ovde koristi je iz originalnog rada <a class="reference external" href="https://doi.org/10.1111/j.0033-0124.1976.00371.x">Noncontiguous Area Cartograms</a> autorke Džudi M. Olson.</p>
+<p>Takođe možete pogledati moj YouTube video <a class="reference external" href="https://www.youtube.com/watch?v=4Rtwqv_z-F4">QGIS Expressions: Hidden Gems and Unexpected Possibilities</a> koji objašnjava koncepte koji stoje iza ovog tutorijala.</p>
+<section id="overview-of-the-task">
+<h2>Pregled zadatka<a class="headerlink" href="#overview-of-the-task" title="Link to this heading">¶</a></h2>
+<p>Uzećemo sloj država u SAD i kreirati animirani kartogram skaliranjem svake države prema broju stanovnika. Dobijena mapa će imati površinu svake države proporcionalnu njenom broju stanovnika.</p>
+<blockquote>
+<div><img alt="../../_images/output.gif" class="align-center" src="../../_images/output.gif" />
+</div></blockquote>
+</section>
+<section id="get-the-data">
+<h2>Dobijte podatke<a class="headerlink" href="#get-the-data" title="Link to this heading">¶</a></h2>
+<p>Zavod za popis stanovništva Sjedinjenih Država &lt;<a class="reference external" href="https://www.census.gov/">https://www.census.gov/</a>&gt;`_ pruža kartografske datoteke granica zajedno sa demografskim skupovima podataka. Preuzećemo podatke i obraditi ih kako bismo kreirali sloj podataka pogodan za naš zadatak.</p>
+<ol class="arabic simple">
+<li><p>Posetite stranicu sa podacima „Kartografske granične datoteke - Šejpfajl &lt;<a class="reference external" href="https://www.census.gov/geographies/mapping-files/time-series/geo/carto-boundary-file.html">https://www.census.gov/geographies/mapping-files/time-series/geo/carto-boundary-file.html</a>&gt;”_ na veb-sajtu Biroa za popis stanovništva SAD. Pomerite se nadole i preuzmite šejpfajl država „cb_2018_us_state_20m.zip”. Ovaj šejpfajl sadrži poligone država koji su nam potrebni za vizuelizaciju.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/data19.png" class="align-center" src="../../_images/data19.png" />
+</div></blockquote>
+<ol class="arabic simple" start="2">
+<li><p>Državni poligoni nemaju nikakve demografske podatke. Ove podatke je potrebno preuzeti odvojeno i spojiti sa shapefile-om za upotrebu u GIS-u. Posetite stranicu „Ukupan broj stanovnika države i komponente promene: 2020-2023 &lt;<a class="reference external" href="https://www.census.gov/data/tables/time-series/demo/popest/2020s-state-total.html">https://www.census.gov/data/tables/time-series/demo/popest/2020s-state-total.html</a>&gt;“_ i preuzmite skup podataka <em>Godišnje procene stanovništva, procenjene komponente promene stanovništva i stope komponenti promene stanovništva za Sjedinjene Države, Države, Distrikt Kolumbija i Portoriko: od 1. aprila 2020. do 1. jula 2023.</em> koji će biti preuzet kao „NST-EST2023-ALLDATA.csv“.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/data23.png" class="align-center" src="../../_images/data23.png" />
+</div></blockquote>
+<ol class="arabic simple" start="3">
+<li><p>Otvorite QGIS. Pronađite datoteku <code class="docutils literal notranslate"><span class="pre">cb_2018_us_state_20m.zip</span></code> u QGIS <span class="guilabel">Browser</span>-u i proširite je. Prevucite i ispustite sloj <code class="docutils literal notranslate"><span class="pre">cb_2018_us_state_20m.shp</span></code> na platno.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/data33.png" class="align-center" src="../../_images/data33.png" />
+</div></blockquote>
+<ol class="arabic simple" start="4">
+<li><p>Novi sloj <code class="docutils literal notranslate"><span class="pre">cb_2018_us_state_20m</span></code> biće dodat na panel <span class="guilabel">Slojevi</span>. Zatim ćemo učitati CSV datoteku. Kliknite na dugme <span class="guilabel">Otvori menadžer izvora podataka</span>.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/data43.png" class="align-center" src="../../_images/data43.png" />
+</div></blockquote>
+<ol class="arabic simple" start="5">
+<li><p>Pređite na karticu <span class="guilabel">Razgraničeni tekst</span>. Kliknite na <span class="guilabel">…</span> pored <span class="guilabel">Ime datoteke</span> i pregledajte preuzetu datoteku <code class="docutils literal notranslate"><span class="pre">NST-EST2023-ALLDATA.csv</span></code>. Proširite odeljak <span class="guilabel">Definicija geometrije</span> i izaberite <code class="docutils literal notranslate"><span class="pre">Bez</span> <span class="pre">geometrije</span> <span class="pre">(samo</span> <span class="pre">tabela</span> <span class="pre">atributa)</span></code>. Kliknite na <span class="guilabel">Dodaj</span>.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/data53.png" class="align-center" src="../../_images/data53.png" />
+</div></blockquote>
+<ol class="arabic simple" start="6">
+<li><p>Novi sloj <code class="docutils literal notranslate"><span class="pre">NST-EST2023-ALLDATA</span></code> biće dodat u panel <span class="guilabel">Slojevi</span>. Kliknite desnim tasterom miša i izaberite <span class="guilabel">Otvori tabelu atributa</span>. Ova tabela sadrži broj stanovnika u koloni <code class="docutils literal notranslate"><span class="pre">POPESTIMATE2023</span></code>. Svaka država ima jedinstveni ID u koloni <code class="docutils literal notranslate"><span class="pre">STATE</span></code> koji ćemo koristiti za spajanje ove tabele sa slojem poligona.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/data63.png" class="align-center" src="../../_images/data63.png" />
+</div></blockquote>
+<ol class="arabic simple" start="7">
+<li><p>Kliknite desnim tasterom miša na sloj <code class="docutils literal notranslate"><span class="pre">cb_2018_us_state_20m</span></code> i izaberite <span class="guilabel">Otvori tabelu atributa</span>. ID-ovi država se nalaze u koloni <code class="docutils literal notranslate"><span class="pre">GEOID</span></code>. Iako su brojevi isti, formatirani su kao dvocifreni broj dopunjen 0. Da bismo ih uparili sa kolonom <code class="docutils literal notranslate"><span class="pre">STATE</span></code> iz naše tabele populacije, potrebni su nam slično formatirani brojevi. Izaberite <code class="docutils literal notranslate"><span class="pre">NST-EST2023-ALLDATA</span></code>. Idite na <span class="menuselection">Obrada ‣ Alatke</span>. Potražite i pronađite algoritam <span class="menuselection">Vektorska tabela ‣ Kalkulator polja</span>. Dvaput kliknite da biste ga otvorili.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/data73.png" class="align-center" src="../../_images/data73.png" />
+</div></blockquote>
+<ol class="arabic simple" start="8">
+<li><p>U dijalogu <span class="guilabel">Kalkulator polja</span>, izaberite <code class="docutils literal notranslate"><span class="pre">NST-EST2023-ALLDATA</span></code> kao <span class="guilabel">Ulazni sloj</span>. Unesite <code class="docutils literal notranslate"><span class="pre">GEOID</span></code> kao <span class="guilabel">Naziv polja</span> i podesite <span class="guilabel">Tip polja rezultata</span> na <code class="docutils literal notranslate"><span class="pre">Tekst</span> <span class="pre">(string)</span></code>. Sada ćemo uzeti brojeve iz polja <code class="docutils literal notranslate"><span class="pre">STATE</span></code> i koristiti funkciju <code class="docutils literal notranslate"><span class="pre">lpad()</span></code> da kreiramo dvocifreni string dopunjen nulama. Unesite sledeći izraz i kliknite na <span class="guilabel">Pokreni</span>.</p></li>
+</ol>
+<blockquote>
+<div><div class="highlight-none notranslate"><div class="highlight"><pre><span></span>lpad(&quot;STATE&quot;, 2, &#39;0&#39;)
+</pre></div>
+</div>
+<img alt="../../_images/data82.png" class="align-center" src="../../_images/data82.png" />
+</div></blockquote>
+<ol class="arabic simple" start="9">
+<li><p>Novi sloj „Izračunato“ biće dodat na panel :guilabel:„Slojevi“. Kliknite desnim tasterom miša i izaberite :guilabel:„Otvori tabelu atributa“. Imajte na umu da novokreirana kolona „GEOID“ ima ispravno formatirane identifikatore. Sada možemo da koristimo ovo polje da spojimo ovu tabelu sa slojem stanja. Potražite i pronađite algoritam :menuselection:„Vektorski opšti –&gt; Spoji atribute po vrednosti polja“. Dvaput kliknite da biste ga otvorili.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/data92.png" class="align-center" src="../../_images/data92.png" />
+</div></blockquote>
+<ol class="arabic simple" start="10">
+<li><p>U dijalogu <span class="guilabel">Spoji atribute po vrednosti polja</span>, izaberite <code class="docutils literal notranslate"><span class="pre">cb_2018_us_state_20m</span></code> kao <span class="guilabel">Ulazni sloj</span>. Izaberite <code class="docutils literal notranslate"><span class="pre">GEOID</span></code> kao <span class="guilabel">Polje tabele</span>. Za <span class="guilabel">Ulazni sloj 2</span>, izaberite našu tabelu <code class="docutils literal notranslate"><span class="pre">Izračunato</span></code> i <span class="guilabel">Polje tabele 2</span> izaberite <code class="docutils literal notranslate"><span class="pre">GEOID</span></code>. Tabela ima mnogo kolona, ali nam je potrebna samo populacija za poslednju godinu. Kliknite na dugme <span class="guilabel">…</span> za <span class="guilabel">Polja sloja 2 za kopiranje</span> i izaberite samo polje <code class="docutils literal notranslate"><span class="pre">POPESTIMATE2023</span></code>. Ostavite ostale opcije na njihove podrazumevane vrednosti i kliknite na <span class="guilabel">Pokreni</span>.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/data102.png" class="align-center" src="../../_images/data102.png" />
+</div></blockquote>
+<ol class="arabic simple" start="11">
+<li><p>Novi sloj „Spojeni sloj“ biće dodat na panel <span class="guilabel">Slojevi</span>. Pre nego što upotrebimo ovaj sloj za naš kartogram, hajde da ga ponovo projektujemo na projektovani CRS. Potražite i pronađite algoritam <span class="menuselection">Vektorski general ‣ Reprojektuj sloj</span>. Dvaput kliknite da biste ga otvorili.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/data114.png" class="align-center" src="../../_images/data114.png" />
+</div></blockquote>
+<ol class="arabic simple" start="12">
+<li><p>U dijalogu <span class="guilabel">Ponovo projektuj sloj</span>, izaberite <code class="docutils literal notranslate"><span class="pre">Joined</span> <span class="pre">layer</span></code> kao <span class="guilabel">Ulazni sloj</span>. Za <span class="guilabel">Ciljni CRS</span>, kliknite na dugme <span class="guilabel">Izaberi CRS</span>. Potražite CRS <code class="docutils literal notranslate"><span class="pre">North_America_Albers_Equal_Area_Conic</span></code> i izaberite ga. Ovo je naš poslednji sloj, pa ćemo ga sačuvati na disk. Kliknite na dugme <span class="guilabel">…</span> pored <span class="guilabel">Ponovo projektovano</span> i izaberite <span class="guilabel">Sačuvaj u datoteku…</span>.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/data123.png" class="align-center" src="../../_images/data123.png" />
+</div></blockquote>
+<ol class="arabic simple" start="13">
+<li><p>Unesite naziv sloja kao <code class="docutils literal notranslate"><span class="pre">us_states_with_population.gpkg</span></code> i izaberite <span class="guilabel">Sačuvaj</span>. Kliknite na <span class="guilabel">Pokreni</span> da biste kreirali GeoPackage datoteku sa reprojektovanim podacima.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/data132.png" class="align-center" src="../../_images/data132.png" />
+</div></blockquote>
+<p>Ovaj sloj ćemo koristiti u sledećem odeljku. Radi lakšeg korišćenja, možete direktno preuzeti kopiju gornjeg sloja odozdo:</p>
+<p><a class="reference external" href="https://www.qgistutorials.com/downloads/us_states_with_population.gpkg">us_states_with_population.gpkg</a></p>
+<p>Izvor podataka <span id="id1">[USCONSUS]</span></p>
+</section>
+<section id="procedure">
+<h2>Procedura<a class="headerlink" href="#procedure" title="Link to this heading">¶</a></h2>
+<ol class="arabic simple">
+<li><p>Pokrenite novi QGIS projekat. Pronađite datoteku <code class="docutils literal notranslate"><span class="pre">us_states_with_population.gpkg</span></code> u <span class="guilabel">Pregledaču</span> i proširite je. Prevucite i ispustite sloj <code class="docutils literal notranslate"><span class="pre">us_states_with_population</span></code> na prazno platno.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/140.png" class="align-center" src="../../_images/140.png" />
+</div></blockquote>
+<ol class="arabic simple" start="2">
+<li><p>Novi sloj <code class="docutils literal notranslate"><span class="pre">us_states_with_population</span></code> biće dodat u panel <span class="guilabel">Layers</span>. Kliknite desnim tasterom miša i izaberite <span class="guilabel">Open Attribute Table</span>. Za naš kartogram, potrebno je da koristimo gustinu naseljenosti kao promenljivu. Koristićemo vrednosti populacije iz polja <code class="docutils literal notranslate"><span class="pre">POPESTIMATE2023</span></code>. Zatvorite tabelu atributa.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/227.png" class="align-center" src="../../_images/227.png" />
+</div></blockquote>
+<ol class="arabic simple" start="3">
+<li><p>Potražite i pronađite algoritam <span class="menuselection">Vector table ‣ Field calculator</span> iz alata za obradu. Dvaput kliknite da biste ga otvorili.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/319.png" class="align-center" src="../../_images/319.png" />
+</div></blockquote>
+<ol class="arabic simple" start="4">
+<li><p>U dijalogu <span class="guilabel">Kalkulator polja</span>, izaberite <code class="docutils literal notranslate"><span class="pre">us_states_with_population</span></code> kao <span class="guilabel">Ulazni sloj</span>. Unesite <code class="docutils literal notranslate"><span class="pre">densiti</span></code> kao <span class="guilabel">Naziv polja</span>. Unesite sledeći izraz da biste izračunali gustinu. Pošto funkcija <code class="docutils literal notranslate"><span class="pre">area(&#64;geometry)</span></code> izračunava površinu u jedinici CRS-a (koja je u metrima), primenjujemo faktor konverzije da bismo je konvertovali u kvadratne kilometre. Kliknite na <span class="guilabel">Pokreni</span>.</p></li>
+</ol>
+<blockquote>
+<div><div class="highlight-none notranslate"><div class="highlight"><pre><span></span>1000*1000* &quot;POPESTIMATE2023&quot; /
+area(@geometry)
+</pre></div>
+</div>
+<img alt="../../_images/48.png" class="align-center" src="../../_images/48.png" />
+</div></blockquote>
+<ol class="arabic simple" start="5">
+<li><p>Kliknite na dugme <span class="guilabel">…</span> pored <span class="guilabel">Izračunato</span> i izaberite <span class="guilabel">Sačuvaj u datoteku…</span>. Unesite naziv sloja kao <code class="docutils literal notranslate"><span class="pre">us_states_population_density.gpkg</span></code> i izaberite <span class="guilabel">Sačuvaj</span>. Kliknite na <span class="guilabel">Pokreni</span>.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/58.png" class="align-center" src="../../_images/58.png" />
+</div></blockquote>
+<ol class="arabic simple" start="6">
+<li><p>Novi sloj <code class="docutils literal notranslate"><span class="pre">us_states_population_density</span></code> biće dodat na panel <span class="guilabel">Layers</span>. Kliknite desnim tasterom miša i izaberite <span class="guilabel">Open Attribute Table</span>. Potrebno je da izaberemo <strong>Anchor</strong> obeležje u odnosu na koje će se skalirati sve ostale karakteristike. Idealno bi bilo da izaberete obeležje sa najvećom vrednošću promenljive koju želite da koristite za kartogram. Ovo će osigurati da nema preklapajućih područja. Dvaput kliknite na zaglavlje kolone <span class="guilabel">density</span> da biste sortirali tabelu po gustini. Primetićete da je najveća vrednost gustine u našem skupu podataka prilično velika u poređenju sa drugim vrednostima i da pripada prilično maloj državi. Ovo će rezultirati time da sve karakteristike budu skalirane na veoma male veličine. Možemo izabrati obeležje druge najveće gustine koje ima relativno veliku površinu i čija je gustina uporediva sa drugim karakteristikama.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/68.png" class="align-center" src="../../_images/68.png" />
+</div></blockquote>
+<ol class="arabic simple" start="7">
+<li><p>U kartogramima površine, faktor skaliranja određuje koliko je smanjena površina objekta. Moramo smanjiti površinu svakog objekta tako da gustina naseljenosti objekta bude ista kao gustina naseljenosti sidrenog objekta. Formula za faktor skaliranja je odnos kvadratnog korena vrednosti objekta i kvadratnog korena vrednosti sidrenog objekta. Otvorite algoritam <span class="menuselection">Vektorska tabela ‣ Kalkulator polja</span> iz kutije sa alatkama za obradu. U dijalogu <span class="guilabel">Kalkulator polja</span>, izaberite <code class="docutils literal notranslate"><span class="pre">us_states_population_density</span></code> kao <span class="guilabel">Unosni sloj</span>. Unesite <code class="docutils literal notranslate"><span class="pre">scale_factor</span></code> kao <span class="guilabel">Naziv polja</span>. Unesite sledeći izraz da biste izračunali faktor skaliranja. Izraz izračunava odnos kvadratnog korena gustine objekta i kvadratnog korena gustine druge najveće vrednosti gustine. Kliknite na dugme <span class="guilabel">…</span> pored <span class="guilabel">Izračunato</span> i izaberite <span class="guilabel">Sačuvaj u datoteku…</span>. Unesite naziv sloja kao <code class="docutils literal notranslate"><span class="pre">us_states_scale_factor.gpkg</span></code> i izaberite <span class="guilabel">Sačuvaj</span>. Kliknite na <span class="guilabel">Pokreni</span>.</p></li>
+</ol>
+<blockquote>
+<div><div class="highlight-none notranslate"><div class="highlight"><pre><span></span>sqrt(&quot;density&quot;)/array_get(array_agg(
+   expression:=sqrt(&quot;density&quot;),
+   order_by:=sqrt(&quot;density&quot;)), -2)
+</pre></div>
+</div>
+<img alt="../../_images/78.png" class="align-center" src="../../_images/78.png" />
+</div></blockquote>
+<ol class="arabic simple" start="8">
+<li><p>Novi sloj <code class="docutils literal notranslate"><span class="pre">us_states_scale_factor</span></code> biće dodat u panel <span class="guilabel">Layers</span>. Kliknite desnim tasterom miša i izaberite <span class="guilabel">Open Attribute Table</span>. Polje <code class="docutils literal notranslate"><span class="pre">scale_factor</span></code> sada sadrži odnos kojim svaka karakteristika mora biti skalirana da bi imala istu gustinu naseljenosti kao i sidrena karakteristika.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/88.png" class="align-center" src="../../_images/88.png" />
+</div></blockquote>
+<ol class="arabic simple" start="9">
+<li><p>Za konačnu vizuelizaciju nam je potreban samo sloj <code class="docutils literal notranslate"><span class="pre">us_states_scale_factor</span></code>. Izaberite preostale slojeve, kliknite desnim tasterom miša i izaberite <span class="guilabel">Ukloni sloj</span>.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/98.png" class="align-center" src="../../_images/98.png" />
+</div></blockquote>
+<ol class="arabic simple" start="10">
+<li><p>Izaberite sloj „us_states_scale_factor“ i kliknite na dugme :guilabel:„Otvori panel za stilizovanje sloja“ u panelu :guilabel:„Slojevi“. Izaberite :guilabel:„Jednostavno popunjavanje“ i otvorite padajući selektor za :guilabel:„Tip sloja simbola“. Postavite :guilabel:„Tip sloja simbola“ na „Okvir: Jednostavna linija“ i izaberite :guilabel:„Boja“ po vašem izboru. Ovaj sloj simbola će biti referenca za našu mapu kada promenimo veličinu poligona.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/1012.png" class="align-center" src="../../_images/1012.png" />
+</div></blockquote>
+<ol class="arabic simple" start="11">
+<li><p>Kliknite na dugme <span class="guilabel">Dodaj sloj simbola (+)</span>. Biće dodat novi sloj simbola <span class="guilabel">Jednostavno popunjavanje</span>. Podesite <span class="guilabel">Boja popunjavanja</span> na istu boju kao i linije, a <span class="guilabel">Boja crtanja</span> na malo tamniju boju.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/1115.png" class="align-center" src="../../_images/1115.png" />
+</div></blockquote>
+<ol class="arabic simple" start="12">
+<li><p>Zatim, otvorite padajući selektor za <span class="guilabel">Tip sloja simbola</span> i izaberite <code class="docutils literal notranslate"><span class="pre">Generator</span> <span class="pre">geometrije</span></code> kao <span class="guilabel">Tip sloja simbola</span>. Generator geometrije nam omogućava da izmenimo geometriju za renderovanje pomoću izraza. Kliknite na dugme <span class="guilabel">Kreator izraza</span>.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/1213.png" class="align-center" src="../../_images/1213.png" />
+</div></blockquote>
+<ol class="arabic simple" start="13">
+<li><p>Koristićemo funkciju <cite>scale()</cite> koja menja veličinu date geometrije pomoću faktora skaliranja po X i Y osi. Za naš kartogram, želimo da promenimo veličinu svakog poligona prema odnosu njegove populacije i najveće populacije. Unesite sledeći izraz da biste primenili ovo skaliranje i kliknite na <span class="guilabel">OK</span>.</p></li>
+</ol>
+<blockquote>
+<div><div class="highlight-none notranslate"><div class="highlight"><pre><span></span>scale(
+   @geometry,
+   &quot;scale_factor&quot;,
+   &quot;scale_factor&quot;,
+   centroid(@geometry)
+)
+</pre></div>
+</div>
+<img alt="../../_images/1311.png" class="align-center" src="../../_images/1311.png" />
+</div></blockquote>
+<ol class="arabic simple" start="14">
+<li><p>Videćete da su poligoni država sada veličine prilagođene proporciji stanovništva svake države u odnosu na najveću populaciju. Mnoge velike države sa niskom gustinom naseljenosti sada su mnogo manje od svoje originalne veličine. Primetićete da su poligoni nepravilnih oblika van centra nakon skaliranja. To je zato što je sidrena tačka skaliranja težište geometrije, što je često reprezentativna tačka za poligon. Hajde da ažuriramo naš izraz da bismo ovo popravili. Kliknite na dugme <span class="guilabel">Kreator izraza</span>.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/1410.png" class="align-center" src="../../_images/1410.png" />
+</div></blockquote>
+<ol class="arabic simple" start="15">
+<li><p>Funkcija <cite>scale()</cite> uzima opcioni parametar za određivanje centralne tačke skaliranja. Koristićemo funkciju <cite>pole_of_inaccessibility()</cite> da pronađemo reprezentativnu sidrenu tačku za svaki poligon. Ovo je slično centroidu, ali je garantovano da je unutar poligona, dok centroid može biti van za određene oblike. Ažurirajte izraz kao što je prikazano ispod, koji izračunava pol nepristupačnosti geometrije sa malom vrednošću tolerancije i kliknite na <span class="guilabel">OK</span>.</p></li>
+</ol>
+<blockquote>
+<div><div class="highlight-none notranslate"><div class="highlight"><pre><span></span>scale(
+    @geometry,
+    &quot;scale_factor&quot;,
+    &quot;scale_factor&quot;,
+    pole_of_inaccessibility(@geometry, 100)
+)
+</pre></div>
+</div>
+<img alt="../../_images/1510.png" class="align-center" src="../../_images/1510.png" />
+</div></blockquote>
+<ol class="arabic simple" start="16">
+<li><p>Sada će skalirani poligoni imati mnogo bolji položaj. Vidimo još jedan problem. Mnogi objekti u sloju su <strong>Multipoligoni</strong>, tj. imaju više od jednog dela. Takvi objekti imaju 2 ili više poligona koji su deo iste geometrije. Sa našim trenutnim izrazom, oba su skalirana sa istom sidrenom tačkom izračunatom iz kombinovane geometrije. Ovo nije idealno. Na primer, veliki objekat sa više ostrva treba skalirati tako da svako ostrvo bude skalirano sa svojom centralnom tačkom. Da bismo ovo popravili, ažuriramo naš izraz da iterira preko svakog dela geometrije i skalira ga sa svojim centrom. Kliknite na dugme <span class="guilabel">Kreator izraza</span>.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/169.png" class="align-center" src="../../_images/169.png" />
+</div></blockquote>
+<ol class="arabic simple" start="17">
+<li><p>Ovde koristimo funkciju <cite>array_foreach()</cite> da bismo iterativno prešli preko svakog dela geometrije i generisali njihove skalirane verzije. Na kraju, funkcija <cite>collect_geometries()</cite> kombinuje svaki skalirani deo u jednu geometriju sa više poligona. Ažurirajte izraz kao što je prikazano ispod i kliknite na <span class="guilabel">OK</span>.</p></li>
+</ol>
+<blockquote>
+<div><div class="highlight-none notranslate"><div class="highlight"><pre><span></span>collect_geometries(
+    array_foreach(generate_series(1, @geometry_part_count),
+            scale(geometry_n(@geometry,@element),
+                    &quot;scale_factor&quot;,
+                    &quot;scale_factor&quot;,
+pole_of_inaccessibility(geometry_n(@geometry,@element), 100)
+            )
+    )
+)
+</pre></div>
+</div>
+<img alt="../../_images/1710.png" class="align-center" src="../../_images/1710.png" />
+</div></blockquote>
+<ol class="arabic simple" start="18">
+<li><p>Rezultat je mnogo bolje skaliranje za višedelne elemente.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/188.png" class="align-center" src="../../_images/188.png" />
+</div></blockquote>
+<ol class="arabic simple" start="19">
+<li><p>Naš kartogram je spreman. Ova mapa prikazuje koncentraciju stanovništva u istočnoj polovini SAD i upadljivo odsustvo stanovništva u državama zapadno od reke Misisipi.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/197.png" class="align-center" src="../../_images/197.png" />
+</div></blockquote>
+<ol class="arabic simple" start="20">
+<li><p>Možemo napraviti poboljšanu vizuelizaciju kreiranjem animacije koja polako transformiše originalni prikaz u konačnu veličinu. Kliknite na dugme <span class="guilabel">Vremenska kontrolna tabla</span> sa ikonom sata u <span class="guilabel">Traka za navigaciju mape</span>. Izaberite dugme <span class="guilabel">Animirana vremenska navigacija</span>.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/207.png" class="align-center" src="../../_images/207.png" />
+</div></blockquote>
+<ol class="arabic simple" start="21">
+<li><p>Podrazumevani <span class="guilabel">Opseg animacije</span> biće popunjen prozorom od 24 sata u koracima od 1 sata. Ovo je u redu za naš slučaj upotrebe jer ćemo dobiti 24 kadra animacije. Možete ovo podesiti ako želite sporiju/bržu animaciju. Kliknite desnim tasterom miša na sloj <code class="docutils literal notranslate"><span class="pre">us_states_with_population</span></code> i izaberite <span class="guilabel">Properties</span>.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/2112.png" class="align-center" src="../../_images/2112.png" />
+</div></blockquote>
+<ol class="arabic simple" start="22">
+<li><p>Izaberite karticu <span class="guilabel">Temporal</span> i omogućite <span class="guilabel">Dynamic Temporal Control</span>. Ovaj sloj će biti ažuriran pomoću izraza tako da ga ne moramo ovde konfigurisati. Samo izaberite <code class="docutils literal notranslate"><span class="pre">Redraw</span> <span class="pre">Layer</span> <span class="pre">Only</span></code> tako da se sloj osvežava nakon svakog vremenskog koraka i prikazuje sa ažuriranim vrednostima iz izraza.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/228.png" class="align-center" src="../../_images/228.png" />
+</div></blockquote>
+<ol class="arabic simple" start="23">
+<li><p>Hajde da ažuriramo naš izraz Generatora geometrije da koristi korake vremena animacije i postepeno skalira geometriju. Kliknite na dugme <span class="guilabel">Otvori panel za stilizovanje slojeva</span> u panelu <span class="guilabel">Slojevi</span>. Izaberite <span class="guilabel">Generator geometrije</span>, a zatim dugme <span class="guilabel">Kreator izraza</span>.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/236.png" class="align-center" src="../../_images/236.png" />
+</div></blockquote>
+<ol class="arabic simple" start="24">
+<li><p>Ovde želimo da počnemo sa faktorom skaliranja od 1 i završimo sa konačnom vrednošću faktora skaliranja za karakteristiku u polju <code class="docutils literal notranslate"><span class="pre">scale_factor</span></code>. Koristimo funkciju <cite>scale_linear()</cite> koja uzima vreme trenutnog vremenskog koraka i izračunava faktor skaliranja koristeći vreme početka i završetka. Ažurirajte izraz kao što je prikazano ispod i kliknite na <span class="guilabel">OK</span>.</p></li>
+</ol>
+<blockquote>
+<div><div class="highlight-none notranslate"><div class="highlight"><pre><span></span>collect_geometries(
+    array_foreach(generate_series(1, @geometry_part_count),
+            scale(geometry_n(@geometry,@element),
+                    scale_linear(
+                            epoch(@map_start_time),
+                            epoch(@animation_start_time),
+                            epoch(@animation_end_time),
+                            1,
+                            &quot;scale_factor&quot;),
+                    scale_linear(
+                            epoch(@map_start_time),
+                            epoch(@animation_start_time),
+                            epoch(@animation_end_time),
+                            1,
+                            &quot;scale_factor&quot;),
+pole_of_inaccessibility(geometry_n(@geometry,@element), 100)
+            )
+    )
+)
+</pre></div>
+</div>
+<img alt="../../_images/247.png" class="align-center" src="../../_images/247.png" />
+</div></blockquote>
+<ol class="arabic simple" start="25">
+<li><p>Nazad u panelu <span class="guilabel">Temporal Controller</span>, kliknite na dugme <span class="guilabel">Play</span> da biste videli animaciju. Trebalo bi da vidite kako se oblik svakog poligona postepeno skalira nakon svakog kadra.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/257.png" class="align-center" src="../../_images/257.png" />
+</div></blockquote>
+<ol class="arabic simple" start="26">
+<li><p>Kada budete zadovoljni konfiguracijom, možemo da izvezemo animaciju. Kliknite na dugme <span class="guilabel">Izvezi animaciju</span>.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/266.png" class="align-center" src="../../_images/266.png" />
+</div></blockquote>
+<ol class="arabic simple" start="27">
+<li><p>U dijalogu <span class="guilabel">Izvoz animacije mape</span> kliknite na <span class="guilabel">…</span> pored <span class="guilabel">Izlazni direktorijum</span> i pregledajte bilo koju fasciklu na računaru. Zadržite sve ostale opcije na njihovim podrazumevanim vrednostima i kliknite na <span class="guilabel">Sačuvaj</span>.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/277.png" class="align-center" src="../../_images/277.png" />
+</div></blockquote>
+<ol class="arabic simple" start="28">
+<li><p>Pojedinačni kadrovi animacije biće izvezeni kao slike. Možemo da napravimo video ili animirani GIF od ovih kadrova. Preporučujem korišćenje veb stranice ezgif.com koja vam omogućava da lako kreirate GIF-ove od pojedinačnih slika. Posetite <a class="reference external" href="https://ezgif.com/maker">Ezgif Animated GIF Maker</a>. Pregledajte izvezene kadrove animacije i kliknite na <span class="guilabel">Otpremi datoteke!</span>.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/287.png" class="align-center" src="../../_images/287.png" />
+</div></blockquote>
+<ol class="arabic simple" start="29">
+<li><p>Konfigurišite opcije GIF-a podešavanjem <span class="guilabel">Vreme kašnjenja</span> na <code class="docutils literal notranslate"><span class="pre">5</span></code>. Označite efekat <span class="guilabel">okviri prelaznog pomeranja</span> i podesite <span class="guilabel">Kašnjenje postepenog pomeranja</span> i <span class="guilabel">Broj postepenog pomeranja</span> na <code class="docutils literal notranslate"><span class="pre">2</span></code>. Kliknite na <span class="guilabel">Napravi GIF!</span>/</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/296.png" class="align-center" src="../../_images/296.png" />
+</div></blockquote>
+<ol class="arabic simple" start="30">
+<li><p>Kliknite na dugme <span class="guilabel">sačuvaj</span> da biste preuzeli animaciju kao GIF datoteku.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/output.gif" class="align-center" src="../../_images/output.gif" />
+<img alt="../../_images/hawaii.gif" class="align-center" src="../../_images/hawaii.gif" />
+<img alt="../../_images/alaska.gif" class="align-center" src="../../_images/alaska.gif" />
+</div></blockquote>
+</section>
+</section>
+
+
+
+<!-- Turn on comments on only newer tutorials having 3/ in URL -->
+
+  <!-- Comment Section Powered by utterances -->
+<div id="comments">
+  <hr />
+  <p>If you want to give feedback or share your experience with this tutorial, please comment below. (requires GitHub account)</p>
+<script src="https://utteranc.es/client.js"
+        repo="spatialthoughts/qgis-tutorials"
+        issue-term="title"
+        label="comment"
+        theme="github-light"
+        crossorigin="anonymous"
+        async>
+</script>
+</div>
+
+
+    </div>
+      
+  </div>
+</div>
+
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+    </p>
+    <p>
+        &copy; Copyright 2025, Ujaval Gandhi.<br/>
+      Last updated on јул 31, 2025.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 8.2.3.<br/>
+    </p>
+  </div>
+</footer>
+<div class="container">
+  <p>This work is licensed under a <a href="http://creativecommons.org/licenses/by/4.0/deed.en_US">Creative Commons Attribution 4.0 International License</a>.<br>
+  You are free to use the material for any purpose as long as you give appropriate credit to the original author.</p>
+</div>
+
+<!-- Script fpr language switching. Largely adapted from https://github.com/pcav/faunalia-website -->
+<script>
+    var currentPage = 'docs/3/cartogram_animation.html'; // coming from sphinx, always without starting '/'
+    var currentLang = 'en';
+    $(document).ready(function(){
+
+        var search = new RegExp('\/[a-zA-Z_]{2,8}\/'+ currentPage, 'gi');
+        var langPlusPage = window.location.href.match(search);
+        // it's possible this is a index.html page called without 'index.html', try without the currentPage
+        if (langPlusPage==undefined){
+            search = new RegExp('\/[a-zA-Z_]{2,8}\/$', 'gi');
+            langPlusPage = window.location.href.match(search);
+        }
+
+        // it's possible this is an index.html page called without 'index.html', try removing index.html
+        if (langPlusPage==undefined){
+            currentPage = currentPage.replace('index.html','')
+            search = new RegExp('\/[a-zA-Z_]{2,8}\/'+ currentPage, 'gi');
+            langPlusPage = window.location.href.match(search);
+        }
+        // still no langPlugPage: stop, because the language swicher will misbehave 
+
+        if (langPlusPage == undefined || langPlusPage.length != 1){
+            alert('You hit an error, please report back to us.');
+            return;
+        }
+        langPlusPage = langPlusPage[0];
+        currentLang = langPlusPage.replace(currentPage, '');
+
+        $("#languages").val(currentLang.replace(/\//g,'')); // currentLang is something like '/nl/'
+
+        $("#languages").change(function() {
+            gotoLang($(this).val());
+        });
+
+    });
+
+    // load current page in a different language
+    function gotoLang(lang){
+        var currentUrl = window.location.href;
+        var newUrl = currentUrl.replace(currentLang, '/'+lang+'/');
+        window.location.href = newUrl;
+    }
+</script>
+
+  </body>
+</html>

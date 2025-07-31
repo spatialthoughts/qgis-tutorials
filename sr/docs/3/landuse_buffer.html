@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+
+<html lang="sr" data-content_root="../../">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Određivanje zaštitnih zona korišćenja zemljišta (QGIS3) &#8212; QGIS Tutorials and Tips</title>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-sphinx.css?v=0bf093e7" />
+    <script src="../../_static/documentation_options.js?v=7e8936b6"></script>
+    <script src="../../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/translations.js?v=552f857c"></script>
+    <link rel="search" title="Претрага" href="../../search.html" />
+    <link rel="next" title="Mapiranje količina odloženog otpada (QGIS3)" href="solidwaste_mapping.html" />
+    <link rel="prev" title="Calculating Street Intersection Density (QGIS3)" href="calculating_intersection_density.html" />
+
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<script type="text/javascript" src="../../_static/js/jquery-1.12.4.min.js"></script>
+<script type="text/javascript" src="../../_static/js/jquery-fix.js"></script>
+<script type="text/javascript" src="../../_static/bootstrap-3.4.1/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="../../_static/bootstrap-sphinx.js"></script>
+
+
+<!-- Cookie Notice -->
+<!-- Script from https://github.com/AOEpeople/cookie-notice -->
+<script type="text/javascript" src="../../_static/cookie.notice.min.js"></script>
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-B1WQ7B80XJ"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-B1WQ7B80XJ');
+</script>
+
+
+  </head><body>
+
+  <div id="navbar" class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="../../index.html">
+          QGIS Tutorials and Tips</a>
+        <span class="navbar-text navbar-version pull-left"><b>v1</b></span>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="../../index.html">Tutorials List <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"><ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="making_a_map.html">Making a Map (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="working_with_attributes.html">Working with Attributes (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="importing_spreadsheets_csv.html">Importing Spreadsheets or CSV files (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="basic_vector_styling.html">Basic Vector Styling (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="calculating_line_lengths.html">Izračunavanje dužina linija i statistika (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="raster_styling_and_analysis.html">Basic Raster Styling and Analysis (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="raster_mosaicing_and_clipping.html">Raster Mosaicing and Clipping (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="working_with_terrain.html">Working with Terrain Data (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="working_with_wms.html">Working with WMS Data (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="working_with_projections.html">Working with Projections (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="georeferencing_basics.html">Georeferencing Topo Sheets and Scanned Maps (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="advanced_georeferencing.html">Georeferenciranje aerosnimaka (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="digitizing_basics.html">Digitizing Map Data (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="performing_table_joins.html">Performing Table Joins (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="performing_spatial_joins.html">Performing Spatial Joins (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="performing_spatial_queries.html">Performing Spatial Queries (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="nearest_neighbor_analysis.html">Nearest Neighbor Analysis (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="sampling_raster_data.html">Sampling Raster Data using Points or Polygons (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="calculating_raster_area.html">Calculating Raster Area (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="creating_heatmaps.html">Creating Heatmaps (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="animating_time_series.html">Animating Time Series Data (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="handling_invalid_geometries.html">Handling Invalid Geometries (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="advanced_raster_analysis.html">Napredna rasterska analiza (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="interpolating_point_data.html">Interpolating Point Data (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="batch_processing.html">Batch Processing using Processing Framework (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="processing_graphical_modeler.html">Automating Complex Workflows using Processing Modeler (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="automating_map_creation.html">Automating Map Creation with Print Layout Atlas (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="multi_criteria_overlay.html">Multi Criteria Overlay Analysis (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="vector_styling_expressions.html">Osnovno filtriranje i stilizovanje pomoću izraza (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="block_world_styling.html">Kreiranje mape sveta u bloku (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="river_styling_expressions.html">Stilizovanje rečne mreže pomoću izraza (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="contour_3d_styling.html">Stilizovanje kontura u 3D (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="isometric_buildings.html">Kreiranje izometrijskih zgrada (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="interactive_canvas_maps.html">Izrada interaktivnih mapa na platnu (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="interactive_reveal_maps.html">Izrada interaktivnih mapa otkrivanja (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cartogram_animation.html">Kreiranje animiranog kartograma (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="basic_network_analysis.html">Basic Network Visualization and Routing (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="origin_destination_matrix.html">Locating Nearest Facility with Origin-Destination Matrix (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="service_area_analysis.html">Service Area Analysis using Openrouteservice (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="travel_time_analysis.html">Travel Time Analysis with Uber Movement (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="areal_mean_rainfall.html">Calculating Areal Mean Rainfall (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="colorized_river_basin_map.html">Kreiranje karte rečnog sliva u boji (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="creating_landuse_map.html">Kreiranje mape korišćenja zemljišta (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="calculating_intersection_density.html">Calculating Street Intersection Density (QGIS3)</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Određivanje zaštitnih zona korišćenja zemljišta (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="solidwaste_mapping.html">Mapiranje količina odloženog otpada (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="getting_started_with_pyqgis.html">Getting Started With Python Programming (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="processing_algorithms_pyqgis.html">Running Processing Algorithms via Python (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="custom_python_functions.html">Korišćenje prilagođenih Pajton izraznih funkcija (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="processing_python_scripts.html">Writing Python Scripts for Processing Framework (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="building_a_python_plugin.html">Building a Python Plugin (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="processing_python_plugin.html">Building a Processing Plugin (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../running_qgis_jobs.html">Running and Scheduling QGIS Processing Jobs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="web_mapping_with_qgis2web.html">Web Mapping with QGIS2Web (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../creating_basemaps_with_qtiles.html">Creating Basemaps with QTiles</a></li>
+<li class="toctree-l1"><a class="reference internal" href="using_plugins.html">Using Plugins (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../downloading_osm_data.html">Searching and Downloading OpenStreetMap Data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../learning_resources.html">QGIS Learning Resources</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../credits.html">Data Credits</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../batch_processing.html">Batch Processing using Processing Framework (QGIS2)</a></li>
+</ul>
+</ul>
+</li>
+              
+            
+            
+              
+                
+  <li>
+    <a href="calculating_intersection_density.html" title="Previous Chapter: Calculating Street Intersection Density (QGIS3)"><span class="glyphicon glyphicon-chevron-left visible-sm"></span><span class="hidden-sm hidden-tablet">&laquo; Calculating S...</span>
+    </a>
+  </li>
+  <li>
+    <a href="solidwaste_mapping.html" title="Next Chapter: Mapiranje količina odloženog otpada (QGIS3)"><span class="glyphicon glyphicon-chevron-right visible-sm"></span><span class="hidden-sm hidden-tablet">Mapiranje kol... &raquo;</span>
+    </a>
+  </li>
+              
+            
+            
+
+            
+
+            
+              <li class="hidden-sm"></li>
+            
+          </ul>
+
+          
+            
+<form class="navbar-form navbar-right" action="../../search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+      <div class="col-md-3">
+        <div id="sidebar" class="bs-sidenav" role="complementary"><h4>Author</h4>
+<p><a href="https://www.linkedin.com/in/spatialthoughts/"><img src="../../_static/ujaval.png">Ujaval Gandhi</a></p>
+
+<hr>
+<p>Want to learn QGIS in a structured way? Check out <a href="https://spatialthoughts.com/" target="_blank">Spatial Thoughts</a> for more learning materials and instructor-led online programs with QGIS.org certification.</p>
+
+<hr>
+<p>These tutorials are also available in many other languages. Please see <a href="https://www.qgistutorials.com/en/docs/introduction.html#translations" target="_blank">translations</a> page.
+</p>
+        </div>
+      </div>
+    <div class="body col-md-9 content" role="main">
+      
+
+  <section id="determining-landuse-buffer-zones-qgis3">
+<h1>Određivanje zaštitnih zona korišćenja zemljišta (QGIS3)<a class="headerlink" href="#determining-landuse-buffer-zones-qgis3" title="Link to this heading">¶</a></h1>
+<p>U ovom tutorijalu ćete raditi sa podacima o korišćenju zemljišta za grad i odrediti zaštitne zone oko određene parcele. Takva analiza je potrebna za uspostavljanje koridora ograničenja oko buke ili gustog saobraćaja.</p>
+<section id="overview-of-the-task">
+<h2>Pregled zadatka<a class="headerlink" href="#overview-of-the-task" title="Link to this heading">¶</a></h2>
+<p>Počećemo sa shapefile-om zemljišnih parcela za grad San Francisko i koristiti tehnike geoobrade i prostorne analize kako bismo odredili zaštitnu zonu ograničenog područja oko svih nekretnina sa institucionalnom upotrebom zemljišta.</p>
+<section id="other-skills-you-will-learn">
+<h3>Druge veštine koje ćete naučiti<a class="headerlink" href="#other-skills-you-will-learn" title="Link to this heading">¶</a></h3>
+<ul class="simple">
+<li><p>Kreiranje pravougaonih bafera u QGIS-u</p></li>
+<li><p>Korišćenje prostornog indeksa za ubrzavanje analize</p></li>
+</ul>
+</section>
+</section>
+<section id="get-the-data">
+<h2>Dobijte podatke<a class="headerlink" href="#get-the-data" title="Link to this heading">¶</a></h2>
+<p>Podaci dolaze iz grada San Franciska u obliku poligona parcela sa atributima koji ukazuju na kategorije korišćenja zemljišta. Podatke za tutorijal možete pronaći na portalu otvorenih podataka DataSF.</p>
+<p>Pogledajmo korake za preuzimanje poligonskog shapefile-a sa kategorijama korišćenja zemljišta za svaku parcelu u San Francisku.</p>
+<ol class="arabic">
+<li><p>Idite na portal podataka - <a class="reference external" href="https://datasf.org/opendata/">https://datasf.org/opendata/</a>. Potražite ključnu reč „Korišćenje zemljišta“ u traci za pretragu.</p>
+<img alt="../../_images/db110.png" class="align-center" src="../../_images/db110.png" />
+</li>
+<li><p>Kliknite na prvi rezultat pretrage da biste vizualizovali i izvezli podatke.</p>
+<img alt="../../_images/db25.png" class="align-center" src="../../_images/db25.png" />
+</li>
+<li><p>Videćete podatke i atribute. Kliknite na <span class="guilabel">Izvoz</span> da biste preuzeli podatke <code class="docutils literal notranslate"><span class="pre">Korišćenje</span> <span class="pre">zemljišta</span> <span class="pre">2020</span></code>.</p>
+<img alt="../../_images/db31.png" class="align-center" src="../../_images/db31.png" />
+</li>
+<li><p>U opcijama izvoza, kliknite na <span class="guilabel">Shapefile</span> da biste preuzeli shapefile poligona sa podacima.</p>
+<img alt="../../_images/db41.png" class="align-center" src="../../_images/db41.png" />
+</li>
+<li><p>Biće preuzeta zip datoteka sa podacima o korišćenju zemljišta. Pređite na karticu <span class="guilabel">O nama</span> da biste pročitali informacije o kategorijama i jedinicama korišćenja zemljišta koje će biti korisne u daljem tekstu ovog tutorijala.</p>
+<img alt="../../_images/db51.png" class="align-center" src="../../_images/db51.png" />
+</li>
+</ol>
+<p>Radi lakšeg snalaženja, možete direktno preuzeti kopiju shapefile-a ispod:</p>
+<p><a class="reference external" href="https://www.qgistutorials.com/downloads/land_use.zip">land_use.shp</a></p>
+</section>
+<section id="procedure">
+<h2>Procedura<a class="headerlink" href="#procedure" title="Link to this heading">¶</a></h2>
+<ol class="arabic">
+<li><p>Otvorite QGIS. Kliknite na ikonu <span class="menuselection">Otvori menadžer izvora podataka</span> da biste dodali sloj.</p>
+<img alt="../../_images/1107.png" class="align-center" src="../../_images/1107.png" />
+</li>
+<li><p>Pređite na karticu :gui label:<cite>Vector</cite> i idite do shapefile-a korišćenja zemljišta. Kliknite na :gui label:<cite>Add</cite>.</p>
+<img alt="../../_images/2103.png" class="align-center" src="../../_images/2103.png" />
+</li>
+<li><p>Obratite pažnju na naziv CRS u donjem desnom uglu QGIS-a. On označava da su podaci u geografskom koordinatnom sistemu <code class="docutils literal notranslate"><span class="pre">OGC:CRS84</span></code>. Kliknite na njega.</p>
+<img alt="../../_images/345.png" class="align-center" src="../../_images/345.png" />
+</li>
+<li><p>Dijalog Sistem koordinatnih referenci projekta (CRS) će pokazati da je izabrani CRS „WGS 84 (CRS 84)“. Jedinica mere za ovaj CRS je „stepen“. Sva geoobrada na ovom sloju će se vršiti u izvornim jedinicama CRS-a. Jedinica stepen nije odgovarajuća za ovu analizu.</p>
+<img alt="../../_images/424.png" class="align-center" src="../../_images/424.png" />
+</li>
+<li><p>Ponovo ćemo projektovati sloj na projektovani CRS pogodan za region - <code class="docutils literal notranslate"><span class="pre">NAD83</span> <span class="pre">/</span> <span class="pre">Kalifornija</span> <span class="pre">zona</span> <span class="pre">3</span> <span class="pre">(ftUS)</span></code>. Ovo je <code class="docutils literal notranslate"><span class="pre">EPSG:2227</span></code> koji koristi NAD83 datum sa mernim jedinicama u stopama. Idite na <span class="menuselection">Vektor ‣ Alati za upravljanje podacima ‣ Ponovo projektuj sloj</span>.</p>
+<img alt="../../_images/521.png" class="align-center" src="../../_images/521.png" />
+</li>
+<li><p>U dijalogu „Reprojekcija sloja“, izaberite učitani sloj kao <span class="guilabel">Ulazni sloj</span>. Kliknite na ikonu pored selektora da biste izabrali <span class="guilabel">Ciljni CRS</span>.</p>
+<img alt="../../_images/621.png" class="align-center" src="../../_images/621.png" />
+</li>
+<li><p>Potražite „EPSG:2227“ u traci i izaberite CRS „NAD83 / Kalifornija zona 3 (ftUS)“. Kliknite na :guilabel:„Nazad“ da biste nastavili.</p>
+<blockquote>
+<div><img alt="../../_images/720.png" class="align-center" src="../../_images/720.png" />
+</div></blockquote>
+</li>
+<li><p>Sačuvajte rezultat <span class="guilabel">Reprojected</span>. Proširite opcije pregledanja i izaberite <span class="guilabel">Sačuvaj u datoteku</span>.</p>
+<blockquote>
+<div><img alt="../../_images/820.png" class="align-center" src="../../_images/820.png" />
+</div></blockquote>
+</li>
+<li><p>Sačuvajte izlazni shapefile u izabranoj fascikli kao <code class="docutils literal notranslate"><span class="pre">LandUse2020.shp</span></code>. Označite opciju <span class="guilabel">Otvori izlazni fajl nakon pokretanja algoritma</span> da biste dodali reprojektovani sloj u QGIS.</p>
+<blockquote>
+<div><img alt="../../_images/920.png" class="align-center" src="../../_images/920.png" />
+</div></blockquote>
+</li>
+<li><p>Uklonite originalni sloj sa CRS WGS 84 iz QGIS-a. Izaberite sloj i kliknite na simbol <span class="guilabel">Ukloni sloj</span>.</p>
+<img alt="../../_images/1026.png" class="align-center" src="../../_images/1026.png" />
+</li>
+<li><p>Nastavićemo proces sa reprojektovanim slojem. Kao što smo videli u odeljku <span class="guilabel">About</span> preuzetog shapefile-a na portalu podataka, klasifikacija je sledeća.</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><strong>CIE</strong> = Kulturni, Institucionalni, Obrazovni</p></li>
+<li><p><strong>MED</strong> = Medicinski</p></li>
+<li><p><strong>MIPS</strong> = Kancelarija (menadžment, informacije, stručne usluge)</p></li>
+<li><p><strong>MEŠANO</strong> = Mešovita namena (bez stambenih objekata)</p></li>
+<li><p><strong>MIXRES</strong> = Mešovita namena (sa stambenim objektima)</p></li>
+<li><p><strong>PDR</strong> = Industrija (proizvodnja, distribucija, popravka)</p></li>
+<li><p><strong>MALOPRODAJA/PRENOS</strong> = Maloprodaja, Zabava</p></li>
+<li><p><strong>STANOVNIK</strong> = Stambeni</p></li>
+<li><p><strong>POSETILAC</strong> = Hoteli, Usluge za posetioce</p></li>
+<li><p><strong>SLOBODNO</strong> = Slobodno</p></li>
+<li><p><strong>RED</strong> = Pravo prolaza</p></li>
+<li><p><strong>OTVORENI PROSTOR</strong> = Otvoreni prostor</p></li>
+</ul>
+</div></blockquote>
+</li>
+</ol>
+<p>Za ovaj tutorijal, zanima nas samo institucionalna upotreba zemljišta. Tako da možemo da upitamo za vrednost <strong>CIE</strong> u tabeli atributa. Idite na <span class="menuselection">Processing ‣ Toolbox</span>.</p>
+<blockquote>
+<div><img alt="../../_images/1129.png" class="align-center" src="../../_images/1129.png" />
+</div></blockquote>
+<ol class="arabic simple" start="12">
+<li><p>Potražite alatku <span class="guilabel">Izaberi po atributu</span> iz alata za obradu. Dvaput kliknite da biste je otvorili.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/1227.png" class="align-center" src="../../_images/1227.png" />
+</div></blockquote>
+<ol class="arabic simple" start="13">
+<li><p>U dijalogu „Izaberi po atributu“, podesite <code class="docutils literal notranslate"><span class="pre">LandUse2020</span></code> kao <span class="guilabel">Ulazni sloj</span>. Izaberite <code class="docutils literal notranslate"><span class="pre">landuse`</span> <span class="pre">kao</span> <span class="pre">:guilabel:`Atribut</span> <span class="pre">selekcije`</span> <span class="pre">i</span> <span class="pre">unesite</span> <span class="pre">``CIE</span></code> kao <span class="guilabel">Vrednost</span>. Kliknite na Pokreni.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/1325.png" class="align-center" src="../../_images/1325.png" />
+</div></blockquote>
+<ol class="arabic simple" start="14">
+<li><p>Videćete da su parcele koje odgovaraju našem upitu označene žutom bojom. Sve su to parcele koje pripadaju institucionalnoj nameni zemljišta u gradu.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/1423.png" class="align-center" src="../../_images/1423.png" />
+</div></blockquote>
+<ol class="arabic simple" start="15">
+<li><p>Sada možemo da kreiramo bafer oko izabranih parcela. Nazad u glavnom QGIS prozoru, otvorite Processing Toolbox. Potražite i pronađite alatku <span class="guilabel">Buffer</span>. Dvaput kliknite da biste je otvorili.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/1520.png" class="align-center" src="../../_images/1520.png" />
+</div></blockquote>
+<ol class="arabic simple" start="16">
+<li><p>U dijalogu „Bafer“, izaberite LandUse2020 kao <span class="guilabel">Ulazni sloj</span>. Označite polje <span class="guilabel">Samo odabrane karakteristike</span> tako da će se bafer primeniti samo na odabrane parcele institucionalne namene zemljišta. Napravićemo bafer zonu od 100 stopa oko svake parcele. Unesite 100 stopa kao <span class="guilabel">Udaljenost</span>. Podrazumevani baferi su kružnog oblika. Pošto bavimo podacima o parcelama, pravougaona oblast bafera je prikladnija gde će svaka ivica parcele biti pomerena za rastojanje bafera. Izaberite „Kvadrat“ kao <span class="guilabel">Stil završne kape</span> i „Ugao“ kao <span class="guilabel">Stil spajanja</span>. Kliknite na dugme za pregledanje pored „Baferovano“ i izaberite <span class="guilabel">Sačuvaj u datoteku</span>.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/1619.png" class="align-center" src="../../_images/1619.png" />
+</div></blockquote>
+<ol class="arabic simple" start="17">
+<li><p>Unesite naziv izlazne datoteke kao <code class="docutils literal notranslate"><span class="pre">buffer.shp</span></code> i kliknite na OK. Kliknite na <span class="guilabel">Pokreni</span>.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/1720.png" class="align-center" src="../../_images/1720.png" />
+</div></blockquote>
+<ol class="arabic simple" start="18">
+<li><p>Kada se obrada završi, novi sloj-bafer će biti dodat u QGIS. Ovi poligoni predstavljaju bafer zonu ograničenja oko institucionalne upotrebe zemljišta.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/1817.png" class="align-center" src="../../_images/1817.png" />
+</div></blockquote>
+<ol class="arabic simple" start="19">
+<li><p>Sada znamo koja područja grada spadaju u ograničenu zonu. Bilo bi korisno identifikovati sve parcele koje spadaju u ovu zonu i dodati atribut koji ukazuje da se ograničenje primenjuje na tu parcelu. Prvo dodajmo kolonu u poligone bafera. Potražite <span class="menuselection">Field Calculator</span> u alatkama za obradu. Dvaput kliknite da biste otvorili.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/1914.png" class="align-center" src="../../_images/1914.png" />
+</div></blockquote>
+<ol class="arabic simple" start="20">
+<li><p>U dijalogu „Kalkulator polja“, uverite se da je izabrano „bafer“ kao <span class="guilabel">Ulazni sloj</span>. Ne moramo da sačuvamo ovaj sloj, pa ostavite polje „Izlazna datoteka“ prazno. Unesite <code class="docutils literal notranslate"><span class="pre">OGRANIČENO</span></code> kao rezultat <span class="guilabel">Naziv polja</span>. Postavite <span class="guilabel">Tip polja rezultata</span> na <code class="docutils literal notranslate"><span class="pre">Niz</span></code>. Unesite <code class="docutils literal notranslate"><span class="pre">Da</span></code> kao <span class="guilabel">Izraz</span>. Kliknite na Pokreni.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/2014.png" class="align-center" src="../../_images/2014.png" />
+</div></blockquote>
+<ol class="arabic simple" start="21">
+<li><p>Novi sloj pod nazivom Izračunato biće dodat u QGIS. Otvorite tabelu atributa i proverite da li u ovom sloju postoji nova kolona pod nazivom OGRANIČENO sa vrednošću Da.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/2117.png" class="align-center" src="../../_images/2117.png" />
+</div></blockquote>
+<p>22. Next step is to do a Spatial Join to add this attribute to the original parcels layer based on which parcels intersect with the buffer zone. The <code class="docutils literal notranslate"><span class="pre">LandUse2020</span></code> layer has more than 100,000 elements. We will add spatial indexing to the features to improve the performance and speedup the spatial join operation.
+Check out the course <a class="reference external" href="https://courses.spatialthoughts.com/advanced-qgis.html#concept-spatial-indexing">Spatial Indexing</a> section to understand more about this.
+Now, search and locate the <span class="menuselection">Create Spatial Index</span> tool from the Processing Toolbox and double-click to open.</p>
+<blockquote>
+<div><img alt="../../_images/2215.png" class="align-center" src="../../_images/2215.png" />
+</div></blockquote>
+<ol class="arabic" start="23">
+<li><p>Izaberite <code class="docutils literal notranslate"><span class="pre">LandUse2020</span></code> kao <span class="guilabel">Ulazni sloj</span> i kliknite na <span class="guilabel">Pokreni</span>.</p>
+<img alt="../../_images/2313.png" class="align-center" src="../../_images/2313.png" />
+</li>
+<li><p>Prostorni indeks je kreiran za sloj. To možete proveriti proverom svojstva sloja. Kliknite desnim tasterom miša na sloj i izaberite <span class="guilabel">Properties</span>.</p>
+<img alt="../../_images/2412.png" class="align-center" src="../../_images/2412.png" />
+</li>
+<li><p>Pređite na karticu <span class="guilabel">Izvor</span> i pogledajte pod odeljkom <span class="guilabel">Geometrija</span>. To ukazuje da prostorni indeks postoji.</p>
+<img alt="../../_images/2511.png" class="align-center" src="../../_images/2511.png" />
+</li>
+<li><p>Sada možemo da izvršimo prostorno spajanje. Potražite alatku <span class="menuselection">Spoji atribute po lokaciji</span> u alatkama za obradu. Dvaput kliknite da biste je otvorili.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/2610.png" class="align-center" src="../../_images/2610.png" />
+</div></blockquote>
+<ol class="arabic simple" start="27">
+<li><p>Želimo da <span class="guilabel">Spojimo sa objektima u</span> sloju <code class="docutils literal notranslate"><span class="pre">LandUse2020</span></code> <span class="guilabel">Poređenjem sa</span> slojem <code class="docutils literal notranslate"><span class="pre">Izračunato</span></code>. Želimo da spojimo atribute objekata koji se seku. Označite polje za <code class="docutils literal notranslate"><span class="pre">presecanje</span></code>. Kliknite na dugme za pregledanje pored <span class="guilabel">Polja za dodavanje</span>.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/2711.png" class="align-center" src="../../_images/2711.png" />
+</div></blockquote>
+<ol class="arabic simple" start="28">
+<li><p>Izaberite samo polje „OGRANIČENO“ i kliknite na <span class="guilabel">U redu</span>.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/2811.png" class="align-center" src="../../_images/2811.png" />
+</div></blockquote>
+<ol class="arabic simple" start="29">
+<li><p>Za tip spajanja izaberite „Uzmi samo atribut prve podudarajuće karakteristike“. Zatim kliknite na … pored Spojeni sloj i izaberite Sačuvaj u datoteku.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/2910.png" class="align-center" src="../../_images/2910.png" />
+</div></blockquote>
+<ol class="arabic simple" start="30">
+<li><p>Unesite naziv za <code class="docutils literal notranslate"><span class="pre">LandUseWithRestrictions.shp</span></code> za <a href="#id1"><span class="problematic" id="id2">``</span></a>guilabel:<cite>U redu</cite>. Kliknite na <a href="#id3"><span class="problematic" id="id4">``</span></a>guilabel:<cite>Pokreni</cite>.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/309.png" class="align-center" src="../../_images/309.png" />
+</div></blockquote>
+<ol class="arabic" start="31">
+<li><p>Kada se obrada završi, dobićete novi sloj „LandUseWithRestrictions“. Otvorite tabelu atributa i ispitajte kolonu „RESTRICTED“. Parcele koje se nalaze unutar 100ft ili 30 metara od institucionalne parcele sada imaju vrednost „Yes“ što ukazuje da se ograničenje primenjuje na tu parcelu. Ostale parcele imaju vrednost „NULL“ što ukazuje da nema ograničenja.</p>
+<img alt="../../_images/3113.png" class="align-center" src="../../_images/3113.png" />
+</li>
+</ol>
+</section>
+</section>
+
+
+
+<!-- Turn on comments on only newer tutorials having 3/ in URL -->
+
+  <!-- Comment Section Powered by utterances -->
+<div id="comments">
+  <hr />
+  <p>If you want to give feedback or share your experience with this tutorial, please comment below. (requires GitHub account)</p>
+<script src="https://utteranc.es/client.js"
+        repo="spatialthoughts/qgis-tutorials"
+        issue-term="title"
+        label="comment"
+        theme="github-light"
+        crossorigin="anonymous"
+        async>
+</script>
+</div>
+
+
+    </div>
+      
+  </div>
+</div>
+
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+    </p>
+    <p>
+        &copy; Copyright 2025, Ujaval Gandhi.<br/>
+      Last updated on јул 31, 2025.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 8.2.3.<br/>
+    </p>
+  </div>
+</footer>
+<div class="container">
+  <p>This work is licensed under a <a href="http://creativecommons.org/licenses/by/4.0/deed.en_US">Creative Commons Attribution 4.0 International License</a>.<br>
+  You are free to use the material for any purpose as long as you give appropriate credit to the original author.</p>
+</div>
+
+<!-- Script fpr language switching. Largely adapted from https://github.com/pcav/faunalia-website -->
+<script>
+    var currentPage = 'docs/3/landuse_buffer.html'; // coming from sphinx, always without starting '/'
+    var currentLang = 'en';
+    $(document).ready(function(){
+
+        var search = new RegExp('\/[a-zA-Z_]{2,8}\/'+ currentPage, 'gi');
+        var langPlusPage = window.location.href.match(search);
+        // it's possible this is a index.html page called without 'index.html', try without the currentPage
+        if (langPlusPage==undefined){
+            search = new RegExp('\/[a-zA-Z_]{2,8}\/$', 'gi');
+            langPlusPage = window.location.href.match(search);
+        }
+
+        // it's possible this is an index.html page called without 'index.html', try removing index.html
+        if (langPlusPage==undefined){
+            currentPage = currentPage.replace('index.html','')
+            search = new RegExp('\/[a-zA-Z_]{2,8}\/'+ currentPage, 'gi');
+            langPlusPage = window.location.href.match(search);
+        }
+        // still no langPlugPage: stop, because the language swicher will misbehave 
+
+        if (langPlusPage == undefined || langPlusPage.length != 1){
+            alert('You hit an error, please report back to us.');
+            return;
+        }
+        langPlusPage = langPlusPage[0];
+        currentLang = langPlusPage.replace(currentPage, '');
+
+        $("#languages").val(currentLang.replace(/\//g,'')); // currentLang is something like '/nl/'
+
+        $("#languages").change(function() {
+            gotoLang($(this).val());
+        });
+
+    });
+
+    // load current page in a different language
+    function gotoLang(lang){
+        var currentUrl = window.location.href;
+        var newUrl = currentUrl.replace(currentLang, '/'+lang+'/');
+        window.location.href = newUrl;
+    }
+</script>
+
+  </body>
+</html>

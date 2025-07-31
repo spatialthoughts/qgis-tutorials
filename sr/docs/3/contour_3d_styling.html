@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+
+<html lang="sr" data-content_root="../../">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Stilizovanje kontura u 3D (QGIS3) &#8212; QGIS Tutorials and Tips</title>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-sphinx.css?v=0bf093e7" />
+    <script src="../../_static/documentation_options.js?v=7e8936b6"></script>
+    <script src="../../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/translations.js?v=552f857c"></script>
+    <link rel="search" title="Претрага" href="../../search.html" />
+    <link rel="next" title="Kreiranje izometrijskih zgrada (QGIS3)" href="isometric_buildings.html" />
+    <link rel="prev" title="Stilizovanje rečne mreže pomoću izraza (QGIS3)" href="river_styling_expressions.html" />
+
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<script type="text/javascript" src="../../_static/js/jquery-1.12.4.min.js"></script>
+<script type="text/javascript" src="../../_static/js/jquery-fix.js"></script>
+<script type="text/javascript" src="../../_static/bootstrap-3.4.1/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="../../_static/bootstrap-sphinx.js"></script>
+
+
+<!-- Cookie Notice -->
+<!-- Script from https://github.com/AOEpeople/cookie-notice -->
+<script type="text/javascript" src="../../_static/cookie.notice.min.js"></script>
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-B1WQ7B80XJ"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-B1WQ7B80XJ');
+</script>
+
+
+  </head><body>
+
+  <div id="navbar" class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="../../index.html">
+          QGIS Tutorials and Tips</a>
+        <span class="navbar-text navbar-version pull-left"><b>v1</b></span>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="../../index.html">Tutorials List <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"><ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="making_a_map.html">Making a Map (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="working_with_attributes.html">Working with Attributes (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="importing_spreadsheets_csv.html">Importing Spreadsheets or CSV files (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="basic_vector_styling.html">Basic Vector Styling (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="calculating_line_lengths.html">Izračunavanje dužina linija i statistika (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="raster_styling_and_analysis.html">Basic Raster Styling and Analysis (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="raster_mosaicing_and_clipping.html">Raster Mosaicing and Clipping (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="working_with_terrain.html">Working with Terrain Data (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="working_with_wms.html">Working with WMS Data (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="working_with_projections.html">Working with Projections (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="georeferencing_basics.html">Georeferencing Topo Sheets and Scanned Maps (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="advanced_georeferencing.html">Georeferenciranje aerosnimaka (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="digitizing_basics.html">Digitizing Map Data (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="performing_table_joins.html">Performing Table Joins (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="performing_spatial_joins.html">Performing Spatial Joins (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="performing_spatial_queries.html">Performing Spatial Queries (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="nearest_neighbor_analysis.html">Nearest Neighbor Analysis (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="sampling_raster_data.html">Sampling Raster Data using Points or Polygons (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="calculating_raster_area.html">Calculating Raster Area (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="creating_heatmaps.html">Creating Heatmaps (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="animating_time_series.html">Animating Time Series Data (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="handling_invalid_geometries.html">Handling Invalid Geometries (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="advanced_raster_analysis.html">Napredna rasterska analiza (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="interpolating_point_data.html">Interpolating Point Data (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="batch_processing.html">Batch Processing using Processing Framework (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="processing_graphical_modeler.html">Automating Complex Workflows using Processing Modeler (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="automating_map_creation.html">Automating Map Creation with Print Layout Atlas (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="multi_criteria_overlay.html">Multi Criteria Overlay Analysis (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="vector_styling_expressions.html">Osnovno filtriranje i stilizovanje pomoću izraza (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="block_world_styling.html">Kreiranje mape sveta u bloku (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="river_styling_expressions.html">Stilizovanje rečne mreže pomoću izraza (QGIS3)</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Stilizovanje kontura u 3D (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="isometric_buildings.html">Kreiranje izometrijskih zgrada (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="interactive_canvas_maps.html">Izrada interaktivnih mapa na platnu (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="interactive_reveal_maps.html">Izrada interaktivnih mapa otkrivanja (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cartogram_animation.html">Kreiranje animiranog kartograma (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="basic_network_analysis.html">Basic Network Visualization and Routing (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="origin_destination_matrix.html">Locating Nearest Facility with Origin-Destination Matrix (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="service_area_analysis.html">Service Area Analysis using Openrouteservice (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="travel_time_analysis.html">Travel Time Analysis with Uber Movement (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="areal_mean_rainfall.html">Calculating Areal Mean Rainfall (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="colorized_river_basin_map.html">Kreiranje karte rečnog sliva u boji (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="creating_landuse_map.html">Kreiranje mape korišćenja zemljišta (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="calculating_intersection_density.html">Calculating Street Intersection Density (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="landuse_buffer.html">Određivanje zaštitnih zona korišćenja zemljišta (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="solidwaste_mapping.html">Mapiranje količina odloženog otpada (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="getting_started_with_pyqgis.html">Getting Started With Python Programming (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="processing_algorithms_pyqgis.html">Running Processing Algorithms via Python (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="custom_python_functions.html">Korišćenje prilagođenih Pajton izraznih funkcija (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="processing_python_scripts.html">Writing Python Scripts for Processing Framework (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="building_a_python_plugin.html">Building a Python Plugin (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="processing_python_plugin.html">Building a Processing Plugin (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../running_qgis_jobs.html">Running and Scheduling QGIS Processing Jobs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="web_mapping_with_qgis2web.html">Web Mapping with QGIS2Web (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../creating_basemaps_with_qtiles.html">Creating Basemaps with QTiles</a></li>
+<li class="toctree-l1"><a class="reference internal" href="using_plugins.html">Using Plugins (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../downloading_osm_data.html">Searching and Downloading OpenStreetMap Data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../learning_resources.html">QGIS Learning Resources</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../credits.html">Data Credits</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../batch_processing.html">Batch Processing using Processing Framework (QGIS2)</a></li>
+</ul>
+</ul>
+</li>
+              
+            
+            
+              
+                
+  <li>
+    <a href="river_styling_expressions.html" title="Previous Chapter: Stilizovanje rečne mreže pomoću izraza (QGIS3)"><span class="glyphicon glyphicon-chevron-left visible-sm"></span><span class="hidden-sm hidden-tablet">&laquo; Stilizovanje ...</span>
+    </a>
+  </li>
+  <li>
+    <a href="isometric_buildings.html" title="Next Chapter: Kreiranje izometrijskih zgrada (QGIS3)"><span class="glyphicon glyphicon-chevron-right visible-sm"></span><span class="hidden-sm hidden-tablet">Kreiranje izo... &raquo;</span>
+    </a>
+  </li>
+              
+            
+            
+
+            
+
+            
+              <li class="hidden-sm"></li>
+            
+          </ul>
+
+          
+            
+<form class="navbar-form navbar-right" action="../../search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+      <div class="col-md-3">
+        <div id="sidebar" class="bs-sidenav" role="complementary"><h4>Author</h4>
+<p><a href="https://www.linkedin.com/in/spatialthoughts/"><img src="../../_static/ujaval.png">Ujaval Gandhi</a></p>
+
+<hr>
+<p>Want to learn QGIS in a structured way? Check out <a href="https://spatialthoughts.com/" target="_blank">Spatial Thoughts</a> for more learning materials and instructor-led online programs with QGIS.org certification.</p>
+
+<hr>
+<p>These tutorials are also available in many other languages. Please see <a href="https://www.qgistutorials.com/en/docs/introduction.html#translations" target="_blank">translations</a> page.
+</p>
+        </div>
+      </div>
+    <div class="body col-md-9 content" role="main">
+      
+
+  <section id="styling-contours-in-3d-qgis3">
+<h1>Stilizovanje kontura u 3D (QGIS3)<a class="headerlink" href="#styling-contours-in-3d-qgis3" title="Link to this heading">¶</a></h1>
+<p><em>Doprinos:</em> <a class="reference external" href="https://geographyclub.github.io/">Stiven Kim</a></p>
+<p>U prethodnom tutorijalu, <a class="reference internal" href="river_styling_expressions.html"><span class="doc">Stilizovanje rečne mreže pomoću izraza (QGIS3)</span></a>, koristili smo izraze za filtriranje i stilizovanje rečne mreže. U ovom tutorijalu, radićemo sa skupom podataka o konturama i stilizovaćemo ga koristeći izraze kako bismo mu dali 3D efekat.</p>
+<section id="overview-of-the-task">
+<h2>Pregled zadatka<a class="headerlink" href="#overview-of-the-task" title="Link to this heading">¶</a></h2>
+<p>Koristićemo sloj simbola generatora geometrije da bismo dinamički primenili pomak na konture, a zatim ćemo primeniti rampu boja da bismo stvorili izgled 3D mape.</p>
+<blockquote>
+<div><img alt="../../_images/output2.png" class="align-center" src="../../_images/output2.png" />
+</div></blockquote>
+</section>
+<section id="get-the-data">
+<h2>Dobijte podatke<a class="headerlink" href="#get-the-data" title="Link to this heading">¶</a></h2>
+<p>„Nacionalna mapa &lt;<a class="reference external" href="https://www.usgs.gov/programs/national-geospatial-program/national-map">https://www.usgs.gov/programs/national-geospatial-program/national-map</a>&gt;`_ je zajednički napor Geološkog zavoda SAD (USGS) i drugih partnera na poboljšanju i pružanju topografskih informacija za naciju. Preuzećemo skup podataka o konturama iz programa za preuzimanje Nacionalne mape.“</p>
+<ol class="arabic simple">
+<li><p>Posetite <a class="reference external" href="https://apps.nationalmap.gov/downloader/">TNM Download v2</a>. Pregledajte do regiona koji vas zanima. Za ovaj tutorijal, preuzećemo konture za region oko Ostina, Teksas.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/data110.png" class="align-center" src="../../_images/data110.png" />
+</div></blockquote>
+<ol class="arabic simple" start="2">
+<li><p>U programu za preuzimanje potražite skup podataka „Elevation Products(3DEP)“ i označite polje da biste videli sve podkategorije. Izaberite samo kategoriju „Contours (1:24.000-scale)“. U okviru :guilabel:„File Formats“ izaberite „GeoPackage“.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/data24.png" class="align-center" src="../../_images/data24.png" />
+</div></blockquote>
+<ol class="arabic simple" start="3">
+<li><p>Kliknite na plavo dugme <span class="guilabel">Pretraži proizvode</span> da biste videli listu odgovarajućih datoteka.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/data34.png" class="align-center" src="../../_images/data34.png" />
+</div></blockquote>
+<ol class="arabic simple" start="4">
+<li><p>U rezultatima ćete pronaći datoteku „USGS NED 1/3 arc-second Contours for Austin E, Texas“. Kliknite na <span class="guilabel">Download Link(ZIP)</span> da biste preuzeli zipovanu GeoPackage datoteku <code class="docutils literal notranslate"><span class="pre">ELEV_Austin_E_TX_1X1_GPKG.zip</span></code></p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/data44.png" class="align-center" src="../../_images/data44.png" />
+</div></blockquote>
+<p>Možete direktno preuzeti zip datoteku sa <a class="reference external" href="https://prd-tnm.s3.amazonaws.com/StagedProducts/Contours/GPKG/ELEV_Austin_E_TX_1X1_GPKG.zip">ELEV_Austin_E_TX_1X1_GPKG.zip</a></p>
+<p>Izvor podataka <a class="reference internal" href="../credits.html#usgs" id="id1"><span>[USGS]</span></a></p>
+<div class="admonition note">
+<p class="admonition-title">Белешка</p>
+<p>Takođe možete generisati konture iz bilo kog DEM sloja i koristiti ih umesto kontura koje se ovde koriste. Pogledajte naš tutorijal <a class="reference internal" href="working_with_terrain.html"><span class="doc">Working with Terrain Data (QGIS3)</span></a> za uputstva korak po korak.</p>
+</div>
+</section>
+<section id="procedure">
+<h2>Procedura<a class="headerlink" href="#procedure" title="Link to this heading">¶</a></h2>
+<ol class="arabic simple">
+<li><p>Raspakujte datoteku <cite>ELEV_Austin_E_TX_1X1_GPKG.zip</cite> na svom računaru. Pronađite rezultujuću datoteku <cite>ELEV_Austin_E_TX_1X1_GPKG.gpkg</cite> u <span class="guilabel">QGIS pregledaču</span> i proširite je. Izaberite sloj <cite>Elev_Contour</cite> i prevucite ga na platno.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/160.png" class="align-center" src="../../_images/160.png" />
+</div></blockquote>
+<ol class="arabic simple" start="2">
+<li><p>Novi sloj <cite>Elev_Contour</cite> će sada biti učitan i trebalo bi da vidite konturne linije.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/230.png" class="align-center" src="../../_images/230.png" />
+</div></blockquote>
+<ol class="arabic simple" start="3">
+<li><p>Kliknite desnim tasterom miša na sloj <cite>Elev_Contour</cite> i izaberite <span class="guilabel">Open Attribute Table</span>. Primetićete da polje <code class="docutils literal notranslate"><span class="pre">contourelevation</span></code> sadrži vrednost visine za svaku konturnu liniju. Ovo ime polja je važno i koristi se u izrazima u narednim koracima.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/325.png" class="align-center" src="../../_images/325.png" />
+</div></blockquote>
+<ol class="arabic simple" start="4">
+<li><p>Sada smo spremni da stilizujemo konture. Pre nego što nastavimo, prvo moramo dodati skalu boja pogodnu za bojenje elevacije. Ako ste već dodali skalu boja <cite>wiki-1.02</cite> za naš prethodni tutorijal <a class="reference internal" href="block_world_styling.html"><span class="doc">Kreiranje mape sveta u bloku (QGIS3)</span></a>, možete preći na korak 9. Kliknite na <span class="guilabel">Podešavanja</span> u meniju i izaberite <span class="guilabel">Menadžer stilova</span>.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/410.png" class="align-center" src="../../_images/410.png" />
+</div></blockquote>
+<ol class="arabic simple" start="5">
+<li><p>Kliknite na znak plus <span class="guilabel">Dodaj stavku</span> na dnu i izaberite <span class="menuselection">Katalog: cpt-city…</span>.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/510.png" class="align-center" src="../../_images/510.png" />
+</div></blockquote>
+<ol class="arabic simple" start="6">
+<li><p>Pomerite se nadole po skalama boja dok ne pronađete <span class="guilabel">wiki-1.02</span>. Možda ih postoji nekoliko sa istim imenom, samo kliknite na jednu i kliknite na <span class="guilabel">OK</span>.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/610.png" class="align-center" src="../../_images/610.png" />
+</div></blockquote>
+<ol class="arabic simple" start="7">
+<li><p>U prozoru <span class="guilabel">Sačuvaj novu kolornu rampu</span>, unesite vrednost <code class="docutils literal notranslate"><span class="pre">wiki-1.02</span></code> kao <span class="guilabel">Naziv</span>.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/710.png" class="align-center" src="../../_images/710.png" />
+</div></blockquote>
+<ol class="arabic simple" start="8">
+<li><p>Kliknite na <span class="guilabel">Sačuvaj</span> da biste zatvorili prozor, a zatim kliknite na <span class="guilabel">Zatvori</span> da biste zatvorili Menadžer stilova. Sada je wiki-1.02 skala boja dostupna za korišćenje u vašim budućim projektima.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/810.png" class="align-center" src="../../_images/810.png" />
+</div></blockquote>
+<ol class="arabic simple" start="9">
+<li><p>Sada možemo stilizovati konture. Izaberite sloj „Elev_Contour“ i kliknite na dugme :guilabel:„Otvori panel za stilizovanje sloja“. Izaberite :guilabel:„Jednostavna linija“ da biste pristupili njegovim svojstvima.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/910.png" class="align-center" src="../../_images/910.png" />
+</div></blockquote>
+<ol class="arabic simple" start="10">
+<li><p>Promenite <cite>Tip sloja simbola</cite> sa <span class="guilabel">Jednostavna linija</span> na <span class="guilabel">Generator geometrije</span>. Ovaj sloj simbola nam omogućava da dinamički menjamo geometriju elemenata u sloju pomoću izraza.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/1014.png" class="align-center" src="../../_images/1014.png" />
+</div></blockquote>
+<ol class="arabic simple" start="11">
+<li><p>U polje za unos unesite ovaj izraz da biste translirali svaku konturnu liniju na y-osi za njenu vrednost elevacije. Koristimo funkcije <code class="docutils literal notranslate"><span class="pre">minimum()</span></code> i <code class="docutils literal notranslate"><span class="pre">maximum()</span></code> da bismo pronašli opseg vrednosti u koloni <strong>contourelevation</strong> i funkciju <cite>scale_linear()</cite> da bismo linearno skalirali elevaciju od minimuma do maksimuma do željenog opsega y-ofseta između 0 i 0,2 stepena. Ako se vaš konturni sloj nalazi u CRS-u koji ima jedinice koje nisu stepeni, obavezno podesite ove vrednosti na odgovarajući način. Unesite izraz i kliknite na <span class="guilabel">OK</span>.</p></li>
+</ol>
+<blockquote>
+<div><div class="highlight-none notranslate"><div class="highlight"><pre><span></span>translate($geometry,0,scale_linear(&quot;contourelevation&quot;,
+minimum(&quot;contourelevation&quot;),maximum(&quot;contourelevation&quot;),0,0.2))
+</pre></div>
+</div>
+<img alt="../../_images/1117.png" class="align-center" src="../../_images/1117.png" />
+</div></blockquote>
+<ol class="arabic simple" start="12">
+<li><p>Ispod <cite>Geometry Generator</cite> u prozoru simbola, izaberite sloj <span class="guilabel">Simple Line</span> da biste pristupili njegovim svojstvima. Kliknite na dugme <span class="guilabel">Data define override</span> za <span class="guilabel">Color</span> i izaberite meni <span class="guilabel">Edit</span>.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/1215.png" class="align-center" src="../../_images/1215.png" />
+</div></blockquote>
+<ol class="arabic simple" start="13">
+<li><p>Ovim se pojavljuje dijalog <span class="guilabel">Kreator izraza</span> za boju linije. Unesite ovaj izraz da biste obojili konturne linije vrednošću <strong>contourelevation</strong> iz <em>wiki-1.02</em> skale boja. Potrebno je da mapiramo vrednosti elevacije na opseg koji očekuje skala boja (od 0 do 1). Umesto funkcije <cite>scale_linear</cite> koja je ranije korišćena, koristimo funkciju <cite>scale_polynomial</cite> da bismo skalirali vrednosti na nelinearan način. Kada unesete izraz, kliknite na <span class="guilabel">OK</span>.</p></li>
+</ol>
+<blockquote>
+<div><div class="highlight-none notranslate"><div class="highlight"><pre><span></span>ramp_color(&#39;wiki-1.02&#39;,scale_polynomial(&quot;contourelevation&quot;,
+minimum(&quot;contourelevation&quot;),maximum(&quot;contourelevation&quot;),
+0,1,0.5))
+</pre></div>
+</div>
+<img alt="../../_images/1313.png" class="align-center" src="../../_images/1313.png" />
+</div></blockquote>
+<ol class="arabic simple" start="14">
+<li><p>Trebalo bi da vidite 3D prikaz kontura obojenih prema visini. Eksperimentišite sa izrazima bojenja i skaliranja da biste otkrili različite umetničke prikaze pejzaža.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/1412.png" class="align-center" src="../../_images/1412.png" />
+</div></blockquote>
+</section>
+</section>
+
+
+
+<!-- Turn on comments on only newer tutorials having 3/ in URL -->
+
+  <!-- Comment Section Powered by utterances -->
+<div id="comments">
+  <hr />
+  <p>If you want to give feedback or share your experience with this tutorial, please comment below. (requires GitHub account)</p>
+<script src="https://utteranc.es/client.js"
+        repo="spatialthoughts/qgis-tutorials"
+        issue-term="title"
+        label="comment"
+        theme="github-light"
+        crossorigin="anonymous"
+        async>
+</script>
+</div>
+
+
+    </div>
+      
+  </div>
+</div>
+
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+    </p>
+    <p>
+        &copy; Copyright 2025, Ujaval Gandhi.<br/>
+      Last updated on јул 31, 2025.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 8.2.3.<br/>
+    </p>
+  </div>
+</footer>
+<div class="container">
+  <p>This work is licensed under a <a href="http://creativecommons.org/licenses/by/4.0/deed.en_US">Creative Commons Attribution 4.0 International License</a>.<br>
+  You are free to use the material for any purpose as long as you give appropriate credit to the original author.</p>
+</div>
+
+<!-- Script fpr language switching. Largely adapted from https://github.com/pcav/faunalia-website -->
+<script>
+    var currentPage = 'docs/3/contour_3d_styling.html'; // coming from sphinx, always without starting '/'
+    var currentLang = 'en';
+    $(document).ready(function(){
+
+        var search = new RegExp('\/[a-zA-Z_]{2,8}\/'+ currentPage, 'gi');
+        var langPlusPage = window.location.href.match(search);
+        // it's possible this is a index.html page called without 'index.html', try without the currentPage
+        if (langPlusPage==undefined){
+            search = new RegExp('\/[a-zA-Z_]{2,8}\/$', 'gi');
+            langPlusPage = window.location.href.match(search);
+        }
+
+        // it's possible this is an index.html page called without 'index.html', try removing index.html
+        if (langPlusPage==undefined){
+            currentPage = currentPage.replace('index.html','')
+            search = new RegExp('\/[a-zA-Z_]{2,8}\/'+ currentPage, 'gi');
+            langPlusPage = window.location.href.match(search);
+        }
+        // still no langPlugPage: stop, because the language swicher will misbehave 
+
+        if (langPlusPage == undefined || langPlusPage.length != 1){
+            alert('You hit an error, please report back to us.');
+            return;
+        }
+        langPlusPage = langPlusPage[0];
+        currentLang = langPlusPage.replace(currentPage, '');
+
+        $("#languages").val(currentLang.replace(/\//g,'')); // currentLang is something like '/nl/'
+
+        $("#languages").change(function() {
+            gotoLang($(this).val());
+        });
+
+    });
+
+    // load current page in a different language
+    function gotoLang(lang){
+        var currentUrl = window.location.href;
+        var newUrl = currentUrl.replace(currentLang, '/'+lang+'/');
+        window.location.href = newUrl;
+    }
+</script>
+
+  </body>
+</html>

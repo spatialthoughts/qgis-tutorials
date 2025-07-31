@@ -1,0 +1,507 @@
+<!DOCTYPE html>
+
+<html lang="sr" data-content_root="../../">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Kreiranje mape sveta u bloku (QGIS3) &#8212; QGIS Tutorials and Tips</title>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-sphinx.css?v=0bf093e7" />
+    <script src="../../_static/documentation_options.js?v=7e8936b6"></script>
+    <script src="../../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/translations.js?v=552f857c"></script>
+    <link rel="search" title="Претрага" href="../../search.html" />
+    <link rel="next" title="Stilizovanje rečne mreže pomoću izraza (QGIS3)" href="river_styling_expressions.html" />
+    <link rel="prev" title="Osnovno filtriranje i stilizovanje pomoću izraza (QGIS3)" href="vector_styling_expressions.html" />
+
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<script type="text/javascript" src="../../_static/js/jquery-1.12.4.min.js"></script>
+<script type="text/javascript" src="../../_static/js/jquery-fix.js"></script>
+<script type="text/javascript" src="../../_static/bootstrap-3.4.1/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="../../_static/bootstrap-sphinx.js"></script>
+
+
+<!-- Cookie Notice -->
+<!-- Script from https://github.com/AOEpeople/cookie-notice -->
+<script type="text/javascript" src="../../_static/cookie.notice.min.js"></script>
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-B1WQ7B80XJ"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-B1WQ7B80XJ');
+</script>
+
+
+  </head><body>
+
+  <div id="navbar" class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="../../index.html">
+          QGIS Tutorials and Tips</a>
+        <span class="navbar-text navbar-version pull-left"><b>v1</b></span>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="../../index.html">Tutorials List <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"><ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="making_a_map.html">Making a Map (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="working_with_attributes.html">Working with Attributes (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="importing_spreadsheets_csv.html">Importing Spreadsheets or CSV files (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="basic_vector_styling.html">Basic Vector Styling (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="calculating_line_lengths.html">Izračunavanje dužina linija i statistika (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="raster_styling_and_analysis.html">Basic Raster Styling and Analysis (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="raster_mosaicing_and_clipping.html">Raster Mosaicing and Clipping (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="working_with_terrain.html">Working with Terrain Data (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="working_with_wms.html">Working with WMS Data (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="working_with_projections.html">Working with Projections (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="georeferencing_basics.html">Georeferencing Topo Sheets and Scanned Maps (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="advanced_georeferencing.html">Georeferenciranje aerosnimaka (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="digitizing_basics.html">Digitizing Map Data (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="performing_table_joins.html">Performing Table Joins (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="performing_spatial_joins.html">Performing Spatial Joins (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="performing_spatial_queries.html">Performing Spatial Queries (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="nearest_neighbor_analysis.html">Nearest Neighbor Analysis (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="sampling_raster_data.html">Sampling Raster Data using Points or Polygons (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="calculating_raster_area.html">Calculating Raster Area (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="creating_heatmaps.html">Creating Heatmaps (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="animating_time_series.html">Animating Time Series Data (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="handling_invalid_geometries.html">Handling Invalid Geometries (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="advanced_raster_analysis.html">Napredna rasterska analiza (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="interpolating_point_data.html">Interpolating Point Data (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="batch_processing.html">Batch Processing using Processing Framework (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="processing_graphical_modeler.html">Automating Complex Workflows using Processing Modeler (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="automating_map_creation.html">Automating Map Creation with Print Layout Atlas (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="multi_criteria_overlay.html">Multi Criteria Overlay Analysis (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="vector_styling_expressions.html">Osnovno filtriranje i stilizovanje pomoću izraza (QGIS3)</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Kreiranje mape sveta u bloku (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="river_styling_expressions.html">Stilizovanje rečne mreže pomoću izraza (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="contour_3d_styling.html">Stilizovanje kontura u 3D (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="isometric_buildings.html">Kreiranje izometrijskih zgrada (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="interactive_canvas_maps.html">Izrada interaktivnih mapa na platnu (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="interactive_reveal_maps.html">Izrada interaktivnih mapa otkrivanja (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cartogram_animation.html">Kreiranje animiranog kartograma (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="basic_network_analysis.html">Basic Network Visualization and Routing (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="origin_destination_matrix.html">Locating Nearest Facility with Origin-Destination Matrix (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="service_area_analysis.html">Service Area Analysis using Openrouteservice (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="travel_time_analysis.html">Travel Time Analysis with Uber Movement (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="areal_mean_rainfall.html">Calculating Areal Mean Rainfall (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="colorized_river_basin_map.html">Kreiranje karte rečnog sliva u boji (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="creating_landuse_map.html">Kreiranje mape korišćenja zemljišta (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="calculating_intersection_density.html">Calculating Street Intersection Density (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="landuse_buffer.html">Određivanje zaštitnih zona korišćenja zemljišta (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="solidwaste_mapping.html">Mapiranje količina odloženog otpada (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="getting_started_with_pyqgis.html">Getting Started With Python Programming (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="processing_algorithms_pyqgis.html">Running Processing Algorithms via Python (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="custom_python_functions.html">Korišćenje prilagođenih Pajton izraznih funkcija (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="processing_python_scripts.html">Writing Python Scripts for Processing Framework (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="building_a_python_plugin.html">Building a Python Plugin (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="processing_python_plugin.html">Building a Processing Plugin (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../running_qgis_jobs.html">Running and Scheduling QGIS Processing Jobs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="web_mapping_with_qgis2web.html">Web Mapping with QGIS2Web (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../creating_basemaps_with_qtiles.html">Creating Basemaps with QTiles</a></li>
+<li class="toctree-l1"><a class="reference internal" href="using_plugins.html">Using Plugins (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../downloading_osm_data.html">Searching and Downloading OpenStreetMap Data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../learning_resources.html">QGIS Learning Resources</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../credits.html">Data Credits</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../batch_processing.html">Batch Processing using Processing Framework (QGIS2)</a></li>
+</ul>
+</ul>
+</li>
+              
+            
+            
+              
+                
+  <li>
+    <a href="vector_styling_expressions.html" title="Previous Chapter: Osnovno filtriranje i stilizovanje pomoću izraza (QGIS3)"><span class="glyphicon glyphicon-chevron-left visible-sm"></span><span class="hidden-sm hidden-tablet">&laquo; Osnovno filtr...</span>
+    </a>
+  </li>
+  <li>
+    <a href="river_styling_expressions.html" title="Next Chapter: Stilizovanje rečne mreže pomoću izraza (QGIS3)"><span class="glyphicon glyphicon-chevron-right visible-sm"></span><span class="hidden-sm hidden-tablet">Stilizovanje ... &raquo;</span>
+    </a>
+  </li>
+              
+            
+            
+
+            
+
+            
+              <li class="hidden-sm"></li>
+            
+          </ul>
+
+          
+            
+<form class="navbar-form navbar-right" action="../../search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+      <div class="col-md-3">
+        <div id="sidebar" class="bs-sidenav" role="complementary"><h4>Author</h4>
+<p><a href="https://www.linkedin.com/in/spatialthoughts/"><img src="../../_static/ujaval.png">Ujaval Gandhi</a></p>
+
+<hr>
+<p>Want to learn QGIS in a structured way? Check out <a href="https://spatialthoughts.com/" target="_blank">Spatial Thoughts</a> for more learning materials and instructor-led online programs with QGIS.org certification.</p>
+
+<hr>
+<p>These tutorials are also available in many other languages. Please see <a href="https://www.qgistutorials.com/en/docs/introduction.html#translations" target="_blank">translations</a> page.
+</p>
+        </div>
+      </div>
+    <div class="body col-md-9 content" role="main">
+      
+
+  <section id="creating-a-block-world-map-qgis3">
+<h1>Kreiranje mape sveta u bloku (QGIS3)<a class="headerlink" href="#creating-a-block-world-map-qgis3" title="Link to this heading">¶</a></h1>
+<p>Doprinos: Stiven Kim
+&lt;<a class="reference external" href="https://geographyclub.github.io/">https://geographyclub.github.io/</a>&gt;`_</p>
+<p>U prethodnom tutorijalu <a class="reference internal" href="vector_styling_expressions.html"><span class="doc">Osnovno filtriranje i stilizovanje pomoću izraza (QGIS3)</span></a> smo pogledali kako se jednostavni izrazi mogu koristiti za filtriranje i stilizovanje podataka u QGIS-u. Proširili smo ovo kreiranjem sveta u blok formatu od heksadecimalne mreže sa vrednostima visine.</p>
+<section id="overview-of-the-task">
+<h2>Pregled zadatka<a class="headerlink" href="#overview-of-the-task" title="Link to this heading">¶</a></h2>
+<p>Uzećemo heksadecimalnu mrežu koja sadrži vrednosti visine i koristiti matematičku funkciju da postavimo promenljivu visine za 2.5d renderer i uslovnu naredbu da primenimo skalu boja.</p>
+<blockquote>
+<div><img alt="../../_images/output1.png" class="align-center" src="../../_images/output1.png" />
+</div></blockquote>
+<section id="other-skills-you-will-learn">
+<h3>Druge veštine koje ćete naučiti<a class="headerlink" href="#other-skills-you-will-learn" title="Link to this heading">¶</a></h3>
+<ul class="simple">
+<li><p>Otkrivanje i preuzimanje skupova podataka o nadmorskoj visini.</p></li>
+<li><p>Kreiranje heksagonalne mreže i izdvajanje rasterske statistike za svaku ćeliju mreže.</p></li>
+<li><p>Dodavanje nove rampe boja u QGIS.</p></li>
+</ul>
+</section>
+</section>
+<section id="get-the-data">
+<h2>Dobijte podatke<a class="headerlink" href="#get-the-data" title="Link to this heading">¶</a></h2>
+<p><a class="reference external" href="https://opentopography.org/start">OpenTopography</a> pruža pristup mnogim otvoreno licenciranim skupovima podataka o elevaciji. Izdvojićemo i preuzeti DEM za vaš region od interesa iz globalnog DEM-a i skupa podataka batimetrije okeana koji se nalazi na OpenTopography.</p>
+<ol class="arabic simple">
+<li><p>Posetite stranicu sa podacima „Globalna batimetrija i topografija na 15 lučnih sekundi: SRTM15+ V2.5.5 &lt;<a class="reference external" href="https://portal.opentopography.org/raster?opentopoID=OTSRTM.122019.4326.1">https://portal.opentopography.org/raster?opentopoID=OTSRTM.122019.4326.1</a>&gt;“_ na veb-sajtu OpenTopography. Ovo je globalni skup podataka rezolucije 500 metara izveden iz SRTM DEM-a i različitih skupova podataka okeanske batimetrije.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/data12.png" class="align-center" src="../../_images/data12.png" />
+</div></blockquote>
+<ol class="arabic simple" start="2">
+<li><p>Pomerite se nadole do odeljka <span class="guilabel">1. Izaberite oblast podataka za obradu</span>. Kliknite na dugme <span class="guilabel">IZABERI REGION</span> i nacrtajte pravougaonik koji pokriva region koji vas zanima.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/data21.png" class="align-center" src="../../_images/data21.png" />
+</div></blockquote>
+<ol class="arabic simple" start="3">
+<li><p>Kada podesite region, skrolujte nadole do odeljka <span class="guilabel">2. Formati izlaznih podataka</span> i izaberite <code class="docutils literal notranslate"><span class="pre">GeoTiff</span></code>. Ostavite sve ostale opcije na podrazumevanim vrednostima i skrolujte nadole do odeljka <span class="guilabel">Opis posla</span>. Unesite svoju adresu e-pošte da biste bili obavešteni kada preuzimanje bude spremno. Kliknite na dugme <span class="guilabel">POŠALJI</span>.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/data31.png" class="align-center" src="../../_images/data31.png" />
+</div></blockquote>
+<ol class="arabic simple" start="4">
+<li><p>Obrada preuzimanja može potrajati nekoliko minuta. Kada bude spremno, dobićete vezu za preuzimanje izabranog podskupa. Preuzmite datoteku na svoj računar. Preuzeta datoteka je tar kompresovana datoteka koju je potrebno raspakovati da bi se otvorila u QGIS-u. Na Windows-u možete koristiti eksterni program kao što je <a class="reference external" href="https://www.7-zip.org/">7-Zip</a> da biste raspakovali i izdvojili datoteku <code class="docutils literal notranslate"><span class="pre">output_SRTM15Plus.tif</span></code>.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/data41.png" class="align-center" src="../../_images/data41.png" />
+</div></blockquote>
+<ol class="arabic simple" start="5">
+<li><p>U QGIS-u, pronađite datoteku <code class="docutils literal notranslate"><span class="pre">output_SRTM15Plus.tif</span></code> u <span class="guilabel">Pregledaču</span>. Prevucite je i ispustite na QGIS platno. Novi sloj <code class="docutils literal notranslate"><span class="pre">output_SRTM15Plus</span></code> biće dodat na <span class="guilabel">Slojevi</span> panel.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/data51.png" class="align-center" src="../../_images/data51.png" />
+</div></blockquote>
+<ol class="arabic simple" start="6">
+<li><p>Otvorite Kutiju sa alatkama za obradu iz <span class="menuselection">Obrada ‣ Kutija sa alatkama</span>. Potražite i pronađite algoritam <span class="menuselection">Kreiranje vektora ‣ Kreiraj mrežu</span>. Dvaput kliknite da biste ga otvorili.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/data61.png" class="align-center" src="../../_images/data61.png" />
+</div></blockquote>
+<ol class="arabic simple" start="7">
+<li><p>U dijalogu <span class="guilabel">Kreiraj mrežu</span>, izaberite <code class="docutils literal notranslate"><span class="pre">Heksagon</span></code> kao <span class="guilabel">Tip mreže</span>. Napravićemo mrežu koja obuhvata ceo DEM. Dakle, za <span class="guilabel">Opseg mreže</span>, kliknite na strelicu nadole i izaberite <span class="menuselection">Izračunaj sloj forme ‣ output_SRTM15Plus</span>.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/data71.png" class="align-center" src="../../_images/data71.png" />
+</div></blockquote>
+<ol class="arabic simple" start="8">
+<li><p>Naša izabrana regija je prilično velika, tako da možemo da kreiramo mrežu od 1 stepena. Izaberite <code class="docutils literal notranslate"><span class="pre">1</span></code> i za <span class="guilabel">Horizontalni razmak</span> i za <span class="guilabel">Vertikalni razmak</span>. Ako radite u manjoj regiji, možete da izaberete manji razmak mreže. Ostavite ostale opcije na njihovim podrazumevanim vrednostima i kliknite na dugme <span class="guilabel">Pokreni</span> da biste kreirali mrežu.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/data8.png" class="align-center" src="../../_images/data8.png" />
+</div></blockquote>
+<ol class="arabic simple" start="9">
+<li><p>Novi sloj „Mreža“ biće dodat na panel <span class="guilabel">Slojevi</span>. Sada ćemo izdvojiti minimalne, maksimalne i prosečne vrednosti nadmorske visine u svakom poligonu mreže. Izaberite sloj „Mreža“ i pronađite algoritam <span class="menuselection">Rasterska analiza ‣ Zonalna statistika</span> iz kutije sa alatkama za obradu. Dvaput kliknite da biste ga otvorili.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/data9.png" class="align-center" src="../../_images/data9.png" />
+</div></blockquote>
+<ol class="arabic simple" start="10">
+<li><p>Izaberite <code class="docutils literal notranslate"><span class="pre">Grid</span></code> kao <span class="guilabel">Input layer</span> i <code class="docutils literal notranslate"><span class="pre">output_SRTM15Plus</span></code> kao <span class="guilabel">Raster layer</span>. Unesite <code class="docutils literal notranslate"><span class="pre">dem_</span></code> kao <span class="guilabel">Output column prefix</span>. Zatim želimo da konfigurišemo koje statistike želimo da izvučemo iz rastera. Kliknite na dugme <span class="guilabel">…</span> pored <span class="guilabel">Statistika za izračunavanje</span>.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/data10.png" class="align-center" src="../../_images/data10.png" />
+</div></blockquote>
+<ol class="arabic simple" start="11">
+<li><p>Označite opcije za vrednosti „Prosečna vrednost“, „Maksimalna vrednost“ i „Minimalna vrednost“ i kliknite na <span class="guilabel">U redu</span>. Rezultate ćemo sačuvati u datoteku. Kliknite na dugme <span class="guilabel">…</span> pored <span class="guilabel">Zonalna statistika</span> i izaberite <span class="guilabel">Sačuvaj u datoteku…</span>.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/data111.png" class="align-center" src="../../_images/data111.png" />
+</div></blockquote>
+<ol class="arabic simple" start="12">
+<li><p>Idite do fascikle na računaru i unesite ime datoteke kao <code class="docutils literal notranslate"><span class="pre">hex_grid_with_elevation</span></code>. Uverite se da je tip datoteke izabran kao <span class="guilabel">GeoPackage files (*.gpkg)</span>. Kliknite na <span class="guilabel">Sačuvaj</span>. Kada je dijalog <span class="guilabel">Zonalna statistika</span> konfigurisan, kliknite na <span class="guilabel">Pokreni</span>.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/data121.png" class="align-center" src="../../_images/data121.png" />
+</div></blockquote>
+<ol class="arabic simple" start="13">
+<li><p>Obrada može potrajati nekoliko minuta u zavisnosti od veličine vaše mreže. Kada se proračuni završe, novi sloj <code class="docutils literal notranslate"><span class="pre">hex_grid_with_elevation</span></code> biće dodat na panel <span class="guilabel">Layers</span>. Ovo je vektorski sloj sa atributima <code class="docutils literal notranslate"><span class="pre">dem_mean</span></code>, <code class="docutils literal notranslate"><span class="pre">dem_min</span></code> i <code class="docutils literal notranslate"><span class="pre">dem_max</span></code> koji sadrži statistiku nadmorske visine izvučenu iz DEM-a.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/data13.png" class="align-center" src="../../_images/data13.png" />
+</div></blockquote>
+<p>Radi lakšeg snalaženja, možete direktno preuzeti kopiju pripremljene mreže odozdo:</p>
+<p><a class="reference external" href="https://www.qgistutorials.com/downloads/hex_grid_with_elevation.gpkg">hex_grid_with_elevation.gpkg</a></p>
+<p>Izvor podataka <a class="reference internal" href="../credits.html#opentopography" id="id1"><span>[OPENTOPOGRAPHY]</span></a></p>
+</section>
+<section id="procedure">
+<h2>Procedura<a class="headerlink" href="#procedure" title="Link to this heading">¶</a></h2>
+<ol class="arabic simple">
+<li><p>Pronađite datoteku <code class="docutils literal notranslate"><span class="pre">hex_grid_with_elevation.gpkg</span></code> u QGIS pregledaču i proširite je. Izaberite sloj <code class="docutils literal notranslate"><span class="pre">hex_grid_with_elevation</span></code> i prevucite ga na platno.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/120.png" class="align-center" src="../../_images/120.png" />
+</div></blockquote>
+<ol class="arabic simple" start="2">
+<li><p>Novi sloj <code class="docutils literal notranslate"><span class="pre">hex_grid_with_elevation</span></code> će sada biti učitan u QGIS i trebalo bi da vidite heksadecimalnu mrežu.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/218.png" class="align-center" src="../../_images/218.png" />
+</div></blockquote>
+<ol class="arabic simple" start="3">
+<li><p>Pre nego što nastavimo, prvo moramo dodati skalu boja pogodnu za bojenje DEM-ova. Kliknite na <span class="guilabel">Podešavanja</span> u meniju i izaberite <span class="guilabel">Menadžer stilova</span>.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/316.png" class="align-center" src="../../_images/316.png" />
+</div></blockquote>
+<ol class="arabic simple" start="4">
+<li><p>Kliknite na znak plus <span class="guilabel">Dodaj stavku</span> na dnu i izaberite <span class="menuselection">Katalog: cpt-city…</span>.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/45.png" class="align-center" src="../../_images/45.png" />
+</div></blockquote>
+<ol class="arabic simple" start="5">
+<li><p>Pomerite se nadole po skalama boja dok ne pronađete <span class="guilabel">wiki-1.02</span>. Možda ih postoji nekoliko sa istim imenom, samo kliknite na jednu i kliknite na <span class="guilabel">OK</span>.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/55.png" class="align-center" src="../../_images/55.png" />
+</div></blockquote>
+<ol class="arabic simple" start="6">
+<li><p>U prozoru <span class="guilabel">Sačuvaj novu kolornu rampu</span>, unesite vrednost <code class="docutils literal notranslate"><span class="pre">wiki-1.02</span></code> kao <span class="guilabel">Naziv</span>.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/65.png" class="align-center" src="../../_images/65.png" />
+</div></blockquote>
+<ol class="arabic simple" start="7">
+<li><p>Kliknite na <span class="guilabel">Sačuvaj</span> da biste zatvorili prozor, a zatim kliknite na <span class="guilabel">Zatvori</span> da biste zatvorili Menadžer stilova. Sada je wiki-1.02 skala boja dostupna za korišćenje u vašim budućim projektima.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/75.png" class="align-center" src="../../_images/75.png" />
+</div></blockquote>
+<ol class="arabic simple" start="8">
+<li><p>Kliknite na <span class="guilabel">Otvori panel za stilizovanje slojeva</span> i prebacite se sa <span class="guilabel">Jedan simbol</span> na <span class="guilabel">2.5 D</span>. Kliknite na dugme <span class="guilabel">e</span> pored <span class="guilabel">Visina</span>.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/85.png" class="align-center" src="../../_images/85.png" />
+</div></blockquote>
+<ol class="arabic simple" start="9">
+<li><p>U <span class="guilabel">Kreator izraza</span>, unesite sledeći izraz. Ovaj izraz koristi funkciju <code class="docutils literal notranslate"><span class="pre">scale_exp()</span></code> da bi promenio opseg vrednosti atributa <code class="docutils literal notranslate"><span class="pre">dem_mean</span></code> od 0-10000 do 0-4 i da bi koristio eksponent od 2. Eksponencijalno skaliranje izgleda lepo u blok svetu. <code class="docutils literal notranslate"><span class="pre">+8000</span></code> služi da bi dno okeana bilo jednako nuli.</p></li>
+</ol>
+<blockquote>
+<div><div class="highlight-none notranslate"><div class="highlight"><pre><span></span>scale_exp((&quot;dem_mean&quot;+8000),0,10000,0,4,2)
+</pre></div>
+</div>
+<img alt="../../_images/95.png" class="align-center" src="../../_images/95.png" />
+</div></blockquote>
+<ol class="arabic simple" start="10">
+<li><p>Promenite <span class="guilabel">Ugao</span> na <code class="docutils literal notranslate"><span class="pre">135</span></code>.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/108.png" class="align-center" src="../../_images/108.png" />
+</div></blockquote>
+<ol class="arabic simple" start="11">
+<li><p>Primenićemo sopstvene boje na mreže. Isključite <span class="guilabel">Senči zidove na osnovu aspekta</span> i <span class="guilabel">Senka</span>.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/1111.png" class="align-center" src="../../_images/1111.png" />
+</div></blockquote>
+<ol class="arabic simple" start="12">
+<li><p>Trebalo bi da vidite kako topografija regiona počinje da dobija oblik. Kliknite na <span class="guilabel">Otvori panel za stilizovanje sloja</span> i prebacite se sa <span class="guilabel">2.5D</span> nazad na <span class="guilabel">Jedan simbol</span>.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/128.png" class="align-center" src="../../_images/128.png" />
+</div></blockquote>
+<ol class="arabic simple" start="13">
+<li><p>U prozoru <span class="guilabel">Symbol</span>, primetite da postoje dva generatora geometrije, svaki sa tipom sloja <span class="guilabel">Simple Fill</span>. Prvi <span class="guilabel">Simple Fill</span> je gornja strana svakog bloka, dok je drugi <span class="guilabel">Simple Fill</span> bočna strana.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/137.png" class="align-center" src="../../_images/137.png" />
+</div></blockquote>
+<ol class="arabic simple" start="14">
+<li><p>Kliknite na prvo <span class="guilabel">Simple Fill</span> da biste promenili boju gornje površine. Kliknite na dugme <span class="guilabel">Data define override</span> za <span class="guilabel">Fill color</span> i izaberite <span class="guilabel">Edit…</span> u meniju.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/147.png" class="align-center" src="../../_images/147.png" />
+</div></blockquote>
+<ol class="arabic simple" start="15">
+<li><p>Ovim se otvara dijalog <span class="guilabel">Kreator izraza</span> za boju popunjavanja. Unesite sledeći izraz. Ovaj izraz ima uslovnu naredbu <code class="docutils literal notranslate"><span class="pre">CASE</span></code> za korišćenje boja wiki-1.02 kada je vrednost atributa <code class="docutils literal notranslate"><span class="pre">dem_mean</span></code> veća ili jednaka nuli i zeleno-plavih boja kada je <code class="docutils literal notranslate"><span class="pre">dem_mean</span></code> manja od nule.</p></li>
+</ol>
+<blockquote>
+<div><div class="highlight-none notranslate"><div class="highlight"><pre><span></span>CASE
+WHEN &quot;dem_mean&quot; &gt;= 0 THEN ramp_color(&#39;wiki-1.02&#39;,scale_linear(&quot;dem_min&quot;,0,1500,0.4,1))
+ELSE ramp_color(&#39;GnBu&#39;,scale_linear(&quot;dem_mean&quot;,-6000,0,1,0))
+END
+</pre></div>
+</div>
+<img alt="../../_images/157.png" class="align-center" src="../../_images/157.png" />
+</div></blockquote>
+<ol class="arabic simple" start="16">
+<li><p>Heksadecimalna mreža se sada prikazuje u bojama koje određuje naš izraz. Kliknite na dugme <span class="guilabel">Data define override</span> za <span class="guilabel">Fill color</span> i izaberite <span class="guilabel">Copy</span> u meniju.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/167.png" class="align-center" src="../../_images/167.png" />
+</div></blockquote>
+<ol class="arabic simple" start="17">
+<li><p>Kliknite na dugme <span class="guilabel">Data define override</span> za <span class="guilabel">Stroke colour</span> i izaberite <span class="guilabel">Paste</span> u meniju.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/177.png" class="align-center" src="../../_images/177.png" />
+</div></blockquote>
+<ol class="arabic simple" start="18">
+<li><p>Trebalo bi da vidite kako boje stupaju na snagu i da je naša mapa završena. Slobodno eksperimentišite sa izrazima u ovom tutorijalu, kao što je promena parametara u funkciji visine ili dodavanje i isprobavanje novih prelaza boja.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/185.png" class="align-center" src="../../_images/185.png" />
+</div></blockquote>
+</section>
+</section>
+
+
+
+<!-- Turn on comments on only newer tutorials having 3/ in URL -->
+
+  <!-- Comment Section Powered by utterances -->
+<div id="comments">
+  <hr />
+  <p>If you want to give feedback or share your experience with this tutorial, please comment below. (requires GitHub account)</p>
+<script src="https://utteranc.es/client.js"
+        repo="spatialthoughts/qgis-tutorials"
+        issue-term="title"
+        label="comment"
+        theme="github-light"
+        crossorigin="anonymous"
+        async>
+</script>
+</div>
+
+
+    </div>
+      
+  </div>
+</div>
+
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+    </p>
+    <p>
+        &copy; Copyright 2025, Ujaval Gandhi.<br/>
+      Last updated on јул 31, 2025.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 8.2.3.<br/>
+    </p>
+  </div>
+</footer>
+<div class="container">
+  <p>This work is licensed under a <a href="http://creativecommons.org/licenses/by/4.0/deed.en_US">Creative Commons Attribution 4.0 International License</a>.<br>
+  You are free to use the material for any purpose as long as you give appropriate credit to the original author.</p>
+</div>
+
+<!-- Script fpr language switching. Largely adapted from https://github.com/pcav/faunalia-website -->
+<script>
+    var currentPage = 'docs/3/block_world_styling.html'; // coming from sphinx, always without starting '/'
+    var currentLang = 'en';
+    $(document).ready(function(){
+
+        var search = new RegExp('\/[a-zA-Z_]{2,8}\/'+ currentPage, 'gi');
+        var langPlusPage = window.location.href.match(search);
+        // it's possible this is a index.html page called without 'index.html', try without the currentPage
+        if (langPlusPage==undefined){
+            search = new RegExp('\/[a-zA-Z_]{2,8}\/$', 'gi');
+            langPlusPage = window.location.href.match(search);
+        }
+
+        // it's possible this is an index.html page called without 'index.html', try removing index.html
+        if (langPlusPage==undefined){
+            currentPage = currentPage.replace('index.html','')
+            search = new RegExp('\/[a-zA-Z_]{2,8}\/'+ currentPage, 'gi');
+            langPlusPage = window.location.href.match(search);
+        }
+        // still no langPlugPage: stop, because the language swicher will misbehave 
+
+        if (langPlusPage == undefined || langPlusPage.length != 1){
+            alert('You hit an error, please report back to us.');
+            return;
+        }
+        langPlusPage = langPlusPage[0];
+        currentLang = langPlusPage.replace(currentPage, '');
+
+        $("#languages").val(currentLang.replace(/\//g,'')); // currentLang is something like '/nl/'
+
+        $("#languages").change(function() {
+            gotoLang($(this).val());
+        });
+
+    });
+
+    // load current page in a different language
+    function gotoLang(lang){
+        var currentUrl = window.location.href;
+        var newUrl = currentUrl.replace(currentLang, '/'+lang+'/');
+        window.location.href = newUrl;
+    }
+</script>
+
+  </body>
+</html>

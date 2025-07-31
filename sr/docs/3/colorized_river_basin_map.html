@@ -1,0 +1,621 @@
+<!DOCTYPE html>
+
+<html lang="sr" data-content_root="../../">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Kreiranje karte rečnog sliva u boji (QGIS3) &#8212; QGIS Tutorials and Tips</title>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-sphinx.css?v=0bf093e7" />
+    <script src="../../_static/documentation_options.js?v=7e8936b6"></script>
+    <script src="../../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/translations.js?v=552f857c"></script>
+    <link rel="search" title="Претрага" href="../../search.html" />
+    <link rel="next" title="Kreiranje mape korišćenja zemljišta (QGIS3)" href="creating_landuse_map.html" />
+    <link rel="prev" title="Calculating Areal Mean Rainfall (QGIS3)" href="areal_mean_rainfall.html" />
+
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<script type="text/javascript" src="../../_static/js/jquery-1.12.4.min.js"></script>
+<script type="text/javascript" src="../../_static/js/jquery-fix.js"></script>
+<script type="text/javascript" src="../../_static/bootstrap-3.4.1/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="../../_static/bootstrap-sphinx.js"></script>
+
+
+<!-- Cookie Notice -->
+<!-- Script from https://github.com/AOEpeople/cookie-notice -->
+<script type="text/javascript" src="../../_static/cookie.notice.min.js"></script>
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-B1WQ7B80XJ"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-B1WQ7B80XJ');
+</script>
+
+
+  </head><body>
+
+  <div id="navbar" class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="../../index.html">
+          QGIS Tutorials and Tips</a>
+        <span class="navbar-text navbar-version pull-left"><b>v1</b></span>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="../../index.html">Tutorials List <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"><ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="making_a_map.html">Making a Map (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="working_with_attributes.html">Working with Attributes (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="importing_spreadsheets_csv.html">Importing Spreadsheets or CSV files (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="basic_vector_styling.html">Basic Vector Styling (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="calculating_line_lengths.html">Izračunavanje dužina linija i statistika (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="raster_styling_and_analysis.html">Basic Raster Styling and Analysis (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="raster_mosaicing_and_clipping.html">Raster Mosaicing and Clipping (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="working_with_terrain.html">Working with Terrain Data (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="working_with_wms.html">Working with WMS Data (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="working_with_projections.html">Working with Projections (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="georeferencing_basics.html">Georeferencing Topo Sheets and Scanned Maps (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="advanced_georeferencing.html">Georeferenciranje aerosnimaka (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="digitizing_basics.html">Digitizing Map Data (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="performing_table_joins.html">Performing Table Joins (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="performing_spatial_joins.html">Performing Spatial Joins (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="performing_spatial_queries.html">Performing Spatial Queries (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="nearest_neighbor_analysis.html">Nearest Neighbor Analysis (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="sampling_raster_data.html">Sampling Raster Data using Points or Polygons (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="calculating_raster_area.html">Calculating Raster Area (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="creating_heatmaps.html">Creating Heatmaps (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="animating_time_series.html">Animating Time Series Data (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="handling_invalid_geometries.html">Handling Invalid Geometries (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="advanced_raster_analysis.html">Napredna rasterska analiza (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="interpolating_point_data.html">Interpolating Point Data (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="batch_processing.html">Batch Processing using Processing Framework (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="processing_graphical_modeler.html">Automating Complex Workflows using Processing Modeler (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="automating_map_creation.html">Automating Map Creation with Print Layout Atlas (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="multi_criteria_overlay.html">Multi Criteria Overlay Analysis (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="vector_styling_expressions.html">Osnovno filtriranje i stilizovanje pomoću izraza (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="block_world_styling.html">Kreiranje mape sveta u bloku (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="river_styling_expressions.html">Stilizovanje rečne mreže pomoću izraza (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="contour_3d_styling.html">Stilizovanje kontura u 3D (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="isometric_buildings.html">Kreiranje izometrijskih zgrada (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="interactive_canvas_maps.html">Izrada interaktivnih mapa na platnu (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="interactive_reveal_maps.html">Izrada interaktivnih mapa otkrivanja (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cartogram_animation.html">Kreiranje animiranog kartograma (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="basic_network_analysis.html">Basic Network Visualization and Routing (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="origin_destination_matrix.html">Locating Nearest Facility with Origin-Destination Matrix (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="service_area_analysis.html">Service Area Analysis using Openrouteservice (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="travel_time_analysis.html">Travel Time Analysis with Uber Movement (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="areal_mean_rainfall.html">Calculating Areal Mean Rainfall (QGIS3)</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Kreiranje karte rečnog sliva u boji (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="creating_landuse_map.html">Kreiranje mape korišćenja zemljišta (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="calculating_intersection_density.html">Calculating Street Intersection Density (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="landuse_buffer.html">Određivanje zaštitnih zona korišćenja zemljišta (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="solidwaste_mapping.html">Mapiranje količina odloženog otpada (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="getting_started_with_pyqgis.html">Getting Started With Python Programming (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="processing_algorithms_pyqgis.html">Running Processing Algorithms via Python (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="custom_python_functions.html">Korišćenje prilagođenih Pajton izraznih funkcija (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="processing_python_scripts.html">Writing Python Scripts for Processing Framework (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="building_a_python_plugin.html">Building a Python Plugin (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="processing_python_plugin.html">Building a Processing Plugin (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../running_qgis_jobs.html">Running and Scheduling QGIS Processing Jobs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="web_mapping_with_qgis2web.html">Web Mapping with QGIS2Web (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../creating_basemaps_with_qtiles.html">Creating Basemaps with QTiles</a></li>
+<li class="toctree-l1"><a class="reference internal" href="using_plugins.html">Using Plugins (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../downloading_osm_data.html">Searching and Downloading OpenStreetMap Data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../learning_resources.html">QGIS Learning Resources</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../credits.html">Data Credits</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../batch_processing.html">Batch Processing using Processing Framework (QGIS2)</a></li>
+</ul>
+</ul>
+</li>
+              
+            
+            
+              
+                
+  <li>
+    <a href="areal_mean_rainfall.html" title="Previous Chapter: Calculating Areal Mean Rainfall (QGIS3)"><span class="glyphicon glyphicon-chevron-left visible-sm"></span><span class="hidden-sm hidden-tablet">&laquo; Calculating A...</span>
+    </a>
+  </li>
+  <li>
+    <a href="creating_landuse_map.html" title="Next Chapter: Kreiranje mape korišćenja zemljišta (QGIS3)"><span class="glyphicon glyphicon-chevron-right visible-sm"></span><span class="hidden-sm hidden-tablet">Kreiranje map... &raquo;</span>
+    </a>
+  </li>
+              
+            
+            
+
+            
+
+            
+              <li class="hidden-sm"></li>
+            
+          </ul>
+
+          
+            
+<form class="navbar-form navbar-right" action="../../search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+      <div class="col-md-3">
+        <div id="sidebar" class="bs-sidenav" role="complementary"><h4>Author</h4>
+<p><a href="https://www.linkedin.com/in/spatialthoughts/"><img src="../../_static/ujaval.png">Ujaval Gandhi</a></p>
+
+<hr>
+<p>Want to learn QGIS in a structured way? Check out <a href="https://spatialthoughts.com/" target="_blank">Spatial Thoughts</a> for more learning materials and instructor-led online programs with QGIS.org certification.</p>
+
+<hr>
+<p>These tutorials are also available in many other languages. Please see <a href="https://www.qgistutorials.com/en/docs/introduction.html#translations" target="_blank">translations</a> page.
+</p>
+        </div>
+      </div>
+    <div class="body col-md-9 content" role="main">
+      
+
+  <section id="creating-a-colorized-river-basin-map-qgis3">
+<h1>Kreiranje karte rečnog sliva u boji (QGIS3)<a class="headerlink" href="#creating-a-colorized-river-basin-map-qgis3" title="Link to this heading">¶</a></h1>
+<p>U ovom tutorijalu ćemo naučiti QGIS tok rada za kreiranje umetničkih rečnih mapa za vašu zemlju ili region koristeći otvoreno dostupne hidrološke podatke.</p>
+<div class="admonition note">
+<p class="admonition-title">Белешка</p>
+<p>Ovaj tutorijal je inspirisan prelepim mapama koje je napravio <a class="reference external" href="https://www.grasshoppergeography.com/">Grasshopper Geography</a>. Posedujem jedan njihov otisak i vi takođe možete podržati njihov rad kupovinom jedne od njihovih mapa iz njihove <a class="reference external" href="https://www.etsy.com/shop/GrasshopperGeography">onlajn prodavnice</a>.</p>
+</div>
+<section id="overview-of-the-task">
+<h2>Pregled zadatka<a class="headerlink" href="#overview-of-the-task" title="Link to this heading">¶</a></h2>
+<p>U ovom tutorijalu, preuzećemo slojeve podataka o slivovima i rekama iz HydroSHEDS-a i kreirati mapu sliva za reke Indije.</p>
+<blockquote>
+<div><img alt="../../_images/rivers_of_india.png" class="align-center" src="../../_images/rivers_of_india.png" />
+</div></blockquote>
+</section>
+<section id="other-skills-you-will-learn">
+<h2>Druge veštine koje ćete naučiti<a class="headerlink" href="#other-skills-you-will-learn" title="Link to this heading">¶</a></h2>
+<ul class="simple">
+<li><p>Kako dodeliti projekciju vektorskom sloju sa netačnom ili nedostajućom projekcijom.</p></li>
+<li><p>Kako dodati više slojeva u jedan GeoPackage.</p></li>
+<li><p>Kako dodati oznaku „Napravljeno pomoću QGIS-a“ na vašu mapu.</p></li>
+</ul>
+</section>
+<section id="get-the-data">
+<h2>Dobijte podatke<a class="headerlink" href="#get-the-data" title="Link to this heading">¶</a></h2>
+<p><a class="reference external" href="https://www.hydrosheds.org/">HydroSHEDS</a> pruža globalne hidrološke skupove podataka pogodne za regionalne i globalne primene. Slojevi podataka su izvedeni iz hidrološki uslovljenog DEM-a iz SRTM-a.</p>
+<section id="basin-boundaries">
+<h3>Granice basena<a class="headerlink" href="#basin-boundaries" title="Link to this heading">¶</a></h3>
+<p>HidroBasins pruža poligonske granice basena za različite kontinente. Granice su hijerarhijske – svaki basen na nivou N je dalje podeljen na manje basene na nivou N+1. Za ovaj tutorijal, koristićemo granice basena nivoa 6. Možete koristiti različite nivoe u zavisnosti od vašeg regiona i vrste mape koju želite da kreirate. Posetite stranicu <a class="reference external" href="https://www.hydrosheds.org/products/hydrobasins">HydroBASINS</a> i preuzmite zip datoteku za vaš region.</p>
+<blockquote>
+<div><img alt="../../_images/download1.png" class="align-center" src="../../_images/download1.png" />
+</div></blockquote>
+<div class="admonition note">
+<p class="admonition-title">Белешка</p>
+<p>Granice sliva HydroSHEDS su izvedene iz SRTM podataka koji su u ovom trenutku stariji od 20 godina. Granice sliva se možda ne podudaraju sa zvaničnim granicama sliva u vašem regionu. Možete zameniti podatke HydroBasins poligonima iz zvaničnih izvora kada su dostupni.</p>
+</div>
+</section>
+<section id="river-network">
+<h3>Rečna mreža<a class="headerlink" href="#river-network" title="Link to this heading">¶</a></h3>
+<p>HydroRIVERS pruža linijski shapefajl koji predstavlja rečnu mrežu. Posetite stranicu <a class="reference external" href="https://www.hydrosheds.org/products/hydrorivers">HydroRIVERS</a> i preuzmite zip datoteku za vaš region koji vas zanima.</p>
+<blockquote>
+<div><img alt="../../_images/download2.png" class="align-center" src="../../_images/download2.png" />
+</div></blockquote>
+</section>
+<section id="administrative-boundary">
+<h3>Administrativna granica<a class="headerlink" href="#administrative-boundary" title="Link to this heading">¶</a></h3>
+<p>Iseći ćemo podatke HydroSHEDS-a na granicu vašeg izabranog regiona. U ovom tutorijalu, želimo da napravimo mapu rečnog sliva Indije, pa ćemo dobiti shapefile granica iz Survey of India. Posetite stranicu <a class="reference external" href="https://surveyofindia.gov.in/pages/outline-maps-of-india">Outline Maps of India</a> i preuzmite vektorski format međunarodne granice Indije. Ako su vam potrebne administrativne granice za druge zemlje ili države, možete ih dobiti sa <a class="reference external" href="https://gadm.org/">GADM</a> ili <a class="reference external" href="https://www.geoboundaries.org/">geoBoundaries</a>.</p>
+<blockquote>
+<div><img alt="../../_images/download3.png" class="align-center" src="../../_images/download3.png" />
+</div></blockquote>
+<p>Kada se sve datoteke preuzmu, raspakujte ih i kopirajte u fasciklu. Sada bi trebalo da imate 3 shapefile-a: <code class="docutils literal notranslate"><span class="pre">hybas_as_lev06_v1c.shp</span></code>, <code class="docutils literal notranslate"><span class="pre">HydroRIVERS_v10_as.shp</span></code> i administratorske granice <code class="docutils literal notranslate"><span class="pre">`polymap15m_area.shp`</span></code>.</p>
+<blockquote>
+<div><img alt="../../_images/download4.png" class="align-center" src="../../_images/download4.png" />
+</div></blockquote>
+<p>Izvori podataka: <a class="reference internal" href="../credits.html#hydrosheds" id="id1"><span>[HYDROSHEDS]</span></a>, <a class="reference internal" href="../credits.html#soi" id="id2"><span>[SOI]</span></a></p>
+</section>
+</section>
+<section id="procedure">
+<h2>Procedura<a class="headerlink" href="#procedure" title="Link to this heading">¶</a></h2>
+<ol class="arabic simple">
+<li><p>Otvorite QGIS i pronađite preuzete datoteke u QGIS <span class="guilabel">Browser</span>. Prevucite i ispustite <code class="docutils literal notranslate"><span class="pre">hybas_as_lev06_v1c.shp</span></code> i <code class="docutils literal notranslate"><span class="pre">HydroRIVERS_v10_as.shp</span></code> na platno.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/150.png" class="align-center" src="../../_images/150.png" />
+</div></blockquote>
+<ol class="arabic simple" start="2">
+<li><p>Pronađite shapefile administrativnih granica <code class="docutils literal notranslate"><span class="pre">polymap15m_area.shp</span></code> i prevucite ga i ispustite na platno.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/229.png" class="align-center" src="../../_images/229.png" />
+</div></blockquote>
+<ol class="arabic simple" start="3">
+<li><p>Slojevi podataka HydroSHEDS-a imaju neke elemente sa nevažećim geometrijama. Hajde da ih popravimo dalje. Otvorite kutiju sa alatkama za obradu iz <span class="menuselection">Obrada ‣ Kutija sa alatkama</span>. Potražite i pronađite alatku <span class="menuselection">Vektorska geometrija ‣ Popravi geometrije</span>. Dvaput kliknite da biste je pokrenuli.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/320.png" class="align-center" src="../../_images/320.png" />
+</div></blockquote>
+<div class="admonition note">
+<p class="admonition-title">Белешка</p>
+<p>Možete pregledati tutorijal <a class="reference internal" href="handling_invalid_geometries.html"><span class="doc">Handling Invalid Geometries (QGIS3)</span></a> da biste saznali više o uzrocima i rešenjima za nevažeće geometrije.</p>
+</div>
+<ol class="arabic simple" start="4">
+<li><p>Izaberite <code class="docutils literal notranslate"><span class="pre">hybas_as_lev06_v1c</span></code> kao <span class="guilabel">Ulazni sloj</span>. Kliknite na dugme <span class="guilabel">…</span> pored <span class="guilabel">Fiksne geometrije</span> i izaberite <span class="guilabel">Sačuvaj u GeoPackage…</span>.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/49.png" class="align-center" src="../../_images/49.png" />
+</div></blockquote>
+<ol class="arabic simple" start="5">
+<li><p>Idite do lokacije gde želite da sačuvate izlazne podatke i unesite ime <code class="docutils literal notranslate"><span class="pre">data.gpkg</span></code>. Kliknite na <span class="guilabel">Sačuvaj</span>. Bićete zamoljeni da unesete <span class="guilabel">Naziv sloja</span>. Unesite <code class="docutils literal notranslate"><span class="pre">basins_fixed</span></code>. Kliknite na <span class="guilabel">U redu</span>. Zatim kliknite na <span class="guilabel">Pokreni</span> da biste pokrenuli algoritam i generisali izlazni sloj.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/59.png" class="align-center" src="../../_images/59.png" />
+</div></blockquote>
+<ol class="arabic simple" start="6">
+<li><p>Ponovite korak za sloj <code class="docutils literal notranslate"><span class="pre">HydroRIVERS_v10_as</span></code>. Izaberite isti GeoPackage <code class="docutils literal notranslate"><span class="pre">data.gpkg</span></code> koji je kreiran u prethodnom koraku. Ne brinite ako dobijete poruku koja ukazuje da će datoteka biti prebrisana. QGIS neće prebrisati datoteku, već će dodati novi sloj istom GeoPackage-u. Ovaj put koristite <code class="docutils literal notranslate"><span class="pre">rivers_fixed</span></code> kao <span class="guilabel">Naziv sloja</span>.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/69.png" class="align-center" src="../../_images/69.png" />
+</div></blockquote>
+<ol class="arabic simple" start="7">
+<li><p>Sloj „polymap15m_area“ dolazi sa projekcijom koju QGIS ne prepoznaje. Dodelićemo poznatu projekciju ovom sloju. Potražite i pronađite alatku <span class="menuselection">Vector general ‣ Dodeli projekciju</span> i dvaput kliknite da biste je otvorili.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/79.png" class="align-center" src="../../_images/79.png" />
+</div></blockquote>
+<div class="admonition note">
+<p class="admonition-title">Белешка</p>
+<p>Imajte na umu da alatka <em>Dodeli projekciju</em> ne reprojekuje sloj, već jednostavno dodaje ispravne informacije o projekciji postojećem georeferenciranom sloju sa nedostajućom ili netačnom projekcijom. Koristite alatku <em>Reprojektuj sloj</em> ako želite da promenite CRS sloja.</p>
+</div>
+<ol class="arabic simple" start="8">
+<li><p>Izaberite <code class="docutils literal notranslate"><span class="pre">polymap15m_area</span></code> kao <span class="guilabel">Ulazni sloj</span>. Kliknite na dugme <span class="guilabel">Izaberi CRS</span> i potražite projekciju <code class="docutils literal notranslate"><span class="pre">EPSG:7755</span> <span class="pre">-</span> <span class="pre">WGS</span> <span class="pre">84</span> <span class="pre">/</span> <span class="pre">India</span> <span class="pre">NSF</span> <span class="pre">LCC</span></code> i izaberite je. Kliknite na dugme <span class="guilabel">…</span> pored <span class="guilabel">Dodeljeni CRS</span> i izaberite <span class="guilabel">Sačuvaj u GeoPackage…</span>.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/89.png" class="align-center" src="../../_images/89.png" />
+</div></blockquote>
+<ol class="arabic simple" start="9">
+<li><p>Izaberite isti GeoPackage <code class="docutils literal notranslate"><span class="pre">data.gpkg</span></code> i unesite naziv sloja <code class="docutils literal notranslate"><span class="pre">admin_boundary_fixed</span></code>. Kliknite na <span class="guilabel">Pokreni</span>.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/99.png" class="align-center" src="../../_images/99.png" />
+</div></blockquote>
+<ol class="arabic simple" start="10">
+<li><p>Sada ćete imati 3 nova sloja <code class="docutils literal notranslate"><span class="pre">basins_fixed</span></code>, <code class="docutils literal notranslate"><span class="pre">rivers_fixed</span></code> i <code class="docutils literal notranslate"><span class="pre">admin_boundary_fixed</span></code> učitana u <span class="guilabel">Layers</span> panel u QGIS-u. Držite taster <kbd class="kbd docutils literal notranslate">Shift</kbd> i izaberite sve preostale slojeve. Kliknite desnim tasterom miša i izaberite <span class="guilabel">Remove Layer…</span>.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/1013.png" class="align-center" src="../../_images/1013.png" />
+</div></blockquote>
+<ol class="arabic simple" start="11">
+<li><p>Sada ćemo iseći slojeve slivova i reka na administrativnu granicu. Potražite i pronađite alatku <span class="menuselection">Vector overlay ‣ Clip</span> iz alata za obradu. Dvaput kliknite da biste je otvorili.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/1116.png" class="align-center" src="../../_images/1116.png" />
+</div></blockquote>
+<ol class="arabic simple" start="12">
+<li><p>Izaberite <code class="docutils literal notranslate"><span class="pre">basins_fixed</span></code> kao <span class="guilabel">Ulazni sloj</span> i <code class="docutils literal notranslate"><span class="pre">admin_boundary_fixed</span></code> kao <span class="guilabel">Sloj preklapanja</span>. Sačuvajte izlaz u isti GeoPackage <code class="docutils literal notranslate"><span class="pre">data.gpkg</span></code> kao i sloj <code class="docutils literal notranslate"><span class="pre">basins_clipped</span></code>. Kliknite na <span class="guilabel">Pokreni</span>.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/1214.png" class="align-center" src="../../_images/1214.png" />
+</div></blockquote>
+<ol class="arabic simple" start="13">
+<li><p>Kada se obrada završi, ponovite postupak sa slojem <code class="docutils literal notranslate"><span class="pre">rivers_fixed</span></code> kao <span class="guilabel">Ulazni sloj</span>. Sačuvajte izlaz u isti geopaket <code class="docutils literal notranslate"><span class="pre">data.gpkg</span></code> kao i sloj <code class="docutils literal notranslate"><span class="pre">rivers_clipped</span></code>. Kliknite na <span class="guilabel">Pokreni</span>.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/1312.png" class="align-center" src="../../_images/1312.png" />
+</div></blockquote>
+<ol class="arabic simple" start="14">
+<li><p>Sada ćete imati 2 nova sloja <code class="docutils literal notranslate"><span class="pre">basins_clipped</span></code> i <code class="docutils literal notranslate"><span class="pre">rivers_clipped</span></code>, kao i sloj <code class="docutils literal notranslate"><span class="pre">admin_boundary_fixed</span></code> učitane u <span class="guilabel">Layers</span> panel u QGIS-u. Držite pritisnut taster <kbd class="kbd docutils literal notranslate">Shift</kbd> i izaberite sve preostale slojeve. Kliknite desnim tasterom miša i izaberite <span class="guilabel">Remove Layer…</span>.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/1411.png" class="align-center" src="../../_images/1411.png" />
+</div></blockquote>
+<ol class="arabic simple" start="15">
+<li><p>Pre nego što nastavimo dalje, sačuvajmo projekat. QGIS vam omogućava da sačuvate projekat unutar GeoPackage-a - što ga čini veoma praktičnim za izbegavanje upravljanja dodatnim datotekama. Idite na <span class="menuselection">Project ‣ Save To ‣ GeoPackage…</span>.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/1511.png" class="align-center" src="../../_images/1511.png" />
+</div></blockquote>
+<ol class="arabic simple" start="16">
+<li><p>U dijalogu <span class="guilabel">Sačuvaj projekat u GeoPackage</span>, kliknite na dugme <span class="guilabel">…</span> pored <span class="guilabel">Veza</span> i pregledajte postojeću datoteku <code class="docutils literal notranslate"><span class="pre">data.gpkg</span></code>. Unesite ime <code class="docutils literal notranslate"><span class="pre">rivers_basin_map</span></code> kao ime <span class="guilabel">Projekta</span>. Kliknite na <span class="guilabel">U redu</span>.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/1610.png" class="align-center" src="../../_images/1610.png" />
+</div></blockquote>
+<ol class="arabic simple" start="17">
+<li><p>Kada se sačuva, možete proširiti <code class="docutils literal notranslate"><span class="pre">data.gpkg</span></code> u panelu <span class="guilabel">Browser</span> i videti da je QGIS projekat sada sačuvan unutar GeoPackage-a. Korisnici ovog GeoPackage-a sada mogu da otvore projekat direktno iz GeoPackage-a.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/1711.png" class="align-center" src="../../_images/1711.png" />
+</div></blockquote>
+<ol class="arabic simple" start="18">
+<li><p>Da bismo kreirali našu mapu u boji, potrebno je da obojimo sve basene tako da nijedan susedni basen nema istu boju. QGIS ima alatku za to. Otvorite alatku <span class="menuselection">Kartografija ‣ Topološko bojenje</span> iz alata za obradu.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/189.png" class="align-center" src="../../_images/189.png" />
+</div></blockquote>
+<ol class="arabic simple" start="19">
+<li><p>Izaberite <code class="docutils literal notranslate"><span class="pre">basins_clipped</span></code> kao <span class="guilabel">Ulazni sloj</span>. Ostale opcije ostavite na podrazumevanim vrednostima. Sačuvajte izlaz u isti GeoPackage <code class="docutils literal notranslate"><span class="pre">data.gpkg</span></code> kao i sloj <code class="docutils literal notranslate"><span class="pre">basins_with_color</span></code>. Kliknite na <span class="guilabel">Pokreni</span>.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/198.png" class="align-center" src="../../_images/198.png" />
+</div></blockquote>
+<ol class="arabic simple" start="20">
+<li><p>Kada se obrada završi, novi sloj <code class="docutils literal notranslate"><span class="pre">basins_with_color</span></code> će biti učitan u panel <span class="guilabel">Layers</span>. Kliknite desnim tasterom miša na sloj i izaberite <span class="guilabel">Open Attribute Table</span>. Primetićete da sloj ima novi atribut pod nazivom <code class="docutils literal notranslate"><span class="pre">color_id</span></code> sa celobrojnom vrednošću. Dodeljivanje jedinstvene boje svakoj celobrojnoj vrednosti rezultiraće topolokalnim bojenjem sloja.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/208.png" class="align-center" src="../../_images/208.png" />
+</div></blockquote>
+<ol class="arabic simple" start="21">
+<li><p>Želimo da prenesemo identifikator boje za sliv na sve reke koje se u njemu nalaze. Otvorite alatku <span class="menuselection">Vektorski opšti ‣ Spoji atribute po lokaciji</span> iz alata za obradu.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/2113.png" class="align-center" src="../../_images/2113.png" />
+</div></blockquote>
+<ol class="arabic simple" start="22">
+<li><p>Ovde želimo da izaberemo <code class="docutils literal notranslate"><span class="pre">rivers_clipped</span></code> kao sloj za <span class="guilabel">Spojiti sa objektima u</span> i <code class="docutils literal notranslate"><span class="pre">basins_with_color</span></code> kao sloj za <span class="guilabel">Poređenjem sa</span>. U odeljku <span class="guilabel">Polja za dodavanje</span> kliknite na dugme <span class="guilabel">…</span> i izaberite polje <code class="docutils literal notranslate"><span class="pre">color_id</span></code>. Sačuvajte izlaz u geopaketu <code class="docutils literal notranslate"><span class="pre">data.gpkg</span></code> kao sloj <code class="docutils literal notranslate"><span class="pre">rivers_with_color</span></code>. Kliknite na <span class="guilabel">Pokreni</span>.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/2210.png" class="align-center" src="../../_images/2210.png" />
+</div></blockquote>
+<ol class="arabic simple" start="23">
+<li><p>Kada se obrada završi, novi sloj <code class="docutils literal notranslate"><span class="pre">rivers_with_color</span></code> će biti učitan u panel <span class="guilabel">Layers</span>. Sada je vreme da primenite simbologiju. Izaberite sloj <code class="docutils literal notranslate"><span class="pre">admin_boundary_fixed</span></code> i kliknite na dugme <span class="guilabel">Otvori panel za stilizovanje slojeva</span> u panelu <span class="guilabel">Layers</span>. Promenite boju u crnu.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/237.png" class="align-center" src="../../_images/237.png" />
+</div></blockquote>
+<ol class="arabic simple" start="24">
+<li><p>Zatim, izaberite sloj „rivers_with_color“ i izaberite renderer „Categorized“.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/248.png" class="align-center" src="../../_images/248.png" />
+</div></blockquote>
+<ol class="arabic simple" start="25">
+<li><p>Izaberite <code class="docutils literal notranslate"><span class="pre">color_id</span></code> kao <span class="guilabel">Value</span> i kliknite na <span class="guilabel">Classify</span>. Videćete da će rekama u različitim slivovima biti dodeljena različita boja.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/258.png" class="align-center" src="../../_images/258.png" />
+</div></blockquote>
+<div class="admonition note">
+<p class="admonition-title">Белешка</p>
+<p>Ako niste zadovoljni nasumično odabranim bojama, možete kliknuti na <span class="guilabel">Simbol</span> za pojedinačne vrednosti u listi ispod i izabrati svoju boju.</p>
+</div>
+<ol class="arabic simple" start="26">
+<li><p>Podrazumevane linije su predebele za našu mapu. Hajde da to promenimo. Držite pritisnut taster <kbd class="kbd docutils literal notranslate">Shift</kbd> i izaberite sve simbole sa liste. Kliknite na <span class="guilabel">Simbol</span> da biste otvorili <span class="guilabel">Podešavanja simbola</span>.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/267.png" class="align-center" src="../../_images/267.png" />
+</div></blockquote>
+<ol class="arabic simple" start="27">
+<li><p>Kliknite na <span class="guilabel">Simple Line</span> i promenite širinu linije na <code class="docutils literal notranslate"><span class="pre">0.1</span></code>. Mapa će sada izgledati mnogo bolje.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/278.png" class="align-center" src="../../_images/278.png" />
+</div></blockquote>
+<ol class="arabic simple" start="28">
+<li><p>Možemo poboljšati mapu dodeljivanjem različitih širina rekama na osnovu njihove veličine. Sloj „rivers_with_color“ ima polje „ORD_STRA“ koje sadrži vrednost „Stralerovog reda &lt;<a class="reference external" href="https://en.wikipedia.org/wiki/Strahler_number">https://en.wikipedia.org/wiki/Strahler_number</a>&gt;“ reke. Što je broj veći, to je reka veća. Koristićemo Asistenta da nam pomogne da koristimo vrednost Stralerovog reda za odgovarajuću širinu poteza. Kliknite na dugme <span class="guilabel">Data defined override</span> pored <span class="guilabel">Stroke width</span> i izaberite <span class="guilabel">Assistant…</span>.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/288.png" class="align-center" src="../../_images/288.png" />
+</div></blockquote>
+<ol class="arabic simple" start="29">
+<li><p>U odeljku <span class="guilabel">Input</span>, izaberite polje <code class="docutils literal notranslate"><span class="pre">ORD_STRA</span></code> kao <span class="guilabel">Source</span> sa <span class="guilabel">Values from</span> <code class="docutils literal notranslate"><span class="pre">1</span></code> do <span class="guilabel">to</span> <code class="docutils literal notranslate"><span class="pre">6</span></code>. U odeljku <span class="guilabel">Output</span>, izaberite <span class="guilabel">Size from</span> kao <code class="docutils literal notranslate"><span class="pre">0.05</span></code> i <span class="guilabel">to</span> kao <code class="docutils literal notranslate"><span class="pre">0.2</span></code>. Mapa će se dinamički ažurirati dok unosite vrednosti. Možda ćete morati da prilagodite ove vrednosti u zavisnosti od vašeg regiona. Kada budete zadovoljni mapom, kliknite na dugme <span class="guilabel">Back</span>.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/297.png" class="align-center" src="../../_images/297.png" />
+</div></blockquote>
+<ol class="arabic simple" start="30">
+<li><p>Primetićete da je dugme <span class="guilabel">Poništenje definisano podacima</span> za <span class="guilabel">Širina poteza</span> sada žuto, što ukazuje da je na ovo podešavanje primenjeno aktivno poništenje.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/306.png" class="align-center" src="../../_images/306.png" />
+</div></blockquote>
+<ol class="arabic simple" start="31">
+<li><p>Naša mapa rečnog sliva u boji je sada spremna. Hajde da stavimo ovu mapu u raspored kako bismo mogli da izvezemo verziju visoke rezolucije sa drugim elementima mape. Idite na <span class="menuselection">Projekat ‣ Novi raspored za štampanje…</span>. Kada se od vas zatraži da unesete ime, ostavite polje prazno i kliknite na <span class="guilabel">U redu</span>.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/3110.png" class="align-center" src="../../_images/3110.png" />
+</div></blockquote>
+<ol class="arabic simple" start="32">
+<li><p>U prozoru <span class="guilabel">Raspored 1</span>, kliknite desnim tasterom miša na prazno platno i izaberite <span class="guilabel">Svojstva stranice…</span>.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/324.png" class="align-center" src="../../_images/324.png" />
+</div></blockquote>
+<ol class="arabic simple" start="33">
+<li><p>Izaberite <code class="docutils literal notranslate"><span class="pre">A4</span></code> kao <span class="guilabel">Size</span>. Promenite <span class="guilabel">Background</span> boju u crnu.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/332.png" class="align-center" src="../../_images/332.png" />
+</div></blockquote>
+<ol class="arabic simple" start="34">
+<li><p>Idite na <span class="menuselection">Dodaj stavku ‣ Dodaj mapu</span>.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/342.png" class="align-center" src="../../_images/342.png" />
+</div></blockquote>
+<ol class="arabic simple" start="35">
+<li><p>Držite levi taster miša i izaberite oblast na platnu gde želite da se mapa postavi.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/352.png" class="align-center" src="../../_images/352.png" />
+</div></blockquote>
+<ol class="arabic simple" start="36">
+<li><p>Kada se mapa pojavi, skrolujte nadole na kartici <span class="guilabel">Svojstva stavke</span> i isključite <span class="guilabel">Pozadina</span>.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/361.png" class="align-center" src="../../_images/361.png" />
+</div></blockquote>
+<div class="admonition note">
+<p class="admonition-title">Белешка</p>
+<p>Ako ne vidite karticu <span class="guilabel">Svojstva stavke</span> ili je slučajno zatvorite, možete je vratiti tako što ćete otići na <span class="menuselection">Prikaz ‣ Paneli ‣ Svojstva stavke</span> u meniju Raspored.</p>
+</div>
+<ol class="arabic simple" start="37">
+<li><p>Hajde da podesimo obim mape. Kliknite na dugme <span class="guilabel">Interaktivno uredi obim mape</span>, a zatim koristite miš da pomerate mapu. Takođe možete koristiti točkić za pomeranje da biste podesili zumiranje. Ako želite precizniju kontrolu nad zumiranjem, ručno podesite vrednost <span class="guilabel">Skala</span>. Ponavljajte dok ne budete zadovoljni položajem mape.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/371.png" class="align-center" src="../../_images/371.png" />
+</div></blockquote>
+<ol class="arabic simple" start="38">
+<li><p>Zatim ćemo dodati QGIS logo na mapu. Idite na <span class="menuselection">Dodaj stavku ‣ Dodaj sliku</span>.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/381.png" class="align-center" src="../../_images/381.png" />
+</div></blockquote>
+<ol class="arabic simple" start="39">
+<li><p>Nacrtajte pravougaonik gde želite da postavite logo. U dijalogu <span class="guilabel">Item Properties</span> pronađite grupu ikona <span class="guilabel">logos</span>. Izaberite logo <code class="docutils literal notranslate"><span class="pre">Made</span> <span class="pre">with</span> <span class="pre">QGIS</span></code>.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/391.png" class="align-center" src="../../_images/391.png" />
+</div></blockquote>
+<ol class="arabic simple" start="40">
+<li><p>Zatim ćemo dodati etiketu sa podacima o autorima. Idite na <span class="menuselection">Dodaj stavku ‣ Dodaj etiketu</span>. Unesite tekst za podatke o autorima i podesite font i poravnanje etikete.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/40.png" class="align-center" src="../../_images/40.png" />
+</div></blockquote>
+<ol class="arabic simple" start="41">
+<li><p>Kada budete spremni da izvezete rezultate, idite na <span class="menuselection">Layout ‣ Export as Image…</span>. Potražite fasciklu na računaru gde želite da sačuvate PNG sliku i unesite ime <code class="docutils literal notranslate"><span class="pre">river_basins.png</span></code>.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/411.png" class="align-center" src="../../_images/411.png" />
+</div></blockquote>
+<ol class="arabic simple" start="42">
+<li><p>zaberite <code class="docutils literal notranslate"><span class="pre">300</span> <span class="pre">dpi</span></code> kao <span class="guilabel">Rezoluciju izvoza</span> i kliknite <span class="guilabel">Sačuvaj</span>.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/421.png" class="align-center" src="../../_images/421.png" />
+</div></blockquote>
+<ol class="arabic simple" start="43">
+<li><p>Kada se izvoz završi, imaćete konačnu sliku mape na izabranoj lokaciji.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/431.png" class="align-center" src="../../_images/431.png" />
+</div></blockquote>
+<ol class="arabic simple" start="44">
+<li><p>Evo konačne PNG slike koju smo kreirali koristeći QGIS i otvorene skupove podataka.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/441.png" class="align-center" src="../../_images/441.png" />
+</div></blockquote>
+</section>
+</section>
+
+
+
+<!-- Turn on comments on only newer tutorials having 3/ in URL -->
+
+  <!-- Comment Section Powered by utterances -->
+<div id="comments">
+  <hr />
+  <p>If you want to give feedback or share your experience with this tutorial, please comment below. (requires GitHub account)</p>
+<script src="https://utteranc.es/client.js"
+        repo="spatialthoughts/qgis-tutorials"
+        issue-term="title"
+        label="comment"
+        theme="github-light"
+        crossorigin="anonymous"
+        async>
+</script>
+</div>
+
+
+    </div>
+      
+  </div>
+</div>
+
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+    </p>
+    <p>
+        &copy; Copyright 2025, Ujaval Gandhi.<br/>
+      Last updated on јул 31, 2025.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 8.2.3.<br/>
+    </p>
+  </div>
+</footer>
+<div class="container">
+  <p>This work is licensed under a <a href="http://creativecommons.org/licenses/by/4.0/deed.en_US">Creative Commons Attribution 4.0 International License</a>.<br>
+  You are free to use the material for any purpose as long as you give appropriate credit to the original author.</p>
+</div>
+
+<!-- Script fpr language switching. Largely adapted from https://github.com/pcav/faunalia-website -->
+<script>
+    var currentPage = 'docs/3/colorized_river_basin_map.html'; // coming from sphinx, always without starting '/'
+    var currentLang = 'en';
+    $(document).ready(function(){
+
+        var search = new RegExp('\/[a-zA-Z_]{2,8}\/'+ currentPage, 'gi');
+        var langPlusPage = window.location.href.match(search);
+        // it's possible this is a index.html page called without 'index.html', try without the currentPage
+        if (langPlusPage==undefined){
+            search = new RegExp('\/[a-zA-Z_]{2,8}\/$', 'gi');
+            langPlusPage = window.location.href.match(search);
+        }
+
+        // it's possible this is an index.html page called without 'index.html', try removing index.html
+        if (langPlusPage==undefined){
+            currentPage = currentPage.replace('index.html','')
+            search = new RegExp('\/[a-zA-Z_]{2,8}\/'+ currentPage, 'gi');
+            langPlusPage = window.location.href.match(search);
+        }
+        // still no langPlugPage: stop, because the language swicher will misbehave 
+
+        if (langPlusPage == undefined || langPlusPage.length != 1){
+            alert('You hit an error, please report back to us.');
+            return;
+        }
+        langPlusPage = langPlusPage[0];
+        currentLang = langPlusPage.replace(currentPage, '');
+
+        $("#languages").val(currentLang.replace(/\//g,'')); // currentLang is something like '/nl/'
+
+        $("#languages").change(function() {
+            gotoLang($(this).val());
+        });
+
+    });
+
+    // load current page in a different language
+    function gotoLang(lang){
+        var currentUrl = window.location.href;
+        var newUrl = currentUrl.replace(currentLang, '/'+lang+'/');
+        window.location.href = newUrl;
+    }
+</script>
+
+  </body>
+</html>

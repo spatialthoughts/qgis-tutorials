@@ -1,0 +1,553 @@
+<!DOCTYPE html>
+
+<html lang="sr" data-content_root="../../">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Kreiranje mape korišćenja zemljišta (QGIS3) &#8212; QGIS Tutorials and Tips</title>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-sphinx.css?v=0bf093e7" />
+    <script src="../../_static/documentation_options.js?v=7e8936b6"></script>
+    <script src="../../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/translations.js?v=552f857c"></script>
+    <link rel="search" title="Претрага" href="../../search.html" />
+    <link rel="next" title="Calculating Street Intersection Density (QGIS3)" href="calculating_intersection_density.html" />
+    <link rel="prev" title="Kreiranje karte rečnog sliva u boji (QGIS3)" href="colorized_river_basin_map.html" />
+
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<script type="text/javascript" src="../../_static/js/jquery-1.12.4.min.js"></script>
+<script type="text/javascript" src="../../_static/js/jquery-fix.js"></script>
+<script type="text/javascript" src="../../_static/bootstrap-3.4.1/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="../../_static/bootstrap-sphinx.js"></script>
+
+
+<!-- Cookie Notice -->
+<!-- Script from https://github.com/AOEpeople/cookie-notice -->
+<script type="text/javascript" src="../../_static/cookie.notice.min.js"></script>
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-B1WQ7B80XJ"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-B1WQ7B80XJ');
+</script>
+
+
+  </head><body>
+
+  <div id="navbar" class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="../../index.html">
+          QGIS Tutorials and Tips</a>
+        <span class="navbar-text navbar-version pull-left"><b>v1</b></span>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="../../index.html">Tutorials List <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"><ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="making_a_map.html">Making a Map (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="working_with_attributes.html">Working with Attributes (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="importing_spreadsheets_csv.html">Importing Spreadsheets or CSV files (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="basic_vector_styling.html">Basic Vector Styling (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="calculating_line_lengths.html">Izračunavanje dužina linija i statistika (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="raster_styling_and_analysis.html">Basic Raster Styling and Analysis (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="raster_mosaicing_and_clipping.html">Raster Mosaicing and Clipping (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="working_with_terrain.html">Working with Terrain Data (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="working_with_wms.html">Working with WMS Data (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="working_with_projections.html">Working with Projections (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="georeferencing_basics.html">Georeferencing Topo Sheets and Scanned Maps (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="advanced_georeferencing.html">Georeferenciranje aerosnimaka (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="digitizing_basics.html">Digitizing Map Data (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="performing_table_joins.html">Performing Table Joins (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="performing_spatial_joins.html">Performing Spatial Joins (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="performing_spatial_queries.html">Performing Spatial Queries (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="nearest_neighbor_analysis.html">Nearest Neighbor Analysis (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="sampling_raster_data.html">Sampling Raster Data using Points or Polygons (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="calculating_raster_area.html">Calculating Raster Area (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="creating_heatmaps.html">Creating Heatmaps (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="animating_time_series.html">Animating Time Series Data (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="handling_invalid_geometries.html">Handling Invalid Geometries (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="advanced_raster_analysis.html">Napredna rasterska analiza (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="interpolating_point_data.html">Interpolating Point Data (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="batch_processing.html">Batch Processing using Processing Framework (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="processing_graphical_modeler.html">Automating Complex Workflows using Processing Modeler (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="automating_map_creation.html">Automating Map Creation with Print Layout Atlas (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="multi_criteria_overlay.html">Multi Criteria Overlay Analysis (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="vector_styling_expressions.html">Osnovno filtriranje i stilizovanje pomoću izraza (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="block_world_styling.html">Kreiranje mape sveta u bloku (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="river_styling_expressions.html">Stilizovanje rečne mreže pomoću izraza (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="contour_3d_styling.html">Stilizovanje kontura u 3D (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="isometric_buildings.html">Kreiranje izometrijskih zgrada (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="interactive_canvas_maps.html">Izrada interaktivnih mapa na platnu (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="interactive_reveal_maps.html">Izrada interaktivnih mapa otkrivanja (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cartogram_animation.html">Kreiranje animiranog kartograma (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="basic_network_analysis.html">Basic Network Visualization and Routing (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="origin_destination_matrix.html">Locating Nearest Facility with Origin-Destination Matrix (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="service_area_analysis.html">Service Area Analysis using Openrouteservice (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="travel_time_analysis.html">Travel Time Analysis with Uber Movement (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="areal_mean_rainfall.html">Calculating Areal Mean Rainfall (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="colorized_river_basin_map.html">Kreiranje karte rečnog sliva u boji (QGIS3)</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Kreiranje mape korišćenja zemljišta (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="calculating_intersection_density.html">Calculating Street Intersection Density (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="landuse_buffer.html">Određivanje zaštitnih zona korišćenja zemljišta (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="solidwaste_mapping.html">Mapiranje količina odloženog otpada (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="getting_started_with_pyqgis.html">Getting Started With Python Programming (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="processing_algorithms_pyqgis.html">Running Processing Algorithms via Python (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="custom_python_functions.html">Korišćenje prilagođenih Pajton izraznih funkcija (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="processing_python_scripts.html">Writing Python Scripts for Processing Framework (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="building_a_python_plugin.html">Building a Python Plugin (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="processing_python_plugin.html">Building a Processing Plugin (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../running_qgis_jobs.html">Running and Scheduling QGIS Processing Jobs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="web_mapping_with_qgis2web.html">Web Mapping with QGIS2Web (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../creating_basemaps_with_qtiles.html">Creating Basemaps with QTiles</a></li>
+<li class="toctree-l1"><a class="reference internal" href="using_plugins.html">Using Plugins (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../downloading_osm_data.html">Searching and Downloading OpenStreetMap Data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../learning_resources.html">QGIS Learning Resources</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../credits.html">Data Credits</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../batch_processing.html">Batch Processing using Processing Framework (QGIS2)</a></li>
+</ul>
+</ul>
+</li>
+              
+            
+            
+              
+                
+  <li>
+    <a href="colorized_river_basin_map.html" title="Previous Chapter: Kreiranje karte rečnog sliva u boji (QGIS3)"><span class="glyphicon glyphicon-chevron-left visible-sm"></span><span class="hidden-sm hidden-tablet">&laquo; Kreiranje kar...</span>
+    </a>
+  </li>
+  <li>
+    <a href="calculating_intersection_density.html" title="Next Chapter: Calculating Street Intersection Density (QGIS3)"><span class="glyphicon glyphicon-chevron-right visible-sm"></span><span class="hidden-sm hidden-tablet">Calculating S... &raquo;</span>
+    </a>
+  </li>
+              
+            
+            
+
+            
+
+            
+              <li class="hidden-sm"></li>
+            
+          </ul>
+
+          
+            
+<form class="navbar-form navbar-right" action="../../search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+      <div class="col-md-3">
+        <div id="sidebar" class="bs-sidenav" role="complementary"><h4>Author</h4>
+<p><a href="https://www.linkedin.com/in/spatialthoughts/"><img src="../../_static/ujaval.png">Ujaval Gandhi</a></p>
+
+<hr>
+<p>Want to learn QGIS in a structured way? Check out <a href="https://spatialthoughts.com/" target="_blank">Spatial Thoughts</a> for more learning materials and instructor-led online programs with QGIS.org certification.</p>
+
+<hr>
+<p>These tutorials are also available in many other languages. Please see <a href="https://www.qgistutorials.com/en/docs/introduction.html#translations" target="_blank">translations</a> page.
+</p>
+        </div>
+      </div>
+    <div class="body col-md-9 content" role="main">
+      
+
+  <section id="creating-a-landuse-map-qgis3">
+<h1>Kreiranje mape korišćenja zemljišta (QGIS3)<a class="headerlink" href="#creating-a-landuse-map-qgis3" title="Link to this heading">¶</a></h1>
+<p>Zoniranje definiše i reguliše koje vrste namene su dozvoljene na određenim parcelama i navodi zahteve i smernice za projektovanje i razvoj. U ovom tutorijalu ćete naučiti kako da pristupite skupovima podataka o parcelama, stilizujete ih prema atributima zoniranja i kreirate mapu.</p>
+<section id="overview-of-the-task">
+<h2>Pregled zadatka<a class="headerlink" href="#overview-of-the-task" title="Link to this heading">¶</a></h2>
+<p>Radićete sa skupom podataka o parcelama zemljišta sa informacijama o zoniranju i kreiraćete mapu koja prikazuje obrazac zoniranja širom centralnog poslovnog regiona Kejptauna.</p>
+<blockquote>
+<div><img alt="../../_images/zoning_map.png" class="align-center" src="../../_images/zoning_map.png" />
+</div></blockquote>
+<section id="other-skills-you-will-learn">
+<h3>Druge veštine koje ćete naučiti<a class="headerlink" href="#other-skills-you-will-learn" title="Link to this heading">¶</a></h3>
+<ul class="simple">
+<li><p>Kako pristupiti i preuzeti podatke iz ArcGIS REST-a u QGIS-u.</p></li>
+<li><p>Kako izdvojiti karakteristike iz sloja koje se presecaju sa graničnim slojem.</p></li>
+<li><p>Kako spojiti različite podkategorije iz kategorizovanog renderera.</p></li>
+</ul>
+</section>
+</section>
+<section id="get-the-data">
+<h2>Dobijte podatke<a class="headerlink" href="#get-the-data" title="Link to this heading">¶</a></h2>
+<p>Podatke za tutorijal možete pronaći na portalu otvorenih podataka Kejptauna - <a class="reference external" href="https://odp-cctegis.opendata.arcgis.com">https://odp-cctegis.opendata.arcgis.com</a>. Uvešćemo podatke sa portala koristeći ArcGIS REST URL adresu servera i pripremićemo tri sloja pomenuta u nastavku.Podatke za tutorijal možete pronaći na portalu otvorenih podataka Kejptauna - <a class="reference external" href="https://odp-cctegis.opendata.arcgis.com">https://odp-cctegis.opendata.arcgis.com</a>. Uvešćemo podatke sa portala koristeći ArcGIS REST URL adresu servera i pripremićemo tri sloja pomenuta u nastavku.</p>
+<ol class="arabic simple">
+<li><p>Zoniranje: Poligonski shapefile sa zoniranjem i opisom za parcele zemljišta koje imaju jedno zoniranje - pričvršćeno za područje centralnog poslovnog centra Kejptauna.</p></li>
+<li><p>Sloj podeljenog zoniranja: Forma poligona sa kodom zoniranja i opisom za parcele zemljišta koje imaju višestruko zoniranje - pri čemu je svaki poligon podeljen na poligone sa jednom zonom.</p></li>
+<li><p>Područje centralnog poslovnog centra Kejptauna: Poligon koji razgraničava područje centralnog poslovnog centra Kejptauna.</p></li>
+</ol>
+<p>Hajde da pogledamo korak po korak pripremu skupa podataka za ovaj tutorijal.</p>
+<ol class="arabic">
+<li><p>Idite na portal podataka - <a class="reference external" href="https://odp-cctegis.opendata.arcgis.com/">https://odp-cctegis.opendata.arcgis.com/</a>. Pretražićemo podatke o centralnom poslovnom području Kejptauna u traci za pretragu i kliknuti da bismo dalje pregledali.</p>
+<img alt="../../_images/db1.png" class="align-center" src="../../_images/db1.png" />
+</li>
+<li><p>Kliknite na <span class="guilabel">Prikaži sve detalje</span> da biste istražili dostupne usluge za dobijanje podataka.</p>
+<blockquote>
+<div><img alt="../../_images/db2.png" class="align-center" src="../../_images/db2.png" />
+</div></blockquote>
+</li>
+<li><p>Pomerite se nadole da biste pronašli <span class="guilabel">Prikaži izvor podataka</span> i kliknite na njega.</p>
+<blockquote>
+<div><img alt="../../_images/db3.png" class="align-center" src="../../_images/db3.png" />
+</div></blockquote>
+</li>
+<li><p>U direktorijumu ArcGIS REST servisa, idite na <span class="guilabel">Home</span> i kopirajte URL adresu te stranice. Kopirana URL adresa izgleda ovako - <a class="reference external" href="https://citymaps.capetown.gov.za/agsext1/rest/services">https://citymaps.capetown.gov.za/agsext1/rest/services</a>.</p>
+<blockquote>
+<div><img alt="../../_images/db4.png" class="align-center" src="../../_images/db4.png" />
+</div></blockquote>
+</li>
+<li><p>Sada otvorite QGIS i idite na <span class="menuselection">Otvori menadžer izvora podataka</span>.</p>
+<blockquote>
+<div><img alt="../../_images/db5.png" class="align-center" src="../../_images/db5.png" />
+</div></blockquote>
+</li>
+<li><p>Lista izvora podataka se vidi u levom panelu. Pomerite se nadole da biste pronašli <span class="menuselection">ArcGIS REST Server</span>. Kliknite na <span class="guilabel">new</span> da biste kreirali novu vezu sa serverom.</p>
+<blockquote>
+<div><img alt="../../_images/db6.png" class="align-center" src="../../_images/db6.png" />
+</div></blockquote>
+</li>
+<li><p>U <span class="guilabel">Detalji veze</span>, navedite <span class="guilabel">Naziv</span> <code class="docutils literal notranslate"><span class="pre">Portal</span> <span class="pre">otvorenih</span> <span class="pre">podataka</span> <span class="pre">Kejptauna</span></code> i nalepite kopirani URL kao unos za <span class="guilabel">URL</span>.</p>
+<blockquote>
+<div><img alt="../../_images/db7.png" class="align-center" src="../../_images/db7.png" />
+</div></blockquote>
+</li>
+<li><p>Kliknite na <span class="guilabel">Ok</span>, a zatim na <span class="guilabel">Connect</span> da biste videli fascikle sa podacima dostupne na serveru.</p>
+<blockquote>
+<div><img alt="../../_images/db8.png" class="align-center" src="../../_images/db8.png" />
+</div></blockquote>
+</li>
+<li><p>Sada ćemo pretražiti sva tri sloja potrebna za tutorijal iz baze podataka. Prvo, otvorićemo sloj „Cape Town CBD“ u QGIS-u. Proširite fascikle da biste pregledali slojeve. Puna putanja do sloja je <span class="menuselection">Theme_Based ‣ Open_Data_Service ‣ Cape Town CBD</span>. Izaberite sloj i kliknite <span class="guilabel">Add</span>.</p>
+<blockquote>
+<div><img alt="../../_images/db9.png" class="align-center" src="../../_images/db9.png" />
+</div></blockquote>
+</li>
+<li><p>Zatvorite <span class="menuselection">Upravljač izvorima podataka</span> da biste videli sloj dodat u QGIS. Kliknite na <span class="menuselection">Zumiraj na sloj</span> da biste centrirali i prikazali sloj na platnu.</p>
+<img alt="../../_images/db10.png" class="align-center" src="../../_images/db10.png" />
+</li>
+<li><p>Sada ćemo dodati sloj „Zoniranje“ koristeći <span class="guilabel">Data Source Manager</span>. Povežite se sa <code class="docutils literal notranslate"><span class="pre">Cape</span> <span class="pre">Town</span> <span class="pre">Open</span> <span class="pre">Data</span> <span class="pre">Portal</span></code> i pregledajte sloj <code class="docutils literal notranslate"><span class="pre">Zoniranje</span></code>. Puna putanja je <span class="menuselection">Theme_Based ‣ Open_Data_Service_Zoning ‣ Zoning</span>. Ovo je veoma veliki sloj, zato obavezno označite polje <span class="guilabel">Zahtevaj samo obeležja koja se preklapaju sa trenutnim obimom prikaza</span> kako biste izbegli učitavanje svih obeležja dostupnih u sloju. Ako ovo zaboravite, učitavanje sloja može potrajati dugo. Kliknite na <span class="guilabel">Dodaj</span> da biste otvorili u QGIS-u.</p>
+<img alt="../../_images/db11.png" class="align-center" src="../../_images/db11.png" />
+</li>
+<li><p>Slično tome, dodajte sloj <code class="docutils literal notranslate"><span class="pre">Split_Zoning</span></code>. Puna putanja je - <span class="menuselection">Theme_Based ‣ Land_Parcel_Zoning ‣ Split Zoning</span>.</p>
+<img alt="../../_images/db12.png" class="align-center" src="../../_images/db12.png" />
+</li>
+<li><p>Možemo videti da su sva tri izvorna sloja otvorena u QGIS-u. Želimo da isečemo slojeve „Zoniranje“ i „Podeljeno zoniranje“ na granični sloj „Centar Kejptauna“. Prvo, sačuvajmo sva tri sloja lokalno kao shapefile-ove. Kliknite desnim tasterom miša na sloj „Centar Kejptauna“. Potražite <span class="guilabel">Izvezi</span> i kliknite na <span class="guilabel">Sačuvaj elemente kao</span>.</p>
+<img alt="../../_images/db13.png" class="align-center" src="../../_images/db13.png" />
+</li>
+<li><p>Podesite format <span class="guilabel">ESRI Shapefile</span> i pregledajte lokalnu fasciklu u kojoj želite da sačuvate shapefile-ove. Sve slojeve vezane za ovaj tutorijal sačuvaćemo u jednoj fascikli sa podacima. Sačuvajte sloj kao <code class="docutils literal notranslate"><span class="pre">cbd</span></code>. Ostavite sve ostale opcije podrazumevane i kliknite na <span class="guilabel">OK</span>. Slično tome, izvezite druga dva sloja kao <code class="docutils literal notranslate"><span class="pre">Zoning.shp</span></code> i <code class="docutils literal notranslate"><span class="pre">Split</span> <span class="pre">Zoning</span></code> u istu fasciklu.</p>
+<img alt="../../_images/db14.png" class="align-center" src="../../_images/db14.png" />
+</li>
+<li><p>Uklonite slojeve učitane sa servera. Izaberite sva tri sloja i kliknite na ikonu <span class="guilabel">Ukloni sloj/grupu</span>. Želimo da izdvojimo elemente iz slojeva <code class="docutils literal notranslate"><span class="pre">Zoniranje</span></code> i <code class="docutils literal notranslate"><span class="pre">Podeli</span> <span class="pre">zoniranje</span></code> koji se presecaju sa granicom <code class="docutils literal notranslate"><span class="pre">cbd</span></code>.</p>
+<img alt="../../_images/db15.png" class="align-center" src="../../_images/db15.png" />
+</li>
+<li><p>Idite na <span class="menuselection">Obrada ‣ Kutija sa alatkama</span> iz trake menija.</p>
+<img alt="../../_images/db16.png" class="align-center" src="../../_images/db16.png" />
+</li>
+<li><p>У алатној траци потражите <span class="guilabel">Пресек</span> алгоритам и двапут кликните да бисте отворили.</p>
+<img alt="../../_images/db17.png" class="align-center" src="../../_images/db17.png" />
+</li>
+<li><p>Izaberite <code class="docutils literal notranslate"><span class="pre">Zoning</span></code> kao <span class="guilabel">Input layer</span> i <code class="docutils literal notranslate"><span class="pre">cbd</span></code> kao <span class="guilabel">Overlay layer</span>. Ostavite ostale opcije podrazumevane i nastavite sa čuvanjem izlaza u datoteku.</p>
+<img alt="../../_images/db18.png" class="align-center" src="../../_images/db18.png" />
+</li>
+<li><p>Sačuvajte izlazni sloj kao <code class="docutils literal notranslate"><span class="pre">zoning_cbd</span></code> u fascikli sa podacima i kliknite na <span class="guilabel">Pokreni</span>.</p>
+<img alt="../../_images/db19.png" class="align-center" src="../../_images/db19.png" />
+</li>
+<li><p>U zavisnosti od vaših podešavanja obrade, videćete neke greške ili upozorenja prikazana u kartici <span class="guilabel">Log</span>. Ulazni sloj ima neke nevažeće geometrije i preskače se tokom izvršavanja preseka. Popravićemo geometrije slojeva „Zoniranje“ i „Podeljeno zoniranje“ pre nego što uzmemo presek da bismo izvukli sve geometrije.</p>
+<img alt="../../_images/db20.png" class="align-center" src="../../_images/db20.png" />
+</li>
+<li><p>Uklonite izlaz preseka iz QGIS-a i fascikle sa podacima. Potražite alatku <span class="menuselection">Fix geometries</span> u alatkama za obradu. Dvaput kliknite da biste otvorili.</p>
+<img alt="../../_images/db21.png" class="align-center" src="../../_images/db21.png" />
+</li>
+<li><p>Izaberite <code class="docutils literal notranslate"><span class="pre">Zoning</span></code> kao <span class="guilabel">Input layer</span>. Zadržite sve ostale ulaze kao podrazumevane i sačuvajte izlazni sloj kao <code class="docutils literal notranslate"><span class="pre">zoning_fixed.shp</span></code> u folderu sa podacima klikom na <span class="guilabel">Save to File</span>. Kliknite na <span class="guilabel">Run</span>. Ponovite postupak za fiksiranje geometrija na sloju <code class="docutils literal notranslate"><span class="pre">Split</span> <span class="pre">Zoning</span></code> i sačuvajte sloj sa fiksiranim geometrijama kao <code class="docutils literal notranslate"><span class="pre">split_zoning_fixed.shp</span></code>.</p>
+<img alt="../../_images/db22.png" class="align-center" src="../../_images/db22.png" />
+</li>
+<li><p>Uklonite slojeve „Zoning“ i „Split Zoning“. Nastavićemo sa izdvajanjem karakteristika iz slojeva „zoning_fixed“ i „split_zoning_fixed“ koji se presecaju sa „cbd“. Potražite <span class="menuselection">Intersection</span> iz alata za obradu i dvaput kliknite da biste otvorili.</p>
+<img alt="../../_images/db23.png" class="align-center" src="../../_images/db23.png" />
+</li>
+</ol>
+<p>24.Select <code class="docutils literal notranslate"><span class="pre">Zoning_fixed</span></code> as <span class="guilabel">Input layer</span> and <code class="docutils literal notranslate"><span class="pre">cbd</span></code> as <span class="guilabel">Overlay layer</span> to perform intersection as described in steps 18 and 19. Save the output as <code class="docutils literal notranslate"><span class="pre">zoning_cbd</span></code> and repeat the same for <code class="docutils literal notranslate"><span class="pre">split_zoning_fixed</span></code> layer and save the output layer as <code class="docutils literal notranslate"><span class="pre">split_zoning_cbd</span></code>.</p>
+<blockquote>
+<div><img alt="../../_images/db24.png" class="align-center" src="../../_images/db24.png" />
+</div></blockquote>
+<p>Radi lakšeg snalaženja, možete direktno preuzeti kopiju sva tri prethodno obrađena sloja sa donjih linkova:</p>
+<p><a class="reference external" href="https://www.qgistutorials.com/downloads/cbd.zip">cbd.shp</a></p>
+<p><a class="reference external" href="https://www.qgistutorials.com/downloads/zoning_cbd.zip">zoning_cbd.shp</a></p>
+<p><a class="reference external" href="https://www.qgistutorials.com/downloads/split_zoning_cbd.zip">split_zoning_cbd.shp</a></p>
+</section>
+<section id="procedure">
+<h2>Procedura<a class="headerlink" href="#procedure" title="Link to this heading">¶</a></h2>
+<ol class="arabic simple">
+<li><p>Otvorite QGIS. Kliknite na ikonu <span class="menuselection">Otvori menadžer izvora podataka</span> da biste dodali slojeve na kojima ćete raditi za tutorijal.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/180.png" class="align-center" src="../../_images/180.png" />
+</div></blockquote>
+<ol class="arabic simple" start="2">
+<li><p>Pređite na karticu <span class="guilabel">Vector</span> i koristite dugme za pregledanje da biste pronašli fasciklu u kojoj ste sačuvali obrađene shapefile-ove.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/240.png" class="align-center" src="../../_images/240.png" />
+</div></blockquote>
+<ol class="arabic simple" start="3">
+<li><p>Izaberite datoteke <code class="docutils literal notranslate"><span class="pre">cbd.shp</span></code>, <code class="docutils literal notranslate"><span class="pre">zoning_cbd.shp</span></code> i <code class="docutils literal notranslate"><span class="pre">split_zoning_cbd.shp</span></code> i kliknite na <span class="guilabel">Otvori</span>.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/327.png" class="align-center" src="../../_images/327.png" />
+</div></blockquote>
+<ol class="arabic simple" start="4">
+<li><p>Videćete sve tri putanje do datoteka u tekstualnom polju pored <span class="guilabel">Vektorski skup podataka</span>. Kliknite na <span class="guilabel">Dodaj</span>, a zatim na <span class="guilabel">Zatvori</span>.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/413.png" class="align-center" src="../../_images/413.png" />
+</div></blockquote>
+<ol class="arabic simple" start="5">
+<li><p>Dok radimo na vežbi, važno je da sačuvamo naš rad. Idite na <span class="menuselection">Project ‣ Save</span>.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/512.png" class="align-center" src="../../_images/512.png" />
+</div></blockquote>
+<ol class="arabic simple" start="6">
+<li><p>Sačuvajte projekat u direktorijumu podataka kao datoteku landuse_map.qgz. Datoteka QGIS projekta sadrži reference na slojeve podataka i čuva stilove, šablone mapa itd.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/612.png" class="align-center" src="../../_images/612.png" />
+</div></blockquote>
+<ol class="arabic simple" start="7">
+<li><p>Izaberite sloj <code class="docutils literal notranslate"><span class="pre">zoning_cbd</span></code> i kliknite na dugme <span class="guilabel">Otvori tabelu atributa</span> u traci sa alatkama <span class="menuselection">Atributi</span>. Imajte na umu da atribut <code class="docutils literal notranslate"><span class="pre">INT_ZONE_C</span></code> ima kodove zoniranja, a <code class="docutils literal notranslate"><span class="pre">INT_ZONE_D</span></code> opis zoniranja. Zatvorite tabelu atributa.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/712.png" class="align-center" src="../../_images/712.png" />
+</div></blockquote>
+<ol class="arabic simple" start="8">
+<li><p>Sada hajde da stilizujemo sloj na osnovu ovih atributa, tako da parcele sa istim zonskim kodovima budu stilizovane u istoj boji. Kliknite na dugme <span class="guilabel">Otvori panel za stilizovanje sloja</span> u panelu Slojevi. Kliknite na padajući meni pored <span class="guilabel">Jedan simbol</span>.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/812.png" class="align-center" src="../../_images/812.png" />
+</div></blockquote>
+<ol class="arabic" start="9">
+<li><p>Izaberite <span class="guilabel">Categorized</span> kao renderer. Izaberite <code class="docutils literal notranslate"><span class="pre">INT_ZONE_C</span></code> kao vrednost. Kliknite na Klasifikuj.</p>
+<blockquote>
+<div><img alt="../../_images/912.png" class="align-center" src="../../_images/912.png" />
+</div></blockquote>
+</li>
+<li><p>Videćete niz simbola. Svakom jedinstvenom kodu u sloju dodeljen je različit simbol boje.</p>
+<img alt="../../_images/1016.png" class="align-center" src="../../_images/1016.png" />
+</li>
+<li><p>Obratite pažnju da svaka kategorija zoniranja ima podkategorije. Kategorija „Opšte poslovanje (GB)“ ima dalje podkategorije kao što su „GB1“, „GB2“ i tako dalje. Za potrebe ove mape, možemo spojiti sve podkategorije u jednu kategoriju najvišeg nivoa. Držite taster Shift i izaberite sve podkategorije. Kliknite desnim tasterom miša i izaberite <span class="guilabel">Spoji kategorije</span>.</p>
+<img alt="../../_images/1119.png" class="align-center" src="../../_images/1119.png" />
+</li>
+<li><p>Ponovite postupak za kategorije „MU“ i „TR“. Nakon spajanja, sada možemo promeniti oznaku Legende da bude opisnija. Kliknite na oznaku <span class="guilabel">Legenda</span> da biste preimenovali klasu.</p>
+<img alt="../../_images/1217.png" class="align-center" src="../../_images/1217.png" />
+</li>
+<li><p>Unesite opise svake kategorije zoniranja na osnovu vrednosti datih u koloni „INR_ZONE_D“. Kako unosite te opise, videćete da se i legenda sloja u panelu Slojevi ažurira.</p>
+<img alt="../../_images/1315.png" class="align-center" src="../../_images/1315.png" />
+</li>
+<li><p>Sada možemo ažurirati boje i simboliku svake kategorije. Kliknite na <span class="guilabel">Simbol</span> za kategoriju.</p>
+<img alt="../../_images/1414.png" class="align-center" src="../../_images/1414.png" />
+</li>
+<li><p>Promenite <span class="guilabel">Boja popunjavanja</span> i <span class="guilabel">Boja obrisa</span> simbola u boju po vašem izboru.</p>
+<img alt="../../_images/1513.png" class="align-center" src="../../_images/1513.png" />
+</li>
+<li><p>Ponovite postupak za svaku kategoriju. Poslednja kategorija su sve ostale vrednosti. Ova kategorija sadrži sve parcele koje imaju NULL vrednosti. To je zato što te parcele imaju više kategorija zoniranja koje su im pridružene i predstavljene su u sloju split_zoning_cbd.shp. Nisu nam potrebne u ovom sloju. Izaberite ga i kliknite na ikonu <span class="guilabel">-</span> da biste uklonili tu kategoriju.</p>
+<img alt="../../_images/1612.png" class="align-center" src="../../_images/1612.png" />
+</li>
+<li><p>Zatim, izaberite sloj „cbd“. Promenite simbol u <span class="guilabel">Simple Line</span> i povećajte <span class="guilabel">Stroke width</span>.</p>
+<img alt="../../_images/1713.png" class="align-center" src="../../_images/1713.png" />
+</li>
+<li><p>Sloj „split_zoning_cbd.shp“ sadrži sve parcele kojima su nedostajali kodovi zoniranja u sloju „zoning_cbd“. Tabela atributa i vrednosti za zone u „split_zoning_cbd“ su iste kao i u sloju „zoning_cbd“. Umesto ručnog konfigurisanja simbologije za ovaj sloj, možemo kopirati/nalepiti stilove. Izaberite sloj „zoning_cbd“, kliknite desnim tasterom miša i izaberite <span class="menuselection">Stilovi ‣ Kopiraj stil ‣ Simbologija</span>.</p>
+<img alt="../../_images/1811.png" class="align-center" src="../../_images/1811.png" />
+</li>
+<li><p>Sada izaberite novododati sloj <code class="docutils literal notranslate"><span class="pre">split_zoning_cbd</span></code>, kliknite desnim tasterom miša i izaberite <span class="menuselection">Styles ‣ Paste Style ‣ Simbology</span>.</p>
+<img alt="../../_images/1910.png" class="align-center" src="../../_images/1910.png" />
+</li>
+<li><p>Videćete da se ista simbolologija primenjuje na poligone u sloju „split_zoning_cbd“. Stilizovanje i legenda su sada završeni.</p>
+<img alt="../../_images/2010.png" class="align-center" src="../../_images/2010.png" />
+</li>
+<li><p>Stilizovali smo naše slojeve i kreirali oznake legendi. Sada hajde da kreiramo mapu koristeći ove stilizovane slojeve zajedno sa elementima mape kao što su traka razmere, strelica severa, oznake itd. QGIS dolazi sa <span class="guilabel">Raspored za štampanje</span> koji omogućava sastavljanje mapa. Idite na <span class="menuselection">Projekat ‣ Novi raspored za štampanje</span>. Kada se od vas zatraži ime, možete ostaviti polje prazno i kliknuti na <span class="guilabel">U redu</span>.</p>
+<img alt="../../_images/2115.png" class="align-center" src="../../_images/2115.png" />
+</li>
+<li><p>U prozoru Raspored za štampanje videćete platno. Kliknite desnim tasterom miša i izaberite <span class="guilabel">Svojstva stranice</span>.</p>
+<img alt="../../_images/2212.png" class="align-center" src="../../_images/2212.png" />
+</li>
+<li><p>Podesite <span class="guilabel">Orijentacija</span> na <code class="docutils literal notranslate"><span class="pre">Portret</span></code>. Zatim, idite na <span class="menuselection">Dodaj stavku ‣ Dodaj mapu</span>.</p>
+<img alt="../../_images/2310.png" class="align-center" src="../../_images/2310.png" />
+</li>
+<li><p>Držite levi taster miša i nacrtajte pravougaonik na platnu. Ovo je okvir mape koji će sadržati mapu iz glavnog QGIS prozora. Na kartici <span class="guilabel">Svojstva stavke</span>, koristite ikonu <span class="guilabel">Interaktivno uređivanje obima mape</span> da biste pomerali/zumirali sadržaj okvira mape.</p>
+<img alt="../../_images/2410.png" class="align-center" src="../../_images/2410.png" />
+</li>
+<li><p>Pomerite se nadole na kartici Svojstva stavke i označite opciju <span class="guilabel">Okvir</span>. Proširite je i izaberite <span class="guilabel">Boja</span> za ivicu okvira. Takođe možete povećati <span class="guilabel">Debljina</span>.</p>
+<img alt="../../_images/259.png" class="align-center" src="../../_images/259.png" />
+</li>
+<li><p>Okvir mape je sada spreman. Hajde da dodamo ostale elemente. Idite na <span class="menuselection">Dodaj stavku ‣ Dodaj legendu</span>.</p>
+<img alt="../../_images/268.png" class="align-center" src="../../_images/268.png" />
+</li>
+<li><p>Prevucite pravougaonik gde želite da postavite legendu. Kada ga dodate, pomerite se nadole na kartici <span class="guilabel">Svojstva stavke</span> i opozovite izbor dugmeta <span class="guilabel">Automatsko ažuriranje</span> kako bismo mogli ručno da izmenimo stavke legende.</p>
+<img alt="../../_images/279.png" class="align-center" src="../../_images/279.png" />
+</li>
+<li><p>Imamo 2 sloja sa identičnim legendama, tako da možemo ukloniti jedan od njih. Izaberite sloj <code class="docutils literal notranslate"><span class="pre">split_zoning_cbd</span></code> i kliknite na ikonu <span class="guilabel">Ukloni izabrane stavke() iz legende</span>. Slično tome, uklonite sloj <code class="docutils literal notranslate"><span class="pre">cbd</span></code> iz legende.</p>
+<img alt="../../_images/289.png" class="align-center" src="../../_images/289.png" />
+</li>
+<li><p>Kliknite desnim tasterom miša na sloj „zoning_cbd“ i označite opciju „Skriveno“.</p>
+<img alt="../../_images/298.png" class="align-center" src="../../_images/298.png" />
+</li>
+<li><p>Pomerite se nadole i proširite odeljak <span class="guilabel">Kolone</span>. Označite opciju <span class="guilabel">Podeli slojeve</span> i povećajte broj na 2.</p>
+<img alt="../../_images/307.png" class="align-center" src="../../_images/307.png" />
+</li>
+<li><p>Pomerite se nadole do odeljka <span class="guilabel">Razmak</span>. Podesite razmak između različitih elemenata dok legenda ne bude jasno čitljiva.</p>
+<img alt="../../_images/3111.png" class="align-center" src="../../_images/3111.png" />
+</li>
+<li><p>Možete promeniti stil i veličinu fontova u legendi iz svojstava <span class="guilabel">Fontovi i formatiranje teksta</span>. Kada završite, idite na <span class="menuselection">Dodaj stavku ‣ Dodaj strelicu severa</span>. Prevucite pravougaonik gde želite da postavite element na mapi.</p>
+<img alt="../../_images/328.png" class="align-center" src="../../_images/328.png" />
+</li>
+<li><p>Izaberite simbol po svom izboru. Pomerite se nadole i proširite <span class="guilabel">SVG parametri</span>. Promenite <span class="guilabel">Boja popunjavanja</span> i <span class="guilabel">Boja linije</span> prema svom izboru.</p>
+<img alt="../../_images/333.png" class="align-center" src="../../_images/333.png" />
+</li>
+<li><p>Sada ćemo dodati <span class="guilabel">Scale Bar</span>. Idite na <span class="menuselection">Add Item ‣ Add Scale Bar</span>. Prevucite pravougaonik gde želite da postavite element na mapi. Podesite parametre <span class="guilabel">Style</span> i <span class="guilabel">Segments</span> za skalu.</p>
+<img alt="../../_images/343.png" class="align-center" src="../../_images/343.png" />
+</li>
+<li><p>Našoj mapi je potreban naslov i druge oznake sa informacijama. Idite na <span class="menuselection">Dodaj stavku ‣ Dodaj oznaku</span>.</p>
+<img alt="../../_images/353.png" class="align-center" src="../../_images/353.png" />
+</li>
+<li><p>Unesite naslov mape u odeljak Glavna svojstva. Kliknite na dugme Font u odeljku Izgled da biste podesili veličinu i stil fonta.</p>
+<img alt="../../_images/362.png" class="align-center" src="../../_images/362.png" />
+</li>
+<li><p>Dodajte druge oznake koje označavaju izvor podataka i vaše ime. Na kraju ćemo završiti našu mapu dodavanjem okvira oko bloka oznaka. Idite na <span class="menuselection">Dodaj stavku ‣ Dodaj oblik ‣ Dodaj pravougaonik</span>.</p>
+<img alt="../../_images/372.png" class="align-center" src="../../_images/372.png" />
+</li>
+<li><p>Nacrtajte pravougaonik. Kliknite na simbol za <span class="guilabel">Stil</span> i podesite <span class="guilabel">Boja popunjavanja</span> na providnu i <span class="guilabel">Boja obruba</span> da odgovara ostalim okvirima.</p>
+<img alt="../../_images/372.png" class="align-center" src="../../_images/372.png" />
+</li>
+<li><p>Kada budete zadovoljni svojom kompozicijom, možete eksportovati rezultat. Idite na <span class="menuselection">Layout ‣ Export as PDF</span>. Sačuvajte PDF u folderu sa podacima kao <code class="docutils literal notranslate"><span class="pre">capetown_zoning_map.pdf</span></code>.</p>
+<img alt="../../_images/392.png" class="align-center" src="../../_images/392.png" />
+</li>
+</ol>
+</section>
+</section>
+
+
+
+<!-- Turn on comments on only newer tutorials having 3/ in URL -->
+
+  <!-- Comment Section Powered by utterances -->
+<div id="comments">
+  <hr />
+  <p>If you want to give feedback or share your experience with this tutorial, please comment below. (requires GitHub account)</p>
+<script src="https://utteranc.es/client.js"
+        repo="spatialthoughts/qgis-tutorials"
+        issue-term="title"
+        label="comment"
+        theme="github-light"
+        crossorigin="anonymous"
+        async>
+</script>
+</div>
+
+
+    </div>
+      
+  </div>
+</div>
+
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+    </p>
+    <p>
+        &copy; Copyright 2025, Ujaval Gandhi.<br/>
+      Last updated on јул 31, 2025.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 8.2.3.<br/>
+    </p>
+  </div>
+</footer>
+<div class="container">
+  <p>This work is licensed under a <a href="http://creativecommons.org/licenses/by/4.0/deed.en_US">Creative Commons Attribution 4.0 International License</a>.<br>
+  You are free to use the material for any purpose as long as you give appropriate credit to the original author.</p>
+</div>
+
+<!-- Script fpr language switching. Largely adapted from https://github.com/pcav/faunalia-website -->
+<script>
+    var currentPage = 'docs/3/creating_landuse_map.html'; // coming from sphinx, always without starting '/'
+    var currentLang = 'en';
+    $(document).ready(function(){
+
+        var search = new RegExp('\/[a-zA-Z_]{2,8}\/'+ currentPage, 'gi');
+        var langPlusPage = window.location.href.match(search);
+        // it's possible this is a index.html page called without 'index.html', try without the currentPage
+        if (langPlusPage==undefined){
+            search = new RegExp('\/[a-zA-Z_]{2,8}\/$', 'gi');
+            langPlusPage = window.location.href.match(search);
+        }
+
+        // it's possible this is an index.html page called without 'index.html', try removing index.html
+        if (langPlusPage==undefined){
+            currentPage = currentPage.replace('index.html','')
+            search = new RegExp('\/[a-zA-Z_]{2,8}\/'+ currentPage, 'gi');
+            langPlusPage = window.location.href.match(search);
+        }
+        // still no langPlugPage: stop, because the language swicher will misbehave 
+
+        if (langPlusPage == undefined || langPlusPage.length != 1){
+            alert('You hit an error, please report back to us.');
+            return;
+        }
+        langPlusPage = langPlusPage[0];
+        currentLang = langPlusPage.replace(currentPage, '');
+
+        $("#languages").val(currentLang.replace(/\//g,'')); // currentLang is something like '/nl/'
+
+        $("#languages").change(function() {
+            gotoLang($(this).val());
+        });
+
+    });
+
+    // load current page in a different language
+    function gotoLang(lang){
+        var currentUrl = window.location.href;
+        var newUrl = currentUrl.replace(currentLang, '/'+lang+'/');
+        window.location.href = newUrl;
+    }
+</script>
+
+  </body>
+</html>

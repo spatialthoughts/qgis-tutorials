@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+
+<html lang="sr" data-content_root="../../">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Interpolating Point Data (QGIS3) &#8212; QGIS Tutorials and Tips</title>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-sphinx.css?v=0bf093e7" />
+    <script src="../../_static/documentation_options.js?v=7e8936b6"></script>
+    <script src="../../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/translations.js?v=552f857c"></script>
+    <link rel="search" title="Претрага" href="../../search.html" />
+    <link rel="next" title="Batch Processing using Processing Framework (QGIS3)" href="batch_processing.html" />
+    <link rel="prev" title="Napredna rasterska analiza (QGIS3)" href="advanced_raster_analysis.html" />
+
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<script type="text/javascript" src="../../_static/js/jquery-1.12.4.min.js"></script>
+<script type="text/javascript" src="../../_static/js/jquery-fix.js"></script>
+<script type="text/javascript" src="../../_static/bootstrap-3.4.1/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="../../_static/bootstrap-sphinx.js"></script>
+
+
+<!-- Cookie Notice -->
+<!-- Script from https://github.com/AOEpeople/cookie-notice -->
+<script type="text/javascript" src="../../_static/cookie.notice.min.js"></script>
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-B1WQ7B80XJ"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-B1WQ7B80XJ');
+</script>
+
+
+  </head><body>
+
+  <div id="navbar" class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="../../index.html">
+          QGIS Tutorials and Tips</a>
+        <span class="navbar-text navbar-version pull-left"><b>v1</b></span>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="../../index.html">Tutorials List <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"><ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="making_a_map.html">Making a Map (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="working_with_attributes.html">Working with Attributes (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="importing_spreadsheets_csv.html">Importing Spreadsheets or CSV files (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="basic_vector_styling.html">Basic Vector Styling (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="calculating_line_lengths.html">Izračunavanje dužina linija i statistika (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="raster_styling_and_analysis.html">Basic Raster Styling and Analysis (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="raster_mosaicing_and_clipping.html">Raster Mosaicing and Clipping (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="working_with_terrain.html">Working with Terrain Data (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="working_with_wms.html">Working with WMS Data (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="working_with_projections.html">Working with Projections (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="georeferencing_basics.html">Georeferencing Topo Sheets and Scanned Maps (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="advanced_georeferencing.html">Georeferenciranje aerosnimaka (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="digitizing_basics.html">Digitizing Map Data (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="performing_table_joins.html">Performing Table Joins (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="performing_spatial_joins.html">Performing Spatial Joins (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="performing_spatial_queries.html">Performing Spatial Queries (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="nearest_neighbor_analysis.html">Nearest Neighbor Analysis (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="sampling_raster_data.html">Sampling Raster Data using Points or Polygons (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="calculating_raster_area.html">Calculating Raster Area (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="creating_heatmaps.html">Creating Heatmaps (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="animating_time_series.html">Animating Time Series Data (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="handling_invalid_geometries.html">Handling Invalid Geometries (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="advanced_raster_analysis.html">Napredna rasterska analiza (QGIS3)</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Interpolating Point Data (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="batch_processing.html">Batch Processing using Processing Framework (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="processing_graphical_modeler.html">Automating Complex Workflows using Processing Modeler (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="automating_map_creation.html">Automating Map Creation with Print Layout Atlas (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="multi_criteria_overlay.html">Multi Criteria Overlay Analysis (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="vector_styling_expressions.html">Osnovno filtriranje i stilizovanje pomoću izraza (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="block_world_styling.html">Kreiranje mape sveta u bloku (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="river_styling_expressions.html">Stilizovanje rečne mreže pomoću izraza (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="contour_3d_styling.html">Stilizovanje kontura u 3D (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="isometric_buildings.html">Kreiranje izometrijskih zgrada (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="interactive_canvas_maps.html">Izrada interaktivnih mapa na platnu (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="interactive_reveal_maps.html">Izrada interaktivnih mapa otkrivanja (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cartogram_animation.html">Kreiranje animiranog kartograma (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="basic_network_analysis.html">Basic Network Visualization and Routing (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="origin_destination_matrix.html">Locating Nearest Facility with Origin-Destination Matrix (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="service_area_analysis.html">Service Area Analysis using Openrouteservice (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="travel_time_analysis.html">Travel Time Analysis with Uber Movement (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="areal_mean_rainfall.html">Calculating Areal Mean Rainfall (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="colorized_river_basin_map.html">Kreiranje karte rečnog sliva u boji (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="creating_landuse_map.html">Kreiranje mape korišćenja zemljišta (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="calculating_intersection_density.html">Calculating Street Intersection Density (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="landuse_buffer.html">Određivanje zaštitnih zona korišćenja zemljišta (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="solidwaste_mapping.html">Mapiranje količina odloženog otpada (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="getting_started_with_pyqgis.html">Getting Started With Python Programming (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="processing_algorithms_pyqgis.html">Running Processing Algorithms via Python (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="custom_python_functions.html">Korišćenje prilagođenih Pajton izraznih funkcija (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="processing_python_scripts.html">Writing Python Scripts for Processing Framework (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="building_a_python_plugin.html">Building a Python Plugin (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="processing_python_plugin.html">Building a Processing Plugin (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../running_qgis_jobs.html">Running and Scheduling QGIS Processing Jobs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="web_mapping_with_qgis2web.html">Web Mapping with QGIS2Web (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../creating_basemaps_with_qtiles.html">Creating Basemaps with QTiles</a></li>
+<li class="toctree-l1"><a class="reference internal" href="using_plugins.html">Using Plugins (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../downloading_osm_data.html">Searching and Downloading OpenStreetMap Data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../learning_resources.html">QGIS Learning Resources</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../credits.html">Data Credits</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../batch_processing.html">Batch Processing using Processing Framework (QGIS2)</a></li>
+</ul>
+</ul>
+</li>
+              
+            
+            
+              
+                
+  <li>
+    <a href="advanced_raster_analysis.html" title="Previous Chapter: Napredna rasterska analiza (QGIS3)"><span class="glyphicon glyphicon-chevron-left visible-sm"></span><span class="hidden-sm hidden-tablet">&laquo; Napredna rast...</span>
+    </a>
+  </li>
+  <li>
+    <a href="batch_processing.html" title="Next Chapter: Batch Processing using Processing Framework (QGIS3)"><span class="glyphicon glyphicon-chevron-right visible-sm"></span><span class="hidden-sm hidden-tablet">Batch Process... &raquo;</span>
+    </a>
+  </li>
+              
+            
+            
+
+            
+
+            
+              <li class="hidden-sm"></li>
+            
+          </ul>
+
+          
+            
+<form class="navbar-form navbar-right" action="../../search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+      <div class="col-md-3">
+        <div id="sidebar" class="bs-sidenav" role="complementary"><h4>Author</h4>
+<p><a href="https://www.linkedin.com/in/spatialthoughts/"><img src="../../_static/ujaval.png">Ujaval Gandhi</a></p>
+
+<hr>
+<p>Want to learn QGIS in a structured way? Check out <a href="https://spatialthoughts.com/" target="_blank">Spatial Thoughts</a> for more learning materials and instructor-led online programs with QGIS.org certification.</p>
+
+<hr>
+<p>These tutorials are also available in many other languages. Please see <a href="https://www.qgistutorials.com/en/docs/introduction.html#translations" target="_blank">translations</a> page.
+</p>
+        </div>
+      </div>
+    <div class="body col-md-9 content" role="main">
+      
+
+  <section id="interpolating-point-data-qgis3">
+<h1>Interpolating Point Data (QGIS3)<a class="headerlink" href="#interpolating-point-data-qgis3" title="Link to this heading">¶</a></h1>
+<p>Interpolation is a commonly used GIS technique to create a continuous surface from discrete points. A lot of real-world phenomena are continuous - elevations, soils, temperatures, etc. If we wanted to model these surfaces for analysis, it is impossible to take measurements throughout the surface. Hence, the field measurements are taken at various points along the surface and the intermediate values are inferred by a process called ‘interpolation’. In QGIS, interpolation is achieved using the built-in Interpolation tools from the Processing toolbox.</p>
+<section id="overview-of-the-task">
+<h2>Overview of the task<a class="headerlink" href="#overview-of-the-task" title="Link to this heading">¶</a></h2>
+<p>We will take field depth measurements for Lake Arlington in Texas and create
+an elevation relief map and contours from these measurements.</p>
+<section id="other-skills-you-will-learn">
+<h3>Other skills you will learn<a class="headerlink" href="#other-skills-you-will-learn" title="Link to this heading">¶</a></h3>
+<ul class="simple">
+<li><p>Creating contours from point data.</p></li>
+<li><p>Masking no-data values from a raster layer.</p></li>
+<li><p>Adding labels to a vector layer.</p></li>
+</ul>
+</section>
+</section>
+<section id="get-the-data">
+<h2>Get the data<a class="headerlink" href="#get-the-data" title="Link to this heading">¶</a></h2>
+<p>Texas Water Development Board provides the <a class="reference external" href="https://www.twdb.texas.gov/surfacewater/surveys/completed/list/index.asp">shapefiles for completed lake
+surveys</a>.</p>
+<p>Download the <a class="reference external" href="https://www.twdb.texas.gov/hydro_survey/Arlington/2007-12/Shapefiles.zip">2007-12 survey shapefiles for Lake Arlington</a>.</p>
+<p>For convenience, you can directly download the sample data used in this
+tutorial from link below.</p>
+<p><a class="reference external" href="https://www.qgistutorials.com/downloads/Shapefiles.zip">Shapefiles.zip</a></p>
+<p>Data Sources: <a class="reference internal" href="../credits.html#twdb" id="id1"><span>[TWDB]</span></a></p>
+</section>
+<section id="procedure">
+<h2>Procedure<a class="headerlink" href="#procedure" title="Link to this heading">¶</a></h2>
+<ol class="arabic simple">
+<li><p>Open QGIS, in <span class="guilabel">Browser</span> locate and drag the <code class="docutils literal notranslate"><span class="pre">Arlington2007_SS_points_stpl83</span></code> the layer to canvas.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/1105.png" class="align-center" src="../../_images/1105.png" />
+</div></blockquote>
+<ol class="arabic simple" start="2">
+<li><p>A <span class="guilabel">Select Transformation of Arlington2007_SS_points_stpl83</span> dialog box will appear, leave the select to default and click <span class="guilabel">OK</span>.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/2101.png" class="align-center" src="../../_images/2101.png" />
+</div></blockquote>
+<ol class="arabic simple" start="3">
+<li><p>The layer will be added, now locate and drag the <code class="docutils literal notranslate"><span class="pre">Boundary2004_550_stpl83.shp</span></code> layer to canvas.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/339.png" class="align-center" src="../../_images/339.png" />
+</div></blockquote>
+<ol class="arabic simple" start="4">
+<li><p>The layer will be added to the canvas, now turn off this layer to visualize the <code class="docutils literal notranslate"><span class="pre">Arlington2007_SS_points_stpl83</span></code> .</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/420.png" class="align-center" src="../../_images/420.png" />
+</div></blockquote>
+<ol class="arabic simple" start="5">
+<li><p>Click the <span class="guilabel">Zoom In</span> icon and select a small area on the screen. As
+you zoom closer, you will see the points. Each point represents a reading
+taken by a <em>Depth Sounder</em> at the location recorded by a <em>DGPS</em> equipment.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/519.png" class="align-center" src="../../_images/519.png" />
+</div></blockquote>
+<ol class="arabic simple" start="6">
+<li><p>Select the <span class="guilabel">Identify</span> tool and click on a point. You will see the
+<span class="guilabel">Identify Results</span> panel show up on the right with the attribute
+value of the point. In this case, the <code class="docutils literal notranslate"><span class="pre">ELEVATION</span></code> attribute contains the
+depth of the lake at the location. As our task is to create a depth profile
+and elevation contours, we will use these values as input for the
+interpolation.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/619.png" class="align-center" src="../../_images/619.png" />
+</div></blockquote>
+<ol class="arabic simple" start="7">
+<li><p>From <span class="guilabel">Browser</span> locate and drag the <code class="docutils literal notranslate"><span class="pre">Islands_2004_550_stpl83.shp</span></code> layer to canvas.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/718.png" class="align-center" src="../../_images/718.png" />
+</div></blockquote>
+<ol class="arabic simple" start="8">
+<li><p>The layer will be added to the canvas, this layer has the information about the islands in the region which should have a constant elevation (should not be interpolated).</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/818.png" class="align-center" src="../../_images/818.png" />
+</div></blockquote>
+<ol class="arabic simple" start="9">
+<li><p>From the <span class="guilabel">Processing Toolbox</span>, search and locate the <span class="menuselection">Interpolation ‣ TIN Interpolation</span> tool. Double-click to launch it.</p></li>
+</ol>
+<div class="admonition note">
+<p class="admonition-title">Белешка</p>
+<p>Interpolation results can vary significantly based on the method and
+parameters you choose. QGIS interpolation supports <em>Triangulated Irregular
+Network (TIN)</em> and <em>Inverse Distance Weighting (IDW)</em> methods for interpolation.
+The TIN method is commonly used for elevation data whereas the IDW method is used
+for interpolating other types of data such as mineral concentrations,
+populations etc. See the <a class="reference external" href="https://docs.qgis.org/testing/en/docs/gentle_gis_introduction/spatial_analysis_interpolation.html">Spatial Analysis</a>
+module of the QGIS documentation for more details.</p>
+</div>
+<img alt="../../_images/918.png" class="align-center" src="../../_images/918.png" />
+<ol class="arabic simple" start="10">
+<li><p>In the <span class="guilabel">TIN Interpolation</span> dialog box, select <code class="docutils literal notranslate"><span class="pre">Arlington2007_SS_points_stpl83</span></code> as the <span class="guilabel">Vector layer</span>, <code class="docutils literal notranslate"><span class="pre">Elevation</span></code> as the <span class="guilabel">Interpolation attribute</span>. Then click on the <span class="guilabel">Add</span> icon.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/1024.png" class="align-center" src="../../_images/1024.png" />
+</div></blockquote>
+<ol class="arabic simple" start="11">
+<li><p>Now, select <code class="docutils literal notranslate"><span class="pre">Islands_2004_550_stpl83</span></code> as the <span class="guilabel">Vector layer</span>, <code class="docutils literal notranslate"><span class="pre">Elevation</span></code> as the <span class="guilabel">Interpolation attribute</span>. Then click on the <span class="guilabel">Add</span> icon. Now change the <span class="guilabel">Type</span> of the layer as <code class="docutils literal notranslate"><span class="pre">Break</span> <span class="pre">lines</span></code>.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/1127.png" class="align-center" src="../../_images/1127.png" />
+</div></blockquote>
+<div class="admonition note">
+<p class="admonition-title">Белешка</p>
+<p>A Break line allows us to model sudden interruptions in the elevation while modeling surface layers. Specifying the layer type to be <em>Break lines</em> will tell the interpolation algorithm to use a constant elevation for the islands instead of interpolated values from the points.</p>
+</div>
+<ol class="arabic simple" start="12">
+<li><p>In <span class="guilabel">Extent</span> click on the <code class="docutils literal notranslate"><span class="pre">...</span></code> and select the <code class="docutils literal notranslate"><span class="pre">Boundary2004_550_stpl83</span></code>.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/1225.png" class="align-center" src="../../_images/1225.png" />
+</div></blockquote>
+<ol class="arabic simple" start="13">
+<li><p>In <span class="guilabel">Output raster size</span>, set the <span class="guilabel">Pixel size X</span> and <span class="guilabel">Pixel size Y</span> to <code class="docutils literal notranslate"><span class="pre">5</span></code>. Then click on the <code class="docutils literal notranslate"><span class="pre">...</span></code> under <span class="guilabel">Interpolated</span> to save the layer as <code class="docutils literal notranslate"><span class="pre">elevation_tin.tif</span></code>. Click <span class="guilabel">Run</span>.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/1323.png" class="align-center" src="../../_images/1323.png" />
+</div></blockquote>
+<ol class="arabic simple" start="14">
+<li><p>Now a new layer <code class="docutils literal notranslate"><span class="pre">elevation_tin</span></code> will be added to the canvas.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/1421.png" class="align-center" src="../../_images/1421.png" />
+</div></blockquote>
+<ol class="arabic simple" start="15">
+<li><p>From the <span class="guilabel">Processing Toolbox</span>, search and locate the <span class="menuselection">GDAL ‣ Raster extraction ‣ Clip raster by mask layer</span> tool. Double-click to launch it.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/1518.png" class="align-center" src="../../_images/1518.png" />
+</div></blockquote>
+<ol class="arabic simple" start="16">
+<li><p>In <span class="guilabel">Clip raster by mask layer</span> dialog box, select <code class="docutils literal notranslate"><span class="pre">elevation_tin</span></code> as the <span class="guilabel">Input layer</span>, <code class="docutils literal notranslate"><span class="pre">Boundary2004_550_stpl83</span></code> as the <span class="guilabel">Mask layer</span>. Then click on the <code class="docutils literal notranslate"><span class="pre">...</span></code> under <span class="guilabel">Clipped (mask)</span> to save the layer as <code class="docutils literal notranslate"><span class="pre">elevation_tin_clipped.tif</span></code>. Click <span class="guilabel">Run</span>.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/1617.png" class="align-center" src="../../_images/1617.png" />
+</div></blockquote>
+<ol class="arabic simple" start="17">
+<li><p>Now a new layer <code class="docutils literal notranslate"><span class="pre">elevation_tin_clipped</span></code> will be added to the canvas. Click on the <span class="guilabel">Open the Layer styling panel</span> icon.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/1718.png" class="align-center" src="../../_images/1718.png" />
+</div></blockquote>
+<ol class="arabic simple" start="18">
+<li><p>Set the <span class="guilabel">Symbology</span> to <code class="docutils literal notranslate"><span class="pre">Singleband</span> <span class="pre">pseudocolor</span></code>, click on the arrow in <span class="guilabel">Color ramp</span> and select <code class="docutils literal notranslate"><span class="pre">Invert</span> <span class="pre">color</span> <span class="pre">ramp</span></code>, enter <code class="docutils literal notranslate"><span class="pre">0</span></code> in <span class="guilabel">Label precision</span>. Click <span class="guilabel">Classify</span>.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/1815.png" class="align-center" src="../../_images/1815.png" />
+</div></blockquote>
+<ol class="arabic simple" start="19">
+<li><p>From the <span class="guilabel">Processing Toolbox</span>, search and locate the <span class="menuselection">GDAL ‣ Raster extraction ‣ Contour</span> tool. Double-click to launch it.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/1912.png" class="align-center" src="../../_images/1912.png" />
+</div></blockquote>
+<ol class="arabic simple" start="20">
+<li><p>In the <span class="guilabel">Contour</span> dialog box, select <code class="docutils literal notranslate"><span class="pre">elevation_tin_clipped</span></code> as the <span class="guilabel">Input layer</span>, enter <code class="docutils literal notranslate"><span class="pre">5.000</span></code> in the <span class="guilabel">Interval between contour line</span>. Then click on the <code class="docutils literal notranslate"><span class="pre">...</span></code> under <span class="guilabel">Contours</span> to save the layer as <code class="docutils literal notranslate"><span class="pre">contour.gpkg</span></code>. Click <span class="guilabel">Run</span>.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/2012.png" class="align-center" src="../../_images/2012.png" />
+</div></blockquote>
+<div class="admonition note">
+<p class="admonition-title">Белешка</p>
+<p>The interval is specified in the unit of the CRS of the layer. Our source data is in the <em>EPSG:2276 NAD83 / Texas North Central (ftUS)</em> - so the interval for coutours will be interpreted as <code class="docutils literal notranslate"><span class="pre">5</span> <span class="pre">feet</span></code>.</p>
+</div>
+<ol class="arabic simple" start="21">
+<li><p>Now a new layer <code class="docutils literal notranslate"><span class="pre">contour</span></code> will be added to the canvas. Click on the <span class="guilabel">Open the Layer styling panel</span> icon. Switch to <span class="guilabel">Labels</span>.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/2116.png" class="align-center" src="../../_images/2116.png" />
+</div></blockquote>
+<ol class="arabic simple" start="22">
+<li><p>Select <code class="docutils literal notranslate"><span class="pre">Single</span> <span class="pre">label</span></code>, in <span class="guilabel">Value</span> choose <code class="docutils literal notranslate"><span class="pre">ELEV</span></code>.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/2214.png" class="align-center" src="../../_images/2214.png" />
+</div></blockquote>
+<ol class="arabic simple" start="23">
+<li><p>Now switch to <span class="guilabel">Placement</span> and change it the <span class="guilabel">Mode</span> as <code class="docutils literal notranslate"><span class="pre">Curved</span></code>.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/2312.png" class="align-center" src="../../_images/2312.png" />
+</div></blockquote>
+</section>
+</section>
+
+
+
+<!-- Turn on comments on only newer tutorials having 3/ in URL -->
+
+  <!-- Comment Section Powered by utterances -->
+<div id="comments">
+  <hr />
+  <p>If you want to give feedback or share your experience with this tutorial, please comment below. (requires GitHub account)</p>
+<script src="https://utteranc.es/client.js"
+        repo="spatialthoughts/qgis-tutorials"
+        issue-term="title"
+        label="comment"
+        theme="github-light"
+        crossorigin="anonymous"
+        async>
+</script>
+</div>
+
+
+    </div>
+      
+  </div>
+</div>
+
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+    </p>
+    <p>
+        &copy; Copyright 2025, Ujaval Gandhi.<br/>
+      Last updated on јул 31, 2025.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 8.2.3.<br/>
+    </p>
+  </div>
+</footer>
+<div class="container">
+  <p>This work is licensed under a <a href="http://creativecommons.org/licenses/by/4.0/deed.en_US">Creative Commons Attribution 4.0 International License</a>.<br>
+  You are free to use the material for any purpose as long as you give appropriate credit to the original author.</p>
+</div>
+
+<!-- Script fpr language switching. Largely adapted from https://github.com/pcav/faunalia-website -->
+<script>
+    var currentPage = 'docs/3/interpolating_point_data.html'; // coming from sphinx, always without starting '/'
+    var currentLang = 'en';
+    $(document).ready(function(){
+
+        var search = new RegExp('\/[a-zA-Z_]{2,8}\/'+ currentPage, 'gi');
+        var langPlusPage = window.location.href.match(search);
+        // it's possible this is a index.html page called without 'index.html', try without the currentPage
+        if (langPlusPage==undefined){
+            search = new RegExp('\/[a-zA-Z_]{2,8}\/$', 'gi');
+            langPlusPage = window.location.href.match(search);
+        }
+
+        // it's possible this is an index.html page called without 'index.html', try removing index.html
+        if (langPlusPage==undefined){
+            currentPage = currentPage.replace('index.html','')
+            search = new RegExp('\/[a-zA-Z_]{2,8}\/'+ currentPage, 'gi');
+            langPlusPage = window.location.href.match(search);
+        }
+        // still no langPlugPage: stop, because the language swicher will misbehave 
+
+        if (langPlusPage == undefined || langPlusPage.length != 1){
+            alert('You hit an error, please report back to us.');
+            return;
+        }
+        langPlusPage = langPlusPage[0];
+        currentLang = langPlusPage.replace(currentPage, '');
+
+        $("#languages").val(currentLang.replace(/\//g,'')); // currentLang is something like '/nl/'
+
+        $("#languages").change(function() {
+            gotoLang($(this).val());
+        });
+
+    });
+
+    // load current page in a different language
+    function gotoLang(lang){
+        var currentUrl = window.location.href;
+        var newUrl = currentUrl.replace(currentLang, '/'+lang+'/');
+        window.location.href = newUrl;
+    }
+</script>
+
+  </body>
+</html>

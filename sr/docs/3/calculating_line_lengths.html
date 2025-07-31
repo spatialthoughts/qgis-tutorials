@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+
+<html lang="sr" data-content_root="../../">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Izračunavanje dužina linija i statistika (QGIS3) &#8212; QGIS Tutorials and Tips</title>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-sphinx.css?v=0bf093e7" />
+    <script src="../../_static/documentation_options.js?v=7e8936b6"></script>
+    <script src="../../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/translations.js?v=552f857c"></script>
+    <link rel="search" title="Претрага" href="../../search.html" />
+    <link rel="next" title="Basic Raster Styling and Analysis (QGIS3)" href="raster_styling_and_analysis.html" />
+    <link rel="prev" title="Basic Vector Styling (QGIS3)" href="basic_vector_styling.html" />
+
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<script type="text/javascript" src="../../_static/js/jquery-1.12.4.min.js"></script>
+<script type="text/javascript" src="../../_static/js/jquery-fix.js"></script>
+<script type="text/javascript" src="../../_static/bootstrap-3.4.1/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="../../_static/bootstrap-sphinx.js"></script>
+
+
+<!-- Cookie Notice -->
+<!-- Script from https://github.com/AOEpeople/cookie-notice -->
+<script type="text/javascript" src="../../_static/cookie.notice.min.js"></script>
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-B1WQ7B80XJ"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-B1WQ7B80XJ');
+</script>
+
+
+  </head><body>
+
+  <div id="navbar" class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="../../index.html">
+          QGIS Tutorials and Tips</a>
+        <span class="navbar-text navbar-version pull-left"><b>v1</b></span>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="../../index.html">Tutorials List <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"><ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="making_a_map.html">Making a Map (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="working_with_attributes.html">Working with Attributes (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="importing_spreadsheets_csv.html">Importing Spreadsheets or CSV files (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="basic_vector_styling.html">Basic Vector Styling (QGIS3)</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Izračunavanje dužina linija i statistika (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="raster_styling_and_analysis.html">Basic Raster Styling and Analysis (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="raster_mosaicing_and_clipping.html">Raster Mosaicing and Clipping (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="working_with_terrain.html">Working with Terrain Data (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="working_with_wms.html">Working with WMS Data (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="working_with_projections.html">Working with Projections (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="georeferencing_basics.html">Georeferencing Topo Sheets and Scanned Maps (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="advanced_georeferencing.html">Georeferenciranje aerosnimaka (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="digitizing_basics.html">Digitizing Map Data (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="performing_table_joins.html">Performing Table Joins (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="performing_spatial_joins.html">Performing Spatial Joins (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="performing_spatial_queries.html">Performing Spatial Queries (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="nearest_neighbor_analysis.html">Nearest Neighbor Analysis (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="sampling_raster_data.html">Sampling Raster Data using Points or Polygons (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="calculating_raster_area.html">Calculating Raster Area (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="creating_heatmaps.html">Creating Heatmaps (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="animating_time_series.html">Animating Time Series Data (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="handling_invalid_geometries.html">Handling Invalid Geometries (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="advanced_raster_analysis.html">Napredna rasterska analiza (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="interpolating_point_data.html">Interpolating Point Data (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="batch_processing.html">Batch Processing using Processing Framework (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="processing_graphical_modeler.html">Automating Complex Workflows using Processing Modeler (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="automating_map_creation.html">Automating Map Creation with Print Layout Atlas (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="multi_criteria_overlay.html">Multi Criteria Overlay Analysis (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="vector_styling_expressions.html">Osnovno filtriranje i stilizovanje pomoću izraza (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="block_world_styling.html">Kreiranje mape sveta u bloku (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="river_styling_expressions.html">Stilizovanje rečne mreže pomoću izraza (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="contour_3d_styling.html">Stilizovanje kontura u 3D (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="isometric_buildings.html">Kreiranje izometrijskih zgrada (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="interactive_canvas_maps.html">Izrada interaktivnih mapa na platnu (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="interactive_reveal_maps.html">Izrada interaktivnih mapa otkrivanja (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cartogram_animation.html">Kreiranje animiranog kartograma (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="basic_network_analysis.html">Basic Network Visualization and Routing (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="origin_destination_matrix.html">Locating Nearest Facility with Origin-Destination Matrix (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="service_area_analysis.html">Service Area Analysis using Openrouteservice (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="travel_time_analysis.html">Travel Time Analysis with Uber Movement (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="areal_mean_rainfall.html">Calculating Areal Mean Rainfall (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="colorized_river_basin_map.html">Kreiranje karte rečnog sliva u boji (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="creating_landuse_map.html">Kreiranje mape korišćenja zemljišta (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="calculating_intersection_density.html">Calculating Street Intersection Density (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="landuse_buffer.html">Određivanje zaštitnih zona korišćenja zemljišta (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="solidwaste_mapping.html">Mapiranje količina odloženog otpada (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="getting_started_with_pyqgis.html">Getting Started With Python Programming (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="processing_algorithms_pyqgis.html">Running Processing Algorithms via Python (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="custom_python_functions.html">Korišćenje prilagođenih Pajton izraznih funkcija (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="processing_python_scripts.html">Writing Python Scripts for Processing Framework (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="building_a_python_plugin.html">Building a Python Plugin (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="processing_python_plugin.html">Building a Processing Plugin (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../running_qgis_jobs.html">Running and Scheduling QGIS Processing Jobs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="web_mapping_with_qgis2web.html">Web Mapping with QGIS2Web (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../creating_basemaps_with_qtiles.html">Creating Basemaps with QTiles</a></li>
+<li class="toctree-l1"><a class="reference internal" href="using_plugins.html">Using Plugins (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../downloading_osm_data.html">Searching and Downloading OpenStreetMap Data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../learning_resources.html">QGIS Learning Resources</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../credits.html">Data Credits</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../batch_processing.html">Batch Processing using Processing Framework (QGIS2)</a></li>
+</ul>
+</ul>
+</li>
+              
+            
+            
+              
+                
+  <li>
+    <a href="basic_vector_styling.html" title="Previous Chapter: Basic Vector Styling (QGIS3)"><span class="glyphicon glyphicon-chevron-left visible-sm"></span><span class="hidden-sm hidden-tablet">&laquo; Basic Vector ...</span>
+    </a>
+  </li>
+  <li>
+    <a href="raster_styling_and_analysis.html" title="Next Chapter: Basic Raster Styling and Analysis (QGIS3)"><span class="glyphicon glyphicon-chevron-right visible-sm"></span><span class="hidden-sm hidden-tablet">Basic Raster ... &raquo;</span>
+    </a>
+  </li>
+              
+            
+            
+
+            
+
+            
+              <li class="hidden-sm"></li>
+            
+          </ul>
+
+          
+            
+<form class="navbar-form navbar-right" action="../../search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+      <div class="col-md-3">
+        <div id="sidebar" class="bs-sidenav" role="complementary"><h4>Author</h4>
+<p><a href="https://www.linkedin.com/in/spatialthoughts/"><img src="../../_static/ujaval.png">Ujaval Gandhi</a></p>
+
+<hr>
+<p>Want to learn QGIS in a structured way? Check out <a href="https://spatialthoughts.com/" target="_blank">Spatial Thoughts</a> for more learning materials and instructor-led online programs with QGIS.org certification.</p>
+
+<hr>
+<p>These tutorials are also available in many other languages. Please see <a href="https://www.qgistutorials.com/en/docs/introduction.html#translations" target="_blank">translations</a> page.
+</p>
+        </div>
+      </div>
+    <div class="body col-md-9 content" role="main">
+      
+
+  <section id="calculating-line-lengths-and-statistics-qgis3">
+<h1>Izračunavanje dužina linija i statistika (QGIS3)<a class="headerlink" href="#calculating-line-lengths-and-statistics-qgis3" title="Link to this heading">¶</a></h1>
+<p>QGIS ima ugrađene funkcije i algoritme za izračunavanje različitih svojstava na osnovu geometrije objekta - kao što su dužina, površina, obim itd. Ovaj tutorijal će pokazati kako da koristite alatku <strong>Dodaj atribute geometrije</strong> da biste dodali kolonu sa vrednošću koja predstavlja dužinu svakog objekta.</p>
+<section id="overview-of-the-task">
+<h2>Pregled zadatka<a class="headerlink" href="#overview-of-the-task" title="Link to this heading">¶</a></h2>
+<p>Ako je dat polilinijski sloj železničkih pruga u Severnoj Americi, odredićemo ukupnu dužinu železničkih pruga u Sjedinjenim Državama.</p>
+<section id="other-skills-you-will-learn">
+<h3>Druge veštine koje ćete naučiti<a class="headerlink" href="#other-skills-you-will-learn" title="Link to this heading">¶</a></h3>
+<ul class="simple">
+<li><p>Korišćenje izraza za filtriranje karakteristika.</p></li>
+<li><p>Korišćenje panela <span class="guilabel">Statistika</span> za izračunavanje i pregled statistike po kolonama.</p></li>
+</ul>
+</section>
+</section>
+<section id="get-the-data">
+<h2>Dobijte podatke<a class="headerlink" href="#get-the-data" title="Link to this heading">¶</a></h2>
+<p><a class="reference external" href="http://www.naturalearthdata.com/downloads/10m-cultural-vectors/railroads/">Natural Earth</a> ima skup podataka o železnicama u javnom vlasništvu.</p>
+<p>Preuzmite zip datoteku <a class="reference external" href="https://www.naturalearthdata.com/http//www.naturalearthdata.com/download/10m/cultural/ne_10m_railroads_north_america.zip">Severnoameričkog dodatka</a> sa portala.</p>
+<p>Radi lakšeg snalaženja, možete direktno preuzeti kopiju skupa podataka sa linka ispod:</p>
+<p><a class="reference external" href="https://www.qgistutorials.com/downloads/ne_10m_railroads_north_america.zip">ne_10m_railroads_north_america..zip</a></p>
+<p>Izvor podataka <a class="reference internal" href="../credits.html#naturalearth" id="id1"><span>[NATURALEARTH]</span></a></p>
+</section>
+<section id="procedure">
+<h2>Procedura<a class="headerlink" href="#procedure" title="Link to this heading">¶</a></h2>
+<ol class="arabic simple">
+<li><p>Pronađite preuzetu datoteku <code class="docutils literal notranslate"><span class="pre">ne_10m_railroads_north_america.zip</span></code> u panelu <span class="guilabel">Pregledač</span> i proširite je. Prevucite datoteku <code class="docutils literal notranslate"><span class="pre">ne_10m_railroads_north_america.shp</span></code> na platno.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/130.png" class="align-center" src="../../_images/130.png" />
+</div></blockquote>
+<ol class="arabic simple" start="2">
+<li><p>Videćete novi sloj <code class="docutils literal notranslate"><span class="pre">ne_10m_railroads_north_america</span></code> učitan u <span class="guilabel">Panelu Slojevi</span>. Videćete da sloj ima linije koje predstavljaju železnice za celu Severnu Ameriku. Sada, hajde da izračunamo dužine svake linije. Idite na <span class="menuselection">Obrada ‣ Alatke</span>.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/220.png" class="align-center" src="../../_images/220.png" />
+</div></blockquote>
+<ol class="arabic simple" start="3">
+<li><p>Potražite i pronađite algoritam <span class="menuselection">Vektorska geometrija ‣ Dodaj atribute geometrije</span>. Dvaput kliknite da biste ga pokrenuli.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/318.png" class="align-center" src="../../_images/318.png" />
+</div></blockquote>
+<ol class="arabic simple" start="4">
+<li><p>U dijalogu <span class="guilabel">Dodaj geometrijske atribute</span>, izaberite <code class="docutils literal notranslate"><span class="pre">ne_10m_railroads_north_america</span></code> kao <span class="guilabel">Ulazni sloj</span>. Koordinatni referentni sistem (CRS) ulaznog sloja je <em>EPSG:4326 WGS84</em>. Ovo je <em>geografski</em> CRS sa geografskom širinom i dužinom kao koordinatama, WGS84 kao elipsoidom i stepenima kao jedinicama. Pošto geografska širina i dužina nemaju standardnu dužinu, ne možete precizno meriti rastojanja ili površine koristeći funkcije planarne geometrije. Srećom, QGIS pruža bolji način za izračunavanje rastojanja korišćenjem elipsoidne geometrije, što je najtačnija metoda za slojeve koji obuhvataju velike površine kao što je ova. Izaberite <code class="docutils literal notranslate"><span class="pre">Elipsoidno</span></code> kao opciju <span class="guilabel">Izračunaj koristeći</span>. Kliknite na <span class="guilabel">Pokreni</span>. Kada se proces završi, kliknite na <span class="guilabel">Zatvori</span>.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/47.png" class="align-center" src="../../_images/47.png" />
+</div></blockquote>
+<div class="admonition note">
+<p class="admonition-title">Белешка</p>
+<p>If your input layer is in a <em>Projected CRS</em>, you may choose <code class="docutils literal notranslate"><span class="pre">Layer</span> <span class="pre">CRS</span></code> option for calculation. Local or Regional projected coordinate systems are designed to minimize distortions over their region of interest, and thus are more accurate for such computation. <code class="docutils literal notranslate"><span class="pre">Ellipsoidal</span></code> is preferred for layers in a <em>Geographic CRS</em> (i.e. Lat/Lon). The default unit for ellipsoidal length calculation is <strong>Meters</strong> and can be changed by going to <span class="menuselection">Project ‣ Properties ‣ General</span>.</p>
+</div>
+<ol class="arabic simple" start="5">
+<li><p>Videćete novi sloj „Dodate informacije o geometriji“ učitan u panelu <span class="guilabel">Slojevi</span>. Ovo je kopija ulaznog sloja sa novom dodatom kolonom za rastojanje. Kliknite desnim tasterom miša na sloj „Dodate informacije o geometriji“ i izaberite <span class="guilabel">Otvori tabelu atributa</span>.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/57.png" class="align-center" src="../../_images/57.png" />
+</div></blockquote>
+<div class="admonition note">
+<p class="admonition-title">Белешка</p>
+<p>Alat <em>Dodaj geometrijski atribut</em> dodaje različite skupove atributa u zavisnosti od toga da li je ulazni sloj tačke, linije ili poligoni. Više detalja potražite u <a class="reference external" href="https://docs.qgis.org/testing/en/docs/user_manual/processing_algs/qgis/vectorgeometry.html#add-geometry-attributes">QGIS dokumentaciji</a>.</p>
+</div>
+<ol class="arabic simple" start="6">
+<li><p>U <span class="guilabel">Tabeli atributa</span> videćete novu kolonu pod nazivom <strong>dužina</strong>. Ona sadrži dužinu svakog linijskog objekta u <em>metrima</em>. Takođe imajte na umu atribut <strong>sov_a3</strong> koji sadrži kod zemlje za svaki objekat. Zatvorite prozor <span class="guilabel">Tabela atributa</span>.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/67.png" class="align-center" src="../../_images/67.png" />
+</div></blockquote>
+<ol class="arabic simple" start="7">
+<li><p>Sada kada imamo dužine pojedinačnih segmenata železničke pruge, možemo ih sabrati da bismo pronašli ukupnu dužinu železničkih pruga. Ali, pošto formulacija problema zahteva da nam je potrebna ukupna dužina železničke pruge u Sjedinjenim Državama, moramo koristiti samo segmente koji se nalaze unutar SAD. Možemo koristiti vrednost koda zemlje u koloni <strong>sov_a3</strong> da bismo filtrirali sloj. Kliknite desnim tasterom miša na sloj <code class="docutils literal notranslate"><span class="pre">Dodate</span> <span class="pre">geom.</span> <span class="pre">informacije</span></code> i izaberite <span class="guilabel">Filter</span>.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/77.png" class="align-center" src="../../_images/77.png" />
+</div></blockquote>
+<ol class="arabic simple" start="8">
+<li><p>U dijalogu <span class="guilabel">Query Builder</span> unesite sledeći izraz i kliknite na <span class="guilabel">OK</span>.</p></li>
+</ol>
+<blockquote>
+<div><div class="highlight-none notranslate"><div class="highlight"><pre><span></span>&quot;sov_a3&quot; = &#39;USA&#39;
+</pre></div>
+</div>
+<img alt="../../_images/87.png" class="align-center" src="../../_images/87.png" />
+</div></blockquote>
+<ol class="arabic simple" start="9">
+<li><p>Videćete ikonu <span class="guilabel">Filter</span> pored sloja <code class="docutils literal notranslate"><span class="pre">Dodate</span> <span class="pre">geomske</span> <span class="pre">informacije</span></code> u panelu <span class="guilabel">Slojevi</span> koja označava da je filter primenjen na sloj. Takođe možete vizuelno potvrditi da sloj sada sadrži linijske segmente samo za Sjedinjene Države. Sada smo spremni da izračunamo zbir. Kliknite na dugme <span class="guilabel">Prikaži statistički rezime</span> na <span class="guilabel">Traci sa alatkama Atributi</span>.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/97.png" class="align-center" src="../../_images/97.png" />
+</div></blockquote>
+<ol class="arabic simple" start="10">
+<li><p>Otvoriće se novi panel <span class="guilabel">Statistika</span>. Izaberite sloj <code class="docutils literal notranslate"><span class="pre">Dodate</span> <span class="pre">informacije</span> <span class="pre">o</span> <span class="pre">geometriji</span></code> i kolonu <code class="docutils literal notranslate"><span class="pre">dužina</span></code>.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/1010.png" class="align-center" src="../../_images/1010.png" />
+</div></blockquote>
+<ol class="arabic simple" start="11">
+<li><p>Videćete različite statistike prikazane u panelu. Jedinica statistike je ista kao i jedinice u koloni „dužina“ - <strong>metri</strong>. Hajde da promenimo izračunavanje da koristimo <strong>kilometre</strong> umesto toga. Kliknite na ikonu <span class="guilabel">Izraz</span> pored padajućeg menija polja u panelu <span class="guilabel">Statistika</span>.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/1113.png" class="align-center" src="../../_images/1113.png" />
+</div></blockquote>
+<ol class="arabic simple" start="12">
+<li><p>Unesite sledeći izraz u <span class="guilabel">Dijalog izraza</span> koji pretvara dužinu u kilometre.</p></li>
+</ol>
+<blockquote>
+<div><div class="highlight-none notranslate"><div class="highlight"><pre><span></span>length / 1000
+</pre></div>
+</div>
+<img alt="../../_images/1211.png" class="align-center" src="../../_images/1211.png" />
+</div></blockquote>
+<ol class="arabic simple" start="13">
+<li><p>Prikazana vrednost <span class="guilabel">Sum</span> je ukupna dužina železničkih pruga u SAD.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/139.png" class="align-center" src="../../_images/139.png" />
+</div></blockquote>
+</section>
+</section>
+
+
+
+<!-- Turn on comments on only newer tutorials having 3/ in URL -->
+
+  <!-- Comment Section Powered by utterances -->
+<div id="comments">
+  <hr />
+  <p>If you want to give feedback or share your experience with this tutorial, please comment below. (requires GitHub account)</p>
+<script src="https://utteranc.es/client.js"
+        repo="spatialthoughts/qgis-tutorials"
+        issue-term="title"
+        label="comment"
+        theme="github-light"
+        crossorigin="anonymous"
+        async>
+</script>
+</div>
+
+
+    </div>
+      
+  </div>
+</div>
+
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+    </p>
+    <p>
+        &copy; Copyright 2025, Ujaval Gandhi.<br/>
+      Last updated on јул 31, 2025.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 8.2.3.<br/>
+    </p>
+  </div>
+</footer>
+<div class="container">
+  <p>This work is licensed under a <a href="http://creativecommons.org/licenses/by/4.0/deed.en_US">Creative Commons Attribution 4.0 International License</a>.<br>
+  You are free to use the material for any purpose as long as you give appropriate credit to the original author.</p>
+</div>
+
+<!-- Script fpr language switching. Largely adapted from https://github.com/pcav/faunalia-website -->
+<script>
+    var currentPage = 'docs/3/calculating_line_lengths.html'; // coming from sphinx, always without starting '/'
+    var currentLang = 'en';
+    $(document).ready(function(){
+
+        var search = new RegExp('\/[a-zA-Z_]{2,8}\/'+ currentPage, 'gi');
+        var langPlusPage = window.location.href.match(search);
+        // it's possible this is a index.html page called without 'index.html', try without the currentPage
+        if (langPlusPage==undefined){
+            search = new RegExp('\/[a-zA-Z_]{2,8}\/$', 'gi');
+            langPlusPage = window.location.href.match(search);
+        }
+
+        // it's possible this is an index.html page called without 'index.html', try removing index.html
+        if (langPlusPage==undefined){
+            currentPage = currentPage.replace('index.html','')
+            search = new RegExp('\/[a-zA-Z_]{2,8}\/'+ currentPage, 'gi');
+            langPlusPage = window.location.href.match(search);
+        }
+        // still no langPlugPage: stop, because the language swicher will misbehave 
+
+        if (langPlusPage == undefined || langPlusPage.length != 1){
+            alert('You hit an error, please report back to us.');
+            return;
+        }
+        langPlusPage = langPlusPage[0];
+        currentLang = langPlusPage.replace(currentPage, '');
+
+        $("#languages").val(currentLang.replace(/\//g,'')); // currentLang is something like '/nl/'
+
+        $("#languages").change(function() {
+            gotoLang($(this).val());
+        });
+
+    });
+
+    // load current page in a different language
+    function gotoLang(lang){
+        var currentUrl = window.location.href;
+        var newUrl = currentUrl.replace(currentLang, '/'+lang+'/');
+        window.location.href = newUrl;
+    }
+</script>
+
+  </body>
+</html>

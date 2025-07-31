@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+
+<html lang="sr" data-content_root="../../">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Working with Projections (QGIS3) &#8212; QGIS Tutorials and Tips</title>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-sphinx.css?v=0bf093e7" />
+    <script src="../../_static/documentation_options.js?v=7e8936b6"></script>
+    <script src="../../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/translations.js?v=552f857c"></script>
+    <link rel="search" title="Претрага" href="../../search.html" />
+    <link rel="next" title="Georeferencing Topo Sheets and Scanned Maps (QGIS3)" href="georeferencing_basics.html" />
+    <link rel="prev" title="Working with WMS Data (QGIS3)" href="working_with_wms.html" />
+
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<script type="text/javascript" src="../../_static/js/jquery-1.12.4.min.js"></script>
+<script type="text/javascript" src="../../_static/js/jquery-fix.js"></script>
+<script type="text/javascript" src="../../_static/bootstrap-3.4.1/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="../../_static/bootstrap-sphinx.js"></script>
+
+
+<!-- Cookie Notice -->
+<!-- Script from https://github.com/AOEpeople/cookie-notice -->
+<script type="text/javascript" src="../../_static/cookie.notice.min.js"></script>
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-B1WQ7B80XJ"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-B1WQ7B80XJ');
+</script>
+
+
+  </head><body>
+
+  <div id="navbar" class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="../../index.html">
+          QGIS Tutorials and Tips</a>
+        <span class="navbar-text navbar-version pull-left"><b>v1</b></span>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="../../index.html">Tutorials List <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"><ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="making_a_map.html">Making a Map (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="working_with_attributes.html">Working with Attributes (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="importing_spreadsheets_csv.html">Importing Spreadsheets or CSV files (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="basic_vector_styling.html">Basic Vector Styling (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="calculating_line_lengths.html">Izračunavanje dužina linija i statistika (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="raster_styling_and_analysis.html">Basic Raster Styling and Analysis (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="raster_mosaicing_and_clipping.html">Raster Mosaicing and Clipping (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="working_with_terrain.html">Working with Terrain Data (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="working_with_wms.html">Working with WMS Data (QGIS3)</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Working with Projections (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="georeferencing_basics.html">Georeferencing Topo Sheets and Scanned Maps (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="advanced_georeferencing.html">Georeferenciranje aerosnimaka (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="digitizing_basics.html">Digitizing Map Data (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="performing_table_joins.html">Performing Table Joins (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="performing_spatial_joins.html">Performing Spatial Joins (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="performing_spatial_queries.html">Performing Spatial Queries (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="nearest_neighbor_analysis.html">Nearest Neighbor Analysis (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="sampling_raster_data.html">Sampling Raster Data using Points or Polygons (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="calculating_raster_area.html">Calculating Raster Area (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="creating_heatmaps.html">Creating Heatmaps (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="animating_time_series.html">Animating Time Series Data (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="handling_invalid_geometries.html">Handling Invalid Geometries (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="advanced_raster_analysis.html">Napredna rasterska analiza (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="interpolating_point_data.html">Interpolating Point Data (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="batch_processing.html">Batch Processing using Processing Framework (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="processing_graphical_modeler.html">Automating Complex Workflows using Processing Modeler (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="automating_map_creation.html">Automating Map Creation with Print Layout Atlas (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="multi_criteria_overlay.html">Multi Criteria Overlay Analysis (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="vector_styling_expressions.html">Osnovno filtriranje i stilizovanje pomoću izraza (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="block_world_styling.html">Kreiranje mape sveta u bloku (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="river_styling_expressions.html">Stilizovanje rečne mreže pomoću izraza (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="contour_3d_styling.html">Stilizovanje kontura u 3D (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="isometric_buildings.html">Kreiranje izometrijskih zgrada (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="interactive_canvas_maps.html">Izrada interaktivnih mapa na platnu (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="interactive_reveal_maps.html">Izrada interaktivnih mapa otkrivanja (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cartogram_animation.html">Kreiranje animiranog kartograma (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="basic_network_analysis.html">Basic Network Visualization and Routing (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="origin_destination_matrix.html">Locating Nearest Facility with Origin-Destination Matrix (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="service_area_analysis.html">Service Area Analysis using Openrouteservice (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="travel_time_analysis.html">Travel Time Analysis with Uber Movement (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="areal_mean_rainfall.html">Calculating Areal Mean Rainfall (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="colorized_river_basin_map.html">Kreiranje karte rečnog sliva u boji (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="creating_landuse_map.html">Kreiranje mape korišćenja zemljišta (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="calculating_intersection_density.html">Calculating Street Intersection Density (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="landuse_buffer.html">Određivanje zaštitnih zona korišćenja zemljišta (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="solidwaste_mapping.html">Mapiranje količina odloženog otpada (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="getting_started_with_pyqgis.html">Getting Started With Python Programming (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="processing_algorithms_pyqgis.html">Running Processing Algorithms via Python (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="custom_python_functions.html">Korišćenje prilagođenih Pajton izraznih funkcija (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="processing_python_scripts.html">Writing Python Scripts for Processing Framework (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="building_a_python_plugin.html">Building a Python Plugin (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="processing_python_plugin.html">Building a Processing Plugin (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../running_qgis_jobs.html">Running and Scheduling QGIS Processing Jobs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="web_mapping_with_qgis2web.html">Web Mapping with QGIS2Web (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../creating_basemaps_with_qtiles.html">Creating Basemaps with QTiles</a></li>
+<li class="toctree-l1"><a class="reference internal" href="using_plugins.html">Using Plugins (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../downloading_osm_data.html">Searching and Downloading OpenStreetMap Data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../learning_resources.html">QGIS Learning Resources</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../credits.html">Data Credits</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../batch_processing.html">Batch Processing using Processing Framework (QGIS2)</a></li>
+</ul>
+</ul>
+</li>
+              
+            
+            
+              
+                
+  <li>
+    <a href="working_with_wms.html" title="Previous Chapter: Working with WMS Data (QGIS3)"><span class="glyphicon glyphicon-chevron-left visible-sm"></span><span class="hidden-sm hidden-tablet">&laquo; Working with ...</span>
+    </a>
+  </li>
+  <li>
+    <a href="georeferencing_basics.html" title="Next Chapter: Georeferencing Topo Sheets and Scanned Maps (QGIS3)"><span class="glyphicon glyphicon-chevron-right visible-sm"></span><span class="hidden-sm hidden-tablet">Georeferencin... &raquo;</span>
+    </a>
+  </li>
+              
+            
+            
+
+            
+
+            
+              <li class="hidden-sm"></li>
+            
+          </ul>
+
+          
+            
+<form class="navbar-form navbar-right" action="../../search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+      <div class="col-md-3">
+        <div id="sidebar" class="bs-sidenav" role="complementary"><h4>Author</h4>
+<p><a href="https://www.linkedin.com/in/spatialthoughts/"><img src="../../_static/ujaval.png">Ujaval Gandhi</a></p>
+
+<hr>
+<p>Want to learn QGIS in a structured way? Check out <a href="https://spatialthoughts.com/" target="_blank">Spatial Thoughts</a> for more learning materials and instructor-led online programs with QGIS.org certification.</p>
+
+<hr>
+<p>These tutorials are also available in many other languages. Please see <a href="https://www.qgistutorials.com/en/docs/introduction.html#translations" target="_blank">translations</a> page.
+</p>
+        </div>
+      </div>
+    <div class="body col-md-9 content" role="main">
+      
+
+  <section id="working-with-projections-qgis3">
+<h1>Working with Projections (QGIS3)<a class="headerlink" href="#working-with-projections-qgis3" title="Link to this heading">¶</a></h1>
+<p>Map projections - or Coordinate Reference System (CRS) - often cause a lot of
+frustration when working with GIS data.  But a proper understanding of the
+concepts and access to the right tools will make it much easier to deal with
+projections. In this tutorial, we will explore how projections work in QGIS and learn about tools available for vector and rasters data layers.</p>
+<section id="overview-of-the-task">
+<h2>Overview of the task<a class="headerlink" href="#overview-of-the-task" title="Link to this heading">¶</a></h2>
+<p>The task is to re-project selected features of a layer and overlay data layers of different projections together in QGIS.</p>
+</section>
+<section id="get-the-data">
+<h2>Get the data<a class="headerlink" href="#get-the-data" title="Link to this heading">¶</a></h2>
+<p>Natural Earth has <a class="reference external" href="https://www.naturalearthdata.com/downloads/10m-cultural-vectors/">Admin 0 - Countries</a>
+dataset. Download the <a class="reference external" href="https://www.naturalearthdata.com/http//www.naturalearthdata.com/download/10m/cultural/ne_10m_admin_0_countries.zip">countries</a></p>
+<p><a class="reference external" href="https://www.ordnancesurvey.co.uk/">UK’s Ordnance Survey</a> provides open data
+for download. Download the <a class="reference external" href="https://www.ordnancesurvey.co.uk/opendatadownload/products.html">MiniScale raster product</a> for Great
+Britain and extract it to a folder on your computer.</p>
+<p>For convenience, you may directly download a copy of the dataset from the link
+below:</p>
+<p><a class="reference external" href="https://www.qgistutorials.com/downloads/ne_10m_admin_0_countries.zip">ne_10m_admin_0_countries.zip</a></p>
+<p><a class="reference external" href="https://www.qgistutorials.com/downloads/minisc_gb.zip">minisc_gb.zip</a> (Contains only the files
+required for this tutorial)</p>
+<p>Data Sources: <a class="reference internal" href="../credits.html#naturalearth" id="id1"><span>[NATURALEARTH]</span></a> <a class="reference internal" href="../credits.html#osopendata" id="id2"><span>[OSOPENDATA]</span></a></p>
+</section>
+<section id="procedure">
+<h2>Procedure<a class="headerlink" href="#procedure" title="Link to this heading">¶</a></h2>
+<ol class="arabic simple">
+<li><p>Open QGIS. Go to <span class="menuselection">Layer ‣ Add Layer ‣ Add Vector
+Layer…</span>.</p></li>
+</ol>
+<img alt="../../_images/1167.png" class="align-center" src="../../_images/1167.png" />
+<ol class="arabic simple" start="2">
+<li><p>Click on <span class="guilabel">…</span> next to <span class="guilabel">Source</span>, Browse to the downloaded <code class="docutils literal notranslate"><span class="pre">ne_10m_admin_0_countries.shp</span></code> file and click
+<span class="guilabel">Add</span>.</p></li>
+</ol>
+<img alt="../../_images/2137.png" class="align-center" src="../../_images/2137.png" />
+<ol class="arabic simple" start="3">
+<li><p>At the bottom of QGIS window, you will notice the label <span class="guilabel">Coordinate</span>. As you move your cursor over the map, it will show you the X and Y coordinates at that location. At the bottom-right corner you will see <span class="guilabel">EPSG:4326</span>. This is the code for the current CRS (Projection) for the project - also known as the <strong>Project CRS</strong>.</p></li>
+</ol>
+<img alt="../../_images/376.png" class="align-center" src="../../_images/376.png" />
+<ol class="arabic simple" start="4">
+<li><p>To determine a layer’s projection, we can look into the metadata. Right click on <code class="docutils literal notranslate"><span class="pre">ne_10m_admin_0_countries</span></code> layer and select <span class="guilabel">Properties</span>.</p></li>
+</ol>
+<img alt="../../_images/446.png" class="align-center" src="../../_images/446.png" />
+<ol class="arabic simple" start="5">
+<li><p>Switch to the <span class="guilabel">Information</span> tab in the <span class="guilabel">Layer Properties</span> dialog. Expand the <span class="guilabel">Information from provider</span> section. At the bottom, you will see the name of the projection under <span class="guilabel">CRS</span>.</p></li>
+</ol>
+<img alt="../../_images/540.png" class="align-center" src="../../_images/540.png" />
+<ol class="arabic simple" start="6">
+<li><p>Now let’s see how we can change the layer’s projection. This operation is called <strong>Re-Projection</strong>. Rather than re-projecting the entire layer, we can also select a subset of features and re-project them to a new layer. Use the <span class="guilabel">Select features by area or single click</span> tool and click on United Kingdom feature to select it.</p></li>
+</ol>
+<img alt="../../_images/639.png" class="align-center" src="../../_images/639.png" />
+<ol class="arabic simple" start="7">
+<li><p>Search for and locate the <span class="menuselection">Vector General ‣ Reproject layer</span> algorithm in Processing toolbox.</p></li>
+</ol>
+<img alt="../../_images/739.png" class="align-center" src="../../_images/739.png" />
+<ol class="arabic simple" start="8">
+<li><p>Select <code class="docutils literal notranslate"><span class="pre">ne_10m_admin_0_countries</span></code> as the <span class="guilabel">Input layer</span>, check <span class="guilabel">Selected features only</span> then click on the globe icon next to <span class="guilabel">Target CRS</span>, search and select <code class="docutils literal notranslate"><span class="pre">EPSG:27700</span> <span class="pre">-</span> <span class="pre">OSGB</span> <span class="pre">1936</span> <span class="pre">/</span> <span class="pre">British</span> <span class="pre">National</span> <span class="pre">Grid</span></code>. In <span class="guilabel">Reprojected</span>, choose the <code class="docutils literal notranslate"><span class="pre">...</span></code>  and click <span class="guilabel">Save to a file</span>. Now choose the directory and enter the name as <code class="docutils literal notranslate"><span class="pre">united_kingdom.gkpg</span></code> and click <span class="guilabel">Run</span>.</p></li>
+</ol>
+<img alt="../../_images/838.png" class="align-center" src="../../_images/838.png" />
+<ol class="arabic simple" start="9">
+<li><p>A new layer <code class="docutils literal notranslate"><span class="pre">united_kingdom</span></code> will appear on the <span class="guilabel">Layer Panel</span>. As you see, both the layers still line up exactly with each other - even though they are in different CRSs. This is because QGIS supports <a class="reference external" href="https://docs.qgis.org/testing/en/docs/user_manual/working_with_projections/working_with_projections.html?highlight=otf#project-coordinate-reference-systems">On-The-Fly (OTF) CRS transformation</a>. Which means that whenever a layer’s CRS doesn’t match the Project CRS, it will automatically be transformed to the Project CRS so it can be displayed correctly. Now let’s set the Project CRS to match the newly created <code class="docutils literal notranslate"><span class="pre">united_kingdom</span></code> Layer’s CRS. Remove the <code class="docutils literal notranslate"><span class="pre">ne_10m_admin_0_countries</span></code> layer and, right click on the <code class="docutils literal notranslate"><span class="pre">united_kingdom</span></code> layer <span class="menuselection">Layer CRS ‣ Set Project CRS from Layer</span>.</p></li>
+</ol>
+<img alt="../../_images/939.png" class="align-center" src="../../_images/939.png" />
+<ol class="arabic simple" start="10">
+<li><p>You will see the Project CRS is updated to <code class="docutils literal notranslate"><span class="pre">EPSG:27700</span></code>.</p></li>
+</ol>
+<img alt="../../_images/1046.png" class="align-center" src="../../_images/1046.png" />
+<ol class="arabic simple" start="11">
+<li><p>Now let’s add a Raster layer. Go to <span class="menuselection">Layer ‣ Add Layer ‣ Add Raster Layer…</span>.</p></li>
+</ol>
+<img alt="../../_images/1168.png" class="align-center" src="../../_images/1168.png" />
+<ol class="arabic simple" start="12">
+<li><p>Click on the <code class="docutils literal notranslate"><span class="pre">...</span></code> next to <span class="guilabel">Source</span>, select the layer <code class="docutils literal notranslate"><span class="pre">MiniScale_(standard)_R23.tif</span></code>. Click <span class="guilabel">Add</span>.</p></li>
+</ol>
+<img alt="../../_images/1249.png" class="align-center" src="../../_images/1249.png" />
+<ol class="arabic simple" start="13">
+<li><p>Now a new layer <code class="docutils literal notranslate"><span class="pre">MiniScale_(standard)_R23</span></code> is added to the canvas.</p></li>
+</ol>
+<img alt="../../_images/1347.png" class="align-center" src="../../_images/1347.png" />
+<ol class="arabic simple" start="14">
+<li><p>To make both layers visible, switch the order of the layer by dragging the <code class="docutils literal notranslate"><span class="pre">MiniScale_(standard)_R23</span></code> to the bottom in the <span class="guilabel">Layers</span> panel.</p></li>
+</ol>
+<img alt="../../_images/1443.png" class="align-center" src="../../_images/1443.png" />
+<ol class="arabic simple" start="15">
+<li><p>Right-click on the <code class="docutils literal notranslate"><span class="pre">MiniScale_(standard)_R23</span></code> layer and click on <span class="guilabel">Properties</span>.</p></li>
+</ol>
+<img alt="../../_images/1537.png" class="align-center" src="../../_images/1537.png" />
+<ol class="arabic simple" start="16">
+<li><p>In the <span class="guilabel">Layer Properties</span>, switch to <span class="guilabel">Information</span>, the <span class="guilabel">CRS</span> is <code class="docutils literal notranslate"><span class="pre">EPSG:27700</span> <span class="pre">-</span> <span class="pre">OSBG</span> <span class="pre">1935</span> <span class="pre">/</span> <span class="pre">British</span> <span class="pre">National</span> <span class="pre">Grid</span> <span class="pre">-</span> <span class="pre">Projected</span></code>. This confirms that the raster layer’s CRS is the same as the Project CRS.</p></li>
+</ol>
+<div class="admonition note">
+<p class="admonition-title">Белешка</p>
+<p>If you want to re-project a raster layer, you can use  <span class="menuselection">GDAL ‣ Raster projections ‣ Warp (reproject)</span> algorithm in Processing toolbox.</p>
+</div>
+<img alt="../../_images/1634.png" class="align-center" src="../../_images/1634.png" />
+</section>
+</section>
+
+
+
+<!-- Turn on comments on only newer tutorials having 3/ in URL -->
+
+  <!-- Comment Section Powered by utterances -->
+<div id="comments">
+  <hr />
+  <p>If you want to give feedback or share your experience with this tutorial, please comment below. (requires GitHub account)</p>
+<script src="https://utteranc.es/client.js"
+        repo="spatialthoughts/qgis-tutorials"
+        issue-term="title"
+        label="comment"
+        theme="github-light"
+        crossorigin="anonymous"
+        async>
+</script>
+</div>
+
+
+    </div>
+      
+  </div>
+</div>
+
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+    </p>
+    <p>
+        &copy; Copyright 2025, Ujaval Gandhi.<br/>
+      Last updated on јул 31, 2025.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 8.2.3.<br/>
+    </p>
+  </div>
+</footer>
+<div class="container">
+  <p>This work is licensed under a <a href="http://creativecommons.org/licenses/by/4.0/deed.en_US">Creative Commons Attribution 4.0 International License</a>.<br>
+  You are free to use the material for any purpose as long as you give appropriate credit to the original author.</p>
+</div>
+
+<!-- Script fpr language switching. Largely adapted from https://github.com/pcav/faunalia-website -->
+<script>
+    var currentPage = 'docs/3/working_with_projections.html'; // coming from sphinx, always without starting '/'
+    var currentLang = 'en';
+    $(document).ready(function(){
+
+        var search = new RegExp('\/[a-zA-Z_]{2,8}\/'+ currentPage, 'gi');
+        var langPlusPage = window.location.href.match(search);
+        // it's possible this is a index.html page called without 'index.html', try without the currentPage
+        if (langPlusPage==undefined){
+            search = new RegExp('\/[a-zA-Z_]{2,8}\/$', 'gi');
+            langPlusPage = window.location.href.match(search);
+        }
+
+        // it's possible this is an index.html page called without 'index.html', try removing index.html
+        if (langPlusPage==undefined){
+            currentPage = currentPage.replace('index.html','')
+            search = new RegExp('\/[a-zA-Z_]{2,8}\/'+ currentPage, 'gi');
+            langPlusPage = window.location.href.match(search);
+        }
+        // still no langPlugPage: stop, because the language swicher will misbehave 
+
+        if (langPlusPage == undefined || langPlusPage.length != 1){
+            alert('You hit an error, please report back to us.');
+            return;
+        }
+        langPlusPage = langPlusPage[0];
+        currentLang = langPlusPage.replace(currentPage, '');
+
+        $("#languages").val(currentLang.replace(/\//g,'')); // currentLang is something like '/nl/'
+
+        $("#languages").change(function() {
+            gotoLang($(this).val());
+        });
+
+    });
+
+    // load current page in a different language
+    function gotoLang(lang){
+        var currentUrl = window.location.href;
+        var newUrl = currentUrl.replace(currentLang, '/'+lang+'/');
+        window.location.href = newUrl;
+    }
+</script>
+
+  </body>
+</html>
