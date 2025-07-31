@@ -4,7 +4,7 @@
 
 # You can set these variables from the command line.
 # LANGUAGES     = en nl es fa it sl tr zh_TW th uk ko vi id el fi_FI ro pt_BR ru fr de
-LANGUAGES     = en ru nl es fa it sl zh_TW ko el ro de
+LANGUAGES     = en ru sr nl es fa it sl zh_TW ko el ro de
 PDF_LANGUAGES = en
 LANG          = en
 SPHINXBUILD   = sphinx-build

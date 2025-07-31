@@ -1,0 +1,291 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2023, Ujaval Gandhi
+# This file is distributed under the same license as the QGIS Tutorials and Tips package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# 
+# Translators:
+# Vladimir Vukovic, 2025
+# 
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: QGIS Tutorials and Tips v1\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-03-06 00:20+0530\n"
+"PO-Revision-Date: 2019-03-29 06:45+0000\n"
+"Last-Translator: Vladimir Vukovic, 2025\n"
+"Language-Team: Serbian (https://app.transifex.com/spatialthoughts/teams/7952/sr/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: sr\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+
+#: ../../source/docs/3/custom_python_functions.rst:2
+msgid "Using Custom Python Expression Functions (QGIS3)"
+msgstr "Korišćenje prilagođenih Pajton izraznih funkcija (QGIS3)"
+
+#: ../../source/docs/3/custom_python_functions.rst:4
+msgid ""
+"Expressions in QGIS have a lot of power and are used in many core features: "
+"selection, calculating field values, styling, labelling etc. QGIS also has "
+"support for user-defined expressions. With a little bit of python "
+"programming, you can define your own functions that can be used within the "
+"expression engine."
+msgstr ""
+"Izrazi u QGIS-u imaju veliku moć i koriste se u mnogim osnovnim funkcijama:"
+" selekciji, izračunavanju vrednosti polja, stilizovanju, označavanju itd. "
+"QGIS takođe ima podršku za korisnički definisane izraze. Uz malo "
+"programiranja u Pajtonu, možete definisati sopstvene funkcije koje se mogu "
+"koristiti unutar mehanizma za izraze."
+
+#: ../../source/docs/3/custom_python_functions.rst:7
+msgid "Overview of the task"
+msgstr "Pregled zadatka"
+
+#: ../../source/docs/3/custom_python_functions.rst:9
+msgid ""
+"We will define a custom function that finds the `UTM zone number "
+"<http://www.dmap.co.uk/utmworld.htm>`_ of a map feature and use this "
+"function to write an expression that displays the UTM zone as a map tip when"
+" hovered over the point."
+msgstr ""
+"Definisaćemo prilagođenu funkciju koja pronalazi `UTM broj zone "
+"<http://www.dmap.co.uk/utmworld.htm>`_ karakteristike mape i koristiti ovu "
+"funkciju da napišemo izraz koji prikazuje UTM zonu kao savet mape kada se "
+"mišem zadrži iznad tačke."
+
+#: ../../source/docs/3/custom_python_functions.rst:12
+msgid "Other skills you will learn"
+msgstr "Druge veštine koje ćete naučiti"
+
+#: ../../source/docs/3/custom_python_functions.rst:14
+msgid ""
+"How to use the ``Map Tips`` tool to display custom text when hovering over a"
+" feature."
+msgstr ""
+"Kako se koristi alatka „Saveti za mapu“ za prikaz prilagođenog teksta kada "
+"se mišem zadrži iznad objekta."
+
+#: ../../source/docs/3/custom_python_functions.rst:17
+msgid "Get the data"
+msgstr "Dobijte podatke"
+
+#: ../../source/docs/3/custom_python_functions.rst:19
+msgid ""
+"We will use Natural Earth's `Populated Places "
+"<http://www.naturalearthdata.com/downloads/10m-cultural-"
+"vectors/10m-populated-places/>`__ dataset. Download the `simple (less "
+"columns) dataset "
+"<http://www.naturalearthdata.com/http//www.naturalearthdata.com/download/10m/cultural/ne_10m_populated_places_simple.zip>`__"
+msgstr ""
+"Koristićemo skup podataka „Populated Places "
+"<http://www.naturalearthdata.com/downloads/10m-cultural-"
+"vectors/10m-populated-places/>”__ sajta Natural Earth. Preuzmite jednostavan"
+" skup podataka „simple (less columns)” "
+"<http://www.naturalearthdata.com/http//www.naturalearthdata.com/download/10m/cultural/ne_10m_populated_places_simple.zip>`__"
+
+#: ../../source/docs/3/custom_python_functions.rst:22
+msgid "Procedure"
+msgstr "Procedura"
+
+#: ../../source/docs/3/custom_python_functions.rst:24
+msgid ""
+"Locate the ``ne_10m_populated_places_simple.zip`` file in the QGIS Browser "
+"and expand it. Select the ``ne_10m_populated_places_simple.shp`` file and "
+"drag it to the canvas."
+msgstr ""
+"Pronađite datoteku ``ne_10m_populated_places_simple.zip`` u QGIS pregledaču "
+"i proširite je. Izaberite datoteku ``ne_10m_populated_places_simple.shp`` i "
+"prevucite je na platno."
+
+#: ../../source/docs/3/custom_python_functions.rst:30
+msgid ""
+"Go to :menuselection:`Edit --> Select --> Select Features By Expression...` "
+"or click the :guilabel:`Select features using an expression` button on the "
+":guilabel:`Attributes Toolbar`."
+msgstr ""
+"Idite na :menuselection:`Uredi --> Izaberi --> Izaberi karakteristike "
+"pomoću izraza...` ili kliknite na dugme :guilabel:`Izaberi karakteristike "
+"pomoću izraza` na :guilabel:`Traci sa alatkama za atribute`."
+
+#: ../../source/docs/3/custom_python_functions.rst:36
+msgid ""
+"In the :guilabel:`Select by Expression` dialog, switch to the "
+":guilabel:`Function Editor` tab. Here you can write any PyQGIS code that "
+"will be executed by the expression engine."
+msgstr ""
+"U dijalogu :guilabel:`Izaberi po izrazu`, pređite na karticu "
+":guilabel:`Uređivač funkcija`. Ovde možete napisati bilo koji PyQGIS kod "
+"koji će izvršiti mehanizam za izraze."
+
+#: ../../source/docs/3/custom_python_functions.rst:41
+msgid ""
+"We will define a custom function named ``GetUtmZone`` that will calculate "
+"the UTM zone number for each feature. Since custom functions in QGIS work at"
+" the feature level. We will use the centroid of the feature's geometry and "
+"compute the UTM Zone from the latitude and longitude of the centroid "
+"geometry. We will also add a 'N' or 'S' designation to the zone to indicate "
+"whether the zone is in the northern or southern hemisphere. Press the "
+":guilabel:`+` button in the lower left of the screen and type "
+"``utm_zones.py`` as the file name. You can click the :guilabel:`Help` label "
+"in the bottom panel to close it and expand the code panel."
+msgstr ""
+"Definisaćemo prilagođjenu funkciju pod nazivom „GetUtmZone“ koja će "
+"izračunati broj UTM zone za svaki objekat. Pošto prilagođjene funkcije u "
+"QGIS-u rade na nivou objekata, koristićemo centroid geometrije objekata i "
+"izračunaćemo UTM zonu iz geografske širine i dužine geometrije centroida. "
+"Takođe ćemo dodati oznaku „N“ ili „S“ zoni da bismo naznačili da li se zona"
+" nalazi na severnoj ili južnoj hemisferi. Pritisnite dugme :guilabel:`+` u "
+"donjem levom uglu ekrana i otkucajte ``utm_zones.py`` kao ime datoteke. "
+"Možete kliknuti na oznaku :guilabel:`Help` u donjem panelu da biste ga "
+"zatvorili i proširili panel sa kodom."
+
+#: ../../source/docs/3/custom_python_functions.rst:46
+msgid ""
+"UTM Zones are longitudinal projection zones numbered from 1 to 60. Each UTM "
+"zone is 6 degree wide. Here we use a simple mathematical formula to find the"
+" appropriate zone for a given longitude value. This formula works for all "
+"except a few `special UTM zones "
+"<https://en.wikipedia.org/wiki/Universal_Transverse_Mercator_coordinate_system#Exceptions>`_."
+" Type the following code into the editor window. When you are finished click"
+" :guilabel:`Save and Load Functions`."
+msgstr ""
+"UTM zone su uzdužne projekcione zone numerisane od 1 do 60. Svaka UTM zona "
+"je široka 6 stepeni. Ovde koristimo jednostavnu matematičku formulu da bismo"
+" pronašli odgovarajuću zonu za datu vrednost geografske dužine. Ova formula"
+" funkcioniše za sve osim nekoliko `posebnih UTM zona "
+"<https://en.wikipedia.org/wiki/Universal_Transverse_Mercator_coordinate_system#Exceptions>`_."
+" Unesite sledeći kod u prozor za uređivanje. Kada završite, kliknite na "
+":guilabel:`Sačuvaj i učitaj funkcije`."
+
+#: ../../source/docs/3/custom_python_functions.rst:74
+msgid ""
+"Currently there is no way to delete an expression file from the GUI. If you "
+"wish to delete the ``utm_zone.py`` file, you can go to "
+":menuselection:`Settings --> User Profiles --> Open Active Profile Folder` "
+"and delete the file from :menuselection:`python --> expressions`."
+msgstr ""
+"Trenutno ne postoji način da se obriše datoteka izraza iz grafičkog "
+"korisničkog interfejsa. Ako želite da obrišete datoteku ``utm_zone.py``, "
+"možete otići na :menuselection:`Podešavanja --> Korisnički profili --> "
+"Otvori fasciklu aktivnog profila` i obrisati datoteku iz "
+":menuselection:`python --> expressions`."
+
+#: ../../source/docs/3/custom_python_functions.rst:77
+msgid ""
+"Switch to the Expression tab in the Select by expression dialog. Find and "
+"expand the :guilabel:`Custom` group in the Functions section. You will "
+"notice a new custom function ``GetUtmZone`` in the list. We can now use this"
+" function in the expressions just like any other function. Type the "
+"following expression in the editor. This expression will     select all "
+"points that fall in the UTM Zone ``33N``. Click :guilabel:`Zoom to Features`"
+" and the map will change, if you click :guilabel:`Select Features` you "
+"should see the points in UTM zone 33N change colour to yellow."
+msgstr ""
+"Pređite na karticu Izraz u dijalogu Izaberi po izrazu. Pronađite i proširite"
+" grupu :guilabel:`Prilagođeno` u odeljku Funkcije. Primetićete novu "
+"prilagođenu funkciju ``GetUtmZone`` na listi. Sada možemo da koristimo ovu "
+"funkciju u izrazima baš kao i bilo koju drugu funkciju. Unesite sledeći "
+"izraz u uređivač. Ovaj izraz će izabrati sve tačke koje spadaju u UTM zonu "
+"``33N``. Kliknite na :guilabel:`Zumiraj na karakteristike` i mapa će se "
+"promeniti, ako kliknete na :guilabel:`Izaberi karakteristike` trebalo bi da "
+"vidite da tačke u UTM zoni 33N menjaju boju u žutu."
+
+#: ../../source/docs/3/custom_python_functions.rst:88
+msgid ""
+"Due to a bug, this feature did not work in earlier versions of QGIS 3. It "
+"has been fixed from version 3.4.5 onwards."
+msgstr ""
+"Zbog greške, ova funkcija nije radila u ranijim verzijama QGIS 3. "
+"Ispravljena je od verzije 3.4.5 pa nadalje."
+
+#: ../../source/docs/3/custom_python_functions.rst:90
+msgid ""
+"Back in the main QGIS window, you should see some points highlighted in "
+"yellow. These are the points falling in the UTM Zone we specified in the "
+"expression."
+msgstr ""
+"Nazad u glavnom QGIS prozoru, trebalo bi da vidite neke tačke označene žutom"
+" bojom. To su tačke koje spadaju u UTM zonu koju smo naveli u izrazu."
+
+#: ../../source/docs/3/custom_python_functions.rst:95
+msgid ""
+"You saw how we defined and used a custom function to select features by "
+"expression. We will now use the same function in another context. One of the"
+" hidden gems in QGIS is the **Map Tip** tool. This tool shows user-defined "
+"text when you hover over a feature. Right-click the "
+"``ne_10m_populated_places_simple`` layer and select Properties."
+msgstr ""
+"Videli ste kako smo definisali i koristili prilagođenu funkciju za odabir "
+"obeležja pomoću izraza. Sada ćemo istu funkciju koristiti u drugom "
+"kontekstu. Jedan od skrivenih dragulja u QGIS-u je alat **Savet mape**. Ovaj"
+" alat prikazuje korisnički definisan tekst kada pređete mišem preko "
+"obeležja. Kliknite desnim tasterom miša na sloj "
+"``ne_10m_populated_places_simple`` i izaberite Svojstva."
+
+#: ../../source/docs/3/custom_python_functions.rst:100
+msgid ""
+"Switch to the Display tab. Here you can enter any text that will be "
+"displayed when you hover over the features of the layer. Even better, you "
+"can use layer field values and expressions to define a much more useful "
+"message. Click on the :guilabel:`Ɛ` button."
+msgstr ""
+"Pređite na karticu Prikaz. Ovde možete uneti bilo koji tekst koji će se "
+"prikazivati kada zadržite pokazivač miša iznad elemenata sloja. Još bolje, "
+"možete koristiti vrednosti polja sloja i izraze da biste definisali mnogo "
+"korisniju poruku. Kliknite na dugme :guilabel:`Ɛ`."
+
+#: ../../source/docs/3/custom_python_functions.rst:105
+msgid ""
+"You will see the familiar expression editor again. We will use the "
+"``concat`` function to join the value of the field ``name`` and the result "
+"of our custom function ``GetUtmZone``. Enter the following expression and "
+"click :guilabel:`OK`."
+msgstr ""
+"Ponovo ćete videti poznati uređivač izraza. Koristićemo funkciju „concat“ "
+"da spojimo vrednost polja „name“ i rezultat naše prilagođene funkcije "
+"„GetUtmZone“. Unesite sledeći izraz i kliknite na :guilabel:„OK“."
+
+#: ../../source/docs/3/custom_python_functions.rst:114
+msgid ""
+"You will see the expression entered as the value of the Display text. Click "
+":guilabel:`Insert` to add it to the HTML box and then press :guilabel:`OK`."
+msgstr ""
+"Videćete uneti izraz kao vrednost teksta za prikaz. Kliknite na "
+":guilabel:`Ubaci` da biste ga dodali u HTML polje, a zatim pritisnite "
+":guilabel:`U redu`."
+
+#: ../../source/docs/3/custom_python_functions.rst:119
+msgid ""
+"Before we proceed, let us de-select the features that were selected in the "
+"previous step. Go to :menuselection:`Edit --> Select --> Deselect Features "
+"From All Layers` or click the :guilabel:`Deselect Features From All Layers` "
+"button on the :guilabel:`Attribute Toolbar`."
+msgstr ""
+"Pre nego što nastavimo, hajde da opozovemo izbor objekata koji su izabrani u"
+" prethodnom koraku. Idite na :menuselection:`Uredi --> Izaberi --> Opozovi "
+"izbor objekata iz svih slojeva` ili kliknite na dugme :guilabel:`Opozovi "
+"izbor objekata iz svih slojeva` na :guilabel:`Traci sa alatkama za "
+"atribute`."
+
+#: ../../source/docs/3/custom_python_functions.rst:124
+msgid ""
+"Activate the ``Map Tips`` tool by going to :menuselection:`View --> Map "
+"Tips` or clicking the :guilabel:`Show Map Tips` button on the "
+":guilabel:`Attributes Toolbar`."
+msgstr ""
+"Aktivirajte alatku „Saveti za mapu“ tako što ćete otići na "
+":menuselection:`Prikaz --> Saveti za mapu` ili kliknuti na dugme "
+":guilabel:`Prikaži savete za mapu` na :guilabel:`Traci sa alatkama za "
+"atribute`."
+
+#: ../../source/docs/3/custom_python_functions.rst:129
+msgid ""
+"Zoom into any area of the map and put your mouse cursor over any feature. "
+"You will see the name of the city and corresponding UTM zone displayed as "
+"the map tip."
+msgstr ""
+"Uvećajte bilo koju oblast mape i postavite kursor miša iznad bilo kojeg "
+"objekta. Videćete ime grada i odgovarajuću UTM zonu prikazanu kao vrh "
+"mape."
