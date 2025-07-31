@@ -184,7 +184,7 @@
 <p>Cuanto trate con conjuntos de datos de teledetección y científicos, a menudo uno se encuentra con datos en formatos como <strong>BIL</strong>, <strong>BIP</strong> o <strong>BSQ</strong>. <a class="reference external" href="http://www.gdal.org">La librería GDAL</a> - que es usada por QGIS para leer archivos raster - tiene soporte para estos formatos, pero no puede abrir estos archivos por si mismos. Iremos por el proceso para crear archivos de soporte para que estos formatos puedan ser leídos por QGIS.</p>
 <p>Band interleaved by line (BIL), band interleaved by pixel (BIP), and band sequential (BSQ) son métodos comunes de organización de datos de imagen para imágenes multibanda. (<a class="reference external" href="http://webhelp.esri.com/arcgisdesktop/9.2/index.cfm?TopicName=BIL,_BIP,_and_BSQ_raster_files">Lea más acerca de estos formatos en</a>)</p>
 <p>Típicamente, estos archivos están acompañados por un archivo <code class="docutils literal notranslate"><span class="pre">.hdr</span></code>. Si tu conjunto de datos vino con un archivo <code class="docutils literal notranslate"><span class="pre">.hdr</span></code>, asegúrese que el nombre raíz del archivo .bil, .bsq o .bip coincidan y que estén en el mismo directorio. Por ejemplo, si el archivo se llama <code class="docutils literal notranslate"><span class="pre">image.bil</span></code>, el archivo asociado deberá llamarse <code class="docutils literal notranslate"><span class="pre">image.hdr</span></code> y estar presente en el mismo directorio que el archivo <code class="docutils literal notranslate"><span class="pre">image.bil</span></code>. Entonces vaya a <span class="menuselection">Capa ‣ Agregar Capa Raster</span>, seleccione el archivo <code class="docutils literal notranslate"><span class="pre">image.bil</span></code> y abrirá sin problemas.</p>
-<p>Muchas veces, los archivos no vienen con un archivo asociado <code class="docutils literal notranslate"><span class="pre">.hdr</span></code>. En tales casos, debes crear este archivo a mano como se muestra en este tutorial.</p>
+<p>Muchas veces, los archivos no vienen con un archivo asociado <code class="docutils literal notranslate"><span class="pre">.hdr</span></code>. En tales casos, debe crear este archivo a mano como se muestra en este tutorial.</p>
 <section id="get-the-data">
 <h2>Obtener los datos<a class="headerlink" href="#get-the-data" title="Link to this heading">¶</a></h2>
 <p>Usaremos el <a class="reference external" href="http://glcf.umd.edu/data/landcover/data.shtml">AVHRR Global Land Cover Classification data</a> del <a class="reference external" href="http://glcf.umd.edu/">Global Land Cover Facility</a> como ejemplo.</p>
@@ -193,7 +193,7 @@
 <p><a class="reference external" href="http://www.qgistutorials.com/downloads/gl-latlong-1deg-landcover.bsq.gz">gl-latlong-1deg-landcover.bsq.gz</a></p>
 </section>
 <section id="procedure">
-<h2>Procedmiento<a class="headerlink" href="#procedure" title="Link to this heading">¶</a></h2>
+<h2>Procedimiento<a class="headerlink" href="#procedure" title="Link to this heading">¶</a></h2>
 <ol class="arabic simple">
 <li><p>Descomprima y extraiga el archivo .bsq. En Windows, puede utilizar la excelente <a class="reference external" href="http://www.7-zip.org/">utilidad 7-Zip</a> para leer y extraer un archivo .gz. Verá que sólo tiene un archivo .bsq llamado <code class="docutils literal notranslate"><span class="pre">gl-latlong-1deg-landcover.bsq</span></code>. No existe archivo hdr.</p></li>
 </ol>
@@ -203,7 +203,7 @@
 </ol>
 <img alt="../_images/2143.png" class="align-center" src="../_images/2143.png" />
 <ol class="arabic simple" start="3">
-<li><p>Para superar este error, crearemos un archivo encabezado con extensión <code class="docutils literal notranslate"><span class="pre">.hdr</span></code>. El archivo encabezado contiene información acerca del conjunto de datos y cómo está organizado. Usualmente, esta información es proporcionada como parte de los Metadatos para el conjunto de datos. Si no tienes los metadatos, revisa en el sitio web o la documentación para pistas. Algo de la información puede ser adivinada si no la conoces. En el caso de este conjunto de datos, la página de descarga de datos enlaza a los <a class="reference external" href="ftp://ftp.glcf.umd.edu/glcf/Global_Land_Cover/Global/1deg/gl-latlong-1deg-landcover.glcf">metadatos</a>. Descargue los metadatos y ábralos.</p></li>
+<li><p>Para superar este error, crearemos un archivo encabezado con extensión <code class="docutils literal notranslate"><span class="pre">.hdr</span></code>. El archivo encabezado contiene información acerca del conjunto de datos y cómo está organizado. Usualmente, esta información es proporcionada como parte de los Metadatos para el conjunto de datos. Si no tiene los metadatos, revise en el sitio web o la documentación para pistas. Algo de la información puede ser adivinada si no la conoce. En el caso de este conjunto de datos, la página de descarga de datos enlaza a los <a class="reference external" href="ftp://ftp.glcf.umd.edu/glcf/Global_Land_Cover/Global/1deg/gl-latlong-1deg-landcover.glcf">metadatos</a>. Descargue los metadatos y ábralos.</p></li>
 </ol>
 <img alt="../_images/383.png" class="align-center" src="../_images/383.png" />
 <ol class="arabic simple" start="4">
@@ -221,19 +221,7 @@ byteorder &lt;byte order in which image pixel values are stored, msb or lsb&gt;
 </pre></div>
 </div>
 <ol class="arabic simple" start="5">
-<li><p>Open a text editor and create a file in the format specified in the previous
-step. Save the file as <code class="docutils literal notranslate"><span class="pre">gl-latlong-1deg-landcover.hdr</span></code>. Make sure the file
-doesn’t have <code class="docutils literal notranslate"><span class="pre">.txt</span></code> at the end. Some of the values in the text files are
-easy to understand. The <strong>ncols</strong> and <strong>nrows</strong> come from the metadata as the
-Number of Lines and Number of Pixels per Line. The <strong>cellsize</strong> is 1 as the
-Pixel resolution from the metadata. The X,Y coordinate of lower-left corner
-needs to be worked out by us. Since the file covers the entire World and
-units are lat/long, <strong>xllcorner</strong> and <strong>yllcorner</strong> are -180 and -90
-respectively. We do not have any information about the nodata_value, so -9999
-is a safe bet. From metadata again, Pixel Format is Byte, so <strong>nbits</strong> will
-equal to 8 and pixeltype will be <strong>byte_unsigned</strong>. We do not have
-information about the byteorder, so leave it as msbfirst. You may download
-the correctly formatted HDR file from <a class="reference external" href="../../downloads/gl-latlong-1deg-landcover.hdr">here</a>.</p></li>
+<li><p>Abra un editor de texto y cree un archivo en el formato especificado en el paso previo. Guarde el archivo como <code class="docutils literal notranslate"><span class="pre">gl-latlong-1deg-landcover.hdr</span></code>. Asegúrese que el archivo no tiene <code class="docutils literal notranslate"><span class="pre">.txt</span></code> al final. Alguno de los valores en los archivos texto son fáciles de comprender. Las <strong>ncols</strong> y <strong>nrows</strong> vienen de los metadatos como el Número de Líneas y Número de Píxeles por Línea. El <strong>cellsize</strong> es 1 como la resolución de Píxel de los metadatos. La coordenada X,Y de la esquina inferior izquierda necesita ser identificada por nosotros. Debido a que el archivo cubre todo el mundo y las unidades son lat/long, <strong>xllcorner</strong> y <strong>yllcorner</strong> son -180 y -90 respectivamente. No tenemos ninguna información acerca de nodata_value, así que -9999 es un valor seguro. De los metadatos de nuevo, Pixel Format es Byte, así que <strong>nbits</strong> será igual a 8 y pixeltype será <strong>byte_unsigned</strong>. No tenemos información acerca de byteorder, así que lo dejamos como msbfirst. Puede descargar el archivo HDR correctamente formateado de <a class="reference external" href="../../downloads/gl-latlong-1deg-landcover.hdr">aquí</a>.</p></li>
 </ol>
 <img alt="../_images/545.png" class="align-center" src="../_images/545.png" />
 <ol class="arabic simple" start="6">
@@ -241,7 +229,7 @@ the correctly formatted HDR file from <a class="reference external" href="../../
 </ol>
 <img alt="../_images/643.png" class="align-center" src="../_images/643.png" />
 <ol class="arabic simple" start="7">
-<li><p>En la siguiente pantalla, puede ser que se te pida la CRS. Debido a que los datos están en Lat/Lon, elige <strong>WGS84 EPSG:4326</strong> como tu CRS. Ahora verás el conjunto de datos cargado en QGIS.</p></li>
+<li><p>En la siguiente pantalla, puede ser que se le pida el SRC. Debido a que los datos están en Lat/Lon, elija <strong>WGS84 EPSG:4326</strong> como su SRC. Ahora verá el conjunto de datos cargado en QGIS.</p></li>
 </ol>
 <img alt="../_images/743.png" class="align-center" src="../_images/743.png" />
 </section>
