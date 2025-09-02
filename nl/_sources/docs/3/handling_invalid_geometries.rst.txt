@@ -53,8 +53,8 @@ Procedure
 
 .. note::
 
-  The *Topological coloring* algorithm implements an algorithm to color a map so that no adjacent polygons have the same color. This is a useful cartography technique and the `Four Color Theorem <https://en.wikipedia.org/wiki/Four_color_theorem>`_ states that 4 colors are enough to achieve this result. There is a graph-theory version of this theorem called `Five color theorem <https://en.wikipedia.org/wiki/Five_color_theorem>`_. The QGIS algorithm implementation is based on  graphs so in practive you will see that complex polygon layers such as this will require upto 5 colors. 
-  
+  The *Topological coloring* algorithm implements an algorithm to color a map so that no adjacent polygons have the same color. This is a useful cartography technique and the `Four Color Theorem <https://en.wikipedia.org/wiki/Four_color_theorem>`_ states that 4 colors are enough to achieve this result. There is another version of this theorem called `Five color theorem <https://en.wikipedia.org/wiki/Five_color_theorem>`_. QGIS implements the five-color theorem in this algorithm.
+
 5. As the algorithm runs, you will see a warning displayed in the :guilabel:`Log` tab. 1 feature in the input layer had invalid geometry and was skipped during the processing. The default setting to handle invalid geometry in the Processing Toolbox is located at :menuselection:`Settings --> Options --> Processing --> General --> Invalid features filtering` and is set to ``Skip (ignore) features with invalid geometries``. This is a good default setting, but if your input is large, you may miss this warning and may not know that an input feature was skipped. You may want to change the value to ``Stop algorithm execution when a geometry is invalid``.
 
   .. image:: /static/3/handling_invalid_geometries/images/5.png
