@@ -5,7 +5,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Пространственная привязка космических снимков (QGIS3) &#8212; QGIS Tutorials and Tips</title>
+    <title>Пространственная привязка снимков (QGIS3) &#8212; QGIS Tutorials and Tips</title>
     <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=fa44fd50" />
     <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-sphinx.css?v=0bf093e7" />
     <script src="../../_static/documentation_options.js?v=47a0e12c"></script>
@@ -82,7 +82,7 @@
 <li class="toctree-l1"><a class="reference internal" href="working_with_wms.html">Working with WMS Data (QGIS3)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="working_with_projections.html">Working with Projections (QGIS3)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="georeferencing_basics.html">Georeferencing Topo Sheets and Scanned Maps (QGIS3)</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Пространственная привязка космических снимков (QGIS3)</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Пространственная привязка снимков (QGIS3)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="digitizing_basics.html">Digitizing Map Data (QGIS3)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="performing_table_joins.html">Performing Table Joins (QGIS3)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="performing_spatial_joins.html">Performing Spatial Joins (QGIS3)</a></li>
@@ -190,116 +190,116 @@
       
 
   <section id="georeferencing-aerial-imagery-qgis3">
-<h1>Пространственная привязка космических снимков (QGIS3)<a class="headerlink" href="#georeferencing-aerial-imagery-qgis3" title="Ссылка на этот заголовок">¶</a></h1>
-<p>In the tutorial <a class="reference internal" href="georeferencing_basics.html"><span class="doc">Georeferencing Topo Sheets and Scanned Maps (QGIS3)</span></a>, we covered the basic georeferencing process in QGIS. That method involved reading the coordinates from your scanned map and entering them manually as control points. Many times though, you may not have the coordinates printed on your map, or you are trying to georeference an image. In that case, you can use another georeferenced data source as your input. This tutorial will teach you how to use existing open data sources in your georeferencing process.</p>
+<h1>Пространственная привязка снимков (QGIS3)<a class="headerlink" href="#georeferencing-aerial-imagery-qgis3" title="Ссылка на этот заголовок">¶</a></h1>
+<p>В руководстве <a class="reference internal" href="georeferencing_basics.html"><span class="doc">Georeferencing Topo Sheets and Scanned Maps (QGIS3)</span></a>, мы привели базовые сведения о процессе привязки в QGIS. Речь шла о «скалывании» координат с отсканированного листа карты и ввода их вручную в качестве контрольных точек.  Однако часто приходится привязывать изображения, на которых не указаны плоские координаты (нет пересечения координатных линий на карте). Данное руководство описывает методы привязки изображений для подобных ситуаций.</p>
 <section id="overview-of-the-task">
 <h2>Обзор задачи<a class="headerlink" href="#overview-of-the-task" title="Ссылка на этот заголовок">¶</a></h2>
-<p>We will georeference a high resolution balloon-imagery using reference coordinates from OpenStreetMap.</p>
+<p>Осуществим привязку высококачественного снимка, сделанного с воздушного шара по координатам из OpenStreetMap.</p>
 <section id="other-skills-you-will-learn">
 <h3>Также вы научитесь<a class="headerlink" href="#other-skills-you-will-learn" title="Ссылка на этот заголовок">¶</a></h3>
 <ul class="simple">
-<li><p>Using XYZ Tile Layers as a Basemap in QGIS.</p></li>
-<li><p>Using Built-in Nominatim Geocoder.</p></li>
-<li><p>Setting a user-defined No-Data value for a layer.</p></li>
+<li><p>Применять XYZ тайлы в качестве базовой карты QGIS.</p></li>
+<li><p>Применять встроенный геокодер (Nominatim Geocoder).</p></li>
+<li><p>Задание пользовательского значения для «нет данных» при отображении слоя.</p></li>
 </ul>
 </section>
 </section>
 <section id="get-the-data">
 <h2>Получение данных<a class="headerlink" href="#get-the-data" title="Ссылка на этот заголовок">¶</a></h2>
-<p>In this tutorial, we will be using kite and balloon imagery collected by <a class="reference external" href="https://publiclab.org/archive">The Public Laboratory</a>. They make the georeferenced versions of the images also available, but we will download a non-georeferenced JPG image and go through the process of georeferencing it in QGIS.</p>
-<p>Download the JPG image of <a class="reference external" href="https://publiclab.org/map/washington-square-park-new-york-new-york/2012-10-01">Washington Square Park, New York</a>. You can right-click the JPG button and choose <span class="guilabel">Save link as…</span>.</p>
+<p>В данном упражнении будем использовать снимок, сделанный с воздушного шара от <a class="reference external" href="https://publiclab.org/archive">The Public Laboratory</a>. В архиве имеются также и геопривязанные изображения, но нас интересует снимок без привязки для выполнения ее в QGIS.</p>
+<p>Загрузите JPG изображение <a class="reference external" href="https://publiclab.org/map/washington-square-park-new-york-new-york/2012-10-01">Washington Square Park, New York</a>. Это можно сделать, щелкнув на JPG правой кнопкой мыши и выбрав <span class="guilabel">Save link as…</span>.</p>
 <p>Вы можете напрямую скачать копию набора данных, пройдя по ссылке ниже:</p>
 <p><a class="reference external" href="https://www.qgistutorials.com/downloads/newyorkcity-washingtonsquarepark.jpg">newyorkcity-washingtonsquarepark.jpg</a></p>
 </section>
 <section id="procedure">
 <h2>Порядок действий<a class="headerlink" href="#procedure" title="Ссылка на этот заголовок">¶</a></h2>
 <ol class="arabic simple">
-<li><p>Мы будем снимать координаты для привязки, используя картографическую подложку OpenStreetMap. QGIS3 имеет встроенную поддержку тайловых слоев, которые также называют «XYZ-слоями», поскольку состоят из отдельных фрагментов (тайлов), каждый из которых описывается тремя числами - координатами его местоположения (X, Y) и масштабом (Z). Слой OpenStreetMap может быть загружен из <span class="guilabel">Панели Браузера</span>, группа <span class="guilabel">XYZ Tiles</span>, для чего его необходимо перетащить в область карты. После загрузки слоя обратите внимание на систему координат и проекцию, которые указаны в правом нижнем углу окна приложения. Для слоя OpenStreetMap установлена проекция <code class="docutils literal notranslate"><span class="pre">EPSG</span> <span class="pre">3857</span> <span class="pre">Pseudo</span> <span class="pre">Mercator</span></code>. Важно помнить о данном параметре, поскольку координаты, которые мы снимем с карты в процессе привязки, будут именно в этой проекции.</p></li>
+<li><p>Мы будем снимать координаты для привязки, используя картографическую подложку OpenStreetMap. QGIS3 имеет встроенную поддержку тайловых слоев, которые также называют «XYZ-слоями», поскольку состоят из отдельных фрагментов (тайлов), каждый из которых описывается тремя числами - координатами его местоположения (X, Y) и масштабом (Z). Слой OpenStreetMap может быть загружен из <span class="guilabel">Browser Panel</span>, группа <span class="guilabel">XYZ Tiles</span>, для чего его необходимо перетащить в область карты. После загрузки слоя обратите внимание на систему координат и проекцию, которые указаны в правом нижнем углу окна приложения. Для слоя OpenStreetMap установлена проекция <code class="docutils literal notranslate"><span class="pre">EPSG</span> <span class="pre">3857</span> <span class="pre">Pseudo</span> <span class="pre">Mercator</span></code>. Важно помнить о данном параметре, поскольку координаты, которые мы снимем с карты в процессе привязки, будут именно в этой проекции.</p></li>
 </ol>
 <blockquote>
 <div><img alt="../../_images/01.png" class="align-center" src="../../_images/01.png" />
 </div></blockquote>
 <div class="admonition note">
 <p class="admonition-title">Примечание</p>
-<p>По <a class="reference external" href="https://www.spatialbias.com/2018/02/qgis-3.0-xyz-tile-layers/">этой ссылке</a> вы найдете подробную информацию об XYZ-слоях и о том, как добавить в QGIS другие картографические подложки.</p>
+<p>По <a class="reference external" href="https://www.spatialbias.com/2018/02/qgis-3.0-xyz-tile-layers/">этой ссылке</a> вы найдете подробную информацию об XYZ-тайлах и о том, как добавить в QGIS другие картографические подложки.</p>
 </div>
 <ol class="arabic simple" start="2">
-<li><p>The image we are georeferencing is for <code class="docutils literal notranslate"><span class="pre">Washington</span> <span class="pre">Square</span> <span class="pre">Park,</span> <span class="pre">New</span> <span class="pre">York</span></code>. You can zoom/pan to locate this park on the map. But that is cumbersome and not practical. From QGIS version 3.20 onwards, there is built-in support for the OpenStreetMap based Nominatim Geocoder. Click the search bar in the bottom left of the QGIS window. To use this as a geocoder prefix, the search place with <code class="docutils literal notranslate"><span class="pre">&gt;</span></code>. Searching for <code class="docutils literal notranslate"><span class="pre">&gt;</span> <span class="pre">Washington</span> <span class="pre">Square</span> <span class="pre">Park</span></code> will pop up a list of addresses to choose from. Click the first address.</p></li>
+<li><p>Привяжем снимок <code class="docutils literal notranslate"><span class="pre">Washington</span> <span class="pre">Square</span> <span class="pre">Park,</span> <span class="pre">New</span> <span class="pre">York</span></code>. Вы можете сами перейти к парку на карте. Однако в версиях  QGIS 3.20 и выше имеется встроенный геокодер: Nominatim Geocoder. Перейдите в поле поиска в левом нижнем углу QGIS. Выберите поиск через геокодер: <code class="docutils literal notranslate"><span class="pre">&gt;</span></code>. Searching for <code class="docutils literal notranslate"><span class="pre">&gt;</span> <span class="pre">Washington</span> <span class="pre">Square</span> <span class="pre">Park</span></code>.В качестве ответа вы увидите различные адреса, соответствующие запросу. Выберите нужный.</p></li>
 </ol>
 <blockquote>
 <div><img alt="../../_images/02.png" class="align-center" src="../../_images/02.png" />
 </div></blockquote>
 <ol class="arabic simple" start="3">
-<li><p>The map canvas will be centered to the Square Park. Now let’s start georeferencing. Launch the <strong>Georeferencer</strong> from <span class="menuselection">Raster ‣ Georeferencer</span>.</p></li>
+<li><p>Теперь Вашингтон Сквер Парк будет расположен по центру полотна карты. Начнем привязку: запустите модуль <strong>Georeferencer</strong> в меню <cite>Raster –&gt; Georeferencer</cite>.</p></li>
 </ol>
 <blockquote>
 <div><div class="admonition note">
 <p class="admonition-title">Примечание</p>
-<p>From QGIS versions 3.26 onwards, the <strong>Georeferencer</strong> can be launched from <span class="menuselection">Layer ‣ Georeferencer</span>.</p>
+<p>Для версий QGIS 3.26 и выше, модуль <strong>Georeferencer</strong>  (Геопривязка) запускается из меню <span class="menuselection">Layer ‣ Georeferencer</span>.</p>
 </div>
 <img alt="../../_images/03.png" class="align-center" src="../../_images/03.png" />
 </div></blockquote>
 <ol class="arabic simple" start="4">
-<li><p>For georeferencing an aerial image, we have to choose coordinate points from the OpenStreetMap, so let’s first dock the Georeferencer tool into to main QGIS window. Select Configure Georeference from <span class="menuselection">Settings ‣ Configure Georeferencer</span>.</p></li>
+<li><p>Для привязки изображения будем использовать координаты, сколотые с  OpenStreetMap. Сперва настроим модуль Геопривязки так, чтобы он был доступен с главного экрана: Выберите Configure Georeference from <span class="menuselection">Settings ‣ Configure Georeferencer</span> (Параметры геопривязки).</p></li>
 </ol>
 <blockquote>
 <div><img alt="../../_images/04.png" class="align-center" src="../../_images/04.png" />
 </div></blockquote>
 <ol class="arabic simple" start="5">
-<li><p>Check <span class="guilabel">Show georeferencer window docked</span> and click <span class="guilabel">OK</span>.</p></li>
+<li><p>Поставьте галочку напротив <span class="guilabel">Show georeferencer window docked</span> и нажмите <span class="guilabel">OK</span>.</p></li>
 </ol>
 <blockquote>
 <div><img alt="../../_images/05.png" class="align-center" src="../../_images/05.png" />
 </div></blockquote>
 <ol class="arabic simple" start="6">
-<li><p>The <span class="guilabel">Georeferencer</span> window will be docked at the bottom of the main QGIS window. Let us load the image file by clicking the <span class="guilabel">Open Raster</span> icon in the <span class="guilabel">Georeferencer</span> window and navigating to the downloaded JPG file. Click <span class="guilabel">Open.</span></p></li>
+<li><p>Теперь окно <span class="guilabel">Georeferencer</span> окажется встроено в основное окно QGIS. Загрузим растровое изображение: нажмите на кнопку <span class="guilabel">Open Raster</span> в окне <span class="guilabel">Georeferencer</span> и перейдите к загруженному файлу. Нажмите <span class="guilabel">Open.</span></p></li>
 </ol>
 <blockquote>
 <div><img alt="../../_images/06.png" class="align-center" src="../../_images/06.png" />
 </div></blockquote>
 <ol class="arabic simple" start="7">
-<li><p>Before adding Ground Control Points (GCP), we need to define the Transformation Settings. Click on the <span class="guilabel">Transformation Settings</span> icon to open the Transformation Settings dialog. Choose the <span class="guilabel">Transformation type</span> as <code class="docutils literal notranslate"><span class="pre">Polynomial</span> <span class="pre">2</span></code>. See <a class="reference external" href="https://docs.qgis.org/testing/en/docs/user_manual/working_with_raster/georeferencer.html?highlight=georeferencer#available-transformation-algorithms">QGIS Documentation</a> to learn about different transformation types and their uses. As noted earlier, our base map is in <code class="docutils literal notranslate"><span class="pre">EPSG</span> <span class="pre">3857</span> <span class="pre">Pseudo</span> <span class="pre">Mercator</span></code> CRS, so set that as the <span class="guilabel">Target CRS</span>. You can leave the <span class="guilabel">Output raster</span> name to the default and choose <code class="docutils literal notranslate"><span class="pre">LZW</span></code> as the <span class="guilabel">Compression</span>. Check the <span class="guilabel">Use 0 for transparency when needed</span>. Check the <span class="guilabel">Save GCP points</span> to store the points as a separate file for future purposes. Make sure the <span class="guilabel">Load in QGIS when done</span> option is checked. Click <span class="guilabel">OK</span>.</p></li>
+<li><p>Прежде, чем добавлять Контрольные (Опорные) Точки (GCP), необходимо задать параметры трансформации. Нажмите на <span class="guilabel">Transformation Settings</span>. Выберите <span class="guilabel">Transformation type</span>  -  <code class="docutils literal notranslate"><span class="pre">Polynomial</span> <span class="pre">2</span></code>. Про отличия разных типов трансформации читайте подробнее в <a class="reference external" href="https://docs.qgis.org/testing/en/docs/user_manual/working_with_raster/georeferencer.html?highlight=georeferencer#available-transformation-algorithms">QGIS Documentation</a> Как мы замечали ранее, система координат нашей базовой карты - <code class="docutils literal notranslate"><span class="pre">EPSG</span> <span class="pre">3857</span> <span class="pre">Pseudo</span> <span class="pre">Mercator</span></code>. Ее же и укажем в поле <span class="guilabel">Target CRS</span>. Имя в <span class="guilabel">Output raster</span> можно оставить по умолчанию, а сжатие установить на <code class="docutils literal notranslate"><span class="pre">LZW</span></code> в разделе <span class="guilabel">Compression</span>. При необходимости поставьте галочку напротив <span class="guilabel">Use 0 for transparency when needed</span>. Для того, чтобы сохранить координаты контрольных точек в отдельный файл, поставьте галочку напротив <span class="guilabel">Save GCP points</span>. Убедитесь, что также стоит галочка на <span class="guilabel">Load in QGIS when done</span> . Нажмите <span class="guilabel">OK</span>.</p></li>
 </ol>
 <blockquote>
 <div><img alt="../../_images/07.png" class="align-center" src="../../_images/07.png" />
 </div></blockquote>
 <ol class="arabic simple" start="8">
-<li><p>Now click on the <span class="guilabel">Add Point</span> button on the toolbar and select an easily identifiable location on the image. Corners, intersections, poles etc., make good control points. Once you click on the image at a control point location, you will see a pop-up asking you to enter map coordinates. Click the button <span class="guilabel">From map canvas</span>.</p></li>
+<li><p>Теперь нажмите на кнопку <span class="guilabel">Add Point</span> на панели инструмента и выберите на снимке легко опознаваемую точку: углы зданий, пересечения, фонарные столбы и т.д. Когда Вы выберите точку на снимке, появится всплывающее меню, в котором Вам будет предложено ввести ее координаты. Нажмите на кнопку <span class="guilabel">From map canvas</span>.</p></li>
 </ol>
 <blockquote>
 <div><img alt="../../_images/08.png" class="align-center" src="../../_images/08.png" />
 </div></blockquote>
 <ol class="arabic simple" start="9">
-<li><p>In the <code class="docutils literal notranslate"><span class="pre">OpenStreetMap</span></code> layer, click on the exact location in the reference layer. The coordinates will be auto-populated from your click on the map canvas. Click <span class="guilabel">Ok</span>.</p></li>
+<li><p>В слое карты <code class="docutils literal notranslate"><span class="pre">OpenStreetMap</span></code> щелкните на точку, соответствующую выбранной на снимке. Координаты точки появятся в списке как только Вы щелкните по карте. Нажмите <span class="guilabel">Ok</span>.</p></li>
 </ol>
 <blockquote>
 <div><img alt="../../_images/09.png" class="align-center" src="../../_images/09.png" />
 </div></blockquote>
 <div class="admonition note">
 <p class="admonition-title">Примечание</p>
-<p>Tip: When selecting a GCP on a building, always choose the bottom of the building. Most aerial and satellite imagery have leaning buildings, so picking a point on the rooftop will introduce errors.</p>
+<p>Совет: Если в качестве контрольной точки выбирается угол здания, указывайте точку на фундаменте (нижней части здания). Большинство аэроснимов делаются под углом, поэтому точка на к крыше, к примеру,  приведет к погрешности привязки.</p>
 </div>
 <ol class="arabic simple" start="10">
-<li><p>Similarly, choose at least 6 points on the image and add their coordinates from the reference layer. Once you have added the minimum number of points required for the transform, you will notice that the GCPs now have non-zero <code class="docutils literal notranslate"><span class="pre">dX</span></code>, <code class="docutils literal notranslate"><span class="pre">dY</span></code>, and <code class="docutils literal notranslate"><span class="pre">Residual</span></code> error values. If a particular GCP has unusually high error values, that usually means a human error in entering the coordinate values. So you can delete that GCP and capture it again.</p></li>
+<li><p>Тем же способом выберите не менее 6 точек, которые легко опознаются на снимке и базовой карте. Как только у Вас наберется минимально необходимое число (6) точек, то рядом с координатами вы увидите значения  <code class="docutils literal notranslate"><span class="pre">dX</span></code>, <code class="docutils literal notranslate"><span class="pre">dY</span></code>, and <code class="docutils literal notranslate"><span class="pre">Residual</span></code> (невязка). Обычно, если какой-то точке соответствует особенно большой сдвиг или невязка. то эта точка введена с ошибкой. Ее можно удалить и наколоть снова.</p></li>
 </ol>
 <blockquote>
 <div><img alt="../../_images/10.png" class="align-center" src="../../_images/10.png" />
 </div></blockquote>
 <ol class="arabic simple" start="11">
-<li><p>Once you are satisfied with the GCPs, click <span class="guilabel">Start georeferencing</span>. This will start the process of warping the image using the GCPs and creating the target raster. Once the process is finished, you will see the layer loaded in QGIS. Close the <span class="guilabel">Georeferencer</span> window.</p></li>
+<li><p>Как только Вас устроит точность контрольных точек, нажмите  <span class="guilabel">Start georeferencing</span>. Будет запущен процесс трансформации снимка и создания растрового изображения. Когда процесс завершится, в QGIS вы увидите новый растровый слой. Закройте окно <span class="guilabel">Georeferencer</span>.</p></li>
 </ol>
 <blockquote>
 <div><img alt="../../_images/11.png" class="align-center" src="../../_images/11.png" />
 </div></blockquote>
 <ol class="arabic simple" start="12">
-<li><p>Now click on the <span class="guilabel">Open layer styling panel</span> icon and Switch to the <span class="guilabel">Transparency</span> tab. Add <code class="docutils literal notranslate"><span class="pre">255</span></code> as the <span class="guilabel">Additional no data value</span>. This will remove the white border around the image. Now you will see your georeferenced image nicely overlaid on the base layer.</p></li>
+<li><p>Нажмите на иконку <span class="guilabel">Open layer styling panel</span> и перейдите во вкладку <span class="guilabel">Transparency</span> tab. Напротив <span class="guilabel">Additional no data value</span> укажите значение <code class="docutils literal notranslate"><span class="pre">255</span></code>. Это уберет белые границы вокруг растра. Теперь у Вас имеется привязанное растровое изображение, аккуратно наложенное на базовую карту.</p></li>
 </ol>
 <blockquote>
 <div><img alt="../../_images/12.png" class="align-center" src="../../_images/12.png" />
 </div></blockquote>
 <div class="admonition note">
 <p class="admonition-title">Примечание</p>
-<p>8-bit images have pixel values in the range 0-255. 0 is black and 255 is white.</p>
+<p>Обычно у 8-битных изображения значения пикселей варьируются от 0 до 255, где 0 - черный, 255 - белый.</p>
 </div>
 </section>
 </section>
