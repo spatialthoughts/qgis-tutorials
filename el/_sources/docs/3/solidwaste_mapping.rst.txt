@@ -116,7 +116,7 @@ Let's see the step wise to prepare the dataset for this tutorial.
 	   
 For convenience, you may directly download a copy of these files below:
  
-`Wards.shp <https://www.qgistutorials.com/downloads/Wards.zip>`_
+`Wards.shp <https://www.qgistutorials.com/downloads/wards.zip>`_
 
 `landfill_sites.shp <https://www.qgistutorials.com/downloads/landfill_sites.zip>`_
 
