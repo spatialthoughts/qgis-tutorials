@@ -45,7 +45,7 @@ Let's see the step wise to prepare the dataset for this tutorial.
      .. image:: /static/3/creating_landuse_map/images/db3.png
         :align: center
 	 
-4. On the ArcGIS REST Services Directory , Go to :guilabel:`Home` and copy the URL of that page. The copied URL looks like - https://citymaps.capetown.gov.za/agsext1/rest/services.
+4. On the ArcGIS REST Services Directory , Go to :guilabel:`Home` and copy the URL of that page. The copied URL looks like - https://citymaps.capetown.gov.za/agsext/rest/services/.
 	
     .. image:: /static/3/creating_landuse_map/images/db4.png
        :align: center
