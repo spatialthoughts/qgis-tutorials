@@ -230,7 +230,7 @@ Procedure
   .. image:: /static/3/calculating_raster_area/images/22.png
      :align: center
 
-23. In the :guilabel:`Field Calculator` dialog, select the ``class_areas`` layer in the :guilabel:`Input Layer`. Enter the :guilabel:`Field name` as ``area_sqkm``. In the :guilabel:`Result field type` choose ``Float``. In the :guilabel:`Expression` window,  enter the below expression. This will convert the sqmt to sqkm and round the result to 2 decimal places. Under the :guilabel:`Calculated` click on ``...`` and choose :guilabel:`Save To File...` . Enter the name as ``class_area_sqkm.gpkg``. Click :guilabel:`Run`. 
+23. In the :guilabel:`Field Calculator` dialog, select the ``class_areas`` layer in the :guilabel:`Input Layer`. Enter the :guilabel:`Field name` as ``area_sqkm``. In the :guilabel:`Result field type` choose ``Decimal (double)``. In the :guilabel:`Expression` window,  enter the below expression. This will convert the sqmt to sqkm and round the result to 2 decimal places. Under the :guilabel:`Calculated` click on ``...`` and choose :guilabel:`Save To File...` . Enter the name as ``class_area_sqkm.gpkg``. Click :guilabel:`Run`. 
 
   .. code-block:: none
 
