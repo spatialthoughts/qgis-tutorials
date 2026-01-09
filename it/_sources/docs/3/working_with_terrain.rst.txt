@@ -28,12 +28,12 @@ of GTOPO30 dataset.
 Here is how to search and download the revelant data from USGS Earthexplorer.
 
 1. Go to the `USGS Earthexplorer <http://earthexplorer.usgs.gov/>`_ . In the
-   :guilabel:`Search Criteria` tab, click on :guilabel:`World Features`. In :guilabel:`Feature Name` enter ``Everest``, in :guilabel:`Country` enter ``NEPAL``, click on :guilabel:`Show`. This will display a table with the location information. Select `Everest` under :guilabel:`Placename`.
+   :guilabel:`Search Criteria` tab, select the :guilabel:`Decimal` option under :guilabel:`Polygon`. Click the :guilabel:`Add Coordinate` button.
 
 .. image:: /static/3/working_with_terrain/images/1.png
    :align: center
 
-2. Now the canvas will move to `Mt. Everest` location. Click on :guilabel:`Data Sets`. 
+2. In the pop-up window, enter the :guilabel:`Latitude` as `27.98942` and :guilabel:`Longitude` as `86.92533` and click :guilabel:`Add`. A new marker will be added at the location of Mt.Everest. Click on :guilabel:`Data Sets`. 
 
 .. image:: /static/3/working_with_terrain/images/2.png
    :align: center
