@@ -157,7 +157,7 @@ Procedure
  .. image:: /static/3/digitizing_basics/images/22.png
     :align: center
    
-23. Now we will create another layer to digitize the parks as polygons. Click :menuselection:`Layer --> Create Layer --> New GeoPackage Layer...` icon from Panels. In the :guilabel:`New GeoPackage Layer` dialog, click the :guilabel:`...` button and select the GeoPackage database named ``digitizing.gpkg``. Name the new layer as an attribute called ``Parks``. Select ``MultiPolygon`` as the :guilabel:`Type`. The base topographic map is the ``EPSG:2193 - NZGD 2000`` CRS. Click :guilabel:`OK`. In :guilabel:`New Field` Enter ``Name``, and the :guilabel:`type` as :guilabel:`Text data`, with ``50`` as :guilabel:`Maximum length` and click :guilabel:` Add to Fields List.`. Click :guilabel:`OK`. 
+23. Now we will create another layer to digitize the parks as polygons. Click :menuselection:`Layer --> Create Layer --> New GeoPackage Layer...` icon from Panels. In the :guilabel:`New GeoPackage Layer` dialog, click the :guilabel:`...` button and select the GeoPackage database named ``digitizing.gpkg``. Name the new layer as an attribute called ``Parks``. Select ``MultiPolygon`` as the :guilabel:`Type`. The base topographic map is the ``EPSG:2193 - NZGD 2000`` CRS. Click :guilabel:`OK`. In :guilabel:`New Field` Enter ``Name``, and the :guilabel:`type` as :guilabel:`Text data`, with ``50`` as :guilabel:`Maximum length` and click :guilabel:`Add to Fields List.`. Click :guilabel:`OK`. 
 
  .. image:: /static/3/digitizing_basics/images/23.png
     :align: center
