@@ -55,3 +55,5 @@ Free Online Courses
 -------------------
 
 - `GIS OpenCourseWare <https://courses.gisopencourseware.org/>`_ by IHE Delft
+- `Cartography and Map Design with QGIS <https://openvisualizationacademy.org/courses/cartography-and-map-design-with-qgis/introduction/introduction/>`_ by Hannah Dormido
+
