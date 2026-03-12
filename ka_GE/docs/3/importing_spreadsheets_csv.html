@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+
+<html lang="ka_GE" data-content_root="../../">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>ცხრილების ან CSV ფაილების იმპორტი (QGIS3) &#8212; QGIS Tutorials and Tips</title>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-sphinx.css?v=0bf093e7" />
+    <script src="../../_static/documentation_options.js?v=6e8799d8"></script>
+    <script src="../../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <link rel="search" title="ძებნა" href="../../search.html" />
+    <link rel="next" title="Basic Vector Styling (QGIS3)" href="basic_vector_styling.html" />
+    <link rel="prev" title="მუშაობა ატრიბუტებთან (QGIS3)" href="working_with_attributes.html" />
+
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<script type="text/javascript" src="../../_static/js/jquery-1.12.4.min.js"></script>
+<script type="text/javascript" src="../../_static/js/jquery-fix.js"></script>
+<script type="text/javascript" src="../../_static/bootstrap-3.4.1/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="../../_static/bootstrap-sphinx.js"></script>
+
+
+<!-- Cookie Notice -->
+<!-- Script from https://github.com/AOEpeople/cookie-notice -->
+<script type="text/javascript" src="../../_static/cookie.notice.min.js"></script>
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-B1WQ7B80XJ"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-B1WQ7B80XJ');
+</script>
+
+
+  </head><body>
+
+  <div id="navbar" class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="../../index.html">
+          QGIS Tutorials and Tips</a>
+        <span class="navbar-text navbar-version pull-left"><b>v1</b></span>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="../../index.html">Tutorials List <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"><ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="making_a_map.html">რუკის შედგენა (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="working_with_attributes.html">მუშაობა ატრიბუტებთან (QGIS3)</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">ცხრილების ან CSV ფაილების იმპორტი (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="basic_vector_styling.html">Basic Vector Styling (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="calculating_line_lengths.html">Calculating Line Lengths and Statistics (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="raster_styling_and_analysis.html">Basic Raster Styling and Analysis (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="raster_mosaicing_and_clipping.html">Raster Mosaicing and Clipping (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="working_with_terrain.html">Working with Terrain Data (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="working_with_wms.html">Working with WMS Data (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="working_with_projections.html">Working with Projections (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="georeferencing_basics.html">Georeferencing Topo Sheets and Scanned Maps (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="advanced_georeferencing.html">Georeferencing Aerial Imagery (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="digitizing_basics.html">Digitizing Map Data (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="performing_table_joins.html">Performing Table Joins (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="performing_spatial_joins.html">Performing Spatial Joins (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="performing_spatial_queries.html">Performing Spatial Queries (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="nearest_neighbor_analysis.html">Nearest Neighbor Analysis (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="sampling_raster_data.html">Sampling Raster Data using Points or Polygons (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="calculating_raster_area.html">Calculating Raster Area (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="creating_heatmaps.html">Creating Heatmaps (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="animating_time_series.html">Animating Time Series Data (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="handling_invalid_geometries.html">Handling Invalid Geometries (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="advanced_raster_analysis.html">Advanced Raster Analysis (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="interpolating_point_data.html">Interpolating Point Data (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="batch_processing.html">Batch Processing using Processing Framework (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="processing_graphical_modeler.html">Automating Complex Workflows using Processing Modeler (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="automating_map_creation.html">Automating Map Creation with Print Layout Atlas (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="multi_criteria_overlay.html">Multi Criteria Overlay Analysis (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="vector_styling_expressions.html">Basic Filtering and Styling with Expressions (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="block_world_styling.html">Creating a Block World Map (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="river_styling_expressions.html">Styling a River Network with Expressions (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="contour_3d_styling.html">Styling Contours in 3D (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="isometric_buildings.html">Creating Isometric Buildings (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="interactive_canvas_maps.html">Making Interactive Canvas Maps (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="interactive_reveal_maps.html">Making Interactive Reveal Maps (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cartogram_animation.html">Creating an Animated Cartogram (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="basic_network_analysis.html">Basic Network Visualization and Routing (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="origin_destination_matrix.html">Locating Nearest Facility with Origin-Destination Matrix (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="service_area_analysis.html">Service Area Analysis using Openrouteservice (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="travel_time_analysis.html">Travel Time Analysis with Uber Movement (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="areal_mean_rainfall.html">Calculating Areal Mean Rainfall (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="colorized_river_basin_map.html">Creating a Colorized River Basin Map (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="creating_landuse_map.html">Creating a Landuse Map (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="calculating_intersection_density.html">Calculating Street Intersection Density (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="landuse_buffer.html">Determining Landuse Buffer Zones (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="solidwaste_mapping.html">Mapping Waste Disposal Volumes (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="getting_started_with_pyqgis.html">Getting Started With Python Programming (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="processing_algorithms_pyqgis.html">Running Processing Algorithms via Python (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="custom_python_functions.html">Using Custom Python Expression Functions (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="processing_python_scripts.html">Writing Python Scripts for Processing Framework (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="building_a_python_plugin.html">Building a Python Plugin (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="processing_python_plugin.html">Building a Processing Plugin (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../running_qgis_jobs.html">Running and Scheduling QGIS Processing Jobs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="web_mapping_with_qgis2web.html">Web Mapping with QGIS2Web (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../creating_basemaps_with_qtiles.html">Creating Basemaps with QTiles</a></li>
+<li class="toctree-l1"><a class="reference internal" href="using_plugins.html">Using Plugins (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../downloading_osm_data.html">Searching and Downloading OpenStreetMap Data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../learning_resources.html">QGIS Learning Resources</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../credits.html">Data Credits</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../batch_processing.html">Batch Processing using Processing Framework (QGIS2)</a></li>
+</ul>
+</ul>
+</li>
+              
+            
+            
+              
+                
+  <li>
+    <a href="working_with_attributes.html" title="Previous Chapter: მუშაობა ატრიბუტებთან (QGIS3)"><span class="glyphicon glyphicon-chevron-left visible-sm"></span><span class="hidden-sm hidden-tablet">&laquo; მუშაობა ატრიბ...</span>
+    </a>
+  </li>
+  <li>
+    <a href="basic_vector_styling.html" title="Next Chapter: Basic Vector Styling (QGIS3)"><span class="glyphicon glyphicon-chevron-right visible-sm"></span><span class="hidden-sm hidden-tablet">Basic Vector ... &raquo;</span>
+    </a>
+  </li>
+              
+            
+            
+
+            
+
+            
+              <li class="hidden-sm"></li>
+            
+          </ul>
+
+          
+            
+<form class="navbar-form navbar-right" action="../../search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+      <div class="col-md-3">
+        <div id="sidebar" class="bs-sidenav" role="complementary"><h4>Author</h4>
+<p><a href="https://www.linkedin.com/in/spatialthoughts/"><img src="../../_static/ujaval.png">Ujaval Gandhi</a></p>
+
+<hr>
+<p>Want to learn QGIS in a structured way? Check out <a href="https://spatialthoughts.com/" target="_blank">Spatial Thoughts</a> for more learning materials and instructor-led online programs with QGIS.org certification.</p>
+
+<hr>
+<p>These tutorials are also available in many other languages. Please see <a href="https://www.qgistutorials.com/en/docs/introduction.html#translations" target="_blank">translations</a> page.
+</p>
+        </div>
+      </div>
+    <div class="body col-md-9 content" role="main">
+      
+
+  <section id="importing-spreadsheets-or-csv-files-qgis3">
+<h1>ცხრილების ან CSV ფაილების იმპორტი (QGIS3)<a class="headerlink" href="#importing-spreadsheets-or-csv-files-qgis3" title="Link to this heading">¶</a></h1>
+<p>ხშირად GIS მონაცემები ცხრილის ან ელექტრონული ცხრილის (spreadsheet) სახითაა მოცემული. QGIS საშუალებას გაძლევთ მოახდინოთ კოორდინატების მქონე სტრუქტურირებული ტექსტური ფაილების იმპორტი ვექტორულ ფენად. ეს სახელმძღვანელო გვიჩვენებს, თუ როგორ შეგიძლიათ გამოიყენოთ <strong>Data Source Manager</strong> (მონაცემთა წყაროების მმართველი) <strong>Delimited Text</strong> (გამყოფებით გამოყოფილი ტექსტი) ფაილების იმპორტისთვის.</p>
+<section id="overview-of-the-task">
+<h2>ამოცანის მიმოხილვა<a class="headerlink" href="#overview-of-the-task" title="Link to this heading">¶</a></h2>
+<p>ჩვენ მოვახდენთ მიწისძვრების ადგილმდებარეობების შემცველი ტექსტური ფაილის იმპორტს QGIS-ში, რომელიც წარმოდგენილია ტაბულაციით გამოყოფილი მნიშვნელობების (TSV) ფორმატში და შევქმნით წერტილოვან ფენას.</p>
+</section>
+<section id="get-the-data">
+<h2>მონაცემების მიღება<a class="headerlink" href="#get-the-data" title="Link to this heading">¶</a></h2>
+<ol class="arabic simple">
+<li><p>ამ სახელმძღვანელოსთვის ჩვენ გადმოვწერთ 1900-2000 წლებში მომხდარი მიწისძვრების მონაცემთა ნაკრებს. NOAA-ს გეოფიზიკური მონაცემების ეროვნული ცენტრი აწარმოებს საუკეთესო მონაცემთა ბაზას ყველა მნიშვნელოვანი მიწისძვრის შესახებ ძვ. წ. 2150 წლიდან დღემდე. <a class="reference external" href="https://www.ngdc.noaa.gov/hazel/view/hazards/earthquake/search">ეწვიეთ NOAA NCEI პორტალს</a> და ველში <span class="guilabel">Min</span> შეიყვანეთ <code class="docutils literal notranslate"><span class="pre">1900</span></code>, ხოლო ველში <span class="guilabel">Max</span> — <code class="docutils literal notranslate"><span class="pre">2000</span></code>. ეს დააბრუნებს ინფორმაციას ყველა იმ მიწისძვრის შესახებ, რომელიც მოხდა და აღირიცხა NOAA-ს მიერ ამ წლებში. სხვა კონკრეტული შედეგებისთვის შეგიძლიათ გამოიყენოთ ფილტრის სხვადასხვა პარამეტრები. დააჭირეთ <span class="guilabel">Search</span> (ძიება).</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/data011.png" class="align-center" src="../../_images/data011.png" />
+</div></blockquote>
+<ol class="arabic simple" start="2">
+<li><p>ძიების შედეგად ჩვენ მივიღეთ <em>2594</em> მიწისძვრის შემთხვევა. დააჭირეთ <span class="guilabel">Download TSV</span> (TSV-ის გადმოწერა) ხატულას.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/data021.png" class="align-center" src="../../_images/data021.png" />
+</div></blockquote>
+<p>მოხერხებულობისთვის, შეგიძლიათ პირდაპირ გადმოწეროთ მონაცემთა ნაკრების ასლი ქვემოთ მოცემული ბმულიდან:</p>
+<p><a class="reference external" href="https://www.qgistutorials.com/downloads/earthquakes-2023-09-12_17-19-15_+0530.tsv">earthquakes-2023-09-12_17-19-15_+0530.tsv</a></p>
+<p>მონაცემთა პირველწყარო <a class="reference internal" href="../credits.html#ncei" id="id1"><span>[NCEI]</span></a></p>
+</section>
+<section id="procedure">
+<h2>მოქმედებათა თანმიმდევრობა<a class="headerlink" href="#procedure" title="Link to this heading">¶</a></h2>
+<ol class="arabic simple">
+<li><p>შეამოწმეთ თქვენი ცხრილური მონაცემების წყარო. გადმოწერილი მიწისძვრების მონაცემთა ბაზა შეიცავს <code class="docutils literal notranslate"><span class="pre">Latitude</span></code> (განედი) და <code class="docutils literal notranslate"><span class="pre">Longitude</span></code> (გრძედი) ველებს, რომლებიც მიუთითებს მიწისძვრის ეპიცენტრის მდებარეობასა და სხვა დაკავშირებულ ატრიბუტებს. ჩვენ გამოვიყენებთ ამ ველებს ფაილის წერტილოვან ფენად იმპორტისთვის. გახსენით მონაცემები ტექსტურ რედაქტორში (მაგალითად, Notepad ან TextMate), რათა დაათვალიეროთ მისი შიგთავსი. თქვენ დაინახავთ, რომ თითოეული ველი ერთმანეთისგან ტაბულაციით (TAB) არის გამოყოფილი.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/016.png" class="align-center" src="../../_images/016.png" />
+</div></blockquote>
+<div class="admonition note">
+<p class="admonition-title">ნოტი</p>
+<p>თუ გაქვთ ელექტრონული ცხრილი, გამოიყენეთ თქვენი პროგრამის <cite>Save As</cite> (შენახვა როგორც) ფუნქცია, რათა შეინახოთ იგი ტაბულაციით გამოყოფილი ტექსტის (<cite>Tab Delimited File</cite>) ან მძიმით გამოყოფილი მნიშვნელობების (<cite>CSV</cite>) ფაილად.</p>
+</div>
+<ol class="arabic simple" start="2">
+<li><p>QGIS-ს მოჰყვება მონაცემთა ერთიანი მმართველი, რომელიც საშუალებას გაძლევთ ჩატვირთოთ მხარდაჭერილი მონაცემების ყველა სხვადასხვა ფორმატი. დააჭირეთ <span class="guilabel">Open Data Source Manager</span> (მონაცემთა წყაროების მმართველის გახსნა) ღილაკს <span class="guilabel">Data Source Toolbar</span> (მონაცემთა წყაროების ხელსაწყოთა ზოლზე). თქვენ ასევე შეგიძლიათ გამოიყენოთ კლავიატურის კომბინაცია <kbd class="kbd docutils literal notranslate">Ctrl</kbd> <kbd class="kbd docutils literal notranslate"></kbd>+<kbd class="kbd docutils literal notranslate"></kbd> <kbd class="kbd docutils literal notranslate">L</kbd>.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/026.png" class="align-center" src="../../_images/026.png" />
+</div></blockquote>
+<ol class="arabic simple" start="3">
+<li><p><span class="guilabel">Data Source Manager</span> (მონაცემთა წყაროების მმართველი) დიალოგურ ფანჯარაში გადართეთ <span class="guilabel">Delimited Text</span> (გამყოფებით გამოყოფილი ტექსტი) ჩანართზე. დააჭირეთ <span class="guilabel">...</span> ღილაკს <span class="guilabel">File name</span> (ფაილის სახელი) ველის გვერდით.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/036.png" class="align-center" src="../../_images/036.png" />
+</div></blockquote>
+<ol class="arabic simple" start="4">
+<li><p>თქვენი ოპერაციული სისტემის მიხედვით, შესაძლოა გადმოწერილ მისამართზე ფაილი არ გამოჩნდეს. ფაილის ფორმატებში (File formats) გადართეთ პარამეტრზე <code class="docutils literal notranslate"><span class="pre">All</span> <span class="pre">files</span> <span class="pre">(*;</span> <span class="pre">*.*)</span></code> (ყველა ფაილი), რათა დაინახოთ <em>tsv</em> ფაილი.</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/046.png" class="align-center" src="../../_images/046.png" />
+</div></blockquote>
+<ol class="arabic simple" start="5">
+<li><p>ახლა თქვენ დაინახავთ გადმოწერილ ფაილს. მონიშნეთ იგი და დააჭირეთ <span class="guilabel">Open</span> (გახსნა).</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/056.png" class="align-center" src="../../_images/056.png" />
+</div></blockquote>
+<ol class="arabic" start="6">
+<li><p><span class="guilabel">Data Source Manager</span> დიალოგურ ფანჯარაში, ფაილის მისამართი ხელმისაწვდომი იქნება <span class="guilabel">File Name</span> (ფაილის სახელი) ველში. შეცვალეთ :guilabel:Layer name (ფენის სახელი) შემდეგნაირად: <code class="docutils literal notranslate"><span class="pre">1900_2000_earthquakes</span></code>. <span class="guilabel">File format</span> (ფაილის ფორმატი) სექციაში აირჩიეთ <span class="guilabel">Custom delimiters</span> (მომხმარებლის მიერ განსაზღვრული გამყოფები) და მონიშნეთ <code class="docutils literal notranslate"><span class="pre">Tab</span></code>. <span class="guilabel">Geometry definition</span> (გეომეტრიის განსაზღვრა) სექციაში აირჩიეთ <span class="guilabel">Point coordinates</span> (წერტილოვანი კოორდინატები). თუ პროგრამა შემავალ მონაცემებში იპოვის შესაბამისი სახელის მქონე ველებს, <span class="guilabel">X field</span> და <span class="guilabel">Y field</span> მნიშვნელობები ავტომატურად შეივსება. ჩვენს შემთხვევაში, ესენია <code class="docutils literal notranslate"><span class="pre">Longitude</span></code> (გრძედი) და <code class="docutils literal notranslate"><span class="pre">Latitude</span></code> (განედი). თუ იმპორტისას არასწორი ველები შეირჩა, შეგიძლიათ მათი შეცვლა. <span class="guilabel">Geometry CRS</span> (გეომეტრიის კოორდინატთა სისტემა) შეგიძლიათ დატოვოთ სტანდარტულ მნიშვნელობაზე — <code class="docutils literal notranslate"><span class="pre">EPSG:4326</span> <span class="pre">-</span> <span class="pre">WGS</span> <span class="pre">84</span></code>. თუ თქვენი ფაილი სხვა კოორდინატთა სისტემის მონაცემებს შეიცავს, შესაბამისი CRS აქ უნდა აირჩიოთ. დააჭირეთ <span class="guilabel">Add</span> (დამატება).</p>
+<img alt="../../_images/066.png" class="align-center" src="../../_images/066.png" />
+</li>
+</ol>
+<div class="admonition note">
+<p class="admonition-title">ნოტი</p>
+<p>ძალიან ადვილია ერთმანეთში აგერიოთ X და Y კოორდინატები. განედი (Latitude) განსაზღვრავს წერტილის მდებარეობას ჩრდილოეთსა და სამხრეთს შორის, შესაბამისად ის არის <strong>Y</strong> კოორდინატი. ანალოგიურად, გრძედი (Longitude) განსაზღვრავს წერტილის მდებარეობას აღმოსავლეთსა და დასავლეთს შორის და ის არის <strong>X</strong> კოორდინატი.</p>
+</div>
+<ol class="arabic simple" start="7">
+<li><p>ახლა თქვენ დაინახავთ, რომ მონაცემები იმპორტირებულია და ნაჩვენებია QGIS-ის სამუშაო არეში (Canvas) ახალი ფენის სახით, რომელსაც ჰქვია <code class="docutils literal notranslate"><span class="pre">1900_2000_earthquakes</span></code> და აქვს <code class="docutils literal notranslate"><span class="pre">EPSG:4326</span></code> კოორდინატთა სისტემა (CRS).</p></li>
+</ol>
+<blockquote>
+<div><img alt="../../_images/076.png" class="align-center" src="../../_images/076.png" />
+</div></blockquote>
+</section>
+</section>
+
+
+
+<!-- Turn on comments on only newer tutorials having 3/ in URL -->
+
+  <!-- Comment Section Powered by utterances -->
+<div id="comments">
+  <hr />
+  <p>If you want to give feedback or share your experience with this tutorial, please comment below. (requires GitHub account)</p>
+<script src="https://utteranc.es/client.js"
+        repo="spatialthoughts/qgis-tutorials"
+        issue-term="title"
+        label="comment"
+        theme="github-light"
+        crossorigin="anonymous"
+        async>
+</script>
+</div>
+
+
+    </div>
+      
+  </div>
+</div>
+
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+    </p>
+    <p>
+        &copy; Copyright 2025, Ujaval Gandhi.<br/>
+      ბოლო განახლების დრო მარ 12, 2026.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 8.2.3.<br/>
+    </p>
+  </div>
+</footer>
+<div class="container">
+  <p>This work is licensed under a <a href="http://creativecommons.org/licenses/by/4.0/deed.en_US">Creative Commons Attribution 4.0 International License</a>.<br>
+  You are free to use the material for any purpose as long as you give appropriate credit to the original author.</p>
+</div>
+
+<!-- Script fpr language switching. Largely adapted from https://github.com/pcav/faunalia-website -->
+<script>
+    var currentPage = 'docs/3/importing_spreadsheets_csv.html'; // coming from sphinx, always without starting '/'
+    var currentLang = 'en';
+    $(document).ready(function(){
+
+        var search = new RegExp('\/[a-zA-Z_]{2,8}\/'+ currentPage, 'gi');
+        var langPlusPage = window.location.href.match(search);
+        // it's possible this is a index.html page called without 'index.html', try without the currentPage
+        if (langPlusPage==undefined){
+            search = new RegExp('\/[a-zA-Z_]{2,8}\/$', 'gi');
+            langPlusPage = window.location.href.match(search);
+        }
+
+        // it's possible this is an index.html page called without 'index.html', try removing index.html
+        if (langPlusPage==undefined){
+            currentPage = currentPage.replace('index.html','')
+            search = new RegExp('\/[a-zA-Z_]{2,8}\/'+ currentPage, 'gi');
+            langPlusPage = window.location.href.match(search);
+        }
+        // still no langPlugPage: stop, because the language swicher will misbehave 
+
+        if (langPlusPage == undefined || langPlusPage.length != 1){
+            alert('You hit an error, please report back to us.');
+            return;
+        }
+        langPlusPage = langPlusPage[0];
+        currentLang = langPlusPage.replace(currentPage, '');
+
+        $("#languages").val(currentLang.replace(/\//g,'')); // currentLang is something like '/nl/'
+
+        $("#languages").change(function() {
+            gotoLang($(this).val());
+        });
+
+    });
+
+    // load current page in a different language
+    function gotoLang(lang){
+        var currentUrl = window.location.href;
+        var newUrl = currentUrl.replace(currentLang, '/'+lang+'/');
+        window.location.href = newUrl;
+    }
+</script>
+
+  </body>
+</html>

@@ -49,6 +49,7 @@ The tutorials for the following languages have active translation teams and are 
 - `Romanian <https://www.qgistutorials.com/ro/>`_ (Translation by: *Sorin Călinică*)
 - `Russian <https://www.qgistutorials.com/ru/>`_ (Translation by: *Elena Zhuravleva*, *Vera Glumina*, *Marina Pavlova*, *Ilya Trofimov*, *Fayçal Fatihi*, *Константин Сергеевич*)
 - `Serbian <https://www.qgistutorials.com/sr/>`_ (Translation by: *Vladimir Vuković*)
+- `Georgian <https://www.qgistutorials.com/ka_GE/>`_ (Translation by: *Giorgi Kapanadze*)
 
 Many other languages are partially translated and are hosted externaly.
 
