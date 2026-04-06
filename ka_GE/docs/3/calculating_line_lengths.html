@@ -5,7 +5,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Calculating Line Lengths and Statistics (QGIS3) &#8212; QGIS Tutorials and Tips</title>
+    <title>ხაზების სიგრძის გამოთვლა და სტატისტიკა (QGIS3) &#8212; QGIS Tutorials and Tips</title>
     <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=fa44fd50" />
     <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-sphinx.css?v=0bf093e7" />
     <script src="../../_static/documentation_options.js?v=6e8799d8"></script>
@@ -13,7 +13,7 @@
     <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <link rel="search" title="ძებნა" href="../../search.html" />
     <link rel="next" title="Basic Raster Styling and Analysis (QGIS3)" href="raster_styling_and_analysis.html" />
-    <link rel="prev" title="Basic Vector Styling (QGIS3)" href="basic_vector_styling.html" />
+    <link rel="prev" title="ვექტორული მონაცემების საბაზისო სტილიზაცია (QGIS3)" href="basic_vector_styling.html" />
 
 <meta charset='utf-8'>
 <meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
@@ -73,8 +73,8 @@
 <li class="toctree-l1"><a class="reference internal" href="making_a_map.html">რუკის შედგენა (QGIS3)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="working_with_attributes.html">მუშაობა ატრიბუტებთან (QGIS3)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="importing_spreadsheets_csv.html">ცხრილების ან CSV ფაილების იმპორტი (QGIS3)</a></li>
-<li class="toctree-l1"><a class="reference internal" href="basic_vector_styling.html">Basic Vector Styling (QGIS3)</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Calculating Line Lengths and Statistics (QGIS3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="basic_vector_styling.html">ვექტორული მონაცემების საბაზისო სტილიზაცია (QGIS3)</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">ხაზების სიგრძის გამოთვლა და სტატისტიკა (QGIS3)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="raster_styling_and_analysis.html">Basic Raster Styling and Analysis (QGIS3)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="raster_mosaicing_and_clipping.html">Raster Mosaicing and Clipping (QGIS3)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="working_with_terrain.html">Working with Terrain Data (QGIS3)</a></li>
@@ -139,7 +139,7 @@
               
                 
   <li>
-    <a href="basic_vector_styling.html" title="Previous Chapter: Basic Vector Styling (QGIS3)"><span class="glyphicon glyphicon-chevron-left visible-sm"></span><span class="hidden-sm hidden-tablet">&laquo; Basic Vector ...</span>
+    <a href="basic_vector_styling.html" title="Previous Chapter: ვექტორული მონაცემების საბაზისო სტილიზაცია (QGIS3)"><span class="glyphicon glyphicon-chevron-left visible-sm"></span><span class="hidden-sm hidden-tablet">&laquo; ვექტორული მონ...</span>
     </a>
   </li>
   <li>
@@ -189,56 +189,56 @@
       
 
   <section id="calculating-line-lengths-and-statistics-qgis3">
-<h1>Calculating Line Lengths and Statistics (QGIS3)<a class="headerlink" href="#calculating-line-lengths-and-statistics-qgis3" title="Link to this heading">¶</a></h1>
-<p>QGIS has built-in functions and algorithms to calculate various properties based on the geometry of the feature - such as length, area, perimeter etc. This tutorial will show how to use the <strong>Add geometry attributess</strong> tool to add a column with a value representing length of each feature.</p>
+<h1>ხაზების სიგრძის გამოთვლა და სტატისტიკა (QGIS3)<a class="headerlink" href="#calculating-line-lengths-and-statistics-qgis3" title="Link to this heading">¶</a></h1>
+<p>QGIS-ს გააჩნია ჩაშენებული ფუნქციები და ალგორითმები ობიექტის გეომეტრიაზე დაფუძნებული სხვადასხვა მახასიათებლის გამოსათვლელად — როგორიცაა სიგრძე, ფართობი, პერიმეტრი და ა.შ. ეს სახელმძღვანელო გიჩვენებთ, როგორ გამოიყენოთ ხელსაწყო <strong>Add geometry attributes</strong> (გეომეტრიის ატრიბუტების დამატება), რათა დაამატოთ სვეტი თითოეული ობიექტის სიგრძის აღმნიშვნელი მნიშვნელობით.</p>
 <section id="overview-of-the-task">
-<h2>Overview of the task<a class="headerlink" href="#overview-of-the-task" title="Link to this heading">¶</a></h2>
-<p>Given a polyline layer of railroads in North America, we will determine the total length of railroads in the United States.</p>
+<h2>ამოცანის მიმოხილვა<a class="headerlink" href="#overview-of-the-task" title="Link to this heading">¶</a></h2>
+<p>ჩრდილოეთ ამერიკის რკინიგზის ხაზოვანი (polyline) ფენის საფუძველზე, ჩვენ დავადგენთ რკინიგზის საერთო სიგრძეს ამერიკის შეერთებულ შტატებში.</p>
 <section id="other-skills-you-will-learn">
-<h3>Other skills you will learn<a class="headerlink" href="#other-skills-you-will-learn" title="Link to this heading">¶</a></h3>
+<h3>სხვა უნარები, რომლებსაც ისწავლით<a class="headerlink" href="#other-skills-you-will-learn" title="Link to this heading">¶</a></h3>
 <ul class="simple">
-<li><p>Using expressions to filter features.</p></li>
-<li><p>Using the <span class="guilabel">Statistics</span> panel to compute and view statistics on columns.</p></li>
+<li><p>ობიექტების გაფილტვრა გამოსახულებების(expressions) გამოყენებით.</p></li>
+<li><p>ვიყენებთ <span class="guilabel">Statistics</span> პანელს სვეტების სტატისტიკის გამოსათვლელად და სანახავად.</p></li>
 </ul>
 </section>
 </section>
 <section id="get-the-data">
-<h2>Get the data<a class="headerlink" href="#get-the-data" title="Link to this heading">¶</a></h2>
-<p><a class="reference external" href="http://www.naturalearthdata.com/downloads/10m-cultural-vectors/railroads/">Natural Earth</a> has a public domain railroads dataset.</p>
-<p>Download the <a class="reference external" href="https://www.naturalearthdata.com/http//www.naturalearthdata.com/download/10m/cultural/ne_10m_railroads_north_america.zip">North America supplement</a> zip file from the portal.</p>
-<p>For convenience, you may directly download a copy of the dataset from the link below:</p>
+<h2>მონაცემების მიღება<a class="headerlink" href="#get-the-data" title="Link to this heading">¶</a></h2>
+<p><a class="reference external" href="http://www.naturalearthdata.com/downloads/10m-cultural-vectors/railroads/">Natural Earth</a>-ს გააჩნია რკინიგზის საჯარო დომენის (public domain) მონაცემთა ნაკრები.</p>
+<p>ჩამოტვირთეთ <a class="reference external" href="https://www.naturalearthdata.com/http//www.naturalearthdata.com/download/10m/cultural/ne_10m_railroads_north_america.zip">North America supplement</a>  zip ფაილი პორტალიდან.</p>
+<p>მეტი მოხერხებისთვის, შეგიძლიათ მონაცემთა ნაკრების ასლი პირდაპირ ქვემოთ მოცემული ბმულიდან ჩამოტვირთოთ:</p>
 <p><a class="reference external" href="https://www.qgistutorials.com/downloads/ne_10m_railroads_north_america.zip">ne_10m_railroads_north_america..zip</a></p>
-<p>Data Source <a class="reference internal" href="../credits.html#naturalearth" id="id1"><span>[NATURALEARTH]</span></a></p>
+<p>მონაცემთა პირველწყარო <a class="reference internal" href="../credits.html#naturalearth" id="id1"><span>[NATURALEARTH]</span></a></p>
 </section>
 <section id="procedure">
-<h2>Procedure<a class="headerlink" href="#procedure" title="Link to this heading">¶</a></h2>
+<h2>მოქმედებათა თანმიმდევრობა<a class="headerlink" href="#procedure" title="Link to this heading">¶</a></h2>
 <ol class="arabic simple">
-<li><p>Locate the downloaded <code class="docutils literal notranslate"><span class="pre">ne_10m_railroads_north_america.zip</span></code> file in the <span class="guilabel">Browser</span> panel and expand it. Drag the <code class="docutils literal notranslate"><span class="pre">ne_10m_railroads_north_america.shp</span></code> file to the canvas.</p></li>
+<li><p>მოძებნეთ ჩამოტვირთული <code class="docutils literal notranslate"><span class="pre">ne_10m_railroads_north_america.zip</span></code> ფაილი <span class="guilabel">Browser</span>  პანელში და გაშალეთ იგი. გადაათრიეთ <code class="docutils literal notranslate"><span class="pre">ne_10m_railroads_north_america.shp</span></code> ფაილი სამუშაო არეზე (canvas).</p></li>
 </ol>
 <blockquote>
 <div><img alt="../../_images/130.png" class="align-center" src="../../_images/130.png" />
 </div></blockquote>
 <ol class="arabic simple" start="2">
-<li><p>You will see a new layer <code class="docutils literal notranslate"><span class="pre">ne_10m_railroads_north_america</span></code> loaded in the <span class="guilabel">Layers</span> panel. You will see that the layer has lines representing railroads for all of North America. Now, let's calculate the lengths of each line feature. Go to <span class="menuselection">Processing ‣ Toolbox</span>.</p></li>
+<li><p>თქვენ დაინახავთ <span class="guilabel">Layers</span> პანელში ჩატვირთულ ახალ ფენას ne_10m_railroads_north_america. ფენას აქვს მთელი ჩრდილოეთ ამერიკის რკინიგზის აღმნიშვნელი ხაზები. ახლა, მოდით გამოვთვალოთ თითოეული ხაზოვანი ობიექტის სიგრძე. გადადით :menuselection:Processing --&gt; Toolbox (დამუშავება --&gt; ხელსაწყოების ყუთი) მენიუში.</p></li>
 </ol>
 <blockquote>
 <div><img alt="../../_images/220.png" class="align-center" src="../../_images/220.png" />
 </div></blockquote>
 <ol class="arabic simple" start="3">
-<li><p>Search for and locate the <span class="menuselection">Vector geometry ‣ Add geometry attributes</span> algorithm. Double-click to launch it.</p></li>
+<li><p>მოძებნეთ და იპოვეთ <span class="menuselection">Vector geometry ‣ Add geometry attributes</span> (ვექტორული გეომეტრია --&gt; გეომეტრიის ატრიბუტების დამატება) ალგორითმი. ორჯერ აწკაპეთ მის გასაშვებად.</p></li>
 </ol>
 <blockquote>
 <div><img alt="../../_images/318.png" class="align-center" src="../../_images/318.png" />
 </div></blockquote>
 <ol class="arabic simple" start="4">
-<li><p>In the <span class="guilabel">Add Geometry Attributes</span> dialog, select <code class="docutils literal notranslate"><span class="pre">ne_10m_railroads_north_america</span></code> as the <span class="guilabel">Input layer</span>. The input layer's Coordinate Reference System (CRS) is <em>EPSG:4326 WGS84</em>. This is a <em>Geographic</em> CRS with Latitude and Longitude as coordinates, WGS84 as ellipsoid and degrees as units.  Because latitude and longitude don't have a standard length, you can’t measure distances or areas accurately using planar geometry functions. Fortunately, QGIS provides a better way to compute distances using ellipsoidal geometry, which is the most accurate method for layers spanning large areas such as this. Pick <code class="docutils literal notranslate"><span class="pre">Ellipsoidal</span></code> as the <span class="guilabel">Calculate using</span> option. Click <span class="guilabel">Run</span>. Once the process finishes, click <span class="guilabel">Close</span>.</p></li>
+<li><p><span class="guilabel">Add Geometry Attributes</span> (გეომეტრიის ატრიბუტების დამატება) ფანჯარაში, <span class="guilabel">Input layer</span> (შესატანი ფენა) ველში აირჩიეთ ne_10m_railroads_north_america. შესატანი ფენის კოორდინატთა სისტემა (CRS) არის EPSG:4326 WGS84. ეს არის გეოგრაფიული CRS, სადაც კოორდინატებად გამოყენებულია განედი და გრძედი, ელიფსოიდად — WGS84, ხოლო ერთეულებად — გრადუსები. ვინაიდან განედსა და გრძედს არ გააჩნია სტანდარტული სიგრძე, თქვენ ვერ შეძლებთ მანძილების ან ფართობების ზუსტად გაზომვას სიბრტყული გეომეტრიის ფუნქციების გამოყენებით. საბედნიეროდ, QGIS გვთავაზობს მანძილების გამოთვლის უკეთეს გზას ელიფსოიდური გეომეტრიის გამოყენებით, რაც ყველაზე ზუსტი მეთოდია მსგავსი დიდი ფართობის მქონე ფენებისთვის. <span class="guilabel">Calculate using</span> (გამოთვლის მეთოდი) პარამეტრში აირჩიეთ Ellipsoidal. დააჭირეთ <span class="guilabel">Run</span> (გაშვება). პროცესის დასრულების შემდეგ აწკაპეთ <span class="guilabel">Close</span> (დახურვა).</p></li>
 </ol>
 <blockquote>
 <div><img alt="../../_images/47.png" class="align-center" src="../../_images/47.png" />
 </div></blockquote>
 <div class="admonition note">
 <p class="admonition-title">ნოტი</p>
-<p>If your input layer is in a <em>Projected CRS</em>, you may choose <code class="docutils literal notranslate"><span class="pre">Layer</span> <span class="pre">CRS</span></code> option for calculation. Local or Regional projected coordinate systems are designed to minimize distortions over their region of interest, and thus are more accurate for such computation. <code class="docutils literal notranslate"><span class="pre">Ellipsoidal</span></code> is preferred for layers in a <em>Geographic CRS</em> (i.e. Lat/Lon). The default unit for ellipsoidal length calculation is <strong>Meters</strong> and can be changed by going to <span class="menuselection">Project ‣ Properties ‣ General</span>.</p>
+<p>თუ თქვენი ფენა არის <strong>პროექცირებულ საკოორდინატო სისტემაში</strong> (Projected CRS), გამოთვლისთვის შეგიძლიათ აირჩიოთ <code class="docutils literal notranslate"><span class="pre">Layer</span> <span class="pre">CRS</span></code> პარამეტრი. ლოკალური ან რეგიონული გეგმილი კოორდინატთა სისტემები შექმნილია მათი ინტერესის არეალში დამახინჯებების მინიმუმამდე დასაყვანად, შესაბამისად, უფრო ზუსტია მსგავსი გამოთვლებისთვის. <code class="docutils literal notranslate"><span class="pre">Ellipsoidal</span></code> (ელიფსოიდური) მეთოდი სასურველია <em>გეოგრაფიულ კოორდინატთა სისტემაში</em> (მაგ. განედი/გრძედი) არსებული ფენებისთვის. ელიფსოიდური სიგრძის გამოთვლის ნაგულისხმევი ერთეულია <strong>მეტრი</strong> და მისი შეცვლა შესაძლებელია მენიუში: :menuselection:Project --&gt; Properties --&gt; General (პროექტი --&gt; თვისებები --&gt; ზოგადი).</p>
 </div>
 <ol class="arabic simple" start="5">
 <li><p>You will see a new layer <code class="docutils literal notranslate"><span class="pre">Added</span> <span class="pre">geom</span> <span class="pre">info</span></code> loaded in the <span class="guilabel">Layers</span> panel. This is a copy of the input layer with a new column added for distance. Right-click the <code class="docutils literal notranslate"><span class="pre">Added</span> <span class="pre">geom</span> <span class="pre">info</span></code> layer and select <span class="guilabel">Open Attribute Table</span>.</p></li>
@@ -339,7 +339,7 @@
     </p>
     <p>
         &copy; Copyright 2025, Ujaval Gandhi.<br/>
-      ბოლო განახლების დრო მარ 12, 2026.<br/>
+      ბოლო განახლების დრო აპრ 06, 2026.<br/>
       Created using <a href="http://sphinx-doc.org/">Sphinx</a> 8.2.3.<br/>
     </p>
   </div>

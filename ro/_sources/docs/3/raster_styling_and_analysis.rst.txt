@@ -3,6 +3,8 @@ Basic Raster Styling and Analysis (QGIS3)
 
 A lot of scientific observations and research produces raster datasets. Rasters are grids of pixels that have a specific value assigned to them. By doing mathematical operations on these values, one can do some interesting analysis. QGIS has some basic analysis capabilities built-in via **Raster Calculator**. In this tutorial, we will explore the options available for styling rasters and functionality provided by the raster calculator. 
 
+A Python version of this tutorial is available at our `Geospatial Python Tutorials <https://www.geopythontutorials.com/notebooks/xarray_raster_styling_analysis.html>`_ website.
+
 Overview of the task
 --------------------
 
