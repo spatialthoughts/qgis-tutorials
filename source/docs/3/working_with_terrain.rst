@@ -27,7 +27,7 @@ of GTOPO30 dataset.
 
 Here is how to search and download the revelant data from USGS Earthexplorer.
 
-1. Go to the `USGS Earthexplorer <http://earthexplorer.usgs.gov/>`_ . In the
+1. Go to the `USGS Earthexplorer <http://earthexplorer.usgs.gov/>`_ .
    :guilabel:`Search Criteria` tab, select the :guilabel:`Decimal` option under :guilabel:`Polygon`. Click the :guilabel:`Add Coordinate` button.
 
 .. image:: /static/3/working_with_terrain/images/1.png

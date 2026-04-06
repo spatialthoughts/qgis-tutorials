@@ -2,7 +2,7 @@ Performing Spatial Queries (QGIS3)
 ==================================
 Spatial queries are core to many types of GIS analysis. Spatial queries allows you to select features in a layer by their spatial relationships (intersect, contain, touch etc.) with features from another layer. In QGIS, this functionality is available via the **Select by Location** and **Extract by Location** Processing tools.
 
-A Python version of this tutorial is available at our `Geospatial Python Tutorials <https://www.geopythontutorials.com/notebooks/geopandas_spatial_query.html>`_ website.
+*A Python version of this tutorial is available at our `Geospatial Python Tutorials <https://www.geopythontutorials.com/notebooks/geopandas_spatial_query.html>`_ website.*
 
 Overview of the task
 --------------------

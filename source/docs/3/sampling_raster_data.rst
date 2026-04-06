@@ -2,7 +2,7 @@ Sampling Raster Data using Points or Polygons (QGIS3)
 =====================================================
 Many scientific and environmental datasets come as gridded rasters. Elevation data (DEM) is also distributed as raster files. In these raster files, the parameter that is being represented is encoded as the pixel values of the raster. Often, one needs to extract the pixel values at certain locations or aggregate them over some area. This functionality is available in QGIS via processing algorithms. ``Sample raster values`` for point layers and ``Zonal Statistics`` for polygon layers.
 
-A Python adaptation of this tutorial is available at our Geospatial Python Tutorials website as `Sampling Raster Data using Points <https://www.geopythontutorials.com/notebooks/xarray_raster_sampling.html>`_  and `Sampling Raster Data using Polygons <https://www.geopythontutorials.com/notebooks/xarray_zonal_stats.html>`_ 
+*A Python adaptation of this tutorial is available at our Geospatial Python Tutorials website as `Sampling Raster Data using Points <https://www.geopythontutorials.com/notebooks/xarray_raster_sampling.html>`_  and `Sampling Raster Data using Polygons <https://www.geopythontutorials.com/notebooks/xarray_zonal_stats.html>`_ .*
 
 Overview of the task
 --------------------
