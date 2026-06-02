@@ -1,0 +1,49 @@
+name: Deploy to GitHub Pages
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.x'
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+        env:
+          LC_ALL: C
+
+      - name: Build HTML for all languages
+        run: make all
+        env:
+          LC_ALL: C
+
+      - name: Prepare deploy directory
+        run: |
+          mkdir -p deploy
+          cp -r live/html/* deploy/
+          cp redirector.html deploy/index.html
+          cp 404.html deploy/
+          cp favicon.ico deploy/
+          cp source/CNAME deploy/
+          cp -r downloads deploy/
+
+      - name: Deploy to gh-pages
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./deploy
+          publish_branch: gh-pages
