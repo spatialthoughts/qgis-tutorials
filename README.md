@@ -11,11 +11,13 @@ To contribute or update the tutorials, you must install Sphinx locally, make cha
 
 The respository is very large and contains over 10 years of history. You don't need all the history locally, so just clone it with `--depth 1` option to get only the latest files.
 
-    git clone --depth 1 git@github.com:spatialthoughts/qgis-tutorials.git --no-single-branch 
+    git clone --depth 1 git@github.com:spatialthoughts/qgis-tutorials.git
     cd qgis-tutorials
     
     
-## Install Dependencies
+## Setup a Local Development Envrionment
+
+## Install Sphinx 
 
 ### Linux/Mac
 
@@ -64,11 +66,15 @@ pip3 install -r requirements.txt
 
 From the root `qgis-tutorials` directory, run the following command
 
-    make html
+```
+make html
+```
 
 This will generate HTML pages in build/html/ directory. Start a local HTTP server and preview them. Python comes with a built-in server that we can use
 
-    python -m http.server
+```
+python -m http.server
+```
 
 A server will start on port 8000. Visit http://localhost:8000/build/html/en/ and preview the files.
 
@@ -92,11 +98,19 @@ token         = <your API token>
 make transifex-pull
 ```
     
-## Push the Changes and Build the Website
+## Push the Changes
 
-Once the changes are pushed to the main branch, run the following to update the `gh_pages` branch which serves the live website. You will need commit access to the repository to run this command.
+Commit and push the changes to the main branch.
 
-    make gh-pages
+There is a GitHub action active on the repository that automatically builds and pushes changes to gh-pages on every commit to the main branch.
+
+If you need to manually push the changes to GitHub pages, run the following command
+
+```
+git fetch 
+make gh-pages
+```
+
 
 ## Formatting Guide
 
@@ -123,5 +137,5 @@ License
 
 All the tutorials are available under a [Creative Commons Attribution 4.0 International License](http://creativecommons.org/licenses/by/4.0/deed.en_US)
 
-Copyright 2021 Spatial Thoughts
+Copyright 2026 Spatial Thoughts
 
