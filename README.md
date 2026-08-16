@@ -9,13 +9,12 @@ To contribute or update the tutorials, you must install Sphinx locally, make cha
 
 ## Clone the Repository
 
-The respository is very large and contains over 10 years of history. You don't need all the history locally, so just clone it with `--depth 1` option to get only the latest files.
+The repository is very large and contains over 10 years of history (See [maintenance](#repository-maintenance)). You don't need all the history locally, so just clone it with `--depth 1` option to get only the latest files.
 
     git clone --depth 1 git@github.com:spatialthoughts/qgis-tutorials.git
     cd qgis-tutorials
-    
-    
-## Setup a Local Development Envrionment
+
+## Setup a Local Development Environment
 
 ## Install Sphinx 
 
@@ -131,6 +130,21 @@ We prefer the following style while writing the tutorials.
 | Text input by the user                     | ``` ``value`` ```| 
 | External web links                         | ``` `name <url>`_ ```
 
+
+## Repository Maintenance
+
+This repository becomes quite large over time — particularly the `gh-pages` branch. We don't need to keep the full history of the built pages, so we periodically prune it using the orphan branch method below.
+
+```
+git checkout gh-pages
+git checkout --orphan last
+git add -A
+git commit -am 'fresh init'
+git branch -D gh-pages
+git branch -m gh-pages
+git push -f origin gh-pages
+git gc --aggressive --prune=all
+```
 
 License
 -------
