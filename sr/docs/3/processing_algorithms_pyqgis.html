@@ -304,26 +304,26 @@
 
 <span class="n">root</span> <span class="o">=</span> <span class="n">QgsProject</span><span class="o">.</span><span class="n">instance</span><span class="p">()</span><span class="o">.</span><span class="n">layerTreeRoot</span><span class="p">()</span>
 
-<span class="n">input_layer</span> <span class="o">=</span> <span class="s1">&#39;Zip_Codes&#39;</span>
-<span class="n">unique_field</span> <span class="o">=</span> <span class="s1">&#39;OBJECTID&#39;</span>
+<span class="n">input_layer</span> <span class="o">=</span> <span class="s1">'Zip_Codes'</span>
+<span class="n">unique_field</span> <span class="o">=</span> <span class="s1">'OBJECTID'</span>
 
 <span class="c1"># Iterate through all raster layers</span>
 <span class="k">for</span> <span class="n">layer</span> <span class="ow">in</span> <span class="n">root</span><span class="o">.</span><span class="n">children</span><span class="p">():</span>
-  <span class="k">if</span> <span class="n">layer</span><span class="o">.</span><span class="n">name</span><span class="p">()</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s1">&#39;PRISM&#39;</span><span class="p">):</span>
+  <span class="k">if</span> <span class="n">layer</span><span class="o">.</span><span class="n">name</span><span class="p">()</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s1">'PRISM'</span><span class="p">):</span>
     <span class="c1"># Run Zonal Stats algorithm</span>
     <span class="c1"># Extract the YYYYMM part of the layer name</span>
-    <span class="n">pattern</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;_(\d+)_&#39;</span>
+    <span class="n">pattern</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">'_(\d+)_'</span>
     <span class="n">matches</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="n">pattern</span><span class="p">,</span> <span class="n">layer</span><span class="o">.</span><span class="n">name</span><span class="p">())</span>
     <span class="c1"># Use the month as the prefix</span>
     <span class="n">prefix</span> <span class="o">=</span> <span class="n">matches</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="o">-</span><span class="mi">2</span><span class="p">:]</span>
-    <span class="n">params</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;INPUT_RASTER&#39;</span><span class="p">:</span> <span class="n">layer</span><span class="o">.</span><span class="n">name</span><span class="p">(),</span>
-        <span class="s1">&#39;RASTER_BAND&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;INPUT&#39;</span><span class="p">:</span> <span class="n">input_layer</span><span class="p">,</span>
-        <span class="s1">&#39;COLUMN_PREFIX&#39;</span><span class="p">:</span> <span class="n">prefix</span><span class="o">+</span><span class="s1">&#39;_&#39;</span><span class="p">,</span> <span class="s1">&#39;STATISTICS&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">2</span><span class="p">],</span>
-        <span class="s1">&#39;OUTPUT&#39;</span><span class="p">:</span> <span class="s1">&#39;memory:&#39;</span>
+    <span class="n">params</span> <span class="o">=</span> <span class="p">{</span><span class="s1">'INPUT_RASTER'</span><span class="p">:</span> <span class="n">layer</span><span class="o">.</span><span class="n">name</span><span class="p">(),</span>
+        <span class="s1">'RASTER_BAND'</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s1">'INPUT'</span><span class="p">:</span> <span class="n">input_layer</span><span class="p">,</span>
+        <span class="s1">'COLUMN_PREFIX'</span><span class="p">:</span> <span class="n">prefix</span><span class="o">+</span><span class="s1">'_'</span><span class="p">,</span> <span class="s1">'STATISTICS'</span><span class="p">:</span> <span class="p">[</span><span class="mi">2</span><span class="p">],</span>
+        <span class="s1">'OUTPUT'</span><span class="p">:</span> <span class="s1">'memory:'</span>
         <span class="p">}</span>
-    <span class="n">result</span> <span class="o">=</span> <span class="n">processing</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="s2">&quot;native:zonalstatisticsfb&quot;</span><span class="p">,</span> <span class="n">params</span><span class="p">)</span>
+    <span class="n">result</span> <span class="o">=</span> <span class="n">processing</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="s2">"native:zonalstatisticsfb"</span><span class="p">,</span> <span class="n">params</span><span class="p">)</span>
 
-    <span class="n">result_layer</span> <span class="o">=</span> <span class="n">result</span><span class="p">[</span><span class="s1">&#39;OUTPUT&#39;</span><span class="p">]</span>
+    <span class="n">result_layer</span> <span class="o">=</span> <span class="n">result</span><span class="p">[</span><span class="s1">'OUTPUT'</span><span class="p">]</span>
     <span class="n">QgsProject</span><span class="o">.</span><span class="n">instance</span><span class="p">()</span><span class="o">.</span><span class="n">addMapLayer</span><span class="p">(</span><span class="n">result_layer</span><span class="p">)</span>
     <span class="c1"># Breaking out of loop to demonstrate the</span>
     <span class="c1"># zonalstatistics algorithm.</span>
@@ -350,29 +350,29 @@
 
 <span class="n">root</span> <span class="o">=</span> <span class="n">QgsProject</span><span class="o">.</span><span class="n">instance</span><span class="p">()</span><span class="o">.</span><span class="n">layerTreeRoot</span><span class="p">()</span>
 
-<span class="n">input_layer</span> <span class="o">=</span> <span class="s1">&#39;Zip_Codes&#39;</span>
+<span class="n">input_layer</span> <span class="o">=</span> <span class="s1">'Zip_Codes'</span>
 <span class="n">result_layer</span> <span class="o">=</span> <span class="n">input_layer</span>
-<span class="n">unique_field</span> <span class="o">=</span> <span class="s1">&#39;OBJECTID&#39;</span>
+<span class="n">unique_field</span> <span class="o">=</span> <span class="s1">'OBJECTID'</span>
 
 <span class="c1"># Iterate through all raster layers</span>
 <span class="k">for</span> <span class="n">layer</span> <span class="ow">in</span> <span class="n">root</span><span class="o">.</span><span class="n">children</span><span class="p">():</span>
-  <span class="k">if</span> <span class="n">layer</span><span class="o">.</span><span class="n">name</span><span class="p">()</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s1">&#39;PRISM&#39;</span><span class="p">):</span>
+  <span class="k">if</span> <span class="n">layer</span><span class="o">.</span><span class="n">name</span><span class="p">()</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s1">'PRISM'</span><span class="p">):</span>
     <span class="c1"># Run Zonal Stats algorithm</span>
     <span class="c1"># Extract the YYYYMM part of the layer name</span>
-    <span class="n">pattern</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;_(\d+)_&#39;</span>
+    <span class="n">pattern</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">'_(\d+)_'</span>
     <span class="n">matches</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="n">pattern</span><span class="p">,</span> <span class="n">layer</span><span class="o">.</span><span class="n">name</span><span class="p">())</span>
     <span class="c1"># Use the month as the prefix</span>
     <span class="n">prefix</span> <span class="o">=</span> <span class="n">matches</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="o">-</span><span class="mi">2</span><span class="p">:]</span>
-    <span class="n">params</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;INPUT_RASTER&#39;</span><span class="p">:</span> <span class="n">layer</span><span class="o">.</span><span class="n">name</span><span class="p">(),</span>
-        <span class="s1">&#39;RASTER_BAND&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;INPUT&#39;</span><span class="p">:</span> <span class="n">result_layer</span><span class="p">,</span>
-        <span class="s1">&#39;COLUMN_PREFIX&#39;</span><span class="p">:</span> <span class="n">prefix</span><span class="o">+</span><span class="s1">&#39;_&#39;</span><span class="p">,</span> <span class="s1">&#39;STATISTICS&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">2</span><span class="p">],</span>
-        <span class="s1">&#39;OUTPUT&#39;</span><span class="p">:</span> <span class="s1">&#39;memory:&#39;</span>
+    <span class="n">params</span> <span class="o">=</span> <span class="p">{</span><span class="s1">'INPUT_RASTER'</span><span class="p">:</span> <span class="n">layer</span><span class="o">.</span><span class="n">name</span><span class="p">(),</span>
+        <span class="s1">'RASTER_BAND'</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s1">'INPUT'</span><span class="p">:</span> <span class="n">result_layer</span><span class="p">,</span>
+        <span class="s1">'COLUMN_PREFIX'</span><span class="p">:</span> <span class="n">prefix</span><span class="o">+</span><span class="s1">'_'</span><span class="p">,</span> <span class="s1">'STATISTICS'</span><span class="p">:</span> <span class="p">[</span><span class="mi">2</span><span class="p">],</span>
+        <span class="s1">'OUTPUT'</span><span class="p">:</span> <span class="s1">'memory:'</span>
         <span class="p">}</span>
-    <span class="n">result</span> <span class="o">=</span> <span class="n">processing</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="s2">&quot;native:zonalstatisticsfb&quot;</span><span class="p">,</span> <span class="n">params</span><span class="p">)</span>
+    <span class="n">result</span> <span class="o">=</span> <span class="n">processing</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="s2">"native:zonalstatisticsfb"</span><span class="p">,</span> <span class="n">params</span><span class="p">)</span>
 
     <span class="c1"># Update the result_layer variable</span>
     <span class="c1"># The result will be used as input for the next iteration</span>
-    <span class="n">result_layer</span> <span class="o">=</span> <span class="n">result</span><span class="p">[</span><span class="s1">&#39;OUTPUT&#39;</span><span class="p">]</span>
+    <span class="n">result_layer</span> <span class="o">=</span> <span class="n">result</span><span class="p">[</span><span class="s1">'OUTPUT'</span><span class="p">]</span>
 
 <span class="n">QgsProject</span><span class="o">.</span><span class="n">instance</span><span class="p">()</span><span class="o">.</span><span class="n">addMapLayer</span><span class="p">(</span><span class="n">result_layer</span><span class="p">)</span>
 </pre></div>
@@ -426,7 +426,7 @@
     </p>
     <p>
         &copy; Copyright 2025, Ujaval Gandhi.<br/>
-      Last updated on авг 16, 2026.<br/>
+      Last updated on сеп 17, 2026.<br/>
       Created using <a href="http://sphinx-doc.org/">Sphinx</a> 9.1.0.<br/>
     </p>
   </div>

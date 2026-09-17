@@ -15,7 +15,7 @@ We will take 2 layers for Washington DC - one with points representing addresses
 Other skills you will learn
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^
 - Extract a random sample from a point layer.
-- Use Virtual Layers to run SQL query on a QGIS layer.
+- Run a SQL query on a vector layer.
 
 Get the data
 ------------
@@ -117,7 +117,7 @@ Procedure
   .. image:: /static/3/origin_destination_matrix/images/12.png
     :align: center
   
-13. In :guilabel:`Additional input data sources` select ``...`` and check the :guilabel:`Output OD Matrix` and, click :guilabel:`OK`. Now click the :guilabel:`Summation` under :guilabel:`SQL query`. Enter the following query in :guilabel:`SQL query` dialog box. Enter ``geometry`` as the :guilabel:`Geometry field` and, select ``LineString`` as the :guilabel:`Geometry type`. Click :guilabel:`Run`.
+13. In :guilabel:`Additional input data sources` select ``...`` and check the :guilabel:`Output OD Matrix` and, click :guilabel:`OK`. Enter the following query in :guilabel:`SQL query` dialog box. Enter ``geometry`` as the :guilabel:`Geometry field` and, select ``LineString`` as the :guilabel:`Geometry type`. Click :guilabel:`Run`.
 
   .. code-block:: none
 

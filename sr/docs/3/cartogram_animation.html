@@ -250,7 +250,7 @@
 <li><p>U dijalogu <span class="guilabel">Kalkulator polja</span>, izaberite <code class="docutils literal notranslate"><span class="pre">NST-EST2023-ALLDATA</span></code> kao <span class="guilabel">Ulazni sloj</span>. Unesite <code class="docutils literal notranslate"><span class="pre">GEOID</span></code> kao <span class="guilabel">Naziv polja</span> i podesite <span class="guilabel">Tip polja rezultata</span> na <code class="docutils literal notranslate"><span class="pre">Tekst</span> <span class="pre">(string)</span></code>. Sada ćemo uzeti brojeve iz polja <code class="docutils literal notranslate"><span class="pre">STATE</span></code> i koristiti funkciju <code class="docutils literal notranslate"><span class="pre">lpad()</span></code> da kreiramo dvocifreni string dopunjen nulama. Unesite sledeći izraz i kliknite na <span class="guilabel">Pokreni</span>.</p></li>
 </ol>
 <blockquote>
-<div><div class="highlight-none notranslate"><div class="highlight"><pre><span></span>lpad(&quot;STATE&quot;, 2, &#39;0&#39;)
+<div><div class="highlight-none notranslate"><div class="highlight"><pre><span></span>lpad("STATE", 2, '0')
 </pre></div>
 </div>
 <img alt="../../_images/data82.png" class="align-center" src="../../_images/data82.png" />
@@ -313,7 +313,7 @@
 <li><p>U dijalogu <span class="guilabel">Kalkulator polja</span>, izaberite <code class="docutils literal notranslate"><span class="pre">us_states_with_population</span></code> kao <span class="guilabel">Ulazni sloj</span>. Unesite <code class="docutils literal notranslate"><span class="pre">densiti</span></code> kao <span class="guilabel">Naziv polja</span>. Unesite sledeći izraz da biste izračunali gustinu. Pošto funkcija <code class="docutils literal notranslate"><span class="pre">area(&#64;geometry)</span></code> izračunava površinu u jedinici CRS-a (koja je u metrima), primenjujemo faktor konverzije da bismo je konvertovali u kvadratne kilometre. Kliknite na <span class="guilabel">Pokreni</span>.</p></li>
 </ol>
 <blockquote>
-<div><div class="highlight-none notranslate"><div class="highlight"><pre><span></span>1000*1000* &quot;POPESTIMATE2023&quot; /
+<div><div class="highlight-none notranslate"><div class="highlight"><pre><span></span>1000*1000* "POPESTIMATE2023" /
 area(@geometry)
 </pre></div>
 </div>
@@ -335,9 +335,9 @@ area(@geometry)
 <li><p>U kartogramima površine, faktor skaliranja određuje koliko je smanjena površina objekta. Moramo smanjiti površinu svakog objekta tako da gustina naseljenosti objekta bude ista kao gustina naseljenosti sidrenog objekta. Formula za faktor skaliranja je odnos kvadratnog korena vrednosti objekta i kvadratnog korena vrednosti sidrenog objekta. Otvorite algoritam <span class="menuselection">Vektorska tabela ‣ Kalkulator polja</span> iz kutije sa alatkama za obradu. U dijalogu <span class="guilabel">Kalkulator polja</span>, izaberite <code class="docutils literal notranslate"><span class="pre">us_states_population_density</span></code> kao <span class="guilabel">Unosni sloj</span>. Unesite <code class="docutils literal notranslate"><span class="pre">scale_factor</span></code> kao <span class="guilabel">Naziv polja</span>. Unesite sledeći izraz da biste izračunali faktor skaliranja. Izraz izračunava odnos kvadratnog korena gustine objekta i kvadratnog korena gustine druge najveće vrednosti gustine. Kliknite na dugme <span class="guilabel">…</span> pored <span class="guilabel">Izračunato</span> i izaberite <span class="guilabel">Sačuvaj u datoteku…</span>. Unesite naziv sloja kao <code class="docutils literal notranslate"><span class="pre">us_states_scale_factor.gpkg</span></code> i izaberite <span class="guilabel">Sačuvaj</span>. Kliknite na <span class="guilabel">Pokreni</span>.</p></li>
 </ol>
 <blockquote>
-<div><div class="highlight-none notranslate"><div class="highlight"><pre><span></span>sqrt(&quot;density&quot;)/array_get(array_agg(
-   expression:=sqrt(&quot;density&quot;),
-   order_by:=sqrt(&quot;density&quot;)), -2)
+<div><div class="highlight-none notranslate"><div class="highlight"><pre><span></span>sqrt("density")/array_get(array_agg(
+   expression:=sqrt("density"),
+   order_by:=sqrt("density")), -2)
 </pre></div>
 </div>
 <img alt="../../_images/78.png" class="align-center" src="../../_images/78.png" />
@@ -378,8 +378,8 @@ area(@geometry)
 <blockquote>
 <div><div class="highlight-none notranslate"><div class="highlight"><pre><span></span>scale(
    @geometry,
-   &quot;scale_factor&quot;,
-   &quot;scale_factor&quot;,
+   "scale_factor",
+   "scale_factor",
    centroid(@geometry)
 )
 </pre></div>
@@ -398,8 +398,8 @@ area(@geometry)
 <blockquote>
 <div><div class="highlight-none notranslate"><div class="highlight"><pre><span></span>scale(
     @geometry,
-    &quot;scale_factor&quot;,
-    &quot;scale_factor&quot;,
+    "scale_factor",
+    "scale_factor",
     pole_of_inaccessibility(@geometry, 100)
 )
 </pre></div>
@@ -419,8 +419,8 @@ area(@geometry)
 <div><div class="highlight-none notranslate"><div class="highlight"><pre><span></span>collect_geometries(
     array_foreach(generate_series(1, @geometry_part_count),
             scale(geometry_n(@geometry,@element),
-                    &quot;scale_factor&quot;,
-                    &quot;scale_factor&quot;,
+                    "scale_factor",
+                    "scale_factor",
 pole_of_inaccessibility(geometry_n(@geometry,@element), 100)
             )
     )
@@ -477,13 +477,13 @@ pole_of_inaccessibility(geometry_n(@geometry,@element), 100)
                             epoch(@animation_start_time),
                             epoch(@animation_end_time),
                             1,
-                            &quot;scale_factor&quot;),
+                            "scale_factor"),
                     scale_linear(
                             epoch(@map_start_time),
                             epoch(@animation_start_time),
                             epoch(@animation_end_time),
                             1,
-                            &quot;scale_factor&quot;),
+                            "scale_factor"),
 pole_of_inaccessibility(geometry_n(@geometry,@element), 100)
             )
     )
@@ -565,7 +565,7 @@ pole_of_inaccessibility(geometry_n(@geometry,@element), 100)
     </p>
     <p>
         &copy; Copyright 2025, Ujaval Gandhi.<br/>
-      Last updated on авг 16, 2026.<br/>
+      Last updated on сеп 17, 2026.<br/>
       Created using <a href="http://sphinx-doc.org/">Sphinx</a> 9.1.0.<br/>
     </p>
   </div>

@@ -219,9 +219,9 @@
 <p>Relevant python bindings are included in the QGIS install on Windows. But to use them from the plugin folder, we need to indicate the path to the QGIS install.</p>
 <p>Creați un fișier de comenzi Windows (cu extensia .bat) în care inserați următorul conținut, apoi salvați-l pe computerul dvs. sub denumirea de <code class="docutils literal notranslate"><span class="pre">compile.bat</span></code>. Ulterior vom copia acest fișier în folderul pluginului. Dacă ați instalat QGIS într-o altă locație, înlocuiți <code class="docutils literal notranslate"><span class="pre">C:\OSGeo4W64\bin\</span></code> cu calea dvs.</p>
 <div class="highlight-none notranslate"><div class="highlight"><pre><span></span>@echo off
-call &quot;C:\OSGeo4W64\bin\o4w_env.bat&quot;
-call &quot;C:\OSGeo4W64\bin\qt5_env.bat&quot;
-call &quot;C:\OSGeo4W64\bin\py3_env.bat&quot;
+call "C:\OSGeo4W64\bin\o4w_env.bat"
+call "C:\OSGeo4W64\bin\qt5_env.bat"
+call "C:\OSGeo4W64\bin\py3_env.bat"
 
 @echo on
 pyrcc5 -o resources.py resources.qrc
@@ -474,7 +474,7 @@ pyrcc5 -o resources.py resources.qrc
 <blockquote>
 <div><div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">select_output_file</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
   <span class="n">filename</span><span class="p">,</span> <span class="n">_filter</span> <span class="o">=</span> <span class="n">QFileDialog</span><span class="o">.</span><span class="n">getSaveFileName</span><span class="p">(</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">dlg</span><span class="p">,</span> <span class="s2">&quot;Select   output file &quot;</span><span class="p">,</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="s1">&#39;*.csv&#39;</span><span class="p">)</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">dlg</span><span class="p">,</span> <span class="s2">"Select   output file "</span><span class="p">,</span><span class="s2">""</span><span class="p">,</span> <span class="s1">'*.csv'</span><span class="p">)</span>
   <span class="bp">self</span><span class="o">.</span><span class="n">dlg</span><span class="o">.</span><span class="n">lineEdit</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -498,16 +498,16 @@ pyrcc5 -o resources.py resources.qrc
 <ol class="arabic" start="30">
 <li><p>Când faceți clic pe <span class="guilabel">OK</span> din dialogul plugin-ului, nu se întâmplă nimic. Asta pentru că nu am adăugat logica de extragere a informațiilor atributelor stratului, și pentru a le scrie în fișierul text. Avem acum toate piesele la locul lor, doar pentru a face asta. Găsiți locul din  metoda <code class="docutils literal notranslate"><span class="pre">run</span></code> unde scrie <code class="docutils literal notranslate"><span class="pre">pass</span></code>. Înlocuiți-l cu codul de mai jos. Explicațiile acestui cod pot fi găsite în <a class="reference internal" href="getting_started_with_pyqgis.html"><span class="doc">Noțiuni de Bază Despre Programarea în Python (QGIS3)</span></a>.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">filename</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">dlg</span><span class="o">.</span><span class="n">lineEdit</span><span class="o">.</span><span class="n">text</span><span class="p">()</span>
-<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">output_file</span><span class="p">:</span>
+<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="s1">'w'</span><span class="p">)</span> <span class="k">as</span> <span class="n">output_file</span><span class="p">:</span>
   <span class="n">selectedLayerIndex</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">dlg</span><span class="o">.</span><span class="n">comboBox</span><span class="o">.</span><span class="n">currentIndex</span><span class="p">()</span>
   <span class="n">selectedLayer</span> <span class="o">=</span> <span class="n">layers</span><span class="p">[</span><span class="n">selectedLayerIndex</span><span class="p">]</span><span class="o">.</span><span class="n">layer</span><span class="p">()</span>
   <span class="n">fieldnames</span> <span class="o">=</span> <span class="p">[</span><span class="n">field</span><span class="o">.</span><span class="n">name</span><span class="p">()</span> <span class="k">for</span> <span class="n">field</span> <span class="ow">in</span> <span class="n">selectedLayer</span><span class="o">.</span><span class="n">fields</span><span class="p">()]</span>
   <span class="c1"># write header</span>
-  <span class="n">line</span> <span class="o">=</span> <span class="s1">&#39;,&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">name</span> <span class="k">for</span> <span class="n">name</span> <span class="ow">in</span> <span class="n">fieldnames</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span>
+  <span class="n">line</span> <span class="o">=</span> <span class="s1">','</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">name</span> <span class="k">for</span> <span class="n">name</span> <span class="ow">in</span> <span class="n">fieldnames</span><span class="p">)</span> <span class="o">+</span> <span class="s1">'</span><span class="se">\n</span><span class="s1">'</span>
   <span class="n">output_file</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">line</span><span class="p">)</span>
   <span class="c1"># write feature attributes</span>
   <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">selectedLayer</span><span class="o">.</span><span class="n">getFeatures</span><span class="p">():</span>
-    <span class="n">line</span> <span class="o">=</span> <span class="s1">&#39;,&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">f</span><span class="p">[</span><span class="n">name</span><span class="p">])</span> <span class="k">for</span> <span class="n">name</span> <span class="ow">in</span> <span class="n">fieldnames</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span>
+    <span class="n">line</span> <span class="o">=</span> <span class="s1">','</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">f</span><span class="p">[</span><span class="n">name</span><span class="p">])</span> <span class="k">for</span> <span class="n">name</span> <span class="ow">in</span> <span class="n">fieldnames</span><span class="p">)</span> <span class="o">+</span> <span class="s1">'</span><span class="se">\n</span><span class="s1">'</span>
     <span class="n">output_file</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">line</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -517,7 +517,7 @@ pyrcc5 -o resources.py resources.qrc
 </ol>
 <blockquote>
 <div><div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="bp">self</span><span class="o">.</span><span class="n">iface</span><span class="o">.</span><span class="n">messageBar</span><span class="p">()</span><span class="o">.</span><span class="n">pushMessage</span><span class="p">(</span>
-  <span class="s2">&quot;Success&quot;</span><span class="p">,</span> <span class="s2">&quot;Output file written at &quot;</span> <span class="o">+</span> <span class="n">filename</span><span class="p">,</span>
+  <span class="s2">"Success"</span><span class="p">,</span> <span class="s2">"Output file written at "</span> <span class="o">+</span> <span class="n">filename</span><span class="p">,</span>
   <span class="n">level</span><span class="o">=</span><span class="n">Qgis</span><span class="o">.</span><span class="n">Success</span><span class="p">,</span> <span class="n">duration</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -540,7 +540,7 @@ upload it to the QGIS plugin repository.</p>
 </div>
 <p>Below is the full <code class="docutils literal notranslate"><span class="pre">save_attributes.py</span></code> file as a reference.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># -*- coding: utf-8 -*-</span>
-<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">"""</span>
 <span class="sd">/***************************************************************************</span>
 <span class="sd"> SaveAttributes</span>
 <span class="sd">                                 A QGIS plugin</span>
@@ -561,7 +561,7 @@ upload it to the QGIS plugin repository.</p>
 <span class="sd"> *   (at your option) any later version.                                   *</span>
 <span class="sd"> *                                                                         *</span>
 <span class="sd"> ***************************************************************************/</span>
-<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">"""</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">PyQt5.QtCore</span><span class="w"> </span><span class="kn">import</span> <span class="n">QSettings</span><span class="p">,</span> <span class="n">QTranslator</span><span class="p">,</span> <span class="n">qVersion</span><span class="p">,</span> <span class="n">QCoreApplication</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">PyQt5.QtGui</span><span class="w"> </span><span class="kn">import</span> <span class="n">QIcon</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">PyQt5.QtWidgets</span><span class="w"> </span><span class="kn">import</span> <span class="n">QAction</span><span class="p">,</span> <span class="n">QFileDialog</span>
@@ -575,37 +575,37 @@ upload it to the QGIS plugin repository.</p>
 
 
 <span class="k">class</span><span class="w"> </span><span class="nc">SaveAttributes</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;QGIS Plugin Implementation.&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""QGIS Plugin Implementation."""</span>
 
     <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">iface</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Constructor.</span>
+<span class="w">        </span><span class="sd">"""Constructor.</span>
 
 <span class="sd">        :param iface: An interface instance that will be passed to this class</span>
 <span class="sd">            which provides the hook by which you can manipulate the QGIS</span>
 <span class="sd">            application at run time.</span>
 <span class="sd">        :type iface: QgsInterface</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="c1"># Save reference to the QGIS interface</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">iface</span> <span class="o">=</span> <span class="n">iface</span>
         <span class="c1"># initialize plugin directory</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">plugin_dir</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="vm">__file__</span><span class="p">)</span>
         <span class="c1"># initialize locale</span>
-        <span class="n">locale</span> <span class="o">=</span> <span class="n">QSettings</span><span class="p">()</span><span class="o">.</span><span class="n">value</span><span class="p">(</span><span class="s1">&#39;locale/userLocale&#39;</span><span class="p">)[</span><span class="mi">0</span><span class="p">:</span><span class="mi">2</span><span class="p">]</span>
+        <span class="n">locale</span> <span class="o">=</span> <span class="n">QSettings</span><span class="p">()</span><span class="o">.</span><span class="n">value</span><span class="p">(</span><span class="s1">'locale/userLocale'</span><span class="p">)[</span><span class="mi">0</span><span class="p">:</span><span class="mi">2</span><span class="p">]</span>
         <span class="n">locale_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">plugin_dir</span><span class="p">,</span>
-            <span class="s1">&#39;i18n&#39;</span><span class="p">,</span>
-            <span class="s1">&#39;SaveAttributes_</span><span class="si">{}</span><span class="s1">.qm&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">locale</span><span class="p">))</span>
+            <span class="s1">'i18n'</span><span class="p">,</span>
+            <span class="s1">'SaveAttributes_</span><span class="si">{}</span><span class="s1">.qm'</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">locale</span><span class="p">))</span>
 
         <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">locale_path</span><span class="p">):</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">translator</span> <span class="o">=</span> <span class="n">QTranslator</span><span class="p">()</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">translator</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">locale_path</span><span class="p">)</span>
 
-            <span class="k">if</span> <span class="n">qVersion</span><span class="p">()</span> <span class="o">&gt;</span> <span class="s1">&#39;4.3.3&#39;</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">qVersion</span><span class="p">()</span> <span class="o">&gt;</span> <span class="s1">'4.3.3'</span><span class="p">:</span>
                 <span class="n">QCoreApplication</span><span class="o">.</span><span class="n">installTranslator</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">translator</span><span class="p">)</span>
 
         <span class="c1"># Declare instance attributes</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">actions</span> <span class="o">=</span> <span class="p">[]</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">menu</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">tr</span><span class="p">(</span><span class="sa">u</span><span class="s1">&#39;&amp;Save Attributes&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">menu</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">tr</span><span class="p">(</span><span class="sa">u</span><span class="s1">'&amp;Save Attributes'</span><span class="p">)</span>
 
         <span class="c1"># Check if plugin was started the first time in current QGIS session</span>
         <span class="c1"># Must be set in initGui() to survive plugin reloads</span>
@@ -613,7 +613,7 @@ upload it to the QGIS plugin repository.</p>
 
     <span class="c1"># noinspection PyMethodMayBeStatic</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">tr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">message</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Get the translation for a string using Qt translation API.</span>
+<span class="w">        </span><span class="sd">"""Get the translation for a string using Qt translation API.</span>
 
 <span class="sd">        We implement this ourselves since we do not inherit QObject.</span>
 
@@ -622,9 +622,9 @@ upload it to the QGIS plugin repository.</p>
 
 <span class="sd">        :returns: Translated version of message.</span>
 <span class="sd">        :rtype: QString</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="c1"># noinspection PyTypeChecker,PyArgumentList,PyCallByClass</span>
-        <span class="k">return</span> <span class="n">QCoreApplication</span><span class="o">.</span><span class="n">translate</span><span class="p">(</span><span class="s1">&#39;SaveAttributes&#39;</span><span class="p">,</span> <span class="n">message</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">QCoreApplication</span><span class="o">.</span><span class="n">translate</span><span class="p">(</span><span class="s1">'SaveAttributes'</span><span class="p">,</span> <span class="n">message</span><span class="p">)</span>
 
 
     <span class="k">def</span><span class="w"> </span><span class="nf">add_action</span><span class="p">(</span>
@@ -638,10 +638,10 @@ upload it to the QGIS plugin repository.</p>
         <span class="n">status_tip</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
         <span class="n">whats_this</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
         <span class="n">parent</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Add a toolbar icon to the toolbar.</span>
+<span class="w">        </span><span class="sd">"""Add a toolbar icon to the toolbar.</span>
 
 <span class="sd">        :param icon_path: Path to the icon for this action. Can be a resource</span>
-<span class="sd">            path (e.g. &#39;:/plugins/foo/bar.png&#39;) or a normal file system path.</span>
+<span class="sd">            path (e.g. ':/plugins/foo/bar.png') or a normal file system path.</span>
 <span class="sd">        :type icon_path: str</span>
 
 <span class="sd">        :param text: Text that should be shown in menu items for this action.</span>
@@ -675,7 +675,7 @@ upload it to the QGIS plugin repository.</p>
 <span class="sd">        :returns: The action that was created. Note that the action is also</span>
 <span class="sd">            added to self.actions list.</span>
 <span class="sd">        :rtype: QAction</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
 
         <span class="n">icon</span> <span class="o">=</span> <span class="n">QIcon</span><span class="p">(</span><span class="n">icon_path</span><span class="p">)</span>
         <span class="n">action</span> <span class="o">=</span> <span class="n">QAction</span><span class="p">(</span><span class="n">icon</span><span class="p">,</span> <span class="n">text</span><span class="p">,</span> <span class="n">parent</span><span class="p">)</span>
@@ -702,12 +702,12 @@ upload it to the QGIS plugin repository.</p>
         <span class="k">return</span> <span class="n">action</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">initGui</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Create the menu entries and toolbar icons inside the QGIS GUI.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""Create the menu entries and toolbar icons inside the QGIS GUI."""</span>
 
-        <span class="n">icon_path</span> <span class="o">=</span> <span class="s1">&#39;:/plugins/save_attributes/icon.png&#39;</span>
+        <span class="n">icon_path</span> <span class="o">=</span> <span class="s1">':/plugins/save_attributes/icon.png'</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">add_action</span><span class="p">(</span>
             <span class="n">icon_path</span><span class="p">,</span>
-            <span class="n">text</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">tr</span><span class="p">(</span><span class="sa">u</span><span class="s1">&#39;Save Attributes as CSV&#39;</span><span class="p">),</span>
+            <span class="n">text</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">tr</span><span class="p">(</span><span class="sa">u</span><span class="s1">'Save Attributes as CSV'</span><span class="p">),</span>
             <span class="n">callback</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">run</span><span class="p">,</span>
             <span class="n">parent</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">iface</span><span class="o">.</span><span class="n">mainWindow</span><span class="p">())</span>
 
@@ -716,20 +716,20 @@ upload it to the QGIS plugin repository.</p>
 
 
     <span class="k">def</span><span class="w"> </span><span class="nf">unload</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Removes the plugin menu item and icon from QGIS GUI.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""Removes the plugin menu item and icon from QGIS GUI."""</span>
         <span class="k">for</span> <span class="n">action</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">actions</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">iface</span><span class="o">.</span><span class="n">removePluginVectorMenu</span><span class="p">(</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">tr</span><span class="p">(</span><span class="sa">u</span><span class="s1">&#39;&amp;Save Attributes&#39;</span><span class="p">),</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">tr</span><span class="p">(</span><span class="sa">u</span><span class="s1">'&amp;Save Attributes'</span><span class="p">),</span>
                 <span class="n">action</span><span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">iface</span><span class="o">.</span><span class="n">removeToolBarIcon</span><span class="p">(</span><span class="n">action</span><span class="p">)</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">select_output_file</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
       <span class="n">filename</span><span class="p">,</span> <span class="n">_filter</span> <span class="o">=</span> <span class="n">QFileDialog</span><span class="o">.</span><span class="n">getSaveFileName</span><span class="p">(</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">dlg</span><span class="p">,</span> <span class="s2">&quot;Select   output file &quot;</span><span class="p">,</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="s1">&#39;*.csv&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">dlg</span><span class="p">,</span> <span class="s2">"Select   output file "</span><span class="p">,</span><span class="s2">""</span><span class="p">,</span> <span class="s1">'*.csv'</span><span class="p">)</span>
       <span class="bp">self</span><span class="o">.</span><span class="n">dlg</span><span class="o">.</span><span class="n">lineEdit</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
       
     <span class="k">def</span><span class="w"> </span><span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Run method that performs all the real work&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""Run method that performs all the real work"""</span>
 
         <span class="c1"># Create the dialog with elements (after translation) and keep reference</span>
         <span class="c1"># Only create GUI ONCE in callback, so that it will only load when the plugin is started</span>
@@ -755,19 +755,19 @@ upload it to the QGIS plugin repository.</p>
         <span class="c1"># See if OK was pressed</span>
         <span class="k">if</span> <span class="n">result</span><span class="p">:</span>
           <span class="n">filename</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">dlg</span><span class="o">.</span><span class="n">lineEdit</span><span class="o">.</span><span class="n">text</span><span class="p">()</span>
-          <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">output_file</span><span class="p">:</span>
+          <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="s1">'w'</span><span class="p">)</span> <span class="k">as</span> <span class="n">output_file</span><span class="p">:</span>
             <span class="n">selectedLayerIndex</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">dlg</span><span class="o">.</span><span class="n">comboBox</span><span class="o">.</span><span class="n">currentIndex</span><span class="p">()</span>
             <span class="n">selectedLayer</span> <span class="o">=</span> <span class="n">layers</span><span class="p">[</span><span class="n">selectedLayerIndex</span><span class="p">]</span><span class="o">.</span><span class="n">layer</span><span class="p">()</span>
             <span class="n">fieldnames</span> <span class="o">=</span> <span class="p">[</span><span class="n">field</span><span class="o">.</span><span class="n">name</span><span class="p">()</span> <span class="k">for</span> <span class="n">field</span> <span class="ow">in</span> <span class="n">selectedLayer</span><span class="o">.</span><span class="n">fields</span><span class="p">()]</span>
             <span class="c1"># write header</span>
-            <span class="n">line</span> <span class="o">=</span> <span class="s1">&#39;,&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">name</span> <span class="k">for</span> <span class="n">name</span> <span class="ow">in</span> <span class="n">fieldnames</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span>
+            <span class="n">line</span> <span class="o">=</span> <span class="s1">','</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">name</span> <span class="k">for</span> <span class="n">name</span> <span class="ow">in</span> <span class="n">fieldnames</span><span class="p">)</span> <span class="o">+</span> <span class="s1">'</span><span class="se">\n</span><span class="s1">'</span>
             <span class="n">output_file</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">line</span><span class="p">)</span>
             <span class="c1"># write feature attributes</span>
             <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">selectedLayer</span><span class="o">.</span><span class="n">getFeatures</span><span class="p">():</span>
-              <span class="n">line</span> <span class="o">=</span> <span class="s1">&#39;,&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">f</span><span class="p">[</span><span class="n">name</span><span class="p">])</span> <span class="k">for</span> <span class="n">name</span> <span class="ow">in</span> <span class="n">fieldnames</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span>
+              <span class="n">line</span> <span class="o">=</span> <span class="s1">','</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">f</span><span class="p">[</span><span class="n">name</span><span class="p">])</span> <span class="k">for</span> <span class="n">name</span> <span class="ow">in</span> <span class="n">fieldnames</span><span class="p">)</span> <span class="o">+</span> <span class="s1">'</span><span class="se">\n</span><span class="s1">'</span>
               <span class="n">output_file</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">line</span><span class="p">)</span>
           <span class="bp">self</span><span class="o">.</span><span class="n">iface</span><span class="o">.</span><span class="n">messageBar</span><span class="p">()</span><span class="o">.</span><span class="n">pushMessage</span><span class="p">(</span>
-            <span class="s2">&quot;Success&quot;</span><span class="p">,</span> <span class="s2">&quot;Output file written at &quot;</span> <span class="o">+</span> <span class="n">filename</span><span class="p">,</span>
+            <span class="s2">"Success"</span><span class="p">,</span> <span class="s2">"Output file written at "</span> <span class="o">+</span> <span class="n">filename</span><span class="p">,</span>
             <span class="n">level</span><span class="o">=</span><span class="n">Qgis</span><span class="o">.</span><span class="n">Success</span><span class="p">,</span> <span class="n">duration</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -806,7 +806,7 @@ upload it to the QGIS plugin repository.</p>
     </p>
     <p>
         &copy; Copyright 2025, Ujaval Gandhi.<br/>
-      Ultima actualizare la aug. 16, 2026.<br/>
+      Ultima actualizare la sept. 17, 2026.<br/>
       Created using <a href="http://sphinx-doc.org/">Sphinx</a> 9.1.0.<br/>
     </p>
   </div>

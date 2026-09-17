@@ -240,15 +240,15 @@ under <span class="menuselection">profiles ‣ default ‣ processing ‣ script
 <span class="bp">self</span><span class="o">.</span><span class="n">addParameter</span><span class="p">(</span>
         <span class="n">QgsProcessingParameterField</span><span class="p">(</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">DISSOLVE_FIELD</span><span class="p">,</span>
-                <span class="s1">&#39;Choose Dissolve Field&#39;</span><span class="p">,</span>
-                <span class="s1">&#39;&#39;</span><span class="p">,</span>
+                <span class="s1">'Choose Dissolve Field'</span><span class="p">,</span>
+                <span class="s1">''</span><span class="p">,</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">INPUT</span><span class="p">))</span>
 
 <span class="bp">self</span><span class="o">.</span><span class="n">addParameter</span><span class="p">(</span>
         <span class="n">QgsProcessingParameterField</span><span class="p">(</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">SUM_FIELD</span><span class="p">,</span>
-                <span class="s1">&#39;Choose Sum Field&#39;</span><span class="p">,</span>
-                <span class="s1">&#39;&#39;</span><span class="p">,</span>
+                <span class="s1">'Choose Sum Field'</span><span class="p">,</span>
+                <span class="s1">''</span><span class="p">,</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">INPUT</span><span class="p">))</span>
 </pre></div>
 </div>
@@ -279,7 +279,7 @@ under <span class="menuselection">profiles ‣ default ‣ processing ‣ script
 
 <span class="n">fields</span> <span class="o">=</span> <span class="n">QgsFields</span><span class="p">()</span>
 <span class="n">fields</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">QgsField</span><span class="p">(</span><span class="n">dissolve_field</span><span class="p">,</span> <span class="n">QVariant</span><span class="o">.</span><span class="n">String</span><span class="p">))</span>
-<span class="n">fields</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">QgsField</span><span class="p">(</span><span class="s1">&#39;SUM_&#39;</span> <span class="o">+</span> <span class="n">sum_field</span><span class="p">,</span> <span class="n">QVariant</span><span class="o">.</span><span class="n">Double</span><span class="p">))</span>
+<span class="n">fields</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">QgsField</span><span class="p">(</span><span class="s1">'SUM_'</span> <span class="o">+</span> <span class="n">sum_field</span><span class="p">,</span> <span class="n">QVariant</span><span class="o">.</span><span class="n">Double</span><span class="p">))</span>
 
 <span class="p">(</span><span class="n">sink</span><span class="p">,</span> <span class="n">dest_id</span><span class="p">)</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">parameterAsSink</span><span class="p">(</span>
         <span class="n">parameters</span><span class="p">,</span>
@@ -292,7 +292,7 @@ under <span class="menuselection">profiles ‣ default ‣ processing ‣ script
 <ol class="arabic simple" start="9">
 <li><p>Now we will ready the input features and create a dictionary to hold the unique values from the dissolve_field and the sum of the values from the sum_field. Note the use of <code class="docutils literal notranslate"><span class="pre">feedback.pushInfo()</span></code> method to communicate the status with the user.</p></li>
 </ol>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">feedback</span><span class="o">.</span><span class="n">pushInfo</span><span class="p">(</span><span class="s1">&#39;Extracting unique values from dissolve_field and computing sum&#39;</span><span class="p">)</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">feedback</span><span class="o">.</span><span class="n">pushInfo</span><span class="p">(</span><span class="s1">'Extracting unique values from dissolve_field and computing sum'</span><span class="p">)</span>
 
 <span class="n">features</span> <span class="o">=</span> <span class="n">source</span><span class="o">.</span><span class="n">getFeatures</span><span class="p">()</span>
 <span class="n">unique_values</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">f</span><span class="p">[</span><span class="n">dissolve_field</span><span class="p">]</span> <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">features</span><span class="p">)</span>
@@ -321,12 +321,12 @@ under <span class="menuselection">profiles ‣ default ‣ processing ‣ script
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">qgis.core</span><span class="w"> </span><span class="kn">import</span> <span class="n">QgsFeature</span>
 
 <span class="c1"># Running the processing dissolve algorithm</span>
-<span class="n">feedback</span><span class="o">.</span><span class="n">pushInfo</span><span class="p">(</span><span class="s1">&#39;Dissolving features&#39;</span><span class="p">)</span>
-<span class="n">dissolved_layer</span> <span class="o">=</span> <span class="n">processing</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="s2">&quot;native:dissolve&quot;</span><span class="p">,</span> <span class="p">{</span>
-        <span class="s1">&#39;INPUT&#39;</span><span class="p">:</span> <span class="n">parameters</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">INPUT</span><span class="p">],</span>
-        <span class="s1">&#39;FIELD&#39;</span><span class="p">:</span> <span class="n">dissolve_field</span><span class="p">,</span>
-        <span class="s1">&#39;OUTPUT&#39;</span><span class="p">:</span> <span class="s1">&#39;memory:&#39;</span>
-        <span class="p">},</span> <span class="n">context</span><span class="o">=</span><span class="n">context</span><span class="p">,</span> <span class="n">feedback</span><span class="o">=</span><span class="n">feedback</span><span class="p">)[</span><span class="s1">&#39;OUTPUT&#39;</span><span class="p">]</span>
+<span class="n">feedback</span><span class="o">.</span><span class="n">pushInfo</span><span class="p">(</span><span class="s1">'Dissolving features'</span><span class="p">)</span>
+<span class="n">dissolved_layer</span> <span class="o">=</span> <span class="n">processing</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="s2">"native:dissolve"</span><span class="p">,</span> <span class="p">{</span>
+        <span class="s1">'INPUT'</span><span class="p">:</span> <span class="n">parameters</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">INPUT</span><span class="p">],</span>
+        <span class="s1">'FIELD'</span><span class="p">:</span> <span class="n">dissolve_field</span><span class="p">,</span>
+        <span class="s1">'OUTPUT'</span><span class="p">:</span> <span class="s1">'memory:'</span>
+        <span class="p">},</span> <span class="n">context</span><span class="o">=</span><span class="n">context</span><span class="p">,</span> <span class="n">feedback</span><span class="o">=</span><span class="n">feedback</span><span class="p">)[</span><span class="s1">'OUTPUT'</span><span class="p">]</span>
 
 <span class="c1"># Read the dissolved layer and create output features</span>
 <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">dissolved_layer</span><span class="o">.</span><span class="n">getFeatures</span><span class="p">():</span>
@@ -361,7 +361,7 @@ under <span class="menuselection">profiles ‣ default ‣ processing ‣ script
 <ol class="arabic simple" start="15">
 <li><p>Enter the following expression to select features from North and South America and click <span class="guilabel">Select</span>.</p></li>
 </ol>
-<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>&quot;CONTINENT&quot; = &#39;North America&#39; OR &quot;CONTINENT&quot; = &#39;South America&#39;
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>"CONTINENT" = 'North America' OR "CONTINENT" = 'South America'
 </pre></div>
 </div>
 <img alt="../../_images/1529.png" class="align-center" src="../../_images/1529.png" />
@@ -380,7 +380,7 @@ under <span class="menuselection">profiles ‣ default ‣ processing ‣ script
 <p>Below is the complete script for reference. You may modify it to suit your needs.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># -*- coding: utf-8 -*-</span>
 
-<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">"""</span>
 <span class="sd">***************************************************************************</span>
 <span class="sd">*                                                                         *</span>
 <span class="sd">*   This program is free software; you can redistribute it and/or modify  *</span>
@@ -389,7 +389,7 @@ under <span class="menuselection">profiles ‣ default ‣ processing ‣ script
 <span class="sd">*   (at your option) any later version.                                   *</span>
 <span class="sd">*                                                                         *</span>
 <span class="sd">***************************************************************************</span>
-<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">"""</span>
 
 <span class="kn">from</span><span class="w"> </span><span class="nn">PyQt5.QtCore</span><span class="w"> </span><span class="kn">import</span> <span class="n">QCoreApplication</span><span class="p">,</span> <span class="n">QVariant</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">qgis.core</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span><span class="n">QgsProcessing</span><span class="p">,</span>
@@ -407,92 +407,92 @@ under <span class="menuselection">profiles ‣ default ‣ processing ‣ script
 
 
 <span class="k">class</span><span class="w"> </span><span class="nc">DissolveProcessingAlgorithm</span><span class="p">(</span><span class="n">QgsProcessingAlgorithm</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""</span>
 <span class="sd">    Dissolve algorithm that dissolves features based on selected</span>
 <span class="sd">    attribute and summarizes the selected field by cumputing the</span>
 <span class="sd">    sum of dissolved features.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">INPUT</span> <span class="o">=</span> <span class="s1">&#39;INPUT&#39;</span>
-    <span class="n">OUTPUT</span> <span class="o">=</span> <span class="s1">&#39;OUTPUT&#39;</span>
-    <span class="n">DISSOLVE_FIELD</span> <span class="o">=</span> <span class="s1">&#39;dissolve_field&#39;</span>
-    <span class="n">SUM_FIELD</span> <span class="o">=</span> <span class="s1">&#39;sum_field&#39;</span>
+<span class="sd">    """</span>
+    <span class="n">INPUT</span> <span class="o">=</span> <span class="s1">'INPUT'</span>
+    <span class="n">OUTPUT</span> <span class="o">=</span> <span class="s1">'OUTPUT'</span>
+    <span class="n">DISSOLVE_FIELD</span> <span class="o">=</span> <span class="s1">'dissolve_field'</span>
+    <span class="n">SUM_FIELD</span> <span class="o">=</span> <span class="s1">'sum_field'</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">tr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">string</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Returns a translatable string with the self.tr() function.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="n">QCoreApplication</span><span class="o">.</span><span class="n">translate</span><span class="p">(</span><span class="s1">&#39;Processing&#39;</span><span class="p">,</span> <span class="n">string</span><span class="p">)</span>
+<span class="sd">        """</span>
+        <span class="k">return</span> <span class="n">QCoreApplication</span><span class="o">.</span><span class="n">translate</span><span class="p">(</span><span class="s1">'Processing'</span><span class="p">,</span> <span class="n">string</span><span class="p">)</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">createInstance</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="n">DissolveProcessingAlgorithm</span><span class="p">()</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">name</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Returns the algorithm name, used for identifying the algorithm. This</span>
 <span class="sd">        string should be fixed for the algorithm, and must not be localised.</span>
 <span class="sd">        The name should be unique within each provider. Names should contain</span>
 <span class="sd">        lowercase alphanumeric characters only and no spaces or other</span>
 <span class="sd">        formatting characters.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="s1">&#39;dissolve_with_sum&#39;</span>
+<span class="sd">        """</span>
+        <span class="k">return</span> <span class="s1">'dissolve_with_sum'</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">displayName</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Returns the translated algorithm name, which should be used for any</span>
 <span class="sd">        user-visible display of the algorithm name.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">tr</span><span class="p">(</span><span class="s1">&#39;Dissolve with Sum&#39;</span><span class="p">)</span>
+<span class="sd">        """</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">tr</span><span class="p">(</span><span class="s1">'Dissolve with Sum'</span><span class="p">)</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">group</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Returns the name of the group this algorithm belongs to. This string</span>
 <span class="sd">        should be localised.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">tr</span><span class="p">(</span><span class="s1">&#39;scripts&#39;</span><span class="p">)</span>
+<span class="sd">        """</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">tr</span><span class="p">(</span><span class="s1">'scripts'</span><span class="p">)</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">groupId</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Returns the unique ID of the group this algorithm belongs to. This</span>
 <span class="sd">        string should be fixed for the algorithm, and must not be localised.</span>
 <span class="sd">        The group id should be unique within each provider. Group id should</span>
 <span class="sd">        contain lowercase alphanumeric characters only and no spaces or other</span>
 <span class="sd">        formatting characters.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="s1">&#39;scripts&#39;</span>
+<span class="sd">        """</span>
+        <span class="k">return</span> <span class="s1">'scripts'</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">shortHelpString</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Returns a localised short helper string for the algorithm. This string</span>
 <span class="sd">        should provide a basic description about what the algorithm does and the</span>
 <span class="sd">        parameters and outputs associated with it..</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">tr</span><span class="p">(</span><span class="s2">&quot;Dissolves selected features and creates and sums values of features that were dissolved&quot;</span><span class="p">)</span>
+<span class="sd">        """</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">tr</span><span class="p">(</span><span class="s2">"Dissolves selected features and creates and sums values of features that were dissolved"</span><span class="p">)</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">initAlgorithm</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">config</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Here we define the inputs and output of the algorithm, along</span>
 <span class="sd">        with some other properties.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="c1"># We add the input vector features source. It can have any kind of</span>
         <span class="c1"># geometry.</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">addParameter</span><span class="p">(</span>
             <span class="n">QgsProcessingParameterFeatureSource</span><span class="p">(</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">INPUT</span><span class="p">,</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">tr</span><span class="p">(</span><span class="s1">&#39;Input layer&#39;</span><span class="p">),</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">tr</span><span class="p">(</span><span class="s1">'Input layer'</span><span class="p">),</span>
                 <span class="p">[</span><span class="n">QgsProcessing</span><span class="o">.</span><span class="n">TypeVectorAnyGeometry</span><span class="p">]</span>
             <span class="p">)</span>
         <span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">addParameter</span><span class="p">(</span>
             <span class="n">QgsProcessingParameterField</span><span class="p">(</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">DISSOLVE_FIELD</span><span class="p">,</span>
-                <span class="s1">&#39;Choose Dissolve Field&#39;</span><span class="p">,</span>
-                <span class="s1">&#39;&#39;</span><span class="p">,</span>
+                <span class="s1">'Choose Dissolve Field'</span><span class="p">,</span>
+                <span class="s1">''</span><span class="p">,</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">INPUT</span><span class="p">))</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">addParameter</span><span class="p">(</span>
             <span class="n">QgsProcessingParameterField</span><span class="p">(</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">SUM_FIELD</span><span class="p">,</span>
-                <span class="s1">&#39;Choose Sum Field&#39;</span><span class="p">,</span>
-                <span class="s1">&#39;&#39;</span><span class="p">,</span>
+                <span class="s1">'Choose Sum Field'</span><span class="p">,</span>
+                <span class="s1">''</span><span class="p">,</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">INPUT</span><span class="p">))</span>
         <span class="c1"># We add a feature sink in which to store our processed features (this</span>
         <span class="c1"># usually takes the form of a newly created vector layer when the</span>
@@ -500,14 +500,14 @@ under <span class="menuselection">profiles ‣ default ‣ processing ‣ script
         <span class="bp">self</span><span class="o">.</span><span class="n">addParameter</span><span class="p">(</span>
             <span class="n">QgsProcessingParameterFeatureSink</span><span class="p">(</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">OUTPUT</span><span class="p">,</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">tr</span><span class="p">(</span><span class="s1">&#39;Output layer&#39;</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">tr</span><span class="p">(</span><span class="s1">'Output layer'</span><span class="p">)</span>
             <span class="p">)</span>
         <span class="p">)</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">processAlgorithm</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">parameters</span><span class="p">,</span> <span class="n">context</span><span class="p">,</span> <span class="n">feedback</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Here is where the processing itself takes place.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="n">source</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">parameterAsSource</span><span class="p">(</span>
             <span class="n">parameters</span><span class="p">,</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">INPUT</span><span class="p">,</span>
@@ -524,7 +524,7 @@ under <span class="menuselection">profiles ‣ default ‣ processing ‣ script
         
         <span class="n">fields</span> <span class="o">=</span> <span class="n">QgsFields</span><span class="p">()</span>
         <span class="n">fields</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">QgsField</span><span class="p">(</span><span class="n">dissolve_field</span><span class="p">,</span> <span class="n">QVariant</span><span class="o">.</span><span class="n">String</span><span class="p">))</span>
-        <span class="n">fields</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">QgsField</span><span class="p">(</span><span class="s1">&#39;SUM_&#39;</span> <span class="o">+</span> <span class="n">sum_field</span><span class="p">,</span> <span class="n">QVariant</span><span class="o">.</span><span class="n">Double</span><span class="p">))</span>
+        <span class="n">fields</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">QgsField</span><span class="p">(</span><span class="s1">'SUM_'</span> <span class="o">+</span> <span class="n">sum_field</span><span class="p">,</span> <span class="n">QVariant</span><span class="o">.</span><span class="n">Double</span><span class="p">))</span>
         
         <span class="p">(</span><span class="n">sink</span><span class="p">,</span> <span class="n">dest_id</span><span class="p">)</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">parameterAsSink</span><span class="p">(</span>
             <span class="n">parameters</span><span class="p">,</span>
@@ -533,7 +533,7 @@ under <span class="menuselection">profiles ‣ default ‣ processing ‣ script
         
         <span class="c1"># Create a dictionary to hold the unique values from the </span>
         <span class="c1"># dissolve_field and the sum of the values from the sum_field</span>
-        <span class="n">feedback</span><span class="o">.</span><span class="n">pushInfo</span><span class="p">(</span><span class="s1">&#39;Extracting unique values from dissolve_field and computing sum&#39;</span><span class="p">)</span>
+        <span class="n">feedback</span><span class="o">.</span><span class="n">pushInfo</span><span class="p">(</span><span class="s1">'Extracting unique values from dissolve_field and computing sum'</span><span class="p">)</span>
         <span class="n">features</span> <span class="o">=</span> <span class="n">source</span><span class="o">.</span><span class="n">getFeatures</span><span class="p">()</span>
         <span class="n">unique_values</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">f</span><span class="p">[</span><span class="n">dissolve_field</span><span class="p">]</span> <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">features</span><span class="p">)</span>
         <span class="c1"># Get Indices of dissolve field and sum field</span>
@@ -551,12 +551,12 @@ under <span class="menuselection">profiles ‣ default ‣ processing ‣ script
             <span class="n">sum_unique_values</span><span class="p">[</span><span class="n">unique_value</span><span class="p">]</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">val_list</span><span class="p">)</span>
         
         <span class="c1"># Running the processing dissolve algorithm</span>
-        <span class="n">feedback</span><span class="o">.</span><span class="n">pushInfo</span><span class="p">(</span><span class="s1">&#39;Dissolving features&#39;</span><span class="p">)</span>
-        <span class="n">dissolved_layer</span> <span class="o">=</span> <span class="n">processing</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="s2">&quot;native:dissolve&quot;</span><span class="p">,</span> <span class="p">{</span>
-            <span class="s1">&#39;INPUT&#39;</span><span class="p">:</span> <span class="n">parameters</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">INPUT</span><span class="p">],</span>
-            <span class="s1">&#39;FIELD&#39;</span><span class="p">:</span> <span class="n">dissolve_field</span><span class="p">,</span>
-            <span class="s1">&#39;OUTPUT&#39;</span><span class="p">:</span> <span class="s1">&#39;memory:&#39;</span>
-        <span class="p">},</span> <span class="n">context</span><span class="o">=</span><span class="n">context</span><span class="p">,</span> <span class="n">feedback</span><span class="o">=</span><span class="n">feedback</span><span class="p">)[</span><span class="s1">&#39;OUTPUT&#39;</span><span class="p">]</span>
+        <span class="n">feedback</span><span class="o">.</span><span class="n">pushInfo</span><span class="p">(</span><span class="s1">'Dissolving features'</span><span class="p">)</span>
+        <span class="n">dissolved_layer</span> <span class="o">=</span> <span class="n">processing</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="s2">"native:dissolve"</span><span class="p">,</span> <span class="p">{</span>
+            <span class="s1">'INPUT'</span><span class="p">:</span> <span class="n">parameters</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">INPUT</span><span class="p">],</span>
+            <span class="s1">'FIELD'</span><span class="p">:</span> <span class="n">dissolve_field</span><span class="p">,</span>
+            <span class="s1">'OUTPUT'</span><span class="p">:</span> <span class="s1">'memory:'</span>
+        <span class="p">},</span> <span class="n">context</span><span class="o">=</span><span class="n">context</span><span class="p">,</span> <span class="n">feedback</span><span class="o">=</span><span class="n">feedback</span><span class="p">)[</span><span class="s1">'OUTPUT'</span><span class="p">]</span>
         
         <span class="c1"># Read the dissolved layer and create output features</span>
         <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">dissolved_layer</span><span class="o">.</span><span class="n">getFeatures</span><span class="p">():</span>
@@ -605,7 +605,7 @@ under <span class="menuselection">profiles ‣ default ‣ processing ‣ script
     </p>
     <p>
         &copy; Copyright 2025, Ujaval Gandhi.<br/>
-      최종 업데이트: 8월 16, 2026<br/>
+      최종 업데이트: 9월 17, 2026<br/>
       Created using <a href="http://sphinx-doc.org/">Sphinx</a> 9.1.0.<br/>
     </p>
   </div>

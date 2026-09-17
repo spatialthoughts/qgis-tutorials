@@ -250,7 +250,7 @@
 <li><p>In het dialoogvenster <span class="guilabel">Veld calculator</span>, selecteer <code class="docutils literal notranslate"><span class="pre">NST-EST2023-ALLDATA</span></code> als de <span class="guilabel">Invoerlaag</span>, voer <code class="docutils literal notranslate"><span class="pre">GEOID</span></code> in als de <span class="guilabel">Veldnaam</span>, en stel <span class="guilabel">Type resultaatveld ` in als ``Tekst (string)`</span>. We zullen nu de getallen uit het veld <code class="docutils literal notranslate"><span class="pre">STATE</span></code> nemen en de functie <code class="docutils literal notranslate"><span class="pre">lpad()</span></code> gebruiken om een 2-cijferige tekenreeks, aangevuld met voorloopnullen te maken. Voer de volgende expressie in en klik op <span class="guilabel">Uitvoeren</span></p></li>
 </ol>
 <blockquote>
-<div><div class="highlight-none notranslate"><div class="highlight"><pre><span></span>lpad(&quot;STATE&quot;, 2, &#39;0&#39;)
+<div><div class="highlight-none notranslate"><div class="highlight"><pre><span></span>lpad("STATE", 2, '0')
 </pre></div>
 </div>
 <img alt="../../_images/data82.png" class="align-center" src="../../_images/data82.png" />
@@ -313,7 +313,7 @@
 <li><p>In het dialoogvenster <span class="guilabel">Veld calculator</span>, selecteer <code class="docutils literal notranslate"><span class="pre">us_states_with_population</span></code> als de <span class="guilabel">Invoerlaag</span>. Voer <code class="docutils literal notranslate"><span class="pre">density</span></code> in als de <span class="guilabel">Veldnaam</span>. Voer de volgende expressie in om de dichtheid te berekenen. Omdat de functie <code class="docutils literal notranslate"><span class="pre">area(&#64;geometry)</span></code> het gebied berekent in de eenheid van het CRS (wat in meters is), passen we de conversiefactor toe om te converteren naar vierkante kilometers. Klik op <span class="guilabel">Uitvoeren</span>.</p></li>
 </ol>
 <blockquote>
-<div><div class="highlight-none notranslate"><div class="highlight"><pre><span></span>1000*1000* &quot;POPESTIMATE2023&quot; /
+<div><div class="highlight-none notranslate"><div class="highlight"><pre><span></span>1000*1000* "POPESTIMATE2023" /
 area(@geometry)
 </pre></div>
 </div>
@@ -335,9 +335,9 @@ area(@geometry)
 <li><p>In cartogrammen met gebieden bepaalt de schaalfactor hoeveel het gebied van het object wordt verkleind. We moeten het gebied van elk object verkleinen, zodat de dichtheid van de inwoners van het object hetzelfde is als de dichtheid van de inwoners van het anker-object. De formule voor de schaalfactor is de verhouding van de vierkantswortel van de waarde van het object ten opzichte van de vierkantswortel van de waarde van het anker-object. Open het algoritme <span class="menuselection">Vector tabel ‣ Veld calculator</span> uit de Toolbox van Processing. In het dialoogvenster <span class="guilabel">Veld calculator</span>, selecteer <code class="docutils literal notranslate"><span class="pre">us_states_population_density</span></code> als de <span class="guilabel">Invoerlaag</span>. Voer <code class="docutils literal notranslate"><span class="pre">scale_factor</span></code> in als de <span class="guilabel">Veldnaam</span>. Voer de volgende expressie in om de schaalfactor te berekenen. De expressie berekent de verhouding voor de vierkantswortel van de dichtheid van het object met de vierkantswortel van de dichtheid van de op een na grootste waarde voor de dichtheid. Klik op de knop <span class="guilabel">…</span> naast <span class="guilabel">Berekend</span> en selecteer <span class="guilabel">Opslaan als bestand…</span>. Voer als naam voor de laag in <code class="docutils literal notranslate"><span class="pre">us_states_scale_factor.gpkg</span></code> en selecteer <span class="guilabel">Opslaan</span>. Klik op <span class="guilabel">Uitvoeren</span>.</p></li>
 </ol>
 <blockquote>
-<div><div class="highlight-none notranslate"><div class="highlight"><pre><span></span>sqrt(&quot;density&quot;)/array_get(array_agg(
-   expression:=sqrt(&quot;density&quot;),
-   order_by:=sqrt(&quot;density&quot;)), -2)
+<div><div class="highlight-none notranslate"><div class="highlight"><pre><span></span>sqrt("density")/array_get(array_agg(
+   expression:=sqrt("density"),
+   order_by:=sqrt("density")), -2)
 </pre></div>
 </div>
 <img alt="../../_images/78.png" class="align-center" src="../../_images/78.png" />
@@ -378,8 +378,8 @@ area(@geometry)
 <blockquote>
 <div><div class="highlight-none notranslate"><div class="highlight"><pre><span></span>scale(
    @geometry,
-   &quot;scale_factor&quot;,
-   &quot;scale_factor&quot;,
+   "scale_factor",
+   "scale_factor",
    centroid(@geometry)
 )
 </pre></div>
@@ -398,8 +398,8 @@ area(@geometry)
 <blockquote>
 <div><div class="highlight-none notranslate"><div class="highlight"><pre><span></span>scale(
     @geometry,
-    &quot;scale_factor&quot;,
-    &quot;scale_factor&quot;,
+    "scale_factor",
+    "scale_factor",
     pole_of_inaccessibility(@geometry, 100)
 )
 </pre></div>
@@ -419,8 +419,8 @@ area(@geometry)
 <div><div class="highlight-none notranslate"><div class="highlight"><pre><span></span>collect_geometries(
     array_foreach(generate_series(1, @geometry_part_count),
             scale(geometry_n(@geometry,@element),
-                    &quot;scale_factor&quot;,
-                    &quot;scale_factor&quot;,
+                    "scale_factor",
+                    "scale_factor",
 pole_of_inaccessibility(geometry_n(@geometry,@element), 100)
             )
     )
@@ -477,13 +477,13 @@ pole_of_inaccessibility(geometry_n(@geometry,@element), 100)
                             epoch(@animation_start_time),
                             epoch(@animation_end_time),
                             1,
-                            &quot;scale_factor&quot;),
+                            "scale_factor"),
                     scale_linear(
                             epoch(@map_start_time),
                             epoch(@animation_start_time),
                             epoch(@animation_end_time),
                             1,
-                            &quot;scale_factor&quot;),
+                            "scale_factor"),
 pole_of_inaccessibility(geometry_n(@geometry,@element), 100)
             )
     )
@@ -565,7 +565,7 @@ pole_of_inaccessibility(geometry_n(@geometry,@element), 100)
     </p>
     <p>
         &copy; Copyright 2025, Ujaval Gandhi.<br/>
-      Laatste aanpassing op aug 16, 2026.<br/>
+      Laatste aanpassing op sep 17, 2026.<br/>
       Created using <a href="http://sphinx-doc.org/">Sphinx</a> 9.1.0.<br/>
     </p>
   </div>
